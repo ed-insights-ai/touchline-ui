@@ -1,0 +1,20 @@
+---
+import type { EvidenceLabel } from "../lib/journal.ts";
+
+interface Props {
+  label: EvidenceLabel;
+}
+const { label } = Astro.props;
+
+// The dots are the grammar's own shorthand for how much is known. They are
+// fixed per label — never chosen per claim.
+const DOTS: Record<EvidenceLabel, string> = {
+  observed: "●●●",
+  derived: "●●○",
+  signal: "●●○",
+  projected: "●○○",
+  context: "",
+};
+const dots = DOTS[label];
+---
+<span class={`chip chip-${label}`}>{dots ? `${label.toUpperCase()}\u00a0${dots}` : label.toUpperCase()}</span>

@@ -1,0 +1,150 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-gac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GAC",
+  "validated_at": "2026-08-30T23:22:16.477Z",
+  "data_collected_at": "2026-08-30T21:07:31+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [
+    {
+      "path": "featured.last_match",
+      "from": "2026-08-29 mckendree v southern-nazarene 1-2 12:30",
+      "to": "2026-08-29 mckendree v southern-nazarene"
+    },
+    {
+      "path": "featured.next_match",
+      "from": "2026-08-30 northeastern-state v lincoln 19:00",
+      "to": "2026-08-30 northeastern-state v lincoln"
+    }
+  ],
+  "claims": [
+    {
+      "path": "summary_stat",
+      "label": "derived",
+      "text": "7–0–5",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Ouachita Baptist has scored six and conceded none — with five different names on the scoresheet.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "Goals scored per side, all non-conference, through Aug 29.",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Tristan Miller stopped ten of eleven on target across Rogers State's perfect weekend, one of them a shutout.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Wesley Rodriguez has two goals from four shots — a finish every second attempt.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Eleven fixtures sit unresolved — six marked final with no score, five past their date with no result at all. The sites' silence, named rather than dropped.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Seven fixtures carry no box-score link on any collected schedule page: the six marked final without a score, plus Newman's 2–1 loss at Rockhurst on August 29.",
+      "checker": "box_score_gaps",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "projected",
+      "text": "Eighteen days of tune-ups before the table means anything.",
+      "checker": "conference_opens",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Wesley Rodriguez — 2 G · 4 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Tristan Miller — 10 saves · 1 shutout · .909",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Philip Bölk — 1 G · 1 A · 7 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-08-29 mckendree v southern-nazarene",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "rewritten to canonical form from \"2026-08-29 mckendree v southern-nazarene 1-2 12:30\""
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-08-30 northeastern-state v lincoln",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "rewritten to canonical form from \"2026-08-30 northeastern-state v lincoln 19:00\""
+    }
+  ]
+}

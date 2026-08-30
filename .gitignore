@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+
+# Publish worktree, and the dry-run artifacts the journal CLI writes.
+.publish/
+journal/*.prompt.txt
+journal/*.brief.json
+journal/*.rejected.txt

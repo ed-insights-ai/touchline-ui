@@ -1,0 +1,638 @@
+---
+import { site } from "../../../site.config.ts";
+import Page from "../../../layouts/Page.astro";
+import {
+  boxScoreGaps,
+  hasScore,
+  loadSeason,
+  matchDetailOf,
+  matchSlug,
+  seasonHref,
+  teamHref,
+  unresolved,
+} from "../../../lib/derive.ts";
+import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
+import { identityLine } from "../../../lib/programmes.ts";
+import {
+  clockTime,
+  longDate,
+  matchMinute,
+  monShort,
+  dayOfMonth,
+  stampDate,
+} from "../../../lib/format.ts";
+
+export function getStaticPaths() {
+  return site.conferences.flatMap((conference) => {
+    let season: Season;
+    try {
+      season = loadSeason(conference);
+    } catch {
+      return [];
+    }
+    return season.fixtures.fixtures.map((f) => ({
+      params: { conference, match: matchSlug(f.id) },
+      props: { fixtureId: f.id },
+    }));
+  });
+}
+
+const { conference } = Astro.params;
+const { fixtureId } = Astro.props;
+const season = loadSeason(conference as string);
+const names = season.names;
+const fixture = season.fixtures.fixtures.find((f) => f.id === fixtureId) as Fixture;
+const detail: MatchDetail | null = matchDetailOf(season, fixture.id);
+const scored = hasScore(fixture);
+
+// Which of the served sides is the fixture's home team. Without it the page
+// cannot say who was at home, and says so rather than guessing.
+const homeIndex = detail?.home_index;
+const sides =
+  detail && homeIndex !== undefined
+    ? { home: detail.teams[homeIndex], away: detail.teams[1 - homeIndex], homeIndex }
+    : null;
+
+type State = "played" | "score-only" | "silent-final" | "silent-past" | "preview" | "off";
+const state: State =
+  fixture.status === "postponed" || fixture.status === "cancelled"
+    ? "off"
+    : detail && sides
+      ? "played"
+      : scored
+        ? "score-only"
+        : fixture.status === "final"
+          ? "silent-final"
+          : fixture.date < season.asOf
+            ? "silent-past"
+            : "preview";
+
+const BADGE: Record<State, { text: string; tone: "accent" | "alert" }> = {
+  played: { text: "FULL TIME", tone: "accent" },
+  "score-only": { text: "FULL TIME · NO BOX SCORE COLLECTED", tone: "alert" },
+  "silent-final": { text: "FINAL · NO SCORE PUBLISHED", tone: "alert" },
+  "silent-past": { text: "PAST DATE · NO RESULT PUBLISHED", tone: "alert" },
+  preview: { text: "SCHEDULED", tone: "accent" },
+  off: { text: fixture.status.toUpperCase(), tone: "alert" },
+};
+const badge = BADGE[state];
+
+const kind = fixture.conference_game ? "CONFERENCE" : "NON-CONFERENCE";
+const surname = (name: string): string => {
+  const parts = name.trim().split(/\s+/);
+  return parts.length > 1 ? parts.slice(1).join(" ") : name;
+};
+
+// ── Everything below exists only when a box score does ──────────────────────
+const scoring = (detail?.scoring ?? []).map((g) => ({ ...g, minute: matchMinute(g.time) }));
+const cards = (detail?.cards ?? [])
+  .map((c) => ({ ...c, minute: matchMinute(c.time) }))
+  .sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
+const CARDS_SHOWN = 4;
+
+// The clock the timeline is drawn against: ninety minutes, or later if the
+// match ran past them.
+const fullTime = Math.max(90, ...scoring.map((g) => g.minute ?? 0), ...cards.map((c) => c.minute ?? 0));
+const at = (minute: number | null): number =>
+  minute === null ? 0 : Math.min(100, Math.max(0, (minute / fullTime) * 100));
+
+const STAT_ROWS = [
+  { key: "shots", label: "SHOTS" },
+  { key: "sog", label: "ON TARGET" },
+  { key: "saves", label: "SAVES" },
+  { key: "corners", label: "CORNERS" },
+  { key: "fouls", label: "FOULS" },
+  { key: "offsides", label: "OFFSIDES" },
+] as const;
+
+const stats = sides
+  ? STAT_ROWS.flatMap((row) => {
+      const h = sides.home?.[row.key];
+      const a = sides.away?.[row.key];
+      if (h === undefined && a === undefined) return [];
+      return [{ label: row.label, home: h ?? 0, away: a ?? 0 }];
+    })
+  : [];
+// One scale for the whole block, so a bar's length means the same thing in
+// every row.
+const statMax = Math.max(1, ...stats.flatMap((r) => [r.home, r.away]));
+
+const periodCount = Math.max(sides?.home?.periods.length ?? 0, sides?.away?.periods.length ?? 0);
+const plays = detail?.plays ?? [];
+const playPeriods = [...new Set(plays.map((p) => p.period))].map((period) => ({
+  period,
+  count: plays.filter((p) => p.period === period).length,
+}));
+
+// "Aug 30, 21:07 UTC" — the collect's own moment, not an ISO string.
+const collectedStamp = `${monShort(season.collectedAt.slice(0, 10))} ${dayOfMonth(season.collectedAt.slice(0, 10))}, ${season.collectedAt.slice(11, 16)} UTC`;
+
+const gaps = boxScoreGaps(season);
+const gapReason = gaps.find((g) => g.fixtureId === fixture.id)?.reason;
+const silence = unresolved(season);
+
+const knownRows: { label: string; value: string }[] = [
+  {
+    label: "DATE",
+    value: `${longDate(fixture.date)} · ${clockTime(fixture.time) ?? "no kickoff time published"}`,
+  },
+  { label: "VENUE", value: fixture.venue ?? "not published" },
+  {
+    label: "STATUS",
+    value:
+      state === "silent-final"
+        ? "Marked final on the schedule page · no score, no box score"
+        : state === "silent-past"
+          ? "Still listed as scheduled, with the date behind us"
+          : state === "score-only"
+            ? `Result published · box score not collected${gapReason ? ` — ${gapReason}` : ""}`
+            : `Listed as ${fixture.status}`,
+  },
+  {
+    label: "SOURCE",
+    value: `${fixture.source_url ? new URL(fixture.source_url).hostname : "source not recorded"} · schedule page · last collected ${collectedStamp}`,
+  },
+];
+
+const explain: Record<State, string> = {
+  played: "",
+  "score-only":
+    "The programme published the result but no box score Touchline could reach. The scoreline stands; the detail behind it does not exist here yet, and the next collect asks again.",
+  "silent-final":
+    "The programme's schedule marked this game finished but never entered a result. The silence is the site's own — it stays on the record, named, and the next collect retries it.",
+  "silent-past":
+    "The date has passed and the programme's schedule still lists this fixture as scheduled. No result, no postponement, no note — the page simply has not changed.",
+  preview: "Not played yet. What is below is everything the programme has published about the fixture.",
+  off: `The programme marked this fixture ${fixture.status}. It stays on the record rather than disappearing from it.`,
+};
+
+// The fixture sits in a member's ledger — the opponent may belong to no
+// conference this site collects, so never name them as the keeper of it.
+const ledgerSide = names.isMember(fixture.home) ? fixture.home : fixture.away;
+const ledgerName = names.name(ledgerSide);
+
+const footNote =
+  state === "silent-final"
+    ? `One of ${silence.finalsWithoutScore.length} finals without a published score · ${gaps.length} box-score gaps across the conference`
+    : state === "silent-past"
+      ? `One of ${silence.pastDateNoResult.length} past dates with no published result · ${gaps.length} box-score gaps across the conference`
+      : `${gaps.length} box-score gaps across the conference`;
+
+const provenance =
+  state === "played"
+    ? "From the programme's published box score."
+    : "From the programme's published schedule — result withheld by the source.";
+
+const homeIdentity = identityLine(fixture.home);
+const awayIdentity = identityLine(fixture.away);
+const homeName = names.name(fixture.home);
+const awayName = names.name(fixture.away);
+---
+<Page dark title={`Touchline — ${homeName} v ${awayName}`}>
+  <div class="tl-page match">
+    <header class="mhead">
+      <a class="back" href={seasonHref(season.key)}>← SEASON</a>
+      <div class="grow"></div>
+      <div class="wordmark">
+        <span class="wordmark-square"></span>
+        <span class="wordmark-name mword">Touchline · Match Centre</span>
+      </div>
+      <div class="grow"></div>
+      <div class="mmeta">
+        {season.fixtures.conference} · {kind} · {monShort(fixture.date).toUpperCase()} {dayOfMonth(fixture.date)}
+      </div>
+    </header>
+
+    <section class={`hero${state === "played" ? "" : " hero-quiet"}`}>
+      <div class={`badge badge-${badge.tone}`}>{badge.text}</div>
+      <div class="scoreline">
+        <a class="side side-home" href={teamHref(season.key, fixture.home)}>
+          <span class="side-name">{homeName.toUpperCase()}</span>
+          <span class="side-sub">{homeIdentity ?? `${names.abbr(fixture.home)} · HOME`}</span>
+        </a>
+        <div class={`figures${scored ? "" : " figures-absent"}`}>
+          <span class="figure figure-home">{scored ? fixture.home_score : "—"}</span>
+          <span class="figure-dash">–</span>
+          <span class="figure figure-away">{scored ? fixture.away_score : "—"}</span>
+        </div>
+        <a class="side side-away" href={teamHref(season.key, fixture.away)}>
+          <span class="side-name">{awayName.toUpperCase()}</span>
+          <span class="side-sub">{awayIdentity ?? `${names.abbr(fixture.away)} · AWAY`}</span>
+        </a>
+      </div>
+
+      {state === "played" && scoring.length > 0 && (
+        <div class="scorers num">
+          <div class="scorers-home">
+            {scoring
+              .filter((g) => g.team === sides?.homeIndex)
+              .map((g) => (
+                <div>
+                  {g.minute}′ {surname(g.scorer)}
+                  {g.assist && <span class="assist"> ({surname(g.assist)})</span>}
+                </div>
+              ))}
+          </div>
+          <div class="scorers-gap"></div>
+          <div class="scorers-away">
+            {scoring
+              .filter((g) => g.team !== sides?.homeIndex)
+              .map((g) => (
+                <div>
+                  {g.minute}′ {surname(g.scorer)}
+                  {g.assist && <span class="assist"> ({surname(g.assist)})</span>}
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+
+      {state === "played" ? (
+        <div class="hero-foot num">
+          {[
+            stampDate(fixture.date),
+            detail?.stadium ?? fixture.venue,
+            detail?.attendance !== undefined ? `ATT ${detail.attendance}` : null,
+          ]
+            .filter(Boolean)
+            .join(" · ")
+            .toUpperCase()}
+        </div>
+      ) : (
+        <p class="hero-explain serif-italic">{explain[state]}</p>
+      )}
+    </section>
+
+    {state === "played" && (scoring.length > 0 || cards.length > 0) && (
+      <section class="timeline-band">
+        <div class="timeline-head">
+          <div class="sechead">MATCH TIMELINE</div>
+          <div class="grow"></div>
+          <div class="legend">
+            <span><i class="key key-home"></i>{names.abbr(fixture.home)} GOAL</span>
+            <span><i class="key key-away"></i>{names.abbr(fixture.away)} GOAL</span>
+            <span><i class="key key-card"></i>CAUTION</span>
+          </div>
+        </div>
+        <div class="timeline">
+          <div class="axis"></div>
+          <div class="tick" style="left: 0"></div>
+          <div class="tick" style="left: 50%"></div>
+          <div class="tick" style="left: 100%"></div>
+          <div class="tick-label" style="left: 0">0′</div>
+          <div class="tick-label tick-mid" style="left: 50%">HT</div>
+          <div class="tick-label tick-end" style="left: 100%">{fullTime}′</div>
+          {scoring.map((g, i) => (
+            <>
+              <div
+                class={`goal${g.team === sides?.homeIndex ? " goal-home" : " goal-away"}`}
+                style={`left: ${at(g.minute)}%`}
+                title={`${g.minute}′ ${g.scorer}`}
+              ></div>
+              <div
+                class={`goal-label${i % 2 === 0 ? " above" : " below"}${g.team === sides?.homeIndex ? "" : " quiet"}`}
+                style={`left: ${at(g.minute)}%`}
+              >{g.minute}′</div>
+            </>
+          ))}
+          {cards.map((c) => (
+            <div class="card-mark" style={`left: ${at(c.minute)}%`} title={`${c.minute}′ ${c.player}`}></div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="body">
+      <div class="body-main">
+        {state === "played" ? (
+          <>
+            <div class="sechead">TEAM STATISTICS</div>
+            <div class="stats num">
+              {stats.map((r) => (
+                <div class="stat-row">
+                  <span class="stat-home">{r.home}</span>
+                  <span class="bar-left">
+                    <i class="bar bar-home" style={`width: ${(r.home / statMax) * 100}%`}></i>
+                  </span>
+                  <span class="stat-label">{r.label}</span>
+                  <span class="bar-right">
+                    <i class="bar bar-away" style={`width: ${(r.away / statMax) * 100}%`}></i>
+                  </span>
+                  <span class="stat-away">{r.away}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div class="sechead">WHAT IS KNOWN</div>
+            <div class="known num">
+              {knownRows.map((r) => (
+                <div class="known-row">
+                  <span class="known-label">{r.label}</span>
+                  <span class="known-value">{r.value}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      <div class="body-side">
+        {state === "played" ? (
+          <>
+            {periodCount > 0 && (
+              <div class="panel num">
+                <div class="sechead">SCORE BY PERIOD</div>
+                <div class="periods">
+                  <div class="period-head">
+                    <span></span>
+                    {Array.from({ length: periodCount }, (_, i) => <span>{i + 1}</span>)}
+                    <span>T</span>
+                  </div>
+                  {[sides?.home, sides?.away].map((t, i) => (
+                    <div class={`period-row${i === 1 ? " quiet" : ""}`}>
+                      <span class="period-team">{t?.abbr ?? t?.name}</span>
+                      {Array.from({ length: periodCount }, (_, p) => <span>{t?.periods[p] ?? 0}</span>)}
+                      <span class="period-total">{t?.score ?? 0}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {(sides?.home?.keepers?.length || sides?.away?.keepers?.length) && (
+              <div class="panel num">
+                <div class="sechead">GOALKEEPERS</div>
+                <div class="lines">
+                  {[
+                    ...(sides?.home?.keepers ?? []).map((k) => ({ k, home: true, t: sides?.home })),
+                    ...(sides?.away?.keepers ?? []).map((k) => ({ k, home: false, t: sides?.away })),
+                  ].map(({ k, home, t }) => (
+                    <div class={`line${home ? "" : " quiet"}`}>
+                      <span>{surname(k.name)} <span class="tag">{t?.abbr ?? t?.name}</span></span>
+                      <span class="line-val">
+                        {k.saves ?? 0} sv · {k.goals_against ?? 0} ga{k.minutes !== undefined ? ` · ${k.minutes}′` : ""}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {cards.length > 0 && (
+              <div class="panel num">
+                <div class="sechead">CAUTIONS</div>
+                <div class="lines">
+                  {cards.slice(0, CARDS_SHOWN).map((c) => (
+                    <div class={`line line-card${c.team === sides?.homeIndex ? "" : " quiet"}`}>
+                      <i class={`key key-${c.type === "red" ? "red" : "card"}`}></i>
+                      <span class="card-min">{c.minute}′</span>
+                      <span>
+                        {surname(c.player)}{" "}
+                        <span class="tag">
+                          {c.team === sides?.homeIndex ? sides?.home?.abbr : sides?.away?.abbr}
+                        </span>
+                      </span>
+                    </div>
+                  ))}
+                  {cards.length > CARDS_SHOWN && (
+                    <div class="line-more">+ {cards.length - CARDS_SHOWN} more</div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {playPeriods.length > 0 && (
+              <div class="panel">
+                <div class="sechead">PLAY BY PLAY</div>
+                <div class="plays num">
+                  {playPeriods.map((p) => (
+                    <div>▸ Period {p.period} · {p.count} plays</div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div class="panel">
+            <div class="sechead">WHAT HAPPENS NEXT</div>
+            {state === "preview" ? (
+              <p class="next-text">
+                The fixture sits unplayed in {ledgerName}'s ledger. When the programme publishes a
+                result, the next collect brings it here — score, box score and all.
+              </p>
+            ) : state === "score-only" ? (
+              <p class="next-text">
+                The result stands in {ledgerName}'s ledger and counts toward the conference's{" "}
+                <span class="alert">box-score gaps</span>. Every collect asks the programme for the
+                box score again; if it appears, the detail fills in on its own.
+              </p>
+            ) : state === "off" ? (
+              <p class="next-text">
+                The fixture stays in {ledgerName}'s ledger, marked {fixture.status} by the
+                programme. If that changes, the next collect says so.
+              </p>
+            ) : (
+              <p class="next-text">
+                This fixture stays in {ledgerName}'s ledger and counts toward the conference's{" "}
+                <span class="alert">silent dates</span>. Tomorrow's collect asks the page again; if a
+                result appears, this match report fills in on its own.
+              </p>
+            )}
+            <p class="next-foot">
+              Nothing here is estimated. Touchline shows what the programme published — and what it didn't.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <footer class="mfoot">
+      <span class="mfoot-left">
+        {state === "played" && detail?.officials?.length
+          ? detail.officials.join(" · ")
+          : footNote}
+      </span>
+      <span class="grow"></span>
+      <span class="provenance">{provenance}</span>
+    </footer>
+  </div>
+</Page>
+
+<style>
+  .match { min-height: 100vh; padding-bottom: 36px; }
+
+  .mhead {
+    height: 54px;
+    display: flex; align-items: center; gap: 22px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .back { font-size: 12px; letter-spacing: 0.1em; color: var(--faint); }
+  .back:hover { color: var(--ink); }
+  .mword { font-size: 19px; }
+  .mmeta { font-size: 11px; letter-spacing: 0.14em; color: var(--faint); }
+
+  /* ── Hero ───────────────────────────────────────────────────────────────── */
+  .hero {
+    padding: 30px 0 24px;
+    display: flex; flex-direction: column; align-items: center; gap: 13px;
+  }
+  .hero-quiet { padding: 34px 0 28px; gap: 14px; border-bottom: 1px solid var(--hairline); }
+  .badge {
+    font-size: 10.5px; letter-spacing: 0.24em; font-weight: 600;
+    padding: 4px 12px; border-radius: 3px; border: 1px solid;
+  }
+  .badge-accent { color: var(--accent); border-color: var(--accent-border); }
+  .badge-alert { color: var(--loss); border-color: var(--alert-border); }
+
+  .scoreline { display: flex; align-items: center; gap: 48px; }
+  .side { display: flex; flex-direction: column; gap: 6px; width: 380px; color: inherit; }
+  .side-home { align-items: flex-end; text-align: right; }
+  .side-name { font-size: 24px; font-weight: 600; letter-spacing: 0.04em; }
+  .side-away .side-name { color: var(--muted-side); }
+  .side-sub { font-size: 11.5px; letter-spacing: 0.1em; color: var(--faint); text-transform: uppercase; }
+  .side:hover .side-name { color: var(--accent); }
+
+  .figures {
+    display: flex; align-items: baseline; gap: 20px;
+    font-family: var(--serif); font-weight: 500; font-variant-numeric: tabular-nums;
+  }
+  .figure { font-size: 104px; line-height: 1; }
+  .figure-home { color: var(--figure-strong); }
+  .figure-away { color: var(--muted-mark); }
+  .figure-dash { font-size: 40px; color: var(--outline-quiet); }
+  .figures-absent .figure { font-size: 84px; color: var(--outline-quiet); }
+  .figures-absent .figure-dash { color: var(--dash); }
+
+  .scorers { display: flex; gap: 64px; }
+  .scorers-home { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; width: 380px; font-size: 13px; color: var(--secondary); }
+  .scorers-gap { width: 148px; }
+  .scorers-away { display: flex; flex-direction: column; gap: 4px; width: 380px; font-size: 13px; color: var(--faint); }
+  .assist { color: var(--faint); }
+  .hero-foot { font-size: 12px; letter-spacing: 0.08em; color: var(--faint); }
+  .hero-explain {
+    font-size: 15px; color: var(--secondary); max-width: 640px;
+    text-align: center; line-height: 1.5; margin: 0;
+  }
+
+  /* ── Timeline ───────────────────────────────────────────────────────────── */
+  .timeline-band {
+    padding: 18px 0 22px;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .timeline-head { display: flex; align-items: baseline; }
+  .timeline-head .sechead { padding-bottom: 0; }
+  .legend { display: flex; gap: 18px; align-items: center; font-size: 10.5px; letter-spacing: 0.1em; color: var(--faint); }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+  .key { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .key-home { background: var(--accent); }
+  .key-away { background: var(--muted-mark); }
+  .key-card { width: 8px; height: 11px; border-radius: 1.5px; background: var(--draw); }
+  .key-red { width: 8px; height: 11px; border-radius: 1.5px; background: var(--loss); }
+
+  .timeline { position: relative; height: 78px; }
+  .axis { position: absolute; top: 36px; left: 0; right: 0; height: 2px; background: var(--outline); }
+  .tick { position: absolute; top: 29px; width: 1px; height: 16px; background: var(--tick); }
+  .tick-label { position: absolute; top: 58px; font-size: 10px; color: var(--faint); }
+  .tick-mid { transform: translateX(-50%); }
+  .tick-end { transform: translateX(-100%); }
+  .goal {
+    position: absolute; top: 30px; transform: translateX(-50%);
+    width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--paper);
+  }
+  .goal-home { background: var(--accent); }
+  .goal-away { background: var(--muted-mark); }
+  .goal-label {
+    position: absolute; transform: translateX(-50%);
+    font-size: 11px; color: var(--secondary); white-space: nowrap;
+  }
+  .goal-label.above { top: 8px; }
+  .goal-label.below { top: 58px; }
+  .goal-label.quiet { color: var(--faint); }
+  .card-mark {
+    position: absolute; top: 32px; transform: translateX(-50%);
+    width: 8px; height: 11px; background: var(--draw); border-radius: 1.5px;
+  }
+
+  /* ── Body ───────────────────────────────────────────────────────────────── */
+  .body {
+    display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 56px;
+    padding: 22px 0; flex: 1; min-height: 0;
+  }
+  .body-main, .body-side { display: flex; flex-direction: column; }
+  .body-side { gap: 20px; }
+  .panel { display: flex; flex-direction: column; gap: 8px; }
+  .panel .sechead { padding-bottom: 0; }
+
+  .stats { display: flex; flex-direction: column; }
+  .stat-row {
+    display: grid; grid-template-columns: 44px 1fr 120px 1fr 44px;
+    gap: 14px; align-items: center; padding: 9px 0;
+    border-top: 1px solid var(--hairline-soft);
+  }
+  .stat-row:last-child { border-bottom: 1px solid var(--hairline-soft); }
+  .stat-home { font-size: 14px; font-weight: 600; text-align: right; }
+  .stat-away { font-size: 14px; font-weight: 600; }
+  .stat-label { font-size: 10.5px; letter-spacing: 0.14em; color: var(--faint); text-align: center; }
+  .bar-left { display: flex; justify-content: flex-end; }
+  .bar-right { display: flex; }
+  .bar { height: 6px; border-radius: 3px; display: block; }
+  .bar-home { background: var(--accent); }
+  .bar-away { background: var(--muted-bar); }
+
+  .periods { display: flex; flex-direction: column; gap: 4px; }
+  .period-head, .period-row { display: grid; grid-template-columns: 1fr 44px 44px 52px; gap: 6px; }
+  .period-head {
+    padding: 6px 0; border-bottom: 1px solid var(--hairline);
+    font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint);
+  }
+  .period-head span, .period-row span { text-align: right; }
+  .period-head span:first-child, .period-row span:first-child { text-align: left; }
+  .period-row { padding: 4px 0; font-size: 13.5px; }
+  .period-row .period-team { font-weight: 600; }
+  .period-row.quiet { color: var(--muted-side); }
+  .period-row.quiet .period-team { font-weight: 400; }
+  .period-total { font-weight: 600; }
+
+  .lines { display: flex; flex-direction: column; gap: 7px; font-size: 12.5px; }
+  .line { display: flex; justify-content: space-between; gap: 10px; }
+  .line.quiet { color: var(--muted-side); }
+  .line-card { justify-content: flex-start; align-items: center; gap: 8px; }
+  .card-min { color: var(--faint); }
+  .tag { color: var(--faint); }
+  .line-val { color: var(--secondary); }
+  .line.quiet .line-val { color: var(--faint); }
+  .line-more { font-size: 11.5px; color: var(--faint); }
+  .plays { display: flex; gap: 16px; font-size: 12.5px; color: var(--secondary); flex-wrap: wrap; }
+
+  .known { display: flex; flex-direction: column; }
+  .known-row {
+    display: grid; grid-template-columns: 140px 1fr; gap: 14px;
+    padding: 9px 0; border-top: 1px solid var(--hairline-soft); font-size: 13px;
+  }
+  .known-row:last-child { border-bottom: 1px solid var(--hairline-soft); }
+  .known-label { color: var(--faint); letter-spacing: 0.08em; font-size: 11px; padding-top: 2px; }
+  .known-value { overflow-wrap: anywhere; }
+
+  .next-text { margin: 4px 0 0; font-size: 13px; line-height: 1.55; color: var(--secondary); }
+  .next-foot { margin: 0; font-size: 12px; color: var(--faint); line-height: 1.5; }
+  .alert { color: var(--loss); font-weight: 600; }
+
+  .mfoot {
+    padding-top: 14px; border-top: 1px solid var(--hairline);
+    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  }
+  .mfoot-left { font-size: 11.5px; color: var(--faint); }
+
+  @media (max-width: 1180px) {
+    .scoreline { flex-direction: column; gap: 16px; }
+    .side, .scorers-home, .scorers-away { width: auto; align-items: center; text-align: center; }
+    .figure { font-size: 72px; }
+    .scorers { flex-direction: column; gap: 8px; align-items: center; }
+    .scorers-gap { display: none; }
+    .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  }
+</style>

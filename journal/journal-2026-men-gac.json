@@ -1,0 +1,134 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GAC",
+  "generated_at": "2026-08-30T21:45:00Z",
+  "data_collected_at": "2026-08-30T21:07:31+00:00",
+  "kicker": "GAC · OPENING WEEKEND · AUG 30",
+  "headline": "Two perfect starts, and eighteen days until it counts.",
+  "dek": "Ouachita Baptist and Rogers State swept the opening weekend — 6–0 and 4–1 on aggregate. The table stays empty until September 17, when Southern Nazarene hosts Harding to open conference play.",
+  "summary_stat": {
+    "label": "GAC VS EVERYONE ELSE",
+    "value": "7–0–5",
+    "detail": "20 GOALS FOR · 11 AGAINST",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 7,
+      "draws": 0,
+      "losses": 5,
+      "gf": 20,
+      "ga": 11
+    }
+  },
+  "pattern": {
+    "label": "derived",
+    "text": "Ouachita Baptist has scored six and conceded none — with five different names on the scoresheet.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "caption": "Goals scored per side, all non-conference, through Aug 29.",
+      "values": {
+        "ouachita-baptist": 6,
+        "fort-hays-state": 4,
+        "rogers-state": 4,
+        "newman": 3,
+        "southern-nazarene": 2,
+        "northeastern-state": 1,
+        "harding": 0
+      },
+      "highlight": "ouachita-baptist"
+    },
+    "basis": {
+      "programme": "ouachita-baptist",
+      "distinct_scorers_min": 5
+    }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Tristan Miller stopped ten of eleven on target across Rogers State's perfect weekend, one of them a shutout.",
+      "basis": {
+        "source": "stats",
+        "player": "Tristan Miller",
+        "programme": "rogers-state",
+        "saves": 10,
+        "goals_against": 1,
+        "shutouts": 1,
+        "save_pct": 0.909
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Wesley Rodriguez has two goals from four shots — a finish every second attempt.",
+      "basis": {
+        "source": "stats",
+        "player": "Wesley Rodriguez",
+        "programme": "southern-nazarene",
+        "goals": 2,
+        "shots": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Eleven fixtures sit unresolved — six marked final with no score, five past their date with no result at all. The sites' silence, named rather than dropped.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 6,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Seven fixtures carry no box-score link on any collected schedule page: the six marked final without a score, plus Newman's 2–1 loss at Rockhurst on August 29.",
+      "basis": {
+        "source": "matches",
+        "box_score_gaps": 7
+      }
+    },
+    {
+      "label": "projected",
+      "text": "Eighteen days of tune-ups before the table means anything.",
+      "basis": {
+        "conference_opens": "2026-09-17"
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Wesley Rodriguez",
+      "programme": "southern-nazarene",
+      "position": "FWD",
+      "class": "FR",
+      "line": "2 G · 4 shots"
+    },
+    {
+      "player": "Tristan Miller",
+      "programme": "rogers-state",
+      "position": "GK",
+      "class": "FR",
+      "line": "10 saves · 1 shutout · .909"
+    },
+    {
+      "player": "Philip Bölk",
+      "programme": "ouachita-baptist",
+      "position": "MID",
+      "class": "SO",
+      "line": "1 G · 1 A · 7 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-08-29 mckendree v southern-nazarene 1-2 12:30",
+      "line": "Southern Nazarene's only two goals of the season so far, both on the road in one afternoon."
+    },
+    "next_match": {
+      "fixture_ref": "2026-08-30 northeastern-state v lincoln 19:00",
+      "line": "The only fixture on the day's card."
+    }
+  },
+  "table_state": {
+    "mode": "pre-conference",
+    "statement": "Conference play begins Sep 17. All seven sides are 0–0–0.",
+    "footnote": "3–1–0 points · early form shown from non-conference results · a pre-conference table is a valid state."
+  }
+}

@@ -1,0 +1,29 @@
+---
+import "../styles/base.css";
+
+interface Props {
+  title: string;
+  /** Dark means the event: a Match Centre page, never a page about time. */
+  dark?: boolean;
+  description?: string;
+}
+const { title, dark = false, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Public+Sans:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body class={dark ? "tl-dark" : undefined}>
+    <slot />
+  </body>
+</html>

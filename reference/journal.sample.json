@@ -1,0 +1,68 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GAC",
+  "generated_at": "2026-08-30T21:30:00Z",
+  "data_collected_at": "2026-08-30T21:07:31Z",
+  "kicker": "GAC · OPENING WEEKEND · AUG 30",
+  "headline": "Two perfect starts, and eighteen days until it counts.",
+  "dek": "Ouachita Baptist and Rogers State swept the opening weekend — 6–0 and 4–1 on aggregate. The table stays empty until September 17, when Southern Nazarene hosts Harding to open conference play.",
+  "summary_stat": {
+    "label": "GAC VS EVERYONE ELSE",
+    "value": "7–0–5",
+    "detail": "20 GOALS FOR · 11 AGAINST",
+    "basis": { "derived_from": "fixtures", "wins": 7, "draws": 0, "losses": 5, "gf": 20, "ga": 11 }
+  },
+  "pattern": {
+    "label": "observed",
+    "text": "Ouachita Baptist has scored six and conceded none — with four different names on the scoresheet.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "caption": "Goals scored per side, all non-conference, through Aug 29.",
+      "values": { "ouachita-baptist": 6, "fort-hays-state": 4, "rogers-state": 4, "newman": 3, "southern-nazarene": 2, "northeastern-state": 1, "harding": 0 },
+      "highlight": "ouachita-baptist"
+    },
+    "basis": { "derived_from": "fixtures", "obu_gf": 6, "obu_ga": 0, "distinct_scorers_min": 4 }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Tristan Miller, a freshman from Cape Town, stopped 10 of 11 on target across Rogers State's perfect weekend.",
+      "basis": { "source": "stats", "player": "Tristan Miller", "programme": "rogers-state", "saves": 10, "goals_against": 1, "save_pct": 0.909 }
+    },
+    {
+      "label": "derived",
+      "text": "Wesley Rodriguez has 2 of Southern Nazarene's 2 published goals — a freshman converting half his shots.",
+      "basis": { "source": "stats+fixtures", "player": "Wesley Rodriguez", "programme": "southern-nazarene", "player_goals": 2, "team_goals": 2, "shots": 4, "note": "attribution derived from season totals, not event data" }
+    },
+    {
+      "label": "observed",
+      "text": "Eleven fixtures sit unresolved — six marked final with no score, five past their date with no result at all. The sites' silence, named rather than dropped.",
+      "basis": { "source": "fixtures", "finals_without_score": 6, "past_date_no_result": 5 }
+    },
+    {
+      "label": "projected",
+      "text": "Eighteen days of tune-ups before the table means anything.",
+      "basis": { "conference_opens": "2026-09-17" }
+    }
+  ],
+  "players_to_watch": [
+    { "player": "Wesley Rodriguez", "programme": "southern-nazarene", "position": "FWD", "class": "FR", "line": "2 G · 4 shots" },
+    { "player": "Tristan Miller", "programme": "rogers-state", "position": "GK", "class": "FR", "line": "10 saves · 1 shutout · .909" },
+    { "player": "Philip Bölk", "programme": "ouachita-baptist", "position": "MID", "class": "SO", "line": "1 G · 1 A · 7 shots" }
+  ],
+  "featured": {
+    "last_match": { "fixture_ref": "2026-08-29 mckendree v southern-nazarene", "line": "Rodriguez both goals — a freshman's first two in the colors." },
+    "next_match": { "fixture_ref": "2026-08-30 northeastern-state v lincoln", "line": "The only fixture on the day's card." }
+  },
+  "table_state": {
+    "mode": "pre-conference",
+    "statement": "Conference play begins Sep 17. All seven sides are 0–0–0.",
+    "footnote": "3–1–0 points · early form shown from non-conference results · a pre-conference table is a valid state."
+  },
+  "validation": {
+    "policy": "observed and derived findings are recomputed against the data home before publish; unverifiable ones are dropped, not softened. signal and projected pass on schema, EXCEPT that a checkable basis figure contradicted by the data drops the claim at every label — no chip licenses a wrong number. context is never validated as a finding.",
+    "validated_at": null
+  }
+}

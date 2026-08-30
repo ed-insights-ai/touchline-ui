@@ -1,0 +1,99 @@
+/* Touchline — Season Scorebook tokens.
+   Transcribed from reference/DESIGN-SYSTEM.md. This file is the only place a
+   hex value is allowed to be written down. */
+
+:root {
+  /* Surfaces and ink — light pages explain time. */
+  --paper: #faf9f6;
+  --ink: #1a1c22;
+  --ink-soft: #33363d;
+  --secondary: #5f646e;
+  --faint: #8b9096;
+  --fainter: #b0ada4;
+  --hairline: #e3e1da;
+  --hairline-soft: #eeece5;
+  --outline: #d8d5cd;
+  --outline-quiet: #c8c5bc;
+  --chevron: #9096a1;
+  --card: #fffdf9;
+
+  /* Purple means Touchline — identity, selection, current week, emphasis. */
+  --accent: #6d4fe0;
+  --accent-hover: #5a3fc4;
+  --accent-wash: rgba(109, 79, 224, 0.09);
+  --accent-wash-soft: rgba(109, 79, 224, 0.05);
+
+  /* Results. */
+  --win: #15834f;
+  --draw: #b57a00;
+  --loss: #be123c;
+
+  /* Evidence chips. */
+  --chip-observed-bg: rgba(109, 79, 224, 0.09);
+  --chip-observed-fg: #6d4fe0;
+  --chip-derived-bg: #eef3f8;
+  --chip-derived-fg: #2f5d8a;
+  --chip-signal-bg: #f5edd8;
+  --chip-signal-fg: #7a6212;
+  --chip-projected-bg: #ecebe6;
+  --chip-projected-fg: #5f646e;
+  --chip-context-border: #d8d5cd;
+  --chip-context-fg: #8b9096;
+
+  /* Position lines — dots and chips only, never a fill. */
+  --pos-gk: #7b61d7;
+  --pos-def: #3f70a9;
+  --pos-mid: #3b8a72;
+  --pos-fwd: #b8820f;
+  --pos-gk-wash: rgba(123, 97, 215, 0.14);
+  --pos-gk-text: #5b48a8;
+  --pos-def-wash: rgba(63, 112, 169, 0.14);
+  --pos-def-text: #31567f;
+  --pos-mid-wash: rgba(59, 138, 114, 0.14);
+  --pos-mid-text: #2c6a57;
+  --pos-fwd-wash: rgba(184, 130, 15, 0.14);
+  --pos-fwd-text: #8a620b;
+
+  /* Type. Serif means story; sans means information. */
+  --serif: Newsreader, Georgia, "Times New Roman", serif;
+  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Measure. The mocks are drawn at 1440 with 56px gutters. */
+  --page-max: 1440px;
+  --gutter: 56px;
+}
+
+/* Dark means the event. Applied by the Match Centre layout, not by media
+   query — a match page is dark because of what it is, not where it is read. */
+.tl-dark {
+  --paper: #0e0f13;
+  --ink: #f1f1ec;
+  --ink-soft: #c9cac3;
+  --secondary: #c9cac3;
+  --faint: #8e9096;
+  --fainter: #6f717a;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --hairline-soft: rgba(255, 255, 255, 0.07);
+  --outline: rgba(255, 255, 255, 0.16);
+  --outline-quiet: #4a4c55;
+  --card: #16171c;
+
+  --accent: #9b8eff;
+  --accent-hover: #b3a9ff;
+  --accent-wash: rgba(155, 142, 255, 0.12);
+  --accent-wash-soft: rgba(155, 142, 255, 0.07);
+  --accent-border: rgba(155, 142, 255, 0.4);
+
+  --loss: #e0526b;
+
+  /* The score the event is about, printed brighter than the page's own ink. */
+  --figure-strong: #ffffff;
+  --tick: rgba(255, 255, 255, 0.3);
+  --alert-border: rgba(224, 82, 107, 0.4);
+
+  /* The away side, and everything the event does not spotlight. */
+  --muted-side: #b9bab4;
+  --muted-mark: #6f717a;
+  --muted-bar: #4a4c55;
+  --dash: #33353c;
+}

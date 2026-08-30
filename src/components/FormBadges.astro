@@ -1,0 +1,12 @@
+---
+import type { Result } from "../lib/derive.ts";
+
+interface Props {
+  form: readonly Result[];
+  large?: boolean;
+}
+const { form, large = false } = Astro.props;
+---
+<div style="display: flex; gap: 3px; justify-content: flex-end">
+  {form.map((r) => <span class={`wdl wdl-${r}${large ? " wdl-lg" : ""}`}>{r}</span>)}
+</div>
