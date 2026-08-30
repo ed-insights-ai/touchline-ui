@@ -9,3 +9,11 @@ dist/
 journal/*.prompt.txt
 journal/*.brief.json
 journal/*.rejected.txt
+
+# Beads / Dolt files (added by bd init). The whole tracker is external state,
+# as in the rib: issues live in Dolt, nothing bead-related is committed. The
+# agent skill under .agents/ is documentation and does travel with the repo.
+.dolt/
+*.db
+.beads-credential-key
+.beads/
