@@ -222,16 +222,21 @@ command (`TOUCHLINE_COLLECT_CMD` overrides it); it is the only step that costs
 network and time. `just publish` pushes `dist/` to a `gh-pages` branch via a git
 worktree and refuses, with an instruction, if the repo has no `origin`.
 
-**Host: GitHub Pages, serving the branch directly** — no CI, no secrets, no build on
-their side; what is pushed is exactly what is served, which suits a site whose build
-input lives on this machine. One-time setup: create the repo, add `origin`, then
-Settings → Pages → Deploy from a branch → `gh-pages` / root.
+**Live at https://ed-insights-ai.github.io/touchline-ui/** — GitHub Pages serving
+the `gh-pages` branch directly. No CI, no secrets, no build on their side; what is
+pushed is exactly what is served, which suits a site whose build input lives on one
+machine. Each publish is a commit on that branch, so it reads as a record of what
+was live when.
 
-A project page serves from `/<repo>/`, so build with `SITE_BASE`:
+A project page serves from `/<repo>/`, so builds for it set `SITE_BASE`:
 
 ```sh
-SITE_BASE=/touchline-ui SITE_URL=https://<user>.github.io just build
+SITE_BASE=/touchline-ui SITE_URL=https://ed-insights-ai.github.io just build
+just publish
 ```
+
+The loop is **not yet automated**: the launchd cadence job still only runs the
+collect, so the site holds at whatever collect last went through `just`.
 
 Every internal link goes through that base. `dist/` is host-agnostic, so Cloudflare
 Pages or Netlify would serve the same branch unchanged.
