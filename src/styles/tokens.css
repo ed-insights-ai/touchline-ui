@@ -15,11 +15,7 @@
      axis tick, a venue, an empty state. Quiet, but never under 4.5:1 against
      the paper: the aesthetic here is hierarchy, not illegibility. --faint is
      for text that duplicates or decorates something already on the page, and
-     --fainter never sets type at all.
-
-     Dark redefines this to its own --faint, which already clears 4.5:1 on
-     #0e0f13 — so the match pages keep exactly the tone they were drawn with
-     and only the light pages move. */
+     --fainter never sets type at all. */
   --quiet: #5f646e;
   --hairline: #e3e1da;
   --hairline-soft: #eeece5;
@@ -65,6 +61,20 @@
   --pos-fwd-wash: rgba(184, 130, 15, 0.14);
   --pos-fwd-text: #8a620b;
 
+  /* Match Centre (tui-641). Dark is retired: the Match Centre reads on the
+     same paper as every page about time, so the tokens it leaned on are
+     light-valued here rather than living in a theme of their own. */
+  --accent-border: rgba(109, 79, 224, 0.45);
+  --alert-border: rgba(190, 18, 60, 0.4);
+  --figure-strong: #1a1c22;
+  --tick: #c8c5bc;
+  --muted-side: #6e727b;
+  --muted-mark: #8b9096;
+  --muted-bar: #cdcac2;
+  --dash: #e3e1da;
+  /* The purple hairline a goal drops through both lanes of the strip. */
+  --goal-line: rgba(109, 79, 224, 0.35);
+
   /* Type. Serif means story; sans means information. */
   --serif: Newsreader, Georgia, "Times New Roman", serif;
   --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -72,40 +82,4 @@
   /* Measure. The mocks are drawn at 1440 with 56px gutters. */
   --page-max: 1440px;
   --gutter: 56px;
-}
-
-/* Dark means the event. Applied by the Match Centre layout, not by media
-   query — a match page is dark because of what it is, not where it is read. */
-.tl-dark {
-  --paper: #0e0f13;
-  --ink: #f1f1ec;
-  --ink-soft: #c9cac3;
-  --secondary: #c9cac3;
-  --faint: #8e9096;
-  --fainter: #6f717a;
-  --quiet: #8e9096;
-  --hairline: rgba(255, 255, 255, 0.1);
-  --hairline-soft: rgba(255, 255, 255, 0.07);
-  --outline: rgba(255, 255, 255, 0.16);
-  --outline-quiet: #4a4c55;
-  --card: #16171c;
-
-  --accent: #9b8eff;
-  --accent-hover: #b3a9ff;
-  --accent-wash: rgba(155, 142, 255, 0.12);
-  --accent-wash-soft: rgba(155, 142, 255, 0.07);
-  --accent-border: rgba(155, 142, 255, 0.4);
-
-  --loss: #e0526b;
-
-  /* The score the event is about, printed brighter than the page's own ink. */
-  --figure-strong: #ffffff;
-  --tick: rgba(255, 255, 255, 0.3);
-  --alert-border: rgba(224, 82, 107, 0.4);
-
-  /* The away side, and everything the event does not spotlight. */
-  --muted-side: #b9bab4;
-  --muted-mark: #6f717a;
-  --muted-bar: #4a4c55;
-  --dash: #33353c;
 }

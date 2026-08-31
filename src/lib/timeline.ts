@@ -1,104 +1,480 @@
 /**
- * The match timeline's marks, grouped for drawing.
+ * The match strip: the game in a single glance, built from the play-by-play.
+ *
+ * The design system's sixth rule is "the timeline is the match", and this
+ * module is where that rule is arithmetic rather than styling. Every mark on
+ * the strip is one published play; every count the strip shows is a sum over
+ * the play list; and a play the strip cannot place honestly — no published
+ * clock, or no attributed side — is counted in a named note instead of being
+ * guessed onto a minute. Nothing here re-orders or interprets the account:
+ * document order is preserved inside a stack, and the published sentence
+ * travels with every mark verbatim.
+ *
+ * THE MARK GRAMMAR (tui-641 — weight follows importance; one loud thing):
+ *   goal    the only labeled mark: running score + scorer + minute
+ *   shot    an unscored shot — including a missed or saved penalty
+ *   corner  a corner kick
+ *   foul / offside   the smallest marks
+ *   card / red       the pip encoding shared with the cautions panel (tui-o4k)
+ *   sub / roster     roster changes, not match action: substitutions, keeper
+ *                    changes and lineup entries are OFF the strip by default,
+ *                    behind one labeled toggle. The toggle's count is the
+ *                    substitution count — the number the contract names.
  *
  * Ninety minutes are drawn to scale and a mark's position is its minute, so
- * two marks that share a minute cannot be nudged apart — a mark moved to make
- * room is a mark drawn at the wrong time. They are grouped instead, and the
- * component piles the group vertically.
- *
- * This is not a rare case. Nineteen of the 2026 season's thirty-nine collected
- * box scores repeat a minute somewhere; one 2019 match put eight cautions
- * inside a single minute of extra time.
+ * two marks that share a drawn minute stack outward from their own lane —
+ * home above the axis, away below — using the same grouping the single-band
+ * timeline shipped with: a mark moved to make room is a mark drawn at the
+ * wrong time.
  */
 
-export type MarkKind = "goal" | "card" | "red";
+import { matchMinute } from "./format.ts";
+import type { MatchDetail, MatchPlay } from "./model.ts";
+import { goalScorer, type NameIndex, playerIndex } from "./plays.ts";
 
-export interface Mark {
-  /** Minutes as drawn, already rounded up from the published clock. */
-  minute: number | null;
-  /** Who it was, for the hover panel: "23′ Alex Boakye". */
-  label: string;
-  /** The home side's marks read in the accent, the away side's in gray. */
+const EN = "–";
+const MID = "·";
+
+/** Marks the strip can draw. "roster" is a keeper change or a lineup entry —
+ *  the same off-by-default layer substitutions live on. */
+export type MarkKind =
+  | "goal"
+  | "shot"
+  | "corner"
+  | "foul"
+  | "offside"
+  | "card"
+  | "red"
+  | "sub"
+  | "roster";
+
+/** The kinds that are match action — on the strip by default. */
+const ACTION: readonly MarkKind[] = ["goal", "shot", "corner", "foul", "offside", "card", "red"];
+
+export interface StripMark {
+  kind: MarkKind;
+  /** Minute as drawn, rounded up from the published clock. Never null: a
+   *  clock-less play becomes a note entry, not a mark. */
+  minute: number;
+  /** The clock as published, for the selected-event row. */
+  clock: string;
   home: boolean;
+  /** The side's abbreviation as the box score served it. */
+  team: string | null;
+  /** The published line, verbatim — what hover and selection show. */
+  raw: string;
+  /** Goals only: "1–0 · Ludwig · 65′", home side first. Null for every other
+   *  kind — the goal is the only labeled mark. */
+  label: string | null;
 }
 
-/** A card mark: a sending-off is drawn as its own kind, the way the cautions
- *  panel already distinguishes it, so the type rides on the mark. */
-export type CardMark = Mark & { red?: boolean };
-
-export type PlacedMark = Mark & { kind: MarkKind };
-
-export interface Stack {
-  minute: number | null;
-  marks: PlacedMark[];
+/** Marks sharing a lane and a drawn minute, piled outward from the axis. */
+export interface LaneStack {
+  minute: number;
   /** Percent along the band. */
   x: number;
-  /** The label that names the pile, or null when the pile is one caution. */
-  label: string | null;
-  /** Which of the two label rows above the stack this label sits on. */
+  /** Nearest the axis first: the goal holds the axis, action piles over it,
+   *  roster changes outermost so hiding them never moves a match action. */
+  marks: StripMark[];
+}
+
+export interface GoalLabel {
+  x: number;
+  text: string;
+  home: boolean;
+  /** Which of the two stagger rows the label sits on, per lane. */
   tier: "a" | "b";
-  /** How the label is anchored to its stack: centred, except at the ends. */
+  /** Anchored inward at the ends so nothing hangs off the band. */
   align: "start" | "mid" | "end";
-  /** A pile with no home goal in it is labelled in the quieter gray. */
-  quiet: boolean;
 }
 
-export interface Timeline {
-  stacks: Stack[];
-  /** The most marks any one minute holds — the headroom the band reserves. */
-  tallest: number;
+/** One line of the named note under the strip: plays that exist in the
+ *  account but cannot sit on a timeline. The reason is named, never fixed. */
+export interface StripNote {
+  kind: MarkKind;
+  count: number;
+  reason: "no published clock" | "no attributed side";
 }
 
-export function timeline(goals: Mark[], cards: CardMark[], fullTime: number): Timeline {
-  const at = (minute: number | null): number =>
-    minute === null ? 0 : Math.min(100, Math.max(0, (minute / fullTime) * 100));
+export interface LanePair {
+  home: number;
+  away: number;
+}
 
-  // Goals and cards arrive as two arrays and land on one axis, so a goal and a
-  // caution in the same minute collide exactly as two cautions do. They are
-  // merged before grouping, and grouped by the minute AS DRAWN: 84:10 and
-  // 84:55 are half a pixel apart and both read 85′.
-  //
-  // The sort is stable and goals are listed first, so a goal holds the bottom
-  // of a mixed pile — the position on the axis — and cautions pile above it.
-  const merged: PlacedMark[] = [
-    ...goals.map((g): PlacedMark => ({ ...g, kind: "goal" })),
-    ...cards.map(({ red, ...c }): PlacedMark => ({ ...c, kind: red ? "red" : "card" })),
-  ].sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
+export interface MatchStrip {
+  home: LaneStack[];
+  away: LaneStack[];
+  /** Goal hairlines and their labels, in document order. */
+  goals: GoalLabel[];
+  /** Plays counted, not drawn — see StripNote. */
+  notes: StripNote[];
+  /** Substitution plays behind the toggle — the count the toggle carries. */
+  subCount: number;
+  /** Keeper changes and lineup entries, also behind the toggle. */
+  rosterCount: number;
+  /** Marks on the default strip: the match actions. */
+  actionCount: number;
+  /** Headroom per lane with the toggle closed / open. */
+  tallest: LanePair;
+  tallestAll: LanePair;
+  /** The clock the band is drawn against — ninety, or later if it ran on. */
+  fullTime: number;
+}
 
-  const grouped: { minute: number | null; marks: PlacedMark[] }[] = [];
-  for (const m of merged) {
-    const open = grouped[grouped.length - 1];
-    if (open && open.minute === m.minute) open.marks.push(m);
-    else grouped.push({ minute: m.minute, marks: [m] });
+/** Which mark a play draws as, or null for the plays that are structure
+ *  (period boundaries) or prose the collector did not type. A play carrying
+ *  a score array is a goal whatever its type says — two of the four penalty
+ *  plays in the 2026 data are misses, and a miss is a shot. */
+export function markKindOf(play: MatchPlay): MarkKind | null {
+  if (play.score) return "goal";
+  switch (play.type) {
+    case "shot":
+    case "penalty":
+      return "shot";
+    case "corner":
+      return "corner";
+    case "foul":
+      return "foul";
+    case "offside":
+      return "offside";
+    case "yellow":
+      return "card";
+    case "red":
+      return "red";
+    case "sub":
+      return "sub";
+    case "goalie":
+    case "lineup":
+      return "roster";
+    default:
+      return null;
+  }
+}
+
+/** "Jonas Ludwig" → "Ludwig" — the strip label has room for one name. */
+const surname = (name: string): string => {
+  const parts = name.trim().split(/\s+/);
+  return parts.length > 1 ? parts.slice(1).join(" ") : name;
+};
+
+const NEAR_AXIS: Record<MarkKind, number> = {
+  goal: 0,
+  shot: 1,
+  corner: 1,
+  foul: 1,
+  offside: 1,
+  card: 1,
+  red: 1,
+  sub: 2,
+  roster: 2,
+};
+
+/** Marks piled per (lane, drawn minute), document order kept inside a rank. */
+function stacksOf(marks: StripMark[], at: (minute: number) => number): LaneStack[] {
+  const byMinute = new Map<number, StripMark[]>();
+  for (const m of marks) {
+    const pile = byMinute.get(m.minute);
+    if (pile) pile.push(m);
+    else byMinute.set(m.minute, [m]);
+  }
+  return [...byMinute.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([minute, pile]) => ({
+      minute,
+      x: at(minute),
+      marks: pile
+        .map((m, i) => ({ m, i }))
+        .sort((a, b) => NEAR_AXIS[a.m.kind] - NEAR_AXIS[b.m.kind] || a.i - b.i)
+        .map(({ m }) => m),
+    }));
+}
+
+const tallestOf = (stacks: LaneStack[], all: boolean): number =>
+  Math.max(1, ...stacks.map((s) => s.marks.filter((m) => all || ACTION.includes(m.kind)).length));
+
+/**
+ * The strip, from a match's published play-by-play.
+ *
+ * `homeIndex` is required: without knowing which served side is home there is
+ * no honest way to hand a lane to a mark, and the page does not render a
+ * timeline for such a match at all.
+ */
+export function matchStrip(detail: MatchDetail, homeIndex: number): MatchStrip {
+  const plays = detail.plays ?? [];
+  const index: NameIndex = playerIndex(detail);
+  const abbrOf = (team: number | undefined): string | null => {
+    if (team === undefined) return null;
+    const t = detail.teams[team];
+    return t?.abbr ?? t?.name ?? null;
+  };
+
+  // First pass: classify, so the clock the band is drawn against is known
+  // before any x is computed. Period boundaries stretch it too — a match that
+  // ran to 110′ has its "End of period [110:00]" say so.
+  interface Placed {
+    kind: MarkKind;
+    play: MatchPlay;
+    minute: number;
+    home: boolean;
+  }
+  const placed: Placed[] = [];
+  const notes = new Map<string, StripNote>();
+  const note = (kind: MarkKind, reason: StripNote["reason"]): void => {
+    const key = `${kind}|${reason}`;
+    const open = notes.get(key);
+    if (open) open.count++;
+    else notes.set(key, { kind, count: 1, reason });
+  };
+
+  let clockCeiling = 90;
+  let running: [number, number] = [0, 0];
+  const runningAt = new Map<MatchPlay, string>();
+
+  for (const play of plays) {
+    if (play.score) {
+      running = [play.score[0], play.score[1]];
+      runningAt.set(play, `${running[homeIndex]}${EN}${running[1 - homeIndex]}`);
+    }
+    const minute = matchMinute(play.clock?.trim() || undefined);
+    if (play.type === "period") {
+      if (minute !== null) clockCeiling = Math.max(clockCeiling, minute);
+      continue;
+    }
+    const kind = markKindOf(play);
+    if (kind === null) continue;
+    // The honesty rules: a play with no published clock cannot sit on a
+    // timeline, and a play with no attributed side has no lane. Both are
+    // counted in the named note under the strip — never guessed.
+    if (minute === null) {
+      note(kind, "no published clock");
+      continue;
+    }
+    if (play.team === undefined) {
+      note(kind, "no attributed side");
+      continue;
+    }
+    clockCeiling = Math.max(clockCeiling, minute);
+    placed.push({ kind, play, minute, home: play.team === homeIndex });
   }
 
-  // A label names a pile. One card keeps none, red or yellow — its shape says
-  // what it is and the cautions panel below names it — but two of anything at
-  // the same minute needs the count said out loud, or the reader is left
-  // counting pips.
-  //
-  // Labels stagger between two rows, both ABOVE their own stack. They used to
-  // alternate above and below, and the row below the axis is the row the 0′/
-  // HT/full-time labels live on: "87′ ×4" and "90′" printed as "87′ ×490′".
-  let labelled = 0;
-  const stacks = grouped.map((g): Stack => {
-    const n = g.marks.length;
-    const lone = n === 1 ? g.marks[0] : undefined;
-    const label =
-      lone && lone.kind !== "goal" ? null : n === 1 ? `${g.minute}′` : `${g.minute}′ ×${n}`;
-    const x = at(g.minute);
-    return {
-      minute: g.minute,
-      marks: g.marks,
-      x,
-      label,
-      tier: label !== null && labelled++ % 2 === 1 ? "b" : "a",
-      // Centred on its stack except at the very ends, where half a label hangs
-      // off the band — and above 720px the band has no scroller to catch it.
-      align: x > 92 ? "end" : x < 8 ? "start" : "mid",
-      quiet: !g.marks.some((m) => m.kind === "goal" && m.home),
-    };
-  });
+  const fullTime = clockCeiling;
+  const at = (minute: number): number => Math.min(100, Math.max(0, (minute / fullTime) * 100));
 
-  return { stacks, tallest: Math.max(1, ...stacks.map((s) => s.marks.length)) };
+  const marks: StripMark[] = placed.map(({ kind, play, minute, home }) => ({
+    kind,
+    minute,
+    clock: play.clock?.trim() ?? "",
+    home,
+    team: abbrOf(play.team),
+    raw: play.text,
+    label:
+      kind === "goal"
+        ? [
+            runningAt.get(play),
+            surname(
+              goalScorer(
+                play,
+                play.team === undefined ? undefined : detail.teams[play.team],
+                index,
+              ),
+            ),
+            `${minute}′`,
+          ]
+            .filter(Boolean)
+            .join(` ${MID} `)
+        : null,
+  }));
+
+  const home = stacksOf(
+    marks.filter((m) => m.home),
+    at,
+  );
+  const away = stacksOf(
+    marks.filter((m) => !m.home),
+    at,
+  );
+
+  // Goal labels stagger between two rows per lane, so two goals four minutes
+  // apart do not print over each other; at the ends they anchor inward.
+  const tiers: LanePair = { home: 0, away: 0 };
+  const goals: GoalLabel[] = marks
+    .filter((m) => m.kind === "goal")
+    .map((m) => {
+      const lane = m.home ? "home" : "away";
+      const x = at(m.minute);
+      return {
+        x,
+        text: m.label ?? `${m.minute}′`,
+        home: m.home,
+        tier: tiers[lane]++ % 2 === 1 ? "b" : "a",
+        align: x > 88 ? "end" : x < 12 ? "start" : "mid",
+      } as GoalLabel;
+    });
+
+  const count = (kinds: readonly MarkKind[]): number =>
+    marks.filter((m) => kinds.includes(m.kind)).length;
+
+  return {
+    home,
+    away,
+    goals,
+    notes: [...notes.values()],
+    // The toggle carries the substitution count — every substitution play,
+    // drawn or noted, because the label is a claim about the play list.
+    subCount: plays.filter((p) => markKindOf(p) === "sub").length,
+    rosterCount: plays.filter((p) => markKindOf(p) === "roster").length,
+    actionCount: count(ACTION),
+    tallest: { home: tallestOf(home, false), away: tallestOf(away, false) },
+    tallestAll: { home: tallestOf(home, true), away: tallestOf(away, true) },
+    fullTime,
+  };
+}
+
+/**
+ * The fallback for a box score that published no play-by-play: the strip is
+ * drawn from the scoring summary and the cautions list instead, and every
+ * count is a sum over those arrays. The 2026 collect has no such match, but
+ * a reader is not the collector's keeper.
+ */
+export function summaryStrip(detail: MatchDetail, homeIndex: number): MatchStrip {
+  const scoring = detail.scoring ?? [];
+  const cards = detail.cards ?? [];
+  const abbrOf = (team: number | undefined): string | null => {
+    if (team === undefined) return null;
+    const t = detail.teams[team];
+    return t?.abbr ?? t?.name ?? null;
+  };
+
+  const notes = new Map<string, StripNote>();
+  const note = (kind: MarkKind, reason: StripNote["reason"]): void => {
+    const key = `${kind}|${reason}`;
+    const open = notes.get(key);
+    if (open) open.count++;
+    else notes.set(key, { kind, count: 1, reason });
+  };
+
+  interface Seed {
+    kind: MarkKind;
+    minute: number;
+    clock: string;
+    home: boolean;
+    team: string | null;
+    raw: string;
+    scorer?: string;
+  }
+  const seeds: Seed[] = [];
+  const run: [number, number] = [0, 0];
+  const runs: string[] = [];
+  for (const g of scoring) {
+    if (g.team === 0 || g.team === 1) run[g.team]++;
+    runs.push(`${run[homeIndex]}${EN}${run[1 - homeIndex]}`);
+  }
+  scoring.forEach((g, i): void => {
+    const minute = matchMinute(g.time);
+    if (minute === null) {
+      note("goal", "no published clock");
+      return;
+    }
+    if (g.team === undefined) {
+      note("goal", "no attributed side");
+      return;
+    }
+    seeds.push({
+      kind: "goal",
+      minute,
+      clock: g.time ?? "",
+      home: g.team === homeIndex,
+      team: abbrOf(g.team),
+      raw: g.description ?? `${g.scorer}${g.assist ? ` (${g.assist})` : ""}`,
+      scorer: `${runs[i]} ${MID} ${surname(g.scorer)} ${MID} ${minute}′`,
+    });
+  });
+  for (const c of cards) {
+    const kind: MarkKind = c.type === "red" ? "red" : "card";
+    const minute = matchMinute(c.time);
+    if (minute === null) {
+      note(kind, "no published clock");
+      continue;
+    }
+    if (c.team === undefined) {
+      note(kind, "no attributed side");
+      continue;
+    }
+    seeds.push({
+      kind,
+      minute,
+      clock: c.time ?? "",
+      home: c.team === homeIndex,
+      team: abbrOf(c.team),
+      raw: `${c.type === "red" ? "Red" : "Yellow"} card on ${c.player}`,
+    });
+  }
+
+  const fullTime = Math.max(90, ...seeds.map((s) => s.minute));
+  const at = (minute: number): number => Math.min(100, Math.max(0, (minute / fullTime) * 100));
+  const marks: StripMark[] = seeds.map((s) => ({
+    kind: s.kind,
+    minute: s.minute,
+    clock: s.clock,
+    home: s.home,
+    team: s.team,
+    raw: s.raw,
+    label: s.kind === "goal" ? (s.scorer ?? null) : null,
+  }));
+
+  const home = stacksOf(
+    marks.filter((m) => m.home),
+    at,
+  );
+  const away = stacksOf(
+    marks.filter((m) => !m.home),
+    at,
+  );
+  const tiers: LanePair = { home: 0, away: 0 };
+  const goals: GoalLabel[] = marks
+    .filter((m) => m.kind === "goal")
+    .map((m) => {
+      const lane = m.home ? "home" : "away";
+      const x = at(m.minute);
+      return {
+        x,
+        text: m.label ?? `${m.minute}′`,
+        home: m.home,
+        tier: tiers[lane]++ % 2 === 1 ? "b" : "a",
+        align: x > 88 ? "end" : x < 12 ? "start" : "mid",
+      } as GoalLabel;
+    });
+
+  return {
+    home,
+    away,
+    goals,
+    notes: [...notes.values()],
+    subCount: 0,
+    rosterCount: 0,
+    actionCount: marks.length,
+    tallest: { home: tallestOf(home, false), away: tallestOf(away, false) },
+    tallestAll: { home: tallestOf(home, true), away: tallestOf(away, true) },
+    fullTime,
+  };
+}
+
+/** The strip for a match: from the play-by-play when one was published, from
+ *  the scoring and cautions summaries when not. */
+export function stripOf(detail: MatchDetail, homeIndex: number): MatchStrip {
+  return (detail.plays ?? []).length > 0
+    ? matchStrip(detail, homeIndex)
+    : summaryStrip(detail, homeIndex);
+}
+
+/** Marks per kind across both lanes — what the tests hold against the play
+ *  list's own sums. */
+export function stripCounts(strip: MatchStrip): Partial<Record<MarkKind, number>> {
+  const counts: Partial<Record<MarkKind, number>> = {};
+  for (const lane of [strip.home, strip.away]) {
+    for (const stack of lane) {
+      for (const m of stack.marks) counts[m.kind] = (counts[m.kind] ?? 0) + 1;
+    }
+  }
+  return counts;
 }

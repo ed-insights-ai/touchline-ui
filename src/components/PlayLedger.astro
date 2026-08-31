@@ -1,5 +1,8 @@
 ---
-// The play-by-play, in the order the programme published it.
+// The play-by-play, in the order the programme published it — the appendix,
+// not the read. The timeline above is the match at a glance; this is the
+// exact published sequence behind a collapsed expander, never re-ordered,
+// never interpreted (tui-641).
 //
 // Filtering is five radio inputs and their labels: no script, so the ledger
 // filters identically with JavaScript off, and each chip reads at its drawn
@@ -29,6 +32,13 @@ const CHIPS = [
 ---
 
 <section class="pbp">
+  <details class="disclosure pbp-details">
+    <summary class="pbp-summary">
+      <h2 class="pbp-title">PLAY BY PLAY</h2>
+      <span class="pbp-sub">{playCount} LINES · EXACT PUBLISHED SEQUENCE</span>
+      <span class="grow"></span>
+      <span class="pbp-chevron" aria-hidden="true">+</span>
+    </summary>
   {CHIPS.map((c) => (
     <input
       class="pbp-r"
@@ -40,14 +50,13 @@ const CHIPS = [
     />
   ))}
   <div class="pbp-head">
-    <h2 class="sechead">PLAY BY PLAY</h2>
     <div class="chips">
       {CHIPS.map((c) => (
         <label class="chip" for={`pbp-${c.id}`}><span>{c.label}</span></label>
       ))}
     </div>
     <div class="grow"></div>
-    <div class="pbp-count">{playCount} PLAYS · AS PUBLISHED</div>
+    <div class="pbp-count">AS PUBLISHED — NEVER RE-ORDERED</div>
   </div>
   <div class="ledger num" style={`--abbr-col: clamp(48px, calc(${abbrChars}ch + 8px), 92px)`}>
     {rows.map((r) =>
@@ -84,26 +93,38 @@ const CHIPS = [
       ),
     )}
   </div>
+  </details>
 </section>
 
 <style>
   .pbp {
-    padding: 22px 0 24px;
+    padding: 10px 0 14px;
     border-top: 1px solid var(--hairline);
-    display: flex; flex-direction: column; gap: 14px;
+    display: flex; flex-direction: column;
   }
+  .pbp-details { display: flex; flex-direction: column; gap: 14px; }
+  .pbp-summary {
+    display: flex; align-items: baseline; gap: 14px;
+    min-height: 44px; padding: 6px 0;
+  }
+  .pbp-title {
+    margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600;
+  }
+  .pbp-sub { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
+  .pbp-chevron { font-size: 14px; color: var(--chevron); font-weight: 500; }
+  .pbp-details[open] .pbp-chevron { visibility: hidden; }
+  .pbp-summary:hover .pbp-title { color: var(--accent); }
   .pbp-r { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
   .pbp-head { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-  .pbp-head .sechead { padding-bottom: 0; }
   .grow { flex: 1; }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
   .chip > span {
     font-size: 10px; letter-spacing: 0.14em; font-weight: 600;
-    color: var(--faint); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--faint); border: 1px solid var(--outline);
     padding: 3px 10px; border-radius: 3px; white-space: nowrap;
   }
-  .chip:hover > span { color: var(--ink-soft); border-color: var(--outline); }
+  .chip:hover > span { color: var(--ink-soft); border-color: var(--chevron); }
   .pbp-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
 
   #pbp-all:checked ~ .pbp-head label[for="pbp-all"] > span,
@@ -125,7 +146,7 @@ const CHIPS = [
   .ledger { display: flex; flex-direction: column; font-size: 12.5px; }
   .row {
     display: grid; grid-template-columns: 52px var(--abbr-col, 48px) 1fr 90px; gap: 12px;
-    padding: 5.5px 0; border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 5.5px 0; border-top: 1px solid var(--hairline-soft);
     align-items: baseline;
   }
   .row-clock { color: var(--faint); }
@@ -138,22 +159,22 @@ const CHIPS = [
   .row-score { text-align: right; }
   .row .key { margin-right: 8px; vertical-align: -1px; }
 
-  .row-goal { background: rgba(155, 142, 255, 0.06); }
+  .row-goal { background: var(--accent-wash-soft); }
   .row-goal .row-clock { color: var(--ink-soft); }
   .row-goal .row-text { color: var(--ink); font-weight: 600; }
   .row-goal .row-goal-label { color: var(--accent); }
   .row-goal .row-assist { color: var(--faint); font-weight: 400; }
   .row-goal .row-score { color: var(--accent); font-weight: 600; }
-  .row-goal.row-dim { background: rgba(255, 255, 255, 0.02); }
+  .row-goal.row-dim { background: var(--hairline-soft); }
   .row-goal.row-dim .row-text { color: var(--muted-side); }
   .row-goal.row-dim .row-goal-label { color: var(--fainter); }
   .row-goal.row-dim .row-score { color: var(--muted-side); }
 
   .brk {
     display: flex; align-items: center; gap: 14px;
-    padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 0; border-top: 1px solid var(--hairline);
   }
-  .brk-last { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .brk-last { border-bottom: 1px solid var(--hairline); }
   .brk-label { font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600; color: var(--faint); }
   .brk-score { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
 

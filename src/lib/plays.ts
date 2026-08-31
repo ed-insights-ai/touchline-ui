@@ -240,6 +240,17 @@ function lineupText(text: string, period: string): string {
   return named > 0 ? `${who} ${EM} ${named} named` : who;
 }
 
+/**
+ * The scorer a score-bearing play credits, in the teamsheet's spelling — the
+ * same parse the ledger makes, exported so the timeline's goal label and the
+ * play-by-play can never disagree about who scored.
+ */
+export function goalScorer(play: MatchPlay, team: MatchTeam | undefined, index: NameIndex): string {
+  const body = stripTeam(dropStamp(play.text).trim(), team);
+  if (play.type === "penalty") return penaltyParts(body, index).name;
+  return goalParts(stripTeam(body.replace(/^goal by\s+/i, ""), team), index).scorer;
+}
+
 // ── Rows ────────────────────────────────────────────────────────────────────
 
 const FILTERS: Record<string, PlayFilter[]> = {
