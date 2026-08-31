@@ -70,6 +70,46 @@ export function footNote(state: MatchState, counts: FootNoteCounts): string {
 }
 
 /**
+ * The page's own description, for an unfurl card and a search result.
+ *
+ * Composed from what was collected and nothing else: the two names, the score
+ * if one was published, the date, the conference, and the same state sentence
+ * the page itself shows. A description is the one piece of copy nobody
+ * proof-reads against the page, which is exactly why it may not say anything
+ * the page does not — no predicted result, no "don't miss", no embellishment.
+ */
+export function metaDescription(
+  state: MatchState,
+  m: {
+    home: string;
+    away: string;
+    /** "4–1" where a score was published, else null. */
+    score: string | null;
+    date: string;
+    conference: string;
+    hasPlays: boolean;
+    status: string;
+  },
+): string {
+  const teams = m.score ? `${m.home} ${m.score} ${m.away}` : `${m.home} v ${m.away}`;
+  const head = `${teams}, ${m.date}. ${m.conference}.`;
+  switch (state) {
+    case "played":
+      return `${head} Box score${m.hasPlays ? " and play-by-play" : ""}, as published.`;
+    case "score-only":
+      return `${head} The result as published; no box score was collected.`;
+    case "silent-final":
+      return `${head} The schedule marks this match final; no score was published.`;
+    case "silent-past":
+      return `${head} The date has passed with no result published.`;
+    case "off":
+      return `${head} The programme marks this match ${m.status}.`;
+    default:
+      return `${head} Not played yet.`;
+  }
+}
+
+/**
  * What the page read to build itself.
  *
  * Each line names a source and, where something is absent, names the absence

@@ -68,6 +68,21 @@ for (const page of pages) {
       if (!served.has(url)) broken.push({ page: where, url, kind });
     }
   }
+  // A page's canonical must be the page's own address. A canonical that is
+  // merely absolute and wrong is worse than none at all: it tells a crawler to
+  // index some other URL, and the failure is invisible on the page.
+  const canon = /<link rel="canonical" href="([^"]+)"/.exec(html)?.[1];
+  if (canon) {
+    checked++;
+    const own = base + where.replace(/index\.html$/, "");
+    let path: string | null = null;
+    try {
+      path = new URL(canon).pathname;
+    } catch {
+      path = null;
+    }
+    if (path !== own) broken.push({ page: where, url: canon, kind: "canonical not own URL" });
+  }
   // A site served under a base must not emit root-absolute URLs that skip it:
   // those resolve to the host apex and 404, which is how this shipped.
   if (base) {
@@ -82,9 +97,44 @@ for (const page of pages) {
   }
 }
 
+// ── The sitemap ────────────────────────────────────────────────────────────
+// Nothing on the site links to it, so nothing above would ever look at it. It
+// is a list of absolute URLs handed to a crawler, and the two ways it goes
+// wrong are the two this file exists for: an entry that does not resolve, and
+// an entry that skips the deploy base. A third is its own — a page the site
+// built and the sitemap never mentions, which is a page nobody will find.
+let sitemapNote = "no sitemap.xml";
+const sitemapFile = join(dist, "sitemap.xml");
+if (existsSync(sitemapFile)) {
+  const xml = readFileSync(sitemapFile, "utf8");
+  const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => (m[1] ?? "").trim());
+  const listed = new Set<string>();
+  for (const loc of locs) {
+    checked++;
+    let path: string | null = null;
+    try {
+      path = new URL(loc).pathname;
+    } catch {
+      broken.push({ page: "sitemap.xml", url: loc, kind: "sitemap not absolute" });
+      continue;
+    }
+    listed.add(path);
+    if (!served.has(path)) broken.push({ page: "sitemap.xml", url: loc, kind: "sitemap 404" });
+    if (base && !path.startsWith(`${base}/`)) {
+      broken.push({ page: "sitemap.xml", url: loc, kind: "sitemap misses base" });
+    }
+  }
+  for (const page of pages) {
+    const own = base + `/${relative(dist, page).split("\\").join("/")}`.replace(/index\.html$/, "");
+    if (!listed.has(own))
+      broken.push({ page: "sitemap.xml", url: own, kind: "page not in sitemap" });
+  }
+  sitemapNote = `sitemap ${locs.length} routes`;
+}
+
 const unique = [...new Map(broken.map((b) => [`${b.page}|${b.url}|${b.kind}`, b])).values()];
 console.log(
-  `links: ${pages.length} pages, ${checked} references checked against base "${base || "/"}" — ${unique.length} broken`,
+  `links: ${pages.length} pages, ${checked} references checked against base "${base || "/"}", ${sitemapNote} — ${unique.length} broken`,
 );
 for (const b of unique.slice(0, 20)) console.log(`  ${b.kind.padEnd(18)} ${b.url}   in ${b.page}`);
 if (unique.length > 20) console.log(`  … and ${unique.length - 20} more`);

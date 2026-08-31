@@ -7,6 +7,15 @@ interface Props {
   description?: string;
 }
 const { title, description } = Astro.props;
+
+// The page's own address, absolute, and only where the build was told where it
+// will be served. Astro.url carries the deploy base already — the same base
+// whose absence once shipped a site of working pages and 404ing links — so a
+// canonical is built from it rather than assembled from parts. Without
+// SITE_URL there is no honest absolute URL to give, and a guessed one is worse
+// than none: it would point every share and every crawler at a host this build
+// knows nothing about.
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : null;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,6 +27,19 @@ const { title, description } = Astro.props;
         harness never sees it; `curl -s <url> | grep touchline-build` does. */}
     <meta name="touchline-build" content={builtAt} />
     {description && <meta name="description" content={description} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    {/* What an unfurler reads. It is given the page's own title and the same
+        description, never a second version of them: two descriptions of one
+        page are two things to keep true. No og:image — the site has no share
+        card, and pointing at one that does not exist is worse than the
+        default. */}
+    <meta property="og:site_name" content="Touchline" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
