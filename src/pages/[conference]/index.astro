@@ -367,10 +367,13 @@ const nextLabel = (f: Fixture): string => {
               <div class="story-month-label">{month}</div>
               <div class="story-dots">
                 {group.map((w) => (
-                  <span
-                    class={`dot dot-${w.state}`}
-                    title={`Week of ${shortDate(w.startISO)} · ${w.fixtures.length} ${w.fixtures.length === 1 ? "match" : "matches"}`}
-                  ></span>
+                  <>
+                    <span class={`dot dot-${w.state}`}></span>
+                    <span class="dot-detail">
+                      Week of {shortDate(w.startISO)} · {w.fixtures.length}{" "}
+                      {w.fixtures.length === 1 ? "match" : "matches"}
+                    </span>
+                  </>
                 ))}
               </div>
             </div>
@@ -507,11 +510,26 @@ const nextLabel = (f: Fixture): string => {
     .chart-scroll > * { min-width: max(100%, 340px); }
   }
   .story-range { font-size: 11px; color: var(--quiet); letter-spacing: 0.08em; }
-  .story-months { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .story-months { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; position: relative; }
   .story-month { display: flex; flex-direction: column; gap: 8px; }
   .story-month-label { font-size: 10px; letter-spacing: 0.14em; color: var(--quiet); }
   .story-dots { display: flex; gap: 8px; align-items: center; height: 20px; }
+  /* A dot is a mark, not a control: no pointer, no hover state, nothing that
+     promises a season rewind that has not shipped. What it knows — its week
+     and how many matches fell in it — is text in the document rather than a
+     title attribute, and shows against the months row, which it cannot
+     overflow. */
   .dot { width: 16px; height: 16px; border-radius: 50%; }
+  .dot-detail {
+    position: absolute; left: 0; right: 0; top: calc(100% + 8px);
+    z-index: 15;
+    background: var(--ink); color: var(--paper);
+    font-size: 11px; letter-spacing: 0.01em;
+    padding: 4px 9px; border-radius: 4px;
+    opacity: 0; pointer-events: none; transition: opacity 90ms ease-out;
+  }
+  .dot:hover + .dot-detail { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .dot-detail { transition: none; } }
   .dot-past { background: var(--ink); }
   .dot-future { border: 1.5px solid var(--outline-quiet); }
   .dot-current {
