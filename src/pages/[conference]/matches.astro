@@ -13,6 +13,7 @@
 //     folded into it;
 //   • still to come — away at home, the kickoff the home programme published,
 //     and the venue when the schedule names one.
+import SiteFooter from "../../components/SiteFooter.astro";
 import Page from "../../layouts/Page.astro";
 import { hasScore, homeHref, matchHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
 import { dayOfMonth, dowLong, friendlies, monLong, spell } from "../../lib/format.ts";
@@ -245,6 +246,8 @@ const dek =
         </p>
       </aside>
     </div>
+
+    <SiteFooter seasons={[season]} />
   </div>
 </Page>
 

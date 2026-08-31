@@ -21,7 +21,6 @@ import {
   dowLong,
   monLong,
   monShort,
-  parseISO,
   spell,
 } from "../lib/format.ts";
 import {
@@ -55,10 +54,12 @@ const headlines = new Map(
   columns.map((c) => [c.key, editorial(c.season, loadJournal(c.season)).headline]),
 );
 
-// The edition stamp, and only that. When this page was collected is
-// provenance, and provenance lives in the footer here as on every other page
-// — per conference, because they do not collect at the same time.
-const dateline = `${dowLong(asOf)}, ${monLong(asOf)} ${dayOfMonth(asOf)}, ${parseISO(asOf).y}`;
+// What this page covers, in the voice the conference pages' own header uses:
+// scope, not a date. A date under the wordmark reads as an edition stamp, and
+// the freshness it was standing in for is the footer's job — per conference,
+// because they do not collect at the same time.
+const years = [...new Set(seasons.map((s) => s.fixtures.season))].sort();
+const scope = `${site.division} · ${years.join("–")}`;
 
 // Winner side at weight 600, loser quiet, draws neutral.
 const sideClass = (f: Fixture, side: "home" | "away"): string => {
@@ -93,7 +94,7 @@ const gapsWord = (n: number): string => (n === 1 ? "gap" : "gaps");
         <span class="wordmark-name">Touchline</span>
       </h1>
       <div class="nat-book">THE SEASON SCOREBOOK</div>
-      <div class="nat-dateline num">{dateline.toUpperCase()}</div>
+      <div class="nat-scope num">{scope.toUpperCase()}</div>
     </header>
 
     <p class="nat-lede serif">{lede}</p>
@@ -175,7 +176,7 @@ const gapsWord = (n: number): string => (n === 1 ? "gap" : "gaps");
     font-weight: 600;
     color: var(--ink-soft);
   }
-  .nat-dateline {
+  .nat-scope {
     font-size: 11px;
     letter-spacing: 0.1em;
     color: var(--quiet);
