@@ -59,7 +59,22 @@ function sitemap() {
             .join("\n") +
           "\n</urlset>\n";
         await writeFile(new URL("sitemap.xml", dir), xml, "utf8");
-        logger.info(`sitemap.xml — ${urls.length} routes under ${prefix || "/"}`);
+
+        // robots.txt is written here and not kept in public/, because the one
+        // line that matters in it is an absolute URL and this is the only
+        // place that knows the host and the base. A checked-in robots.txt
+        // would name a sitemap at whichever host somebody last typed.
+        //
+        // Indexing is invited on the owner's explicit ruling, not because
+        // "allow all" is the usual default: this site publishes what
+        // programmes published, and whether it wants to be found is a question
+        // about the site rather than about robots.txt.
+        await writeFile(
+          new URL("robots.txt", dir),
+          `User-agent: *\nAllow: /\n\nSitemap: ${origin}${prefix}/sitemap.xml\n`,
+          "utf8",
+        );
+        logger.info(`sitemap.xml — ${urls.length} routes under ${prefix || "/"}, robots.txt`);
       },
     },
   };

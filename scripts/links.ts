@@ -130,6 +130,22 @@ if (existsSync(sitemapFile)) {
       broken.push({ page: "sitemap.xml", url: own, kind: "page not in sitemap" });
   }
   sitemapNote = `sitemap ${locs.length} routes`;
+
+  // robots.txt points a crawler at the sitemap by absolute URL, and a crawler
+  // that follows it somewhere else finds nothing. It is one line, and it is
+  // the one line nobody would ever open the file to read.
+  const robotsFile = join(dist, "robots.txt");
+  if (existsSync(robotsFile)) {
+    const named = /^\s*Sitemap:\s*(\S+)/im.exec(readFileSync(robotsFile, "utf8"))?.[1];
+    checked++;
+    if (!named) {
+      broken.push({ page: "robots.txt", url: "(none)", kind: "robots names no sitemap" });
+    } else if (named !== `${new URL(locs[0] ?? "http://x/").origin}${base}/sitemap.xml`) {
+      broken.push({ page: "robots.txt", url: named, kind: "robots sitemap URL wrong" });
+    }
+  } else {
+    broken.push({ page: "robots.txt", url: "(missing)", kind: "sitemap written, robots not" });
+  }
 }
 
 const unique = [...new Map(broken.map((b) => [`${b.page}|${b.url}|${b.kind}`, b])).values()];
