@@ -58,13 +58,13 @@ const line = collectionLine(seasons);
      reads its conferences. `order` keeps About & method up on the first line,
      where a reader already knows to look for it. */
   .is-multi .sf-when { order: 1; flex-basis: 100%; }
-  .is-multi .sf-lead::after { content: "—"; padding: 0 7px; color: var(--fainter); }
+  .is-multi .sf-lead::after { content: "—"; padding: 0 7px; color: var(--outline-quiet); }
   /* A code and its time are one word; only the list between them may break. */
   .sf-time { white-space: nowrap; }
   .sf-time + .sf-time::before {
     content: "·";
     padding: 0 9px;
-    color: var(--fainter);
+    color: var(--outline-quiet);
   }
 
   @media (max-width: 720px) {

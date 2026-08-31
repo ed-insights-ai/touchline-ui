@@ -13,9 +13,20 @@
 
   /* Small text that is the ONLY thing carrying its fact — a stat label, an
      axis tick, a venue, an empty state. Quiet, but never under 4.5:1 against
-     the paper: the aesthetic here is hierarchy, not illegibility. --faint is
-     for text that duplicates or decorates something already on the page, and
-     --fainter never sets type at all. */
+     the paper: the aesthetic here is hierarchy, not illegibility.
+
+     --faint and --fainter set NO TYPE AT ALL. They are marks, rules and fills.
+     That is now true of both (tui-4hr, tui-mmt) and it is held by a test
+     rather than by this sentence, because this sentence is how the rule was
+     lost: it used to say --fainter never set type while --fainter was setting
+     type in five places, and it licensed --faint for "text that duplicates
+     something already on the page" while --faint carried the play-by-play's
+     own sentences on 4,222 rows.
+
+     Type below --quiet goes to --outline-quiet, and only ever as punctuation
+     standing in for something the page says in words beside it: the em-dash
+     where a score or a clock was never published, the separators in the
+     footer. Nothing that a reader has to read. */
   --quiet: #5f646e;
 
   /* The neutral ladder is defined AGAINST the paper, so when the paper moved
@@ -71,7 +82,6 @@
   --chip-projected-bg: #e8e6de;
   --chip-projected-fg: #5f646e;
   --chip-context-border: #d4d0c5;
-  --chip-context-fg: #8b9096;
 
   /* Tenure — the squad-shape ladder on a team page. One ink at five steps,
      because tenure is one dimension: a hue per class year would read as five
@@ -104,8 +114,20 @@
   --alert-border: rgba(190, 18, 60, 0.4);
   --figure-strong: #1a1c22;
   --tick: #c4c0b4;
-  --muted-side: #6e727b;
-  --muted-mark: #8b9096;
+  /* The other side. Both of these used to carry the home/away distinction by
+     dropping under the legibility floor, which is the one thing a distinction
+     may not be made of (tui-p54, tui-qhz).
+
+     --muted-side inks the away name, the period table's quiet rows and the
+     away keeper's line: 4.67:1 on paper, a visible step lighter than --quiet's
+     5.40 and above the 4.5 floor for the 13px it sets.
+
+     --muted-mark is display type and a drawn mark — the away side's score at
+     104px, and the .key-away pip. 3.52:1 on paper against the 3:1 that governs
+     both. It stopped sharing a value with --chip-context-fg here: one hex
+     serving two roles is how a sweep of one of them missed the other. */
+  --muted-side: #696e75;
+  --muted-mark: #7d8289;
   --muted-bar: #c9c5ba;
   --dash: #dfdcd2;
   /* The purple hairline a goal drops through both lanes of the strip. */
