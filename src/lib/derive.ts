@@ -492,6 +492,11 @@ export const teamHref = (key: string, slug: string): string => withBase(`/${key}
 /** Every match of a conference's season, day by day. */
 export const matchesHref = (key: string): string => withBase(`/${key}/matches/`);
 
+/** The national home page, which is the site root. Never write "/" for this:
+ *  a project page serves from /<repo>/, and a literal root href leaves the
+ *  site entirely. */
+export const homeHref = (): string => withBase("/");
+
 /** The About & method page, which every footer links to. */
 export const aboutHref = (): string => withBase("/about/");
 

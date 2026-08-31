@@ -14,7 +14,7 @@
 //   • still to come — away at home, the kickoff the home programme published,
 //     and the venue when the schedule names one.
 import Page from "../../layouts/Page.astro";
-import { hasScore, matchHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
+import { hasScore, homeHref, matchHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
 import { dayOfMonth, dowLong, monLong, spell } from "../../lib/format.ts";
 import {
   byDay,
@@ -113,11 +113,11 @@ const dek =
     <header class="mx-masthead">
       <a class="mx-back" href={seasonHref(season.key)}>← SEASON</a>
       <div class="grow"></div>
-      <div class="wordmark mx-wordmark">
+      <a class="wordmark mx-wordmark" href={homeHref()}>
         <span class="wordmark-square"></span>
         <span class="wordmark-name">Touchline</span>
         <span class="mx-wordmark-sub"> · Matches</span>
-      </div>
+      </a>
       <div class="grow"></div>
       <div class="mx-context num">{code} · {site.division.toUpperCase()} · {season.fixtures.season}</div>
     </header>
@@ -258,7 +258,9 @@ const dek =
   }
   .mx-back { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary); }
   .mx-back:hover { color: var(--accent); }
-  .mx-wordmark { color: var(--ink); }
+  /* The wordmark reads as the masthead it is, not as a link, so it keeps ink
+     on hover the way the site header’s does. */
+  .mx-masthead .mx-wordmark { color: var(--ink); }
   .mx-wordmark .wordmark-name { font-size: 19px; }
   .mx-wordmark-sub { font-family: var(--serif); font-style: italic; font-size: 19px; }
   .mx-context { font-size: 11px; letter-spacing: 0.1em; color: var(--faint); }

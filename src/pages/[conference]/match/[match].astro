@@ -11,6 +11,7 @@ import {
   teamPageHref,
   unresolved,
 } from "../../../lib/derive.ts";
+import { homeHref } from "../../../lib/derive.ts";
 import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import MatchTimeline from "../../../components/MatchTimeline.astro";
@@ -225,10 +226,10 @@ const awayName = names.name(fixture.away);
     <header class="mhead">
       <a class="back" href={seasonHref(season.key)}>← SEASON</a>
       <div class="grow"></div>
-      <div class="wordmark">
+      <a class="wordmark" href={homeHref()}>
         <span class="wordmark-square"></span>
         <span class="wordmark-name mword">Touchline · Match Centre</span>
-      </div>
+      </a>
       <div class="grow"></div>
       <div class="mmeta">
         {conferenceName} · {kind} · {monShort(fixture.date).toUpperCase()} {dayOfMonth(fixture.date)}
@@ -477,6 +478,9 @@ const awayName = names.name(fixture.away);
 <style>
   .match { min-height: 100vh; padding-bottom: 36px; }
 
+  /* The wordmark reads as the masthead it is, not as a link, so it keeps ink
+     on hover the way the site header’s does. */
+  .mhead .wordmark { color: var(--ink); }
   .mhead {
     height: 54px;
     display: flex; align-items: center; gap: 22px;
