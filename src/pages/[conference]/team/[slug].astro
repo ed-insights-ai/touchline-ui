@@ -546,8 +546,8 @@ const identity = identityLine(slug);
   .stat { display: flex; flex-direction: column; gap: 6px; }
   .stat-figure { font-size: 40px; line-height: 1; }
   .stat-figure-sm { font-size: 32px; }
-  .stat-note { font-size: 12px; color: var(--secondary); line-height: 1.5; }
-  .stat-wide .stat-note { font-size: 12.5px; max-width: 340px; }
+  .stat-note { font-size: 14px; color: var(--secondary); line-height: 1.5; }
+  .stat-wide .stat-note { max-width: 340px; }
 
   /* ── Squad shape ────────────────────────────────────────────────────────── */
   /* The figure this grid is a picture of, said in words first: a reader who
@@ -556,7 +556,7 @@ const identity = identityLine(slug);
     margin: 0 0 20px;
     display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
   }
-  .shape-said { font-size: 13.5px; line-height: 1.55; max-width: 780px; }
+  .shape-said { font-size: 14px; line-height: 1.55; max-width: 780px; }
   .shape { display: flex; flex-direction: column; }
   .shape-row {
     display: grid;
@@ -675,13 +675,13 @@ const identity = identityLine(slug);
   }
   .squad-origin-note {
     margin: 22px 0 0;
-    font-size: 12.5px;
+    font-size: 14px;
     line-height: 1.5;
     color: var(--quiet);
     max-width: 900px;
   }
   .squad-more { font-size: 12px; color: var(--quiet); }
-  .empty { margin: 0; font-size: 13px; color: var(--quiet); }
+  .empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
 
   @media (max-width: 1180px) {
     .profile { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
