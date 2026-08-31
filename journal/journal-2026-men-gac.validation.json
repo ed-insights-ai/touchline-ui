@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-08-31T01:13:35.651Z",
+  "validated_at": "2026-08-31T01:48:47.542Z",
   "data_collected_at": "2026-08-30T21:07:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -72,15 +72,6 @@
     },
     {
       "path": "findings[3]",
-      "label": "observed",
-      "text": "Seven matches carry no box-score link on any collected schedule page.",
-      "checker": "box_score_gaps",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
       "label": "projected",
       "text": "Eighteen days of tune-ups before the table means anything.",
       "checker": "conference_opens",

@@ -37,10 +37,10 @@ const { cells, note } = Astro.props;
         .filter(Boolean)
         .join(" ")}
       href={c.href}
-      title={c.detail}
     >
       <span class="cell-opp">{c.opponent}</span>
       <span class="cell-line">{c.line}</span>
+      <span class="cell-detail">{c.detail}</span>
     </a>
   ))}
 </div>
@@ -49,6 +49,7 @@ const { cells, note } = Astro.props;
 <style>
   .strip { display: flex; gap: 7px; }
   .cell {
+    position: relative;
     flex: 1 1 0;
     min-width: 0;
     display: flex; flex-direction: column; gap: 4px; align-items: center;
@@ -58,7 +59,23 @@ const { cells, note } = Astro.props;
   }
   .cell-opp { font-size: 9.5px; font-weight: 600; color: var(--quiet); }
   .cell-line { font-size: 12px; color: var(--quiet); }
-  .cell:hover { background: var(--accent-wash-soft); border-radius: 5px 5px 0 0; }
+  .cell:hover, .cell:focus-visible {
+    background: var(--accent-wash-soft); border-radius: 5px 5px 0 0;
+  }
+  /* What the cell used to say through a title attribute alone. Read by a
+     screen reader wherever it is, shown to a pointer or a keyboard on the
+     cell it belongs to. */
+  .cell-detail {
+    position: absolute; left: 50%; top: calc(100% + 6px); transform: translateX(-50%);
+    z-index: 15;
+    white-space: nowrap;
+    background: var(--ink); color: var(--paper);
+    font-size: 11px; letter-spacing: 0.01em;
+    padding: 4px 8px; border-radius: 4px;
+    opacity: 0; pointer-events: none; transition: opacity 90ms ease-out;
+  }
+  .cell:hover .cell-detail, .cell:focus-visible .cell-detail { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .cell-detail { transition: none; } }
   .cell-W, .cell-D, .cell-L { border-bottom-style: solid; border-radius: 5px 5px 0 0; }
   .cell-W { border-bottom-color: var(--win); background: rgba(21, 131, 79, 0.05); }
   .cell-D { border-bottom-color: var(--draw); background: rgba(181, 122, 0, 0.05); }

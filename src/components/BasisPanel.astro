@@ -1,0 +1,36 @@
+---
+// The figures a claim rests on, shown when a reader asks for them.
+//
+// A claim whose basis carries nothing readable says so rather than opening
+// onto an empty box — an absent basis is itself a fact about the claim.
+import { readBasis, sourceLine } from "../lib/basis.ts";
+
+interface Props {
+  basis: Record<string, unknown> | undefined;
+  /** Shown instead of the figures when the claim carries none. */
+  empty?: string;
+  /** A basis stores programme slugs; a reader is shown programme names. */
+  resolveName?: (slug: string) => string;
+}
+const {
+  basis,
+  empty = "This claim carries no recomputable figures.",
+  resolveName,
+} = Astro.props;
+const read = readBasis(basis, resolveName);
+const source = sourceLine(read?.source ?? null);
+---
+
+<div class="basis">
+  {read && read.rows.length > 0 ? (
+    read.rows.map((r) => (
+      <div class="basis-row">
+        <span class="basis-key">{r.key}</span>
+        <span class="basis-value">{r.value}</span>
+      </div>
+    ))
+  ) : (
+    <div class="basis-empty">{empty}</div>
+  )}
+  {source && <div class="basis-source">{source}</div>}
+</div>

@@ -101,6 +101,45 @@ main { display: block; margin: 0; }
 .key-card { width: 8px; height: 11px; border-radius: 1.5px; background: var(--draw); }
 .key-red { width: 8px; height: 11px; border-radius: 1.5px; background: var(--loss); }
 
+/* ── Provenance disclosures ───────────────────────────────────────────────
+   "Analytical on intent": a claim shows its working when a reader asks for
+   it, and never before. Every one of these is a <details> — no script, so
+   the working is reachable with JavaScript off, and the summary keeps
+   whatever the closed state looked like before the disclosure existed. */
+.disclosure > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.disclosure > summary::-webkit-details-marker { display: none; }
+.disclosure > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+
+.basis {
+  margin: 8px 0 2px;
+  padding: 10px 12px;
+  background: var(--accent-wash-soft);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+}
+.basis-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.basis-key { color: var(--secondary); }
+.basis-value { font-weight: 600; }
+.basis-source {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--secondary);
+  padding-top: 2px;
+}
+.basis-empty { color: var(--secondary); }
+
 /* ── Evidence grammar — the signature. Do not fork it. ────────────────────── */
 
 .chip {

@@ -5,6 +5,7 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import EvidenceChip from "../../components/EvidenceChip.astro";
 import SeasonMasthead from "../../components/SeasonMasthead.astro";
 import ConferenceTable from "../../components/ConferenceTable.astro";
+import BasisPanel from "../../components/BasisPanel.astro";
 import FormBadges from "../../components/FormBadges.astro";
 import {
   boxScoreGaps,
@@ -157,13 +158,16 @@ const nextLabel = (f: Fixture): string => {
         <h2 class="sechead">THE PATTERN</h2>
         {pattern ? (
           <>
-            <div class="pattern-head">
+            <details class="disclosure pattern-disclosure">
+            <summary class="pattern-head">
               <EvidenceChip label={pattern.label} />
               <span class="pattern-scope">
                 {counts.played} scored {counts.played === 1 ? "result" : "results"}
                 {lastScored && ` · through ${shortDate(lastScored.date)}`}
               </span>
-            </div>
+            </summary>
+            <BasisPanel basis={pattern.basis} resolveName={(slug) => names.name(slug)} />
+            </details>
             <p class="pattern-text serif">{pattern.text}</p>
             {goalChart && (
               <figure class="chart">
@@ -215,8 +219,13 @@ const nextLabel = (f: Fixture): string => {
           <ul class="findings">
             {findings.map((f) => (
               <li>
-                <EvidenceChip label={f.label} />
-                <span class="finding-text">{f.text}</span>
+                <details class="disclosure finding">
+                  <summary class="finding-head">
+                    <EvidenceChip label={f.label} />
+                    <span class="finding-text">{f.text}</span>
+                  </summary>
+                  <BasisPanel basis={f.basis} resolveName={(slug) => names.name(slug)} />
+                </details>
               </li>
             ))}
           </ul>
@@ -426,13 +435,9 @@ const nextLabel = (f: Fixture): string => {
   .chart-axis a:hover { color: var(--accent); }
 
   .findings { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--hairline); }
-  .findings li {
-    border-top: 1px solid var(--hairline);
-    padding: 10px 0;
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-  }
+  .findings li { border-top: 1px solid var(--hairline); padding: 10px 0; }
+  .finding-head { display: flex; align-items: baseline; gap: 14px; }
+  .finding:hover .finding-text { color: var(--ink); }
   .finding-text { font-size: 13.5px; line-height: 1.45; color: var(--ink-soft); }
 
   /* ── The table ──────────────────────────────────────────────────────────── */

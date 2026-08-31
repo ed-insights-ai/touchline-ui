@@ -6,7 +6,15 @@ import { site } from "../site.config.ts";
 import type { CoverageFile } from "./coverage.ts";
 import { coverageKey } from "./coverage.ts";
 import { loadCoverage, loadFixtures, loadMatches, loadRosters, loadStats } from "./data.ts";
-import { classAbbr, dayNumber, dowIndex, monShort, positionLine, toISO } from "./format.ts";
+import {
+  classAbbr,
+  dayNumber,
+  dayOfMonth,
+  dowIndex,
+  monShort,
+  positionLine,
+  toISO,
+} from "./format.ts";
 import type {
   Fixture,
   FixturesFile,
@@ -313,21 +321,47 @@ export function unresolved(s: Season): Unresolved {
   };
 }
 
-/** Played fixtures whose box score the collector could not reach, each with
- *  the reason the collector gave. */
+/**
+ * Matches with a published result whose box score the collector could not
+ * reach, each with the reason it gave.
+ *
+ * The collector's `missing` map is wider than that: it also records the
+ * exhibitions it skipped and the finals that never carried a score. Neither
+ * is a gap. An exhibition is outside the record entirely, and a final with no
+ * score is already named — as a silent final, counted beside the played
+ * figure — so counting it here again puts the same fixture in a coverage line
+ * twice and makes the site look blinder than it is.
+ *
+ * A gap is where Touchline has the RESULT but not the DETAIL. That is the
+ * only case nothing else on the page names.
+ */
 export interface BoxScoreGap {
   fixtureId: string;
   reason: string;
   fixture: Fixture | undefined;
+  /** "Aug 27 · Harding v Delta State" — the gap named the way a reader
+   *  recognises a match, for the disclosure that lists them. */
+  label: string;
 }
 
 export function boxScoreGaps(s: Season): BoxScoreGap[] {
   const byId = new Map(s.fixtures.fixtures.map((f) => [f.id, f]));
-  return Object.entries(s.matches?.missing ?? {}).map(([fixtureId, reason]) => ({
-    fixtureId,
-    reason,
-    fixture: byId.get(fixtureId),
-  }));
+  return Object.entries(s.matches?.missing ?? {})
+    .filter(([fixtureId]) => {
+      const f = byId.get(fixtureId);
+      return f !== undefined && isScored(f);
+    })
+    .map(([fixtureId, reason]) => {
+      const fixture = byId.get(fixtureId);
+      return {
+        fixtureId,
+        reason,
+        fixture,
+        label: fixture
+          ? `${monShort(fixture.date)} ${dayOfMonth(fixture.date)} · ${s.names.name(fixture.home)} v ${s.names.name(fixture.away)}`
+          : fixtureId,
+      };
+    });
 }
 
 export function coverageFor(

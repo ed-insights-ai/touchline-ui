@@ -5,9 +5,11 @@
 // band scrolls rather than compresses on a narrow screen — a timeline that
 // reflows is lying about when something happened.
 //
-// Every mark currently says who it was through a title attribute alone, which
-// is the hover-only-facts problem; the visible or focusable equivalent lands
-// here when provenance does.
+// Each mark says who it was in text rather than in a title attribute, so the
+// fact is in the document for a screen reader and shown to a pointer. The
+// marks are deliberately not focus stops: every goal is also named in the
+// hero's scorer list and every caution in the cautions panel, and ten tab
+// stops onto duplicated facts would cost a keyboard reader more than it gives.
 interface Mark {
   minute: number | null;
   label: string;
@@ -48,11 +50,9 @@ const at = (minute: number | null): number =>
       <div class="tick-label tick-end" style="left: 100%">{fullTime}′</div>
       {goals.map((g, i) => (
         <>
-          <div
-            class={`goal${g.home ? " goal-home" : " goal-away"}`}
-            style={`left: ${at(g.minute)}%`}
-            title={g.label}
-          ></div>
+          <div class={`mark goal${g.home ? " goal-home" : " goal-away"}`} style={`left: ${at(g.minute)}%`}>
+            <span class="mark-detail">{g.label}</span>
+          </div>
           <div
             class={`goal-label${i % 2 === 0 ? " above" : " below"}${g.home ? "" : " quiet"}`}
             style={`left: ${at(g.minute)}%`}
@@ -60,7 +60,9 @@ const at = (minute: number | null): number =>
         </>
       ))}
       {cards.map((c) => (
-        <div class="card-mark" style={`left: ${at(c.minute)}%`} title={c.label}></div>
+        <div class="mark card-mark" style={`left: ${at(c.minute)}%`}>
+          <span class="mark-detail">{c.label}</span>
+        </div>
       ))}
     </div>
   </div>
@@ -105,6 +107,20 @@ const at = (minute: number | null): number =>
     position: absolute; top: 32px; transform: translateX(-50%);
     width: 8px; height: 11px; background: var(--draw); border-radius: 1.5px;
   }
+
+  /* Who a mark was is the fact the mark carries, and it used to be reachable
+     by hovering a mouse and no other way. */
+  .mark-detail {
+    position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+    z-index: 15;
+    white-space: nowrap;
+    background: var(--ink); color: var(--paper);
+    font-size: 11px; letter-spacing: 0.01em;
+    padding: 4px 8px; border-radius: 4px;
+    opacity: 0; pointer-events: none; transition: opacity 90ms ease-out;
+  }
+  .mark:hover .mark-detail { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .mark-detail { transition: none; } }
 
   @media (max-width: 720px) {
     .timeline-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }

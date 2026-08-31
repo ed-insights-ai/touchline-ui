@@ -77,14 +77,6 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Seven matches carry no box-score link on any collected schedule page.",
-      "basis": {
-        "source": "matches",
-        "box_score_gaps": 7
-      }
-    },
-    {
       "label": "projected",
       "text": "Eighteen days of tune-ups before the table means anything.",
       "basis": {
@@ -132,6 +124,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-08-31T01:13:35.651Z"
+    "validated_at": "2026-08-31T01:48:47.429Z"
   }
 }

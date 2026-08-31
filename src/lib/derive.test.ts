@@ -17,6 +17,7 @@ import {
   isExhibition,
   isScored,
   loadSeason,
+  matchDetailOf,
   playedCount,
   programmeCounts,
   recordOf,
@@ -25,6 +26,7 @@ import {
   teamPageHref,
   unresolved,
 } from "./derive.ts";
+import type { Fixture } from "./model.ts";
 import { isPlayed } from "./model.ts";
 
 const CONFERENCES = ["gac", "lsc", "gsc"] as const;
@@ -104,6 +106,34 @@ describe("played means a final with a published score", () => {
   test("the gap count is the collector's own missing list", () => {
     for (const { season } of seasons) {
       expect(seasonCounts(season).gaps).toBe(boxScoreGaps(season).length);
+    }
+  });
+
+  test("a gap is a result without a detail, and nothing else", () => {
+    // The collector's `missing` map also holds exhibitions it skipped and
+    // finals that never carried a score. Counting those here would put the
+    // same fixture in the coverage line twice — once as a silent final and
+    // again as a gap — and make the site look blinder than it is.
+    for (const { key, season } of seasons) {
+      const gaps = boxScoreGaps(season);
+      for (const g of gaps) {
+        expect(g.fixture, `${key}: ${g.fixtureId} has no fixture`).toBeDefined();
+        expect(isScored(g.fixture as Fixture), `${key}: ${g.label} is not a result`).toBe(true);
+        expect(isExhibition(g.fixture as Fixture), `${key}: ${g.label} is an exhibition`).toBe(false);
+      }
+      // Recomputed the other way: results, less those a box score was collected for.
+      const scored = season.fixtures.fixtures.filter(isScored);
+      const withDetail = scored.filter((f) => matchDetailOf(season, f.id));
+      expect(gaps.length, `${key}`).toBe(scored.length - withDetail.length);
+    }
+  });
+
+  test("no fixture is counted as both a silent final and a gap", () => {
+    for (const { key, season } of seasons) {
+      const gapIds = new Set(boxScoreGaps(season).map((g) => g.fixtureId));
+      for (const f of unresolved(season).finalsWithoutScore) {
+        expect(gapIds.has(f.id), `${key}: ${f.id} counted twice`).toBe(false);
+      }
     }
   });
 });
