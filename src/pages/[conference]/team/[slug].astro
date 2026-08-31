@@ -24,6 +24,8 @@ import {
 import type { Fixture, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import { countOrigins, originOf } from "../../../lib/origin.ts";
+import { returnedShare, tenureGrid } from "../../../lib/tenure.ts";
+import EvidenceChip from "../../../components/EvidenceChip.astro";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
@@ -86,17 +88,17 @@ const LINES = [
 const SQUAD_SHOWN = 4;
 
 // Where a squad member is from, read off the hometown the programme published.
-// The trigram is the only place this fact appears on a row — rows do not print
-// hometowns — so it takes the secondary ink rather than the faint one, and the
-// word "international" is never used: in football that word means a capped
-// player, which is not what a hometown can tell anyone.
+// The flag is the only place this fact appears on a row — rows do not print
+// hometowns — so the country's name travels with it for anyone who cannot see
+// it, and the word "international" is never used: in football that word means
+// a capped player, which is not what a hometown can tell anyone.
 const nationOf = (m: { player: { hometown?: string } }) => {
   const origin = originOf(m.player.hometown);
   return origin.kind === "abroad" ? origin.nation : null;
 };
 
 // Counted over exactly the rows the four lines render, so the figure and the
-// trigrams a reader can count by hand — including the ones folded behind
+// flags a reader can count by hand — including the ones folded behind
 // "+ N more" — are the same population.
 const rendered = LINES.flatMap((l) => squadByLine(season, slug, l.key));
 const origins = countOrigins(rendered.map((m) => m.player.hometown));
@@ -191,10 +193,49 @@ const nextNote = upcoming.length
       .join(", ")
   : "No match inside the fortnight.";
 
-const shapeNote =
-  shape.returning === null
-    ? `${spell(shape.size)} on the roster. The season before was never collected, so nobody here is called new.`
-    : `${spell(shape.returning)} back from ${season.fixtures.season - 1}, ${spell(shape.fresh ?? 0)} new to the roster.`;
+// ── The squad's shape, as tenure ───────────────────────────────────────────
+// A number said how many came back; it could not say who. The grid draws one
+// square per player, and this sentence is the figure it is a picture of.
+const grid = tenureGrid(season, slug);
+const share = grid.minutes && grid.minutes.total > 0 ? returnedShare(grid.minutes) : null;
+
+const shapeReturn =
+  grid.returning === null
+    ? `${spell(grid.size)} on the roster. The season before was never collected, so nobody here is called new.`
+    : `${grid.returning} of ${grid.size} ${grid.size === 1 ? "player returns" : "players return"}`;
+
+const shapeMinutes =
+  grid.returning === null
+    ? null
+    : share !== null
+      ? `, holding ${(share * 100).toFixed(1)}% of last season's minutes.`
+      : grid.minutesUncollected
+        ? ". Last season's statistics were never collected, so how much of its football came back cannot be said."
+        : ". No minutes were published for last season, so there is no share of them to take.";
+
+// Minutes that were played and belong to no line drawn below. A prior roster
+// that wrote "Right Back" where this year's writes "Defender" puts real
+// football outside every row, and the page says so rather than quietly
+// shrinking the season it is taking a share of.
+const shapeOffLine =
+  grid.offLine.players > 0
+    ? ` Last season's roster listed ${spell(grid.offLine.players)} ${grid.offLine.players === 1 ? "player" : "players"} at a position this site cannot place on a line; those minutes are inside that total and inside none of the rows.`
+    : "";
+
+const shapeSentence = `${shapeReturn}${shapeMinutes ?? ""}${shapeOffLine}`;
+
+// What a screen reader gets instead of fifty squares: the spread the ink is
+// carrying, in words, once per row.
+const TENURE_WORDS = { FR: "first years", SO: "sophomores", JR: "juniors", SR: "seniors", "5Y": "fifth years" } as const;
+const spread = (squares: { tenure: { step: keyof typeof TENURE_WORDS | null } }[]): string => {
+  if (squares.length === 0) return "none";
+  const counts = new Map<string, number>();
+  for (const sq of squares) {
+    const word = sq.tenure.step ? TENURE_WORDS[sq.tenure.step] : "no published class year";
+    counts.set(word, (counts.get(word) ?? 0) + 1);
+  }
+  return [...counts].map(([word, n]) => `${n} ${word}`).join(", ");
+};
 
 const stripNote = (() => {
   const spelled = spell(counts.played);
@@ -287,15 +328,75 @@ const identity = identityLine(slug);
           <div class="stat-figure stat-figure-sm serif num">{upcoming.length}</div>
           <div class="stat-note">{nextNote}</div>
         </div>
-        <div class="stat">
-          <div class="label">SQUAD SHAPE</div>
-          <div class="stat-figure stat-figure-sm serif num">
-            {shape.returning === null ? shape.size : `${shape.returning} + ${shape.fresh}`}
-          </div>
-          <div class="stat-note">{shapeNote}</div>
-        </div>
       </div>
     </section>
+
+    {/* No roster, no shape. The SQUAD section below names that absence once,
+        in the programme's own words; saying it twice on one page is noise
+        rather than more honesty. */}
+    {grid.size > 0 && (
+    <section class="band">
+      <h2 class="sechead">SQUAD SHAPE</h2>
+      <p class="shape-lede">
+        <EvidenceChip label="derived" />
+        <span class="shape-said">{shapeSentence}</span>
+      </p>
+      <div class="shape">
+        {grid.rows.map((row) => {
+          const pct = returnedShare(row.minutes);
+          return (
+            <div class="shape-row">
+              <div class="shape-line">
+                <span class="shape-label">{row.label}</span>
+                <span class="shape-count num">
+                  {row.returners.length} ret · {row.newcomers.length} new
+                </span>
+              </div>
+              <div class="shape-squares">
+                <span class="vh">
+                  {row.label}: {spread(row.returners)} returning; {spread(row.newcomers)} new.
+                </span>
+                {row.returners.map((sq) => (
+                  <span class="sq" title={sq.title}>
+                    <span class={`sq-box${sq.tenure.step ? ` sq-${sq.tenure.step.toLowerCase()}` : " sq-open"}`}></span>
+                    {sq.nation && <span class="sq-dot"></span>}
+                  </span>
+                ))}
+                {row.returners.length > 0 && row.newcomers.length > 0 && (
+                  <span class="shape-rule"></span>
+                )}
+                {row.newcomers.map((sq) => (
+                  <span class="sq" title={sq.title}>
+                    <span class={`sq-box${sq.tenure.step ? ` sq-${sq.tenure.step.toLowerCase()}` : " sq-open"}`}></span>
+                    {sq.nation && <span class="sq-dot"></span>}
+                  </span>
+                ))}
+              </div>
+              <div class="shape-minutes">
+                {/* No track at all where there is nothing to take a share of.
+                    An empty track beside an em-dash reads as nought per cent,
+                    which is the one thing the em-dash is there not to say. */}
+                {pct !== null && (
+                  <span class="shape-track">
+                    <span class="shape-fill" style={`width: ${(pct * 100).toFixed(1)}%`}></span>
+                  </span>
+                )}
+                <span class="shape-pct num">{pct === null ? "—" : `${Math.round(pct * 100)}%`}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <p class="shape-caption serif-italic">
+        Each square is a player, inked by how long they have been here — palest for
+        a first year, darkest for a fifth. Returners sit left of the rule and
+        newcomers right; a dot beneath a square marks a published hometown outside
+        the United States, and a hollow square is a class year the roster never
+        printed. The figure at the right is the share of last season's minutes at
+        that line still on this roster.
+      </p>
+    </section>
+    )}
 
     <section class="band band-last" id="squad">
       <h2 class="sechead">SQUAD</h2>
@@ -428,12 +529,61 @@ const identity = identityLine(slug);
   /* ── The season strip ───────────────────────────────────────────────────── */
 
   /* ── Profile ────────────────────────────────────────────────────────────── */
-  .profile { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+  .profile { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
   .stat { display: flex; flex-direction: column; gap: 6px; }
   .stat-figure { font-size: 40px; line-height: 1; }
   .stat-figure-sm { font-size: 32px; }
   .stat-note { font-size: 12px; color: var(--secondary); line-height: 1.5; }
   .stat-wide .stat-note { font-size: 12.5px; max-width: 340px; }
+
+  /* ── Squad shape ────────────────────────────────────────────────────────── */
+  /* The figure this grid is a picture of, said in words first: a reader who
+     takes nothing else from the band should still leave with the sentence. */
+  .shape-lede {
+    margin: 0 0 20px;
+    display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+  }
+  .shape-said { font-size: 13.5px; line-height: 1.55; max-width: 780px; }
+  .shape { display: flex; flex-direction: column; }
+  .shape-row {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr) 160px;
+    align-items: center;
+    gap: 20px;
+    padding: 11px 0;
+    border-top: 1px solid var(--hairline-soft);
+  }
+  .shape-row:first-child { border-top: 0; }
+  .shape-line { display: flex; flex-direction: column; gap: 3px; }
+  .shape-label { font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: var(--secondary); }
+  .shape-count { font-size: 11.5px; color: var(--quiet); }
+  .shape-squares { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px; }
+  /* A fixed height whether or not the dot is there, so a row of squares sits
+     on one line and does not shuffle when one player is from abroad. */
+  .sq { display: flex; flex-direction: column; align-items: center; gap: 2px; height: 20px; }
+  .sq-box { width: 14px; height: 14px; border-radius: 3px; background: var(--tenure-fr); }
+  .sq-fr { background: var(--tenure-fr); }
+  .sq-so { background: var(--tenure-so); }
+  .sq-jr { background: var(--tenure-jr); }
+  .sq-sr { background: var(--tenure-sr); }
+  .sq-5y { background: var(--tenure-5y); }
+  /* No fill at all, not the palest fill: a class year the roster never printed
+     is an absence, and the lightest step already means something else. */
+  .sq-open { background: none; border: 1px solid var(--faint); }
+  .sq-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--secondary); }
+  .shape-rule { width: 1px; height: 22px; background: var(--tenure-rule); margin: 0 5px; align-self: flex-start; }
+  .shape-minutes { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+  .shape-track {
+    width: 110px; height: 5px; border-radius: 3px;
+    background: var(--hairline); overflow: hidden;
+  }
+  .shape-fill { display: block; height: 100%; background: var(--ink); }
+  .shape-pct { font-size: 12.5px; color: var(--ink-soft); min-width: 34px; text-align: right; }
+  .shape-caption {
+    margin: 18px 0 0;
+    font-size: 14px; line-height: 1.6; color: var(--secondary);
+    max-width: 760px;
+  }
 
   /* ── Squad ──────────────────────────────────────────────────────────────── */
   .squad { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; }
@@ -505,6 +655,15 @@ const identity = identityLine(slug);
 
   @media (max-width: 1180px) {
     .profile { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    /* The figure keeps its place beside the label; only the squares drop to
+       their own line. Explicit rows, because auto-placement puts a full-width
+       item first and pushes the figure below everything. */
+    .shape-row { grid-template-columns: minmax(0, 1fr) 130px; gap: 10px 16px; }
+    .shape-line { grid-column: 1; grid-row: 1; }
+    .shape-minutes { grid-column: 2; grid-row: 1; align-self: start; }
+    .shape-squares { grid-column: 1 / -1; grid-row: 2; }
+    .shape-track { width: 74px; }
+    .shape-minutes { gap: 10px; }
     .squad { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
   }
 </style>

@@ -47,6 +47,16 @@
   --chip-context-border: #d8d5cd;
   --chip-context-fg: #8b9096;
 
+  /* Tenure — the squad-shape ladder on a team page. One ink at five steps,
+     because tenure is one dimension: a hue per class year would read as five
+     different facts rather than one fact getting darker. */
+  --tenure-fr: rgba(26, 28, 34, 0.2);
+  --tenure-so: rgba(26, 28, 34, 0.38);
+  --tenure-jr: rgba(26, 28, 34, 0.56);
+  --tenure-sr: rgba(26, 28, 34, 0.74);
+  --tenure-5y: rgba(26, 28, 34, 0.92);
+  --tenure-rule: rgba(26, 28, 34, 0.3);
+
   /* Position lines — dots and chips only, never a fill. */
   --pos-gk: #7b61d7;
   --pos-def: #3f70a9;
