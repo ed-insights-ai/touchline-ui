@@ -636,20 +636,6 @@ export function squadOf(s: Season, slug: string): SquadMember[] {
   });
 }
 
-export interface SquadShape {
-  size: number;
-  returning: number | null;
-  fresh: number | null;
-}
-
-export function squadShape(s: Season, slug: string): SquadShape {
-  const squad = squadOf(s, slug);
-  const before = previousRoster(s, slug);
-  if (!before) return { size: squad.length, returning: null, fresh: null };
-  const fresh = squad.filter((m) => m.isNew).length;
-  return { size: squad.length, returning: squad.length - fresh, fresh };
-}
-
 /** The line the design colours, ordered by what the line is listed by, then by
  *  the order the programme printed its roster in. */
 export function squadByLine(
