@@ -40,11 +40,19 @@ const teams = season.fixtures.programmes;
     ))}
   </nav>
   <div class="grow"></div>
+  <!-- The pill shows the abbreviation because eleven of them have to fit on
+       one rule. A title is a hover affordance and not a dependable accessible
+       name, so the programme's name is given as one: the abbreviation is the
+       only thing on this site a link is made of that a reader cannot expand
+       from what is beside it. Elsewhere the full name is already in the DOM —
+       the goals chart carries a visually-hidden span, the season strip its
+       detail box — and those need nothing. -->
   <nav class="teampills">
     {teams.map((p) => (
       <a
         href={teamHref(season.key, p.slug)}
         title={p.name}
+        aria-label={p.name}
         aria-current={p.slug === currentTeam ? "page" : undefined}
       ><span>{p.abbr ?? p.name}</span></a>
     ))}
