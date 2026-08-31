@@ -10,7 +10,7 @@
 //
 // League dates take the league colour whether or not they have been played:
 // they answer a different question from "has this date passed".
-import { monLong, spell } from "../lib/format.ts";
+import { monLong, plural, spell } from "../lib/format.ts";
 import type { Season } from "../lib/derive.ts";
 import { scheduleCounts, spineOf } from "../lib/schedule.ts";
 
@@ -29,7 +29,6 @@ const heightOf = (count: number): number => 16 + 6 * (count - 1);
 const monthDay = (iso: string): string => `${monLong(iso)} ${Number(iso.slice(8, 10))}`;
 const silenceDates = spine ? spine.marks.filter((m) => m.silence).length : 0;
 const cap = (t: string): string => t.replace(/^\w/, (ch) => ch.toUpperCase());
-const plural = (n: number, one: string, many: string): string => (n === 1 ? one : many);
 
 // The note is assembled here rather than in the markup: it is one sentence of
 // prose about several figures, and building it as text keeps the spacing under

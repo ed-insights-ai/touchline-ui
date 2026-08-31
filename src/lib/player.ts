@@ -30,6 +30,7 @@ import {
   type Line,
   monShort,
   pct1,
+  plural,
   positionLine,
   rate3,
   spell,
@@ -210,6 +211,30 @@ function onRosterIn(s: Season, slug: string, folded: string, year: number): bool
   return false;
 }
 
+/**
+ * The keeper's composed sentence, and the striker's.
+ *
+ * Both are exported and pure so their agreement can be read at a count of one
+ * without standing up a season. "One shots on target faced" shipped, and the
+ * only way to see it on the site was to find a keeper who had faced exactly
+ * one — which is the first competitive minute of every keeper's season.
+ */
+export function keeperSentence(faced: number, apps: number, saves: number, every: boolean): string {
+  return `${cap(spell(faced))} ${plural(faced, "shot", "shots")} on target faced across ${spell(
+    apps,
+  )} ${plural(apps, "match", "matches")}; ${spell(saves)} stopped${
+    every ? " — and every countable minute in goal so far." : "."
+  }`;
+}
+
+export function strikeSentence(goals: number, shots: number): string {
+  return `${cap(spell(goals))} from ${spell(shots)} ${plural(
+    shots,
+    "shot",
+    "shots",
+  )} — ${pct1(goals / shots)} of what they struck.`;
+}
+
 export function playerCard(
   s: Season,
   slug: string,
@@ -286,7 +311,7 @@ export function playerCard(
           played,
           available,
           pct: Math.min(100, Math.round((played / available) * 100)),
-          note: `${played} / ${available} · ${apps} ${apps === 1 ? "appearance" : "appearances"}, ${starts} ${starts === 1 ? "start" : "starts"}`,
+          note: `${played} / ${available} · ${apps} ${plural(apps, "appearance", "appearances")}, ${starts} ${plural(starts, "start", "starts")}`,
         };
 
   const cautions = stats?.yellow ?? 0;
@@ -295,8 +320,9 @@ export function playerCard(
     cautions === 0 && reds === 0
       ? dash
       : [
-          cautions > 0 ? `${cautions} ${cautions === 1 ? "caution" : "cautions"}` : null,
-          reds > 0 ? `${reds} red` : null,
+          cautions > 0 ? `${cautions} ${plural(cautions, "caution", "cautions")}` : null,
+          // "2 red" was the one that read as a typo rather than a sentence.
+          reds > 0 ? `${reds} ${plural(reds, "red", "reds")}` : null,
         ]
           .filter(Boolean)
           .join(" · ");
@@ -418,15 +444,13 @@ export function playerCard(
       const every = minutes && minutes.played === minutes.available;
       return {
         label: "derived" as const,
-        text: `${cap(spell(faced))} shots on target faced across ${spell(apps)} ${apps === 1 ? "match" : "matches"}; ${spell(keeperStats.saves)} stopped${
-          every ? " — and every countable minute in goal so far." : "."
-        }`,
+        text: keeperSentence(faced, apps, keeperStats.saves, every === true),
       };
     }
     if (stats && (stats.goals ?? 0) > 0 && stats.shots) {
       return {
         label: "derived" as const,
-        text: `${cap(spell(stats.goals ?? 0))} from ${spell(stats.shots)} ${stats.shots === 1 ? "shot" : "shots"} — ${pct1((stats.goals ?? 0) / stats.shots)} of what they struck.`,
+        text: strikeSentence(stats.goals ?? 0, stats.shots),
       };
     }
     if (firstYear !== null && !archiveNew) {

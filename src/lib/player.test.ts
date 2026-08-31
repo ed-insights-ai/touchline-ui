@@ -27,7 +27,7 @@ import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { loadSeason, squadOf } from "./derive.ts";
 import { classAbbr } from "./format.ts";
-import { playerCard } from "./player.ts";
+import { keeperSentence, playerCard, strikeSentence } from "./player.ts";
 
 const ARCHIVE_NEW = "First season in this programme's archive";
 
@@ -110,6 +110,46 @@ describe("the three sites that read the archive cannot drift apart", () => {
       (c) => c.card.tenure !== null && c.card.tenure !== ARCHIVE_NEW,
     )) {
       expect(c.card.tenure).toMatch(/^On the roster since \d{4}$/);
+    }
+  });
+});
+
+/**
+ * The card's two composed sentences, at the count that broke them.
+ *
+ * "One shots on target faced" is what the keeper sentence printed for every
+ * keeper who had faced exactly one — the reading every keeper's season passes
+ * through on its way to the second. The house spells its figures and keeps
+ * doing so; only the noun moves.
+ */
+describe("the composed sentences agree with their own figures", () => {
+  test("one shot on target is a shot", () => {
+    expect(keeperSentence(1, 1, 1, false)).toBe(
+      "One shot on target faced across one match; one stopped.",
+    );
+  });
+
+  test("more than one keeps the plural, and the perfect-minutes clause", () => {
+    expect(keeperSentence(4, 3, 3, false)).toBe(
+      "Four shots on target faced across three matches; three stopped.",
+    );
+    expect(keeperSentence(9, 5, 7, true)).toBe(
+      "Nine shots on target faced across five matches; seven stopped — and every countable minute in goal so far.",
+    );
+  });
+
+  test("a striker's one shot is a shot", () => {
+    expect(strikeSentence(1, 1)).toBe("One from one shot — 100.0% of what they struck.");
+    expect(strikeSentence(3, 10)).toBe("Three from ten shots — 30.0% of what they struck.");
+  });
+
+  test("no card on the site prints a figure against the wrong noun", () => {
+    // The sweep the unit cases cannot do: whatever the collect holds today,
+    // no rendered sentence pairs "one" with a plural.
+    for (const c of everyCard) {
+      const text = c.card.finding?.text ?? "";
+      expect(text).not.toMatch(/\bone (shots|matches|goals)\b/i);
+      expect(c.card.minutes?.note ?? "").not.toMatch(/\b1 (appearances|starts)\b/);
     }
   });
 });

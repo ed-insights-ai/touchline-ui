@@ -183,6 +183,24 @@ export type Line = "GK" | "DEF" | "MID" | "FWD";
  */
 export const friendlies = (n: number): string => (n === 1 ? "friendly" : "friendlies");
 
+/**
+ * A noun that agrees with the count in front of it.
+ *
+ * Every composed sentence on this site interpolates a figure and then a noun,
+ * and a sentence written while looking at a season's worth of data is written
+ * against the plural: "One shots on target faced", "1 box-score gaps across
+ * the conference". Both shipped. The count of one is not an edge case here —
+ * it is the first match of a season, the only silent final, the single gap
+ * left after a good collect — so it is the reading a figure arrives at exactly
+ * when someone is most likely to be looking at it.
+ *
+ * The house spells figures up to twenty (see `spell`); this only settles the
+ * noun, and it takes both forms rather than appending an "s", because the
+ * forms the pages need are not all regular — "final stands" against "finals
+ * stand" moves the s from one word to the next.
+ */
+export const plural = (n: number, one: string, many: string): string => (n === 1 ? one : many);
+
 export const LINE_ORDER = ["GK", "DEF", "MID", "FWD"] as const;
 export const LINE_LABEL: Record<Line, string> = {
   GK: "IN GOAL",

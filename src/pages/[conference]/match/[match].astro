@@ -18,6 +18,7 @@ import MatchTimeline from "../../../components/MatchTimeline.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
+import { footNote as footNoteOf, type MatchState } from "../../../lib/matchstate.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
@@ -59,7 +60,7 @@ const sides =
     ? { home: detail.teams[homeIndex], away: detail.teams[1 - homeIndex], homeIndex }
     : null;
 
-type State = "played" | "score-only" | "silent-final" | "silent-past" | "preview" | "off";
+type State = MatchState;
 const state: State =
   fixture.status === "postponed" || fixture.status === "cancelled"
     ? "off"
@@ -198,12 +199,11 @@ const explain: Record<State, string> = {
 const ledgerSide = names.isMember(fixture.home) ? fixture.home : fixture.away;
 const ledgerName = names.name(ledgerSide);
 
-const footNote =
-  state === "silent-final"
-    ? `One of ${silence.finalsWithoutScore.length} finals without a published score · ${gaps.length} box-score gaps across the conference`
-    : state === "silent-past"
-      ? `One of ${silence.pastDateNoResult.length} past dates with no published result · ${gaps.length} box-score gaps across the conference`
-      : `${gaps.length} box-score gaps across the conference`;
+const footNote = footNoteOf(state, {
+  finalsWithoutScore: silence.finalsWithoutScore.length,
+  pastDateNoResult: silence.pastDateNoResult.length,
+  gaps: gaps.length,
+});
 
 const provenance =
   state === "played"
