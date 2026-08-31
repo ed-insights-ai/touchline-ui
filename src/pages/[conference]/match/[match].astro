@@ -19,7 +19,12 @@ import MatchTimeline from "../../../components/MatchTimeline.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
-import { footNote as footNoteOf, type MatchState, provenance } from "../../../lib/matchstate.ts";
+import {
+  footNote as footNoteOf,
+  type MatchState,
+  metaDescription,
+  provenance,
+} from "../../../lib/matchstate.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
@@ -220,7 +225,18 @@ const awayIdentity = identityLine(fixture.away);
 const homeName = names.name(fixture.home);
 const awayName = names.name(fixture.away);
 ---
-<Page title={`Touchline — ${homeName} v ${awayName}`}>
+<Page
+  title={`Touchline — ${homeName} v ${awayName}`}
+  description={metaDescription(state, {
+    home: homeName,
+    away: awayName,
+    score: scored ? `${fixture.home_score}–${fixture.away_score}` : null,
+    date: `${longDate(fixture.date)}, ${season.fixtures.season}`,
+    conference: site.conferenceNames[season.key] ?? season.fixtures.conference,
+    hasPlays: plays.length > 0,
+    status: fixture.status,
+  })}
+>
   <div class="tl-page match">
     <header class="mhead">
       <a class="back" href={seasonHref(season.key)}>← SEASON</a>
