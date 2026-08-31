@@ -178,13 +178,41 @@ export const LINE_LABEL: Record<Line, string> = {
   MID: "MIDFIELD",
   FWD: "FRONT LINE",
 };
+/**
+ * The published vocabulary, in the order it has to be read.
+ *
+ * Order is the whole design here, because these words nest. A DEFENSIVE
+ * MIDFIELDER is a midfielder, so midfield is read before the lines on either
+ * side of it — reading the first letter instead put one on the back line for
+ * as long as this file has existed. A WING BACK is a back and not a winger, so
+ * "back" is read before "wing". Everything else is a plain phrase match.
+ *
+ * The table is authored and conference-agnostic: it maps words a roster
+ * prints, never a programme. It widens what is RECOGNISED and never guesses —
+ * a word not in it leaves the player unlisted, which is a fact about what was
+ * published and not a claim about where they play.
+ */
+const POSITIONS: readonly [RegExp, Line][] = [
+  // Nothing else in the vocabulary contains "keeper".
+  [/keeper|^gk$|^g$/, "GK"],
+  [/midfield|miidfield|^mid$|^mf$|^m$/, "MID"],
+  [/back|defen|^def$|^d$/, "DEF"],
+  [/forward|foward|strik|wing|attack|^fwd$|^f$|^w$/, "FWD"],
+];
+
 export function positionLine(position: string | undefined): Line | null {
   if (!position) return null;
-  const s = position.toLowerCase();
-  if (s.startsWith("g")) return "GK";
-  if (s.startsWith("d")) return "DEF";
-  if (s.startsWith("m")) return "MID";
-  if (s.startsWith("f")) return "FWD";
+  // A roster that lists two positions lists the first one first: "Midfielder/
+  // Defender" is a midfielder who covers. Read the first and ignore the rest,
+  // which is what these pages have always printed.
+  const first = position.split("/")[0] ?? "";
+  const word = first
+    .toLowerCase()
+    .replace(/[^a-z ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!word) return null;
+  for (const [published, line] of POSITIONS) if (published.test(word)) return line;
   return null;
 }
 
