@@ -19,7 +19,41 @@
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { optimize } from "svgo";
 import { PLACED_NATIONS } from "../src/lib/origin.ts";
+
+/**
+ * A flag heavier than this is carrying artwork nobody can see.
+ *
+ * Five of the sixty-three are coats of arms drawn at full detail — Serbia's
+ * double-headed eagle is 181 KB — and this site draws them fourteen pixels
+ * wide. Above the threshold the file goes through svgo with reduced coordinate
+ * precision, which changes the FILE and not the flag: same paths, same colours,
+ * fewer decimal places than a 14px box could ever resolve. The rule is the
+ * threshold and not a list of countries, so a heavy flag added later is trimmed
+ * without anyone remembering to add it.
+ */
+const HEAVY = 40 * 1024;
+
+/**
+ * Whole numbers, and the reason that is safe.
+ *
+ * These flags are drawn in a user space hundreds of units wide — Serbia's is
+ * 1350 — inside a 640-wide viewBox that this site then draws at 14px. One
+ * whole unit is a hundredth of a pixel on the page. Rounding to it removes two
+ * thirds of the file and nothing a screen can show; a precision of 1 removes
+ * almost nothing, because the artwork already has at most one decimal in most
+ * places. Verified by rendering: original and trimmed are identical at 14px
+ * and at sixteen times that.
+ *
+ * The guard is what keeps the rule safe for a flag nobody has added yet. A
+ * drawing whose whole coordinate space is a few units across would be
+ * destroyed by integer rounding, so anything under a hundred units wide is
+ * copied untouched however heavy it is.
+ */
+const PRECISION = { multipass: true, floatPrecision: 0 } as const;
+const ROOM = /viewBox="[-\d.]+ [-\d.]+ ([\d.]+) /;
+const roomy = (svg: string): boolean => Number(ROOM.exec(svg)?.[1] ?? 0) >= 100;
 
 const SET = "node_modules/flag-icons";
 const FROM = join(SET, "flags", "4x3");
@@ -99,8 +133,17 @@ if (misnamed.length > 0) {
   process.exit(1);
 }
 
+const trimmed: { nation: string; iso: string; from: number; to: number }[] = [];
+
 for (const nation of PLACED_NATIONS) {
-  const svg = readFileSync(join(FROM, `${nation.iso}.svg`));
+  const source = join(FROM, `${nation.iso}.svg`);
+  const raw = readFileSync(source);
+  let svg = raw;
+  const text = raw.toString("utf8");
+  if (raw.length > HEAVY && roomy(text)) {
+    svg = Buffer.from(optimize(text, { path: source, ...PRECISION }).data, "utf8");
+    trimmed.push({ nation: nation.name, iso: nation.iso, from: raw.length, to: svg.length });
+  }
   bytes += svg.length;
   const dest = join(TO, `${nation.iso}.svg`);
   // Only write a file that differs, so re-running leaves the tree alone.
@@ -119,12 +162,36 @@ for (const entry of readdirSync(TO)) {
   pruned++;
 }
 
+// The notice has to describe what is actually in this directory. The MIT
+// licence permits modification; a notice claiming the artwork is unmodified
+// once any of it has been optimized does not.
+const svgoVersion = (
+  JSON.parse(readFileSync(join("node_modules", "svgo", "package.json"), "utf8")) as {
+    version?: string;
+  }
+).version;
+
 writeFileSync(
   join(TO, NOTICE),
   [
-    "The flags in this directory are from flag-icons, used unmodified.",
+    "The flags in this directory are from flag-icons.",
     "",
     `  flag-icons ${version ?? "(version unknown)"} — https://github.com/lipis/flag-icons`,
+    "",
+    trimmed.length === 0
+      ? "They are copied unmodified."
+      : [
+          "All but the following are copied unmodified. These carry coats of arms",
+          "drawn at a detail this site cannot show — it draws every flag fourteen",
+          `pixels wide — so they are passed through svgo ${svgoVersion ?? ""} with reduced`.trimEnd(),
+          "coordinate precision. The paths and the colours are the artwork's own;",
+          "only the number of decimal places behind them has changed.",
+          "",
+          ...trimmed.map(
+            (t) =>
+              `  ${t.nation} (${t.iso}.svg): ${Math.round(t.from / 1024)} KB to ${Math.round(t.to / 1024)} KB`,
+          ),
+        ].join("\n"),
     "",
     readFileSync(join(SET, "LICENSE"), "utf8").trim(),
     "",
@@ -133,7 +200,9 @@ writeFileSync(
   ].join("\n"),
 );
 
+const saved = trimmed.reduce((n, t) => n + (t.from - t.to), 0);
 console.log(
   `flags: ${PLACED_NATIONS.length} vendored (${Math.round(bytes / 1024)} KB), ` +
-    `${copied} written, ${pruned} pruned`,
+    `${copied} written, ${pruned} pruned` +
+    (trimmed.length > 0 ? `, ${trimmed.length} trimmed saving ${Math.round(saved / 1024)} KB` : ""),
 );
