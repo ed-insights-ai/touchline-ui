@@ -3,18 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-08-31T02:15:00Z",
-  "data_collected_at": "2026-08-30T21:09:56+00:00",
-  "kicker": "LSC · 24 DAYS TO CONFERENCE · AUG 30",
-  "headline": "Fifteen matches in, the LSC table is still empty, and conference play is 24 days away.",
-  "dek": "Midwestern State has scored eleven goals and conceded one; Sul Ross State has conceded eight and scored none. Three matches are marked final with no score published, and three more sit past their date with no result recorded.",
+  "generated_at": "2026-08-31T03:05:00Z",
+  "data_collected_at": "2026-08-31T02:48:38+00:00",
+  "kicker": "LSC · 23 DAYS TO CONFERENCE · AUG 31",
+  "headline": "Sixteen matches in, the LSC table is still empty, and conference play is 23 days away.",
+  "dek": "Sixteen matches carry a published final score out of 151 on the season calendar. Three more are marked final with no score published, and three sit past their date with no result recorded.",
+  "lede_basis": {
+    "source": "fixtures",
+    "played": 16,
+    "total": 151,
+    "finals_without_score": 3,
+    "past_date_no_result": 3,
+    "conference_opens": "2026-09-23",
+    "days_until_conference": 23
+  },
   "summary_stat": {
     "label": "Matches played",
-    "value": "15 of 151",
-    "detail": "Fifteen matches carry a published final score; the season calendar holds 151 in all.",
+    "value": "16 of 151",
+    "detail": "Sixteen matches carry a published final score; the season calendar holds 151 in all.",
     "basis": {
       "source": "fixtures",
-      "played": 15,
+      "played": 16,
       "total": 151
     }
   },
@@ -30,8 +39,8 @@
         "ut-dallas": 4,
         "west-texas-a-m": 4,
         "lubbock-christian": 3,
+        "saint-edwards": 3,
         "dallas-baptist": 0,
-        "saint-edwards": 0,
         "saint-marys": 0,
         "sul-ross-state": 0,
         "texas-a-m-international": 0,
@@ -57,13 +66,13 @@
     },
     {
       "label": "derived",
-      "text": "Against opponents from outside the conference the eleven programmes have won seven, drawn one and lost five, scoring 26 goals and conceding 24.",
+      "text": "Against opponents from outside the conference the LSC programmes have won eight, drawn one and lost five, scoring 29 goals and conceding 24.",
       "basis": {
         "derived_from": "fixtures",
-        "wins": 7,
+        "wins": 8,
         "draws": 1,
         "losses": 5,
-        "gf": 26,
+        "gf": 29,
         "ga": 24
       }
     },
@@ -74,6 +83,14 @@
         "programme": "oklahoma-christian",
         "gf": 4,
         "ga": 0
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Four different Saint Edwards players have scored in the collected records: Bartek Zabek, Holden Rabb, Jake Ciccarello and Nemanja Pavicevic.",
+      "basis": {
+        "programme": "saint-edwards",
+        "distinct_scorers_min": 4
       }
     },
     {
@@ -112,21 +129,30 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-08-29 ut-dallas v cal-state-east-bay",
-      "line": "UT Dallas 3-1 Cal State East Bay, the last of six results collected on August 29."
+      "fixture_ref": "2026-08-30 cal-state-dominguez-hills v saint-edwards",
+      "line": "Cal State Dominguez Hills 0-3 Saint Edwards, the only match collected on August 30."
     },
     "next_match": {
-      "fixture_ref": "2026-08-30 cal-state-dominguez-hills v saint-edwards",
-      "line": "Saint Edwards away to Cal State Dominguez Hills at 15:00, the only match on the day."
+      "fixture_ref": "2026-08-31 west-alabama v texas-a-m-international",
+      "line": "Texas A&M International away to West Alabama at 16:00, the only match on the day."
     }
   },
   "table_state": {
     "mode": "pre-conference",
-    "statement": "No conference match has been played, so all eleven programmes sit at 0–0–0 and the table carries early form from non-conference results only.",
-    "footnote": "3–1–0 points · conference play opens September 23, 24 days after this collection · a pre-conference table is a valid state."
+    "statement": "No conference match has been played, so no programme has a conference record yet and the table carries early form from non-conference results only.",
+    "footnote": "Conference play opens September 23, 23 days after this collection · sixteen matches are played and three finals carry no score, counted beside that figure and never inside it · a pre-conference table is a valid state.",
+    "basis": {
+      "source": "fixtures",
+      "played": 16,
+      "total": 151,
+      "finals_without_score": 3,
+      "past_date_no_result": 3,
+      "conference_opens": "2026-09-23",
+      "days_until_conference": 23
+    }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-08-31T01:53:18.328Z"
+    "validated_at": "2026-08-31T02:55:07.137Z"
   }
 }

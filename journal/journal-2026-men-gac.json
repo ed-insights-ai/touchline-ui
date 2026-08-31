@@ -3,22 +3,32 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-08-31T02:15:00Z",
-  "data_collected_at": "2026-08-30T21:07:31+00:00",
-  "kicker": "GAC · OPENING WEEKEND · AUG 30",
-  "headline": "Two perfect starts, and eighteen days until it counts.",
-  "dek": "Ouachita Baptist and Rogers State swept the opening weekend — 6–0 and 4–1 on aggregate. The table stays empty until September 17, when three matches open conference play.",
+  "generated_at": "2026-08-31T02:55:00Z",
+  "data_collected_at": "2026-08-31T02:48:14+00:00",
+  "kicker": "GAC · NON-CONFERENCE · AUG 31",
+  "headline": "Seven wins and six defeats outside the conference, and seventeen days until the table means anything.",
+  "dek": "Ouachita Baptist and Rogers State are the only sides still unbeaten. Outside its own membership the conference has scored twenty goals and conceded twelve, and the table stays empty until September 17.",
+  "lede_basis": {
+    "derived_from": "fixtures",
+    "wins": 7,
+    "draws": 0,
+    "losses": 6,
+    "gf": 20,
+    "ga": 12,
+    "conference_opens": "2026-09-17",
+    "days_until_conference": 17
+  },
   "summary_stat": {
     "label": "GAC VS EVERYONE ELSE",
-    "value": "7–0–5",
-    "detail": "20 GOALS FOR · 11 AGAINST",
+    "value": "7–0–6",
+    "detail": "20 GOALS FOR · 12 AGAINST",
     "basis": {
       "derived_from": "fixtures",
       "wins": 7,
       "draws": 0,
-      "losses": 5,
+      "losses": 6,
       "gf": 20,
-      "ga": 11
+      "ga": 12
     }
   },
   "pattern": {
@@ -26,7 +36,7 @@
     "text": "Five different players have scored for Ouachita Baptist, more than for any other side in the conference.",
     "chart": {
       "kind": "goals-for-by-team",
-      "caption": "Goals scored per side, all non-conference, through Aug 29.",
+      "caption": "Goals scored per side, all non-conference, through Aug 30.",
       "values": {
         "ouachita-baptist": 6,
         "fort-hays-state": 4,
@@ -69,11 +79,20 @@
     },
     {
       "label": "observed",
-      "text": "Three matches are marked final with no published score. Five more are past their date with no result recorded at all.",
+      "text": "Thirteen matches carry a published score, out of 96 on the season's card.",
       "basis": {
         "source": "fixtures",
-        "finals_without_score": 3,
-        "past_date_no_result": 5
+        "played": 13,
+        "total": 96
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Four matches are marked final with no published score. Four more are past their date with no result recorded at all.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 4,
+        "past_date_no_result": 4
       }
     },
     {
@@ -82,13 +101,6 @@
       "basis": {
         "source": "matches",
         "box_score_gaps": 1
-      }
-    },
-    {
-      "label": "projected",
-      "text": "Eighteen days of tune-ups before the table means anything.",
-      "basis": {
-        "conference_opens": "2026-09-17"
       }
     }
   ],
@@ -117,21 +129,24 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-08-29 mckendree v southern-nazarene",
-      "line": "Southern Nazarene's only two goals of the season so far, both on the road in one afternoon."
+      "fixture_ref": "2026-08-30 northeastern-state v lincoln",
+      "line": "The only match on the day's card, and Northeastern State could not score in it."
     },
     "next_match": {
-      "fixture_ref": "2026-08-30 northeastern-state v lincoln",
-      "line": "The only match on the day's card."
+      "fixture_ref": "2026-09-01 ouachita-baptist v delta-state",
+      "line": "Ouachita Baptist have yet to concede; Delta State have already won at Harding."
     }
   },
   "table_state": {
     "mode": "pre-conference",
-    "statement": "Conference play begins Sep 17. All seven sides are 0–0–0.",
-    "footnote": "3–1–0 points · early form shown from non-conference results · a pre-conference table is a valid state."
+    "statement": "Conference play begins Sep 17. No side has played a conference match, and the table stays empty until one does.",
+    "footnote": "Early form is shown from non-conference results · a pre-conference table is a valid state.",
+    "basis": {
+      "conference_opens": "2026-09-17"
+    }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-08-31T01:53:28.911Z"
+    "validated_at": "2026-08-31T02:52:07.581Z"
   }
 }

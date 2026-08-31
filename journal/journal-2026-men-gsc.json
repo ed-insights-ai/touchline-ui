@@ -3,66 +3,83 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-08-31T01:30:00+00:00",
-  "data_collected_at": "2026-08-30T21:08:31+00:00",
-  "kicker": "GSC · BEFORE THE TABLE · AUG 30",
-  "headline": "Twelve days from the conference opener, the GSC has fifteen matches behind it and a table that still reads all zeros.",
-  "dek": "AUM and Trevecca are the only programmes with two wins, and Trevecca's six goals lead the conference. Lee and Spring Hill have not played at all, and five matches whose dates have passed carry no published result.",
+  "generated_at": "2026-08-31T03:10:00+00:00",
+  "data_collected_at": "2026-08-31T02:49:10+00:00",
+  "kicker": "GSC · BEFORE THE TABLE · AUG 31",
+  "headline": "Eleven days from the conference opener, the GSC has sixteen matches behind it and a table that still reads all zeros.",
+  "dek": "UAH have scored eight goals, the most of any GSC programme, and have won both matches they have played. Five matches whose dates have passed carry no published result.",
+  "lede_basis": {
+    "source": "fixtures",
+    "played": 16,
+    "total": 120,
+    "conference_opens": "2026-09-11",
+    "days_until_conference": 11,
+    "finals_without_score": 0,
+    "past_date_no_result": 5,
+    "programme": "uah",
+    "wins": 2,
+    "draws": 0,
+    "losses": 0,
+    "gf": 8,
+    "ga": 1
+  },
   "summary_stat": {
     "label": "Matches played",
-    "value": "15 of 120",
-    "detail": "Fifteen matches carry a final with a published score. All fifteen were played against programmes outside the conference, and conference play opens on September 11, twelve days after this data was collected.",
+    "value": "16 of 120",
+    "detail": "Sixteen matches carry a final with a published score. All sixteen were played against programmes outside the conference, and conference play opens on September 11, eleven days after this data was collected.",
     "basis": {
       "source": "fixtures",
-      "played": 15,
-      "total": 120
+      "played": 16,
+      "total": 120,
+      "conference_opens": "2026-09-11",
+      "days_until_conference": 11
     }
   },
   "pattern": {
     "label": "derived",
-    "text": "Trevecca have scored six goals, the most of any GSC programme.",
+    "text": "UAH have scored eight goals, the most of any GSC programme.",
     "chart": {
       "kind": "goals-for-by-team",
-      "caption": "Goals scored by programme across all matches played, through August 30.",
+      "caption": "Goals scored by programme across all matches played, through August 31.",
       "values": {
+        "uah": 8,
         "trevecca": 6,
         "aum": 4,
         "mississippi-college": 3,
         "montevallo": 3,
         "west-alabama": 3,
-        "uah": 2,
         "christian-brothers": 1,
         "delta-state": 1,
         "union": 1,
         "lee": 0,
         "spring-hill": 0
       },
-      "highlight": "trevecca"
+      "highlight": "uah"
     },
     "basis": {
-      "programme": "trevecca",
-      "gf": 6,
-      "ga": 2
+      "programme": "uah",
+      "gf": 8,
+      "ga": 1
     }
   },
   "findings": [
     {
       "label": "derived",
-      "text": "Five different Trevecca players have scored this season: Chris Douglas, Daniel Shiel, Jack Franklin, Levi Jones and Manuel Alonso.",
+      "text": "Seven different UAH players have scored this season: Alejandro Tocino Vidal, Emil Wigren, Luis McCabe, Nick Morrow, Oli Orzechowski, Oliver Rigby and Samuel Quickfall.",
       "basis": {
-        "programme": "trevecca",
-        "distinct_scorers_min": 5
+        "programme": "uah",
+        "distinct_scorers_min": 7
       }
     },
     {
       "label": "derived",
-      "text": "Against programmes outside the conference, GSC sides have won six matches, drawn three and lost six.",
+      "text": "Against programmes outside the conference, GSC sides have won seven matches, drawn three and lost six.",
       "basis": {
         "derived_from": "fixtures",
-        "wins": 6,
+        "wins": 7,
         "draws": 3,
         "losses": 6,
-        "gf": 24,
+        "gf": 30,
         "ga": 26
       }
     },
@@ -96,17 +113,17 @@
   ],
   "players_to_watch": [
     {
-      "player": "Chris Douglas",
-      "programme": "trevecca",
-      "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 7 shots"
-    },
-    {
       "player": "Oli Orzechowski",
       "programme": "uah",
       "position": "FWD",
       "class": "SR",
+      "line": "2 G · 10 shots"
+    },
+    {
+      "player": "Chris Douglas",
+      "programme": "trevecca",
+      "position": "FWD",
+      "class": "JR",
       "line": "2 G · 7 shots"
     },
     {
@@ -119,21 +136,25 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-08-30 mississippi-college v saint-leo",
-      "line": "Mississippi College drew 1-1 with Saint Leo. No collected schedule page carries a box score for it."
+      "fixture_ref": "2026-08-30 uah v shawnee-state",
+      "line": "UAH beat Shawnee State 6-0 at home. They have played two matches and won both."
     },
     "next_match": {
-      "fixture_ref": "2026-08-30 uah v shawnee-state",
-      "line": "UAH host Shawnee State at 15:00. They have played once, a 2-1 win at Illinois Springfield."
+      "fixture_ref": "2026-08-31 west-alabama v texas-a-m-international",
+      "line": "West Alabama host Texas A&M International at 16:00. They have played once, a 3-3 draw."
     }
   },
   "table_state": {
     "mode": "pre-conference",
-    "statement": "No GSC programme has played a conference match, so every side is on zero points and the table is ordered alphabetically. Conference play opens on September 11, twelve days after this data was collected.",
-    "footnote": "Form strings show non-conference results only. Lee and Spring Hill have played no matches, and their form reads as a dash."
+    "statement": "No GSC programme has played a conference match, so the table is level and ordered alphabetically. Conference play opens on September 11, eleven days after this data was collected.",
+    "footnote": "Form strings show non-conference results only. Lee and Spring Hill have played no matches, and their form reads as a dash.",
+    "basis": {
+      "conference_opens": "2026-09-11",
+      "days_until_conference": 11
+    }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-08-31T01:13:30.881Z"
+    "validated_at": "2026-08-31T02:56:51.946Z"
   }
 }

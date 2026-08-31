@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-08-31T01:57:24.287Z",
-  "data_collected_at": "2026-08-30T21:07:31+00:00",
+  "validated_at": "2026-08-31T02:52:07.581Z",
+  "data_collected_at": "2026-08-31T02:48:14+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,24 +17,9 @@
   "normalizations": [],
   "review": [
     {
-      "path": "headline",
-      "text": "Two perfect starts, and eighteen days until it counts.",
-      "unbacked": ["2", "18"]
-    },
-    {
-      "path": "dek",
-      "text": "Ouachita Baptist and Rogers State swept the opening weekend — 6–0 and 4–1 on aggregate. The table stays empty until September 17, when three matches open conference play.",
-      "unbacked": ["0", "1", "3", "4", "6"]
-    },
-    {
       "path": "table_state.statement",
-      "text": "Conference play begins Sep 17. All seven sides are 0–0–0.",
-      "unbacked": ["0", "7"]
-    },
-    {
-      "path": "table_state.footnote",
-      "text": "3–1–0 points · early form shown from non-conference results · a pre-conference table is a valid state.",
-      "unbacked": ["0", "1", "3"]
+      "text": "Conference play begins Sep 17. No side has played a conference match, and the table stays empty until one does.",
+      "unbacked": ["1"]
     },
     {
       "path": "findings[0].text",
@@ -42,21 +27,16 @@
       "unbacked": ["11"]
     },
     {
-      "path": "findings[3].text",
+      "path": "findings[4].text",
       "text": "One match carries a result whose detail the collector could not reach: Rockhurst against Newman on August 29 has a score and no box score behind it.",
       "unbacked": ["29"]
-    },
-    {
-      "path": "findings[4].text",
-      "text": "Eighteen days of tune-ups before the table means anything.",
-      "unbacked": ["18"]
     }
   ],
   "claims": [
     {
       "path": "summary_stat",
       "label": "derived",
-      "text": "7–0–5",
+      "text": "7–0–6",
       "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +54,7 @@
     {
       "path": "pattern.chart",
       "label": "derived",
-      "text": "Goals scored per side, all non-conference, through Aug 29.",
+      "text": "Goals scored per side, all non-conference, through Aug 30.",
       "checker": "goals_for_chart",
       "verdict": "verified",
       "mismatches": [],
@@ -101,8 +81,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Three matches are marked final with no published score. Five more are past their date with no result recorded at all.",
-      "checker": "unresolved",
+      "text": "Thirteen matches carry a published score, out of 96 on the season's card.",
+      "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -110,17 +90,17 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "One match carries a result whose detail the collector could not reach: Rockhurst against Newman on August 29 has a score and no box score behind it.",
-      "checker": "box_score_gaps",
+      "text": "Four matches are marked final with no published score. Four more are past their date with no result recorded at all.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[4]",
-      "label": "projected",
-      "text": "Eighteen days of tune-ups before the table means anything.",
-      "checker": "conference_opens",
+      "label": "observed",
+      "text": "One match carries a result whose detail the collector could not reach: Rockhurst against Newman on August 29 has a score and no box score behind it.",
+      "checker": "box_score_gaps",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -155,7 +135,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-08-29 mckendree v southern-nazarene",
+      "text": "2026-08-30 northeastern-state v lincoln",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -164,7 +144,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-08-30 northeastern-state v lincoln",
+      "text": "2026-09-01 ouachita-baptist v delta-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
