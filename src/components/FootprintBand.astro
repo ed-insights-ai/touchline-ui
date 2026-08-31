@@ -1,0 +1,248 @@
+---
+// Where the collected season is played, on one map.
+//
+// A dot is a programme's town. Nothing else is drawn: no conference regions,
+// no shaded states. The leagues interleave on the ground — two of them have
+// members a few miles apart — so any tinted territory would claim ground its
+// conference does not hold. The dots and the key carry it instead.
+//
+// Every figure here is recomputed from the fixtures and the coordinates file.
+// The band prints no fixture counts: the page's own footer already carries
+// those, exhibitions named and set outside the record.
+import { BASEMAP_VIEWBOX, STATE_OUTLINES } from "../lib/basemap.ts";
+import { type ConferenceFootprint, footprintOf } from "../lib/geo.ts";
+import type { HomeColumn } from "../lib/home.ts";
+import { spell } from "../lib/format.ts";
+import { site } from "../site.config.ts";
+
+interface Props {
+  columns: readonly HomeColumn[];
+  /** How many conferences play this sport at all — context, not a collected figure. */
+  divisionConferences: number;
+}
+const { columns, divisionConferences } = Astro.props as Props;
+
+const footprints: ConferenceFootprint[] = columns.map((c) =>
+  footprintOf(
+    c.key,
+    c.code,
+    c.name,
+    c.season.fixtures.programmes.map((p) => ({ slug: p.slug, name: p.name })),
+  ),
+);
+
+const placedCount = footprints.reduce((n, f) => n + f.placed.length, 0);
+const unplaced = footprints.flatMap((f) => f.unplaced);
+const states = [...new Set(footprints.flatMap((f) => f.states))].sort();
+const widest = footprints.reduce<number>((m, f) => Math.max(m, f.widestGap ?? 0), 0);
+
+// Colour is never the only carrier: every cluster is labelled, and the key
+// repeats the code beside the swatch. Purple is Touchline's and never a
+// conference's. Past roughly eight conferences a per-conference hue stops
+// separating and identity has to move to labels alone.
+//
+// The hue is keyed to the conference's place in site.conferences, NOT to the
+// order this page happens to show them in — the home page sorts by next
+// kickoff, so an index-keyed palette would repaint every conference as the
+// season moved.
+const HUES = ["#2f7d68", "#b4562a", "#3f70a9", "#7a5c9e", "#8a6d1f", "#31708a"] as const;
+const hueOf = (key: string): string => {
+  const i = site.conferences.indexOf(key);
+  return HUES[(i < 0 ? 0 : i) % HUES.length] as string;
+};
+
+// A label sits outside its own cluster, pushed away from the middle of the
+// map — which is where the conferences interleave and where a label would be
+// ambiguous. With N conferences this keeps every label in open ground without
+// anyone hand-placing one.
+const centroid = (pts: { x: number; y: number }[]) => ({
+  x: pts.reduce((a, p) => a + p.x, 0) / pts.length,
+  y: pts.reduce((a, p) => a + p.y, 0) / pts.length,
+});
+const allDots = footprints.flatMap((f) => f.placed.map((p) => p.at));
+const middle = allDots.length > 0 ? centroid(allDots) : { x: 0, y: 0 };
+
+const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
+  if (f.placed.length === 0) return null;
+  const c = centroid(f.placed.map((p) => p.at));
+  const reach = Math.max(...f.placed.map((p) => Math.hypot(p.at.x - c.x, p.at.y - c.y)));
+  let dx = c.x - middle.x;
+  let dy = c.y - middle.y;
+  const len = Math.hypot(dx, dy) || 1;
+  dx /= len;
+  dy /= len;
+  return { x: c.x + dx * (reach + 20), y: c.y + dy * (reach + 20) };
+};
+---
+
+<section class="footprint">
+  <div class="fp-head">
+    <h2 class="fp-sechead">THE FOOTPRINT</h2>
+    <div class="grow"></div>
+    <div class="fp-scope num">
+      <span>{placedCount} PROGRAMMES · {states.length} STATES</span>
+      <span class="chip chip-context">{columns.length} OF {divisionConferences} CONFERENCES</span>
+    </div>
+  </div>
+
+  <div class="fp-body">
+    <div class="fp-map">
+      <svg
+        class="fp-svg"
+        viewBox={`${BASEMAP_VIEWBOX.x} ${BASEMAP_VIEWBOX.y} ${BASEMAP_VIEWBOX.w} ${BASEMAP_VIEWBOX.h}`}
+        role="img"
+        aria-label={`Map of the lower 48 United States. ${placedCount} dots mark the towns of the programmes Touchline collects, across ${states.length} states in ${spell(columns.length)} conferences.`}
+      >
+        <g class="fp-land">
+          {STATE_OUTLINES.map((s) => <path d={s.d} />)}
+        </g>
+        {footprints.map((f) => (
+          <g class="fp-dots" style={`--hue: ${hueOf(f.key)};`}>
+            {f.placed.map((p) => (
+              <circle cx={p.at.x} cy={p.at.y} r="5">
+                <title>{p.name} — {p.city} ({f.code})</title>
+              </circle>
+            ))}
+          </g>
+        ))}
+        {footprints.map((f) => {
+          const at = labelAt(f);
+          return at ? (
+            <g class="fp-label">
+              <rect x={at.x - 22} y={at.y - 9} width="9" height="9" rx="2" fill={hueOf(f.key)} />
+              <text x={at.x - 8} y={at.y}>{f.code}</text>
+            </g>
+          ) : null;
+        })}
+      </svg>
+    </div>
+
+    <div class="fp-key">
+      <div class="fp-keyhead">
+        <span>CONFERENCE</span>
+        <span class="grow"></span>
+        <span>WIDEST GAP</span>
+      </div>
+      {footprints.map((f) => (
+        <div class="fp-row">
+          <span class="fp-swatch" style={`background: ${hueOf(f.key)};`}></span>
+          <span class="fp-code num">{f.code}</span>
+          <span class="fp-name">{f.name}</span>
+          <span class="fp-where num">
+            {f.placed.length} {f.placed.length === 1 ? "programme" : "programmes"}
+            {f.states.length > 0 && <> · {f.states.join(", ")}</>}
+          </span>
+          {f.widestGap !== null && (
+            <span class="fp-gap num">{f.widestGap}<span class="fp-unit"> mi</span></span>
+          )}
+        </div>
+      ))}
+      {unplaced.length > 0 && (
+        <p class="fp-unplaced">
+          {unplaced.map((u) => u.name).join(", ")}{" "}
+          {unplaced.length === 1 ? "has" : "have"} no town on file, and {unplaced.length === 1 ? "is" : "are"} not drawn.
+        </p>
+      )}
+      <p class="fp-caption provenance">
+        Each dot is the town a programme plays in. Division II builds its
+        conferences close to home — no programme here is more than {widest} miles
+        from another in its own league — and Touchline follows{" "}
+        {spell(columns.length)} of the {spell(divisionConferences)} that play the
+        men's game.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .footprint {
+    padding: 26px 0;
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .fp-head { display: flex; align-items: baseline; gap: 12px; }
+  .fp-sechead { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+  .fp-scope {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--quiet);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .fp-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 48px;
+    align-items: start;
+  }
+  .fp-map { min-width: 0; }
+  .fp-svg { display: block; width: 100%; height: auto; }
+  .fp-land path { fill: #edeae2; stroke: #d9d5cb; stroke-width: 1; stroke-linejoin: round; }
+  .fp-dots circle { fill: var(--hue); stroke: var(--paper); stroke-width: 1.6; }
+  /* Text in ink tokens, never the series colour — the swatch carries the hue. */
+  .fp-label text {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    fill: var(--ink);
+  }
+
+  .fp-key { display: flex; flex-direction: column; }
+  .fp-row {
+    display: grid;
+    grid-template-columns: 9px auto minmax(0, 1fr) auto;
+    grid-template-areas: "sw code name gap" ". where where gap";
+    align-items: baseline;
+    column-gap: 9px;
+    row-gap: 3px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .fp-swatch {
+    grid-area: sw;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    align-self: center;
+  }
+  .fp-code { grid-area: code; font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; }
+  .fp-name {
+    grid-area: name;
+    font-size: 12px;
+    color: var(--quiet);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .fp-where { grid-area: where; font-size: 11.5px; color: var(--faint); }
+  .fp-gap { grid-area: gap; font-size: 15px; font-weight: 600; align-self: center; }
+  .fp-unit { font-size: 10.5px; font-weight: 400; color: var(--faint); }
+  .fp-keyhead {
+    display: flex;
+    align-items: baseline;
+    padding-bottom: 8px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--faint);
+  }
+  .fp-unplaced { margin: 10px 0 0; font-size: 12px; color: var(--quiet); line-height: 1.45; }
+  .fp-caption { margin: 14px 0 0; line-height: 1.5; }
+
+  @media (max-width: 1180px) {
+    .fp-body { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+    .fp-key { max-width: 560px; }
+  }
+  @media (max-width: 720px) {
+    /* The dots stay honest at every width — nothing is nudged to make room.
+       The cluster labels are what stop resolving, so they go. */
+    .fp-label { display: none; }
+    .fp-head { flex-wrap: wrap; gap: 6px 12px; }
+    .fp-scope { flex-wrap: wrap; gap: 6px 10px; }
+  }
+</style>

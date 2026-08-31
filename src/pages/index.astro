@@ -11,6 +11,7 @@
 // Every count here comes through the same functions as the season pages'
 // mastheads, so the two surfaces cannot disagree; the tests recount both from
 // the fixture lists and make them meet.
+import FootprintBand from "../components/FootprintBand.astro";
 import Page from "../layouts/Page.astro";
 import { aboutHref, hasScore, matchHref, seasonHref } from "../lib/derive.ts";
 import type { Fixture } from "../lib/derive.ts";
@@ -151,6 +152,8 @@ const exhWord = (n: number): string => (n === 1 ? "exhibition" : "exhibitions");
         </article>
       ))}
     </section>
+
+    <FootprintBand columns={columns} divisionConferences={site.divisionConferences} />
 
     <footer class="nat-footer">
       <div class="nat-counts num">

@@ -1,0 +1,304 @@
+{
+  "schema": "touchline.coordinates/1",
+  "description": "Where each programme plays, as a point. A sibling to programmes.json, in exactly the sense that file describes itself: a stable fact no collected page publishes, hand-resolved once and versioned, never geocoded at build time and never inferred from a slug. The point is the TOWN centroid the programme plays in — the fact programmes.json already holds — not the campus. A slug absent from this file renders the designed absence state: it is named and left unplotted, never dropped and never guessed.",
+  "source": {
+    "name": "U.S. Census Bureau, 2023 Gazetteer Files (Places, national)",
+    "url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2023_Gazetteer/2023_Gaz_place_national.zip",
+    "license": "Public domain (work of the U.S. federal government)",
+    "method": "programmes.json `city` parsed as \"Town, AP-state\", the AP abbreviation mapped to its USPS code, then matched against the Gazetteer NAME with its legal descriptor (city/town/village/CDP) stripped. Incorporated places are preferred over CDPs where both exist. INTPTLAT/INTPTLONG are the internal point. Every row records the GEOID it resolved to, so any row can be re-checked against the source.",
+    "resolved": "28 of 29 matched automatically. The one that did not — Nashville — carries a `note` on its own row saying why, rather than being quietly corrected."
+  },
+  "programmes": {
+    "aum": {
+      "city": "Montgomery, Ala.",
+      "lat": 32.3485,
+      "lon": -86.2673,
+      "source": {
+        "gazetteer_geoid": "0151000",
+        "gazetteer_name": "Montgomery city",
+        "state": "AL"
+      }
+    },
+    "christian-brothers": {
+      "city": "Memphis, Tenn.",
+      "lat": 35.109,
+      "lon": -89.9675,
+      "source": {
+        "gazetteer_geoid": "4748000",
+        "gazetteer_name": "Memphis city",
+        "state": "TN"
+      }
+    },
+    "dallas-baptist": {
+      "city": "Dallas, Texas",
+      "lat": 32.7933,
+      "lon": -96.7665,
+      "source": {
+        "gazetteer_geoid": "4819000",
+        "gazetteer_name": "Dallas city",
+        "state": "TX"
+      }
+    },
+    "delta-state": {
+      "city": "Cleveland, Miss.",
+      "lat": 33.744,
+      "lon": -90.7285,
+      "source": {
+        "gazetteer_geoid": "2814260",
+        "gazetteer_name": "Cleveland city",
+        "state": "MS"
+      }
+    },
+    "fort-hays-state": {
+      "city": "Hays, Kan.",
+      "lat": 38.8822,
+      "lon": -99.3222,
+      "source": {
+        "gazetteer_geoid": "2031100",
+        "gazetteer_name": "Hays city",
+        "state": "KS"
+      }
+    },
+    "harding": {
+      "city": "Searcy, Ark.",
+      "lat": 35.2411,
+      "lon": -91.7352,
+      "source": {
+        "gazetteer_geoid": "0563020",
+        "gazetteer_name": "Searcy city",
+        "state": "AR"
+      }
+    },
+    "lee": {
+      "city": "Cleveland, Tenn.",
+      "lat": 35.18,
+      "lon": -84.8713,
+      "source": {
+        "gazetteer_geoid": "4715400",
+        "gazetteer_name": "Cleveland city",
+        "state": "TN"
+      }
+    },
+    "lubbock-christian": {
+      "city": "Lubbock, Texas",
+      "lat": 33.5619,
+      "lon": -101.8889,
+      "source": {
+        "gazetteer_geoid": "4845000",
+        "gazetteer_name": "Lubbock city",
+        "state": "TX"
+      }
+    },
+    "midwestern-state": {
+      "city": "Wichita Falls, Texas",
+      "lat": 33.9067,
+      "lon": -98.5258,
+      "source": {
+        "gazetteer_geoid": "4879000",
+        "gazetteer_name": "Wichita Falls city",
+        "state": "TX"
+      }
+    },
+    "mississippi-college": {
+      "city": "Clinton, Miss.",
+      "lat": 32.3544,
+      "lon": -90.3419,
+      "source": {
+        "gazetteer_geoid": "2814420",
+        "gazetteer_name": "Clinton city",
+        "state": "MS"
+      }
+    },
+    "montevallo": {
+      "city": "Montevallo, Ala.",
+      "lat": 33.1261,
+      "lon": -86.8477,
+      "source": {
+        "gazetteer_geoid": "0150312",
+        "gazetteer_name": "Montevallo city",
+        "state": "AL"
+      }
+    },
+    "newman": {
+      "city": "Wichita, Kan.",
+      "lat": 37.6906,
+      "lon": -97.3458,
+      "source": {
+        "gazetteer_geoid": "2079000",
+        "gazetteer_name": "Wichita city",
+        "state": "KS"
+      }
+    },
+    "northeastern-state": {
+      "city": "Tahlequah, Okla.",
+      "lat": 35.9105,
+      "lon": -94.9777,
+      "source": {
+        "gazetteer_geoid": "4072100",
+        "gazetteer_name": "Tahlequah city",
+        "state": "OK"
+      }
+    },
+    "oklahoma-christian": {
+      "city": "Edmond, Okla.",
+      "lat": 35.6738,
+      "lon": -97.4131,
+      "source": {
+        "gazetteer_geoid": "4023200",
+        "gazetteer_name": "Edmond city",
+        "state": "OK"
+      }
+    },
+    "ouachita-baptist": {
+      "city": "Arkadelphia, Ark.",
+      "lat": 34.1274,
+      "lon": -93.0709,
+      "source": {
+        "gazetteer_geoid": "0501870",
+        "gazetteer_name": "Arkadelphia city",
+        "state": "AR"
+      }
+    },
+    "rogers-state": {
+      "city": "Claremore, Okla.",
+      "lat": 36.3146,
+      "lon": -95.6083,
+      "source": {
+        "gazetteer_geoid": "4014700",
+        "gazetteer_name": "Claremore city",
+        "state": "OK"
+      }
+    },
+    "saint-edwards": {
+      "city": "Austin, Texas",
+      "lat": 30.2986,
+      "lon": -97.7541,
+      "source": {
+        "gazetteer_geoid": "4805000",
+        "gazetteer_name": "Austin city",
+        "state": "TX"
+      }
+    },
+    "saint-marys": {
+      "city": "San Antonio, Texas",
+      "lat": 29.4628,
+      "lon": -98.5246,
+      "source": {
+        "gazetteer_geoid": "4865000",
+        "gazetteer_name": "San Antonio city",
+        "state": "TX"
+      }
+    },
+    "southern-nazarene": {
+      "city": "Bethany, Okla.",
+      "lat": 35.5072,
+      "lon": -97.6417,
+      "source": {
+        "gazetteer_geoid": "4005700",
+        "gazetteer_name": "Bethany city",
+        "state": "OK"
+      }
+    },
+    "spring-hill": {
+      "city": "Mobile, Ala.",
+      "lat": 30.6684,
+      "lon": -88.1002,
+      "source": {
+        "gazetteer_geoid": "0150000",
+        "gazetteer_name": "Mobile city",
+        "state": "AL"
+      }
+    },
+    "sul-ross-state": {
+      "city": "Alpine, Texas",
+      "lat": 30.3639,
+      "lon": -103.6645,
+      "source": {
+        "gazetteer_geoid": "4802104",
+        "gazetteer_name": "Alpine city",
+        "state": "TX"
+      }
+    },
+    "texas-a-m-international": {
+      "city": "Laredo, Texas",
+      "lat": 27.5604,
+      "lon": -99.4892,
+      "source": {
+        "gazetteer_geoid": "4841464",
+        "gazetteer_name": "Laredo city",
+        "state": "TX"
+      }
+    },
+    "trevecca": {
+      "city": "Nashville, Tenn.",
+      "lat": 36.1718,
+      "lon": -86.785,
+      "source": {
+        "gazetteer_geoid": "4752006",
+        "gazetteer_name": "Nashville-Davidson metropolitan government (balance)",
+        "state": "TN"
+      },
+      "note": "Gazetteer lists Nashville as the consolidated \"Nashville-Davidson metropolitan government (balance)\"; matched explicitly by GEOID."
+    },
+    "uah": {
+      "city": "Huntsville, Ala.",
+      "lat": 34.6977,
+      "lon": -86.6767,
+      "source": {
+        "gazetteer_geoid": "0137000",
+        "gazetteer_name": "Huntsville city",
+        "state": "AL"
+      }
+    },
+    "union": {
+      "city": "Jackson, Tenn.",
+      "lat": 35.6541,
+      "lon": -88.835,
+      "source": {
+        "gazetteer_geoid": "4737640",
+        "gazetteer_name": "Jackson city",
+        "state": "TN"
+      }
+    },
+    "ut-dallas": {
+      "city": "Richardson, Texas",
+      "lat": 32.9723,
+      "lon": -96.7081,
+      "source": {
+        "gazetteer_geoid": "4861796",
+        "gazetteer_name": "Richardson city",
+        "state": "TX"
+      }
+    },
+    "ut-tyler": {
+      "city": "Tyler, Texas",
+      "lat": 32.3173,
+      "lon": -95.3059,
+      "source": {
+        "gazetteer_geoid": "4874144",
+        "gazetteer_name": "Tyler city",
+        "state": "TX"
+      }
+    },
+    "west-alabama": {
+      "city": "Livingston, Ala.",
+      "lat": 32.5955,
+      "lon": -88.1869,
+      "source": {
+        "gazetteer_geoid": "0143720",
+        "gazetteer_name": "Livingston city",
+        "state": "AL"
+      }
+    },
+    "west-texas-a-m": {
+      "city": "Canyon, Texas",
+      "lat": 34.9903,
+      "lon": -101.919,
+      "source": {
+        "gazetteer_geoid": "4812532",
+        "gazetteer_name": "Canyon city",
+        "state": "TX"
+      }
+    }
+  }
+}
