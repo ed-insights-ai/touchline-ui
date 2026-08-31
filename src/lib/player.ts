@@ -129,7 +129,7 @@ export interface PlayerCard {
   keeper: boolean;
   /** "Freshman · 6'2" · 201 lbs · Cape Town, South Africa" */
   bio: string | null;
-  /** "First season in the colors" / "On the roster since 2022" */
+  /** "First season in this programme's archive" / "On the roster since 2022" */
   tenure: string | null;
   triad: Figure[];
   minutes: { played: number; available: number; pct: number; note: string } | null;
@@ -236,11 +236,25 @@ export function playerCard(
     }
     return null;
   })();
+  // The archive is not a birth certificate.
+  //
+  // A player absent from every earlier roster file is new to THIS ARCHIVE,
+  // which is a fact about what has been collected and not a fact about the
+  // player. The LSC archive begins in 2022 and GAC/GSC in 2016, and any
+  // transfer from outside these three conferences reads as archive-new
+  // however many seasons they have played — Ryan Armijo of Ouachita Baptist
+  // appears in no earlier file and the 2026 roster publishes him a Junior.
+  // So the card states what the archive holds and never what it implies.
+  //
+  // One predicate, because the three places that ask this question used to
+  // ask it by string-matching the tenure line, and three copies of a sentence
+  // are three chances for two of them to drift.
+  const archiveNew = firstYear === s.fixtures.season;
   const tenure =
     firstYear === null
       ? null
-      : firstYear === s.fixtures.season
-        ? "First season in the colors"
+      : archiveNew
+        ? "First season in this programme's archive"
         : `On the roster since ${firstYear}`;
 
   // ── The season's own figures ──────────────────────────────────────────────
@@ -350,8 +364,8 @@ export function playerCard(
     note:
       prior.length > 0
         ? null
-        : tenure === "First season in the colors"
-          ? "A true freshman — no earlier seasons in the archive."
+        : archiveNew
+          ? "No earlier season in this programme's archive carries this player."
           : "No earlier season of this programme carries a line for this name.",
   };
 
@@ -415,7 +429,7 @@ export function playerCard(
         text: `${cap(spell(stats.goals ?? 0))} from ${spell(stats.shots)} ${stats.shots === 1 ? "shot" : "shots"} — ${pct1((stats.goals ?? 0) / stats.shots)} of what they struck.`,
       };
     }
-    if (tenure && tenure !== "First season in the colors" && firstYear !== null) {
+    if (firstYear !== null && !archiveNew) {
       return {
         label: "context" as const,
         text: `On ${s.names.name(slug)}'s roster every season since ${firstYear}.`,
