@@ -74,6 +74,16 @@ visual:
 visual-save:
     ./scripts/visual.sh save
 
+# Press keys at the player sheet and check the dialog holds them.
+#
+# Deliberately NOT part of `verify`, on the same terms as `visual`: it needs
+# Chrome and a served artefact, and it asks a behaviour question rather than a
+# question about the tree. It is the only check here that presses a key, which
+# is the only way to see the defect it exists for — focus walking out of an
+# overlay into links behind it renders perfectly and breaks nothing else.
+keyboard: build
+    bun scripts/keyboard.ts dist "{{site_base}}"
+
 # Ask the LIVE host for status codes. Everything else in this repo checks an
 # artefact; this is the only check that knows the difference between a string
 # in the HTML and a URL that resolves, which is the difference that shipped a
