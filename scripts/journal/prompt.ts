@@ -66,8 +66,10 @@ const VOICE = `VOICE — the programme's house register.
   reader's word.
 - "Played" means a final WITH a published score, and nothing else. A final
   carrying no score is a SILENT FINAL: count it beside the played figure,
-  never inside it. An EXHIBITION is outside the record entirely — never called
-  played, never counted as a silence, named only as an exhibition.
+  never inside it. A FRIENDLY is outside the record entirely — never called
+  played, never counted as a silence, named only as a friendly. Plural is
+  "friendlies". The data calls these matches exhibitions; that is the source's
+  word, and it never reaches a sentence a reader sees.
 - A BOX-SCORE GAP is a match with a published result whose detail the
   collector could not reach: the site has the score and not the shape of it.
   It is NOT a silent final and never the same fixture as one — a silent final

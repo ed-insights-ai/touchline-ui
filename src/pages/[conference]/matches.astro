@@ -15,7 +15,7 @@
 //     and the venue when the schedule names one.
 import Page from "../../layouts/Page.astro";
 import { hasScore, homeHref, matchHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
-import { dayOfMonth, dowLong, monLong, spell } from "../../lib/format.ts";
+import { dayOfMonth, dowLong, friendlies, monLong, spell } from "../../lib/format.ts";
 import {
   byDay,
   isSilentFinal,
@@ -97,7 +97,7 @@ const staysOut = [
     ? `${cap(spell(c.placeholders))} NCAA placeholder ${c.placeholders === 1 ? "row" : "rows"} on ${c.placeholderDates.map(monthDay).join(", ")} name a round, not an opponent \u2014 they join the page when they name both sides.`
     : null,
   c.exhibitions > 0
-    ? `${cap(spell(c.exhibitions))} ${c.exhibitions === 1 ? "exhibition sits" : "exhibitions sit"} outside the record, named on the team pages that played them.`
+    ? `${cap(spell(c.exhibitions))} ${friendlies(c.exhibitions)} ${c.exhibitions === 1 ? "sits" : "sit"} outside the record, named on the team pages that played them.`
     : null,
 ].filter(Boolean).join(" ") || "Nothing is held back from this page.";
 
