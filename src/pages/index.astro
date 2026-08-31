@@ -69,12 +69,24 @@ const sideClass = (f: Fixture, side: "home" | "away"): string => {
 };
 
 const night = dowLong(lastNight);
+const sentenceCase = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
+
+// LAST NIGHT has three states and speaks in two of them. A night that
+// published nothing says so where the ledger would have been. A night that
+// left something without a score discloses it, because a reader cannot see an
+// absence in a list. A night where every result came through ends at the
+// results: stating a zero belongs where a count is claimed, and annotating the
+// absence of a problem is not the same thing.
+//
+// "Matches", not "finals". Two thirds of the fixtures in this set were never
+// marked final by their own source — they are the unscored, not the silent —
+// and naming them finals would publish a status nobody published.
 const openLine =
   leftOpen.length > 0
-    ? `${night} left ${spell(leftOpen.length)} ${leftOpen.length === 1 ? "match" : "matches"} open — no published score yet.`
-    : ledger.length > 0
-      ? `${night} left nothing open — every match from the night carries a published score.`
-      : null;
+    ? `${sentenceCase(spell(leftOpen.length))} ${
+        leftOpen.length === 1 ? "match" : "matches"
+      } from ${night} ${leftOpen.length === 1 ? "stands" : "stand"} without a published score.`
+    : null;
 
 const opensLine = (c: (typeof columns)[number]): string =>
   c.live
@@ -82,8 +94,6 @@ const opensLine = (c: (typeof columns)[number]): string =>
     : c.opensOn
       ? `OPENS ${monShort(c.opensOn).toUpperCase()} ${dayOfMonth(c.opensOn)}`
       : "NO CONFERENCE DATE PUBLISHED";
-
-const gapsWord = (n: number): string => (n === 1 ? "gap" : "gaps");
 ---
 <Page title="Touchline — The Season Scorebook" description={lede}>
   <div class="tl-page">
@@ -140,10 +150,13 @@ const gapsWord = (n: number): string => (n === 1 ? "gap" : "gaps");
           <div class={c.key === imminent && !c.live ? "conf-opens is-imminent num" : "conf-opens num"}>
             {opensLine(c)}
           </div>
+          {/* The played figure alone. "3 silent · 0 gaps" is house vocabulary,
+              and a column is the one place on the site with no room to define
+              it — the lede still states the division's silences in words, and
+              each season page still carries its conference's full accounting. */}
           <div class="conf-counts num">
             <span class="conf-frac">{c.counts.played} of {c.counts.total}</span>
-            <span class="conf-dim"> played · {c.counts.silentFinals} silent · </span>
-            <span class="conf-gaps">{c.counts.gaps} {gapsWord(c.counts.gaps)}</span>
+            <span class="conf-dim"> matches played</span>
           </div>
           <a class="conf-headline serif-italic" href={seasonHref(c.key)}>{headlines.get(c.key)}</a>
           <div class="grow"></div>
@@ -268,10 +281,6 @@ const gapsWord = (n: number): string => (n === 1 ? "gap" : "gaps");
   .conf-counts { font-size: 12.5px; }
   .conf-frac { font-weight: 600; }
   .conf-dim { color: var(--quiet); }
-  .conf-gaps {
-    color: var(--quiet);
-    border-bottom: 1px dotted var(--faint);
-  }
   .conf-headline {
     margin-top: 8px;
     font-family: var(--serif);

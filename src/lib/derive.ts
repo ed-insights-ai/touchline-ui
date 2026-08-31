@@ -478,6 +478,52 @@ export function seasonWindow(s: Season): SeasonWindow {
   };
 }
 
+// ── Provenance ───────────────────────────────────────────────────────────────
+
+/** The footer's provenance line, with the repeated words factored out. */
+export interface CollectionLine {
+  /** "Data collected Aug 31, 2026" — the whole sentence when there is one
+   *  stamp, and bare "Data collected" when the stamps do not share a day. */
+  headline: string;
+  /** "GAC 02:48", the last carrying the unit. Empty when there is one stamp. */
+  entries: string[];
+}
+
+/**
+ * Every conference's collect time, said once.
+ *
+ * These stamps are all UTC and usually all land on the same day, so the words
+ * that repeat are said once and the times are left standing side by side under
+ * them. What never factors out is a day: a conference collected on another
+ * date carries that date in its own entry, and the headline drops the date
+ * entirely rather than let two of the three sit under a day one of them did
+ * not earn. Flattening the spread behind the freshest number is the one thing
+ * a provenance line must not do, and a shared-looking headline would do it
+ * silently.
+ */
+export function collectionLine(seasons: readonly Season[]): CollectionLine {
+  const stamps = seasons.map((s) => ({
+    code: s.fixtures.conference,
+    day: s.collectedAt.slice(0, 10),
+    time: s.collectedAt.slice(11, 16),
+  }));
+  const first = stamps[0];
+  if (!first) return { headline: "", entries: [] };
+
+  const written = (day: string): string =>
+    `${monShort(day)} ${dayOfMonth(day)}, ${day.slice(0, 4)}`;
+  if (stamps.length === 1) {
+    return { headline: `Data collected ${written(first.day)}, ${first.time} UTC`, entries: [] };
+  }
+
+  const shared = stamps.every((s) => s.day === first.day);
+  const entries = stamps.map((s) =>
+    shared ? `${s.code} ${s.time}` : `${s.code} ${written(s.day)}, ${s.time}`,
+  );
+  entries[entries.length - 1] = `${entries[entries.length - 1]} UTC`;
+  return { headline: shared ? `Data collected ${written(first.day)}` : "Data collected", entries };
+}
+
 // ── Routes ───────────────────────────────────────────────────────────────────
 
 /** Fixture ids carry colons (`sidearm:harding:15273`); URLs should not. */

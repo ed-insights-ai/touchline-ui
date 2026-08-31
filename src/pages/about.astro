@@ -20,7 +20,6 @@ const seasons: Season[] = site.conferences.flatMap((key) => {
     return [];
   }
 });
-const home = seasons[0] as Season;
 const named = seasons.map((s) => site.conferenceNames[s.key] ?? s.fixtures.conference);
 const conferenceList =
   named.length <= 1
@@ -150,7 +149,7 @@ const GRAMMAR = [
       </div>
     </section>
 
-    <SiteFooter seasons={[home]} />
+    <SiteFooter seasons={seasons} />
   </div>
 </Page>
 
