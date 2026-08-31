@@ -53,6 +53,9 @@ PAGES=(
   # Aug 15) has sat silent-final since it was marked finished. Verify what the
   # check is LOOKING AT: the silent page must actually carry the silence.
   "/gac/match/sidearm-ouachita-baptist-6642/:match-silent"
+  # Every match of a season in one grammar: results, silent finals, the rows
+  # still to come, and the TODAY rule between what happened and what has not.
+  "/gac/matches/:matches"
 )
 WIDTHS=(1440 390)
 

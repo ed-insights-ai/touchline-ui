@@ -1,0 +1,149 @@
+---
+// The calendar week the collect landed in, as a newspaper column of day
+// groups. Monday to Sunday, every day printed — a day with nothing on it says
+// so, because an empty Tuesday is a fact about the week and not a gap in the
+// page.
+//
+// Each line reads away "at" home, the way a schedule is spoken. The programme
+// this site collects carries the weight; an opponent it does not follow stays
+// quiet. When two collected programmes meet, both carry it — there is no
+// reason to favour either.
+import { dayOfMonth, dowLong, monLong, spell } from "../lib/format.ts";
+import { matchHref, type Season } from "../lib/derive.ts";
+import { kickoff, weekOf } from "../lib/schedule.ts";
+
+interface Props {
+  season: Season;
+  matchesHref: string;
+}
+const { season, matchesHref } = Astro.props as Props;
+
+const week = weekOf(season);
+const names = season.names;
+const members = new Set(season.fixtures.programmes.map((p) => p.slug));
+
+const dayLabel = (iso: string): string =>
+  `${dowLong(iso).toUpperCase()}, ${monLong(iso).toUpperCase()} ${dayOfMonth(iso)}`;
+const range = `${dowLong(week.start).toUpperCase()}, ${monLong(week.start).toUpperCase()} ${dayOfMonth(week.start)} – ${dowLong(week.end).toUpperCase()}, ${monLong(week.end).toUpperCase()} ${dayOfMonth(week.end)}`;
+
+// The week splits into two columns at desk width; the break keeps whole days
+// together rather than cutting one across the gutter.
+const half = Math.ceil(week.days.length / 2);
+const columns = [week.days.slice(0, half), week.days.slice(half)];
+
+const cap = (t: string): string => t.replace(/^\w/, (ch) => ch.toUpperCase());
+const league =
+  week.leagueMatches === 0
+    ? "all of them outside the conference"
+    : week.leagueMatches === week.matches.length
+      ? "all of them league matches"
+      : `${spell(week.leagueMatches)} of them league matches`;
+const note =
+  `${cap(spell(week.matches.length))} ${week.matches.length === 1 ? "match" : "matches"} across ` +
+  `${spell(week.playingDays)} ${week.playingDays === 1 ? "playing day" : "playing days"} \u2014 ${league}. ` +
+  "The programme Touchline collects carries the weight in each line; every kickoff is as the " +
+  "home programme published it, and the venue prints when the schedule names one.";
+const emptyNote =
+  `No match anywhere in this conference between ${monLong(week.start)} ${dayOfMonth(week.start)} and ` +
+  `${monLong(week.end)} ${dayOfMonth(week.end)}. The week is empty, and that is the record.`;
+---
+
+<section class="week">
+  <div class="wk-head">
+    <h2 class="wk-title">THE WEEK — {range}</h2>
+    <div class="grow"></div>
+    <a class="wk-all" href={matchesHref}>ALL MATCHES →</a>
+  </div>
+
+  {week.matches.length === 0 ? (
+    <p class="wk-empty">{emptyNote}</p>
+  ) : (
+    <div class="wk-cols">
+      {columns.map((col) => (
+        <div class="wk-col">
+          {col.map((day) => (
+            <div class="wk-day">
+              <div class="wk-date">{dayLabel(day.date)}</div>
+              {day.matches.length === 0 ? (
+                <p class="wk-none serif-italic">No matches.</p>
+              ) : (
+                day.matches.map((f) => (
+                  <a class="wk-row hoverable" href={matchHref(season.key, f.id)}>
+                    <span class="wk-line">
+                      <span class={members.has(f.away) ? "wk-side wk-mine" : "wk-side"}>
+                        {names.name(f.away)}
+                      </span>
+                      <span class="wk-at"> at </span>
+                      <span class={members.has(f.home) ? "wk-side wk-mine" : "wk-side"}>
+                        {names.name(f.home)}
+                      </span>
+                      {f.venue && <span class="wk-venue"> · {f.venue}</span>}
+                    </span>
+                    <span class="wk-time num">{kickoff(f.time) ?? "—"}</span>
+                  </a>
+                ))
+              )}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  )}
+
+  {week.matches.length > 0 && (
+    <p class="wk-note">{note}</p>
+  )}
+</section>
+
+<style>
+  .week {
+    padding: 20px 0 18px;
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .wk-head { display: flex; align-items: baseline; gap: 16px; }
+  .wk-title { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+  .wk-all { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--accent); }
+  .wk-all:hover { color: var(--accent-hover); }
+
+  .wk-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
+  .wk-col { display: flex; flex-direction: column; }
+  .wk-day { display: flex; flex-direction: column; }
+  .wk-date {
+    padding: 14px 0 6px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--faint);
+  }
+  .wk-none { margin: 0; padding: 4px 0 6px; font-size: 12.5px; color: var(--faint); }
+
+  .wk-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 7px 0;
+    border-top: 1px solid var(--hairline-soft);
+    color: inherit;
+    font-size: 13.5px;
+  }
+  .wk-line { flex: 1; min-width: 0; }
+  .wk-side { color: var(--quiet); }
+  .wk-mine { color: var(--ink); font-weight: 600; }
+  .wk-at { color: var(--faint); }
+  .wk-venue { color: var(--faint); font-size: 12px; }
+  .wk-time { flex: none; color: var(--quiet); font-size: 13px; }
+
+  .wk-empty { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--quiet); max-width: 760px; }
+  .wk-note { margin: 4px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
+
+  @media (max-width: 1180px) {
+    .wk-cols { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  }
+  @media (max-width: 720px) {
+    .wk-head { flex-wrap: wrap; gap: 4px 12px; }
+    .wk-row { flex-wrap: wrap; gap: 2px 10px; }
+  }
+</style>

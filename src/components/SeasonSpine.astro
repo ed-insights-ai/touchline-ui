@@ -1,0 +1,206 @@
+---
+// The season in one line: one mark per playing date, its weight the day's
+// matches.
+//
+// The honesty this band has to keep is filled-vs-played. Ink means the date is
+// GONE BY — not that its matches were played, and not that anyone published a
+// score. The counts line underneath carries the finals split, so the colour
+// never has to imply something it cannot know. A date whose final was never
+// scored wears a mark like any other and a silence dot beneath the axis.
+//
+// League dates take the league colour whether or not they have been played:
+// they answer a different question from "has this date passed".
+import { monLong, spell } from "../lib/format.ts";
+import type { Season } from "../lib/derive.ts";
+import { scheduleCounts, spineOf } from "../lib/schedule.ts";
+
+interface Props {
+  season: Season;
+}
+const { season } = Astro.props as Props;
+
+const spine = spineOf(season);
+const c = scheduleCounts(season);
+
+// Mark height grows with the day's match count, from the same step the pixel
+// reference uses: a one-match date is 16px, each further match adds 6.
+const heightOf = (count: number): number => 16 + 6 * (count - 1);
+
+const monthDay = (iso: string): string => `${monLong(iso)} ${Number(iso.slice(8, 10))}`;
+const silenceDates = spine ? spine.marks.filter((m) => m.silence).length : 0;
+const cap = (t: string): string => t.replace(/^\w/, (ch) => ch.toUpperCase());
+const plural = (n: number, one: string, many: string): string => (n === 1 ? one : many);
+
+// The note is assembled here rather than in the markup: it is one sentence of
+// prose about several figures, and building it as text keeps the spacing under
+// this file's control instead of the template's.
+const leagueFlag = spine?.leagueOpensOn
+  ? `LEAGUE OPENS ${monLong(spine.leagueOpensOn).slice(0, 3).toUpperCase()} ${Number(spine.leagueOpensOn.slice(8, 10))}`
+  : null;
+
+const note = [
+  `A mark for each playing date, its weight the day\u2019s matches \u2014 ${c.matches} ${plural(c.matches, "match", "matches")} across ${c.dates} playing ${plural(c.dates, "date", "dates")}.`,
+  c.finals > 0
+    ? `On the dates gone by, ${c.finals} ${plural(c.finals, "final stands", "finals stand")}: ${c.scored} with published ${plural(c.scored, "score", "scores")}, ${c.silent} silent.`
+    : "No date gone by carries a final yet.",
+  c.league > 0 && c.leagueOpensOn
+    ? `${c.league} league ${plural(c.league, "match colours", "matches colour")} the spine from ${monthDay(c.leagueOpensOn)}.`
+    : null,
+  c.placeholders > 0
+    ? `${cap(spell(c.placeholders))} NCAA placeholder ${plural(c.placeholders, "row", "rows")} on ${spell(c.placeholderDates.length)} ${plural(c.placeholderDates.length, "date names", "dates name")} a round, not an opponent \u2014 they stay off the spine until they name both sides.`
+    : null,
+  silenceDates > 0
+    ? `${cap(spell(silenceDates))} ${plural(silenceDates, "date carries", "dates carry")} a silence beneath the axis.`
+    : null,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+{spine && (
+  <section class="spine">
+    <div class="sp-head">
+      <h2 class="sp-title">THE SEASON — IN ONE LINE</h2>
+      <div class="grow"></div>
+      <div class="sp-legend">
+        <span class="sp-key"><i class="sp-sw sp-gone"></i>gone by</span>
+        <span class="sp-key"><i class="sp-sw sp-come"></i>to come</span>
+        <span class="sp-key"><i class="sp-sw sp-league"></i>league dates</span>
+        <span class="sp-key"><i class="sp-dot"></i>a silence stands</span>
+      </div>
+    </div>
+
+    <div class="sp-plot">
+      {spine.leagueOpensAt !== null && spine.leagueOpensOn && (
+        <>
+          <div class="sp-flag sp-flag-league" style={`left: ${(spine.leagueOpensAt * 100).toFixed(3)}%; transform: translateX(-${(spine.leagueOpensAt * 100).toFixed(3)}%);`}>{leagueFlag}</div>
+          <div class="sp-rule sp-rule-league" style={`left: ${(spine.leagueOpensAt * 100).toFixed(3)}%;`}></div>
+        </>
+      )}
+      {spine.todayAt !== null && (
+        <>
+          <div class="sp-flag sp-flag-today" style={`left: ${(spine.todayAt * 100).toFixed(3)}%; transform: translateX(-${(spine.todayAt * 100).toFixed(3)}%);`}>TODAY</div>
+          <div class="sp-rule sp-rule-today" style={`left: ${(spine.todayAt * 100).toFixed(3)}%;`}></div>
+        </>
+      )}
+      <div class="sp-marks">
+        {spine.marks.map((m) => (
+          <>
+            <div
+              class={`sp-mark sp-${m.tone}`}
+              style={`left: ${(m.at * 100).toFixed(3)}%; height: ${heightOf(m.count)}px;`}
+            >
+              <span class="vh">{monthDay(m.date)} — {m.count} {m.count === 1 ? "match" : "matches"}</span>
+            </div>
+            {m.silence && (
+              <div class="sp-silence" style={`left: ${(m.at * 100).toFixed(3)}%;`}></div>
+            )}
+          </>
+        ))}
+      </div>
+      <div class="sp-axis"></div>
+      <div class="sp-months">
+        {spine.months.map((mo) => (
+          <div class="sp-month" style={`left: ${(mo.at * 100).toFixed(3)}%; transform: translateX(-${(mo.at * 100).toFixed(3)}%);`}>{mo.label}</div>
+        ))}
+      </div>
+    </div>
+
+    <p class="sp-note">{note}</p>
+
+  </section>
+)}
+
+<style>
+  .spine {
+    padding: 20px 0 18px;
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .sp-head { display: flex; align-items: baseline; gap: 16px; }
+  .sp-title { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+  .sp-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    font-size: 11px;
+    color: var(--quiet);
+    letter-spacing: 0.06em;
+  }
+  .sp-key { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+  .sp-sw { width: 8px; height: 8px; border-radius: 1px; display: inline-block; }
+  .sp-gone, .sp-sw.sp-gone { background: var(--ink); }
+  .sp-come, .sp-sw.sp-come { background: #c2c0b8; }
+  .sp-league, .sp-sw.sp-league { background: var(--accent); }
+  .sp-dot { width: 5px; height: 5px; border-radius: 50%; background: #b93b52; display: inline-block; }
+
+  /* The plot is a fixed-height stage; everything inside is placed by percent,
+     so the whole band scales to whatever width it is given. */
+  .sp-plot { position: relative; height: 104px; padding: 0 4px; }
+  .sp-marks { position: absolute; left: 0; right: 0; bottom: 22px; height: 66px; }
+  .sp-mark {
+    position: absolute;
+    bottom: 0;
+    width: 3px;
+    margin-left: -1.5px;
+    border-radius: 1px;
+  }
+  .sp-mark.sp-gone { background: var(--ink); }
+  .sp-mark.sp-come { background: #c2c0b8; }
+  .sp-mark.sp-league { background: var(--accent); }
+  .sp-silence {
+    position: absolute;
+    /* .sp-marks ends exactly on the axis, so a negative offset hangs the dot
+       beneath it — the axis stays the line between what is drawn and what is
+       said about it. */
+    bottom: -8px;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: #b93b52;
+  }
+  .sp-axis { position: absolute; left: 0; right: 0; bottom: 22px; height: 1px; background: #e5e3dd; }
+  .sp-rule { position: absolute; top: 14px; bottom: 22px; width: 1px; }
+  .sp-rule-today { background: var(--ink); }
+  .sp-rule-league { background: var(--accent); opacity: 0.35; }
+  /* Flags and month labels are pulled back by a share of their own width equal
+     to how far right they sit, so a label at the end of the season ends at the
+     edge instead of running past it. The shift is set inline, per label. */
+  .sp-flag {
+    position: absolute;
+    top: 0;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .sp-flag-today { color: var(--ink); }
+  .sp-flag-league { color: var(--accent); }
+  .sp-months { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; }
+  .sp-month {
+    position: absolute;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--faint);
+    white-space: nowrap;
+  }
+  .sp-note { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
+
+  @media (max-width: 720px) {
+    /* Nothing moves and no mark is dropped; only the labels give way, because
+       they are the part that stops resolving at this width. */
+    .sp-plot { height: 82px; }
+    .sp-marks { height: 50px; }
+    .sp-flag { font-size: 8.5px; letter-spacing: 0.1em; }
+    /* The two flags sit close enough to touch at this width. TODAY is the one
+       that orients the reader, so it stays; the league hairline keeps its
+       place and the note underneath still names the date in words. */
+    .sp-flag-league { display: none; }
+    .sp-month { font-size: 8.5px; letter-spacing: 0.1em; }
+    .sp-legend { font-size: 10px; gap: 3px 10px; }
+  }
+</style>
