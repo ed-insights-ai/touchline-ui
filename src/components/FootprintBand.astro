@@ -150,9 +150,12 @@ const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
 </section>
 
 <style>
+  /* No closing rule. The band is the last section on the national page and
+     .site-footer draws its own border-top, so a border-bottom here put two
+     hairlines 28px apart with nothing between them. The footer closes the
+     page; the section above it does not close it a second time. */
   .footprint {
     padding: 26px 0;
-    border-bottom: 1px solid var(--hairline);
     display: flex;
     flex-direction: column;
     gap: 16px;
