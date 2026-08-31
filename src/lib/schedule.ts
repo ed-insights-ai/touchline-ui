@@ -105,6 +105,21 @@ export function weekOf(s: Season, date: string = s.asOf): Week {
   };
 }
 
+/**
+ * What the collapsed week says about itself.
+ *
+ * The rule: this line is the only thing a reader sees before expanding, so it
+ * is recomputed from the very days the docket renders — never from a separate
+ * query that could drift from them. A week with nothing in it says so here,
+ * because absence must not hide behind a closed expander.
+ */
+export function weekSummary(w: Week): string {
+  const n = w.days.reduce((total, d) => total + d.matches.length, 0);
+  if (n === 0) return "No matches.";
+  const days = w.days.filter((d) => d.matches.length > 0).length;
+  return `${n} ${n === 1 ? "match" : "matches"} across ${days} ${days === 1 ? "day" : "days"}`;
+}
+
 // ── The spine ──────────────────────────────────────────────────────────────
 
 export type SpineTone = "gone" | "come" | "league";

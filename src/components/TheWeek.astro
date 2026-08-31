@@ -10,7 +10,7 @@
 // reason to favour either.
 import { dayOfMonth, dowLong, monLong, spell } from "../lib/format.ts";
 import { matchHref, type Season } from "../lib/derive.ts";
-import { kickoff, weekOf } from "../lib/schedule.ts";
+import { kickoff, weekOf, weekSummary } from "../lib/schedule.ts";
 
 interface Props {
   season: Season;
@@ -25,6 +25,11 @@ const members = new Set(season.fixtures.programmes.map((p) => p.slug));
 const dayLabel = (iso: string): string =>
   `${dowLong(iso).toUpperCase()}, ${monLong(iso).toUpperCase()} ${dayOfMonth(iso)}`;
 const range = `${dowLong(week.start).toUpperCase()}, ${monLong(week.start).toUpperCase()} ${dayOfMonth(week.start)} – ${dowLong(week.end).toUpperCase()}, ${monLong(week.end).toUpperCase()} ${dayOfMonth(week.end)}`;
+
+// The summary line the closed state stands on. It counts the same day groups
+// the docket renders, so the number on the summary row and the number of rows
+// underneath it cannot disagree.
+const summary = weekSummary(week);
 
 // The week splits into two columns at desk width; the break keeps whole days
 // together rather than cutting one across the gutter.
@@ -49,11 +54,18 @@ const emptyNote =
 ---
 
 <section class="week">
-  <div class="wk-head">
-    <h2 class="wk-title">THE WEEK — {range}</h2>
-    <div class="grow"></div>
-    <a class="wk-all" href={matchesHref}>ALL MATCHES →</a>
-  </div>
+  {/* The docket folds because the spine above it is the season's always-visible
+      visual and this is the detail beneath it. Native <details>: the week is
+      reachable with JavaScript off, and nothing about it is remembered between
+      pages. The summary keeps what the closed state has to say for itself. */}
+  <details class="disclosure wk-fold">
+    <summary class="wk-summary">
+      <h2 class="wk-title">THE WEEK — {range}</h2>
+      <span class="wk-count">{summary}</span>
+      {/* Sits with the label it opens. At the far right it reads as part of
+          "ALL MATCHES →", which is a different destination entirely. */}
+      <span class="wk-chevron" aria-hidden="true">+</span>
+    </summary>
 
   {week.matches.length === 0 ? (
     <p class="wk-empty">{emptyNote}</p>
@@ -93,22 +105,63 @@ const emptyNote =
   {week.matches.length > 0 && (
     <p class="wk-note">{note}</p>
   )}
+  </details>
+
+  {/* Outside the fold on purpose: the road to every match stays open whether or
+      not this week is expanded, and a link inside a <summary> would be a click
+      that both follows and toggles. */}
+  <a class="wk-all" href={matchesHref}>ALL MATCHES →</a>
 </section>
 
 <style>
+  /* One row, two things in it: the fold spans the full width so the expanded
+     docket keeps every pixel it had, and the ALL MATCHES link shares that first
+     row so it sits on the summary line without being inside the click target. */
   .week {
     padding: 20px 0 18px;
     border-bottom: 1px solid var(--hairline);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 16px;
   }
-  .wk-head { display: flex; align-items: baseline; gap: 16px; }
+  .wk-fold {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    /* Both items in this row sit on the summary's baseline, so the link reads
+       as part of the same line rather than three pixels above it. */
+    align-self: baseline;
+    /* Block, not a flex column: a closed <details> still lays out its hidden
+       children enough to leave a flex gap behind, which put 14px of dead space
+       under the summary. Spacing lives on the children instead, so the closed
+       state is exactly the summary row. */
+  }
+  .wk-summary {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    /* A tap target, and room kept clear for the link overlaying this row. */
+    min-height: 44px;
+    padding: 6px 128px 6px 0;
+  }
   .wk-title { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
-  .wk-all { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--accent); }
+  .wk-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
+  .wk-chevron { font-size: 14px; color: var(--chevron); font-weight: 500; }
+  .wk-fold[open] .wk-chevron { visibility: hidden; }
+  .wk-summary:hover .wk-title { color: var(--accent); }
+  .wk-all {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: baseline;
+    padding: 6px 0;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--accent);
+  }
   .wk-all:hover { color: var(--accent-hover); }
 
-  .wk-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
+  .wk-cols { margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
   .wk-col { display: flex; flex-direction: column; }
   .wk-day { display: flex; flex-direction: column; }
   .wk-date {
@@ -136,14 +189,19 @@ const emptyNote =
   .wk-venue { color: var(--faint); font-size: 12px; }
   .wk-time { flex: none; color: var(--quiet); font-size: 13px; }
 
-  .wk-empty { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--quiet); max-width: 760px; }
-  .wk-note { margin: 4px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
+  .wk-empty { margin: 14px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--quiet); max-width: 760px; }
+  .wk-note { margin: 18px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
 
   @media (max-width: 1180px) {
     .wk-cols { grid-template-columns: minmax(0, 1fr); gap: 0; }
   }
   @media (max-width: 720px) {
-    .wk-head { flex-wrap: wrap; gap: 4px 12px; }
+    /* No room to keep a lane clear beside the summary, so the link takes its
+       own line the way the head row already wrapped at this width. */
+    .week { grid-template-columns: minmax(0, 1fr); }
+    .wk-fold { grid-column: 1; }
+    .wk-summary { padding-right: 0; min-height: 40px; }
+    .wk-all { grid-column: 1; grid-row: 2; justify-self: start; padding: 4px 0 2px; }
     .wk-row { flex-wrap: wrap; gap: 2px 10px; }
   }
 </style>
