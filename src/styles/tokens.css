@@ -4,7 +4,7 @@
 
 :root {
   /* Surfaces and ink — light pages explain time. */
-  --paper: #faf9f6;
+  --paper: #f6f4ee;
   --ink: #1a1c22;
   --ink-soft: #33363d;
   --secondary: #5f646e;
@@ -17,10 +17,20 @@
      for text that duplicates or decorates something already on the page, and
      --fainter never sets type at all. */
   --quiet: #5f646e;
-  --hairline: #e3e1da;
-  --hairline-soft: #eeece5;
-  --outline: #d8d5cd;
-  --outline-quiet: #c8c5bc;
+
+  /* The neutral ladder is defined AGAINST the paper, so when the paper moved
+     down (tui-3bz) every rung moved with it: each holds the distance from the
+     ground it was drawn at. The hairline pair took one further step, because
+     a rule on a deeper ground has to be more than as visible as it was — it
+     is the thinnest mark on the site and the first to go. */
+  --hairline: #dbd8ce;
+  --hairline-soft: #e6e3d9;
+  --outline: #d4d0c5;
+  --outline-quiet: #c4c0b4;
+  /* A date the season has not reached: the spine's marks and swatches for
+     what is still to come. Lighter than any mark for something that happened,
+     and the only thing on the site drawn in it. */
+  --light-future: #bebbb0;
   --chevron: #9096a1;
   --card: #fffdf9;
 
@@ -42,9 +52,9 @@
   --chip-derived-fg: #2f5d8a;
   --chip-signal-bg: #f5edd8;
   --chip-signal-fg: #7a6212;
-  --chip-projected-bg: #ecebe6;
+  --chip-projected-bg: #e8e6de;
   --chip-projected-fg: #5f646e;
-  --chip-context-border: #d8d5cd;
+  --chip-context-border: #d4d0c5;
   --chip-context-fg: #8b9096;
 
   /* Tenure — the squad-shape ladder on a team page. One ink at five steps,
@@ -77,11 +87,11 @@
   --accent-border: rgba(109, 79, 224, 0.45);
   --alert-border: rgba(190, 18, 60, 0.4);
   --figure-strong: #1a1c22;
-  --tick: #c8c5bc;
+  --tick: #c4c0b4;
   --muted-side: #6e727b;
   --muted-mark: #8b9096;
-  --muted-bar: #cdcac2;
-  --dash: #e3e1da;
+  --muted-bar: #c9c5ba;
+  --dash: #dfdcd2;
   /* The purple hairline a goal drops through both lanes of the strip. */
   --goal-line: rgba(109, 79, 224, 0.35);
 

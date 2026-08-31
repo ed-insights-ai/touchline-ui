@@ -176,7 +176,10 @@ const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
   }
   .fp-map { min-width: 0; }
   .fp-svg { display: block; width: 100%; height: auto; }
-  .fp-land path { fill: #edeae2; stroke: #d9d5cb; stroke-width: 1; stroke-linejoin: round; }
+  /* The basemap is drawn a step off the paper, close enough that the land is
+     a ground and not a figure. Both values follow the paper down (tui-3bz):
+     held where they were, the coastline all but merged with the page. */
+  .fp-land path { fill: #e9e5da; stroke: #d5d0c3; stroke-width: 1; stroke-linejoin: round; }
   .fp-dots circle { fill: var(--hue); stroke: var(--paper); stroke-width: 1.6; }
   /* Text in ink tokens, never the series colour — the swatch carries the hue. */
   .fp-label text {
