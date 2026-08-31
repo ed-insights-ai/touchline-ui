@@ -10,6 +10,7 @@
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import {
+  boxScoreGaps,
   hasScore,
   isCountable,
   isExhibition,
@@ -20,6 +21,7 @@ import {
 } from "./derive.ts";
 import { daysBetween, shortDate, spell } from "./format.ts";
 import {
+  type HomeColumn,
   homeColumns,
   homeSeasons,
   lastNightLedger,
@@ -205,7 +207,10 @@ describe("the lede is derived, deterministically, from counts and opener dates",
     }
   });
 
-  test("it names the silences when there are any, spelled in the house voice", () => {
+  test("it names the silences always — a zero is a figure, not a silence of ours", () => {
+    // The guard came off with the counts block (tui-2lp): the ALL row was the
+    // only surface that would ever have printed a division zero, and a reader
+    // must not have to infer one from a sentence we chose not to write.
     if (national.silentFinals > 0) {
       const spelled = spell(national.silentFinals);
       expect(lede).toContain(
@@ -214,12 +219,119 @@ describe("the lede is derived, deterministically, from counts and opener dates",
         } without a published score.`,
       );
     } else {
-      expect(lede).not.toContain("without a published score");
+      expect(lede).toContain("No final stands without a published score.");
     }
+    // Whatever the count, the page states it.
+    expect(lede).toContain("without a published score.");
+  });
+
+  test("the zero sentence is prose, not a spelled nought", () => {
+    const none = nationalLede(columns, { ...national, silentFinals: 0 });
+    expect(none).toContain("No final stands without a published score.");
+    expect(none).not.toContain("Zero finals");
   });
 
   test("the same inputs produce the same prose — no model call anywhere in it", () => {
     expect(nationalLede(columns, national)).toBe(lede);
     expect(nationalLede(homeColumns(seasons))).toBe(lede);
+  });
+});
+
+/**
+ * The reconciliation the page stopped printing.
+ *
+ * Until tui-2lp the foot of the national page wrote the division's sums out
+ * as a list of addends — GAC, GSC, LSC, then ALL — so a reader could add them
+ * up by hand. That block was the accounting made visible, and it retired. The
+ * obligation did not: the lede's division figures still have to be the sum of
+ * what the columns show, and the linked season pages still have to agree with
+ * both.
+ *
+ * So this reads the figures back out of the prose the page actually prints,
+ * and compares them against a sum recounted from the fixtures — not against
+ * nationalCounts(), which is that sum and could only ever agree with itself.
+ * The last test perturbs a column and proves the check goes red, because a
+ * reconciliation that cannot fail is a comment.
+ */
+describe("the reconciliation the page stopped printing", () => {
+  const NUMBER = new Map<string, number>();
+  for (let n = 0; n <= 40; n++) NUMBER.set(spell(n), n);
+
+  /** Every way the lede and the columns beneath it can disagree. Empty is
+   *  the only passing answer; each entry says which figure parted company. */
+  function disagreements(text: string, cols: readonly HomeColumn[]): string[] {
+    const out: string[] = [];
+    const sum = (pick: (c: HomeColumn) => number): number => cols.reduce((n, c) => n + pick(c), 0);
+
+    const matches = /(\d+) of (\d+) matches played across ([a-z]+) (conference|conferences)\./.exec(
+      text,
+    );
+    if (!matches) {
+      out.push("the lede does not state played of total at all");
+    } else {
+      const played = Number(matches[1]);
+      const total = Number(matches[2]);
+      const conferences = NUMBER.get(matches[3] as string);
+      if (played !== sum((c) => c.counts.played)) {
+        out.push(`played: lede ${played}, columns ${sum((c) => c.counts.played)}`);
+      }
+      if (total !== sum((c) => c.counts.total)) {
+        out.push(`total: lede ${total}, columns ${sum((c) => c.counts.total)}`);
+      }
+      if (conferences !== cols.length) {
+        out.push(`conferences: lede ${matches[3]}, columns ${cols.length}`);
+      }
+    }
+
+    const none = text.includes("No final stands without a published score.");
+    const some = /(\w+) (?:final stands|finals stand) without a published score\./.exec(text);
+    const silent = none ? 0 : NUMBER.get((some?.[1] ?? "").toLowerCase());
+    if (silent === undefined) {
+      out.push("the lede does not state the silent finals at all");
+    } else if (silent !== sum((c) => c.counts.silentFinals)) {
+      out.push(`silent: lede ${silent}, columns ${sum((c) => c.counts.silentFinals)}`);
+    }
+    return out;
+  }
+
+  test("the lede's division figures are the columns' figures, added up", () => {
+    expect(disagreements(nationalLede(columns, national), columns)).toEqual([]);
+  });
+
+  test("and the columns are the linked season pages, recounted from the fixtures", () => {
+    // The other half of the promise: each addend equals what its own season
+    // page shows, so agreeing with the lede is worth something.
+    for (const c of columns) {
+      const s = loadSeason(c.key);
+      expect(c.counts, c.key).toEqual(seasonCounts(s));
+      expect(c.counts.gaps, c.key).toBe(boxScoreGaps(s).length);
+    }
+  });
+
+  test("gaps reconcile the same way, though no surface adds them up now", () => {
+    // The ALL row was the only place the division's gap total was ever
+    // written. Nothing prints it today, and it still has to be true.
+    expect(national.gaps).toBe(
+      columns.reduce((n, c) => n + boxScoreGaps(loadSeason(c.key)).length, 0),
+    );
+  });
+
+  test("it goes red when a column figure moves", () => {
+    // The teeth. Perturb one column and leave the lede alone — exactly the
+    // drift the retired block would have shown a reader — and the check must
+    // name the figure that parted company.
+    expect(columns.length).toBeGreaterThan(0);
+    const moved = columns.map((c, i) =>
+      i === 0 ? { ...c, counts: { ...c.counts, played: c.counts.played + 1 } } : c,
+    );
+    const found = disagreements(nationalLede(columns, national), moved);
+    expect(found.length).toBeGreaterThan(0);
+    expect(found.join(" ")).toContain("played:");
+
+    // A silence that drifts is caught too, and separately.
+    const quieter = columns.map((c, i) =>
+      i === 0 ? { ...c, counts: { ...c.counts, silentFinals: c.counts.silentFinals + 2 } } : c,
+    );
+    expect(disagreements(nationalLede(columns, national), quieter).join(" ")).toContain("silent:");
   });
 });

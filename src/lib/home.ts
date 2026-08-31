@@ -2,8 +2,10 @@
 // collected files through the same functions the season pages read. There is
 // no cross-conference competition, so nothing here invents a combined
 // standing: the page is N conferences side by side, a shared ledger of last
-// night's published finals, and sums that must survive being written out as a
-// list — each addend equal to what the linked season page shows.
+// night's published finals, and sums whose every addend equals what the
+// linked season page shows. That reconciliation used to be printed at the
+// foot of the page as a list of addends; it is enforced in home.test.ts now
+// and displayed nowhere, because it was the accounting, not the news.
 //
 // The lede is assembled deterministically from counts and opener dates. It is
 // never a model call: the home page does not wait on a journal regeneration.
@@ -53,16 +55,6 @@ export function nationalAsOf(seasons: readonly Season[]): string {
   return last;
 }
 
-/** The most recent collect instant across the conferences, for the dateline. */
-export function latestCollectedAt(seasons: readonly Season[]): string {
-  let best: string | null = null;
-  for (const s of seasons) {
-    if (best === null || Date.parse(s.collectedAt) > Date.parse(best)) best = s.collectedAt;
-  }
-  if (!best) throw new Error("Touchline: latestCollectedAt needs at least one season.");
-  return best;
-}
-
 /** The next league kickoff: the first fixture that counts in the conference
  *  table, on or after the conference's own collect date. Before the season
  *  opens this is the opener; mid-season it is the next conference game; after
@@ -93,7 +85,11 @@ export interface HomeColumn {
   season: Season;
   /** The same counts the season page's masthead prints, from the same function. */
   counts: SeasonCounts;
-  /** Exhibitions, outside the record everywhere — counted beside, never in. */
+  /** Friendlies, outside the record everywhere — counted beside, never in.
+   *  No surface prints this since tui-2lp retired the counts block; it stays
+   *  because `counts.total + exhibitions` is every fixture in the file, and
+   *  home.test.ts holds the data to that. A fixture in neither bucket is a
+   *  collector bug nothing else would catch. */
   exhibitions: number;
   /** The first fixture that counts in the table — what the season page names. */
   opensOn: string | null;
@@ -143,8 +139,8 @@ export interface LedgerRow {
 }
 
 /** The ledger holds only finals WITH published scores. A silent final never
- *  enters it — silences are counted beside, in the sub-line and the footer —
- *  and an exhibition is outside the record here as everywhere. */
+ *  enters it — silences are counted beside, in the sub-line and the lede —
+ *  and a friendly is outside the record here as everywhere. */
 export function lastNightLedger(seasons: readonly Season[], date: string): LedgerRow[] {
   const rows: LedgerRow[] = [];
   for (const s of seasons) {
@@ -175,9 +171,9 @@ export interface NationalCounts extends SeasonCounts {
   exhibitions: number;
 }
 
-/** The sums the footer writes out as a list. Each addend is a column's own
- *  count, which is the season page's own count — so the list and the linked
- *  pages cannot disagree. */
+/** The division's sums. Each addend is a column's own count, which is the
+ *  season page's own count, so the lede and the linked pages cannot disagree
+ *  — and home.test.ts recounts both from the fixtures to keep it that way. */
 export function nationalCounts(columns: readonly HomeColumn[]): NationalCounts {
   const nat: NationalCounts = { played: 0, silentFinals: 0, gaps: 0, total: 0, exhibitions: 0 };
   for (const c of columns) {
@@ -221,12 +217,15 @@ export function nationalLede(
       sentences.push(`${follows}.`);
     }
   }
-  if (national.silentFinals > 0) {
-    sentences.push(
-      `${sentenceCase(spell(national.silentFinals))} ${
-        national.silentFinals === 1 ? "final stands" : "finals stand"
-      } without a published score.`,
-    );
-  }
+  // Unconditional. A division with nothing silent has been checked and found
+  // clean, which is a fact about the collect; leaving the sentence out would
+  // make the reader infer the zero from a silence of our own.
+  sentences.push(
+    national.silentFinals === 0
+      ? "No final stands without a published score."
+      : `${sentenceCase(spell(national.silentFinals))} ${
+          national.silentFinals === 1 ? "final stands" : "finals stand"
+        } without a published score.`,
+  );
   return sentences.join(" ");
 }

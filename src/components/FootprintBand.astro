@@ -7,8 +7,9 @@
 // conference does not hold. The dots and the key carry it instead.
 //
 // Every figure here is recomputed from the fixtures and the coordinates file.
-// The band prints no fixture counts: the page's own footer already carries
-// those, exhibitions named and set outside the record.
+// The band prints no fixture counts of its own. It answers where, and a
+// played-and-scheduled tally answers how many; putting both in one band would
+// make the map argue with the columns above it, which count the same season.
 import { BASEMAP_VIEWBOX, STATE_OUTLINES } from "../lib/basemap.ts";
 import { type ConferenceFootprint, footprintOf } from "../lib/geo.ts";
 import type { HomeColumn } from "../lib/home.ts";
@@ -34,7 +35,6 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
 const placedCount = footprints.reduce((n, f) => n + f.placed.length, 0);
 const unplaced = footprints.flatMap((f) => f.unplaced);
 const states = [...new Set(footprints.flatMap((f) => f.states))].sort();
-const widest = footprints.reduce<number>((m, f) => Math.max(m, f.widestGap ?? 0), 0);
 
 // Colour is never the only carrier: every cluster is labelled, and the key
 // repeats the code beside the swatch. Purple is Touchline's and never a
@@ -143,13 +143,7 @@ const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
           {unplaced.length === 1 ? "has" : "have"} no town on file, and {unplaced.length === 1 ? "is" : "are"} not drawn.
         </p>
       )}
-      <p class="fp-caption provenance">
-        Each dot is the town a programme plays in. Division II builds its
-        conferences close to home — no programme here is more than {widest} miles
-        from another in its own league — and Touchline follows{" "}
-        {spell(columns.length)} of the {spell(divisionConferences)} that play the
-        men's game.
-      </p>
+      <p class="fp-caption provenance">Each dot is the town a programme plays in.</p>
     </div>
   </div>
 
