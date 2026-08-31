@@ -48,6 +48,10 @@ const VOICE = `VOICE — the programme's house register.
 - "matches", never "fixtures", in every sentence a reader will see. The JSON
   field is still called "fixture_ref" — that is the contract's name, not the
   reader's word.
+- "Played" means a final WITH a published score, and nothing else. A final
+  carrying no score is a SILENT FINAL: count it beside the played figure,
+  never inside it. An EXHIBITION is outside the record entirely — never called
+  played, never counted as a silence, named only as an exhibition.
 - Each finding must read as ONE logically coherent claim. Do not fuse two
   statistics into a single clause: "10 saves, one of them a shutout" is two
   facts wearing one sentence, and a shutout is not a save. Verified figures in

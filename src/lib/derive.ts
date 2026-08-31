@@ -70,7 +70,24 @@ export function hasScore(f: Fixture): f is Fixture & { home_score: number; away_
   return typeof f.home_score === "number" && typeof f.away_score === "number";
 }
 
-export const isScored = (f: Fixture): boolean => isPlayed(f) && hasScore(f);
+/**
+ * Whether a fixture belongs to the record at all.
+ *
+ * An exhibition is played, is marked final, and — for two Saint Mary's games —
+ * even carries a scoreline, but it counts toward nothing: not the record, not
+ * goals for or against, not the table, and not the conference's silences. A
+ * pre-season friendly with no score published is not a programme withholding a
+ * result; it is a programme that was never going to print one, and counting it
+ * as a silence puts a fault on a page where none exists.
+ *
+ * Exhibitions are dropped from every figure and named where they are dropped —
+ * never quietly deleted from the fixture list.
+ */
+export const isCountable = (f: Fixture): boolean => f.match_type !== "exhibition";
+
+export const isExhibition = (f: Fixture): boolean => f.match_type === "exhibition";
+
+export const isScored = (f: Fixture): boolean => isCountable(f) && isPlayed(f) && hasScore(f);
 
 export function byKickoff(a: Fixture, b: Fixture): number {
   return a.date.localeCompare(b.date) || (a.time ?? "99:99").localeCompare(b.time ?? "99:99");
@@ -203,10 +220,61 @@ export function conferenceOpensOn(s: Season): string | null {
   return dates[0] ?? null;
 }
 
-export const playedCount = (s: Season): number => s.fixtures.fixtures.filter(isPlayed).length;
+export const playedCount = (s: Season): number =>
+  s.fixtures.fixtures.filter((f) => isCountable(f) && isPlayed(f)).length;
 /** Played AND scored — the fixtures any figure on the page can rest on. */
 export const scoredCount = (s: Season): number => s.fixtures.fixtures.filter(isScored).length;
-export const fixtureCount = (s: Season): number => s.fixtures.fixtures.length;
+export const fixtureCount = (s: Season): number => s.fixtures.fixtures.filter(isCountable).length;
+
+/** Exhibitions, which every figure above leaves out. Named, not hidden. */
+export const exhibitionsOf = (s: Season, slug?: string): Fixture[] =>
+  s.fixtures.fixtures
+    .filter(isExhibition)
+    .filter((f) => slug === undefined || f.home === slug || f.away === slug)
+    .sort(byKickoff);
+
+/**
+ * The counts a page may print, and the vocabulary they are printed in.
+ *
+ * "Played" is reserved for a final with a published score. A final with no
+ * score is a SILENT FINAL, counted beside the played figure and never folded
+ * into it — the difference between a match that happened and a match a
+ * programme told us about is the whole point of the site. Exhibitions are
+ * outside all of it (see isCountable).
+ *
+ * Every count on a page comes from here, so no two surfaces can disagree about
+ * what "played" means.
+ */
+export interface SeasonCounts {
+  played: number;
+  silentFinals: number;
+  gaps: number;
+  total: number;
+}
+
+export function seasonCounts(s: Season): SeasonCounts {
+  const u = unresolved(s);
+  return {
+    played: scoredCount(s),
+    silentFinals: u.finalsWithoutScore.length,
+    gaps: boxScoreGaps(s).length,
+    total: fixtureCount(s),
+  };
+}
+
+/** The same counts for one programme's own ledger. */
+export function programmeCounts(s: Season, slug: string): SeasonCounts {
+  const own = s.fixtures.fixtures.filter(
+    (f) => isCountable(f) && (f.home === slug || f.away === slug),
+  );
+  const gapIds = new Set(boxScoreGaps(s).map((g) => g.fixtureId));
+  return {
+    played: own.filter(isScored).length,
+    silentFinals: own.filter((f) => isPlayed(f) && !hasScore(f)).length,
+    gaps: own.filter((f) => gapIds.has(f.id)).length,
+    total: own.length,
+  };
+}
 
 /** The two silences the design names separately: a game the site marked
  *  finished but never scored, and a game whose date has passed with the site
@@ -221,6 +289,7 @@ export function unresolved(s: Season): Unresolved {
   const finalsWithoutScore: Fixture[] = [];
   const pastDateNoResult: Fixture[] = [];
   for (const f of s.fixtures.fixtures) {
+    if (!isCountable(f)) continue;
     if (isPlayed(f) && !hasScore(f)) finalsWithoutScore.push(f);
     else if (!isPlayed(f) && f.status === "scheduled" && f.date < s.asOf) pastDateNoResult.push(f);
   }
@@ -374,6 +443,43 @@ const withBase = (path: string): string => `${BASE}${path}`;
 
 export const seasonHref = (key: string): string => withBase(`/${key}/`);
 export const teamHref = (key: string, slug: string): string => withBase(`/${key}/team/${slug}/`);
+
+/**
+ * Where a programme's team page actually lives.
+ *
+ * A match report names both sides, but only one of them is necessarily a
+ * member of the conference whose pages you are reading. Ecclesia appears in a
+ * GAC report and has no GAC team page; UT Tyler appears in one and has an LSC
+ * page. Linking both sides to the current conference sends readers to a 404,
+ * so the slug is resolved against every configured conference and an opponent
+ * that belongs to none gets no link affordance at all.
+ */
+const memberIndexes = new Map<string, Map<string, string>>();
+
+function memberIndex(season: number, gender: string): Map<string, string> {
+  const cacheKey = `${season}-${gender}`;
+  const cached = memberIndexes.get(cacheKey);
+  if (cached) return cached;
+  const index = new Map<string, string>();
+  for (const key of site.conferences) {
+    try {
+      for (const p of loadFixtures(season, gender, key).programmes) {
+        if (!index.has(p.slug)) index.set(p.slug, key);
+      }
+    } catch {
+      // A conference the data home has not collected contributes no members.
+    }
+  }
+  memberIndexes.set(cacheKey, index);
+  return index;
+}
+
+/** The team page for this programme in whichever configured conference has it
+ *  as a member, or null when none does. */
+export function teamPageHref(s: Season, slug: string): string | null {
+  const key = memberIndex(s.fixtures.season, s.fixtures.gender).get(slug);
+  return key ? teamHref(key, slug) : null;
+}
 export const matchHref = (key: string, fixtureId: string): string =>
   withBase(`/${key}/match/${matchSlug(fixtureId)}/`);
 
@@ -522,7 +628,7 @@ export function conferenceOpenerOf(s: Season, slug: string): Fixture | null {
 export function upcomingOf(s: Season, slug: string, withinDays = 14): Fixture[] {
   const horizon = toISO(dayNumber(s.asOf) + withinDays);
   return fixturesOf(s, slug).filter(
-    (f) => f.status === "scheduled" && f.date >= s.asOf && f.date <= horizon,
+    (f) => isCountable(f) && f.status === "scheduled" && f.date >= s.asOf && f.date <= horizon,
   );
 }
 

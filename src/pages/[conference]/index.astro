@@ -8,7 +8,6 @@ import {
   boxScoreGaps,
   conferenceLeaders,
   conferenceOpensOn,
-  fixtureCount,
   formOf,
   hasScore,
   latestResults,
@@ -19,9 +18,8 @@ import {
   playerClassOf,
   nextFixture,
   outsideRecord,
-  playedCount,
   resolveFixtureRef,
-  scoredCount,
+  seasonCounts,
   seasonWindow,
   table,
   tableIsLive,
@@ -61,9 +59,7 @@ const journal = loadJournal(season);
 const lede = editorial(season, journal);
 const stale = isStale(journal, season);
 
-const played = playedCount(season);
-const total = fixtureCount(season);
-const scored = scoredCount(season);
+const counts = seasonCounts(season);
 const gaps = boxScoreGaps(season);
 const rows = table(season);
 const live = tableIsLive(season);
@@ -149,9 +145,13 @@ const nextLabel = (f: Fixture): string => {
         <div class="kicker">{lede.kicker}</div>
         <div class="grow"></div>
         <div class="coverage num">
-          {played} OF {total} MATCHES PLAYED &nbsp;·&nbsp; DATA COVERAGE ·
+          {counts.played} OF {counts.total} MATCHES PLAYED
+          {counts.silentFinals > 0 && (
+            <>&nbsp;·&nbsp;{counts.silentFinals} SILENT {counts.silentFinals === 1 ? "FINAL" : "FINALS"}</>
+          )}
+          &nbsp;·&nbsp;
           <span class="gapcount" title={gaps.map((g) => `${g.fixtureId}: ${g.reason}`).join("\n")}>
-            {gaps.length} {gaps.length === 1 ? "GAP" : "GAPS"}
+            {counts.gaps} {counts.gaps === 1 ? "GAP" : "GAPS"}
           </span>
         </div>
       </div>
@@ -185,7 +185,7 @@ const nextLabel = (f: Fixture): string => {
             <div class="pattern-head">
               <EvidenceChip label={pattern.label} />
               <span class="pattern-scope">
-                {scored} scored {scored === 1 ? "result" : "results"}
+                {counts.played} scored {counts.played === 1 ? "result" : "results"}
                 {lastScored && ` · through ${shortDate(lastScored.date)}`}
               </span>
             </div>

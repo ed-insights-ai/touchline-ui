@@ -8,7 +8,7 @@ import {
   matchDetailOf,
   matchSlug,
   seasonHref,
-  teamHref,
+  teamPageHref,
   unresolved,
 } from "../../../lib/derive.ts";
 import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
@@ -199,6 +199,13 @@ const provenance =
       : "From the programme's published box score."
     : "From the programme's published schedule — result withheld by the source.";
 
+// Only a side with a team page somewhere gets a link; the rest read as plain
+// text, with no affordance promising a page that does not exist.
+const homeLink = teamPageHref(season, fixture.home);
+const awayLink = teamPageHref(season, fixture.away);
+const HomeSide = homeLink ? "a" : "div";
+const AwaySide = awayLink ? "a" : "div";
+
 const homeIdentity = identityLine(fixture.home);
 const awayIdentity = identityLine(fixture.away);
 const homeName = names.name(fixture.home);
@@ -222,19 +229,19 @@ const awayName = names.name(fixture.away);
     <section class={`hero${state === "played" ? "" : " hero-quiet"}`}>
       <div class={`badge badge-${badge.tone}`}>{badge.text}</div>
       <div class="scoreline">
-        <a class="side side-home" href={teamHref(season.key, fixture.home)}>
+        <HomeSide class="side side-home" href={homeLink}>
           <span class="side-name">{homeName.toUpperCase()}</span>
           <span class="side-sub">{homeIdentity ?? `${names.abbr(fixture.home)} · HOME`}</span>
-        </a>
+        </HomeSide>
         <div class={`figures${scored ? "" : " figures-absent"}`}>
           <span class="figure figure-home">{scored ? fixture.home_score : "—"}</span>
           <span class="figure-dash">–</span>
           <span class="figure figure-away">{scored ? fixture.away_score : "—"}</span>
         </div>
-        <a class="side side-away" href={teamHref(season.key, fixture.away)}>
+        <AwaySide class="side side-away" href={awayLink}>
           <span class="side-name">{awayName.toUpperCase()}</span>
           <span class="side-sub">{awayIdentity ?? `${names.abbr(fixture.away)} · AWAY`}</span>
-        </a>
+        </AwaySide>
       </div>
 
       {state === "played" && scoring.length > 0 && (
@@ -563,7 +570,7 @@ const awayName = names.name(fixture.away);
   .side-name { font-size: 24px; font-weight: 600; letter-spacing: 0.04em; }
   .side-away .side-name { color: var(--muted-side); }
   .side-sub { font-size: 11.5px; letter-spacing: 0.1em; color: var(--faint); text-transform: uppercase; }
-  .side:hover .side-name { color: var(--accent); }
+  a.side:hover .side-name { color: var(--accent); }
 
   .figures {
     display: flex; align-items: baseline; gap: 20px;

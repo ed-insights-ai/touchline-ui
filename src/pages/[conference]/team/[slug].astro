@@ -6,6 +6,7 @@ import FormBadges from "../../../components/FormBadges.astro";
 import {
   conferenceOpenerOf,
   fixturesOf,
+  programmeCounts,
   formOf,
   hasScore,
   isScored,
@@ -62,7 +63,7 @@ const shape = squadShape(season, slug);
 const keeper = leadKeeper(season, slug);
 const opener = conferenceOpenerOf(season, slug);
 const upcoming = upcomingOf(season, slug);
-const played = all.filter((f) => f.status === "final").length;
+const counts = programmeCounts(season, slug);
 
 const LINES = [
   { key: "FWD", label: "ATTACK", colour: "var(--pos-fwd)" },
@@ -126,13 +127,22 @@ const keeperNote = keeper
   ? `${keeper.name}: ${keeper.saves ?? 0} ${keeper.saves === 1 ? "save" : "saves"}, ${keeper.goals_against ?? 0} conceded, ${keeper.minutes ?? 0} minutes.`
   : "No goalkeeping line has been published.";
 
+// The figure counts every match in the fortnight, so the note has to account
+// for every one of them — a count that outruns what the page shows for it is
+// the reader's first reason to stop trusting the other counts.
+const NEXT_SHOWN = 3;
 const nextNote = upcoming.length
-  ? upcoming
-      .slice(0, 3)
-      .map(
-        (f) =>
-          `${f.home === slug ? "" : "at "}${names.name(f.home === slug ? f.away : f.home)} ${dowShort(f.date)}`,
-      )
+  ? [
+      upcoming
+        .slice(0, NEXT_SHOWN)
+        .map(
+          (f) =>
+            `${f.home === slug ? "" : "at "}${names.name(f.home === slug ? f.away : f.home)} ${dowShort(f.date)}`,
+        )
+        .join(", "),
+      upcoming.length > NEXT_SHOWN ? `+ ${upcoming.length - NEXT_SHOWN} more` : null,
+    ]
+      .filter(Boolean)
       .join(", ")
   : "No match inside the fortnight.";
 
@@ -142,9 +152,15 @@ const shapeNote =
     : `${spell(shape.returning)} back from ${season.fixtures.season - 1}, ${spell(shape.fresh ?? 0)} new to the roster.`;
 
 const stripNote = (() => {
-  const listed = all.length - played;
-  const spelled = spell(played);
-  const head = `${spelled.charAt(0).toUpperCase()}${spelled.slice(1)} played, ${spell(listed)} listed.`;
+  const spelled = spell(counts.played);
+  const silentWord = spell(counts.silentFinals);
+  const silent =
+    counts.silentFinals > 0
+      ? ` ${silentWord.charAt(0).toUpperCase()}${silentWord.slice(1)} silent ${
+          counts.silentFinals === 1 ? "final" : "finals"
+        }.`
+      : "";
+  const head = `${spelled.charAt(0).toUpperCase()}${spelled.slice(1)} played, ${spell(counts.total - counts.played - counts.silentFinals)} listed.${silent}`;
   if (!opener) return head;
   const oppSlug = opener.home === slug ? opener.away : opener.home;
   const where = opener.home === slug ? "at home to" : "at";
@@ -165,7 +181,7 @@ const identity = identityLine(slug);
         <h1 class="crest-name serif">{title}</h1>
         <div class="crest-meta num">
           {identity && `${identity} · `}<strong>{record.won}–{record.drawn}–{record.lost} overall</strong>
-          {" · "}{played} of {all.length} played
+          {" · "}{counts.played} of {counts.total} played
           {opener && ` · conference opens ${monShort(opener.date)} ${dayOfMonth(opener.date)}`}
         </div>
       </div>

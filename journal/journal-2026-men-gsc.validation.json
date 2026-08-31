@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-08-31T00:26:32.269Z",
+  "validated_at": "2026-08-31T00:56:32.590Z",
   "data_collected_at": "2026-08-30T21:08:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 13,
-    "contradicted": 0,
+    "verified": 11,
+    "contradicted": 2,
     "unverifiable": 0,
-    "dropped": 0
+    "dropped": 2
   },
   "normalizations": [],
   "claims": [
@@ -21,9 +21,9 @@
       "label": "derived",
       "text": "15 of 125",
       "checker": "fixture_counts",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "verdict": "contradicted",
+      "mismatches": ["total: claimed 125, data holds 120"],
+      "dropped": true
     },
     {
       "path": "pattern",
@@ -48,9 +48,9 @@
       "label": "observed",
       "text": "Seven matches whose scheduled dates have passed still carry no published result. No match has been recorded as final without a score, so the whole of the conference's silence sits in those seven.",
       "checker": "unresolved",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "verdict": "contradicted",
+      "mismatches": ["past_date_no_result: claimed 7, data holds 5"],
+      "dropped": true
     },
     {
       "path": "findings[1]",
