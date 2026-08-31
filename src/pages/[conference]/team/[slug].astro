@@ -23,6 +23,7 @@ import {
 import type { Fixture, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
+import SeasonStrip from "../../../components/SeasonStrip.astro";
 import { playerCard } from "../../../lib/player.ts";
 import {
   daysBetween,
@@ -216,20 +217,18 @@ const identity = identityLine(slug);
     </section>
 
     <section class="band">
-      <h2 class="sechead">SEASON</h2>
-      <div class="strip num">
-        {strip.map((c) => (
-          <a
-            class={`cell${c.scored ? ` cell-${c.result}` : ""}${c.isOpener ? " cell-opener" : ""}${c.silent ? " cell-silent" : ""}`}
-            href={matchHref(season.key, c.fixture.id)}
-            title={`${c.home ? "vs" : "at"} ${names.name(c.opponent)} · ${longDate(c.fixture.date)}`}
-          >
-            <span class="cell-opp">{names.abbr(c.opponent)}</span>
-            <span class="cell-line">{c.line ?? (c.silent ? "—" : numericDate(c.fixture.date))}</span>
-          </a>
-        ))}
-      </div>
-      <p class="provenance strip-note">{stripNote}</p>
+      <SeasonStrip
+        cells={strip.map((c) => ({
+          href: matchHref(season.key, c.fixture.id),
+          detail: `${c.home ? "vs" : "at"} ${names.name(c.opponent)} · ${longDate(c.fixture.date)}`,
+          opponent: names.abbr(c.opponent),
+          line: c.line ?? (c.silent ? "—" : numericDate(c.fixture.date)),
+          result: c.result as "W" | "D" | "L" | null,
+          isOpener: c.isOpener,
+          silent: c.silent,
+        }))}
+        note={stripNote}
+      />
     </section>
 
     <section class="band">
@@ -360,35 +359,6 @@ const identity = identityLine(slug);
   .band-last { border-bottom: none; padding-bottom: 0; }
 
   /* ── The season strip ───────────────────────────────────────────────────── */
-  .strip { display: flex; gap: 7px; }
-  .cell {
-    flex: 1 1 0;
-    min-width: 0;
-    display: flex; flex-direction: column; gap: 4px; align-items: center;
-    padding: 8px 0 6px;
-    border-bottom: 2px dashed var(--outline-quiet);
-    color: inherit;
-  }
-  .cell-opp { font-size: 9.5px; font-weight: 600; color: var(--quiet); }
-  .cell-line { font-size: 12px; color: var(--quiet); }
-  .cell:hover { background: var(--accent-wash-soft); border-radius: 5px 5px 0 0; }
-  .cell-W, .cell-D, .cell-L { border-bottom-style: solid; border-radius: 5px 5px 0 0; }
-  .cell-W { border-bottom-color: var(--win); background: rgba(21, 131, 79, 0.05); }
-  .cell-D { border-bottom-color: var(--draw); background: rgba(181, 122, 0, 0.05); }
-  .cell-L { border-bottom-color: var(--loss); background: rgba(190, 18, 60, 0.05); }
-  .cell-W .cell-opp, .cell-D .cell-opp, .cell-L .cell-opp { color: var(--quiet); }
-  .cell-W .cell-line, .cell-D .cell-line, .cell-L .cell-line {
-    font-size: 13px; font-weight: 600; color: var(--ink);
-  }
-  .cell-silent { border-bottom-color: var(--loss); }
-  .cell-silent .cell-line { color: var(--loss); }
-  .cell-opener {
-    border-bottom-color: var(--accent);
-    background: var(--accent-wash-soft);
-    border-radius: 5px 5px 0 0;
-  }
-  .cell-opener .cell-opp, .cell-opener .cell-line { color: var(--accent); font-weight: 600; }
-  .strip-note { margin: 0; }
 
   /* ── Profile ────────────────────────────────────────────────────────────── */
   .profile { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
@@ -436,7 +406,5 @@ const identity = identityLine(slug);
   @media (max-width: 1180px) {
     .profile { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
     .squad { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-    .strip { flex-wrap: wrap; }
-    .cell { flex: 0 0 calc(16.66% - 6px); }
   }
 </style>

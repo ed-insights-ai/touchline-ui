@@ -92,6 +92,15 @@ main { display: block; margin: 0; }
   color: var(--quiet);
 }
 
+/* Marks. Shared by the timeline legend, the cautions panel and the play
+   ledger, so they live here rather than in whichever component drew them
+   first — a caution is the same amber wherever it appears. */
+.key { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.key-home { background: var(--accent); }
+.key-away { background: var(--muted-mark); }
+.key-card { width: 8px; height: 11px; border-radius: 1.5px; background: var(--draw); }
+.key-red { width: 8px; height: 11px; border-radius: 1.5px; background: var(--loss); }
+
 /* ── Evidence grammar — the signature. Do not fork it. ────────────────────── */
 
 .chip {

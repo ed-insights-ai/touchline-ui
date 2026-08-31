@@ -1,0 +1,169 @@
+---
+// The play-by-play, in the order the programme published it.
+//
+// Filtering is five radio inputs and their labels: no script, so the ledger
+// filters identically with JavaScript off, and each chip reads at its drawn
+// size while answering at 44px. Every row carries the published sentence in a
+// title attribute — the visible equivalent for that is provenance work.
+import type { LedgerRow } from "../lib/plays.ts";
+
+interface Props {
+  rows: LedgerRow[];
+  /** Total plays published, which is not the row count: dividers are derived. */
+  playCount: number;
+  /**
+   * Widest abbreviation this match actually carries. Clamped at both ends:
+   * `ch` is the width of a ZERO and these are uppercase, so the raw count
+   * under-measures — 4ch truncated "FHSU" to "FH…".
+   */
+  abbrChars: number;
+}
+const { rows, playCount, abbrChars } = Astro.props;
+const CHIPS = [
+  { id: "all", label: "ALL" },
+  { id: "goals", label: "GOALS & CARDS" },
+  { id: "shots", label: "SHOTS" },
+  { id: "set", label: "SET PIECES" },
+  { id: "subs", label: "SUBSTITUTIONS" },
+] as const;
+---
+
+<section class="pbp">
+  {CHIPS.map((c) => (
+    <input
+      class="pbp-r"
+      type="radio"
+      name="pbp-filter"
+      id={`pbp-${c.id}`}
+      checked={c.id === "all"}
+      aria-label={c.label}
+    />
+  ))}
+  <div class="pbp-head">
+    <h2 class="sechead">PLAY BY PLAY</h2>
+    <div class="chips">
+      {CHIPS.map((c) => (
+        <label class="chip" for={`pbp-${c.id}`}><span>{c.label}</span></label>
+      ))}
+    </div>
+    <div class="grow"></div>
+    <div class="pbp-count">{playCount} PLAYS · AS PUBLISHED</div>
+  </div>
+  <div class="ledger num" style={`--abbr-col: clamp(48px, calc(${abbrChars}ch + 8px), 92px)`}>
+    {rows.map((r) =>
+      r.kind === "divider" ? (
+        <div class={`brk${r.label === "FULL TIME" ? " brk-last" : ""}`}>
+          <span class="brk-label">{r.label}</span>
+          {r.score && <span class="brk-score">{r.score}</span>}
+        </div>
+      ) : (
+        <div
+          class={["row", r.goalLabel ? "row-goal" : "", r.dim ? "row-dim" : "", ...r.filters.map((f) => `f-${f}`)]
+            .filter(Boolean)
+            .join(" ")}
+          title={r.raw}
+        >
+          <span class={`row-clock${r.clock ? "" : " row-noclock"}`}>{r.clock ?? "—"}</span>
+          <span class="row-abbr">{r.abbr}</span>
+          <span class="row-text">
+            {r.goalLabel ? (
+              <>
+                <span class="row-goal-label">{r.goalLabel}</span> — {r.scorer}
+                {r.assists && <span class="row-assist"> {r.assists}</span>}
+              </>
+            ) : (
+              <>
+                {r.card && <i class={`key key-${r.card === "red" ? "red" : "card"}`}></i>}
+                {r.text}
+                {!r.clock && <span class="row-nostamp"> · no clock published</span>}
+              </>
+            )}
+          </span>
+          <span class="row-score">{r.running}</span>
+        </div>
+      ),
+    )}
+  </div>
+</section>
+
+<style>
+  .pbp {
+    padding: 22px 0 24px;
+    border-top: 1px solid var(--hairline);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .pbp-r { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .pbp-head { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .pbp-head .sechead { padding-bottom: 0; }
+  .grow { flex: 1; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
+  .chip > span {
+    font-size: 10px; letter-spacing: 0.14em; font-weight: 600;
+    color: var(--faint); border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 3px 10px; border-radius: 3px; white-space: nowrap;
+  }
+  .chip:hover > span { color: var(--ink-soft); border-color: var(--outline); }
+  .pbp-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
+
+  #pbp-all:checked ~ .pbp-head label[for="pbp-all"] > span,
+  #pbp-goals:checked ~ .pbp-head label[for="pbp-goals"] > span,
+  #pbp-shots:checked ~ .pbp-head label[for="pbp-shots"] > span,
+  #pbp-set:checked ~ .pbp-head label[for="pbp-set"] > span,
+  #pbp-subs:checked ~ .pbp-head label[for="pbp-subs"] > span {
+    color: var(--accent); border-color: var(--accent-border);
+  }
+  .pbp-r:focus-visible ~ .pbp-head label[for] > span {
+    outline: 1px solid var(--accent); outline-offset: 2px;
+  }
+
+  #pbp-goals:checked ~ .ledger > .row:not(.f-goals),
+  #pbp-shots:checked ~ .ledger > .row:not(.f-shots),
+  #pbp-set:checked ~ .ledger > .row:not(.f-set),
+  #pbp-subs:checked ~ .ledger > .row:not(.f-subs) { display: none; }
+
+  .ledger { display: flex; flex-direction: column; font-size: 12.5px; }
+  .row {
+    display: grid; grid-template-columns: 52px var(--abbr-col, 48px) 1fr 90px; gap: 12px;
+    padding: 5.5px 0; border-top: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: baseline;
+  }
+  .row-clock { color: var(--faint); }
+  .row-noclock { color: var(--outline-quiet); }
+  .row-abbr { color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row-dim .row-abbr { color: var(--faint); }
+  .row-text { color: var(--faint); }
+  .f-shots .row-text { color: var(--ink-soft); }
+  .row-nostamp { font-style: italic; color: var(--fainter); }
+  .row-score { text-align: right; }
+  .row .key { margin-right: 8px; vertical-align: -1px; }
+
+  .row-goal { background: rgba(155, 142, 255, 0.06); }
+  .row-goal .row-clock { color: var(--ink-soft); }
+  .row-goal .row-text { color: var(--ink); font-weight: 600; }
+  .row-goal .row-goal-label { color: var(--accent); }
+  .row-goal .row-assist { color: var(--faint); font-weight: 400; }
+  .row-goal .row-score { color: var(--accent); font-weight: 600; }
+  .row-goal.row-dim { background: rgba(255, 255, 255, 0.02); }
+  .row-goal.row-dim .row-text { color: var(--muted-side); }
+  .row-goal.row-dim .row-goal-label { color: var(--fainter); }
+  .row-goal.row-dim .row-score { color: var(--muted-side); }
+
+  .brk {
+    display: flex; align-items: center; gap: 14px;
+    padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .brk-last { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .brk-label { font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600; color: var(--faint); }
+  .brk-score { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
+
+  /* The ledger reflows rather than scrolls: the score column folds under the
+     play text and the clock keeps its own column. */
+  @media (max-width: 720px) {
+    .pbp-head { gap: 10px 14px; }
+    .pbp-count { width: 100%; }
+    .row { grid-template-columns: 46px 40px 1fr; gap: 8px; }
+    .row-score { grid-column: 3; text-align: left; padding-top: 2px; }
+    .row-goal .row-score { color: var(--accent); }
+  }
+</style>

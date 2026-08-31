@@ -37,11 +37,23 @@ build:
     @echo "→ build"
     bun run build
 
-# Types, lint, and a clean build — the gate before publishing.
+# Types, lint, tests, and a clean build — the gate before publishing.
 verify:
     bunx tsc --noEmit -p tsconfig.json
     bun run check
+    bun test
     bun run build
+
+# Pixel-diff the built site against a saved baseline, at desktop and phone
+# width. Deliberately NOT part of `verify`: it needs Chrome and ImageMagick,
+# and a refactor's baseline is a judgement about intent, not a fact about the
+# tree. Run `just visual-save` when the current render IS the intent, then
+# `just visual` after a change that should not have moved anything.
+visual:
+    ./scripts/visual.sh check
+
+visual-save:
+    ./scripts/visual.sh save
 
 # Push dist/ to the publish branch, which the host serves verbatim.
 publish: _require-git

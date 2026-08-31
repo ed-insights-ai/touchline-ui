@@ -1,0 +1,101 @@
+---
+// The season page's masthead: the kicker, the counts, the story's headline and
+// dek, and the one summary figure beneath them.
+//
+// The coverage line is where the page states what it is standing on, so the
+// provenance disclosure for the gap count belongs here and nowhere else.
+import type { BoxScoreGap, SeasonCounts } from "../lib/derive.ts";
+
+interface Props {
+  kicker: string;
+  headline: string;
+  dek?: string | null;
+  counts: SeasonCounts;
+  gaps: BoxScoreGap[];
+  summary: { label: string; value: string; detail?: string | null };
+  /** The journal was written against an earlier collect than this one. */
+  stale?: boolean;
+}
+const { kicker, headline, dek, counts, gaps, summary, stale = false } = Astro.props;
+---
+
+<section class="masthead">
+  <div class="masthead-top">
+    <div class="kicker">{kicker}</div>
+    <div class="grow"></div>
+    <div class="coverage num">
+      {counts.played} OF {counts.total} MATCHES PLAYED
+      {counts.silentFinals > 0 && (
+        <>&nbsp;·&nbsp;{counts.silentFinals} SILENT {counts.silentFinals === 1 ? "FINAL" : "FINALS"}</>
+      )}
+      &nbsp;·&nbsp;
+      <span class="gapcount" title={gaps.map((g) => `${g.fixtureId}: ${g.reason}`).join("\n")}>
+        {counts.gaps} {counts.gaps === 1 ? "GAP" : "GAPS"}
+      </span>
+    </div>
+  </div>
+  <h1 class="headline serif">{headline}</h1>
+  {dek && <p class="dek">{dek}</p>}
+  <div class="summary">
+    <div class="summary-stat">
+      <span class="label">{summary.label}</span>
+      <span class="summary-value num">{summary.value}</span>
+    </div>
+    {summary.detail && (
+      <>
+        <span class="summary-rule"></span>
+        <span class="summary-detail num">{summary.detail}</span>
+      </>
+    )}
+    {stale && (
+      <>
+        <span class="summary-rule"></span>
+        <span class="summary-detail">Journal written for an earlier collect.</span>
+      </>
+    )}
+  </div>
+</section>
+
+<style>
+  .masthead {
+    padding: 30px 0 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .masthead-top { display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; }
+  .kicker { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
+  .coverage { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); white-space: nowrap; }
+  .gapcount { border-bottom: 1px dotted var(--faint); cursor: help; white-space: nowrap; }
+  .grow { flex: 1; }
+  .headline {
+    margin: 0;
+    font-size: 46px;
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    max-width: 980px;
+    text-wrap: pretty;
+  }
+  .dek {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--secondary);
+    max-width: 820px;
+    text-wrap: pretty;
+  }
+  .summary { display: flex; align-items: center; gap: 24px; margin-top: 4px; flex-wrap: wrap; }
+  .summary-stat { display: flex; align-items: baseline; gap: 10px; }
+  .summary-stat .label { letter-spacing: 0.16em; }
+  .summary-value { font-size: 15px; font-weight: 600; }
+  .summary-rule { width: 1px; height: 18px; background: var(--hairline); }
+  .summary-detail { font-size: 13px; color: var(--secondary); text-transform: uppercase; }
+
+  @media (max-width: 1180px) {
+    .headline { font-size: 34px; }
+  }
+  @media (max-width: 720px) {
+    .coverage { white-space: normal; }
+  }
+</style>

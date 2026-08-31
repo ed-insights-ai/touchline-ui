@@ -3,6 +3,8 @@ import { site } from "../../site.config.ts";
 import Page from "../../layouts/Page.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import EvidenceChip from "../../components/EvidenceChip.astro";
+import SeasonMasthead from "../../components/SeasonMasthead.astro";
+import ConferenceTable from "../../components/ConferenceTable.astro";
 import FormBadges from "../../components/FormBadges.astro";
 import {
   boxScoreGaps,
@@ -140,42 +142,15 @@ const nextLabel = (f: Fixture): string => {
   <div class="tl-page">
     <SiteHeader season={season} />
 
-    <section class="masthead">
-      <div class="masthead-top">
-        <div class="kicker">{lede.kicker}</div>
-        <div class="grow"></div>
-        <div class="coverage num">
-          {counts.played} OF {counts.total} MATCHES PLAYED
-          {counts.silentFinals > 0 && (
-            <>&nbsp;·&nbsp;{counts.silentFinals} SILENT {counts.silentFinals === 1 ? "FINAL" : "FINALS"}</>
-          )}
-          &nbsp;·&nbsp;
-          <span class="gapcount" title={gaps.map((g) => `${g.fixtureId}: ${g.reason}`).join("\n")}>
-            {counts.gaps} {counts.gaps === 1 ? "GAP" : "GAPS"}
-          </span>
-        </div>
-      </div>
-      <h1 class="headline serif">{lede.headline}</h1>
-      {lede.dek && <p class="dek">{lede.dek}</p>}
-      <div class="summary">
-        <div class="summary-stat">
-          <span class="label">{summary.label}</span>
-          <span class="summary-value num">{summary.value}</span>
-        </div>
-        {summary.detail && (
-          <>
-            <span class="summary-rule"></span>
-            <span class="summary-detail num">{summary.detail}</span>
-          </>
-        )}
-        {stale && (
-          <>
-            <span class="summary-rule"></span>
-            <span class="summary-detail">Journal written for an earlier collect.</span>
-          </>
-        )}
-      </div>
-    </section>
+    <SeasonMasthead
+      kicker={lede.kicker}
+      headline={lede.headline}
+      dek={lede.dek}
+      counts={counts}
+      gaps={gaps}
+      summary={summary}
+      stale={stale}
+    />
 
     <section class="split">
       <div class="col">
@@ -249,25 +224,13 @@ const nextLabel = (f: Fixture): string => {
       </div>
 
       <div class="col">
-        <h2 class="sechead">THE TABLE</h2>
-        <div class="table num">
-          {rows.map((r, i) => (
-            <a class="trow hoverable" href={teamHref(season.key, r.slug)}>
-              <span class="tpos">{live ? i + 1 : "–"}</span>
-              <span class="tname">{r.name}</span>
-              <FormBadges form={formOf(season, r.slug)} />
-              <span class="tpts">{r.points}</span>
-            </a>
-          ))}
-        </div>
-        <p class="table-state">
-          {opens && !live ? (
-            <><strong>{statement.statement.split(".")[0]}.</strong>{statement.statement.slice(statement.statement.indexOf(".") + 1)}</>
-          ) : (
-            statement.statement
-          )}
-        </p>
-        {statement.footnote && <p class="table-foot">{statement.footnote}</p>}
+        <ConferenceTable
+          season={season}
+          rows={rows}
+          live={live}
+          statement={statement}
+          emphasiseFirstSentence={Boolean(opens) && !live}
+        />
       </div>
     </section>
 
@@ -415,40 +378,6 @@ const nextLabel = (f: Fixture): string => {
 
 <style>
   /* ── Masthead ───────────────────────────────────────────────────────────── */
-  .masthead {
-    padding: 30px 0 26px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .masthead-top { display: flex; align-items: baseline; gap: 16px; }
-  .kicker { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
-  .coverage { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); white-space: nowrap; }
-  .masthead-top { flex-wrap: wrap; gap: 8px 16px; }
-  .gapcount { border-bottom: 1px dotted var(--faint); cursor: help; white-space: nowrap; }
-  .headline {
-    margin: 0;
-    font-size: 46px;
-    line-height: 1.08;
-    letter-spacing: -0.005em;
-    max-width: 980px;
-    text-wrap: pretty;
-  }
-  .dek {
-    margin: 0;
-    font-size: 15.5px;
-    line-height: 1.5;
-    color: var(--secondary);
-    max-width: 820px;
-    text-wrap: pretty;
-  }
-  .summary { display: flex; align-items: center; gap: 24px; margin-top: 4px; flex-wrap: wrap; }
-  .summary-stat { display: flex; align-items: baseline; gap: 10px; }
-  .summary-stat .label { letter-spacing: 0.16em; }
-  .summary-value { font-size: 15px; font-weight: 600; }
-  .summary-rule { width: 1px; height: 18px; background: var(--hairline); }
-  .summary-detail { font-size: 13px; color: var(--secondary); text-transform: uppercase; }
 
   /* ── Two-column bands ───────────────────────────────────────────────────── */
   .split {
@@ -507,23 +436,6 @@ const nextLabel = (f: Fixture): string => {
   .finding-text { font-size: 13.5px; line-height: 1.45; color: var(--ink-soft); }
 
   /* ── The table ──────────────────────────────────────────────────────────── */
-  .table { display: flex; flex-direction: column; }
-  .trow {
-    display: grid;
-    grid-template-columns: 20px 1fr 76px 40px;
-    gap: 8px;
-    padding: 9px 4px;
-    border-bottom: 1px solid var(--hairline);
-    align-items: center;
-    border-left: 3px solid transparent;
-    color: inherit;
-  }
-  .trow:hover { border-left-color: var(--accent); }
-  .tpos { font-size: 11.5px; color: var(--quiet); }
-  .tname { font-size: 13.5px; }
-  .tpts { font-size: 13.5px; font-weight: 600; text-align: right; color: var(--quiet); }
-  .table-state { margin: 10px 0 0; font-size: 13px; line-height: 1.5; }
-  .table-foot { margin: 4px 0 0; font-size: 11px; color: var(--quiet); line-height: 1.5; }
 
   /* ── Featured ───────────────────────────────────────────────────────────── */
   .featured {
@@ -583,7 +495,6 @@ const nextLabel = (f: Fixture): string => {
   .sechead-plain { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
 
   @media (max-width: 720px) {
-    .coverage { white-space: normal; }
     .chart-plot, .chart-axis { min-width: 34px; }
     .chart-scroll > * { min-width: max(100%, 340px); }
   }
@@ -607,7 +518,5 @@ const nextLabel = (f: Fixture): string => {
   @media (max-width: 1180px) {
     .split { grid-template-columns: minmax(0, 1fr); gap: 32px; }
     .featured { grid-template-columns: minmax(0, 1fr); }
-    .headline { font-size: 34px; }
-    .masthead-top { flex-wrap: wrap; }
   }
 </style>

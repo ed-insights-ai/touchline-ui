@@ -13,6 +13,8 @@ import {
 } from "../../../lib/derive.ts";
 import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
+import MatchTimeline from "../../../components/MatchTimeline.astro";
+import PlayLedger from "../../../components/PlayLedger.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
 import {
   clockTime,
@@ -134,13 +136,6 @@ const ledger = detail ? ledgerRows(detail, homeIndex) : [];
 // served with no abbreviation from pushing the play text off the row.
 const abbrChars = Math.max(4, ...(detail?.teams ?? []).map((t) => (t.abbr ?? t.name ?? "").length));
 
-const CHIPS = [
-  { id: "all", label: "ALL" },
-  { id: "goals", label: "GOALS & CARDS" },
-  { id: "shots", label: "SHOTS" },
-  { id: "set", label: "SET PIECES" },
-  { id: "subs", label: "SUBSTITUTIONS" },
-] as const;
 
 // "Aug 30, 21:07 UTC" — the collect's own moment, not an ISO string.
 const collectedStamp = `${monShort(season.collectedAt.slice(0, 10))} ${dayOfMonth(season.collectedAt.slice(0, 10))}, ${season.collectedAt.slice(11, 16)} UTC`;
@@ -294,44 +289,21 @@ const awayName = names.name(fixture.away);
     </section>
 
     {state === "played" && (scoring.length > 0 || cards.length > 0) && (
-      <section class="timeline-band">
-        <div class="timeline-head">
-          <h2 class="sechead">MATCH TIMELINE</h2>
-          <div class="grow"></div>
-          <div class="legend">
-            <span><i class="key key-home"></i>{names.abbr(fixture.home)} GOAL</span>
-            <span><i class="key key-away"></i>{names.abbr(fixture.away)} GOAL</span>
-            <span><i class="key key-card"></i>CAUTION</span>
-          </div>
-        </div>
-        <div class="timeline-scroll">
-        <div class="timeline">
-          <div class="axis"></div>
-          <div class="tick" style="left: 0"></div>
-          <div class="tick" style="left: 50%"></div>
-          <div class="tick" style="left: 100%"></div>
-          <div class="tick-label" style="left: 0">0′</div>
-          <div class="tick-label tick-mid" style="left: 50%">HT</div>
-          <div class="tick-label tick-end" style="left: 100%">{fullTime}′</div>
-          {scoring.map((g, i) => (
-            <>
-              <div
-                class={`goal${g.team === sides?.homeIndex ? " goal-home" : " goal-away"}`}
-                style={`left: ${at(g.minute)}%`}
-                title={`${g.minute}′ ${g.scorer}`}
-              ></div>
-              <div
-                class={`goal-label${i % 2 === 0 ? " above" : " below"}${g.team === sides?.homeIndex ? "" : " quiet"}`}
-                style={`left: ${at(g.minute)}%`}
-              >{g.minute}′</div>
-            </>
-          ))}
-          {cards.map((c) => (
-            <div class="card-mark" style={`left: ${at(c.minute)}%`} title={`${c.minute}′ ${c.player}`}></div>
-          ))}
-        </div>
-        </div>
-      </section>
+      <MatchTimeline
+        homeAbbr={names.abbr(fixture.home)}
+        awayAbbr={names.abbr(fixture.away)}
+        goals={scoring.map((g) => ({
+          minute: g.minute,
+          label: `${g.minute}′ ${g.scorer}`,
+          home: g.team === sides?.homeIndex,
+        }))}
+        cards={cards.map((c) => ({
+          minute: c.minute,
+          label: `${c.minute}′ ${c.player}`,
+          home: c.team === sides?.homeIndex,
+        }))}
+        fullTime={fullTime}
+      />
     )}
 
     <section class="body">
@@ -471,68 +443,7 @@ const awayName = names.name(fixture.away);
     </section>
 
     {ledger.length > 0 && (
-      <section class="pbp">
-        {CHIPS.map((c) => (
-          <input
-            class="pbp-r"
-            type="radio"
-            name="pbp-filter"
-            id={`pbp-${c.id}`}
-            checked={c.id === "all"}
-            aria-label={c.label}
-          />
-        ))}
-        <div class="pbp-head">
-          <h2 class="sechead">PLAY BY PLAY</h2>
-          <div class="chips">
-            {CHIPS.map((c) => (
-              <label class="chip" for={`pbp-${c.id}`}><span>{c.label}</span></label>
-            ))}
-          </div>
-          <div class="grow"></div>
-          <div class="pbp-count">{plays.length} PLAYS · AS PUBLISHED</div>
-        </div>
-        <div class="ledger num" style={`--abbr-col: clamp(48px, calc(${abbrChars}ch + 8px), 92px)`}>
-          {ledger.map((r) =>
-            r.kind === "divider" ? (
-              <div class={`brk${r.label === "FULL TIME" ? " brk-last" : ""}`}>
-                <span class="brk-label">{r.label}</span>
-                {r.score && <span class="brk-score">{r.score}</span>}
-              </div>
-            ) : (
-              <div
-                class={[
-                  "row",
-                  r.goalLabel ? "row-goal" : "",
-                  r.dim ? "row-dim" : "",
-                  ...r.filters.map((f) => `f-${f}`),
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
-                title={r.raw}
-              >
-                <span class={`row-clock${r.clock ? "" : " row-noclock"}`}>{r.clock ?? "—"}</span>
-                <span class="row-abbr">{r.abbr}</span>
-                <span class="row-text">
-                  {r.goalLabel ? (
-                    <>
-                      <span class="row-goal-label">{r.goalLabel}</span> — {r.scorer}
-                      {r.assists && <span class="row-assist"> {r.assists}</span>}
-                    </>
-                  ) : (
-                    <>
-                      {r.card && <i class={`key key-${r.card === "red" ? "red" : "card"}`}></i>}
-                      {r.text}
-                      {!r.clock && <span class="row-nostamp"> · no clock published</span>}
-                    </>
-                  )}
-                </span>
-                <span class="row-score">{r.running}</span>
-              </div>
-            ),
-          )}
-        </div>
-      </section>
+      <PlayLedger rows={ledger} playCount={plays.length} abbrChars={abbrChars} />
     )}
 
     <footer class="mfoot">
@@ -603,125 +514,6 @@ const awayName = names.name(fixture.away);
     text-align: center; line-height: 1.5; margin: 0;
   }
 
-  /* ── Play by play ───────────────────────────────────────────────────────── */
-  .pbp {
-    padding: 22px 0 24px;
-    border-top: 1px solid var(--hairline);
-    display: flex; flex-direction: column; gap: 14px;
-  }
-  /* The filter is five radios and their labels — no script, so the ledger is
-     as interactive with JavaScript off as with it on. */
-  .pbp-r { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-  .pbp-head { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-  .pbp-head .sechead { padding-bottom: 0; }
-  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-  /* The chip reads at its drawn size and answers at 44px — the label is the
-     target, the span is the look. */
-  .chip {
-    min-height: 44px; display: flex; align-items: center; cursor: pointer;
-  }
-  .chip > span {
-    font-size: 10px; letter-spacing: 0.14em; font-weight: 600;
-    color: var(--faint); border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 3px 10px; border-radius: 3px; white-space: nowrap;
-  }
-  .chip:hover > span { color: var(--ink-soft); border-color: var(--outline); }
-  .pbp-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
-
-  #pbp-all:checked ~ .pbp-head label[for="pbp-all"] > span,
-  #pbp-goals:checked ~ .pbp-head label[for="pbp-goals"] > span,
-  #pbp-shots:checked ~ .pbp-head label[for="pbp-shots"] > span,
-  #pbp-set:checked ~ .pbp-head label[for="pbp-set"] > span,
-  #pbp-subs:checked ~ .pbp-head label[for="pbp-subs"] > span {
-    color: var(--accent); border-color: var(--accent-border);
-  }
-  .pbp-r:focus-visible ~ .pbp-head label[for] > span {
-    outline: 1px solid var(--accent); outline-offset: 2px;
-  }
-
-  #pbp-goals:checked ~ .ledger > .row:not(.f-goals),
-  #pbp-shots:checked ~ .ledger > .row:not(.f-shots),
-  #pbp-set:checked ~ .ledger > .row:not(.f-set),
-  #pbp-subs:checked ~ .ledger > .row:not(.f-subs) { display: none; }
-
-  .ledger { display: flex; flex-direction: column; font-size: 12.5px; }
-  .row {
-    display: grid; grid-template-columns: 52px var(--abbr-col, 48px) 1fr 90px; gap: 12px;
-    padding: 5.5px 0; border-top: 1px solid rgba(255, 255, 255, 0.05);
-    align-items: baseline;
-  }
-  .row-clock { color: var(--faint); }
-  .row-noclock { color: var(--outline-quiet); }
-  .row-abbr { color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .row-dim .row-abbr { color: var(--faint); }
-  .row-text { color: var(--faint); }
-  .f-shots .row-text { color: var(--ink-soft); }
-  .row-nostamp { font-style: italic; color: var(--fainter); }
-  .row-score { text-align: right; }
-  .row .key { margin-right: 8px; vertical-align: -1px; }
-
-  .row-goal { background: rgba(155, 142, 255, 0.06); }
-  .row-goal .row-clock { color: var(--ink-soft); }
-  .row-goal .row-text { color: var(--ink); font-weight: 600; }
-  .row-goal .row-goal-label { color: var(--accent); }
-  .row-goal .row-assist { color: var(--faint); font-weight: 400; }
-  .row-goal .row-score { color: var(--accent); font-weight: 600; }
-  /* A goal for the dimmed side keeps the same anatomy in that side's grays. */
-  .row-goal.row-dim { background: rgba(255, 255, 255, 0.02); }
-  .row-goal.row-dim .row-text { color: var(--muted-side); }
-  .row-goal.row-dim .row-goal-label { color: var(--fainter); }
-  .row-goal.row-dim .row-score { color: var(--muted-side); }
-
-  .brk {
-    display: flex; align-items: center; gap: 14px;
-    padding: 8px 0; border-top: 1px solid rgba(255, 255, 255, 0.12);
-  }
-  .brk-last { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
-  .brk-label { font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600; color: var(--faint); }
-  .brk-score { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
-
-  /* ── Timeline ───────────────────────────────────────────────────────────── */
-  .timeline-band {
-    padding: 18px 0 22px;
-    border-top: 1px solid var(--hairline);
-    border-bottom: 1px solid var(--hairline);
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .timeline-head { display: flex; align-items: baseline; }
-  .timeline-head .sechead { padding-bottom: 0; }
-  .legend { display: flex; gap: 18px; align-items: center; font-size: 10.5px; letter-spacing: 0.1em; color: var(--faint); }
-  .legend span { display: flex; align-items: center; gap: 6px; }
-  .key { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .key-home { background: var(--accent); }
-  .key-away { background: var(--muted-mark); }
-  .key-card { width: 8px; height: 11px; border-radius: 1.5px; background: var(--draw); }
-  .key-red { width: 8px; height: 11px; border-radius: 1.5px; background: var(--loss); }
-
-  .timeline { position: relative; height: 78px; }
-  .axis { position: absolute; top: 36px; left: 0; right: 0; height: 2px; background: var(--outline); }
-  .tick { position: absolute; top: 29px; width: 1px; height: 16px; background: var(--tick); }
-  .tick-label { position: absolute; top: 58px; font-size: 10px; color: var(--faint); }
-  .tick-mid { transform: translateX(-50%); }
-  .tick-end { transform: translateX(-100%); }
-  .goal {
-    position: absolute; top: 30px; transform: translateX(-50%);
-    width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--paper);
-  }
-  .goal-home { background: var(--accent); }
-  .goal-away { background: var(--muted-mark); }
-  .goal-label {
-    position: absolute; transform: translateX(-50%);
-    font-size: 11px; color: var(--secondary); white-space: nowrap;
-  }
-  .goal-label.above { top: 8px; }
-  .goal-label.below { top: 58px; }
-  .goal-label.quiet { color: var(--faint); }
-  .card-mark {
-    position: absolute; top: 32px; transform: translateX(-50%);
-    width: 8px; height: 11px; background: var(--draw); border-radius: 1.5px;
-  }
-
-  /* ── Body ───────────────────────────────────────────────────────────────── */
   .body {
     display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 56px;
     padding: 22px 0; flex: 1; min-height: 0;
@@ -815,13 +607,6 @@ const awayName = names.name(fixture.away);
 
     .figure { font-size: 56px; }
     .hero-explain { font-size: 14px; }
-
-    /* Ninety minutes drawn to scale cannot be narrowed without lying about
-       where a goal fell, so it keeps its width and takes its own scrollbar. */
-    .timeline-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .timeline { min-width: 560px; }
-    .timeline-head { flex-wrap: wrap; gap: 8px 14px; }
-    .legend { flex-wrap: wrap; gap: 8px 14px; }
 
     /* Mirrored bars need width the phone does not have; the figures and the
        label are the fact, so the bars go and the row stays legible. */

@@ -1,0 +1,115 @@
+---
+// Ninety minutes drawn to scale, with goals above the line and cautions on it.
+//
+// The scale is the point: a mark's position is its minute. That is why the
+// band scrolls rather than compresses on a narrow screen — a timeline that
+// reflows is lying about when something happened.
+//
+// Every mark currently says who it was through a title attribute alone, which
+// is the hover-only-facts problem; the visible or focusable equivalent lands
+// here when provenance does.
+interface Mark {
+  minute: number | null;
+  label: string;
+  /** The home side's marks read in the accent, the away side's in gray. */
+  home: boolean;
+}
+interface Props {
+  homeAbbr: string;
+  awayAbbr: string;
+  goals: Mark[];
+  cards: Mark[];
+  /** The clock the band is drawn against — ninety, or later if it ran on. */
+  fullTime: number;
+}
+const { homeAbbr, awayAbbr, goals, cards, fullTime } = Astro.props;
+const at = (minute: number | null): number =>
+  minute === null ? 0 : Math.min(100, Math.max(0, (minute / fullTime) * 100));
+---
+
+<section class="timeline-band">
+  <div class="timeline-head">
+    <h2 class="sechead">MATCH TIMELINE</h2>
+    <div class="grow"></div>
+    <div class="legend">
+      <span><i class="key key-home"></i>{homeAbbr} GOAL</span>
+      <span><i class="key key-away"></i>{awayAbbr} GOAL</span>
+      <span><i class="key key-card"></i>CAUTION</span>
+    </div>
+  </div>
+  <div class="timeline-scroll">
+    <div class="timeline">
+      <div class="axis"></div>
+      <div class="tick" style="left: 0"></div>
+      <div class="tick" style="left: 50%"></div>
+      <div class="tick" style="left: 100%"></div>
+      <div class="tick-label" style="left: 0">0′</div>
+      <div class="tick-label tick-mid" style="left: 50%">HT</div>
+      <div class="tick-label tick-end" style="left: 100%">{fullTime}′</div>
+      {goals.map((g, i) => (
+        <>
+          <div
+            class={`goal${g.home ? " goal-home" : " goal-away"}`}
+            style={`left: ${at(g.minute)}%`}
+            title={g.label}
+          ></div>
+          <div
+            class={`goal-label${i % 2 === 0 ? " above" : " below"}${g.home ? "" : " quiet"}`}
+            style={`left: ${at(g.minute)}%`}
+          >{g.minute}′</div>
+        </>
+      ))}
+      {cards.map((c) => (
+        <div class="card-mark" style={`left: ${at(c.minute)}%`} title={c.label}></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline-band {
+    padding: 18px 0 22px;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .timeline-head { display: flex; align-items: baseline; }
+  .timeline-head .sechead { padding-bottom: 0; }
+  .grow { flex: 1; }
+  .legend {
+    display: flex; gap: 18px; align-items: center;
+    font-size: 10.5px; letter-spacing: 0.1em; color: var(--faint);
+  }
+  .legend span { display: flex; align-items: center; gap: 6px; }
+
+  .timeline { position: relative; height: 78px; }
+  .axis { position: absolute; top: 36px; left: 0; right: 0; height: 2px; background: var(--outline); }
+  .tick { position: absolute; top: 29px; width: 1px; height: 16px; background: var(--tick); }
+  .tick-label { position: absolute; top: 58px; font-size: 10px; color: var(--faint); }
+  .tick-mid { transform: translateX(-50%); }
+  .tick-end { transform: translateX(-100%); }
+  .goal {
+    position: absolute; top: 30px; transform: translateX(-50%);
+    width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--paper);
+  }
+  .goal-home { background: var(--accent); }
+  .goal-away { background: var(--muted-mark); }
+  .goal-label {
+    position: absolute; transform: translateX(-50%);
+    font-size: 11px; color: var(--secondary); white-space: nowrap;
+  }
+  .goal-label.above { top: 8px; }
+  .goal-label.below { top: 58px; }
+  .goal-label.quiet { color: var(--faint); }
+  .card-mark {
+    position: absolute; top: 32px; transform: translateX(-50%);
+    width: 8px; height: 11px; background: var(--draw); border-radius: 1.5px;
+  }
+
+  @media (max-width: 720px) {
+    .timeline-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .timeline { min-width: 560px; }
+    .timeline-head { flex-wrap: wrap; gap: 8px 14px; }
+    .legend { flex-wrap: wrap; gap: 8px 14px; }
+  }
+</style>
