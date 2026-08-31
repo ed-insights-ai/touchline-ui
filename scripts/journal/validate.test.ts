@@ -13,7 +13,14 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { loadSeason, unresolved } from "../../src/lib/derive.ts";
+import {
+  boxScoreGaps,
+  goalsForByProgramme,
+  loadSeason,
+  memberSlugs,
+  programmeCounts,
+  unresolved,
+} from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
 import { validateJournal } from "./validate.ts";
 
@@ -117,6 +124,162 @@ describe("numbers a reader will believe", () => {
     });
     expect(validateJournal(j, season, "test").report.totals.dropped).toBe(0);
     expect(paths(j)).toEqual([]);
+  });
+});
+
+/** A one-finding journal, for the checkers that judge a single basis. */
+function finding(label: string, text: string, basis: Record<string, unknown>): JournalFile {
+  return journal({ findings: [{ label, text, basis }] } as Partial<JournalFile>);
+}
+
+const claimOf = (j: JournalFile) =>
+  validateJournal(j, season, "test").report.claims.find((c) => c.path === "findings[0]");
+
+// The data home is re-collected daily and these tests read it live. Every
+// expectation below is computed from the same collect the checker reads, or is
+// true by construction whatever the collect holds — never pinned to a snapshot.
+describe("comparative claims", () => {
+  const rows = goalsForByProgramme(season);
+  const top = rows[0];
+  const bottom = rows[rows.length - 1];
+  if (!top || !bottom) throw new Error("the conference has no programmes to compare");
+
+  test("greater_than_each is held to the ranked data, beside the plain figures", () => {
+    const j = finding("derived", `${top.slug} outscore ${bottom.slug}.`, {
+      comparative: "greater_than_each",
+      metric: "gf",
+      programme: top.slug,
+      of: [bottom.slug],
+      gf: top.goals,
+      [`${bottom.slug}_gf`]: bottom.goals,
+    });
+    const c = claimOf(j);
+    expect(c?.checker).toContain("comparative");
+    // The figure checkers ride along on the same basis.
+    expect(c?.checker).toContain("team_goals");
+    expect(c?.verdict).toBe(top.goals > bottom.goals ? "verified" : "contradicted");
+  });
+
+  test("the sum no collect can satisfy contradicts, and the claim drops", () => {
+    // The weakest reading can never exceed the strongest two others together:
+    // each of them holds at least its value. True whatever the data says.
+    const j = finding("derived", "A claim the ranked data must refuse.", {
+      comparative: "greater_than_sum",
+      metric: "gf",
+      programme: bottom.slug,
+      of_any: 2,
+    });
+    const { journal: out, report } = validateJournal(j, season, "test");
+    const c = report.claims.find((x) => x.path === "findings[0]");
+    expect(c?.verdict).toBe("contradicted");
+    expect(c?.dropped).toBe(true);
+    expect(out.findings).toHaveLength(0);
+  });
+
+  test('"any two others" is held against the strongest two, and the note names them', () => {
+    const others = rows.filter((r) => r.slug !== top.slug);
+    const strongest = (others[0]?.goals ?? 0) + (others[1]?.goals ?? 0);
+    const j = finding("derived", "More than any two other programmes together.", {
+      comparative: "greater_than_sum",
+      metric: "gf",
+      programme: top.slug,
+      of_any: 2,
+    });
+    const c = claimOf(j);
+    expect(c?.verdict).toBe(top.goals > strongest ? "verified" : "contradicted");
+    expect(c?.note).toContain(others[0]?.slug ?? "");
+  });
+
+  test('"played" ranges over finals with a published score, the vocabulary\'s reading', () => {
+    const [a, b] = [...memberSlugs(season)].sort();
+    if (!a || !b) throw new Error("the conference has fewer than two members");
+    const own = programmeCounts(season, a).played;
+    const theirs = programmeCounts(season, b).played;
+    const j = finding("derived", `${a} have played more than ${b}.`, {
+      comparative: "greater_than_each",
+      metric: "played",
+      programme: a,
+      of: [b],
+    });
+    expect(claimOf(j)?.verdict).toBe(own > theirs ? "verified" : "contradicted");
+  });
+
+  test("an unknown relation is named, never guessed at", () => {
+    const j = finding("derived", "A relation nothing defines.", {
+      comparative: "at_least_sum",
+      metric: "gf",
+      programme: top.slug,
+      of_any: 2,
+    });
+    const c = claimOf(j);
+    expect(c?.verdict).toBe("contradicted");
+    expect(c?.mismatches.join(" ")).toContain("not a relation");
+  });
+});
+
+describe("set claims", () => {
+  const u = unresolved(season);
+  const silences = [...u.finalsWithoutScore, ...u.pastDateNoResult];
+
+  test("the set's count is recomputed, not trusted", () => {
+    const good = finding("observed", "The silences, counted.", {
+      set: "silences",
+      count: silences.length,
+    });
+    expect(claimOf(good)?.verdict).toBe("verified");
+    const bad = finding("observed", "The silences, miscounted.", {
+      set: "silences",
+      count: silences.length + 1,
+    });
+    const c = claimOf(bad);
+    expect(c?.verdict).toBe("contradicted");
+    expect(c?.dropped).toBe(true);
+  });
+
+  test("all_of checks every member of the set, not the count alone", () => {
+    // Whoever the first silence involves: the claim that ALL of them are that
+    // programme's is exactly as true as the data makes it today.
+    const candidate = silences[0]?.home ?? [...memberSlugs(season)][0];
+    if (!candidate) throw new Error("no programme to test against");
+    const holds =
+      silences.length > 0 && silences.every((f) => f.home === candidate || f.away === candidate);
+    const j = finding("observed", `All are ${candidate}'s.`, {
+      set: "silences",
+      all_of: candidate,
+      count: silences.length,
+    });
+    expect(claimOf(j)?.verdict).toBe(holds ? "verified" : "contradicted");
+  });
+
+  test("a programme outside every silence contradicts an all_of", () => {
+    // If the set is empty the claim is vacuous and contradicts too — a reader
+    // told "all of them are X's" about nothing has still been misled.
+    const involved = new Set(silences.flatMap((f) => [f.home, f.away]));
+    const outsider = [...memberSlugs(season)].find((s) => !involved.has(s));
+    if (!outsider) throw new Error("every member is in a silence — pick a different conference");
+    const j = finding("observed", `All are ${outsider}'s.`, {
+      set: "silences",
+      all_of: outsider,
+    });
+    expect(claimOf(j)?.verdict).toBe("contradicted");
+  });
+
+  test("box-score gaps are a set the validator can enumerate", () => {
+    const j = finding("observed", "The gaps, counted.", {
+      set: "box_score_gaps",
+      count: boxScoreGaps(season).length,
+    });
+    expect(claimOf(j)?.verdict).toBe("verified");
+  });
+
+  test("a set nothing enumerates is named, never guessed at", () => {
+    const j = finding("observed", "A set nothing defines.", {
+      set: "postponements",
+      count: 2,
+    });
+    const c = claimOf(j);
+    expect(c?.verdict).toBe("contradicted");
+    expect(c?.mismatches.join(" ")).toContain("not a set");
   });
 });
 
