@@ -53,6 +53,21 @@ function parseArgs(argv: string[]): Args {
   };
 }
 
+/** Write JSON the way the site's own formatter prints it. `JSON.stringify`
+ *  expands every array and object; biome packs whatever fits its line width —
+ *  so a plain stringify left `just verify` red after every regeneration until
+ *  someone reformatted by hand (tl-38r). Formatting is part of writing, at the
+ *  source. A formatter failure never costs the file itself: the journal is the
+ *  record of a model call, and unformatted beats absent — warn and keep it. */
+function writeJson(path: string, value: unknown): void {
+  writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
+  const fmt = spawnSync("bunx", ["biome", "format", "--write", path], { encoding: "utf8" });
+  if (fmt.error || fmt.status !== 0) {
+    const why = fmt.error?.message ?? fmt.stderr?.trim() ?? `exit ${fmt.status}`;
+    console.warn(`  WARNING: biome did not format ${path} (${why}) — 'bun run check' will be red.`);
+  }
+}
+
 const keyOf = (s: Season): string => `${s.fixtures.season}-${s.fixtures.gender}-${s.key}`;
 const journalPath = (args: Args, s: Season): string => join(args.out, `journal-${keyOf(s)}.json`);
 const reportPath = (args: Args, s: Season): string =>
@@ -103,7 +118,7 @@ function generate(args: Args, season: Season): number {
     const promptFile = join(args.out, `journal-${keyOf(season)}.prompt.txt`);
     const briefFile = join(args.out, `journal-${keyOf(season)}.brief.json`);
     writeFileSync(promptFile, prompt);
-    writeFileSync(briefFile, `${JSON.stringify(brief, null, 2)}\n`);
+    writeJson(briefFile, brief);
     console.log(
       `${keyOf(season)}: dry run — wrote ${promptFile} and ${briefFile}, called no model.`,
     );
@@ -136,7 +151,7 @@ function generate(args: Args, season: Season): number {
       `${keyOf(season)}: the journal names collect ${parsed.data_collected_at}, the data home holds ${season.collectedAt}.`,
     );
   }
-  writeFileSync(journalPath(args, season), `${JSON.stringify(parsed, null, 2)}\n`);
+  writeJson(journalPath(args, season), parsed);
   console.log(`${keyOf(season)}: wrote ${journalPath(args, season)}`);
   return 0;
 }
@@ -154,7 +169,7 @@ function validate(args: Args, season: Season): number {
     `journal-${keyOf(season)}.json`,
   );
   mkdirSync(args.out, { recursive: true });
-  writeFileSync(reportPath(args, season), `${JSON.stringify(report, null, 2)}\n`);
+  writeJson(reportPath(args, season), report);
 
   const t = report.totals;
   console.log(
@@ -190,7 +205,7 @@ function validate(args: Args, season: Season): number {
   console.log(`  report: ${reportPath(args, season)}`);
 
   if (args.write) {
-    writeFileSync(path, `${JSON.stringify(cleaned, null, 2)}\n`);
+    writeJson(path, cleaned);
     console.log(`  wrote the validated journal back to ${path}`);
   } else if (t.dropped > 0 || report.normalizations.length > 0) {
     console.log(
