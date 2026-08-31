@@ -221,7 +221,11 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 /* The pill READS at 24px and ANSWERS at 44: the anchor is the target and the
    span is the look, so the target grows without the design moving. Sizing the
    anchor's own border instead would have widened every pill to 44px. */
-.teampills { display: flex; column-gap: 5px; row-gap: 0; flex-wrap: wrap; }
+/* min-width: 0 is load-bearing, for the third time in this codebase. A flex
+   item defaults to min-width: auto, so a wrapping row of pills refuses to
+   shrink below its own contents and pushes the page sideways instead of
+   wrapping — LSC's eleven and GSC's thirteen did exactly that at 320px. */
+.teampills { display: flex; column-gap: 5px; row-gap: 0; flex-wrap: wrap; min-width: 0; }
 .teampills a {
   min-height: 44px; min-width: 44px; padding: 0;
   display: flex; align-items: center; justify-content: center;

@@ -28,6 +28,10 @@ OUT="${TOUCHLINE_VISUAL_DIR:-${TMPDIR:-/tmp}/touchline-visual}"
 BASE="$OUT/baseline"
 CUR="$OUT/current"
 PORT="${TOUCHLINE_VISUAL_PORT:-8795}"
+# Served under the SAME base the site deploys to. Rendering dist at localhost
+# root is what let a build whose every link 404'd in production look perfect
+# locally: the pages were right and only their URLs were wrong.
+URLBASE="${SITE_BASE:-/touchline-ui}"
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 PAGES=(
@@ -49,32 +53,40 @@ command -v magick >/dev/null || { echo "visual.sh needs ImageMagick (brew instal
 [[ -x "$CHROME" ]] || { echo "visual.sh needs Google Chrome" >&2; exit 2; }
 
 cd "$ROOT"
-bun run build >/dev/null
+# Built WITH the base, because it is served under the base. A base-less build
+# served at /touchline-ui/ has its stylesheets 404 — the render is unstyled,
+# the pixel baseline captures that unstyled render, and the overflow check
+# reports the reflow as a layout bug. The harness must build the artefact it
+# is pretending to be.
+SITE_BASE="$URLBASE" SITE_URL="${SITE_URL:-https://ed-insights-ai.github.io}" bun run build >/dev/null
 
 dest="$CUR"; [[ "$mode" == "save" ]] && dest="$BASE"
 rm -rf "$dest"; mkdir -p "$dest"
 
-python3 -m http.server "$PORT" --directory dist >/dev/null 2>&1 &
+root="$OUT/serve"
+rm -rf "$root"; mkdir -p "$root${URLBASE%/}"
+cp -R dist/. "$root${URLBASE%/}/"
+python3 -m http.server "$PORT" --directory "$root" >/dev/null 2>&1 &
 server=$!
 trap 'kill $server 2>/dev/null || true' EXIT
-for _ in $(seq 1 40); do curl -sf "http://localhost:$PORT/" >/dev/null && break; sleep 0.25; done
+for _ in $(seq 1 40); do curl -sf "http://localhost:$PORT$URLBASE/" >/dev/null && break; sleep 0.25; done
 
 # One shot per width: every page in its own correctly-sized iframe, side by side.
 for w in "${WIDTHS[@]}"; do
   frames=""
   for entry in "${PAGES[@]}"; do
-    frames+="<iframe src=\"${entry%%:*}\" style=\"width:${w}px;height:2400px;border:0\"></iframe>"
+    frames+="<iframe src=\"${URLBASE%/}${entry%%:*}\" style=\"width:${w}px;height:2400px;border:0\"></iframe>"
   done
-  cat > "dist/_visual.html" <<HTML
+  cat > "$root${URLBASE%/}/_visual.html" <<HTML
 <!doctype html><meta charset=utf-8>
 <body style="margin:0;display:flex;background:#888">$frames</body>
 HTML
   total=$(( w * ${#PAGES[@]} ))
   "$CHROME" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
     --window-size="$total",2400 --virtual-time-budget=8000 \
-    --screenshot="$dest/w$w.png" "http://localhost:$PORT/_visual.html" >/dev/null 2>&1
+    --screenshot="$dest/w$w.png" "http://localhost:$PORT${URLBASE%/}/_visual.html" >/dev/null 2>&1
 done
-rm -f dist/_visual.html
+rm -f "$root${URLBASE%/}/_visual.html"
 
 if [[ "$mode" == "save" ]]; then
   echo "baseline saved to $BASE"
@@ -82,7 +94,7 @@ if [[ "$mode" == "save" ]]; then
 fi
 
 # ── The invariant: the page body never scrolls sideways ──────────────────────
-cat > "dist/_overflow.html" <<'HTML'
+cat > "$root${URLBASE%/}/_overflow.html" <<'HTML'
 <!doctype html><meta charset=utf-8><body style="font:12px monospace;white-space:pre" id=o>...</body>
 <script>
 const PAGES=window.__PAGES,WIDTHS=[320,390,430,768,1024,1440];
@@ -96,16 +108,19 @@ for(const w of WIDTHS)for(const p of PAGES){
   if(over>0){bad++;L.push(`${w}px OVERFLOW +${over} ${p}`)}
   f.remove();}
 L.unshift(`${WIDTHS.length*PAGES.length} combinations, ${bad} scrolling sideways`);
-document.getElementById("o").textContent=L.join("\n");})();
+// The result goes in the TITLE because --dump-dom emits the document across
+// many lines and a body scraped with a line-oriented tool comes back empty —
+// which is how this check silently reported nothing at all for a while.
+document.title=L.join(" ~ ");document.getElementById("o").textContent=L.join("\n");})();
 </script>
 HTML
-routes=$(printf '"%s",' "${PAGES[@]%%:*}")
-sed -i '' "s|window.__PAGES|[${routes%,}]|" "dist/_overflow.html"
+routes=$(printf "\"${URLBASE%/}%s\"," "${PAGES[@]%%:*}")
+sed -i '' "s|window.__PAGES|[${routes%,}]|" "$root${URLBASE%/}/_overflow.html"
 "$CHROME" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
   --window-size=1000,900 --virtual-time-budget=30000 \
-  --dump-dom "http://localhost:$PORT/_overflow.html" 2>/dev/null \
-  | sed -n 's|.*<body[^>]*id="o">\(.*\)</body>.*|\1|p' | sed 's|&amp;|\&|g' > "$dest/overflow.txt"
-rm -f dist/_overflow.html
+  --dump-dom "http://localhost:$PORT${URLBASE%/}/_overflow.html" 2>/dev/null \
+  | tr '\n' ' ' | sed -n 's|.*<title>\(.*\)</title>.*|\1|p' | tr '~' '\n' | sed 's|&amp;|\&|g' > "$dest/overflow.txt"
+rm -f "$root${URLBASE%/}/_overflow.html"
 overflow=$(cat "$dest/overflow.txt" 2>/dev/null)
 echo "  ${overflow:-overflow check produced no output}" | head -1
 if printf '%s' "$overflow" | grep -qv ", 0 scrolling sideways"; then
