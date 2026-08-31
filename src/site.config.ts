@@ -26,6 +26,11 @@ export interface SiteConfig {
   division: string;
   /** How often the collector runs, in the words the About page uses. */
   cadence: string;
+  /** How many conferences in this division sponsor this sport. CONTEXT, not a
+   *  collected figure — nothing in the data home produces it, so it is never
+   *  counted against the data and never sourced to the collect. It exists so
+   *  the national map can say what share of the division this site follows. */
+  divisionConferences: number;
 }
 
 export const site: SiteConfig = {
@@ -41,6 +46,7 @@ export const site: SiteConfig = {
   },
   division: "NCAA Division II men's soccer",
   cadence: "once a day",
+  divisionConferences: 19,
   nameOverrides: {
     "ncaa-1st-and-2nd-round": "NCAA First & Second Rounds",
     "ncaa-first-and-second-rounds": "NCAA First & Second Rounds",
