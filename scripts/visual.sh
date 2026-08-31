@@ -49,7 +49,10 @@ PAGES=(
   # Four cautions inside 87′: the stacked timeline, and the only page here
   # whose band reserves headroom and anchors a label away from the 90′ tick.
   "/gsc/match/sidearm-uah-13290/:match-stacked"
-  "/gac/match/sidearm-ouachita-baptist-6655/:match-silent"
+  # 6655 drifted to a preview when the schedule moved; 6642 (OBU v UT Tyler,
+  # Aug 15) has sat silent-final since it was marked finished. Verify what the
+  # check is LOOKING AT: the silent page must actually carry the silence.
+  "/gac/match/sidearm-ouachita-baptist-6642/:match-silent"
 )
 WIDTHS=(1440 390)
 

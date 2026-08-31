@@ -17,6 +17,7 @@ import MatchTimeline from "../../../components/MatchTimeline.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
+import { stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
   longDate,
@@ -99,11 +100,14 @@ const cards = (detail?.cards ?? [])
   .sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
 const CARDS_SHOWN = 4;
 
-// The clock the timeline is drawn against: ninety minutes, or later if the
-// match ran past them.
-const fullTime = Math.max(90, ...scoring.map((g) => g.minute ?? 0), ...cards.map((c) => c.minute ?? 0));
-const at = (minute: number | null): number =>
-  minute === null ? 0 : Math.min(100, Math.max(0, (minute / fullTime) * 100));
+// The match in one line: built from the play-by-play where one was published,
+// from the scoring and cautions summaries where not. Everything about which
+// mark a play becomes — and which plays are counted rather than drawn — is
+// lib/timeline.ts.
+const strip = detail && sides ? stripOf(detail, sides.homeIndex) : null;
+const stripHasInk =
+  strip !== null &&
+  (strip.actionCount > 0 || strip.subCount + strip.rosterCount > 0 || strip.notes.length > 0);
 
 const STAT_ROWS = [
   { key: "shots", label: "SHOTS" },
@@ -216,7 +220,7 @@ const awayIdentity = identityLine(fixture.away);
 const homeName = names.name(fixture.home);
 const awayName = names.name(fixture.away);
 ---
-<Page dark title={`Touchline — ${homeName} v ${awayName}`}>
+<Page title={`Touchline — ${homeName} v ${awayName}`}>
   <div class="tl-page match">
     <header class="mhead">
       <a class="back" href={seasonHref(season.key)}>← SEASON</a>
@@ -294,24 +298,11 @@ const awayName = names.name(fixture.away);
       )}
     </section>
 
-    {state === "played" && (scoring.length > 0 || cards.length > 0) && (
+    {state === "played" && strip && stripHasInk && (
       <MatchTimeline
         homeAbbr={names.abbr(fixture.home)}
         awayAbbr={names.abbr(fixture.away)}
-        goals={scoring.map((g) => ({
-          minute: g.minute,
-          label: `${g.minute}′ ${g.scorer}`,
-          home: g.team === sides?.homeIndex,
-        }))}
-        cards={cards.map((c) => ({
-          minute: c.minute,
-          label: `${c.minute}′ ${c.player}`,
-          home: c.team === sides?.homeIndex,
-          // The same reading the CAUTIONS panel makes of c.type: red is red,
-          // and "unknown" stays a caution rather than guessing worse.
-          red: c.type === "red",
-        }))}
-        fullTime={fullTime}
+        strip={strip}
       />
     )}
 
@@ -546,7 +537,6 @@ const awayName = names.name(fixture.away);
   .body-main, .body-side { display: flex; flex-direction: column; }
   .body-side { gap: 20px; }
   .panel { display: flex; flex-direction: column; gap: 8px; }
-  .panel .sechead { padding-bottom: 0; }
 
   .stats { display: flex; flex-direction: column; }
   .stat-row {
