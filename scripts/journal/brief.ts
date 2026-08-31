@@ -10,6 +10,7 @@ import {
   canonicalFixtureRef,
   conferenceLeaders,
   conferenceOpensOn,
+  exhibitionsOf,
   fixtureCount,
   formOf,
   goalsForByProgramme,
@@ -18,7 +19,6 @@ import {
   latestResults,
   matchDetailOf,
   outsideRecord,
-  playedCount,
   recordOf,
   type Season,
   scoredCount,
@@ -55,13 +55,18 @@ export interface Brief {
       form: string;
     }[];
   };
+  /** The vocabulary the copy must use, named so it cannot be confused.
+   *  `played` is a final WITH a published score and nothing else; a final
+   *  with no score is a silent final, counted beside it. Offering both under
+   *  near-identical names is how a headline ends up claiming twenty matches
+   *  where the page beside it shows fifteen. */
   counts: {
-    fixtures_total: number;
-    fixtures_played: number;
-    fixtures_scored: number;
-    finals_without_score: number;
+    matches_total: number;
+    matches_played: number;
+    silent_finals: number;
     past_date_no_result: number;
     box_score_gaps: number;
+    exhibitions_excluded: number;
   };
   outside_record: { wins: number; draws: number; losses: number; gf: number; ga: number };
   goals_for: Record<string, number>;
@@ -176,12 +181,12 @@ export function buildBrief(s: Season): Brief {
       })),
     },
     counts: {
-      fixtures_total: fixtureCount(s),
-      fixtures_played: playedCount(s),
-      fixtures_scored: scoredCount(s),
-      finals_without_score: silence.finalsWithoutScore.length,
+      matches_total: fixtureCount(s),
+      matches_played: scoredCount(s),
+      silent_finals: silence.finalsWithoutScore.length,
       past_date_no_result: silence.pastDateNoResult.length,
       box_score_gaps: gaps.length,
+      exhibitions_excluded: exhibitionsOf(s).length,
     },
     outside_record: {
       wins: outside.won,

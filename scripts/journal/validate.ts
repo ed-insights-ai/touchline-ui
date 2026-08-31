@@ -18,7 +18,6 @@ import {
   matchDetailOf,
   matchFixtureRef,
   outsideRecord,
-  playedCount,
   recordOf,
   type Season,
   scoredCount,
@@ -321,12 +320,40 @@ const CHECKERS: Checker[] = [
   {
     name: "fixture_counts",
     claims: (b) =>
-      has(b, "fixtures_total", "fixtures_played", "fixtures_scored", "played", "total", "scored"),
+      has(
+        b,
+        "matches_total",
+        "matches_played",
+        "silent_finals",
+        "fixtures_total",
+        "fixtures_played",
+        "fixtures_scored",
+        "played",
+        "total",
+        "scored",
+      ),
     check: (b, { season }) => {
       const out: string[] = [];
-      for (const key of ["fixtures_total", "total"]) compare(b, key, fixtureCount(season), out);
-      for (const key of ["fixtures_played", "played"]) compare(b, key, playedCount(season), out);
-      for (const key of ["fixtures_scored", "scored"]) compare(b, key, scoredCount(season), out);
+      // "Played" means a final WITH a published score, at every spelling. The
+      // count of finals with no score is a silent-final count and never a
+      // played one — the two were one number until exhibitions came out of
+      // the record, and a checker that still conflated them would drop
+      // correct claims for disagreeing with the old definition.
+      for (const key of ["matches_total", "fixtures_total", "total"]) {
+        compare(b, key, fixtureCount(season), out);
+      }
+      for (const key of [
+        "matches_played",
+        "fixtures_played",
+        "fixtures_scored",
+        "played",
+        "scored",
+      ]) {
+        compare(b, key, scoredCount(season), out);
+      }
+      for (const key of ["silent_finals"]) {
+        compare(b, key, unresolved(season).finalsWithoutScore.length, out);
+      }
       return out;
     },
   },
@@ -363,6 +390,10 @@ const CHECKED_KEYS = new Set<string>([
   "box_score_gaps",
   "missing_box_scores",
   "missing",
+  "matches_total",
+  "matches_played",
+  "silent_finals",
+  "exhibitions_excluded",
   "fixtures_total",
   "fixtures_played",
   "fixtures_scored",

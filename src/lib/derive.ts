@@ -82,6 +82,17 @@ export function hasScore(f: Fixture): f is Fixture & { home_score: number; away_
  *
  * Exhibitions are dropped from every figure and named where they are dropped —
  * never quietly deleted from the fixture list.
+ *
+ * KNOWN AND DELIBERATE: `match_type` exists only from 2026. It arrived with
+ * the completion-aware parser, and all thirteen marks in the data home are in
+ * the three 2026 files — every one of 2,535 earlier fixtures is unmarked. So
+ * this predicate is silently incomplete on historical seasons, and a career
+ * table on a player sheet may count an unmarked friendly in a pre-2026 row.
+ * There is nothing to do about that here: the site is honest to what the
+ * collector recorded, and when the backfill gains exhibition detection these
+ * figures heal with no change to this file. Do not "fix" it with a heuristic —
+ * guessing which old fixtures were friendlies would replace a known gap with
+ * an invented number.
  */
 export const isCountable = (f: Fixture): boolean => f.match_type !== "exhibition";
 

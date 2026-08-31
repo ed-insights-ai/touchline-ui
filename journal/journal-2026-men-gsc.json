@@ -3,11 +3,21 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-08-30T21:20:00+00:00",
+  "generated_at": "2026-08-31T01:30:00+00:00",
   "data_collected_at": "2026-08-30T21:08:31+00:00",
   "kicker": "GSC · BEFORE THE TABLE · AUG 30",
   "headline": "Twelve days from the conference opener, the GSC has fifteen matches behind it and a table that still reads all zeros.",
   "dek": "AUM and Trevecca are the only programmes with two wins, and Trevecca's six goals lead the conference. Lee and Spring Hill have not played at all, and five matches whose dates have passed carry no published result.",
+  "summary_stat": {
+    "label": "Matches played",
+    "value": "15 of 120",
+    "detail": "Fifteen matches carry a final with a published score. All fifteen were played against programmes outside the conference, and conference play opens on September 11, twelve days after this data was collected.",
+    "basis": {
+      "source": "fixtures",
+      "played": 15,
+      "total": 120
+    }
+  },
   "pattern": {
     "label": "derived",
     "text": "Trevecca have scored six goals, the most of any GSC programme.",
@@ -58,6 +68,15 @@
     },
     {
       "label": "observed",
+      "text": "Five matches whose dates have passed carry no published result, and every one of them belongs to Christian Brothers or Trevecca.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "observed",
       "text": "Two played matches have a published scoreline but no box score, and both are Mississippi College's.",
       "basis": {
         "source": "matches",
@@ -80,14 +99,14 @@
       "player": "Chris Douglas",
       "programme": "trevecca",
       "position": "FWD",
-      "class": "",
+      "class": "JR",
       "line": "2 G · 7 shots"
     },
     {
       "player": "Oli Orzechowski",
       "programme": "uah",
       "position": "FWD",
-      "class": "",
+      "class": "SR",
       "line": "2 G · 7 shots"
     },
     {
@@ -115,6 +134,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-08-31T01:05:51.936Z"
+    "validated_at": "2026-08-31T01:13:30.881Z"
   }
 }

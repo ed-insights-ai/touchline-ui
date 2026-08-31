@@ -3,14 +3,42 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-08-31T00:22:00Z",
+  "generated_at": "2026-08-31T01:30:00Z",
   "data_collected_at": "2026-08-30T21:09:56+00:00",
   "kicker": "LSC · 24 DAYS TO CONFERENCE · AUG 30",
   "headline": "Fifteen matches in, the LSC table is still empty, and conference play is 24 days away.",
   "dek": "Midwestern State has scored eleven goals and conceded one; Sul Ross State has conceded eight and scored none. Six matches on the calendar hold no result at all, three of them marked final without a score.",
+  "summary_stat": {
+    "label": "Matches played",
+    "value": "15 of 151",
+    "detail": "Fifteen matches carry a published final score; the season calendar holds 151 in all.",
+    "basis": {
+      "source": "fixtures",
+      "played": 15,
+      "total": 151
+    }
+  },
   "pattern": {
     "label": "derived",
     "text": "Midwestern State has scored eleven goals in non-conference play, more than any two other programmes have scored together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "caption": "Goals scored against opponents from outside the conference, by programme.",
+      "values": {
+        "midwestern-state": 11,
+        "oklahoma-christian": 4,
+        "ut-dallas": 4,
+        "west-texas-a-m": 4,
+        "lubbock-christian": 3,
+        "dallas-baptist": 0,
+        "saint-edwards": 0,
+        "saint-marys": 0,
+        "sul-ross-state": 0,
+        "texas-a-m-international": 0,
+        "ut-tyler": 0
+      },
+      "highlight": "midwestern-state"
+    },
     "basis": {
       "programme": "midwestern-state",
       "gf": 11,
@@ -20,10 +48,31 @@
   "findings": [
     {
       "label": "observed",
+      "text": "All three matches marked final without a published score are Lubbock Christian's — August 15, August 19 and August 22 — and three further matches are past their date with no result recorded.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 3,
+        "past_date_no_result": 3
+      }
+    },
+    {
+      "label": "observed",
       "text": "Five matches carry no box-score link on any collected schedule page — three of Lubbock Christian's and two of Saint Marys' — so the detail behind them does not exist here yet.",
       "basis": {
         "source": "matches",
         "box_score_gaps": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Against opponents from outside the conference the eleven programmes have won seven, drawn one and lost five, scoring 26 goals and conceding 24.",
+      "basis": {
+        "derived_from": "fixtures",
+        "wins": 7,
+        "draws": 1,
+        "losses": 5,
+        "gf": 26,
+        "ga": 24
       }
     },
     {
@@ -51,18 +100,21 @@
       "player": "Jose Ortiz",
       "programme": "midwestern-state",
       "position": "FWD",
+      "class": "SR",
       "line": "4 G · 8 shots"
     },
     {
-      "player": "Dante Caffaro",
+      "player": "Kenzo Shabazz-Edwards",
       "programme": "oklahoma-christian",
-      "position": "GK",
-      "line": "8 saves · 2 shutouts"
+      "position": "FWD",
+      "class": "SO",
+      "line": "2 G · 6 shots"
     },
     {
       "player": "Augusto Militao",
       "programme": "lubbock-christian",
       "position": "MID",
+      "class": "SR",
       "line": "1 G · 1 A · 7 shots"
     }
   ],
@@ -83,6 +135,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-08-31T01:05:51.871Z"
+    "validated_at": "2026-08-31T01:13:51.084Z"
   }
 }

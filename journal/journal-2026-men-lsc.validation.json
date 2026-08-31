@@ -4,18 +4,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-08-31T01:06:44.420Z",
+  "validated_at": "2026-08-31T01:13:51.084Z",
   "data_collected_at": "2026-08-30T21:09:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 9,
-    "verified": 9,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
   },
   "normalizations": [],
   "claims": [
+    {
+      "path": "summary_stat",
+      "label": "derived",
+      "text": "15 of 151",
+      "checker": "fixture_counts",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
     {
       "path": "pattern",
       "label": "derived",
@@ -26,7 +35,25 @@
       "dropped": false
     },
     {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "Goals scored against opponents from outside the conference, by programme.",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[0]",
+      "label": "observed",
+      "text": "All three matches marked final without a published score are Lubbock Christian's — August 15, August 19 and August 22 — and three further matches are past their date with no result recorded.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
       "label": "observed",
       "text": "Five matches carry no box-score link on any collected schedule page — three of Lubbock Christian's and two of Saint Marys' — so the detail behind them does not exist here yet.",
       "checker": "box_score_gaps",
@@ -35,7 +62,16 @@
       "dropped": false
     },
     {
-      "path": "findings[1]",
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Against opponents from outside the conference the eleven programmes have won seven, drawn one and lost five, scoring 26 goals and conceding 24.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
       "label": "derived",
       "text": "Oklahoma Christian has scored four goals in non-conference play and conceded none.",
       "checker": "team_goals",
@@ -44,7 +80,7 @@
       "dropped": false
     },
     {
-      "path": "findings[2]",
+      "path": "findings[4]",
       "label": "observed",
       "text": "Fernando Hernandez has made eleven saves for Sul Ross State, more than any other keeper in the collected records.",
       "checker": "player_stat",
@@ -64,7 +100,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Dante Caffaro — 8 saves · 2 shutouts",
+      "text": "Kenzo Shabazz-Edwards — 2 G · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
