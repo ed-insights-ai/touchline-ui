@@ -16,6 +16,7 @@ import {
   loadSeason,
   matchHref,
   matchweeks,
+  playerClassOf,
   nextFixture,
   outsideRecord,
   playedCount,
@@ -107,7 +108,7 @@ const watchlist =
         player: p.player,
         programme: p.programme,
         position: p.position ?? null,
-        class: p.class ?? null,
+        class: p.class ?? playerClassOf(season, p.programme, p.player),
         line: p.line ?? null,
       }))
     : conferenceLeaders(season);
@@ -148,7 +149,7 @@ const nextLabel = (f: Fixture): string => {
         <div class="kicker">{lede.kicker}</div>
         <div class="grow"></div>
         <div class="coverage num">
-          {played} OF {total} PLAYED &nbsp;·&nbsp; DATA COVERAGE ·
+          {played} OF {total} MATCHES PLAYED &nbsp;·&nbsp; DATA COVERAGE ·
           <span class="gapcount" title={gaps.map((g) => `${g.fixtureId}: ${g.reason}`).join("\n")}>
             {gaps.length} {gaps.length === 1 ? "GAP" : "GAPS"}
           </span>
@@ -388,7 +389,7 @@ const nextLabel = (f: Fixture): string => {
                 {group.map((w) => (
                   <span
                     class={`dot dot-${w.state}`}
-                    title={`Week of ${shortDate(w.startISO)} · ${w.fixtures.length} ${w.fixtures.length === 1 ? "fixture" : "fixtures"}`}
+                    title={`Week of ${shortDate(w.startISO)} · ${w.fixtures.length} ${w.fixtures.length === 1 ? "match" : "matches"}`}
                   ></span>
                 ))}
               </div>

@@ -161,9 +161,9 @@ const explain: Record<State, string> = {
   "silent-final":
     "The programme's schedule marked this game finished but never entered a result. The silence is the site's own — it stays on the record, named, and the next collect retries it.",
   "silent-past":
-    "The date has passed and the programme's schedule still lists this fixture as scheduled. No result, no postponement, no note — the page simply has not changed.",
-  preview: "Not played yet. What is below is everything the programme has published about the fixture.",
-  off: `The programme marked this fixture ${fixture.status}. It stays on the record rather than disappearing from it.`,
+    "The date has passed and the programme's schedule still lists this match as scheduled. No result, no postponement, no note — the page simply has not changed.",
+  preview: "Not played yet. What is below is everything the programme has published about the match.",
+  off: `The programme marked this match ${fixture.status}. It stays on the record rather than disappearing from it.`,
 };
 
 // The fixture sits in a member's ledger — the opponent may belong to no
@@ -419,7 +419,7 @@ const awayName = names.name(fixture.away);
             <div class="sechead">WHAT HAPPENS NEXT</div>
             {state === "preview" ? (
               <p class="next-text">
-                The fixture sits unplayed in {ledgerName}'s ledger. When the programme publishes a
+                The match sits unplayed in {ledgerName}'s ledger. When the programme publishes a
                 result, the next collect brings it here — score, box score and all.
               </p>
             ) : state === "score-only" ? (
@@ -430,12 +430,12 @@ const awayName = names.name(fixture.away);
               </p>
             ) : state === "off" ? (
               <p class="next-text">
-                The fixture stays in {ledgerName}'s ledger, marked {fixture.status} by the
+                The match stays in {ledgerName}'s ledger, marked {fixture.status} by the
                 programme. If that changes, the next collect says so.
               </p>
             ) : (
               <p class="next-text">
-                This fixture stays in {ledgerName}'s ledger and counts toward the conference's{" "}
+                This match stays in {ledgerName}'s ledger and counts toward the conference's{" "}
                 <span class="alert">silent dates</span>. Tomorrow's collect asks the page again; if a
                 result appears, this match report fills in on its own.
               </p>

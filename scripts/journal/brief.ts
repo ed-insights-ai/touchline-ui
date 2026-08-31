@@ -69,7 +69,13 @@ export interface Brief {
   records: Record<string, { wins: number; draws: number; losses: number; gf: number; ga: number }>;
   /** Names that have scored for each member, from collected box scores only. */
   distinct_scorers: Record<string, string[]>;
-  leaders: { player: string; programme: string; position: string | null; line: string }[];
+  leaders: {
+    player: string;
+    programme: string;
+    position: string | null;
+    class: string | null;
+    line: string;
+  }[];
   keepers: {
     player: string;
     programme: string;
@@ -199,6 +205,7 @@ export function buildBrief(s: Season): Brief {
       player: l.player,
       programme: l.programme,
       position: l.position,
+      class: l.class,
       line: l.line,
     })),
     keepers,

@@ -211,11 +211,11 @@ export function editorial(s: Season, journal: JournalFile | null): Editorial {
       : null;
   const silentLine =
     silent.total > 0
-      ? `${sentenceCase(spell(silent.total))} ${silent.total === 1 ? "fixture sits" : "fixtures sit"} unresolved — the sources' silence, named rather than dropped.`
+      ? `${sentenceCase(spell(silent.total))} ${silent.total === 1 ? "match sits" : "matches sit"} unresolved — the sources' silence, named rather than dropped.`
       : null;
   return {
     kicker: defaultKicker(s),
-    headline: `${played} of ${total} fixtures played.`,
+    headline: `${played} of ${total} matches played.`,
     dek: [opensLine, silentLine].filter(Boolean).join(" ") || null,
     fromJournal: false,
   };
@@ -233,7 +233,7 @@ export function tableStatement(s: Season): { statement: string; footnote: string
     return {
       statement: opens
         ? `Conference play begins ${monShort(opens)} ${dayOfMonth(opens)}. All ${sides} sides are 0–0–0.`
-        : `No conference fixture has been played. All ${sides} sides are 0–0–0.`,
+        : `No conference match has been played. All ${sides} sides are 0–0–0.`,
       footnote:
         "3–1–0 points · early form shown from non-conference results · a pre-conference table is a valid state.",
     };
@@ -241,7 +241,7 @@ export function tableStatement(s: Season): { statement: string; footnote: string
   const rec = outsideRecord(s);
   return {
     statement: `${sides} sides · ${rec.played} results against everyone else.`,
-    footnote: "3–1–0 points · conference fixtures only.",
+    footnote: "3–1–0 points · conference matches only.",
   };
 }
 
@@ -303,7 +303,7 @@ export function fallbackFindings(s: Season): DataFinding[] {
     ].filter(Boolean);
     out.push({
       label: "observed",
-      text: `${sentenceCase(spell(silent.total))} ${silent.total === 1 ? "fixture sits" : "fixtures sit"} unresolved — ${parts.join(", ")}. The sources' silence, named rather than dropped.`,
+      text: `${sentenceCase(spell(silent.total))} ${silent.total === 1 ? "match sits" : "matches sit"} unresolved — ${parts.join(", ")}. The sources' silence, named rather than dropped.`,
       basis: { source: "fixtures", finals_without_score: finals, past_date_no_result: past },
     });
   }
@@ -311,7 +311,7 @@ export function fallbackFindings(s: Season): DataFinding[] {
   if (gaps.length > 0) {
     out.push({
       label: "observed",
-      text: `${sentenceCase(spell(gaps.length))} played ${gaps.length === 1 ? "fixture carries" : "fixtures carry"} no box score the collector could reach. The result stands; the detail behind it does not exist here yet.`,
+      text: `${sentenceCase(spell(gaps.length))} played ${gaps.length === 1 ? "match carries" : "matches carry"} no box score the collector could reach. The result stands; the detail behind it does not exist here yet.`,
       basis: { source: "matches", missing: gaps.length },
     });
   }
@@ -320,7 +320,7 @@ export function fallbackFindings(s: Season): DataFinding[] {
     const days = daysBetween(s.asOf, opens);
     out.push({
       label: "projected",
-      text: `${sentenceCase(spell(days))} ${days === 1 ? "day" : "days"} of non-conference fixtures before the table means anything.`,
+      text: `${sentenceCase(spell(days))} ${days === 1 ? "day" : "days"} of non-conference matches before the table means anything.`,
       basis: { conference_opens: opens },
     });
   }

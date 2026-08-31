@@ -43,8 +43,11 @@ const VOICE = `VOICE — the programme's house register.
 - Evidence first, no hype, no superlatives the numbers do not carry.
 - Count dates in days, never rounded to weeks. Spell numbers up to twenty.
 - Absence is content: a silence is named, never dropped or explained away.
-- Never write about a fixture, player or figure that is not in the brief.
+- Never write about a match, player or figure that is not in the brief.
 - "programme", not "program". "Match Centre", not "match center".
+- "matches", never "fixtures", in every sentence a reader will see. The JSON
+  field is still called "fixture_ref" — that is the contract's name, not the
+  reader's word.
 - Each finding must read as ONE logically coherent claim. Do not fuse two
   statistics into a single clause: "10 saves, one of them a shutout" is two
   facts wearing one sentence, and a shutout is not a save. Verified figures in
@@ -74,10 +77,11 @@ ${VOICE}
 BRIEF — every figure available to you, computed from the collected files.
 ${JSON.stringify(brief, null, 2)}
 
-FIXTURE REFERENCES — the fixtures you may write about. Each line is a fixture's
+MATCH REFERENCES — the matches you may write about. Each line is a match's
 ADDRESS, then " · ", then what the source published about it.
 
-A "fixture_ref" is the ADDRESS ALONE — the part before the first " · ". Its
+A "fixture_ref" (the contract's field name, kept as-is) is the ADDRESS ALONE —
+the part before the first " · ". Its
 grammar is "YYYY-MM-DD home-slug v away-slug" and nothing else: no scoreline, no
 kickoff time, no team name, no annotation of any kind. So for the line
 "2026-08-29 mckendree v southern-nazarene  ·  1-2 · 12:30", write:

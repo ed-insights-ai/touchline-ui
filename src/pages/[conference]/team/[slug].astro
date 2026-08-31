@@ -102,8 +102,8 @@ const openerPanel = (() => {
       label: "NOT YET PLAYED",
       figure: "—",
       note: next
-        ? `First fixture ${next.home === slug ? "at home to" : "away at"} ${names.name(next.home === slug ? next.away : next.home)}, ${monLong(next.date)} ${dayOfMonth(next.date)}.`
-        : "No fixture has been published.",
+        ? `First match ${next.home === slug ? "at home to" : "away at"} ${names.name(next.home === slug ? next.away : next.home)}, ${monLong(next.date)} ${dayOfMonth(next.date)}.`
+        : "No match has been published.",
     };
   }
   if (record.played === 1 && first) {
@@ -134,7 +134,7 @@ const nextNote = upcoming.length
           `${f.home === slug ? "" : "at "}${names.name(f.home === slug ? f.away : f.home)} ${dowShort(f.date)}`,
       )
       .join(", ")
-  : "No fixture inside the fortnight.";
+  : "No match inside the fortnight.";
 
 const shapeNote =
   shape.returning === null

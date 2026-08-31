@@ -538,6 +538,14 @@ export interface LeaderLine {
   line: string;
 }
 
+/** A player's class year as the roster prints it, abbreviated. The journal may
+ *  name it, but the roster already knows — so a journal that omits it costs the
+ *  page nothing. */
+export function playerClassOf(s: Season, programme: string, player: string): string | null {
+  const bio = s.rosters?.rosters[programme]?.players.find((p) => p.name === player);
+  return classAbbr(bio?.class_year);
+}
+
 export function conferenceLeaders(s: Season, limit = 3): LeaderLine[] {
   if (!s.stats) return [];
   const rosterOf = (slug: string) => s.rosters?.rosters[slug]?.players ?? [];
