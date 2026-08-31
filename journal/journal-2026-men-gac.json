@@ -3,7 +3,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-08-30T21:45:00Z",
+  "generated_at": "2026-08-30T22:10:00Z",
   "data_collected_at": "2026-08-30T21:07:31+00:00",
   "kicker": "GAC · OPENING WEEKEND · AUG 30",
   "headline": "Two perfect starts, and eighteen days until it counts.",
@@ -23,7 +23,7 @@
   },
   "pattern": {
     "label": "derived",
-    "text": "Ouachita Baptist has scored six and conceded none — with five different names on the scoresheet.",
+    "text": "Five different players have scored for Ouachita Baptist, more than for any other side in the conference.",
     "chart": {
       "kind": "goals-for-by-team",
       "caption": "Goals scored per side, all non-conference, through Aug 29.",
@@ -45,15 +45,14 @@
   },
   "findings": [
     {
-      "label": "observed",
-      "text": "Tristan Miller stopped ten of eleven on target across Rogers State's perfect weekend, one of them a shutout.",
+      "label": "derived",
+      "text": "Tristan Miller has saved ten of the eleven shots on target he has faced for Rogers State.",
       "basis": {
         "source": "stats",
         "player": "Tristan Miller",
         "programme": "rogers-state",
         "saves": 10,
         "goals_against": 1,
-        "shutouts": 1,
         "save_pct": 0.909
       }
     },
@@ -118,11 +117,11 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-08-29 mckendree v southern-nazarene 1-2 12:30",
+      "fixture_ref": "2026-08-29 mckendree v southern-nazarene",
       "line": "Southern Nazarene's only two goals of the season so far, both on the road in one afternoon."
     },
     "next_match": {
-      "fixture_ref": "2026-08-30 northeastern-state v lincoln 19:00",
+      "fixture_ref": "2026-08-30 northeastern-state v lincoln",
       "line": "The only fixture on the day's card."
     }
   },
@@ -130,5 +129,9 @@
     "mode": "pre-conference",
     "statement": "Conference play begins Sep 17. All seven sides are 0–0–0.",
     "footnote": "3–1–0 points · early form shown from non-conference results · a pre-conference table is a valid state."
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-08-31T00:01:53.418Z"
   }
 }

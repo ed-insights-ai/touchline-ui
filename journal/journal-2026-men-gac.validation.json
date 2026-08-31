@@ -4,7 +4,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-08-30T23:22:16.477Z",
+  "validated_at": "2026-08-31T00:01:53.418Z",
   "data_collected_at": "2026-08-30T21:07:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
@@ -14,18 +14,7 @@
     "unverifiable": 0,
     "dropped": 0
   },
-  "normalizations": [
-    {
-      "path": "featured.last_match",
-      "from": "2026-08-29 mckendree v southern-nazarene 1-2 12:30",
-      "to": "2026-08-29 mckendree v southern-nazarene"
-    },
-    {
-      "path": "featured.next_match",
-      "from": "2026-08-30 northeastern-state v lincoln 19:00",
-      "to": "2026-08-30 northeastern-state v lincoln"
-    }
-  ],
+  "normalizations": [],
   "claims": [
     {
       "path": "summary_stat",
@@ -39,7 +28,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Ouachita Baptist has scored six and conceded none — with five different names on the scoresheet.",
+      "text": "Five different players have scored for Ouachita Baptist, more than for any other side in the conference.",
       "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +45,8 @@
     },
     {
       "path": "findings[0]",
-      "label": "observed",
-      "text": "Tristan Miller stopped ten of eleven on target across Rogers State's perfect weekend, one of them a shutout.",
+      "label": "derived",
+      "text": "Tristan Miller has saved ten of the eleven shots on target he has faced for Rogers State.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -133,8 +122,7 @@
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "rewritten to canonical form from \"2026-08-29 mckendree v southern-nazarene 1-2 12:30\""
+      "dropped": false
     },
     {
       "path": "featured.next_match",
@@ -143,8 +131,7 @@
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "rewritten to canonical form from \"2026-08-30 northeastern-state v lincoln 19:00\""
+      "dropped": false
     }
   ]
 }
