@@ -184,6 +184,55 @@ Match Centre renders six states from the same data:
 | `preview` | not played yet |
 | `off` | postponed or cancelled |
 
+## The play-by-play
+
+Match Centre renders the whole published `plays[]` array as a ledger. It is a
+**parse, not a rewrite** — no model runs anywhere near it, and every row keeps
+the programme's own sentence in a `title` attribute.
+
+Three rules the data insists on, each learned from a play that breaks the
+obvious reading:
+
+1. **A goal is a play carrying a `score` array** — never a play whose `type` is
+   `"goal"` or `"penalty"`. Two of the four `penalty` plays in the 2026 data are
+   *misses* (`"PENALTY KICK MISS, saved by …"`). Treating the type as the
+   discriminator would put two goals on the site that were never scored.
+2. **Document order is the record.** 28 plays across the three conferences have
+   no clock — 25 of them in one GSC match. Those rows show an em-dash and say
+   *no clock published*. Nothing is sorted by clock and no time is inferred.
+3. **Names are cut at the sentence's own connectives** — `Assist by`, ` for `,
+   `, saved by` — never at the first comma, because a published name *contains*
+   a comma. Cutting there turns `"Doe, Lawrence Assist by Hernandez, Victor"`
+   into a scorer called "Lawrence Assist by Hernandez".
+
+The box score is the name authority: matching on a diacritic- and
+punctuation-free token set lets `"Bolk, Philip"` render as **Philip Bölk**, the
+spelling the rest of the page uses. A name the teamsheet does not carry is
+flipped on its comma and otherwise left alone — including `"unknown player"`,
+which is what the source actually said.
+
+Other published forms the parser handles, all verified against 4,222 rendered
+rows in all three conferences:
+
+| Published | Rendered |
+|---|---|
+| `Foul on Delta State.` | `Foul on Delta State` — the side, not a player; the name stays |
+| `GOAL by AUM TEAM.` | `GOAL — no player credited` |
+| `Shot by Delta State Samuel Fitschen, High.` | abbr is `DELTA ST`, so stripping the team needs a word boundary or the scorer becomes "ate Samuel Fitschen" |
+| `Shot by … , Save (by goalie) Maxwell Kruit.` | one collector's spelling of `, saved by` |
+| `Shot by … , bottom left, Team save.` | `… — team save` |
+| `Header Shot by …` | `Header — …` |
+| `FOR RU: , #34 Neri, Samuele, …` | `Second-half lineup — 11 named` (a 400-character eleven, not a sentence) |
+
+**Absence.** A match whose source published no play-by-play renders no section —
+there is nothing withheld here to name, and the box score is still the page. A
+match missing its `End of period [90:00]` play gets a HALF-TIME divider and no
+FULL TIME divider; the running score reconciles with `teams[].score` in 39 of
+39 matches, so a missing divider means a missing play, never a missing sum.
+
+**Filters** are five radio inputs and their labels. No JavaScript: the ledger
+filters identically with scripting off.
+
 ## Where the pixel references and the data disagree
 
 The mocks were composed by hand from this collect. Where a mock figure is not
@@ -192,7 +241,7 @@ recomputable, the **data wins** and the difference is listed here.
 | Mock | Data | Note |
 |---|---|---|
 | "WEEK 3 OF 16", Aug 3 · Sep 4 · Oct 5 · Nov 3 · Dec 1 | WEEK 4 OF 15, Aug 4 · Sep 4 · Oct 4 · Nov 2 · Dec 1 | See **Matchweeks** below. |
-| Period 1 · 48 plays, Period 2 · 88 plays | 49 and 92 | Counted from `plays[]`. |
+| "… 31 more first-period plays …" elisions | every play rendered | The elisions are the mock's own; the page shows the whole ledger. |
 | Rosa 7′ | 6′ | As published. |
 | Cautions 29′, 54′, 58′, 87′ | 29′, 49′, 54′, 58′ (+4 more) | Chronological, nothing skipped. All eight appear on the timeline. |
 | "Around the conference" shows 3 of 4 results | all results from the latest day, capped with "+ n more" | |

@@ -317,7 +317,7 @@ const nextLabel = (f: Fixture): string => {
         {watchlist.length > 0 ? (
           <div class="watch num">
             {watchlist.map((p) => {
-              const line = positionLine(p.position);
+              const line = positionLine(p.position ?? undefined);
               return (
                 <a class="wrow hoverable" href={teamHref(season.key, p.programme)}>
                   <span class="wname">
