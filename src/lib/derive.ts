@@ -104,6 +104,10 @@ export function hasScore(f: Fixture): f is Fixture & { home_score: number; away_
  */
 export const isCountable = (f: Fixture): boolean => f.match_type !== "exhibition";
 
+/** The reader's word for one of these is FRIENDLY, plural friendlies, and
+ *  "exhibition" never reaches a sentence anyone reads. It survives here
+ *  because it is the collector's own value for match_type — the same split the
+ *  Fixture type keeps while every page says match. */
 export const isExhibition = (f: Fixture): boolean => f.match_type === "exhibition";
 
 export const isScored = (f: Fixture): boolean => isCountable(f) && isPlayed(f) && hasScore(f);

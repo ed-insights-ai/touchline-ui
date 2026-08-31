@@ -26,6 +26,7 @@ import {
 import {
   classAbbr,
   dayOfMonth,
+  friendlies,
   type Line,
   monShort,
   pct1,
@@ -382,14 +383,14 @@ export function playerCard(
     });
   }
 
-  // ── Exhibitions, named and outside the record ─────────────────────────────
+  // ── Friendlies, named and outside the record ──────────────────────────────
   const exh = s.fixtures.fixtures.filter(
     (f) => isExhibition(f) && (f.home === slug || f.away === slug),
   );
   const exhibitions =
     exh.length === 0
       ? null
-      : `+ ${exh.length} ${exh.length === 1 ? "exhibition" : "exhibitions"}, ${shortDate(
+      : `+ ${exh.length} ${friendlies(exh.length)}, ${shortDate(
           exh[0]?.date ?? "",
         )}${exh.length > 1 ? `–${dayOfMonth(exh[exh.length - 1]?.date ?? "")}` : ""} — outside the record.`;
 

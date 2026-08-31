@@ -171,6 +171,18 @@ export type Line = "GK" | "DEF" | "MID" | "FWD";
  * name them differently. It did: the shape said BACK LINE while the section
  * below it said DEFENSE.
  */
+/**
+ * The reader's word for a match played outside the record, and the only place
+ * it is spelled.
+ *
+ * The data calls these exhibitions. That is the collector's word, kept in
+ * match_type and nowhere a reader can see — the same split the Fixture type
+ * keeps while every page says match. Three surfaces print this noun and each
+ * used to pluralize it for itself, which is three chances to write
+ * "friendlys".
+ */
+export const friendlies = (n: number): string => (n === 1 ? "friendly" : "friendlies");
+
 export const LINE_ORDER = ["GK", "DEF", "MID", "FWD"] as const;
 export const LINE_LABEL: Record<Line, string> = {
   GK: "IN GOAL",

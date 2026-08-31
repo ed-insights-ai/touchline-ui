@@ -32,15 +32,17 @@ import {
   seasonCounts,
   seasonHref,
   seasonWindow,
+  squadOf,
   table,
   tableIsLive,
   teamHref,
   teamPageHref,
   unresolved,
 } from "./derive.ts";
-import { dayNumber, daysBetween, dowIndex, monShort, toISO } from "./format.ts";
+import { dayNumber, daysBetween, dowIndex, friendlies, monShort, toISO } from "./format.ts";
 import type { Fixture } from "./model.ts";
 import { computeTable, isPlayed } from "./model.ts";
+import { playerCard } from "./player.ts";
 
 const CONFERENCES = ["gac", "lsc", "gsc"] as const;
 const seasons = CONFERENCES.map((key) => ({ key, season: loadSeason(key) }));
@@ -97,6 +99,49 @@ describe("exhibitions are outside the record", () => {
       expect(fixtureCount(season) + exhibitionsOf(season).length).toBe(
         season.fixtures.fixtures.length,
       );
+    }
+  });
+});
+
+describe("the reader's word for one is friendly", () => {
+  test("the noun agrees with its number, and is never friendlys", () => {
+    expect(friendlies(1)).toBe("friendly");
+    for (const n of [0, 2, 3, 11, 186]) expect(friendlies(n), String(n)).toBe("friendlies");
+    // The singular does not appear in today's data — every programme that
+    // played one played two — so it is asserted here rather than left to a
+    // collect to expose.
+  });
+
+  test("no sentence this site composes says exhibition", () => {
+    // The word survives in match_type, and only there. Three surfaces print
+    // this noun: the player sheet's log note, the national counts, and the
+    // Matches rail. The first is composed in code and is checked directly;
+    // the other two read the same helper.
+    let checked = 0;
+    for (const key of site.conferences) {
+      const season = loadSeason(key);
+      for (const slug of Object.keys(season.rosters?.rosters ?? {})) {
+        for (const m of squadOf(season, slug)) {
+          const card = playerCard(season, slug, m.player, m.stats, m.keeper);
+          if (card.exhibitions === null) continue;
+          checked++;
+          expect(card.exhibitions, `${slug}: ${m.player.name}`).not.toMatch(/exhibition/i);
+          expect(card.exhibitions).toMatch(/^\+ \d+ (friendly|friendlies), /);
+          const n = Number(/^\+ (\d+) /.exec(card.exhibitions)?.[1]);
+          expect(card.exhibitions.includes("friendlies")).toBe(n !== 1);
+        }
+      }
+    }
+    expect(checked).toBeGreaterThan(20);
+  });
+
+  test("the count the word describes is still the collector's exhibitions", () => {
+    // Renaming the noun must not have moved what it counts.
+    for (const key of site.conferences) {
+      const season = loadSeason(key);
+      const named = exhibitionsOf(season);
+      expect(named.every(isExhibition)).toBe(true);
+      expect(named.every((f) => !isCountable(f))).toBe(true);
     }
   });
 });

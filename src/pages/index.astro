@@ -15,7 +15,15 @@ import FootprintBand from "../components/FootprintBand.astro";
 import Page from "../layouts/Page.astro";
 import { aboutHref, hasScore, matchHref, seasonHref } from "../lib/derive.ts";
 import type { Fixture } from "../lib/derive.ts";
-import { dayOfMonth, dowLong, monLong, monShort, parseISO, spell } from "../lib/format.ts";
+import {
+  dayOfMonth,
+  dowLong,
+  friendlies,
+  monLong,
+  monShort,
+  parseISO,
+  spell,
+} from "../lib/format.ts";
 import {
   homeColumns,
   homeSeasons,
@@ -82,7 +90,6 @@ const opensLine = (c: (typeof columns)[number]): string =>
 
 const gapsWord = (n: number): string => (n === 1 ? "gap" : "gaps");
 const silentWord = (n: number): string => (n === 1 ? "silent final" : "silent finals");
-const exhWord = (n: number): string => (n === 1 ? "exhibition" : "exhibitions");
 ---
 <Page title="Touchline — The Season Scorebook" description={lede}>
   <div class="tl-page">
@@ -164,7 +171,7 @@ const exhWord = (n: number): string => (n === 1 ? "exhibition" : "exhibitions");
             <span class="ndim">
               · {c.counts.silentFinals} {silentWord(c.counts.silentFinals)}
               · {c.counts.gaps} {gapsWord(c.counts.gaps)}
-              · {c.exhibitions} {exhWord(c.exhibitions)} outside the record
+              · {c.exhibitions} {friendlies(c.exhibitions)} outside the record
             </span>
           </div>
         ))}
@@ -174,7 +181,7 @@ const exhWord = (n: number): string => (n === 1 ? "exhibition" : "exhibitions");
           <span class="ndim">
             · {national.silentFinals} {silentWord(national.silentFinals)}
             · {national.gaps} {gapsWord(national.gaps)}
-            · {national.exhibitions} {exhWord(national.exhibitions)} outside the record
+            · {national.exhibitions} {friendlies(national.exhibitions)} outside the record
           </span>
         </div>
       </div>
