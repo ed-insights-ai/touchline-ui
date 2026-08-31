@@ -21,7 +21,7 @@
 
 import { loadRosters, loadStats } from "./data.ts";
 import { type Season, squadOf } from "./derive.ts";
-import { classAbbr, type Line, positionLine } from "./format.ts";
+import { classAbbr, LINE_LABEL, LINE_ORDER, type Line, positionLine } from "./format.ts";
 import { type Nation, originOf } from "./origin.ts";
 
 /** The five steps of the ladder, palest first. */
@@ -118,12 +118,10 @@ export interface TenureGrid {
   offLine: { players: number; minutes: number };
 }
 
-/** The rows, in the order the design reads them: back to front. */
+/** The four lines every page names, then the row that exists only when a
+ *  roster writes a position this site cannot place onto one of them. */
 const ROWS: readonly { key: Line | "UNL"; label: string }[] = [
-  { key: "GK", label: "IN GOAL" },
-  { key: "DEF", label: "BACK LINE" },
-  { key: "MID", label: "MIDFIELD" },
-  { key: "FWD", label: "FRONT LINE" },
+  ...LINE_ORDER.map((key) => ({ key, label: LINE_LABEL[key] })),
   { key: "UNL", label: "UNLISTED" },
 ];
 

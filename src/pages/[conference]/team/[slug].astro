@@ -41,6 +41,8 @@ import {
   numericDate,
   rate3,
   spell,
+  LINE_LABEL,
+  LINE_ORDER,
 } from "../../../lib/format.ts";
 
 export function getStaticPaths() {
@@ -79,12 +81,16 @@ const cards = squadOf(season, slug).map((m) => ({
 }));
 const cardFor = (name: string) => cards.find((c) => c.member.player.name === name)?.card;
 
-const LINES = [
-  { key: "FWD", label: "ATTACK", colour: "var(--pos-fwd)" },
-  { key: "MID", label: "MIDFIELD", colour: "var(--pos-mid)" },
-  { key: "DEF", label: "DEFENSE", colour: "var(--pos-def)" },
-  { key: "GK", label: "GOALKEEPERS", colour: "var(--pos-gk)" },
-] as const;
+// The names and the order come from the one list that has them, so this
+// section and the shape above it cannot drift apart again. Only the colour is
+// this page's own: nothing else draws a line's dot.
+const LINE_COLOUR: Record<(typeof LINE_ORDER)[number], string> = {
+  GK: "var(--pos-gk)",
+  DEF: "var(--pos-def)",
+  MID: "var(--pos-mid)",
+  FWD: "var(--pos-fwd)",
+};
+const LINES = LINE_ORDER.map((key) => ({ key, label: LINE_LABEL[key], colour: LINE_COLOUR[key] }));
 const SQUAD_SHOWN = 4;
 
 // Where a squad member is from, read off the hometown the programme published.
@@ -226,15 +232,27 @@ const shapeSentence = `${shapeReturn}${shapeMinutes ?? ""}${shapeOffLine}`;
 
 // What a screen reader gets instead of fifty squares: the spread the ink is
 // carrying, in words, once per row.
-const TENURE_WORDS = { FR: "first years", SO: "sophomores", JR: "juniors", SR: "seniors", "5Y": "fifth years" } as const;
+const TENURE_WORDS = {
+  FR: ["first year", "first years"],
+  SO: ["sophomore", "sophomores"],
+  JR: ["junior", "juniors"],
+  SR: ["senior", "seniors"],
+  "5Y": ["fifth year", "fifth years"],
+} as const;
+// A count and its noun have to agree. "1 seniors" is the sort of thing only a
+// screen reader ever hears, which is exactly why it went unnoticed.
+const NO_CLASS = "with no published class year";
 const spread = (squares: { tenure: { step: keyof typeof TENURE_WORDS | null } }[]): string => {
   if (squares.length === 0) return "none";
-  const counts = new Map<string, number>();
-  for (const sq of squares) {
-    const word = sq.tenure.step ? TENURE_WORDS[sq.tenure.step] : "no published class year";
-    counts.set(word, (counts.get(word) ?? 0) + 1);
-  }
-  return [...counts].map(([word, n]) => `${n} ${word}`).join(", ");
+  const counts = new Map<keyof typeof TENURE_WORDS | null, number>();
+  for (const sq of squares) counts.set(sq.tenure.step, (counts.get(sq.tenure.step) ?? 0) + 1);
+  return [...counts]
+    .map(([step, n]) => {
+      if (step === null) return `${n} ${NO_CLASS}`;
+      const [one, many] = TENURE_WORDS[step];
+      return `${n} ${n === 1 ? one : many}`;
+    })
+    .join(", ");
 };
 
 const stripNote = (() => {
@@ -598,9 +616,16 @@ const identity = identityLine(slug);
   .squad-count { font-size: 12px; color: var(--quiet); }
   .squad-list { display: flex; flex-direction: column; gap: 8px; }
   .squad-row {
-    display: flex; align-items: baseline; gap: 8px;
+    display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;
     color: inherit; padding: 3px 0; margin: -3px 0;
   }
+  /* At 320px a column is 120px wide and "A. Wagenblatt NEW 7 SV" does not fit
+     on one line. Without the wrap above, the badge and the stat simply ran out
+     of the column — into the gutter on the right-hand column, which is a page
+     that scrolls sideways. min-width lets a long name give way too, and the
+     break is a last resort rather than a habit: a surname split across two
+     lines is worse than a narrow one, but better than a broken page. */
+  .squad-name { min-width: 0; overflow-wrap: break-word; }
   .squad-row:hover .squad-name { color: var(--accent); }
   .squad-rest { display: contents; }
   .squad-rest > .squad-row { padding-top: 8px; }

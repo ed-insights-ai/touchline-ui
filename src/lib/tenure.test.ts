@@ -21,6 +21,7 @@
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { loadSeason, squadOf } from "./derive.ts";
+import { LINE_LABEL, LINE_ORDER, type Line } from "./format.ts";
 import { returnedShare, TENURE_STEPS, tenureGrid, tenureOf, tenureWord } from "./tenure.ts";
 
 const seasons = site.conferences.map((k) => loadSeason(k));
@@ -115,6 +116,24 @@ describe("the grid against every roster this site collects", () => {
             expect(before >= here, `${s.key}/${slug} ${row.label}`).toBe(true);
           }
         }
+      }
+    }
+  });
+
+  test("the rows are the four lines every page names, in that order", () => {
+    // The bug this closes: the shape said BACK LINE while the squad section
+    // below it said DEFENSE, because each surface kept its own list. There is
+    // one list now, and this is what holds the grid to it.
+    for (const { s: season, slug, grid } of everyTeam) {
+      const lines = grid.rows.filter((r) => r.key !== "UNL");
+      expect(
+        lines.map((r) => r.key),
+        `${season.key}/${slug}`,
+      ).toEqual([...LINE_ORDER]);
+      for (const row of lines) expect(row.label).toBe(LINE_LABEL[row.key as Line]);
+      // UNLISTED, when it is drawn at all, is drawn last.
+      if (grid.rows.length > lines.length) {
+        expect(grid.rows[grid.rows.length - 1]?.key).toBe("UNL");
       }
     }
   });
