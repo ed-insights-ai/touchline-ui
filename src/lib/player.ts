@@ -30,6 +30,7 @@ import {
   type Line,
   monShort,
   pct1,
+  plural,
   positionLine,
   rate3,
   spell,
@@ -129,7 +130,7 @@ export interface PlayerCard {
   keeper: boolean;
   /** "Freshman · 6'2" · 201 lbs · Cape Town, South Africa" */
   bio: string | null;
-  /** "First season in the colors" / "On the roster since 2022" */
+  /** "First season in this programme's archive" / "On the roster since 2022" */
   tenure: string | null;
   triad: Figure[];
   minutes: { played: number; available: number; pct: number; note: string } | null;
@@ -210,6 +211,30 @@ function onRosterIn(s: Season, slug: string, folded: string, year: number): bool
   return false;
 }
 
+/**
+ * The keeper's composed sentence, and the striker's.
+ *
+ * Both are exported and pure so their agreement can be read at a count of one
+ * without standing up a season. "One shots on target faced" shipped, and the
+ * only way to see it on the site was to find a keeper who had faced exactly
+ * one — which is the first competitive minute of every keeper's season.
+ */
+export function keeperSentence(faced: number, apps: number, saves: number, every: boolean): string {
+  return `${cap(spell(faced))} ${plural(faced, "shot", "shots")} on target faced across ${spell(
+    apps,
+  )} ${plural(apps, "match", "matches")}; ${spell(saves)} stopped${
+    every ? " — and every countable minute in goal so far." : "."
+  }`;
+}
+
+export function strikeSentence(goals: number, shots: number): string {
+  return `${cap(spell(goals))} from ${spell(shots)} ${plural(
+    shots,
+    "shot",
+    "shots",
+  )} — ${pct1(goals / shots)} of what they struck.`;
+}
+
 export function playerCard(
   s: Season,
   slug: string,
@@ -236,11 +261,25 @@ export function playerCard(
     }
     return null;
   })();
+  // The archive is not a birth certificate.
+  //
+  // A player absent from every earlier roster file is new to THIS ARCHIVE,
+  // which is a fact about what has been collected and not a fact about the
+  // player. The LSC archive begins in 2022 and GAC/GSC in 2016, and any
+  // transfer from outside these three conferences reads as archive-new
+  // however many seasons they have played — Ryan Armijo of Ouachita Baptist
+  // appears in no earlier file and the 2026 roster publishes him a Junior.
+  // So the card states what the archive holds and never what it implies.
+  //
+  // One predicate, because the three places that ask this question used to
+  // ask it by string-matching the tenure line, and three copies of a sentence
+  // are three chances for two of them to drift.
+  const archiveNew = firstYear === s.fixtures.season;
   const tenure =
     firstYear === null
       ? null
-      : firstYear === s.fixtures.season
-        ? "First season in the colors"
+      : archiveNew
+        ? "First season in this programme's archive"
         : `On the roster since ${firstYear}`;
 
   // ── The season's own figures ──────────────────────────────────────────────
@@ -272,7 +311,7 @@ export function playerCard(
           played,
           available,
           pct: Math.min(100, Math.round((played / available) * 100)),
-          note: `${played} / ${available} · ${apps} ${apps === 1 ? "appearance" : "appearances"}, ${starts} ${starts === 1 ? "start" : "starts"}`,
+          note: `${played} / ${available} · ${apps} ${plural(apps, "appearance", "appearances")}, ${starts} ${plural(starts, "start", "starts")}`,
         };
 
   const cautions = stats?.yellow ?? 0;
@@ -281,8 +320,9 @@ export function playerCard(
     cautions === 0 && reds === 0
       ? dash
       : [
-          cautions > 0 ? `${cautions} ${cautions === 1 ? "caution" : "cautions"}` : null,
-          reds > 0 ? `${reds} red` : null,
+          cautions > 0 ? `${cautions} ${plural(cautions, "caution", "cautions")}` : null,
+          // "2 red" was the one that read as a typo rather than a sentence.
+          reds > 0 ? `${reds} ${plural(reds, "red", "reds")}` : null,
         ]
           .filter(Boolean)
           .join(" · ");
@@ -350,8 +390,8 @@ export function playerCard(
     note:
       prior.length > 0
         ? null
-        : tenure === "First season in the colors"
-          ? "A true freshman — no earlier seasons in the archive."
+        : archiveNew
+          ? "No earlier season in this programme's archive carries this player."
           : "No earlier season of this programme carries a line for this name.",
   };
 
@@ -404,18 +444,16 @@ export function playerCard(
       const every = minutes && minutes.played === minutes.available;
       return {
         label: "derived" as const,
-        text: `${cap(spell(faced))} shots on target faced across ${spell(apps)} ${apps === 1 ? "match" : "matches"}; ${spell(keeperStats.saves)} stopped${
-          every ? " — and every countable minute in goal so far." : "."
-        }`,
+        text: keeperSentence(faced, apps, keeperStats.saves, every === true),
       };
     }
     if (stats && (stats.goals ?? 0) > 0 && stats.shots) {
       return {
         label: "derived" as const,
-        text: `${cap(spell(stats.goals ?? 0))} from ${spell(stats.shots)} ${stats.shots === 1 ? "shot" : "shots"} — ${pct1((stats.goals ?? 0) / stats.shots)} of what they struck.`,
+        text: strikeSentence(stats.goals ?? 0, stats.shots),
       };
     }
-    if (tenure && tenure !== "First season in the colors" && firstYear !== null) {
+    if (firstYear !== null && !archiveNew) {
       return {
         label: "context" as const,
         text: `On ${s.names.name(slug)}'s roster every season since ${firstYear}.`,
