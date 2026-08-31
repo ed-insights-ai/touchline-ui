@@ -1,6 +1,7 @@
 ---
-import { site } from "../site.config.ts";
+import { builtAt } from "../lib/build.ts";
 import { seasonHref } from "../lib/derive.ts";
+import { site } from "../site.config.ts";
 // The site root opens on the configured home conference. Static hosts follow
 // a meta refresh; the link is there for the ones that do not.
 const href = seasonHref(site.home);
@@ -10,6 +11,7 @@ const href = seasonHref(site.home);
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="refresh" content={`0; url=${href}`} />
+    <meta name="touchline-build" content={builtAt} />
     <link rel="canonical" href={href} />
     <title>Touchline</title>
   </head>

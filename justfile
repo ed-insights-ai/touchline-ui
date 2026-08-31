@@ -101,9 +101,11 @@ publish: _require-git build
     git worktree remove --force .publish
     @echo "  published {{branch}}"
     # A publish is not finished until the host serves it correctly. The stamp
-    # is the base path itself: if the deployed root does not carry it, what is
-    # live is a base-less build and every link on it 404s.
-    just deployed "{{site_base}}/"
+    # is THIS build's timestamp, read back out of the artefact just pushed, so
+    # deployed.ts waits for this deploy and cannot green-light the previous
+    # one. If the artefact somehow lacks the meta tag, fall back to the base
+    # path, which still catches a base-less build.
+    stamp="$(sed -n 's/.*name="touchline-build" content="\([^"]*\)".*/\1/p' dist/index.html | head -n1)"; just deployed "${stamp:-{{site_base}}/}"
 
 # Publishing needs somewhere to publish to; say so rather than half-doing it.
 _require-git:
