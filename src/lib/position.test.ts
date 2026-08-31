@@ -1,0 +1,154 @@
+/**
+ * Where a published position puts a player.
+ *
+ * This file exists because reading the first letter of a position is a rule
+ * that looks right and is wrong in two directions at once.
+ *
+ * It was wrong about words it recognised: "Defensive Midfielder" starts with a
+ * d, so a midfielder stood on the back line. And it was silent about words it
+ * did not: a roster writing "Right Back", "Winger" or "Striker" placed nobody
+ * at all, which put 4.8% of a division's published minutes — 58% of one
+ * programme's — inside the season totals and inside no line of the grid that
+ * takes a share of them.
+ *
+ * So the tests below assert both halves. Every form the data actually
+ * publishes lands where a football reader would put it, AND a word this table
+ * does not know still places nobody: the mapping widens what is recognised and
+ * never guesses.
+ */
+
+import { describe, expect, test } from "bun:test";
+import { site } from "../site.config.ts";
+import { loadRosters } from "./data.ts";
+import { loadSeason, squadByLine, squadOf } from "./derive.ts";
+import { LINE_ORDER, positionLine } from "./format.ts";
+import { originOf } from "./origin.ts";
+
+const seasons = site.conferences.map((k) => loadSeason(k));
+
+describe("the words a roster prints", () => {
+  test("the plain nouns, and the letters a box score shortens them to", () => {
+    for (const p of ["Goalkeeper", "Goal Keeper", "GoalKeeper", "GK", "G"]) {
+      expect(positionLine(p), p).toBe("GK");
+    }
+    for (const p of ["Defender", "Defense", "DEF", "D"]) expect(positionLine(p), p).toBe("DEF");
+    for (const p of ["Midfielder", "Midfield", "MID", "MF", "M"]) {
+      expect(positionLine(p), p).toBe("MID");
+    }
+    for (const p of ["Forward", "FWD", "F"]) expect(positionLine(p), p).toBe("FWD");
+  });
+
+  test("the granular vocabulary a football roster writes", () => {
+    for (const p of ["Right Back", "Left Back", "Center Back", "Centre Back", "Wing Back"]) {
+      expect(positionLine(p), p).toBe("DEF");
+    }
+    for (const p of ["Winger", "Wing", "Left Wing", "W", "Striker", "Second Striker"]) {
+      expect(positionLine(p), p).toBe("FWD");
+    }
+    for (const p of [
+      "Defensive Midfielder",
+      "Center Defensive Midfielder",
+      "Attacking Midfielder",
+      "Holding Midfielder",
+    ]) {
+      expect(positionLine(p), p).toBe("MID");
+    }
+  });
+
+  test("the words nest, and the order they are read in decides", () => {
+    // Each of these contains the name of a line it does not belong to.
+    expect(positionLine("Defensive Midfielder")).toBe("MID");
+    expect(positionLine("Wing Back")).toBe("DEF");
+    expect(positionLine("Attacking Midfielder")).toBe("MID");
+  });
+
+  test("two positions means the first one", () => {
+    expect(positionLine("Midfielder/Defender")).toBe("MID");
+    expect(positionLine("Defender/Midfielder")).toBe("DEF");
+    expect(positionLine("Forward/Midfielder")).toBe("FWD");
+    expect(positionLine("Midfielder / Defender")).toBe("MID");
+    expect(positionLine("M/F")).toBe("MID");
+    expect(positionLine("D/M")).toBe("DEF");
+  });
+
+  test("the misspellings these rosters actually publish", () => {
+    expect(positionLine("Foward")).toBe("FWD");
+    expect(positionLine("Miidfielder")).toBe("MID");
+    expect(positionLine("Midfielder/Foward")).toBe("MID");
+  });
+
+  test("a word this table does not know places nobody", () => {
+    // Widening what is recognised is not the same as guessing. "Team IMPACT"
+    // is a real roster entry and not a position at all.
+    for (const p of ["Team IMPACT", "Sweeper", "Libero", "Utility", "", "  ", "12", undefined]) {
+      expect(positionLine(p), JSON.stringify(p)).toBeNull();
+    }
+  });
+});
+
+describe("against the rosters this site actually collects", () => {
+  test("only a roster that published nothing leaves a player unlisted", () => {
+    // The check that would have caught the original gap: after the table, a
+    // player with no line must be a player with no PUBLISHED POSITION, or one
+    // of the handful of entries that name something other than a position.
+    const KNOWN_NON_POSITIONS = ["team impact"];
+    let checked = 0;
+    for (const conference of site.conferences) {
+      for (const year of [site.season, site.season - 1]) {
+        const file = loadRosters(year, "men", conference);
+        for (const slug of Object.keys(file?.rosters ?? {})) {
+          for (const player of file?.rosters[slug]?.players ?? []) {
+            checked++;
+            if (positionLine(player.position) !== null) continue;
+            const published = (player.position ?? "").trim().toLowerCase();
+            expect(
+              published === "" || KNOWN_NON_POSITIONS.includes(published),
+              `${conference}/${slug}: ${JSON.stringify(player.position)}`,
+            ).toBe(true);
+          }
+        }
+      }
+    }
+    expect(checked).toBeGreaterThan(1500);
+  });
+});
+
+describe("what placing a player must not touch", () => {
+  test("where a player is from does not depend on where they play", () => {
+    // The bead's requirement, stated as the invariant behind it: origin is
+    // read off a hometown, so moving a player onto a line cannot change their
+    // classification. What CAN change is how many players a page renders, and
+    // therefore what the provenance line counts — that is a population, not a
+    // reclassification, and the two must not be confused.
+    let compared = 0;
+    for (const season of seasons) {
+      for (const slug of Object.keys(season.rosters?.rosters ?? {})) {
+        const byName = new Map(
+          squadOf(season, slug).map((m) => [m.player.name, originOf(m.player.hometown)]),
+        );
+        for (const line of LINE_ORDER) {
+          for (const m of squadByLine(season, slug, line)) {
+            compared++;
+            expect(originOf(m.player.hometown), `${slug}: ${m.player.name}`).toEqual(
+              byName.get(m.player.name) as ReturnType<typeof originOf>,
+            );
+          }
+        }
+      }
+    }
+    expect(compared).toBeGreaterThan(800);
+  });
+
+  test("every player the four lines draw is a player on the roster, once", () => {
+    for (const season of seasons) {
+      for (const slug of Object.keys(season.rosters?.rosters ?? {})) {
+        const drawn = LINE_ORDER.flatMap((l) => squadByLine(season, slug, l));
+        const roster = squadOf(season, slug);
+        expect(drawn.length).toBeLessThanOrEqual(roster.length);
+        expect(new Set(drawn.map((m) => m.player.name)).size, slug).toBe(drawn.length);
+        const unlisted = roster.filter((m) => m.line === null).length;
+        expect(drawn.length + unlisted, slug).toBe(roster.length);
+      }
+    }
+  });
+});
