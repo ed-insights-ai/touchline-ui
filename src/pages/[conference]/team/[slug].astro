@@ -17,7 +17,6 @@ import {
   resultsOf,
   squadByLine,
   squadOf,
-  squadShape,
   upcomingOf,
   flagHref,
 } from "../../../lib/derive.ts";
@@ -70,7 +69,6 @@ const programme = season.fixtures.programmes.find((p) => p.slug === slug);
 const all = fixturesOf(season, slug);
 const results = resultsOf(season, slug);
 const record = recordOf(season, slug);
-const shape = squadShape(season, slug);
 const keeper = leadKeeper(season, slug);
 const opener = conferenceOpenerOf(season, slug);
 const upcoming = upcomingOf(season, slug);
@@ -299,13 +297,8 @@ const identity = identityLine(slug);
         )}
         <div class="crest-tally num">
           GOALS <strong>{record.goalsFor}</strong> &nbsp;·&nbsp; CONCEDED <strong>{record.goalsAgainst}</strong>
-          {shape.size > 0 && (
-            <>
-              &nbsp;·&nbsp; SQUAD <strong>{shape.size}</strong>
-              {shape.returning !== null && (
-                <span class="crest-split"> ({shape.returning} ret · {shape.fresh} new)</span>
-              )}
-            </>
+          {grid.size > 0 && (
+            <>&nbsp;·&nbsp; SQUAD <strong>{grid.size}</strong></>
           )}
         </div>
       </div>
@@ -418,7 +411,7 @@ const identity = identityLine(slug);
 
     <section class="band band-last" id="squad">
       <h2 class="sechead">SQUAD</h2>
-      {shape.size === 0 ? (
+      {grid.size === 0 ? (
         <p class="empty">No roster has been collected for this programme.</p>
       ) : (
         <div class="squad">
@@ -438,6 +431,7 @@ const identity = identityLine(slug);
                     const from = nationOf(m);
                     return (
                       <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
+                        <span class={`squad-tick${m.isNew ? " is-new" : ""}`} aria-hidden="true"></span>
                         <span
                           class={`squad-name${m === lead && m.contribution > 0 ? " is-lead" : ""}`}
                         >
@@ -449,7 +443,7 @@ const identity = identityLine(slug);
                             <span class="vh">{from.name}</span>
                           </span>
                         )}
-                        {m.isNew && <span class="squad-new">NEW</span>}
+                        {m.isNew && <span class="vh">new to the roster</span>}
                         {m.contribution > 0 && (
                           <span class="squad-stat num">
                             {m.contribution} {m.keeper ? "SV" : "SH"}
@@ -465,6 +459,7 @@ const identity = identityLine(slug);
                         const from = nationOf(m);
                         return (
                           <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
+                            <span class={`squad-tick${m.isNew ? " is-new" : ""}`} aria-hidden="true"></span>
                             <span class="squad-name">{initialLast(m.player.name)}</span>
                             {from && (
                               <span
@@ -480,7 +475,7 @@ const identity = identityLine(slug);
                                 <span class="vh">{from.name}</span>
                               </span>
                             )}
-                            {m.isNew && <span class="squad-new">NEW</span>}
+                            {m.isNew && <span class="vh">new to the roster</span>}
                             {m.contribution > 0 && (
                               <span class="squad-stat num">
                                 {m.contribution} {m.keeper ? "SV" : "SH"}
@@ -497,7 +492,7 @@ const identity = identityLine(slug);
           })}
         </div>
       )}
-      {shape.size > 0 && <p class="squad-origin-note">{originNote}</p>}
+      {grid.size > 0 && <p class="squad-origin-note">{originNote}</p>}
     </section>
 
     {cards.map(({ card }) => <PlayerSheet card={card} />)}
@@ -533,7 +528,6 @@ const identity = identityLine(slug);
   .crest-form-row .label { margin-right: 6px; }
   .crest-tally { font-size: 12.5px; color: var(--secondary); }
   .crest-tally strong { color: var(--ink); font-weight: 600; }
-  .crest-split { color: var(--faint); }
 
   .band {
     padding: 26px 0;
@@ -637,10 +631,20 @@ const identity = identityLine(slug);
   summary.squad-more:hover { color: var(--accent); }
   .squad-name { font-size: 13.5px; }
   .squad-name.is-lead { font-weight: 600; }
-  .squad-new {
-    font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: var(--quiet);
-    border: 1px solid var(--outline); border-radius: 3px; padding: 1px 5px;
+  /* The rule-tick. One band up, the shape's hairline is what separates
+     returners from newcomers; this is that same mark at row scale, and it says
+     the same thing — this player stands to the right of the rule. It replaced a
+     NEW word-pill that made three text objects fight over one row.
+     The slot is reserved on every row and inked only on a new one, so the names
+     line up whatever the row has to say. The word itself survives for anyone
+     who cannot see a hairline, in the .vh span after the name. */
+  .squad-tick {
+    flex: none;
+    width: 1px;
+    height: 10px;
+    align-self: center;
   }
+  .squad-tick.is-new { background: var(--tenure-rule); }
   .squad-stat { font-size: 11.5px; color: var(--quiet); }
   /* The origin marker is the country's own flag, sitting in the slot the
      trigram used to occupy — 22px wide, so a row that carries a flag puts NEW
