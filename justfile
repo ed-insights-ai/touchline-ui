@@ -49,7 +49,15 @@ publish: _require-git
     @test -d dist || (echo "dist/ is missing — run \`just build\` first" && exit 1)
     touch dist/.nojekyll
     git worktree remove --force .publish 2>/dev/null || true
-    git worktree add --force -B {{branch}} .publish
+    # Continue the published branch where it left off, so every deploy is a
+    # commit on top of the last one and the branch is a record of what was
+    # live when. Starting it fresh each time makes the push a non-fast-forward.
+    git fetch -q origin {{branch}} 2>/dev/null || true
+    if git rev-parse --verify -q refs/remotes/origin/{{branch}} >/dev/null; then \
+      git worktree add -q --force -B {{branch}} .publish origin/{{branch}}; \
+    else \
+      git worktree add -q --force --orphan -B {{branch}} .publish; \
+    fi
     find .publish -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
     cp -R dist/. .publish/
     cd .publish && git add -A && \
