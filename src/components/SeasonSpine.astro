@@ -172,7 +172,7 @@ const note = [
   .sp-flag {
     position: absolute;
     top: 0;
-    font-size: 9.5px;
+    font-size: 10px;
     letter-spacing: 0.16em;
     font-weight: 600;
     white-space: nowrap;
@@ -182,25 +182,25 @@ const note = [
   .sp-months { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; }
   .sp-month {
     position: absolute;
-    font-size: 9.5px;
+    font-size: 10px;
     letter-spacing: 0.16em;
     font-weight: 600;
     color: var(--faint);
     white-space: nowrap;
   }
-  .sp-note { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
+  .sp-note { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
 
   @media (max-width: 720px) {
     /* Nothing moves and no mark is dropped; only the labels give way, because
        they are the part that stops resolving at this width. */
     .sp-plot { height: 82px; }
     .sp-marks { height: 50px; }
-    .sp-flag { font-size: 8.5px; letter-spacing: 0.1em; }
+    .sp-flag { font-size: 10px; letter-spacing: 0.1em; }
     /* The two flags sit close enough to touch at this width. TODAY is the one
        that orients the reader, so it stays; the league hairline keeps its
        place and the note underneath still names the date in words. */
     .sp-flag-league { display: none; }
-    .sp-month { font-size: 8.5px; letter-spacing: 0.1em; }
+    .sp-month { font-size: 10px; letter-spacing: 0.1em; }
     .sp-legend { font-size: 10px; gap: 3px 10px; }
   }
 </style>

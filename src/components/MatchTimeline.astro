@@ -298,7 +298,7 @@ const stackLabel = (stack: LaneStack): string =>
     display: flex; flex-direction: column; gap: 2px;
     max-width: min(480px, 92vw); white-space: normal; overflow-wrap: anywhere;
     background: var(--ink); color: var(--paper);
-    font-size: 11px; letter-spacing: 0.01em; line-height: 1.35;
+    font-size: 13.5px; letter-spacing: 0.01em; line-height: 1.5;
     padding: 4px 8px; border-radius: 4px;
     opacity: 0; pointer-events: none; transition: opacity 90ms ease-out;
   }
@@ -339,7 +339,7 @@ const stackLabel = (stack: LaneStack): string =>
      smaller marks. The page body never scrolls sideways. */
   @media (max-width: 720px) {
     .timeline-head { flex-wrap: wrap; gap: 8px 14px; }
-    .legend { flex-wrap: wrap; gap: 6px 12px; font-size: 9.5px; }
+    .legend { flex-wrap: wrap; gap: 6px 12px; font-size: 10px; }
     .timeline { --pitch: 11px; --cap: 30px; --foot: 46px; }
     .stack { width: 11px; }
     .pip { width: 11px; }
@@ -350,7 +350,7 @@ const stackLabel = (stack: LaneStack): string =>
     .pip-card::before { width: 6px; height: 9px; }
     .pip-red::before { width: 6px; height: 9px; }
     .pip-sub::before, .pip-roster::before { width: 6px; height: 2px; }
-    .goal-label { font-size: 9.5px; line-height: 10px; }
+    .goal-label { font-size: 10px; line-height: 11px; }
     .goal-label.lane-home.tier-a { top: calc(var(--cap) - 14px); }
     .goal-label.lane-home.tier-b { top: calc(var(--cap) - 26px); }
     .goal-label.lane-away.tier-a { bottom: calc(var(--foot) - 18px); }
