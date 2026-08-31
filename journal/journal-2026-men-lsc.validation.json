@@ -4,7 +4,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-08-31T11:34:57.946Z",
+  "validated_at": "2026-08-31T12:43:35.402Z",
   "data_collected_at": "2026-08-31T11:31:28+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
@@ -19,18 +19,12 @@
     {
       "path": "pattern.text",
       "text": "Midwestern State has scored eleven goals in non-conference play, more than any two other programmes have scored together.",
-      "unbacked": [
-        "2"
-      ]
+      "unbacked": ["2"]
     },
     {
       "path": "findings[0].text",
       "text": "All three matches marked final without a published score are Lubbock Christian's — August 15, August 19 and August 22 — and three further matches are past their date with no result recorded.",
-      "unbacked": [
-        "15",
-        "19",
-        "22"
-      ]
+      "unbacked": ["15", "19", "22"]
     }
   ],
   "claims": [
