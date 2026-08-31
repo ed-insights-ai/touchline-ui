@@ -8,7 +8,11 @@
       "!**/dist",
       "!**/.astro",
       "!reference",
-      "!bun.lock"
+      "!bun.lock",
+      "!.beads",
+      "!.agents",
+      "!.claude",
+      "!.codex"
     ]
   },
   "formatter": {
