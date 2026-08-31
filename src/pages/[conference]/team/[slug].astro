@@ -16,11 +16,14 @@ import {
   recordOf,
   resultsOf,
   squadByLine,
+  squadOf,
   squadShape,
   upcomingOf,
 } from "../../../lib/derive.ts";
 import type { Fixture, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
+import PlayerSheet from "../../../components/PlayerSheet.astro";
+import { playerCard } from "../../../lib/player.ts";
 import {
   daysBetween,
   dowShort,
@@ -64,6 +67,11 @@ const keeper = leadKeeper(season, slug);
 const opener = conferenceOpenerOf(season, slug);
 const upcoming = upcomingOf(season, slug);
 const counts = programmeCounts(season, slug);
+const cards = squadOf(season, slug).map((m) => ({
+  member: m,
+  card: playerCard(season, slug, m.player, m.stats, m.keeper),
+}));
+const cardFor = (name: string) => cards.find((c) => c.member.player.name === name)?.card;
 
 const LINES = [
   { key: "FWD", label: "ATTACK", colour: "var(--pos-fwd)" },
@@ -254,7 +262,7 @@ const identity = identityLine(slug);
       </div>
     </section>
 
-    <section class="band band-last">
+    <section class="band band-last" id="squad">
       <div class="sechead">SQUAD</div>
       {shape.size === 0 ? (
         <p class="empty">No roster has been collected for this programme.</p>
@@ -273,7 +281,7 @@ const identity = identityLine(slug);
                 </div>
                 <div class="squad-list">
                   {members.slice(0, SQUAD_SHOWN).map((m) => (
-                    <div class="squad-row">
+                    <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
                       <span class={`squad-name${m === lead && m.contribution > 0 ? " is-lead" : ""}`}>
                         {initialLast(m.player.name)}
                       </span>
@@ -283,10 +291,23 @@ const identity = identityLine(slug);
                           {m.contribution} {m.keeper ? "SV" : "SH"}
                         </span>
                       )}
-                    </div>
+                    </a>
                   ))}
                   {members.length > SQUAD_SHOWN && (
-                    <div class="squad-more">+ {members.length - SQUAD_SHOWN} more</div>
+                    <details class="squad-rest">
+                      <summary class="squad-more">+ {members.length - SQUAD_SHOWN} more</summary>
+                      {members.slice(SQUAD_SHOWN).map((m) => (
+                        <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
+                          <span class="squad-name">{initialLast(m.player.name)}</span>
+                          {m.isNew && <span class="squad-new">NEW</span>}
+                          {m.contribution > 0 && (
+                            <span class="squad-stat num">
+                              {m.contribution} {m.keeper ? "SV" : "SH"}
+                            </span>
+                          )}
+                        </a>
+                      ))}
+                    </details>
                   )}
                 </div>
               </div>
@@ -295,6 +316,8 @@ const identity = identityLine(slug);
         </div>
       )}
     </section>
+
+    {cards.map(({ card }) => <PlayerSheet card={card} />)}
   </div>
 </Page>
 
@@ -387,7 +410,16 @@ const identity = identityLine(slug);
   .squad-label { font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: var(--secondary); }
   .squad-count { font-size: 12px; color: var(--faint); }
   .squad-list { display: flex; flex-direction: column; gap: 8px; }
-  .squad-row { display: flex; align-items: baseline; gap: 8px; }
+  .squad-row {
+    display: flex; align-items: baseline; gap: 8px;
+    color: inherit; padding: 3px 0; margin: -3px 0;
+  }
+  .squad-row:hover .squad-name { color: var(--accent); }
+  .squad-rest { display: contents; }
+  .squad-rest > .squad-row { padding-top: 8px; }
+  summary.squad-more { cursor: pointer; list-style: none; padding: 6px 0; margin: -6px 0; }
+  summary.squad-more::-webkit-details-marker { display: none; }
+  summary.squad-more:hover { color: var(--accent); }
   .squad-name { font-size: 13.5px; }
   .squad-name.is-lead { font-weight: 600; }
   .squad-new {

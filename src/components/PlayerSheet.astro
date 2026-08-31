@@ -1,0 +1,283 @@
+---
+// The player sheet: a panel over the page, never a destination.
+//
+// It opens on :target, so the sheet is deep-linkable, survives a reload, is
+// back-button-closable, and needs no JavaScript at all — the same discipline
+// as the play-by-play filters. A script-driven island can replace the opening
+// mechanism later without touching a figure on the card.
+import type { PlayerCard } from "../lib/player.ts";
+
+interface Props {
+  card: PlayerCard;
+}
+const { card } = Astro.props;
+const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
+---
+
+<aside class="sheet" id={card.anchor} aria-label={`${card.name}, player card`}>
+  <a class="sheet-scrim" href="#squad" aria-label="Close player card"></a>
+  <div class="sheet-panel">
+    <div class="sheet-head">
+      <span class="sheet-kicker">PLAYER</span>
+      <span class="grow"></span>
+      <a class="sheet-close" href="#squad" aria-label="Close">&times;</a>
+    </div>
+
+    <div class="sheet-id">
+      <div class="sheet-badge num">{card.number ?? "—"}</div>
+      <div class="sheet-namebox">
+        <div class="sheet-name serif">{card.name}</div>
+        <div class="sheet-sub">
+          {card.line && <span class={`pos pos-${card.line.toLowerCase()}`}>{card.line}</span>}
+          <span class="sheet-where">{card.programme} · {card.season} season</span>
+        </div>
+      </div>
+    </div>
+
+    {(card.bio || card.tenure) && (
+      <p class="sheet-bio">
+        {card.bio}
+        {card.bio && card.tenure && <br />}
+        {card.tenure}
+      </p>
+    )}
+
+    <div class="sheet-triad num">
+      {card.triad.map((f) => (
+        <div class="triad">
+          <div class="triad-value serif">{f.value}</div>
+          <div class="triad-label">{f.label}</div>
+        </div>
+      ))}
+    </div>
+
+    {card.minutes ? (
+      <div class="sheet-minutes">
+        <div class="minutes-head">
+          <span class="minutes-label">MINUTES</span>
+          <span class="num">{card.minutes.note}</span>
+        </div>
+        <div class="minutes-track">
+          <i class="minutes-fill" style={`width: ${card.minutes.pct}%`}></i>
+        </div>
+      </div>
+    ) : (
+      <p class="sheet-absent">
+        No minutes are published for this player — the programme's statistics carry a line only
+        once someone has appeared.
+      </p>
+    )}
+
+    {card.block && (
+      <div class="sheet-block">
+        <div class="block-label">{card.block.label}</div>
+        <div class="block-rows num">
+          {card.block.rows.map((r) => (
+            <div class="block-row">
+              <span class="block-key">{r.label}</span>
+              <span class="block-value">
+                {r.cautions ? <i class="caution"></i> : null}
+                {r.value}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div class="sheet-block">
+      <div class="block-label">CAREER</div>
+      <div class="career num">
+        {card.career.rows.length > 0 && (
+          <div class="career-row career-head">
+            <div></div>
+            {card.career.columns.map((c) => <div>{c}</div>)}
+          </div>
+        )}
+        {card.career.rows.map((r) => (
+          <div class="career-row">
+            <div>{r.season}</div>
+            {r.values.map((v) => <div>{v}</div>)}
+          </div>
+        ))}
+        {card.career.note && <div class="career-note">{card.career.note}</div>}
+      </div>
+    </div>
+
+    <div class="sheet-block">
+      <div class="block-label">MATCH BY MATCH</div>
+      <div class="log num">
+        {card.log.length === 0 ? (
+          <p class="sheet-absent">
+            {card.programme} has not played a match that counts yet.
+          </p>
+        ) : (
+          card.log.map((l) => (
+            <div class="log-row">
+              <span class="log-date">{l.date}</span>
+              <span class="log-opp">{l.home ? "vs" : "at"} {l.opponent}</span>
+              <span class="log-result">
+                {l.result && <span class={`res res-${RESULT[l.result]}`}>{l.result}</span>}
+                {l.score && <span class="log-score">{l.score}</span>}
+              </span>
+              <span class={`log-line${l.line ? "" : " log-line-absent"}`}>
+                {l.line ?? l.absent}
+              </span>
+            </div>
+          ))
+        )}
+        {card.exhibitions && <div class="log-note">{card.exhibitions}</div>}
+      </div>
+    </div>
+
+    <div class="sheet-foot">
+      {card.finding && (
+        <div class="finding">
+          <span class={`chip chip-${card.finding.label}`}>{card.finding.label.toUpperCase()}</span>
+          <span class="finding-text">{card.finding.text}</span>
+        </div>
+      )}
+      <div class="sheet-provenance serif">
+        From the programme's published roster and season statistics.
+      </div>
+    </div>
+  </div>
+</aside>
+
+<style>
+  /* Closed is the default; :target is the only thing that opens it, so a page
+     with scripting off behaves exactly as one with it on.
+
+     The container is fixed rather than in flow: an anchor the browser has to
+     scroll to would jerk the page to the foot of the document on every open,
+     and a panel that is already filling the viewport gives it nothing to
+     scroll to. */
+  .sheet { position: fixed; inset: 0; z-index: 40; display: none; }
+  .sheet:target { display: block; }
+
+  .sheet-scrim {
+    position: absolute; inset: 0;
+    background: rgba(26, 28, 34, 0.32);
+  }
+  .sheet-panel {
+    position: absolute; top: 0; right: 0; bottom: 0; z-index: 41;
+    width: min(460px, 100vw);
+    box-sizing: border-box;
+    background: var(--card);
+    border-left: 1px solid var(--hairline);
+    color: var(--ink);
+    padding: 22px 26px;
+    display: flex; flex-direction: column; gap: 16px;
+    overflow-y: auto;
+  }
+
+  .sheet-head { display: flex; align-items: center; }
+  .sheet-kicker { font-size: 10px; letter-spacing: 0.2em; font-weight: 600; color: var(--faint); }
+  .grow { flex: 1; }
+  .sheet-close { font-size: 16px; color: var(--faint); line-height: 1; padding: 8px; margin: -8px; }
+  .sheet-close:hover { color: var(--ink); }
+
+  .sheet-id { display: flex; align-items: center; gap: 14px; }
+  .sheet-badge {
+    width: 52px; height: 52px; flex: none;
+    background: var(--accent-wash); border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 600; color: var(--accent);
+  }
+  .sheet-namebox { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .sheet-name { font-weight: 500; font-size: 24px; line-height: 1; }
+  .sheet-sub { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+  .sheet-where { font-size: 11.5px; color: var(--secondary); }
+  .pos {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em;
+    padding: 2px 8px; border-radius: 3px;
+  }
+  .pos-gk { background: var(--pos-gk-wash); color: var(--pos-gk-text); }
+  .pos-def { background: var(--pos-def-wash); color: var(--pos-def-text); }
+  .pos-mid { background: var(--pos-mid-wash); color: var(--pos-mid-text); }
+  .pos-fwd { background: var(--pos-fwd-wash); color: var(--pos-fwd-text); }
+
+  .sheet-bio {
+    margin: 0; font-size: 12px; color: var(--secondary); line-height: 1.55;
+    border-top: 1px solid var(--hairline-soft); padding-top: 12px;
+  }
+
+  .sheet-triad { display: flex; gap: 8px; }
+  .triad {
+    flex: 1; display: flex; flex-direction: column; gap: 2px;
+    border-top: 2px solid var(--ink); padding-top: 8px; min-width: 0;
+  }
+  .triad-value { font-weight: 500; font-size: 30px; line-height: 1; }
+  .triad-label { font-size: 9.5px; letter-spacing: 0.14em; color: var(--faint); }
+
+  .sheet-minutes { display: flex; flex-direction: column; gap: 6px; }
+  .minutes-head {
+    display: flex; justify-content: space-between; font-size: 10.5px; color: var(--secondary);
+  }
+  .minutes-label { letter-spacing: 0.12em; font-weight: 600; }
+  .minutes-track { height: 7px; background: var(--hairline-soft); border-radius: 4px; overflow: hidden; }
+  .minutes-fill { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+
+  .sheet-absent { margin: 0; font-size: 12px; color: var(--secondary); line-height: 1.5; }
+
+  .sheet-block { display: flex; flex-direction: column; gap: 8px; }
+  .block-label {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; color: var(--secondary);
+    border-top: 1px solid var(--hairline-soft); padding-top: 12px;
+  }
+  .block-rows { display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; }
+  .block-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .block-key { color: var(--secondary); }
+  .block-value { font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .caution {
+    width: 7px; height: 10px; background: var(--draw); border-radius: 1.5px; flex: none;
+  }
+
+  .career { display: flex; flex-direction: column; gap: 5px; }
+  .career-row {
+    display: grid; grid-template-columns: 44px repeat(4, 1fr); gap: 6px;
+    font-size: 12px; font-weight: 600;
+  }
+  .career-row > div:not(:first-child) { text-align: right; }
+  .career-head { font-size: 9.5px; letter-spacing: 0.1em; color: var(--faint); font-weight: 400; }
+  .career-note { font-size: 10.5px; color: var(--faint); }
+
+  .log { display: flex; flex-direction: column; }
+  .log-row {
+    display: grid; grid-template-columns: 46px 1fr 62px 82px; gap: 8px;
+    padding: 5px 0; font-size: 12px; align-items: baseline;
+  }
+  .log-row + .log-row { border-top: 1px solid var(--hairline-soft); }
+  .log-date { color: var(--faint); }
+  .log-opp { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .log-result { text-align: right; display: flex; gap: 5px; justify-content: flex-end; }
+  .res { font-weight: 600; }
+  .res-win { color: var(--win); }
+  .res-draw { color: var(--draw); }
+  .res-loss { color: var(--loss); }
+  .log-score { color: var(--secondary); }
+  .log-line { color: var(--secondary); text-align: right; }
+  .log-line-absent { font-style: italic; color: var(--faint); }
+  .log-note { font-size: 10.5px; color: var(--faint); padding-top: 6px; }
+
+  .sheet-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+  .finding {
+    display: flex; align-items: baseline; gap: 10px;
+    border-top: 1px solid var(--hairline-soft); padding-top: 12px;
+  }
+  .chip {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.14em;
+    padding: 2px 8px; border-radius: 3px; white-space: nowrap;
+  }
+  .chip-observed { background: var(--chip-observed-bg); color: var(--chip-observed-fg); }
+  .chip-derived { background: var(--chip-derived-bg); color: var(--chip-derived-fg); }
+  .chip-context { border: 1px solid var(--chip-context-border); color: var(--chip-context-fg); }
+  .finding-text { font-size: 12px; line-height: 1.45; color: var(--ink-soft); }
+  .sheet-provenance { font-style: italic; font-size: 11.5px; color: var(--faint); }
+
+  @media (max-width: 560px) {
+    .sheet-panel { padding: 18px 18px 28px; }
+    .log-row { grid-template-columns: 44px 1fr 56px; }
+    .log-line { grid-column: 2 / -1; text-align: left; }
+  }
+</style>
