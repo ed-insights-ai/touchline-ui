@@ -18,7 +18,7 @@ import MatchTimeline from "../../../components/MatchTimeline.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
-import { footNote as footNoteOf, type MatchState } from "../../../lib/matchstate.ts";
+import { footNote as footNoteOf, type MatchState, provenance } from "../../../lib/matchstate.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
@@ -205,12 +205,7 @@ const footNote = footNoteOf(state, {
   gaps: gaps.length,
 });
 
-const provenance =
-  state === "played"
-    ? plays.length > 0
-      ? "From the programme's published box score and play-by-play."
-      : "From the programme's published box score."
-    : "From the programme's published schedule — result withheld by the source.";
+const provenanceLine = provenance(state, { hasPlays: plays.length > 0, status: fixture.status });
 
 // Only a side with a team page somewhere gets a link; the rest read as plain
 // text, with no affordance promising a page that does not exist.
@@ -471,7 +466,7 @@ const awayName = names.name(fixture.away);
           : footNote}
       </span>
       <span class="grow"></span>
-      <span class="provenance">{provenance}</span>
+      <span class="provenance">{provenanceLine}</span>
     </footer>
 
     <SiteFooter seasons={[season]} />
