@@ -131,7 +131,7 @@ const GRAMMAR = [
       </p>
     </section>
 
-    <section class="band band-last">
+    <section class="band">
       <h2 class="sechead">WHERE IT COMES FROM</h2>
       <p class="para">
         A collector reads each programme's own schedule, roster, statistics and box-score
@@ -173,8 +173,10 @@ const GRAMMAR = [
   }
   .intro strong { font-weight: 600; }
 
+  /* Bands separate with a top rule, and the last one does NOT close with a
+     bottom one: .site-footer's own border-top is the page's closing rule, and
+     drawing both put two hairlines 28px apart. */
   .band { padding: 26px 0; border-top: 1px solid var(--hairline); max-width: 720px; }
-  .band-last { border-bottom: 1px solid var(--hairline); }
   .band .sechead { margin-bottom: 18px; display: inline-block; }
 
   .terms { display: flex; flex-direction: column; gap: 20px; }
