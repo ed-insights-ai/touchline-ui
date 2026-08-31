@@ -22,6 +22,7 @@ import {
 } from "../../../lib/derive.ts";
 import type { Fixture, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
+import { countOrigins, originOf } from "../../../lib/origin.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
@@ -82,6 +83,39 @@ const LINES = [
   { key: "GK", label: "GOALKEEPERS", colour: "var(--pos-gk)" },
 ] as const;
 const SQUAD_SHOWN = 4;
+
+// Where a squad member is from, read off the hometown the programme published.
+// The trigram is the only place this fact appears on a row — rows do not print
+// hometowns — so it takes the secondary ink rather than the faint one, and the
+// word "international" is never used: in football that word means a capped
+// player, which is not what a hometown can tell anyone.
+const nationOf = (m: { player: { hometown?: string } }) => {
+  const origin = originOf(m.player.hometown);
+  return origin.kind === "abroad" ? origin.nation : null;
+};
+
+// Counted over exactly the rows the four lines render, so the figure and the
+// trigrams a reader can count by hand — including the ones folded behind
+// "+ N more" — are the same population.
+const rendered = LINES.flatMap((l) => squadByLine(season, slug, l.key));
+const origins = countOrigins(rendered.map((m) => m.player.hometown));
+const originResidue = [
+  origins.unplaced > 0
+    ? `${spell(origins.unplaced)} more ${origins.unplaced === 1 ? "publishes" : "publish"} a place this site does not name`
+    : null,
+  origins.absent > 0
+    ? `${spell(origins.absent)} ${origins.absent === 1 ? "publishes" : "publish"} none at all`
+    : null,
+]
+  .filter(Boolean)
+  .join(" and ");
+const originNote =
+  origins.placed === 0
+    ? "No published hometown on this roster names a place this site can place."
+    : `${origins.abroad} of ${origins.placed} ${origins.placed === 1 ? "player carries" : "players carry"} a published hometown outside the United States.` +
+      (originResidue
+        ? ` ${originResidue.charAt(0).toUpperCase()}${originResidue.slice(1)}; they stand outside both sides of that count.`
+        : "");
 
 // The season strip: every fixture the programme published, in order, each cell
 // carrying either its result or its date. Nothing is dropped for want of a score.
@@ -285,6 +319,9 @@ const identity = identityLine(slug);
                       <span class={`squad-name${m === lead && m.contribution > 0 ? " is-lead" : ""}`}>
                         {initialLast(m.player.name)}
                       </span>
+                      {nationOf(m) && (
+                        <abbr class="squad-origin" title={nationOf(m)?.name}>{nationOf(m)?.trigram}</abbr>
+                      )}
                       {m.isNew && <span class="squad-new">NEW</span>}
                       {m.contribution > 0 && (
                         <span class="squad-stat num">
@@ -299,6 +336,9 @@ const identity = identityLine(slug);
                       {members.slice(SQUAD_SHOWN).map((m) => (
                         <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
                           <span class="squad-name">{initialLast(m.player.name)}</span>
+                          {nationOf(m) && (
+                            <abbr class="squad-origin" title={nationOf(m)?.name}>{nationOf(m)?.trigram}</abbr>
+                          )}
                           {m.isNew && <span class="squad-new">NEW</span>}
                           {m.contribution > 0 && (
                             <span class="squad-stat num">
@@ -315,6 +355,7 @@ const identity = identityLine(slug);
           })}
         </div>
       )}
+      {shape.size > 0 && <p class="squad-origin-note">{originNote}</p>}
     </section>
 
     {cards.map(({ card }) => <PlayerSheet card={card} />)}
@@ -403,6 +444,24 @@ const identity = identityLine(slug);
     border: 1px solid var(--outline); border-radius: 3px; padding: 1px 5px;
   }
   .squad-stat { font-size: 11.5px; color: var(--quiet); }
+  /* The sole carrier of the fact on the row, so it takes the secondary ink and
+     not the faint one. No underline: <abbr> is here to carry the country name
+     to a reader who hovers or listens, not to decorate the row. */
+  .squad-origin {
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--secondary);
+    text-decoration: none;
+    cursor: default;
+  }
+  .squad-origin-note {
+    margin: 22px 0 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--quiet);
+    max-width: 900px;
+  }
   .squad-more { font-size: 12px; color: var(--quiet); }
   .empty { margin: 0; font-size: 13px; color: var(--quiet); }
 
