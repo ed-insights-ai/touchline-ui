@@ -160,6 +160,24 @@ export function classAbbr(classYear: string | undefined): string | null {
 /** A roster's "Goalkeeper"/"Midfielder" and a box score's "MID" both land on
  *  the four lines the design colours. Anything else stays unclassified. */
 export type Line = "GK" | "DEF" | "MID" | "FWD";
+
+/**
+ * What a page calls each line, and the order a team sheet reads them in: from
+ * the goal outwards.
+ *
+ * One list, in one place, because the team page names these four sets of
+ * players twice — once in the squad's shape and once in the squad itself — and
+ * a page that names them twice in two files is a page that will eventually
+ * name them differently. It did: the shape said BACK LINE while the section
+ * below it said DEFENSE.
+ */
+export const LINE_ORDER = ["GK", "DEF", "MID", "FWD"] as const;
+export const LINE_LABEL: Record<Line, string> = {
+  GK: "IN GOAL",
+  DEF: "BACK LINE",
+  MID: "MIDFIELD",
+  FWD: "FRONT LINE",
+};
 export function positionLine(position: string | undefined): Line | null {
   if (!position) return null;
   const s = position.toLowerCase();
