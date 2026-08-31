@@ -4,27 +4,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-08-31T00:56:32.590Z",
+  "validated_at": "2026-08-31T01:06:44.481Z",
   "data_collected_at": "2026-08-30T21:08:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
+    "checked": 11,
     "verified": 11,
-    "contradicted": 2,
+    "contradicted": 0,
     "unverifiable": 0,
-    "dropped": 2
+    "dropped": 0
   },
   "normalizations": [],
   "claims": [
-    {
-      "path": "summary_stat",
-      "label": "derived",
-      "text": "15 of 125",
-      "checker": "fixture_counts",
-      "verdict": "contradicted",
-      "mismatches": ["total: claimed 125, data holds 120"],
-      "dropped": true
-    },
     {
       "path": "pattern",
       "label": "derived",
@@ -45,15 +36,6 @@
     },
     {
       "path": "findings[0]",
-      "label": "observed",
-      "text": "Seven matches whose scheduled dates have passed still carry no published result. No match has been recorded as final without a score, so the whole of the conference's silence sits in those seven.",
-      "checker": "unresolved",
-      "verdict": "contradicted",
-      "mismatches": ["past_date_no_result: claimed 7, data holds 5"],
-      "dropped": true
-    },
-    {
-      "path": "findings[1]",
       "label": "derived",
       "text": "Five different Trevecca players have scored this season: Chris Douglas, Daniel Shiel, Jack Franklin, Levi Jones and Manuel Alonso.",
       "checker": "distinct_scorers",
@@ -62,7 +44,7 @@
       "dropped": false
     },
     {
-      "path": "findings[2]",
+      "path": "findings[1]",
       "label": "derived",
       "text": "Against programmes outside the conference, GSC sides have won six matches, drawn three and lost six.",
       "checker": "outside_record",
@@ -71,7 +53,7 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[2]",
       "label": "observed",
       "text": "Two played matches have a published scoreline but no box score, and both are Mississippi College's.",
       "checker": "box_score_gaps",
@@ -80,7 +62,7 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
+      "path": "findings[3]",
       "label": "observed",
       "text": "Lee have yet to play a match this season; their season opens in conference play, at AUM on September 12.",
       "checker": "team_record",

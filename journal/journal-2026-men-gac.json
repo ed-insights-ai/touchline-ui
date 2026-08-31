@@ -69,15 +69,6 @@
     },
     {
       "label": "observed",
-      "text": "Eleven matches sit unresolved — six marked final with no score, five past their date with no result at all. The sites' silence, named rather than dropped.",
-      "basis": {
-        "source": "fixtures",
-        "finals_without_score": 6,
-        "past_date_no_result": 5
-      }
-    },
-    {
-      "label": "observed",
       "text": "Seven matches carry no box-score link on any collected schedule page: the six marked final without a score, plus Newman's 2–1 loss at Rockhurst on August 29.",
       "basis": {
         "source": "matches",
@@ -132,6 +123,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-08-31T00:01:53.418Z"
+    "validated_at": "2026-08-31T01:05:51.807Z"
   }
 }
