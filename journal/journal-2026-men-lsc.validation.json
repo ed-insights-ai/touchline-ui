@@ -1,11 +1,11 @@
 {
   "schema": "touchline.journal-validation/1",
-  "journal": "journal-2026-men-gac.json",
+  "journal": "journal-2026-men-lsc.json",
   "season": 2026,
   "gender": "men",
-  "conference": "GAC",
-  "validated_at": "2026-08-31T00:23:37.704Z",
-  "data_collected_at": "2026-08-30T21:07:31+00:00",
+  "conference": "LSC",
+  "validated_at": "2026-08-31T00:23:42.886Z",
+  "data_collected_at": "2026-08-30T21:09:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -19,8 +19,8 @@
     {
       "path": "summary_stat",
       "label": "derived",
-      "text": "7–0–5",
-      "checker": "outside_record",
+      "text": "20 of 156",
+      "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -28,8 +28,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Five different players have scored for Ouachita Baptist, more than for any other side in the conference.",
-      "checker": "distinct_scorers",
+      "text": "Midwestern State has scored eleven goals in non-conference play, more than any two other programmes have scored together.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -37,7 +37,7 @@
     {
       "path": "pattern.chart",
       "label": "derived",
-      "text": "Goals scored per side, all non-conference, through Aug 29.",
+      "text": "Goals scored per programme, non-conference matches only, through August 29.",
       "checker": "goals_for_chart",
       "verdict": "verified",
       "mismatches": [],
@@ -46,17 +46,17 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Tristan Miller has saved ten of the eleven shots on target he has faced for Rogers State.",
-      "checker": "player_stat",
+      "text": "Against opponents from outside the conference, LSC programmes have won nine, drawn one and lost five, scoring 31 goals and conceding 25.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[1]",
-      "label": "derived",
-      "text": "Wesley Rodriguez has two goals from four shots — a finish every second attempt.",
-      "checker": "player_stat",
+      "label": "observed",
+      "text": "Three matches are marked final with no score published, all three Lubbock Christian's, and six more have passed their date with no result recorded at all.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -64,26 +64,26 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Eleven matches sit unresolved — six marked final with no score, five past their date with no result at all. The sites' silence, named rather than dropped.",
-      "checker": "unresolved",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[3]",
-      "label": "observed",
-      "text": "Seven matches carry no box-score link on any collected schedule page: the six marked final without a score, plus Newman's 2–1 loss at Rockhurst on August 29.",
+      "text": "Five matches carry no box-score link on any collected schedule page — three of Lubbock Christian's and two of Saint Marys' — so the detail behind them does not exist here yet.",
       "checker": "box_score_gaps",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Oklahoma Christian has scored four goals in non-conference play and conceded none.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[4]",
-      "label": "projected",
-      "text": "Eighteen days of tune-ups before the table means anything.",
-      "checker": "conference_opens",
+      "label": "observed",
+      "text": "Fernando Hernandez has made eleven saves for Sul Ross State, more than any other keeper in the collected records.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -91,7 +91,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Wesley Rodriguez — 2 G · 4 shots",
+      "text": "Jose Ortiz — 4 G · 8 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -100,7 +100,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Tristan Miller — 10 saves · 1 shutout · .909",
+      "text": "Dante Caffaro — 8 saves · 2 shutouts",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,7 +109,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Philip Bölk — 1 G · 1 A · 7 shots",
+      "text": "Augusto Militao — 1 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +118,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-08-29 mckendree v southern-nazarene",
+      "text": "2026-08-29 ut-dallas v cal-state-east-bay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +127,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-08-30 northeastern-state v lincoln",
+      "text": "2026-08-30 cal-state-dominguez-hills v saint-edwards",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],

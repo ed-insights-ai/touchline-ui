@@ -1,11 +1,11 @@
 {
   "schema": "touchline.journal-validation/1",
-  "journal": "journal-2026-men-gac.json",
+  "journal": "journal-2026-men-gsc.json",
   "season": 2026,
   "gender": "men",
-  "conference": "GAC",
-  "validated_at": "2026-08-31T00:23:37.704Z",
-  "data_collected_at": "2026-08-30T21:07:31+00:00",
+  "conference": "GSC",
+  "validated_at": "2026-08-31T00:26:32.269Z",
+  "data_collected_at": "2026-08-30T21:08:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -19,8 +19,8 @@
     {
       "path": "summary_stat",
       "label": "derived",
-      "text": "7–0–5",
-      "checker": "outside_record",
+      "text": "15 of 125",
+      "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -28,8 +28,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Five different players have scored for Ouachita Baptist, more than for any other side in the conference.",
-      "checker": "distinct_scorers",
+      "text": "Trevecca have scored six goals, the most of any GSC programme.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -37,7 +37,7 @@
     {
       "path": "pattern.chart",
       "label": "derived",
-      "text": "Goals scored per side, all non-conference, through Aug 29.",
+      "text": "Goals scored by programme across all matches played, through August 30.",
       "checker": "goals_for_chart",
       "verdict": "verified",
       "mismatches": [],
@@ -45,9 +45,9 @@
     },
     {
       "path": "findings[0]",
-      "label": "derived",
-      "text": "Tristan Miller has saved ten of the eleven shots on target he has faced for Rogers State.",
-      "checker": "player_stat",
+      "label": "observed",
+      "text": "Seven matches whose scheduled dates have passed still carry no published result. No match has been recorded as final without a score, so the whole of the conference's silence sits in those seven.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -55,17 +55,17 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Wesley Rodriguez has two goals from four shots — a finish every second attempt.",
-      "checker": "player_stat",
+      "text": "Five different Trevecca players have scored this season: Chris Douglas, Daniel Shiel, Jack Franklin, Levi Jones and Manuel Alonso.",
+      "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "Eleven matches sit unresolved — six marked final with no score, five past their date with no result at all. The sites' silence, named rather than dropped.",
-      "checker": "unresolved",
+      "label": "derived",
+      "text": "Against programmes outside the conference, GSC sides have won six matches, drawn three and lost six.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -73,7 +73,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Seven matches carry no box-score link on any collected schedule page: the six marked final without a score, plus Newman's 2–1 loss at Rockhurst on August 29.",
+      "text": "Two played matches have a published scoreline but no box score, and both are Mississippi College's.",
       "checker": "box_score_gaps",
       "verdict": "verified",
       "mismatches": [],
@@ -81,9 +81,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "projected",
-      "text": "Eighteen days of tune-ups before the table means anything.",
-      "checker": "conference_opens",
+      "label": "observed",
+      "text": "Lee have yet to play a match this season; their season opens in conference play, at AUM on September 12.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -91,7 +91,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Wesley Rodriguez — 2 G · 4 shots",
+      "text": "Chris Douglas — 2 G · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -100,7 +100,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Tristan Miller — 10 saves · 1 shutout · .909",
+      "text": "Oli Orzechowski — 2 G · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,7 +109,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Philip Bölk — 1 G · 1 A · 7 shots",
+      "text": "Jakob Buhrkuhl — 7 saves · 1 goal against · 1 shutout",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +118,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-08-29 mckendree v southern-nazarene",
+      "text": "2026-08-30 mississippi-college v saint-leo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +127,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-08-30 northeastern-state v lincoln",
+      "text": "2026-08-30 uah v shawnee-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],

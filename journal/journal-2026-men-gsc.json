@@ -1,0 +1,135 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GSC",
+  "generated_at": "2026-08-30T21:20:00+00:00",
+  "data_collected_at": "2026-08-30T21:08:31+00:00",
+  "kicker": "GSC · BEFORE THE TABLE · AUG 30",
+  "headline": "Twelve days from the conference opener, the GSC has fifteen matches behind it and a table that still reads all zeros.",
+  "dek": "AUM and Trevecca are the only programmes with two wins, and Trevecca's six goals lead the conference. Lee and Spring Hill have not played at all, and seven matches whose dates have passed carry no published result.",
+  "summary_stat": {
+    "label": "Matches played",
+    "value": "15 of 125",
+    "detail": "110 of the season's matches remain unplayed.",
+    "basis": {
+      "source": "fixtures",
+      "played": 15,
+      "total": 125
+    }
+  },
+  "pattern": {
+    "label": "derived",
+    "text": "Trevecca have scored six goals, the most of any GSC programme.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "caption": "Goals scored by programme across all matches played, through August 30.",
+      "values": {
+        "trevecca": 6,
+        "aum": 4,
+        "mississippi-college": 3,
+        "montevallo": 3,
+        "west-alabama": 3,
+        "uah": 2,
+        "christian-brothers": 1,
+        "delta-state": 1,
+        "union": 1,
+        "lee": 0,
+        "spring-hill": 0
+      },
+      "highlight": "trevecca"
+    },
+    "basis": {
+      "programme": "trevecca",
+      "gf": 6,
+      "ga": 2
+    }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Seven matches whose scheduled dates have passed still carry no published result. No match has been recorded as final without a score, so the whole of the conference's silence sits in those seven.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 7
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Five different Trevecca players have scored this season: Chris Douglas, Daniel Shiel, Jack Franklin, Levi Jones and Manuel Alonso.",
+      "basis": {
+        "programme": "trevecca",
+        "distinct_scorers_min": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Against programmes outside the conference, GSC sides have won six matches, drawn three and lost six.",
+      "basis": {
+        "derived_from": "fixtures",
+        "wins": 6,
+        "draws": 3,
+        "losses": 6,
+        "gf": 24,
+        "ga": 26
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Two played matches have a published scoreline but no box score, and both are Mississippi College's.",
+      "basis": {
+        "source": "matches",
+        "box_score_gaps": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lee have yet to play a match this season; their season opens in conference play, at AUM on September 12.",
+      "basis": {
+        "programme": "lee",
+        "wins": 0,
+        "draws": 0,
+        "losses": 0
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Chris Douglas",
+      "programme": "trevecca",
+      "position": "FWD",
+      "class": "",
+      "line": "2 G · 7 shots"
+    },
+    {
+      "player": "Oli Orzechowski",
+      "programme": "uah",
+      "position": "FWD",
+      "class": "",
+      "line": "2 G · 7 shots"
+    },
+    {
+      "player": "Jakob Buhrkuhl",
+      "programme": "aum",
+      "position": "GK",
+      "class": "",
+      "line": "7 saves · 1 goal against · 1 shutout"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-08-30 mississippi-college v saint-leo",
+      "line": "Mississippi College drew 1-1 with Saint Leo. No collected schedule page carries a box score for it."
+    },
+    "next_match": {
+      "fixture_ref": "2026-08-30 uah v shawnee-state",
+      "line": "UAH host Shawnee State at 15:00. They have played once, a 2-1 win at Illinois Springfield."
+    }
+  },
+  "table_state": {
+    "mode": "pre-conference",
+    "statement": "No GSC programme has played a conference match, so every side is on zero points and the table is ordered alphabetically. Conference play opens on September 11, twelve days after this data was collected.",
+    "footnote": "Form strings show non-conference results only. Lee and Spring Hill have played no matches, and their form reads as a dash."
+  }
+}
