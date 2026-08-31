@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-08-31T12:43:35.402Z",
-  "data_collected_at": "2026-08-31T11:31:28+00:00",
+  "validated_at": "2026-08-31T23:09:47.728Z",
+  "data_collected_at": "2026-08-31T12:48:50+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Four different Saint Edwards players have scored in the collected records: Bartek Zabek, Holden Rabb, Jake Ciccarello and Nemanja Pavicevic.",
+      "text": "Four different St. Edward's players have scored in the collected records: Bartek Zabek, Holden Rabb, Jake Ciccarello and Nemanja Pavicevic.",
       "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
