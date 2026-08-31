@@ -9,9 +9,11 @@
 
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
+import type { Season } from "./derive.ts";
 import {
   aboutHref,
   boxScoreGaps,
+  collectionLine,
   conferenceOpensOn,
   exhibitionsOf,
   fixtureCount,
@@ -438,5 +440,59 @@ describe("where a link points", () => {
   test("a conference href is not the home href", () => {
     // The regression itself, stated plainly.
     for (const key of site.conferences) expect(seasonHref(key)).not.toBe(homeHref());
+  });
+});
+describe("the footer says each collect time once", () => {
+  // collectionLine reads two fields, so the cases that cannot be produced on
+  // demand from the real files — conferences collected on different days —
+  // are stated here directly. The last test holds the shape to the data home.
+  const stamped = (code: string, collectedAt: string): Season =>
+    ({ collectedAt, fixtures: { conference: code } }) as unknown as Season;
+
+  test("one conference is a whole sentence, and wears no code", () => {
+    // A conference page is the conference; naming it in its own footer says
+    // nothing the masthead has not already said twice.
+    const line = collectionLine([stamped("GAC", "2026-08-31T02:48:11Z")]);
+    expect(line.headline).toBe("Data collected Aug 31, 2026, 02:48 UTC");
+    expect(line.entries).toEqual([]);
+  });
+
+  test("a day they all share is said once, and every time is kept", () => {
+    const line = collectionLine([
+      stamped("GAC", "2026-08-31T02:48:11Z"),
+      stamped("LSC", "2026-08-31T12:48:02Z"),
+      stamped("GSC", "2026-08-31T12:49:30Z"),
+    ]);
+    expect(line.headline).toBe("Data collected Aug 31, 2026");
+    expect(line.entries).toEqual(["GAC 02:48", "LSC 12:48", "GSC 12:49 UTC"]);
+  });
+
+  test("a day one of them does not share is never factored out", () => {
+    // The failure this guards is a headline date that two of three earned and
+    // the third silently sits under — the freshest number hiding the spread,
+    // which is the one thing a provenance line must not do.
+    const line = collectionLine([
+      stamped("GAC", "2026-08-30T21:10:00Z"),
+      stamped("LSC", "2026-08-31T12:48:02Z"),
+    ]);
+    expect(line.headline).toBe("Data collected");
+    expect(line.entries).toEqual(["GAC Aug 30, 2026, 21:10", "LSC Aug 31, 2026, 12:48 UTC"]);
+    for (const entry of line.entries) expect(entry).toContain(", 2026,");
+  });
+
+  test("no collected file gets left out of the line", () => {
+    const line = collectionLine(seasons.map((s) => s.season));
+    expect(line.entries).toHaveLength(seasons.length);
+    for (const { season } of seasons) {
+      expect(line.entries.join(" ")).toContain(season.fixtures.conference);
+      expect(line.entries.join(" ")).toContain(season.collectedAt.slice(11, 16));
+    }
+    // The unit is stated, once, at the end of the last one.
+    expect(line.entries.filter((e) => e.includes("UTC"))).toHaveLength(1);
+    expect(line.entries[line.entries.length - 1]?.endsWith(" UTC")).toBe(true);
+  });
+
+  test("nothing collected says nothing", () => {
+    expect(collectionLine([])).toEqual({ headline: "", entries: [] });
   });
 });

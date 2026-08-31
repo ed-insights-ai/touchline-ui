@@ -2,21 +2,18 @@
 // The compact footer every page carries.
 //
 // Two things a reader is owed on any page they might land on first: what this
-// site is, and when it last looked. Both are one line, because a footer that
-// asks for attention takes it from the season above it.
+// site is, and when it last looked. The identity line answers the first and
+// names the division, which on a conference page is the only place the
+// division is named at all.
 //
-// A page speaks for as many conferences as it shows, and they do not collect
-// at the same time — ten hours can separate two of these stamps. So the
-// footer takes a list and prints every stamp in it. Flattening them to one
-// "collected through" time would hide the spread behind the freshest number,
-// which is the one thing provenance must not do.
-//
-// One stamp sits on the identity line, where it has always sat. Several take
-// a line of their own beneath it: three conference names will not share a
-// line with the identity, and the alternative — abbreviating them to codes to
-// make them fit — would give this footer a voice no other page's footer has.
-import { aboutHref, type Season } from "../lib/derive.ts";
-import { dayOfMonth, monShort } from "../lib/format.ts";
+// The second is one sentence. A page speaks for as many conferences as it
+// shows, and they do not collect at the same time — ten hours can separate two
+// of these stamps — so every time is printed, never flattened to the freshest.
+// What is not printed three times is the words around them: the date and the
+// unit are said once when every stamp shares them, and the conference codes
+// carry the rest. Codes are the national page's own language; a footer that
+// spelled three conference names out would be the longest line on the page.
+import { aboutHref, collectionLine, type Season } from "../lib/derive.ts";
 import { site } from "../site.config.ts";
 
 interface Props {
@@ -24,26 +21,17 @@ interface Props {
   seasons: readonly Season[];
 }
 const { seasons } = Astro.props;
-const stamps = seasons.map((season) => {
-  const iso = season.collectedAt;
-  return {
-    key: season.key,
-    conference: site.conferenceNames[season.key] ?? season.fixtures.conference,
-    collected: `${monShort(iso.slice(0, 10))} ${dayOfMonth(iso.slice(0, 10))}, ${iso.slice(11, 16)} UTC`,
-  };
-});
+const line = collectionLine(seasons);
 ---
 
-<footer class:list={["site-footer", { "is-multi": stamps.length > 1 }]}>
+<footer class:list={["site-footer", { "is-multi": line.entries.length > 0 }]}>
   <span class="sf-what">
     <strong>Touchline</strong> · independent and unofficial · {site.division}
   </span>
   <span class="grow"></span>
-  <span class="sf-stamps">
-    {stamps.map((s) => (
-      <span class="sf-when num">{s.conference} last collected {s.collected}</span>
-    ))}
-  </span>
+  {line.headline && (
+    <span class="sf-when num"><span class="sf-lead">{line.headline}</span>{line.entries.length > 0 && <span class="sf-times">{line.entries.map((e) => (<span class="sf-time">{e}</span>))}</span>}</span>
+  )}
   <a class="sf-about" href={aboutHref()}>About &amp; method</a>
 </footer>
 
@@ -65,18 +53,15 @@ const stamps = seasons.map((season) => {
   }
   .sf-about:hover { color: var(--accent-hover); }
 
-  /* One stamp is a word on the identity line, so the wrapper gets out of the
-     way entirely and the span is the flex item it has always been. */
-  .sf-stamps { display: contents; }
-
-  /* Several take the line below, reading left to right in the order the page
-     reads its conferences. `order` keeps About & method up on the first line
+  /* One stamp is a phrase on the identity line, where it has always sat.
+     Several take the line below, reading left to right in the order the page
+     reads its conferences. `order` keeps About & method up on the first line,
      where a reader already knows to look for it. */
-  .is-multi .sf-stamps {
-    display: flex; flex-wrap: wrap; align-items: baseline;
-    order: 1; flex-basis: 100%;
-  }
-  .is-multi .sf-when + .sf-when::before {
+  .is-multi .sf-when { order: 1; flex-basis: 100%; }
+  .is-multi .sf-lead::after { content: "—"; padding: 0 7px; color: var(--fainter); }
+  /* A code and its time are one word; only the list between them may break. */
+  .sf-time { white-space: nowrap; }
+  .sf-time + .sf-time::before {
     content: "·";
     padding: 0 9px;
     color: var(--fainter);
@@ -86,7 +71,9 @@ const stamps = seasons.map((season) => {
     .site-footer { gap: 6px 14px; }
     .grow { display: none; }
     .sf-when { width: 100%; }
-    /* A stamp on its own line needs no separator in front of it. */
-    .is-multi .sf-when + .sf-when::before { content: none; }
+    /* The times take a line of their own, so the dash that pointed along the
+       line has nothing left to point at and the list keeps its separators. */
+    .is-multi .sf-lead::after { content: none; }
+    .is-multi .sf-times { display: block; }
   }
 </style>

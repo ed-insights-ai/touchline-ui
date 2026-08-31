@@ -244,14 +244,21 @@ describe("the lede is derived, deterministically, from counts and opener dates",
  * as a list of addends — GAC, GSC, LSC, then ALL — so a reader could add them
  * up by hand. That block was the accounting made visible, and it retired. The
  * obligation did not: the lede's division figures still have to be the sum of
- * what the columns show, and the linked season pages still have to agree with
- * both.
+ * what the pages beneath it show, and those pages still have to agree with the
+ * fixtures.
  *
  * So this reads the figures back out of the prose the page actually prints,
  * and compares them against a sum recounted from the fixtures — not against
  * nationalCounts(), which is that sum and could only ever agree with itself.
- * The last test perturbs a column and proves the check goes red, because a
- * reconciliation that cannot fail is a comment.
+ * Each check has a matching test that perturbs an input and proves it goes
+ * red, because a reconciliation that cannot fail is a comment.
+ *
+ * tui-dik moved the split. The columns now print played of total and nothing
+ * else, so that pair is what a reader can add up on this page, and it is what
+ * `disagreements` compares. The silences left the columns but not the lede,
+ * and they are still printed per conference on the season pages a reader gets
+ * to from here — one click further on, and just as addable. They get their own
+ * check against the same recount.
  */
 describe("the reconciliation the page stopped printing", () => {
   const NUMBER = new Map<string, number>();
@@ -282,19 +289,32 @@ describe("the reconciliation the page stopped printing", () => {
         out.push(`conferences: lede ${matches[3]}, columns ${cols.length}`);
       }
     }
-
-    const none = text.includes("No final stands without a published score.");
-    const some = /(\w+) (?:final stands|finals stand) without a published score\./.exec(text);
-    const silent = none ? 0 : NUMBER.get((some?.[1] ?? "").toLowerCase());
-    if (silent === undefined) {
-      out.push("the lede does not state the silent finals at all");
-    } else if (silent !== sum((c) => c.counts.silentFinals)) {
-      out.push(`silent: lede ${silent}, columns ${sum((c) => c.counts.silentFinals)}`);
-    }
     return out;
   }
 
-  test("the lede's division figures are the columns' figures, added up", () => {
+  /** The silent-finals figure the lede prints, read back out of its prose.
+   *  Null means the sentence is not there at all, which is its own failure:
+   *  the zero case is a sentence too. */
+  function silentInLede(text: string): number | null {
+    if (text.includes("No final stands without a published score.")) return 0;
+    const some = /(\w+) (?:final stands|finals stand) without a published score\./.exec(text);
+    const spelled = NUMBER.get((some?.[1] ?? "").toLowerCase());
+    return spelled === undefined ? null : spelled;
+  }
+
+  /** The division's silences, recounted from the fixture lists themselves —
+   *  the same arithmetic each season page's masthead is held to. */
+  const silentFromFixtures = (): number =>
+    columns.reduce(
+      (n, c) =>
+        n +
+        loadSeason(c.key).fixtures.fixtures.filter(
+          (f) => isCountable(f) && isPlayed(f) && !hasScore(f),
+        ).length,
+      0,
+    );
+
+  test("the lede's played of total is the columns' played of total, added up", () => {
     expect(disagreements(nationalLede(columns, national), columns)).toEqual([]);
   });
 
@@ -308,9 +328,30 @@ describe("the reconciliation the page stopped printing", () => {
     }
   });
 
-  test("gaps reconcile the same way, though no surface adds them up now", () => {
+  test("the lede's silences are the fixtures' silences, recounted", () => {
+    // The columns stopped printing this with tui-dik; the lede did not, and
+    // the season pages still name every one of them. Read the figure back out
+    // of the sentence and count the silent finals again from the files.
+    expect(silentInLede(nationalLede(columns, national))).toBe(silentFromFixtures());
+  });
+
+  test("and it goes red when the lede's silences drift from the files", () => {
+    // The teeth for the sentence the columns no longer back up. Move the
+    // figure the lede is built from and the recount must refuse it.
+    const drifted = nationalLede(columns, {
+      ...national,
+      silentFinals: national.silentFinals + 2,
+    });
+    expect(silentInLede(drifted)).not.toBe(silentFromFixtures());
+    // And the sentence must be there at all: a lede that stopped stating the
+    // count would otherwise pass a comparison it never took part in.
+    expect(silentInLede(nationalLede(columns, national))).not.toBeNull();
+  });
+
+  test("gaps reconcile the same way, though nothing adds them up now", () => {
     // The ALL row was the only place the division's gap total was ever
-    // written. Nothing prints it today, and it still has to be true.
+    // written, and with tui-dik the columns stopped printing their own.
+    // Nothing shows it today, and it still has to be true.
     expect(national.gaps).toBe(
       columns.reduce((n, c) => n + boxScoreGaps(loadSeason(c.key)).length, 0),
     );
@@ -328,10 +369,10 @@ describe("the reconciliation the page stopped printing", () => {
     expect(found.length).toBeGreaterThan(0);
     expect(found.join(" ")).toContain("played:");
 
-    // A silence that drifts is caught too, and separately.
-    const quieter = columns.map((c, i) =>
-      i === 0 ? { ...c, counts: { ...c.counts, silentFinals: c.counts.silentFinals + 2 } } : c,
+    // A total that drifts is caught too, and named separately.
+    const larger = columns.map((c, i) =>
+      i === 0 ? { ...c, counts: { ...c.counts, total: c.counts.total + 3 } } : c,
     );
-    expect(disagreements(nationalLede(columns, national), quieter).join(" ")).toContain("silent:");
+    expect(disagreements(nationalLede(columns, national), larger).join(" ")).toContain("total:");
   });
 });
