@@ -35,6 +35,9 @@ URLBASE="${SITE_BASE:-/touchline-ui}"
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 PAGES=(
+  # The cross-conference home: the national lede, the LAST NIGHT ledger, and
+  # one column per conference — the only page whose figures span them all.
+  "/:home"
   "/about/:about"
   "/gac/:season"
   "/lsc/:season-lsc"

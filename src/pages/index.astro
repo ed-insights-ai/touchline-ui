@@ -1,19 +1,362 @@
 ---
-import { builtAt } from "../lib/build.ts";
-import { seasonHref } from "../lib/derive.ts";
+// The national read: every configured conference on one page, side by side.
+//
+// There is no cross-conference competition, so this page computes no combined
+// table. What it shows is what the collect actually holds: last night's
+// published finals in one ledger, each conference's own counts and opener,
+// and the current headline of each season journal, verbatim, linking to the
+// season page that carries it. The lede is derived prose — deterministic,
+// assembled from counts and opener dates, never a model call.
+//
+// Every count here comes through the same functions as the season pages'
+// mastheads, so the two surfaces cannot disagree; the tests recount both from
+// the fixture lists and make them meet.
+import Page from "../layouts/Page.astro";
+import { aboutHref, hasScore, matchHref, seasonHref } from "../lib/derive.ts";
+import type { Fixture } from "../lib/derive.ts";
+import { dayOfMonth, dowLong, monLong, monShort, parseISO, spell } from "../lib/format.ts";
+import {
+  homeColumns,
+  homeSeasons,
+  lastNightLedger,
+  lastNightOf,
+  lastNightOpen,
+  latestCollectedAt,
+  mostImminentKey,
+  nationalAsOf,
+  nationalCounts,
+  nationalLede,
+} from "../lib/home.ts";
+import { editorial, loadJournal } from "../lib/journal.ts";
 import { site } from "../site.config.ts";
-// The site root opens on the configured home conference. Static hosts follow
-// a meta refresh; the link is there for the ones that do not.
-const href = seasonHref(site.home);
+
+const seasons = homeSeasons();
+const columns = homeColumns(seasons);
+const imminent = mostImminentKey(columns);
+const national = nationalCounts(columns);
+const lede = nationalLede(columns, national);
+
+const asOf = nationalAsOf(seasons);
+const lastNight = lastNightOf(asOf);
+const ledger = lastNightLedger(seasons, lastNight);
+const leftOpen = lastNightOpen(seasons, lastNight);
+
+// The journal's current headline, verbatim — the same line the season page
+// leads with, from the same editorial() the season page calls.
+const headlines = new Map(
+  columns.map((c) => [c.key, editorial(c.season, loadJournal(c.season)).headline]),
+);
+
+const dateline = `${dowLong(asOf)}, ${monLong(asOf)} ${dayOfMonth(asOf)}, ${parseISO(asOf).y}`;
+const collectStamp = (iso: string): string =>
+  `${monShort(iso.slice(0, 10))} ${dayOfMonth(iso.slice(0, 10))}, ${iso.slice(11, 16)} UTC`;
+const collectedThrough = collectStamp(latestCollectedAt(seasons));
+// Each conference's own stamp: they collect at different times, and the page
+// must not pretend one instant covers all of them.
+const collectList = columns
+  .map((c) => `${c.code} collected ${collectStamp(c.season.collectedAt)}`)
+  .join(" · ");
+
+// Winner side at weight 600, loser quiet, draws neutral.
+const sideClass = (f: Fixture, side: "home" | "away"): string => {
+  if (!hasScore(f) || f.home_score === f.away_score) return "lside";
+  const winner = f.home_score > f.away_score ? "home" : "away";
+  return side === winner ? "lside lwin" : "lside lquiet";
+};
+
+const night = dowLong(lastNight);
+const openLine =
+  leftOpen.length > 0
+    ? `${night} left ${spell(leftOpen.length)} ${leftOpen.length === 1 ? "match" : "matches"} open — no published score yet.`
+    : ledger.length > 0
+      ? `${night} left nothing open — every match from the night carries a published score.`
+      : null;
+
+const opensLine = (c: (typeof columns)[number]): string =>
+  c.live
+    ? "CONFERENCE PLAY UNDER WAY"
+    : c.opensOn
+      ? `OPENS ${monShort(c.opensOn).toUpperCase()} ${dayOfMonth(c.opensOn)}`
+      : "NO CONFERENCE DATE PUBLISHED";
+
+const gapsWord = (n: number): string => (n === 1 ? "gap" : "gaps");
+const silentWord = (n: number): string => (n === 1 ? "silent final" : "silent finals");
+const exhWord = (n: number): string => (n === 1 ? "exhibition" : "exhibitions");
 ---
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content={`0; url=${href}`} />
-    <meta name="touchline-build" content={builtAt} />
-    <link rel="canonical" href={href} />
-    <title>Touchline</title>
-  </head>
-  <body><a href={href}>Touchline</a></body>
-</html>
+<Page title="Touchline — The Season Scorebook" description={lede}>
+  <div class="tl-page">
+    <header class="nat-masthead">
+      {/* The root is the top of the site; its own wordmark points nowhere. */}
+      <h1 class="wordmark nat-wordmark">
+        <span class="wordmark-square"></span>
+        <span class="wordmark-name">Touchline</span>
+      </h1>
+      <div class="nat-book">THE SEASON SCOREBOOK</div>
+      <div class="nat-dateline num">
+        {dateline.toUpperCase()} · COLLECTED THROUGH {collectedThrough.toUpperCase()}
+      </div>
+    </header>
+
+    <p class="nat-lede serif">{lede}</p>
+
+    <section class="lastnight">
+      <div class="ln-head">
+        <h2 class="sechead-plain">LAST NIGHT</h2>
+        <div class="grow"></div>
+        <div class="ln-date num">{dowLong(lastNight).toUpperCase()} {monShort(lastNight).toUpperCase()} {dayOfMonth(lastNight)}</div>
+      </div>
+      {ledger.length > 0 ? (
+        <div class="ledger num">
+          {ledger.map((r) => (
+            <a class="lrow hoverable" href={matchHref(r.key, r.fixture.id)}>
+              <span class="lconf">{r.code}</span>
+              <span class={`${sideClass(r.fixture, "away")} l-away`}>
+                {r.season.names.name(r.fixture.away)}
+              </span>
+              <span class="lscore">
+                {hasScore(r.fixture) ? `${r.fixture.away_score}–${r.fixture.home_score}` : "—"}
+              </span>
+              <span class={sideClass(r.fixture, "home")}>
+                {r.season.names.name(r.fixture.home)}
+              </span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="ln-empty">
+          No final with a published score from {dowLong(lastNight)}, {monLong(lastNight)}{" "}
+          {dayOfMonth(lastNight)}. The absence is the record; nothing is hidden behind it.
+        </p>
+      )}
+      {openLine && <p class="ln-open">{openLine}</p>}
+    </section>
+
+    {/* N columns from config — the count is the conference list's, never a literal. */}
+    <section class="confs" style={`--conf-cols: ${columns.length};`}>
+      {columns.map((c) => (
+        <article class="conf">
+          <div class="conf-code num">{c.code}</div>
+          <div class="conf-name">{c.name}</div>
+          <div class={c.key === imminent && !c.live ? "conf-opens is-imminent num" : "conf-opens num"}>
+            {opensLine(c)}
+          </div>
+          <div class="conf-counts num">
+            <span class="conf-frac">{c.counts.played} of {c.counts.total}</span>
+            <span class="conf-dim"> played · {c.counts.silentFinals} silent · </span>
+            <span class="conf-gaps">{c.counts.gaps} {gapsWord(c.counts.gaps)}</span>
+          </div>
+          <a class="conf-headline serif-italic" href={seasonHref(c.key)}>{headlines.get(c.key)}</a>
+          <div class="grow"></div>
+          <a class="conf-cta" href={seasonHref(c.key)}>OPEN THE SEASON →</a>
+        </article>
+      ))}
+    </section>
+
+    <footer class="nat-footer">
+      <div class="nat-counts num">
+        {columns.map((c) => (
+          <div class="ncount-row">
+            <span class="ncode">{c.code}</span>
+            <span class="nfig">{c.counts.played} of {c.counts.total} played</span>
+            <span class="ndim">
+              · {c.counts.silentFinals} {silentWord(c.counts.silentFinals)}
+              · {c.counts.gaps} {gapsWord(c.counts.gaps)}
+              · {c.exhibitions} {exhWord(c.exhibitions)} outside the record
+            </span>
+          </div>
+        ))}
+        <div class="ncount-row ncount-total">
+          <span class="ncode">ALL</span>
+          <span class="nfig">{national.played} of {national.total} played</span>
+          <span class="ndim">
+            · {national.silentFinals} {silentWord(national.silentFinals)}
+            · {national.gaps} {gapsWord(national.gaps)}
+            · {national.exhibitions} {exhWord(national.exhibitions)} outside the record
+          </span>
+        </div>
+      </div>
+      <p class="nat-provenance provenance">
+        Touchline · independent and unofficial · {site.division} · {collectList} ·
+        <a href={aboutHref()}> About &amp; method</a>
+      </p>
+    </footer>
+  </div>
+</Page>
+
+<style>
+  /* ── Masthead identity ──────────────────────────────────────────────────── */
+  .nat-masthead {
+    padding: 44px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  .nat-wordmark { margin: 0; color: var(--ink); }
+  .nat-wordmark .wordmark-name { font-size: 34px; }
+  .nat-book {
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .nat-dateline {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--quiet);
+  }
+
+  /* ── The national lede ──────────────────────────────────────────────────── */
+  .nat-lede {
+    margin: 30px auto 34px;
+    max-width: 1200px;
+    font-size: 23px;
+    line-height: 1.35;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  /* ── Last night ─────────────────────────────────────────────────────────── */
+  .lastnight {
+    padding: 18px 0 22px;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ln-head { display: flex; align-items: baseline; }
+  .sechead-plain { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+  .ln-date { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
+  .ledger {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 56px;
+  }
+  .lrow {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--hairline-soft);
+    color: inherit;
+    font-size: 13.5px;
+  }
+  .lconf {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    color: var(--faint);
+  }
+  .lside { min-width: 0; }
+  .l-away { text-align: right; }
+  .lwin { font-weight: 600; }
+  .lquiet { color: var(--secondary); }
+  .lscore { font-weight: 600; }
+  .ln-empty {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--secondary);
+  }
+  .ln-open { margin: 0; font-size: 11.5px; color: var(--quiet); }
+
+  /* ── One column per conference ──────────────────────────────────────────── */
+  .confs {
+    display: grid;
+    grid-template-columns: repeat(var(--conf-cols, 1), minmax(0, 1fr));
+    padding: 26px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .conf {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 28px;
+    min-width: 0;
+  }
+  .conf:first-child { padding-left: 0; }
+  .conf:last-child { padding-right: 0; }
+  .conf + .conf { border-left: 1px solid var(--hairline); }
+  .conf-code { font-size: 19px; font-weight: 600; }
+  .conf-name { font-size: 11px; color: var(--quiet); }
+  .conf-opens {
+    margin-top: 6px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--quiet);
+  }
+  .conf-opens.is-imminent { color: var(--accent); font-weight: 600; }
+  .conf-counts { font-size: 12.5px; }
+  .conf-frac { font-weight: 600; }
+  .conf-dim { color: var(--quiet); }
+  .conf-gaps {
+    color: var(--quiet);
+    border-bottom: 1px dotted var(--faint);
+  }
+  .conf-headline {
+    margin-top: 8px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16.5px;
+    line-height: 1.4;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .conf-headline:hover { color: var(--accent-hover); }
+  .conf-cta {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .conf-cta:hover { color: var(--accent-hover); }
+
+  /* ── Footer: the counts, written out ────────────────────────────────────── */
+  .nat-footer {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .nat-counts { display: flex; flex-direction: column; }
+  .ncount-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--hairline-soft);
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .ncode {
+    width: 44px;
+    flex: none;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    color: var(--faint);
+  }
+  .nfig { font-weight: 600; }
+  .ndim { color: var(--quiet); }
+  .ncount-total { border-bottom: none; }
+  .ncount-total .ncode { color: var(--ink); }
+  .nat-provenance { margin: 0; }
+
+  /* ── Narrow ─────────────────────────────────────────────────────────────── */
+  @media (max-width: 1180px) {
+    .confs { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+    .conf { padding: 0; }
+    .conf + .conf { border-left: none; border-top: 1px solid var(--hairline); padding-top: 24px; }
+  }
+  @media (max-width: 720px) {
+    .ledger { grid-template-columns: minmax(0, 1fr); }
+    .nat-masthead { padding-top: 28px; }
+    .nat-lede { font-size: 19px; }
+  }
+</style>
