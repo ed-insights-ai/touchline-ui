@@ -13,11 +13,13 @@
 import {
   boxScoreGaps,
   conferenceOpensOn,
+  type Fixture,
   fixtureCount,
   goalsForByProgramme,
   matchDetailOf,
   matchFixtureRef,
   outsideRecord,
+  programmeCounts,
   recordOf,
   type Season,
   scoredCount,
@@ -138,6 +140,51 @@ function prefixed(
   }
   return null;
 }
+
+/** The per-programme readings a comparative may range over. Each resolves
+ *  through the same source the plain figure checkers use, so a relation can
+ *  never pass on a reading its own figures would fail: gf/ga are the fixtures'
+ *  scorelines (goalsForByProgramme), the record is recordOf, and "played" is
+ *  programmeCounts's reading — a final WITH a published score, never the
+ *  status-final count, with exhibitions outside all of it. */
+const METRICS: Record<string, (ctx: Ctx, slug: string) => number> = {
+  gf: (ctx, slug) => goalsForByProgramme(ctx.season).find((g) => g.slug === slug)?.goals ?? 0,
+  ga: (ctx, slug) => goalsForByProgramme(ctx.season).find((g) => g.slug === slug)?.conceded ?? 0,
+  wins: (ctx, slug) => recordOf(ctx.season, slug).won,
+  draws: (ctx, slug) => recordOf(ctx.season, slug).drawn,
+  losses: (ctx, slug) => recordOf(ctx.season, slug).lost,
+  played: (ctx, slug) => programmeCounts(ctx.season, slug).played,
+};
+
+/** Every programme the subject could be compared against, strongest first. */
+function rivalReadings(
+  ctx: Ctx,
+  metricKey: string,
+  subject: string,
+): { slug: string; value: number }[] {
+  const metric = METRICS[metricKey];
+  if (!metric) return [];
+  return ctx.season.fixtures.programmes
+    .map((p) => p.slug)
+    .filter((slug) => slug !== subject)
+    .map((slug) => ({ slug, value: metric(ctx, slug) }))
+    .sort((a, b) => b.value - a.value || a.slug.localeCompare(b.slug));
+}
+
+/** The sets a decomposition claim may address, each enumerated from the same
+ *  helpers the site's own pages count with. */
+const SETS: Record<string, (s: Season) => Fixture[]> = {
+  silent_finals: (s) => unresolved(s).finalsWithoutScore,
+  past_date_no_result: (s) => unresolved(s).pastDateNoResult,
+  silences: (s) => {
+    const u = unresolved(s);
+    return [...u.finalsWithoutScore, ...u.pastDateNoResult];
+  },
+  box_score_gaps: (s) =>
+    boxScoreGaps(s)
+      .map((g) => g.fixture)
+      .filter((f): f is Fixture => f !== undefined),
+};
 
 const CHECKERS: Checker[] = [
   {
@@ -372,6 +419,116 @@ const CHECKERS: Checker[] = [
           ];
     },
   },
+  {
+    // A claim ABOUT figures rather than of them: "more than any two other
+    // programmes together". The numeral audit sees the numbers inside such a
+    // sentence; only a named relation lets anything check the relation itself,
+    // which is why the prompt teaches the writer to emit one.
+    name: "comparative",
+    claims: (b) => typeof b.comparative === "string",
+    check: (b, ctx) => {
+      const relation = String(b.comparative);
+      if (relation !== "greater_than_sum" && relation !== "greater_than_each")
+        return [`comparative: "${relation}" is not a relation this validator can evaluate`];
+      if (typeof b.metric !== "string" || METRICS[b.metric] === undefined)
+        return [`metric: "${String(b.metric)}" is not a figure a comparative can range over`];
+      const subject = typeof b.programme === "string" ? ctx.resolve(b.programme) : null;
+      if (!subject)
+        return [`programme: "${String(b.programme)}" is not a member of this conference`];
+      const own = METRICS[b.metric]?.(ctx, subject) ?? 0;
+
+      // Who the claim measures against: the programmes it names, or — for
+      // "any N others" — the strongest N, because that is the only reading
+      // under which "any" is true.
+      let against: { slug: string; value: number }[];
+      const anyN = num(b.of_any);
+      if (anyN !== null) {
+        if (anyN < 1 || !Number.isInteger(anyN))
+          return [`of_any: ${anyN} is not a count of programmes`];
+        const ranked = rivalReadings(ctx, b.metric, subject);
+        if (relation === "greater_than_sum" && ranked.length < anyN)
+          return [`of_any: the conference holds ${ranked.length} other programmes, not ${anyN}`];
+        against = relation === "greater_than_sum" ? ranked.slice(0, anyN) : ranked;
+      } else if (Array.isArray(b.of) && b.of.length > 0) {
+        const bad: string[] = [];
+        against = [];
+        for (const token of b.of) {
+          const slug = ctx.resolve(String(token));
+          if (!slug) bad.push(`of: "${String(token)}" is not a member of this conference`);
+          else if (slug === subject) bad.push(`of: the claim compares ${subject} against itself`);
+          else against.push({ slug, value: METRICS[b.metric]?.(ctx, slug) ?? 0 });
+        }
+        if (bad.length > 0) return bad;
+      } else {
+        return ['comparative: names neither "of" programmes nor "of_any" a count'];
+      }
+
+      if (relation === "greater_than_sum") {
+        const sum = against.reduce((n, r) => n + r.value, 0);
+        const parts = against.map((r) => `${r.slug} ${r.value}`).join(" + ");
+        return own > sum
+          ? []
+          : [
+              `comparative: ${subject} holds ${b.metric} ${own}, not greater than ${parts} = ${sum}`,
+            ];
+      }
+      return against
+        .filter((r) => r.value >= own)
+        .map(
+          (r) =>
+            `comparative: ${subject} holds ${b.metric} ${own}, not greater than ${r.slug}'s ${r.value}`,
+        );
+    },
+    note: (b, ctx) => {
+      // "any two others" admits the question: which two? Name what the
+      // relation was actually held against, so a reviewer need not re-rank.
+      const anyN = num(b.of_any);
+      if (anyN === null || anyN < 1 || !Number.isInteger(anyN)) return null;
+      if (typeof b.metric !== "string" || METRICS[b.metric] === undefined) return null;
+      const subject = typeof b.programme === "string" ? ctx.resolve(b.programme) : null;
+      if (!subject) return null;
+      const ranked = rivalReadings(ctx, b.metric, subject);
+      if (ranked.length === 0) return null;
+      if (String(b.comparative) === "greater_than_sum") {
+        const strongest = ranked.slice(0, anyN);
+        return `"any ${anyN} others" was held against the strongest ${anyN}: ${strongest
+          .map((r) => `${r.slug} ${r.value}`)
+          .join(" + ")}`;
+      }
+      const nearest = ranked[0];
+      return nearest
+        ? `held against every other programme; the nearest is ${nearest.slug} at ${nearest.value}`
+        : null;
+    },
+  },
+  {
+    // A decomposition: "all three are Lubbock Christian's". The count says how
+    // many; all_of says every member involves that programme — and both are
+    // recomputed from the set itself, never taken from the sentence.
+    name: "set_members",
+    claims: (b) => typeof b.set === "string",
+    check: (b, ctx) => {
+      const name = String(b.set);
+      const list = SETS[name];
+      if (!list) return [`set: "${name}" is not a set this validator can enumerate`];
+      const members = list(ctx.season);
+      const out: string[] = [];
+      compare(b, "count", members.length, out);
+      if (typeof b.all_of === "string") {
+        const slug = ctx.resolve(b.all_of);
+        if (!slug) out.push(`all_of: "${String(b.all_of)}" is not a member of this conference`);
+        else if (members.length === 0)
+          out.push(`all_of: ${name} is empty — there is nothing to belong to ${slug}`);
+        else
+          for (const f of members)
+            if (f.home !== slug && f.away !== slug)
+              out.push(`all_of: ${f.date} ${f.home} v ${f.away} does not involve ${slug}`);
+      } else if (b.count === undefined) {
+        out.push('set: carries neither "all_of" nor "count" — the claim asserts nothing checkable');
+      }
+      return out;
+    },
+  },
 ];
 
 const CHECKED_KEYS = new Set<string>([
@@ -404,6 +561,8 @@ const CHECKED_KEYS = new Set<string>([
   "total",
   "scored",
   "conference_opens",
+  "of_any",
+  "count",
 ]);
 
 /** Numbers in the basis that no checker looked at. A basis may carry working

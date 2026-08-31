@@ -36,6 +36,22 @@ dropped too. Use these shapes, and only figures that appear in the brief:
   box-score gaps     { "source": "matches", "box_score_gaps": <n> }
   fixture counts     { "source": "fixtures", "played": <n>, "total": <n> }
   conference opening { "conference_opens": "YYYY-MM-DD" }
+  comparative        { "comparative": "greater_than_sum" | "greater_than_each",
+                       "metric": "gf"|"ga"|"wins"|"draws"|"losses"|"played",
+                       "programme": "<slug>",
+                       "of": ["<slug>", ...] }          naming the compared programmes,
+                     or "of_any": <n> in place of "of" for "more than any <n>
+                     other programmes (together)".
+  set claim          { "set": "silent_finals"|"past_date_no_result"|"silences"|
+                       "box_score_gaps", "all_of": "<slug>", "count": <n> }
+
+Whenever a sentence COMPARES programmes — "more than X and Y together", "more
+than any other programme" — name the relation with a comparative basis, keeping
+the plain figures beside it; the relation is recomputed from the ranked data
+and a relation that does not hold drops the claim. Whenever a sentence says a
+whole set belongs to one programme — "all three are X's" — use a set claim:
+"count" is the set's size and "all_of" asserts every member involves that
+programme, both recomputed from the set itself.
 
 Always name the player AND the programme in a player basis. Never invent a key.`;
 
