@@ -72,6 +72,12 @@ const selectionCss = lanes
   )
   .join("\n");
 
+/** A stack carrying nothing but roster movement. The strip does not draw one
+ *  until the substitutions toggle asks for it, so nothing else may offer it
+ *  either — one test, used by the mark and by the control that selects it. */
+const subOnly = (stack: LaneStack): boolean =>
+  stack.marks.every((m) => m.kind === "sub" || m.kind === "roster");
+
 const stackLabel = (stack: LaneStack): string =>
   `${stack.minute}′ — ${stack.marks.length} ${stack.marks.length === 1 ? "play" : "plays"}`;
 ---
@@ -95,7 +101,13 @@ const stackLabel = (stack: LaneStack): string =>
 
   {hasToggle && <input type="checkbox" id="tl-subs" class="tl-subs-box" />}
   {lanes.map(({ stack }, i) => (
-    <input type="radio" name="tl-select" class="tls" id={`tls-${i}`} aria-label={stackLabel(stack)} />
+    <input
+      type="radio"
+      name="tl-select"
+      class={`tls${subOnly(stack) ? " tls-subonly" : ""}`}
+      id={`tls-${i}`}
+      aria-label={stackLabel(stack)}
+    />
   ))}
 
   <div
@@ -116,7 +128,7 @@ const stackLabel = (stack: LaneStack): string =>
     {lanes.map(({ lane, stack }, i) => (
       <>
         <label
-          class={`stack stack-${lane}${stack.marks.every((m) => m.kind === "sub" || m.kind === "roster") ? " stack-subonly" : ""}`}
+          class={`stack stack-${lane}${subOnly(stack) ? " stack-subonly" : ""}`}
           style={`left:${stack.x}%`}
           for={`tls-${i}`}
         >
@@ -126,7 +138,15 @@ const stackLabel = (stack: LaneStack): string =>
             ></i>
           ))}
         </label>
-        <span class="mark-detail">
+        {/* The tooltip is a pointer affordance and nothing else. It sits at
+            opacity 0 rather than display:none — it has to be laid out to be
+            measured, and it is the stack's sibling because the hover selector
+            depends on that — so without this it stayed in the accessibility
+            tree, and a reader heard every published line here, then heard the
+            selected one again below, then heard the whole ledger. The lines
+            are not lost: selecting a mark prints them under the strip, and
+            the play-by-play below is the complete sequence. */}
+        <span class="mark-detail" aria-hidden="true">
           {stack.marks.map((m) => (
             <span class={`md-row${m.kind === "sub" || m.kind === "roster" ? " m-subrow" : ""}`}>{m.raw}</span>
           ))}
@@ -153,7 +173,11 @@ const stackLabel = (stack: LaneStack): string =>
     </div>
   )}
 
-  <div class="tl-detail num">
+  {/* Selecting a mark is a :checked rule, so nothing in the DOM changes when
+      a reader moves through the marks — only which row is displayed. Announced
+      politely, this row is the timeline's spoken summary: one mark at a time,
+      the clock, the side and the programme's own sentence. */}
+  <div class="tl-detail num" aria-live="polite">
     <div class="tl-hint">HOVER A MARK — OR SELECT ONE — FOR THE PUBLISHED LINE</div>
     {lanes.map(({ stack }, i) => (
       <div class={`tld tld-${i}`}>
@@ -181,7 +205,7 @@ const stackLabel = (stack: LaneStack): string =>
   .grow { flex: 1; }
   .legend {
     display: flex; gap: 16px; align-items: center;
-    font-size: 10.5px; letter-spacing: 0.1em; color: var(--faint);
+    font-size: 10.5px; letter-spacing: 0.1em; color: var(--quiet);
   }
   .legend span { display: flex; align-items: center; gap: 6px; }
   .legend .lanes { color: var(--secondary); }
@@ -214,6 +238,15 @@ const stackLabel = (stack: LaneStack): string =>
   .tl-subs-box:checked ~ .timeline .m-sub { display: flex; }
   .timeline .stack-subonly { display: none; }
   .tl-subs-box:checked ~ .timeline .stack-subonly { display: flex; }
+  /* And with the mark goes the control that selects it. The radios are
+     visually hidden rather than display:none, which is what keeps them
+     operable — but a stack of pure roster movement is not on the strip until
+     the toggle asks for it, and a reader tabbing the timeline was being
+     offered marks that are not drawn: 18 of 45 radios on the messiest match
+     in this collect, 17 of 81 on the busiest. A control for something that
+     is not there is worse than no control. */
+  .tls-subonly { display: none; }
+  .tl-subs-box:checked ~ .tls-subonly { display: inline-block; }
 
   .axis {
     position: absolute; top: calc(var(--cap) + var(--lane-h));
@@ -232,7 +265,7 @@ const stackLabel = (stack: LaneStack): string =>
   .tick-ht { top: calc(var(--cap) + var(--lane-h) - 7px); height: 16px; }
   .tick-label {
     position: absolute; bottom: 0;
-    font-size: 10px; color: var(--faint);
+    font-size: 10px; color: var(--quiet);
   }
   .tick-mid { transform: translateX(-50%); }
   .tick-end { transform: translateX(-100%); }
@@ -311,7 +344,7 @@ const stackLabel = (stack: LaneStack): string =>
   .tl-toggle { min-height: 44px; display: flex; align-items: center; cursor: pointer; margin: -12px 0; }
   .tl-toggle > span {
     font-size: 10px; letter-spacing: 0.14em; font-weight: 600;
-    color: var(--faint); border: 1px solid var(--outline);
+    color: var(--quiet); border: 1px solid var(--outline);
     padding: 3px 10px; border-radius: 3px; white-space: nowrap;
   }
   .tl-toggle:hover > span { color: var(--ink-soft); border-color: var(--chevron); }
@@ -331,7 +364,7 @@ const stackLabel = (stack: LaneStack): string =>
   .tld-row { display: flex; gap: 12px; font-size: 13px; align-items: baseline; }
   .tld-row-sub { display: none; }
   .tl-subs-box:checked ~ .tl-detail .tld-row-sub { display: flex; }
-  .tld-clock { color: var(--faint); flex: none; width: 44px; }
+  .tld-clock { color: var(--quiet); flex: none; width: 44px; }
   .tld-team { color: var(--ink-soft); flex: none; min-width: 40px; }
   .tld-line { color: var(--secondary); overflow-wrap: anywhere; }
 

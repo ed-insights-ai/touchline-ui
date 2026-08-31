@@ -484,10 +484,10 @@ const awayName = names.name(fixture.away);
     display: flex; align-items: center; gap: 22px;
     border-bottom: 1px solid var(--hairline);
   }
-  .back { font-size: 12px; letter-spacing: 0.1em; color: var(--faint); }
+  .back { font-size: 12px; letter-spacing: 0.1em; color: var(--quiet); }
   .back:hover { color: var(--ink); }
   .mword { font-size: 19px; }
-  .mmeta { font-size: 11px; letter-spacing: 0.14em; color: var(--faint); }
+  .mmeta { font-size: 11px; letter-spacing: 0.14em; color: var(--quiet); }
 
   /* ── Hero ───────────────────────────────────────────────────────────────── */
   .hero {
@@ -507,7 +507,7 @@ const awayName = names.name(fixture.away);
   .side-home { align-items: flex-end; text-align: right; }
   .side-name { font-size: 24px; font-weight: 600; letter-spacing: 0.04em; }
   .side-away .side-name { color: var(--muted-side); }
-  .side-sub { font-size: 11.5px; letter-spacing: 0.1em; color: var(--faint); text-transform: uppercase; }
+  .side-sub { font-size: 11.5px; letter-spacing: 0.1em; color: var(--quiet); text-transform: uppercase; }
   a.side:hover .side-name { color: var(--accent); }
 
   .figures {
@@ -524,9 +524,9 @@ const awayName = names.name(fixture.away);
   .scorers { display: flex; gap: 64px; }
   .scorers-home { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; width: 380px; font-size: 13px; color: var(--secondary); }
   .scorers-gap { width: 148px; }
-  .scorers-away { display: flex; flex-direction: column; gap: 4px; width: 380px; font-size: 13px; color: var(--faint); }
-  .assist { color: var(--faint); }
-  .hero-foot { font-size: 12px; letter-spacing: 0.08em; color: var(--faint); }
+  .scorers-away { display: flex; flex-direction: column; gap: 4px; width: 380px; font-size: 13px; color: var(--quiet); }
+  .assist { color: var(--quiet); }
+  .hero-foot { font-size: 12px; letter-spacing: 0.08em; color: var(--quiet); }
   .hero-explain {
     font-size: 15px; color: var(--secondary); max-width: 640px;
     text-align: center; line-height: 1.5; margin: 0;
@@ -549,7 +549,7 @@ const awayName = names.name(fixture.away);
   .stat-row:last-child { border-bottom: 1px solid var(--hairline-soft); }
   .stat-home { font-size: 14px; font-weight: 600; text-align: right; }
   .stat-away { font-size: 14px; font-weight: 600; }
-  .stat-label { font-size: 10.5px; letter-spacing: 0.14em; color: var(--faint); text-align: center; }
+  .stat-label { font-size: 10.5px; letter-spacing: 0.14em; color: var(--quiet); text-align: center; }
   .bar-left { display: flex; justify-content: flex-end; }
   .bar-right { display: flex; }
   .bar { height: 6px; border-radius: 3px; display: block; }
@@ -560,7 +560,7 @@ const awayName = names.name(fixture.away);
   .period-head, .period-row { display: grid; grid-template-columns: 1fr 44px 44px 52px; gap: 6px; }
   .period-head {
     padding: 6px 0; border-bottom: 1px solid var(--hairline);
-    font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint);
+    font-size: 10.5px; letter-spacing: 0.12em; color: var(--quiet);
   }
   .period-head span, .period-row span { text-align: right; }
   .period-head span:first-child, .period-row span:first-child { text-align: left; }
@@ -574,17 +574,17 @@ const awayName = names.name(fixture.away);
   .line { display: flex; justify-content: space-between; gap: 10px; }
   .line.quiet { color: var(--muted-side); }
   .line-card { justify-content: flex-start; align-items: center; gap: 8px; }
-  .card-min { color: var(--faint); }
+  .card-min { color: var(--quiet); }
   /* The caution happened and the identity did not survive the box score. The
      phrase is the only thing carrying that fact, so it takes the quiet ink
      rather than a fainter one. */
   .card-unnamed { color: var(--quiet); }
-  .tag { color: var(--faint); }
+  .tag { color: var(--quiet); }
   .line-val { color: var(--secondary); }
-  .line.quiet .line-val { color: var(--faint); }
+  .line.quiet .line-val { color: var(--quiet); }
   .rest { display: contents; }
   summary.line-more { min-height: 44px; display: flex; align-items: center; margin: -12px 0; }
-  .line-more { font-size: 11.5px; color: var(--faint); }
+  .line-more { font-size: 11.5px; color: var(--quiet); }
   .plays { display: flex; gap: 16px; font-size: 12.5px; color: var(--secondary); flex-wrap: wrap; }
 
   .known { display: flex; flex-direction: column; }
@@ -593,18 +593,18 @@ const awayName = names.name(fixture.away);
     padding: 9px 0; border-top: 1px solid var(--hairline-soft); font-size: 13px;
   }
   .known-row:last-child { border-bottom: 1px solid var(--hairline-soft); }
-  .known-label { color: var(--faint); letter-spacing: 0.08em; font-size: 11px; padding-top: 2px; }
+  .known-label { color: var(--quiet); letter-spacing: 0.08em; font-size: 11px; padding-top: 2px; }
   .known-value { overflow-wrap: anywhere; }
 
   .next-text { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: var(--secondary); }
-  .next-foot { margin: 0; font-size: 14px; color: var(--faint); line-height: 1.5; }
+  .next-foot { margin: 0; font-size: 14px; color: var(--quiet); line-height: 1.5; }
   .alert { color: var(--loss); font-weight: 600; }
 
   .mfoot {
     padding-top: 14px; border-top: 1px solid var(--hairline);
     display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
   }
-  .mfoot-left { font-size: 12px; color: var(--faint); }
+  .mfoot-left { font-size: 12px; color: var(--quiet); }
 
   @media (max-width: 1180px) {
     .scoreline { flex-direction: column; gap: 16px; }

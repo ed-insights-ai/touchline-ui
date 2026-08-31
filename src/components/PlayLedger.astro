@@ -110,7 +110,7 @@ const CHIPS = [
   .pbp-title {
     margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600;
   }
-  .pbp-sub { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
+  .pbp-sub { font-size: 10.5px; letter-spacing: 0.12em; color: var(--quiet); }
   .pbp-chevron { font-size: 14px; color: var(--chevron); font-weight: 500; }
   .pbp-details[open] .pbp-chevron { visibility: hidden; }
   .pbp-summary:hover .pbp-title { color: var(--accent); }
@@ -121,11 +121,11 @@ const CHIPS = [
   .chip { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
   .chip > span {
     font-size: 10px; letter-spacing: 0.14em; font-weight: 600;
-    color: var(--faint); border: 1px solid var(--outline);
+    color: var(--quiet); border: 1px solid var(--outline);
     padding: 3px 10px; border-radius: 3px; white-space: nowrap;
   }
   .chip:hover > span { color: var(--ink-soft); border-color: var(--chevron); }
-  .pbp-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
+  .pbp-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--quiet); }
 
   #pbp-all:checked ~ .pbp-head label[for="pbp-all"] > span,
   #pbp-goals:checked ~ .pbp-head label[for="pbp-goals"] > span,
@@ -149,11 +149,11 @@ const CHIPS = [
     padding: 5.5px 0; border-top: 1px solid var(--hairline-soft);
     align-items: baseline;
   }
-  .row-clock { color: var(--faint); }
+  .row-clock { color: var(--quiet); }
   .row-noclock { color: var(--outline-quiet); }
   .row-abbr { color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .row-dim .row-abbr { color: var(--faint); }
-  .row-text { color: var(--faint); }
+  .row-dim .row-abbr { color: var(--quiet); }
+  .row-text { color: var(--quiet); }
   .f-shots .row-text { color: var(--ink-soft); }
   .row-nostamp { font-style: italic; color: var(--fainter); }
   .row-score { text-align: right; }
@@ -163,7 +163,7 @@ const CHIPS = [
   .row-goal .row-clock { color: var(--ink-soft); }
   .row-goal .row-text { color: var(--ink); font-weight: 600; }
   .row-goal .row-goal-label { color: var(--accent); }
-  .row-goal .row-assist { color: var(--faint); font-weight: 400; }
+  .row-goal .row-assist { color: var(--quiet); font-weight: 400; }
   .row-goal .row-score { color: var(--accent); font-weight: 600; }
   .row-goal.row-dim { background: var(--hairline-soft); }
   .row-goal.row-dim .row-text { color: var(--muted-side); }
@@ -175,7 +175,7 @@ const CHIPS = [
     padding: 8px 0; border-top: 1px solid var(--hairline);
   }
   .brk-last { border-bottom: 1px solid var(--hairline); }
-  .brk-label { font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600; color: var(--faint); }
+  .brk-label { font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600; color: var(--quiet); }
   .brk-score { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
 
   /* The ledger reflows rather than scrolls: the score column folds under the

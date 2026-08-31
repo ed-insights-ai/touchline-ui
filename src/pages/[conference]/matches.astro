@@ -266,7 +266,7 @@ const dek =
   .mx-masthead .mx-wordmark { color: var(--ink); }
   .mx-wordmark .wordmark-name { font-size: 19px; }
   .mx-wordmark-sub { font-family: var(--serif); font-style: italic; font-size: 19px; }
-  .mx-context { font-size: 11px; letter-spacing: 0.1em; color: var(--faint); }
+  .mx-context { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
 
   .mx-lede { padding: 28px 0 20px; border-bottom: 1px solid var(--hairline); }
   .mx-h1 { margin: 0; font-size: 38px; line-height: 1.1; }
@@ -286,7 +286,7 @@ const dek =
     font-size: 10px;
     letter-spacing: 0.16em;
     font-weight: 600;
-    color: var(--faint);
+    color: var(--quiet);
   }
 
   /* A result: away right-aligned into the score, home left-aligned out of it,
@@ -305,23 +305,26 @@ const dek =
   .mx-home { text-align: left; }
   .mx-score { text-align: center; font-weight: 600; }
   .mx-strong { font-weight: 600; color: var(--ink); }
-  .mx-quiet { color: var(--faint); }
   .mx-even { color: var(--ink); }
+  /* The losing side's name. It is the only thing on the row that says which
+     way the result went, so it steps down from the winner without stepping
+     under the floor. */
+  .mx-quiet { color: var(--quiet); }
   .mx-silent { color: var(--loss); }
   .mx-silent-note { font-size: 12px; color: var(--loss); letter-spacing: 0.02em; }
   /* A date gone by whose match the site still lists as scheduled is a different
      silence from a final with no score: nothing was ever claimed, so it is
      quiet rather than flagged. */
-  .mx-waiting { color: var(--faint); }
-  .mx-waiting-note { font-size: 12px; color: var(--faint); letter-spacing: 0.02em; }
+  .mx-waiting { color: var(--quiet); }
+  .mx-waiting-note { font-size: 12px; color: var(--quiet); letter-spacing: 0.02em; }
   .mx-silent-word { color: var(--loss); font-weight: 600; }
 
   .mx-row-upcoming { grid-template-columns: minmax(0, 1fr) auto; }
   .mx-line { min-width: 0; }
   .mx-side { color: var(--quiet); }
   .mx-side.mx-strong { color: var(--ink); }
-  .mx-at { color: var(--faint); }
-  .mx-venue { color: var(--faint); font-size: 12px; }
+  .mx-at { color: var(--quiet); }
+  .mx-venue { color: var(--quiet); font-size: 12px; }
   .mx-time { color: var(--quiet); font-size: 13px; }
 
   .mx-today { display: flex; align-items: center; gap: 12px; padding: 18px 0 4px; }
