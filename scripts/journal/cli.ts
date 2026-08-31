@@ -176,6 +176,17 @@ function validate(args: Args, season: Season): number {
     console.log(`  DROP ${c.path} [${c.label}] ${c.text.slice(0, 72)}`);
     for (const m of c.mismatches) console.log(`       ${m}`);
   }
+  // REVIEW is not a verdict. It is the validator saying: a reader will believe
+  // this number and nothing here recomputed it.
+  for (const r of report.review) {
+    console.log(`  REVIEW ${r.path} — unbacked ${r.unbacked.join(", ")}`);
+    console.log(`       ${r.text.length > 96 ? `${r.text.slice(0, 96)}…` : r.text}`);
+  }
+  if (report.review.length > 0) {
+    console.log(
+      `  ${report.review.length} passage${report.review.length === 1 ? "" : "s"} carry numbers no basis accounts for.`,
+    );
+  }
   console.log(`  report: ${reportPath(args, season)}`);
 
   if (args.write) {

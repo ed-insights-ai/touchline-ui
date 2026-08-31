@@ -52,6 +52,12 @@ const VOICE = `VOICE — the programme's house register.
   carrying no score is a SILENT FINAL: count it beside the played figure,
   never inside it. An EXHIBITION is outside the record entirely — never called
   played, never counted as a silence, named only as an exhibition.
+- A BOX-SCORE GAP is a match with a published result whose detail the
+  collector could not reach: the site has the score and not the shape of it.
+  It is NOT a silent final and never the same fixture as one — a silent final
+  has no result to be missing the detail of. The three are separate counts of
+  separate things, and a sentence that adds them together is wrong even when
+  each number is right.
 - Each finding must read as ONE logically coherent claim. Do not fuse two
   statistics into a single clause: "10 saves, one of them a shutout" is two
   facts wearing one sentence, and a shutout is not a save. Verified figures in
@@ -109,6 +115,7 @@ no markdown fence, no commentary before or after.
   "kicker": "<CONFERENCE · SHORT PHRASE · MON DD, uppercase>",
   "headline": "<one sentence, the season's state right now>",
   "dek": "<two sentences at most, standing the headline on named figures>",
+  "lede_basis": { ... },
   "summary_stat": { "label": "...", "value": "...", "detail": "...", "basis": { ... } },
   "pattern": {
     "label": "observed|derived|signal",
@@ -122,10 +129,23 @@ no markdown fence, no commentary before or after.
                           "class": "FR|SO|JR|SR|5Y", "line": "<published figures only>" } ],
   "featured": { "last_match": { "fixture_ref": "...", "line": "..." },
                 "next_match": { "fixture_ref": "...", "line": "..." } },
-  "table_state": { "mode": "${brief.table.mode}", "statement": "...", "footnote": "..." }
+  "table_state": { "mode": "${brief.table.mode}", "statement": "...", "footnote": "...",
+                   "basis": { ... } }
 }
 
 Three to five findings. Exactly three players to watch. The chart's values must be
 the brief's goals_for map, unchanged. At least one finding must name a silence if
-the brief reports any.`;
+the brief reports any.
+
+EVERY NUMBER YOU WRITE MUST BE IN A BASIS.
+A basis is not decoration on a finding — it is the list of figures that sentence
+rests on, and the validator recomputes each one. So:
+- "lede_basis" holds every number the kicker, headline and dek contain.
+- "table_state.basis" holds every number its statement and footnote contain.
+- a finding's basis holds every number its own text contains.
+Spelled numbers count: "eighteen days" needs 18 in the basis, and a figure you
+worked out — a sum, a difference, a count of days — belongs there under a name
+that says what it is. If a number is in your prose and not in a basis, the
+validator will say so and a person will have to check it by hand; that has
+happened twice and both times the number was wrong.`;
 }

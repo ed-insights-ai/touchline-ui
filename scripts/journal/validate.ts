@@ -62,6 +62,9 @@ export interface ValidationReport {
   };
   /** Refs rewritten to canonical form. Applied only when the journal is written. */
   normalizations: { path: string; from: string; to: string }[];
+  /** Numbers a reader will believe that nothing recomputed. Never dropped —
+   *  a REVIEW line is a question for a person, not a verdict. */
+  review: ReviewLine[];
   claims: ClaimReport[];
 }
 
@@ -488,6 +491,126 @@ const POLICY =
   "failures are dropped, not softened. signal and projected pass on schema unless the " +
   "data contradicts a figure. context is never validated as a finding.";
 
+/**
+ * Every number a reader can see, whether or not a checker knows about it.
+ *
+ * The checkers only reach figures a claim put in its `basis`. Headline, dek
+ * and the table's own sentences carry no basis at all, so their numerals were
+ * unexamined — which is how "Twenty matches in" survived beside a page saying
+ * fifteen, and how "Seven matches carry no box-score link" survived until
+ * someone wrote the seven rows out.
+ *
+ * This does not drop anything. It emits REVIEW lines: here is a number a
+ * reader will believe, and here is the fact that nothing recomputed it.
+ */
+const SPELLED: Record<string, number> = {
+  zero: 0,
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+  ten: 10,
+  eleven: 11,
+  twelve: 12,
+  thirteen: 13,
+  fourteen: 14,
+  fifteen: 15,
+  sixteen: 16,
+  seventeen: 17,
+  eighteen: 18,
+  nineteen: 19,
+  twenty: 20,
+};
+
+/** The house register spells numbers up to twenty, so digits alone miss most
+ *  of the prose — the very sentences with no basis behind them. */
+function numeralsIn(text: string): string[] {
+  const found = new Set<string>();
+  for (const m of text.matchAll(/\d+(?:\.\d+)?/g)) found.add(m[0]);
+  for (const m of text.matchAll(/[A-Za-z']+/g)) {
+    const word = m[0].toLowerCase();
+    const n = SPELLED[word];
+    if (n === undefined) continue;
+    // "every one of them" and "one of the three" are pronouns; the count in
+    // such a sentence is the other number. Flagging them trains a reader to
+    // skim REVIEW lines, which costs more than the rare missed one.
+    if (word === "one") {
+      const before = text.slice(0, m.index).toLowerCase();
+      const after = text.slice(m.index + m[0].length).toLowerCase();
+      if (/\b(every|each|any|no|which|that|the)\s+$/.test(before) || /^\s+of\b/.test(after)) {
+        continue;
+      }
+    }
+    found.add(String(n));
+  }
+  return [...found];
+}
+
+/** Every number the basis vouches for, including inside strings like "7-0-5". */
+function numeralsVouched(basis: Basis | undefined): Set<string> {
+  const out = new Set<string>();
+  const walk = (v: unknown): void => {
+    if (typeof v === "number") {
+      out.add(String(v));
+      // ".909" is published as 0.909 but read as a percentage, and a rate is
+      // often spoken as its numerator elsewhere in the sentence.
+      if (!Number.isInteger(v)) out.add(String(Math.round(v * 100)));
+      return;
+    }
+    if (typeof v === "string") {
+      for (const m of v.matchAll(/\d+/g)) out.add(String(Number(m[0])));
+      return;
+    }
+    if (Array.isArray(v)) for (const x of v) walk(x);
+    else if (v && typeof v === "object") for (const x of Object.values(v)) walk(x);
+  };
+  if (basis) walk(basis);
+  return out;
+}
+
+export interface ReviewLine {
+  path: string;
+  text: string;
+  /** Numerals in the prose that no basis figure accounts for. */
+  unbacked: string[];
+}
+
+/**
+ * Numbers the whole journal establishes rather than any one claim: the season,
+ * the day it was collected, the day conference play opens. A dateline is not a
+ * claim, and flagging every month-and-day would bury the numerals that matter
+ * under the ones that never vary.
+ */
+function pageFacts(season: Season): Set<string> {
+  const out = new Set<string>();
+  // DATE PARTS ONLY. A collect stamped 21:07:31 would otherwise vouch for 7,
+  // 21 and 31 — and seven is exactly the wrong number this audit exists to
+  // have caught. The clock time is never a figure anybody writes about.
+  for (const iso of [season.asOf, season.collectedAt, conferenceOpensOn(season) ?? ""]) {
+    for (const m of iso.slice(0, 10).matchAll(/\d+/g)) out.add(String(Number(m[0])));
+  }
+  return out;
+}
+
+function review(
+  path: string,
+  text: string | undefined,
+  basis: Basis | undefined,
+  page: Set<string>,
+): ReviewLine[] {
+  if (!text) return [];
+  const vouched = numeralsVouched(basis);
+  const unbacked = numeralsIn(text).filter((n) => !vouched.has(n) && !page.has(n));
+  return unbacked.length === 0
+    ? []
+    : [{ path, text, unbacked: unbacked.sort((a, b) => Number(a) - Number(b)) }];
+}
+
 export interface ValidationResult {
   journal: JournalFile;
   report: ValidationReport;
@@ -501,7 +624,24 @@ export function validateJournal(
   const ctx = makeCtx(season);
   const claims: ClaimReport[] = [];
   const normalizations: { path: string; from: string; to: string }[] = [];
+  const reviews: ReviewLine[] = [];
+  const page = pageFacts(season);
   const out: JournalFile = structuredClone(journal);
+
+  // The prose a reader meets first, and the prose no checker reaches.
+  reviews.push(...review("headline", out.headline, out.lede_basis, page));
+  reviews.push(...review("dek", out.dek, out.lede_basis, page));
+  if (out.summary_stat) {
+    reviews.push(
+      ...review("summary_stat.detail", out.summary_stat.detail, out.summary_stat.basis, page),
+    );
+  }
+  if (out.table_state) {
+    reviews.push(
+      ...review("table_state.statement", out.table_state.statement, out.table_state.basis, page),
+      ...review("table_state.footnote", out.table_state.footnote, out.table_state.basis, page),
+    );
+  }
 
   const record = (path: string, label: string, text: string, basis: Basis | undefined): boolean => {
     const { checker, verdict, mismatches, notes } = judge(basis, ctx);
@@ -554,6 +694,13 @@ export function validateJournal(
   }
 
   out.findings = out.findings.filter((f, i) => !record(`findings[${i}]`, f.label, f.text, f.basis));
+  // A surviving claim can still say a number its basis never mentioned — the
+  // checkers hold the basis to the data, not the sentence to the basis.
+  if (out.pattern)
+    reviews.push(...review("pattern.text", out.pattern.text, out.pattern.basis, page));
+  out.findings.forEach((f, i) => {
+    reviews.push(...review(`findings[${i}].text`, f.text, f.basis, page));
+  });
 
   // A player to watch is a claim that a named player published a named line.
   out.players_to_watch = out.players_to_watch.filter((p, i) => {
@@ -635,6 +782,7 @@ export function validateJournal(
       policy: POLICY,
       totals,
       normalizations,
+      review: reviews,
       claims,
     },
   };

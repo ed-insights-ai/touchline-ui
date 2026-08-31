@@ -71,6 +71,14 @@ export const journalFileSchema = z
     kicker: z.string().optional(),
     headline: z.string().min(1),
     dek: z.string().optional(),
+    /** The figures the kicker, headline and dek rest on.
+     *
+     *  These three are the first prose a reader meets and, until this field
+     *  existed, the only prose no checker could reach — which is where two
+     *  rounds of wrong numbers hid. Optional so older journals still parse;
+     *  a journal without it gets a REVIEW line per unbacked numeral instead
+     *  of silence. */
+    lede_basis: basisSchema.optional(),
     summary_stat: z
       .object({
         label: z.string().min(1),
@@ -121,6 +129,7 @@ export const journalFileSchema = z
         mode: z.string().optional(),
         statement: z.string().optional(),
         footnote: z.string().optional(),
+        basis: basisSchema.optional(),
       })
       .strict()
       .optional(),

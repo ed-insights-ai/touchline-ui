@@ -119,7 +119,9 @@ describe("played means a final with a published score", () => {
       for (const g of gaps) {
         expect(g.fixture, `${key}: ${g.fixtureId} has no fixture`).toBeDefined();
         expect(isScored(g.fixture as Fixture), `${key}: ${g.label} is not a result`).toBe(true);
-        expect(isExhibition(g.fixture as Fixture), `${key}: ${g.label} is an exhibition`).toBe(false);
+        expect(isExhibition(g.fixture as Fixture), `${key}: ${g.label} is an exhibition`).toBe(
+          false,
+        );
       }
       // Recomputed the other way: results, less those a box score was collected for.
       const scored = season.fixtures.fixtures.filter(isScored);

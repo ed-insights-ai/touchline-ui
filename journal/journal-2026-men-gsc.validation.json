@@ -4,7 +4,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-08-31T01:48:47.654Z",
+  "validated_at": "2026-08-31T01:57:18.688Z",
   "data_collected_at": "2026-08-30T21:08:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
@@ -15,6 +15,47 @@
     "dropped": 0
   },
   "normalizations": [],
+  "review": [
+    {
+      "path": "headline",
+      "text": "Twelve days from the conference opener, the GSC has fifteen matches behind it and a table that still reads all zeros.",
+      "unbacked": [
+        "12",
+        "15"
+      ]
+    },
+    {
+      "path": "dek",
+      "text": "AUM and Trevecca are the only programmes with two wins, and Trevecca's six goals lead the conference. Lee and Spring Hill have not played at all, and five matches whose dates have passed carry no published result.",
+      "unbacked": [
+        "2",
+        "5",
+        "6"
+      ]
+    },
+    {
+      "path": "summary_stat.detail",
+      "text": "Fifteen matches carry a final with a published score. All fifteen were played against programmes outside the conference, and conference play opens on September 11, twelve days after this data was collected.",
+      "unbacked": [
+        "12"
+      ]
+    },
+    {
+      "path": "table_state.statement",
+      "text": "No GSC programme has played a conference match, so every side is on zero points and the table is ordered alphabetically. Conference play opens on September 11, twelve days after this data was collected.",
+      "unbacked": [
+        "0",
+        "12"
+      ]
+    },
+    {
+      "path": "findings[4].text",
+      "text": "Lee have yet to play a match this season; their season opens in conference play, at AUM on September 12.",
+      "unbacked": [
+        "12"
+      ]
+    }
+  ],
   "claims": [
     {
       "path": "summary_stat",
