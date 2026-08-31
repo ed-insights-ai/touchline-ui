@@ -1,5 +1,6 @@
 ---
 import "../styles/base.css";
+import { builtAt } from "../lib/build.ts";
 
 interface Props {
   title: string;
@@ -15,6 +16,9 @@ const { title, dark = false, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    {/* Which build is this? Meta only — visible nowhere, so the pixel
+        harness never sees it; `curl -s <url> | grep touchline-build` does. */}
+    <meta name="touchline-build" content={builtAt} />
     {description && <meta name="description" content={description} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
