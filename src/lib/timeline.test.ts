@@ -15,6 +15,7 @@ import { loadSeason, matchDetailOf } from "./derive.ts";
 import { matchMinute } from "./format.ts";
 import type { MatchDetail, MatchPlay } from "./model.ts";
 import {
+  cardPlayer,
   type MarkKind,
   markKindOf,
   matchStrip,
@@ -253,6 +254,49 @@ describe("the fallback for a box score without a play-by-play", () => {
   });
 });
 
+describe("a caution the source named nobody for", () => {
+  test("'0' is a placeholder, not a person, and neither is an empty field", () => {
+    expect(cardPlayer("0")).toBeNull();
+    expect(cardPlayer("")).toBeNull();
+    expect(cardPlayer("   ")).toBeNull();
+    expect(cardPlayer(undefined)).toBeNull();
+  });
+
+  test("a published name survives, including one a real #0 could carry", () => {
+    expect(cardPlayer("Keegan O'Brien")).toBe("Keegan O'Brien");
+    expect(cardPlayer("Bolk, Philip")).toBe("Bolk, Philip");
+    // Only the bare placeholder goes; a number inside a name is not one.
+    expect(cardPlayer("Player 10")).toBe("Player 10");
+  });
+
+  test("the strip label names the silence and never prints the placeholder", () => {
+    const detail = detailOf([], {
+      plays: [],
+      scoring: [],
+      cards: [{ time: "48:29", team: 0, type: "yellow", player: "0" }],
+    });
+    const strip = summaryStrip(detail, 0);
+    const raws = [...strip.home, ...strip.away].flatMap((s) => s.marks.map((m) => m.raw));
+    expect(raws).toHaveLength(1);
+    expect(raws[0]).toContain("no name published");
+    expect(raws[0]).not.toMatch(/\bon 0\b/);
+  });
+
+  test("the card still counts — only the identity is missing", () => {
+    const named = detailOf([], {
+      plays: [],
+      scoring: [],
+      cards: [{ time: "48:29", team: 0, type: "yellow", player: "Someone Real" }],
+    });
+    const unnamed = detailOf([], {
+      plays: [],
+      scoring: [],
+      cards: [{ time: "48:29", team: 0, type: "yellow", player: "0" }],
+    });
+    expect(stripCounts(summaryStrip(unnamed, 0))).toEqual(stripCounts(summaryStrip(named, 0)));
+  });
+});
+
 // ── The real data home ──────────────────────────────────────────────────────
 
 const CONFERENCES = ["gac", "lsc", "gsc"] as const;
@@ -331,6 +375,50 @@ describe("every 2026 strip, against its own play list", () => {
           p.team !== undefined,
       ).length;
       expect(drawn, id).toBe(placeableReds);
+    }
+  });
+});
+
+describe("the collected placeholder cautions (tui-mvc)", () => {
+  // Every card in the 2026 collect, with the box score it came from, so the
+  // count below is the data's own and not a number copied off a bead.
+  const allCards = realMatches.flatMap(({ id, detail }) =>
+    (detail.cards ?? []).map((c) => ({ id, card: c })),
+  );
+  const placeholders = allCards.filter(({ card }) => cardPlayer(card.player) === null);
+
+  test("the collect still carries the trap this rule exists for", () => {
+    expect(allCards.length).toBeGreaterThan(0);
+    expect(placeholders.length).toBeGreaterThan(0);
+    // Both of the ruling's decisive box scores, recomputed rather than pinned.
+    const forMatch = (id: string) => placeholders.filter((p) => p.id === id).length;
+    expect(forMatch("sidearm:uah:13290")).toBe(2);
+    expect(forMatch("sidearm:saint-edwards:8618")).toBe(2);
+  });
+
+  test("no strip label anywhere prints the placeholder as a name", () => {
+    for (const { id, detail, homeIndex } of realMatches) {
+      const strip = stripOf(detail, homeIndex);
+      for (const stack of [...strip.home, ...strip.away]) {
+        for (const mark of stack.marks) {
+          expect(mark.raw, `${id} card label`).not.toMatch(/\bcard on 0\b/);
+        }
+      }
+    }
+  });
+
+  test("an unnamed caution is still counted, on the strip and in the panel", () => {
+    for (const { id, detail, homeIndex } of realMatches) {
+      const cards = detail.cards ?? [];
+      if (cards.length === 0) continue;
+      // What the panel lists is every collected card, placeholders included:
+      // the identity is missing, the caution is not.
+      const placeable = cards.filter(
+        (c) => matchMinute(c.time?.trim() || undefined) !== null && c.team !== undefined,
+      );
+      const strip = summaryStrip(detail, homeIndex);
+      const drawn = (stripCounts(strip).card ?? 0) + (stripCounts(strip).red ?? 0);
+      expect(drawn, `${id} cards drawn`).toBe(placeable.length);
     }
   });
 });

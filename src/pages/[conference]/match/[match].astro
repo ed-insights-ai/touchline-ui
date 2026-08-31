@@ -18,7 +18,7 @@ import MatchTimeline from "../../../components/MatchTimeline.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
-import { stripOf } from "../../../lib/timeline.ts";
+import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
   longDate,
@@ -96,8 +96,11 @@ const surname = (name: string): string => {
 
 // ── Everything below exists only when a box score does ──────────────────────
 const scoring = (detail?.scoring ?? []).map((g) => ({ ...g, minute: matchMinute(g.time) }));
+// `name` is null where the source published no identity for the caution: the
+// card stands, the person does not. It stays in `cards`, so the panel's count
+// and the "+ n more" disclosure still carry it.
 const cards = (detail?.cards ?? [])
-  .map((c) => ({ ...c, minute: matchMinute(c.time) }))
+  .map((c) => ({ ...c, minute: matchMinute(c.time), name: cardPlayer(c.player) }))
   .sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
 const CARDS_SHOWN = 4;
 
@@ -394,7 +397,7 @@ const awayName = names.name(fixture.away);
                       <i class={`key key-${c.type === "red" ? "red" : "card"}`}></i>
                       <span class="card-min">{c.minute}′</span>
                       <span>
-                        {surname(c.player)}{" "}
+                        {c.name ? surname(c.name) : <span class="card-unnamed">no name published</span>}{" "}
                         <span class="tag">
                           {c.team === sides?.homeIndex ? sides?.home?.abbr : sides?.away?.abbr}
                         </span>
@@ -409,7 +412,7 @@ const awayName = names.name(fixture.away);
                           <i class={`key key-${c.type === "red" ? "red" : "card"}`}></i>
                           <span class="card-min">{c.minute}′</span>
                           <span>
-                            {surname(c.player)}{" "}
+                            {c.name ? surname(c.name) : <span class="card-unnamed">no name published</span>}{" "}
                             <span class="tag">
                               {c.team === sides?.homeIndex ? sides?.home?.abbr : sides?.away?.abbr}
                             </span>
@@ -577,6 +580,10 @@ const awayName = names.name(fixture.away);
   .line.quiet { color: var(--muted-side); }
   .line-card { justify-content: flex-start; align-items: center; gap: 8px; }
   .card-min { color: var(--faint); }
+  /* The caution happened and the identity did not survive the box score. The
+     phrase is the only thing carrying that fact, so it takes the quiet ink
+     rather than a fainter one. */
+  .card-unnamed { color: var(--quiet); }
   .tag { color: var(--faint); }
   .line-val { color: var(--secondary); }
   .line.quiet .line-val { color: var(--faint); }

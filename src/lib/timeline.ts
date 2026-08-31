@@ -151,6 +151,24 @@ export function markKindOf(play: MatchPlay): MarkKind | null {
   }
 }
 
+/** The name a caution is attributed to, or null when the source published none.
+ *
+ * A box score that names nobody for a caution does not leave the field empty —
+ * it writes "0", in the name column and the number column both. That is a
+ * placeholder, not a jersey. Neither side in sidearm:uah:13290 rosters a #0,
+ * and sidearm:saint-edwards:8618 carries two "0" yellows for the SAME team
+ * with no red between them, which one real #0 taking both could not have
+ * survived. So "0" is never a person here, not even on a squad that does
+ * roster one: the page says the identity is missing rather than printing the
+ * placeholder, and it does not guess from the number, which is "0" too.
+ *
+ * The caution itself is untouched — it keeps its minute, its side and its
+ * colour, and it still counts. Only the name is silent. */
+export function cardPlayer(player: string | undefined | null): string | null {
+  const name = (player ?? "").trim();
+  return name === "" || name === "0" ? null : name;
+}
+
 /** "Jonas Ludwig" → "Ludwig" — the strip label has room for one name. */
 const surname = (name: string): string => {
   const parts = name.trim().split(/\s+/);
@@ -406,7 +424,11 @@ export function summaryStrip(detail: MatchDetail, homeIndex: number): MatchStrip
       clock: c.time ?? "",
       home: c.team === homeIndex,
       team: abbrOf(c.team),
-      raw: `${c.type === "red" ? "Red" : "Yellow"} card on ${c.player}`,
+      raw: ((): string => {
+        const face = c.type === "red" ? "Red" : "Yellow";
+        const named = cardPlayer(c.player);
+        return named ? `${face} card on ${named}` : `${face} card ${MID} no name published`;
+      })(),
     });
   }
 
