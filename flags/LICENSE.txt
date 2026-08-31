@@ -1,6 +1,18 @@
-The flags in this directory are from flag-icons, used unmodified.
+The flags in this directory are from flag-icons.
 
   flag-icons 7.5.0 — https://github.com/lipis/flag-icons
+
+All but the following are copied unmodified. These carry coats of arms
+drawn at a detail this site cannot show — it draws every flag fourteen
+pixels wide — so they are passed through svgo 4.1.0 with reduced
+coordinate precision. The paths and the colours are the artwork's own;
+only the number of decimal places behind them has changed.
+
+  Bolivia (bo.svg): 100 KB to 35 KB
+  Spain (es.svg): 79 KB to 29 KB
+  Montenegro (me.svg): 55 KB to 20 KB
+  Mexico (mx.svg): 83 KB to 32 KB
+  Serbia (rs.svg): 177 KB to 60 KB
 
 The MIT License (MIT)
 
