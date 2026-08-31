@@ -1,21 +1,21 @@
 ---
-// Ninety minutes drawn to scale, with goals above the line and cautions on it.
+// Ninety minutes drawn to scale, with goals and cautions on the line and the
+// marks piled up where the clock repeats itself.
 //
 // The scale is the point: a mark's position is its minute. That is why the
 // band scrolls rather than compresses on a narrow screen — a timeline that
-// reflows is lying about when something happened.
+// reflows is lying about when something happened, and why marks sharing a
+// minute stack vertically rather than nudging apart. Which marks share a
+// minute, and what the pile is called, is lib/timeline.ts; this file is the
+// drawing.
 //
 // Each mark says who it was in text rather than in a title attribute, so the
 // fact is in the document for a screen reader and shown to a pointer. The
 // marks are deliberately not focus stops: every goal is also named in the
 // hero's scorer list and every caution in the cautions panel, and ten tab
 // stops onto duplicated facts would cost a keyboard reader more than it gives.
-interface Mark {
-  minute: number | null;
-  label: string;
-  /** The home side's marks read in the accent, the away side's in gray. */
-  home: boolean;
-}
+import { type Mark, timeline } from "../lib/timeline.ts";
+
 interface Props {
   homeAbbr: string;
   awayAbbr: string;
@@ -25,8 +25,7 @@ interface Props {
   fullTime: number;
 }
 const { homeAbbr, awayAbbr, goals, cards, fullTime } = Astro.props;
-const at = (minute: number | null): number =>
-  minute === null ? 0 : Math.min(100, Math.max(0, (minute / fullTime) * 100));
+const { stacks, tallest } = timeline(goals, cards, fullTime);
 ---
 
 <section class="timeline-band">
@@ -40,7 +39,7 @@ const at = (minute: number | null): number =>
     </div>
   </div>
   <div class="timeline-scroll">
-    <div class="timeline">
+    <div class="timeline" style={`--tallest: ${tallest}`}>
       <div class="axis"></div>
       <div class="tick" style="left: 0"></div>
       <div class="tick" style="left: 50%"></div>
@@ -48,20 +47,29 @@ const at = (minute: number | null): number =>
       <div class="tick-label" style="left: 0">0′</div>
       <div class="tick-label tick-mid" style="left: 50%">HT</div>
       <div class="tick-label tick-end" style="left: 100%">{fullTime}′</div>
-      {goals.map((g, i) => (
+      {stacks.map((s) => (
         <>
-          <div class={`mark goal${g.home ? " goal-home" : " goal-away"}`} style={`left: ${at(g.minute)}%`}></div>
-          <span class="mark-detail">{g.label}</span>
-          <div
-            class={`goal-label${i % 2 === 0 ? " above" : " below"}${g.home ? "" : " quiet"}`}
-            style={`left: ${at(g.minute)}%`}
-          >{g.minute}′</div>
-        </>
-      ))}
-      {cards.map((c) => (
-        <>
-          <div class="mark card-mark" style={`left: ${at(c.minute)}%`}></div>
-          <span class="mark-detail">{c.label}</span>
+          <div class="stack" style={`left: ${s.x}%; --n: ${s.marks.length}`}>
+            {s.marks.map((m) => (
+              <i
+                class={`pip pip-${m.kind}${m.kind === "goal" ? (m.home ? " pip-home" : " pip-away") : ""}`}
+              ></i>
+            ))}
+          </div>
+          <span class="mark-detail">
+            {s.marks.map((m) => (
+              <span class="md-row">
+                {m.label}
+                {m.kind === "card" && <span class="md-kind"> caution</span>}
+              </span>
+            ))}
+          </span>
+          {s.label !== null && (
+            <div
+              class={`stack-label tier-${s.tier} at-${s.align}${s.quiet ? " quiet" : ""}`}
+              style={`left: ${s.x}%; --n: ${s.marks.length}`}
+            >{s.label}</div>
+          )}
         </>
       ))}
     </div>
@@ -84,42 +92,83 @@ const at = (minute: number | null): number =>
   }
   .legend span { display: flex; align-items: center; gap: 6px; }
 
-  .timeline { position: relative; height: 78px; }
-  .axis { position: absolute; top: 36px; left: 0; right: 0; height: 2px; background: var(--outline); }
-  .tick { position: absolute; top: 29px; width: 1px; height: 16px; background: var(--tick); }
-  .tick-label { position: absolute; top: 58px; font-size: 10px; color: var(--faint); }
+  /* The band is laid out from the tallest stack down: --head is the room that
+     stack needs above the axis, and everything from the axis downward is
+     pushed by it. A match with no repeated minute has no headroom. */
+  .timeline {
+    --pitch: 16px;   /* one mark's slot in a stack */
+    --tier: 15px;    /* the stagger between the two label rows */
+    --head: calc((var(--tallest) - 1) * var(--pitch));
+    position: relative;
+    height: calc(92px + var(--head));
+  }
+  .axis {
+    position: absolute; top: calc(50px + var(--head));
+    left: 0; right: 0; height: 2px; background: var(--outline);
+  }
+  .tick { position: absolute; top: calc(43px + var(--head)); width: 1px; height: 16px; background: var(--tick); }
+  .tick-label { position: absolute; top: calc(72px + var(--head)); font-size: 10px; color: var(--faint); }
   .tick-mid { transform: translateX(-50%); }
   .tick-end { transform: translateX(-100%); }
-  .goal {
-    position: absolute; top: 30px; transform: translateX(-50%);
+
+  /* A stack's own top: the tallest one starts at 43px whatever it holds, and a
+     shorter one starts lower so its BOTTOM pip lands on the axis. The lone
+     mark and the bottom of a pile of four are drawn in the same place. */
+  .stack, .stack-label {
+    --top: calc(43px + var(--head) - (var(--n) - 1) * var(--pitch));
+  }
+  .stack {
+    position: absolute; top: var(--top);
+    transform: translateX(-50%);
+    display: flex; flex-direction: column-reverse; align-items: center;
+  }
+  /* Each pip occupies one pitch of the stack whatever shape it draws, so the
+     spacing is even in a mixed pile and the arithmetic above stays true. */
+  .pip {
+    flex: none; width: 18px; height: var(--pitch);
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* base.css sets border-box on `*`, which does not match a pseudo-element:
+     without this the 2px ring is added OUTSIDE the 14px and every goal grew
+     to 18px the moment the mark became a ::before. */
+  .pip::before { content: ""; display: block; box-sizing: border-box; }
+  .pip-goal::before {
     width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--paper);
   }
-  .goal-home { background: var(--accent); }
-  .goal-away { background: var(--muted-mark); }
-  .goal-label {
+  .pip-home::before { background: var(--accent); }
+  .pip-away::before { background: var(--muted-mark); }
+  .pip-card::before { width: 8px; height: 11px; background: var(--draw); border-radius: 1.5px; }
+
+  /* Above a stack means above THAT stack, not above the tallest one: a label
+     tracks its own pips up. */
+  .stack-label {
     position: absolute; transform: translateX(-50%);
-    font-size: 11px; color: var(--secondary); white-space: nowrap;
+    font-size: 11px; line-height: 12px; color: var(--secondary); white-space: nowrap;
   }
-  .goal-label.above { top: 8px; }
-  .goal-label.below { top: 58px; }
-  .goal-label.quiet { color: var(--faint); }
-  .card-mark {
-    position: absolute; top: 32px; transform: translateX(-50%);
-    width: 8px; height: 11px; background: var(--draw); border-radius: 1.5px;
-  }
+  .stack-label.tier-a { top: calc(var(--top) - 20px); }
+  .stack-label.tier-b { top: calc(var(--top) - 20px - var(--tier)); }
+  .stack-label.at-end { transform: translateX(-100%); }
+  .stack-label.at-start { transform: none; }
+  .stack-label.quiet { color: var(--faint); }
 
   /* Who a mark was is the fact the mark carries, and it used to be reachable
-     by hovering a mouse and no other way. */
+     by hovering a mouse and no other way — then not even that: the rule read
+     `.mark:hover .mark-detail` for a detail that is the mark's SIBLING, so it
+     never matched and the panel never appeared for anyone. It stays a sibling,
+     centred on the band rather than on the mark, because a nowrap label
+     centred on a mark near 90′ pushes the page sideways. */
   .mark-detail {
     position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
     z-index: 15;
+    display: flex; flex-direction: column; gap: 2px;
     white-space: nowrap;
     background: var(--ink); color: var(--paper);
     font-size: 11px; letter-spacing: 0.01em;
     padding: 4px 8px; border-radius: 4px;
     opacity: 0; pointer-events: none; transition: opacity 90ms ease-out;
   }
-  .mark:hover .mark-detail { opacity: 1; }
+  .md-kind { opacity: 0.62; }
+  .stack:hover + .mark-detail { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .mark-detail { transition: none; } }
 
   @media (max-width: 720px) {

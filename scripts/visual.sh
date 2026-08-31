@@ -43,6 +43,9 @@ PAGES=(
   "/gsc/team/spring-hill/:team-unplayed"
   "/gac/match/sidearm-fort-hays-state-14053/:match"
   "/gsc/match/sidearm-delta-state-14841/:match-messy"
+  # Four cautions inside 87′: the stacked timeline, and the only page here
+  # whose band reserves headroom and anchors a label away from the 90′ tick.
+  "/gsc/match/sidearm-uah-13290/:match-stacked"
   "/gac/match/sidearm-ouachita-baptist-6655/:match-silent"
 )
 WIDTHS=(1440 390)
