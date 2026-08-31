@@ -25,13 +25,13 @@ mid-season state. Absence is content, never an error page (see `match-silent.htm
    every figure.
 3. **Rules make structure, not cards.** Section = tiny uppercase label
    (11px, letter-spacing 0.2em, weight 600) over a 2px ink rule. Hairlines
-   (#e3e1da light / rgba(255,255,255,.1) dark) separate rows.
+   (#dbd8ce light / rgba(255,255,255,.1) dark) separate rows.
 4. **Purple means Touchline.** #6d4fe0 (light) / #9b8eff (dark). Only for:
    identity mark, selection, current week, key upcoming fixture, evidence
    markers, interactive emphasis, home-side match events. Never decoration.
    Team pages do NOT inherit school colors.
 5. **Cards represent objects, not sections.** Only a match/fixture gets a card
-   (#fffdf9, 1px #e3e1da border, 8px radius). "Players to watch" is a ruled
+   (#fffdf9, 1px #dbd8ce border, 8px radius). "Players to watch" is a ruled
    section, not a card.
 6. **Dark means the event.** Light pages explain time (season, team, player).
    Dark pages capture an event (Match Centre). Dark canvas #0e0f13.
@@ -40,11 +40,11 @@ mid-season state. Absence is content, never an error page (see `match-silent.htm
 
 | Token | Light | Dark |
 |---|---|---|
-| paper / canvas | `#faf9f6` | `#0e0f13` |
+| paper / canvas | `#f6f4ee` | `#0e0f13` |
 | ink | `#1a1c22` | `#f1f1ec` |
 | secondary | `#5f646e` | `#c9cac3` |
 | faint | `#8b9096` | `#8e9096` |
-| hairline | `#e3e1da` | `rgba(255,255,255,.1)` |
+| hairline | `#dbd8ce` | `rgba(255,255,255,.1)` |
 | rule (section head) | 2px `#1a1c22` | label-only, no rule |
 | accent | `#6d4fe0` | `#9b8eff` |
 | accent wash | `rgba(109,79,224,.09)` | `rgba(155,142,255,.4)` border |
@@ -52,6 +52,7 @@ mid-season state. Absence is content, never an error page (see `match-silent.htm
 | draw | `#b57a00` | same (also caution cards) |
 | loss / alert | `#be123c` (`#e0526b` on dark) | |
 | card surface | `#fffdf9` | — |
+| light future | `#bebbb0` | — |
 | position colors | GK `#7b61d7` · DEF `#3f70a9` · MID `#3b8a72` · FWD `#b8820f` (dots/chips only) |
 
 Wordmark: 10px purple square (2px radius) + italic serif "Touchline".
