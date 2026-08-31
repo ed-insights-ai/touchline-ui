@@ -24,14 +24,18 @@
 export interface Nation {
   name: string;
   trigram: string;
+  /** Which flag the row draws, named as the vendored set names its file:
+   *  lowercase ISO 3166-1 alpha-2, except the home nations, which the set
+   *  files under the subdivision codes a football reader expects to see. */
+  iso: string;
 }
 
 const nations = (
-  rows: readonly (readonly [string, string, ...string[]])[],
+  rows: readonly (readonly [string, string, string, ...string[]])[],
 ): Map<string, Nation> => {
   const out = new Map<string, Nation>();
-  for (const [name, trigram, ...aliases] of rows) {
-    for (const key of [name, ...aliases]) out.set(normalise(key), { name, trigram });
+  for (const [name, trigram, iso, ...aliases] of rows) {
+    for (const key of [name, ...aliases]) out.set(normalise(key), { name, trigram, iso });
   }
   return out;
 };
@@ -44,86 +48,114 @@ const nations = (
 const NATIONS = nations([
   // The home nations are separate FIFA nations and separate footballing
   // countries, so they are never folded into GBR. GBR is what is left when a
-  // hometown says only "United Kingdom".
-  ["England", "ENG"],
-  ["Scotland", "SCO"],
-  ["Wales", "WAL"],
-  ["Northern Ireland", "NIR"],
-  ["United Kingdom", "GBR", "Great Britain", "UK", "Britain"],
+  // hometown says only "United Kingdom". They fly their own flags for the same
+  // reason: a player from Derby draws St George's cross, not the Union Jack.
+  ["England", "ENG", "gb-eng"],
+  ["Scotland", "SCO", "gb-sct"],
+  ["Wales", "WAL", "gb-wls"],
+  ["Northern Ireland", "NIR", "gb-nir"],
+  ["United Kingdom", "GBR", "gb", "Great Britain", "UK", "Britain"],
 
-  ["Ireland", "IRL", "Republic of Ireland", "Eire"],
-  ["Germany", "GER", "Deutschland"],
-  ["Spain", "ESP", "España", "Espana"],
-  ["France", "FRA"],
-  ["Italy", "ITA", "Italia"],
-  ["Portugal", "POR"],
-  ["Netherlands", "NED", "The Netherlands", "Holland"],
-  ["Belgium", "BEL"],
-  ["Switzerland", "SUI"],
-  ["Austria", "AUT"],
-  ["Poland", "POL"],
-  ["Czech Republic", "CZE", "Czechia"],
-  ["Lithuania", "LTU"],
-  ["Serbia", "SRB"],
-  ["Montenegro", "MNE"],
-  ["Greece", "GRE"],
-  ["Cyprus", "CYP"],
-  ["Turkey", "TUR", "Türkiye", "Turkiye"],
-  ["Sweden", "SWE"],
-  ["Norway", "NOR"],
-  ["Denmark", "DEN"],
-  ["Finland", "FIN"],
+  ["Ireland", "IRL", "ie", "Republic of Ireland", "Eire"],
+  ["Germany", "GER", "de", "Deutschland"],
+  ["Spain", "ESP", "es", "España", "Espana"],
+  ["France", "FRA", "fr"],
+  ["Italy", "ITA", "it", "Italia"],
+  ["Portugal", "POR", "pt"],
+  ["Netherlands", "NED", "nl", "The Netherlands", "Holland"],
+  ["Belgium", "BEL", "be"],
+  ["Switzerland", "SUI", "ch"],
+  ["Austria", "AUT", "at"],
+  ["Poland", "POL", "pl"],
+  ["Czech Republic", "CZE", "cz", "Czechia"],
+  ["Lithuania", "LTU", "lt"],
+  ["Serbia", "SRB", "rs"],
+  ["Montenegro", "MNE", "me"],
+  ["Greece", "GRE", "gr"],
+  ["Cyprus", "CYP", "cy"],
+  ["Turkey", "TUR", "tr", "Türkiye", "Turkiye"],
+  ["Sweden", "SWE", "se"],
+  ["Norway", "NOR", "no"],
+  ["Denmark", "DEN", "dk"],
+  ["Finland", "FIN", "fi"],
 
-  ["Brazil", "BRA", "Brasil"],
-  ["Argentina", "ARG"],
-  ["Chile", "CHI"],
-  ["Colombia", "COL"],
-  ["Venezuela", "VEN"],
-  ["Ecuador", "ECU"],
-  ["Bolivia", "BOL"],
-  ["Paraguay", "PAR"],
-  ["Uruguay", "URU"],
-  ["Peru", "PER"],
-  ["Mexico", "MEX", "México"],
-  ["Costa Rica", "CRC"],
-  ["Panama", "PAN", "Panamá"],
-  ["Jamaica", "JAM"],
-  ["Bahamas", "BAH", "The Bahamas"],
-  ["Dominican Republic", "DOM"],
-  ["Trinidad and Tobago", "TRI", "Trinidad & Tobago", "Trinidad"],
-  ["Antigua and Barbuda", "ATG", "Antigua"],
+  ["Brazil", "BRA", "br", "Brasil"],
+  ["Argentina", "ARG", "ar"],
+  ["Chile", "CHI", "cl"],
+  ["Colombia", "COL", "co"],
+  ["Venezuela", "VEN", "ve"],
+  ["Ecuador", "ECU", "ec"],
+  ["Bolivia", "BOL", "bo"],
+  ["Paraguay", "PAR", "py"],
+  ["Uruguay", "URU", "uy"],
+  ["Peru", "PER", "pe"],
+  ["Mexico", "MEX", "mx", "México"],
+  ["Costa Rica", "CRC", "cr"],
+  ["Panama", "PAN", "pa", "Panamá"],
+  ["Jamaica", "JAM", "jm"],
+  ["Bahamas", "BAH", "bs", "The Bahamas"],
+  ["Dominican Republic", "DOM", "do"],
+  ["Trinidad and Tobago", "TRI", "tt", "Trinidad & Tobago", "Trinidad"],
+  ["Antigua and Barbuda", "ATG", "ag", "Antigua"],
   // Published misspelled on one roster; the table records the place, and the
   // roster's spelling is what has to be matched.
   [
     "St. Vincent and the Grenadines",
     "VIN",
+    "vc",
     "St Vincent and the Grenadines",
     "St. Vincent and Grenadies",
   ],
 
-  ["Canada", "CAN"],
-  ["Australia", "AUS"],
-  ["New Zealand", "NZL"],
-  ["Japan", "JPN"],
-  ["South Korea", "KOR", "Korea Republic", "Republic of Korea"],
-  ["Taiwan", "TPE", "Chinese Taipei"],
-  ["Pakistan", "PAK"],
-  ["Israel", "ISR"],
-  ["United Arab Emirates", "UAE", "UAE"],
-  ["Bahrain", "BHR"],
-  ["Azerbaijan", "AZE"],
+  ["Canada", "CAN", "ca"],
+  ["Australia", "AUS", "au"],
+  ["New Zealand", "NZL", "nz"],
+  ["Japan", "JPN", "jp"],
+  ["South Korea", "KOR", "kr", "Korea Republic", "Republic of Korea"],
+  // The trigram is the FIFA one and the flag is the country's own; the set
+  // has no Chinese Taipei olympic flag, and the name this table prints is
+  // Taiwan, which is what the flag shows.
+  ["Taiwan", "TPE", "tw", "Chinese Taipei"],
+  ["Pakistan", "PAK", "pk"],
+  ["Israel", "ISR", "il"],
+  ["United Arab Emirates", "UAE", "ae", "UAE"],
+  ["Bahrain", "BHR", "bh"],
+  ["Azerbaijan", "AZE", "az"],
 
-  ["South Africa", "RSA"],
-  ["Zimbabwe", "ZIM"],
-  ["Zambia", "ZAM"],
-  ["Senegal", "SEN"],
-  ["Sierra Leone", "SLE"],
-  ["Cameroon", "CMR"],
+  ["South Africa", "RSA", "za"],
+  ["Zimbabwe", "ZIM", "zw"],
+  ["Zambia", "ZAM", "zm"],
+  ["Senegal", "SEN", "sn"],
+  ["Sierra Leone", "SLE", "sl"],
+  ["Cameroon", "CMR", "cm"],
 ]);
+
+/**
+ * Every nation this table can put on a row, once each.
+ *
+ * The vendored flag set is exactly this list — `bun scripts/flags.ts` copies
+ * these and deletes anything else, and a test holds the two equal in both
+ * directions. So a nation added above without artwork fails the build instead
+ * of shipping a broken image, and artwork nothing places never ships at all.
+ */
+export const PLACED_NATIONS: readonly Nation[] = (() => {
+  const byIso = new Map<string, Nation>();
+  for (const nation of NATIONS.values()) {
+    const seen = byIso.get(nation.iso);
+    // Two nations sharing one asset key would silently drop a country from the
+    // vendored set — and only the country nobody on any roster is from would
+    // stay unnoticed. Fail at load instead.
+    if (seen && seen.name !== nation.name) {
+      throw new Error(`${seen.name} and ${nation.name} both claim the flag "${nation.iso}"`);
+    }
+    byIso.set(nation.iso, nation);
+  }
+  return [...byIso.values()].sort((a, b) => a.iso.localeCompare(b.iso));
+})();
 
 /** Canadian provinces and territories, which end a hometown as often as the
  *  country does ("Ajax, Ontario", "Toronto, ON, Canada"). */
-const CANADA: Nation = { name: "Canada", trigram: "CAN" };
+const CANADA: Nation = { name: "Canada", trigram: "CAN", iso: "ca" };
 const CANADIAN = new Set(
   [
     "Alberta",

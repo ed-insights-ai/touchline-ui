@@ -40,6 +40,16 @@ journal:
     bun run journal run --all
     bun run journal validate --all --write
 
+# Vendor the flag artwork the origin table places, and only that.
+#
+# Deliberately NOT part of `build` or `verify`: the copy is a checked-in
+# artefact, so a build needs neither node_modules full of flags nor a network,
+# and a test holds the vendored set equal to the table in both directions. Run
+# this when the origin table gains a nation.
+flags:
+    @echo "→ flags"
+    bun scripts/flags.ts
+
 # Render the static site from the data home.
 build:
     @echo "→ build  (base {{site_base}})"

@@ -19,6 +19,7 @@ import {
   squadOf,
   squadShape,
   upcomingOf,
+  flagHref,
 } from "../../../lib/derive.ts";
 import type { Fixture, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
@@ -314,39 +315,61 @@ const identity = identityLine(slug);
                   <span class="squad-count num">{members.length}</span>
                 </div>
                 <div class="squad-list">
-                  {members.slice(0, SQUAD_SHOWN).map((m) => (
-                    <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
-                      <span class={`squad-name${m === lead && m.contribution > 0 ? " is-lead" : ""}`}>
-                        {initialLast(m.player.name)}
-                      </span>
-                      {nationOf(m) && (
-                        <abbr class="squad-origin" title={nationOf(m)?.name}>{nationOf(m)?.trigram}</abbr>
-                      )}
-                      {m.isNew && <span class="squad-new">NEW</span>}
-                      {m.contribution > 0 && (
-                        <span class="squad-stat num">
-                          {m.contribution} {m.keeper ? "SV" : "SH"}
+                  {members.slice(0, SQUAD_SHOWN).map((m) => {
+                    const from = nationOf(m);
+                    return (
+                      <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
+                        <span
+                          class={`squad-name${m === lead && m.contribution > 0 ? " is-lead" : ""}`}
+                        >
+                          {initialLast(m.player.name)}
                         </span>
-                      )}
-                    </a>
-                  ))}
+                        {from && (
+                          <span class="squad-origin" title={`${from.name} · by published hometown`}>
+                            <img class="squad-flag" src={flagHref(from.iso)} alt="" decoding="async" />
+                            <span class="vh">{from.name}</span>
+                          </span>
+                        )}
+                        {m.isNew && <span class="squad-new">NEW</span>}
+                        {m.contribution > 0 && (
+                          <span class="squad-stat num">
+                            {m.contribution} {m.keeper ? "SV" : "SH"}
+                          </span>
+                        )}
+                      </a>
+                    );
+                  })}
                   {members.length > SQUAD_SHOWN && (
                     <details class="squad-rest">
                       <summary class="squad-more">+ {members.length - SQUAD_SHOWN} more</summary>
-                      {members.slice(SQUAD_SHOWN).map((m) => (
-                        <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
-                          <span class="squad-name">{initialLast(m.player.name)}</span>
-                          {nationOf(m) && (
-                            <abbr class="squad-origin" title={nationOf(m)?.name}>{nationOf(m)?.trigram}</abbr>
-                          )}
-                          {m.isNew && <span class="squad-new">NEW</span>}
-                          {m.contribution > 0 && (
-                            <span class="squad-stat num">
-                              {m.contribution} {m.keeper ? "SV" : "SH"}
-                            </span>
-                          )}
-                        </a>
-                      ))}
+                      {members.slice(SQUAD_SHOWN).map((m) => {
+                        const from = nationOf(m);
+                        return (
+                          <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
+                            <span class="squad-name">{initialLast(m.player.name)}</span>
+                            {from && (
+                              <span
+                                class="squad-origin"
+                                title={`${from.name} · by published hometown`}
+                              >
+                                <img
+                                  class="squad-flag"
+                                  src={flagHref(from.iso)}
+                                  alt=""
+                                  decoding="async"
+                                />
+                                <span class="vh">{from.name}</span>
+                              </span>
+                            )}
+                            {m.isNew && <span class="squad-new">NEW</span>}
+                            {m.contribution > 0 && (
+                              <span class="squad-stat num">
+                                {m.contribution} {m.keeper ? "SV" : "SH"}
+                              </span>
+                            )}
+                          </a>
+                        );
+                      })}
                     </details>
                   )}
                 </div>
@@ -444,16 +467,31 @@ const identity = identityLine(slug);
     border: 1px solid var(--outline); border-radius: 3px; padding: 1px 5px;
   }
   .squad-stat { font-size: 11.5px; color: var(--quiet); }
-  /* The sole carrier of the fact on the row, so it takes the secondary ink and
-     not the faint one. No underline: <abbr> is here to carry the country name
-     to a reader who hovers or listens, not to decorate the row. */
+  /* The origin marker is the country's own flag, sitting in the slot the
+     trigram used to occupy — 22px wide, so a row that carries a flag puts NEW
+     and the stat exactly where a row that carried a trigram put them and the
+     column does not shuffle when the marker changes shape.
+     The flag is decorative in the accessibility tree: the country name is
+     beside it as .vh text, so a reader who cannot see fourteen pixels of
+     tricolour hears "Spain" rather than nothing. */
   .squad-origin {
-    font-size: 9.5px;
-    letter-spacing: 0.1em;
-    font-weight: 600;
-    color: var(--secondary);
-    text-decoration: none;
-    cursor: default;
+    flex: none;
+    width: 22px;
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
+  }
+  .squad-flag {
+    display: block;
+    width: 14px;
+    /* The set's own ratio. Forcing 14x10 squashes every flag by five per cent,
+       which on a tricolour reads as bands of the wrong width. */
+    aspect-ratio: 4 / 3;
+    height: auto;
+    /* Half of Europe flies white at its edge and Japan is white nearly to it;
+       at this size the hairline is the only thing keeping them rectangles. */
+    border: 1px solid var(--hairline);
+    border-radius: 1px;
   }
   .squad-origin-note {
     margin: 22px 0 0;

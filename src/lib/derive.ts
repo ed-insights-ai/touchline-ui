@@ -500,6 +500,10 @@ export const homeHref = (): string => withBase("/");
 /** The About & method page, which every footer links to. */
 export const aboutHref = (): string => withBase("/about/");
 
+/** A vendored flag, by the asset key its nation carries in the origin table.
+ *  Served from this site, never a CDN — see scripts/flags.ts. */
+export const flagHref = (iso: string): string => withBase(`/flags/${iso}.svg`);
+
 /**
  * Where a programme's team page actually lives.
  *
