@@ -28,7 +28,10 @@ const teams = season.fixtures.programmes;
     <span class="wordmark-square"></span>
     <span class="wordmark-name">Touchline</span>
   </a>
-  <div class="season-tag num">{season.fixtures.season} · {season.fixtures.gender.toUpperCase()}</div>
+  <div class="season-tag num">
+    {site.conferenceNames[season.key] ?? season.fixtures.conference} · {season.fixtures.season} ·{" "}
+    {season.fixtures.gender.toUpperCase()}
+  </div>
   <nav class="confnav">
     {tabs.map((t) => (
       <a href={seasonHref(t.key)} aria-current={t.key === season.key ? "page" : undefined}>{t.label}</a>

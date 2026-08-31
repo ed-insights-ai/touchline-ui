@@ -489,6 +489,9 @@ const withBase = (path: string): string => `${BASE}${path}`;
 export const seasonHref = (key: string): string => withBase(`/${key}/`);
 export const teamHref = (key: string, slug: string): string => withBase(`/${key}/team/${slug}/`);
 
+/** The About & method page, which every footer links to. */
+export const aboutHref = (): string => withBase("/about/");
+
 /**
  * Where a programme's team page actually lives.
  *

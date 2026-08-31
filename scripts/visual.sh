@@ -7,7 +7,15 @@
 # because no test renders type.
 #
 #   scripts/visual.sh save     build, then keep the current render as truth
-#   scripts/visual.sh check    build, then diff against it
+#   scripts/visual.sh check    build, then diff against it AND assert that no
+#                              page scrolls sideways at any width
+#
+# The pixel diff is a baseline question — did this change move something it
+# should not have. The overflow assertion is not: a page that scrolls sideways
+# is wrong at every width, with no baseline to consult. It is here because two
+# separate invisible elements have broken it — an absolutely positioned
+# visually-hidden span, and a hover label at opacity zero — and both times it
+# was found by accident rather than by asking.
 #
 # Pages are rendered inside fixed-width iframes: headless Chrome's
 # --window-size does not reliably set the layout viewport, so a phone
@@ -72,8 +80,40 @@ if [[ "$mode" == "save" ]]; then
   exit 0
 fi
 
+# ── The invariant: the page body never scrolls sideways ──────────────────────
+cat > "dist/_overflow.html" <<'HTML'
+<!doctype html><meta charset=utf-8><body style="font:12px monospace;white-space:pre" id=o>...</body>
+<script>
+const PAGES=window.__PAGES,WIDTHS=[320,390,430,768,1024,1440];
+(async()=>{const L=[];let bad=0;
+for(const w of WIDTHS)for(const p of PAGES){
+  const f=document.createElement("iframe");
+  f.style.cssText=`width:${w}px;height:900px;border:0;position:absolute;left:-9999px`;
+  f.src=p;document.body.appendChild(f);await new Promise(r=>{f.onload=r});
+  const d=f.contentDocument.documentElement,b=f.contentDocument.body;
+  const over=Math.max(d.scrollWidth-d.clientWidth,b.scrollWidth-b.offsetWidth);
+  if(over>0){bad++;L.push(`${w}px OVERFLOW +${over} ${p}`)}
+  f.remove();}
+L.unshift(`${WIDTHS.length*PAGES.length} combinations, ${bad} scrolling sideways`);
+document.getElementById("o").textContent=L.join("\n");})();
+</script>
+HTML
+routes=$(printf '"%s",' "${PAGES[@]%%:*}")
+sed -i '' "s|window.__PAGES|[${routes%,}]|" "dist/_overflow.html"
+"$CHROME" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
+  --window-size=1000,900 --virtual-time-budget=30000 \
+  --dump-dom "http://localhost:$PORT/_overflow.html" 2>/dev/null \
+  | sed -n 's|.*<body[^>]*id="o">\(.*\)</body>.*|\1|p' | sed 's|&amp;|\&|g' > "$dest/overflow.txt"
+rm -f dist/_overflow.html
+overflow=$(cat "$dest/overflow.txt" 2>/dev/null)
+echo "  ${overflow:-overflow check produced no output}" | head -1
+if printf '%s' "$overflow" | grep -qv ", 0 scrolling sideways"; then
+  printf '%s\n' "$overflow" | tail -n +2 | sed 's|^|    |'
+fi
+
 [[ -d "$BASE" ]] || { echo "no baseline — run: scripts/visual.sh save" >&2; exit 2; }
 fail=0
+printf '%s' "$overflow" | grep -q ", 0 scrolling sideways" || fail=1
 for w in "${WIDTHS[@]}"; do
   a="$BASE/w$w.png"; b="$CUR/w$w.png"
   if [[ ! -f "$a" ]]; then echo "  ${w}px  no baseline"; fail=1; continue; fi

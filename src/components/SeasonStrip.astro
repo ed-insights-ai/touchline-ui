@@ -47,9 +47,15 @@ const { cells, note } = Astro.props;
 <p class="provenance strip-note">{note}</p>
 
 <style>
-  .strip { display: flex; gap: 7px; }
+  /* The detail is positioned against the STRIP, not the cell it belongs to.
+     Centred on a cell it is a nowrap box far wider than the cell — 274px of
+     "at Southern Nazarene · Thursday, September 17" over a 45px cell — and on
+     an outer cell that pushed the document sideways even at opacity zero. The
+     same trap as an absolutely positioned visually-hidden span: invisible is
+     not the same as taking no space. Spanning the strip it cannot overflow,
+     and it gives the reader one place to look instead of a moving one. */
+  .strip { display: flex; gap: 7px; position: relative; }
   .cell {
-    position: relative;
     flex: 1 1 0;
     min-width: 0;
     display: flex; flex-direction: column; gap: 4px; align-items: center;
@@ -66,12 +72,11 @@ const { cells, note } = Astro.props;
      screen reader wherever it is, shown to a pointer or a keyboard on the
      cell it belongs to. */
   .cell-detail {
-    position: absolute; left: 50%; top: calc(100% + 6px); transform: translateX(-50%);
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px);
     z-index: 15;
-    white-space: nowrap;
     background: var(--ink); color: var(--paper);
     font-size: 11px; letter-spacing: 0.01em;
-    padding: 4px 8px; border-radius: 4px;
+    padding: 4px 9px; border-radius: 4px;
     opacity: 0; pointer-events: none; transition: opacity 90ms ease-out;
   }
   .cell:hover .cell-detail, .cell:focus-visible .cell-detail { opacity: 1; }

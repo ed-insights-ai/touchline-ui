@@ -1,0 +1,52 @@
+---
+// The compact footer every page carries.
+//
+// Two things a reader is owed on any page they might land on first: what this
+// site is, and when it last looked. Both are one line, because a footer that
+// asks for attention takes it from the season above it.
+import { aboutHref, type Season } from "../lib/derive.ts";
+import { dayOfMonth, monShort } from "../lib/format.ts";
+import { site } from "../site.config.ts";
+
+interface Props {
+  season: Season;
+}
+const { season } = Astro.props;
+const iso = season.collectedAt;
+const collected = `${monShort(iso.slice(0, 10))} ${dayOfMonth(iso.slice(0, 10))}, ${iso.slice(11, 16)} UTC`;
+const conference = site.conferenceNames[season.key] ?? season.fixtures.conference;
+---
+
+<footer class="site-footer">
+  <span class="sf-what">
+    <strong>Touchline</strong> · independent and unofficial · {site.division}
+  </span>
+  <span class="grow"></span>
+  <span class="sf-when num">{conference} last collected {collected}</span>
+  <a class="sf-about" href={aboutHref()}>About &amp; method</a>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 28px;
+    padding: 14px 0 8px;
+    border-top: 1px solid var(--hairline);
+    display: flex; align-items: baseline; gap: 8px 18px; flex-wrap: wrap;
+    font-size: 11.5px;
+    color: var(--quiet);
+  }
+  .site-footer strong { color: var(--ink); font-weight: 600; }
+  .grow { flex: 1; }
+  .sf-about {
+    color: var(--accent);
+    min-height: 44px; display: inline-flex; align-items: center;
+    margin: -14px 0;
+  }
+  .sf-about:hover { color: var(--accent-hover); }
+
+  @media (max-width: 720px) {
+    .site-footer { gap: 6px 14px; }
+    .grow { display: none; }
+    .sf-when { width: 100%; }
+  }
+</style>

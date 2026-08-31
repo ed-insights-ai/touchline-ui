@@ -24,6 +24,7 @@ import type { Fixture, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
 import { playerCard } from "../../../lib/player.ts";
 import {
   daysBetween,
@@ -317,6 +318,8 @@ const identity = identityLine(slug);
     </section>
 
     {cards.map(({ card }) => <PlayerSheet card={card} />)}
+
+    <SiteFooter season={season} />
   </div>
 </Page>
 

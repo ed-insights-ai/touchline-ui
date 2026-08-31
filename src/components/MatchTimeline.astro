@@ -50,9 +50,8 @@ const at = (minute: number | null): number =>
       <div class="tick-label tick-end" style="left: 100%">{fullTime}′</div>
       {goals.map((g, i) => (
         <>
-          <div class={`mark goal${g.home ? " goal-home" : " goal-away"}`} style={`left: ${at(g.minute)}%`}>
-            <span class="mark-detail">{g.label}</span>
-          </div>
+          <div class={`mark goal${g.home ? " goal-home" : " goal-away"}`} style={`left: ${at(g.minute)}%`}></div>
+          <span class="mark-detail">{g.label}</span>
           <div
             class={`goal-label${i % 2 === 0 ? " above" : " below"}${g.home ? "" : " quiet"}`}
             style={`left: ${at(g.minute)}%`}
@@ -60,9 +59,10 @@ const at = (minute: number | null): number =>
         </>
       ))}
       {cards.map((c) => (
-        <div class="mark card-mark" style={`left: ${at(c.minute)}%`}>
+        <>
+          <div class="mark card-mark" style={`left: ${at(c.minute)}%`}></div>
           <span class="mark-detail">{c.label}</span>
-        </div>
+        </>
       ))}
     </div>
   </div>

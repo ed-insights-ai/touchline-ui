@@ -15,6 +15,7 @@ import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import MatchTimeline from "../../../components/MatchTimeline.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
+import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
 import {
   clockTime,
@@ -81,6 +82,11 @@ const BADGE: Record<State, { text: string; tone: "accent" | "alert" }> = {
 const badge = BADGE[state];
 
 const kind = fixture.conference_game ? "CONFERENCE" : "NON-CONFERENCE";
+// Named in full here because a match report is a page readers arrive at
+// directly, from anywhere, with no idea what three letters stand for.
+const conferenceName = (
+  site.conferenceNames[season.key] ?? season.fixtures.conference
+).toUpperCase();
 const surname = (name: string): string => {
   const parts = name.trim().split(/\s+/);
   return parts.length > 1 ? parts.slice(1).join(" ") : name;
@@ -221,7 +227,7 @@ const awayName = names.name(fixture.away);
       </div>
       <div class="grow"></div>
       <div class="mmeta">
-        {season.fixtures.conference} · {kind} · {monShort(fixture.date).toUpperCase()} {dayOfMonth(fixture.date)}
+        {conferenceName} · {kind} · {monShort(fixture.date).toUpperCase()} {dayOfMonth(fixture.date)}
       </div>
     </header>
 
@@ -469,6 +475,8 @@ const awayName = names.name(fixture.away);
       <span class="grow"></span>
       <span class="provenance">{provenance}</span>
     </footer>
+
+    <SiteFooter season={season} />
   </div>
 </Page>
 

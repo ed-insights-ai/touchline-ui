@@ -4,6 +4,7 @@ import Page from "../../layouts/Page.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import EvidenceChip from "../../components/EvidenceChip.astro";
 import SeasonMasthead from "../../components/SeasonMasthead.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
 import ConferenceTable from "../../components/ConferenceTable.astro";
 import BasisPanel from "../../components/BasisPanel.astro";
 import FormBadges from "../../components/FormBadges.astro";
@@ -382,6 +383,8 @@ const nextLabel = (f: Fixture): string => {
         </div>
       </div>
     </section>
+
+    <SiteFooter season={season} />
   </div>
 </Page>
 
