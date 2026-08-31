@@ -8,17 +8,21 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { type Mark, timeline } from "./timeline.ts";
+import { type CardMark, type Mark, timeline } from "./timeline.ts";
 
 const goal = (minute: number, who: string, home = true): Mark => ({
   minute,
   label: `${minute}′ ${who}`,
   home,
 });
-const card = (minute: number, who: string, home = true): Mark => ({
+const card = (minute: number, who: string, home = true): CardMark => ({
   minute,
   label: `${minute}′ ${who}`,
   home,
+});
+const red = (minute: number, who: string, home = true): CardMark => ({
+  ...card(minute, who, home),
+  red: true,
 });
 
 describe("grouping", () => {
@@ -58,11 +62,36 @@ describe("grouping", () => {
     expect(stacks).toEqual([]);
     expect(tallest).toBe(1);
   });
+
+  test("a red card keeps its kind through the pile — Selemani inside UAH's 87′", () => {
+    // The real shape of sidearm-uah-13290: three cautions and a sending-off
+    // sharing the drawn minute. The pile is one stack and the red is not
+    // flattened into the amber.
+    const { stacks } = timeline(
+      [],
+      [
+        card(87, "0", false),
+        card(87, "Quickfall"),
+        card(87, "Atoyebi"),
+        red(87, "Selemani", false),
+      ],
+      90,
+    );
+    expect(stacks).toHaveLength(1);
+    expect(stacks[0]!.marks.map((m) => m.kind)).toEqual(["card", "card", "card", "red"]);
+    expect(stacks[0]!.label).toBe("87′ ×4");
+  });
 });
 
 describe("labels", () => {
   test("a lone caution is not labelled — its shape and the panel below say it", () => {
     const { stacks } = timeline([], [card(49, "Orzechowski")], 90);
+    expect(stacks[0]!.label).toBeNull();
+  });
+
+  test("a lone red card is not labelled either — same rule, its own shape", () => {
+    const { stacks } = timeline([], [red(54, "Arthur")], 90);
+    expect(stacks[0]!.marks[0]!.kind).toBe("red");
     expect(stacks[0]!.label).toBeNull();
   });
 

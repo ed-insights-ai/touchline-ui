@@ -307,6 +307,9 @@ const awayName = names.name(fixture.away);
           minute: c.minute,
           label: `${c.minute}′ ${c.player}`,
           home: c.team === sides?.homeIndex,
+          // The same reading the CAUTIONS panel makes of c.type: red is red,
+          // and "unknown" stays a caution rather than guessing worse.
+          red: c.type === "red",
         }))}
         fullTime={fullTime}
       />

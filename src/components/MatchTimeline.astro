@@ -14,13 +14,13 @@
 // marks are deliberately not focus stops: every goal is also named in the
 // hero's scorer list and every caution in the cautions panel, and ten tab
 // stops onto duplicated facts would cost a keyboard reader more than it gives.
-import { type Mark, timeline } from "../lib/timeline.ts";
+import { type CardMark, type Mark, timeline } from "../lib/timeline.ts";
 
 interface Props {
   homeAbbr: string;
   awayAbbr: string;
   goals: Mark[];
-  cards: Mark[];
+  cards: CardMark[];
   /** The clock the band is drawn against — ninety, or later if it ran on. */
   fullTime: number;
 }
@@ -36,6 +36,9 @@ const { stacks, tallest } = timeline(goals, cards, fullTime);
       <span><i class="key key-home"></i>{homeAbbr} GOAL</span>
       <span><i class="key key-away"></i>{awayAbbr} GOAL</span>
       <span><i class="key key-card"></i>CAUTION</span>
+      {cards.some((c) => c.red) && (
+        <span><i class="key key-red"></i>RED CARD</span>
+      )}
     </div>
   </div>
   <div class="timeline-scroll">
@@ -60,7 +63,9 @@ const { stacks, tallest } = timeline(goals, cards, fullTime);
             {s.marks.map((m) => (
               <span class="md-row">
                 {m.label}
-                {m.kind === "card" && <span class="md-kind"> caution</span>}
+                {m.kind !== "goal" && (
+                  <span class="md-kind"> {m.kind === "red" ? "red card" : "caution"}</span>
+                )}
               </span>
             ))}
           </span>
@@ -138,6 +143,10 @@ const { stacks, tallest } = timeline(goals, cards, fullTime);
   .pip-home::before { background: var(--accent); }
   .pip-away::before { background: var(--muted-mark); }
   .pip-card::before { width: 8px; height: 11px; background: var(--draw); border-radius: 1.5px; }
+  /* A sending-off: the cautions panel's own encoding (.key-red), drawn on the
+     band — same card shape, the alert colour, named in the legend and on the
+     hover detail so the colour is never carrying the fact alone. */
+  .pip-red::before { width: 8px; height: 11px; background: var(--loss); border-radius: 1.5px; }
 
   /* Above a stack means above THAT stack, not above the tallest one: a label
      tracks its own pips up. */
