@@ -398,15 +398,62 @@ const identity = identityLine(slug);
           );
         })}
       </div>
-      <p class="shape-caption serif-italic">
-        Each square is a player, inked by how long they have been here — palest for
-        a first year, darkest for a fifth. Returners sit left of the rule and
-        newcomers right; a dot beneath a square marks a published hometown outside
-        the United States, and a hollow square is a class year the roster never
-        printed. The figure at the right is the share of last season's minutes at
-        that line still on this roster. In the squad list below, the same hairline
-        before a name marks a newcomer.
-      </p>
+      {/* Six encodings, and every swatch is drawn with the grid's OWN classes
+          and tokens rather than a copy of them — change the ink ramp and this
+          changes with it. A legend that restates a figure in its own markup is
+          a legend that will eventually describe a figure the page stopped
+          drawing.
+
+          Two of the six are not decoration and may not be quietly lost. The
+          hollow square is a disclosure: the roster printed no class year, and
+          that is a fact about the collection rather than about the player. The
+          last item is the only explanation anywhere on this page of the
+          hairline that stands before newcomer names in the squad list below —
+          the same mark, at row scale, saying the same thing. */}
+      <div class="shape-legend">
+        <span class="legend-item">
+          <span class="legend-swatch" aria-hidden="true">
+            <span class="sq-box sq-fr"></span>
+            <span class="sq-box sq-so"></span>
+            <span class="sq-box sq-jr"></span>
+            <span class="sq-box sq-sr"></span>
+            <span class="sq-box sq-5y"></span>
+          </span>
+          <span class="label">First year to fifth</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-swatch" aria-hidden="true">
+            <span class="sq-box sq-jr"></span>
+            <span class="shape-rule"></span>
+            <span class="sq-box sq-jr"></span>
+          </span>
+          <span class="label">Returners · newcomers</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-swatch" aria-hidden="true">
+            <span class="sq"><span class="sq-box sq-so"></span><span class="sq-dot"></span></span>
+          </span>
+          <span class="label">Hometown outside the US</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-swatch" aria-hidden="true">
+            <span class="sq-box sq-open"></span>
+          </span>
+          <span class="label">Class year the roster never printed</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-swatch" aria-hidden="true">
+            <span class="shape-pct num">%</span>
+          </span>
+          <span class="label">Last season's minutes still here</span>
+        </span>
+        <span class="legend-item">
+          <span class="legend-swatch" aria-hidden="true">
+            <span class="squad-tick is-new"></span>
+          </span>
+          <span class="label">In the squad list below, a newcomer</span>
+        </span>
+      </div>
     </section>
     )}
 
@@ -592,11 +639,23 @@ const identity = identityLine(slug);
   }
   .shape-fill { display: block; height: 100%; background: var(--ink); }
   .shape-pct { font-size: 12.5px; color: var(--ink-soft); min-width: 34px; text-align: right; }
-  .shape-caption {
+  /* Serif is the story and sans is the information; a legend is information.
+     .label is the site's caps-label register and sets the 10px reading floor,
+     which is why the items are terse — a caption's sentence does not survive
+     being shouted. */
+  .shape-legend {
     margin: 18px 0 0;
-    font-size: 14px; line-height: 1.6; color: var(--secondary);
-    max-width: 760px;
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 11px 28px;
+    max-width: 900px;
   }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-swatch { flex: none; display: flex; align-items: center; gap: 2px; height: 20px; }
+  /* The rule hangs from the top of a 22px row of squares in the figure; in a
+     legend there is no row to hang from, so it centres. Its width, height and
+     ink are the figure's own. */
+  .shape-legend .shape-rule { align-self: center; margin: 0 4px; }
+  .shape-legend .shape-pct { min-width: 0; }
 
   /* ── Squad ──────────────────────────────────────────────────────────────── */
   .squad { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; }
