@@ -10,6 +10,17 @@
   --secondary: #5f646e;
   --faint: #8b9096;
   --fainter: #b0ada4;
+
+  /* Small text that is the ONLY thing carrying its fact — a stat label, an
+     axis tick, a venue, an empty state. Quiet, but never under 4.5:1 against
+     the paper: the aesthetic here is hierarchy, not illegibility. --faint is
+     for text that duplicates or decorates something already on the page, and
+     --fainter never sets type at all.
+
+     Dark redefines this to its own --faint, which already clears 4.5:1 on
+     #0e0f13 — so the match pages keep exactly the tone they were drawn with
+     and only the light pages move. */
+  --quiet: #5f646e;
   --hairline: #e3e1da;
   --hairline-soft: #eeece5;
   --outline: #d8d5cd;
@@ -72,6 +83,7 @@
   --secondary: #c9cac3;
   --faint: #8e9096;
   --fainter: #6f717a;
+  --quiet: #8e9096;
   --hairline: rgba(255, 255, 255, 0.1);
   --hairline-soft: rgba(255, 255, 255, 0.07);
   --outline: rgba(255, 255, 255, 0.16);

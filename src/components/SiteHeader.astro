@@ -24,7 +24,7 @@ const tabs = site.conferences.flatMap((key) => {
 const teams = season.fixtures.programmes;
 ---
 <header class="site-header">
-  <a class="wordmark" href={seasonHref(site.home)}>
+  <a class="wordmark" href={seasonHref(season.key)}>
     <span class="wordmark-square"></span>
     <span class="wordmark-name">Touchline</span>
   </a>
@@ -41,7 +41,7 @@ const teams = season.fixtures.programmes;
         href={teamHref(season.key, p.slug)}
         title={p.name}
         aria-current={p.slug === currentTeam ? "page" : undefined}
-      >{p.abbr ?? p.name}</a>
+      ><span>{p.abbr ?? p.name}</span></a>
     ))}
   </nav>
 </header>

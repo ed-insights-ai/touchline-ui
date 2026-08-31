@@ -24,6 +24,8 @@ const { title, dark = false, description } = Astro.props;
     />
   </head>
   <body class={dark ? "tl-dark" : undefined}>
-    <slot />
+    <main>
+      <slot />
+    </main>
   </body>
 </html>

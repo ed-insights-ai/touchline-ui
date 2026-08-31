@@ -34,7 +34,30 @@ a:hover { color: var(--accent-hover); }
 
 /* ── Rules make structure ─────────────────────────────────────────────────── */
 
+/* main adds the landmark and nothing else: no box, no spacing. */
+main { display: block; margin: 0; }
+
+/* Present to a screen reader, absent to the eye. For headings and for facts
+   that are otherwise only in a title attribute.
+
+   `left: 0; top: 0` is not decoration. Without it the box takes its static
+   position, and an absolutely positioned box whose ancestors are all static
+   resolves against the initial containing block — so one of these inside a
+   horizontally scrolling container escapes the container and stretches the
+   document's own scroll area instead. That is a sideways-scrolling page
+   caused by text nobody can see. Pinned to the origin it can stretch
+   nothing. */
+.vh {
+  position: absolute; left: 0; top: 0;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* Section heads are real h2s. Every rule below is what makes an h2 look
+   exactly like the div it replaced — do not drop the reset. */
 .sechead {
+  margin: 0;
   border-bottom: 2px solid var(--ink);
   padding-bottom: 7px;
   font-size: 11px;
@@ -53,7 +76,7 @@ a:hover { color: var(--accent-hover); }
   font-size: 10px;
   letter-spacing: 0.16em;
   font-weight: 600;
-  color: var(--faint);
+  color: var(--quiet);
   text-transform: uppercase;
 }
 
@@ -66,7 +89,7 @@ a:hover { color: var(--accent-hover); }
   font-family: var(--serif);
   font-style: italic;
   font-size: 12.5px;
-  color: var(--faint);
+  color: var(--quiet);
 }
 
 /* ── Evidence grammar — the signature. Do not fork it. ────────────────────── */
@@ -147,14 +170,23 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 .confnav a[aria-current="page"] { font-weight: 600; color: var(--ink); border-bottom-color: var(--accent); }
 .confnav a:hover { color: var(--ink); }
 
-.teampills { display: flex; gap: 5px; flex-wrap: wrap; }
+/* The pill READS at 24px and ANSWERS at 44: the anchor is the target and the
+   span is the look, so the target grows without the design moving. Sizing the
+   anchor's own border instead would have widened every pill to 44px. */
+.teampills { display: flex; column-gap: 5px; row-gap: 0; flex-wrap: wrap; }
 .teampills a {
+  min-height: 44px; min-width: 44px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.teampills a > span {
   height: 24px; padding: 0 8px;
   display: flex; align-items: center;
   border: 1px solid var(--outline); border-radius: 5px;
   font-size: 10px; font-weight: 600; color: var(--secondary);
+  white-space: nowrap;
 }
-.teampills a:hover, .teampills a[aria-current="page"] { border-color: var(--accent); color: var(--accent); }
+.teampills a:hover > span,
+.teampills a[aria-current="page"] > span { border-color: var(--accent); color: var(--accent); }
 
 .grow { flex: 1; }
 

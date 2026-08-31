@@ -126,8 +126,12 @@ const plays = detail?.plays ?? [];
 const ledger = detail ? ledgerRows(detail, homeIndex) : [];
 // The abbreviation column is sized to the widest abbr this match actually
 // carries: "RU" and "DELTA ST" are both published forms, and a wrapped abbr
-// costs the ledger its single-line rhythm. Bounded, so a side served with no
-// abbreviation at all cannot push the play text off the row.
+// costs the ledger its single-line rhythm.
+//
+// Clamped at both ends. `ch` is the width of a ZERO, and these are uppercase
+// letters, so the raw count under-measures — 4ch truncated "FHSU" to "FH…".
+// The floor is the column's original width and the ceiling stops a side
+// served with no abbreviation from pushing the play text off the row.
 const abbrChars = Math.max(4, ...(detail?.teams ?? []).map((t) => (t.abbr ?? t.name ?? "").length));
 
 const CHIPS = [
@@ -227,6 +231,9 @@ const awayName = names.name(fixture.away);
     </header>
 
     <section class={`hero${state === "played" ? "" : " hero-quiet"}`}>
+      <h1 class="vh">
+        {homeName} v {awayName}, {longDate(fixture.date)} — {badge.text}
+      </h1>
       <div class={`badge badge-${badge.tone}`}>{badge.text}</div>
       <div class="scoreline">
         <HomeSide class="side side-home" href={homeLink}>
@@ -289,7 +296,7 @@ const awayName = names.name(fixture.away);
     {state === "played" && (scoring.length > 0 || cards.length > 0) && (
       <section class="timeline-band">
         <div class="timeline-head">
-          <div class="sechead">MATCH TIMELINE</div>
+          <h2 class="sechead">MATCH TIMELINE</h2>
           <div class="grow"></div>
           <div class="legend">
             <span><i class="key key-home"></i>{names.abbr(fixture.home)} GOAL</span>
@@ -297,6 +304,7 @@ const awayName = names.name(fixture.away);
             <span><i class="key key-card"></i>CAUTION</span>
           </div>
         </div>
+        <div class="timeline-scroll">
         <div class="timeline">
           <div class="axis"></div>
           <div class="tick" style="left: 0"></div>
@@ -322,6 +330,7 @@ const awayName = names.name(fixture.away);
             <div class="card-mark" style={`left: ${at(c.minute)}%`} title={`${c.minute}′ ${c.player}`}></div>
           ))}
         </div>
+        </div>
       </section>
     )}
 
@@ -329,7 +338,7 @@ const awayName = names.name(fixture.away);
       <div class="body-main">
         {state === "played" ? (
           <>
-            <div class="sechead">TEAM STATISTICS</div>
+            <h2 class="sechead">TEAM STATISTICS</h2>
             <div class="stats num">
               {stats.map((r) => (
                 <div class="stat-row">
@@ -348,7 +357,7 @@ const awayName = names.name(fixture.away);
           </>
         ) : (
           <>
-            <div class="sechead">WHAT IS KNOWN</div>
+            <h2 class="sechead">WHAT IS KNOWN</h2>
             <div class="known num">
               {knownRows.map((r) => (
                 <div class="known-row">
@@ -366,7 +375,7 @@ const awayName = names.name(fixture.away);
           <>
             {periodCount > 0 && (
               <div class="panel num">
-                <div class="sechead">SCORE BY PERIOD</div>
+                <h2 class="sechead">SCORE BY PERIOD</h2>
                 <div class="periods">
                   <div class="period-head">
                     <span></span>
@@ -386,7 +395,7 @@ const awayName = names.name(fixture.away);
 
             {(sides?.home?.keepers?.length || sides?.away?.keepers?.length) && (
               <div class="panel num">
-                <div class="sechead">GOALKEEPERS</div>
+                <h2 class="sechead">GOALKEEPERS</h2>
                 <div class="lines">
                   {[
                     ...(sides?.home?.keepers ?? []).map((k) => ({ k, home: true, t: sides?.home })),
@@ -405,7 +414,7 @@ const awayName = names.name(fixture.away);
 
             {cards.length > 0 && (
               <div class="panel num">
-                <div class="sechead">CAUTIONS</div>
+                <h2 class="sechead">CAUTIONS</h2>
                 <div class="lines">
                   {cards.slice(0, CARDS_SHOWN).map((c) => (
                     <div class={`line line-card${c.team === sides?.homeIndex ? "" : " quiet"}`}>
@@ -429,7 +438,7 @@ const awayName = names.name(fixture.away);
           </>
         ) : (
           <div class="panel">
-            <div class="sechead">WHAT HAPPENS NEXT</div>
+            <h2 class="sechead">WHAT HAPPENS NEXT</h2>
             {state === "preview" ? (
               <p class="next-text">
                 The match sits unplayed in {ledgerName}'s ledger. When the programme publishes a
@@ -474,16 +483,16 @@ const awayName = names.name(fixture.away);
           />
         ))}
         <div class="pbp-head">
-          <div class="sechead">PLAY BY PLAY</div>
+          <h2 class="sechead">PLAY BY PLAY</h2>
           <div class="chips">
             {CHIPS.map((c) => (
-              <label class="chip" for={`pbp-${c.id}`}>{c.label}</label>
+              <label class="chip" for={`pbp-${c.id}`}><span>{c.label}</span></label>
             ))}
           </div>
           <div class="grow"></div>
           <div class="pbp-count">{plays.length} PLAYS · AS PUBLISHED</div>
         </div>
-        <div class="ledger num" style={`--abbr-col: min(${abbrChars}ch, 92px)`}>
+        <div class="ledger num" style={`--abbr-col: clamp(48px, calc(${abbrChars}ch + 8px), 92px)`}>
           {ledger.map((r) =>
             r.kind === "divider" ? (
               <div class={`brk${r.label === "FULL TIME" ? " brk-last" : ""}`}>
@@ -603,25 +612,32 @@ const awayName = names.name(fixture.away);
   /* The filter is five radios and their labels — no script, so the ledger is
      as interactive with JavaScript off as with it on. */
   .pbp-r { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-  .pbp-head { display: flex; align-items: center; gap: 20px; }
+  .pbp-head { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .pbp-head .sechead { padding-bottom: 0; }
   .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  /* The chip reads at its drawn size and answers at 44px — the label is the
+     target, the span is the look. */
   .chip {
+    min-height: 44px; display: flex; align-items: center; cursor: pointer;
+  }
+  .chip > span {
     font-size: 10px; letter-spacing: 0.14em; font-weight: 600;
     color: var(--faint); border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 3px 10px; border-radius: 3px; cursor: pointer; white-space: nowrap;
+    padding: 3px 10px; border-radius: 3px; white-space: nowrap;
   }
-  .chip:hover { color: var(--ink-soft); border-color: var(--outline); }
+  .chip:hover > span { color: var(--ink-soft); border-color: var(--outline); }
   .pbp-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--faint); }
 
-  #pbp-all:checked ~ .pbp-head label[for="pbp-all"],
-  #pbp-goals:checked ~ .pbp-head label[for="pbp-goals"],
-  #pbp-shots:checked ~ .pbp-head label[for="pbp-shots"],
-  #pbp-set:checked ~ .pbp-head label[for="pbp-set"],
-  #pbp-subs:checked ~ .pbp-head label[for="pbp-subs"] {
+  #pbp-all:checked ~ .pbp-head label[for="pbp-all"] > span,
+  #pbp-goals:checked ~ .pbp-head label[for="pbp-goals"] > span,
+  #pbp-shots:checked ~ .pbp-head label[for="pbp-shots"] > span,
+  #pbp-set:checked ~ .pbp-head label[for="pbp-set"] > span,
+  #pbp-subs:checked ~ .pbp-head label[for="pbp-subs"] > span {
     color: var(--accent); border-color: var(--accent-border);
   }
-  .pbp-r:focus-visible ~ .pbp-head label[for] { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .pbp-r:focus-visible ~ .pbp-head label[for] > span {
+    outline: 1px solid var(--accent); outline-offset: 2px;
+  }
 
   #pbp-goals:checked ~ .ledger > .row:not(.f-goals),
   #pbp-shots:checked ~ .ledger > .row:not(.f-shots),
@@ -782,5 +798,43 @@ const awayName = names.name(fixture.away);
     .scorers { flex-direction: column; gap: 8px; align-items: center; }
     .scorers-gap { display: none; }
     .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  }
+
+  /* ── Phone ──────────────────────────────────────────────────────────────
+     The rule for this whole block: the page body never scrolls sideways.
+     Anything that genuinely cannot reflow — the timeline is a scale drawing
+     of ninety minutes — scrolls inside its own box instead. */
+  @media (max-width: 720px) {
+    .mhead {
+      height: auto; padding: 10px 0; gap: 10px 16px;
+      flex-wrap: wrap; justify-content: space-between;
+    }
+    .mhead .grow { display: none; }
+    .mword { font-size: 16px; }
+    .mmeta { font-size: 10px; letter-spacing: 0.1em; }
+
+    .figure { font-size: 56px; }
+    .hero-explain { font-size: 14px; }
+
+    /* Ninety minutes drawn to scale cannot be narrowed without lying about
+       where a goal fell, so it keeps its width and takes its own scrollbar. */
+    .timeline-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .timeline { min-width: 560px; }
+    .timeline-head { flex-wrap: wrap; gap: 8px 14px; }
+    .legend { flex-wrap: wrap; gap: 8px 14px; }
+
+    /* Mirrored bars need width the phone does not have; the figures and the
+       label are the fact, so the bars go and the row stays legible. */
+    .stat-row { grid-template-columns: 44px 1fr 44px; gap: 10px; }
+    .bar-left, .bar-right { display: none; }
+    .stat-label { font-size: 10px; letter-spacing: 0.12em; }
+
+    /* The ledger reflows rather than scrolls: the score column folds under
+       the play text and the clock keeps its own column. */
+    .pbp-head { gap: 10px 14px; }
+    .pbp-count { width: 100%; }
+    .row { grid-template-columns: 46px 40px 1fr; gap: 8px; }
+    .row-score { grid-column: 3; text-align: left; padding-top: 2px; }
+    .row-goal .row-score { color: var(--accent); }
   }
 </style>

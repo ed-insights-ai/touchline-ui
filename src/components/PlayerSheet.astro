@@ -26,7 +26,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     <div class="sheet-id">
       <div class="sheet-badge num">{card.number ?? "—"}</div>
       <div class="sheet-namebox">
-        <div class="sheet-name serif">{card.name}</div>
+        <h2 class="sheet-name serif">{card.name}</h2>
         <div class="sheet-sub">
           {card.line && <span class={`pos pos-${card.line.toLowerCase()}`}>{card.line}</span>}
           <span class="sheet-where">{card.programme} · {card.season} season</span>
@@ -70,7 +70,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
     {card.block && (
       <div class="sheet-block">
-        <div class="block-label">{card.block.label}</div>
+        <h3 class="block-label">{card.block.label}</h3>
         <div class="block-rows num">
           {card.block.rows.map((r) => (
             <div class="block-row">
@@ -86,7 +86,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     )}
 
     <div class="sheet-block">
-      <div class="block-label">CAREER</div>
+      <h3 class="block-label">CAREER</h3>
       <div class="career num">
         {card.career.rows.length > 0 && (
           <div class="career-row career-head">
@@ -105,7 +105,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     </div>
 
     <div class="sheet-block">
-      <div class="block-label">MATCH BY MATCH</div>
+      <h3 class="block-label">MATCH BY MATCH</h3>
       <div class="log num">
         {card.log.length === 0 ? (
           <p class="sheet-absent">
@@ -172,9 +172,13 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   }
 
   .sheet-head { display: flex; align-items: center; }
-  .sheet-kicker { font-size: 10px; letter-spacing: 0.2em; font-weight: 600; color: var(--faint); }
+  .sheet-kicker { font-size: 10px; letter-spacing: 0.2em; font-weight: 600; color: var(--quiet); }
   .grow { flex: 1; }
-  .sheet-close { font-size: 16px; color: var(--faint); line-height: 1; padding: 8px; margin: -8px; }
+  .sheet-close {
+    font-size: 16px; color: var(--quiet); line-height: 1;
+    min-width: 44px; min-height: 44px; margin: -14px -14px -14px 0;
+    display: flex; align-items: center; justify-content: flex-end;
+  }
   .sheet-close:hover { color: var(--ink); }
 
   .sheet-id { display: flex; align-items: center; gap: 14px; }
@@ -185,7 +189,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     font-size: 20px; font-weight: 600; color: var(--accent);
   }
   .sheet-namebox { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-  .sheet-name { font-weight: 500; font-size: 24px; line-height: 1; }
+  .sheet-name { margin: 0; font-weight: 500; font-size: 24px; line-height: 1; }
   .sheet-sub { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
   .sheet-where { font-size: 11.5px; color: var(--secondary); }
   .pos {
@@ -208,7 +212,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     border-top: 2px solid var(--ink); padding-top: 8px; min-width: 0;
   }
   .triad-value { font-weight: 500; font-size: 30px; line-height: 1; }
-  .triad-label { font-size: 9.5px; letter-spacing: 0.14em; color: var(--faint); }
+  .triad-label { font-size: 9.5px; letter-spacing: 0.14em; color: var(--quiet); }
 
   .sheet-minutes { display: flex; flex-direction: column; gap: 6px; }
   .minutes-head {
@@ -222,6 +226,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
   .sheet-block { display: flex; flex-direction: column; gap: 8px; }
   .block-label {
+    margin: 0;
     font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; color: var(--secondary);
     border-top: 1px solid var(--hairline-soft); padding-top: 12px;
   }
@@ -239,8 +244,8 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     font-size: 12px; font-weight: 600;
   }
   .career-row > div:not(:first-child) { text-align: right; }
-  .career-head { font-size: 9.5px; letter-spacing: 0.1em; color: var(--faint); font-weight: 400; }
-  .career-note { font-size: 10.5px; color: var(--faint); }
+  .career-head { font-size: 9.5px; letter-spacing: 0.1em; color: var(--quiet); font-weight: 400; }
+  .career-note { font-size: 10.5px; color: var(--quiet); }
 
   .log { display: flex; flex-direction: column; }
   .log-row {
@@ -248,7 +253,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     padding: 5px 0; font-size: 12px; align-items: baseline;
   }
   .log-row + .log-row { border-top: 1px solid var(--hairline-soft); }
-  .log-date { color: var(--faint); }
+  .log-date { color: var(--quiet); }
   .log-opp { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .log-result { text-align: right; display: flex; gap: 5px; justify-content: flex-end; }
   .res { font-weight: 600; }
@@ -257,8 +262,8 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   .res-loss { color: var(--loss); }
   .log-score { color: var(--secondary); }
   .log-line { color: var(--secondary); text-align: right; }
-  .log-line-absent { font-style: italic; color: var(--faint); }
-  .log-note { font-size: 10.5px; color: var(--faint); padding-top: 6px; }
+  .log-line-absent { font-style: italic; color: var(--quiet); }
+  .log-note { font-size: 10.5px; color: var(--quiet); padding-top: 6px; }
 
   .sheet-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
   .finding {
@@ -273,7 +278,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   .chip-derived { background: var(--chip-derived-bg); color: var(--chip-derived-fg); }
   .chip-context { border: 1px solid var(--chip-context-border); color: var(--chip-context-fg); }
   .finding-text { font-size: 12px; line-height: 1.45; color: var(--ink-soft); }
-  .sheet-provenance { font-style: italic; font-size: 11.5px; color: var(--faint); }
+  .sheet-provenance { font-style: italic; font-size: 11.5px; color: var(--quiet); }
 
   @media (max-width: 560px) {
     .sheet-panel { padding: 18px 18px 28px; }

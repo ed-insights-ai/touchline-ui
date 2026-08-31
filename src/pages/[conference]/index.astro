@@ -179,7 +179,7 @@ const nextLabel = (f: Fixture): string => {
 
     <section class="split">
       <div class="col">
-        <div class="sechead">THE PATTERN</div>
+        <h2 class="sechead">THE PATTERN</h2>
         {pattern ? (
           <>
             <div class="pattern-head">
@@ -192,6 +192,7 @@ const nextLabel = (f: Fixture): string => {
             <p class="pattern-text serif">{pattern.text}</p>
             {goalChart && (
               <figure class="chart">
+                <div class="chart-scroll">
                 <div class="chart-plot">
                   {Object.entries(goalChart.values).map(([slug, value]) => {
                     const isMax = slug === goalChart.highlight || value === chartMax;
@@ -212,12 +213,18 @@ const nextLabel = (f: Fixture): string => {
                   })}
                 </div>
                 <div class="chart-axis">
-                  {Object.keys(goalChart.values).map((slug) => (
+                  {Object.entries(goalChart.values).map(([slug, value]) => (
                     <a
                       href={teamHref(season.key, slug)}
                       class={slug === goalChart.highlight ? "is-max" : undefined}
-                    >{names.abbr(slug)}</a>
+                    >
+                      {names.abbr(slug)}
+                      <span class="vh">
+                        {" "}— {names.name(slug)}, {value} {value === 1 ? "goal" : "goals"}
+                      </span>
+                    </a>
                   ))}
+                </div>
                 </div>
                 {goalChart.caption && <figcaption class="provenance">{goalChart.caption}</figcaption>}
               </figure>
@@ -242,7 +249,7 @@ const nextLabel = (f: Fixture): string => {
       </div>
 
       <div class="col">
-        <div class="sechead">THE TABLE</div>
+        <h2 class="sechead">THE TABLE</h2>
         <div class="table num">
           {rows.map((r, i) => (
             <a class="trow hoverable" href={teamHref(season.key, r.slug)}>
@@ -313,7 +320,7 @@ const nextLabel = (f: Fixture): string => {
 
     <section class="split">
       <div class="col">
-        <div class="sechead">PLAYERS TO WATCH</div>
+        <h2 class="sechead">PLAYERS TO WATCH</h2>
         {watchlist.length > 0 ? (
           <div class="watch num">
             {watchlist.map((p) => {
@@ -342,7 +349,7 @@ const nextLabel = (f: Fixture): string => {
       </div>
 
       <div class="col">
-        <div class="sechead">AROUND THE CONFERENCE</div>
+        <h2 class="sechead">AROUND THE CONFERENCE</h2>
         <div class="around num">
           {otherResults.slice(0, RESULTS_SHOWN).map((f) => (
             <a class="arow hoverable" href={matchHref(season.key, f.id)}>
@@ -372,7 +379,7 @@ const nextLabel = (f: Fixture): string => {
 
     <section class="story">
       <div class="story-head">
-        <div class="sechead-plain">SEASON STORY</div>
+        <h2 class="sechead-plain">SEASON STORY</h2>
         <div class="grow"></div>
         <div class="story-range num">
           {window.weekIndex ? `WEEK ${window.weekIndex} OF ${window.weekCount}` : `${window.weekCount} MATCHWEEKS`}
@@ -417,8 +424,9 @@ const nextLabel = (f: Fixture): string => {
   }
   .masthead-top { display: flex; align-items: baseline; gap: 16px; }
   .kicker { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
-  .coverage { font-size: 11px; letter-spacing: 0.1em; color: var(--faint); white-space: nowrap; }
-  .gapcount { border-bottom: 1px dotted var(--faint); cursor: help; }
+  .coverage { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); white-space: nowrap; }
+  .masthead-top { flex-wrap: wrap; gap: 8px 16px; }
+  .gapcount { border-bottom: 1px dotted var(--faint); cursor: help; white-space: nowrap; }
   .headline {
     margin: 0;
     font-size: 46px;
@@ -454,7 +462,7 @@ const nextLabel = (f: Fixture): string => {
 
   /* ── The pattern ────────────────────────────────────────────────────────── */
   .pattern-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .pattern-scope { font-size: 11.5px; color: var(--faint); }
+  .pattern-scope { font-size: 11.5px; color: var(--quiet); }
   .pattern-text {
     margin: 0;
     font-size: 24px;
@@ -462,7 +470,13 @@ const nextLabel = (f: Fixture): string => {
     max-width: 700px;
     text-wrap: pretty;
   }
-  .chart { margin: 0; display: flex; flex-direction: column; gap: 7px; }
+  /* min-width: 0 is load-bearing. A flex or grid item defaults to
+     min-width: auto, so without it the scroll container refuses to shrink
+     below its contents and pushes the page sideways instead of scrolling. */
+  .chart { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+  /* The bars share one scale, so narrowing them would change what a height
+     means. On a phone the chart keeps its scale and takes its own scrollbar. */
+  .chart-scroll { min-width: 0; display: flex; flex-direction: column; gap: 7px; overflow-x: auto; }
   .chart-plot {
     display: flex;
     align-items: flex-end;
@@ -474,11 +488,11 @@ const nextLabel = (f: Fixture): string => {
   .chart-col { flex: 1; display: flex; flex-direction: column; gap: 4px; justify-content: flex-end; }
   .chart-value { font-size: 12px; font-weight: 600; text-align: center; }
   .chart-value.is-max { color: var(--accent); }
-  .chart-value.is-zero { font-size: 11px; font-weight: 400; color: var(--fainter); }
+  .chart-value.is-zero { font-size: 11px; font-weight: 400; color: var(--quiet); }
   .chart-bar { background: var(--accent); opacity: 0.45; border-radius: 3px 3px 0 0; }
   .chart-bar.is-max { opacity: 1; }
   .chart-axis { display: flex; gap: 14px; padding: 0 4px; font-size: 10.5px; }
-  .chart-axis a { flex: 1; text-align: center; color: var(--faint); }
+  .chart-axis a { flex: 1; text-align: center; color: var(--quiet); }
   .chart-axis a.is-max { font-weight: 600; color: var(--accent); }
   .chart-axis a:hover { color: var(--accent); }
 
@@ -505,11 +519,11 @@ const nextLabel = (f: Fixture): string => {
     color: inherit;
   }
   .trow:hover { border-left-color: var(--accent); }
-  .tpos { font-size: 11.5px; color: var(--faint); }
+  .tpos { font-size: 11.5px; color: var(--quiet); }
   .tname { font-size: 13.5px; }
-  .tpts { font-size: 13.5px; font-weight: 600; text-align: right; color: var(--faint); }
+  .tpts { font-size: 13.5px; font-weight: 600; text-align: right; color: var(--quiet); }
   .table-state { margin: 10px 0 0; font-size: 13px; line-height: 1.5; }
-  .table-foot { margin: 4px 0 0; font-size: 11px; color: var(--faint); line-height: 1.5; }
+  .table-foot { margin: 4px 0 0; font-size: 11px; color: var(--quiet); line-height: 1.5; }
 
   /* ── Featured ───────────────────────────────────────────────────────────── */
   .featured {
@@ -525,11 +539,11 @@ const nextLabel = (f: Fixture): string => {
   .card-score .score { font-size: 26px; }
   .card-fixture { font-size: 17px; }
   .card-fixture .side-quiet { color: var(--ink-soft); }
-  .card-fixture .at { color: var(--faint); }
+  .card-fixture .at { color: var(--quiet); }
   .card-fixture .side-lead { font-weight: 600; }
   .card-line { font-size: 12.5px; color: var(--secondary); }
   .card-foot { display: flex; align-items: baseline; }
-  .card-venue { font-size: 11.5px; color: var(--faint); }
+  .card-venue { font-size: 11.5px; color: var(--quiet); }
   .card-cta { font-size: 12.5px; font-weight: 600; color: var(--accent); }
 
   /* ── Players / around ───────────────────────────────────────────────────── */
@@ -546,7 +560,7 @@ const nextLabel = (f: Fixture): string => {
   .wrow:last-child { border-bottom: none; }
   .wname { display: flex; align-items: center; gap: 10px; }
   .wplayer { font-size: 14px; font-weight: 600; }
-  .wmeta { font-size: 11.5px; color: var(--faint); }
+  .wmeta { font-size: 11.5px; color: var(--quiet); }
   .wline { font-size: 13px; color: var(--ink-soft); }
   .chev { color: var(--chevron); font-size: 14px; }
   .arow {
@@ -558,19 +572,25 @@ const nextLabel = (f: Fixture): string => {
     color: inherit;
   }
   .arow:last-child { border-bottom: none; }
-  .astamp { font-size: 10.5px; font-weight: 600; color: var(--faint); width: 30px; flex: none; }
+  .astamp { font-size: 10.5px; font-weight: 600; color: var(--quiet); width: 30px; flex: none; }
   .atext { font-size: 13px; flex: 1; }
   .atext.quiet { color: var(--secondary); }
-  .empty { margin: 0; font-size: 13px; color: var(--faint); }
+  .empty { margin: 0; font-size: 13px; color: var(--quiet); }
 
   /* ── Season story ───────────────────────────────────────────────────────── */
   .story { padding: 24px 0 0; display: flex; flex-direction: column; gap: 14px; }
   .story-head { display: flex; align-items: baseline; }
-  .sechead-plain { font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
-  .story-range { font-size: 11px; color: var(--faint); letter-spacing: 0.08em; }
+  .sechead-plain { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .coverage { white-space: normal; }
+    .chart-plot, .chart-axis { min-width: 34px; }
+    .chart-scroll > * { min-width: max(100%, 340px); }
+  }
+  .story-range { font-size: 11px; color: var(--quiet); letter-spacing: 0.08em; }
   .story-months { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
   .story-month { display: flex; flex-direction: column; gap: 8px; }
-  .story-month-label { font-size: 10px; letter-spacing: 0.14em; color: var(--faint); }
+  .story-month-label { font-size: 10px; letter-spacing: 0.14em; color: var(--quiet); }
   .story-dots { display: flex; gap: 8px; align-items: center; height: 20px; }
   .dot { width: 16px; height: 16px; border-radius: 50%; }
   .dot-past { background: var(--ink); }

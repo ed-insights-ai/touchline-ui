@@ -216,7 +216,7 @@ const identity = identityLine(slug);
     </section>
 
     <section class="band">
-      <div class="sechead">SEASON</div>
+      <h2 class="sechead">SEASON</h2>
       <div class="strip num">
         {strip.map((c) => (
           <a
@@ -233,7 +233,7 @@ const identity = identityLine(slug);
     </section>
 
     <section class="band">
-      <div class="sechead">TEAM PROFILE</div>
+      <h2 class="sechead">TEAM PROFILE</h2>
       <div class="profile">
         <div class="stat stat-wide">
           <div class="label">{openerPanel.label}</div>
@@ -263,7 +263,7 @@ const identity = identityLine(slug);
     </section>
 
     <section class="band band-last" id="squad">
-      <div class="sechead">SQUAD</div>
+      <h2 class="sechead">SQUAD</h2>
       {shape.size === 0 ? (
         <p class="empty">No roster has been collected for this programme.</p>
       ) : (
@@ -369,14 +369,14 @@ const identity = identityLine(slug);
     border-bottom: 2px dashed var(--outline-quiet);
     color: inherit;
   }
-  .cell-opp { font-size: 9.5px; font-weight: 600; color: var(--fainter); }
-  .cell-line { font-size: 12px; color: var(--faint); }
+  .cell-opp { font-size: 9.5px; font-weight: 600; color: var(--quiet); }
+  .cell-line { font-size: 12px; color: var(--quiet); }
   .cell:hover { background: var(--accent-wash-soft); border-radius: 5px 5px 0 0; }
   .cell-W, .cell-D, .cell-L { border-bottom-style: solid; border-radius: 5px 5px 0 0; }
   .cell-W { border-bottom-color: var(--win); background: rgba(21, 131, 79, 0.05); }
   .cell-D { border-bottom-color: var(--draw); background: rgba(181, 122, 0, 0.05); }
   .cell-L { border-bottom-color: var(--loss); background: rgba(190, 18, 60, 0.05); }
-  .cell-W .cell-opp, .cell-D .cell-opp, .cell-L .cell-opp { color: var(--faint); }
+  .cell-W .cell-opp, .cell-D .cell-opp, .cell-L .cell-opp { color: var(--quiet); }
   .cell-W .cell-line, .cell-D .cell-line, .cell-L .cell-line {
     font-size: 13px; font-weight: 600; color: var(--ink);
   }
@@ -408,7 +408,7 @@ const identity = identityLine(slug);
   }
   .squad-dot { width: 8px; height: 8px; border-radius: 50%; }
   .squad-label { font-size: 11px; letter-spacing: 0.16em; font-weight: 600; color: var(--secondary); }
-  .squad-count { font-size: 12px; color: var(--faint); }
+  .squad-count { font-size: 12px; color: var(--quiet); }
   .squad-list { display: flex; flex-direction: column; gap: 8px; }
   .squad-row {
     display: flex; align-items: baseline; gap: 8px;
@@ -417,18 +417,21 @@ const identity = identityLine(slug);
   .squad-row:hover .squad-name { color: var(--accent); }
   .squad-rest { display: contents; }
   .squad-rest > .squad-row { padding-top: 8px; }
-  summary.squad-more { cursor: pointer; list-style: none; padding: 6px 0; margin: -6px 0; }
+  summary.squad-more {
+    cursor: pointer; list-style: none;
+    min-height: 44px; display: flex; align-items: center; margin: -10px 0;
+  }
   summary.squad-more::-webkit-details-marker { display: none; }
   summary.squad-more:hover { color: var(--accent); }
   .squad-name { font-size: 13.5px; }
   .squad-name.is-lead { font-weight: 600; }
   .squad-new {
-    font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: var(--faint);
+    font-size: 9px; font-weight: 600; letter-spacing: 0.1em; color: var(--quiet);
     border: 1px solid var(--outline); border-radius: 3px; padding: 1px 5px;
   }
-  .squad-stat { font-size: 11.5px; color: var(--faint); }
-  .squad-more { font-size: 12px; color: var(--faint); }
-  .empty { margin: 0; font-size: 13px; color: var(--faint); }
+  .squad-stat { font-size: 11.5px; color: var(--quiet); }
+  .squad-more { font-size: 12px; color: var(--quiet); }
+  .empty { margin: 0; font-size: 13px; color: var(--quiet); }
 
   @media (max-width: 1180px) {
     .profile { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
