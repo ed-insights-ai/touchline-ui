@@ -20,6 +20,7 @@ import {
   scheduleCounts,
   spineOf,
   weekOf,
+  weekSummary,
   weekWindow,
   weightOf,
 } from "./schedule.ts";
@@ -246,6 +247,37 @@ describe("the week", () => {
     expect(w.matches.length).toBe(0);
     expect(w.playingDays).toBe(0);
     expect(w.days.every((d) => d.matches.length === 0)).toBe(true);
+  });
+
+  test("the closed summary counts exactly what the open docket shows", () => {
+    // The fold's whole risk: a reader who never expands sees only this line, so
+    // it may not disagree with the rows underneath it. Recounted from the day
+    // groups the docket renders, not from the function that wrote the line.
+    for (const s2 of seasons) {
+      const w = weekOf(s2);
+      const line = weekSummary(w);
+      const rows = w.days.reduce((n, d) => n + d.matches.length, 0);
+      const playing = w.days.filter((d) => d.matches.length > 0).length;
+      if (rows === 0) {
+        expect(line).toBe("No matches.");
+        continue;
+      }
+      const m = /^(\d+) match(?:es)? across (\d+) days?$/.exec(line);
+      expect(m, `${s2.key}: ${line}`).not.toBeNull();
+      expect(Number(m?.[1])).toBe(rows);
+      expect(Number(m?.[2])).toBe(playing);
+      // and the rows it counts are the ones the page renders
+      expect(rows).toBe(w.matches.length);
+    }
+  });
+
+  test("an empty week says so on the summary row, never behind the expander", () => {
+    expect(weekSummary(weekOf(gac, "2026-02-02"))).toBe("No matches.");
+  });
+
+  test("one match on one day is not pluralised", () => {
+    const one = { days: [{ date: "2026-09-01", matches: [{} as unknown as Fixture] }] };
+    expect(weekSummary(one as never)).toBe("1 match across 1 day");
   });
 
   test("holds only matches inside its own window", () => {
