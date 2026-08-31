@@ -8,26 +8,33 @@
  */
 
 import { describe, expect, test } from "bun:test";
+import { site } from "../site.config.ts";
 import {
+  aboutHref,
   boxScoreGaps,
   conferenceOpensOn,
   exhibitionsOf,
   fixtureCount,
   hasScore,
+  homeHref,
   isCountable,
   isExhibition,
   isScored,
   loadSeason,
   matchDetailOf,
+  matchesHref,
+  matchHref,
   matchweeks,
   playedCount,
   programmeCounts,
   recordOf,
   scoredCount,
   seasonCounts,
+  seasonHref,
   seasonWindow,
   table,
   tableIsLive,
+  teamHref,
   teamPageHref,
   unresolved,
 } from "./derive.ts";
@@ -357,5 +364,34 @@ describe("matchweeks lose nothing and start on Sundays", () => {
       expect(win.firstISO, key).toBe(dates[0] as string);
       expect(win.lastISO, key).toBe(dates[dates.length - 1] as string);
     }
+  });
+});
+
+describe("where a link points", () => {
+  // The wordmark bug this guards: it linked to whichever conference the reader
+  // was already inside, so from a conference page it went nowhere. The home is
+  // the site ROOT, and the root is the prefix every other href is built on —
+  // an invariant that holds whether the site serves from a domain root or from
+  // a project page at /<repo>/, which is why it is asserted this way and not
+  // against a literal string.
+  test("the home href is the root every other href hangs off", () => {
+    const home = homeHref();
+    expect(home.endsWith("/")).toBe(true);
+    for (const href of [
+      aboutHref(),
+      seasonHref("gac"),
+      matchesHref("gac"),
+      teamHref("gac", "harding"),
+      matchHref("gac", "sidearm:harding:15273"),
+    ]) {
+      expect(href.startsWith(home), href).toBe(true);
+      // and none of them IS the home: the root belongs to the national page
+      expect(href).not.toBe(home);
+    }
+  });
+
+  test("a conference href is not the home href", () => {
+    // The regression itself, stated plainly.
+    for (const key of site.conferences) expect(seasonHref(key)).not.toBe(homeHref());
   });
 });

@@ -1,6 +1,6 @@
 ---
 import { site } from "../site.config.ts";
-import { loadSeason, seasonHref, teamHref } from "../lib/derive.ts";
+import { homeHref, loadSeason, seasonHref, teamHref } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 
 interface Props {
@@ -24,7 +24,9 @@ const tabs = site.conferences.flatMap((key) => {
 const teams = season.fixtures.programmes;
 ---
 <header class="site-header">
-  <a class="wordmark" href={seasonHref(season.key)}>
+  {/* The wordmark is the way back to the top of the site, so it points at the
+      national home — not at the conference the reader happens to be inside. */}
+  <a class="wordmark" href={homeHref()}>
     <span class="wordmark-square"></span>
     <span class="wordmark-name">Touchline</span>
   </a>

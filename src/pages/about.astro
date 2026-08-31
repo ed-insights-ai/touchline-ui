@@ -6,7 +6,7 @@
 import EvidenceChip from "../components/EvidenceChip.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Page from "../layouts/Page.astro";
-import { loadSeason, seasonHref } from "../lib/derive.ts";
+import { homeHref, loadSeason, seasonHref } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 import { dayOfMonth, monShort } from "../lib/format.ts";
 import { site } from "../site.config.ts";
@@ -45,7 +45,7 @@ const GRAMMAR = [
 >
   <div class="tl-page about">
     <header class="ahead">
-      <a class="wordmark" href={seasonHref(home.key)}>
+      <a class="wordmark" href={homeHref()}>
         <span class="wordmark-square"></span>
         <span class="wordmark-name">Touchline</span>
       </a>
