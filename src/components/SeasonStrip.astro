@@ -82,9 +82,9 @@ const { cells, note } = Astro.props;
   .cell:hover .cell-detail, .cell:focus-visible .cell-detail { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .cell-detail { transition: none; } }
   .cell-W, .cell-D, .cell-L { border-bottom-style: solid; border-radius: 5px 5px 0 0; }
-  .cell-W { border-bottom-color: var(--win); background: rgba(21, 131, 79, 0.05); }
-  .cell-D { border-bottom-color: var(--draw); background: rgba(181, 122, 0, 0.05); }
-  .cell-L { border-bottom-color: var(--loss); background: rgba(190, 18, 60, 0.05); }
+  .cell-W { border-bottom-color: var(--win); background: var(--win-wash); }
+  .cell-D { border-bottom-color: var(--draw); background: var(--draw-wash); }
+  .cell-L { border-bottom-color: var(--loss); background: var(--loss-wash); }
   .cell-W .cell-opp, .cell-D .cell-opp, .cell-L .cell-opp { color: var(--quiet); }
   .cell-W .cell-line, .cell-D .cell-line, .cell-L .cell-line {
     font-size: 13px; font-weight: 600; color: var(--ink);
