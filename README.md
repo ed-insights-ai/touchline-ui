@@ -266,6 +266,13 @@ just verify     # types, lint, build — the gate before publishing
 just build && just preview
 ```
 
+Two more checks sit deliberately **outside** `just verify`, because both need
+Chrome and a served artefact and both ask what the site *does* rather than what
+the tree says: `just visual` pixel-diffs against a saved baseline and asserts no
+page scrolls sideways at six widths, and `just keyboard` presses real keys at
+the player sheet to hold the dialog's focus trap. Run them after a change that
+should not have moved anything, and after a change to the sheet.
+
 `just collect` delegates to the launchd cadence script that already owns the collect
 command (`TOUCHLINE_COLLECT_CMD` overrides it); it is the only step that costs
 network and time. `just publish` pushes `dist/` to a `gh-pages` branch via a git
