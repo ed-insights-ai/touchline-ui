@@ -1,0 +1,349 @@
+---
+// Matches — every match of the season, day by day.
+//
+// One grammar, not two lists: a row carries its kickoff until a score replaces
+// it. The schedule and the record are the same object seen at different times,
+// so nothing here can drift out of agreement with itself.
+//
+// Three states a row can be in, and each says which it is:
+//   • a result — the winner's name carries the weight, the loser's goes quiet,
+//     and in a draw neither does;
+//   • a silent final — marked played, nothing published. An em-dash sits where
+//     the score would, and it is counted BESIDE the played figure, never
+//     folded into it;
+//   • still to come — away at home, the kickoff the home programme published,
+//     and the venue when the schedule names one.
+import Page from "../../layouts/Page.astro";
+import { hasScore, matchHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
+import { dayOfMonth, dowLong, monLong, spell } from "../../lib/format.ts";
+import {
+  byDay,
+  isSilentFinal,
+  kickoff,
+  matchesOf,
+  scheduleCounts,
+  weightOf,
+} from "../../lib/schedule.ts";
+import { site } from "../../site.config.ts";
+
+export function getStaticPaths() {
+  return site.conferences.map((conference) => ({ params: { conference } }));
+}
+
+const { conference } = Astro.params;
+const season = loadSeason(conference as string);
+const names = season.names;
+const code = season.fixtures.conference;
+const confName = site.conferenceNames[season.key] ?? code;
+
+const matches = matchesOf(season);
+const days = byDay(matches);
+const c = scheduleCounts(season);
+
+// The rule between what has happened and what has not. The collect date is the
+// only "today" a static page can honestly claim, and it is the same one every
+// other surface uses.
+const today = season.asOf;
+const past = days.filter((d) => d.date < today);
+const todayGroup = days.find((d) => d.date === today) ?? null;
+const future = days.filter((d) => d.date > today);
+
+const dayLabel = (iso: string): string =>
+  `${dowLong(iso).toUpperCase()}, ${monLong(iso).toUpperCase()} ${dayOfMonth(iso)}`;
+const monthDay = (iso: string): string => `${monLong(iso)} ${dayOfMonth(iso)}`;
+const cap = (s: string): string => s.replace(/^\w/, (ch) => ch.toUpperCase());
+
+const isResult = (f: Fixture): boolean => hasScore(f);
+const silent = matches.filter(isSilentFinal);
+const stillScheduled = matches.filter((f) => f.date < today && f.status === "scheduled");
+
+// Distinct programmes behind the silent finals, named rather than counted.
+const silentNames = [...new Set(silent.map((f) => names.name(f.home)))].sort();
+
+// The rail's three notes, assembled as prose from the recomputed counts.
+const holds = [
+  `${c.matches} ${c.matches === 1 ? "match" : "matches"} on ${c.dates} playing ${c.dates === 1 ? "date" : "dates"}` +
+    (c.first && c.last ? `, ${monthDay(c.first)} to ${monthDay(c.last)}` : "") +
+    ".",
+  "The winner\u2019s name carries the weight in a result; in a match still to come, the weight stays with the home programme.",
+  c.league > 0 && c.leagueOpensOn
+    ? `${c.league} of these are league matches \u2014 the table begins with them on ${monthDay(c.leagueOpensOn)}.`
+    : null,
+].filter(Boolean).join(" ");
+
+const openCount = silent.length + stillScheduled.length;
+const unresolvedLead =
+  openCount === 0
+    ? "Every date gone by carries a published score. Nothing on this page is waiting."
+    : `${cap(spell(openCount))} ${openCount === 1 ? "row" : "rows"} on dates gone by carry no score.`;
+const unresolvedSilent =
+  silent.length > 0
+    ? ` ${cap(spell(silent.length))} ${silent.length === 1 ? "is" : "are"} the sites\u2019 own `
+    : null;
+const unresolvedSilentTail =
+  silent.length > 0
+    ? ` \u2014 ${silent.length === 1 ? "a match" : "matches"} marked final with nothing published` +
+      (silentNames.length > 0 ? `: ${silentNames.join(", ")}` : "") +
+      " \u2014 counted beside the played figure, never folded in."
+    : null;
+const unresolvedScheduled =
+  stillScheduled.length > 0
+    ? ` ${cap(spell(stillScheduled.length))} more the sites still list as scheduled.`
+    : null;
+const unresolvedTail = openCount > 0 ? " Every row stays, and tomorrow\u2019s collect asks again." : null;
+
+const staysOut = [
+  c.placeholders > 0
+    ? `${cap(spell(c.placeholders))} NCAA placeholder ${c.placeholders === 1 ? "row" : "rows"} on ${c.placeholderDates.map(monthDay).join(", ")} name a round, not an opponent \u2014 they join the page when they name both sides.`
+    : null,
+  c.exhibitions > 0
+    ? `${cap(spell(c.exhibitions))} ${c.exhibitions === 1 ? "exhibition sits" : "exhibitions sit"} outside the record, named on the team pages that played them.`
+    : null,
+].filter(Boolean).join(" ") || "Nothing is held back from this page.";
+
+const todayLabel = `TODAY \u00b7 ${dayLabel(today)}${todayGroup ? "" : " \u2014 NO MATCHES"}`;
+
+const title = `Touchline — ${confName} Matches`;
+const dek =
+  "Every match the programmes publish, day by day. A row carries its kickoff until the score replaces it — the schedule and the record are one object, never two.";
+---
+
+<Page title={title} description={dek}>
+  <div class="tl-page">
+    <header class="mx-masthead">
+      <a class="mx-back" href={seasonHref(season.key)}>← SEASON</a>
+      <div class="grow"></div>
+      <div class="wordmark mx-wordmark">
+        <span class="wordmark-square"></span>
+        <span class="wordmark-name">Touchline</span>
+        <span class="mx-wordmark-sub"> · Matches</span>
+      </div>
+      <div class="grow"></div>
+      <div class="mx-context num">{code} · {site.division.toUpperCase()} · {season.fixtures.season}</div>
+    </header>
+
+    <div class="mx-lede">
+      <h1 class="mx-h1 serif">Matches</h1>
+      <p class="mx-dek serif-italic">{dek}</p>
+    </div>
+
+    <div class="mx-body">
+      <div class="mx-ledger">
+        {days.length === 0 ? (
+          <p class="mx-empty">
+            No match is published for this season yet. When the programmes post a schedule, it
+            appears here.
+          </p>
+        ) : (
+          <>
+            {past.map((d) => (
+              <section class="mx-day">
+                <h2 class="mx-date">{dayLabel(d.date)}</h2>
+                {d.matches.map((f) => (
+                  <a class="mx-row hoverable" href={matchHref(season.key, f.id)}>
+                    {isResult(f) ? (
+                      <>
+                        <span class={`mx-away mx-${weightOf(f, "away")}`}>{names.name(f.away)}</span>
+                        <span class="mx-score num">{f.away_score}–{f.home_score}</span>
+                        <span class={`mx-home mx-${weightOf(f, "home")}`}>{names.name(f.home)}</span>
+                      </>
+                    ) : isSilentFinal(f) ? (
+                      <>
+                        <span class="mx-away mx-even">{names.name(f.away)}</span>
+                        <span class="mx-score mx-silent num">—</span>
+                        <span class="mx-home mx-even">
+                          {names.name(f.home)}
+                          <span class="mx-silent-note"> final — no score published</span>
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span class="mx-away mx-even">{names.name(f.away)}</span>
+                        <span class="mx-score mx-waiting num">—</span>
+                        <span class="mx-home mx-even">
+                          {names.name(f.home)}
+                          <span class="mx-waiting-note"> still listed as scheduled</span>
+                        </span>
+                      </>
+                    )}
+                  </a>
+                ))}
+              </section>
+            ))}
+
+            <div class="mx-today">
+              <span class="mx-today-rule"></span>
+              <span class="mx-today-label">{todayLabel}
+              </span>
+              <span class="mx-today-rule"></span>
+            </div>
+
+            {todayGroup && (
+              <section class="mx-day">
+                {todayGroup.matches.map((f) => (
+                  <a class="mx-row mx-row-upcoming hoverable" href={matchHref(season.key, f.id)}>
+                    <span class="mx-line">
+                      <span class="mx-side">{names.name(f.away)}</span>
+                      <span class="mx-at"> at </span>
+                      <span class="mx-side mx-strong">{names.name(f.home)}</span>
+                      {f.venue && <span class="mx-venue"> · {f.venue}</span>}
+                    </span>
+                    <span class="mx-time num">{kickoff(f.time) ?? "—"}</span>
+                  </a>
+                ))}
+              </section>
+            )}
+
+            {future.map((d) => (
+              <section class="mx-day">
+                <h2 class="mx-date">{dayLabel(d.date)}</h2>
+                {d.matches.map((f) => (
+                  <a class="mx-row mx-row-upcoming hoverable" href={matchHref(season.key, f.id)}>
+                    <span class="mx-line">
+                      <span class="mx-side">{names.name(f.away)}</span>
+                      <span class="mx-at"> at </span>
+                      <span class="mx-side mx-strong">{names.name(f.home)}</span>
+                      {f.venue && <span class="mx-venue"> · {f.venue}</span>}
+                    </span>
+                    <span class="mx-time num">{kickoff(f.time) ?? "—"}</span>
+                  </a>
+                ))}
+              </section>
+            ))}
+          </>
+        )}
+      </div>
+
+      <aside class="mx-rail">
+        <div class="mx-note">
+          <h2 class="mx-note-head">WHAT THIS PAGE HOLDS</h2>
+          <p>{holds}</p>
+        </div>
+
+        <div class="mx-note">
+          <h2 class="mx-note-head">WHAT STANDS UNRESOLVED</h2>
+          <p>
+            {unresolvedLead}
+            {unresolvedSilent}
+            {silent.length > 0 && (
+              <span class="mx-silent-word">{silent.length === 1 ? "silent final" : "silent finals"}</span>
+            )}
+            {unresolvedSilentTail}
+            {unresolvedScheduled}
+            {unresolvedTail}
+          </p>
+        </div>
+
+        <div class="mx-note">
+          <h2 class="mx-note-head">WHAT STAYS OUT</h2>
+          <p>{staysOut}</p>
+        </div>
+
+        <p class="mx-provenance provenance">
+          Nothing here is estimated. Kickoff times are the home programmes&rsquo; own; a score
+          appears only when one is published.
+        </p>
+      </aside>
+    </div>
+  </div>
+</Page>
+
+<style>
+  .mx-masthead {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .mx-back { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary); }
+  .mx-back:hover { color: var(--accent); }
+  .mx-wordmark { color: var(--ink); }
+  .mx-wordmark .wordmark-name { font-size: 19px; }
+  .mx-wordmark-sub { font-family: var(--serif); font-style: italic; font-size: 19px; }
+  .mx-context { font-size: 11px; letter-spacing: 0.1em; color: var(--faint); }
+
+  .mx-lede { padding: 28px 0 20px; border-bottom: 1px solid var(--hairline); }
+  .mx-h1 { margin: 0; font-size: 38px; line-height: 1.1; }
+  .mx-dek { margin: 10px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--quiet); max-width: 720px; }
+
+  .mx-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 56px;
+    padding: 22px 0 0;
+  }
+  .mx-ledger { min-width: 0; }
+  .mx-day { display: flex; flex-direction: column; }
+  .mx-date {
+    margin: 0;
+    padding: 16px 0 6px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--faint);
+  }
+
+  /* A result: away right-aligned into the score, home left-aligned out of it,
+     so the scoreline reads as one object down the column. */
+  .mx-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 78px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0;
+    padding: 7px 0;
+    border-top: 1px solid var(--hairline-soft);
+    color: inherit;
+    font-size: 13.5px;
+  }
+  .mx-away { text-align: right; }
+  .mx-home { text-align: left; }
+  .mx-score { text-align: center; font-weight: 600; }
+  .mx-strong { font-weight: 600; color: var(--ink); }
+  .mx-quiet { color: var(--faint); }
+  .mx-even { color: var(--ink); }
+  .mx-silent { color: var(--loss); }
+  .mx-silent-note { font-size: 11.5px; color: var(--loss); letter-spacing: 0.02em; }
+  /* A date gone by whose match the site still lists as scheduled is a different
+     silence from a final with no score: nothing was ever claimed, so it is
+     quiet rather than flagged. */
+  .mx-waiting { color: var(--faint); }
+  .mx-waiting-note { font-size: 11.5px; color: var(--faint); letter-spacing: 0.02em; }
+  .mx-silent-word { color: var(--loss); font-weight: 600; }
+
+  .mx-row-upcoming { grid-template-columns: minmax(0, 1fr) auto; }
+  .mx-line { min-width: 0; }
+  .mx-side { color: var(--quiet); }
+  .mx-side.mx-strong { color: var(--ink); }
+  .mx-at { color: var(--faint); }
+  .mx-venue { color: var(--faint); font-size: 12px; }
+  .mx-time { color: var(--quiet); font-size: 13px; }
+
+  .mx-today { display: flex; align-items: center; gap: 12px; padding: 18px 0 4px; }
+  .mx-today-rule { flex: 1; height: 1px; background: var(--ink); }
+  .mx-today-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .mx-rail { display: flex; flex-direction: column; gap: 20px; }
+  .mx-note p { margin: 8px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--quiet); }
+  .mx-note-head { margin: 0; font-size: 10px; letter-spacing: 0.16em; font-weight: 600; }
+  .mx-provenance { margin: 0; }
+  .mx-empty { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--quiet); max-width: 640px; }
+
+  @media (max-width: 1180px) {
+    .mx-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .mx-rail { max-width: 640px; }
+  }
+  @media (max-width: 720px) {
+    .mx-masthead { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 6px 12px; }
+    .mx-h1 { font-size: 30px; }
+    .mx-row { grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr); font-size: 12.5px; }
+    .mx-row-upcoming { grid-template-columns: minmax(0, 1fr) auto; }
+    .mx-today-label { font-size: 9px; letter-spacing: 0.1em; white-space: normal; }
+  }
+</style>

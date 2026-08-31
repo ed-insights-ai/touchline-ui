@@ -4,6 +4,8 @@ import Page from "../../layouts/Page.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import EvidenceChip from "../../components/EvidenceChip.astro";
 import SeasonMasthead from "../../components/SeasonMasthead.astro";
+import SeasonSpine from "../../components/SeasonSpine.astro";
+import TheWeek from "../../components/TheWeek.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import ConferenceTable from "../../components/ConferenceTable.astro";
 import BasisPanel from "../../components/BasisPanel.astro";
@@ -18,6 +20,7 @@ import {
   lastResult,
   loadSeason,
   matchHref,
+  matchesHref,
   matchweeks,
   playerClassOf,
   nextFixture,
@@ -153,6 +156,10 @@ const nextLabel = (f: Fixture): string => {
       summary={summary}
       stale={stale}
     />
+
+    <SeasonSpine season={season} />
+
+    <TheWeek season={season} matchesHref={matchesHref(season.key)} />
 
     <section class="split">
       <div class="col">

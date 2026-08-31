@@ -489,6 +489,9 @@ const withBase = (path: string): string => `${BASE}${path}`;
 export const seasonHref = (key: string): string => withBase(`/${key}/`);
 export const teamHref = (key: string, slug: string): string => withBase(`/${key}/team/${slug}/`);
 
+/** Every match of a conference's season, day by day. */
+export const matchesHref = (key: string): string => withBase(`/${key}/matches/`);
+
 /** The About & method page, which every footer links to. */
 export const aboutHref = (): string => withBase("/about/");
 
