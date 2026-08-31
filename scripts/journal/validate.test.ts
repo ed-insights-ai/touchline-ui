@@ -13,7 +13,7 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { loadSeason } from "../../src/lib/derive.ts";
+import { loadSeason, unresolved } from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
 import { validateJournal } from "./validate.ts";
 
@@ -98,33 +98,54 @@ describe("numbers a reader will believe", () => {
   });
 
   test("a claim whose every number is vouched produces no line at all", () => {
+    // Read from the data home, not pinned: a stale basis is CONTRADICTED and
+    // the claim is dropped, which also produces no review line — so this
+    // would keep passing while testing nothing.
+    const u = unresolved(season);
     const j = journal({
       findings: [
         {
           label: "observed",
-          text: "Three matches are marked final with no score.",
-          basis: { source: "fixtures", finals_without_score: 3, past_date_no_result: 5 },
+          text: `${u.finalsWithoutScore.length} matches are marked final with no score.`,
+          basis: {
+            source: "fixtures",
+            finals_without_score: u.finalsWithoutScore.length,
+            past_date_no_result: u.pastDateNoResult.length,
+          },
         },
       ],
     });
+    expect(validateJournal(j, season, "test").report.totals.dropped).toBe(0);
     expect(paths(j)).toEqual([]);
   });
 });
 
 describe("the audit is advisory", () => {
   test("an unbacked numeral is never a reason to drop a claim", () => {
+    // The basis is READ from the data home, not pinned to a snapshot of it.
+    // A collect lands daily; this claim was written with the silences at 3
+    // and 5, a collect moved them to 4 and 4, and the claim was then dropped
+    // for being CONTRADICTED — leaving no prose for the audit to read and no
+    // review line, so the test failed for the opposite of its own reason.
+    const u = unresolved(season);
     const j = journal({
       findings: [
         {
           label: "observed",
-          text: "Three matches are marked final with no score, and eleven are not.",
-          basis: { source: "fixtures", finals_without_score: 3, past_date_no_result: 5 },
+          // 907 is the unbacked one: too large to be a date part, so no
+          // collect can ever accidentally vouch for it.
+          text: `${u.finalsWithoutScore.length} matches are marked final with no score, and 907 people watched the last of them.`,
+          basis: {
+            source: "fixtures",
+            finals_without_score: u.finalsWithoutScore.length,
+            past_date_no_result: u.pastDateNoResult.length,
+          },
         },
       ],
     });
     const { journal: out, report } = validateJournal(j, season, "test");
-    expect(report.review.length).toBeGreaterThan(0);
-    expect(out.findings).toHaveLength(1);
     expect(report.totals.dropped).toBe(0);
+    expect(out.findings).toHaveLength(1);
+    expect(unbacked(j, "findings[0].text")).toContain("907");
   });
 });

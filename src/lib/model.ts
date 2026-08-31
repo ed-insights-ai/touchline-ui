@@ -393,6 +393,12 @@ export function computeTable(file: FixturesFile): TableRow[] {
 
   for (const f of file.fixtures) {
     if (f.status !== "final") continue;
+    // A friendly is outside the record everywhere else on the site, and it has
+    // to be outside it here too. Every exhibition the 2026 collect carries also
+    // says conference_game: false, so the guard below happens to catch them
+    // all — but that is the data's manners, not a rule. An unflagged friendly
+    // between two members would otherwise take conference points.
+    if (f.match_type === "exhibition") continue;
     if (f.conference_game === false) continue;
     // Both sides must be members even when the flag is absent — an unflagged
     // fixture against a non-member is not a conference result.

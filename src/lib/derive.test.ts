@@ -10,6 +10,7 @@
 import { describe, expect, test } from "bun:test";
 import {
   boxScoreGaps,
+  conferenceOpensOn,
   exhibitionsOf,
   fixtureCount,
   hasScore,
@@ -18,16 +19,21 @@ import {
   isScored,
   loadSeason,
   matchDetailOf,
+  matchweeks,
   playedCount,
   programmeCounts,
   recordOf,
   scoredCount,
   seasonCounts,
+  seasonWindow,
+  table,
+  tableIsLive,
   teamPageHref,
   unresolved,
 } from "./derive.ts";
+import { dayNumber, daysBetween, dowIndex, monShort, toISO } from "./format.ts";
 import type { Fixture } from "./model.ts";
-import { isPlayed } from "./model.ts";
+import { computeTable, isPlayed } from "./model.ts";
 
 const CONFERENCES = ["gac", "lsc", "gsc"] as const;
 const seasons = CONFERENCES.map((key) => ({ key, season: loadSeason(key) }));
@@ -45,16 +51,29 @@ describe("exhibitions are outside the record", () => {
   });
 
   test("a scored exhibition still contributes nothing to a record", () => {
-    // Saint Mary's played two friendlies with published scores — a 3–0 win
-    // over a club side and a 1–2 loss. Counting them read 2–0–2 with 5 goals.
+    // Saint Mary's played friendlies with published scores — a 3-0 win over a
+    // club side and a 1-2 loss. Counting them read 2-0-2 with 5 goals for a
+    // side that had scored none.
+    //
+    // Nothing here is pinned to a snapshot: a collect lands daily, and a test
+    // that asserts "played is 2" starts failing the week they play a third.
+    // The trap is asserted to still exist, then the record is recounted from
+    // the fixtures and the two answers have to meet.
     const lsc = loadSeason("lsc");
-    const scoredExhibitions = lsc.fixtures.fixtures.filter((f) => isExhibition(f) && hasScore(f));
-    expect(scoredExhibitions.length).toBeGreaterThan(0);
+    const ours = (f: Fixture) => f.home === "saint-marys" || f.away === "saint-marys";
+    const goalsFor = (f: Fixture) =>
+      f.home === "saint-marys" ? (f.home_score as number) : (f.away_score as number);
 
+    const friendlies = lsc.fixtures.fixtures.filter(
+      (f) => isExhibition(f) && hasScore(f) && ours(f),
+    );
+    expect(friendlies.length, "the trap is gone from the data").toBeGreaterThan(0);
+    expect(friendlies.reduce((n, f) => n + goalsFor(f), 0)).toBeGreaterThan(0);
+
+    const counted = lsc.fixtures.fixtures.filter((f) => isScored(f) && hasScore(f) && ours(f));
     const record = recordOf(lsc, "saint-marys");
-    expect(record.played).toBe(2);
-    expect(record.won).toBe(0);
-    expect(record.goalsFor).toBe(0);
+    expect(record.played).toBe(counted.length);
+    expect(record.goalsFor).toBe(counted.reduce((n, f) => n + goalsFor(f), 0));
   });
 
   test("a friendly with no score is not a conference silence", () => {
@@ -191,6 +210,152 @@ describe("the honesty states stay distinct", () => {
         expect(isPlayed(f)).toBe(true);
         expect(hasScore(f)).toBe(false);
       }
+    }
+  });
+});
+
+describe("the table counts conference football and nothing else", () => {
+  test("the standings and the fixture list agree on who has played what", () => {
+    // Double entry: the table is built by walking fixtures once, so count them
+    // again independently and make the two answers meet.
+    for (const { key, season } of seasons) {
+      const members = new Set(season.fixtures.programmes.map((p) => p.slug));
+      const counted = new Map<string, number>();
+      for (const f of season.fixtures.fixtures) {
+        if (!isScored(f) || !hasScore(f)) continue;
+        if (f.conference_game === false) continue;
+        if (!members.has(f.home) || !members.has(f.away)) continue;
+        counted.set(f.home, (counted.get(f.home) ?? 0) + 1);
+        counted.set(f.away, (counted.get(f.away) ?? 0) + 1);
+      }
+      for (const row of table(season)) {
+        expect(row.played, `${key}: ${row.slug}`).toBe(counted.get(row.slug) ?? 0);
+      }
+    }
+  });
+
+  test("the table is live exactly when a conference fixture has been played", () => {
+    for (const { key, season } of seasons) {
+      const members = new Set(season.fixtures.programmes.map((p) => p.slug));
+      const anyPlayed = season.fixtures.fixtures.some(
+        (f) =>
+          isScored(f) && f.conference_game !== false && members.has(f.home) && members.has(f.away),
+      );
+      expect(tableIsLive(season), key).toBe(anyPlayed);
+    }
+  });
+
+  test("a live table has opened, and opening day is not in the future", () => {
+    for (const { key, season } of seasons) {
+      if (!tableIsLive(season)) continue;
+      const opens = conferenceOpensOn(season);
+      expect(opens, key).not.toBeNull();
+      expect((opens as string) <= season.asOf, `${key}: opens ${opens} after ${season.asOf}`).toBe(
+        true,
+      );
+    }
+  });
+
+  test("an unflagged friendly between two members takes no conference points", () => {
+    // Every exhibition the 2026 collect carries also says conference_game:
+    // false, so the real data cannot prove this guard exists. Construct the
+    // fixture the collector has not published yet.
+    const gac = loadSeason("gac");
+    const [a, b] = gac.fixtures.programmes;
+    const friendly = {
+      ...(gac.fixtures.fixtures.find((f) => hasScore(f)) as Fixture),
+      id: "test:unflagged-friendly",
+      home: (a as { slug: string }).slug,
+      away: (b as { slug: string }).slug,
+      status: "final" as const,
+      home_score: 4,
+      away_score: 0,
+      match_type: "exhibition" as const,
+      conference_game: undefined,
+    };
+    const withIt = computeTable({
+      ...gac.fixtures,
+      fixtures: [...gac.fixtures.fixtures, friendly],
+    });
+    const before = new Map(table(gac).map((r) => [r.slug, r.played]));
+    for (const row of withIt) expect(row.played, row.slug).toBe(before.get(row.slug) ?? 0);
+  });
+});
+
+describe("matchweeks lose nothing and start on Sundays", () => {
+  test("every week begins on a Sunday, the college convention", () => {
+    for (const { key, season } of seasons) {
+      for (const w of matchweeks(season)) {
+        expect(dowIndex(w.startISO), `${key}: week ${w.index} starts ${w.startISO}`).toBe(0);
+      }
+    }
+  });
+
+  test("every fixture lands in exactly one week, inside that week's seven days", () => {
+    for (const { key, season } of seasons) {
+      const weeks = matchweeks(season);
+      const seen = new Set<string>();
+      for (const w of weeks) {
+        for (const f of w.fixtures) {
+          expect(seen.has(f.id), `${key}: ${f.id} in two weeks`).toBe(false);
+          seen.add(f.id);
+          const offset = daysBetween(w.startISO, f.date);
+          expect(offset >= 0 && offset <= 6, `${key}: ${f.date} in week of ${w.startISO}`).toBe(
+            true,
+          );
+        }
+      }
+      expect(seen.size, key).toBe(season.fixtures.fixtures.length);
+    }
+  });
+
+  test("weeks are numbered from one, in date order, with at most one current", () => {
+    for (const { key, season } of seasons) {
+      const weeks = matchweeks(season);
+      expect(
+        weeks.map((w) => w.index),
+        key,
+      ).toEqual(weeks.map((_, i) => i + 1));
+      for (let i = 1; i < weeks.length; i++) {
+        expect(
+          (weeks[i] as { startISO: string }).startISO >
+            (weeks[i - 1] as { startISO: string }).startISO,
+          key,
+        ).toBe(true);
+      }
+      expect(weeks.filter((w) => w.state === "current").length, key).toBeLessThanOrEqual(1);
+      // Past and future are measured against the START of the week asOf falls
+      // in, not against asOf itself: a fixture on Tuesday is not "past"
+      // because the collect ran on Thursday.
+      const now = toISO(dayNumber(season.asOf) - dowIndex(season.asOf));
+      for (const w of weeks) {
+        const where = `${key}: week of ${w.startISO} against ${now}`;
+        if (w.state === "past") expect(w.startISO < now, where).toBe(true);
+        if (w.state === "current") expect(w.startISO, where).toBe(now);
+        if (w.state === "future") expect(w.startISO > now, where).toBe(true);
+      }
+    }
+  });
+
+  test("a week straddling a month belongs to the month of its first fixture", () => {
+    for (const { key, season } of seasons) {
+      for (const w of matchweeks(season)) {
+        const first = w.fixtures[0] as Fixture;
+        expect(w.month, `${key}: week of ${w.startISO}`).toBe(monShort(first.date).toUpperCase());
+      }
+    }
+  });
+
+  test("the season window agrees with the weeks it summarises", () => {
+    for (const { key, season } of seasons) {
+      const weeks = matchweeks(season);
+      const win = seasonWindow(season);
+      expect(win.weekCount, key).toBe(weeks.length);
+      const current = weeks.find((w) => w.state === "current");
+      expect(win.weekIndex, key).toBe(current?.index ?? null);
+      const dates = season.fixtures.fixtures.map((f) => f.date).sort();
+      expect(win.firstISO, key).toBe(dates[0] as string);
+      expect(win.lastISO, key).toBe(dates[dates.length - 1] as string);
     }
   });
 });
