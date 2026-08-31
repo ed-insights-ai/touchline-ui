@@ -13,10 +13,12 @@
  */
 
 import { describe, expect, test } from "bun:test";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { site } from "../site.config.ts";
 import { loadSeason, squadByLine } from "./derive.ts";
 import { positionLine } from "./format.ts";
-import { countOrigins, originOf, trigramOf } from "./origin.ts";
+import { countOrigins, originOf, PLACED_NATIONS, trigramOf } from "./origin.ts";
 
 const LINES = ["FWD", "MID", "DEF", "GK"] as const;
 const seasons = site.conferences.map((k) => loadSeason(k));
@@ -194,5 +196,78 @@ describe("against the rosters this site actually collects", () => {
     expect(placed).toBeGreaterThan(500);
     expect(abroad / placed).toBeGreaterThan(0.15);
     expect(abroad / placed).toBeLessThan(0.65);
+  });
+});
+
+describe("the flag the marker draws", () => {
+  const VENDORED = join(import.meta.dir, "..", "..", "public", "flags");
+  const isoOf = (hometown: string): string | null => {
+    const origin = originOf(hometown);
+    return origin.kind === "abroad" ? origin.nation.iso : null;
+  };
+
+  test("every nation the table can place names a well-formed asset", () => {
+    expect(PLACED_NATIONS.length).toBeGreaterThan(50);
+    for (const nation of PLACED_NATIONS) {
+      expect(nation.iso, nation.name).toMatch(/^[a-z]{2}(-[a-z]{3})?$/);
+    }
+  });
+
+  test("the vendored set is exactly what the table places, in both directions", () => {
+    // The whole point of vendoring: 250 flags are not shipped to draw sixty,
+    // and a nation added to the table without its artwork fails here rather
+    // than rendering a broken image on somebody's squad.
+    const onDisk = readdirSync(VENDORED)
+      .filter((f) => f.endsWith(".svg"))
+      .sort();
+    expect(onDisk).toEqual(PLACED_NATIONS.map((n) => `${n.iso}.svg`).sort());
+  });
+
+  test("every vendored flag is whole artwork, not a truncated copy", () => {
+    for (const nation of PLACED_NATIONS) {
+      const svg = readFileSync(join(VENDORED, `${nation.iso}.svg`), "utf8");
+      expect(svg.slice(0, 500), nation.iso).toContain("<svg");
+      expect(svg.trimEnd().endsWith("</svg>"), nation.iso).toBe(true);
+    }
+  });
+
+  test("the licence for the artwork ships beside the artwork", () => {
+    const notice = readFileSync(join(VENDORED, "LICENSE.txt"), "utf8");
+    expect(notice).toContain("MIT");
+    expect(notice).toContain("flag-icons");
+  });
+
+  test("a home nation flies its own flag; only the UK itself flies the union", () => {
+    expect(isoOf("Derby, England")).toBe("gb-eng");
+    expect(isoOf("Glasgow, Scotland")).toBe("gb-sct");
+    expect(isoOf("Cardiff, Wales")).toBe("gb-wls");
+    expect(isoOf("Belfast, Northern Ireland")).toBe("gb-nir");
+    expect(isoOf("Leeds, United Kingdom")).toBe("gb");
+    // The override tui-3zy shipped, now visible as artwork rather than letters.
+    expect(isoOf("Derby, England, United Kingdom")).toBe("gb-eng");
+  });
+
+  test("an American row draws no flag at all", () => {
+    // Bare = home is the signal. Sixty per cent of the division is American,
+    // and flagging them is what would turn the column into confetti.
+    for (const town of ["Dallas, TX", "Tulsa, Okla.", "Frisco, Texas", "San Juan, Puerto Rico"]) {
+      expect(isoOf(town), town).toBeNull();
+    }
+  });
+
+  test("nothing this site can place is missing its artwork", () => {
+    const drawn = new Set<string>();
+    for (const s of seasons) {
+      for (const slug of Object.keys(s.rosters?.rosters ?? {})) {
+        for (const m of LINES.flatMap((l) => squadByLine(s, slug, l))) {
+          const iso = isoOf(m.player.hometown ?? "");
+          if (iso) drawn.add(iso);
+        }
+      }
+    }
+    // The check must be looking at something: these rosters span two dozen
+    // countries, not two.
+    expect(drawn.size).toBeGreaterThan(20);
+    for (const iso of drawn) expect(existsSync(join(VENDORED, `${iso}.svg`)), iso).toBe(true);
   });
 });
