@@ -11,7 +11,7 @@
  * inside a single minute of extra time.
  */
 
-export type MarkKind = "goal" | "card";
+export type MarkKind = "goal" | "card" | "red";
 
 export interface Mark {
   /** Minutes as drawn, already rounded up from the published clock. */
@@ -21,6 +21,10 @@ export interface Mark {
   /** The home side's marks read in the accent, the away side's in gray. */
   home: boolean;
 }
+
+/** A card mark: a sending-off is drawn as its own kind, the way the cautions
+ *  panel already distinguishes it, so the type rides on the mark. */
+export type CardMark = Mark & { red?: boolean };
 
 export type PlacedMark = Mark & { kind: MarkKind };
 
@@ -45,7 +49,7 @@ export interface Timeline {
   tallest: number;
 }
 
-export function timeline(goals: Mark[], cards: Mark[], fullTime: number): Timeline {
+export function timeline(goals: Mark[], cards: CardMark[], fullTime: number): Timeline {
   const at = (minute: number | null): number =>
     minute === null ? 0 : Math.min(100, Math.max(0, (minute / fullTime) * 100));
 
@@ -58,7 +62,7 @@ export function timeline(goals: Mark[], cards: Mark[], fullTime: number): Timeli
   // of a mixed pile — the position on the axis — and cautions pile above it.
   const merged: PlacedMark[] = [
     ...goals.map((g): PlacedMark => ({ ...g, kind: "goal" })),
-    ...cards.map((c): PlacedMark => ({ ...c, kind: "card" })),
+    ...cards.map(({ red, ...c }): PlacedMark => ({ ...c, kind: red ? "red" : "card" })),
   ].sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
 
   const grouped: { minute: number | null; marks: PlacedMark[] }[] = [];
@@ -68,9 +72,10 @@ export function timeline(goals: Mark[], cards: Mark[], fullTime: number): Timeli
     else grouped.push({ minute: m.minute, marks: [m] });
   }
 
-  // A label names a pile. One caution keeps none — its shape says what it is
-  // and the cautions panel below names it — but two of anything at the same
-  // minute needs the count said out loud, or the reader is left counting pips.
+  // A label names a pile. One card keeps none, red or yellow — its shape says
+  // what it is and the cautions panel below names it — but two of anything at
+  // the same minute needs the count said out loud, or the reader is left
+  // counting pips.
   //
   // Labels stagger between two rows, both ABOVE their own stack. They used to
   // alternate above and below, and the row below the axis is the row the 0′/
@@ -79,7 +84,8 @@ export function timeline(goals: Mark[], cards: Mark[], fullTime: number): Timeli
   const stacks = grouped.map((g): Stack => {
     const n = g.marks.length;
     const lone = n === 1 ? g.marks[0] : undefined;
-    const label = lone?.kind === "card" ? null : n === 1 ? `${g.minute}′` : `${g.minute}′ ×${n}`;
+    const label =
+      lone && lone.kind !== "goal" ? null : n === 1 ? `${g.minute}′` : `${g.minute}′ ×${n}`;
     const x = at(g.minute);
     return {
       minute: g.minute,
