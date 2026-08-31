@@ -214,6 +214,19 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 .confnav a[aria-current="page"] { font-weight: 600; color: var(--ink); border-bottom-color: var(--accent); }
 .confnav a:hover { color: var(--ink); }
 
+/* A view within the conference, beside the tabs that switch conference. Same
+   size and colour as a tab so the header keeps one voice; no bottom border,
+   because that 2px rule is the conference indicator and a reader must not read
+   this as a fourth conference. Current is weight and ink instead. */
+.viewnav { display: flex; align-items: center; }
+.viewnav::before {
+  content: ""; width: 1px; height: 17px;
+  background: var(--hairline); margin-right: 20px;
+}
+.viewnav a { font-size: 12.5px; color: var(--secondary); }
+.viewnav a:hover { color: var(--ink); }
+.viewnav a[aria-current="page"] { font-weight: 600; color: var(--ink); }
+
 /* The pill READS at 24px and ANSWERS at 44: the anchor is the target and the
    span is the look, so the target grows without the design moving. Sizing the
    anchor's own border instead would have widened every pill to 44px. */

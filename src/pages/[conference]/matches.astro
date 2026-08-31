@@ -15,7 +15,7 @@
 //     and the venue when the schedule names one.
 import SiteFooter from "../../components/SiteFooter.astro";
 import Page from "../../layouts/Page.astro";
-import { hasScore, homeHref, matchHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
+import { hasScore, homeHref, matchHref, matchesHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
 import { dayOfMonth, dowLong, friendlies, monLong, spell } from "../../lib/format.ts";
 import {
   byDay,
@@ -113,6 +113,9 @@ const dek =
   <div class="tl-page">
     <header class="mx-masthead">
       <a class="mx-back" href={seasonHref(season.key)}>← SEASON</a>
+      {/* The reader is here. This is the only header on the site where that is
+          true of this link, so it is the only place aria-current can say so. */}
+      <a class="mx-back mx-view" href={matchesHref(season.key)} aria-current="page">MATCHES</a>
       <div class="grow"></div>
       <a class="wordmark mx-wordmark" href={homeHref()}>
         <span class="wordmark-square"></span>
@@ -261,6 +264,9 @@ const dek =
   }
   .mx-back { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary); }
   .mx-back:hover { color: var(--accent); }
+  .mx-view { padding-left: 14px; margin-left: 14px; border-left: 1px solid var(--hairline); }
+  .mx-view[aria-current="page"] { color: var(--ink); }
+  .mx-view[aria-current="page"]:hover { color: var(--ink); }
   /* The wordmark reads as the masthead it is, not as a link, so it keeps ink
      on hover the way the site header’s does. */
   .mx-masthead .mx-wordmark { color: var(--ink); }

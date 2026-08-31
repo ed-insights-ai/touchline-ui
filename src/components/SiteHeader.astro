@@ -1,14 +1,16 @@
 ---
 import { site } from "../site.config.ts";
-import { homeHref, loadSeason, seasonHref, teamHref } from "../lib/derive.ts";
+import { homeHref, loadSeason, matchesHref, seasonHref, teamHref } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 
 interface Props {
   season: Season;
   /** Highlighted team pill, when the reader is on a team's page. */
   currentTeam?: string;
+  /** Set on the matches page, the one view this header links to by name. */
+  currentView?: "matches";
 }
-const { season, currentTeam } = Astro.props;
+const { season, currentTeam, currentView } = Astro.props;
 
 // The nav is built from the conferences the data home actually carries — a
 // conference is configuration, and one that failed to collect is simply not
@@ -34,10 +36,22 @@ const teams = season.fixtures.programmes;
     {site.conferenceNames[season.key] ?? season.fixtures.conference} · {season.fixtures.season} ·{" "}
     {season.fixtures.gender.toUpperCase()}
   </div>
-  <nav class="confnav">
+  <nav class="confnav" aria-label="Conferences">
     {tabs.map((t) => (
       <a href={seasonHref(t.key)} aria-current={t.key === season.key ? "page" : undefined}>{t.label}</a>
     ))}
+  </nav>
+  {/* A view WITHIN the conference the reader is already in, so it takes the
+      confnav's type register and none of its tab vocabulary: the 2px accent
+      rule under a tab answers "which conference is this", and this link does
+      not change that answer. A hairline sets it apart from the three that do.
+      The conference comes from context — this header is season-scoped
+      everywhere it renders. */}
+  <nav class="viewnav" aria-label="Views">
+    <a
+      href={matchesHref(season.key)}
+      aria-current={currentView === "matches" ? "page" : undefined}
+    >Matches</a>
   </nav>
   <div class="grow"></div>
   <!-- The pill shows the abbreviation because eleven of them have to fit on

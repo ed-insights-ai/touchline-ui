@@ -7,6 +7,7 @@ import {
   loadSeason,
   matchDetailOf,
   matchSlug,
+  matchesHref,
   seasonHref,
   teamPageHref,
   unresolved,
@@ -223,6 +224,12 @@ const awayName = names.name(fixture.away);
   <div class="tl-page match">
     <header class="mhead">
       <a class="back" href={seasonHref(season.key)}>← SEASON</a>
+      {/* The Match Centre has its own masthead rather than the site header, so
+          the persistent link is repeated here in that header's own register —
+          without this it would be absent from 379 of the site's 416 pages,
+          which are exactly the pages a reader is on when they want the rest of
+          the calendar. No arrow: this is a lateral move, not a way back. */}
+      <a class="back mhead-view" href={matchesHref(season.key)}>MATCHES</a>
       <div class="grow"></div>
       <a class="wordmark" href={homeHref()}>
         <span class="wordmark-square"></span>
@@ -485,6 +492,7 @@ const awayName = names.name(fixture.away);
     border-bottom: 1px solid var(--hairline);
   }
   .back { font-size: 12px; letter-spacing: 0.1em; color: var(--quiet); }
+  .mhead-view { padding-left: 15px; margin-left: 15px; border-left: 1px solid var(--hairline); }
   .back:hover { color: var(--ink); }
   .mword { font-size: 19px; }
   .mmeta { font-size: 11px; letter-spacing: 0.14em; color: var(--quiet); }
