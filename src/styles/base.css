@@ -153,7 +153,7 @@ main { display: block; margin: 0; }
 .chip-projected { background: var(--chip-projected-bg); color: var(--chip-projected-fg); }
 .chip-context   {
   background: none;
-  color: var(--chip-context-fg);
+  color: var(--quiet);
   border: 1px solid var(--chip-context-border);
   padding: 2px 8px;
   letter-spacing: 0.14em;
