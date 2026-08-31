@@ -31,6 +31,7 @@ PORT="${TOUCHLINE_VISUAL_PORT:-8795}"
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 PAGES=(
+  "/about/:about"
   "/gac/:season"
   "/lsc/:season-lsc"
   "/gac/team/harding/:team"
