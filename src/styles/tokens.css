@@ -40,10 +40,26 @@
   --accent-wash: rgba(109, 79, 224, 0.09);
   --accent-wash-soft: rgba(109, 79, 224, 0.05);
 
-  /* Results. */
-  --win: #15834f;
-  --draw: #b57a00;
+  /* Results. Each of these plays two roles — type on a light ground
+     (PlayerSheet's W/D/L letter, the strip's silent line) and a fill UNDER
+     white type (the 16/20px W/D/L badges) — and both roles want the same
+     thing: enough depth. So the family is tuned to clear 4.5:1 against the
+     PAPER, the darker of the two grounds it meets, which clears the card and
+     the white letter with it. Held as a threshold, not as a distance: these
+     are hues carrying identity, and what makes them right is being legible in
+     both roles, not sitting a fixed step off the ground the way the neutral
+     ladder does. --loss already cleared everywhere and did not move. */
+  --win: #147e4c;
+  --draw: #956500;
   --loss: #be123c;
+
+  /* The season strip's result washes. Written here beside the hues they are
+     drawn from: as literals in the component they silently kept the pre-tune
+     green and amber, which is the same staleness a component shipping its own
+     paper would have. */
+  --win-wash: rgba(20, 126, 76, 0.05);
+  --draw-wash: rgba(149, 101, 0, 0.05);
+  --loss-wash: rgba(190, 18, 60, 0.05);
 
   /* Evidence chips. */
   --chip-observed-bg: rgba(109, 79, 224, 0.09);

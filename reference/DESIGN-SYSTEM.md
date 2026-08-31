@@ -48,9 +48,10 @@ mid-season state. Absence is content, never an error page (see `match-silent.htm
 | rule (section head) | 2px `#1a1c22` | label-only, no rule |
 | accent | `#6d4fe0` | `#9b8eff` |
 | accent wash | `rgba(109,79,224,.09)` | `rgba(155,142,255,.4)` border |
-| win | `#15834f` | same |
-| draw | `#b57a00` | same (also caution cards) |
+| win | `#147e4c` | same |
+| draw | `#956500` | same (also caution cards) |
 | loss / alert | `#be123c` (`#e0526b` on dark) | |
+| result washes | `--win/draw/loss-wash`, the hue at 5% (season strip cells) |
 | card surface | `#fffdf9` | — |
 | light future | `#bebbb0` | — |
 | position colors | GK `#7b61d7` · DEF `#3f70a9` · MID `#3b8a72` · FWD `#b8820f` (dots/chips only) |
