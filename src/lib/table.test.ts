@@ -140,17 +140,18 @@ describe("the season page's middle, by the numbers", () => {
     expect(table).toContain('class="trow trow-live hoverable"');
     expect(table).toContain('class="tdim"');
     expect(table).toContain("all matches {record(o)}");
-    expect(table).toContain("RANKED ON CONFERENCE MATCHES");
     // The dim line carries the form, so the loud line holds four short cells.
     expect(table).toMatch(/\.trow-live \{ grid-template-columns: 20px 1fr \d+px \d+px; \}/);
   });
 
   test("the table ranks all matches until conference play opens, and says so", () => {
     expect(page).toContain("live ? table(season) : overallTable(season)");
-    expect(page).toContain("opens={opens}");
-    expect(table).toContain("ALL MATCHES UNTIL CONFERENCE PLAY OPENS");
-    expect(table).toContain("RANKED ON CONFERENCE MATCHES");
-    expect(table).toContain("3–1–0 POINTS");
+    // Two words on the head rule until conference play opens; nothing after,
+    // since the dim line's own words say ALL MATCHES then. No points footnote.
+    expect(table).toContain('{!live && <span class="tscope num">ALL MATCHES</span>}');
+    expect(table).not.toContain("UNTIL CONFERENCE PLAY OPENS");
+    expect(table).not.toContain("3–1–0 POINTS");
+    expect(table).not.toContain("table-label");
     expect(table).not.toContain("table-state");
     expect(table).not.toContain("statement");
   });

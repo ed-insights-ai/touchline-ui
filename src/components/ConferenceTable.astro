@@ -20,29 +20,28 @@ import {
   type Season,
   type TableRow,
 } from "../lib/derive.ts";
-import { dayOfMonth, monShort } from "../lib/format.ts";
 
 interface Props {
   season: Season;
   rows: TableRow[];
   /** Conference play has begun: the rows are the conference table. */
   live: boolean;
-  /** The date conference play opens, when the schedule names one. */
-  opens: string | null;
 }
-const { season, rows, live, opens } = Astro.props;
+const { season, rows, live } = Astro.props;
 const form = (slug: string): Result[] => formOf(season, slug);
 const record = (r: TableRow): string => `${r.won}–${r.drawn}–${r.lost}`;
 // The all-matches record that sits beneath each conference row.
 const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : null;
-const label = live
-  ? "RANKED ON CONFERENCE MATCHES"
-  : opens
-    ? `ALL MATCHES UNTIL CONFERENCE PLAY OPENS ${monShort(opens).toUpperCase()} ${dayOfMonth(opens)}`
-    : "ALL MATCHES UNTIL CONFERENCE PLAY OPENS";
 ---
 
-<h2 class="sechead">THE TABLE</h2>
+{/* Until conference play opens, two words on the head rule say what the
+    rows rank; the spine already names the date it opens, and once the loud
+    line is the conference table the dim line's own words carry ALL MATCHES
+    instead. No footnote on the points: three for a win needs no explaining. */}
+<div class="thead">
+  <h2 class="sechead-plain">THE TABLE</h2>
+  {!live && <span class="tscope num">ALL MATCHES</span>}
+</div>
 <div class="table num">
   {rows.map((r, i) => {
     const f = form(r.slug);
@@ -68,7 +67,6 @@ const label = live
     );
   })}
 </div>
-<p class="table-label num">{label} · 3–1–0 POINTS</p>
 
 <style>
   .table { display: flex; flex-direction: column; }
@@ -106,11 +104,13 @@ const label = live
   .tdim :global(.wdl) { opacity: 0.6; }
   .tall { white-space: nowrap; }
   .tall-after::before { content: "·"; margin: 0 8px; color: var(--outline-quiet); }
-  .table-label {
-    margin: 8px 0 0;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    line-height: 1.5;
-    color: var(--secondary);
+  .thead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 7px;
   }
+  .tscope { font-size: 11px; letter-spacing: 0.1em; color: var(--secondary); white-space: nowrap; }
 </style>
