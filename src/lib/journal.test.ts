@@ -242,7 +242,9 @@ describe("the figures strip is the page's own", () => {
     expect(mast).not.toContain("{counts.played} OF {counts.total}");
     expect(mast).toContain('class="strip num"');
     const spine = readFileSync(join(import.meta.dir, "../components/SeasonSpine.astro"), "utf8");
-    expect(spine).toContain("score not reported");
+    expect(spine).toContain("score gap");
+    expect(spine).toContain("in the books");
+    expect(spine).not.toContain("gone by");
     expect(spine).not.toContain("a silence stands");
   });
 });

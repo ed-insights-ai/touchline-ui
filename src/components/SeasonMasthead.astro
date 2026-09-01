@@ -36,7 +36,7 @@ const { kicker, headline, dek, counts, gaps, strip, stamp = null, stale = false 
     <div class="coverage num">
       {gaps.length > 0 ? (
         <details class="disclosure gaps">
-          <summary class="gapcount">{counts.gaps} {counts.gaps === 1 ? "GAP" : "GAPS"}</summary>
+          <summary class="gapcount">{counts.gaps} {counts.gaps === 1 ? "BOX SCORE GAP" : "BOX SCORE GAPS"}</summary>
           <div class="gaps-panel">
             <div class="gaps-head">
               MATCHES PLAYED WHOSE BOX SCORE THE COLLECTOR COULD NOT REACH
@@ -50,7 +50,7 @@ const { kicker, headline, dek, counts, gaps, strip, stamp = null, stale = false 
           </div>
         </details>
       ) : (
-        <span>{counts.gaps} GAPS</span>
+        <span>{counts.gaps} BOX SCORE GAPS</span>
       )}
     </div>
   </div>

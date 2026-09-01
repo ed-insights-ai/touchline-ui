@@ -3,10 +3,13 @@
 // matches.
 //
 // The honesty this band has to keep is filled-vs-played. Ink means the date is
-// GONE BY — not that its matches were played, and not that anyone published a
-// score. The counts line underneath carries the finals split, so the colour
-// never has to imply something it cannot know. A date whose final was never
-// scored wears a mark like any other and a silence dot beneath the axis.
+// IN THE BOOKS — passed, in the sporting idiom — not that its matches were
+// played, and not that anyone published a score. The masthead strip carries
+// the played figure, so the colour never has to imply something it cannot
+// know. A date whose final was never scored wears a mark like any other and a
+// score-gap dot beneath the axis: the score is the gap, not the match. That is
+// a different absence from the masthead's box score gap, where the result is
+// held and only its detail is missing.
 //
 // League dates take the league colour whether or not they have been played:
 // they answer a different question from "has this date passed".
@@ -38,10 +41,10 @@ const leagueFlag = spine?.leagueOpensOn
       <h2 class="sp-title">THE SEASON — IN ONE LINE</h2>
       <div class="grow"></div>
       <div class="sp-legend">
-        <span class="sp-key"><i class="sp-sw sp-gone"></i>gone by</span>
+        <span class="sp-key"><i class="sp-sw sp-gone"></i>in the books</span>
         <span class="sp-key"><i class="sp-sw sp-come"></i>to come</span>
         <span class="sp-key"><i class="sp-sw sp-league"></i>league dates</span>
-        <span class="sp-key"><i class="sp-dot"></i>score not reported</span>
+        <span class="sp-key"><i class="sp-dot"></i>score gap</span>
       </div>
     </div>
 
