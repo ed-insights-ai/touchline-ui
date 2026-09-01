@@ -243,6 +243,9 @@ const spread = (squares: { tenure: { step: keyof typeof TENURE_WORDS | null } }[
 const title = programme?.name ?? names.name(slug);
 // Absent identity is a designed state: the meta line simply starts at the record.
 const identity = identityLine(slug);
+// Whether any square on this roster is hollow — a player whose class year the
+// roster never printed — so the legend keys it only where it appears.
+const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq) => !sq.tenure.step));
 ---
 <Page title={`Touchline — ${title}`} description={`${title}, ${season.fixtures.season} season.`}>
   <div class="tl-page">
@@ -388,6 +391,8 @@ const identity = identityLine(slug);
           the collection rather than about the player. The minutes column is
           captioned in its own head, and the newcomer hairline is keyed where
           it is used, on the SQUAD head below. */}
+      {/* The hollow square is keyed only on a roster that has one: it is rare,
+          and on every other page the item explained nothing (owner, 2026-09-01). */}
       <div class="shape-legend">
         <span class="legend-item">
           <span class="legend-swatch" aria-hidden="true">
@@ -413,12 +418,14 @@ const identity = identityLine(slug);
           </span>
           <span class="label">Published hometown outside the US</span>
         </span>
-        <span class="legend-item">
-          <span class="legend-swatch" aria-hidden="true">
-            <span class="sq-box sq-open"></span>
+        {anyOpen && (
+          <span class="legend-item">
+            <span class="legend-swatch" aria-hidden="true">
+              <span class="sq-box sq-open"></span>
+            </span>
+            <span class="label">Class year the roster never printed</span>
           </span>
-          <span class="label">Class year the roster never printed</span>
-        </span>
+        )}
       </div>
     </section>
     )}
