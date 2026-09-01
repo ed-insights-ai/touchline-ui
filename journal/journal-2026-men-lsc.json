@@ -3,65 +3,83 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-01T11:40:00Z",
+  "generated_at": "2026-09-01T12:10:00Z",
   "data_collected_at": "2026-09-01T11:30:15+00:00",
-  "kicker": "LSC · 22 DAYS TO CONFERENCE · SEP 1",
-  "headline": "Eighteen matches in, the LSC table is still empty, and conference play is 22 days away.",
-  "dek": "Eighteen matches carry a published final score out of 151 on the season calendar. Three more are marked final with no score published, and two sit past their date with no result recorded.",
+  "headline": "Dallas Baptist, St. Mary's and Sul Ross State have lost every match they have played, and none of the three has scored a goal.",
+  "dek": "Between them the three have played five matches, lost all five, and conceded fifteen goals. The other eight programmes have 34 goals and two defeats between them.",
   "lede_basis": {
-    "source": "fixtures",
-    "played": 18,
-    "total": 151,
-    "finals_without_score": 3,
-    "past_date_no_result": 2,
-    "conference_opens": "2026-09-23",
-    "days_until_conference": 22
+    "programmes": 11,
+    "programmes_without_a_goal": 3,
+    "matches_played_by_those_three": 5,
+    "defeats_by_those_three": 5,
+    "goals_scored_by_those_three": 0,
+    "goals_conceded_by_those_three": 15,
+    "other_programmes": 8,
+    "goals_scored_by_the_other_eight": 34,
+    "defeats_by_the_other_eight": 2
   },
   "summary_stat": {
-    "label": "Matches played",
-    "value": "18 of 151",
-    "detail": "Eighteen matches carry a published final score; the season calendar holds 151 in all.",
+    "label": "LSC vs everyone else",
+    "value": "9–1–6",
+    "detail": "31 goals for, 26 against.",
     "basis": {
-      "source": "fixtures",
-      "played": 18,
-      "total": 151
+      "derived_from": "fixtures",
+      "wins": 9,
+      "draws": 1,
+      "losses": 6,
+      "gf": 31,
+      "ga": 26
     }
   },
   "pattern": {
     "label": "derived",
-    "text": "Midwestern State has scored eleven goals in non-conference play, more than any two other programmes have scored together.",
+    "text": "Seven different players have scored Midwestern State's eleven goals, and Jose Ortiz has four of them.",
     "chart": {
       "kind": "goals-for-by-team",
-      "caption": "Goals scored against opponents from outside the conference, by programme.",
       "values": {
         "midwestern-state": 11,
         "oklahoma-christian": 4,
+        "saint-edwards": 4,
         "ut-dallas": 4,
         "west-texas-a-m": 4,
         "lubbock-christian": 3,
-        "saint-edwards": 3,
-        "texas-a-m-international": 2,
+        "texas-a-m-international": 3,
+        "ut-tyler": 1,
         "dallas-baptist": 0,
         "saint-marys": 0,
-        "sul-ross-state": 0,
-        "ut-tyler": 0
+        "sul-ross-state": 0
       },
       "highlight": "midwestern-state"
     },
     "basis": {
       "programme": "midwestern-state",
       "gf": 11,
-      "ga": 1,
-      "comparative": "greater_than_sum",
-      "metric": "gf",
-      "of_any": 2
+      "distinct_scorers_min": 7,
+      "source": "stats",
+      "player": "Jose Ortiz",
+      "goals": 4
     }
+  },
+  "wire": {
+    "line": "Oklahoma Christian have won both their matches and have not conceded a goal.",
+    "basis": {
+      "programme": "oklahoma-christian",
+      "gf": 4,
+      "ga": 0,
+      "wins": 2,
+      "draws": 0,
+      "losses": 0
+    },
+    "updated": "2026-09-01"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "All three matches marked final without a published score are Lubbock Christian's — August 15, August 19 and August 22.",
+      "text": "All three of the season's silent finals are Lubbock Christian's: each match is marked final and carries no published score. Two more matches are past their date with no result at all — a separate absence, and a separate count.",
       "basis": {
+        "source": "fixtures",
+        "finals_without_score": 3,
+        "past_date_no_result": 2,
         "set": "silent_finals",
         "all_of": "lubbock-christian",
         "count": 3
@@ -69,41 +87,49 @@
     },
     {
       "label": "observed",
-      "text": "One match carries a published result the collector could not read behind: Sul Ross State against CSU Pueblo on August 29, with no box-score link on any collected schedule page. It is not a silent final — the score is published, the shape of it is not.",
+      "text": "One match with a published score has no box score behind it: Sul Ross State's, at home to CSU Pueblo. That is not a silent final — a silent final has no result whose detail could be missing — and the counts never share a match.",
       "basis": {
         "source": "matches",
-        "box_score_gaps": 1
+        "box_score_gaps": 1,
+        "set": "box_score_gaps",
+        "all_of": "sul-ross-state",
+        "count": 1
       }
     },
     {
       "label": "derived",
-      "text": "Against opponents from outside the conference the LSC programmes have won nine, drawn one and lost six, scoring 31 goals and conceding 26.",
+      "text": "West Texas A&M scored all four of their goals in one match and conceded all seven in the other.",
       "basis": {
-        "derived_from": "fixtures",
-        "wins": 9,
-        "draws": 1,
-        "losses": 6,
-        "gf": 31,
-        "ga": 26
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Oklahoma Christian has scored four goals in non-conference play and conceded none.",
-      "basis": {
-        "programme": "oklahoma-christian",
+        "programme": "west-texas-a-m",
         "gf": 4,
-        "ga": 0
+        "ga": 7,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1
       }
     },
     {
-      "label": "observed",
-      "text": "Fernando Hernandez has made eleven saves for Sul Ross State, more than any other keeper in the collected records.",
+      "label": "derived",
+      "text": "UT Tyler have played once and won it without conceding, and Dennis Nyame's goal is the only one the programme has scored.",
+      "basis": {
+        "programme": "ut-tyler",
+        "gf": 1,
+        "ga": 0,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "distinct_scorers_min": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Kaleo Perez-Francis has made six saves for St. Edward's and been beaten once.",
       "basis": {
         "source": "stats",
-        "player": "Fernando Hernandez",
-        "programme": "sul-ross-state",
-        "saves": 11
+        "player": "Kaleo Perez-Francis",
+        "programme": "saint-edwards",
+        "saves": 6,
+        "goals_against": 1
       }
     }
   ],
@@ -133,29 +159,20 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-08-31 west-alabama v texas-a-m-international",
-      "line": "The only match collected on August 31."
+      "line": "Texas A&M International have still to lose, and have still to play at home."
     },
     "next_match": {
       "fixture_ref": "2026-09-01 colorado-christian v west-texas-a-m",
-      "line": "The only match on the day's card."
+      "line": "Colorado Christian have already been beaten by a Lone Star side this season; West Texas A&M have not yet played away from home."
     }
   },
   "table_state": {
     "mode": "pre-conference",
-    "statement": "No conference match has been played, so no programme has a conference record yet and the table carries early form from non-conference results only.",
-    "footnote": "Conference play opens September 23, 22 days after this collection · eighteen matches are played and three finals carry no score, counted beside that figure and never inside it · friendlies sit outside the record entirely and are counted nowhere in it · a pre-conference table is a valid state.",
+    "statement": "The table stays empty until conference play opens on Sep 23: no programme has played a conference match yet, and the form shown beside each row comes from non-conference results.",
+    "footnote": "A pre-conference table is a valid state, not a missing one.",
     "basis": {
-      "source": "fixtures",
-      "played": 18,
-      "total": 151,
-      "finals_without_score": 3,
-      "past_date_no_result": 2,
-      "conference_opens": "2026-09-23",
-      "days_until_conference": 22
+      "conference_opens": "2026-09-23"
     }
   },
-  "validation": {
-    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-01T13:02:25.895Z"
-  }
+  "lede_updated": "2026-09-01"
 }

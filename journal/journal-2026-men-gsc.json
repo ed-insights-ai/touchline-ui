@@ -3,58 +3,34 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-01T11:52:00+00:00",
+  "generated_at": "2026-09-01T11:45:00+00:00",
   "data_collected_at": "2026-09-01T11:30:42+00:00",
-  "kicker": "GSC · BEFORE THE TABLE · SEP 1",
-  "headline": "Ten days from the conference opener, the GSC has seventeen matches behind it and a table that still reads all zeros.",
-  "dek": "UAH have scored eight goals, more than any other GSC programme, and have won both matches they have played. Five matches whose dates have passed carry no published result.",
+  "headline": "Outside its own conference, the Gulf South has won as often as it has lost.",
+  "dek": "Seven wins, three draws and seven losses so far. The goals sit just as close: thirty scored, twenty-eight conceded.",
   "lede_basis": {
-    "source": "fixtures",
-    "played": 17,
-    "total": 119,
-    "conference_opens": "2026-09-11",
-    "days_until_conference": 10,
-    "finals_without_score": 0,
-    "past_date_no_result": 5,
-    "programme": "uah",
-    "wins": 2,
-    "draws": 0,
-    "losses": 0,
-    "gf": 8,
-    "ga": 1,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "aum",
-      "christian-brothers",
-      "delta-state",
-      "lee",
-      "mississippi-college",
-      "montevallo",
-      "spring-hill",
-      "trevecca",
-      "union",
-      "west-alabama"
-    ]
+    "derived_from": "fixtures",
+    "wins": 7,
+    "draws": 3,
+    "losses": 7,
+    "gf": 30,
+    "ga": 28
   },
+  "lede_updated": "2026-09-01",
   "summary_stat": {
     "label": "Matches played",
     "value": "17 of 119",
-    "detail": "Seventeen matches carry a final with a published score. All seventeen were played against programmes outside the conference, and conference play opens on September 11, ten days after this data was collected.",
+    "detail": "Every one was played against a non-member.",
     "basis": {
       "source": "fixtures",
       "played": 17,
-      "total": 119,
-      "conference_opens": "2026-09-11",
-      "days_until_conference": 10
+      "total": 119
     }
   },
   "pattern": {
     "label": "derived",
-    "text": "UAH have scored eight goals and conceded one.",
+    "text": "The scoring at the top is not one striker's doing: UAH's eight goals have come from seven different players.",
     "chart": {
       "kind": "goals-for-by-team",
-      "caption": "Goals scored by programme across all matches played, through September 1.",
       "values": {
         "uah": 8,
         "trevecca": 6,
@@ -73,33 +49,37 @@
     "basis": {
       "programme": "uah",
       "gf": 8,
-      "ga": 1
+      "ga": 1,
+      "distinct_scorers_min": 7
     }
+  },
+  "wire": {
+    "line": "UAH have scored more goals than Christian Brothers, Delta State, Union, Lee and Spring Hill have between them.",
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "uah",
+      "of": ["christian-brothers", "delta-state", "union", "lee", "spring-hill"],
+      "gf": 8
+    },
+    "updated": "2026-09-01"
   },
   "findings": [
     {
       "label": "derived",
-      "text": "Seven different UAH players have scored this season: Alejandro Tocino Vidal, Emil Wigren, Luis McCabe, Nick Morrow, Oli Orzechowski, Oliver Rigby and Samuel Quickfall.",
+      "text": "Lee and Spring Hill have yet to play: no win, no draw, no loss, and no goal at either end.",
       "basis": {
-        "programme": "uah",
-        "distinct_scorers_min": 7
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Against programmes outside the conference, GSC sides have won seven matches, drawn three and lost seven.",
-      "basis": {
-        "derived_from": "fixtures",
-        "wins": 7,
-        "draws": 3,
-        "losses": 7,
-        "gf": 30,
-        "ga": 28
+        "programme": "lee",
+        "wins": 0,
+        "draws": 0,
+        "losses": 0,
+        "gf": 0,
+        "ga": 0
       }
     },
     {
       "label": "observed",
-      "text": "Five matches whose dates have passed carry no published result, and not one final carries an empty score.",
+      "text": "The record's silences are all of one kind: five matches have passed their date with no result at all, and no final has been left without a score.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -108,23 +88,26 @@
     },
     {
       "label": "observed",
-      "text": "Two played matches have a published scoreline but no box score, and both are Mississippi Christian's.",
+      "text": "Mississippi Christian have two matches on the record and no box score for either: the results are published, the detail behind them is not.",
       "basis": {
-        "source": "matches",
-        "box_score_gaps": 2,
         "set": "box_score_gaps",
         "all_of": "mississippi-college",
-        "count": 2
+        "count": 2,
+        "programme": "mississippi-college",
+        "wins": 0,
+        "draws": 1,
+        "losses": 1
       }
     },
     {
       "label": "observed",
-      "text": "Lee have yet to play a match this season; their season opens in conference play, at AUM on September 12.",
+      "text": "Jakob Buhrkuhl has made seven saves for AUM and conceded one goal.",
       "basis": {
-        "programme": "lee",
-        "wins": 0,
-        "draws": 0,
-        "losses": 0
+        "source": "stats",
+        "player": "Jakob Buhrkuhl",
+        "programme": "aum",
+        "saves": 7,
+        "goals_against": 1
       }
     }
   ],
@@ -154,24 +137,23 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-08-31 west-alabama v texas-a-m-international",
-      "line": "West Alabama have played two matches, a draw and a defeat."
+      "line": "West Alabama's first defeat, and the first match in which they have not scored."
     },
     "next_match": {
       "fixture_ref": "2026-09-01 ouachita-baptist v delta-state",
-      "line": "Delta State have played two matches, winning one and losing one."
+      "line": "Delta State have yet to play at home; Ouachita Baptist have already beaten a Gulf South side."
     }
   },
   "table_state": {
     "mode": "pre-conference",
-    "statement": "No GSC programme has played a conference match, so the table is level and ordered alphabetically. Conference play opens on September 11, ten days after this data was collected.",
-    "footnote": "Form strings show non-conference results only. Lee and Spring Hill have played no matches, and their form reads as a dash.",
+    "statement": "Every row reads zero because no result yet counts toward the table; the conference's own season opens on September 11.",
+    "footnote": "The form column carries results from matches that fall outside the table, and none of them has been counted into it.",
     "basis": {
-      "conference_opens": "2026-09-11",
-      "days_until_conference": 10
+      "conference_opens": "2026-09-11"
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-01T13:02:25.970Z"
+    "validated_at": "2026-09-01T18:31:32.458Z"
   }
 }

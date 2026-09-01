@@ -4,22 +4,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-01T13:02:25.970Z",
+  "validated_at": "2026-09-01T18:31:32.458Z",
   "data_collected_at": "2026-09-01T11:30:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
+    "checked": 14,
     "verified": 13,
-    "contradicted": 0,
+    "contradicted": 1,
     "unverifiable": 0,
-    "dropped": 0
+    "dropped": 1
   },
   "normalizations": [],
   "review": [
     {
-      "path": "findings[4].text",
-      "text": "Lee have yet to play a match this season; their season opens in conference play, at AUM on September 12.",
-      "unbacked": ["12"]
+      "path": "dek",
+      "text": "Seven wins, three draws and seven losses so far. The goals sit just as close: thirty scored, twenty-eight conceded.",
+      "unbacked": ["8", "20"]
+    },
+    {
+      "path": "table_state.statement",
+      "text": "Every row reads zero because no result yet counts toward the table; the conference's own season opens on September 11.",
+      "unbacked": ["0"]
     }
   ],
   "claims": [
@@ -27,17 +32,16 @@
       "path": "summary_stat",
       "label": "derived",
       "text": "17 of 119",
-      "checker": "fixture_counts+conference_opens",
+      "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["days_until_conference: 10"]
+      "dropped": false
     },
     {
       "path": "pattern",
       "label": "derived",
-      "text": "UAH have scored eight goals and conceded one.",
-      "checker": "team_goals",
+      "text": "The scoring at the top is not one striker's doing: UAH's eight goals have come from seven different players.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -45,8 +49,17 @@
     {
       "path": "pattern.chart",
       "label": "derived",
-      "text": "Goals scored by programme across all matches played, through September 1.",
+      "text": "goals-for-by-team",
       "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "UAH have scored more goals than Christian Brothers, Delta State, Union, Lee and Spring Hill have between them.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -54,17 +67,17 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Seven different UAH players have scored this season: Alejandro Tocino Vidal, Emil Wigren, Luis McCabe, Nick Morrow, Oli Orzechowski, Oliver Rigby and Samuel Quickfall.",
-      "checker": "distinct_scorers",
+      "text": "Lee and Spring Hill have yet to play: no win, no draw, no loss, and no goal at either end.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[1]",
-      "label": "derived",
-      "text": "Against programmes outside the conference, GSC sides have won seven matches, drawn three and lost seven.",
-      "checker": "outside_record",
+      "label": "observed",
+      "text": "The record's silences are all of one kind: five matches have passed their date with no result at all, and no final has been left without a score.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -72,17 +85,21 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Five matches whose dates have passed carry no published result, and not one final carries an empty score.",
-      "checker": "unresolved",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "text": "Three of those five are Christian Brothers' — more matches missing a result than the two they have on the record.",
+      "checker": "team_record+set_members",
+      "verdict": "contradicted",
+      "mismatches": [
+        "count: claimed 3, data holds 5",
+        "all_of: 2026-08-15 belmont v trevecca does not involve christian-brothers",
+        "all_of: 2026-08-22 covenant v trevecca does not involve christian-brothers"
+      ],
+      "dropped": true
     },
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Two played matches have a published scoreline but no box score, and both are Mississippi Christian's.",
-      "checker": "box_score_gaps+set_members",
+      "text": "Mississippi Christian have two matches on the record and no box score for either: the results are published, the detail behind them is not.",
+      "checker": "team_record+set_members",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -90,8 +107,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Lee have yet to play a match this season; their season opens in conference play, at AUM on September 12.",
-      "checker": "team_record",
+      "text": "Jakob Buhrkuhl has made seven saves for AUM and conceded one goal.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false

@@ -3,25 +3,19 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-01T11:35:00Z",
+  "generated_at": "2026-09-01T11:45:00Z",
   "data_collected_at": "2026-09-01T11:30:05+00:00",
-  "kicker": "GAC · NON-CONFERENCE · SEP 1",
-  "headline": "Seven wins and six defeats outside the conference, and sixteen days until the table means anything.",
-  "dek": "Ouachita Baptist and Rogers State are the only sides still unbeaten. Outside its own membership the conference has scored twenty goals and conceded twelve, and the table stays empty until September 17.",
+  "headline": "Ouachita Baptist and Rogers State are the only programmes in the conference yet to lose a match.",
+  "dek": "Ouachita Baptist have won twice without conceding a goal, and Rogers State have won twice with one against. The other five programmes have all lost at least once.",
   "lede_basis": {
-    "derived_from": "fixtures",
-    "wins": 7,
-    "draws": 0,
-    "losses": 6,
-    "gf": 20,
-    "ga": 12,
-    "conference_opens": "2026-09-17",
-    "days_until_conference": 16
+    "obu_ga": 0,
+    "rsu_ga": 1,
+    "programmes_with_a_defeat": 5
   },
   "summary_stat": {
-    "label": "GAC VS EVERYONE ELSE",
+    "label": "GAC vs everyone else",
     "value": "7–0–6",
-    "detail": "20 GOALS FOR · 12 AGAINST",
+    "detail": "Twenty goals for, twelve against.",
     "basis": {
       "derived_from": "fixtures",
       "wins": 7,
@@ -33,10 +27,9 @@
   },
   "pattern": {
     "label": "derived",
-    "text": "Five different players have scored for Ouachita Baptist, more than for any other side in the conference.",
+    "text": "Five different players have scored Ouachita Baptist's six goals, and only one of them has scored more than once.",
     "chart": {
       "kind": "goals-for-by-team",
-      "caption": "Goals scored per side, all non-conference, through Aug 30.",
       "values": {
         "ouachita-baptist": 6,
         "fort-hays-state": 4,
@@ -50,77 +43,82 @@
     },
     "basis": {
       "programme": "ouachita-baptist",
+      "gf": 6,
       "distinct_scorers_min": 5
     }
   },
+  "wire": {
+    "line": "Harding have played once and are still waiting for their first goal of the season.",
+    "basis": {
+      "programme": "harding",
+      "gf": 0,
+      "ga": 1,
+      "wins": 0,
+      "draws": 0,
+      "losses": 1
+    },
+    "updated": "2026-09-01"
+  },
   "findings": [
     {
+      "label": "observed",
+      "text": "The season's one silent final is Newman's, away at Cowley: the match is marked final and carries no score. Four more matches are past their date with no result published at all — a separate absence, and a separate count.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 1,
+        "past_date_no_result": 4,
+        "set": "silent_finals",
+        "all_of": "newman",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Every match with a published score also has a box score behind it. The collector reached the shape of all thirteen.",
+      "basis": {
+        "source": "matches",
+        "box_score_gaps": 0,
+        "played": 13
+      }
+    },
+    {
       "label": "derived",
-      "text": "Tristan Miller has saved ten of the eleven shots on target he has faced for Rogers State.",
+      "text": "Fort Hays State scored all four of their goals in one match and none at all in the other.",
+      "basis": {
+        "programme": "fort-hays-state",
+        "gf": 4,
+        "ga": 2,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Tristan Miller has made ten saves for Rogers State and been beaten once.",
       "basis": {
         "source": "stats",
         "player": "Tristan Miller",
         "programme": "rogers-state",
         "saves": 10,
-        "goals_against": 1,
-        "save_pct": 0.909
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Wesley Rodriguez has two goals from four shots — a finish every second attempt.",
-      "basis": {
-        "source": "stats",
-        "player": "Wesley Rodriguez",
-        "programme": "southern-nazarene",
-        "goals": 2,
-        "shots": 4
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Ouachita Baptist have scored six goals, more than Southern Nazarene, Northeastern State and Harding have managed together.",
-      "basis": {
-        "comparative": "greater_than_sum",
-        "metric": "gf",
-        "programme": "ouachita-baptist",
-        "of": ["southern-nazarene", "northeastern-state", "harding"],
-        "gf": 6
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Thirteen matches carry a published score, out of 93 on the season's card.",
-      "basis": {
-        "source": "fixtures",
-        "played": 13,
-        "total": 93
-      }
-    },
-    {
-      "label": "observed",
-      "text": "One match is marked final with no published score. Four more are past their date with no result recorded at all.",
-      "basis": {
-        "source": "fixtures",
-        "finals_without_score": 1,
-        "past_date_no_result": 4
+        "goals_against": 1
       }
     }
   ],
   "players_to_watch": [
-    {
-      "player": "Wesley Rodriguez",
-      "programme": "southern-nazarene",
-      "position": "FWD",
-      "class": "FR",
-      "line": "2 G · 4 shots"
-    },
     {
       "player": "Eric Godoy",
       "programme": "ouachita-baptist",
       "position": "DEF",
       "class": "FR",
       "line": "2 G · 5 shots"
+    },
+    {
+      "player": "Wesley Rodriguez",
+      "programme": "southern-nazarene",
+      "position": "FWD",
+      "class": "FR",
+      "line": "2 G · 4 shots"
     },
     {
       "player": "Philip Bölk",
@@ -133,23 +131,20 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-08-30 northeastern-state v lincoln",
-      "line": "The only match on the day's card."
+      "line": "Northeastern State have lost both of the matches they have played, and Brandon Fuenmayor's is still the only goal they have scored."
     },
     "next_match": {
       "fixture_ref": "2026-09-01 ouachita-baptist v delta-state",
-      "line": "Ouachita Baptist have yet to concede; Delta State have already won at Harding."
+      "line": "Delta State have already taken a win off this conference, at Harding."
     }
   },
   "table_state": {
     "mode": "pre-conference",
-    "statement": "Conference play begins Sep 17. No side has played a conference match, and the table stays empty until one does.",
-    "footnote": "Early form is shown from non-conference results · a pre-conference table is a valid state.",
+    "statement": "The table stays empty until conference play begins on Sep 17: no programme has played a conference match yet, and the form shown beside each row comes from non-conference results.",
+    "footnote": "A pre-conference table is a valid state, not a missing one.",
     "basis": {
       "conference_opens": "2026-09-17"
     }
   },
-  "validation": {
-    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-01T13:02:25.817Z"
-  }
+  "lede_updated": "2026-09-01"
 }
