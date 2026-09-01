@@ -39,7 +39,7 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
     line is the conference table the dim line's own words carry ALL MATCHES
     instead. No footnote on the points: three for a win needs no explaining. */}
 <div class="thead">
-  <h2 class="sechead-plain">THE TABLE</h2>
+  <h2 class="ttitle">THE TABLE</h2>
   {!live && <span class="tscope num">ALL MATCHES</span>}
 </div>
 <div class="table num">
@@ -112,5 +112,7 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
     border-bottom: 2px solid var(--ink);
     padding-bottom: 7px;
   }
+  /* The section head's own type, since the rule lives on .thead, not the h2. */
+  .ttitle { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
   .tscope { font-size: 11px; letter-spacing: 0.1em; color: var(--secondary); white-space: nowrap; }
 </style>

@@ -20,12 +20,10 @@ import {
   loadSeason,
   matchHref,
   matchesHref,
-  matchweeks,
   playerClassOf,
   nextFixture,
   resolveFixtureRef,
   seasonCounts,
-  seasonWindow,
   overallTable,
   table,
   tableIsLive,
@@ -74,8 +72,6 @@ const opens = conferenceOpensOn(season);
 // has played, against anyone, so it has a top and a bottom to read; from the
 // first conference result on it is the conference table and nothing else.
 const rows = live ? table(season) : overallTable(season);
-const window = seasonWindow(season);
-const weeks = matchweeks(season);
 
 // The figures strip beneath the lede is the page's own. A journal's
 // summary_stat is parsed and ignored: three journals wrote three different
@@ -360,43 +356,6 @@ const nextLabel = (f: Fixture): string => {
       </div>
     </section>
 
-    <section class="story">
-      <div class="story-head">
-        <h2 class="sechead-plain">SEASON STORY</h2>
-        <div class="grow"></div>
-        <div class="story-range num">
-          {window.weekIndex ? `WEEK ${window.weekIndex} OF ${window.weekCount}` : `${window.weekCount} MATCHWEEKS`}
-          {" · "}
-          {shortDate(window.firstISO).toUpperCase()} – {shortDate(window.lastISO).toUpperCase()}
-        </div>
-      </div>
-      <div class="story-months">
-        {[...new Map(weeks.map((w) => [w.month, weeks.filter((x) => x.month === w.month)])).entries()].map(
-          ([month, group]) => (
-            <div class="story-month">
-              <div class="story-month-label">{month}</div>
-              <div class="story-dots">
-                {group.map((w) => (
-                  <>
-                    <span class={`dot dot-${w.state}`}></span>
-                    <span class="dot-detail">
-                      Week of {shortDate(w.startISO)} · {w.fixtures.length}{" "}
-                      {w.fixtures.length === 1 ? "match" : "matches"}
-                    </span>
-                  </>
-                ))}
-              </div>
-            </div>
-          ),
-        )}
-        <div class="grow"></div>
-        <div class="story-key">
-          <span class="dot dot-current dot-key"></span>
-          <span>THIS WEEK</span>
-        </div>
-      </div>
-    </section>
-
     <SiteFooter seasons={[season]} />
   </div>
 </Page>
@@ -523,46 +482,10 @@ const nextLabel = (f: Fixture): string => {
   .atext.quiet { color: var(--secondary); }
   .empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
 
-  /* ── Season story ───────────────────────────────────────────────────────── */
-  .story { padding: 24px 0 0; display: flex; flex-direction: column; gap: 14px; }
-  .story-head { display: flex; align-items: baseline; }
-  .sechead-plain { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
-
   @media (max-width: 720px) {
     .chart-plot, .chart-axis { min-width: 34px; }
     .chart-scroll > * { min-width: max(100%, 340px); }
   }
-  .story-range { font-size: 11px; color: var(--quiet); letter-spacing: 0.08em; }
-  .story-months { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; position: relative; }
-  .story-month { display: flex; flex-direction: column; gap: 8px; }
-  .story-month-label { font-size: 10px; letter-spacing: 0.14em; color: var(--quiet); }
-  .story-dots { display: flex; gap: 8px; align-items: center; height: 20px; }
-  /* A dot is a mark, not a control: no pointer, no hover state, nothing that
-     promises a season rewind that has not shipped. What it knows — its week
-     and how many matches fell in it — is text in the document rather than a
-     title attribute, and shows against the months row, which it cannot
-     overflow. */
-  .dot { width: 16px; height: 16px; border-radius: 50%; }
-  .dot-detail {
-    position: absolute; left: 0; right: 0; top: calc(100% + 8px);
-    z-index: 15;
-    background: var(--ink); color: var(--paper);
-    font-size: 11px; letter-spacing: 0.01em;
-    padding: 4px 9px; border-radius: 4px;
-    opacity: 0; pointer-events: none; transition: opacity 90ms ease-out;
-  }
-  .dot:hover + .dot-detail { opacity: 1; }
-  @media (prefers-reduced-motion: reduce) { .dot-detail { transition: none; } }
-  .dot-past { background: var(--ink); }
-  .dot-future { border: 1.5px solid var(--outline-quiet); }
-  .dot-current {
-    width: 20px; height: 20px;
-    background: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-wash);
-  }
-  .story-key { display: flex; align-items: center; gap: 8px; padding-bottom: 2px; }
-  .story-key span:last-child { font-size: 11px; color: var(--secondary); letter-spacing: 0.08em; }
-  .dot-key { width: 12px; height: 12px; box-shadow: none; }
 
   @media (max-width: 1180px) {
     .split { grid-template-columns: minmax(0, 1fr); gap: 32px; }

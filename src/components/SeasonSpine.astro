@@ -14,7 +14,7 @@
 // League dates take the league colour whether or not they have been played:
 // they answer a different question from "has this date passed".
 import { monLong } from "../lib/format.ts";
-import type { Season } from "../lib/derive.ts";
+import { type Season, seasonWindow } from "../lib/derive.ts";
 import { spineOf } from "../lib/schedule.ts";
 
 interface Props {
@@ -32,6 +32,14 @@ const monthDay = (iso: string): string => `${monLong(iso)} ${Number(iso.slice(8,
 const leagueFlag = spine?.leagueOpensOn
   ? `LEAGUE OPENS ${monLong(spine.leagueOpensOn).slice(0, 3).toUpperCase()} ${Number(spine.leagueOpensOn.slice(8, 10))}`
   : null;
+// The TODAY flag carries how far along the season is, in matchweeks — the one
+// fact the retired SEASON STORY band held that this line did not (owner's
+// ruling, 2026-09-01). A matchweek is a Sunday-to-Saturday span with a match.
+const window = seasonWindow(season);
+const todayFlag = window.weekIndex ? `TODAY · WEEK ${window.weekIndex} OF ${window.weekCount}` : "TODAY";
+// With both flags on the line they can meet — today within a fortnight of the
+// opener — so each takes its own row: the league above, TODAY nearest the marks.
+const twoRows = spine !== null && spine.todayAt !== null && spine.leagueOpensAt !== null;
 
 ---
 
@@ -48,7 +56,7 @@ const leagueFlag = spine?.leagueOpensOn
       </div>
     </div>
 
-    <div class="sp-plot">
+    <div class={twoRows ? "sp-plot sp-plot-two" : "sp-plot"}>
       {spine.leagueOpensAt !== null && spine.leagueOpensOn && (
         <>
           <div class="sp-flag sp-flag-league" style={`left: ${(spine.leagueOpensAt * 100).toFixed(3)}%; transform: translateX(-${(spine.leagueOpensAt * 100).toFixed(3)}%);`}>{leagueFlag}</div>
@@ -57,7 +65,7 @@ const leagueFlag = spine?.leagueOpensOn
       )}
       {spine.todayAt !== null && (
         <>
-          <div class="sp-flag sp-flag-today" style={`left: ${(spine.todayAt * 100).toFixed(3)}%; transform: translateX(-${(spine.todayAt * 100).toFixed(3)}%);`}>TODAY</div>
+          <div class="sp-flag sp-flag-today" style={`left: ${(spine.todayAt * 100).toFixed(3)}%; transform: translateX(-${(spine.todayAt * 100).toFixed(3)}%);`}>{todayFlag}</div>
           <div class="sp-rule sp-rule-today" style={`left: ${(spine.todayAt * 100).toFixed(3)}%;`}></div>
         </>
       )}
@@ -160,6 +168,11 @@ const leagueFlag = spine?.leagueOpensOn
   }
   .sp-flag-today { color: var(--ink); }
   .sp-flag-league { color: var(--accent); }
+  /* Two flags, two rows: the plot grows by one row and TODAY's flag and rule
+     step down onto it, so the flags never overprint however close the dates. */
+  .sp-plot-two { height: 118px; }
+  .sp-plot-two .sp-flag-today { top: 14px; }
+  .sp-plot-two .sp-rule-today { top: 28px; }
   .sp-months { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; }
   .sp-month {
     position: absolute;
@@ -172,13 +185,12 @@ const leagueFlag = spine?.leagueOpensOn
   @media (max-width: 720px) {
     /* Nothing moves and no mark is dropped; only the labels give way, because
        they are the part that stops resolving at this width. */
-    .sp-plot { height: 82px; }
-    .sp-marks { height: 50px; }
+    /* The marks keep their full scale here too: a nine-match date is 64px
+       tall, and a shorter stage would run it up into the flags. */
+    .sp-plot { height: 100px; }
+    .sp-plot-two { height: 118px; }
+    .sp-marks { height: 66px; }
     .sp-flag { font-size: 10px; letter-spacing: 0.1em; }
-    /* The two flags sit close enough to touch at this width. TODAY is the one
-       that orients the reader, so it stays; the league hairline keeps its
-       place and the note underneath still names the date in words. */
-    .sp-flag-league { display: none; }
     .sp-month { font-size: 10px; letter-spacing: 0.1em; }
     .sp-legend { font-size: 10px; gap: 3px 10px; }
   }

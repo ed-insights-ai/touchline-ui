@@ -156,6 +156,18 @@ describe("the season page's middle, by the numbers", () => {
     expect(table).not.toContain("statement");
   });
 
+  test("the season story is retired; its week count rides on the spine's TODAY flag", () => {
+    expect(page).not.toContain("SEASON STORY");
+    expect(page).not.toContain("story-dots");
+    expect(page).not.toContain("seasonWindow");
+    const spine = readFileSync(join(root, "components/SeasonSpine.astro"), "utf8");
+    expect(spine).toContain("`TODAY · WEEK ${window.weekIndex} OF ${window.weekCount}`");
+    expect(spine).toContain(">{todayFlag}</div>");
+    // Two flags take two rows, so a long TODAY never overprints LEAGUE OPENS.
+    expect(spine).toContain(".sp-plot-two .sp-flag-today { top: 14px; }");
+    expect(spine).not.toContain(".sp-flag-league { display: none; }");
+  });
+
   test("no reader surface prints an evidence chip any more", () => {
     for (const rel of [
       "pages/about.astro",
