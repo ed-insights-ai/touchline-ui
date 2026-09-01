@@ -146,13 +146,16 @@ const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = fals
     max-width: none;
     text-wrap: balance;
   }
+  /* The same measure as the headline it stands under, for the same reason,
+     and balanced for the same reason: two sentences at most, so this is a
+     deck, not a paragraph, and it wraps into even lines or not at all. */
   .dek {
     margin: 0;
     font-size: 15.5px;
     line-height: 1.5;
     color: var(--secondary);
-    max-width: 820px;
-    text-wrap: pretty;
+    max-width: none;
+    text-wrap: balance;
   }
   .summary { display: flex; align-items: center; gap: 24px; margin-top: 4px; flex-wrap: wrap; }
   .summary-stat { display: flex; align-items: baseline; gap: 10px; }
