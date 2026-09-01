@@ -21,7 +21,9 @@ export const GRAMMAR = `EVIDENCE GRAMMAR — every claim carries exactly one lab
 
 BASIS VOCABULARY — observed and derived claims are recomputed before publish and
 DROPPED if they cannot be confirmed. A basis a checker does not recognise is
-dropped too. Use these shapes, and only figures that appear in the brief:
+dropped too. A basis is ONE JSON object, never an array of them — a claim whose
+sentence rests on figures from more than one shape below merges their keys into
+the single object. Use these shapes, and only figures that appear in the brief:
 
   player line        { "source": "stats", "player": "<exact name>", "programme": "<slug>",
                        "goals"|"assists"|"points"|"shots"|"sog"|"minutes"|"gp"|
@@ -46,9 +48,10 @@ dropped too. Use these shapes, and only figures that appear in the brief:
                        "box_score_gaps", "all_of": "<slug>", "count": <n> }
 
 Whenever a sentence COMPARES programmes — "more than X and Y together", "more
-than any other programme" — name the relation with a comparative basis, keeping
-the plain figures beside it; the relation is recomputed from the ranked data
-and a relation that does not hold drops the claim. Whenever a sentence says a
+than any other programme" — name the relation with the comparative keys, and
+keep the plain figures in the SAME object (a comparative on goals carries the
+"gf" it ranks); the relation is recomputed from the ranked data and a relation
+that does not hold drops the claim. Whenever a sentence says a
 whole set belongs to one programme — "all three are X's" — use a set claim:
 "count" is the set's size and "all_of" asserts every member involves that
 programme, both recomputed from the set itself.
