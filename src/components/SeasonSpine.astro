@@ -10,9 +10,9 @@
 //
 // League dates take the league colour whether or not they have been played:
 // they answer a different question from "has this date passed".
-import { monLong, plural, spell } from "../lib/format.ts";
+import { monLong } from "../lib/format.ts";
 import type { Season } from "../lib/derive.ts";
-import { scheduleCounts, spineOf } from "../lib/schedule.ts";
+import { spineOf } from "../lib/schedule.ts";
 
 interface Props {
   season: Season;
@@ -20,40 +20,16 @@ interface Props {
 const { season } = Astro.props as Props;
 
 const spine = spineOf(season);
-const c = scheduleCounts(season);
 
 // Mark height grows with the day's match count, from the same step the pixel
 // reference uses: a one-match date is 16px, each further match adds 6.
 const heightOf = (count: number): number => 16 + 6 * (count - 1);
 
 const monthDay = (iso: string): string => `${monLong(iso)} ${Number(iso.slice(8, 10))}`;
-const silenceDates = spine ? spine.marks.filter((m) => m.silence).length : 0;
-const cap = (t: string): string => t.replace(/^\w/, (ch) => ch.toUpperCase());
-
-// The note is assembled here rather than in the markup: it is one sentence of
-// prose about several figures, and building it as text keeps the spacing under
-// this file's control instead of the template's.
 const leagueFlag = spine?.leagueOpensOn
   ? `LEAGUE OPENS ${monLong(spine.leagueOpensOn).slice(0, 3).toUpperCase()} ${Number(spine.leagueOpensOn.slice(8, 10))}`
   : null;
 
-const note = [
-  `A mark for each playing date, its weight the day\u2019s matches \u2014 ${c.matches} ${plural(c.matches, "match", "matches")} across ${c.dates} playing ${plural(c.dates, "date", "dates")}.`,
-  c.finals > 0
-    ? `On the dates gone by, ${c.finals} ${plural(c.finals, "final stands", "finals stand")}: ${c.scored} with published ${plural(c.scored, "score", "scores")}, ${c.silent} silent.`
-    : "No date gone by carries a final yet.",
-  c.league > 0 && c.leagueOpensOn
-    ? `${c.league} league ${plural(c.league, "match colours", "matches colour")} the spine from ${monthDay(c.leagueOpensOn)}.`
-    : null,
-  c.placeholders > 0
-    ? `${cap(spell(c.placeholders))} NCAA placeholder ${plural(c.placeholders, "row", "rows")} on ${spell(c.placeholderDates.length)} ${plural(c.placeholderDates.length, "date names", "dates name")} a round, not an opponent \u2014 they stay off the spine until they name both sides.`
-    : null,
-  silenceDates > 0
-    ? `${cap(spell(silenceDates))} ${plural(silenceDates, "date carries", "dates carry")} a silence beneath the axis.`
-    : null,
-]
-  .filter(Boolean)
-  .join(" ");
 ---
 
 {spine && (
@@ -105,7 +81,10 @@ const note = [
       </div>
     </div>
 
-    <p class="sp-note">{note}</p>
+    {/* No caption beneath the line. There was one — four sentences of counts
+        keying the marks — and it was retired on the owner's reading: the
+        legend above keys the marks, TODAY and LEAGUE OPENS sit on the line
+        itself, and a reader can see the shape without being told it. */}
 
   </section>
 )}
@@ -187,8 +166,6 @@ const note = [
     color: var(--quiet);
     white-space: nowrap;
   }
-  .sp-note { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
-
   @media (max-width: 720px) {
     /* Nothing moves and no mark is dropped; only the labels give way, because
        they are the part that stops resolving at this width. */

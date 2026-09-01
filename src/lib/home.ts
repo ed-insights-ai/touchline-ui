@@ -31,7 +31,7 @@ import {
   type Sighting,
 } from "./division.ts";
 import { dayNumber, dayOfMonth, dowShort, monShort, shortDate, spell, toISO } from "./format.ts";
-import type { NationalJournalFile } from "./journal.ts";
+import { headlineForm, type NationalJournalFile } from "./journal.ts";
 import type { Fixture } from "./model.ts";
 
 /** Every configured conference the data home has actually collected, in
@@ -267,7 +267,7 @@ export function nationalMasthead(
   if (!journal) return floor;
   return {
     ...floor,
-    headline: journal.headline,
+    headline: headlineForm(journal.headline),
     // The floor's dek is the openers in order, written to stand alone under no
     // headline at all. Left under a story it did not come from it would be two
     // unrelated sentences pretending to be a lede, so a journal that writes a

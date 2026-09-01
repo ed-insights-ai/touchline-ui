@@ -33,8 +33,10 @@ import {
   nationalAsOf,
   nationalDescription,
   nationalLede,
+  nationalMasthead,
   nextLeagueKickoff,
 } from "./home.ts";
+import type { NationalJournalFile } from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
 
 const seasons = homeSeasons();
@@ -243,6 +245,16 @@ describe("the masthead is derived, deterministically, from counts and opener dat
     // used to say it a second time is gone, and so is the footer's scope
     // token. Nothing else here says it, so this test is the whole promise.
     expect(lede.kicker).toContain(site.division.toUpperCase());
+  });
+
+  test("a journal's headline loses its trailing full stop; the dek keeps its own", () => {
+    const journal = {
+      headline: "Midwestern State lead the division on goals.",
+      dek: "They have eleven. The nearest side has eight.",
+    } as NationalJournalFile;
+    const mast = nationalMasthead(columns, asOf, national, journal);
+    expect(mast.headline).toBe("Midwestern State lead the division on goals");
+    expect(mast.dek).toBe("They have eleven. The nearest side has eight.");
   });
 
   test("no headline is manufactured — the floor writes none", () => {

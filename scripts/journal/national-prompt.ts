@@ -87,8 +87,12 @@ opens-date, not a card's line, not a collect time. Every one of those is drawn
 below in larger type than a sentence can compete with, and a headline repeating
 one has spent the top of the site saying what the reader can already see.
 
-  headline   ONE sentence, 100 characters at most. What happened, or what is
-             true of the division, that the page below does not show.
+  headline   a HEADLINE, not a sentence, and set in large serif type: present
+             tense, active voice, the subject first, ten words or fewer, no
+             leading clause and no full stop. What happened, or what is true
+             of the division, that the page below does not show. The page
+             removes a trailing full stop mechanically; the rest of the form
+             is yours.
   dek        one or two sentences, 280 characters at most, carrying the named
              figures that stand the headline up. Not the headline again in
              longer form: if a clause of the dek could be cut and the reader
@@ -148,6 +152,11 @@ headline and dek VERBATIM unless one of two things is true: something more
 newsworthy has happened, or the standing line is no longer true of today's
 data. Nothing else displaces it — not a fresh collect, not a wish to have
 written something new. A quiet day is a day the line stands.
+
+One more thing displaces a standing headline: its form. A headline that is a
+sentence — a fronted clause, more than ten words, a full stop — is rewritten
+into headline form even when its story stands, and "displaced_by" then says
+"form". The dek beneath it stands if it is still true.
 
 When you do displace it, the new line must not be the old line's shape with new
 figures in it. Change what the sentence is ABOUT, not only what it counts.
@@ -215,7 +224,7 @@ no markdown fence, no commentary before or after.
   "gender": "${brief.meta.gender}",
   "generated_at": "<ISO 8601, now>",
   "data_collected_at": "${brief.meta.collected_at[0]?.at ?? ""}",
-  "headline": "<one sentence, 100 characters at most>",
+  "headline": "<a broadsheet headline: subject first, present tense, ten words or fewer, no full stop>",
   "dek": "<one or two sentences, 280 at most, carrying the figures that stand it up>",
   "basis": { ... },
   "fixture_ref": "<the match the story is about, if it is about one>",

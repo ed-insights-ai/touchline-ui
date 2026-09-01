@@ -123,11 +123,26 @@ attention and tells them nothing they did not have.
   inks the largest differently. It does not need to be told which bar is
   tallest. Say what the shape means; the chart says what it looks like.
 
-- "headline" and "dek" head the page above the season strip, the table and the
-  week's matches. The dek stands the headline on named figures; it does not say
-  the headline again in longer form. There is no kicker to write: the page
-  composes its own from the conference's code, the phase the table is in, and
-  the collect date, all three of which it already holds.
+- "headline" is set in large serif type across the top of the page, over the
+  season line, the table and the week's matches. It is a HEADLINE, not a
+  sentence: write it the way a broadsheet does. Present tense. Active voice.
+  The subject first, then what it has done. Ten words or fewer. No leading
+  clause, no full stop at the end. The dek beneath it holds the qualifier and
+  the figures that stand it up.
+    shape  "<who> <what they have done>"
+    good   "Home sides winning almost everything"
+    bad    "Outside its own conference, the Gulf South has won as often as it
+            has lost."
+  The bad line is a sentence: a fronted clause, fourteen words and a full stop.
+  Its story is a good one, and in headline form it is six words. The page
+  removes a trailing full stop mechanically, and the rest of the form it
+  cannot fix for you.
+
+- "dek" stands the headline on named figures, in one or two sentences with
+  their full stops. It does not say the headline again in longer form. There
+  is no kicker to write: the page composes its own from the conference's
+  code, the phase the table is in, and the collect date, all three of which
+  it already holds.
 
 - "summary_stat.detail" sits directly beneath its own label and value, and the
   page prints that value in large type. Where the value is the played count,
@@ -187,6 +202,11 @@ headline and dek VERBATIM unless one of two things is true: something more
 newsworthy has happened in this conference, or the standing lines are no longer
 true of today's data. Nothing else displaces them — not a fresh collect, not a
 wish to have written something new. A quiet day is a day the lines stand.
+
+One more thing displaces a standing headline: its form. A headline that is a
+sentence — a fronted clause, more than ten words, a full stop — is rewritten
+into headline form even when its story stands, and "displaced_by" then says
+"form". The dek beneath it stands if it is still true.
 
 When you do displace them, the new headline must not be the old one's shape
 with new figures in it. Change what the sentence is ABOUT, not only what it
@@ -256,7 +276,7 @@ no markdown fence, no commentary before or after.
   "conference": "${brief.meta.conference}",
   "generated_at": "<ISO 8601, now>",
   "data_collected_at": "${brief.meta.collected_at}",
-  "headline": "<one sentence, the season's state right now>",
+  "headline": "<a broadsheet headline: subject first, present tense, ten words or fewer, no full stop>",
   "dek": "<two sentences at most, standing the headline on named figures>",
   "lede_basis": { ... },
   "displaced_by": "<what displaced the previous headline and dek — omit if they stand>",

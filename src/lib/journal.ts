@@ -356,12 +356,22 @@ export interface Editorial {
   fromJournal: boolean;
 }
 
+/** A headline is not a sentence, and the page sets it as one: a single
+ *  trailing full stop comes off whatever the writer sent. The prompt asks for
+ *  the form; this is the guard behind it, so a headline that arrives as a
+ *  sentence still prints as a headline instead of waiting a day for the
+ *  cadence to fix it. Only the terminal stop: a headline that ends in a
+ *  question mark said so on purpose, and the dek keeps every stop it has. */
+export function headlineForm(text: string): string {
+  return text.trim().replace(/\.$/, "");
+}
+
 export function editorial(s: Season, journal: JournalFile | null): Editorial {
   if (journal) {
     return {
       // The page's own, never the journal's, even when a journal wrote one.
       kicker: defaultKicker(s),
-      headline: journal.headline,
+      headline: headlineForm(journal.headline),
       dek: journal.dek ?? null,
       stamp: journal.lede_updated
         ? `UPDATED ${monShort(journal.lede_updated).toUpperCase()} ${dayOfMonth(journal.lede_updated)}`
@@ -386,7 +396,7 @@ export function editorial(s: Season, journal: JournalFile | null): Editorial {
       : null;
   return {
     kicker: defaultKicker(s),
-    headline: `${played} of ${total} matches played.`,
+    headline: `${played} of ${total} matches played`,
     dek: [opensLine, silentLine].filter(Boolean).join(" ") || null,
     stamp: null,
     fromJournal: false,

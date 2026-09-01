@@ -24,6 +24,7 @@ import {
   CHART_CAPTION,
   defaultKicker,
   editorial,
+  headlineForm,
   type JournalFile,
   journalFileSchema,
   loadJournal,
@@ -133,6 +134,59 @@ describe("the lede's stamp is a fact about the sentence", () => {
     const floor = editorial(anySeason, null);
     expect(floor.fromJournal).toBe(false);
     expect(floor.stamp).toBe(null);
+  });
+});
+
+describe("a headline is not a sentence", () => {
+  test("a trailing full stop comes off, and only that", () => {
+    expect(headlineForm("Gulf South sides break even outside the conference.")).toBe(
+      "Gulf South sides break even outside the conference",
+    );
+    // A question mark was meant; an abbreviation's stop is not the end.
+    expect(headlineForm("Nobody at home yet?")).toBe("Nobody at home yet?");
+    expect(headlineForm("St. Mary's still winless")).toBe("St. Mary's still winless");
+    expect(headlineForm("  Two unbeaten sides left.  ")).toBe("Two unbeaten sides left");
+  });
+
+  test("the page applies it to the journal's headline and never to the dek", () => {
+    const lede = editorial(anySeason, {
+      ...anyJournal,
+      headline: "A sentence with a stop.",
+      dek: "The dek keeps its stops. Both of them.",
+    });
+    expect(lede.headline).toBe("A sentence with a stop");
+    expect(lede.dek).toBe("The dek keeps its stops. Both of them.");
+  });
+
+  test("the data-only headline keeps the form on its own", () => {
+    expect(editorial(anySeason, null).headline).not.toMatch(/\.$/);
+  });
+});
+
+describe("the season page's order and keys", () => {
+  const page = readFileSync(join(import.meta.dir, "../pages/[conference]/index.astro"), "utf8");
+
+  test("the week's docket sits under the featured pair, not under the season line", () => {
+    const spine = page.indexOf("<SeasonSpine");
+    const featured = page.indexOf('<section class="featured">');
+    const week = page.indexOf("<TheWeek");
+    const players = page.indexOf("PLAYERS TO WATCH");
+    expect(spine).toBeGreaterThan(-1);
+    expect(week).toBeGreaterThan(featured);
+    expect(week).toBeLessThan(players);
+  });
+
+  test("the pattern's head keys the chips where a reader first meets them", () => {
+    expect(page).toContain("●●●</i>observed");
+    expect(page).toContain("●●○</i>derived");
+    expect(page).toMatch(/open a line for its figures/);
+  });
+
+  test("the season line keys its marks with the legend and prints no caption", () => {
+    const spine = readFileSync(join(import.meta.dir, "../components/SeasonSpine.astro"), "utf8");
+    expect(spine).toContain("sp-legend");
+    expect(spine).not.toContain("sp-note");
+    expect(spine).not.toContain("A mark for each playing date");
   });
 });
 
