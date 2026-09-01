@@ -16,7 +16,7 @@
 // Nothing here ever writes into the data home.
 
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Season } from "../../src/lib/derive.ts";
 import { loadSeason } from "../../src/lib/derive.ts";
@@ -296,11 +296,19 @@ function validateNational(args: Args): number {
   }
   console.log(`  report: ${reportFile}`);
 
-  if (args.write) {
+  if (args.write && t.dropped > 0) {
+    // A national journal is its lede and nothing else, so a dropped lede
+    // leaves no journal — and writing an empty headline back would leave a
+    // file the schema itself refuses to parse, which the next generate would
+    // die on. Removing it is the honest state: there is no journal, and the
+    // masthead renders the floor it renders when none was ever written.
+    rmSync(path, { force: true });
+    console.log(`  the lede did not survive — removed ${path}; the masthead falls back`);
+  } else if (args.write) {
     writeJson(path, cleaned);
     console.log(`  wrote the validated journal back to ${path}`);
   } else if (t.dropped > 0) {
-    console.log("  (dry run — pass --write to publish the journal with the lede removed)");
+    console.log("  (dry run — pass --write to remove the journal whose lede did not survive)");
   }
   return args.strict && t.dropped > 0 ? 1 : 0;
 }
