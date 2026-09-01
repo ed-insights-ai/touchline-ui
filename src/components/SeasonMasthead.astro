@@ -59,7 +59,8 @@ const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = fals
     </div>
   </div>
   <h1 class="headline serif">{headline}</h1>
-  {dek && <p class="dek">{dek}</p>}
+  {/* Serif: the dek is the story's opening paragraph, and serif means story. */}
+  {dek && <p class="dek serif">{dek}</p>}
   {stamp && <div class="mast-stamp num">{stamp}</div>}
   <div class="summary">
     <div class="summary-stat">
@@ -151,9 +152,9 @@ const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = fals
      deck, not a paragraph, and it wraps into even lines or not at all. */
   .dek {
     margin: 0;
-    font-size: 15.5px;
-    line-height: 1.5;
-    color: var(--secondary);
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--ink-soft);
     max-width: none;
     text-wrap: balance;
   }

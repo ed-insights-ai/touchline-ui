@@ -138,11 +138,24 @@ attention and tells them nothing they did not have.
   removes a trailing full stop mechanically, and the rest of the form it
   cannot fix for you.
 
-- "dek" stands the headline on named figures, in one or two sentences with
-  their full stops. It does not say the headline again in longer form. There
-  is no kicker to write: the page composes its own from the conference's
-  code, the phase the table is in, and the collect date, all three of which
-  it already holds.
+- "dek" is the lede beneath the headline: the opening paragraph of the story
+  the headline names, in the desk's voice. It is set in serif a step below
+  the headline and read as prose. Two or three sentences, sixty words at
+  most, in the tense a match report is written in, with the figures folded
+  into the sentences rather than listed. Who, and what they have done; then
+  the fact that puts it in proportion. It does not say the headline again
+  in longer form.
+    good   "The Prairie's two unbeaten sides have conceded one goal between
+            them in six matches, while the other seven programmes have lost
+            nine of the eleven they have played."
+    bad    "Between them the two have played six matches, won five, and
+            conceded one goal. The other seven programmes have nine defeats
+            in eleven matches between them."
+  The bad line is the same facts as a list with verbs; nobody opens a story
+  that way. Every numeral in either still goes in "lede_basis".
+  There is no kicker to write: the page composes its own from the
+  conference's code, the phase the table is in, and the collect date, all
+  three of which it already holds.
 
 - "summary_stat.detail" sits directly beneath its own label and value, and the
   page prints that value in large type. Where the value is the played count,
@@ -206,7 +219,10 @@ wish to have written something new. A quiet day is a day the lines stand.
 One more thing displaces a standing headline: its form. A headline that is a
 sentence — a fronted clause, more than ten words, a full stop — is rewritten
 into headline form even when its story stands, and "displaced_by" then says
-"form". The dek beneath it stands if it is still true.
+"form". The dek is held to its form the same way: a dek that lists figures
+rather than opening the story is rewritten as the lede, and "displaced_by"
+says "form". A dek that already reads as the story's opening stands with its
+headline if it is still true.
 
 When you do displace them, the new headline must not be the old one's shape
 with new figures in it. Change what the sentence is ABOUT, not only what it
@@ -277,7 +293,7 @@ no markdown fence, no commentary before or after.
   "generated_at": "<ISO 8601, now>",
   "data_collected_at": "${brief.meta.collected_at}",
   "headline": "<a broadsheet headline: subject first, present tense, ten words or fewer, no full stop>",
-  "dek": "<two sentences at most, standing the headline on named figures>",
+  "dek": "<the lede: two or three sentences, sixty words at most, the figures folded into prose>",
   "lede_basis": { ... },
   "displaced_by": "<what displaced the previous headline and dek — omit if they stand>",
   "wire": { "line": "<one line for the national page's card>", "basis": { ... } },

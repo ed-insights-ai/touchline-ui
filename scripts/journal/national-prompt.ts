@@ -93,12 +93,14 @@ one has spent the top of the site saying what the reader can already see.
              of the division, that the page below does not show. The page
              removes a trailing full stop mechanically; the rest of the form
              is yours.
-  dek        one or two sentences, 280 characters at most, carrying the named
-             figures that stand the headline up. Not the headline again in
-             longer form: if a clause of the dek could be cut and the reader
-             would still know that fact from the headline — or from the dek's
-             own other clause — cut it and spend the words on a figure. A
-             headline about one side may stand on a dek about both.
+  dek        the lede beneath the headline: the opening paragraph of the
+             story it names, in the desk's voice, set in serif and read as
+             prose. Two or three sentences, sixty words at most, in the
+             tense a match report is written in, with the figures folded
+             into the sentences rather than listed. Not the headline again
+             in longer form: if a clause could be cut and the reader would
+             still know that fact from the headline, cut it. A headline
+             about one side may stand on a lede about the division.
 
 Never a clock time. Never a scoreline — the ledger is directly beneath you and
 prints every one of them. Both are checked and both will fail the build.`;
@@ -156,7 +158,10 @@ written something new. A quiet day is a day the line stands.
 One more thing displaces a standing headline: its form. A headline that is a
 sentence — a fronted clause, more than ten words, a full stop — is rewritten
 into headline form even when its story stands, and "displaced_by" then says
-"form". The dek beneath it stands if it is still true.
+"form". The dek is held to its form the same way: a dek that lists figures
+rather than opening the story is rewritten as the lede, and "displaced_by"
+says "form". A dek that already reads as the story's opening stands with its
+headline if it is still true.
 
 When you do displace it, the new line must not be the old line's shape with new
 figures in it. Change what the sentence is ABOUT, not only what it counts.
@@ -225,7 +230,7 @@ no markdown fence, no commentary before or after.
   "generated_at": "<ISO 8601, now>",
   "data_collected_at": "${brief.meta.collected_at[0]?.at ?? ""}",
   "headline": "<a broadsheet headline: subject first, present tense, ten words or fewer, no full stop>",
-  "dek": "<one or two sentences, 280 at most, carrying the figures that stand it up>",
+  "dek": "<the lede: two or three sentences, sixty words at most, the figures folded into prose>",
   "basis": { ... },
   "fixture_ref": "<the match the story is about, if it is about one>",
   "displaced_by": "<what displaced the previous headline — omit if it stands>"

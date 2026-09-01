@@ -182,6 +182,15 @@ describe("the season page's order and keys", () => {
     expect(page).toMatch(/open a line for its figures/);
   });
 
+  test("the dek is the story's opening paragraph, and reads in serif on both surfaces", () => {
+    const mast = readFileSync(join(import.meta.dir, "../components/SeasonMasthead.astro"), "utf8");
+    expect(mast).toContain('class="dek serif"');
+    const home = readFileSync(join(import.meta.dir, "../pages/index.astro"), "utf8");
+    // Only a journal writes a headline, so a headline is the tell that the
+    // dek beneath it is story rather than the floor's openers.
+    expect(home).toMatch(/lede\.headline \? "nat-dek nat-lede serif" : "nat-dek"/);
+  });
+
   test("the season line keys its marks with the legend and prints no caption", () => {
     const spine = readFileSync(join(import.meta.dir, "../components/SeasonSpine.astro"), "utf8");
     expect(spine).toContain("sp-legend");

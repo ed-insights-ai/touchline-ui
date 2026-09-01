@@ -152,7 +152,10 @@ const opensLine = (c: (typeof columns)[number]): string =>
     <section class="nat-lede">
       <div class="nat-kicker num">{lede.kicker}</div>
       {lede.headline && <h2 class="nat-headline serif">{lede.headline}</h2>}
-      {lede.dek && <p class="nat-dek">{lede.dek}</p>}
+      {/* A journal's dek is the story's opening paragraph and reads in serif;
+          the floor's is the openers in order, which is information, and
+          stays in sans. Only a journal writes a headline, so that is the tell. */}
+      {lede.dek && <p class={lede.headline ? "nat-dek nat-lede serif" : "nat-dek"}>{lede.dek}</p>}
       {lede.stamp && <div class="nat-stamp num">{lede.stamp}</div>}
       <div class="nat-strip num">
         {lede.strip.map((cell) => <span class="nat-cell">{cell}</span>)}
@@ -279,6 +282,7 @@ const opensLine = (c: (typeof columns)[number]): string =>
   /* When the headline last changed. It stands until something more newsworthy
      displaces it or it stops being true, so a reader meeting a sentence that
      did not move today is owed the day it last did. */
+  .nat-lede { max-width: none; font-size: 18px; line-height: 1.45; color: var(--ink-soft); text-wrap: balance; }
   .nat-stamp { font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
   .nat-strip { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
   /* Punctuation standing in for the gap between two figures — nothing a
