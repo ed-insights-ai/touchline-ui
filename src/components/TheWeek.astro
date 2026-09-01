@@ -8,7 +8,7 @@
 // this site collects carries the weight; an opponent it does not follow stays
 // quiet. When two collected programmes meet, both carry it — there is no
 // reason to favour either.
-import { dayOfMonth, dowLong, monLong, spell } from "../lib/format.ts";
+import { dayOfMonth, dowLong, monLong } from "../lib/format.ts";
 import { matchHref, type Season } from "../lib/derive.ts";
 import { kickoff, weekOf } from "../lib/schedule.ts";
 
@@ -36,18 +36,6 @@ const headline = count === 0 ? "NO MATCHES THIS WEEK" : `${count} ${count === 1 
 const half = Math.ceil(week.days.length / 2);
 const columns = [week.days.slice(0, half), week.days.slice(half)];
 
-const cap = (t: string): string => t.replace(/^\w/, (ch) => ch.toUpperCase());
-const league =
-  week.leagueMatches === 0
-    ? "all of them outside the conference"
-    : week.leagueMatches === week.matches.length
-      ? "all of them league matches"
-      : `${spell(week.leagueMatches)} of them league matches`;
-const note =
-  `${cap(spell(week.matches.length))} ${week.matches.length === 1 ? "match" : "matches"} across ` +
-  `${spell(week.playingDays)} ${week.playingDays === 1 ? "playing day" : "playing days"} \u2014 ${league}. ` +
-  "The programme Touchline collects carries the weight in each line; every kickoff is as the " +
-  "home programme published it, and the venue prints when the schedule names one.";
 const emptyNote =
   `No match anywhere in this conference between ${monLong(week.start)} ${dayOfMonth(week.start)} and ` +
   `${monLong(week.end)} ${dayOfMonth(week.end)}. The week is empty, and that is the record.`;
@@ -101,9 +89,6 @@ const emptyNote =
     </div>
   )}
 
-  {week.matches.length > 0 && (
-    <p class="wk-note">{note}</p>
-  )}
   </details>
 
   {/* Outside the fold on purpose: the road to every match stays open whether or
@@ -168,17 +153,23 @@ const emptyNote =
   }
   .wk-all:hover { color: var(--accent-hover); }
 
-  .wk-cols { margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
+  .wk-cols { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
   .wk-col { display: flex; flex-direction: column; }
+  /* Each day is a block: its label in ink over a rule darker than the row
+     hairlines, and clear air before the next day, so the eye finds where a
+     day starts and ends without reading the labels (owner, 2026-09-01). */
   .wk-day { display: flex; flex-direction: column; }
+  .wk-day + .wk-day { margin-top: 26px; }
   .wk-date {
-    padding: 14px 0 6px;
+    padding: 0 0 6px;
     font-size: 10px;
     letter-spacing: 0.16em;
     font-weight: 600;
-    color: var(--quiet);
+    color: var(--ink);
+    border-bottom: 1px solid var(--tenure-rule);
   }
-  .wk-none { margin: 0; padding: 4px 0 6px; font-size: 13.5px; color: var(--quiet); }
+  .wk-date + .wk-row, .wk-date + .wk-none { border-top: none; }
+  .wk-none { margin: 0; padding: 7px 0 6px; font-size: 13.5px; color: var(--quiet); }
 
   .wk-row {
     display: flex;
@@ -197,7 +188,6 @@ const emptyNote =
   .wk-time { flex: none; color: var(--quiet); font-size: 13px; }
 
   .wk-empty { margin: 14px 0 0; font-size: 14px; line-height: 1.5; color: var(--quiet); max-width: 760px; }
-  .wk-note { margin: 18px 0 0; font-size: 14px; line-height: 1.5; color: var(--quiet); max-width: 1100px; }
 
   @media (max-width: 1180px) {
     .wk-cols { grid-template-columns: minmax(0, 1fr); gap: 0; }

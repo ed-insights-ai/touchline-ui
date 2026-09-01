@@ -61,5 +61,8 @@ export const site: SiteConfig = {
     "ncaa-third-round-and-quarterfinals": "NCAA Third Round & Quarterfinals",
     "ncaa-semi-finals-and-finals": "NCAA Semifinals & Final",
     "ncaa-semifinals-and-final": "NCAA Semifinals & Final",
+    // The collector slugs the University of Mobile as "of-mobile", which the
+    // title-caser would print as "Of Mobile".
+    "of-mobile": "Mobile",
   },
 };
