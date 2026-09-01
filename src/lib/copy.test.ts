@@ -35,9 +35,15 @@ import {
   homeSeasons,
   nationalAsOf,
   nationalDescription,
-  nationalLede,
+  nationalMasthead,
 } from "./home.ts";
-import { editorial, fallbackFindings, fallbackPattern, loadJournal } from "./journal.ts";
+import {
+  editorial,
+  fallbackFindings,
+  fallbackPattern,
+  loadJournal,
+  loadNationalJournal,
+} from "./journal.ts";
 import { footNote, metaDescription, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
 
@@ -116,18 +122,22 @@ function matchPages(s: Season): Line[] {
 const nationalSeasons = homeSeasons();
 const nationalColumns = homeColumns(nationalSeasons);
 const nationalFigures = divisionCounts(nationalSeasons);
-const nationalMasthead = nationalLede(
+// As the page composes it, journal and all: the caps and the properties below
+// exist for the writing, and reading the floor instead would mean they never
+// meet a sentence a model wrote.
+const masthead = nationalMasthead(
   nationalColumns,
   nationalAsOf(nationalSeasons),
   nationalFigures,
+  loadNationalJournal(site.season, site.gender),
 );
 
 function nationalPage(): Line[] {
   const out: Line[] = [];
-  if (nationalMasthead.headline) {
-    out.push({ where: "national headline", text: nationalMasthead.headline });
+  if (masthead.headline) {
+    out.push({ where: "national headline", text: masthead.headline });
   }
-  if (nationalMasthead.dek) out.push({ where: "national dek", text: nationalMasthead.dek });
+  if (masthead.dek) out.push({ where: "national dek", text: masthead.dek });
   out.push({
     where: "national description",
     text: nationalDescription(nationalColumns, nationalFigures),
@@ -339,12 +349,12 @@ describe("a line fits the altitude it is set at", () => {
   test("the national headline sets in one balanced line", () => {
     // Null today — the floor writes no headline rather than manufacture one —
     // so this is the cap standing ready for the layer that will.
-    const length = nationalMasthead.headline?.length ?? 0;
+    const length = masthead.headline?.length ?? 0;
     expect(length).toBeLessThanOrEqual(HEADLINE_MAX);
   });
 
   test("the national dek stays at dek altitude", () => {
-    expect(nationalMasthead.dek?.length ?? 0).toBeLessThanOrEqual(DEK_MAX);
+    expect(masthead.dek?.length ?? 0).toBeLessThanOrEqual(DEK_MAX);
   });
 
   test("nothing in the masthead prints a scoreline — the ledger prints every one", () => {

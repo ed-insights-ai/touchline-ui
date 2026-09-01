@@ -120,6 +120,14 @@ export const journalFileSchema = z
         line: z.string().min(1),
         basis: basisSchema.optional(),
         updated: z.string().optional(),
+        /** What displaced the line, in the writer's own words — written only
+         *  when the line changed, and never rendered. A standing line is
+         *  displaced by something more newsworthy or by no longer being true,
+         *  and the judgement of which is the writer's; this is the writer
+         *  saying which, for the person reading the diff tomorrow. The CLI
+         *  drops it when the line did not change, so it cannot outlive the
+         *  displacement it describes. */
+        displaced_by: z.string().optional(),
       })
       .strict()
       .optional(),
@@ -166,6 +174,86 @@ export const journalFileSchema = z
   })
   .strict();
 export type JournalFile = z.infer<typeof journalFileSchema>;
+
+// ── The division's journal ───────────────────────────────────────────────────
+// A separate file with a separate schema, because it answers to a separate
+// surface. The conference journal writes a page that prints counts and a table
+// beneath it; this one writes a masthead that stands over a ledger, three
+// cards and a strip, and it is the only writing on the site composed across
+// the conference files at once.
+//
+// Everything about it is optional to the site. No national journal means the
+// masthead renders its floor, which is what it renders today.
+
+export const NATIONAL_SCHEMA = "touchline.national/1";
+
+export const nationalJournalSchema = z
+  .object({
+    schema: z.literal(NATIONAL_SCHEMA),
+    season: z.number().int(),
+    gender: z.string().min(1),
+    generated_at: z.string().min(1),
+    /** The freshest collect the brief was composed from. */
+    data_collected_at: z.string().min(1),
+    headline: z.string().min(1),
+    dek: z.string().optional(),
+    /** Every figure the headline and dek contain. The masthead is the first
+     *  prose on the site a reader meets and the only prose with no page above
+     *  it to check against, so this is not optional in spirit even where the
+     *  schema allows a journal without one to parse. */
+    basis: basisSchema.optional(),
+    /** The match the story is about, when it is about one. Checked to resolve;
+     *  the story is not obliged to have one. */
+    fixture_ref: z.string().optional(),
+    /** The day the HEADLINE last changed. Computed by the CLI from the
+     *  previous journal, never written by the writer — the same rule the
+     *  conference wire's date follows, and the same module computes it. */
+    updated: z.string().optional(),
+    /** What displaced the headline, in the writer's own words — written only
+     *  when it changed, and never rendered. Dropped by the CLI on a day the
+     *  headline stood, so it cannot outlive the displacement it describes. */
+    displaced_by: z.string().optional(),
+    validation: z
+      .object({ policy: z.string().optional(), validated_at: z.string().nullable().optional() })
+      .strict()
+      .optional(),
+  })
+  .strict();
+export type NationalJournalFile = z.infer<typeof nationalJournalSchema>;
+
+/** The division journal's file name — the same grammar as a conference's, with
+ *  the scope in place of the conference key. */
+export const nationalJournalFile = (season: number, gender: string): string =>
+  `journal-${season}-${gender}-national.json`;
+
+const nationalCache = new Map<string, NationalJournalFile | null>();
+
+/** The division's journal, if one has been written. Never a build dependency:
+ *  absent, stale or malformed, the masthead renders its floor. */
+export function loadNationalJournal(season: number, gender: string): NationalJournalFile | null {
+  const file = nationalJournalFile(season, gender);
+  const hit = nationalCache.get(file);
+  if (hit !== undefined) return hit;
+  const override = process.env.TOUCHLINE_JOURNAL_DIR?.trim();
+  const paths = [
+    ...(override ? [join(override, file)] : []),
+    join(dataRoot(), "data", "journal", file),
+    join(process.cwd(), "journal", file),
+  ];
+  let found: NationalJournalFile | null = null;
+  for (const path of paths) {
+    if (!existsSync(path)) continue;
+    try {
+      found = nationalJournalSchema.parse(JSON.parse(readFileSync(path, "utf8")));
+    } catch (err) {
+      console.warn(`[touchline] national journal ignored (${path}): ${(err as Error).message}`);
+      found = null;
+    }
+    break;
+  }
+  nationalCache.set(file, found);
+  return found;
+}
 
 /** Where a journal may live, in the order we look: an explicit override, the
  *  data home beside the files it describes, then this repo's own directory. */

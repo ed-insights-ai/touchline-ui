@@ -35,9 +35,9 @@ import {
   mostImminentKey,
   nationalAsOf,
   nationalDescription,
-  nationalLede,
+  nationalMasthead,
 } from "../lib/home.ts";
-import { editorial, loadJournal } from "../lib/journal.ts";
+import { editorial, loadJournal, loadNationalJournal } from "../lib/journal.ts";
 import { site } from "../site.config.ts";
 
 const seasons = homeSeasons();
@@ -51,7 +51,15 @@ const imminent = mostImminentKey(columns);
 const national = divisionCounts(seasons);
 
 const asOf = nationalAsOf(seasons);
-const lede = nationalLede(columns, asOf, national);
+// The division's journal writes the headline and the dek and nothing else.
+// Absent, or emptied by the validator, the masthead is exactly what it was
+// before one existed — the page never waits on a model call.
+const lede = nationalMasthead(
+  columns,
+  asOf,
+  national,
+  loadNationalJournal(site.season, site.gender),
+);
 // A share card and a search result meet these facts with no cards and no strip
 // beneath them, so the description keeps the full prose the masthead stopped
 // printing — and keeps it stable, because it identifies the page as much as it
@@ -138,12 +146,14 @@ const opensLine = (c: (typeof columns)[number]): string =>
 
     {/* Four altitudes, each answerable to a different surface: the scope and
         the date, the division's story, the figures that stand it up, and the
-        counts. The headline is null until a national journal writes one — the
-        floor manufactures no story out of numbers the cards already print. */}
+        counts. With no national journal the headline altitude stays empty —
+        the floor manufactures no story out of numbers the cards already
+        print — and the page reads as it did before one was written. */}
     <section class="nat-lede">
       <div class="nat-kicker num">{lede.kicker}</div>
       {lede.headline && <h2 class="nat-headline serif">{lede.headline}</h2>}
       {lede.dek && <p class="nat-dek">{lede.dek}</p>}
+      {lede.stamp && <div class="nat-stamp num">{lede.stamp}</div>}
       <div class="nat-strip num">
         {lede.strip.map((cell) => <span class="nat-cell">{cell}</span>)}
       </div>
@@ -264,6 +274,10 @@ const opensLine = (c: (typeof columns)[number]): string =>
     color: var(--secondary);
     text-wrap: pretty;
   }
+  /* When the headline last changed. It stands until something more newsworthy
+     displaces it or it stops being true, so a reader meeting a sentence that
+     did not move today is owed the day it last did. */
+  .nat-stamp { font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
   .nat-strip { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
   /* Punctuation standing in for the gap between two figures — nothing a
      reader has to read, which is the only type this rung of the ladder sets. */

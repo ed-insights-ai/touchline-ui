@@ -8,7 +8,7 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { standingDate } from "./wire.ts";
+import { standingDate, standingNote } from "./wire.ts";
 
 describe("a line's date moves only when the line does", () => {
   test("an unchanged line keeps the date it already had", () => {
@@ -57,5 +57,31 @@ describe("a line's date moves only when the line does", () => {
     expect(standingDate("A line.", { line: "A line. ", updated: "2026-08-27" }, "2026-09-01")).toBe(
       "2026-09-01",
     );
+  });
+});
+
+describe("the note names a displacement, and only a real one", () => {
+  test("a changed line keeps the writer's reason", () => {
+    expect(
+      standingNote("New line.", { line: "Old line.", updated: "2026-08-27" }, "Harding lost."),
+    ).toBe("Harding lost.");
+  });
+
+  test("an unchanged line has nothing to name, whatever the writer wrote", () => {
+    // The line stood. A note here would describe a displacement that did not
+    // happen, and it would go on describing it every day the line kept
+    // standing. The CLI decides this, not the writer: it has just compared the
+    // two lines, and asking the writer to agree would be a second place for
+    // one fact to be wrong.
+    expect(standingNote("A line.", { line: "A line.", updated: "2026-08-27" }, "Anything.")).toBe(
+      undefined,
+    );
+  });
+
+  test("a first line may carry one, and need not", () => {
+    expect(standingNote("First ever.", undefined, "The season started.")).toBe(
+      "The season started.",
+    );
+    expect(standingNote("First ever.", undefined, undefined)).toBe(undefined);
   });
 });

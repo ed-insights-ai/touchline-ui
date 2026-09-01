@@ -30,7 +30,17 @@ import {
   foldToMatches,
   type Sighting,
 } from "./division.ts";
-import { dayNumber, dowShort, plural, shortDate, spell, toISO } from "./format.ts";
+import {
+  dayNumber,
+  dayOfMonth,
+  dowShort,
+  monShort,
+  plural,
+  shortDate,
+  spell,
+  toISO,
+} from "./format.ts";
+import type { NationalJournalFile } from "./journal.ts";
 import type { Fixture } from "./model.ts";
 
 /** Every configured conference the data home has actually collected, in
@@ -221,6 +231,12 @@ export interface NationalLede {
    *  must never have to infer a zero from a sentence we chose not to write.
    *  That doctrine used to live in the prose; it lives here now. */
   strip: string[];
+  /** When the headline last changed — "UPDATED SEP 1". A standing line is
+   *  displaced by something more newsworthy or by no longer being true, never
+   *  by the cadence coming round again, so a reader meeting a sentence that
+   *  did not move today is owed the day it last did. Null with no headline:
+   *  nothing knows when the floor last changed, and the floor is not news. */
+  stamp: string | null;
 }
 
 export function nationalLede(
@@ -236,6 +252,40 @@ export function nationalLede(
       `${national.played} OF ${national.total} PLAYED`,
       `${national.silentFinals} SILENT ${plural(national.silentFinals, "FINAL", "FINALS")}`,
     ],
+    stamp: null,
+  };
+}
+
+/**
+ * The masthead as the page renders it: the floor, with the division's journal
+ * laid over the altitudes it wrote.
+ *
+ * The kicker and the strip are never the journal's — they are the page's own
+ * scope, date and counts, and a model has nothing to add to any of them. Only
+ * the headline and the dek are writing, and if there is no journal, or the
+ * validator dropped its headline, what stands is exactly what stood before a
+ * journal existed. Correctness over freshness: the masthead is never empty and
+ * never waits on a model call.
+ */
+export function nationalMasthead(
+  columns: readonly HomeColumn[],
+  asOf: string,
+  national: DivisionCounts,
+  journal: NationalJournalFile | null,
+): NationalLede {
+  const floor = nationalLede(columns, asOf, national);
+  if (!journal) return floor;
+  return {
+    ...floor,
+    headline: journal.headline,
+    // The floor's dek is the openers in order, written to stand alone under no
+    // headline at all. Left under a story it did not come from it would be two
+    // unrelated sentences pretending to be a lede, so a journal that writes a
+    // headline and no dek gets no dek.
+    dek: journal.dek ?? null,
+    stamp: journal.updated
+      ? `UPDATED ${monShort(journal.updated).toUpperCase()} ${dayOfMonth(journal.updated)}`
+      : null,
   };
 }
 

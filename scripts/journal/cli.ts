@@ -27,7 +27,7 @@ import { buildBrief, fixtureIndex } from "./brief.ts";
 import { buildNationalBrief } from "./national.ts";
 import { buildPrompt } from "./prompt.ts";
 import { validateJournal } from "./validate.ts";
-import { standingDate } from "./wire.ts";
+import { standingDate, standingNote } from "./wire.ts";
 
 interface Args {
   command: string;
@@ -122,6 +122,7 @@ function askModel(args: Args, prompt: string): string {
 function stampWire(next: JournalFile, previous: JournalFile | null, season: Season): void {
   if (!next.wire) return;
   next.wire.updated = standingDate(next.wire.line, previous?.wire, season.asOf);
+  next.wire.displaced_by = standingNote(next.wire.line, previous?.wire, next.wire.displaced_by);
 }
 
 function generate(args: Args, season: Season): number {
