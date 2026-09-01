@@ -336,7 +336,7 @@ export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
 /** The division's record against everyone outside it, folded first so a match
  *  between two covered conferences — inside the division, whatever it is to
  *  either conference's own table — counts as neither a win nor a loss. */
-function divisionVsOutside(
+export function divisionVsOutside(
   seasons: readonly Season[],
   bySlug: ReadonlyMap<string, Season>,
 ): { wins: number; draws: number; losses: number; gf: number; ga: number } {

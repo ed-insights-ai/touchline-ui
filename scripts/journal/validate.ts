@@ -72,8 +72,20 @@ export interface ValidationReport {
 
 type Basis = Record<string, unknown>;
 
-interface Ctx {
-  season: Season;
+export interface Ctx {
+  /** The one season a conference claim is about. A division claim has no such
+   *  season, and the national ctx makes reading this THROW rather than answer
+   *  with one conference's figures — a season-wide checker wired into the
+   *  division's list would otherwise quietly hold a division claim against
+   *  whichever conference happened to be first. */
+  readonly season: Season;
+  /** The season a PROGRAMME belongs to. The same as `season` for a conference
+   *  claim; the programme's own conference for a division one, which is what
+   *  lets a comparative range across the conference lines at all. */
+  seasonOf(slug: string): Season;
+  /** Every programme a comparative may range over: one conference's members,
+   *  or the division's. */
+  universe: readonly string[];
   /** "obu" / "OBU" / "ouachita-baptist" → "ouachita-baptist", or null. */
   resolve(token: string): string | null;
 }
@@ -89,7 +101,7 @@ function compare(b: Basis, key: string, actual: number, out: string[], tolerant 
   if (!ok) out.push(`${key}: claimed ${claimed}, data holds ${actual}`);
 }
 
-interface Checker {
+export interface Checker {
   name: string;
   claims(b: Basis, ctx: Ctx): boolean;
   check(b: Basis, ctx: Ctx): string[];
@@ -147,13 +159,15 @@ function prefixed(
  *  scorelines (goalsForByProgramme), the record is recordOf, and "played" is
  *  programmeCounts's reading — a final WITH a published score, never the
  *  status-final count, with exhibitions outside all of it. */
-const METRICS: Record<string, (ctx: Ctx, slug: string) => number> = {
-  gf: (ctx, slug) => goalsForByProgramme(ctx.season).find((g) => g.slug === slug)?.goals ?? 0,
-  ga: (ctx, slug) => goalsForByProgramme(ctx.season).find((g) => g.slug === slug)?.conceded ?? 0,
-  wins: (ctx, slug) => recordOf(ctx.season, slug).won,
-  draws: (ctx, slug) => recordOf(ctx.season, slug).drawn,
-  losses: (ctx, slug) => recordOf(ctx.season, slug).lost,
-  played: (ctx, slug) => programmeCounts(ctx.season, slug).played,
+export const METRICS: Record<string, (ctx: Ctx, slug: string) => number> = {
+  gf: (ctx, slug) =>
+    goalsForByProgramme(ctx.seasonOf(slug)).find((g) => g.slug === slug)?.goals ?? 0,
+  ga: (ctx, slug) =>
+    goalsForByProgramme(ctx.seasonOf(slug)).find((g) => g.slug === slug)?.conceded ?? 0,
+  wins: (ctx, slug) => recordOf(ctx.seasonOf(slug), slug).won,
+  draws: (ctx, slug) => recordOf(ctx.seasonOf(slug), slug).drawn,
+  losses: (ctx, slug) => recordOf(ctx.seasonOf(slug), slug).lost,
+  played: (ctx, slug) => programmeCounts(ctx.seasonOf(slug), slug).played,
 };
 
 /** Every programme the subject could be compared against, strongest first. */
@@ -164,8 +178,7 @@ function rivalReadings(
 ): { slug: string; value: number }[] {
   const metric = METRICS[metricKey];
   if (!metric) return [];
-  return ctx.season.fixtures.programmes
-    .map((p) => p.slug)
+  return ctx.universe
     .filter((slug) => slug !== subject)
     .map((slug) => ({ slug, value: metric(ctx, slug) }))
     .sort((a, b) => b.value - a.value || a.slug.localeCompare(b.slug));
@@ -186,7 +199,7 @@ const SETS: Record<string, (s: Season) => Fixture[]> = {
       .filter((f): f is Fixture => f !== undefined),
 };
 
-const CHECKERS: Checker[] = [
+export const CHECKERS: Checker[] = [
   {
     name: "player_stat",
     claims: (b) =>
@@ -255,12 +268,14 @@ const CHECKERS: Checker[] = [
       prefixed(b, ctx, "gf") !== null ||
       prefixed(b, ctx, "ga") !== null,
     check: (b, ctx) => {
-      const goals = goalsForByProgramme(ctx.season);
       const out: string[] = [];
       const direct = typeof b.programme === "string" ? ctx.resolve(b.programme) : null;
       if (direct) {
-        const row = goals.find((g) => g.slug === direct);
-        if (!row) return [`programme: "${String(b.programme)}" is not a member of this conference`];
+        // Its OWN conference's file. The same lookup answers a conference
+        // claim and a division one; only the season it reads changes.
+        const row = goalsForByProgramme(ctx.seasonOf(direct)).find((g) => g.slug === direct);
+        if (!row)
+          return [`programme: "${String(b.programme)}" is not a programme this site follows`];
         compare(b, "gf", row.goals, out);
         compare(b, "ga", row.conceded, out);
       }
@@ -270,9 +285,9 @@ const CHECKERS: Checker[] = [
       ] as const) {
         const hit = prefixed(b, ctx, suffix);
         if (!hit) continue;
-        const row = goals.find((g) => g.slug === hit.slug);
+        const row = goalsForByProgramme(ctx.seasonOf(hit.slug)).find((g) => g.slug === hit.slug);
         if (!row) {
-          out.push(`${hit.key}: "${hit.slug}" is not a member of this conference`);
+          out.push(`${hit.key}: "${hit.slug}" is not a programme this site follows`);
           continue;
         }
         if (hit.value !== row[field])
@@ -286,7 +301,8 @@ const CHECKERS: Checker[] = [
     claims: (b) => typeof b.programme === "string" && has(b, "team_goals", "team_goals_against"),
     check: (b, ctx) => {
       const slug = ctx.resolve(String(b.programme));
-      if (!slug) return [`programme: "${String(b.programme)}" is not a member of this conference`];
+      if (!slug)
+        return [`programme: "${String(b.programme)}" is not a programme this site follows`];
       const out: string[] = [];
       for (const [key, field] of [
         ["team_goals", "goals"],
@@ -320,8 +336,9 @@ const CHECKERS: Checker[] = [
     claims: (b) => typeof b.programme === "string" && has(b, "wins", "draws", "losses"),
     check: (b, ctx) => {
       const slug = ctx.resolve(String(b.programme));
-      if (!slug) return [`programme: "${String(b.programme)}" is not a member of this conference`];
-      const r = recordOf(ctx.season, slug);
+      if (!slug)
+        return [`programme: "${String(b.programme)}" is not a programme this site follows`];
+      const r = recordOf(ctx.seasonOf(slug), slug);
       const out: string[] = [];
       compare(b, "wins", r.won, out);
       compare(b, "draws", r.drawn, out);
@@ -434,7 +451,7 @@ const CHECKERS: Checker[] = [
         return [`metric: "${String(b.metric)}" is not a figure a comparative can range over`];
       const subject = typeof b.programme === "string" ? ctx.resolve(b.programme) : null;
       if (!subject)
-        return [`programme: "${String(b.programme)}" is not a member of this conference`];
+        return [`programme: "${String(b.programme)}" is not a programme this site follows`];
       const own = METRICS[b.metric]?.(ctx, subject) ?? 0;
 
       // Who the claim measures against: the programmes it names, or — for
@@ -454,7 +471,7 @@ const CHECKERS: Checker[] = [
         against = [];
         for (const token of b.of) {
           const slug = ctx.resolve(String(token));
-          if (!slug) bad.push(`of: "${String(token)}" is not a member of this conference`);
+          if (!slug) bad.push(`of: "${String(token)}" is not a programme this site follows`);
           else if (slug === subject) bad.push(`of: the claim compares ${subject} against itself`);
           else against.push({ slug, value: METRICS[b.metric]?.(ctx, slug) ?? 0 });
         }
@@ -516,7 +533,7 @@ const CHECKERS: Checker[] = [
       compare(b, "count", members.length, out);
       if (typeof b.all_of === "string") {
         const slug = ctx.resolve(b.all_of);
-        if (!slug) out.push(`all_of: "${String(b.all_of)}" is not a member of this conference`);
+        if (!slug) out.push(`all_of: "${String(b.all_of)}" is not a programme this site follows`);
         else if (members.length === 0)
           out.push(`all_of: ${name} is empty — there is nothing to belong to ${slug}`);
         else
@@ -587,8 +604,9 @@ function teamGoalReadings(
   ctx: Ctx,
   slug: string,
 ): { goals: [number, number]; conceded: [number, number] } {
-  const row = goalsForByProgramme(ctx.season).find((g) => g.slug === slug);
-  const team = ctx.season.stats?.teams[slug];
+  const season = ctx.seasonOf(slug);
+  const row = goalsForByProgramme(season).find((g) => g.slug === slug);
+  const team = season.stats?.teams[slug];
   const attributed = (team?.players ?? []).reduce((n, p) => n + (p.goals ?? 0), 0);
   const conceded = (team?.keepers ?? []).reduce((n, k) => n + (k.goals_against ?? 0), 0);
   return {
@@ -597,19 +615,67 @@ function teamGoalReadings(
   };
 }
 
-function makeCtx(season: Season): Ctx {
+function tokenIndex(seasons: readonly Season[]): Map<string, string> {
   const byToken = new Map<string, string>();
-  for (const p of season.fixtures.programmes) {
-    byToken.set(p.slug.toLowerCase(), p.slug);
-    if (p.abbr) byToken.set(p.abbr.toLowerCase(), p.slug);
-    byToken.set(p.name.toLowerCase(), p.slug);
+  for (const season of seasons) {
+    for (const p of season.fixtures.programmes) {
+      byToken.set(p.slug.toLowerCase(), p.slug);
+      if (p.abbr) byToken.set(p.abbr.toLowerCase(), p.slug);
+      byToken.set(p.name.toLowerCase(), p.slug);
+    }
   }
-  return { season, resolve: (t) => byToken.get(String(t).toLowerCase()) ?? null };
+  return byToken;
 }
 
-function judge(
+function makeCtx(season: Season): Ctx {
+  const byToken = tokenIndex([season]);
+  return {
+    season,
+    seasonOf: () => season,
+    universe: season.fixtures.programmes.map((p) => p.slug),
+    resolve: (t) => byToken.get(String(t).toLowerCase()) ?? null,
+  };
+}
+
+/**
+ * The division's ctx: every conference's programmes in one universe, each
+ * resolving to its OWN season.
+ *
+ * This is what a cross-conference comparative needs, and without it every one
+ * of them drops: the conference ctx resolves a slug only if it is a member of
+ * that conference, so "more than any other programme in the division" fails to
+ * resolve the moment it names one from another file.
+ *
+ * `season` throws rather than answering. There is no one season a division
+ * claim is about, and the failure this prevents is the quiet one — a checker
+ * that reads a season-wide figure would hold a division claim against
+ * whichever conference happened to be first in the list and pass or fail it
+ * for reasons nobody could see.
+ */
+export function makeNationalCtx(seasons: readonly Season[]): Ctx {
+  const byToken = tokenIndex(seasons);
+  const home = new Map<string, Season>();
+  for (const season of seasons) {
+    for (const p of season.fixtures.programmes) home.set(p.slug, season);
+  }
+  const first = seasons[0];
+  if (!first) throw new Error("Touchline: the division's validator needs at least one season.");
+  return {
+    get season(): Season {
+      throw new Error(
+        "a division claim has no single season — a season-wide checker reached for one",
+      );
+    },
+    seasonOf: (slug) => home.get(slug) ?? first,
+    universe: [...home.keys()],
+    resolve: (t) => byToken.get(String(t).toLowerCase()) ?? null,
+  };
+}
+
+export function judge(
   basis: Basis | undefined,
   ctx: Ctx,
+  checkers: readonly Checker[] = CHECKERS,
 ): { checker: string | null; verdict: Verdict; mismatches: string[]; notes: string[] } {
   if (!basis || Object.keys(basis).length === 0)
     return {
@@ -618,7 +684,7 @@ function judge(
       mismatches: ["the claim carries no basis"],
       notes: [],
     };
-  const applicable = CHECKERS.filter((c) => c.claims(basis, ctx));
+  const applicable = checkers.filter((c) => c.claims(basis, ctx));
   if (applicable.length === 0)
     return {
       checker: null,
@@ -639,13 +705,13 @@ function judge(
 /** Observed and derived must be proven. Signal and projected pass on schema —
  *  but a figure the data flatly contradicts is dropped whatever its label,
  *  because a wrong number is a wrong number. Context is never a finding. */
-function shouldDrop(label: string, verdict: Verdict): boolean {
+export function shouldDrop(label: string, verdict: Verdict): boolean {
   if (label === "context") return false;
   if (verdict === "contradicted") return true;
   return verdict === "unverifiable" && (label === "observed" || label === "derived");
 }
 
-const POLICY =
+export const POLICY =
   "observed and derived claims are recomputed against the data home before publish; " +
   "failures are dropped, not softened. signal and projected pass on schema unless the " +
   "data contradicts a figure. context is never validated as a finding.";
@@ -756,7 +822,7 @@ function pageFacts(season: Season): Set<string> {
   return out;
 }
 
-function review(
+export function review(
   path: string,
   text: string | undefined,
   basis: Basis | undefined,
@@ -880,7 +946,7 @@ export function validateJournal(
       team?.players.some((x) => x.name === p.player) ||
       team?.keepers.some((x) => x.name === p.player);
     const mismatches = !slug
-      ? [`programme: "${p.programme}" is not a member of this conference`]
+      ? [`programme: "${p.programme}" is not a programme this site follows`]
       : !found
         ? [`player: "${p.player}" has no published line for ${slug}`]
         : lineMismatches(p.line, p.player, slug, season);
