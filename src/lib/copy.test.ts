@@ -56,6 +56,16 @@ function conferencePage(s: Season): Line[] {
   findings.forEach((f, i) => {
     out.push({ where: `${s.key} finding ${i}`, text: f.text });
   });
+  // The featured cards' lines. They carry no basis, so the journal validator
+  // never reads them — it checks only that their fixture_ref resolves — which
+  // made them the one piece of composed prose on this page with nothing at all
+  // looking at it. A hyphenated scoreline and two twenty-four hour kickoffs
+  // were sitting in them when this corpus was first written, invisible to the
+  // properties because the properties could not see this far.
+  for (const slot of ["last_match", "next_match"] as const) {
+    const line = journal?.featured?.[slot]?.line;
+    if (line) out.push({ where: `${s.key} featured ${slot}`, text: line });
+  }
   return out;
 }
 

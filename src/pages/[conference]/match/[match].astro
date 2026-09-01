@@ -191,19 +191,14 @@ const knownRows: { label: string; value: string }[] = [
 const explain: Record<State, string> = {
   played: "",
   "score-only":
-    "The programme published the result but no box score Touchline could reach. The scoreline stands; the detail behind it does not exist here yet, and the next collect asks again.",
+    "The programme published the result but no box score Touchline could reach. The scoreline stands; the detail behind it does not exist here.",
   "silent-final":
-    "The programme's schedule marked this game finished but never entered a result. The silence is the site's own — it stays on the record, named, and the next collect retries it.",
+    "The programme's schedule marked this match finished but never entered a result. The silence is the site's own, and it stays on the record, named.",
   "silent-past":
     "The date has passed and the programme's schedule still lists this match as scheduled. No result, no postponement, no note — the page simply has not changed.",
   preview: "Not played yet. What is below is everything the programme has published about the match.",
   off: `The programme marked this match ${fixture.status}. It stays on the record rather than disappearing from it.`,
 };
-
-// The fixture sits in a member's ledger — the opponent may belong to no
-// conference this site collects, so never name them as the keeper of it.
-const ledgerSide = names.isMember(fixture.home) ? fixture.home : fixture.away;
-const ledgerName = names.name(ledgerSide);
 
 const footNote = footNoteOf(state, {
   finalsWithoutScore: silence.finalsWithoutScore.length,
@@ -328,7 +323,7 @@ const awayName = names.name(fixture.away);
       />
     )}
 
-    <section class="body">
+    <section class={`body${state === "played" ? "" : " body-solo"}`}>
       <div class="body-main">
         {state === "played" ? (
           <>
@@ -444,37 +439,7 @@ const awayName = names.name(fixture.away);
             )}
 
           </>
-        ) : (
-          <div class="panel">
-            <h2 class="sechead">WHAT HAPPENS NEXT</h2>
-            {state === "preview" ? (
-              <p class="next-text">
-                The match sits unplayed in {ledgerName}'s ledger. When the programme publishes a
-                result, the next collect brings it here — score, box score and all.
-              </p>
-            ) : state === "score-only" ? (
-              <p class="next-text">
-                The result stands in {ledgerName}'s ledger and counts toward the conference's{" "}
-                <span class="alert">box-score gaps</span>. Every collect asks the programme for the
-                box score again; if it appears, the detail fills in on its own.
-              </p>
-            ) : state === "off" ? (
-              <p class="next-text">
-                The match stays in {ledgerName}'s ledger, marked {fixture.status} by the
-                programme. If that changes, the next collect says so.
-              </p>
-            ) : (
-              <p class="next-text">
-                This match stays in {ledgerName}'s ledger and counts toward the conference's{" "}
-                <span class="alert">silent dates</span>. Tomorrow's collect asks the page again; if a
-                result appears, this match report fills in on its own.
-              </p>
-            )}
-            <p class="next-foot">
-              Nothing here is estimated. Touchline shows what the programme published — and what it didn't.
-            </p>
-          </div>
-        )}
+        ) : null}
       </div>
     </section>
 
@@ -560,6 +525,13 @@ const awayName = names.name(fixture.away);
     display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 56px;
     padding: 22px 0; flex: 1; min-height: 0;
   }
+  /* With no box score there are no side panels, so the page stops reserving a
+     column for them. WHAT IS KNOWN is a short label/value table and does not
+     want the full measure either. */
+  .body-solo { grid-template-columns: minmax(0, 1fr); }
+  /* The column carries the cap, not the table inside it, so the rule under the
+     heading ends where the rows end. */
+  .body-solo .body-main { max-width: 620px; }
   .body-main, .body-side { display: flex; flex-direction: column; }
   .body-side { gap: 20px; }
   .panel { display: flex; flex-direction: column; gap: 8px; }
@@ -620,8 +592,6 @@ const awayName = names.name(fixture.away);
   .known-label { color: var(--quiet); letter-spacing: 0.08em; font-size: 11px; padding-top: 2px; }
   .known-value { overflow-wrap: anywhere; }
 
-  .next-text { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: var(--secondary); }
-  .next-foot { margin: 0; font-size: 14px; color: var(--quiet); line-height: 1.5; }
   .alert { color: var(--loss); font-weight: 600; }
 
   .mfoot {

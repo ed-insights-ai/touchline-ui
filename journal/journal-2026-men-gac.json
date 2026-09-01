@@ -133,7 +133,7 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-08-30 northeastern-state v lincoln",
-      "line": "The only match on the day's card, and Northeastern State could not score in it."
+      "line": "The only match on the day's card."
     },
     "next_match": {
       "fixture_ref": "2026-09-01 ouachita-baptist v delta-state",
@@ -150,6 +150,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-01T11:33:52.944Z"
+    "validated_at": "2026-09-01T13:02:25.817Z"
   }
 }

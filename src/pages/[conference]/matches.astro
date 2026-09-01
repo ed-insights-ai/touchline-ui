@@ -91,7 +91,6 @@ const unresolvedScheduled =
   stillScheduled.length > 0
     ? ` ${cap(spell(stillScheduled.length))} more the sites still list as scheduled.`
     : null;
-const unresolvedTail = openCount > 0 ? " Every row stays, and tomorrow\u2019s collect asks again." : null;
 
 const staysOut = [
   c.placeholders > 0
@@ -105,8 +104,7 @@ const staysOut = [
 const todayLabel = `TODAY \u00b7 ${dayLabel(today)}${todayGroup ? "" : " \u2014 NO MATCHES"}`;
 
 const title = `Touchline — ${confName} Matches`;
-const dek =
-  "Every match the programmes publish, day by day. A row carries its kickoff until the score replaces it — the schedule and the record are one object, never two.";
+const dek = `The complete ${season.fixtures.season} schedule and results, day by day.`;
 ---
 
 <Page title={title} description={dek}>
@@ -234,7 +232,6 @@ const dek =
             )}
             {unresolvedSilentTail}
             {unresolvedScheduled}
-            {unresolvedTail}
           </p>
         </div>
 
@@ -244,8 +241,8 @@ const dek =
         </div>
 
         <p class="mx-provenance provenance">
-          Nothing here is estimated. Kickoff times are the home programmes&rsquo; own; a score
-          appears only when one is published.
+          Kickoff times are the home programmes&rsquo; own; a score appears only when one is
+          published.
         </p>
       </aside>
     </div>
