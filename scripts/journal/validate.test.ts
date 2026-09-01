@@ -63,6 +63,16 @@ describe("numbers a reader will believe", () => {
     expect(paths(j)).not.toContain("headline");
   });
 
+  test("a hyphenated compound is one number, vouched for as one (tui-k17)", () => {
+    const j = journal({
+      headline: "Twenty-eight conceded across the conference.",
+      lede_basis: { goals_against: 28 },
+    });
+    expect(paths(j)).not.toContain("headline");
+    const k = journal({ headline: "Twenty-eight conceded across the conference." });
+    expect(unbacked(k, "headline")).toEqual(["28"]);
+  });
+
   test("digits are caught as well as words", () => {
     const j = journal({ headline: "Seven matches carry no box score." });
     expect(unbacked(j, "headline")).toContain("7");

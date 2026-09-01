@@ -89,7 +89,10 @@ const cards = new Map(
       c.key,
       {
         line: wire?.line ?? editorial(c.season, journal).headline,
-        updated: wire?.updated ?? null,
+        // A stamp only when the wire is older than the data it sits on: on
+        // the day it was written, the page's own date already says so (the
+        // same rule as the season and national mastheads, owner 2026-09-01).
+        updated: wire?.updated && wire.updated !== c.season.asOf ? wire.updated : null,
       },
     ];
   }),

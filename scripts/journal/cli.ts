@@ -38,7 +38,7 @@ import { buildNationalPrompt } from "./national-prompt.ts";
 import { validateNationalJournal } from "./national-validate.ts";
 import { buildPrompt } from "./prompt.ts";
 import { CHECKERS, validateJournal } from "./validate.ts";
-import { standingDate, standingLede, standingNote } from "./wire.ts";
+import { ledeKey, standingDate, standingLede, standingNote } from "./wire.ts";
 
 interface Args {
   command: string;
@@ -292,9 +292,15 @@ function stampNational(
   previous: NationalJournalFile | null,
   collectDate: string,
 ): void {
-  const before = previous ? { line: previous.headline, updated: previous.updated } : undefined;
-  next.updated = standingDate(next.headline, before, collectDate);
-  next.displaced_by = standingNote(next.headline, before, next.displaced_by);
+  // Keyed on the whole lede, headline and dek together, as the conference
+  // lede is: a dek rewritten under a standing headline is a change a reader
+  // sees, and the stamp must move with it (tui-uvo).
+  const before = previous
+    ? { line: ledeKey(previous.headline, previous.dek), updated: previous.updated }
+    : undefined;
+  const line = ledeKey(next.headline, next.dek);
+  next.updated = standingDate(line, before, collectDate);
+  next.displaced_by = standingNote(line, before, next.displaced_by);
 }
 
 function generateNational(args: Args): number {

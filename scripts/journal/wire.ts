@@ -68,7 +68,7 @@ export function standingNote(
  *  quotes and the newlines, so the encoding is injective and two different
  *  ledes can never compare equal.
  */
-const ledeKey = (headline: string, dek: string | undefined): string =>
+export const ledeKey = (headline: string, dek: string | undefined): string =>
   JSON.stringify([headline, dek ?? null]);
 
 /** The previous run's lede, and the day it was last stamped. */

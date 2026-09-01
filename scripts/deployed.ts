@@ -65,6 +65,10 @@ const PAGES = [
 // STAMP the caller names — otherwise it would happily verify the previous
 // deploy and call it green.
 const stamp = process.argv[3];
+// A timeout is a failure, not a shrug: the checks below still run against
+// whatever is served, so the log says what the host has, but the publish
+// exits red because the deploy it was asked to verify never appeared (tui-26b).
+let timedOut = false;
 if (stamp) {
   const deadline = Date.now() + 180_000;
   process.stdout.write(`  waiting for the deploy to carry ${stamp} `);
@@ -78,6 +82,7 @@ if (stamp) {
     }
     if (Date.now() > deadline) {
       console.log("— TIMED OUT; checking whatever is being served");
+      timedOut = true;
       break;
     }
     process.stdout.write(".");
@@ -128,4 +133,8 @@ for (const r of results) {
   if (r.status !== 200) console.log(`${mark} ${String(r.status).padEnd(5)} ${r.url}   (${r.why})`);
 }
 console.log(`  ${results.length} URLs requested, ${bad.length} not 200`);
-process.exit(bad.length === 0 ? 0 : 1);
+if (timedOut)
+  console.log(
+    `  FAIL  the host never served ${stamp}; the checks above ran against a previous deploy`,
+  );
+process.exit(bad.length === 0 && !timedOut ? 0 : 1);

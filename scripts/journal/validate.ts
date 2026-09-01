@@ -750,6 +750,16 @@ const SPELLED: Record<string, number> = {
   eighteen: 18,
   nineteen: 19,
   twenty: 20,
+  // The tens above twenty. The house spells figures only up to twenty, but a
+  // writer who reaches for "twenty-eight" must be audited as 28, not as a
+  // 20 and an 8 that no basis carries (tui-k17).
+  thirty: 30,
+  forty: 40,
+  fifty: 50,
+  sixty: 60,
+  seventy: 70,
+  eighty: 80,
+  ninety: 90,
 };
 
 /** The house register spells numbers up to twenty, so digits alone miss most
@@ -757,9 +767,25 @@ const SPELLED: Record<string, number> = {
 function numeralsIn(text: string): string[] {
   const found = new Set<string>();
   for (const m of text.matchAll(/\d+(?:\.\d+)?/g)) found.add(m[0]);
-  for (const m of text.matchAll(/[A-Za-z']+/g)) {
+  for (const m of text.matchAll(/[A-Za-z']+(?:-[A-Za-z']+)?/g)) {
     const word = m[0].toLowerCase();
-    const n = SPELLED[word];
+    // "twenty-eight" is one number, 28: a tens word joined to a unit.
+    const compound = word.includes("-") ? word.split("-") : null;
+    const n =
+      compound && compound.length === 2
+        ? (() => {
+            const tens = SPELLED[compound[0] as string];
+            const unit = SPELLED[compound[1] as string];
+            return tens !== undefined &&
+              tens >= 20 &&
+              tens % 10 === 0 &&
+              unit !== undefined &&
+              unit > 0 &&
+              unit < 10
+              ? tens + unit
+              : undefined;
+          })()
+        : SPELLED[word];
     if (n === undefined) continue;
     // "every one of them" and "one of the three" are pronouns; the count in
     // such a sentence is the other number. Flagging them trains a reader to
