@@ -10,7 +10,6 @@ import {
   matchesHref,
   seasonHref,
   teamPageHref,
-  unresolved,
 } from "../../../lib/derive.ts";
 import { homeHref } from "../../../lib/derive.ts";
 import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
@@ -20,10 +19,8 @@ import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
 import {
-  footNote as footNoteOf,
   type MatchState,
   metaDescription,
-  provenance,
 } from "../../../lib/matchstate.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
@@ -155,6 +152,12 @@ const ledger = detail ? ledgerRows(detail, homeIndex) : [];
 // The floor is the column's original width and the ceiling stops a side
 // served with no abbreviation from pushing the play text off the row.
 const abbrChars = Math.max(4, ...(detail?.teams ?? []).map((t) => (t.abbr ?? t.name ?? "").length));
+// One abbreviation per side on this page, the site's own, in the legend and
+// every panel alike. The box score's served abbreviation ("TAM" for a side the
+// site calls TAMIU) survives only in the play-by-play, which is the published
+// sequence verbatim.
+const homeAbbr = names.abbr(fixture.home);
+const awayAbbr = names.abbr(fixture.away);
 
 
 // "Aug 30, 21:07 UTC" — the collect's own moment, not an ISO string.
@@ -162,7 +165,6 @@ const collectedStamp = `${monShort(season.collectedAt.slice(0, 10))} ${dayOfMont
 
 const gaps = boxScoreGaps(season);
 const gapReason = gaps.find((g) => g.fixtureId === fixture.id)?.reason;
-const silence = unresolved(season);
 
 const knownRows: { label: string; value: string }[] = [
   {
@@ -204,14 +206,6 @@ const explain: Record<State, string> = {
   preview: "",
   off: `The programme marked this match ${fixture.status}. It stays on the record rather than disappearing from it.`,
 };
-
-const footNote = footNoteOf(state, {
-  finalsWithoutScore: silence.finalsWithoutScore.length,
-  pastDateNoResult: silence.pastDateNoResult.length,
-  gaps: gaps.length,
-});
-
-const provenanceLine = provenance(state, { hasPlays: plays.length > 0, status: fixture.status });
 
 // Only a side with a team page somewhere gets a link; the rest read as plain
 // text, with no affordance promising a page that does not exist.
@@ -339,8 +333,8 @@ const awayName = names.name(fixture.away);
 
     {state === "played" && strip && stripHasInk && (
       <MatchTimeline
-        homeAbbr={names.abbr(fixture.home)}
-        awayAbbr={names.abbr(fixture.away)}
+        homeAbbr={homeAbbr}
+        awayAbbr={awayAbbr}
         strip={strip}
       />
     )}
@@ -396,7 +390,7 @@ const awayName = names.name(fixture.away);
                   </div>
                   {[sides?.home, sides?.away].map((t, i) => (
                     <div class={`period-row${i === 1 ? " quiet" : ""}`}>
-                      <span class="period-team">{t?.abbr ?? t?.name}</span>
+                      <span class="period-team">{i === 0 ? homeAbbr : awayAbbr}</span>
                       {Array.from({ length: periodCount }, (_, p) => <span>{t?.periods[p] ?? 0}</span>)}
                       <span class="period-total">{t?.score ?? 0}</span>
                     </div>
@@ -414,7 +408,7 @@ const awayName = names.name(fixture.away);
                     ...(sides?.away?.keepers ?? []).map((k) => ({ k, home: false, t: sides?.away })),
                   ].map(({ k, home, t }) => (
                     <div class={`line${home ? "" : " quiet"}`}>
-                      <span>{surname(k.name)} <span class="tag">{t?.abbr ?? t?.name}</span></span>
+                      <span>{surname(k.name)} <span class="tag">{home ? homeAbbr : awayAbbr}</span></span>
                       <span class="line-val">
                         {k.saves ?? 0} sv · {k.goals_against ?? 0} ga{k.minutes !== undefined ? ` · ${k.minutes}′` : ""}
                       </span>
@@ -434,9 +428,7 @@ const awayName = names.name(fixture.away);
                       <span class="card-min">{c.minute}′</span>
                       <span>
                         {c.name ? surname(c.name) : <span class="card-unnamed">no name published</span>}{" "}
-                        <span class="tag">
-                          {c.team === sides?.homeIndex ? sides?.home?.abbr : sides?.away?.abbr}
-                        </span>
+                        <span class="tag">{c.team === sides?.homeIndex ? homeAbbr : awayAbbr}</span>
                       </span>
                     </div>
                   ))}
@@ -449,9 +441,7 @@ const awayName = names.name(fixture.away);
                           <span class="card-min">{c.minute}′</span>
                           <span>
                             {c.name ? surname(c.name) : <span class="card-unnamed">no name published</span>}{" "}
-                            <span class="tag">
-                              {c.team === sides?.homeIndex ? sides?.home?.abbr : sides?.away?.abbr}
-                            </span>
+                            <span class="tag">{c.team === sides?.homeIndex ? homeAbbr : awayAbbr}</span>
                           </span>
                         </div>
                       ))}
@@ -461,6 +451,18 @@ const awayName = names.name(fixture.away);
               </div>
             )}
 
+            {detail?.officials?.length ? (
+              <div class="panel">
+                <h2 class="sechead">OFFICIALS</h2>
+                <div class="lines">
+                  {detail.officials.map((o) => (
+                    <div class="line quiet">
+                      <span>{o}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </>
         ) : null}
       </div>
@@ -471,17 +473,6 @@ const awayName = names.name(fixture.away);
       <PlayLedger rows={ledger} playCount={plays.length} abbrChars={abbrChars} />
     )}
 
-    {state !== "preview" && (
-      <footer class="mfoot">
-        <span class="mfoot-left">
-          {state === "played" && detail?.officials?.length
-            ? detail.officials.join(" · ")
-            : footNote}
-        </span>
-        <span class="grow"></span>
-        <span class="provenance">{provenanceLine}</span>
-      </footer>
-    )}
 
     <SiteFooter seasons={[season]} />
   </div>
@@ -538,7 +529,9 @@ const awayName = names.name(fixture.away);
   .figure { font-size: 104px; line-height: 1; }
   .figure-home { color: var(--figure-strong); }
   .figure-away { color: var(--muted-mark); }
-  .figure-dash { font-size: 40px; color: var(--outline-quiet); }
+  /* Centred on the figures, not baseline-aligned with them: at a fifth of
+     their size a baseline dash read as an underscore (owner, 2026-09-01). */
+  .figure-dash { font-size: 40px; color: var(--outline-quiet); align-self: center; }
   .figures-absent .figure { font-size: 84px; color: var(--outline-quiet); }
   .figures-absent .figure-dash { color: var(--dash); }
   .kickoff { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 148px; }
@@ -628,12 +621,6 @@ const awayName = names.name(fixture.away);
   .known-value { overflow-wrap: anywhere; }
 
   .alert { color: var(--loss); font-weight: 600; }
-
-  .mfoot {
-    padding-top: 14px; border-top: 1px solid var(--hairline);
-    display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
-  }
-  .mfoot-left { font-size: 12px; color: var(--quiet); }
 
   @media (max-width: 1180px) {
     .scoreline { flex-direction: column; gap: 16px; }
