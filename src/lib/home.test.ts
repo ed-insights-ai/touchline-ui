@@ -239,8 +239,9 @@ describe("the masthead is derived, deterministically, from counts and opener dat
     expect(lede.kicker).toBe(
       `${site.division} · ${dowShort(asOf)} ${shortDate(asOf)}`.toUpperCase(),
     );
-    // It is the only place above the footer that names the division. The row
-    // that used to say it a second time is gone.
+    // It is the only place on this page that names the division: the row that
+    // used to say it a second time is gone, and so is the footer's scope
+    // token. Nothing else here says it, so this test is the whole promise.
     expect(lede.kicker).toContain(site.division.toUpperCase());
   });
 

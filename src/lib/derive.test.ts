@@ -442,8 +442,8 @@ describe("where a link points", () => {
     for (const key of site.conferences) expect(seasonHref(key)).not.toBe(homeHref());
   });
 });
-describe("the footer says each collect time once", () => {
-  // collectionLine reads two fields, so the cases that cannot be produced on
+describe("the footer says when the site last looked", () => {
+  // collectionLine reads one field, so the cases that cannot be produced on
   // demand from the real files — conferences collected on different days —
   // are stated here directly. The last test holds the shape to the data home.
   const stamped = (code: string, collectedAt: string): Season =>
@@ -452,47 +452,59 @@ describe("the footer says each collect time once", () => {
   test("one conference is a whole sentence, and wears no code", () => {
     // A conference page is the conference; naming it in its own footer says
     // nothing the masthead has not already said twice.
-    const line = collectionLine([stamped("GAC", "2026-08-31T02:48:11Z")]);
-    expect(line.headline).toBe("Data collected Aug 31, 2026, 02:48 UTC");
-    expect(line.entries).toEqual([]);
+    expect(collectionLine([stamped("GAC", "2026-08-31T02:48:11Z")])).toBe(
+      "Data collected Aug 31, 2026, 02:48 UTC",
+    );
   });
 
-  test("a day they all share is said once, and every time is kept", () => {
-    const line = collectionLine([
-      stamped("GAC", "2026-08-31T02:48:11Z"),
-      stamped("LSC", "2026-08-31T12:48:02Z"),
-      stamped("GSC", "2026-08-31T12:49:30Z"),
-    ]);
-    expect(line.headline).toBe("Data collected Aug 31, 2026");
-    expect(line.entries).toEqual(["GAC 02:48", "LSC 12:48", "GSC 12:49 UTC"]);
+  test("several conferences are the OLDEST collect, never the freshest", () => {
+    // The only single claim true of every figure on the page: collected at or
+    // after this moment. The freshest would say the opposite — that everything
+    // is as new as the newest — and hide a stale conference behind it.
+    expect(
+      collectionLine([
+        stamped("GAC", "2026-08-31T02:48:11Z"),
+        stamped("LSC", "2026-08-31T12:48:02Z"),
+        stamped("GSC", "2026-08-31T12:49:30Z"),
+      ]),
+    ).toBe("Data collected Aug 31, 2026, 02:48 UTC");
   });
 
-  test("a day one of them does not share is never factored out", () => {
-    // The failure this guards is a headline date that two of three earned and
-    // the third silently sits under — the freshest number hiding the spread,
-    // which is the one thing a provenance line must not do.
-    const line = collectionLine([
-      stamped("GAC", "2026-08-30T21:10:00Z"),
-      stamped("LSC", "2026-08-31T12:48:02Z"),
-    ]);
-    expect(line.headline).toBe("Data collected");
-    expect(line.entries).toEqual(["GAC Aug 30, 2026, 21:10", "LSC Aug 31, 2026, 12:48 UTC"]);
-    for (const entry of line.entries) expect(entry).toContain(", 2026,");
+  test("a conference that fell behind drags the stamp back to its own day", () => {
+    // The signal this exists for. One conference stuck on yesterday must move
+    // the whole line to yesterday, whatever the other two managed.
+    expect(
+      collectionLine([
+        stamped("LSC", "2026-08-31T12:48:02Z"),
+        stamped("GAC", "2026-08-30T21:10:00Z"),
+        stamped("GSC", "2026-08-31T12:49:30Z"),
+      ]),
+    ).toBe("Data collected Aug 30, 2026, 21:10 UTC");
   });
 
-  test("no collected file gets left out of the line", () => {
+  test("the order they arrive in does not decide the answer", () => {
+    const days = [stamped("GAC", "2026-08-30T21:10:00Z"), stamped("LSC", "2026-08-31T12:48:02Z")];
+    expect(collectionLine(days)).toBe(collectionLine([...days].reverse()));
+  });
+
+  test("a stamp nothing can parse never wins the line", () => {
+    // Sorting by string would let a malformed value sort first and stand as
+    // the site's provenance. An unreadable stamp loses instead.
+    expect(
+      collectionLine([stamped("GAC", "not a date"), stamped("LSC", "2026-08-31T12:48:02Z")]),
+    ).toBe("Data collected Aug 31, 2026, 12:48 UTC");
+  });
+
+  test("the real files produce a stamp no fresher than any of them", () => {
     const line = collectionLine(seasons.map((s) => s.season));
-    expect(line.entries).toHaveLength(seasons.length);
-    for (const { season } of seasons) {
-      expect(line.entries.join(" ")).toContain(season.fixtures.conference);
-      expect(line.entries.join(" ")).toContain(season.collectedAt.slice(11, 16));
-    }
-    // The unit is stated, once, at the end of the last one.
-    expect(line.entries.filter((e) => e.includes("UTC"))).toHaveLength(1);
-    expect(line.entries[line.entries.length - 1]?.endsWith(" UTC")).toBe(true);
+    expect(line).toStartWith("Data collected ");
+    const oldest = seasons
+      .map(({ season }) => season.collectedAt)
+      .sort((a, b) => Date.parse(a) - Date.parse(b))[0] as string;
+    expect(line).toContain(oldest.slice(11, 16));
   });
 
   test("nothing collected says nothing", () => {
-    expect(collectionLine([])).toEqual({ headline: "", entries: [] });
+    expect(collectionLine([])).toBe("");
   });
 });

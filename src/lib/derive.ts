@@ -480,48 +480,33 @@ export function seasonWindow(s: Season): SeasonWindow {
 
 // ── Provenance ───────────────────────────────────────────────────────────────
 
-/** The footer's provenance line, with the repeated words factored out. */
-export interface CollectionLine {
-  /** "Data collected Aug 31, 2026" — the whole sentence when there is one
-   *  stamp, and bare "Data collected" when the stamps do not share a day. */
-  headline: string;
-  /** "GAC 02:48", the last carrying the unit. Empty when there is one stamp. */
-  entries: string[];
-}
-
 /**
- * Every conference's collect time, said once.
+ * When the site last looked — one stamp, on every page.
  *
- * These stamps are all UTC and usually all land on the same day, so the words
- * that repeat are said once and the times are left standing side by side under
- * them. What never factors out is a day: a conference collected on another
- * date carries that date in its own entry, and the headline drops the date
- * entirely rather than let two of the three sit under a day one of them did
- * not earn. Flattening the spread behind the freshest number is the one thing
- * a provenance line must not do, and a shared-looking headline would do it
- * silently.
+ * On a page speaking for several conferences it is the OLDEST collect, not the
+ * freshest. It is the only single claim true of every figure on the page:
+ * "collected Sep 1, 11:30 UTC" then means every conference was collected at or
+ * after that moment, and a conference that fails to collect drags the stamp
+ * older, which is exactly the signal a reader is owed. The freshest would do
+ * the opposite — hide a stale conference behind a fresh one — and flattening
+ * the spread behind the newest number is the one thing a provenance line must
+ * not do.
+ *
+ * This used to print every conference's own time side by side. That is honest
+ * and it does not scale: the line grows a token per conference, and the site
+ * is meant to take more of them.
  */
-export function collectionLine(seasons: readonly Season[]): CollectionLine {
-  const stamps = seasons.map((s) => ({
-    code: s.fixtures.conference,
-    day: s.collectedAt.slice(0, 10),
-    time: s.collectedAt.slice(11, 16),
-  }));
-  const first = stamps[0];
-  if (!first) return { headline: "", entries: [] };
-
-  const written = (day: string): string =>
-    `${monShort(day)} ${dayOfMonth(day)}, ${day.slice(0, 4)}`;
-  if (stamps.length === 1) {
-    return { headline: `Data collected ${written(first.day)}, ${first.time} UTC`, entries: [] };
-  }
-
-  const shared = stamps.every((s) => s.day === first.day);
-  const entries = stamps.map((s) =>
-    shared ? `${s.code} ${s.time}` : `${s.code} ${written(s.day)}, ${s.time}`,
-  );
-  entries[entries.length - 1] = `${entries[entries.length - 1]} UTC`;
-  return { headline: shared ? `Data collected ${written(first.day)}` : "Data collected", entries };
+export function collectionLine(seasons: readonly Season[]): string {
+  const stamps = seasons.map((s) => s.collectedAt).filter(Boolean);
+  if (stamps.length === 0) return "";
+  const at = (iso: string): number => {
+    const t = Date.parse(iso);
+    // A stamp nothing can parse must not sort as the oldest and win the line.
+    return Number.isNaN(t) ? Number.POSITIVE_INFINITY : t;
+  };
+  const oldest = stamps.reduce((a, b) => (at(b) < at(a) ? b : a));
+  const day = oldest.slice(0, 10);
+  return `Data collected ${monShort(day)} ${dayOfMonth(day)}, ${day.slice(0, 4)}, ${oldest.slice(11, 16)} UTC`;
 }
 
 // ── Routes ───────────────────────────────────────────────────────────────────

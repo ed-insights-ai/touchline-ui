@@ -25,9 +25,7 @@ export interface SiteConfig {
   /** The division these conferences play in, named on the About page and in
    *  the national masthead's kicker. */
   division: string;
-  /** The body that runs it. Named in the footer's disclaimer, and stripped
-   *  from the division when the footer names the scope four words later — one
-   *  string, two readings, rather than two strings that can disagree. */
+  /** The body that runs it, named in the footer's disclaimer. */
   governingBody: string;
   /** Whose copyright the footer asserts. */
   publisher: string;
@@ -65,16 +63,3 @@ export const site: SiteConfig = {
     "ncaa-semifinals-and-final": "NCAA Semifinals & Final",
   },
 };
-
-/** The division without the governing body's name in front of it.
- *
- *  The footer's disclaimer names the NCAA four words before the scope token
- *  does, so the token reads "Division II men's soccer" — derived, never a
- *  second literal, because two strings for one fact are two strings that can
- *  come to disagree. A division whose name does not start with the body's
- *  falls through unchanged rather than being cut at a guess.
- */
-export const divisionScope = (): string =>
-  site.division.startsWith(`${site.governingBody} `)
-    ? site.division.slice(site.governingBody.length + 1)
-    : site.division;

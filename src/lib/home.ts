@@ -214,9 +214,9 @@ const sentenceCase = (text: string): string => text.charAt(0).toUpperCase() + te
  *  regeneration, and every figure in it is recomputable from the fixtures. */
 export interface NationalLede {
   /** Scope and the national collect date — the same grammar as a season
-   *  page's kicker, one altitude up, and the only place the division is named
-   *  above the footer. It replaced a second small-caps row that said the
-   *  division a second time. */
+   *  page's kicker, one altitude up, and now the only place this page names
+   *  the division at all: it replaced a second small-caps row that said it
+   *  twice, and the footer has since stopped saying it anywhere. */
   kicker: string;
   /** The division's lead story. Null here, always: the floor writes no
    *  headline rather than manufacture one out of figures the cards print.

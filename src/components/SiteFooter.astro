@@ -1,35 +1,35 @@
 ---
-// The one line every page carries, in reading order: who this is and what it
-// is not, the scope, the season, when the site last looked, whose it is, and
-// the way to the method.
+// The one line every page carries: who this is and what it is not, when the
+// site last looked, whose it is, and the way to the method. Four tokens, the
+// same four everywhere.
 //
-// It answers three obligations that have nowhere else to live. It is the only
-// place the season year is named anywhere, since the national masthead stopped
-// printing a scope row (tui-5us). It is the only place the division is named
-// on a conference page. And on the 380-odd match and matches pages, whose
-// mastheads carry no site navigation, About is the only route to the
-// methodology — which is why it is the line's only link.
+// It used to carry the scope and the season year too, and two comments here
+// claimed it was the only home either of them had. It is not carrying them any
+// more, so here is where they actually live now: the national masthead's
+// kicker names the division on the home page, the matches page names both in
+// its own header, the site header carries the season year on every season and
+// team page, and the About page names scope and season in full. A MATCH page
+// names neither — which is what About being the only link on this line is for,
+// since a match page's masthead carries no site navigation at all.
 //
-// Freshness is one token and several times. A page speaks for as many
-// conferences as it shows, and they do not collect at the same time — ten
-// hours can separate two of these stamps — so every time is printed, never
-// flattened to the freshest. What is not printed three times is the words
-// around them: the date and the unit are said once when every stamp shares
-// them, and the conference codes carry the rest.
+// Freshness is one stamp, and on a page speaking for several conferences it is
+// the OLDEST of them. It is the only single claim true of every figure on the
+// page, and a conference that fails to collect drags it backwards, which is
+// the signal a reader is owed. This line used to print each conference's own
+// time side by side; that is honest and it does not scale — a token per
+// conference, on a site meant to take more of them.
 //
 // No logo and no bold name. The line opens with the word Touchline, which is
 // the identity, and everything after it is one quiet hairline register.
 import { aboutHref, collectionLine, type Season } from "../lib/derive.ts";
-import { divisionScope, site } from "../site.config.ts";
+import { site } from "../site.config.ts";
 
 interface Props {
   /** Every conference this page speaks for, in the order it should be read. */
   seasons: readonly Season[];
 }
 const { seasons } = Astro.props;
-const line = collectionLine(seasons);
-// One year on a conference page, a span on a page that shows several seasons.
-const years = [...new Set(seasons.map((s) => s.fixtures.season))].sort().join("–");
+const collected = collectionLine(seasons);
 // The copyright's year is this build's, not the season's: it says when the
 // work was published, which is a different fact from which season it covers.
 const published = new Date().getUTCFullYear();
@@ -37,23 +37,14 @@ const published = new Date().getUTCFullYear();
 
 <footer class="site-footer">
   <span class="sf-cell">Touchline is independent and not affiliated with the {site.governingBody}</span>
-  <span class="sf-cell">{divisionScope()}</span>
-  <span class="sf-cell num">{years}</span>
-  {line.headline && (
-    <span class="sf-cell num">
-      {line.headline}{line.entries.length > 0 && (
-        <span class="sf-times">{line.entries.map((e) => (<span class="sf-time">{e}</span>))}</span>
-      )}
-    </span>
-  )}
+  {collected && <span class="sf-cell num">{collected}</span>}
   <span class="sf-cell num">© {published} {site.publisher}</span>
   <a class="sf-cell sf-about" href={aboutHref()}>About</a>
 </footer>
 
 <style>
-  /* One band that wraps rather than a row with a gap in it: every token reads
-     in order on a phone, About stays last, and the stamps that used to be
-     ordered onto their own line simply fall there when they do not fit. */
+  /* One band that wraps rather than a row with a gap in it: the four tokens
+     read in order on a phone, and About stays last wherever the line breaks. */
   .site-footer {
     margin-top: 28px;
     padding: 14px 0 8px;
@@ -66,24 +57,16 @@ const published = new Date().getUTCFullYear();
     color: var(--quiet);
   }
   /* The separator TRAILS the token it follows rather than leading the one it
-     precedes. On a phone this line wraps to four, and a leading middot puts
-     one at the start of three of them — which is what the first version did,
-     and what the render showed. Trailing, a wrapped line ends on the mark and
-     reads as a continuation. Punctuation standing in for a word, which is the
-     only type this rung of the ladder sets. */
+     precedes. On a phone this line wraps, and a leading middot opens the
+     wrapped lines with one — which is what the first version did, and what the
+     render showed. Trailing, a wrapped line ends on the mark and reads as a
+     continuation. Punctuation standing in for a word, which is the only type
+     this rung of the ladder sets. */
   .sf-cell:not(:last-child)::after {
     content: "·";
     padding: 0 9px;
     color: var(--outline-quiet);
   }
-  /* A code and its time are one word; only the list between them may break. */
-  .sf-time { white-space: nowrap; }
-  .sf-time + .sf-time::before {
-    content: "·";
-    padding: 0 9px;
-    color: var(--outline-quiet);
-  }
-  .sf-times::before { content: "—"; padding: 0 7px; color: var(--outline-quiet); }
   /* The only link on the line, and on a match page the only route to the
      method from anywhere. It keeps a touch target the rest of the line has no
      need for. */
