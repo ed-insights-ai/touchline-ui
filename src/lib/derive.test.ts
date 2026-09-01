@@ -338,11 +338,11 @@ describe("the table counts conference football and nothing else", () => {
   });
 });
 
-describe("matchweeks lose nothing and start on Sundays", () => {
-  test("every week begins on a Sunday, the college convention", () => {
+describe("matchweeks lose nothing and start on Mondays", () => {
+  test("every week begins on a Monday, the docket's week", () => {
     for (const { key, season } of seasons) {
       for (const w of matchweeks(season)) {
-        expect(dowIndex(w.startISO), `${key}: week ${w.index} starts ${w.startISO}`).toBe(0);
+        expect(dowIndex(w.startISO), `${key}: week ${w.index} starts ${w.startISO}`).toBe(1);
       }
     }
   });
@@ -383,7 +383,7 @@ describe("matchweeks lose nothing and start on Sundays", () => {
       // Past and future are measured against the START of the week asOf falls
       // in, not against asOf itself: a fixture on Tuesday is not "past"
       // because the collect ran on Thursday.
-      const now = toISO(dayNumber(season.asOf) - dowIndex(season.asOf));
+      const now = toISO(dayNumber(season.asOf) - ((dowIndex(season.asOf) + 6) % 7));
       for (const w of weeks) {
         const where = `${key}: week of ${w.startISO} against ${now}`;
         if (w.state === "past") expect(w.startISO < now, where).toBe(true);

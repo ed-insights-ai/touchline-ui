@@ -29,7 +29,13 @@ const dayLabel = (iso: string): string =>
 // range went with the SEASON STORY band — the spine's flag now says which
 // week it is — and the count is the same list the docket renders beneath.
 const count = week.matches.length;
-const headline = count === 0 ? "NO MATCHES THIS WEEK" : `${count} ${count === 1 ? "MATCH" : "MATCHES"} THIS WEEK`;
+// The league count rides the strip once there is one, in the words the spine's
+// legend uses; each league row also wears the league colour in the margin.
+const headline =
+  count === 0
+    ? "NO MATCHES THIS WEEK"
+    : `${count} ${count === 1 ? "MATCH" : "MATCHES"} THIS WEEK` +
+      (week.leagueMatches > 0 ? ` · ${week.leagueMatches} LEAGUE` : "");
 
 // The week splits into two columns at desk width; the break keeps whole days
 // together rather than cutting one across the gutter.
@@ -67,8 +73,12 @@ const emptyNote =
                 <p class="wk-none serif-italic">No matches.</p>
               ) : (
                 day.matches.map((f) => (
-                  <a class="wk-row hoverable" href={matchHref(season.key, f.id)}>
+                  <a
+                    class={f.conference_game ? "wk-row wk-league hoverable" : "wk-row hoverable"}
+                    href={matchHref(season.key, f.id)}
+                  >
                     <span class="wk-line">
+                      {f.conference_game && <span class="vh">League match. </span>}
                       <span class={members.has(f.away) ? "wk-side wk-mine" : "wk-side"}>
                         {names.name(f.away)}
                       </span>
@@ -172,6 +182,7 @@ const emptyNote =
   .wk-none { margin: 0; padding: 7px 0 6px; font-size: 13.5px; color: var(--quiet); }
 
   .wk-row {
+    position: relative;
     display: flex;
     align-items: baseline;
     gap: 12px;
@@ -179,6 +190,20 @@ const emptyNote =
     border-top: 1px solid var(--hairline-soft);
     color: inherit;
     font-size: 13.5px;
+  }
+  /* A league match wears the league colour as a square hung in the margin,
+     the spine's swatch at the spine's size, so the text does not move and the
+     colour keeps the one meaning it has on this site. */
+  .wk-league::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 1px;
+    background: var(--accent);
   }
   .wk-line { flex: 1; min-width: 0; }
   .wk-side { color: var(--quiet); }

@@ -34,7 +34,8 @@ const leagueFlag = spine?.leagueOpensOn
   : null;
 // The TODAY flag carries how far along the season is, in matchweeks — the one
 // fact the retired SEASON STORY band held that this line did not (owner's
-// ruling, 2026-09-01). A matchweek is a Sunday-to-Saturday span with a match.
+// ruling, 2026-09-01). A matchweek is a Monday-to-Sunday span with a match —
+// the docket's week, so the flag and the strip count the same days.
 const window = seasonWindow(season);
 const todayFlag = window.weekIndex ? `TODAY · WEEK ${window.weekIndex} OF ${window.weekCount}` : "TODAY";
 // With both flags on the line they can meet — today within a fortnight of the

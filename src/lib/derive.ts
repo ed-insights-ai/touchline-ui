@@ -428,8 +428,11 @@ export function upcomingFixtures(s: Season, onOrAfter = s.asOf): Fixture[] {
 }
 
 // ── The season as weeks ──────────────────────────────────────────────────────
-// A matchweek is a week that carries at least one fixture. Weeks run Sunday to
-// Saturday, the college convention, and a week belongs to the month of its
+// A matchweek is a week that carries at least one fixture. Weeks run Monday to
+// Sunday, the newspaper's week and the same week the docket prints, so the
+// spine's "WEEK 4 OF 16" and the strip's "20 MATCHES THIS WEEK" count the same
+// days (they ran Sunday to Saturday once, and a Sunday match sat in this
+// week's docket and next week's count). A week belongs to the month of its
 // first fixture — so a week straddling December is a December week.
 
 export interface Matchweek {
@@ -441,7 +444,8 @@ export interface Matchweek {
 }
 
 function weekStart(iso: string): string {
-  return toISO(dayNumber(iso) - dowIndex(iso));
+  // dowIndex is 0=Sunday; a week that starts on Monday puts Sunday last.
+  return toISO(dayNumber(iso) - ((dowIndex(iso) + 6) % 7));
 }
 
 export function matchweeks(s: Season): Matchweek[] {

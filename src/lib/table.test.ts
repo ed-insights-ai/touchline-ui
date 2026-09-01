@@ -184,6 +184,17 @@ describe("the season page's middle, by the numbers", () => {
     expect(docket).toContain('class="wk-all"');
   });
 
+  test("a league match in the docket wears the league colour, and the strip counts them", () => {
+    const docket = readFileSync(join(root, "components/TheWeek.astro"), "utf8");
+    expect(docket).toContain(
+      'f.conference_game ? "wk-row wk-league hoverable" : "wk-row hoverable"',
+    );
+    expect(docket).toContain(".wk-league::before");
+    expect(docket).toContain("background: var(--accent);");
+    expect(docket).toContain("` · ${week.leagueMatches} LEAGUE`");
+    expect(docket).toContain('<span class="vh">League match. </span>');
+  });
+
   test("no reader surface prints an evidence chip any more", () => {
     for (const rel of [
       "pages/about.astro",
