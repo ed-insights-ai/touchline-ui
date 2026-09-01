@@ -22,8 +22,15 @@ export interface SiteConfig {
    *  only the abbreviation ("GAC"), and a reader meeting the site for the
    *  first time should not have to already know what that stands for. */
   conferenceNames: Readonly<Record<string, string>>;
-  /** The division these conferences play in, named on the About page. */
+  /** The division these conferences play in, named on the About page and in
+   *  the national masthead's kicker. */
   division: string;
+  /** The body that runs it. Named in the footer's disclaimer, and stripped
+   *  from the division when the footer names the scope four words later — one
+   *  string, two readings, rather than two strings that can disagree. */
+  governingBody: string;
+  /** Whose copyright the footer asserts. */
+  publisher: string;
   /** How often the collector runs, in the words the About page uses. */
   cadence: string;
   /** How many conferences in this division sponsor this sport. CONTEXT, not a
@@ -45,6 +52,8 @@ export const site: SiteConfig = {
     gsc: "Gulf South Conference",
   },
   division: "NCAA Division II men's soccer",
+  governingBody: "NCAA",
+  publisher: "EDInsights.AI",
   cadence: "once a day",
   divisionConferences: 19,
   nameOverrides: {
@@ -56,3 +65,16 @@ export const site: SiteConfig = {
     "ncaa-semifinals-and-final": "NCAA Semifinals & Final",
   },
 };
+
+/** The division without the governing body's name in front of it.
+ *
+ *  The footer's disclaimer names the NCAA four words before the scope token
+ *  does, so the token reads "Division II men's soccer" — derived, never a
+ *  second literal, because two strings for one fact are two strings that can
+ *  come to disagree. A division whose name does not start with the body's
+ *  falls through unchanged rather than being cut at a guess.
+ */
+export const divisionScope = (): string =>
+  site.division.startsWith(`${site.governingBody} `)
+    ? site.division.slice(site.governingBody.length + 1)
+    : site.division;
