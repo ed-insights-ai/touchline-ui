@@ -45,11 +45,16 @@ collect:
     {{collect_cmd}}
 
 # Write the season's journal, then drop every claim the data cannot support.
+# The national run comes AFTER the conferences: its brief reads the cards'
+# lines and the wires, so it must see today's conference journals, not
+# yesterday's.
 journal:
     # --strict is deliberately absent: a dropped claim is the system working.
     @echo "→ journal"
     bun run journal run --all
     bun run journal validate --all --write
+    bun run journal run --national
+    bun run journal validate --national --write
 
 # Vendor the flag artwork the origin table places, and only that.
 #
