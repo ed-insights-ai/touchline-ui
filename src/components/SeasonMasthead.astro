@@ -132,13 +132,19 @@ const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = fals
     border-top: 1px solid var(--hairline-soft); padding-top: 7px;
   }
   .grow { flex: 1; }
+  /* The headline heads the whole page, not the left column: the two-column
+     split begins beneath the masthead, and nothing up here answers to it. It
+     used to stop at 980px, which under the ten-word headline rule guaranteed
+     a wrap with a two-word tail — "…and Sul Ross State / still goalless". Now
+     it takes the full measure, and when it does wrap it balances, two even
+     lines rather than a long one and an orphan, as the national page's does. */
   .headline {
     margin: 0;
     font-size: 46px;
     line-height: 1.08;
     letter-spacing: -0.005em;
-    max-width: 980px;
-    text-wrap: pretty;
+    max-width: none;
+    text-wrap: balance;
   }
   .dek {
     margin: 0;
