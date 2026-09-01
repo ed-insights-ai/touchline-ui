@@ -143,9 +143,12 @@ export interface NationalBrief {
      *  total, so the fact left to say is which conference it sits in. */
     silences: {
       conference: string;
-      finals_without_score: number;
-      past_date_no_result: number;
-      matches: string[];
+      /** Kept apart, and named apart. A final with no score and a match that
+       *  never got a result at all are different absences — the VOICE section
+       *  forbids adding them together, and a single list holding both is how
+       *  a sentence comes to do it anyway. */
+      finals_without_score: { count: number; matches: string[] };
+      past_date_no_result: { count: number; matches: string[] };
     }[];
     /** The division's record against programmes outside it.
      *
@@ -315,9 +318,14 @@ export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
         const u = unresolved(s);
         return {
           conference: s.fixtures.conference,
-          finals_without_score: u.finalsWithoutScore.length,
-          past_date_no_result: u.pastDateNoResult.length,
-          matches: [...u.finalsWithoutScore, ...u.pastDateNoResult].map((f) => ref(f)),
+          finals_without_score: {
+            count: u.finalsWithoutScore.length,
+            matches: u.finalsWithoutScore.map((f) => ref(f)),
+          },
+          past_date_no_result: {
+            count: u.pastDateNoResult.length,
+            matches: u.pastDateNoResult.map((f) => ref(f)),
+          },
         };
       }),
       division_vs_outside: divisionVsOutside(seasons, bySlug),
