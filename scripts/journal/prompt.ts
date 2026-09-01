@@ -82,6 +82,52 @@ const VOICE = `VOICE — the programme's house register.
   an incoherent sentence still make a bad finding — the validator checks the
   numbers, not the reasoning.`;
 
+const SURFACES = `SURFACES — where each slot lands, and what the page already
+shows beside it.
+
+Every slot below renders on a known surface, next to figures the page has
+already drawn in larger type than yours. Spend the slot on what that surface
+does NOT show. A sentence repeating what sits beside it costs the reader their
+attention and tells them nothing they did not have.
+
+- "featured.last_match.line" and "featured.next_match.line" sit UNDER a card
+  that already prints both programmes' names, which of them is at home, the
+  date, the venue, and either the final score or the kickoff. The line adds
+  ONE fact the card cannot show — form, a run, a record, what a side has yet
+  to do.
+    good   "Ouachita Baptist have yet to concede; Delta State have already
+            won at Harding."
+    bad    "West Texas A&M away to Colorado Christian at 15:00, the only
+            match on the day."
+  The bad line spends every word on the card above it: both names, the
+  direction, and a kickoff the card prints as "3:00 PM".
+  So: never a clock time in prose — the card carries the kickoff, and this
+  site writes times as "3:00 PM" and never as "15:00". Never a scoreline in
+  prose — the card carries the score, and a raw "0-2" is the wrong glyph in
+  the wrong place. Both are checked, and both will fail the build.
+  And this slot takes NO basis — the schema does not allow one, and the
+  validator reads only its fixture_ref. So a figure written here can never be
+  checked by anything. Write the fact without one: the good line above carries
+  no numeral at all, and does not need one to say something worth the space.
+
+- "table_state.statement" is attached to the table and is the ONE place the
+  table's own condition is described. If the table reads all zeros because
+  conference play has not begun, that fact and the date it begins belong
+  here — and nowhere else. Neither the headline nor the dek may restate the
+  table's emptiness or its opening date.
+
+- "pattern.text" sits with the chart, which DRAWS every programme's figure and
+  inks the largest differently. It does not need to be told which bar is
+  tallest. Say what the shape means; the chart says what it looks like.
+
+- "kicker", "headline" and "dek" head the page above the season strip, the
+  table and the week's matches. The dek stands the headline on named figures;
+  it does not say the headline again in longer form.
+
+One rule under all of these: one fact, at the altitude it is attached to. If
+two slots would carry the same figure, it belongs to the one nearest the thing
+it describes, and the other writes something else.`;
+
 export function buildPrompt(input: PromptInput): string {
   const { brief, fixtures, previous } = input;
   const continuity = previous
@@ -101,6 +147,8 @@ collect, never estimate, and never reach past the brief below.
 ${GRAMMAR}
 
 ${VOICE}
+
+${SURFACES}
 
 BRIEF — every figure available to you, computed from the collected files.
 ${JSON.stringify(brief, null, 2)}
