@@ -19,6 +19,7 @@ import { site } from "../../src/site.config.ts";
 import { buildBrief, fixtureIndex } from "./brief.ts";
 import { buildPrompt } from "./prompt.ts";
 import { validateJournal } from "./validate.ts";
+import { standingDate } from "./wire.ts";
 
 interface Args {
   command: string;
@@ -105,13 +106,17 @@ function askModel(args: Args, prompt: string): string {
   return run.stdout;
 }
 
+/** The wire's last-updated date, over the previous journal on disk. The rule
+ *  itself lives in wire.ts, because the national headline will want it too. */
+function stampWire(next: JournalFile, previous: JournalFile | null, season: Season): void {
+  if (!next.wire) return;
+  next.wire.updated = standingDate(next.wire.line, previous?.wire, season.asOf);
+}
+
 function generate(args: Args, season: Season): number {
   const brief = buildBrief(season);
-  const prompt = buildPrompt({
-    brief,
-    fixtures: fixtureIndex(season),
-    previous: readJournal(journalPath(args, season)),
-  });
+  const previous = readJournal(journalPath(args, season));
+  const prompt = buildPrompt({ brief, fixtures: fixtureIndex(season), previous });
   mkdirSync(args.out, { recursive: true });
 
   if (args.dryRun) {
@@ -151,8 +156,15 @@ function generate(args: Args, season: Season): number {
       `${keyOf(season)}: the journal names collect ${parsed.data_collected_at}, the data home holds ${season.collectedAt}.`,
     );
   }
+  stampWire(parsed, previous, season);
   writeJson(journalPath(args, season), parsed);
   console.log(`${keyOf(season)}: wrote ${journalPath(args, season)}`);
+  if (parsed.wire) {
+    const carried = previous?.wire?.line === parsed.wire.line;
+    console.log(
+      `  wire ${carried ? "stands" : "displaced"}${parsed.wire.updated ? `, last changed ${parsed.wire.updated}` : ", last change unknown"}`,
+    );
+  }
   return 0;
 }
 

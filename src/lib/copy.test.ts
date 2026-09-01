@@ -28,7 +28,7 @@
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { hasScore, loadSeason, matchDetailOf, type Season, squadOf } from "./derive.ts";
-import { longDate } from "./format.ts";
+import { longDate, shortDate, spell } from "./format.ts";
 import {
   homeColumns,
   homeSeasons,
@@ -122,6 +122,13 @@ function nationalPage(): Line[] {
   }
   if (nationalMasthead.dek) out.push({ where: "national dek", text: nationalMasthead.dek });
   out.push({ where: "national description", text: nationalDescription(nationalColumns) });
+  // The conference cards' lines, as the card renders them. Only the wire is
+  // added here: when a journal has not written one the card falls back to the
+  // season headline, which conferencePage() already puts in the corpus.
+  for (const c of nationalColumns) {
+    const wire = loadJournal(c.season)?.wire?.line;
+    if (wire) out.push({ where: `${c.key} wire`, text: wire });
+  }
   return out;
 }
 
@@ -339,5 +346,104 @@ describe("a line fits the altitude it is set at", () => {
         .filter((l) => score.test(l.text))
         .map(show),
     ).toEqual([]);
+  });
+});
+
+describe("the wire says what the card cannot", () => {
+  /**
+   * The wire is the conference's one headline-news item, and it sits on the
+   * national page's card under the conference code, the full name, the
+   * opens-date and the played count — every one of them set in larger type
+   * than the line itself. So the rules here are not about taste: each one
+   * names a figure the reader can already see two lines up, and each is here
+   * because the line it forbids is one that actually shipped. All three
+   * headlines the cards used to render restated the card's own played count.
+   *
+   * The predicate is separate from the data so it has teeth today: no journal
+   * has written a wire yet, and a property that runs over an empty set is a
+   * comment. It is run over the live wires AND over lines written to break it.
+   */
+  const WIRE_MAX = 140;
+
+  interface Card {
+    played: number;
+    total: number;
+    opensOn: string | null;
+  }
+
+  function offences(line: string, card: Card): string[] {
+    const out: string[] = [];
+    if (line.length > WIRE_MAX) out.push(`${line.length} characters, cap ${WIRE_MAX}`);
+    // The ledger on the same page prints last night's scores, and the house
+    // sets a scoreline with an en-dash in any case.
+    if (/\d\s?[–-]\s?\d/.test(line)) out.push("prints a scoreline");
+    // No card carries a kickoff. A time here came from a field, not a thought.
+    if (/\b\d{1,2}:\d{2}\b/.test(line)) out.push("prints a clock time");
+    const fraction = new RegExp(`\\b${card.played}\\s+of\\s+${card.total}\\b`);
+    // Digits or the house's spelled form, standing directly on the word the
+    // card uses. The window is short on purpose: "seventeen matches" is the
+    // card's own figure, and "seventeen days of non-conference matches" is a
+    // different fact that happens to end in the same word. A rule that cannot
+    // tell them apart stops a cadence publish over a sentence that was fine.
+    const counted = new RegExp(
+      `\\b(?:${card.played}|${spell(card.played)})\\b[^.]{0,12}?\\bmatch(?:es)?\\b`,
+      "i",
+    );
+    if (fraction.test(line) || counted.test(line)) out.push("restates the played count");
+    if (card.opensOn) {
+      const opens = shortDate(card.opensOn);
+      if (new RegExp(`\\b${opens}\\b`, "i").test(line)) {
+        out.push(`restates the opens-date (${opens})`);
+      }
+    }
+    return out;
+  }
+
+  test("no wire on the page restates its own card", () => {
+    const found: string[] = [];
+    for (const c of nationalColumns) {
+      const wire = loadJournal(c.season)?.wire?.line;
+      if (!wire) continue;
+      for (const o of offences(wire, {
+        played: c.counts.played,
+        total: c.counts.total,
+        opensOn: c.opensOn,
+      })) {
+        found.push(`${c.key} wire — ${o}: ${wire}`);
+      }
+    }
+    expect(found).toEqual([]);
+  });
+
+  test("and the rules refuse the lines that shipped", () => {
+    // The teeth, against the GSC's own card the day this was written:
+    // seventeen of a hundred and nineteen played, opening on Sep 11.
+    const card: Card = { played: 17, total: 119, opensOn: "2026-09-11" };
+    const caught = (line: string): string => offences(line, card).join("; ");
+
+    expect(caught("The GSC has seventeen matches behind it and a table of zeros.")).toContain(
+      "restates the played count",
+    );
+    expect(caught("17 of 119 matches played and nothing decided yet.")).toContain(
+      "restates the played count",
+    );
+    expect(
+      caught("Conference play opens Sep 11, and the table means nothing before it."),
+    ).toContain("restates the opens-date");
+    expect(caught("West Alabama went down 2-0 at home on Saturday.")).toContain(
+      "prints a scoreline",
+    );
+    expect(caught("The opener kicks off at 7:00 PM in Kingsville.")).toContain(
+      "prints a clock time",
+    );
+    expect(caught(`Ouachita Baptist ${"have yet to concede a goal ".repeat(6)}.`)).toContain(
+      "characters, cap 140",
+    );
+
+    // And a line that says something the card cannot passes all of them.
+    expect(offences("Ouachita Baptist have yet to concede a goal.", card)).toEqual([]);
+    // The near miss the short window exists for: the same spelled number as
+    // the played count, counting something else entirely.
+    expect(offences("Seventeen days of non-conference matches remain.", card)).toEqual([]);
   });
 });

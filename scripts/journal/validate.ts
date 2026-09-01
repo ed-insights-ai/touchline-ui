@@ -852,6 +852,17 @@ export function validateJournal(
     }
   }
 
+  // The wire is one sentence standing for a whole conference on the national
+  // page, and it is held exactly as a finding is: a basis is recomputed and a
+  // contradicted one drops the line, leaving the card to fall back to the
+  // season headline it used to render. A line with no basis is not dropped —
+  // a wire naming a run or a state carries no figure to check, and the review
+  // pass below catches any numeral that reached the prose without one.
+  if (out.wire?.basis && record("wire", "observed", out.wire.line, out.wire.basis)) {
+    out.wire = undefined;
+  }
+  if (out.wire) reviews.push(...review("wire", out.wire.line, out.wire.basis, page));
+
   out.findings = out.findings.filter((f, i) => !record(`findings[${i}]`, f.label, f.text, f.basis));
   // A surviving claim can still say a number its basis never mentioned — the
   // checkers hold the basis to the data, not the sentence to the basis.

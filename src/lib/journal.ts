@@ -97,6 +97,32 @@ export const journalFileSchema = z
       })
       .strict()
       .optional(),
+    /** The conference's one headline-news item, written for the national
+     *  page's card and for nowhere else.
+     *
+     *  The card used to render `headline` verbatim, which asked one string to
+     *  obey two surface contracts at once: on the season page it heads a page
+     *  that prints the counts and the table beneath it, and on the card it sits
+     *  under the conference code, the full name, the opens-date and the played
+     *  count. One sentence cannot be the right thing to say in both places, and
+     *  the three that shipped restated the card's own figures back at it.
+     *
+     *  Optional, and it stays optional: a journal written before this field
+     *  existed must parse and render exactly as it did.
+     *
+     *  `updated` is the day the LINE last changed, and it is computed by the
+     *  CLI at write time — carried forward when the text matches the previous
+     *  journal's, restamped to the collect date when it differs. The model
+     *  never writes it, and when the site cannot know the answer it prints no
+     *  date rather than guessing one. */
+    wire: z
+      .object({
+        line: z.string().min(1),
+        basis: basisSchema.optional(),
+        updated: z.string().optional(),
+      })
+      .strict()
+      .optional(),
     findings: z.array(journalFindingSchema).default([]),
     players_to_watch: z
       .array(

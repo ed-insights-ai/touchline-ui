@@ -15,6 +15,7 @@
 import { describe, expect, test } from "bun:test";
 import {
   boxScoreGaps,
+  fixtureCount,
   goalsForByProgramme,
   loadSeason,
   memberSlugs,
@@ -310,5 +311,77 @@ describe("the audit is advisory", () => {
     expect(report.totals.dropped).toBe(0);
     expect(out.findings).toHaveLength(1);
     expect(unbacked(j, "findings[0].text")).toContain("907");
+  });
+});
+
+/**
+ * The wire — the conference's one line on the national page's card.
+ *
+ * It is one sentence standing for a whole conference on a page that links to
+ * three of them, so it is held exactly as a finding is: a basis is recomputed
+ * and a contradicted one drops the line. The card then falls back to the
+ * season headline it used to render, which is the same fallback an old journal
+ * with no wire at all takes.
+ */
+describe("the wire is checked like a finding, and drops like one", () => {
+  const wireOf = (j: JournalFile) => validateJournal(j, season, "test").journal.wire;
+
+  test("a wire whose basis the data contradicts is dropped", () => {
+    const j = journal({
+      wire: {
+        line: "Harding have scored more than anyone else in the conference.",
+        basis: { programme: "harding", gf: 999, ga: 0 },
+      },
+    });
+    expect(wireOf(j)).toBeUndefined();
+  });
+
+  test("a wire whose basis the data confirms survives", () => {
+    const row = goalsForByProgramme(season)[0] as { slug: string; goals: number; conceded: number };
+    const j = journal({
+      wire: {
+        line: "A line whose figures are the published ones.",
+        basis: { programme: row.slug, gf: row.goals, ga: row.conceded },
+      },
+    });
+    expect(wireOf(j)?.line).toBe("A line whose figures are the published ones.");
+  });
+
+  test("a wire with no basis is not dropped — it has no figure to be wrong about", () => {
+    // The featured lines' lesson, applied deliberately rather than by omission:
+    // an unverifiable claim is dropped, and a sentence carrying no number is
+    // not an unverifiable claim. A wire naming a state or a run is allowed to
+    // say so without inventing a basis to satisfy a checker.
+    const j = journal({ wire: { line: "Nobody in the conference has kept a clean sheet yet." } });
+    expect(wireOf(j)?.line).toBe("Nobody in the conference has kept a clean sheet yet.");
+  });
+
+  // The season's total is used rather than a literal because a figure the
+  // dateline already vouches for is not unbacked — the conference opens on the
+  // 17th, so a wire saying "seventeen" is not the audit's business.
+  const total = fixtureCount(season);
+  const line = `A conference of ${total} matches, and the table is still empty.`;
+
+  test("but a number in it with nothing behind it is put up for review", () => {
+    expect(unbacked(journal({ wire: { line } }), "wire")).toContain(String(total));
+  });
+
+  test("and the same number passes once the wire's own basis vouches for it", () => {
+    const j = journal({ wire: { line, basis: { source: "fixtures", total } } });
+    // The wire has to still be there for its silence to mean anything: a
+    // dropped claim produces no review line either, and would pass this by
+    // never taking part in it.
+    expect(wireOf(j)?.line).toBe(line);
+    expect(paths(j)).not.toContain("wire");
+  });
+
+  test("a journal with no wire at all validates exactly as it did", () => {
+    // The back-compatibility promise, held rather than asserted: every journal
+    // on disk the day this landed had no wire, and none of them may change.
+    const j = journal({ headline: "A headline with no numbers in it at all." });
+    const result = validateJournal(j, season, "test");
+    expect(result.journal.wire).toBeUndefined();
+    expect(result.report.claims.some((c) => c.path === "wire")).toBe(false);
+    expect(result.report.review.some((r) => r.path === "wire")).toBe(false);
   });
 });

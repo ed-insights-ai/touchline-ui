@@ -55,11 +55,35 @@ const lastNight = lastNightOf(asOf);
 const ledger = lastNightLedger(seasons, lastNight);
 const leftOpen = lastNightOpen(seasons, lastNight);
 
-// The journal's current headline, verbatim — the same line the season page
-// leads with, from the same editorial() the season page calls.
-const headlines = new Map(
-  columns.map((c) => [c.key, editorial(c.season, loadJournal(c.season)).headline]),
+// The line each card carries, and the day it last changed.
+//
+// It used to be the season journal's headline, verbatim. One string cannot
+// obey two surface contracts: on the season page the headline heads a page
+// that prints the counts and the table beneath it, and here it sits under the
+// conference code, the full name, the opens-date and the played count — so
+// all three headlines restated the card's own figures back at it.
+//
+// The wire is the journal's slot for this surface. A journal that has not
+// written one falls back to the headline, exactly as before, which is what
+// keeps the change safe while old journal files are still on disk. The date
+// tag rides only on a wire: nothing knows when a headline last changed.
+const cards = new Map(
+  columns.map((c) => {
+    const journal = loadJournal(c.season);
+    const wire = journal?.wire;
+    return [
+      c.key,
+      {
+        line: wire?.line ?? editorial(c.season, journal).headline,
+        updated: wire?.updated ?? null,
+      },
+    ];
+  }),
 );
+const cardStamp = (key: string): string | null => {
+  const iso = cards.get(key)?.updated;
+  return iso ? `UPDATED ${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}` : null;
+};
 
 // Winner side at weight 600, loser quiet, draws neutral.
 const sideClass = (f: Fixture, side: "home" | "away"): string => {
@@ -168,7 +192,8 @@ const opensLine = (c: (typeof columns)[number]): string =>
             <span class="conf-frac">{c.counts.played} of {c.counts.total}</span>
             <span class="conf-dim"> matches played</span>
           </div>
-          <a class="conf-headline serif-italic" href={seasonHref(c.key)}>{headlines.get(c.key)}</a>
+          <a class="conf-line serif-italic" href={seasonHref(c.key)}>{cards.get(c.key)?.line}</a>
+          {cardStamp(c.key) && <div class="conf-stamp num">{cardStamp(c.key)}</div>}
           <div class="grow"></div>
           <a class="conf-cta" href={seasonHref(c.key)}>OPEN THE SEASON →</a>
         </article>
@@ -314,7 +339,7 @@ const opensLine = (c: (typeof columns)[number]): string =>
   .conf-counts { font-size: 12.5px; }
   .conf-frac { font-weight: 600; }
   .conf-dim { color: var(--quiet); }
-  .conf-headline {
+  .conf-line {
     margin-top: 8px;
     font-family: var(--serif);
     font-style: italic;
@@ -324,7 +349,11 @@ const opensLine = (c: (typeof columns)[number]): string =>
     color: var(--ink);
     text-wrap: pretty;
   }
-  .conf-headline:hover { color: var(--accent-hover); }
+  .conf-line:hover { color: var(--accent-hover); }
+  /* When the line last changed. It stands until something more newsworthy
+     displaces it or it stops being true, so a reader looking at a sentence
+     that did not move today is owed the date it last did. */
+  .conf-stamp { margin-top: 5px; font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
   .conf-cta {
     margin-top: 10px;
     font-size: 11px;
