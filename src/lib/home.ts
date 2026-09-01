@@ -325,9 +325,9 @@ export function nationalDescription(
   if (openers) sentences.push(openers);
   sentences.push(
     national.silentFinals === 0
-      ? "No final stands without a published score."
-      : `${sentenceCase(spell(national.silentFinals))} ${
-          national.silentFinals === 1 ? "final stands" : "finals stand"
+      ? "No score gap stands: every final carries a published score."
+      : `${sentenceCase(spell(national.silentFinals))} score ${
+          national.silentFinals === 1 ? "gap stands, a final" : "gaps stand, finals"
         } without a published score.`,
   );
   return sentences.join(" ");

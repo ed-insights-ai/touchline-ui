@@ -68,15 +68,17 @@ export const VOICE = `VOICE — the programme's house register.
   field is still called "fixture_ref" — that is the contract's name, not the
   reader's word.
 - "Played" means a final WITH a published score, and nothing else. A final
-  carrying no score is a SILENT FINAL: count it beside the played figure,
-  never inside it. A FRIENDLY is outside the record entirely — never called
-  played, never counted as a silence, named only as a friendly. Plural is
+  carrying no score is a SCORE GAP: count it beside the played figure, never
+  inside it. "Score gap" is the reader's word for it on every page; "silent
+  final" is retired and never reaches a sentence a reader sees. A FRIENDLY is
+  outside the record entirely — never called played, never counted as a score
+  gap, named only as a friendly. Plural is
   "friendlies". The data calls these matches exhibitions; that is the source's
   word, and it never reaches a sentence a reader sees.
-- A BOX-SCORE GAP is a match with a published result whose detail the
+- A BOX SCORE GAP is a match with a published result whose detail the
   collector could not reach: the site has the score and not the shape of it.
-  It is NOT a silent final and never the same fixture as one — a silent final
-  has no result to be missing the detail of. The three are separate counts of
+  It is NOT a score gap and never the same fixture as one — a score gap has
+  no result to be missing the detail of. The three are separate counts of
   separate things, and a sentence that adds them together is wrong even when
   each number is right.
 - Each finding must read as ONE logically coherent claim. Do not fuse two
@@ -314,8 +316,8 @@ no markdown fence, no commentary before or after.
 }
 
 Three to five findings. Exactly three players to watch. The chart's values must be
-the brief's goals_for map, unchanged. At least one finding must name a silence if
-the brief reports any.
+the brief's goals_for map, unchanged. At least one finding must name a score gap,
+or a past date with no result, if the brief reports any.
 
 EVERY NUMBER YOU WRITE MUST BE IN A BASIS.
 A basis is not decoration on a finding — it is the list of figures that sentence

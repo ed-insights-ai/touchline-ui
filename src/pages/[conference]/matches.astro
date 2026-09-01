@@ -8,7 +8,7 @@
 // Three states a row can be in, and each says which it is:
 //   • a result — the winner's name carries the weight, the loser's goes quiet,
 //     and in a draw neither does;
-//   • a silent final — marked played, nothing published. An em-dash sits where
+//   • a score gap — marked played, nothing published. An em-dash sits where
 //     the score would, and it is counted BESIDE the played figure, never
 //     folded into it;
 //   • still to come — away at home, the kickoff the home programme published,
@@ -58,7 +58,7 @@ const isResult = (f: Fixture): boolean => hasScore(f);
 const silent = matches.filter(isSilentFinal);
 const stillScheduled = matches.filter((f) => f.date < today && f.status === "scheduled");
 
-// Distinct programmes behind the silent finals, named rather than counted.
+// Distinct programmes behind the score gaps, named rather than counted.
 const silentNames = [...new Set(silent.map((f) => names.name(f.home)))].sort();
 
 // The rail's three notes, assembled as prose from the recomputed counts.
@@ -75,8 +75,8 @@ const holds = [
 const openCount = silent.length + stillScheduled.length;
 const unresolvedLead =
   openCount === 0
-    ? "Every date gone by carries a published score. Nothing on this page is waiting."
-    : `${cap(spell(openCount))} ${openCount === 1 ? "row" : "rows"} on dates gone by carry no score.`;
+    ? "Every date in the books carries a published score. Nothing on this page is waiting."
+    : `${cap(spell(openCount))} ${openCount === 1 ? "row" : "rows"} on dates in the books carry no score.`;
 const unresolvedSilent =
   silent.length > 0
     ? ` ${cap(spell(silent.length))} ${silent.length === 1 ? "is" : "are"} the sites\u2019 own `
@@ -228,7 +228,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
             {unresolvedLead}
             {unresolvedSilent}
             {silent.length > 0 && (
-              <span class="mx-silent-word">{silent.length === 1 ? "silent final" : "silent finals"}</span>
+              <span class="mx-silent-word">{silent.length === 1 ? "score gap" : "score gaps"}</span>
             )}
             {unresolvedSilentTail}
             {unresolvedScheduled}

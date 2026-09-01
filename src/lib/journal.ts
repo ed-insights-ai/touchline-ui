@@ -538,7 +538,9 @@ export function fallbackFindings(s: Season): DataFinding[] {
     const finals = silent.finalsWithoutScore.length;
     const past = silent.pastDateNoResult.length;
     const parts = [
-      finals > 0 ? `${spell(finals)} marked final with no score` : null,
+      finals > 0
+        ? `${spell(finals)} score ${finals === 1 ? "gap, a final" : "gaps, finals"} with no score published`
+        : null,
       past > 0 ? `${spell(past)} past their date with no result at all` : null,
     ].filter(Boolean);
     out.push({

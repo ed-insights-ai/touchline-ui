@@ -139,8 +139,11 @@ the list looking for something to say.
    story. And matches that passed their date with no result at all appear on
    no surface anywhere — the division's whole holding of them is news the
    page cannot otherwise tell.
-     good   "Every silent final in the Lone Star Conference belongs to one
+     good   "Every score gap in the Lone Star Conference belongs to one
              programme."
+   "Score gap" is the reader's word for a final with no published score, on
+   this page as on every other; "silent final" is retired and never reaches a
+   sentence a reader sees.
      bad    "Four finals in the division stand without a published score."
    The bad line is a count the page has chosen not to print.
 

@@ -425,8 +425,11 @@ describe("the reconciliation the page stopped printing", () => {
   }
 
   function silentInDescription(text: string): number | null {
-    if (text.includes("No final stands without a published score.")) return 0;
-    const some = /(\w+) (?:final stands|finals stand) without a published score\./.exec(text);
+    if (text.includes("No score gap stands: every final carries a published score.")) return 0;
+    const some =
+      /(\w+) score (?:gap stands, a final|gaps stand, finals) without a published score\./.exec(
+        text,
+      );
     const spelled = NUMBER.get((some?.[1] ?? "").toLowerCase());
     return spelled === undefined ? null : spelled;
   }

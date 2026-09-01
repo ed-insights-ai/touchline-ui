@@ -82,8 +82,8 @@ const state: State =
 
 const BADGE: Record<State, { text: string; tone: "accent" | "alert" }> = {
   played: { text: "FULL TIME", tone: "accent" },
-  "score-only": { text: "FULL TIME · NO BOX SCORE COLLECTED", tone: "alert" },
-  "silent-final": { text: "FINAL · NO SCORE PUBLISHED", tone: "alert" },
+  "score-only": { text: "FULL TIME · BOX SCORE GAP", tone: "alert" },
+  "silent-final": { text: "FINAL · SCORE GAP", tone: "alert" },
   "silent-past": { text: "PAST DATE · NO RESULT PUBLISHED", tone: "alert" },
   preview: { text: "SCHEDULED", tone: "accent" },
   off: { text: fixture.status.toUpperCase(), tone: "alert" },
@@ -191,9 +191,9 @@ const knownRows: { label: string; value: string }[] = [
 const explain: Record<State, string> = {
   played: "",
   "score-only":
-    "The programme published the result but no box score Touchline could reach. The scoreline stands; the detail behind it does not exist here.",
+    "The programme published the result but no box score Touchline could reach: a box score gap. The scoreline stands; the detail behind it does not exist here.",
   "silent-final":
-    "The programme's schedule marked this match finished but never entered a result. The silence is the site's own, and it stays on the record, named.",
+    "The programme's schedule marked this match finished but never entered a result: a score gap. The silence is the site's own, and it stays on the record, named.",
   "silent-past":
     "The date has passed and the programme's schedule still lists this match as scheduled. No result, no postponement, no note — the page simply has not changed.",
   preview: "Not played yet. What is below is everything the programme has published about the match.",

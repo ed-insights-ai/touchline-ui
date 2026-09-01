@@ -258,8 +258,8 @@ const stripNote = (() => {
   const silentWord = spell(counts.silentFinals);
   const silent =
     counts.silentFinals > 0
-      ? ` ${silentWord.charAt(0).toUpperCase()}${silentWord.slice(1)} silent ${
-          counts.silentFinals === 1 ? "final" : "finals"
+      ? ` ${silentWord.charAt(0).toUpperCase()}${silentWord.slice(1)} score ${
+          counts.silentFinals === 1 ? "gap" : "gaps"
         }.`
       : "";
   const head = `${spelled.charAt(0).toUpperCase()}${spelled.slice(1)} played, ${spell(counts.total - counts.played - counts.silentFinals)} listed.${silent}`;
