@@ -115,11 +115,10 @@ attention and tells them nothing they did not have.
   checked by anything. Write the fact without one: the good line above carries
   no numeral at all, and does not need one to say something worth the space.
 
-- "table_state.statement" is attached to the table and is the ONE place the
-  table's own condition is described. If the table reads all zeros because
-  conference play has not begun, that fact and the date it begins belong
-  here — and nowhere else. Neither the headline nor the dek may restate the
-  table's emptiness or its opening date.
+- The table describes its own state without you: a label line under it says
+  whether it ranks all matches or conference matches only, and the date
+  conference play opens. There is no table_state to write. Neither the
+  headline nor the dek restates the table's emptiness or its opening date.
 
 - "pattern.text" sits with the chart, which DRAWS every programme's figure and
   inks the largest differently. It does not need to be told which bar is
@@ -168,7 +167,8 @@ attention and tells them nothing they did not have.
   this page and the lede never sets them side by side unnamed: the strip's
   goals are against non-conference opponents; the chart's are every match a
   programme has played, members included.
-  The date conference play opens is table_state's, and does not appear here.
+  The date conference play opens is the table's own label line's, and does
+  not appear here.
 
 - "wire" is this conference's one line on the NATIONAL page — a different page
   from every slot above. It sits on a card that already prints the conference
@@ -237,7 +237,7 @@ sentences of prose. Leave it out when the lines stand — the machinery drops it
 in that case anyway, because there was no displacement to describe.
 
 Every other slot answers to today's data alone. The findings, the pattern, the
-players, the featured lines and the table's statement move with the collect;
+players and the featured lines move with the collect;
 continuity there means reusing exact wording where the underlying facts have
 not changed, and never means keeping a sentence the data has outgrown.
 
@@ -310,9 +310,7 @@ no markdown fence, no commentary before or after.
   "players_to_watch": [ { "player": "...", "programme": "<slug>", "position": "GK|DEF|MID|FWD",
                           "class": "FR|SO|JR|SR|5Y", "line": "<published figures only>" } ],
   "featured": { "last_match": { "fixture_ref": "...", "line": "..." },
-                "next_match": { "fixture_ref": "...", "line": "..." } },
-  "table_state": { "mode": "${brief.table.mode}", "statement": "...", "footnote": "...",
-                   "basis": { ... } }
+                "next_match": { "fixture_ref": "...", "line": "..." } }
 }
 
 Three to five findings. Exactly three players to watch. The chart's values must be
@@ -324,7 +322,6 @@ A basis is not decoration on a finding — it is the list of figures that senten
 rests on, and the validator recomputes each one. So:
 - "lede_basis" holds every number the headline and dek contain.
 - "wire.basis" holds every number its line contains.
-- "table_state.basis" holds every number its statement and footnote contain.
 - a finding's basis holds every number its own text contains.
 Spelled numbers count: "eighteen days" needs 18 in the basis, and a figure you
 worked out — a sum, a difference, a count of days — belongs there under a name

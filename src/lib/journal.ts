@@ -71,7 +71,7 @@ export type JournalChart = z.infer<typeof journalChartSchema>;
  *  one conference's bars were three goals short of its own record — and the
  *  answer was to make the bars whole rather than to narrow the caption around
  *  them. The chip's count and the chart's population are now the same set. */
-export const CHART_CAPTION = "Goals scored by programme across all matches played.";
+export const CHART_CAPTION = "Goals by programme, all matches";
 
 export const journalFindingSchema = z
   .object({
@@ -194,6 +194,8 @@ export const journalFileSchema = z
       })
       .strict()
       .optional(),
+    /** Retired 2026-09-01: the table describes its own state in a label line
+     *  of the page's making. Parsed so older journals still load; never read. */
     table_state: z
       .object({
         mode: z.string().optional(),
@@ -463,26 +465,6 @@ export function seasonStrip(s: Season): string[] {
   const between = played - out.played;
   if (between > 0) cells.push(`${between} BETWEEN ${s.fixtures.conference} SIDES`);
   return cells;
-}
-
-/** The table's own statement, when no journal wrote one. */
-export function tableStatement(s: Season): { statement: string; footnote: string | null } {
-  const opens = conferenceOpensOn(s);
-  const sides = s.fixtures.programmes.length;
-  if (!tableIsLive(s)) {
-    return {
-      statement: opens
-        ? `Conference play begins ${monShort(opens)} ${dayOfMonth(opens)}. All ${sides} sides are 0–0–0.`
-        : `No conference match has been played. All ${sides} sides are 0–0–0.`,
-      footnote:
-        "3–1–0 points · early form shown from non-conference results · a pre-conference table is a valid state.",
-    };
-  }
-  const rec = outsideRecord(s);
-  return {
-    statement: `${sides} sides · ${rec.played} results against everyone else.`,
-    footnote: "3–1–0 points · conference matches only.",
-  };
 }
 
 const sentenceCase = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);

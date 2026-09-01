@@ -119,7 +119,7 @@ describe("the chart's caption is the page's own", () => {
     // treatment exists to prevent, and it would be invisible to every other
     // test here: the journals on disk still carry one.
     const page = readFileSync(join(import.meta.dir, "../pages/[conference]/index.astro"), "utf8");
-    expect(page).toMatch(/<figcaption[^>]*>\{CHART_CAPTION\}<\/figcaption>/);
+    expect(page).toContain("{CHART_CAPTION} · {counts.played} scored");
     expect(page).not.toMatch(/\.caption/);
   });
 });
@@ -186,12 +186,6 @@ describe("the season page's order and keys", () => {
     expect(spine).toBeGreaterThan(-1);
     expect(week).toBeGreaterThan(featured);
     expect(week).toBeLessThan(players);
-  });
-
-  test("the pattern's head keys the chips where a reader first meets them", () => {
-    expect(page).toContain("●●●</i>observed");
-    expect(page).toContain("●●○</i>derived");
-    expect(page).toMatch(/open a line for its figures/);
   });
 
   test("the dek is the story's opening paragraph, and reads in serif on both surfaces", () => {

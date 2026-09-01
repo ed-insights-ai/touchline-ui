@@ -430,7 +430,71 @@ export function computeTable(file: FixturesFile): TableRow[] {
     }
   }
   for (const r of bySlug.values()) r.goalDiff = r.goalsFor - r.goalsAgainst;
-  return [...bySlug.values()].sort(
+  return rank([...bySlug.values()]);
+}
+
+/** Every countable result a member has played, against anyone, ranked on the
+ *  same three points for a win.
+ *
+ *  This is the table BEFORE conference play opens. The conference table is
+ *  all zeros then, and a reader of a table expects a top and a bottom (the
+ *  owner's ruling, 2026-09-01), so until the first conference result lands
+ *  the page ranks what it can show and says so in the table's own label.
+ *  Nothing here feeds computeTable, whose two guards stand untouched: a
+ *  non-member still never gets a row (its result credits only the member
+ *  who played it), and a friendly still counts nowhere. */
+export function computeOverallTable(file: FixturesFile): TableRow[] {
+  const bySlug = new Map<string, TableRow>(
+    file.programmes.map((p) => [p.slug, emptyRow(p.slug, p.name)]),
+  );
+  for (const f of file.fixtures) {
+    if (f.status !== "final") continue;
+    if (f.match_type === "exhibition") continue;
+    const hs = f.home_score;
+    const as = f.away_score;
+    if (typeof hs !== "number" || typeof as !== "number") continue;
+    const h = bySlug.get(f.home);
+    const a = bySlug.get(f.away);
+    if (h) credit(h, hs, as);
+    if (a) credit(a, as, hs);
+  }
+  return rank([...bySlug.values()]);
+}
+
+function emptyRow(slug: string, name: string): TableRow {
+  return {
+    slug,
+    name,
+    played: 0,
+    won: 0,
+    drawn: 0,
+    lost: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
+    goalDiff: 0,
+    points: 0,
+  };
+}
+
+function credit(r: TableRow, gf: number, ga: number): void {
+  r.played++;
+  r.goalsFor += gf;
+  r.goalsAgainst += ga;
+  r.goalDiff = r.goalsFor - r.goalsAgainst;
+  if (gf > ga) {
+    r.won++;
+    r.points += 3;
+  } else if (gf < ga) {
+    r.lost++;
+  } else {
+    r.drawn++;
+    r.points++;
+  }
+}
+
+/** Points, then goal difference, then the name — the same order in both tables. */
+function rank(rows: TableRow[]): TableRow[] {
+  return rows.sort(
     (x, y) => y.points - x.points || y.goalDiff - x.goalDiff || x.name.localeCompare(y.name),
   );
 }

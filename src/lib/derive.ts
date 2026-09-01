@@ -28,7 +28,7 @@ import type {
   StatsFile,
   TableRow,
 } from "./model.ts";
-import { computeTable, isPlayed } from "./model.ts";
+import { computeOverallTable, computeTable, isPlayed } from "./model.ts";
 import { type NameBook, nameBookFor } from "./names.ts";
 
 export type Result = "W" | "D" | "L";
@@ -199,6 +199,8 @@ export function outsideRecord(s: Season): Record {
 }
 
 export const table = (s: Season): TableRow[] => computeTable(s.fixtures);
+/** The table before conference play opens: every countable match, against anyone. */
+export const overallTable = (s: Season): TableRow[] => computeOverallTable(s.fixtures);
 
 /** Goals each member has scored and conceded, most first, over every countable
  *  scored match — conference or not, flagged or not.

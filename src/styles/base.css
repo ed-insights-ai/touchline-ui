@@ -147,10 +147,6 @@ main { display: block; margin: 0; }
   white-space: nowrap;
   display: inline-block;
 }
-.chip-observed  { background: var(--chip-observed-bg);  color: var(--chip-observed-fg); }
-.chip-derived   { background: var(--chip-derived-bg);   color: var(--chip-derived-fg); }
-.chip-signal    { background: var(--chip-signal-bg);    color: var(--chip-signal-fg); }
-.chip-projected { background: var(--chip-projected-bg); color: var(--chip-projected-fg); }
 .chip-context   {
   background: none;
   color: var(--quiet);

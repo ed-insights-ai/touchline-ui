@@ -133,7 +133,6 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     <div class="sheet-foot">
       {card.finding && (
         <div class="finding">
-          <span class={`chip chip-${card.finding.label}`}>{card.finding.label.toUpperCase()}</span>
           <span class="finding-text">{card.finding.text}</span>
         </div>
       )}
@@ -390,13 +389,6 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     display: flex; align-items: baseline; gap: 10px;
     border-top: 1px solid var(--hairline-soft); padding-top: 12px;
   }
-  .chip {
-    font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
-    padding: 2px 8px; border-radius: 3px; white-space: nowrap;
-  }
-  .chip-observed { background: var(--chip-observed-bg); color: var(--chip-observed-fg); }
-  .chip-derived { background: var(--chip-derived-bg); color: var(--chip-derived-fg); }
-  .chip-context { border: 1px solid var(--chip-context-border); color: var(--quiet); }
   .finding-text { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
   .sheet-provenance { font-style: italic; font-size: 13.5px; color: var(--quiet); }
 

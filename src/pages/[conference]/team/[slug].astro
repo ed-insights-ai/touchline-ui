@@ -24,7 +24,6 @@ import type { Fixture, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import { countOrigins, originOf } from "../../../lib/origin.ts";
 import { returnedShare, tenureGrid } from "../../../lib/tenure.ts";
-import EvidenceChip from "../../../components/EvidenceChip.astro";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
@@ -349,7 +348,6 @@ const identity = identityLine(slug);
     <section class="band">
       <h2 class="sechead">SQUAD SHAPE</h2>
       <p class="shape-lede">
-        <EvidenceChip label="derived" />
         <span class="shape-said">{shapeSentence}</span>
       </p>
       <div class="shape">

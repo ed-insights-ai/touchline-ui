@@ -2,7 +2,6 @@
 import { site } from "../../site.config.ts";
 import Page from "../../layouts/Page.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
-import EvidenceChip from "../../components/EvidenceChip.astro";
 import SeasonMasthead from "../../components/SeasonMasthead.astro";
 import SeasonSpine from "../../components/SeasonSpine.astro";
 import TheWeek from "../../components/TheWeek.astro";
@@ -27,6 +26,7 @@ import {
   resolveFixtureRef,
   seasonCounts,
   seasonWindow,
+  overallTable,
   table,
   tableIsLive,
   teamHref,
@@ -40,7 +40,6 @@ import {
   fallbackPattern,
   isStale,
   loadJournal,
-  tableStatement,
   seasonStrip,
 } from "../../lib/journal.ts";
 import {
@@ -69,9 +68,12 @@ const stale = isStale(journal, season);
 
 const counts = seasonCounts(season);
 const gaps = boxScoreGaps(season);
-const rows = table(season);
 const live = tableIsLive(season);
 const opens = conferenceOpensOn(season);
+// Before conference play opens the table ranks every countable match a member
+// has played, against anyone, so it has a top and a bottom to read; from the
+// first conference result on it is the conference table and nothing else.
+const rows = live ? table(season) : overallTable(season);
 const window = seasonWindow(season);
 const weeks = matchweeks(season);
 
@@ -79,10 +81,6 @@ const weeks = matchweeks(season);
 // summary_stat is parsed and ignored: three journals wrote three different
 // ones on one morning, and none of them was a figure the page lacked.
 const strip = seasonStrip(season);
-
-const statement = journal?.table_state?.statement
-  ? { statement: journal.table_state.statement, footnote: journal.table_state.footnote ?? null }
-  : tableStatement(season);
 
 // Featured matches: the journal names them; the data supplies every number.
 const lastScored = lastResult(season);
@@ -159,31 +157,14 @@ const nextLabel = (f: Fixture): string => {
 
     <section class="split">
       <div class="col">
-        <div class="pat-head">
-          <h2 class="sechead-plain">THE PATTERN</h2>
-          <div class="grow"></div>
-          {/* The chips' key, where a reader first meets them, the way the
-              season line keys its marks. The labels stay the grammar's own
-              words — they are the site's signature — and this row says what
-              they mean and that every line opens on the figures it rests on. */}
-          <div class="pat-key">
-            <span class="pat-k"><i class="pat-dots">●●●</i>observed · on the record</span>
-            <span class="pat-k"><i class="pat-dots">●●○</i>derived · worked out from it</span>
-            <span class="pat-k pat-hint">open a line for its figures</span>
-          </div>
-        </div>
+        {/* The newspaper's name for a chart and a handful of numeric facts.
+            No evidence chips: a reader should not have to learn a grammar to
+            read a list of facts (the owner's ruling, 2026-09-01). The labels
+            stay in the journal for the validator; on the page every line
+            still opens on the figures it rests on, marked by a caret. */}
+        <h2 class="sechead">BY THE NUMBERS</h2>
         {pattern ? (
           <>
-            <details class="disclosure pattern-disclosure">
-            <summary class="pattern-head">
-              <EvidenceChip label={pattern.label} />
-              <span class="pattern-scope">
-                {counts.played} scored {counts.played === 1 ? "result" : "results"}
-                {lastScored && ` · through ${shortDate(lastScored.date)}`}
-              </span>
-            </summary>
-            <BasisPanel basis={pattern.basis} resolveName={(slug) => names.name(slug)} />
-            </details>
             <p class="pattern-text serif">{pattern.text}</p>
             {goalChart && (
               <figure class="chart">
@@ -221,7 +202,21 @@ const nextLabel = (f: Fixture): string => {
                   ))}
                 </div>
                 </div>
-                <figcaption class="provenance">{CHART_CAPTION}</figcaption>
+                {/* The scope that used to sit above the sentence folds into
+                    the caption, and the caption is the chart's disclosure. */}
+                <figcaption class="provenance">
+                  <details class="disclosure chart-basis">
+                    <summary class="chart-caption">
+                      <span>
+                        {CHART_CAPTION} · {counts.played} scored{" "}
+                        {counts.played === 1 ? "result" : "results"}
+                        {lastScored && ` through ${shortDate(lastScored.date)}`}
+                      </span>
+                      <i class="caret" aria-hidden="true"></i>
+                    </summary>
+                    <BasisPanel basis={pattern.basis} resolveName={(slug) => names.name(slug)} />
+                  </details>
+                </figcaption>
               </figure>
             )}
           </>
@@ -237,8 +232,8 @@ const nextLabel = (f: Fixture): string => {
               <li>
                 <details class="disclosure finding">
                   <summary class="finding-head">
-                    <EvidenceChip label={f.label} />
                     <span class="finding-text">{f.text}</span>
+                    <i class="caret" aria-hidden="true"></i>
                   </summary>
                   <BasisPanel basis={f.basis} resolveName={(slug) => names.name(slug)} />
                 </details>
@@ -249,13 +244,7 @@ const nextLabel = (f: Fixture): string => {
       </div>
 
       <div class="col">
-        <ConferenceTable
-          season={season}
-          rows={rows}
-          live={live}
-          statement={statement}
-          emphasiseFirstSentence={Boolean(opens) && !live}
-        />
+        <ConferenceTable season={season} rows={rows} live={live} opens={opens} />
       </div>
     </section>
 
@@ -425,36 +414,22 @@ const nextLabel = (f: Fixture): string => {
   }
   .col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 
-  /* ── The pattern ────────────────────────────────────────────────────────── */
-  /* The ruled head carries the key on its right, so the rule spans the column
-     as every other section head's does and the key sits on it. */
-  .pat-head {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 7px;
+  /* ── By the numbers ─────────────────────────────────────────────────────── */
+  /* A line that opens on its figures says so with a caret at its right edge,
+     turned down while it is open. The same mark serves the chart's caption. */
+  .caret {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    margin-left: auto;
+    border-right: 1.5px solid var(--chevron);
+    border-bottom: 1.5px solid var(--chevron);
+    transform: rotate(-45deg);
+    transition: transform 0.15s ease;
   }
-  .pat-key {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 4px 16px;
-    font-size: 11px;
-    color: var(--quiet);
-    letter-spacing: 0.06em;
-  }
-  .pat-k { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-  .pat-dots { font-style: normal; font-size: 9px; letter-spacing: 0.1em; color: var(--ink-soft); }
-  .pat-hint { font-style: italic; letter-spacing: 0.02em; }
-  @media (max-width: 720px) {
-    /* The key drops under the title on its own row, as the season line's
-       legend does, rather than squeezing beside a title that then wraps. */
-    .pat-head { flex-wrap: wrap; }
-    .pat-key { flex-basis: 100%; justify-content: flex-start; font-size: 10px; gap: 3px 10px; }
-  }
-  .pattern-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .pattern-scope { font-size: 11.5px; color: var(--quiet); }
+  details[open] > summary > .caret { transform: rotate(45deg); }
+  .chart-caption { display: flex; align-items: center; gap: 10px; }
+  .chart-caption > span { flex: 1; min-width: 0; }
   .pattern-text {
     margin: 0;
     font-size: 24px;
@@ -490,7 +465,7 @@ const nextLabel = (f: Fixture): string => {
 
   .findings { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--hairline); }
   .findings li { border-top: 1px solid var(--hairline); padding: 10px 0; }
-  .finding-head { display: flex; align-items: baseline; gap: 14px; }
+  .finding-head { display: flex; align-items: center; gap: 14px; }
   .finding:hover .finding-text { color: var(--ink); }
   .finding-text { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
 

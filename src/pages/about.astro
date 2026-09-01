@@ -3,7 +3,6 @@
 // chrome. The definitions here are not a glossary appended to the product —
 // they are the product's thesis restated in the words a reader needs, and the
 // last clause of each is where the honesty lives.
-import EvidenceChip from "../components/EvidenceChip.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Page from "../layouts/Page.astro";
 import { homeHref, loadSeason } from "../lib/derive.ts";
@@ -29,13 +28,6 @@ const conferenceList =
 const stamp = (iso: string): string =>
   `${monShort(iso.slice(0, 10))} ${dayOfMonth(iso.slice(0, 10))}, ${iso.slice(11, 16)} UTC`;
 
-const GRAMMAR = [
-  { label: "observed", gloss: "a fact a programme published, as collected." },
-  { label: "derived", gloss: "computed exactly from published values — the arithmetic is shown." },
-  { label: "signal", gloss: "a pattern in the data whose cause is unverified." },
-  { label: "projected", gloss: "forward-looking; the season will answer it." },
-  { label: "context", gloss: "biography, not a finding." },
-] as const;
 ---
 
 <Page
@@ -113,21 +105,10 @@ const GRAMMAR = [
     <section class="band">
       <h2 class="sechead">HOW MUCH IS KNOWN</h2>
       <p class="para">
-        Every claim on this site wears a mark saying how far it is from the published
-        page it came from. The marks are fixed per kind of claim, never chosen to suit
-        one.
-      </p>
-      <dl class="grammar">
-        {GRAMMAR.map((g) => (
-          <div class="grammar-row">
-            <dt><EvidenceChip label={g.label} /></dt>
-            <dd>{g.gloss}</dd>
-          </div>
-        ))}
-      </dl>
-      <p class="para">
-        Where a claim carries figures, the chip opens onto them: the numbers the sentence
-        rests on, and the layer they were read from.
+        Every figure on this site is recomputed from the published pages it came from
+        before it is printed, and a sentence that fails the recount is not printed.
+        Where a sentence carries figures, it opens onto them: the numbers it rests on,
+        and the layer they were read from.
       </p>
     </section>
 
@@ -203,14 +184,6 @@ const GRAMMAR = [
     font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty;
   }
   .para:last-child { margin-bottom: 0; }
-
-  .grammar { margin: 0 0 16px; display: flex; flex-direction: column; gap: 9px; }
-  .grammar-row { display: flex; align-items: baseline; gap: 14px; }
-  .grammar-row dt { flex: none; min-width: 124px; }
-  .grammar-row dd {
-    margin: 0; font-family: var(--serif); font-size: 14.5px; line-height: 1.5;
-    color: var(--ink-soft);
-  }
 
   .stamps { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
   .stamp-row { display: flex; gap: 12px; font-size: 12.5px; flex-wrap: wrap; }

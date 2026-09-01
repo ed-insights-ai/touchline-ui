@@ -1,54 +1,56 @@
 ---
-// The conference table, and the sentence that says what state it is in.
+// The conference table, ranked, and the one line that says what it ranks.
 //
-// A table before conference play has begun is a valid state, not an empty one:
-// the position column reads as a dash rather than a rank, and the statement
-// underneath says why. Provenance for that statement attaches here.
+// Before conference play opens the conference table is all zeros, and a
+// reader of a table expects a top and a bottom. So until the first conference
+// result lands the rows rank every countable match a member has played,
+// against anyone, and print that record; the label beneath says so and names
+// the date conference play opens. From that first result on, it is the
+// conference table and nothing else. Which rows arrive is the page's call
+// (table or overallTable); this component only says which it was given.
 import FormBadges from "./FormBadges.astro";
 import { formOf, teamHref, type Result, type Season, type TableRow } from "../lib/derive.ts";
+import { dayOfMonth, monShort } from "../lib/format.ts";
 
 interface Props {
   season: Season;
   rows: TableRow[];
-  /** Conference play has begun, so a position means something. */
+  /** Conference play has begun: the rows are the conference table. */
   live: boolean;
-  statement: { statement: string; footnote?: string | null };
-  /** Lead the statement with its first sentence in bold before the table opens. */
-  emphasiseFirstSentence?: boolean;
+  /** The date conference play opens, when the schedule names one. */
+  opens: string | null;
 }
-const { season, rows, live, statement, emphasiseFirstSentence = false } = Astro.props;
+const { season, rows, live, opens } = Astro.props;
 const form = (slug: string): Result[] => formOf(season, slug);
-const stop = statement.statement.indexOf(".");
+const label = live
+  ? "CONFERENCE MATCHES ONLY"
+  : opens
+    ? `ALL MATCHES UNTIL CONFERENCE PLAY OPENS ${monShort(opens).toUpperCase()} ${dayOfMonth(opens)}`
+    : "ALL MATCHES UNTIL CONFERENCE PLAY OPENS";
 ---
 
 <h2 class="sechead">THE TABLE</h2>
 <div class="table num">
   {rows.map((r, i) => (
     <a class="trow hoverable" href={teamHref(season.key, r.slug)}>
-      <span class="tpos">{live ? i + 1 : "–"}</span>
+      <span class="tpos">{i + 1}</span>
       <span class="tname">{r.name}</span>
       <FormBadges form={form(r.slug)} />
-      <span class="tpts">{r.points}</span>
+      {live ? (
+        <span class="tpts">{r.points}</span>
+      ) : (
+        <span class="trec">{r.won}–{r.drawn}–{r.lost}</span>
+      )}
     </a>
   ))}
 </div>
-<p class="table-state">
-  {emphasiseFirstSentence && stop >= 0 ? (
-    <>
-      <strong>{statement.statement.slice(0, stop + 1)}</strong>
-      {statement.statement.slice(stop + 1)}
-    </>
-  ) : (
-    statement.statement
-  )}
-</p>
-{statement.footnote && <p class="table-foot">{statement.footnote}</p>}
+<p class="table-label num">{label} · 3–1–0 POINTS</p>
 
 <style>
   .table { display: flex; flex-direction: column; }
   .trow {
     display: grid;
-    grid-template-columns: 20px 1fr 76px 40px;
+    grid-template-columns: 20px 1fr 76px 44px;
     gap: 8px;
     padding: 9px 4px;
     border-bottom: 1px solid var(--hairline);
@@ -60,6 +62,13 @@ const stop = statement.statement.indexOf(".");
   .tpos { font-size: 11.5px; color: var(--quiet); }
   .tname { font-size: 13.5px; }
   .tpts { font-size: 13.5px; font-weight: 600; text-align: right; color: var(--quiet); }
-  .table-state { margin: 10px 0 0; font-size: 14px; line-height: 1.5; }
-  .table-foot { margin: 4px 0 0; font-size: 14px; color: var(--quiet); line-height: 1.5; }
+  .trec { font-size: 12.5px; text-align: right; color: var(--quiet); white-space: nowrap; }
+  /* The strip's idiom from the masthead: what the rows rank, in one quiet line. */
+  .table-label {
+    margin: 8px 0 0;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+    color: var(--secondary);
+  }
 </style>
