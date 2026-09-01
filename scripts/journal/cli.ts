@@ -7,6 +7,12 @@
 //   bun run journal validate --conference gac [--write]
 //   bun run journal run      --conference gac        # generate, then validate
 //
+// The division's own journal is the same four commands with --national in
+// place of --conference. It is a separate scope, not a fourth conference: it
+// reads every collected file at once and writes one journal beside the others.
+//
+//   bun run journal brief    --national
+//
 // Nothing here ever writes into the data home.
 
 import { spawnSync } from "node:child_process";
@@ -14,9 +20,11 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Season } from "../../src/lib/derive.ts";
 import { loadSeason } from "../../src/lib/derive.ts";
+import { homeSeasons } from "../../src/lib/home.ts";
 import { type JournalFile, journalFileSchema } from "../../src/lib/journal.ts";
 import { site } from "../../src/site.config.ts";
 import { buildBrief, fixtureIndex } from "./brief.ts";
+import { buildNationalBrief } from "./national.ts";
 import { buildPrompt } from "./prompt.ts";
 import { validateJournal } from "./validate.ts";
 import { standingDate } from "./wire.ts";
@@ -31,6 +39,8 @@ interface Args {
   from?: string;
   write: boolean;
   strict: boolean;
+  /** The division's journal rather than a conference's. */
+  national: boolean;
 }
 
 function parseArgs(argv: string[]): Args {
@@ -51,6 +61,7 @@ function parseArgs(argv: string[]): Args {
     from: flag("from"),
     write: bool("write"),
     strict: bool("strict"),
+    national: bool("national"),
   };
 }
 
@@ -232,8 +243,27 @@ function brief(season: Season): number {
   return 0;
 }
 
+/** The division's commands. A separate scope from the conference loop below:
+ *  it reads every collected file at once, so it runs once rather than once per
+ *  conference, and it is deliberately runnable on its own — the prompt has to
+ *  be evaluated against the real brief without touching the cadence. */
+function national(args: Args): number {
+  const seasons = homeSeasons();
+  switch (args.command) {
+    case "brief":
+      console.log(JSON.stringify(buildNationalBrief(seasons), null, 2));
+      return 0;
+    default:
+      console.error(
+        `"${args.command} --national" is not in this checkout — the division's prompt and generation land with their own patch.`,
+      );
+      return 2;
+  }
+}
+
 function main(): void {
   const args = parseArgs(process.argv.slice(2));
+  if (args.national) process.exit(national(args));
   let code = 0;
   for (const key of args.conferences) {
     let season: Season;
