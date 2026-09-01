@@ -12,7 +12,7 @@ export interface PromptInput {
   previous: JournalFile | null;
 }
 
-const GRAMMAR = `EVIDENCE GRAMMAR — every claim carries exactly one label.
+export const GRAMMAR = `EVIDENCE GRAMMAR — every claim carries exactly one label.
   observed   a directly published or collected fact
   derived    computed exactly from published values
   signal     a meaningful pattern whose cause is unverified
@@ -55,7 +55,7 @@ programme, both recomputed from the set itself.
 
 Always name the player AND the programme in a player basis. Never invent a key.`;
 
-const VOICE = `VOICE — the programme's house register.
+export const VOICE = `VOICE — the programme's house register.
 - Evidence first, no hype, no superlatives the numbers do not carry.
 - Count dates in days, never rounded to weeks. Spell numbers up to twenty.
 - Absence is content: a silence is named, never dropped or explained away.
@@ -82,7 +82,7 @@ const VOICE = `VOICE — the programme's house register.
   an incoherent sentence still make a bad finding — the validator checks the
   numbers, not the reasoning.`;
 
-const SURFACES = `SURFACES — where each slot lands, and what the page already
+export const SURFACES = `SURFACES — where each slot lands, and what the page already
 shows beside it.
 
 Every slot below renders on a known surface, next to figures the page has
@@ -123,6 +123,42 @@ attention and tells them nothing they did not have.
 - "kicker", "headline" and "dek" head the page above the season strip, the
   table and the week's matches. The dek stands the headline on named figures;
   it does not say the headline again in longer form.
+
+- "wire" is this conference's one line on the NATIONAL page — a different page
+  from every slot above. It sits on a card that already prints the conference
+  code, the conference's full name, the date conference play opens, and "N of M
+  matches played", with a link to the season page beneath it. The reader is
+  looking at three of these cards side by side, deciding which conference to
+  open. So the wire is the one piece of news that makes this conference worth
+  opening today: tweet-length, about this conference alone, and about something
+  none of those four figures shows.
+    good   "Every side in the conference has now lost at least once."
+    bad    "Thirteen matches in, the GAC table is still empty and conference
+            play opens Sep 17."
+  The bad line is the card read back to itself — the played count, the
+  conference's own code, and the opens-date, every one of them already printed
+  above it in larger type. It is also, near enough, the headline that actually
+  shipped on that card.
+  So: never a clock time, never a scoreline, never the opens-date, never the
+  played count. All four are checked and all four will fail the build.
+  The "headline" above is NOT this line and may not be reused as it. The
+  headline heads a page that prints the counts and the table BENEATH it; the
+  wire sits on a card that prints them BESIDE it. One sentence cannot be the
+  right thing to say in both places, so write two.
+  Any number in the wire needs a basis, in the same vocabulary as a finding's,
+  and the validator recomputes it: a wire whose basis the data contradicts is
+  dropped and the card falls back to your headline.
+
+  THE WIRE STANDS UNTIL IT IS DISPLACED. It is not rewritten because a day has
+  passed. Reuse the previous journal's wire VERBATIM unless one of two things is
+  true: something more newsworthy has happened, or the standing line is no
+  longer true of today's data. Nothing else displaces it — not a fresh collect,
+  not a wish to have written something new. When you do displace it, the new
+  line must not be the old line's shape with new figures in it: change what the
+  sentence is about, not only what it counts.
+  Write no date anywhere in the wire. The day the line last changed is computed
+  by comparing your line against the previous journal's, and a date you wrote
+  would be overwritten by it.
 
 One rule under all of these: one fact, at the altitude it is attached to. If
 two slots would carry the same figure, it belongs to the one nearest the thing
@@ -182,6 +218,7 @@ no markdown fence, no commentary before or after.
   "headline": "<one sentence, the season's state right now>",
   "dek": "<two sentences at most, standing the headline on named figures>",
   "lede_basis": { ... },
+  "wire": { "line": "<one line for the national page's card>", "basis": { ... } },
   "summary_stat": { "label": "...", "value": "...", "detail": "...", "basis": { ... } },
   "pattern": {
     "label": "observed|derived|signal",
@@ -207,6 +244,7 @@ EVERY NUMBER YOU WRITE MUST BE IN A BASIS.
 A basis is not decoration on a finding — it is the list of figures that sentence
 rests on, and the validator recomputes each one. So:
 - "lede_basis" holds every number the kicker, headline and dek contain.
+- "wire.basis" holds every number its line contains.
 - "table_state.basis" holds every number its statement and footnote contain.
 - a finding's basis holds every number its own text contains.
 Spelled numbers count: "eighteen days" needs 18 in the basis, and a figure you

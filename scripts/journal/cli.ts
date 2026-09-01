@@ -12,6 +12,9 @@
 // reads every collected file at once and writes one journal beside the others.
 //
 //   bun run journal brief    --national
+//   bun run journal generate --national [--dry-run]
+//   bun run journal validate --national [--write]
+//   bun run journal run      --national
 //
 // Nothing here ever writes into the data home.
 
@@ -20,7 +23,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import { join } from "node:path";
 import type { Season } from "../../src/lib/derive.ts";
 import { loadSeason } from "../../src/lib/derive.ts";
-import { homeSeasons } from "../../src/lib/home.ts";
+import { homeSeasons, nationalAsOf } from "../../src/lib/home.ts";
 import {
   type JournalFile,
   journalFileSchema,
@@ -30,7 +33,8 @@ import {
 } from "../../src/lib/journal.ts";
 import { site } from "../../src/site.config.ts";
 import { buildBrief, fixtureIndex } from "./brief.ts";
-import { buildNationalBrief } from "./national.ts";
+import { buildNationalBrief, nationalFixtureIndex } from "./national.ts";
+import { buildNationalPrompt } from "./national-prompt.ts";
 import { validateNationalJournal } from "./national-validate.ts";
 import { buildPrompt } from "./prompt.ts";
 import { CHECKERS, validateJournal } from "./validate.ts";
@@ -259,6 +263,61 @@ function readNationalJournal(path: string): NationalJournalFile | null {
   return nationalJournalSchema.parse(JSON.parse(readFileSync(path, "utf8")));
 }
 
+/** The division's headline is a standing line, on the wire's terms and with
+ *  the same module deciding: the date carries forward when the text does, and
+ *  the note describing a displacement is kept only when one happened. */
+function stampNational(
+  next: NationalJournalFile,
+  previous: NationalJournalFile | null,
+  collectDate: string,
+): void {
+  const before = previous ? { line: previous.headline, updated: previous.updated } : undefined;
+  next.updated = standingDate(next.headline, before, collectDate);
+  next.displaced_by = standingNote(next.headline, before, next.displaced_by);
+}
+
+function generateNational(args: Args): number {
+  const seasons = homeSeasons();
+  const brief = buildNationalBrief(seasons);
+  const previous = readNationalJournal(nationalPath(args));
+  const prompt = buildNationalPrompt({
+    brief,
+    fixtures: nationalFixtureIndex(seasons),
+    previous,
+  });
+  mkdirSync(args.out, { recursive: true });
+
+  const stem = nationalJournalFile(site.season, site.gender).replace(/\.json$/, "");
+  if (args.dryRun) {
+    const promptFile = join(args.out, `${stem}.prompt.txt`);
+    const briefFile = join(args.out, `${stem}.brief.json`);
+    writeFileSync(promptFile, prompt);
+    writeJson(briefFile, brief);
+    console.log(`national: dry run — wrote ${promptFile} and ${briefFile}, called no model.`);
+    return 0;
+  }
+
+  const reply = args.from ? readFileSync(args.from, "utf8") : askModel(args, prompt);
+  let parsed: NationalJournalFile;
+  try {
+    parsed = nationalJournalSchema.parse(extractJson(reply));
+  } catch (err) {
+    console.error(`national: the reply is not a touchline.national/1 — ${(err as Error).message}`);
+    const rejected = join(args.out, `${stem}.rejected.txt`);
+    writeFileSync(rejected, reply);
+    console.error(`  the reply is at ${rejected}; nothing was written to the journal.`);
+    return 1;
+  }
+  stampNational(parsed, previous, nationalAsOf(seasons));
+  writeJson(nationalPath(args), parsed);
+  console.log(`national: wrote ${nationalPath(args)}`);
+  console.log(
+    `  headline ${previous?.headline === parsed.headline ? "stands" : "displaced"}${parsed.updated ? `, last changed ${parsed.updated}` : ", last change unknown"}`,
+  );
+  if (parsed.displaced_by) console.log(`  displaced by: ${parsed.displaced_by}`);
+  return 0;
+}
+
 function validateNational(args: Args): number {
   const path = nationalPath(args);
   const journal = readNationalJournal(path);
@@ -322,12 +381,14 @@ function national(args: Args): number {
     case "brief":
       console.log(JSON.stringify(buildNationalBrief(homeSeasons()), null, 2));
       return 0;
+    case "generate":
+      return generateNational(args);
     case "validate":
       return validateNational(args);
+    case "run":
+      return generateNational(args) || validateNational(args);
     default:
-      console.error(
-        `"${args.command} --national" is not in this checkout — the division's prompt and its generation land with their own patch.`,
-      );
+      console.error(`unknown command "${args.command}" — brief | generate | validate | run`);
       return 2;
   }
 }
