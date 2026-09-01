@@ -19,7 +19,7 @@ import {
   memberSlugs,
   seasonCounts,
 } from "./derive.ts";
-import { daysBetween, shortDate, spell } from "./format.ts";
+import { daysBetween, dowShort, shortDate, spell } from "./format.ts";
 import {
   type HomeColumn,
   homeColumns,
@@ -28,8 +28,10 @@ import {
   lastNightOf,
   lastNightOpen,
   mostImminentKey,
+  type NationalLede,
   nationalAsOf,
   nationalCounts,
+  nationalDescription,
   nationalLede,
   nextLeagueKickoff,
 } from "./home.ts";
@@ -192,48 +194,76 @@ describe("every count survives being written out as a list", () => {
   });
 });
 
-describe("the lede is derived, deterministically, from counts and opener dates", () => {
-  const lede = nationalLede(columns, national);
+describe("the masthead is derived, deterministically, from counts and opener dates", () => {
+  const asOf = nationalAsOf(seasons);
+  const lede = nationalLede(columns, asOf, national);
 
-  test("its figures are the national figures", () => {
-    expect(lede).toContain(`${national.played} of ${national.total} matches played`);
-    expect(lede).toContain(`across ${spell(columns.length)} conferences`);
+  test("the kicker is the scope and the national collect date", () => {
+    expect(lede.kicker).toBe(
+      `${site.division} · ${dowShort(asOf)} ${shortDate(asOf)}`.toUpperCase(),
+    );
+    // It is the only place above the footer that names the division. The row
+    // that used to say it a second time is gone.
+    expect(lede.kicker).toContain(site.division.toUpperCase());
   });
 
-  test("its first opener is the most imminent column's opener", () => {
-    const first = columns.find((c) => !c.live && c.opensOn !== null);
-    if (first?.opensOn) {
-      expect(lede).toContain(`first in the ${first.name} on ${shortDate(first.opensOn)}`);
+  test("no headline is manufactured — the floor writes none", () => {
+    // The one altitude nothing derives. A count and an opener date make a
+    // fact, never a story, and an empty headline is a truer page than one
+    // dressing the cards' own figures up as one.
+    expect(lede.headline).toBeNull();
+  });
+
+  test("the dek is the openers, in the order they open", () => {
+    const upcoming = columns.filter((c) => !c.live && c.opensOn !== null);
+    const first = upcoming[0];
+    if (!first?.opensOn) {
+      // Every conference under way: the floor has nothing at this altitude
+      // and says nothing, rather than reaching for something to fill it.
+      expect(lede.dek).toBeNull();
+      return;
     }
+    expect(lede.dek).toContain(`first in the ${first.name} on ${shortDate(first.opensOn)}`);
+    // Named in kickoff order, which is the column order — so the sentence and
+    // the row of cards beneath it cannot disagree about who is first.
+    const positions = upcoming
+      .filter((c) => c.opensOn)
+      .map((c) => (lede.dek as string).indexOf(c.name));
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
+    expect(positions.every((p) => p >= 0)).toBe(true);
+  });
+
+  test("the strip states the division's figures, in cells", () => {
+    expect(lede.strip).toEqual([
+      `${national.played} OF ${national.total} PLAYED`,
+      `${national.silentFinals} SILENT ${national.silentFinals === 1 ? "FINAL" : "FINALS"}`,
+    ]);
   });
 
   test("it names the silences always — a zero is a figure, not a silence of ours", () => {
-    // Nothing on this page prints a division zero as a figure, so the
-    // sentence is the only place one can appear — and a reader must not have
-    // to infer a silence from a sentence we chose not to write.
-    if (national.silentFinals > 0) {
-      const spelled = spell(national.silentFinals);
-      expect(lede).toContain(
-        `${spelled.charAt(0).toUpperCase()}${spelled.slice(1)} ${
-          national.silentFinals === 1 ? "final stands" : "finals stand"
-        } without a published score.`,
-      );
-    } else {
-      expect(lede).toContain("No final stands without a published score.");
-    }
-    // Whatever the count, the page states it.
-    expect(lede).toContain("without a published score.");
+    // Nothing else on this page prints a division zero, so the strip is the
+    // only place one can appear, and a reader must not have to infer a clean
+    // collect from a cell we chose not to render. The doctrine moved here
+    // from the prose sentence; the obligation did not move.
+    const clean = nationalLede(columns, asOf, { ...national, silentFinals: 0 });
+    expect(clean.strip).toContain("0 SILENT FINALS");
+    const one = nationalLede(columns, asOf, { ...national, silentFinals: 1 });
+    expect(one.strip).toContain("1 SILENT FINAL");
   });
 
-  test("the zero sentence is prose, not a spelled nought", () => {
-    const none = nationalLede(columns, { ...national, silentFinals: 0 });
-    expect(none).toContain("No final stands without a published score.");
-    expect(none).not.toContain("Zero finals");
+  test("the same inputs produce the same parts — no model call anywhere in it", () => {
+    expect(nationalLede(columns, asOf, national)).toEqual(lede);
+    expect(nationalLede(columns, asOf)).toEqual(lede);
   });
 
-  test("the same inputs produce the same prose — no model call anywhere in it", () => {
-    expect(nationalLede(columns, national)).toBe(lede);
-    expect(nationalLede(homeColumns(seasons))).toBe(lede);
+  test("the description keeps the prose the masthead stopped printing", () => {
+    // The share card and the search result have no cards and no strip beneath
+    // them. Every figure the page split across altitudes has to survive as one
+    // paragraph for the surfaces that get nothing else.
+    const text = nationalDescription(columns, national);
+    expect(text).toContain(`${national.played} of ${national.total} matches played`);
+    expect(text).toContain(`across ${spell(columns.length)} conferences`);
+    expect(text).toContain("without a published score.");
   });
 });
 
@@ -241,59 +271,95 @@ describe("the lede is derived, deterministically, from counts and opener dates",
  * The reconciliation the page does not print.
  *
  * Nothing on the national page lays the division's sums out as addends for a
- * reader to check by hand. The obligation stands anyway: the lede's division
- * figures have to be the sum of what the pages beneath it show, and those
- * pages have to agree with the fixtures.
+ * reader to check by hand. The obligation stands anyway: the division figures
+ * have to be the sum of what the pages beneath them show, and those pages have
+ * to agree with the fixtures.
  *
- * So this reads the figures back out of the prose the page actually prints,
- * and compares them against a sum recounted from the fixtures — not against
+ * So this reads the figures back out of the two surfaces that publish them —
+ * the masthead strip a reader meets and the description a share card meets —
+ * and compares them against a sum recounted from the fixtures, not against
  * nationalCounts(), which is that sum and could only ever agree with itself.
  * Each check has a matching test that perturbs an input and proves it goes
  * red, because a reconciliation that cannot fail is a comment.
  *
  * The columns print played of total and nothing else, so that pair is what a
- * reader can add up on this page, and it is what `disagreements` compares. The
- * silences are not in the columns; they are in the lede, and printed per
- * conference on the season pages a reader gets to from here — one click
- * further on, and just as addable. They get their own check against the same
- * recount.
+ * reader can add up on this page. The silences are not in the columns; they
+ * are in the strip, and printed per conference on the season pages a reader
+ * gets to from here — one click further on, and just as addable.
  */
 describe("the reconciliation the page stopped printing", () => {
   const NUMBER = new Map<string, number>();
   for (let n = 0; n <= 40; n++) NUMBER.set(spell(n), n);
 
-  /** Every way the lede and the columns beneath it can disagree. Empty is
-   *  the only passing answer; each entry says which figure parted company. */
-  function disagreements(text: string, cols: readonly HomeColumn[]): string[] {
-    const out: string[] = [];
-    const sum = (pick: (c: HomeColumn) => number): number => cols.reduce((n, c) => n + pick(c), 0);
+  const asOf = nationalAsOf(seasons);
+  const sum = (cols: readonly HomeColumn[], pick: (c: HomeColumn) => number): number =>
+    cols.reduce((n, c) => n + pick(c), 0);
 
-    const matches = /(\d+) of (\d+) matches played across ([a-z]+) (conference|conferences)\./.exec(
-      text,
-    );
-    if (!matches) {
-      out.push("the lede does not state played of total at all");
-    } else {
-      const played = Number(matches[1]);
-      const total = Number(matches[2]);
-      const conferences = NUMBER.get(matches[3] as string);
-      if (played !== sum((c) => c.counts.played)) {
-        out.push(`played: lede ${played}, columns ${sum((c) => c.counts.played)}`);
-      }
-      if (total !== sum((c) => c.counts.total)) {
-        out.push(`total: lede ${total}, columns ${sum((c) => c.counts.total)}`);
-      }
-      if (conferences !== cols.length) {
-        out.push(`conferences: lede ${matches[3]}, columns ${cols.length}`);
-      }
+  /** A strip cell, found by what it says rather than by where it sits: the
+   *  order of the row is a design decision and this is not a test of it. */
+  function cell(strip: readonly string[], re: RegExp): RegExpExecArray | null {
+    for (const c of strip) {
+      const m = re.exec(c);
+      if (m) return m;
+    }
+    return null;
+  }
+
+  /** Every way the strip and the columns beneath it can disagree. Empty is
+   *  the only passing answer; each entry says which figure parted company. */
+  function stripDisagreements(lede: NationalLede, cols: readonly HomeColumn[]): string[] {
+    const out: string[] = [];
+    const m = cell(lede.strip, /^(\d+) OF (\d+) PLAYED$/);
+    if (!m) {
+      out.push("the strip does not state played of total at all");
+      return out;
+    }
+    const played = Number(m[1]);
+    const total = Number(m[2]);
+    if (played !== sum(cols, (c) => c.counts.played)) {
+      out.push(`played: strip ${played}, columns ${sum(cols, (c) => c.counts.played)}`);
+    }
+    if (total !== sum(cols, (c) => c.counts.total)) {
+      out.push(`total: strip ${total}, columns ${sum(cols, (c) => c.counts.total)}`);
     }
     return out;
   }
 
-  /** The silent-finals figure the lede prints, read back out of its prose.
-   *  Null means the sentence is not there at all, which is its own failure:
-   *  the zero case is a sentence too. */
-  function silentInLede(text: string): number | null {
+  /** The same, for the paragraph the description publishes. It states one
+   *  figure the strip does not — how many conferences were added up — so the
+   *  two surfaces are checked separately rather than one standing for both. */
+  function descriptionDisagreements(text: string, cols: readonly HomeColumn[]): string[] {
+    const out: string[] = [];
+    const m = /(\d+) of (\d+) matches played across ([a-z]+) (conference|conferences)\./.exec(text);
+    if (!m) {
+      out.push("the description does not state played of total at all");
+      return out;
+    }
+    const played = Number(m[1]);
+    const total = Number(m[2]);
+    const conferences = NUMBER.get(m[3] as string);
+    if (played !== sum(cols, (c) => c.counts.played)) {
+      out.push(`played: description ${played}, columns ${sum(cols, (c) => c.counts.played)}`);
+    }
+    if (total !== sum(cols, (c) => c.counts.total)) {
+      out.push(`total: description ${total}, columns ${sum(cols, (c) => c.counts.total)}`);
+    }
+    if (conferences !== cols.length) {
+      out.push(`conferences: description ${m[3]}, columns ${cols.length}`);
+    }
+    return out;
+  }
+
+  /** The silent-finals figure the strip prints, read back out of its cell.
+   *  Null means the cell is not there at all, which is its own failure: the
+   *  zero case is a cell too. */
+  function silentInStrip(lede: NationalLede): number | null {
+    const m = cell(lede.strip, /^(\d+) SILENT (?:FINAL|FINALS)$/);
+    return m ? Number(m[1]) : null;
+  }
+
+  /** And out of the description's prose, where it is spelled. */
+  function silentInDescription(text: string): number | null {
     if (text.includes("No final stands without a published score.")) return 0;
     const some = /(\w+) (?:final stands|finals stand) without a published score\./.exec(text);
     const spelled = NUMBER.get((some?.[1] ?? "").toLowerCase());
@@ -312,13 +378,17 @@ describe("the reconciliation the page stopped printing", () => {
       0,
     );
 
-  test("the lede's played of total is the columns' played of total, added up", () => {
-    expect(disagreements(nationalLede(columns, national), columns)).toEqual([]);
+  test("the strip's played of total is the columns' played of total, added up", () => {
+    expect(stripDisagreements(nationalLede(columns, asOf, national), columns)).toEqual([]);
+  });
+
+  test("and the description's is too, conference count included", () => {
+    expect(descriptionDisagreements(nationalDescription(columns, national), columns)).toEqual([]);
   });
 
   test("and the columns are the linked season pages, recounted from the fixtures", () => {
     // The other half of the promise: each addend equals what its own season
-    // page shows, so agreeing with the lede is worth something.
+    // page shows, so agreeing with the strip is worth something.
     for (const c of columns) {
       const s = loadSeason(c.key);
       expect(c.counts, c.key).toEqual(seasonCounts(s));
@@ -326,24 +396,25 @@ describe("the reconciliation the page stopped printing", () => {
     }
   });
 
-  test("the lede's silences are the fixtures' silences, recounted", () => {
-    // The columns do not print this; the lede does, and the season pages name
-    // every one of them. Read the figure back out of the sentence and count
-    // the silent finals again from the files.
-    expect(silentInLede(nationalLede(columns, national))).toBe(silentFromFixtures());
+  test("the silences on both surfaces are the fixtures' silences, recounted", () => {
+    // The columns do not print this; the strip does as a figure, the
+    // description does in words, and the season pages name every one of them.
+    // Read the figure back out of each and count the silent finals again from
+    // the files.
+    expect(silentInStrip(nationalLede(columns, asOf, national))).toBe(silentFromFixtures());
+    expect(silentInDescription(nationalDescription(columns, national))).toBe(silentFromFixtures());
   });
 
-  test("and it goes red when the lede's silences drift from the files", () => {
-    // The teeth for the sentence the columns no longer back up. Move the
-    // figure the lede is built from and the recount must refuse it.
-    const drifted = nationalLede(columns, {
-      ...national,
-      silentFinals: national.silentFinals + 2,
-    });
-    expect(silentInLede(drifted)).not.toBe(silentFromFixtures());
-    // And the sentence must be there at all: a lede that stopped stating the
+  test("and both go red when the silences drift from the files", () => {
+    // The teeth for the figure the columns do not back up. Move the count the
+    // masthead is built from and the recount must refuse it.
+    const drift = { ...national, silentFinals: national.silentFinals + 2 };
+    expect(silentInStrip(nationalLede(columns, asOf, drift))).not.toBe(silentFromFixtures());
+    expect(silentInDescription(nationalDescription(columns, drift))).not.toBe(silentFromFixtures());
+    // And the cell must be there at all: a strip that stopped stating the
     // count would otherwise pass a comparison it never took part in.
-    expect(silentInLede(nationalLede(columns, national))).not.toBeNull();
+    expect(silentInStrip(nationalLede(columns, asOf, national))).not.toBeNull();
+    expect(silentInDescription(nationalDescription(columns, national))).not.toBeNull();
   });
 
   test("gaps reconcile the same way, though nothing adds them up now", () => {
@@ -355,21 +426,23 @@ describe("the reconciliation the page stopped printing", () => {
   });
 
   test("it goes red when a column figure moves", () => {
-    // The teeth. Perturb one column and leave the lede alone — exactly the
+    // The teeth. Perturb one column and leave the masthead alone — exactly the
     // drift the retired block would have shown a reader — and the check must
     // name the figure that parted company.
     expect(columns.length).toBeGreaterThan(0);
+    const lede = nationalLede(columns, asOf, national);
+    const description = nationalDescription(columns, national);
     const moved = columns.map((c, i) =>
       i === 0 ? { ...c, counts: { ...c.counts, played: c.counts.played + 1 } } : c,
     );
-    const found = disagreements(nationalLede(columns, national), moved);
-    expect(found.length).toBeGreaterThan(0);
-    expect(found.join(" ")).toContain("played:");
+    expect(stripDisagreements(lede, moved).join(" ")).toContain("played:");
+    expect(descriptionDisagreements(description, moved).join(" ")).toContain("played:");
 
     // A total that drifts is caught too, and named separately.
     const larger = columns.map((c, i) =>
       i === 0 ? { ...c, counts: { ...c.counts, total: c.counts.total + 3 } } : c,
     );
-    expect(disagreements(nationalLede(columns, national), larger).join(" ")).toContain("total:");
+    expect(stripDisagreements(lede, larger).join(" ")).toContain("total:");
+    expect(descriptionDisagreements(description, larger).join(" ")).toContain("total:");
   });
 });

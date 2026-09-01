@@ -5,8 +5,9 @@
 // table. What it shows is what the collect actually holds: last night's
 // published finals in one ledger, each conference's own counts and opener,
 // and the current headline of each season journal, verbatim, linking to the
-// season page that carries it. The lede is derived prose — deterministic,
-// assembled from counts and opener dates, never a model call.
+// season page that carries it. The masthead is derived — a kicker, a dek and a
+// counts strip, assembled deterministically from counts and opener dates,
+// never a model call. Its headline altitude stays empty until one writes it.
 //
 // Every count here comes through the same functions as the season pages'
 // mastheads, so the two surfaces cannot disagree; the tests recount both from
@@ -32,6 +33,7 @@ import {
   mostImminentKey,
   nationalAsOf,
   nationalCounts,
+  nationalDescription,
   nationalLede,
 } from "../lib/home.ts";
 import { editorial, loadJournal } from "../lib/journal.ts";
@@ -41,9 +43,14 @@ const seasons = homeSeasons();
 const columns = homeColumns(seasons);
 const imminent = mostImminentKey(columns);
 const national = nationalCounts(columns);
-const lede = nationalLede(columns, national);
 
 const asOf = nationalAsOf(seasons);
+const lede = nationalLede(columns, asOf, national);
+// A share card and a search result meet these facts with no cards and no strip
+// beneath them, so the description keeps the full prose the masthead stopped
+// printing — and keeps it stable, because it identifies the page as much as it
+// summarises it.
+const description = nationalDescription(columns, national);
 const lastNight = lastNightOf(asOf);
 const ledger = lastNightLedger(seasons, lastNight);
 const leftOpen = lastNightOpen(seasons, lastNight);
@@ -53,13 +60,6 @@ const leftOpen = lastNightOpen(seasons, lastNight);
 const headlines = new Map(
   columns.map((c) => [c.key, editorial(c.season, loadJournal(c.season)).headline]),
 );
-
-// What this page covers, in the voice the conference pages' own header uses:
-// scope, not a date. A date under the wordmark reads as an edition stamp, and
-// the freshness it was standing in for is the footer's job — per conference,
-// because they do not collect at the same time.
-const years = [...new Set(seasons.map((s) => s.fixtures.season))].sort();
-const scope = `${site.division} · ${years.join("–")}`;
 
 // Winner side at weight 600, loser quiet, draws neutral.
 const sideClass = (f: Fixture, side: "home" | "away"): string => {
@@ -95,7 +95,7 @@ const opensLine = (c: (typeof columns)[number]): string =>
       ? `OPENS ${monShort(c.opensOn).toUpperCase()} ${dayOfMonth(c.opensOn)}`
       : "NO CONFERENCE DATE PUBLISHED";
 ---
-<Page title="Touchline — The Season Scorebook" description={lede}>
+<Page title="Touchline — The Season Scorebook" description={description}>
   <div class="tl-page">
     <header class="nat-masthead">
       {/* The root is the top of the site; its own wordmark points nowhere. */}
@@ -104,10 +104,20 @@ const opensLine = (c: (typeof columns)[number]): string =>
         <span class="wordmark-name">Touchline</span>
       </h1>
       <div class="nat-book">THE SEASON SCOREBOOK</div>
-      <div class="nat-scope num">{scope.toUpperCase()}</div>
     </header>
 
-    <p class="nat-lede serif">{lede}</p>
+    {/* Four altitudes, each answerable to a different surface: the scope and
+        the date, the division's story, the figures that stand it up, and the
+        counts. The headline is null until a national journal writes one — the
+        floor manufactures no story out of numbers the cards already print. */}
+    <section class="nat-lede">
+      <div class="nat-kicker num">{lede.kicker}</div>
+      {lede.headline && <h2 class="nat-headline serif">{lede.headline}</h2>}
+      {lede.dek && <p class="nat-dek">{lede.dek}</p>}
+      <div class="nat-strip num">
+        {lede.strip.map((cell) => <span class="nat-cell">{cell}</span>)}
+      </div>
+    </section>
 
     <section class="lastnight">
       <div class="ln-head">
@@ -152,8 +162,8 @@ const opensLine = (c: (typeof columns)[number]): string =>
           </div>
           {/* The played figure alone. "3 silent · 0 gaps" is house vocabulary,
               and a column is the one place on the site with no room to define
-              it — the lede still states the division's silences in words, and
-              each season page still carries its conference's full accounting. */}
+              it — the strip above states the division's silences as a figure,
+              and each season page carries its conference's full accounting. */}
           <div class="conf-counts num">
             <span class="conf-frac">{c.counts.played} of {c.counts.total}</span>
             <span class="conf-dim"> matches played</span>
@@ -189,21 +199,44 @@ const opensLine = (c: (typeof columns)[number]): string =>
     font-weight: 600;
     color: var(--ink-soft);
   }
-  .nat-scope {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--quiet);
-  }
-
-  /* ── The national lede ──────────────────────────────────────────────────── */
+  /* ── The masthead's four altitudes ──────────────────────────────────────── */
   .nat-lede {
-    margin: 30px auto 34px;
-    max-width: 1200px;
-    font-size: 23px;
-    line-height: 1.35;
+    margin: 28px auto 32px;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
     text-align: center;
+  }
+  /* Accent, like the season page's kicker: the same element doing the same
+     job — scope and date over a story — and the one line of ink that separates
+     the dateline from the identity above it. */
+  .nat-kicker { font-size: 11px; letter-spacing: 0.2em; font-weight: 600; color: var(--accent); }
+  .nat-headline {
+    margin: 0;
+    font-size: 38px;
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+    /* Balanced rather than pretty: this line is short enough that the last
+       word alone on a second line is the failure mode, not a ragged edge. */
+    text-wrap: balance;
+  }
+  /* Sans, not serif: the house rule is serif means story and sans means
+     information, and until a journal writes a story this is the openers in
+     order — information. */
+  .nat-dek {
+    margin: 0;
+    max-width: 720px;
+    font-size: 16.5px;
+    line-height: 1.5;
+    color: var(--secondary);
     text-wrap: pretty;
   }
+  .nat-strip { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
+  /* Punctuation standing in for the gap between two figures — nothing a
+     reader has to read, which is the only type this rung of the ladder sets. */
+  .nat-cell + .nat-cell::before { content: "·"; margin: 0 9px; color: var(--outline-quiet); }
 
   /* ── Last night ─────────────────────────────────────────────────────────── */
   .lastnight {
@@ -310,6 +343,7 @@ const opensLine = (c: (typeof columns)[number]): string =>
   @media (max-width: 720px) {
     .ledger { grid-template-columns: minmax(0, 1fr); }
     .nat-masthead { padding-top: 28px; }
-    .nat-lede { font-size: 19px; }
+    .nat-headline { font-size: 28px; }
+    .nat-dek { font-size: 15.5px; }
   }
 </style>

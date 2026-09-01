@@ -24,7 +24,7 @@ import {
   seasonCounts,
   tableIsLive,
 } from "./derive.ts";
-import { dayNumber, shortDate, spell, toISO } from "./format.ts";
+import { dayNumber, dowShort, plural, shortDate, spell, toISO } from "./format.ts";
 import type { Fixture } from "./model.ts";
 
 /** Every configured conference the data home has actually collected, in
@@ -188,10 +188,84 @@ export function nationalCounts(columns: readonly HomeColumn[]): NationalCounts {
 
 const sentenceCase = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 
-/** The national lede: derived prose, assembled deterministically from counts
- *  and opener dates, in the data-only voice — a count, a date, a state, and
- *  no metaphor ever. Every numeral in it is recomputable from the fixtures. */
+/** The masthead's four altitudes, each answering to a different surface.
+ *
+ *  It used to be one paragraph at one altitude, and by the surface-
+ *  responsibility doctrine almost all of it was restatement: the opener dates
+ *  and the played counts it narrated are printed on the cards directly below
+ *  it, and every score it stood over is in the ledger. Split into altitudes,
+ *  each part can be held to its own contract — and the parts a surface below
+ *  already carries can simply not be written.
+ *
+ *  Nothing here is a model call. The home page does not wait on a journal
+ *  regeneration, and every figure in it is recomputable from the fixtures. */
+export interface NationalLede {
+  /** Scope and the national collect date — the same grammar as a season
+   *  page's kicker, one altitude up, and the only place the division is named
+   *  above the footer. It replaced a second small-caps row that said the
+   *  division a second time. */
+  kicker: string;
+  /** The division's lead story. Null here, always: the floor writes no
+   *  headline rather than manufacture one out of figures the cards print.
+   *  The field exists for the layer that will write it. */
+  headline: string | null;
+  /** One or two sentences at dek altitude. With no headline above it this is
+   *  the openers in sequence — which the cards do each show, one at a time,
+   *  and which only this line puts in order across the division. */
+  dek: string | null;
+  /** The hairline data row, in the order it is read. Every cell is
+   *  unconditional: a clean collect reads 0 SILENT FINALS, because a reader
+   *  must never have to infer a zero from a sentence we chose not to write.
+   *  That doctrine used to live in the prose; it lives here now. */
+  strip: string[];
+}
+
 export function nationalLede(
+  columns: readonly HomeColumn[],
+  asOf: string,
+  national: NationalCounts = nationalCounts(columns),
+): NationalLede {
+  return {
+    kicker: `${site.division} · ${dowShort(asOf)} ${shortDate(asOf)}`.toUpperCase(),
+    headline: null,
+    dek: openersSentence(columns),
+    strip: [
+      `${national.played} OF ${national.total} PLAYED`,
+      `${national.silentFinals} SILENT ${plural(national.silentFinals, "FINAL", "FINALS")}`,
+    ],
+  };
+}
+
+/** The conferences still to open, named in the order they open. Null once
+ *  they all have: the floor has nothing to say at this altitude then, and
+ *  says nothing. */
+function openersSentence(columns: readonly HomeColumn[]): string | null {
+  const upcoming = columns.filter((c) => !c.live && c.opensOn !== null);
+  const first = upcoming[0];
+  if (!first?.opensOn) return null;
+  const sentences = [
+    `Conference play arrives first in the ${first.name} on ${shortDate(first.opensOn)}.`,
+  ];
+  const rest = upcoming.slice(1);
+  const head = rest[0];
+  if (head?.opensOn) {
+    let follows = `The ${head.name} follows on ${shortDate(head.opensOn)}`;
+    for (const c of rest.slice(1)) {
+      if (c.opensOn) follows += `, the ${c.name} on ${shortDate(c.opensOn)}`;
+    }
+    sentences.push(`${follows}.`);
+  }
+  return sentences.join(" ");
+}
+
+/** The same facts as one paragraph of prose, for the page's description meta.
+ *
+ *  A share card and a search result have no cards and no strip beneath them —
+ *  they are the surface, alone — so the sentence that dies on the page has to
+ *  live here, and the silences have to be spelled rather than tallied. This is
+ *  deliberately the string the lede used to be: the description is a stable
+ *  identifier of the page as much as a summary of it. */
+export function nationalDescription(
   columns: readonly HomeColumn[],
   national: NationalCounts = nationalCounts(columns),
 ): string {
@@ -201,25 +275,8 @@ export function nationalLede(
       columns.length === 1 ? "conference" : "conferences"
     }.`,
   );
-  const upcoming = columns.filter((c) => !c.live && c.opensOn !== null);
-  const first = upcoming[0];
-  if (first?.opensOn) {
-    sentences.push(
-      `Conference play arrives first in the ${first.name} on ${shortDate(first.opensOn)}.`,
-    );
-    const rest = upcoming.slice(1);
-    const head = rest[0];
-    if (head?.opensOn) {
-      let follows = `The ${head.name} follows on ${shortDate(head.opensOn)}`;
-      for (const c of rest.slice(1)) {
-        if (c.opensOn) follows += `, the ${c.name} on ${shortDate(c.opensOn)}`;
-      }
-      sentences.push(`${follows}.`);
-    }
-  }
-  // Unconditional. A division with nothing silent has been checked and found
-  // clean, which is a fact about the collect; leaving the sentence out would
-  // make the reader infer the zero from a silence of our own.
+  const openers = openersSentence(columns);
+  if (openers) sentences.push(openers);
   sentences.push(
     national.silentFinals === 0
       ? "No final stands without a published score."

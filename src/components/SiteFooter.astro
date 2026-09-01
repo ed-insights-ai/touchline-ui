@@ -3,8 +3,9 @@
 //
 // Two things a reader is owed on any page they might land on first: what this
 // site is, and when it last looked. The identity line answers the first and
-// names the division, which on a conference page is the only place the
-// division is named at all.
+// names the division and the season — which on a conference page is the only
+// place the division is named at all, and since the national masthead stopped
+// printing a scope row, the only place the season year is named anywhere.
 //
 // The second is one sentence. A page speaks for as many conferences as it
 // shows, and they do not collect at the same time — ten hours can separate two
@@ -22,11 +23,13 @@ interface Props {
 }
 const { seasons } = Astro.props;
 const line = collectionLine(seasons);
+// One year on a conference page, a span on a page that shows several seasons.
+const years = [...new Set(seasons.map((s) => s.fixtures.season))].sort().join("–");
 ---
 
 <footer class:list={["site-footer", { "is-multi": line.entries.length > 0 }]}>
   <span class="sf-what">
-    <strong>Touchline</strong> · independent and unofficial · {site.division}
+    <strong>Touchline</strong> · independent and unofficial · {site.division} · {years}
   </span>
   <span class="grow"></span>
   {line.headline && (

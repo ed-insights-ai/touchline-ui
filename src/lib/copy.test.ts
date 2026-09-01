@@ -13,11 +13,11 @@
  * on the collect rather than on the code. Each one is a rule about form, and
  * each is here because the form it forbids is one the copy could reach.
  *
- * The corpus is what a reader actually meets — the conference page's headline,
- * dek, chart caption and findings selected exactly as the page selects them
- * (the journal's if it wrote them, the computed fallback if not); every
- * match's footnote, provenance and share description; every player card's
- * composed lines.
+ * The corpus is what a reader actually meets — the national masthead's own
+ * altitudes; the conference page's headline, dek, chart caption and findings
+ * selected exactly as the page selects them (the journal's if it wrote them,
+ * the computed fallback if not); every match's footnote, provenance and share
+ * description; every player card's composed lines.
  *
  * One thing is deliberately NOT in it: the published play-by-play. Those are
  * the programme's own sentences, quoted, and the site's whole discipline is to
@@ -29,6 +29,13 @@ import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { hasScore, loadSeason, matchDetailOf, type Season, squadOf } from "./derive.ts";
 import { longDate } from "./format.ts";
+import {
+  homeColumns,
+  homeSeasons,
+  nationalAsOf,
+  nationalDescription,
+  nationalLede,
+} from "./home.ts";
 import { editorial, fallbackFindings, fallbackPattern, loadJournal } from "./journal.ts";
 import { footNote, metaDescription, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
@@ -102,6 +109,22 @@ function matchPages(s: Season): Line[] {
   return out;
 }
 
+/** The national masthead's prose, and the paragraph its description publishes.
+ *  The kicker and the strip are small-caps figures rather than sentences, and
+ *  every property here is a rule about a sentence. */
+const nationalColumns = homeColumns(homeSeasons());
+const nationalMasthead = nationalLede(nationalColumns, nationalAsOf(homeSeasons()));
+
+function nationalPage(): Line[] {
+  const out: Line[] = [];
+  if (nationalMasthead.headline) {
+    out.push({ where: "national headline", text: nationalMasthead.headline });
+  }
+  if (nationalMasthead.dek) out.push({ where: "national dek", text: nationalMasthead.dek });
+  out.push({ where: "national description", text: nationalDescription(nationalColumns) });
+  return out;
+}
+
 /** Every player card's composed lines. */
 function playerCards(s: Season): Line[] {
   const out: Line[] = [];
@@ -123,11 +146,10 @@ function playerCards(s: Season): Line[] {
   return out;
 }
 
-const ALL: Line[] = seasons.flatMap((s) => [
-  ...conferencePage(s),
-  ...matchPages(s),
-  ...playerCards(s),
-]);
+const ALL: Line[] = [
+  ...nationalPage(),
+  ...seasons.flatMap((s) => [...conferencePage(s), ...matchPages(s), ...playerCards(s)]),
+];
 
 const show = (l: Line) => `${l.where}: ${l.text}`;
 
@@ -280,5 +302,42 @@ describe("a sentence earns its place", () => {
       }
     }
     expect(clashes).toEqual([]);
+  });
+});
+
+describe("a line fits the altitude it is set at", () => {
+  /**
+   * The masthead is four altitudes now, and a length is what keeps a sentence
+   * at the one it was written for. The headline sets at 38px across a 900px
+   * measure: about a hundred characters is one balanced line and a bit, and
+   * past that the sentence has outgrown the altitude rather than the type
+   * being too large for it.
+   */
+  const HEADLINE_MAX = 100;
+  /** Measured on this collect: the openers sentence runs to 154 characters
+   *  with three conferences named. The cap leaves room for a fourth and
+   *  refuses a paragraph. */
+  const DEK_MAX = 280;
+
+  test("the national headline sets in one balanced line", () => {
+    // Null today — the floor writes no headline rather than manufacture one —
+    // so this is the cap standing ready for the layer that will.
+    const length = nationalMasthead.headline?.length ?? 0;
+    expect(length).toBeLessThanOrEqual(HEADLINE_MAX);
+  });
+
+  test("the national dek stays at dek altitude", () => {
+    expect(nationalMasthead.dek?.length ?? 0).toBeLessThanOrEqual(DEK_MAX);
+  });
+
+  test("nothing in the masthead prints a scoreline — the ledger prints every one", () => {
+    // The surface directly below the masthead is a ledger of last night's
+    // results. A score up here is the one restatement this page cannot make.
+    const score = /\d\s?[–-]\s?\d/;
+    expect(
+      nationalPage()
+        .filter((l) => score.test(l.text))
+        .map(show),
+    ).toEqual([]);
   });
 });
