@@ -25,8 +25,18 @@ site_url := env_var_or_default("SITE_URL", "https://ed-insights-ai.github.io")
 
 default: all
 
+# The gate sits between journal and build so the cadence REFUSES to publish
+# composed prose that fails the copy properties: a failed regeneration stops
+# the loop and the site keeps serving yesterday's build, which is the correct
+# failure — correctness over freshness, by the owner's ruling (tui-9ue).
+#
 # The whole loop, in the order the pipeline runs it.
-all: collect journal build publish
+all: collect journal gate build publish
+
+# The tests, standing between the model-composed journal and the publish.
+gate:
+    @echo "→ gate"
+    bun test
 
 # Ask the sources for today's record. Costs network and time; nothing else does.
 collect:
