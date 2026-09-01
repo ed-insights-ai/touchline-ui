@@ -147,16 +147,18 @@ const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = fals
     max-width: none;
     text-wrap: balance;
   }
-  /* The same measure as the headline it stands under, for the same reason,
-     and balanced for the same reason: two sentences at most, so this is a
-     deck, not a paragraph, and it wraps into even lines or not at all. */
+  /* The same measure as the headline it stands under, and filled the way a
+     paragraph fills it: the first line runs the full measure and the last
+     takes what is left. Not balanced — balance splits a two-line lede into
+     two equal lines that both stop at sixty percent, which reads as the old
+     column cap all over again. Pretty only refuses a one-word last line. */
   .dek {
     margin: 0;
     font-size: 18px;
     line-height: 1.45;
     color: var(--ink-soft);
     max-width: none;
-    text-wrap: balance;
+    text-wrap: pretty;
   }
   .summary { display: flex; align-items: center; gap: 24px; margin-top: 4px; flex-wrap: wrap; }
   .summary-stat { display: flex; align-items: baseline; gap: 10px; }
