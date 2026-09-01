@@ -106,18 +106,46 @@ describe("the ledger holds only played finals — silences never enter it", () =
     }
   });
 
-  test("the row count is the recount of scored fixtures on the date, met from the raw list", () => {
+  test("the row count is the recount of MATCHES on the date, met from the raw list", () => {
+    // Matches, not records. A non-conference match between two of these
+    // conferences is in both files, and counting the files counts it twice —
+    // which is what the ledger did, printing one result as two rows under two
+    // codes. The recount folds by the same identity the page must: the day and
+    // the two programmes, never the id, which is the collector's own key.
     for (const date of allDates) {
-      const recount = seasons.flatMap((s) =>
-        s.fixtures.fixtures.filter((f) => f.date === date && isScored(f)),
+      const recount = new Set(
+        seasons.flatMap((s) =>
+          s.fixtures.fixtures
+            .filter((f) => f.date === date && isScored(f))
+            .map((f) => `${f.date} ${[f.home, f.away].sort().join(" v ")}`),
+        ),
       );
-      expect(lastNightLedger(seasons, date).length, date).toBe(recount.length);
+      expect(lastNightLedger(seasons, date).length, date).toBe(recount.size);
+    }
+  });
+
+  test("and it goes red if the fold stops folding", () => {
+    // The teeth. Somewhere in this season two conferences collected the same
+    // scored match; if that ever stops being true this test is measuring
+    // nothing, so it says so rather than passing quietly.
+    const shared = allDates.flatMap((date) =>
+      lastNightLedger(seasons, date).filter((r) => r.sightings.length > 1),
+    );
+    expect(shared.length, "no cross-conference result in this data to fold").toBeGreaterThan(0);
+    for (const row of shared) {
+      expect(new Set(row.sightings.map((s) => s.key)).size).toBe(row.sightings.length);
+      // Both codes are printed, because both conferences did collect it.
+      expect(row.codes.length).toBe(row.sightings.length);
+      // And the row resolves to the conference the home side plays in.
+      expect(memberSlugs(row.season).has(row.fixture.home), row.identity).toBe(true);
     }
   });
 
   test("a silent final is counted beside the ledger, never inside it", () => {
     for (const date of allDates) {
-      const inLedger = new Set(lastNightLedger(seasons, date).map((r) => r.fixture.id));
+      const inLedger = new Set(
+        lastNightLedger(seasons, date).flatMap((r) => r.sightings.map((s) => s.fixture.id)),
+      );
       const open = lastNightOpen(seasons, date);
       for (const s of seasons) {
         for (const f of s.fixtures.fixtures) {
@@ -127,14 +155,16 @@ describe("the ledger holds only played finals — silences never enter it", () =
               false,
             );
             expect(
-              open.some((o) => o.id === f.id),
+              open.some((o) => o.sightings.some((x) => x.fixture.id === f.id)),
               `${date}: silent final ${f.id} not open`,
             ).toBe(true);
           }
         }
       }
       // Open and ledger never overlap: a fixture is played or open, not both.
-      for (const f of open) expect(inLedger.has(f.id)).toBe(false);
+      for (const o of open) {
+        for (const x of o.sightings) expect(inLedger.has(x.fixture.id)).toBe(false);
+      }
     }
   });
 
@@ -148,11 +178,11 @@ describe("the ledger holds only played finals — silences never enter it", () =
     for (const f of scoredExhibitions) {
       const rows = lastNightLedger(seasons, f.date);
       expect(
-        rows.some((r) => r.fixture.id === f.id),
+        rows.some((r) => r.sightings.some((x) => x.fixture.id === f.id)),
         f.id,
       ).toBe(false);
       expect(
-        lastNightOpen(seasons, f.date).some((o) => o.id === f.id),
+        lastNightOpen(seasons, f.date).some((o) => o.sightings.some((x) => x.fixture.id === f.id)),
         f.id,
       ).toBe(false);
     }

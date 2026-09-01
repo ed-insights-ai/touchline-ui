@@ -24,6 +24,7 @@ import {
   seasonCounts,
   tableIsLive,
 } from "./derive.ts";
+import { type DivisionMatch, foldToMatches, type Sighting } from "./division.ts";
 import { dayNumber, dowShort, plural, shortDate, spell, toISO } from "./format.ts";
 import type { Fixture } from "./model.ts";
 
@@ -131,40 +132,50 @@ export function mostImminentKey(columns: readonly HomeColumn[]): string | null {
 /** Last night, literally: the calendar day before the national asOf. */
 export const lastNightOf = (asOf: string): string => toISO(dayNumber(asOf) - 1);
 
-export interface LedgerRow {
-  key: string;
-  code: string;
-  season: Season;
-  fixture: Fixture;
+/** Every conference's record of the matches on a date that pass a test. The
+ *  same match reaches this list twice when two conferences each collected it,
+ *  which is why nothing that spans conferences may count the list itself. */
+function sightingsOn(
+  seasons: readonly Season[],
+  date: string,
+  admit: (f: Fixture) => boolean,
+): Sighting[] {
+  const out: Sighting[] = [];
+  for (const s of seasons) {
+    for (const f of s.fixtures.fixtures) {
+      if (f.date !== date || !admit(f)) continue;
+      out.push({ key: s.key, code: s.fixtures.conference, season: s, fixture: f });
+    }
+  }
+  return out;
 }
 
 /** The ledger holds only finals WITH published scores. A silent final never
- *  enters it — silences are counted beside, in the sub-line and the lede —
- *  and a friendly is outside the record here as everywhere. */
-export function lastNightLedger(seasons: readonly Season[], date: string): LedgerRow[] {
-  const rows: LedgerRow[] = [];
-  for (const s of seasons) {
-    for (const f of s.fixtures.fixtures) {
-      if (f.date !== date || !isScored(f)) continue;
-      rows.push({ key: s.key, code: s.fixtures.conference, season: s, fixture: f });
-    }
-  }
-  return rows.sort((a, b) => byKickoff(a.fixture, b.fixture) || a.code.localeCompare(b.code));
+ *  enters it — silences are counted beside, in the sub-line and the strip —
+ *  and a friendly is outside the record here as everywhere.
+ *
+ *  One row per MATCH, not per record. A non-conference match between two of
+ *  these conferences is in both files, and the ledger printed it twice, under
+ *  two codes, linking to two different pages (tui-y0q). It now wears both
+ *  codes, because both are true, and resolves to the home side's conference. */
+export function lastNightLedger(seasons: readonly Season[], date: string): DivisionMatch[] {
+  return foldToMatches(sightingsOn(seasons, date, isScored)).sort(
+    (a, b) => byKickoff(a.fixture, b.fixture) || a.codes.join(" ").localeCompare(b.codes.join(" ")),
+  );
 }
 
 /** What the night left open: countable fixtures on the date that produced no
  *  published score and were not called off. A postponed or cancelled match is
- *  answered, not open. */
-export function lastNightOpen(seasons: readonly Season[], date: string): Fixture[] {
-  const out: Fixture[] = [];
-  for (const s of seasons) {
-    for (const f of s.fixtures.fixtures) {
-      if (f.date !== date || !isCountable(f) || isScored(f)) continue;
-      if (f.status === "cancelled" || f.status === "postponed") continue;
-      out.push(f);
-    }
-  }
-  return out.sort(byKickoff);
+ *  answered, not open. Folded like the ledger: the sub-line counts these, and
+ *  a count of records would say two matches where one was played. */
+export function lastNightOpen(seasons: readonly Season[], date: string): DivisionMatch[] {
+  return foldToMatches(
+    sightingsOn(
+      seasons,
+      date,
+      (f) => isCountable(f) && !isScored(f) && f.status !== "cancelled" && f.status !== "postponed",
+    ),
+  ).sort((a, b) => byKickoff(a.fixture, b.fixture));
 }
 
 export interface NationalCounts extends SeasonCounts {
