@@ -273,9 +273,12 @@ export function nationalMasthead(
     // unrelated sentences pretending to be a lede, so a journal that writes a
     // headline and no dek gets no dek.
     dek: journal.dek ?? null,
-    stamp: journal.updated
-      ? `UPDATED ${monShort(journal.updated).toUpperCase()} ${dayOfMonth(journal.updated)}`
-      : null,
+    // Only when the headline is older than the dateline above it; on the day
+    // it changed the kicker already says so.
+    stamp:
+      journal.updated && journal.updated !== asOf
+        ? `UPDATED ${monShort(journal.updated).toUpperCase()} ${dayOfMonth(journal.updated)}`
+        : null,
   };
 }
 

@@ -157,15 +157,15 @@ attention and tells them nothing they did not have.
   conference's code, the phase the table is in, and the collect date, all
   three of which it already holds.
 
-- "summary_stat.detail" sits directly beneath its own label and value, and the
-  page prints that value in large type. Where the value is the played count,
-  the same figure is ALSO the chip at the top of the page. So the detail never
-  restates the value in words — it adds the one fact about the count that the
-  figures beside it cannot show.
-    good   "All seventeen were played outside the conference."
-    bad    "Seventeen matches carry a published score."
-  The bad line spends the slot on the number printed directly above it in
-  three times the size.
+- Beneath the lede the page prints a FIGURES STRIP it composes itself:
+  "N OF M PLAYED · W–D–L AGAINST NON-CONFERENCE OPPONENTS · GF SCORED, GA
+  CONCEDED", and, when members have met each other, "K BETWEEN <CODE> SIDES".
+  There is no summary_stat to write. The lede never restates a figure the
+  strip prints — not the played count, not the record, not those goal totals
+  — and a lede that does is displaced by form. Two goal populations live on
+  this page and the lede never sets them side by side unnamed: the strip's
+  goals are against non-conference opponents; the chart's are every match a
+  programme has played, members included.
   The date conference play opens is table_state's, and does not appear here.
 
 - "wire" is this conference's one line on the NATIONAL page — a different page
@@ -220,8 +220,8 @@ One more thing displaces a standing headline: its form. A headline that is a
 sentence — a fronted clause, more than ten words, a full stop — is rewritten
 into headline form even when its story stands, and "displaced_by" then says
 "form". The dek is held to its form the same way: a dek that lists figures
-rather than opening the story is rewritten as the lede, and "displaced_by"
-says "form". A dek that already reads as the story's opening stands with its
+rather than opening the story, or that restates a figure the strip beneath
+it prints, is rewritten as the lede, and "displaced_by" says "form". A dek that already reads as the story's opening stands with its
 headline if it is still true.
 
 When you do displace them, the new headline must not be the old one's shape
@@ -297,7 +297,6 @@ no markdown fence, no commentary before or after.
   "lede_basis": { ... },
   "displaced_by": "<what displaced the previous headline and dek — omit if they stand>",
   "wire": { "line": "<one line for the national page's card>", "basis": { ... } },
-  "summary_stat": { "label": "...", "value": "...", "detail": "...", "basis": { ... } },
   "pattern": {
     "label": "observed|derived|signal",
     "text": "<the one thing the data most clearly shows>",

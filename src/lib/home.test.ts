@@ -257,6 +257,13 @@ describe("the masthead is derived, deterministically, from counts and opener dat
     expect(mast.dek).toBe("They have eleven. The nearest side has eight.");
   });
 
+  test("the stamp prints only when the headline is older than the dateline", () => {
+    const fresh = { headline: "Fresh today", updated: asOf } as NationalJournalFile;
+    expect(nationalMasthead(columns, asOf, national, fresh).stamp).toBe(null);
+    const standing = { headline: "Standing", updated: "2026-08-27" } as NationalJournalFile;
+    expect(nationalMasthead(columns, asOf, national, standing).stamp).toBe("UPDATED AUG 27");
+  });
+
   test("no headline is manufactured — the floor writes none", () => {
     // The one altitude nothing derives. A count and an opener date make a
     // fact, never a story, and an empty headline is a truer page than one

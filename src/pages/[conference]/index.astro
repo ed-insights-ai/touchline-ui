@@ -24,7 +24,6 @@ import {
   matchweeks,
   playerClassOf,
   nextFixture,
-  outsideRecord,
   resolveFixtureRef,
   seasonCounts,
   seasonWindow,
@@ -42,6 +41,7 @@ import {
   isStale,
   loadJournal,
   tableStatement,
+  seasonStrip,
 } from "../../lib/journal.ts";
 import {
   clockTime,
@@ -75,14 +75,10 @@ const opens = conferenceOpensOn(season);
 const window = seasonWindow(season);
 const weeks = matchweeks(season);
 
-// The summary stat: the journal's if it wrote one, the conference's record
-// against everyone else if it did not.
-const outside = outsideRecord(season);
-const summary = journal?.summary_stat ?? {
-  label: `${season.fixtures.conference} vs everyone else`,
-  value: `${outside.won}–${outside.drawn}–${outside.lost}`,
-  detail: `${outside.goalsFor} goals for · ${outside.goalsAgainst} against`,
-};
+// The figures strip beneath the lede is the page's own. A journal's
+// summary_stat is parsed and ignored: three journals wrote three different
+// ones on one morning, and none of them was a figure the page lacked.
+const strip = seasonStrip(season);
 
 const statement = journal?.table_state?.statement
   ? { statement: journal.table_state.statement, footnote: journal.table_state.footnote ?? null }
@@ -155,7 +151,7 @@ const nextLabel = (f: Fixture): string => {
       stamp={lede.stamp}
       counts={counts}
       gaps={gaps}
-      summary={summary}
+      strip={strip}
       stale={stale}
     />
 

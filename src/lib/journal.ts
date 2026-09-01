@@ -21,7 +21,7 @@ import {
   tableIsLive,
   unresolved,
 } from "./derive.ts";
-import { dayOfMonth, daysBetween, monShort, spell } from "./format.ts";
+import { dayOfMonth, daysBetween, dowShort, monShort, spell } from "./format.ts";
 
 export const JOURNAL_SCHEMA = "touchline.journal/1";
 
@@ -373,9 +373,14 @@ export function editorial(s: Season, journal: JournalFile | null): Editorial {
       kicker: defaultKicker(s),
       headline: headlineForm(journal.headline),
       dek: journal.dek ?? null,
-      stamp: journal.lede_updated
-        ? `UPDATED ${monShort(journal.lede_updated).toUpperCase()} ${dayOfMonth(journal.lede_updated)}`
-        : null,
+      // Only when the lede is older than the dateline. On the day it changed
+      // the kicker already carries the date, and a second copy of it under
+      // the dek says nothing; on a day it stands, this is the one line that
+      // tells a reader the sentence did not move today.
+      stamp:
+        journal.lede_updated && journal.lede_updated !== s.asOf
+          ? `UPDATED ${monShort(journal.lede_updated).toUpperCase()} ${dayOfMonth(journal.lede_updated)}`
+          : null,
       fromJournal: true,
     };
   }
@@ -426,7 +431,38 @@ export const PHASE_BEFORE = "BEFORE THE TABLE";
  *  meets one vocabulary rather than two. */
 export function defaultKicker(s: Season): string {
   const phase = tableIsLive(s) ? PHASE_LIVE : PHASE_BEFORE;
-  return `${s.fixtures.conference} · ${phase} · ${monShort(s.asOf)} ${dayOfMonth(s.asOf)}`.toUpperCase();
+  // The dateline: day of the week and date, in the national kicker's exact
+  // vocabulary ("TUE SEP 1"), and the only date the masthead prints on the
+  // day the lede changed.
+  return `${s.fixtures.conference} · ${phase} · ${dowShort(s.asOf)} ${monShort(s.asOf)} ${dayOfMonth(s.asOf)}`.toUpperCase();
+}
+
+/** The figures strip beneath the lede, composed by the page every time.
+ *
+ *  It absorbed two things on the owner's reading of Sep 1: the played count
+ *  that sat in the coverage line above the headline, and the journal's
+ *  summary_stat, which three journals had written three different ways on
+ *  one morning ("Matches played" on one page, the record "vs everyone else"
+ *  on the other two). The record is AGAINST NON-CONFERENCE OPPONENTS, the
+ *  phrase every reader of American college sport already knows, and the one
+ *  that leaves out a match between two members without a footnote. The
+ *  fourth cell prints only when there is something to add up: on a day the
+ *  Lone Star had played 18 and the record covered 16, the two between its
+ *  own sides are what a reader adding the cells is owed. The silent-final
+ *  count is not here by ruling: the season line marks each one and its
+ *  legend names them. */
+export function seasonStrip(s: Season): string[] {
+  const played = scoredCount(s);
+  const cells = [`${played} OF ${fixtureCount(s)} PLAYED`];
+  if (played === 0) return cells;
+  const out = outsideRecord(s);
+  if (out.played > 0) {
+    cells.push(`${out.won}–${out.drawn}–${out.lost} AGAINST NON-CONFERENCE OPPONENTS`);
+    cells.push(`${out.goalsFor} SCORED, ${out.goalsAgainst} CONCEDED`);
+  }
+  const between = played - out.played;
+  if (between > 0) cells.push(`${between} BETWEEN ${s.fixtures.conference} SIDES`);
+  return cells;
 }
 
 /** The table's own statement, when no journal wrote one. */

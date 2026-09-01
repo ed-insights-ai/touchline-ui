@@ -12,7 +12,8 @@ interface Props {
   dek?: string | null;
   counts: SeasonCounts;
   gaps: BoxScoreGap[];
-  summary: { label: string; value: string; detail?: string | null };
+  /** The figures strip beneath the lede, composed by the page. */
+  strip: string[];
   /** When the headline and dek last changed — "UPDATED SEP 1". Null when the
    *  page has no journal, or has one written before the stamp existed: the
    *  tag is a fact about the sentence, so no fact means no tag rather than a
@@ -21,19 +22,18 @@ interface Props {
   /** The journal was written against an earlier collect than this one. */
   stale?: boolean;
 }
-const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = false } = Astro.props;
+const { kicker, headline, dek, counts, gaps, strip, stamp = null, stale = false } = Astro.props;
 ---
 
 <section class="masthead">
   <div class="masthead-top">
     <div class="kicker">{kicker}</div>
     <div class="grow"></div>
+    {/* Only the gaps up here. The played count moved into the strip beneath
+        the lede, and the silent-final count left the masthead by ruling: the
+        season line marks each one and its legend names them. The gap stays
+        because it is the one thing here a reader can open. */}
     <div class="coverage num">
-      {counts.played} OF {counts.total} MATCHES PLAYED
-      {counts.silentFinals > 0 && (
-        <>&nbsp;·&nbsp;{counts.silentFinals} SILENT {counts.silentFinals === 1 ? "FINAL" : "FINALS"}</>
-      )}
-      &nbsp;·&nbsp;
       {gaps.length > 0 ? (
         <details class="disclosure gaps">
           <summary class="gapcount">{counts.gaps} {counts.gaps === 1 ? "GAP" : "GAPS"}</summary>
@@ -62,23 +62,11 @@ const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = fals
   {/* Serif: the dek is the story's opening paragraph, and serif means story. */}
   {dek && <p class="dek serif">{dek}</p>}
   {stamp && <div class="mast-stamp num">{stamp}</div>}
-  <div class="summary">
-    <div class="summary-stat">
-      <span class="label">{summary.label}</span>
-      <span class="summary-value num">{summary.value}</span>
-    </div>
-    {summary.detail && (
-      <>
-        <span class="summary-rule"></span>
-        <span class="summary-detail num">{summary.detail}</span>
-      </>
-    )}
-    {stale && (
-      <>
-        <span class="summary-rule"></span>
-        <span class="summary-detail">Journal written for an earlier collect.</span>
-      </>
-    )}
+  {/* The figures, in the national masthead's strip vocabulary: cells and
+      middots, nothing a reader has to read as a sentence. */}
+  <div class="strip num">
+    {strip.map((cell) => <span class="cell">{cell}</span>)}
+    {stale && <span class="cell">JOURNAL WRITTEN FOR AN EARLIER COLLECT</span>}
   </div>
 </section>
 
@@ -160,12 +148,9 @@ const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = fals
     max-width: none;
     text-wrap: pretty;
   }
-  .summary { display: flex; align-items: center; gap: 24px; margin-top: 4px; flex-wrap: wrap; }
-  .summary-stat { display: flex; align-items: baseline; gap: 10px; }
-  .summary-stat .label { letter-spacing: 0.16em; }
-  .summary-value { font-size: 15px; font-weight: 600; }
-  .summary-rule { width: 1px; height: 18px; background: var(--hairline); }
-  .summary-detail { font-size: 13px; color: var(--secondary); text-transform: uppercase; }
+  .strip { display: flex; flex-wrap: wrap; margin-top: 2px; font-size: 11.5px; letter-spacing: 0.1em; color: var(--secondary); }
+  .cell { white-space: nowrap; }
+  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
 
   @media (max-width: 1180px) {
     .headline { font-size: 34px; }

@@ -18,8 +18,15 @@ import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { site } from "../site.config.ts";
-import { loadSeason, type Season, tableIsLive } from "./derive.ts";
-import { dayOfMonth, monShort } from "./format.ts";
+import {
+  fixtureCount,
+  loadSeason,
+  outsideRecord,
+  type Season,
+  scoredCount,
+  tableIsLive,
+} from "./derive.ts";
+import { dayOfMonth, dowShort, monShort } from "./format.ts";
 import {
   CHART_CAPTION,
   defaultKicker,
@@ -30,6 +37,7 @@ import {
   loadJournal,
   PHASE_BEFORE,
   PHASE_LIVE,
+  seasonStrip,
 } from "./journal.ts";
 
 const seasons = site.conferences.map((k) => loadSeason(k));
@@ -77,7 +85,7 @@ describe("the kicker is the page's own, in one vocabulary", () => {
     for (const s of seasons) {
       if (tableIsLive(s)) continue;
       expect(defaultKicker(s)).toBe(
-        `${s.fixtures.conference} · ${PHASE_BEFORE} · ${monShort(s.asOf)} ${dayOfMonth(s.asOf)}`.toUpperCase(),
+        `${s.fixtures.conference} · ${PHASE_BEFORE} · ${dowShort(s.asOf)} ${monShort(s.asOf)} ${dayOfMonth(s.asOf)}`.toUpperCase(),
       );
     }
   });
@@ -121,6 +129,10 @@ describe("the lede's stamp is a fact about the sentence", () => {
     expect(editorial(anySeason, { ...anyJournal, lede_updated: "2026-08-27" }).stamp).toBe(
       "UPDATED AUG 27",
     );
+  });
+
+  test("a lede that changed on the collect date carries no stamp: the dateline says it", () => {
+    expect(editorial(anySeason, { ...anyJournal, lede_updated: anySeason.asOf }).stamp).toBe(null);
   });
 
   test("a journal with no stamp renders none, rather than today", () => {
@@ -196,6 +208,42 @@ describe("the season page's order and keys", () => {
     expect(spine).toContain("sp-legend");
     expect(spine).not.toContain("sp-note");
     expect(spine).not.toContain("A mark for each playing date");
+  });
+});
+
+describe("the figures strip is the page's own", () => {
+  test("the played count leads, and the cells add up", () => {
+    for (const s of seasons) {
+      const cells = seasonStrip(s);
+      expect(cells[0]).toBe(`${scoredCount(s)} OF ${fixtureCount(s)} PLAYED`);
+      const out = outsideRecord(s);
+      const between = scoredCount(s) - out.played;
+      if (out.played > 0) {
+        expect(cells).toContain(
+          `${out.won}–${out.drawn}–${out.lost} AGAINST NON-CONFERENCE OPPONENTS`,
+        );
+        expect(cells).toContain(`${out.goalsFor} SCORED, ${out.goalsAgainst} CONCEDED`);
+      }
+      // A reader adding the record to the between-members cell reaches the
+      // played count; the cell prints only when there is something to add.
+      const betweenCell = cells.find((c) => c.endsWith(`BETWEEN ${s.fixtures.conference} SIDES`));
+      if (between > 0)
+        expect(betweenCell).toBe(`${between} BETWEEN ${s.fixtures.conference} SIDES`);
+      else expect(betweenCell).toBeUndefined();
+    }
+  });
+
+  test("no silent-final count, by ruling: the season line carries them", () => {
+    for (const s of seasons) for (const c of seasonStrip(s)) expect(c).not.toMatch(/SILENT/);
+    const mast = readFileSync(join(import.meta.dir, "../components/SeasonMasthead.astro"), "utf8");
+    expect(mast).not.toContain("SILENT");
+    // The coverage line no longer prints the count; the gaps panel's own
+    // heading still says "matches played", which is a different sentence.
+    expect(mast).not.toContain("{counts.played} OF {counts.total}");
+    expect(mast).toContain('class="strip num"');
+    const spine = readFileSync(join(import.meta.dir, "../components/SeasonSpine.astro"), "utf8");
+    expect(spine).toContain("score not reported");
+    expect(spine).not.toContain("a silence stands");
   });
 });
 
