@@ -200,19 +200,30 @@ export function outsideRecord(s: Season): Record {
 
 export const table = (s: Season): TableRow[] => computeTable(s.fixtures);
 
-/** Goals each member has scored, most first. Non-conference by default: before
- *  the table opens, that is the only football there has been. */
+/** Goals each member has scored and conceded, most first, over every countable
+ *  scored match — conference or not, flagged or not.
+ *
+ *  ONE population, and that is the point. This used to skip any match with a
+ *  member on both sides, under a scope named "non-conference" that never read
+ *  the fixture's conference_game flag and guessed from membership instead. The
+ *  guess was wrong in the direction that costs goals: two Lone Star sides met
+ *  twice in August in matches their own source flags conference_game: false,
+ *  and the skip dropped them from a figure that claimed to be non-conference.
+ *  Meanwhile the brief's records[] counted the same two matches, so one brief
+ *  held two answers to "how many goals has this programme scored".
+ *
+ *  isScored already excludes friendlies, so what remains is exactly the house
+ *  meaning of a match played — the same set seasonCounts calls `played`, which
+ *  is the figure the chip above the chart prints. The chart, the validator's
+ *  chart checker, the brief's records and the team-goals bases all read this
+ *  function, so they now agree by construction rather than by coincidence. */
 export function goalsForByProgramme(
   s: Season,
-  scope: "non-conference" | "all" = "non-conference",
 ): { slug: string; goals: number; conceded: number }[] {
-  const members = memberSlugs(s);
   const tally = new Map<string, { goals: number; conceded: number }>();
   for (const p of s.fixtures.programmes) tally.set(p.slug, { goals: 0, conceded: 0 });
   for (const f of s.fixtures.fixtures) {
     if (!isScored(f) || !hasScore(f)) continue;
-    const bothMembers = members.has(f.home) && members.has(f.away);
-    if (scope === "non-conference" && bothMembers) continue;
     const home = tally.get(f.home);
     if (home) {
       home.goals += f.home_score;

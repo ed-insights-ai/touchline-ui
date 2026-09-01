@@ -17,6 +17,7 @@ import {
   conferenceOpensOn,
   exhibitionsOf,
   fixtureCount,
+  goalsForByProgramme,
   hasScore,
   homeHref,
   isCountable,
@@ -27,6 +28,7 @@ import {
   matchesHref,
   matchHref,
   matchweeks,
+  memberSlugs,
   playedCount,
   programmeCounts,
   recordOf,
@@ -506,5 +508,91 @@ describe("the footer says when the site last looked", () => {
 
   test("nothing collected says nothing", () => {
     expect(collectionLine([])).toBe("");
+  });
+});
+
+describe("the goals chart draws one population, and it is the season's", () => {
+  /** Every countable scored match, recomputed from the fixtures rather than
+   *  read back from the function under test. */
+  const ownGoals = (season: Season, slug: string): number =>
+    season.fixtures.fixtures
+      .filter(isScored)
+      .filter((f) => f.home === slug || f.away === slug)
+      .reduce((sum, f) => sum + ((f.home === slug ? f.home_score : f.away_score) ?? 0), 0);
+
+  test("every member's bar is its goals over every scored match it played", () => {
+    // The invariant the chip depends on. seasonCounts().played is the same
+    // filter(isScored), so a skip reintroduced anywhere in the tally would put
+    // the chart's population out of step with the count printed above it —
+    // which is what shipped, and what nothing here could see.
+    for (const { key, season } of seasons) {
+      for (const row of goalsForByProgramme(season)) {
+        expect(`${key}/${row.slug}: ${row.goals}`).toBe(
+          `${key}/${row.slug}: ${ownGoals(season, row.slug)}`,
+        );
+      }
+    }
+  });
+
+  test("a member-vs-member match the source did not flag as conference counts", () => {
+    // Two Lone Star sides met in August in matches their own source flags
+    // conference_game: false. They were dropped by a scope that guessed
+    // "conference" from membership instead of reading the flag, so one
+    // conference's bars were three goals short of its own records[].
+    const found: string[] = [];
+    for (const { key, season } of seasons) {
+      const members = memberSlugs(season);
+      for (const f of season.fixtures.fixtures) {
+        if (!isScored(f)) continue;
+        if (!members.has(f.home) || !members.has(f.away)) continue;
+        if (f.conference_game !== false) continue;
+        found.push(`${key} ${f.date} ${f.home} v ${f.away}`);
+        const rows = new Map(goalsForByProgramme(season).map((g) => [g.slug, g]));
+        expect(rows.get(f.home)?.goals).toBeGreaterThanOrEqual(f.home_score ?? 0);
+        expect(rows.get(f.away)?.goals).toBeGreaterThanOrEqual(f.away_score ?? 0);
+        // Both ends, both directions: a tally that added the goals and dropped
+        // the concessions would pass an assertion that only looked at one.
+        expect(rows.get(f.home)?.conceded).toBeGreaterThanOrEqual(f.away_score ?? 0);
+        expect(rows.get(f.away)?.conceded).toBeGreaterThanOrEqual(f.home_score ?? 0);
+      }
+    }
+    // The test of the test: if the collect stops carrying one of these, this
+    // case has stopped standing for the defect and must be rechosen rather
+    // than left passing on an empty loop.
+    expect(found.length).toBeGreaterThan(0);
+  });
+
+  test("a conference match counts too — the population is all of them", () => {
+    // The fix is one population, not a re-scoped exclusion. Asserting only the
+    // unflagged case above would pass just as well against a tally that had
+    // merely swapped which half of the season it threw away.
+    for (const { season } of seasons) {
+      const members = memberSlugs(season);
+      const conference = season.fixtures.fixtures.filter(
+        (f) =>
+          isScored(f) && members.has(f.home) && members.has(f.away) && f.conference_game !== false,
+      );
+      for (const f of conference) {
+        const rows = new Map(goalsForByProgramme(season).map((g) => [g.slug, g]));
+        expect(rows.get(f.home)?.goals).toBeGreaterThanOrEqual(f.home_score ?? 0);
+        expect(rows.get(f.away)?.goals).toBeGreaterThanOrEqual(f.away_score ?? 0);
+      }
+    }
+    // No expectation that any exist: no conference has opened yet. The
+    // invariant in the first test covers them the day they do, and this case
+    // is here to fail loudly if a future skip singles them out.
+  });
+
+  test("a friendly never reaches a bar", () => {
+    for (const { season } of seasons) {
+      const rows = new Map(goalsForByProgramme(season).map((g) => [g.slug, g]));
+      for (const f of exhibitionsOf(season)) {
+        const scored = (f.home_score ?? 0) + (f.away_score ?? 0);
+        if (scored === 0) continue;
+        // The bar holds only countable goals, so a friendly's cannot fit in it.
+        expect(rows.get(f.home)?.goals ?? 0).toBe(ownGoals(season, f.home));
+        expect(rows.get(f.away)?.goals ?? 0).toBe(ownGoals(season, f.away));
+      }
+    }
   });
 });

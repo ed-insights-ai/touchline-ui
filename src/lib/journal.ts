@@ -62,17 +62,16 @@ export type JournalChart = z.infer<typeof journalChartSchema>;
  *
  *  It carries NO date. The chip directly above the chart already states the
  *  horizon — "N scored results · through <date>" — and a caption that dates
- *  the same figures a second time can only agree with it or contradict it.
+ *  the same figures a second time can only agree with it or contradict it,
+ *  which is what it was doing the day this became the page's own sentence.
  *
- *  It says what the bars are scoped to, because they are scoped: the values
- *  come from goalsForByProgramme's default, which skips a match with a member
- *  on both sides, so every goal drawn here was scored against an opponent from
- *  outside the conference. "Across all matches played" would be false — on the
- *  morning this was written it was already false of one conference by three
- *  goals, and the reason it looked true is that the other two had not yet
- *  played a member against a member. */
-export const CHART_CAPTION =
-  "Goals scored by programme against opponents from outside the conference.";
+ *  It names no scope either, because there is no longer one to name: the bars
+ *  are every countable scored match a programme has played. That sentence was
+ *  false for a day — goalsForByProgramme skipped member-vs-member matches, so
+ *  one conference's bars were three goals short of its own record — and the
+ *  answer was to make the bars whole rather than to narrow the caption around
+ *  them. The chip's count and the chart's population are now the same set. */
+export const CHART_CAPTION = "Goals scored by programme across all matches played.";
 
 export const journalFindingSchema = z
   .object({
@@ -471,7 +470,7 @@ export function fallbackPattern(s: Season): PatternBlock | null {
     top.goals === 0
       ? "No side in the conference has scored yet."
       : leaders.length === 1
-        ? `${name(top.slug)} has scored ${spell(top.goals)} in non-conference play, more than any other side in the conference.`
+        ? `${name(top.slug)} has scored ${spell(top.goals)}, more than any other side in the conference.`
         : `${sentenceCase(spell(leaders.length))} sides share the conference lead on goals scored, with ${spell(top.goals)} each.`;
   return {
     label: "derived",
