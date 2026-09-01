@@ -908,7 +908,10 @@ export function validateJournal(
       claims.push({
         path: "pattern.chart",
         label: "derived",
-        text: out.pattern.chart.caption ?? out.pattern.chart.kind,
+        // The chart's kind, not its caption: the page composes the caption a
+        // reader meets, so a caption still sitting in the file names nothing
+        // anyone sees and would label this claim by a dead string.
+        text: out.pattern.chart.kind,
         checker: "goals_for_chart",
         verdict: bad.length === 0 ? "verified" : "contradicted",
         mismatches: bad,

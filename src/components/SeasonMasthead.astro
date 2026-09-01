@@ -13,10 +13,15 @@ interface Props {
   counts: SeasonCounts;
   gaps: BoxScoreGap[];
   summary: { label: string; value: string; detail?: string | null };
+  /** When the headline and dek last changed — "UPDATED SEP 1". Null when the
+   *  page has no journal, or has one written before the stamp existed: the
+   *  tag is a fact about the sentence, so no fact means no tag rather than a
+   *  guess. */
+  stamp?: string | null;
   /** The journal was written against an earlier collect than this one. */
   stale?: boolean;
 }
-const { kicker, headline, dek, counts, gaps, summary, stale = false } = Astro.props;
+const { kicker, headline, dek, counts, gaps, summary, stamp = null, stale = false } = Astro.props;
 ---
 
 <section class="masthead">
@@ -55,6 +60,7 @@ const { kicker, headline, dek, counts, gaps, summary, stale = false } = Astro.pr
   </div>
   <h1 class="headline serif">{headline}</h1>
   {dek && <p class="dek">{dek}</p>}
+  {stamp && <div class="mast-stamp num">{stamp}</div>}
   <div class="summary">
     <div class="summary-stat">
       <span class="label">{summary.label}</span>
@@ -85,6 +91,10 @@ const { kicker, headline, dek, counts, gaps, summary, stale = false } = Astro.pr
   }
   .masthead-top { display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; }
   .kicker { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
+  /* When the lede last changed, in the national masthead's treatment exactly:
+     the same fact about the same kind of sentence, so it wears the same type
+     on both surfaces. */
+  .mast-stamp { font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
   .coverage { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); white-space: nowrap; }
   .gapcount {
     border-bottom: 1px dotted var(--faint);

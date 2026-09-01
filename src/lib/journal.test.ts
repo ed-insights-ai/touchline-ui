@@ -1,0 +1,156 @@
+/**
+ * The parts of the season page that stopped being writing.
+ *
+ * A journal file may still carry a kicker and a chart caption — every file on
+ * disk when this was written did — and the page renders neither. Both were
+ * slots where a model was asked for a fact the page already held, and both
+ * went wrong in the same week: three journals wrote three vocabularies for one
+ * table state on a single morning, and a caption dated a chart "through
+ * September 1" beside a chip that dated it "through Aug 31".
+ *
+ * So these tests hold two lines. The composed strings are the page's own and
+ * are checked here; the tolerance is checked too, because a journal that no
+ * longer parses is a page that falls back to its floor, and dropping a field
+ * from the schema would do that to every file already written.
+ */
+
+import { describe, expect, test } from "bun:test";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { site } from "../site.config.ts";
+import { loadSeason, type Season, tableIsLive } from "./derive.ts";
+import { dayOfMonth, monShort } from "./format.ts";
+import {
+  CHART_CAPTION,
+  defaultKicker,
+  editorial,
+  type JournalFile,
+  journalFileSchema,
+  loadJournal,
+  PHASE_BEFORE,
+  PHASE_LIVE,
+} from "./journal.ts";
+
+const seasons = site.conferences.map((k) => loadSeason(k));
+const anySeason = seasons[0] as Season;
+/** A real journal, to lay over a season with fields changed. */
+const anyJournal = seasons.map((s) => loadJournal(s)).find((j) => j !== null) as JournalFile;
+
+/** A season with one member-vs-member final counted as a conference match,
+ *  which is the only difference between the two table phases.
+ *
+ *  Copied, never mutated: loadSeason hands out a cached object, and a season
+ *  edited in place would follow every other test in this file. The conditions
+ *  are computeTable's own — a final, not an exhibition, both sides members,
+ *  both scores present — because a fixture failing any of them would leave the
+ *  table empty and the test asserting the live phrase against a dead season. */
+function madeLive(): Season {
+  for (const s of seasons) {
+    if (tableIsLive(s)) return s;
+    const members = new Set(s.fixtures.programmes.map((p) => p.slug));
+    const target = s.fixtures.fixtures.find(
+      (f) =>
+        f.status === "final" &&
+        f.match_type !== "exhibition" &&
+        members.has(f.home) &&
+        members.has(f.away) &&
+        typeof f.home_score === "number" &&
+        typeof f.away_score === "number",
+    );
+    if (!target) continue;
+    return {
+      ...s,
+      fixtures: {
+        ...s.fixtures,
+        fixtures: s.fixtures.fixtures.map((f) =>
+          f.id === target.id ? { ...f, conference_game: true } : f,
+        ),
+      },
+    };
+  }
+  throw new Error("no collected conference has a member-vs-member final to make a table from");
+}
+
+describe("the kicker is the page's own, in one vocabulary", () => {
+  test("before the table, it names the phase and the collect date", () => {
+    for (const s of seasons) {
+      if (tableIsLive(s)) continue;
+      expect(defaultKicker(s)).toBe(
+        `${s.fixtures.conference} · ${PHASE_BEFORE} · ${monShort(s.asOf)} ${dayOfMonth(s.asOf)}`.toUpperCase(),
+      );
+    }
+  });
+
+  test("with the table live, it says what the national cards say", () => {
+    // Not "NON-CONFERENCE", not "22 DAYS TO CONFERENCE" — the two other
+    // phrases three journals reached for on the morning this was written. The
+    // phase is a fact about the table, and one string serves both surfaces.
+    const live = madeLive();
+    expect(tableIsLive(live)).toBe(true);
+    expect(defaultKicker(live)).toContain(PHASE_LIVE);
+    expect(defaultKicker(live)).not.toContain(PHASE_BEFORE);
+  });
+
+  test("a journal's own kicker is parsed and ignored", () => {
+    const journal = { ...anyJournal, kicker: "ANYTHING AT ALL · WHENEVER" };
+    expect(journalFileSchema.parse(journal).kicker).toBe("ANYTHING AT ALL · WHENEVER");
+    expect(editorial(anySeason, journal).kicker).toBe(defaultKicker(anySeason));
+  });
+});
+
+describe("the chart's caption is the page's own", () => {
+  test("it carries no date, because the chip above it does", () => {
+    expect(CHART_CAPTION).not.toMatch(/\d/);
+    expect(CHART_CAPTION).not.toMatch(/through/i);
+  });
+
+  test("the page reads no caption from the journal", () => {
+    // The surface is an .astro file this test cannot import, so it is read.
+    // Reintroducing the journal's caption is exactly the regression the
+    // treatment exists to prevent, and it would be invisible to every other
+    // test here: the journals on disk still carry one.
+    const page = readFileSync(join(import.meta.dir, "../pages/[conference]/index.astro"), "utf8");
+    expect(page).toMatch(/<figcaption[^>]*>\{CHART_CAPTION\}<\/figcaption>/);
+    expect(page).not.toMatch(/\.caption/);
+  });
+});
+
+describe("the lede's stamp is a fact about the sentence", () => {
+  test("a journal with a stamp renders the day the lede last changed", () => {
+    expect(editorial(anySeason, { ...anyJournal, lede_updated: "2026-08-27" }).stamp).toBe(
+      "UPDATED AUG 27",
+    );
+  });
+
+  test("a journal with no stamp renders none, rather than today", () => {
+    const { lede_updated, ...without } = anyJournal;
+    expect(editorial(anySeason, without as JournalFile).stamp).toBe(null);
+  });
+
+  test("the data-only page never carries one", () => {
+    // Its headline is recomputed from the fixtures on every collect, so a tag
+    // saying it changed today would be true every day and mean nothing.
+    const floor = editorial(anySeason, null);
+    expect(floor.fromJournal).toBe(false);
+    expect(floor.stamp).toBe(null);
+  });
+});
+
+describe("every journal already written still parses", () => {
+  const dir = join(import.meta.dir, "../../journal");
+  const files = readdirSync(dir).filter((f) => f.endsWith(".json") && !f.includes("validation"));
+
+  test("there are journals here to check", () => {
+    // Without this the loop below passes on an empty directory, which is the
+    // shape a tolerance test fails in silently.
+    expect(files.length).toBeGreaterThan(0);
+  });
+
+  for (const file of files) {
+    test(`${file} parses, ignored fields and all`, () => {
+      const raw = JSON.parse(readFileSync(join(dir, file), "utf8"));
+      if (raw.schema !== "touchline.journal/1") return;
+      expect(() => journalFileSchema.parse(raw)).not.toThrow();
+    });
+  }
+});

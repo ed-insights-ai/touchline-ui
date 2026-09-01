@@ -56,3 +56,58 @@ export function standingNote(
 ): string | undefined {
   return previous && previous.line === line ? undefined : note;
 }
+
+// ── The lede, which is two fields ────────────────────────────────────────────
+
+/** The headline and dek as one comparison string.
+ *
+ *  JSON rather than a joined string: the separator in "headline\ndek" is a
+ *  character a headline could itself contain, and then a lede whose headline
+ *  wrapped a line would be indistinguishable from one whose dek began where
+ *  the headline ended. JSON.stringify over a fixed-length array escapes the
+ *  quotes and the newlines, so the encoding is injective and two different
+ *  ledes can never compare equal.
+ */
+const ledeKey = (headline: string, dek: string | undefined): string =>
+  JSON.stringify([headline, dek ?? null]);
+
+/** The previous run's lede, and the day it was last stamped. */
+export interface StandingLede {
+  headline: string;
+  dek?: string | undefined;
+  updated?: string | undefined;
+}
+
+/**
+ * The lede's date and displacement note, on exactly the wire's rule.
+ *
+ * The headline and the dek are one thing to a reader — a sentence and the
+ * figures that stand it up, read together, at the top of the page — so they
+ * are one standing line here. Either of them moving is a displacement; both
+ * coming back word for word is a day the lede stood, and the date must not
+ * move. A dek rewritten under an unchanged headline is a change to what the
+ * page says, and the tag would be lying if it kept yesterday's date over it.
+ *
+ * `stood` is returned rather than left to the caller to work out. The caller
+ * wants to report which happened, and both facts it could infer it from are
+ * unreliable: a date equal to today is also what a lede displaced twice in one
+ * collect looks like, and a date equal to the previous one is also what a
+ * second displacement on the same day looks like. Re-running a generation
+ * after a bad one is exactly when someone reads that line, so the question is
+ * answered here, where the comparison actually happens, and answered once.
+ */
+export function standingLede(
+  next: { headline: string; dek?: string | undefined; displaced_by?: string | undefined },
+  previous: StandingLede | undefined,
+  collectDate: string,
+): { updated: string | undefined; displaced_by: string | undefined; stood: boolean } {
+  const before = previous
+    ? { line: ledeKey(previous.headline, previous.dek), updated: previous.updated }
+    : undefined;
+  const line = ledeKey(next.headline, next.dek);
+  return {
+    updated: standingDate(line, before, collectDate),
+    displaced_by: standingNote(line, before, next.displaced_by),
+    stood: before !== undefined && before.line === line,
+  };
+}

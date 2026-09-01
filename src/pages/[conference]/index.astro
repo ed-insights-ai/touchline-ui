@@ -35,6 +35,7 @@ import {
 } from "../../lib/derive.ts";
 import type { Fixture } from "../../lib/derive.ts";
 import {
+  CHART_CAPTION,
   editorial,
   fallbackFindings,
   fallbackPattern,
@@ -151,6 +152,7 @@ const nextLabel = (f: Fixture): string => {
       kicker={lede.kicker}
       headline={lede.headline}
       dek={lede.dek}
+      stamp={lede.stamp}
       counts={counts}
       gaps={gaps}
       summary={summary}
@@ -213,7 +215,7 @@ const nextLabel = (f: Fixture): string => {
                   ))}
                 </div>
                 </div>
-                {goalChart.caption && <figcaption class="provenance">{goalChart.caption}</figcaption>}
+                <figcaption class="provenance">{CHART_CAPTION}</figcaption>
               </figure>
             )}
           </>

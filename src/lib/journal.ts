@@ -14,7 +14,6 @@ import {
   conferenceOpensOn,
   fixtureCount,
   goalsForByProgramme,
-  lastResult,
   outsideRecord,
   playedCount,
   type Season,
@@ -22,7 +21,7 @@ import {
   tableIsLive,
   unresolved,
 } from "./derive.ts";
-import { dayOfMonth, daysBetween, monShort, shortDate, spell } from "./format.ts";
+import { dayOfMonth, daysBetween, monShort, spell } from "./format.ts";
 
 export const JOURNAL_SCHEMA = "touchline.journal/1";
 
@@ -41,6 +40,14 @@ export type EvidenceLabel = z.infer<typeof evidenceLabelSchema>;
  *  the claim's business, so it is held open — but it must be present. */
 const basisSchema = z.record(z.string(), z.unknown());
 
+/** The page composes the chart's caption itself; `caption` is parsed so every
+ *  journal already on disk still loads, and then ignored. It was the second
+ *  date beside a chart whose horizon the chip above it already states, and the
+ *  two disagreed on the morning this changed — the caption said "through
+ *  September 1", which was the collect, while the chip said "through Aug 31",
+ *  which was the last scored result. Two dates for one chart is a
+ *  disagreement waiting to happen, and the one a model writes is the one with
+ *  no checker behind it. */
 export const journalChartSchema = z
   .object({
     kind: z.string().min(1),
@@ -50,6 +57,22 @@ export const journalChartSchema = z
   })
   .strict();
 export type JournalChart = z.infer<typeof journalChartSchema>;
+
+/** The goals chart's caption, composed by the page for every chart it draws.
+ *
+ *  It carries NO date. The chip directly above the chart already states the
+ *  horizon — "N scored results · through <date>" — and a caption that dates
+ *  the same figures a second time can only agree with it or contradict it.
+ *
+ *  It says what the bars are scoped to, because they are scoped: the values
+ *  come from goalsForByProgramme's default, which skips a match with a member
+ *  on both sides, so every goal drawn here was scored against an opponent from
+ *  outside the conference. "Across all matches played" would be false — on the
+ *  morning this was written it was already false of one conference by three
+ *  goals, and the reason it looked true is that the other two had not yet
+ *  played a member against a member. */
+export const CHART_CAPTION =
+  "Goals scored by programme against opponents from outside the conference.";
 
 export const journalFindingSchema = z
   .object({
@@ -68,6 +91,7 @@ export const journalFileSchema = z
     conference: z.string().min(1),
     generated_at: z.string().min(1),
     data_collected_at: z.string().min(1),
+    /** Tolerated so older journals parse; never rendered. See defaultKicker. */
     kicker: z.string().optional(),
     headline: z.string().min(1),
     dek: z.string().optional(),
@@ -79,6 +103,19 @@ export const journalFileSchema = z
      *  a journal without it gets a REVIEW line per unbacked numeral instead
      *  of silence. */
     lede_basis: basisSchema.optional(),
+    /** The day the HEADLINE AND DEK last changed, computed by the CLI at write
+     *  time against the previous journal — carried forward when both come back
+     *  word for word, restamped to the collect date when either moves. The
+     *  writer never sets it: a model-authored date would be a claim like any
+     *  other, needing a basis and a checker, and this is the one fact about the
+     *  lede the machinery already knows for certain. The same rule the wire's
+     *  date follows, and the same module computes it. */
+    lede_updated: z.string().optional(),
+    /** What displaced the lede, in the writer's own words. Never rendered; it
+     *  is for whoever reads tomorrow's diff and wants the writer's own reason
+     *  rather than an inference from two sentences. Dropped by the CLI on a
+     *  day the lede stood, so it cannot outlive the displacement it names. */
+    displaced_by: z.string().optional(),
     summary_stat: z
       .object({
         label: z.string().min(1),
@@ -309,15 +346,27 @@ export interface Editorial {
   kicker: string;
   headline: string;
   dek: string | null;
+  /** When the headline and dek last changed — "UPDATED SEP 1" — or null when
+   *  nothing on disk knows. The lede stands until something more newsworthy
+   *  displaces it or it stops being true, never because the cadence came round
+   *  again, so a reader meeting a sentence that did not move today is owed the
+   *  day it last did. Null on the data-only branch too: that headline is
+   *  recomputed from the fixtures every collect, and a tag saying it changed
+   *  today would be true of every day and therefore say nothing. */
+  stamp: string | null;
   fromJournal: boolean;
 }
 
 export function editorial(s: Season, journal: JournalFile | null): Editorial {
   if (journal) {
     return {
-      kicker: journal.kicker ?? defaultKicker(s),
+      // The page's own, never the journal's, even when a journal wrote one.
+      kicker: defaultKicker(s),
       headline: journal.headline,
       dek: journal.dek ?? null,
+      stamp: journal.lede_updated
+        ? `UPDATED ${monShort(journal.lede_updated).toUpperCase()} ${dayOfMonth(journal.lede_updated)}`
+        : null,
       fromJournal: true,
     };
   }
@@ -340,12 +389,35 @@ export function editorial(s: Season, journal: JournalFile | null): Editorial {
     kicker: defaultKicker(s),
     headline: `${played} of ${total} matches played.`,
     dek: [opensLine, silentLine].filter(Boolean).join(" ") || null,
+    stamp: null,
     fromJournal: false,
   };
 }
 
+/** The two states a conference table can be in, in the words BOTH surfaces use
+ *  for them — the season page's kicker and the national page's cards. One
+ *  string each, imported rather than retyped: a reader crossing from the
+ *  division's page to a conference's should meet one vocabulary, and the
+ *  alternative is what shipped, where three journals wrote three phrases for a
+ *  single state on one morning. */
+export const PHASE_LIVE = "CONFERENCE PLAY UNDER WAY";
+export const PHASE_BEFORE = "BEFORE THE TABLE";
+
+/** The conference's code, the phase the table is in, and the collect date.
+ *
+ *  The page composes this every time; a journal's own kicker is parsed and
+ *  ignored. Three journals written on one morning gave three vocabularies for
+ *  a single state — "NON-CONFERENCE", "BEFORE THE TABLE", "22 DAYS TO
+ *  CONFERENCE" — and the third counted days in a slot that takes no basis, so
+ *  no checker could reach the count. None of the three is writing: the phase
+ *  is a fact about the table, and the table is on the page.
+ *
+ *  The phase reads the same predicate the national page's cards read, and says
+ *  it in the same words, so a reader crossing from one surface to the other
+ *  meets one vocabulary rather than two. */
 export function defaultKicker(s: Season): string {
-  return `${s.fixtures.conference} · ${monShort(s.asOf)} ${dayOfMonth(s.asOf)}`.toUpperCase();
+  const phase = tableIsLive(s) ? PHASE_LIVE : PHASE_BEFORE;
+  return `${s.fixtures.conference} · ${phase} · ${monShort(s.asOf)} ${dayOfMonth(s.asOf)}`.toUpperCase();
 }
 
 /** The table's own statement, when no journal wrote one. */
@@ -394,7 +466,6 @@ export function fallbackPattern(s: Season): PatternBlock | null {
   if (scored === 0 || goals.length === 0) return null;
   const top = goals[0] as { slug: string; goals: number };
   const leaders = goals.filter((g) => g.goals === top.goals);
-  const through = lastResult(s);
   const name = (slug: string) => s.names.name(slug);
   const text =
     top.goals === 0
@@ -406,8 +477,9 @@ export function fallbackPattern(s: Season): PatternBlock | null {
     label: "derived",
     text,
     chart: {
+      // No caption: the page composes it. One written here would be a second
+      // unread string free to drift from the one a reader actually meets.
       kind: "goals-for-by-team",
-      caption: `Goals scored per side, all non-conference${through ? `, through ${shortDate(through.date)}` : ""}.`,
       values: Object.fromEntries(goals.map((g) => [g.slug, g.goals])),
       highlight: leaders.length === 1 ? top.slug : undefined,
     },

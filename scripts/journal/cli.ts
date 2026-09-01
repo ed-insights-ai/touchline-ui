@@ -38,7 +38,7 @@ import { buildNationalPrompt } from "./national-prompt.ts";
 import { validateNationalJournal } from "./national-validate.ts";
 import { buildPrompt } from "./prompt.ts";
 import { CHECKERS, validateJournal } from "./validate.ts";
-import { standingDate, standingNote } from "./wire.ts";
+import { standingDate, standingLede, standingNote } from "./wire.ts";
 
 interface Args {
   command: string;
@@ -136,6 +136,22 @@ function stampWire(next: JournalFile, previous: JournalFile | null, season: Seas
   next.wire.displaced_by = standingNote(next.wire.line, previous?.wire, next.wire.displaced_by);
 }
 
+/** The lede's last-changed date, over the previous journal on disk. The wire's
+ *  rule, over the headline and the dek together. Reports which happened. */
+function stampLede(
+  next: JournalFile,
+  previous: JournalFile | null,
+  season: Season,
+): "written" | "stands" | "displaced" {
+  const before = previous
+    ? { headline: previous.headline, dek: previous.dek, updated: previous.lede_updated }
+    : undefined;
+  const stamped = standingLede(next, before, season.asOf);
+  next.lede_updated = stamped.updated;
+  next.displaced_by = stamped.displaced_by;
+  return previous === null ? "written" : stamped.stood ? "stands" : "displaced";
+}
+
 function generate(args: Args, season: Season): number {
   const brief = buildBrief(season);
   const previous = readJournal(journalPath(args, season));
@@ -179,9 +195,14 @@ function generate(args: Args, season: Season): number {
       `${keyOf(season)}: the journal names collect ${parsed.data_collected_at}, the data home holds ${season.collectedAt}.`,
     );
   }
+  const lede = stampLede(parsed, previous, season);
   stampWire(parsed, previous, season);
   writeJson(journalPath(args, season), parsed);
   console.log(`${keyOf(season)}: wrote ${journalPath(args, season)}`);
+  console.log(
+    `  lede ${lede}${parsed.lede_updated ? `, last changed ${parsed.lede_updated}` : ", last change unknown"}`,
+  );
+  if (parsed.displaced_by) console.log(`  displaced by: ${parsed.displaced_by}`);
   if (parsed.wire) {
     const carried = previous?.wire?.line === parsed.wire.line;
     console.log(

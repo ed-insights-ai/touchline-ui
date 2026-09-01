@@ -38,6 +38,7 @@ import {
   nationalMasthead,
 } from "./home.ts";
 import {
+  CHART_CAPTION,
   editorial,
   fallbackFindings,
   fallbackPattern,
@@ -64,9 +65,10 @@ function conferencePage(s: Season): Line[] {
   const out: Line[] = [{ where: `${s.key} headline`, text: lede.headline }];
   if (lede.dek) out.push({ where: `${s.key} dek`, text: lede.dek });
   if (pattern?.text) out.push({ where: `${s.key} pattern`, text: pattern.text });
-  if (pattern?.chart?.caption) {
-    out.push({ where: `${s.key} chart caption`, text: pattern.chart.caption });
-  }
+  // The chart's caption is the page's own now, not the journal's, so the
+  // corpus takes the one a reader meets. Reading pattern.chart.caption here
+  // would test a string nothing renders.
+  if (pattern?.chart) out.push({ where: `${s.key} chart caption`, text: CHART_CAPTION });
   findings.forEach((f, i) => {
     out.push({ where: `${s.key} finding ${i}`, text: f.text });
   });

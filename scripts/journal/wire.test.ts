@@ -8,7 +8,7 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { standingDate, standingNote } from "./wire.ts";
+import { standingDate, standingLede, standingNote } from "./wire.ts";
 
 describe("a line's date moves only when the line does", () => {
   test("an unchanged line keeps the date it already had", () => {
@@ -83,5 +83,90 @@ describe("the note names a displacement, and only a real one", () => {
       "The season started.",
     );
     expect(standingNote("First ever.", undefined, undefined)).toBe(undefined);
+  });
+});
+
+describe("the lede is one standing line made of two fields", () => {
+  const lede = {
+    headline: "Harding have yet to concede.",
+    dek: "Five matches, five clean sheets.",
+  };
+  const yesterday = { ...lede, updated: "2026-08-27" };
+
+  test("a lede that comes back word for word keeps the date it had", () => {
+    const out = standingLede(lede, yesterday, "2026-09-01");
+    expect(out.updated).toBe("2026-08-27");
+    expect(out.stood).toBe(true);
+  });
+
+  test("a changed headline restamps", () => {
+    const out = standingLede({ ...lede, headline: "Harding conceded." }, yesterday, "2026-09-01");
+    expect(out.updated).toBe("2026-09-01");
+    expect(out.stood).toBe(false);
+  });
+
+  test("a changed dek restamps too, under a headline that did not move", () => {
+    // The reader meets both at once. A dek rewritten beneath a standing
+    // headline changes what the page says, and a tag keeping yesterday's date
+    // over new prose would be the one thing this field exists to prevent.
+    const out = standingLede(
+      { ...lede, dek: "Six matches, six clean sheets." },
+      yesterday,
+      "2026-09-01",
+    );
+    expect(out.updated).toBe("2026-09-01");
+    expect(out.stood).toBe(false);
+  });
+
+  test("losing the dek entirely is a change", () => {
+    const out = standingLede({ headline: lede.headline }, yesterday, "2026-09-01");
+    expect(out.updated).toBe("2026-09-01");
+    expect(out.stood).toBe(false);
+  });
+
+  test("the first lede ever written takes the collect date", () => {
+    const out = standingLede(lede, undefined, "2026-09-01");
+    expect(out.updated).toBe("2026-09-01");
+    expect(out.stood).toBe(false);
+  });
+
+  test("a standing lede with no previous date gets none, not today", () => {
+    const out = standingLede(lede, { ...lede }, "2026-09-01");
+    expect(out.updated).toBe(undefined);
+    expect(out.stood).toBe(true);
+  });
+
+  test("the two fields cannot be confused for one another", () => {
+    // Two different ledes whose fields, run together with a separator, spell
+    // the same string. A key of `headline\ndek` calls them equal and carries
+    // yesterday's date over a lede that changed; the JSON encoding does not.
+    const a = { headline: "A", dek: "B\nC" };
+    const b = { headline: "A\nB", dek: "C" };
+    const naive = (l: { headline: string; dek?: string }) => `${l.headline}\n${l.dek ?? ""}`;
+    // The test of the test: if these two stop colliding under the naive key,
+    // this case has stopped standing for the defect and must be rechosen.
+    expect(naive(a)).toBe(naive(b));
+    const out = standingLede(a, { ...b, updated: "2026-08-27" }, "2026-09-01");
+    expect(out.stood).toBe(false);
+    expect(out.updated).toBe("2026-09-01");
+  });
+
+  test("a standing lede drops the writer's displacement note", () => {
+    // It described a displacement that did not happen today, and left in place
+    // it would go on describing it every day the lede kept standing.
+    expect(
+      standingLede({ ...lede, displaced_by: "Harding conceded." }, yesterday, "2026-09-01")
+        .displaced_by,
+    ).toBe(undefined);
+  });
+
+  test("a displaced lede keeps it", () => {
+    expect(
+      standingLede(
+        { ...lede, headline: "Harding conceded.", displaced_by: "The clean-sheet run ended." },
+        yesterday,
+        "2026-09-01",
+      ).displaced_by,
+    ).toBe("The clean-sheet run ended.");
   });
 });

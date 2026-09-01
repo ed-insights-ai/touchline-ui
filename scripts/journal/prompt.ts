@@ -120,9 +120,22 @@ attention and tells them nothing they did not have.
   inks the largest differently. It does not need to be told which bar is
   tallest. Say what the shape means; the chart says what it looks like.
 
-- "kicker", "headline" and "dek" head the page above the season strip, the
-  table and the week's matches. The dek stands the headline on named figures;
-  it does not say the headline again in longer form.
+- "headline" and "dek" head the page above the season strip, the table and the
+  week's matches. The dek stands the headline on named figures; it does not say
+  the headline again in longer form. There is no kicker to write: the page
+  composes its own from the conference's code, the phase the table is in, and
+  the collect date, all three of which it already holds.
+
+- "summary_stat.detail" sits directly beneath its own label and value, and the
+  page prints that value in large type. Where the value is the played count,
+  the same figure is ALSO the chip at the top of the page. So the detail never
+  restates the value in words — it adds the one fact about the count that the
+  figures beside it cannot show.
+    good   "All seventeen were played outside the conference."
+    bad    "Seventeen matches carry a published score."
+  The bad line spends the slot on the number printed directly above it in
+  three times the size.
+  The date conference play opens is table_state's, and does not appear here.
 
 - "wire" is this conference's one line on the NATIONAL page — a different page
   from every slot above. It sits on a card that already prints the conference
@@ -164,13 +177,37 @@ One rule under all of these: one fact, at the altitude it is attached to. If
 two slots would carry the same figure, it belongs to the one nearest the thing
 it describes, and the other writes something else.`;
 
+export const PERSISTENCE = `PERSISTENCE — THE HEADLINE AND DEK STAND UNTIL THEY ARE DISPLACED.
+
+They are not rewritten because a day has passed. Reuse the previous journal's
+headline and dek VERBATIM unless one of two things is true: something more
+newsworthy has happened in this conference, or the standing lines are no longer
+true of today's data. Nothing else displaces them — not a fresh collect, not a
+wish to have written something new. A quiet day is a day the lines stand.
+
+When you do displace them, the new headline must not be the old one's shape
+with new figures in it. Change what the sentence is ABOUT, not only what it
+counts.
+
+When you displace them, set "displaced_by": one short line naming the fact that
+won. It is never rendered and no reader sees it; it is for the person reading
+tomorrow's diff, who would otherwise have to infer your reasoning from two
+sentences of prose. Leave it out when the lines stand — the machinery drops it
+in that case anyway, because there was no displacement to describe.
+
+Every other slot answers to today's data alone. The findings, the pattern, the
+players, the featured lines and the table's statement move with the collect;
+continuity there means reusing exact wording where the underlying facts have
+not changed, and never means keeping a sentence the data has outgrown.
+
+Write no last-changed date. The day the lede last changed is computed by
+comparing your lines against the previous journal's, and a date you wrote would
+be overwritten by it.`;
+
 export function buildPrompt(input: PromptInput): string {
   const { brief, fixtures, previous } = input;
   const continuity = previous
     ? `PREVIOUS JOURNAL (written for collect ${previous.data_collected_at}).
-Continuity matters: where a finding's underlying facts have NOT changed, reuse
-its exact wording. Rewrite only what the new data actually changed. Do not
-manufacture novelty.
 
 ${JSON.stringify(previous, null, 2)}
 `
@@ -185,6 +222,8 @@ ${GRAMMAR}
 ${VOICE}
 
 ${SURFACES}
+
+${PERSISTENCE}
 
 BRIEF — every figure available to you, computed from the collected files.
 ${JSON.stringify(brief, null, 2)}
@@ -214,16 +253,16 @@ no markdown fence, no commentary before or after.
   "conference": "${brief.meta.conference}",
   "generated_at": "<ISO 8601, now>",
   "data_collected_at": "${brief.meta.collected_at}",
-  "kicker": "<CONFERENCE · SHORT PHRASE · MON DD, uppercase>",
   "headline": "<one sentence, the season's state right now>",
   "dek": "<two sentences at most, standing the headline on named figures>",
   "lede_basis": { ... },
+  "displaced_by": "<what displaced the previous headline and dek — omit if they stand>",
   "wire": { "line": "<one line for the national page's card>", "basis": { ... } },
   "summary_stat": { "label": "...", "value": "...", "detail": "...", "basis": { ... } },
   "pattern": {
     "label": "observed|derived|signal",
     "text": "<the one thing the data most clearly shows>",
-    "chart": { "kind": "goals-for-by-team", "caption": "...",
+    "chart": { "kind": "goals-for-by-team",
                "values": { "<slug>": <goals>, ... }, "highlight": "<slug>" },
     "basis": { ... }
   },
@@ -243,7 +282,7 @@ the brief reports any.
 EVERY NUMBER YOU WRITE MUST BE IN A BASIS.
 A basis is not decoration on a finding — it is the list of figures that sentence
 rests on, and the validator recomputes each one. So:
-- "lede_basis" holds every number the kicker, headline and dek contain.
+- "lede_basis" holds every number the headline and dek contain.
 - "wire.basis" holds every number its line contains.
 - "table_state.basis" holds every number its statement and footnote contain.
 - a finding's basis holds every number its own text contains.

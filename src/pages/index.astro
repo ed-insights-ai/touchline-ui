@@ -37,7 +37,7 @@ import {
   nationalDescription,
   nationalMasthead,
 } from "../lib/home.ts";
-import { editorial, loadJournal, loadNationalJournal } from "../lib/journal.ts";
+import { editorial, loadJournal, loadNationalJournal, PHASE_LIVE } from "../lib/journal.ts";
 import { site } from "../site.config.ts";
 
 const seasons = homeSeasons();
@@ -128,7 +128,7 @@ const openLine =
 
 const opensLine = (c: (typeof columns)[number]): string =>
   c.live
-    ? "CONFERENCE PLAY UNDER WAY"
+    ? PHASE_LIVE
     : c.opensOn
       ? `OPENS ${monShort(c.opensOn).toUpperCase()} ${dayOfMonth(c.opensOn)}`
       : "NO CONFERENCE DATE PUBLISHED";
