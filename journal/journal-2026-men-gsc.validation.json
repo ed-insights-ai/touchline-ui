@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-08-31T23:09:47.769Z",
-  "data_collected_at": "2026-08-31T12:49:41+00:00",
+  "validated_at": "2026-09-01T11:38:14.097Z",
+  "data_collected_at": "2026-09-01T11:30:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -26,12 +26,12 @@
     {
       "path": "summary_stat",
       "label": "derived",
-      "text": "16 of 120",
+      "text": "17 of 119",
       "checker": "fixture_counts+conference_opens",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["days_until_conference: 11"]
+      "unchecked_figures": ["days_until_conference: 10"]
     },
     {
       "path": "pattern",
@@ -45,7 +45,7 @@
     {
       "path": "pattern.chart",
       "label": "derived",
-      "text": "Goals scored by programme across all matches played, through August 31.",
+      "text": "Goals scored by programme across all matches played, through September 1.",
       "checker": "goals_for_chart",
       "verdict": "verified",
       "mismatches": [],
@@ -63,7 +63,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Against programmes outside the conference, GSC sides have won seven matches, drawn three and lost six.",
+      "text": "Against programmes outside the conference, GSC sides have won seven matches, drawn three and lost seven.",
       "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
@@ -72,7 +72,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Five matches whose dates have passed carry no published result, and every one of them belongs to Christian Brothers or Trevecca.",
+      "text": "Five matches whose dates have passed carry no published result, and not one final carries an empty score.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -81,8 +81,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Two played matches have a published scoreline but no box score, and both are Mississippi College's.",
-      "checker": "box_score_gaps",
+      "text": "Two played matches have a published scoreline but no box score, and both are Mississippi Christian's.",
+      "checker": "box_score_gaps+set_members",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -117,7 +117,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Jakob Buhrkuhl — 7 saves · 1 goal against · 1 shutout",
+      "text": "David Nunez — 1 G · 2 A · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-08-30 uah v shawnee-state",
+      "text": "2026-08-31 west-alabama v texas-a-m-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-08-31 west-alabama v texas-a-m-international",
+      "text": "2026-09-01 ouachita-baptist v delta-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],

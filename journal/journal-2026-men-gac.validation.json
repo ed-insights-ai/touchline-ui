@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-08-31T23:09:47.685Z",
-  "data_collected_at": "2026-08-31T02:48:14+00:00",
+  "validated_at": "2026-09-01T11:33:52.944Z",
+  "data_collected_at": "2026-09-01T11:30:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,19 +17,9 @@
   "normalizations": [],
   "review": [
     {
-      "path": "table_state.statement",
-      "text": "Conference play begins Sep 17. No side has played a conference match, and the table stays empty until one does.",
-      "unbacked": ["1"]
-    },
-    {
       "path": "findings[0].text",
       "text": "Tristan Miller has saved ten of the eleven shots on target he has faced for Rogers State.",
       "unbacked": ["11"]
-    },
-    {
-      "path": "findings[4].text",
-      "text": "One match carries a result whose detail the collector could not reach: Rockhurst against Newman on August 29 has a score and no box score behind it.",
-      "unbacked": ["29"]
     }
   ],
   "claims": [
@@ -80,9 +70,9 @@
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "Thirteen matches carry a published score, out of 96 on the season's card.",
-      "checker": "fixture_counts",
+      "label": "derived",
+      "text": "Ouachita Baptist have scored six goals, more than Southern Nazarene, Northeastern State and Harding have managed together.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -90,8 +80,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Four matches are marked final with no published score. Four more are past their date with no result recorded at all.",
-      "checker": "unresolved",
+      "text": "Thirteen matches carry a published score, out of 93 on the season's card.",
+      "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -99,8 +89,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "One match carries a result whose detail the collector could not reach: Rockhurst against Newman on August 29 has a score and no box score behind it.",
-      "checker": "box_score_gaps",
+      "text": "One match is marked final with no published score. Four more are past their date with no result recorded at all.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
