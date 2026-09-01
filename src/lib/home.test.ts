@@ -208,9 +208,9 @@ describe("the lede is derived, deterministically, from counts and opener dates",
   });
 
   test("it names the silences always — a zero is a figure, not a silence of ours", () => {
-    // The guard came off with the counts block (tui-2lp): the ALL row was the
-    // only surface that would ever have printed a division zero, and a reader
-    // must not have to infer one from a sentence we chose not to write.
+    // Nothing on this page prints a division zero as a figure, so the
+    // sentence is the only place one can appear — and a reader must not have
+    // to infer a silence from a sentence we chose not to write.
     if (national.silentFinals > 0) {
       const spelled = spell(national.silentFinals);
       expect(lede).toContain(
@@ -238,14 +238,12 @@ describe("the lede is derived, deterministically, from counts and opener dates",
 });
 
 /**
- * The reconciliation the page stopped printing.
+ * The reconciliation the page does not print.
  *
- * Until tui-2lp the foot of the national page wrote the division's sums out
- * as a list of addends — GAC, GSC, LSC, then ALL — so a reader could add them
- * up by hand. That block was the accounting made visible, and it retired. The
- * obligation did not: the lede's division figures still have to be the sum of
- * what the pages beneath it show, and those pages still have to agree with the
- * fixtures.
+ * Nothing on the national page lays the division's sums out as addends for a
+ * reader to check by hand. The obligation stands anyway: the lede's division
+ * figures have to be the sum of what the pages beneath it show, and those
+ * pages have to agree with the fixtures.
  *
  * So this reads the figures back out of the prose the page actually prints,
  * and compares them against a sum recounted from the fixtures — not against
@@ -253,12 +251,12 @@ describe("the lede is derived, deterministically, from counts and opener dates",
  * Each check has a matching test that perturbs an input and proves it goes
  * red, because a reconciliation that cannot fail is a comment.
  *
- * tui-dik moved the split. The columns now print played of total and nothing
- * else, so that pair is what a reader can add up on this page, and it is what
- * `disagreements` compares. The silences left the columns but not the lede,
- * and they are still printed per conference on the season pages a reader gets
- * to from here — one click further on, and just as addable. They get their own
- * check against the same recount.
+ * The columns print played of total and nothing else, so that pair is what a
+ * reader can add up on this page, and it is what `disagreements` compares. The
+ * silences are not in the columns; they are in the lede, and printed per
+ * conference on the season pages a reader gets to from here — one click
+ * further on, and just as addable. They get their own check against the same
+ * recount.
  */
 describe("the reconciliation the page stopped printing", () => {
   const NUMBER = new Map<string, number>();
@@ -329,9 +327,9 @@ describe("the reconciliation the page stopped printing", () => {
   });
 
   test("the lede's silences are the fixtures' silences, recounted", () => {
-    // The columns stopped printing this with tui-dik; the lede did not, and
-    // the season pages still name every one of them. Read the figure back out
-    // of the sentence and count the silent finals again from the files.
+    // The columns do not print this; the lede does, and the season pages name
+    // every one of them. Read the figure back out of the sentence and count
+    // the silent finals again from the files.
     expect(silentInLede(nationalLede(columns, national))).toBe(silentFromFixtures());
   });
 
@@ -349,9 +347,8 @@ describe("the reconciliation the page stopped printing", () => {
   });
 
   test("gaps reconcile the same way, though nothing adds them up now", () => {
-    // The ALL row was the only place the division's gap total was ever
-    // written, and with tui-dik the columns stopped printing their own.
-    // Nothing shows it today, and it still has to be true.
+    // No surface prints the division's gap total, and no column prints its
+    // own. Nothing shows this figure anywhere, and it still has to be true.
     expect(national.gaps).toBe(
       columns.reduce((n, c) => n + boxScoreGaps(loadSeason(c.key)).length, 0),
     );

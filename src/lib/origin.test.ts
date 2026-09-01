@@ -243,7 +243,7 @@ describe("the flag the marker draws", () => {
     expect(isoOf("Cardiff, Wales")).toBe("gb-wls");
     expect(isoOf("Belfast, Northern Ireland")).toBe("gb-nir");
     expect(isoOf("Leeds, United Kingdom")).toBe("gb");
-    // The override tui-3zy shipped, now visible as artwork rather than letters.
+    // A three-part place string: the nation is in the middle, not the tail.
     expect(isoOf("Derby, England, United Kingdom")).toBe("gb-eng");
   });
 

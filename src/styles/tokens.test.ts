@@ -140,7 +140,8 @@ describe("tokens that set no type", () => {
 
   test("the sweep is actually reading the stylesheets", () => {
     // A test that silently stops finding anything is worse than no test. The
-    // ledger's play text is the rule tui-4hr moved, so it is the canary.
+    // ledger's play text is the largest body of prose on the site, so it is
+    // the canary: if the sweep stops seeing that, it is seeing nothing.
     const ink = typeInk();
     expect(ink.length).toBeGreaterThan(150);
     expect(ink.some((d) => d.file.includes("PlayLedger") && d.hex === tokens.get("--quiet"))).toBe(
