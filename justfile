@@ -25,15 +25,16 @@ site_url := env_var_or_default("SITE_URL", "https://ed-insights-ai.github.io")
 
 default: all
 
-# The gate sits between journal and build so the cadence REFUSES to publish
-# composed prose that fails the copy properties: a failed regeneration stops
-# the loop and the site keeps serving yesterday's build, which is the correct
-# failure — correctness over freshness, by the owner's ruling (tui-9ue).
-#
 # The whole loop, in the order the pipeline runs it.
-all: collect journal gate build publish
+all: collect journal build publish
 
-# The tests, standing between the model-composed journal and the publish.
+# The tests, standing between the model-composed journal and any publish.
+# A dependency of `publish` itself — not a step in `all` — because the
+# cadence script calls `just publish` directly and every other path here
+# ends the same way: whoever publishes, the gate stands in front of them.
+# A regeneration that fails the copy properties stops the loop and the site
+# keeps serving yesterday's build, which is the correct failure —
+# correctness over freshness, by the owner's ruling (tui-9ue).
 gate:
     @echo "→ gate"
     bun test
@@ -108,7 +109,7 @@ deployed stamp="":
 # from a local server, where root-relative URLs resolve. So the deploy builds
 # its own artefact and refuses to ship one whose links do not resolve at the
 # path it is about to serve them from.
-publish: _require-git build
+publish: _require-git gate build
     @echo "→ publish to {{branch}}"
     @test -d dist || (echo "dist/ is missing — run \`just build\` first" && exit 1)
     bun scripts/links.ts dist "{{site_base}}"
