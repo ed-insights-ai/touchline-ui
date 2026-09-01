@@ -3,15 +3,19 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-01T11:45:00Z",
+  "generated_at": "2026-09-01T19:24:28Z",
   "data_collected_at": "2026-09-01T11:30:05+00:00",
-  "headline": "Ouachita Baptist and Rogers State are the only programmes in the conference yet to lose a match.",
+  "headline": "Ouachita Baptist and Rogers State alone stay unbeaten",
   "dek": "Ouachita Baptist have won twice without conceding a goal, and Rogers State have won twice with one against. The other five programmes have all lost at least once.",
   "lede_basis": {
+    "obu_wins": 2,
     "obu_ga": 0,
+    "rsu_wins": 2,
     "rsu_ga": 1,
     "programmes_with_a_defeat": 5
   },
+  "lede_updated": "2026-09-01",
+  "displaced_by": "form: the standing headline was a seventeen-word sentence with a full stop; its story stands and the dek is unchanged",
   "summary_stat": {
     "label": "GAC vs everyone else",
     "value": "7–0–6",
@@ -27,7 +31,7 @@
   },
   "pattern": {
     "label": "derived",
-    "text": "Five different players have scored Ouachita Baptist's six goals, and only one of them has scored more than once.",
+    "text": "Five different players have scored Ouachita Baptist's six goals, and only Eric Godoy has scored twice.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -44,7 +48,11 @@
     "basis": {
       "programme": "ouachita-baptist",
       "gf": 6,
-      "distinct_scorers_min": 5
+      "ga": 0,
+      "distinct_scorers_min": 5,
+      "source": "stats",
+      "player": "Eric Godoy",
+      "goals": 2
     }
   },
   "wire": {
@@ -62,7 +70,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "The season's one silent final is Newman's, away at Cowley: the match is marked final and carries no score. Four more matches are past their date with no result published at all — a separate absence, and a separate count.",
+      "text": "The season's one silent final is Newman's, away at Cowley: the match is marked final and carries no score. Four more matches are past their date with no result published at all, a separate absence and a separate count.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 1,
@@ -74,16 +82,15 @@
     },
     {
       "label": "observed",
-      "text": "Every match with a published score also has a box score behind it. The collector reached the shape of all thirteen.",
+      "text": "Every match with a published score also has a box score behind it. The collector reached the detail of each.",
       "basis": {
         "source": "matches",
-        "box_score_gaps": 0,
-        "played": 13
+        "box_score_gaps": 0
       }
     },
     {
       "label": "derived",
-      "text": "Fort Hays State scored all four of their goals in one match and none at all in the other.",
+      "text": "Fort Hays State scored all four of their goals in the match they won and none in the match they lost.",
       "basis": {
         "programme": "fort-hays-state",
         "gf": 4,
@@ -102,6 +109,18 @@
         "programme": "rogers-state",
         "saves": 10,
         "goals_against": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Both of Southern Nazarene's goals this season are Wesley Rodriguez's.",
+      "basis": {
+        "source": "stats",
+        "player": "Wesley Rodriguez",
+        "programme": "southern-nazarene",
+        "goals": 2,
+        "gf": 2,
+        "ga": 3
       }
     }
   ],
@@ -146,5 +165,8 @@
       "conference_opens": "2026-09-17"
     }
   },
-  "lede_updated": "2026-09-01"
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-01T19:32:08.059Z"
+  }
 }
