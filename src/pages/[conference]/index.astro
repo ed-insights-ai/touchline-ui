@@ -151,6 +151,62 @@ const nextLabel = (f: Fixture): string => {
 
     <SeasonSpine season={season} />
 
+    {/* The "now" band, straight off the season line: the two nearest points
+        on it — what just happened and what comes next — then this week's
+        matches folded beneath them. The analysis, By the Numbers and The
+        Table, reads after the news (owner's ruling, 2026-09-01). */}
+    <section class="featured">
+      {featuredLast && (
+        <a class="card" href={matchHref(season.key, featuredLast.id)}>
+          <div class="label">LAST MATCH · {stampDate(featuredLast.date)}</div>
+          <div class="card-score num">
+            <span class={emphasis(featuredLast) === "home" ? "side-lead" : "side-quiet"}>
+              {names.name(featuredLast.home)}
+            </span>
+            <span class="score serif">{scorelineWide(featuredLast)}</span>
+            <span class={emphasis(featuredLast) === "away" ? "side-lead" : "side-quiet"}>
+              {names.name(featuredLast.away)}
+            </span>
+          </div>
+          {journal?.featured?.last_match?.line && (
+            <div class="card-line">{journal.featured.last_match.line}</div>
+          )}
+          <div class="card-foot">
+            <span class="card-venue">{featuredLast.venue ?? "Venue not published"}</span>
+            <span class="grow"></span>
+            <span class="card-cta">Match report →</span>
+          </div>
+        </a>
+      )}
+      {featuredNext && (
+        <a class="card" href={matchHref(season.key, featuredNext.id)}>
+          <div class="label">NEXT MATCH · {nextLabel(featuredNext)}</div>
+          <div class="card-fixture num">
+            <span class={emphasis(featuredNext) === "away" ? "side-lead" : "side-quiet"}>
+              {names.name(featuredNext.away)}
+            </span>
+            <span class="at">at</span>
+            <span class={emphasis(featuredNext) === "home" ? "side-lead" : "side-quiet"}>
+              {names.name(featuredNext.home)}
+            </span>
+          </div>
+          {journal?.featured?.next_match?.line && (
+            <div class="card-line">{journal.featured.next_match.line}</div>
+          )}
+          <div class="card-foot">
+            <span class="card-venue">{featuredNext.venue ?? "Venue not published"}</span>
+            <span class="grow"></span>
+            <span class="card-cta">Preview →</span>
+          </div>
+        </a>
+      )}
+    </section>
+
+    {/* The week's docket sits with the featured pair, as the strip beneath
+        the two cards: this week's matches by name, folded, and the road to
+        all of them. */}
+    <TheWeek season={season} matchesHref={matchesHref(season.key)} />
+
     <section class="split">
       <div class="col">
         {/* The newspaper's name for a chart and a handful of numeric facts.
@@ -243,59 +299,6 @@ const nextLabel = (f: Fixture): string => {
         <ConferenceTable season={season} rows={rows} live={live} />
       </div>
     </section>
-
-    <section class="featured">
-      {featuredLast && (
-        <a class="card" href={matchHref(season.key, featuredLast.id)}>
-          <div class="label">LAST MATCH · {stampDate(featuredLast.date)}</div>
-          <div class="card-score num">
-            <span class={emphasis(featuredLast) === "home" ? "side-lead" : "side-quiet"}>
-              {names.name(featuredLast.home)}
-            </span>
-            <span class="score serif">{scorelineWide(featuredLast)}</span>
-            <span class={emphasis(featuredLast) === "away" ? "side-lead" : "side-quiet"}>
-              {names.name(featuredLast.away)}
-            </span>
-          </div>
-          {journal?.featured?.last_match?.line && (
-            <div class="card-line">{journal.featured.last_match.line}</div>
-          )}
-          <div class="card-foot">
-            <span class="card-venue">{featuredLast.venue ?? "Venue not published"}</span>
-            <span class="grow"></span>
-            <span class="card-cta">Match report →</span>
-          </div>
-        </a>
-      )}
-      {featuredNext && (
-        <a class="card" href={matchHref(season.key, featuredNext.id)}>
-          <div class="label">NEXT MATCH · {nextLabel(featuredNext)}</div>
-          <div class="card-fixture num">
-            <span class={emphasis(featuredNext) === "away" ? "side-lead" : "side-quiet"}>
-              {names.name(featuredNext.away)}
-            </span>
-            <span class="at">at</span>
-            <span class={emphasis(featuredNext) === "home" ? "side-lead" : "side-quiet"}>
-              {names.name(featuredNext.home)}
-            </span>
-          </div>
-          {journal?.featured?.next_match?.line && (
-            <div class="card-line">{journal.featured.next_match.line}</div>
-          )}
-          <div class="card-foot">
-            <span class="card-venue">{featuredNext.venue ?? "Venue not published"}</span>
-            <span class="grow"></span>
-            <span class="card-cta">Preview →</span>
-          </div>
-        </a>
-      )}
-    </section>
-
-    {/* The week's docket sits with the rest of the "now" band, under the
-        featured pair and above the players and the results around the
-        conference. It stood under the season line once, and folded there it
-        read as a stray rule between two charts. */}
-    <TheWeek season={season} matchesHref={matchesHref(season.key)} />
 
     <section class="split">
       <div class="col">

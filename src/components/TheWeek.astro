@@ -10,7 +10,7 @@
 // reason to favour either.
 import { dayOfMonth, dowLong, monLong, spell } from "../lib/format.ts";
 import { matchHref, type Season } from "../lib/derive.ts";
-import { kickoff, weekOf, weekSummary } from "../lib/schedule.ts";
+import { kickoff, weekOf } from "../lib/schedule.ts";
 
 interface Props {
   season: Season;
@@ -24,12 +24,12 @@ const members = new Set(season.fixtures.programmes.map((p) => p.slug));
 
 const dayLabel = (iso: string): string =>
   `${dowLong(iso).toUpperCase()}, ${monLong(iso).toUpperCase()} ${dayOfMonth(iso)}`;
-const range = `${dowLong(week.start).toUpperCase()}, ${monLong(week.start).toUpperCase()} ${dayOfMonth(week.start)} – ${dowLong(week.end).toUpperCase()}, ${monLong(week.end).toUpperCase()} ${dayOfMonth(week.end)}`;
 
-// The summary line the closed state stands on. It counts the same day groups
-// the docket renders, so the number on the summary row and the number of rows
-// underneath it cannot disagree.
-const summary = weekSummary(week);
+// The closed state is one quiet line: the count and a caret. The week's date
+// range went with the SEASON STORY band — the spine's flag now says which
+// week it is — and the count is the same list the docket renders beneath.
+const count = week.matches.length;
+const headline = count === 0 ? "NO MATCHES THIS WEEK" : `${count} ${count === 1 ? "MATCH" : "MATCHES"} THIS WEEK`;
 
 // The week splits into two columns at desk width; the break keeps whole days
 // together rather than cutting one across the gutter.
@@ -60,11 +60,10 @@ const emptyNote =
       pages. The summary keeps what the closed state has to say for itself. */}
   <details class="disclosure wk-fold">
     <summary class="wk-summary">
-      <h2 class="wk-title">THE WEEK — {range}</h2>
-      <span class="wk-count">{summary}</span>
-      {/* Sits with the label it opens. At the far right it reads as part of
-          "ALL MATCHES →", which is a different destination entirely. */}
-      <span class="wk-chevron" aria-hidden="true">+</span>
+      <h2 class="wk-title">{headline}</h2>
+      {/* Sits with the label it opens. At the far right it would read as part
+          of "ALL MATCHES →", which is a different destination entirely. */}
+      <i class="caret" aria-hidden="true"></i>
     </summary>
 
   {week.matches.length === 0 ? (
@@ -137,7 +136,7 @@ const emptyNote =
   }
   .wk-summary {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     flex-wrap: wrap;
     gap: 4px 14px;
     /* A tap target, and room kept clear for the link overlaying this row. */
@@ -145,9 +144,17 @@ const emptyNote =
     padding: 6px 128px 6px 0;
   }
   .wk-title { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
-  .wk-count { font-size: 10.5px; letter-spacing: 0.12em; color: var(--quiet); }
-  .wk-chevron { font-size: 14px; color: var(--chevron); font-weight: 500; }
-  .wk-fold[open] .wk-chevron { visibility: hidden; }
+  /* The same caret By the Numbers uses for a line that opens on more. */
+  .caret {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid var(--chevron);
+    border-bottom: 1.5px solid var(--chevron);
+    transform: rotate(-45deg);
+    transition: transform 0.15s ease;
+  }
+  .wk-fold[open] .caret { transform: rotate(45deg); }
   .wk-summary:hover .wk-title { color: var(--accent); }
   .wk-all {
     grid-column: 2;

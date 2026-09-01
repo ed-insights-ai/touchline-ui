@@ -168,6 +168,22 @@ describe("the season page's middle, by the numbers", () => {
     expect(spine).not.toContain(".sp-flag-league { display: none; }");
   });
 
+  test("the now band follows the season line: the two cards, then the week, then the analysis", () => {
+    const spine = page.indexOf("<SeasonSpine");
+    const featured = page.indexOf('<section class="featured">');
+    const week = page.indexOf("<TheWeek");
+    const split = page.indexOf('<section class="split">');
+    expect(spine).toBeGreaterThan(0);
+    expect(featured).toBeGreaterThan(spine);
+    expect(week).toBeGreaterThan(featured);
+    expect(split).toBeGreaterThan(week);
+    const docket = readFileSync(join(root, "components/TheWeek.astro"), "utf8");
+    expect(docket).toContain("THIS WEEK");
+    expect(docket).not.toContain("THE WEEK —");
+    expect(docket).toContain('<i class="caret" aria-hidden="true"></i>');
+    expect(docket).toContain('class="wk-all"');
+  });
+
   test("no reader surface prints an evidence chip any more", () => {
     for (const rel of [
       "pages/about.astro",
