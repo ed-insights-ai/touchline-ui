@@ -419,15 +419,16 @@ const nextLabel = (f: Fixture): string => {
   }
   .chart-col { flex: 1; display: flex; flex-direction: column; gap: 4px; justify-content: flex-end; }
   .chart-value { font-size: 12px; font-weight: 600; text-align: center; }
-  /* The spine's palette, not the accent's: grey for the field, ink for the
-     one bar to look at. Purple on this site means league dates and links, and
-     seven purple bars spent that meaning on goals (owner's ruling, 2026-09-01).
-     The leader's value and abbreviation are text, so they wear ink, not a
-     series colour. */
+  /* The spine's palette, not the accent's: grey for the field, a darker grey
+     from the squad shape's ramp for the one bar to look at. Purple on this
+     site means league dates and links, and seven purple bars spent that
+     meaning on goals; solid ink threw the page's weight off (owner's rulings,
+     2026-09-01). The leader's value and abbreviation are text, so they wear
+     ink, not a series colour. */
   .chart-value.is-max { color: var(--ink); }
   .chart-value.is-zero { font-size: 11px; font-weight: 400; color: var(--quiet); }
   .chart-bar { background: var(--light-future); border-radius: 3px 3px 0 0; }
-  .chart-bar.is-max { background: var(--ink); }
+  .chart-bar.is-max { background: var(--tenure-jr); }
   .chart-axis { display: flex; gap: 14px; padding: 0 4px; font-size: 10.5px; }
   .chart-axis a { flex: 1; text-align: center; color: var(--quiet); }
   .chart-axis a.is-max { font-weight: 600; color: var(--ink); }
