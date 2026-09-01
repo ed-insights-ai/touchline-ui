@@ -105,23 +105,10 @@ const nationOf = (m: { player: { hometown?: string } }) => {
 // "+ N more" — are the same population.
 const rendered = LINES.flatMap((l) => squadByLine(season, slug, l.key));
 const origins = countOrigins(rendered.map((m) => m.player.hometown));
-const originResidue = [
-  origins.unplaced > 0
-    ? `${spell(origins.unplaced)} more ${origins.unplaced === 1 ? "publishes" : "publish"} a place this site does not name`
-    : null,
-  origins.absent > 0
-    ? `${spell(origins.absent)} ${origins.absent === 1 ? "publishes" : "publish"} none at all`
-    : null,
-]
-  .filter(Boolean)
-  .join(" and ");
-const originNote =
-  origins.placed === 0
-    ? "No published hometown on this roster names a place this site can place."
-    : `${origins.abroad} of ${origins.placed} ${origins.placed === 1 ? "player carries" : "players carry"} a published hometown outside the United States.` +
-      (originResidue
-        ? ` ${originResidue.charAt(0).toUpperCase()}${originResidue.slice(1)}; they stand outside both sides of that count.`
-        : "");
+// The hometown count rides the SQUAD head as a figure; the flags beside the
+// names are the rest of the story (owner's ruling, 2026-09-01).
+const originKey =
+  origins.placed > 0 ? `${origins.abroad} OF ${origins.placed} HOMETOWNS OUTSIDE THE US` : null;
 
 // The season strip: every fixture the programme published, in order, each cell
 // carrying either its result or its date. Nothing is dropped for want of a score.
@@ -169,7 +156,7 @@ const openerPanel = (() => {
   return {
     label: "RECORD",
     figure: `${record.won}–${record.drawn}–${record.lost}`,
-    note: `${spell(record.played)} played · ${record.goalsFor} scored · ${record.goalsAgainst} conceded.`,
+    note: `${record.goalsFor} scored · ${record.goalsAgainst} conceded`,
   };
 })();
 
@@ -252,21 +239,6 @@ const spread = (squares: { tenure: { step: keyof typeof TENURE_WORDS | null } }[
     .join(", ");
 };
 
-const stripNote = (() => {
-  const spelled = spell(counts.played);
-  const silentWord = spell(counts.silentFinals);
-  const silent =
-    counts.silentFinals > 0
-      ? ` ${silentWord.charAt(0).toUpperCase()}${silentWord.slice(1)} score ${
-          counts.silentFinals === 1 ? "gap" : "gaps"
-        }.`
-      : "";
-  const head = `${spelled.charAt(0).toUpperCase()}${spelled.slice(1)} played, ${spell(counts.total - counts.played - counts.silentFinals)} listed.${silent}`;
-  if (!opener) return head;
-  const oppSlug = opener.home === slug ? opener.away : opener.home;
-  const where = opener.home === slug ? "at home to" : "at";
-  return `${head} The conference opener is ${where} ${names.name(oppSlug)} on ${monLong(opener.date)} ${dayOfMonth(opener.date)}.`;
-})();
 
 const title = programme?.name ?? names.name(slug);
 // Absent identity is a designed state: the meta line simply starts at the record.
@@ -280,10 +252,22 @@ const identity = identityLine(slug);
       <div class="crest-mark">{names.abbr(slug)}</div>
       <div class="crest-id">
         <h1 class="crest-name serif">{title}</h1>
-        <div class="crest-meta num">
-          {identity && `${identity} · `}<strong>{record.won}–{record.drawn}–{record.lost} overall</strong>
-          {" · "}{counts.played} of {counts.total} played
-          {opener && ` · conference opens ${monShort(opener.date)} ${dayOfMonth(opener.date)}`}
+        {identity && <div class="crest-meta num">{identity}</div>}
+        {/* The page's figures in the masthead's strip. The record and the goals
+            live in TEAM PROFILE beneath and are not said twice up here. */}
+        <div class="crest-strip num">
+          {[
+            `${counts.played} OF ${counts.total} PLAYED`,
+            counts.silentFinals > 0
+              ? `${counts.silentFinals} SCORE ${counts.silentFinals === 1 ? "GAP" : "GAPS"}`
+              : null,
+            grid.size > 0 ? `SQUAD ${grid.size}` : null,
+            opener && opener.status !== "final"
+              ? `CONFERENCE OPENS ${monShort(opener.date).toUpperCase()} ${dayOfMonth(opener.date)}`
+              : null,
+          ]
+            .filter((c): c is string => c !== null)
+            .map((c) => <span class="cell">{c}</span>)}
         </div>
       </div>
       <div class="grow"></div>
@@ -294,12 +278,6 @@ const identity = identityLine(slug);
             <FormBadges form={formOf(season, slug)} large />
           </div>
         )}
-        <div class="crest-tally num">
-          GOALS <strong>{record.goalsFor}</strong> &nbsp;·&nbsp; CONCEDED <strong>{record.goalsAgainst}</strong>
-          {grid.size > 0 && (
-            <>&nbsp;·&nbsp; SQUAD <strong>{grid.size}</strong></>
-          )}
-        </div>
       </div>
     </section>
 
@@ -314,7 +292,6 @@ const identity = identityLine(slug);
           isOpener: c.isOpener,
           silent: c.silent,
         }))}
-        note={stripNote}
       />
     </section>
 
@@ -351,6 +328,10 @@ const identity = identityLine(slug);
         <span class="shape-said">{shapeSentence}</span>
       </p>
       <div class="shape">
+        <div class="shape-head num">
+          <span class="grow"></span>
+          <span class="shape-head-minutes">LAST SEASON'S MINUTES STILL HERE</span>
+        </div>
         {grid.rows.map((row) => {
           const pct = returnedShare(row.minutes);
           return (
@@ -402,12 +383,11 @@ const identity = identityLine(slug);
           a legend that will eventually describe a figure the page stopped
           drawing.
 
-          Two of the six are not decoration and may not be quietly lost. The
-          hollow square is a disclosure: the roster printed no class year, and
-          that is a fact about the collection rather than about the player. The
-          last item is the only explanation anywhere on this page of the
-          hairline that stands before newcomer names in the squad list below —
-          the same mark, at row scale, saying the same thing. */}
+          The hollow square is not decoration and may not be quietly lost: it
+          is a disclosure that the roster printed no class year, a fact about
+          the collection rather than about the player. The minutes column is
+          captioned in its own head, and the newcomer hairline is keyed where
+          it is used, on the SQUAD head below. */}
       <div class="shape-legend">
         <span class="legend-item">
           <span class="legend-swatch" aria-hidden="true">
@@ -439,24 +419,20 @@ const identity = identityLine(slug);
           </span>
           <span class="label">Class year the roster never printed</span>
         </span>
-        <span class="legend-item">
-          <span class="legend-swatch" aria-hidden="true">
-            <span class="shape-pct num">%</span>
-          </span>
-          <span class="label">Last season's minutes still here</span>
-        </span>
-        <span class="legend-item">
-          <span class="legend-swatch" aria-hidden="true">
-            <span class="squad-tick is-new"></span>
-          </span>
-          <span class="label">In the squad list below, a newcomer</span>
-        </span>
       </div>
     </section>
     )}
 
     <section class="band band-last" id="squad">
-      <h2 class="sechead">SQUAD</h2>
+      <div class="sq-heading">
+        <h2 class="sq-title">SQUAD</h2>
+        {grid.size > 0 && (
+          <div class="sq-keys num">
+            <span class="sq-key"><span class="squad-tick is-new" aria-hidden="true"></span>NEWCOMER</span>
+            {originKey && <span class="sq-key">{originKey}</span>}
+          </div>
+        )}
+      </div>
       {grid.size === 0 ? (
         <p class="empty">No roster has been collected for this programme.</p>
       ) : (
@@ -538,7 +514,6 @@ const identity = identityLine(slug);
           })}
         </div>
       )}
-      {grid.size > 0 && <p class="squad-origin-note">{originNote}</p>}
     </section>
 
     {cards.map(({ card }) => <PlayerSheet card={card} />)}
@@ -568,12 +543,20 @@ const identity = identityLine(slug);
   .crest-id { display: flex; flex-direction: column; gap: 5px; }
   .crest-name { margin: 0; font-size: 40px; line-height: 1; }
   .crest-meta { font-size: 13px; color: var(--secondary); }
-  .crest-meta strong { color: var(--ink); font-weight: 600; }
+  .crest-strip {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    color: var(--secondary);
+  }
+  .cell { white-space: nowrap; }
+  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
+  @media (max-width: 480px) { .cell { white-space: normal; } }
   .crest-form { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
   .crest-form-row { display: flex; gap: 10px; align-items: center; }
   .crest-form-row .label { margin-right: 6px; }
-  .crest-tally { font-size: 12.5px; color: var(--secondary); }
-  .crest-tally strong { color: var(--ink); font-weight: 600; }
 
   .band {
     padding: 26px 0;
@@ -641,6 +624,7 @@ const identity = identityLine(slug);
      .label is the site's caps-label register and sets the 10px reading floor,
      which is why the items are terse — a caption's sentence does not survive
      being shouted. */
+  .shape-head { display: flex; padding: 0 0 6px; font-size: 10px; letter-spacing: 0.14em; color: var(--quiet); }
   .shape-legend {
     margin: 18px 0 0;
     display: flex; flex-wrap: wrap; align-items: center;
@@ -656,6 +640,17 @@ const identity = identityLine(slug);
   .shape-legend .shape-pct { min-width: 0; }
 
   /* ── Squad ──────────────────────────────────────────────────────────────── */
+  .sq-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 7px;
+  }
+  .sq-title { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+  .sq-keys { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 11px; letter-spacing: 0.1em; color: var(--secondary); }
+  .sq-key { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
   .squad { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; }
   .squad-line { display: flex; flex-direction: column; gap: 10px; }
   .squad-head {
@@ -730,12 +725,6 @@ const identity = identityLine(slug);
     border: 1px solid var(--hairline);
     border-radius: 1px;
   }
-  .squad-origin-note {
-    margin: 22px 0 0;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--quiet);
-    max-width: 900px;
   }
   .squad-more { font-size: 12px; color: var(--quiet); }
   .empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }

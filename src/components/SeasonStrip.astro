@@ -19,9 +19,8 @@ interface Cell {
 }
 interface Props {
   cells: Cell[];
-  note: string;
 }
-const { cells, note } = Astro.props;
+const { cells } = Astro.props;
 ---
 
 <h2 class="sechead">SEASON</h2>
@@ -44,7 +43,6 @@ const { cells, note } = Astro.props;
     </a>
   ))}
 </div>
-<p class="provenance strip-note">{note}</p>
 
 <style>
   /* The detail is positioned against the STRIP, not the cell it belongs to.
@@ -97,7 +95,6 @@ const { cells, note } = Astro.props;
     border-radius: 5px 5px 0 0;
   }
   .cell-opener .cell-opp, .cell-opener .cell-line { color: var(--accent); font-weight: 600; }
-  .strip-note { margin: 0; }
 
   @media (max-width: 1180px) {
     .strip { flex-wrap: wrap; }
