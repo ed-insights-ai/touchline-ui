@@ -374,6 +374,9 @@ const nextLabel = (f: Fixture): string => {
     padding: 28px 0;
     border-bottom: 1px solid var(--hairline);
   }
+  /* The footer draws the page's closing rule; the last section must not draw
+     one of its own 28px above it. (It had a band beneath it once.) */
+  .split:last-of-type { border-bottom: none; }
   .col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 
   /* ── By the numbers ─────────────────────────────────────────────────────── */
