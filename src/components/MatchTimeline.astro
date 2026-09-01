@@ -194,7 +194,7 @@ const stackLabel = (stack: LaneStack): string =>
       politely, this row is the timeline's spoken summary: one mark at a time,
       the clock, the side and the programme's own sentence. */}
   <div class="tl-detail num" aria-live="polite">
-    <div class="tl-hint">HOVER A MARK — OR SELECT ONE — FOR THE PUBLISHED LINE</div>
+    <div class="tl-hint">HOVER OR SELECT A MARK FOR ITS PUBLISHED LINE</div>
     {lanes.map(({ stack }, i) => (
       <div class={`tld tld-${i}`}>
         {stack.marks.map((m) => (

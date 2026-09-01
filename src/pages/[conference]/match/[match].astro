@@ -577,8 +577,11 @@ const awayName = names.name(fixture.away);
   .bar-left { display: flex; justify-content: flex-end; }
   .bar-right { display: flex; }
   .bar { height: 6px; border-radius: 3px; display: block; }
-  .bar-home { background: var(--accent); }
-  .bar-away { background: var(--muted-bar); }
+  /* The goals chart's greys, not the accent: purple on this site means league
+     dates and links, never data. Home takes the darker grey as the figures
+     above take ink (owner's ruling, 2026-09-01). */
+  .bar-home { background: var(--tenure-jr); }
+  .bar-away { background: var(--light-future); }
 
   .periods { display: flex; flex-direction: column; gap: 4px; }
   .period-head, .period-row { display: grid; grid-template-columns: 1fr 44px 44px 52px; gap: 6px; }
