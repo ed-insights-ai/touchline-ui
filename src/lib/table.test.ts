@@ -4,8 +4,9 @@
  * by it. Owner's ruling 2026-09-01: a table has a top and a bottom to read.
  */
 import { describe, expect, test } from "bun:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { dataRoot } from "./data.ts";
 import { computeOverallTable, computeTable, type FixturesFile } from "./model.ts";
 
 const file: FixturesFile = {
@@ -135,11 +136,20 @@ describe("the season page's middle, by the numbers", () => {
     expect(page).toContain('<details class="disclosure chart-basis">');
   });
 
+  test("once conference play opens, the loud line is conference record and points, the dim line all matches", () => {
+    expect(table).toContain('class="trow trow-live hoverable"');
+    expect(table).toContain('class="tdim"');
+    expect(table).toContain("all matches {record(o)}");
+    expect(table).toContain("RANKED ON CONFERENCE MATCHES");
+    // The dim line carries the form, so the loud line holds four short cells.
+    expect(table).toMatch(/\.trow-live \{ grid-template-columns: 20px 1fr \d+px \d+px; \}/);
+  });
+
   test("the table ranks all matches until conference play opens, and says so", () => {
     expect(page).toContain("live ? table(season) : overallTable(season)");
     expect(page).toContain("opens={opens}");
     expect(table).toContain("ALL MATCHES UNTIL CONFERENCE PLAY OPENS");
-    expect(table).toContain("CONFERENCE MATCHES ONLY");
+    expect(table).toContain("RANKED ON CONFERENCE MATCHES");
     expect(table).toContain("3–1–0 POINTS");
     expect(table).not.toContain("table-state");
     expect(table).not.toContain("statement");
@@ -154,6 +164,32 @@ describe("the season page's middle, by the numbers", () => {
       const src = readFileSync(join(root, rel), "utf8");
       expect(src, rel).not.toContain("EvidenceChip");
       expect(src, rel).not.toContain("chip-observed");
+    }
+  });
+});
+
+describe("a finished season's table, on the 2025 Lone Star files", () => {
+  const path = join(dataRoot(), "fixtures", "2025-men-lsc.json");
+  const present = existsSync(path);
+
+  test.skipIf(!present)("every side's all-matches record contains its conference record", () => {
+    const file = JSON.parse(readFileSync(path, "utf8")) as FixturesFile;
+    const conference = computeTable(file);
+    const overall = new Map(computeOverallTable(file).map((r) => [r.slug, r]));
+    expect(conference.length).toBeGreaterThan(0);
+    for (const c of conference) {
+      const o = overall.get(c.slug);
+      expect(o, c.slug).toBeDefined();
+      if (!o) continue;
+      expect(o.played, c.slug).toBeGreaterThanOrEqual(c.played);
+      expect(o.won, c.slug).toBeGreaterThanOrEqual(c.won);
+      expect(o.points, c.slug).toBeGreaterThanOrEqual(c.points);
+      // A full conference season, not a handful: the row has to hold it.
+      expect(c.played, c.slug).toBeGreaterThanOrEqual(8);
+    }
+    // Ranked: points never rise down the table.
+    for (let i = 1; i < conference.length; i++) {
+      expect(conference[i - 1]?.points ?? 0).toBeGreaterThanOrEqual(conference[i]?.points ?? 0);
     }
   });
 });
