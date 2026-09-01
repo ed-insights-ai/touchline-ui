@@ -17,8 +17,15 @@
 // the right things.
 
 import { site } from "../site.config.ts";
-import { memberSlugs, type Season } from "./derive.ts";
-import type { Fixture } from "./model.ts";
+import {
+  boxScoreGaps,
+  hasScore,
+  isExhibition,
+  isScored,
+  memberSlugs,
+  type Season,
+} from "./derive.ts";
+import { type Fixture, isPlayed } from "./model.ts";
 
 /** What makes two records the same real-world match: the day, and the two
  *  programmes in an order neither of them chose. Slugs are the same string in
@@ -97,4 +104,108 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     });
   }
   return out;
+}
+
+/** Every conference's record of every match it collected, in config order. */
+export function allSightings(seasons: readonly Season[]): Sighting[] {
+  const order = new Map(site.conferences.map((k, i) => [k, i]));
+  return [...seasons]
+    .sort(
+      (a, b) =>
+        (order.get(a.key) ?? site.conferences.length) -
+        (order.get(b.key) ?? site.conferences.length),
+    )
+    .flatMap((season) =>
+      season.fixtures.fixtures.map((fixture) => ({
+        key: season.key,
+        code: season.fixtures.conference,
+        season,
+        fixture,
+      })),
+    );
+}
+
+/** The figures a division-level surface may print. */
+export interface DivisionFigures {
+  played: number;
+  silentFinals: number;
+  gaps: number;
+  total: number;
+  exhibitions: number;
+}
+
+export interface DivisionCounts extends DivisionFigures {
+  /**
+   * How many EXTRA records the conferences' own counts hold for each figure.
+   *
+   * A match two of them collected is in two files, so any sum of their counts
+   * holds it twice. Every figure above reconciles exactly —
+   *
+   *     sum of the columns − duplicated = the figure
+   *
+   * — and the term is here so that reconciliation stands on a number rather
+   * than on a subtraction nobody can check. It is a count of extra RECORDS,
+   * not of shared matches, so it stays right if a match ever reaches three
+   * files rather than two.
+   */
+  duplicated: DivisionFigures;
+}
+
+/**
+ * The division's counts, every one of them a count of MATCHES.
+ *
+ * Each definition is the season page's own — played is a final with a
+ * published score, a silent final is one without, a gap is a played match
+ * whose box score the collector could not reach, and a friendly is outside all
+ * of it — applied to the FOLDED list rather than to the files. Summing the
+ * conferences instead counts a match between two of them twice, which is what
+ * "48 of 363 matches played" was doing on the published site (tui-2l6).
+ *
+ * The fold is structural, not conditional. It runs over every figure whether
+ * or not today's data happens to duplicate that one: on the collect this was
+ * written against only the total and the played count were affected, and a
+ * design that folded just those two would start lying the first day two
+ * conferences both went silent on the same match.
+ */
+export function divisionCounts(seasons: readonly Season[]): DivisionCounts {
+  const zero = (): DivisionFigures => ({
+    played: 0,
+    silentFinals: 0,
+    gaps: 0,
+    total: 0,
+    exhibitions: 0,
+  });
+  const figures = zero();
+  const duplicated = zero();
+  const count = (key: keyof DivisionFigures, records: number): void => {
+    figures[key]++;
+    duplicated[key] += records - 1;
+  };
+
+  for (const m of foldToMatches(allSightings(seasons))) {
+    const f = m.fixture;
+    const records = m.sightings.length;
+    if (isExhibition(f)) {
+      count("exhibitions", records);
+      continue;
+    }
+    count("total", records);
+    if (isScored(f)) count("played", records);
+    else if (isPlayed(f) && !hasScore(f)) count("silentFinals", records);
+  }
+
+  // A gap is named by the collector that could not reach the box score, so it
+  // folds by the match it belongs to. One whose fixture the collector could
+  // not resolve either cannot fold at all, and is counted where it stands
+  // rather than guessed at.
+  const gaps = new Map<string, number>();
+  for (const s of seasons) {
+    for (const g of boxScoreGaps(s)) {
+      const id = g.fixture ? matchIdentity(g.fixture) : `unresolved:${s.key}:${g.fixtureId}`;
+      gaps.set(id, (gaps.get(id) ?? 0) + 1);
+    }
+  }
+  for (const records of gaps.values()) count("gaps", records);
+
+  return { ...figures, duplicated };
 }

@@ -17,6 +17,7 @@ import FootprintBand from "../components/FootprintBand.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Page from "../layouts/Page.astro";
 import { hasScore, matchHref, seasonHref } from "../lib/derive.ts";
+import { divisionCounts } from "../lib/division.ts";
 import type { Fixture } from "../lib/derive.ts";
 import {
   dayOfMonth,
@@ -33,7 +34,6 @@ import {
   lastNightOpen,
   mostImminentKey,
   nationalAsOf,
-  nationalCounts,
   nationalDescription,
   nationalLede,
 } from "../lib/home.ts";
@@ -43,7 +43,12 @@ import { site } from "../site.config.ts";
 const seasons = homeSeasons();
 const columns = homeColumns(seasons);
 const imminent = mostImminentKey(columns);
-const national = nationalCounts(columns);
+// The division's figures are counts of MATCHES, not the sum of the columns: a
+// match between two of these conferences is in both files, and the sum held it
+// twice (tui-2l6). The cards below still print their own conference's count,
+// which is right, and the About page carries the sentence a reader who adds
+// the three of them up is owed.
+const national = divisionCounts(seasons);
 
 const asOf = nationalAsOf(seasons);
 const lede = nationalLede(columns, asOf, national);

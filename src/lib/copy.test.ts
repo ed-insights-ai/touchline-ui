@@ -28,6 +28,7 @@
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { hasScore, loadSeason, matchDetailOf, type Season, squadOf } from "./derive.ts";
+import { divisionCounts } from "./division.ts";
 import { longDate, shortDate, spell } from "./format.ts";
 import {
   homeColumns,
@@ -112,8 +113,14 @@ function matchPages(s: Season): Line[] {
 /** The national masthead's prose, and the paragraph its description publishes.
  *  The kicker and the strip are small-caps figures rather than sentences, and
  *  every property here is a rule about a sentence. */
-const nationalColumns = homeColumns(homeSeasons());
-const nationalMasthead = nationalLede(nationalColumns, nationalAsOf(homeSeasons()));
+const nationalSeasons = homeSeasons();
+const nationalColumns = homeColumns(nationalSeasons);
+const nationalFigures = divisionCounts(nationalSeasons);
+const nationalMasthead = nationalLede(
+  nationalColumns,
+  nationalAsOf(nationalSeasons),
+  nationalFigures,
+);
 
 function nationalPage(): Line[] {
   const out: Line[] = [];
@@ -121,7 +128,10 @@ function nationalPage(): Line[] {
     out.push({ where: "national headline", text: nationalMasthead.headline });
   }
   if (nationalMasthead.dek) out.push({ where: "national dek", text: nationalMasthead.dek });
-  out.push({ where: "national description", text: nationalDescription(nationalColumns) });
+  out.push({
+    where: "national description",
+    text: nationalDescription(nationalColumns, nationalFigures),
+  });
   // The conference cards' lines, as the card renders them. Only the wire is
   // added here: when a journal has not written one the card falls back to the
   // season headline, which conferencePage() already puts in the corpus.

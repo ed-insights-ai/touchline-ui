@@ -24,7 +24,12 @@ import {
   seasonCounts,
   tableIsLive,
 } from "./derive.ts";
-import { type DivisionMatch, foldToMatches, type Sighting } from "./division.ts";
+import {
+  type DivisionCounts,
+  type DivisionMatch,
+  foldToMatches,
+  type Sighting,
+} from "./division.ts";
 import { dayNumber, dowShort, plural, shortDate, spell, toISO } from "./format.ts";
 import type { Fixture } from "./model.ts";
 
@@ -178,24 +183,11 @@ export function lastNightOpen(seasons: readonly Season[], date: string): Divisio
   ).sort((a, b) => byKickoff(a.fixture, b.fixture));
 }
 
-export interface NationalCounts extends SeasonCounts {
-  exhibitions: number;
-}
-
-/** The division's sums. Each addend is a column's own count, which is the
- *  season page's own count, so the lede and the linked pages cannot disagree
- *  — and home.test.ts recounts both from the fixtures to keep it that way. */
-export function nationalCounts(columns: readonly HomeColumn[]): NationalCounts {
-  const nat: NationalCounts = { played: 0, silentFinals: 0, gaps: 0, total: 0, exhibitions: 0 };
-  for (const c of columns) {
-    nat.played += c.counts.played;
-    nat.silentFinals += c.counts.silentFinals;
-    nat.gaps += c.counts.gaps;
-    nat.total += c.counts.total;
-    nat.exhibitions += c.exhibitions;
-  }
-  return nat;
-}
+// The division's figures are NOT the sum of the columns. They used to be, and
+// the sum counted a match between two of these conferences twice — see
+// divisionCounts() in division.ts, which is where they come from now. Each
+// column's own count is still exactly its season page's, and still right; it
+// is only adding them up that stops being a count of matches.
 
 const sentenceCase = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 
@@ -234,7 +226,7 @@ export interface NationalLede {
 export function nationalLede(
   columns: readonly HomeColumn[],
   asOf: string,
-  national: NationalCounts = nationalCounts(columns),
+  national: DivisionCounts,
 ): NationalLede {
   return {
     kicker: `${site.division} · ${dowShort(asOf)} ${shortDate(asOf)}`.toUpperCase(),
@@ -278,7 +270,7 @@ function openersSentence(columns: readonly HomeColumn[]): string | null {
  *  identifier of the page as much as a summary of it. */
 export function nationalDescription(
   columns: readonly HomeColumn[],
-  national: NationalCounts = nationalCounts(columns),
+  national: DivisionCounts,
 ): string {
   const sentences: string[] = [];
   sentences.push(

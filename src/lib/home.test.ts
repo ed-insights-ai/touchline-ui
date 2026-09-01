@@ -19,6 +19,7 @@ import {
   memberSlugs,
   seasonCounts,
 } from "./derive.ts";
+import { divisionCounts } from "./division.ts";
 import { daysBetween, dowShort, shortDate, spell } from "./format.ts";
 import {
   type HomeColumn,
@@ -30,16 +31,15 @@ import {
   mostImminentKey,
   type NationalLede,
   nationalAsOf,
-  nationalCounts,
   nationalDescription,
   nationalLede,
   nextLeagueKickoff,
 } from "./home.ts";
-import { isPlayed } from "./model.ts";
+import { type Fixture, isPlayed } from "./model.ts";
 
 const seasons = homeSeasons();
 const columns = homeColumns(seasons);
-const national = nationalCounts(columns);
+const national = divisionCounts(seasons);
 
 describe("the columns are config, ordered by the soonest league kickoff", () => {
   test("every collected conference gets exactly one column, and none is invented", () => {
@@ -215,12 +215,19 @@ describe("every count survives being written out as a list", () => {
     }
   });
 
-  test("the national figures are exactly the column figures, summed", () => {
-    expect(national.played).toBe(columns.reduce((n, c) => n + c.counts.played, 0));
-    expect(national.total).toBe(columns.reduce((n, c) => n + c.counts.total, 0));
-    expect(national.silentFinals).toBe(columns.reduce((n, c) => n + c.counts.silentFinals, 0));
-    expect(national.gaps).toBe(columns.reduce((n, c) => n + c.counts.gaps, 0));
-    expect(national.exhibitions).toBe(columns.reduce((n, c) => n + c.exhibitions, 0));
+  test("the national figures are the column figures less what they hold twice", () => {
+    // They used to be the plain sum, and the plain sum counted a match between
+    // two of these conferences once for each file it is in. Every figure now
+    // carries its own duplicate term, and every one of them reconciles.
+    const sum = (pick: (c: HomeColumn) => number): number =>
+      columns.reduce((n, c) => n + pick(c), 0);
+    expect(national.played).toBe(sum((c) => c.counts.played) - national.duplicated.played);
+    expect(national.total).toBe(sum((c) => c.counts.total) - national.duplicated.total);
+    expect(national.silentFinals).toBe(
+      sum((c) => c.counts.silentFinals) - national.duplicated.silentFinals,
+    );
+    expect(national.gaps).toBe(sum((c) => c.counts.gaps) - national.duplicated.gaps);
+    expect(national.exhibitions).toBe(sum((c) => c.exhibitions) - national.duplicated.exhibitions);
   });
 });
 
@@ -283,7 +290,7 @@ describe("the masthead is derived, deterministically, from counts and opener dat
 
   test("the same inputs produce the same parts — no model call anywhere in it", () => {
     expect(nationalLede(columns, asOf, national)).toEqual(lede);
-    expect(nationalLede(columns, asOf)).toEqual(lede);
+    expect(nationalLede(columns, asOf, divisionCounts(seasons))).toEqual(lede);
   });
 
   test("the description keeps the prose the masthead stopped printing", () => {
@@ -300,30 +307,60 @@ describe("the masthead is derived, deterministically, from counts and opener dat
 /**
  * The reconciliation the page does not print.
  *
- * Nothing on the national page lays the division's sums out as addends for a
- * reader to check by hand. The obligation stands anyway: the division figures
- * have to be the sum of what the pages beneath them show, and those pages have
- * to agree with the fixtures.
+ * Nothing on the national page lays the division's figures out as addends for
+ * a reader to check by hand. The obligation stands anyway, and it has three
+ * terms rather than two now:
+ *
+ *     sum of the columns  −  the records they hold twice  =  the division
+ *
+ * The middle term is why. A match between two of these conferences is in both
+ * files, so any sum of their counts holds it twice, and "48 of 363 matches
+ * played" was published for as long as nobody subtracted it (tui-2l6). Each
+ * column's own figure is still exactly its season page's, and still right.
  *
  * So this reads the figures back out of the two surfaces that publish them —
  * the masthead strip a reader meets and the description a share card meets —
- * and compares them against a sum recounted from the fixtures, not against
- * nationalCounts(), which is that sum and could only ever agree with itself.
- * Each check has a matching test that perturbs an input and proves it goes
- * red, because a reconciliation that cannot fail is a comment.
- *
- * The columns print played of total and nothing else, so that pair is what a
- * reader can add up on this page. The silences are not in the columns; they
- * are in the strip, and printed per conference on the season pages a reader
- * gets to from here — one click further on, and just as addable.
+ * and compares them against a sum recounted from the fixtures MINUS a
+ * duplicate count recounted from the fixtures. Neither comes from
+ * divisionCounts(), which is the thing under test and could only ever agree
+ * with itself. Each check has a matching test that perturbs an input and
+ * proves it goes red, because a reconciliation that cannot fail is a comment.
  */
 describe("the reconciliation the page stopped printing", () => {
   const NUMBER = new Map<string, number>();
   for (let n = 0; n <= 40; n++) NUMBER.set(spell(n), n);
 
   const asOf = nationalAsOf(seasons);
-  const sum = (cols: readonly HomeColumn[], pick: (c: HomeColumn) => number): number =>
-    cols.reduce((n, c) => n + pick(c), 0);
+  const sum = (pick: (c: HomeColumn) => number): number => columns.reduce((n, c) => n + pick(c), 0);
+
+  /** What two conferences collected twice, recounted from the raw lists by the
+   *  same identity the page must fold on — the day and the two programmes,
+   *  never the id, which is the collector's own key. Counted as EXTRA records
+   *  rather than as shared matches, so it stays right if one ever reaches
+   *  three files. */
+  function duplicatedRecords(admit: (f: Fixture) => boolean): number {
+    const groups = new Map<string, number>();
+    for (const c of columns) {
+      for (const f of loadSeason(c.key).fixtures.fixtures) {
+        if (!admit(f)) continue;
+        const id = `${f.date} ${[f.home, f.away].sort().join(" v ")}`;
+        groups.set(id, (groups.get(id) ?? 0) + 1);
+      }
+    }
+    let extra = 0;
+    for (const n of groups.values()) extra += n - 1;
+    return extra;
+  }
+
+  const isSilentFinal = (f: Fixture): boolean => isCountable(f) && isPlayed(f) && !hasScore(f);
+
+  /** The division's figures, recounted from the files the long way round. */
+  const fromFixtures = {
+    played: (): number => sum((c) => c.counts.played) - duplicatedRecords(isScored),
+    total: (): number => sum((c) => c.counts.total) - duplicatedRecords(isCountable),
+    silentFinals: (): number =>
+      sum((c) => c.counts.silentFinals) - duplicatedRecords(isSilentFinal),
+  };
 
   /** A strip cell, found by what it says rather than by where it sits: the
    *  order of the row is a design decision and this is not a test of it. */
@@ -335,60 +372,44 @@ describe("the reconciliation the page stopped printing", () => {
     return null;
   }
 
-  /** Every way the strip and the columns beneath it can disagree. Empty is
-   *  the only passing answer; each entry says which figure parted company. */
-  function stripDisagreements(lede: NationalLede, cols: readonly HomeColumn[]): string[] {
+  /** Every way the strip and the files can disagree. Empty is the only passing
+   *  answer; each entry says which figure parted company. */
+  function stripDisagreements(lede: NationalLede, played: number, total: number): string[] {
     const out: string[] = [];
     const m = cell(lede.strip, /^(\d+) OF (\d+) PLAYED$/);
     if (!m) {
       out.push("the strip does not state played of total at all");
       return out;
     }
-    const played = Number(m[1]);
-    const total = Number(m[2]);
-    if (played !== sum(cols, (c) => c.counts.played)) {
-      out.push(`played: strip ${played}, columns ${sum(cols, (c) => c.counts.played)}`);
-    }
-    if (total !== sum(cols, (c) => c.counts.total)) {
-      out.push(`total: strip ${total}, columns ${sum(cols, (c) => c.counts.total)}`);
-    }
+    if (Number(m[1]) !== played) out.push(`played: strip ${m[1]}, files ${played}`);
+    if (Number(m[2]) !== total) out.push(`total: strip ${m[2]}, files ${total}`);
     return out;
   }
 
   /** The same, for the paragraph the description publishes. It states one
-   *  figure the strip does not — how many conferences were added up — so the
-   *  two surfaces are checked separately rather than one standing for both. */
-  function descriptionDisagreements(text: string, cols: readonly HomeColumn[]): string[] {
+   *  figure the strip does not — how many conferences were folded together —
+   *  so the two surfaces are checked separately rather than one standing in
+   *  for both. */
+  function descriptionDisagreements(text: string, played: number, total: number): string[] {
     const out: string[] = [];
     const m = /(\d+) of (\d+) matches played across ([a-z]+) (conference|conferences)\./.exec(text);
     if (!m) {
       out.push("the description does not state played of total at all");
       return out;
     }
-    const played = Number(m[1]);
-    const total = Number(m[2]);
-    const conferences = NUMBER.get(m[3] as string);
-    if (played !== sum(cols, (c) => c.counts.played)) {
-      out.push(`played: description ${played}, columns ${sum(cols, (c) => c.counts.played)}`);
-    }
-    if (total !== sum(cols, (c) => c.counts.total)) {
-      out.push(`total: description ${total}, columns ${sum(cols, (c) => c.counts.total)}`);
-    }
-    if (conferences !== cols.length) {
-      out.push(`conferences: description ${m[3]}, columns ${cols.length}`);
+    if (Number(m[1]) !== played) out.push(`played: description ${m[1]}, files ${played}`);
+    if (Number(m[2]) !== total) out.push(`total: description ${m[2]}, files ${total}`);
+    if (NUMBER.get(m[3] as string) !== columns.length) {
+      out.push(`conferences: description ${m[3]}, columns ${columns.length}`);
     }
     return out;
   }
 
-  /** The silent-finals figure the strip prints, read back out of its cell.
-   *  Null means the cell is not there at all, which is its own failure: the
-   *  zero case is a cell too. */
   function silentInStrip(lede: NationalLede): number | null {
     const m = cell(lede.strip, /^(\d+) SILENT (?:FINAL|FINALS)$/);
     return m ? Number(m[1]) : null;
   }
 
-  /** And out of the description's prose, where it is spelled. */
   function silentInDescription(text: string): number | null {
     if (text.includes("No final stands without a published score.")) return 0;
     const some = /(\w+) (?:final stands|finals stand) without a published score\./.exec(text);
@@ -396,29 +417,61 @@ describe("the reconciliation the page stopped printing", () => {
     return spelled === undefined ? null : spelled;
   }
 
-  /** The division's silences, recounted from the fixture lists themselves —
-   *  the same arithmetic each season page's masthead is held to. */
-  const silentFromFixtures = (): number =>
-    columns.reduce(
-      (n, c) =>
-        n +
-        loadSeason(c.key).fixtures.fixtures.filter(
-          (f) => isCountable(f) && isPlayed(f) && !hasScore(f),
-        ).length,
-      0,
-    );
-
-  test("the strip's played of total is the columns' played of total, added up", () => {
-    expect(stripDisagreements(nationalLede(columns, asOf, national), columns)).toEqual([]);
+  test("the strip's played of total is the columns' figures, less what they hold twice", () => {
+    expect(
+      stripDisagreements(
+        nationalLede(columns, asOf, national),
+        fromFixtures.played(),
+        fromFixtures.total(),
+      ),
+    ).toEqual([]);
   });
 
   test("and the description's is too, conference count included", () => {
-    expect(descriptionDisagreements(nationalDescription(columns, national), columns)).toEqual([]);
+    expect(
+      descriptionDisagreements(
+        nationalDescription(columns, national),
+        fromFixtures.played(),
+        fromFixtures.total(),
+      ),
+    ).toEqual([]);
+  });
+
+  test("the middle term is not zero — the subtraction is doing work", () => {
+    // Without this, a fold that stopped folding would pass every check above
+    // by agreeing with a sum that had nothing to subtract. Recounted from the
+    // files, not from divisionCounts.
+    expect(duplicatedRecords(isCountable), "no shared match in this data").toBeGreaterThan(0);
+    expect(duplicatedRecords(isScored), "no shared result in this data").toBeGreaterThan(0);
+    expect(fromFixtures.total()).toBeLessThan(sum((c) => c.counts.total));
+    expect(fromFixtures.played()).toBeLessThan(sum((c) => c.counts.played));
+  });
+
+  test("and every figure the division prints folds, whether or not it needs to today", () => {
+    // Structural, not conditional. Silences and gaps have no duplicate on this
+    // collect, and the day one appears the figure must already be right rather
+    // than needing a second fix.
+    expect(national.silentFinals).toBe(fromFixtures.silentFinals());
+    expect(national.gaps).toBe(
+      sum((c) => c.counts.gaps) -
+        duplicatedRecords((f) => {
+          const ids = new Set(
+            columns.flatMap((c) => boxScoreGaps(loadSeason(c.key)).map((g) => g.fixtureId)),
+          );
+          return ids.has(f.id);
+        }),
+    );
+    expect(national.exhibitions).toBe(sum((c) => c.exhibitions) - duplicatedRecords(isExhibition));
+    // And the figures' own duplicate terms are the ones recounted here.
+    expect(national.duplicated.total).toBe(duplicatedRecords(isCountable));
+    expect(national.duplicated.played).toBe(duplicatedRecords(isScored));
+    expect(national.duplicated.silentFinals).toBe(duplicatedRecords(isSilentFinal));
+    expect(national.duplicated.exhibitions).toBe(duplicatedRecords(isExhibition));
   });
 
   test("and the columns are the linked season pages, recounted from the fixtures", () => {
     // The other half of the promise: each addend equals what its own season
-    // page shows, so agreeing with the strip is worth something.
+    // page shows, so subtracting from their sum is worth something.
     for (const c of columns) {
       const s = loadSeason(c.key);
       expect(c.counts, c.key).toEqual(seasonCounts(s));
@@ -427,52 +480,60 @@ describe("the reconciliation the page stopped printing", () => {
   });
 
   test("the silences on both surfaces are the fixtures' silences, recounted", () => {
-    // The columns do not print this; the strip does as a figure, the
-    // description does in words, and the season pages name every one of them.
-    // Read the figure back out of each and count the silent finals again from
-    // the files.
-    expect(silentInStrip(nationalLede(columns, asOf, national))).toBe(silentFromFixtures());
-    expect(silentInDescription(nationalDescription(columns, national))).toBe(silentFromFixtures());
+    expect(silentInStrip(nationalLede(columns, asOf, national))).toBe(fromFixtures.silentFinals());
+    expect(silentInDescription(nationalDescription(columns, national))).toBe(
+      fromFixtures.silentFinals(),
+    );
   });
 
   test("and both go red when the silences drift from the files", () => {
-    // The teeth for the figure the columns do not back up. Move the count the
-    // masthead is built from and the recount must refuse it.
     const drift = { ...national, silentFinals: national.silentFinals + 2 };
-    expect(silentInStrip(nationalLede(columns, asOf, drift))).not.toBe(silentFromFixtures());
-    expect(silentInDescription(nationalDescription(columns, drift))).not.toBe(silentFromFixtures());
+    expect(silentInStrip(nationalLede(columns, asOf, drift))).not.toBe(fromFixtures.silentFinals());
+    expect(silentInDescription(nationalDescription(columns, drift))).not.toBe(
+      fromFixtures.silentFinals(),
+    );
     // And the cell must be there at all: a strip that stopped stating the
     // count would otherwise pass a comparison it never took part in.
     expect(silentInStrip(nationalLede(columns, asOf, national))).not.toBeNull();
     expect(silentInDescription(nationalDescription(columns, national))).not.toBeNull();
   });
 
-  test("gaps reconcile the same way, though nothing adds them up now", () => {
-    // No surface prints the division's gap total, and no column prints its
-    // own. Nothing shows this figure anywhere, and it still has to be true.
-    expect(national.gaps).toBe(
-      columns.reduce((n, c) => n + boxScoreGaps(loadSeason(c.key)).length, 0),
-    );
+  test("it goes red when a division figure moves", () => {
+    // The teeth. Perturb the figures the masthead is built from and the
+    // recount must name the one that parted company.
+    const played = fromFixtures.played();
+    const total = fromFixtures.total();
+    const moved = { ...national, played: national.played + 1 };
+    expect(
+      stripDisagreements(nationalLede(columns, asOf, moved), played, total).join(" "),
+    ).toContain("played:");
+    expect(
+      descriptionDisagreements(nationalDescription(columns, moved), played, total).join(" "),
+    ).toContain("played:");
+
+    const larger = { ...national, total: national.total + 3 };
+    expect(
+      stripDisagreements(nationalLede(columns, asOf, larger), played, total).join(" "),
+    ).toContain("total:");
+    expect(
+      descriptionDisagreements(nationalDescription(columns, larger), played, total).join(" "),
+    ).toContain("total:");
   });
 
-  test("it goes red when a column figure moves", () => {
-    // The teeth. Perturb one column and leave the masthead alone — exactly the
-    // drift the retired block would have shown a reader — and the check must
-    // name the figure that parted company.
-    expect(columns.length).toBeGreaterThan(0);
-    const lede = nationalLede(columns, asOf, national);
-    const description = nationalDescription(columns, national);
-    const moved = columns.map((c, i) =>
-      i === 0 ? { ...c, counts: { ...c.counts, played: c.counts.played + 1 } } : c,
-    );
-    expect(stripDisagreements(lede, moved).join(" ")).toContain("played:");
-    expect(descriptionDisagreements(description, moved).join(" ")).toContain("played:");
-
-    // A total that drifts is caught too, and named separately.
-    const larger = columns.map((c, i) =>
-      i === 0 ? { ...c, counts: { ...c.counts, total: c.counts.total + 3 } } : c,
-    );
-    expect(stripDisagreements(lede, larger).join(" ")).toContain("total:");
-    expect(descriptionDisagreements(description, larger).join(" ")).toContain("total:");
+  test("and it goes red if the fold stops folding at all", () => {
+    // The failure the middle term exists to catch: a division figure that is
+    // the raw sum again. Neither surface may agree with it.
+    const unfolded = {
+      ...national,
+      played: sum((c) => c.counts.played),
+      total: sum((c) => c.counts.total),
+    };
+    expect(
+      stripDisagreements(
+        nationalLede(columns, asOf, unfolded),
+        fromFixtures.played(),
+        fromFixtures.total(),
+      ),
+    ).not.toEqual([]);
   });
 });
