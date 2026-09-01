@@ -202,8 +202,10 @@ const opensLine = (c: (typeof columns)[number]): string =>
           </div>
           {/* The played figure alone. "3 silent · 0 gaps" is house vocabulary,
               and a column is the one place on the site with no room to define
-              it — the strip above states the division's silences as a figure,
-              and each season page carries its conference's full accounting. */}
+              it. The strip above stopped counting silences too (the owner's
+              ruling: what the division is missing is not this page's lead
+              information) — each season page carries its conference's full
+              accounting. */}
           <div class="conf-counts num">
             <span class="conf-frac">{c.counts.played} of {c.counts.total}</span>
             <span class="conf-dim"> matches played</span>

@@ -139,8 +139,11 @@ export interface NationalBrief {
     }[];
     openers: { conference: string; opens_on: string; days_away: number }[];
     /** The counts AND the matches, because a silence is only worth a sentence
-     *  when the sentence can name it. The strip already prints the division's
-     *  total, so the fact left to say is which conference it sits in. */
+     *  when the sentence can name it. The masthead strip stopped printing the
+     *  division's total (the owner's ruling, Sep 1: what the division is
+     *  missing is not this page's lead information) — so a bare count is a
+     *  story the page has already declined, and where the silences SIT is
+     *  the only silence fact left worth its headline. */
     silences: {
       conference: string;
       /** Kept apart, and named apart. A final with no score and a match that

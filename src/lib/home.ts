@@ -30,16 +30,7 @@ import {
   foldToMatches,
   type Sighting,
 } from "./division.ts";
-import {
-  dayNumber,
-  dayOfMonth,
-  dowShort,
-  monShort,
-  plural,
-  shortDate,
-  spell,
-  toISO,
-} from "./format.ts";
+import { dayNumber, dayOfMonth, dowShort, monShort, shortDate, spell, toISO } from "./format.ts";
 import type { NationalJournalFile } from "./journal.ts";
 import type { Fixture } from "./model.ts";
 
@@ -227,9 +218,11 @@ export interface NationalLede {
    *  and which only this line puts in order across the division. */
   dek: string | null;
   /** The hairline data row, in the order it is read. Every cell is
-   *  unconditional: a clean collect reads 0 SILENT FINALS, because a reader
-   *  must never have to infer a zero from a sentence we chose not to write.
-   *  That doctrine used to live in the prose; it lives here now. */
+   *  unconditional — never rendered on one collect and dropped on the next.
+   *  The silent-final count is not a cell by the owner's ruling: what the
+   *  division is missing is not this page's lead information. The accounting
+   *  survives where it is content — each season page, and the description
+   *  this page publishes to surfaces that get no cards at all. */
   strip: string[];
   /** When the headline last changed — "UPDATED SEP 1". A standing line is
    *  displaced by something more newsworthy or by no longer being true, never
@@ -248,10 +241,7 @@ export function nationalLede(
     kicker: `${site.division} · ${dowShort(asOf)} ${shortDate(asOf)}`.toUpperCase(),
     headline: null,
     dek: openersSentence(columns),
-    strip: [
-      `${national.played} OF ${national.total} PLAYED`,
-      `${national.silentFinals} SILENT ${plural(national.silentFinals, "FINAL", "FINALS")}`,
-    ],
+    strip: [`${national.played} OF ${national.total} PLAYED`],
     stamp: null,
   };
 }

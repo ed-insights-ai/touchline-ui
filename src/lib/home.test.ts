@@ -272,21 +272,20 @@ describe("the masthead is derived, deterministically, from counts and opener dat
   });
 
   test("the strip states the division's figures, in cells", () => {
-    expect(lede.strip).toEqual([
-      `${national.played} OF ${national.total} PLAYED`,
-      `${national.silentFinals} SILENT ${national.silentFinals === 1 ? "FINAL" : "FINALS"}`,
-    ]);
+    expect(lede.strip).toEqual([`${national.played} OF ${national.total} PLAYED`]);
   });
 
-  test("it names the silences always — a zero is a figure, not a silence of ours", () => {
-    // Nothing else on this page prints a division zero, so the strip is the
-    // only place one can appear, and a reader must not have to infer a clean
-    // collect from a cell we chose not to render. The doctrine moved here
-    // from the prose sentence; the obligation did not move.
+  test("the strip does not count the silences — by ruling, not by accident", () => {
+    // The owner's ruling (Sep 1): what the division is missing is not this
+    // page's lead information. So the strip must read the same whatever the
+    // silent-final count is — a cell that appeared only on a bad collect
+    // would be the old doctrine sneaking back as a conditional. The count
+    // still lives where it is content: each season page's accounting, and
+    // the description this page publishes to card-less surfaces.
     const clean = nationalLede(columns, asOf, { ...national, silentFinals: 0 });
-    expect(clean.strip).toContain("0 SILENT FINALS");
-    const one = nationalLede(columns, asOf, { ...national, silentFinals: 1 });
-    expect(one.strip).toContain("1 SILENT FINAL");
+    const five = nationalLede(columns, asOf, { ...national, silentFinals: 5 });
+    expect(clean.strip).toEqual(five.strip);
+    expect(lede.strip.join(" ")).not.toContain("SILENT");
   });
 
   test("the same inputs produce the same parts — no model call anywhere in it", () => {
@@ -406,11 +405,6 @@ describe("the reconciliation the page stopped printing", () => {
     return out;
   }
 
-  function silentInStrip(lede: NationalLede): number | null {
-    const m = cell(lede.strip, /^(\d+) SILENT (?:FINAL|FINALS)$/);
-    return m ? Number(m[1]) : null;
-  }
-
   function silentInDescription(text: string): number | null {
     if (text.includes("No final stands without a published score.")) return 0;
     const some = /(\w+) (?:final stands|finals stand) without a published score\./.exec(text);
@@ -480,22 +474,24 @@ describe("the reconciliation the page stopped printing", () => {
     }
   });
 
-  test("the silences on both surfaces are the fixtures' silences, recounted", () => {
-    expect(silentInStrip(nationalLede(columns, asOf, national))).toBe(fromFixtures.silentFinals());
+  test("the description's silences are the fixtures' silences, recounted", () => {
+    // The strip stopped counting them (owner's ruling); the description is
+    // now the division's one silence surface, so it alone answers for the
+    // figure being the folded one rather than a sum.
     expect(silentInDescription(nationalDescription(columns, national))).toBe(
       fromFixtures.silentFinals(),
     );
   });
 
-  test("and both go red when the silences drift from the files", () => {
+  test("and it goes red when the silences drift from the files", () => {
     const drift = { ...national, silentFinals: national.silentFinals + 2 };
-    expect(silentInStrip(nationalLede(columns, asOf, drift))).not.toBe(fromFixtures.silentFinals());
     expect(silentInDescription(nationalDescription(columns, drift))).not.toBe(
       fromFixtures.silentFinals(),
     );
-    // And the cell must be there at all: a strip that stopped stating the
-    // count would otherwise pass a comparison it never took part in.
-    expect(silentInStrip(nationalLede(columns, asOf, national))).not.toBeNull();
+    // And the sentence must be there at all: a description that stopped
+    // stating the count would otherwise pass a comparison it never took part
+    // in. (The strip did stop, deliberately — which is exactly why this
+    // check now stands on the one surface left.)
     expect(silentInDescription(nationalDescription(columns, national))).not.toBeNull();
   });
 
