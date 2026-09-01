@@ -92,19 +92,43 @@ function typeInk(): { file: string; rule: string; value: string; hex: string | n
   return out;
 }
 
-describe("the faintest inks set no type", () => {
+/**
+ * Tokens whose comment says they set no type, for two different reasons.
+ *
+ * --faint and --fainter are too pale to read: the claim is about legibility,
+ * and it is the one this file was written to hold (tui-4hr, tui-mmt).
+ *
+ * --silence is not pale at all — 5.01:1 on the paper. Its claim is about ROLE.
+ * It is the dot beneath the season spine's axis for a date that never got a
+ * score, and the swatch naming that dot, and nothing else. Held here because
+ * the failure it guards against is the opposite of the faint pair's: not
+ * someone setting unreadable type, but someone retuning the result family and
+ * folding a value that is not a result into --loss, or holding a mark to the
+ * type floor it was never subject to. A value nobody has named gets read as
+ * the nearest one that has a name, which has already happened once to this
+ * value.
+ */
+describe("tokens that set no type", () => {
   const tokens = tokenValues();
-  const banned = new Map(
-    (["--faint", "--fainter"] as const).map((n) => [tokens.get(n) as string, n]),
-  );
+  const DRAWN_ONLY = ["--faint", "--fainter", "--silence"] as const;
+  const banned = new Map(DRAWN_ONLY.map((n) => [tokens.get(n) as string, n]));
 
-  test("both tokens are still defined, and still distinct values", () => {
-    expect(tokens.get("--faint")).toMatch(/^#[0-9a-f]{6}$/);
-    expect(tokens.get("--fainter")).toMatch(/^#[0-9a-f]{6}$/);
-    expect(tokens.get("--faint")).not.toBe(tokens.get("--fainter"));
+  test("each is still defined, and no two of them share a value", () => {
+    const values = DRAWN_ONLY.map((n) => {
+      const v = tokens.get(n);
+      expect(v).toMatch(/^#[0-9a-f]{6}$/);
+      return v;
+    });
+    expect(new Set(values).size).toBe(DRAWN_ONLY.length);
   });
 
-  test("no rule anywhere gives a glyph --faint or --fainter, by name or by value", () => {
+  test("the silence is its own value, not the result family's", () => {
+    // Folding it into --loss is the specific mistake this token exists to
+    // prevent: a loss is a result, and this says no result was published.
+    expect(tokens.get("--silence")).not.toBe(tokens.get("--loss"));
+  });
+
+  test("no rule anywhere gives a glyph one of them, by name or by value", () => {
     const offenders = typeInk()
       .filter((d) => d.hex !== null && banned.has(d.hex))
       .map(
