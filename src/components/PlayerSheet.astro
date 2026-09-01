@@ -336,7 +336,9 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   }
   .minutes-label { letter-spacing: 0.12em; font-weight: 600; }
   .minutes-track { height: 7px; background: var(--hairline-soft); border-radius: 4px; overflow: hidden; }
-  .minutes-fill { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+  /* The chart's grey, not the accent: purple on this site is league and
+     links, never data (owner, 2026-09-01). */
+  .minutes-fill { display: block; height: 100%; background: var(--tenure-jr); border-radius: 4px; }
 
   .sheet-absent { margin: 0; font-size: 14px; color: var(--secondary); line-height: 1.5; }
 
