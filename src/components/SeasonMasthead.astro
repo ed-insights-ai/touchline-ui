@@ -141,6 +141,7 @@ const { kicker, headline, dek, counts, gaps, strip, stamp = null, stale = false 
   }
   .strip { display: flex; flex-wrap: wrap; margin-top: 2px; font-size: 11.5px; letter-spacing: 0.1em; color: var(--secondary); }
   .cell { white-space: nowrap; }
+  @media (max-width: 480px) { .cell { white-space: normal; } }
   .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
 
   @media (max-width: 1180px) {

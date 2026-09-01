@@ -90,17 +90,17 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
 <Page title={title} description={dek}>
   <div class="tl-page">
     <header class="mx-masthead">
+      <div class="mx-left">
       <a class="mx-back" href={seasonHref(season.key)}>← SEASON</a>
       {/* The reader is here. This is the only header on the site where that is
           true of this link, so it is the only place aria-current can say so. */}
       <a class="mx-back mx-view" href={matchesHref(season.key)} aria-current="page">MATCHES</a>
-      <div class="grow"></div>
+      </div>
       <a class="wordmark mx-wordmark" href={homeHref()}>
         <span class="wordmark-square"></span>
         <span class="wordmark-name">Touchline</span>
         <span class="mx-wordmark-sub"> · Matches</span>
       </a>
-      <div class="grow"></div>
       <div class="mx-context num">{code} · {site.division.toUpperCase()} · {season.fixtures.season}</div>
     </header>
 
@@ -249,11 +249,15 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
 <style>
   .mx-masthead {
     height: 58px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     gap: 16px;
     border-bottom: 1px solid var(--hairline);
   }
+  .mx-left { display: flex; align-items: center; justify-self: start; }
+  .mx-masthead .mx-wordmark { justify-self: center; }
+  .mx-context { justify-self: end; }
   .mx-back { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary); }
   .mx-back:hover { color: var(--accent); }
   .mx-view { padding-left: 14px; margin-left: 14px; border-left: 1px solid var(--hairline); }
@@ -280,6 +284,8 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   }
   .cell { white-space: nowrap; }
   .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
+  /* At phone widths a long cell wraps rather than pushing the page sideways. */
+  @media (max-width: 480px) { .cell { white-space: normal; } }
 
   .mx-body {
     display: grid;
@@ -402,7 +408,8 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
     .mx-index-row { border-bottom: none; padding: 4px 0; gap: 6px; }
   }
   @media (max-width: 720px) {
-    .mx-masthead { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 6px 12px; }
+    .mx-masthead { height: auto; padding: 12px 0; grid-template-columns: 1fr; row-gap: 6px; }
+    .mx-masthead .mx-wordmark, .mx-context { justify-self: start; }
     .mx-h1 { font-size: 30px; }
     .mx-row { grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr); font-size: 12.5px; }
     .mx-row-upcoming { grid-template-columns: minmax(0, 1fr) auto; }
