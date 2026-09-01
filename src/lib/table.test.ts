@@ -195,6 +195,19 @@ describe("the season page's middle, by the numbers", () => {
     expect(docket).toContain('<span class="vh">League match. </span>');
   });
 
+  test("the matches page carries its figures as a strip and its rail as an index", () => {
+    const matches = readFileSync(join(root, "pages/[conference]/matches.astro"), "utf8");
+    expect(matches).toContain('<div class="mx-strip num">');
+    expect(matches).toContain("PLAYING ${c.dates === 1");
+    expect(matches).toContain('<nav class="mx-index" aria-label="Jump to a month">');
+    expect(matches).toContain('href="#today"');
+    expect(matches).toContain(".mx-league::before");
+    expect(matches).toContain('<span class="vh">League match. </span>');
+    expect(matches).not.toContain("WHAT THIS PAGE HOLDS");
+    expect(matches).not.toContain("WHAT STANDS UNRESOLVED");
+    expect(matches).not.toContain("Kickoff times are the home");
+  });
+
   test("no reader surface prints an evidence chip any more", () => {
     for (const rel of [
       "pages/about.astro",

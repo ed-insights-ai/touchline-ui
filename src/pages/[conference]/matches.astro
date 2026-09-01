@@ -16,7 +16,7 @@
 import SiteFooter from "../../components/SiteFooter.astro";
 import Page from "../../layouts/Page.astro";
 import { hasScore, homeHref, matchHref, matchesHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
-import { dayOfMonth, dowLong, friendlies, monLong, spell } from "../../lib/format.ts";
+import { dayOfMonth, dowLong, monLong, monShort } from "../../lib/format.ts";
 import {
   byDay,
   isSilentFinal,
@@ -51,56 +51,36 @@ const future = days.filter((d) => d.date > today);
 
 const dayLabel = (iso: string): string =>
   `${dowLong(iso).toUpperCase()}, ${monLong(iso).toUpperCase()} ${dayOfMonth(iso)}`;
-const monthDay = (iso: string): string => `${monLong(iso)} ${dayOfMonth(iso)}`;
-const cap = (s: string): string => s.replace(/^\w/, (ch) => ch.toUpperCase());
-
 const isResult = (f: Fixture): boolean => hasScore(f);
-const silent = matches.filter(isSilentFinal);
-const stillScheduled = matches.filter((f) => f.date < today && f.status === "scheduled");
-
-// Distinct programmes behind the score gaps, named rather than counted.
-const silentNames = [...new Set(silent.map((f) => names.name(f.home)))].sort();
-
-// The rail's three notes, assembled as prose from the recomputed counts.
-const holds = [
-  `${c.matches} ${c.matches === 1 ? "match" : "matches"} on ${c.dates} playing ${c.dates === 1 ? "date" : "dates"}` +
-    (c.first && c.last ? `, ${monthDay(c.first)} to ${monthDay(c.last)}` : "") +
-    ".",
-  "The winner\u2019s name carries the weight in a result; in a match still to come, the weight stays with the home programme.",
-  c.league > 0 && c.leagueOpensOn
-    ? `${c.league} of these are league matches \u2014 the table begins with them on ${monthDay(c.leagueOpensOn)}.`
-    : null,
-].filter(Boolean).join(" ");
-
-const openCount = silent.length + stillScheduled.length;
-const unresolvedLead =
-  openCount === 0
-    ? "Every date in the books carries a published score. Nothing on this page is waiting."
-    : `${cap(spell(openCount))} ${openCount === 1 ? "row" : "rows"} on dates in the books carry no score.`;
-const unresolvedSilent =
-  silent.length > 0
-    ? ` ${cap(spell(silent.length))} ${silent.length === 1 ? "is" : "are"} the sites\u2019 own `
-    : null;
-const unresolvedSilentTail =
-  silent.length > 0
-    ? ` \u2014 ${silent.length === 1 ? "a match" : "matches"} marked final with nothing published` +
-      (silentNames.length > 0 ? `: ${silentNames.join(", ")}` : "") +
-      " \u2014 counted beside the played figure, never folded in."
-    : null;
-const unresolvedScheduled =
-  stillScheduled.length > 0
-    ? ` ${cap(spell(stillScheduled.length))} more the sites still list as scheduled.`
-    : null;
-
-const staysOut = [
+const shortDate = (iso: string): string => `${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}`;
+// The page's own figures, mechanical, in the masthead's strip: what the rail
+// used to say in prose, less the method (owner's ruling, 2026-09-01). Every
+// cell is a recomputed count; the absent ones are absent because they are zero.
+const strip = [
+  `${c.scored} OF ${c.matches} PLAYED`,
+  `${c.dates} PLAYING ${c.dates === 1 ? "DATE" : "DATES"}` +
+    (c.first && c.last ? `, ${shortDate(c.first)} – ${shortDate(c.last)}` : ""),
+  c.league > 0 ? `${c.league} LEAGUE ${c.league === 1 ? "MATCH" : "MATCHES"}` : null,
+  c.silent > 0 ? `${c.silent} SCORE ${c.silent === 1 ? "GAP" : "GAPS"}` : null,
+  c.stillScheduled > 0 ? `${c.stillScheduled} STILL LISTED AS SCHEDULED` : null,
+  c.exhibitions > 0 ? `${c.exhibitions} ${c.exhibitions === 1 ? "FRIENDLY" : "FRIENDLIES"} NOT LISTED` : null,
   c.placeholders > 0
-    ? `${cap(spell(c.placeholders))} NCAA placeholder ${c.placeholders === 1 ? "row" : "rows"} on ${c.placeholderDates.map(monthDay).join(", ")} name a round, not an opponent \u2014 they join the page when they name both sides.`
+    ? `${c.placeholders} NCAA PLACEHOLDER ${c.placeholders === 1 ? "ROW" : "ROWS"} NOT LISTED`
     : null,
-  c.exhibitions > 0
-    ? `${cap(spell(c.exhibitions))} ${friendlies(c.exhibitions)} ${c.exhibitions === 1 ? "sits" : "sit"} outside the record, named on the team pages that played them.`
-    : null,
-].filter(Boolean).join(" ") || "Nothing is held back from this page.";
-
+].filter((cell): cell is string => cell !== null);
+// A month index for the rail: one entry per month with matches, linking to the
+// first day of that month, and TODAY. A long page needs a way to jump.
+const monthKey = (iso: string): string => iso.slice(0, 7);
+const months = [...new Map(days.map((d) => [monthKey(d.date), d])).entries()].map(([key, first]) => ({
+  key,
+  label: monShort(first.date).toUpperCase(),
+  count: days.filter((d) => monthKey(d.date) === key).reduce((n, d) => n + d.matches.length, 0),
+  firstDate: first.date,
+}));
+const anchorFor = (date: string): string | undefined => {
+  const m = months.find((x) => x.firstDate === date);
+  return m ? `m-${m.key}` : undefined;
+};
 const todayLabel = `TODAY \u00b7 ${dayLabel(today)}${todayGroup ? "" : " \u2014 NO MATCHES"}`;
 
 const title = `Touchline — ${confName} Matches`;
@@ -127,6 +107,9 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
     <div class="mx-lede">
       <h1 class="mx-h1 serif">Matches</h1>
       <p class="mx-dek serif-italic">{dek}</p>
+      <div class="mx-strip num">
+        {strip.map((cell) => <span class="cell">{cell}</span>)}
+      </div>
     </div>
 
     <div class="mx-body">
@@ -139,19 +122,28 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
         ) : (
           <>
             {past.map((d) => (
-              <section class="mx-day">
+              <section class="mx-day" id={anchorFor(d.date)}>
                 <h2 class="mx-date">{dayLabel(d.date)}</h2>
                 {d.matches.map((f) => (
-                  <a class="mx-row hoverable" href={matchHref(season.key, f.id)}>
+                  <a
+                    class={f.conference_game ? "mx-row mx-league hoverable" : "mx-row hoverable"}
+                    href={matchHref(season.key, f.id)}
+                  >
                     {isResult(f) ? (
                       <>
-                        <span class={`mx-away mx-${weightOf(f, "away")}`}>{names.name(f.away)}</span>
+                        <span class={`mx-away mx-${weightOf(f, "away")}`}>
+                          {f.conference_game && <span class="vh">League match. </span>}
+                          {names.name(f.away)}
+                        </span>
                         <span class="mx-score num">{f.away_score}–{f.home_score}</span>
                         <span class={`mx-home mx-${weightOf(f, "home")}`}>{names.name(f.home)}</span>
                       </>
                     ) : isSilentFinal(f) ? (
                       <>
-                        <span class="mx-away mx-even">{names.name(f.away)}</span>
+                        <span class="mx-away mx-even">
+                          {f.conference_game && <span class="vh">League match. </span>}
+                          {names.name(f.away)}
+                        </span>
                         <span class="mx-score mx-silent num">—</span>
                         <span class="mx-home mx-even">
                           {names.name(f.home)}
@@ -160,7 +152,10 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                       </>
                     ) : (
                       <>
-                        <span class="mx-away mx-even">{names.name(f.away)}</span>
+                        <span class="mx-away mx-even">
+                          {f.conference_game && <span class="vh">League match. </span>}
+                          {names.name(f.away)}
+                        </span>
                         <span class="mx-score mx-waiting num">—</span>
                         <span class="mx-home mx-even">
                           {names.name(f.home)}
@@ -173,7 +168,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
               </section>
             ))}
 
-            <div class="mx-today">
+            <div class="mx-today" id="today">
               <span class="mx-today-rule"></span>
               <span class="mx-today-label">{todayLabel}
               </span>
@@ -181,10 +176,14 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
             </div>
 
             {todayGroup && (
-              <section class="mx-day">
+              <section class="mx-day" id={anchorFor(todayGroup.date)}>
                 {todayGroup.matches.map((f) => (
-                  <a class="mx-row mx-row-upcoming hoverable" href={matchHref(season.key, f.id)}>
+                  <a
+                    class={f.conference_game ? "mx-row mx-row-upcoming mx-league hoverable" : "mx-row mx-row-upcoming hoverable"}
+                    href={matchHref(season.key, f.id)}
+                  >
                     <span class="mx-line">
+                      {f.conference_game && <span class="vh">League match. </span>}
                       <span class="mx-side">{names.name(f.away)}</span>
                       <span class="mx-at"> at </span>
                       <span class="mx-side mx-strong">{names.name(f.home)}</span>
@@ -197,11 +196,15 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
             )}
 
             {future.map((d) => (
-              <section class="mx-day">
+              <section class="mx-day" id={anchorFor(d.date)}>
                 <h2 class="mx-date">{dayLabel(d.date)}</h2>
                 {d.matches.map((f) => (
-                  <a class="mx-row mx-row-upcoming hoverable" href={matchHref(season.key, f.id)}>
+                  <a
+                    class={f.conference_game ? "mx-row mx-row-upcoming mx-league hoverable" : "mx-row mx-row-upcoming hoverable"}
+                    href={matchHref(season.key, f.id)}
+                  >
                     <span class="mx-line">
+                      {f.conference_game && <span class="vh">League match. </span>}
                       <span class="mx-side">{names.name(f.away)}</span>
                       <span class="mx-at"> at </span>
                       <span class="mx-side mx-strong">{names.name(f.home)}</span>
@@ -216,34 +219,26 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
         )}
       </div>
 
+      {/* The rail is an index, not an essay: the months with matches, each
+          with its count, and TODAY, so a page of a hundred rows can be
+          entered anywhere. What the rail used to explain in prose is now the
+          strip under the title, as figures. */}
       <aside class="mx-rail">
-        <div class="mx-note">
-          <h2 class="mx-note-head">WHAT THIS PAGE HOLDS</h2>
-          <p>{holds}</p>
-        </div>
-
-        <div class="mx-note">
-          <h2 class="mx-note-head">WHAT STANDS UNRESOLVED</h2>
-          <p>
-            {unresolvedLead}
-            {unresolvedSilent}
-            {silent.length > 0 && (
-              <span class="mx-silent-word">{silent.length === 1 ? "score gap" : "score gaps"}</span>
-            )}
-            {unresolvedSilentTail}
-            {unresolvedScheduled}
-          </p>
-        </div>
-
-        <div class="mx-note">
-          <h2 class="mx-note-head">WHAT STAYS OUT</h2>
-          <p>{staysOut}</p>
-        </div>
-
-        <p class="mx-provenance provenance">
-          Kickoff times are the home programmes&rsquo; own; a score appears only when one is
-          published.
-        </p>
+        {days.length > 0 && (
+          <nav class="mx-index" aria-label="Jump to a month">
+            <div class="mx-index-head">ON THIS PAGE</div>
+            {months.map((m) => (
+              <a class="mx-index-row hoverable" href={`#m-${m.key}`}>
+                <span class="mx-index-month">{m.label}</span>
+                <span class="mx-index-count num">{m.count}</span>
+              </a>
+            ))}
+            <a class="mx-index-row mx-index-today hoverable" href="#today">
+              <span class="mx-index-month">TODAY</span>
+              <span class="mx-index-count num">{shortDate(today)}</span>
+            </a>
+          </nav>
+        )}
       </aside>
     </div>
 
@@ -274,6 +269,17 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   .mx-lede { padding: 28px 0 20px; border-bottom: 1px solid var(--hairline); }
   .mx-h1 { margin: 0; font-size: 38px; line-height: 1.1; }
   .mx-dek { margin: 10px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--quiet); max-width: 720px; }
+  /* The season masthead's strip, in the same type. */
+  .mx-strip {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    color: var(--secondary);
+  }
+  .cell { white-space: nowrap; }
+  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
 
   .mx-body {
     display: grid;
@@ -282,19 +288,26 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
     padding: 22px 0 0;
   }
   .mx-ledger { min-width: 0; }
+  /* Each day is a block, as the week's docket draws them: its label in ink
+     over a rule darker than the row hairlines, and air before the next day. */
   .mx-day { display: flex; flex-direction: column; }
+  .mx-day + .mx-day { margin-top: 24px; }
+  .mx-day[id] { scroll-margin-top: 16px; }
   .mx-date {
     margin: 0;
-    padding: 16px 0 6px;
+    padding: 0 0 6px;
     font-size: 10px;
     letter-spacing: 0.16em;
     font-weight: 600;
-    color: var(--quiet);
+    color: var(--ink);
+    border-bottom: 1px solid var(--tenure-rule);
   }
+  .mx-date + .mx-row { border-top: none; }
 
   /* A result: away right-aligned into the score, home left-aligned out of it,
      so the scoreline reads as one object down the column. */
   .mx-row {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 78px minmax(0, 1fr);
     align-items: baseline;
@@ -303,6 +316,20 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
     border-top: 1px solid var(--hairline-soft);
     color: inherit;
     font-size: 13.5px;
+  }
+  /* A league match wears the league colour as a square hung in the margin, as
+     the week's docket does: the text does not move, and purple keeps the one
+     meaning it has on this site. */
+  .mx-league::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 1px;
+    background: var(--accent);
   }
   .mx-away { text-align: right; }
   .mx-home { text-align: left; }
@@ -330,7 +357,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   .mx-venue { color: var(--quiet); font-size: 12px; }
   .mx-time { color: var(--quiet); font-size: 13px; }
 
-  .mx-today { display: flex; align-items: center; gap: 12px; padding: 18px 0 4px; }
+  .mx-today { display: flex; align-items: center; gap: 12px; padding: 24px 0 4px; scroll-margin-top: 16px; }
   .mx-today-rule { flex: 1; height: 1px; background: var(--ink); }
   .mx-today-label {
     font-size: 10px;
@@ -340,15 +367,39 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
     white-space: nowrap;
   }
 
-  .mx-rail { display: flex; flex-direction: column; gap: 20px; }
-  .mx-note p { margin: 8px 0 0; font-size: 14px; line-height: 1.55; color: var(--quiet); }
-  .mx-note-head { margin: 0; font-size: 10px; letter-spacing: 0.16em; font-weight: 600; }
-  .mx-provenance { margin: 0; }
+  .mx-rail { min-width: 0; }
+  .mx-index { position: sticky; top: 16px; display: flex; flex-direction: column; max-width: 220px; }
+  .mx-index-head {
+    padding: 0 0 6px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--ink);
+    border-bottom: 1px solid var(--tenure-rule);
+  }
+  .mx-index-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 7px 4px;
+    border-bottom: 1px solid var(--hairline-soft);
+    color: inherit;
+  }
+  .mx-index-month { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary); }
+  .mx-index-count { font-size: 12.5px; color: var(--quiet); }
+  .mx-index-today .mx-index-month { color: var(--ink); }
+  .mx-index-row:hover .mx-index-month { color: var(--accent); }
   .mx-empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); max-width: 640px; }
 
   @media (max-width: 1180px) {
-    .mx-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-    .mx-rail { max-width: 640px; }
+    /* One column: the index goes first, as a row of months across the top of
+       the ledger, and stops sticking. */
+    .mx-body { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .mx-rail { order: -1; }
+    .mx-index { position: static; flex-direction: row; flex-wrap: wrap; max-width: none; gap: 0 18px; }
+    .mx-index-head { flex-basis: 100%; border-bottom: none; padding-bottom: 2px; }
+    .mx-index-row { border-bottom: none; padding: 4px 0; gap: 6px; }
   }
   @media (max-width: 720px) {
     .mx-masthead { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 6px 12px; }
