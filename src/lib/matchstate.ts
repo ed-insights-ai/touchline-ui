@@ -49,7 +49,10 @@ export interface FootNoteCounts {
  * of a set — it is the set, and saying so is both shorter and true.
  */
 export function footNote(state: MatchState, counts: FootNoteCounts): string {
-  const gaps = `${counts.gaps} box-score ${plural(counts.gaps, "gap", "gaps")} across the conference`;
+  // A preview has nothing to be placed among: the match has not been played,
+  // and the conference's gaps are another page's business (owner, 2026-09-01).
+  if (state === "preview") return "";
+  const gaps = `${counts.gaps} box score ${plural(counts.gaps, "gap", "gaps")} across the conference`;
   if (state === "silent-final") {
     const n = counts.finalsWithoutScore;
     const head =

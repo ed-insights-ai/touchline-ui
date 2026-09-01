@@ -168,10 +168,16 @@ const silence = unresolved(season);
 const knownRows: { label: string; value: string }[] = [
   {
     label: "DATE",
-    value: `${longDate(fixture.date)} · ${clockTime(fixture.time) ?? "no kickoff time published"}`,
+    // On a preview the kickoff is the hero's own figure; the row does not say it twice.
+    value:
+      state === "preview"
+        ? longDate(fixture.date)
+        : `${longDate(fixture.date)} · ${clockTime(fixture.time) ?? "no kickoff time published"}`,
   },
   { label: "VENUE", value: fixture.venue ?? "not published" },
-  {
+  ...(state === "preview"
+    ? [] // the badge says SCHEDULED; a row saying it again is noise
+    : [{
     label: "STATUS",
     value:
       state === "silent-final"
@@ -181,7 +187,7 @@ const knownRows: { label: string; value: string }[] = [
           : state === "score-only"
             ? `Result published · box score not collected${gapReason ? ` — ${gapReason}` : ""}`
             : `Listed as ${fixture.status}`,
-  },
+  }]),
   {
     label: "SOURCE",
     value: `${fixture.source_url ? new URL(fixture.source_url).hostname : "source not recorded"} · schedule page · last collected ${collectedStamp}`,
@@ -196,7 +202,7 @@ const explain: Record<State, string> = {
     "The programme's schedule marked this match finished but never entered a result: a score gap. The silence is the site's own, and it stays on the record, named.",
   "silent-past":
     "The date has passed and the programme's schedule still lists this match as scheduled. No result, no postponement, no note — the page simply has not changed.",
-  preview: "Not played yet. What is below is everything the programme has published about the match.",
+  preview: "",
   off: `The programme marked this match ${fixture.status}. It stays on the record rather than disappearing from it.`,
 };
 
@@ -262,11 +268,20 @@ const awayName = names.name(fixture.away);
           <span class="side-name">{homeName.toUpperCase()}</span>
           <span class="side-sub">{homeIdentity ?? `${names.abbr(fixture.home)} · HOME`}</span>
         </HomeSide>
-        <div class={`figures${scored ? "" : " figures-absent"}`}>
-          <span class="figure figure-home">{scored ? fixture.home_score : "—"}</span>
-          <span class="figure-dash">–</span>
-          <span class="figure figure-away">{scored ? fixture.away_score : "—"}</span>
-        </div>
+        {state === "preview" ? (
+          <div class="kickoff num">
+            {/* Where the score will go, the kickoff: the one figure a match
+                still to come has. No dashes standing in for a result. */}
+            <span class="kickoff-time">{clockTime(fixture.time) ?? "TBA"}</span>
+            <span class="kickoff-label">KICKOFF</span>
+          </div>
+        ) : (
+          <div class={`figures${scored ? "" : " figures-absent"}`}>
+            <span class="figure figure-home">{scored ? fixture.home_score : "—"}</span>
+            <span class="figure-dash">–</span>
+            <span class="figure figure-away">{scored ? fixture.away_score : "—"}</span>
+          </div>
+        )}
         <AwaySide class="side side-away" href={awayLink}>
           <span class="side-name">{awayName.toUpperCase()}</span>
           <span class="side-sub">{awayIdentity ?? `${names.abbr(fixture.away)} · AWAY`}</span>
@@ -311,7 +326,7 @@ const awayName = names.name(fixture.away);
             .toUpperCase()}
         </div>
       ) : (
-        <p class="hero-explain serif-italic">{explain[state]}</p>
+        explain[state] && <p class="hero-explain serif-italic">{explain[state]}</p>
       )}
     </section>
 
@@ -509,6 +524,9 @@ const awayName = names.name(fixture.away);
   .figure-dash { font-size: 40px; color: var(--outline-quiet); }
   .figures-absent .figure { font-size: 84px; color: var(--outline-quiet); }
   .figures-absent .figure-dash { color: var(--dash); }
+  .kickoff { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 148px; }
+  .kickoff-time { font-family: var(--serif); font-weight: 500; font-size: 40px; line-height: 1; color: var(--secondary); white-space: nowrap; }
+  .kickoff-label { font-size: 10px; letter-spacing: 0.24em; font-weight: 600; color: var(--quiet); }
 
   .scorers { display: flex; gap: 64px; }
   .scorers-home { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; width: 380px; font-size: 13px; color: var(--secondary); }
