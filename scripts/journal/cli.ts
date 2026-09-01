@@ -21,12 +21,19 @@ import { join } from "node:path";
 import type { Season } from "../../src/lib/derive.ts";
 import { loadSeason } from "../../src/lib/derive.ts";
 import { homeSeasons } from "../../src/lib/home.ts";
-import { type JournalFile, journalFileSchema } from "../../src/lib/journal.ts";
+import {
+  type JournalFile,
+  journalFileSchema,
+  type NationalJournalFile,
+  nationalJournalFile,
+  nationalJournalSchema,
+} from "../../src/lib/journal.ts";
 import { site } from "../../src/site.config.ts";
 import { buildBrief, fixtureIndex } from "./brief.ts";
 import { buildNationalBrief } from "./national.ts";
+import { validateNationalJournal } from "./national-validate.ts";
 import { buildPrompt } from "./prompt.ts";
-import { validateJournal } from "./validate.ts";
+import { CHECKERS, validateJournal } from "./validate.ts";
 import { standingDate, standingNote } from "./wire.ts";
 
 interface Args {
@@ -244,19 +251,74 @@ function brief(season: Season): number {
   return 0;
 }
 
+const nationalPath = (args: Args): string =>
+  join(args.out, nationalJournalFile(site.season, site.gender));
+
+function readNationalJournal(path: string): NationalJournalFile | null {
+  if (!existsSync(path)) return null;
+  return nationalJournalSchema.parse(JSON.parse(readFileSync(path, "utf8")));
+}
+
+function validateNational(args: Args): number {
+  const path = nationalPath(args);
+  const journal = readNationalJournal(path);
+  if (!journal) {
+    console.log(`national: no journal at ${path} — nothing to validate.`);
+    return 0;
+  }
+  const seasons = homeSeasons();
+  const { journal: cleaned, report } = validateNationalJournal(
+    journal,
+    seasons,
+    nationalJournalFile(site.season, site.gender),
+    CHECKERS,
+  );
+  mkdirSync(args.out, { recursive: true });
+  const reportFile = join(
+    args.out,
+    `${nationalJournalFile(site.season, site.gender).replace(/\.json$/, "")}.validation.json`,
+  );
+  writeJson(reportFile, report);
+
+  const t = report.totals;
+  console.log(
+    `national: ${t.checked} claims — ${t.verified} verified, ${t.contradicted} contradicted, ${t.unverifiable} unverifiable, ${t.dropped} dropped.`,
+  );
+  for (const c of report.claims) {
+    if (c.note) console.log(`  NOTE ${c.path}: ${c.note}`);
+    if (!c.dropped) continue;
+    console.log(`  DROP ${c.path} — the masthead falls back to its floor`);
+    for (const m of c.mismatches) console.log(`       ${m}`);
+  }
+  for (const r of report.review) {
+    console.log(`  REVIEW ${r.path} — unbacked ${r.unbacked.join(", ")}`);
+    console.log(`       ${r.text.length > 96 ? `${r.text.slice(0, 96)}…` : r.text}`);
+  }
+  console.log(`  report: ${reportFile}`);
+
+  if (args.write) {
+    writeJson(path, cleaned);
+    console.log(`  wrote the validated journal back to ${path}`);
+  } else if (t.dropped > 0) {
+    console.log("  (dry run — pass --write to publish the journal with the lede removed)");
+  }
+  return args.strict && t.dropped > 0 ? 1 : 0;
+}
+
 /** The division's commands. A separate scope from the conference loop below:
  *  it reads every collected file at once, so it runs once rather than once per
  *  conference, and it is deliberately runnable on its own — the prompt has to
  *  be evaluated against the real brief without touching the cadence. */
 function national(args: Args): number {
-  const seasons = homeSeasons();
   switch (args.command) {
     case "brief":
-      console.log(JSON.stringify(buildNationalBrief(seasons), null, 2));
+      console.log(JSON.stringify(buildNationalBrief(homeSeasons()), null, 2));
       return 0;
+    case "validate":
+      return validateNational(args);
     default:
       console.error(
-        `"${args.command} --national" is not in this checkout — the division's prompt and generation land with their own patch.`,
+        `"${args.command} --national" is not in this checkout — the division's prompt and its generation land with their own patch.`,
       );
       return 2;
   }
