@@ -80,7 +80,7 @@ them, in this order, the page prints:
   THREE CARDS      each conference's code, its full name, the date its
                    conference play opens, "N of M matches played", and that
                    conference's own line — all three given below, verbatim
-  THE FOOTER       when each conference was last collected
+  THE FOOTER       the day and hour of the oldest collect behind the page
 
 The headline restates NONE of it. Not the counts, not a scoreline, not an
 opens-date, not a card's line, not a collect time. Every one of those is drawn
@@ -126,15 +126,17 @@ the list looking for something to say.
    The bad line is a card, read back.
 
 3. WHAT IS SILENT.
-   A silence, when it is honestly the day's most important fact. The strip
-   already prints the division's silent-final count, so the count alone is not
-   a story; where the silences SIT is. And matches that passed their date with
-   no result at all appear on no surface anywhere — the division's whole
-   holding of them is news the page cannot otherwise tell.
+   A silence, when it is honestly the day's most important fact. No count of
+   silences appears anywhere on this page — the owner ruled that what the
+   division is missing is not its lead information — so a bare count is a
+   story the page has already declined once; where the silences SIT is the
+   story. And matches that passed their date with no result at all appear on
+   no surface anywhere — the division's whole holding of them is news the
+   page cannot otherwise tell.
      good   "Every silent final in the Lone Star Conference belongs to one
              programme."
      bad    "Four finals in the division stand without a published score."
-   The bad line is the strip, spelled out.
+   The bad line is a count the page has chosen not to print.
 
 One rule under all three: if the sentence could have been written by reading
 the page beneath it, it is the wrong sentence.`;
