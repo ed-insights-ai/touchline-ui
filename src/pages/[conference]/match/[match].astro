@@ -258,7 +258,7 @@ const awayName = names.name(fixture.away);
       </div>
     </header>
 
-    <section class={`hero${state === "played" ? "" : " hero-quiet"}`}>
+    <section class={`hero${state === "played" ? "" : " hero-quiet"}${state === "preview" ? " hero-preview" : ""}`}>
       <h1 class="vh">
         {homeName} v {awayName}, {longDate(fixture.date)} — {badge.text}
       </h1>
@@ -325,6 +325,13 @@ const awayName = names.name(fixture.away);
             .join(" · ")
             .toUpperCase()}
         </div>
+      ) : state === "preview" ? (
+        <div class="hero-foot num">
+          {/* The played page's own foot line: the date and the venue, quiet,
+              and nothing else. A preview has no table and no footnote to
+              carry (owner's ruling, 2026-09-01). */}
+          {[stampDate(fixture.date), fixture.venue].filter(Boolean).join(" · ").toUpperCase()}
+        </div>
       ) : (
         explain[state] && <p class="hero-explain serif-italic">{explain[state]}</p>
       )}
@@ -338,6 +345,7 @@ const awayName = names.name(fixture.away);
       />
     )}
 
+    {state !== "preview" && (
     <section class={`body${state === "played" ? "" : " body-solo"}`}>
       <div class="body-main">
         {state === "played" ? (
@@ -457,20 +465,23 @@ const awayName = names.name(fixture.away);
         ) : null}
       </div>
     </section>
+    )}
 
     {ledger.length > 0 && (
       <PlayLedger rows={ledger} playCount={plays.length} abbrChars={abbrChars} />
     )}
 
-    <footer class="mfoot">
-      <span class="mfoot-left">
-        {state === "played" && detail?.officials?.length
-          ? detail.officials.join(" · ")
-          : footNote}
-      </span>
-      <span class="grow"></span>
-      <span class="provenance">{provenanceLine}</span>
-    </footer>
+    {state !== "preview" && (
+      <footer class="mfoot">
+        <span class="mfoot-left">
+          {state === "played" && detail?.officials?.length
+            ? detail.officials.join(" · ")
+            : footNote}
+        </span>
+        <span class="grow"></span>
+        <span class="provenance">{provenanceLine}</span>
+      </footer>
+    )}
 
     <SiteFooter seasons={[season]} />
   </div>
@@ -499,6 +510,9 @@ const awayName = names.name(fixture.away);
     display: flex; flex-direction: column; align-items: center; gap: 13px;
   }
   .hero-quiet { padding: 34px 0 28px; gap: 14px; border-bottom: 1px solid var(--hairline); }
+  /* A preview is the hero and nothing under it, so the footer's rule closes
+     the page and the hero does not draw one of its own. */
+  .hero-preview { border-bottom: none; padding-bottom: 40px; }
   .badge {
     font-size: 10.5px; letter-spacing: 0.24em; font-weight: 600;
     padding: 4px 12px; border-radius: 3px; border: 1px solid;
