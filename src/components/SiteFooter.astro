@@ -1,7 +1,12 @@
 ---
 // The one line every page carries: who this is and what it is not, when the
-// site last looked, whose it is, and the way to the method. Four tokens, the
-// same four everywhere.
+// site last looked, and whose it is. Three zones — left, centre, right — the
+// same three everywhere.
+//
+// The disclaimer sentence IS the link to About. It leads to the page that
+// explains both the independence it claims and the method behind every figure
+// on the site, so the link text describes where it goes, which a bare "About"
+// never did.
 //
 // It used to carry the scope and the season year too, and two comments here
 // claimed it was the only home either of them had. It is not carrying them any
@@ -9,8 +14,10 @@
 // kicker names the division on the home page, the matches page names both in
 // its own header, the site header carries the season year on every season and
 // team page, and the About page names scope and season in full. A MATCH page
-// names neither — which is what About being the only link on this line is for,
-// since a match page's masthead carries no site navigation at all.
+// names neither — which is what the disclaimer link is for: it is the only
+// route to the method from 374 pages whose mastheads carry no site navigation
+// at all, and that is why it wears an underline rather than trusting a reader
+// to hover a sentence to find out it was a link.
 //
 // Freshness is one stamp, and on a page speaking for several conferences it is
 // the OLDEST of them. It is the only single claim true of every figure on the
@@ -36,51 +43,71 @@ const published = new Date().getUTCFullYear();
 ---
 
 <footer class="site-footer">
-  <span class="sf-cell">Touchline is independent and not affiliated with the {site.governingBody}</span>
-  {collected && <span class="sf-cell num">{collected}</span>}
-  <span class="sf-cell num">© {published} {site.publisher}</span>
-  <a class="sf-cell sf-about" href={aboutHref()}>About</a>
+  <span class="sf-cell sf-left">
+    <a class="sf-link" href={aboutHref()}>
+      Touchline is independent and not affiliated with the {site.governingBody}
+    </a>
+  </span>
+  <span class="sf-cell sf-mid num">{collected}</span>
+  <span class="sf-cell sf-right num">© {published} {site.publisher}</span>
 </footer>
 
 <style>
-  /* One band that wraps rather than a row with a gap in it: the four tokens
-     read in order on a phone, and About stays last wherever the line breaks. */
+  /* Three columns, not three items spread apart. space-between would put the
+     middle cell BETWEEN the other two, which moves with their widths — the
+     stamp would drift left or right as the disclaimer or the year changed
+     length. Equal side columns centre the middle one on the page instead, and
+     it stays centred whatever the cells beside it say. */
   .site-footer {
     margin-top: 28px;
     padding: 14px 0 8px;
     border-top: 1px solid var(--hairline);
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: baseline;
+    column-gap: 24px;
     font-size: 12px;
     line-height: 1.6;
     color: var(--quiet);
   }
-  /* The separator TRAILS the token it follows rather than leading the one it
-     precedes. On a phone this line wraps, and a leading middot opens the
-     wrapped lines with one — which is what the first version did, and what the
-     render showed. Trailing, a wrapped line ends on the mark and reads as a
-     continuation. Punctuation standing in for a word, which is the only type
-     this rung of the ladder sets. */
-  .sf-cell:not(:last-child)::after {
-    content: "·";
-    padding: 0 9px;
-    color: var(--outline-quiet);
-  }
-  /* The only link on the line, and on a match page the only route to the
-     method from anywhere. It keeps a touch target the rest of the line has no
-     need for. */
-  .sf-about {
-    color: var(--accent);
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    margin: -14px 0;
-  }
-  .sf-about:hover { color: var(--accent-hover); }
+  .sf-left { justify-self: start; }
+  .sf-mid { justify-self: center; }
+  .sf-right { justify-self: end; }
+  /* The zones separate the cells; the middots that did it when this was one
+     running line would be debris floating in the gaps. */
 
-  @media (max-width: 720px) {
-    .site-footer { line-height: 1.7; }
-    .sf-cell:not(:last-child)::after { padding: 0 7px; }
+  /* The footer's only link, and it stays in the footer's register: quiet, not
+     accent. Quiet alone would make it a sentence nobody knows is a link, so it
+     carries a hairline underline — the affordance without the colour. The
+     padding is hit area rather than layout: an inline box on a phone is about
+     nineteen pixels tall, and a target this important should not be. */
+  .sf-link {
+    color: var(--quiet);
+    border-bottom: 1px solid var(--outline-quiet);
+    padding: 4px 0;
+  }
+  .sf-link:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+  .sf-link:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+
+  /* Three zones need a width to be three zones in, and the width is MEASURED
+     rather than guessed: below 980px the disclaimer wraps to two lines inside
+     its own column, because that column is only half of what the centred
+     middle cell leaves over. My first guess at this was 900px, and the render
+     at 901 was a wrapped left cell sitting next to a one-line stamp.
+
+     1024 for headroom over the 980 it actually needs. That headroom is about
+     four per cent, so it is a coupling and not a comfort: lengthen the
+     disclaimer — a longer governing body, a longer publisher — and this number
+     has to be measured again rather than assumed to still hold.
+
+     Stacked lines read left. Three different lengths centred under one another
+     look like a ransom note, and the eye has one edge to return to. */
+  @media (max-width: 1024px) {
+    .site-footer {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 4px;
+      line-height: 1.7;
+    }
+    .sf-left, .sf-mid, .sf-right { justify-self: start; }
   }
 </style>
