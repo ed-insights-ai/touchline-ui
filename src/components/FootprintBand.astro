@@ -36,10 +36,13 @@ const placedCount = footprints.reduce((n, f) => n + f.placed.length, 0);
 const unplaced = footprints.flatMap((f) => f.unplaced);
 const states = [...new Set(footprints.flatMap((f) => f.states))].sort();
 
-// Colour is never the only carrier: every cluster is labelled, and the key
-// repeats the code beside the swatch. Purple is Touchline's and never a
-// conference's. Past roughly eight conferences a per-conference hue stops
-// separating and identity has to move to labels alone.
+// Identity lives in the key beside the map, never on the map itself. The
+// leagues interleave where the ground is busiest, so an on-map cluster label
+// was ambiguous exactly where it was needed most, and every added conference
+// made it worse — the phone width had already given up on them, and the
+// owner's ruling (Sep 1) retired them at every width. The swatch ties each
+// key row to its dots; a dot's own tooltip still names its conference.
+// Purple is Touchline's and never a conference's.
 //
 // The hue is keyed to the conference's place in site.conferences, NOT to the
 // order this page happens to show them in — the home page sorts by next
@@ -51,28 +54,6 @@ const hueOf = (key: string): string => {
   return HUES[(i < 0 ? 0 : i) % HUES.length] as string;
 };
 
-// A label sits outside its own cluster, pushed away from the middle of the
-// map — which is where the conferences interleave and where a label would be
-// ambiguous. With N conferences this keeps every label in open ground without
-// anyone hand-placing one.
-const centroid = (pts: { x: number; y: number }[]) => ({
-  x: pts.reduce((a, p) => a + p.x, 0) / pts.length,
-  y: pts.reduce((a, p) => a + p.y, 0) / pts.length,
-});
-const allDots = footprints.flatMap((f) => f.placed.map((p) => p.at));
-const middle = allDots.length > 0 ? centroid(allDots) : { x: 0, y: 0 };
-
-const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
-  if (f.placed.length === 0) return null;
-  const c = centroid(f.placed.map((p) => p.at));
-  const reach = Math.max(...f.placed.map((p) => Math.hypot(p.at.x - c.x, p.at.y - c.y)));
-  let dx = c.x - middle.x;
-  let dy = c.y - middle.y;
-  const len = Math.hypot(dx, dy) || 1;
-  dx /= len;
-  dy /= len;
-  return { x: c.x + dx * (reach + 20), y: c.y + dy * (reach + 20) };
-};
 ---
 
 <section class="footprint">
@@ -105,15 +86,6 @@ const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
             ))}
           </g>
         ))}
-        {footprints.map((f) => {
-          const at = labelAt(f);
-          return at ? (
-            <g class="fp-label">
-              <rect x={at.x - 22} y={at.y - 9} width="9" height="9" rx="2" fill={hueOf(f.key)} />
-              <text x={at.x - 8} y={at.y}>{f.code}</text>
-            </g>
-          ) : null;
-        })}
       </svg>
     </div>
 
@@ -183,13 +155,6 @@ const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
      held where they were, the coastline all but merged with the page. */
   .fp-land path { fill: #e9e5da; stroke: #d5d0c3; stroke-width: 1; stroke-linejoin: round; }
   .fp-dots circle { fill: var(--hue); stroke: var(--paper); stroke-width: 1.6; }
-  /* Text in ink tokens, never the series colour — the swatch carries the hue. */
-  .fp-label text {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1.8px;
-    fill: var(--ink);
-  }
 
   .fp-key { display: flex; flex-direction: column; }
   .fp-row {
@@ -237,9 +202,6 @@ const labelAt = (f: ConferenceFootprint): { x: number; y: number } | null => {
     .fp-key { max-width: 560px; }
   }
   @media (max-width: 720px) {
-    /* The dots stay honest at every width — nothing is nudged to make room.
-       The cluster labels are what stop resolving, so they go. */
-    .fp-label { display: none; }
     .fp-head { flex-wrap: wrap; gap: 6px 12px; }
     .fp-scope { flex-wrap: wrap; gap: 6px 10px; }
   }
