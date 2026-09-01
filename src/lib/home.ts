@@ -86,8 +86,8 @@ export interface HomeColumn {
   /** The same counts the season page's masthead prints, from the same function. */
   counts: SeasonCounts;
   /** Friendlies, outside the record everywhere — counted beside, never in.
-   *  No surface prints this since tui-2lp retired the counts block; it stays
-   *  because `counts.total + exhibitions` is every fixture in the file, and
+   *  No surface prints it. It stays because `counts.total + exhibitions` is
+   *  every fixture in the file, and
    *  home.test.ts holds the data to that. A fixture in neither bucket is a
    *  collector bug nothing else would catch. */
   exhibitions: number;

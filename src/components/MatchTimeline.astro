@@ -63,20 +63,36 @@ const noteText = strip.notes
 // The selection wiring is per-stack, so the rules are generated here rather
 // than written in the scoped style below: radio i shows detail row i, hides
 // the hint, and hands its stack a focus ring for keyboard readers.
-const selectionCss = lanes
-  .map(
-    (_, i) =>
-      `#tls-${i}:checked ~ .tl-detail > .tld-${i}{display:flex}` +
-      `#tls-${i}:checked ~ .tl-detail > .tl-hint{display:none}` +
-      `#tls-${i}:focus-visible ~ .timeline label[for="tls-${i}"]{outline:1px solid var(--accent);outline-offset:3px}`,
-  )
-  .join("\n");
-
 /** A stack carrying nothing but roster movement. The strip does not draw one
  *  until the substitutions toggle asks for it, so nothing else may offer it
- *  either — one test, used by the mark and by the control that selects it. */
+ *  either — one test, used by the mark, by the control that selects it, and by
+ *  the rule that puts the detail row back when the toggle takes the mark away. */
 const subOnly = (stack: LaneStack): boolean =>
   stack.marks.every((m) => m.kind === "sub" || m.kind === "roster");
+
+const selectionCss = lanes
+  .map(({ stack }, i) => {
+    const base =
+      `#tls-${i}:checked ~ .tl-detail > .tld-${i}{display:flex}` +
+      `#tls-${i}:checked ~ .tl-detail > .tl-hint{display:none}` +
+      `#tls-${i}:focus-visible ~ .timeline label[for="tls-${i}"]{outline:1px solid var(--accent);outline-offset:3px}`;
+    if (!subOnly(stack)) return base;
+    // Select a roster-only stack with the toggle open, then close the toggle,
+    // and the selection outlives the mark it points at: every row in its
+    // detail is a .tld-row-sub, which the closed toggle hides, so the row
+    // stood there empty with the hint already suppressed. The selection is in
+    // the URL of nothing and the memory of a radio, so nothing else can clear
+    // it — but the state IS expressible here, because the toggle, the radio
+    // and the detail row are siblings in that order.
+    //
+    // Two IDs against the one above, so these win on specificity rather than
+    // on source order, which a bundler is free to change.
+    return (
+      `${base}#tl-subs:not(:checked) ~ #tls-${i}:checked ~ .tl-detail > .tld-${i}{display:none}` +
+      `#tl-subs:not(:checked) ~ #tls-${i}:checked ~ .tl-detail > .tl-hint{display:block}`
+    );
+  })
+  .join("\n");
 
 const stackLabel = (stack: LaneStack): string =>
   `${stack.minute}′ — ${stack.marks.length} ${stack.marks.length === 1 ? "play" : "plays"}`;

@@ -64,6 +64,25 @@
   --draw: #956500;
   --loss: #be123c;
 
+  /* The silence. The dot beneath the season spine's axis for a date the
+     season has gone past that never got a score, and the legend swatch that
+     names it — one value in two places, because a swatch that does not match
+     the mark it names is a legend describing a different figure.
+
+     DRAWN, NEVER TYPE. It is a 4px dot and a 5px swatch and it sets no
+     letterform anywhere, so the threshold that governs it is the 3:1 a
+     meaningful mark answers to and not the 4.5:1 for text. It computes 5.01:1
+     on the paper regardless, so a retune reaching for depth has nothing to
+     gain here — and one reaching for the type floor would be applying the
+     wrong rule.
+
+     It is NOT --loss and must not be folded into it. A loss is a result; this
+     says no result was ever published, which is the opposite claim. It has
+     already been read as --loss once, which is what happens to a value with no
+     name: it gets taken for the nearest one that has one. The name is here so
+     nobody has to work that out from the markup again. */
+  --silence: #b93b52;
+
   /* The season strip's result washes. Written here beside the hues they are
      drawn from: as literals in the component they silently kept the pre-tune
      green and amber, which is the same staleness a component shipping its own

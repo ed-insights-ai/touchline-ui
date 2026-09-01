@@ -661,12 +661,5 @@ const awayName = names.name(fixture.away);
     .bar-left, .bar-right { display: none; }
     .stat-label { font-size: 10px; letter-spacing: 0.12em; }
 
-    /* The ledger reflows rather than scrolls: the score column folds under
-       the play text and the clock keeps its own column. */
-    .pbp-head { gap: 10px 14px; }
-    .pbp-count { width: 100%; }
-    .row { grid-template-columns: 46px 40px 1fr; gap: 8px; }
-    .row-score { grid-column: 3; text-align: left; padding-top: 2px; }
-    .row-goal .row-score { color: var(--accent); }
   }
 </style>

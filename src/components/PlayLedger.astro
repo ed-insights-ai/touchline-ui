@@ -180,10 +180,21 @@ const CHIPS = [
 
   /* The ledger reflows rather than scrolls: the score column folds under the
      play text and the clock keeps its own column. */
+  /* The ledger reflows rather than scrolls: the score column folds under the
+     play text and the clock keeps its own column. */
   @media (max-width: 720px) {
     .pbp-head { gap: 10px 14px; }
     .pbp-count { width: 100%; }
-    .row { grid-template-columns: 46px 40px 1fr; gap: 8px; }
+    /* The abbr column is data-sized here too. It used to be pinned at 40px,
+       which is narrower than the widest abbreviation the collectors publish:
+       "DELTA ST" wants 59px and was cut to "DELTA…" on 43 of that match's 82
+       rows, at every width from 320 up to 720. The abbr is the only thing on
+       a row naming which side the play belongs to, and a reader at phone
+       width is the one scanning rather than reading.
+       The ceiling is what the desktop rule does not need: the play text has
+       far less room here, so the column may grow to fit a published abbr and
+       no further. */
+    .row { grid-template-columns: 46px clamp(40px, var(--abbr-col), 64px) 1fr; gap: 8px; }
     .row-score { grid-column: 3; text-align: left; padding-top: 2px; }
     .row-goal .row-score { color: var(--accent); }
   }
