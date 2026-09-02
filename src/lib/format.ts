@@ -224,12 +224,24 @@ export const LINE_LABEL: Record<Line, string> = {
  */
 const POSITIONS: readonly [RegExp, Line][] = [
   // Nothing else in the vocabulary contains "keeper".
-  [/keeper|^gk$|^g$/, "GK"],
-  // "CM" is centre midfield on Lewis's 2026 roster, beside "MF".
-  [/midfield|miidfield|^mid$|^mf$|^m$|^cm$/, "MID"],
+  // "GKP" is Shorter's 2021 code (gsc/shorter); Truman 2022 writes "Goalie".
+  [/keeper|goalie|^gkp$|^gk$|^g$/, "GK"],
+  // "CM" is centre midfield on Lewis's 2026 roster, beside "MF". Southwest
+  // Baptist's 2023 roster (glvc/southwest-baptist) writes the whole squad in
+  // positional codes: CM, CDM and CAM are the three midfield roles.
+  // "Mid" as its own word covers Shorter 2021's "Center Mid" and Ouachita
+  // Baptist 2019's "Mid Fielder". Saint Edward's 2023 (lsc/saint-edwards)
+  // codes its midfield ACM, AM and HCM: attacking and holding centre mids.
+  [/midfield|miidfield|\bmid\b|^mf$|^m$|^cm$|^cdm$|^cam$|^acm$|^am$|^hcm$/, "MID"],
   // "B" is Missouri S&T's own initial for a back (2026 roster), beside "M-B".
-  [/back|defen|^def$|^d$|^b$/, "DEF"],
-  [/forward|foward|strik|wing|attack|^fwd$|^f$|^w$/, "FWD"],
+  // RB, CB and LB are Southwest Baptist 2023's right, centre and left backs.
+  // "DF" is Christian Brothers 2020 (gsc/christian-brothers); "FB" is a full
+  // back on Saint Edward's 2023.
+  [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lb$|^fb$/, "DEF"],
+  // LW, RW and ST are Southwest Baptist 2023's wings and striker.
+  // "FW" is Newman 2022 and Christian Brothers 2020; "FOR" is Shorter 2021;
+  // "S" is the striker beside "W" and "W/S" on Saint Edward's 2023.
+  [/forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^s$/, "FWD"],
 ];
 
 /**
@@ -250,16 +262,40 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   derfender: "defender",
   // Upper Iowa 2023 (glvc/upper-iowa): "Milfielder".
   milfielder: "midfielder",
+  // Ouachita Baptist 2019 (gac/ouachita-baptist): "Center Middlefielder".
+  middlefielder: "midfielder",
+  // Shorter 2020 (gsc/shorter): "Midfilder/Forward".
+  midfilder: "midfielder",
+  // Montevallo 2022 through 2024 (gsc/montevallo): "Midifelder".
+  midifelder: "midfielder",
+  // AUM 2021 (gsc/aum): one "MD" on a roster where every other midfielder is "MID".
+  md: "midfielder",
   // William Jewell 2023 (glvc/william-jewell): "Goalkeper".
   goalkeper: "goalkeeper",
 };
 
+/**
+ * Published strings whose slash is not a second position but part of one:
+ * "C/B" is a centre back, "Left/Right Forward" one forward. Read whole,
+ * before the slash rule, and only for the exact forms a roster has printed.
+ */
+const PUBLISHED_FORMS: Readonly<Record<string, string>> = {
+  // Shorter 2021 (gsc/shorter): "C/B", "C/M", "L/B" beside "Center Back".
+  "c/b": "center back",
+  "c/m": "center mid",
+  "l/b": "left back",
+  // Oklahoma Christian 2022 and 2023 (lsc/oklahoma-christian).
+  "left/right forward": "forward",
+  "l/r forward": "forward",
+};
+
 export function positionLine(position: string | undefined): Line | null {
   if (!position) return null;
+  const whole = PUBLISHED_FORMS[position.trim().toLowerCase()] ?? position;
   // A roster that lists two positions lists the first one first: "Midfielder/
   // Defender" is a midfielder who covers. Read the first and ignore the rest,
   // which is what these pages have always printed.
-  const first = position.split("/")[0] ?? "";
+  const first = whole.split("/")[0] ?? "";
   const word = first
     .toLowerCase()
     .replace(/[^a-z ]/g, " ")
@@ -270,7 +306,11 @@ export function positionLine(position: string | undefined): Line | null {
   // S&T's 2026 roster — are the two-position form again in initials, and
   // the first listed is the position. The hyphen is already a space here.
   const initials = /^[a-z]( [a-z])+$/.test(word) ? (word[0] as string) : word;
-  const spelled = PUBLISHED_TYPOS[initials] ?? initials;
+  // Word by word, so "Center Middlefielder" is corrected the same as "Middlefielder".
+  const spelled = initials
+    .split(" ")
+    .map((w) => PUBLISHED_TYPOS[w] ?? w)
+    .join(" ");
   for (const [published, line] of POSITIONS) if (published.test(spelled)) return line;
   return null;
 }
