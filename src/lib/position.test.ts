@@ -95,6 +95,47 @@ describe("the words a roster prints", () => {
     expect(positionLine("Midfelder")).toBeNull();
   });
 
+  test("the two-letter positional codes Southwest Baptist 2023 writes", () => {
+    // glvc/southwest-baptist, 2023 roster: every player is a code, most are
+    // several joined by a slash, and the first listed is the position.
+    for (const p of ["RB", "CB", "LB", "RB/CB/CDM", "LB/RB/CM"]) {
+      expect(positionLine(p), p).toBe("DEF");
+    }
+    for (const p of ["CM", "CDM", "CAM", "CM/CAM/RW", "CDM/CM/CAM/CB", "CAM/CM/LW"]) {
+      expect(positionLine(p), p).toBe("MID");
+    }
+    for (const p of ["LW", "RW", "ST", "LW/RW/ST", "ST/RW", "LW/RW/CAM"]) {
+      expect(positionLine(p), p).toBe("FWD");
+    }
+  });
+
+  test("the archive's vocabulary, found by reading every collected season", () => {
+    // Each of these is cited in format.ts to the roster that printed it.
+    for (const p of ["GKP", "Goalie"]) expect(positionLine(p), p).toBe("GK");
+    for (const p of ["DF", "DF/FW", "FB", "C/B", "L/B"]) expect(positionLine(p), p).toBe("DEF");
+    for (const p of [
+      "ACM",
+      "AM",
+      "HCM",
+      "C/M",
+      "Center Mid",
+      "Mid Fielder",
+      "Right Mid Fielder",
+      "Mid Fielder / Forward",
+      "Center Middlefielder",
+      "Midfilder/Forward",
+      "Midifelder",
+      "MD",
+    ]) {
+      expect(positionLine(p), p).toBe("MID");
+    }
+    for (const p of ["FW", "FOR", "S", "W/S", "L/R Forward", "Left/Right Forward"]) {
+      expect(positionLine(p), p).toBe("FWD");
+    }
+    // A slash inside one position is read whole only for the printed forms.
+    expect(positionLine("C/F")).toBeNull();
+  });
+
   test("a word this table does not know places nobody", () => {
     // Widening what is recognised is not the same as guessing. "Team IMPACT"
     // is a real roster entry and not a position at all.
@@ -112,12 +153,30 @@ describe("against the rosters this site actually collects", () => {
     // "1": Illinois Springfield's 2026 roster prints a number in the position
     // column for one player; a number is not a position and places nobody.
     // "Student Manager": William Jewell 2025 lists two managers on the roster.
-    const KNOWN_NON_POSITIONS = ["team impact", "1", "student manager"];
+    // "Student Assistant": William Jewell 2023. "HS" and "TR": Spring Hill
+    // 2020 prints them for one player each beside spelled-out positions;
+    // neither is evidently a position, so neither is guessed at.
+    const KNOWN_NON_POSITIONS = [
+      "team impact",
+      "1",
+      "student manager",
+      "student assistant",
+      "hs",
+      "tr",
+    ];
+    // Every collected season, not just the two the site renders: the
+    // vocabulary is authored once for the whole archive, and Southwest
+    // Baptist's 2023 codes (tui-6e0) sat unplaced for as long as this read
+    // only the current season and the one before it.
+    const FIRST_COLLECTED_SEASON = 2016;
     let checked = 0;
+    let seasonsRead = 0;
     for (const conference of site.conferences) {
-      for (const year of [site.season, site.season - 1]) {
+      for (let year = FIRST_COLLECTED_SEASON; year <= site.season; year++) {
         const file = loadRosters(year, "men", conference);
-        for (const slug of Object.keys(file?.rosters ?? {})) {
+        if (!file) continue;
+        seasonsRead++;
+        for (const slug of Object.keys(file.rosters)) {
           for (const player of file?.rosters[slug]?.players ?? []) {
             checked++;
             if (positionLine(player.position) !== null) continue;
@@ -131,6 +190,8 @@ describe("against the rosters this site actually collects", () => {
       }
     }
     expect(checked).toBeGreaterThan(1500);
+    // 32 conference-seasons are on disk today; fewer means a file went missing.
+    expect(seasonsRead).toBeGreaterThanOrEqual(32);
   });
 });
 
