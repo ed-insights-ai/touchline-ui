@@ -3,7 +3,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-02T01:51:53+00:00",
+  "generated_at": "2026-09-02T03:21:05+00:00",
   "data_collected_at": "2026-09-02T01:37:42+00:00",
   "headline": "Gulf South wins as often as it loses",
   "dek": "AUM, Trevecca and UAH have won every match they have played, and Christian Brothers and Union have lost every one of theirs. Only Delta State have done both, winning at Harding and losing at Central Baptist, while Mississippi Christian, Montevallo and West Alabama have drawn but not yet won.",
@@ -69,7 +69,7 @@
     },
     {
       "label": "observed",
-      "text": "The record's silences are all of one kind: five matches have passed their date with no result at all, and no final has been left without a score.",
+      "text": "The record's silences are all of the same kind: five matches have passed their date with no result at all, and no final has been left without a score.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -159,6 +159,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T01:52:10.576Z"
+    "validated_at": "2026-09-02T04:03:59.043Z"
   }
 }

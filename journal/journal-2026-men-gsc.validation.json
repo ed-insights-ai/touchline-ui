@@ -4,7 +4,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-02T01:52:10.576Z",
+  "validated_at": "2026-09-02T04:03:59.043Z",
   "data_collected_at": "2026-09-02T01:37:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[1].text",
-      "text": "The record's silences are all of one kind: five matches have passed their date with no result at all, and no final has been left without a score.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "The record's silences are all of one kind: five matches have passed their date with no result at all, and no final has been left without a score.",
+      "text": "The record's silences are all of the same kind: five matches have passed their date with no result at all, and no final has been left without a score.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],

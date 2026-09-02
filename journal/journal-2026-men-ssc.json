@@ -1,0 +1,167 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SSC",
+  "generated_at": "2026-09-02T04:03:08+00:00",
+  "data_collected_at": "2026-09-02T02:57:07+00:00",
+  "headline": "Florida Southern win twice without conceding",
+  "dek": "Four different players have scored Florida Southern's seven goals in wins over Barton and Middle Georgia State, and Ricardo Marques has made seven saves behind them without being beaten. Every other side to have played has conceded.",
+  "lede_basis": {
+    "programme": "florida-southern",
+    "wins": 2,
+    "draws": 0,
+    "losses": 0,
+    "gf": 7,
+    "ga": 0,
+    "distinct_scorers_min": 4,
+    "source": "stats",
+    "player": "Ricardo Marques",
+    "saves": 7,
+    "goals_against": 0
+  },
+  "lede_updated": "2026-09-02",
+  "pattern": {
+    "label": "derived",
+    "text": "The goals are pooled at the top of the chart, not spread through it: Rollins alone have outscored Eckerd, Florida Tech, Barry, Nova Southeastern and Saint Leo put together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "rollins": 10,
+        "embry-riddle": 8,
+        "florida-southern": 7,
+        "lynn": 4,
+        "palm-beach-atlantic": 4,
+        "eckerd": 3,
+        "florida-tech": 3,
+        "barry": 1,
+        "nova-southeastern": 1,
+        "saint-leo": 1,
+        "tampa": 0
+      },
+      "highlight": "rollins"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "rollins",
+      "of": ["eckerd", "florida-tech", "barry", "nova-southeastern", "saint-leo"],
+      "gf": 10
+    }
+  },
+  "wire": {
+    "line": "Tampa have no match on the record yet; their first of the season is a conference match, at home to Rollins.",
+    "basis": {
+      "programme": "tampa",
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "gf": 0,
+      "ga": 0,
+      "conference_opens": "2026-09-12"
+    },
+    "updated": "2026-09-02"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three matches have passed their date with no result published at all, and all three are Palm Beach Atlantic's: the earliest fell on the season's opening day, and one of them was against Barry, a fellow member. No final has been left without a score.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3,
+        "set": "past_date_no_result",
+        "all_of": "palm-beach-atlantic",
+        "count": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Rollins are unbeaten after three matches and have conceded eight goals, more than any other programme.",
+      "basis": {
+        "programme": "rollins",
+        "wins": 2,
+        "draws": 1,
+        "losses": 0,
+        "gf": 10,
+        "ga": 8,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "barry",
+          "eckerd",
+          "embry-riddle",
+          "florida-southern",
+          "florida-tech",
+          "lynn",
+          "nova-southeastern",
+          "palm-beach-atlantic",
+          "saint-leo",
+          "tampa"
+        ]
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
+      "basis": {
+        "programme": "embry-riddle",
+        "distinct_scorers_min": 6,
+        "wins": 2,
+        "draws": 0,
+        "losses": 0
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Henry Obi has made twelve saves in two defeats for Barry and conceded five.",
+      "basis": {
+        "source": "stats",
+        "player": "Henry Obi",
+        "programme": "barry",
+        "saves": 12,
+        "goals_against": 5,
+        "wins": 0,
+        "draws": 0,
+        "losses": 2
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Pablo Herrero",
+      "programme": "rollins",
+      "position": "MID",
+      "class": "SR",
+      "line": "4 G · 7 shots"
+    },
+    {
+      "player": "Lukas Bludau",
+      "programme": "embry-riddle",
+      "position": "MID",
+      "class": "SO",
+      "line": "3 G · 5 shots"
+    },
+    {
+      "player": "Robin Muenst",
+      "programme": "lynn",
+      "position": "MID",
+      "class": "SR",
+      "line": "2 G · 2 A · 4 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-01 rollins v flagler",
+      "line": "Rollins dropped points for the first time this season, and they have still not kept a clean sheet."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-02 nova-southeastern v florida-memorial",
+      "line": "Nova Southeastern have lost both of their matches so far, each of them at home, and are still waiting for a first win."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-02T04:09:14.667Z"
+  }
+}

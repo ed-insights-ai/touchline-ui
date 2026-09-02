@@ -3,7 +3,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-02T01:54:46+00:00",
+  "generated_at": "2026-09-02T03:21:37+00:00",
   "data_collected_at": "2026-09-02T01:37:56+00:00",
   "headline": "Missouri S&T stand alone on two wins",
   "dek": "Missouri S&T have won both their matches, scoring seven and conceding once, and no other programme has yet won twice. Five different players have scored those seven goals, three of them by Mike Banasik.",
@@ -96,7 +96,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Seven matches are score gaps, finals with no published score, and all seven are dated before the earliest match that has one.",
+      "text": "Seven matches are score gaps, finals with no published score, and all seven are dated before the earliest published result.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 7,
@@ -211,6 +211,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T01:55:08.589Z"
+    "validated_at": "2026-09-02T04:03:59.123Z"
   }
 }
