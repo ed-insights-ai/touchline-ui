@@ -185,7 +185,7 @@ describe("the projection", () => {
     const wrong: string[] = [];
     for (const f of footprints) {
       for (const p of f.placed) {
-        const code = pointOf(p.slug)?.source?.state;
+        const code = pointOf(p.slug)?.state;
         if (!code) continue;
         const d = byName.get(STATE_NAME[code] ?? "");
         if (!d) continue;
@@ -209,7 +209,7 @@ describe("the projection", () => {
       const placed = footprints.flatMap((f) => f.placed).find((p) => p.slug === slug);
       expect(placed, slug).toBeDefined();
       if (!placed) continue;
-      const d = byName.get(STATE_NAME[pointOf(slug)?.source?.state ?? ""] ?? "") ?? "";
+      const d = byName.get(STATE_NAME[pointOf(slug)?.state ?? ""] ?? "") ?? "";
       expect(insidePath(d, placed.at.x, placed.at.y), `${slug} is inside now`).toBe(false);
       expect(distanceToPath(d, placed.at.x, placed.at.y)).toBeLessThanOrEqual(
         OFFSHORE_TOLERANCE_PX,
@@ -272,9 +272,7 @@ describe("what the band prints", () => {
   test("states are the states the placed members actually play in", () => {
     for (const f of footprints) {
       const expected = [
-        ...new Set(
-          f.placed.map((p) => pointOf(p.slug)?.source?.state).filter((s): s is string => !!s),
-        ),
+        ...new Set(f.placed.map((p) => pointOf(p.slug)?.state).filter((s): s is string => !!s)),
       ].sort();
       expect(f.states).toEqual(expected);
     }

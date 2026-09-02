@@ -5,7 +5,14 @@
 import { site } from "../site.config.ts";
 import type { CoverageFile } from "./coverage.ts";
 import { coverageKey } from "./coverage.ts";
-import { loadCoverage, loadFixtures, loadMatches, loadRosters, loadStats } from "./data.ts";
+import {
+  loadCoverage,
+  loadFixtures,
+  loadMatches,
+  loadRosters,
+  loadStats,
+  seasonKey,
+} from "./data.ts";
 import {
   classAbbr,
   dayNumber,
@@ -30,6 +37,7 @@ import type {
 } from "./model.ts";
 import { computeOverallTable, computeTable, isPlayed } from "./model.ts";
 import { type NameBook, nameBookFor } from "./names.ts";
+import { assertProgrammesFor } from "./programmes.ts";
 
 export type Result = "W" | "D" | "L";
 
@@ -53,6 +61,9 @@ export function loadSeason(key: string): Season {
   const hit = seasons.get(key);
   if (hit) return hit;
   const fixtures = loadFixtures(site.season, site.gender, key);
+  // Every page and script becomes a Season here, so a member with no identity
+  // fails once, by name, at build time — never as a blank line on a page.
+  assertProgrammesFor(fixtures.programmes, seasonKey(site.season, site.gender, key));
   const season: Season = {
     key,
     fixtures,
