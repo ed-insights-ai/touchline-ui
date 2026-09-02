@@ -42,6 +42,19 @@ The files read, and the contracts they must satisfy:
 rib is the authority for these shapes. Re-copy it when the rib's model changes;
 never edit it here. The only contract between the two repos is the JSON.
 
+The rib also publishes one sample document per schema under its `contracts/`
+directory. `src/lib/contracts.test.ts` parses each under this site's strict
+schema, so a writer-side shape change fails in the rib's CI and a reader-side
+tightening fails in `bun test` here, never on the published build. The fixtures
+are read from the rib checkout, not copied:
+
+```
+TOUCHLINE_CONTRACTS_DIR   the rib's contracts/ directory
+                          default: ../keelson-rib-touchline/contracts
+```
+
+When that directory is absent the suite skips, naming the path it looked at.
+
 A file whose `schema` string is not the one this site reads fails the build with
 that string named. Fixtures are required; the other layers are optional and
 their absence renders as a designed empty state, with a warning naming the path.
