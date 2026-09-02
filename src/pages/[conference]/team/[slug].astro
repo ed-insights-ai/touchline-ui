@@ -658,6 +658,12 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
   .sq-title { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
   .sq-keys { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 11px; letter-spacing: 0.1em; color: var(--secondary); }
   .sq-key { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  /* The longest key ("22 OF 39 HOMETOWNS OUTSIDE THE US") runs past a 320px
+     phone; below 480px the heading stacks and the key text wraps. */
+  @media (max-width: 480px) {
+    .sq-heading { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .sq-key { white-space: normal; }
+  }
   .squad { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; }
   .squad-line { display: flex; flex-direction: column; gap: 10px; }
   .squad-head {
