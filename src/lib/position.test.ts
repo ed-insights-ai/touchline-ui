@@ -77,6 +77,24 @@ describe("the words a roster prints", () => {
     expect(positionLine("Midfielder/Foward")).toBe("MID");
   });
 
+  test("a published misspelling maps through the explicit list, not by resemblance", () => {
+    // Drury's 2026 roster prints "Midielder". The alias names that roster and
+    // maps the word; a misspelling nobody has published stays unplaced.
+    expect(positionLine("Midielder")).toBe("MID");
+    expect(positionLine("Midielder/Forward")).toBe("MID");
+    expect(positionLine("Midfeidler")).toBe("MID");
+    expect(positionLine("Derfender")).toBe("DEF");
+    expect(positionLine("Milfielder")).toBe("MID");
+    expect(positionLine("Goalkeper")).toBe("GK");
+    expect(positionLine("De")).toBe("DEF");
+    // Missouri S&T 2026: initials joined by a hyphen, first listed first.
+    expect(positionLine("F-M")).toBe("FWD");
+    expect(positionLine("M-B")).toBe("MID");
+    expect(positionLine("B")).toBe("DEF");
+    expect(positionLine("CM")).toBe("MID");
+    expect(positionLine("Midfelder")).toBeNull();
+  });
+
   test("a word this table does not know places nobody", () => {
     // Widening what is recognised is not the same as guessing. "Team IMPACT"
     // is a real roster entry and not a position at all.
@@ -91,7 +109,10 @@ describe("against the rosters this site actually collects", () => {
     // The check that would have caught the original gap: after the table, a
     // player with no line must be a player with no PUBLISHED POSITION, or one
     // of the handful of entries that name something other than a position.
-    const KNOWN_NON_POSITIONS = ["team impact"];
+    // "1": Illinois Springfield's 2026 roster prints a number in the position
+    // column for one player; a number is not a position and places nobody.
+    // "Student Manager": William Jewell 2025 lists two managers on the roster.
+    const KNOWN_NON_POSITIONS = ["team impact", "1", "student manager"];
     let checked = 0;
     for (const conference of site.conferences) {
       for (const year of [site.season, site.season - 1]) {

@@ -17,7 +17,7 @@ import FootprintBand from "../components/FootprintBand.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Page from "../layouts/Page.astro";
 import { hasScore, matchHref, seasonHref } from "../lib/derive.ts";
-import { divisionCounts } from "../lib/division.ts";
+import { type DivisionMatch, divisionCounts } from "../lib/division.ts";
 import type { Fixture } from "../lib/derive.ts";
 import {
   dayOfMonth,
@@ -109,6 +109,35 @@ const sideClass = (f: Fixture, side: "home" | "away"): string => {
   return side === winner ? "lside lwin" : "lside lquiet";
 };
 
+// A ledger row reads away · score · home, which is a claim about where the
+// match was played. A neutral-site match (two records, each site calling
+// itself home) has no home side to claim, so its row is set in the order the
+// fold's identity uses — the two slugs sorted — with the score in that order
+// and a "v" where the home sense would have been. Both sides are printed
+// with the same weight rule; only the sense is withheld.
+interface LedgerSide {
+  slug: string;
+  score: number | undefined;
+  cls: string;
+}
+const ledgerSides = (r: DivisionMatch): { left: LedgerSide; right: LedgerSide } => {
+  const f = r.fixture;
+  if (!r.neutral) {
+    return {
+      left: { slug: f.away, score: f.away_score, cls: `${sideClass(f, "away")} l-away` },
+      right: { slug: f.home, score: f.home_score, cls: sideClass(f, "home") },
+    };
+  }
+  const [a, b] = [f.home, f.away].sort();
+  const sideOf = (slug: string): "home" | "away" => (slug === f.home ? "home" : "away");
+  const scoreOf = (slug: string): number | undefined =>
+    slug === f.home ? f.home_score : f.away_score;
+  return {
+    left: { slug: a as string, score: scoreOf(a as string), cls: `${sideClass(f, sideOf(a as string))} l-away` },
+    right: { slug: b as string, score: scoreOf(b as string), cls: sideClass(f, sideOf(b as string)) },
+  };
+};
+
 const night = dowLong(lastNight);
 const sentenceCase = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 
@@ -176,15 +205,19 @@ const opensLine = (c: (typeof columns)[number]): string =>
           {ledger.map((r) => (
             <a class="lrow hoverable" href={matchHref(r.key, r.fixture.id)}>
               <span class="lconf">{r.codes.join(" · ")}</span>
-              <span class={`${sideClass(r.fixture, "away")} l-away`}>
-                {r.season.names.name(r.fixture.away)}
-              </span>
-              <span class="lscore">
-                {hasScore(r.fixture) ? `${r.fixture.away_score}–${r.fixture.home_score}` : "—"}
-              </span>
-              <span class={sideClass(r.fixture, "home")}>
-                {r.season.names.name(r.fixture.home)}
-              </span>
+              {(() => {
+                const { left, right } = ledgerSides(r);
+                return (
+                  <>
+                    <span class={left.cls}>{r.season.names.name(left.slug)}</span>
+                    <span class="lscore">
+                      {hasScore(r.fixture) ? `${left.score}–${right.score}` : "—"}
+                      {r.neutral && <span class="lneutral"> v</span>}
+                    </span>
+                    <span class={right.cls}>{r.season.names.name(right.slug)}</span>
+                  </>
+                );
+              })()}
             </a>
           ))}
         </div>
@@ -332,6 +365,8 @@ const opensLine = (c: (typeof columns)[number]): string =>
   }
   .lside { min-width: 0; }
   .l-away { text-align: right; }
+  /* The neutral mark: quiet, and the only thing that tells a neutral row apart. */
+  .lneutral { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; }
   .lwin { font-weight: 600; }
   .lquiet { color: var(--secondary); }
   .lscore { font-weight: 600; }

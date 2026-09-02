@@ -71,7 +71,24 @@ export interface DivisionMatch {
   fixture: Fixture;
   /** Every record of it, the canonical one included. */
   sightings: Sighting[];
+  /** The records disagree on which side was at home and agree on everything
+   *  else: a neutral-site match, each site having written itself as the home
+   *  side (the 2026 Rogers State tournament in Claremore, Okla. is the case
+   *  this was measured on). It is one match, counted once and for both
+   *  records; it carries no home side, and a surface must not print one. */
+  neutral: boolean;
 }
+
+/** The facts two records of one match must agree on once the home side is
+ *  set aside: the unordered score and the status. Order-free so that two
+ *  sites each calling itself the home side still compare equal. */
+const sideFreeShape = (f: Fixture): string => {
+  const scored = [
+    [f.home, f.home_score ?? "-"],
+    [f.away, f.away_score ?? "-"],
+  ].sort(([a], [b]) => String(a).localeCompare(String(b)));
+  return `${scored.map(([slug, score]) => `${slug}=${score}`).join("|")}|${f.status ?? "-"}`;
+};
 
 /** Fold sightings into matches, keeping the order of first appearance. */
 export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
@@ -92,8 +109,27 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     // is for the shape the data has never taken: a match whose home side plays
     // in a conference this site does not follow, which can only reach one file
     // and so can only be one sighting anyway.
-    const canonical = group.find((s) => memberSlugs(s.season).has(s.fixture.home)) ?? group[0];
-    if (!canonical) continue;
+    const first = group[0];
+    if (!first) continue;
+    // Two records may disagree on the home side (a neutral site, each site
+    // writing itself as home) and still be one match. They may not disagree
+    // on the score or the status: that is two collectors publishing different
+    // facts, and the fold refuses to choose between them silently.
+    const shapes = new Set(group.map((s) => sideFreeShape(s.fixture)));
+    if (shapes.size > 1) {
+      throw new Error(
+        `Touchline: the records of ${identity} disagree on the score or status: ${group
+          .map((s) => `${s.key} ${sideFreeShape(s.fixture)}`)
+          .join("  vs  ")}`,
+      );
+    }
+    const neutral = new Set(group.map((s) => s.fixture.home)).size > 1;
+    // With a home side, the canonical record is the home side's own
+    // conference, which exactly one of the sightings is. Without one, the
+    // first in config order: deterministic, and keyed to the stable list.
+    const canonical = neutral
+      ? first
+      : (group.find((s) => memberSlugs(s.season).has(s.fixture.home)) ?? first);
     out.push({
       identity,
       codes: group.map((s) => s.code),
@@ -101,6 +137,7 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
       season: canonical.season,
       fixture: canonical.fixture,
       sightings: group,
+      neutral,
     });
   }
   return out;

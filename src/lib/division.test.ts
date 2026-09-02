@@ -64,21 +64,23 @@ describe("what makes two records one match", () => {
 });
 
 describe("the records agree, which is what makes folding safe", () => {
-  test("both files publish the same home side, score and status", () => {
+  /** What a record says once the home side is set aside. */
+  const sideFree = (s: Sighting): string =>
+    [
+      `${s.fixture.home}=${s.fixture.home_score ?? "-"}`,
+      `${s.fixture.away}=${s.fixture.away_score ?? "-"}`,
+    ]
+      .sort()
+      .concat(s.fixture.status ?? "-")
+      .join("|");
+
+  test("both files publish the same score and status", () => {
     const disagreements: string[] = [];
     for (const m of shared) {
-      const shape = (s: Sighting): string =>
-        [
-          s.fixture.home,
-          s.fixture.away,
-          s.fixture.home_score ?? "-",
-          s.fixture.away_score ?? "-",
-          s.fixture.status ?? "-",
-        ].join("|");
-      const shapes = new Set(m.sightings.map(shape));
+      const shapes = new Set(m.sightings.map(sideFree));
       if (shapes.size > 1) {
         disagreements.push(
-          `${m.identity}: ${m.sightings.map((s) => `${s.key} ${shape(s)}`).join("  vs  ")}`,
+          `${m.identity}: ${m.sightings.map((s) => `${s.key} ${sideFree(s)}`).join("  vs  ")}`,
         );
       }
     }
@@ -88,12 +90,56 @@ describe("the records agree, which is what makes folding safe", () => {
     expect(disagreements).toEqual([]);
   });
 
-  test("exactly one of them is the home side's own conference", () => {
-    for (const m of shared) {
+  test("a match with a home side: exactly one record is that side's own conference", () => {
+    for (const m of shared.filter((m) => !m.neutral)) {
       const home = m.sightings.filter((s) => memberSlugs(s.season).has(s.fixture.home));
       expect(home.length, m.identity).toBe(1);
       expect(m.key, m.identity).toBe((home[0] as Sighting).key);
     }
+  });
+
+  test("a neutral-site match is the records disagreeing on the home side and nothing else", () => {
+    for (const m of shared) {
+      const homes = new Set(m.sightings.map((s) => s.fixture.home));
+      expect(m.neutral, m.identity).toBe(homes.size > 1);
+      if (!m.neutral) continue;
+      // Measured on the two Rogers State tournament matches: on 08-27 each
+      // site wrote itself as home; on 08-29 each wrote the OTHER side as home
+      // under different venue strings. Neither shape is a home side, which is
+      // why the definition is the disagreement itself and not who claimed
+      // what. Score and status agree, or it would not have folded at all.
+      expect(new Set(m.sightings.map(sideFree)).size, m.identity).toBe(1);
+      // Canonical is the first record in config order: stable, and not a
+      // claim about home.
+      expect(m.key, m.identity).toBe((m.sightings[0] as Sighting).key);
+    }
+  });
+
+  test("the two Rogers State tournament matches are the neutral cases this was measured on", () => {
+    // 2026-08-27 Maryville v Southern Nazarene and 2026-08-29 McKendree v
+    // Southern Nazarene, Claremore, Okla.: the GAC file (from SNU's site) says
+    // SNU home; the GLVC file says the GLVC side home; scores agree.
+    const expected = [
+      "2026-08-27 maryville v southern-nazarene",
+      "2026-08-29 mckendree v southern-nazarene",
+    ];
+    const neutral = folded.filter((m) => m.neutral).map((m) => m.identity);
+    for (const id of expected) expect(neutral, id).toContain(id);
+    // Neither is printed twice: one folded match each.
+    for (const id of expected) expect(folded.filter((m) => m.identity === id)).toHaveLength(1);
+  });
+
+  test("a disagreement on the score itself is a hard failure, never a neutral site", () => {
+    const pair = shared.find((m) => m.neutral) ?? shared[0];
+    expect(pair, "no shared match in this data to disagree about").toBeDefined();
+    const [a, b] = (pair as (typeof shared)[number]).sightings as [Sighting, Sighting];
+    const bumped: Sighting = {
+      ...b,
+      fixture: { ...b.fixture, home_score: (b.fixture.home_score ?? 0) + 1 },
+    };
+    expect(() => foldToMatches([a, bumped])).toThrow(/disagree on the score or status/);
+    // And the same pair, untouched, folds to one match.
+    expect(foldToMatches([a, b])).toHaveLength(1);
   });
 });
 

@@ -138,7 +138,9 @@ describe("the ledger holds only played finals — silences never enter it", () =
       expect(new Set(row.sightings.map((s) => s.key)).size).toBe(row.sightings.length);
       // Both codes are printed, because both conferences did collect it.
       expect(row.codes.length).toBe(row.sightings.length);
-      // And the row resolves to the conference the home side plays in.
+      // And the row resolves to the conference the home side plays in — when
+      // there is one. A neutral-site row has no home side to resolve by.
+      if (row.neutral) continue;
       expect(memberSlugs(row.season).has(row.fixture.home), row.identity).toBe(true);
     }
   });

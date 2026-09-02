@@ -225,10 +225,34 @@ export const LINE_LABEL: Record<Line, string> = {
 const POSITIONS: readonly [RegExp, Line][] = [
   // Nothing else in the vocabulary contains "keeper".
   [/keeper|^gk$|^g$/, "GK"],
-  [/midfield|miidfield|^mid$|^mf$|^m$/, "MID"],
-  [/back|defen|^def$|^d$/, "DEF"],
+  // "CM" is centre midfield on Lewis's 2026 roster, beside "MF".
+  [/midfield|miidfield|^mid$|^mf$|^m$|^cm$/, "MID"],
+  // "B" is Missouri S&T's own initial for a back (2026 roster), beside "M-B".
+  [/back|defen|^def$|^d$|^b$/, "DEF"],
   [/forward|foward|strik|wing|attack|^fwd$|^f$|^w$/, "FWD"],
 ];
+
+/**
+ * Published misspellings that are evidently one known position, mapped to it
+ * explicitly. Never fuzzy: each entry names the roster it was seen on, and a
+ * string that is not in this list and matches no vocabulary word places
+ * nobody. The published string itself is never rewritten in data.
+ */
+const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
+  // Drury men's roster, collected 2026-09-01 (glvc/drury): "Midielder".
+  midielder: "midfielder",
+  // Lincoln (Mo.) men's roster, collected 2026-09-01 (glvc/lincoln): one
+  // player's position is cut to "De" where every other back reads "Defender".
+  de: "defender",
+  // McKendree men's roster, collected 2026-09-01 (glvc/mckendree): "Midfeidler";
+  // McKendree 2024: "Derfender".
+  midfeidler: "midfielder",
+  derfender: "defender",
+  // Upper Iowa 2023 (glvc/upper-iowa): "Milfielder".
+  milfielder: "midfielder",
+  // William Jewell 2023 (glvc/william-jewell): "Goalkeper".
+  goalkeper: "goalkeeper",
+};
 
 export function positionLine(position: string | undefined): Line | null {
   if (!position) return null;
@@ -242,7 +266,12 @@ export function positionLine(position: string | undefined): Line | null {
     .replace(/\s+/g, " ")
     .trim();
   if (!word) return null;
-  for (const [published, line] of POSITIONS) if (published.test(word)) return line;
+  // Single-letter positions joined by a hyphen — "F-M", "M-B" on Missouri
+  // S&T's 2026 roster — are the two-position form again in initials, and
+  // the first listed is the position. The hyphen is already a space here.
+  const initials = /^[a-z]( [a-z])+$/.test(word) ? (word[0] as string) : word;
+  const spelled = PUBLISHED_TYPOS[initials] ?? initials;
+  for (const [published, line] of POSITIONS) if (published.test(spelled)) return line;
   return null;
 }
 

@@ -6,7 +6,7 @@
     "url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2023_Gazetteer/2023_Gaz_place_national.zip",
     "license": "Public domain (work of the U.S. federal government)",
     "method": "programmes.json `city` parsed as \"Town, AP-state\", the AP abbreviation mapped to its USPS code, then matched against the Gazetteer NAME with its legal descriptor (city/town/village/CDP) stripped. Incorporated places are preferred over CDPs where both exist. INTPTLAT/INTPTLONG are the internal point. Every row records the GEOID it resolved to, so any row can be re-checked against the source.",
-    "resolved": "28 of 29 matched automatically. The one that did not — Nashville — carries a `note` on its own row saying why, rather than being quietly corrected."
+    "resolved": "28 of 29 matched automatically; the 15 GLVC rows (2026-09-02) were matched the same way against the same file, Indianapolis to the consolidated-city 'city (balance)' row. The one that did not — Nashville — carries a `note` on its own row saying why, rather than being quietly corrected."
   },
   "programmes": {
     "aum": {
@@ -49,6 +49,16 @@
         "state": "MS"
       }
     },
+    "drury": {
+      "city": "Springfield, Mo.",
+      "lat": 37.1942,
+      "lon": -93.2926,
+      "source": {
+        "gazetteer_geoid": "2970000",
+        "gazetteer_name": "Springfield city",
+        "state": "MO"
+      }
+    },
     "fort-hays-state": {
       "city": "Hays, Kan.",
       "lat": 38.8822,
@@ -69,6 +79,26 @@
         "state": "AR"
       }
     },
+    "illinois-springfield": {
+      "city": "Springfield, Ill.",
+      "lat": 39.7911,
+      "lon": -89.6446,
+      "source": {
+        "gazetteer_geoid": "1772000",
+        "gazetteer_name": "Springfield city",
+        "state": "IL"
+      }
+    },
+    "indianapolis": {
+      "city": "Indianapolis, Ind.",
+      "lat": 39.7767,
+      "lon": -86.1459,
+      "source": {
+        "gazetteer_geoid": "1836003",
+        "gazetteer_name": "Indianapolis city (balance)",
+        "state": "IN"
+      }
+    },
     "lee": {
       "city": "Cleveland, Tenn.",
       "lat": 35.18,
@@ -79,6 +109,26 @@
         "state": "TN"
       }
     },
+    "lewis": {
+      "city": "Romeoville, Ill.",
+      "lat": 41.6279,
+      "lon": -88.1012,
+      "source": {
+        "gazetteer_geoid": "1765442",
+        "gazetteer_name": "Romeoville village",
+        "state": "IL"
+      }
+    },
+    "lincoln": {
+      "city": "Jefferson City, Mo.",
+      "lat": 38.5675,
+      "lon": -92.1753,
+      "source": {
+        "gazetteer_geoid": "2937000",
+        "gazetteer_name": "Jefferson City city",
+        "state": "MO"
+      }
+    },
     "lubbock-christian": {
       "city": "Lubbock, Texas",
       "lat": 33.5619,
@@ -87,6 +137,26 @@
         "gazetteer_geoid": "4845000",
         "gazetteer_name": "Lubbock city",
         "state": "TX"
+      }
+    },
+    "maryville": {
+      "city": "St. Louis, Mo.",
+      "lat": 38.6357,
+      "lon": -90.2446,
+      "source": {
+        "gazetteer_geoid": "2965000",
+        "gazetteer_name": "St. Louis city",
+        "state": "MO"
+      }
+    },
+    "mckendree": {
+      "city": "Lebanon, Ill.",
+      "lat": 38.6007,
+      "lon": -89.8097,
+      "source": {
+        "gazetteer_geoid": "1742496",
+        "gazetteer_name": "Lebanon city",
+        "state": "IL"
       }
     },
     "midwestern-state": {
@@ -107,6 +177,26 @@
         "gazetteer_geoid": "2814420",
         "gazetteer_name": "Clinton city",
         "state": "MS"
+      }
+    },
+    "missouri-s-t": {
+      "city": "Rolla, Mo.",
+      "lat": 37.9459,
+      "lon": -91.7612,
+      "source": {
+        "gazetteer_geoid": "2962912",
+        "gazetteer_name": "Rolla city",
+        "state": "MO"
+      }
+    },
+    "missouri-st-louis": {
+      "city": "St. Louis, Mo.",
+      "lat": 38.6357,
+      "lon": -90.2446,
+      "source": {
+        "gazetteer_geoid": "2965000",
+        "gazetteer_name": "St. Louis city",
+        "state": "MO"
       }
     },
     "montevallo": {
@@ -159,6 +249,26 @@
         "state": "AR"
       }
     },
+    "quincy": {
+      "city": "Quincy, Ill.",
+      "lat": 39.9337,
+      "lon": -91.3793,
+      "source": {
+        "gazetteer_geoid": "1762367",
+        "gazetteer_name": "Quincy city",
+        "state": "IL"
+      }
+    },
+    "rockhurst": {
+      "city": "Kansas City, Mo.",
+      "lat": 39.1224,
+      "lon": -94.5551,
+      "source": {
+        "gazetteer_geoid": "2938000",
+        "gazetteer_name": "Kansas City city",
+        "state": "MO"
+      }
+    },
     "rogers-state": {
       "city": "Claremore, Okla.",
       "lat": 36.3146,
@@ -197,6 +307,16 @@
         "gazetteer_geoid": "4005700",
         "gazetteer_name": "Bethany city",
         "state": "OK"
+      }
+    },
+    "southwest-baptist": {
+      "city": "Bolivar, Mo.",
+      "lat": 37.6067,
+      "lon": -93.4167,
+      "source": {
+        "gazetteer_geoid": "2906976",
+        "gazetteer_name": "Bolivar city",
+        "state": "MO"
       }
     },
     "spring-hill": {
@@ -240,6 +360,16 @@
       },
       "note": "Gazetteer lists Nashville as the consolidated \"Nashville-Davidson metropolitan government (balance)\"; matched explicitly by GEOID."
     },
+    "truman": {
+      "city": "Kirksville, Mo.",
+      "lat": 40.1982,
+      "lon": -92.5746,
+      "source": {
+        "gazetteer_geoid": "2939026",
+        "gazetteer_name": "Kirksville city",
+        "state": "MO"
+      }
+    },
     "uah": {
       "city": "Huntsville, Ala.",
       "lat": 34.6977,
@@ -258,6 +388,16 @@
         "gazetteer_geoid": "4737640",
         "gazetteer_name": "Jackson city",
         "state": "TN"
+      }
+    },
+    "upper-iowa": {
+      "city": "Fayette, Iowa",
+      "lat": 42.8418,
+      "lon": -91.8038,
+      "source": {
+        "gazetteer_geoid": "1927165",
+        "gazetteer_name": "Fayette city",
+        "state": "IA"
       }
     },
     "ut-dallas": {
@@ -298,6 +438,16 @@
         "gazetteer_geoid": "4812532",
         "gazetteer_name": "Canyon city",
         "state": "TX"
+      }
+    },
+    "william-jewell": {
+      "city": "Liberty, Mo.",
+      "lat": 39.2413,
+      "lon": -94.4194,
+      "source": {
+        "gazetteer_geoid": "2942032",
+        "gazetteer_name": "Liberty city",
+        "state": "MO"
       }
     }
   }
