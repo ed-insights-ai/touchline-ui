@@ -46,6 +46,24 @@ export interface ClaimReport {
   unchecked_figures?: string[];
 }
 
+/** What the run that produced the journal cost, kept on the report so the
+ *  cadence can read a conference's time from the file it already reads.
+ *  Stamped by `run`; a validate on its own called no model and carries the
+ *  last run's block forward rather than writing over it. */
+export interface ValidationTiming {
+  /** When the conference's task began. */
+  started_at: string;
+  /** The generate step, which is almost all model call. Null when none was
+   *  made — a dry run, or a reply replayed with --from. */
+  generate_ms: number | null;
+  validate_ms: number;
+  /** Task start to the report being assembled. */
+  wall_ms: number;
+  /** How many conferences ran at once. Summed over a run, wall_ms is what
+   *  the same run would have cost one conference at a time. */
+  concurrency: number;
+}
+
 export interface ValidationReport {
   schema: "touchline.journal-validation/1";
   journal: string;
@@ -68,6 +86,9 @@ export interface ValidationReport {
    *  a REVIEW line is a question for a person, not a verdict. */
   review: ReviewLine[];
   claims: ClaimReport[];
+  /** Set by the CLI, never by the validator: the validator judges claims and
+   *  does not know how long the model took. */
+  timing?: ValidationTiming;
 }
 
 type Basis = Record<string, unknown>;

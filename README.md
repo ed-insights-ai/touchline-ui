@@ -119,12 +119,21 @@ bun run journal brief    --conference gac          # the facts pack, to stdout
 bun run journal generate --conference gac --dry-run  # writes prompt + brief, calls nothing
 bun run journal generate --conference gac [--model <id>] [--command <cmd>]
 bun run journal validate --conference gac [--write] [--strict]
-bun run journal run      --all                     # generate, then validate
+bun run journal run      --all [--concurrency 4]   # generate, then validate, four at a time
 ```
 
 The generator is model-agnostic: it pipes a prompt to `claude -p` by default, and
 `--command` points it at any program that reads a prompt on stdin and writes a
 reply on stdout. `--from <file>` replays a saved reply instead of calling anything.
+
+Under `--all` the conferences run side by side, at most `--concurrency` at a time
+(default 4), and each validates the moment its own reply is in. One conference's
+model failure is reported under its key and costs nobody else their run; the exit
+code says whether any failed. The run ends with a timing block, one line per
+conference, and the same figures land in the validation sidecar as `timing`
+(`generate_ms` is null when no model was called). The division's journal
+(`--national`) is a separate invocation that must come after them, because its
+brief reads their output — `just journal` runs the two in that order.
 
 The writer never sees the data home. It sees a **brief** (`scripts/journal/brief.ts`)
 built by the same functions the pages use, so every figure it can reach is a figure

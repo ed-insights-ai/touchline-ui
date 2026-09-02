@@ -29,6 +29,7 @@ import {
   type ReviewLine,
   review,
   shouldDrop,
+  type ValidationTiming,
 } from "./validate.ts";
 
 type Basis = Record<string, unknown>;
@@ -196,6 +197,9 @@ export interface NationalValidationReport {
   };
   review: ReviewLine[];
   claims: ClaimReport[];
+  /** Set by the CLI on the conference report's terms. The division runs on
+   *  its own, after the conferences, so there is no cap to record. */
+  timing?: Omit<ValidationTiming, "concurrency">;
 }
 
 export interface NationalValidationResult {
