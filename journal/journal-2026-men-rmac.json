@@ -1,0 +1,162 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "RMAC",
+  "generated_at": "2026-09-02T02:51:12+00:00",
+  "data_collected_at": "2026-09-02T02:44:37+00:00",
+  "headline": "UCCS score eleven without reply in two wins",
+  "dek": "Eight different players have scored for UCCS in wins over Sul Ross State and Saint Mary's, the widest spread of scorers in the conference. The published record is not the whole of their start: their matches against Point Loma, Cal State San Marcos and Colorado are score gaps, finals with no score attached.",
+  "lede_basis": {
+    "programme": "uccs",
+    "wins": 2,
+    "draws": 0,
+    "losses": 0,
+    "gf": 11,
+    "ga": 0,
+    "distinct_scorers_min": 8
+  },
+  "lede_updated": "2026-09-02",
+  "pattern": {
+    "label": "derived",
+    "text": "The scoring is concentrated, not shared: UCCS alone have outscored CSU Pueblo, MSU Denver, Colorado Mesa, Colorado School of Mines, Regis and Adams State combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "uccs": 11,
+        "fort-lewis": 9,
+        "south-dakota-mines": 5,
+        "westminster": 4,
+        "colorado-christian": 3,
+        "csu-pueblo": 3,
+        "msu-denver": 3,
+        "colorado-mesa": 2,
+        "colorado-school-of-mines": 1,
+        "regis": 1,
+        "adams-state": 0
+      },
+      "highlight": "uccs"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "uccs",
+      "of": [
+        "csu-pueblo",
+        "msu-denver",
+        "colorado-mesa",
+        "colorado-school-of-mines",
+        "regis",
+        "adams-state"
+      ],
+      "gf": 11
+    }
+  },
+  "wire": {
+    "line": "Adams State have lost all three of their matches and are yet to score.",
+    "basis": {
+      "programme": "adams-state",
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "gf": 0,
+      "ga": 7
+    },
+    "updated": "2026-09-02"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Fort Lewis have won both their matches, scoring nine goals and conceding one.",
+      "basis": {
+        "programme": "fort-lewis",
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "gf": 9,
+        "ga": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hugo Sjöberg has yet to concede for UCCS, with seven saves across two shutouts.",
+      "basis": {
+        "source": "stats",
+        "player": "Hugo Sjöberg",
+        "programme": "uccs",
+        "saves": 7,
+        "goals_against": 0,
+        "shutouts": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bryan Amezcua has made fourteen saves in Adams State's goal and conceded five.",
+      "basis": {
+        "source": "stats",
+        "player": "Bryan Amezcua",
+        "programme": "adams-state",
+        "saves": 14,
+        "goals_against": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Eight matches are score gaps, finals recorded without a score, the earliest from the season's opening day, and ten more have passed their date with no result published at all.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 8,
+        "past_date_no_result": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Colorado Mesa have conceded seven goals across a draw and a defeat.",
+      "basis": {
+        "programme": "colorado-mesa",
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 2,
+        "ga": 7
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Simão Agostinho",
+      "programme": "fort-lewis",
+      "position": "FWD",
+      "class": "SO",
+      "line": "4 G · 8 shots"
+    },
+    {
+      "player": "Toby Benitez",
+      "programme": "uccs",
+      "position": "MID",
+      "class": "FR",
+      "line": "3 G · 1 A · 5 shots"
+    },
+    {
+      "player": "Lucas Miranda",
+      "programme": "south-dakota-mines",
+      "position": "FWD",
+      "class": "FR",
+      "line": "3 G · 5 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-01 colorado-christian v west-texas-a-m",
+      "line": "Colorado Christian's opening win of the season, after they had lost at Oklahoma Christian without scoring."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-03 fort-lewis v saint-edwards",
+      "line": "Both of Fort Lewis's wins so far have come on the road, at Lubbock Christian and at West Texas A&M."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-02T04:03:59.202Z"
+  }
+}
