@@ -2,7 +2,7 @@
  * The fixture contract admits what the collector writes, and only that.
  *
  * The first re-collect after rib PR #60 (ten seasons, 2026-09-02) stamped
- * neutral: true on 97 fixtures and null on every other row, and the whole
+ * neutral: true on 97 fixtures and no key on every other row, and the whole
  * data home stopped loading under this schema. Same shape of failure as the
  * coverage marker in coverage.test.ts.
  */
@@ -22,13 +22,15 @@ const row = {
 };
 
 describe("the fixture contract and the neutral-site flag", () => {
-  test("a neutral site is true, an ordinary row is null or absent", () => {
+  test("a neutral site is true, an ordinary row has no key", () => {
     expect(fixtureSchema.parse({ ...row, neutral: true }).neutral).toBe(true);
-    expect(fixtureSchema.parse({ ...row, neutral: null }).neutral).toBeNull();
     expect(fixtureSchema.parse(row).neutral).toBeUndefined();
   });
 
   test("and nothing else; the contract stays strict", () => {
+    // null was admitted for a day on a misread of the data (an absent key
+    // reads as null in jq); the writer omits the key, and so does the contract.
+    expect(() => fixtureSchema.parse({ ...row, neutral: null })).toThrow();
     expect(() => fixtureSchema.parse({ ...row, neutral: false })).toThrow();
     expect(() => fixtureSchema.parse({ ...row, neutral: "N" })).toThrow();
     expect(() => fixtureSchema.parse({ ...row, netural: true })).toThrow();
