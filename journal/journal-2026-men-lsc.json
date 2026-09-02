@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-02T03:19:30Z",
-  "data_collected_at": "2026-09-02T01:37:33+00:00",
+  "generated_at": "2026-09-02T11:33:46Z",
+  "data_collected_at": "2026-09-02T11:30:59+00:00",
   "headline": "West Texas A&M concede ten in two matches",
   "dek": "West Texas A&M opened with four goals and a clean sheet against Adams State, and have since lost at home to Fort Lewis and away at Colorado Christian without scoring. Only Sul Ross State, beaten in both their matches, have let in as many.",
   "lede_basis": {
@@ -150,12 +150,12 @@
       "line": "West Texas A&M have not scored since their opening match; Colorado Christian had already lost to a Lone Star side this season, at Oklahoma Christian."
     },
     "next_match": {
-      "fixture_ref": "2026-09-02 hawaii-hilo v ut-dallas",
-      "line": "UT Dallas are unbeaten but have yet to play away from home; this opens a run of away matches."
+      "fixture_ref": "2026-09-02 oklahoma-christian v newman",
+      "line": "Oklahoma Christian's only away match so far was a win at Drury; Newman also visit Lubbock Christian and West Texas A&M before the month is out."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T04:03:58.961Z"
+    "validated_at": "2026-09-02T11:34:05.359Z"
   }
 }

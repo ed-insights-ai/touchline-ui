@@ -3,14 +3,14 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-02T03:21:37+00:00",
-  "data_collected_at": "2026-09-02T01:37:56+00:00",
-  "headline": "Missouri S&T stand alone on two wins",
-  "dek": "Missouri S&T have won both their matches, scoring seven and conceding once, and no other programme has yet won twice. Five different players have scored those seven goals, three of them by Mike Banasik.",
+  "generated_at": "2026-09-02T11:38:18+00:00",
+  "data_collected_at": "2026-09-02T11:30:22+00:00",
+  "headline": "Southwest Baptist share fifteen goals among seven scorers",
+  "dek": "Two matches into the season, Southwest Baptist have not conceded a goal, and no other programme has scored as many as they have. Nathaniel Velasquez has three of them, with an assist, from ten shots.",
   "lede_basis": {
     "comparative": "greater_than_each",
-    "metric": "wins",
-    "programme": "missouri-s-t",
+    "metric": "gf",
+    "programme": "southwest-baptist",
     "of": [
       "drury",
       "illinois-springfield",
@@ -19,40 +19,43 @@
       "lincoln",
       "maryville",
       "mckendree",
+      "missouri-s-t",
       "missouri-st-louis",
       "quincy",
       "rockhurst",
-      "southwest-baptist",
       "truman",
       "upper-iowa",
       "william-jewell"
     ],
+    "gf": 15,
+    "ga": 0,
     "wins": 2,
     "draws": 0,
     "losses": 0,
-    "gf": 7,
-    "ga": 1,
-    "distinct_scorers_min": 5,
+    "distinct_scorers_min": 7,
     "source": "stats",
-    "player": "Mike Banasik",
-    "goals": 3
+    "player": "Nathaniel Velasquez",
+    "goals": 3,
+    "assists": 1,
+    "shots": 10
   },
-  "lede_updated": "2026-09-01",
+  "lede_updated": "2026-09-02",
+  "displaced_by": "Southwest Baptist's second win: fifteen goals in two matches, none conceded, seven scorers; Missouri S&T no longer alone on two wins.",
   "pattern": {
     "label": "derived",
-    "text": "The chart's height is a single afternoon: Southwest Baptist have played once, and the eight they scored at Sterling are more than Truman, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have managed between them.",
+    "text": "In two matches Southwest Baptist have outscored most of the conference put together: Drury, Lewis, Lincoln, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have fewer goals between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southwest-baptist": 8,
+        "southwest-baptist": 15,
         "missouri-s-t": 7,
         "quincy": 6,
+        "truman": 5,
         "drury": 3,
         "lewis": 3,
         "lincoln": 3,
         "maryville": 3,
         "rockhurst": 3,
-        "truman": 2,
         "illinois-springfield": 1,
         "indianapolis": 1,
         "mckendree": 1,
@@ -67,7 +70,9 @@
       "metric": "gf",
       "programme": "southwest-baptist",
       "of": [
-        "truman",
+        "drury",
+        "lewis",
+        "lincoln",
         "illinois-springfield",
         "indianapolis",
         "mckendree",
@@ -75,23 +80,23 @@
         "upper-iowa",
         "william-jewell"
       ],
-      "gf": 8,
-      "wins": 1,
+      "gf": 15,
+      "wins": 2,
       "draws": 0,
       "losses": 0
     }
   },
   "wire": {
-    "line": "Southwest Baptist have played once, scored eight and conceded none.",
+    "line": "Southwest Baptist have won both matches without conceding and open conference play at home to Missouri-St. Louis.",
     "basis": {
       "programme": "southwest-baptist",
-      "gf": 8,
-      "ga": 0,
-      "wins": 1,
+      "wins": 2,
       "draws": 0,
-      "losses": 0
+      "losses": 0,
+      "gf": 15,
+      "ga": 0
     },
-    "updated": "2026-09-01"
+    "updated": "2026-09-02"
   },
   "findings": [
     {
@@ -100,32 +105,22 @@
       "basis": {
         "source": "fixtures",
         "finals_without_score": 7,
-        "past_date_no_result": 3
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Three matches are past their date with no result published, all on the same day: Missouri S&T at Kentucky Wesleyan, Southwest Baptist at Evangel and Truman at home to Hannibal-LaGrange. Missouri S&T's unbeaten record and Southwest Baptist's clean sheet are both waiting on a result.",
-      "basis": {
-        "source": "fixtures",
-        "finals_without_score": 7,
-        "past_date_no_result": 3
+        "past_date_no_result": 1
       }
     },
     {
       "label": "derived",
-      "text": "Indianapolis have won one and drawn one without conceding; Rick Lammerts has made seven saves and has yet to be beaten.",
+      "text": "Missouri S&T have won both their matches, scoring seven and conceding once, and the one match past its date with no published result is theirs, away at Kentucky Wesleyan.",
       "basis": {
-        "programme": "indianapolis",
-        "wins": 1,
-        "draws": 1,
+        "programme": "missouri-s-t",
+        "wins": 2,
+        "draws": 0,
         "losses": 0,
-        "gf": 1,
-        "ga": 0,
-        "source": "stats",
-        "player": "Rick Lammerts",
-        "saves": 7,
-        "goals_against": 0
+        "gf": 7,
+        "ga": 1,
+        "set": "past_date_no_result",
+        "all_of": "missouri-s-t",
+        "count": 1
       }
     },
     {
@@ -143,36 +138,18 @@
     },
     {
       "label": "derived",
-      "text": "Illinois Springfield have lost both matches and conceded six, more than any other programme; Kevin Kardel has made ten saves behind them.",
+      "text": "Indianapolis have won one and drawn one without conceding; Rick Lammerts has made seven saves and has yet to be beaten.",
       "basis": {
-        "comparative": "greater_than_each",
-        "metric": "ga",
-        "programme": "illinois-springfield",
-        "of": [
-          "drury",
-          "indianapolis",
-          "lewis",
-          "lincoln",
-          "maryville",
-          "mckendree",
-          "missouri-s-t",
-          "missouri-st-louis",
-          "quincy",
-          "rockhurst",
-          "southwest-baptist",
-          "truman",
-          "upper-iowa",
-          "william-jewell"
-        ],
-        "ga": 6,
+        "programme": "indianapolis",
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
         "gf": 1,
-        "wins": 0,
-        "draws": 0,
-        "losses": 2,
+        "ga": 0,
         "source": "stats",
-        "player": "Kevin Kardel",
-        "saves": 10,
-        "goals_against": 6
+        "player": "Rick Lammerts",
+        "saves": 7,
+        "goals_against": 0
       }
     }
   ],
@@ -185,24 +162,24 @@
       "line": "3 G · 8 shots"
     },
     {
-      "player": "Nathaniel Velasquez",
+      "player": "Felipe Gilberti",
       "programme": "southwest-baptist",
-      "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 6 shots"
-    },
-    {
-      "player": "Jacob Panagos",
-      "programme": "truman",
       "position": "MID",
       "class": "JR",
-      "line": "2 G · 3 shots"
+      "line": "2 G · 3 A · 7 shots"
+    },
+    {
+      "player": "Mike Banasik",
+      "programme": "missouri-s-t",
+      "position": "FWD",
+      "class": "SR",
+      "line": "3 G · 7 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-08-30 parkside v lewis",
-      "line": "Lewis had not scored in their opener against Purdue Northwest; at Parkside each goal came from a different scorer."
+      "fixture_ref": "2026-09-01 truman v hannibal-lagrange",
+      "line": "Truman had lost their home opener to Saint Cloud State by the same margin; this was their first win of the season."
     },
     "next_match": {
       "fixture_ref": "2026-09-02 rockhurst v rogers-state",
@@ -211,6 +188,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T04:03:59.123Z"
+    "validated_at": "2026-09-02T11:38:40.988Z"
   }
 }

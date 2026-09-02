@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-02T04:09:14.667Z",
-  "data_collected_at": "2026-09-02T02:57:07+00:00",
+  "validated_at": "2026-09-02T11:36:24.167Z",
+  "data_collected_at": "2026-09-02T11:31:45+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[1].text",
-      "text": "Rollins are unbeaten after three matches and have conceded eight goals, more than any other programme.",
-      "unbacked": ["3"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -44,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Tampa have no match on the record yet; their first of the season is a conference match, at home to Rollins.",
-      "checker": "team_goals+team_record+conference_opens",
+      "text": "Rollins have conceded more goals than any other side in the conference and have still not lost.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -53,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Three matches have passed their date with no result published at all, and all three are Palm Beach Atlantic's: the earliest fell on the season's opening day, and one of them was against Barry, a fellow member. No final has been left without a score.",
+      "text": "Three matches have passed their date with no result published at all, and all three are Palm Beach Atlantic's: the earliest fell on the season's opening day, and the match against Barry, a fellow member, is among them. There is no score gap anywhere on the record.",
       "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -62,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Rollins are unbeaten after three matches and have conceded eight goals, more than any other programme.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
+      "checker": "distinct_scorers+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
-      "checker": "distinct_scorers+team_record",
+      "text": "Tampa's four goals have come from four different scorers, in a draw at West Alabama and a defeat at AUM.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -131,5 +125,12 @@
       "mismatches": [],
       "dropped": false
     }
-  ]
+  ],
+  "timing": {
+    "started_at": "2026-09-02T11:32:01.927Z",
+    "generate_ms": 262240,
+    "validate_ms": 1,
+    "wall_ms": 262240,
+    "concurrency": 4
+  }
 }

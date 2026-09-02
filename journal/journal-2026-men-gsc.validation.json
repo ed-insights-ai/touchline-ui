@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-02T04:03:59.043Z",
-  "data_collected_at": "2026-09-02T01:37:42+00:00",
+  "validated_at": "2026-09-02T11:34:44.650Z",
+  "data_collected_at": "2026-09-02T11:30:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -46,9 +46,9 @@
     },
     {
       "path": "findings[0]",
-      "label": "derived",
-      "text": "Lee and Spring Hill have yet to play: no win, no draw, no loss, and no goal at either end.",
-      "checker": "team_goals+team_record",
+      "label": "observed",
+      "text": "Lee have no match on the record before conference play opens, played or still to come: the first listed for them is the conference visit to AUM.",
+      "checker": "team_goals+team_record+conference_opens",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -134,5 +134,12 @@
       "mismatches": [],
       "dropped": false
     }
-  ]
+  ],
+  "timing": {
+    "started_at": "2026-09-02T11:32:01.925Z",
+    "generate_ms": 162724,
+    "validate_ms": 1,
+    "wall_ms": 162725,
+    "concurrency": 4
+  }
 }

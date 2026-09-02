@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-02T04:03:58.961Z",
-  "data_collected_at": "2026-09-02T01:37:33+00:00",
+  "validated_at": "2026-09-02T11:34:05.359Z",
+  "data_collected_at": "2026-09-02T11:30:59+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -128,11 +128,18 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-02 hawaii-hilo v ut-dallas",
+      "text": "2026-09-02 oklahoma-christian v newman",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
-  ]
+  ],
+  "timing": {
+    "started_at": "2026-09-02T11:32:01.926Z",
+    "generate_ms": 123430,
+    "validate_ms": 2,
+    "wall_ms": 123433,
+    "concurrency": 4
+  }
 }
