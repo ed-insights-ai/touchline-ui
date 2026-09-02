@@ -28,6 +28,13 @@ export const coverageCellSchema = z
     count: z.number().int().optional(),
     reason: z.string().optional(),
     source_url: z.string().optional(),
+    /** The collector's conditional fetch (rib 7a2f481, 2026-08-31): a page
+     *  the server said was unchanged is reused, not re-parsed, and the cell
+     *  says so. Present only on a re-collect that reused something, which is
+     *  why the first fresh collects never carried it and the first re-collect
+     *  (GLVC, 2026-09-02) was refused by this contract whole. A marker, not a
+     *  state: the cell's `state` is still the layer's outcome. */
+    verified: z.literal("unchanged").optional(),
   })
   .strict();
 export type CoverageCell = z.infer<typeof coverageCellSchema>;
