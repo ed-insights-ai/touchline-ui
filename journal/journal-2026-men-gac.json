@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-01T21:10:00Z",
-  "data_collected_at": "2026-09-01T11:30:05+00:00",
+  "generated_at": "2026-09-02T02:10:00Z",
+  "data_collected_at": "2026-09-02T01:37:24+00:00",
   "headline": "Ouachita Baptist and Rogers State alone stay unbeaten",
   "dek": "Ouachita Baptist have won twice without conceding a goal, and Rogers State have won twice with one against. The other five programmes have all lost at least once.",
   "lede_basis": {
@@ -56,11 +56,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "The season's one score gap is Newman's, away at Cowley: the match is marked final and carries no score. Four more matches are past their date with no result published at all, a separate absence and a separate count.",
+      "text": "The season's one score gap is Newman's, away at Cowley: the match is marked final and carries no score. Three more matches are past their date with no result published at all, a separate absence and a separate count.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 1,
-        "past_date_no_result": 4,
+        "past_date_no_result": 3,
         "set": "silent_finals",
         "all_of": "newman",
         "count": 1
@@ -76,14 +76,14 @@
     },
     {
       "label": "derived",
-      "text": "Fort Hays State scored all four of their goals in the match they won and none in the match they lost.",
+      "text": "Ouachita Baptist's draw with Delta State is the only match this season that a programme in this conference has neither won nor lost.",
       "basis": {
-        "programme": "fort-hays-state",
-        "gf": 4,
-        "ga": 2,
-        "wins": 1,
-        "draws": 0,
-        "losses": 1
+        "derived_from": "fixtures",
+        "wins": 7,
+        "draws": 1,
+        "losses": 6,
+        "gf": 20,
+        "ga": 12
       }
     },
     {
@@ -116,7 +116,7 @@
       "programme": "ouachita-baptist",
       "position": "DEF",
       "class": "FR",
-      "line": "2 G · 5 shots"
+      "line": "2 G · 7 shots"
     },
     {
       "player": "Wesley Rodriguez",
@@ -130,29 +130,21 @@
       "programme": "ouachita-baptist",
       "position": "MID",
       "class": "SO",
-      "line": "1 G · 1 A · 7 shots"
+      "line": "1 G · 1 A · 8 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-08-30 northeastern-state v lincoln",
-      "line": "Northeastern State have lost both of the matches they have played, and Brandon Fuenmayor's is still the only goal they have scored."
+      "fixture_ref": "2026-09-01 ouachita-baptist v delta-state",
+      "line": "Ouachita Baptist had scored in each of their earlier matches; Delta State leave with a draw to set beside their win at Harding."
     },
     "next_match": {
-      "fixture_ref": "2026-09-01 ouachita-baptist v delta-state",
-      "line": "Delta State have already taken a win off this conference, at Harding."
-    }
-  },
-  "table_state": {
-    "mode": "pre-conference",
-    "statement": "The table stays empty until conference play begins on Sep 17: no programme has played a conference match yet, and the form shown beside each row comes from non-conference results.",
-    "footnote": "A pre-conference table is a valid state, not a missing one.",
-    "basis": {
-      "conference_opens": "2026-09-17"
+      "fixture_ref": "2026-09-02 rockhurst v rogers-state",
+      "line": "Rockhurst have already lost at Fort Hays State and won at home against Newman; Rogers State arrive unbeaten."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-01T20:59:10.676Z"
+    "validated_at": "2026-09-02T01:41:24.087Z"
   }
 }
