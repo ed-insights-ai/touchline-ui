@@ -107,30 +107,6 @@ const KNOWN: (Duplicate & { bead: string })[] = [
     alias: "of-texas-at-dallas",
     bead: "tl-kvn",
   },
-  {
-    conference: "lsc",
-    date: "2026-10-03",
-    opponent: "lubbock-christian",
-    member: "ut-tyler",
-    alias: "of-texas-at-tyler",
-    bead: "tl-kvn",
-  },
-  {
-    conference: "lsc",
-    date: "2026-10-14",
-    opponent: "texas-a-m-international",
-    member: "ut-tyler",
-    alias: "of-texas-at-tyler",
-    bead: "tl-kvn",
-  },
-  {
-    conference: "lsc",
-    date: "2026-10-17",
-    opponent: "saint-edwards",
-    member: "ut-tyler",
-    alias: "of-texas-at-tyler",
-    bead: "tl-kvn",
-  },
 ];
 
 /** Every place one file records a member and a stranger against the same side
