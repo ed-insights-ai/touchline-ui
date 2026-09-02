@@ -83,9 +83,9 @@ export const fixtureSchema = z
     source_url: z.string().optional(),
     /** touchline.fixtures/2 (contract changelog 2026-09-02): true when the
      *  schedule page itself marks a neutral site. Home and away stay as
-     *  published. The collector writes null on every other row; the contract
-     *  promises no other value, so no other value is admitted. */
-    neutral: z.literal(true).nullable().optional(),
+     *  published. On every other row the key is absent; the contract promises
+     *  no other value, so no other value is admitted. */
+    neutral: z.literal(true).optional(),
   })
   .strict();
 export type Fixture = z.infer<typeof fixtureSchema>;
