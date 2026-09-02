@@ -73,11 +73,21 @@ describe("a division count is a count of matches", () => {
 });
 
 describe("a comparative ranges across the conference lines", () => {
-  const ranked = brief.across.goals_for;
+  const ranked = brief.across.goals_for as {
+    programme: string;
+    conference: string;
+    goals: number;
+  }[];
   const leader = ranked[0] as { programme: string; conference: string; goals: number };
   const rest = ranked.slice(1);
+  // A side level with the leader is not beaten by it. Six conferences in, the
+  // top of the ranking is shared (Midwestern State and UCCS on 11 at the RMAC
+  // add), so the claim the brief can honestly make is over the sides the
+  // leader out-scores — and the tie, named, must read as contradicted.
+  const beaten = rest.filter((r) => r.goals < leader.goals);
+  const level = rest.filter((r) => r.goals === leader.goals);
 
-  test("the division's top scorer beats every other programme in every conference", () => {
+  test("the division's top scorer beats every programme it out-scores, in every conference", () => {
     // The claim only this page can make, and the one the conference validator
     // could never check: the rivals named here are in other files.
     const j = journal({
@@ -86,12 +96,26 @@ describe("a comparative ranges across the conference lines", () => {
         comparative: "greater_than_each",
         metric: "gf",
         programme: leader.programme,
-        of: rest.map((r) => r.programme),
+        of: beaten.map((r) => r.programme),
       },
     });
     const c = claim(j);
     expect(c?.checker, JSON.stringify(c?.mismatches)).toBe("comparative");
     expect(c?.verdict, JSON.stringify(c?.mismatches)).toBe("verified");
+  });
+
+  test("and a side level with the leader is a contradiction, not a rival beaten", () => {
+    if (level.length === 0) return; // No tie in today's data; nothing to hold.
+    const j = journal({
+      headline: `No side in the division has scored more than ${leader.programme}.`,
+      basis: {
+        comparative: "greater_than_each",
+        metric: "gf",
+        programme: leader.programme,
+        of: level.map((r) => r.programme),
+      },
+    });
+    expect(claim(j)?.verdict).toBe("contradicted");
   });
 
   test("and the same claim for a side that is not top is contradicted, not unresolvable", () => {
