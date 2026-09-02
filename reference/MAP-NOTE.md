@@ -3,8 +3,9 @@
 Investigation and pixel reference for the geographic view of the collected
 season. `reference/mocks/map.html` is the binding pixel reference for the map
 itself; the band that shipped from it is `src/components/FootprintBand.astro`,
-and the coordinates both need are in `programme-coordinates.json`, beside
-`programmes.json`.
+and the coordinates both need are in the data home's
+`data/reference/programmes.json` (`touchline.programmes/2`), beside
+`membership.json`.
 
 The question that started it: *can we show where the NCAA DII conferences are,
 as a shape, with a dot per school?* The answer is yes for the dots, and **no for
@@ -108,6 +109,13 @@ outlines cannot drift apart.
 so rather than letting their absence pass as coverage.
 
 ## The data contract this needs
+
+**Since tl-891 (2026-09-02):** town and point live together in one file, the
+data home's `data/reference/programmes.json` (`touchline.programmes/2`), built
+in the rib against the same Gazetteer by `uv run build-programmes` and mirrored
+beside `membership.json` by every collect. The site's two local files,
+`programmes.json` and `programme-coordinates.json`, are gone. What follows is
+the investigation as it was.
 
 `programmes.json` already carries the town (`"Montgomery, Ala."`). It does not
 carry coordinates, and nothing in the repo or the data home does — fixtures

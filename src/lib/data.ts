@@ -69,7 +69,13 @@ export function seasonKey(season: number, gender: string, conference: string): s
 // A build renders many pages from the same handful of files. Parse each once.
 const cache = new Map<string, unknown>();
 
-function readParsed<T>(path: string, parse: (raw: unknown) => T, required: boolean): T | null {
+/** Read one file under its contract, once. Shared with programmes.ts so every
+ *  file this site reads fails in the same voice. */
+export function readParsed<T>(
+  path: string,
+  parse: (raw: unknown) => T,
+  required: boolean,
+): T | null {
   const hit = cache.get(path);
   if (hit !== undefined) return hit as T | null;
   if (!existsSync(path)) {

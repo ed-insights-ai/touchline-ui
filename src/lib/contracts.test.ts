@@ -31,6 +31,7 @@ import {
   STATS_SCHEMA,
   statsFileSchema,
 } from "./model.ts";
+import { PROGRAMMES_SCHEMA, programmesFileSchema } from "./programmes.ts";
 
 /** The one file every published contracts/ directory carries. */
 const MARKER = "coverage-1.json";
@@ -62,6 +63,7 @@ const contracts = [
   { file: "rosters-1.json", schema: ROSTERS_SCHEMA, parse: rostersFileSchema.parse },
   { file: "stats-1.json", schema: STATS_SCHEMA, parse: statsFileSchema.parse },
   { file: "matches-1.json", schema: MATCHES_SCHEMA, parse: matchesFileSchema.parse },
+  { file: "programmes-2.json", schema: PROGRAMMES_SCHEMA, parse: programmesFileSchema.parse },
 ] as const;
 
 function read(file: string): unknown {

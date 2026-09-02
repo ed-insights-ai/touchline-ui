@@ -2,81 +2,38 @@
 //
 // Two rules hold this file together:
 //
-//   1. Coordinates are DATA, resolved once by hand and versioned, exactly like
-//      the towns in programmes.json. Nothing is geocoded at build time and no
-//      location is ever inferred from a slug. A programme with no row is named
+//   1. Coordinates are DATA, read from the programmes reference: resolved in
+//      the rib against the 2023 Census Gazetteer and mirrored into the data
+//      home with every collect (see programmes.ts). Nothing is geocoded at
+//      build time and no location is ever inferred from a slug. A followed
+//      member with no row fails the build there, by name; a stranger is named
 //      and left unplotted — never dropped, never guessed at.
 //   2. Screen positions are DERIVED, never stored. The basemap ships already
 //      projected (see basemap.ts), so if a coordinate file also carried screen
 //      positions the two could drift apart silently. There is one projection,
 //      written down once, below.
 
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
-import { z } from "zod";
 import { BASEMAP_VIEWBOX } from "./basemap.ts";
-import { dataRoot } from "./data.ts";
+import { programmeOf } from "./programmes.ts";
 
-export const COORDINATES_SCHEMA = "touchline.coordinates/1";
-
-export const programmePointSchema = z
-  .object({
-    /** Echoes programmes.json so a row can be checked without cross-referencing. */
-    city: z.string().min(1),
-    lat: z.number().gte(-90).lte(90),
-    lon: z.number().gte(-180).lte(180),
-    source: z
-      .object({
-        gazetteer_geoid: z.string().optional(),
-        gazetteer_name: z.string().optional(),
-        state: z.string().optional(),
-      })
-      .strict()
-      .optional(),
-    note: z.string().optional(),
-  })
-  .strict();
-export type ProgrammePoint = z.infer<typeof programmePointSchema>;
-
-export const coordinatesFileSchema = z
-  .object({
-    schema: z.literal(COORDINATES_SCHEMA),
-    description: z.string().optional(),
-    source: z.record(z.string(), z.unknown()).optional(),
-    programmes: z.record(z.string(), programmePointSchema),
-  })
-  .strict();
-
-function paths(): string[] {
-  const override = process.env.TOUCHLINE_COORDINATES_FILE?.trim();
-  return [
-    ...(override ? [override] : []),
-    join(dataRoot(), "data", "reference", "programme-coordinates.json"),
-    join(process.cwd(), "programme-coordinates.json"),
-  ];
+export interface ProgrammePoint {
+  city: string;
+  lat: number;
+  lon: number;
+  /** USPS code of the Gazetteer place, when the row names one. */
+  state: string | null;
 }
 
-let loaded: Record<string, ProgrammePoint> | null = null;
-
-function all(): Record<string, ProgrammePoint> {
-  if (loaded) return loaded;
-  for (const path of paths()) {
-    if (!existsSync(path)) continue;
-    try {
-      loaded = coordinatesFileSchema.parse(JSON.parse(readFileSync(path, "utf8"))).programmes;
-      return loaded;
-    } catch (err) {
-      // Reference data this site could not read is a gap, not an outage: the
-      // band already has a state for a programme it cannot place.
-      console.warn(`[touchline] coordinates file ignored (${path}): ${(err as Error).message}`);
-    }
-  }
-  loaded = {};
-  return loaded;
-}
-
+/** The town's point for a programme with a row, or null for a stranger. */
 export function pointOf(slug: string): ProgrammePoint | null {
-  return all()[slug] ?? null;
+  const row = programmeOf(slug);
+  if (!row) return null;
+  return {
+    city: row.city,
+    lat: row.point.lat,
+    lon: row.point.lon,
+    state: row.provenance.point.state ?? null,
+  };
 }
 
 // ── The projection ─────────────────────────────────────────────────────────
@@ -193,7 +150,7 @@ export function footprintOf(
     for (const b of points.slice(i + 1)) widest = Math.max(widest, milesBetween(a, b));
   }
   const states = [
-    ...new Set(placed.map((p) => pointOf(p.slug)?.source?.state).filter((s): s is string => !!s)),
+    ...new Set(placed.map((p) => pointOf(p.slug)?.state).filter((s): s is string => !!s)),
   ].sort();
   return {
     key,

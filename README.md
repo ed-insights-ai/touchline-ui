@@ -37,6 +37,7 @@ The files read, and the contracts they must satisfy:
 | `data/stats/{season}-{gender}-{conf}.json` | `touchline.stats/1` |
 | `data/matches/{season}-{gender}-{conf}.json` | `touchline.matches/1` |
 | `data/coverage.json` | `touchline.coverage/1` |
+| `data/reference/programmes.json` | `touchline.programmes/2` |
 
 `src/lib/model.ts` is vendored **verbatim** from the rib's `src/model.ts` — the
 rib is the authority for these shapes. Re-copy it when the rib's model changes;
@@ -56,8 +57,9 @@ TOUCHLINE_CONTRACTS_DIR   the rib's contracts/ directory
 When that directory is absent the suite skips, naming the path it looked at.
 
 A file whose `schema` string is not the one this site reads fails the build with
-that string named. Fixtures are required; the other layers are optional and
-their absence renders as a designed empty state, with a warning naming the path.
+that string named. Fixtures and the programmes reference are required; the
+other layers are optional and their absence renders as a designed empty state,
+with a warning naming the path.
 
 ## Conferences are configuration
 
@@ -71,19 +73,27 @@ box scores where one exists, then from `nameOverrides`, then from the slug.
 
 ## Programme identity
 
-`programmes.json` (`touchline.programmes/1`) carries the two facts no collected
-page publishes: a programme's nickname and the town it plays in. Nicknames are
-seeded from the rib's `pipeline/config/schools.toml` (`mascot` per programme);
-towns are hand-entered stable facts in AP state style.
+The site reads `data/reference/programmes.json` from the data home
+(`touchline.programmes/2`), beside `membership.json`. The rib builds it from
+`pipeline/config/schools.toml` and the 2023 Census Gazetteer with
+`uv run build-programmes`, and every collect mirrors it into the data home. One
+row per slug: name, nickname, abbreviation, the town in AP state style
+(`"Searcy, Ark."`), the town's point (its Gazetteer centroid, never the campus),
+and provenance per fact. `src/lib/programmes.ts` vendors the rib's schema
+verbatim, as `model.ts` does for the collected files.
 
-It is looked for in the data home first — `data/reference/programmes.json`, beside
-`membership.json` — then in this repo, so lifting it into a collected contract
-later needs no change here. `TOUCHLINE_PROGRAMMES_FILE` overrides both.
+```
+TOUCHLINE_PROGRAMMES_FILE   the programmes reference
+                            default: {data home}/data/reference/programmes.json
+```
 
-A slug absent from the file renders the designed absence state (`RU · AWAY` on
-the Match Centre; the Team page's meta line simply starts at the record). Nothing
-is ever guessed from a slug. Opponents outside the collected conferences have no
-entry, so a match can legitimately show an identity line on one side only.
+There is no copy in this repo and no fallback. A member of a followed
+conference-season with no row fails the build, naming the slug and the
+conference-season (`2026-men-rmac`). Opponents outside the followed conferences
+have no row and render the designed absence state (`RU · AWAY` on the Match
+Centre; the Team page's meta line simply starts at the record), so a match can
+legitimately show an identity line on one side only. Nothing is ever guessed
+from a slug.
 
 ## The journal (the AI seam)
 
@@ -313,6 +323,5 @@ Pages or Netlify would serve the same branch unchanged.
 ## What is not built yet
 
 - The player sheet (`reference/mocks/player.html`) — a phase-2 island.
-- Migrating `programmes.json` into a collected reference contract (rib-side).
 - Interaction model beyond links: week-dot rewind, evidence-chip provenance
   detail, coverage-gap detail. The hooks are in place (titles, hover states).
