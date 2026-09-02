@@ -5,25 +5,34 @@ import type { Season } from "../lib/derive.ts";
 
 interface Props {
   season: Season;
-  /** Highlighted team pill, when the reader is on a team's page. */
+  /** The team named on the second trigger, when the reader is on a team's page. */
   currentTeam?: string;
   /** Set on the matches page, the one view this header links to by name. */
   currentView?: "matches";
 }
 const { season, currentTeam, currentView } = Astro.props;
 
-// The nav is built from the conferences the data home actually carries — a
-// conference is configuration, and one that failed to collect is simply not
-// offered rather than offered and broken.
-const tabs = site.conferences.flatMap((key) => {
-  try {
-    return [{ key, label: loadSeason(key).fixtures.conference }];
-  } catch {
-    return [];
-  }
-});
+// The conference menu is built from the conferences the data home actually
+// carries — a conference is configuration, and one that failed to collect is
+// simply not offered rather than offered and broken. Alphabetical by the
+// abbreviation the trigger shows, because that is the word a reader scans for.
+const conferences = site.conferences
+  .flatMap((key) => {
+    try {
+      const abbr = loadSeason(key).fixtures.conference;
+      return [{ key, abbr, name: site.conferenceNames[key] ?? abbr }];
+    } catch {
+      return [];
+    }
+  })
+  .sort((a, b) => a.abbr.localeCompare(b.abbr));
+const CONFERENCE_COLUMNS = 3;
+const conferenceRows = Math.max(1, Math.ceil(conferences.length / CONFERENCE_COLUMNS));
+
 // The publisher's own order, which is the order the conference lists itself in.
 const teams = season.fixtures.programmes;
+const current = teams.find((p) => p.slug === currentTeam);
+const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpperCase()}`;
 ---
 <header class="site-header">
   {/* The wordmark is the way back to the top of the site, so it points at the
@@ -33,20 +42,66 @@ const teams = season.fixtures.programmes;
     <span class="wordmark-name">Touchline</span>
   </a>
   <div class="season-tag num">
-    {site.conferenceNames[season.key] ?? season.fixtures.conference} · {season.fixtures.season} ·{" "}
-    {season.fixtures.gender.toUpperCase()}
+    {site.conferenceNames[season.key] ?? season.fixtures.conference} · {seasonLabel}
   </div>
-  <nav class="confnav" aria-label="Conferences">
-    {tabs.map((t) => (
-      <a href={seasonHref(t.key)} aria-current={t.key === season.key ? "page" : undefined}>{t.label}</a>
-    ))}
+  {/* Two disclosures, one grammar: where you are, and where you can go. Each
+      is a <details>, so the links inside work with scripting off and the
+      trigger toggles on Enter and Space by the browser's own rules. The island
+      below adds what a <details> cannot promise on its own: aria-expanded that
+      says the truth, arrow keys along the rows, Escape, and the keyboard
+      handed back to the trigger it left. The 2px accent rule stays on the
+      conference trigger — it is still the answer to "which conference is
+      this" — and nothing else in the header is purple but the current row. */}
+  <nav class="hnav" aria-label="Conferences and teams">
+    <details class="hmenu hmenu-conf">
+      <summary class="htab htab-conf" aria-label={`Conference: ${season.fixtures.conference}`}>
+        <span class="htab-label">{season.fixtures.conference}</span>
+        <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
+      </summary>
+      <div class="hmenu-panel" style={`--rows: ${conferenceRows}`}>
+        <div class="hmenu-head">
+          <span class="hmenu-tag num">{conferences.length} conferences · {seasonLabel}</span>
+          <button type="button" class="hmenu-close">Close</button>
+        </div>
+        <div class="hmenu-grid hmenu-grid-conf">
+          {conferences.map((c) => (
+            <a
+              class="mrow"
+              href={seasonHref(c.key)}
+              aria-current={c.key === season.key ? "page" : undefined}
+            ><span class="mabbr">{c.abbr}</span><span class="mname">{c.name}</span></a>
+          ))}
+        </div>
+      </div>
+    </details>
+    <details class="hmenu hmenu-team">
+      <summary
+        class:list={["htab", "htab-team", { "htab-here": !!current }]}
+        aria-label={current ? `Team: ${current.name}` : "Teams"}
+      >
+        <span class="htab-label">{current ? current.name : "Teams"}</span>
+        <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
+      </summary>
+      <div class="hmenu-panel">
+        <div class="hmenu-head">
+          <span class="hmenu-tag num">{teams.length} programmes · {season.fixtures.conference}</span>
+          <button type="button" class="hmenu-close">Close</button>
+        </div>
+        <div class="hmenu-grid hmenu-grid-team">
+          {teams.map((p) => (
+            <a
+              class="mrow"
+              href={teamHref(season.key, p.slug)}
+              aria-current={p.slug === currentTeam ? "page" : undefined}
+            ><span class="mabbr">{p.abbr ?? ""}</span><span class="mname">{p.name}</span></a>
+          ))}
+        </div>
+      </div>
+    </details>
   </nav>
   {/* A view WITHIN the conference the reader is already in, so it takes the
-      confnav's type register and none of its tab vocabulary: the 2px accent
-      rule under a tab answers "which conference is this", and this link does
-      not change that answer. A hairline sets it apart from the three that do.
-      The conference comes from context — this header is season-scoped
-      everywhere it renders. */}
+      trigger's type register and none of its vocabulary: no chevron, no rule.
+      A hairline sets it apart from the two controls that move. */}
   <nav class="viewnav" aria-label="Views">
     <a
       href={matchesHref(season.key)}
@@ -54,24 +109,68 @@ const teams = season.fixtures.programmes;
     >Matches</a>
   </nav>
   <div class="grow"></div>
-  <!-- The pill shows the abbreviation because eleven of them have to fit on
-       one rule. A title is a hover affordance and not a dependable accessible
-       name, so the programme's name is given as one: the abbreviation is the
-       only thing on this site a link is made of that a reader cannot expand
-       from what is beside it. Elsewhere the full name is already in the DOM —
-       the goals chart carries a visually-hidden span, the season strip its
-       detail box — and those need nothing. -->
-  <nav class="teampills">
-    {teams.map((p) => (
-      <a
-        href={teamHref(season.key, p.slug)}
-        title={p.name}
-        aria-label={p.name}
-        aria-current={p.slug === currentTeam ? "page" : undefined}
-      ><span>{p.abbr ?? p.name}</span></a>
-    ))}
-  </nav>
 </header>
+
+<script>
+  // The second JavaScript on this site, on the same terms as the first: turn
+  // it off and the header is exactly the <details> it was written as. No link
+  // is rewritten and no default is prevented on a link. What is added is what
+  // a bare <details> cannot say or do: an aria-expanded that tells the truth,
+  // one menu open at a time, arrow keys along the rows, Escape, a click
+  // outside, and the keyboard handed back to the trigger that opened it.
+
+  const menus = Array.from(document.querySelectorAll<HTMLDetailsElement>(".hnav .hmenu"));
+  if (menus.length) {
+    const summaryOf = (m: HTMLDetailsElement) => m.querySelector<HTMLElement>(":scope > summary");
+    const rowsOf = (m: HTMLDetailsElement) => Array.from(m.querySelectorAll<HTMLElement>("a.mrow"));
+    const reflect = (m: HTMLDetailsElement) => summaryOf(m)?.setAttribute("aria-expanded", String(m.open));
+
+    const close = (m: HTMLDetailsElement, returnFocus: boolean) => {
+      if (!m.open) return;
+      m.open = false;
+      if (returnFocus) summaryOf(m)?.focus();
+    };
+
+    for (const m of menus) {
+      reflect(m);
+      m.addEventListener("toggle", () => {
+        reflect(m);
+        if (m.open) for (const other of menus) if (other !== m) close(other, false);
+      });
+      m.querySelector(".hmenu-close")?.addEventListener("click", () => close(m, true));
+      m.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          close(m, true);
+          return;
+        }
+        if (!m.open) return;
+        const rows = rowsOf(m);
+        if (!rows.length) return;
+        const at = rows.indexOf(document.activeElement as HTMLElement);
+        let next: number | null = null;
+        if (e.key === "ArrowDown") next = at < 0 ? 0 : Math.min(at + 1, rows.length - 1);
+        else if (e.key === "ArrowUp") next = at < 0 ? rows.length - 1 : Math.max(at - 1, 0);
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = rows.length - 1;
+        if (next === null) return;
+        e.preventDefault();
+        rows[next]?.focus();
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      const target = e.target as Node | null;
+      for (const m of menus) if (m.open && target && !m.contains(target)) close(m, false);
+    });
+    // Tabbing out of an open menu leaves it open behind the reader; close it
+    // as focus leaves, without pulling focus back.
+    document.addEventListener("focusin", (e) => {
+      const target = e.target as Node | null;
+      for (const m of menus) if (m.open && target && !m.contains(target)) close(m, false);
+    });
+  }
+</script>
 
 <style>
   .site-header {
@@ -80,6 +179,7 @@ const teams = season.fixtures.programmes;
     align-items: center;
     gap: 22px;
     border-bottom: 1px solid var(--hairline);
+    position: relative;
   }
   .site-header .wordmark { color: var(--ink); }
   .season-tag {
@@ -90,5 +190,11 @@ const teams = season.fixtures.programmes;
   }
   @media (max-width: 1180px) {
     .site-header { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 14px; }
+  }
+  /* The full conference name does not fit a 320px phone on one line
+     (measured: "Great Lakes Valley Conference · 2026 · MEN" ran 14px past the
+     edge), so on a phone the tag may wrap; it is the same words. */
+  @media (max-width: 480px) {
+    .season-tag { white-space: normal; min-width: 0; }
   }
 </style>

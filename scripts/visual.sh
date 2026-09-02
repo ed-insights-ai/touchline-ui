@@ -56,6 +56,10 @@ PAGES=(
   # Every match of a season in one grammar: results, silent finals, the rows
   # still to come, and the TODAY rule between what happened and what has not.
   "/gac/matches/:matches"
+  # The masthead at its widest: the 15-team conference, on a team page so the
+  # second trigger carries a name. The overflow check opens each menu here,
+  # and pads the teams menu to sixteen rows before measuring (tui-wl8).
+  "/glvc/team/drury/:team-menus"
 )
 WIDTHS=(1440 390)
 
@@ -110,16 +114,30 @@ cat > "$root${URLBASE%/}/_overflow.html" <<'HTML'
 <!doctype html><meta charset=utf-8><body style="font:12px monospace;white-space:pre" id=o>...</body>
 <script>
 const PAGES=window.__PAGES,WIDTHS=[320,390,430,768,1024,1440];
-(async()=>{const L=[];let bad=0;
+// The masthead menus are measured OPEN as well as closed, on the page that
+// carries them: the conferences menu as built, and the teams menu padded to
+// sixteen rows with the longest conference name in the header, because the
+// ruling names that as the state the header must hold at 320 (tui-wl8).
+const LONGEST=window.__LONGEST;
+(async()=>{const L=[];let bad=0,n=0;
+const measure=(f,w,p,state)=>{const d=f.contentDocument.documentElement,b=f.contentDocument.body;
+  const over=Math.max(d.scrollWidth-d.clientWidth,b.scrollWidth-b.offsetWidth);n++;
+  if(over>0){bad++;L.push(`${w}px OVERFLOW +${over} ${p}${state}`)}};
 for(const w of WIDTHS)for(const p of PAGES){
   const f=document.createElement("iframe");
   f.style.cssText=`width:${w}px;height:900px;border:0;position:absolute;left:-9999px`;
   f.src=p;document.body.appendChild(f);await new Promise(r=>{f.onload=r});
-  const d=f.contentDocument.documentElement,b=f.contentDocument.body;
-  const over=Math.max(d.scrollWidth-d.clientWidth,b.scrollWidth-b.offsetWidth);
-  if(over>0){bad++;L.push(`${w}px OVERFLOW +${over} ${p}`)}
+  measure(f,w,p,"");
+  const doc=f.contentDocument,menus=doc.querySelectorAll(".hnav .hmenu");
+  if(menus.length===2){
+    const tag=doc.querySelector(".season-tag");if(tag&&LONGEST)tag.textContent=LONGEST+" · 2026 · MEN";
+    const grid=doc.querySelector(".hmenu-team .hmenu-grid");
+    while(grid&&grid.querySelectorAll("a.mrow").length<16){const c=grid.lastElementChild.cloneNode(true);c.removeAttribute("aria-current");grid.appendChild(c);}
+    for(const m of menus){m.open=true;void doc.body.offsetWidth;
+      measure(f,w,p," ["+m.className.replace("hmenu ","")+" open, "+m.querySelectorAll("a.mrow").length+" rows]");m.open=false;}
+  }
   f.remove();}
-L.unshift(`${WIDTHS.length*PAGES.length} combinations, ${bad} scrolling sideways`);
+L.unshift(`${n} combinations, ${bad} scrolling sideways`);
 // The result goes in the TITLE because --dump-dom emits the document across
 // many lines and a body scraped with a line-oriented tool comes back empty —
 // which is how this check silently reported nothing at all for a while.
@@ -127,7 +145,11 @@ document.title=L.join(" ~ ");document.getElementById("o").textContent=L.join("\n
 </script>
 HTML
 routes=$(printf "\"${URLBASE%/}%s\"," "${PAGES[@]%%:*}")
-sed -i '' "s|window.__PAGES|[${routes%,}]|" "$root${URLBASE%/}/_overflow.html"
+# The longest conference name the site is configured with, read from the
+# config rather than typed here, so a nineteenth conference is measured the
+# day it is added.
+longest=$(bun -e 'import { site } from "./src/site.config.ts"; console.log(Object.values(site.conferenceNames).sort((a, b) => b.length - a.length)[0] ?? "")')
+sed -i '' "s|window.__PAGES|[${routes%,}]|; s|window.__LONGEST|\"${longest}\"|" "$root${URLBASE%/}/_overflow.html"
 "$CHROME" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
   --window-size=1000,900 --virtual-time-budget=30000 \
   --dump-dom "http://localhost:$PORT${URLBASE%/}/_overflow.html" 2>/dev/null \
