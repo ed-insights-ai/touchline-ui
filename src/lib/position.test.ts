@@ -87,6 +87,10 @@ describe("the words a roster prints", () => {
     expect(positionLine("Milfielder")).toBe("MID");
     expect(positionLine("Goalkeper")).toBe("GK");
     expect(positionLine("De")).toBe("DEF");
+    // Westminster 2026: "Center/ Midfieler" is one position, read whole.
+    expect(positionLine("Center/ Midfieler")).toBe("MID");
+    // Adams State 2026: "OB", an outside back, beside "RB/ST/CDM".
+    expect(positionLine("OB")).toBe("DEF");
     // Missouri S&T 2026: initials joined by a hyphen, first listed first.
     expect(positionLine("F-M")).toBe("FWD");
     expect(positionLine("M-B")).toBe("MID");
@@ -155,7 +159,9 @@ describe("against the rosters this site actually collects", () => {
     // "Student Manager": William Jewell 2025 lists two managers on the roster.
     // "Student Assistant": William Jewell 2023. "HS" and "TR": Spring Hill
     // 2020 prints them for one player each beside spelled-out positions;
-    // neither is evidently a position, so neither is guessed at.
+    // neither is evidently a position, so neither is guessed at. "A": Saint
+    // Leo 2025 (ssc/saint-leo) prints it for one player beside GK, M, D and
+    // F; it is not one of that roster's own four letters, so it is not read.
     const KNOWN_NON_POSITIONS = [
       "team impact",
       "1",
@@ -163,6 +169,7 @@ describe("against the rosters this site actually collects", () => {
       "student assistant",
       "hs",
       "tr",
+      "a",
     ];
     // Every collected season, not just the two the site renders: the
     // vocabulary is authored once for the whole archive, and Southwest

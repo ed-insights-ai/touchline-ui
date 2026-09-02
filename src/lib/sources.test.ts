@@ -53,6 +53,44 @@ const show = (d: Duplicate): string =>
  * collector fix lands.
  */
 const KNOWN: (Duplicate & { bead: string })[] = [
+  // Not an alias at all: Westminster's schedule page lists the tournament
+  // matches it HOSTED at Dumke Field (MSU Denver v Western Oregon on 08-27,
+  // MSU Denver v Northwest Nazarene on 08-29) and the collector read them as
+  // Westminster fixtures against MSU Denver. MSU Denver's own file, and
+  // Westminster's own rows those days, say who actually played. The rib's
+  // tl-5ru owns the read; these four entries expire with it.
+  {
+    conference: "rmac",
+    date: "2026-08-27",
+    opponent: "westminster",
+    member: "msu-denver",
+    alias: "northwest-nazarene",
+    bead: "tl-5ru",
+  },
+  {
+    conference: "rmac",
+    date: "2026-08-27",
+    opponent: "msu-denver",
+    member: "westminster",
+    alias: "western-oregon",
+    bead: "tl-5ru",
+  },
+  {
+    conference: "rmac",
+    date: "2026-08-29",
+    opponent: "westminster",
+    member: "msu-denver",
+    alias: "western-oregon",
+    bead: "tl-5ru",
+  },
+  {
+    conference: "rmac",
+    date: "2026-08-29",
+    opponent: "msu-denver",
+    member: "westminster",
+    alias: "northwest-nazarene",
+    bead: "tl-5ru",
+  },
   {
     conference: "lsc",
     date: "2026-09-19",

@@ -236,8 +236,9 @@ const POSITIONS: readonly [RegExp, Line][] = [
   // "B" is Missouri S&T's own initial for a back (2026 roster), beside "M-B".
   // RB, CB and LB are Southwest Baptist 2023's right, centre and left backs.
   // "DF" is Christian Brothers 2020 (gsc/christian-brothers); "FB" is a full
-  // back on Saint Edward's 2023.
-  [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lb$|^fb$/, "DEF"],
+  // back on Saint Edward's 2023; "OB" is an outside back on Adams State 2026
+  // (rmac/adams-state), beside "RB/ST/CDM" and "Center Back".
+  [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lb$|^fb$|^ob$/, "DEF"],
   // LW, RW and ST are Southwest Baptist 2023's wings and striker.
   // "FW" is Newman 2022 and Christian Brothers 2020; "FOR" is Shorter 2021;
   // "S" is the striker beside "W" and "W/S" on Saint Edward's 2023.
@@ -287,6 +288,9 @@ const PUBLISHED_FORMS: Readonly<Record<string, string>> = {
   // Oklahoma Christian 2022 and 2023 (lsc/oklahoma-christian).
   "left/right forward": "forward",
   "l/r forward": "forward",
+  // Westminster 2026 (rmac/westminster): "Center/ Midfieler" — a centre
+  // midfielder whose slash is a stray, not a second position.
+  "center/ midfieler": "center midfielder",
 };
 
 export function positionLine(position: string | undefined): Line | null {

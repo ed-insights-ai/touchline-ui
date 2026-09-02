@@ -143,6 +143,42 @@ describe("the coordinate join", () => {
   });
 });
 
+/** Distance in frame pixels from a point to the nearest edge of any ring. */
+function distanceToPath(d: string, x: number, y: number): number {
+  let best = Number.POSITIVE_INFINITY;
+  for (const ring of ringsOf(d)) {
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const a = ring[i];
+      const b = ring[j];
+      if (!a || !b) continue;
+      const [ax, ay] = a;
+      const [bx, by] = b;
+      const len2 = (bx - ax) ** 2 + (by - ay) ** 2;
+      const t =
+        len2 === 0
+          ? 0
+          : Math.max(0, Math.min(1, ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) / len2));
+      best = Math.min(best, Math.hypot(x - (ax + t * (bx - ax)), y - (ay + t * (by - ay))));
+    }
+  }
+  return best;
+}
+
+/**
+ * Towns the simplified outline cannot hold: the basemap drops sub-pixel
+ * coastline, and a town on a thin peninsula lands just offshore of the drawn
+ * state. Each entry names the row and why, and is still held to the outline
+ * by distance — a point that drifts further than the peninsula is wide is a
+ * wrong point, not a thin coast.
+ */
+const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> = {
+  // St. Petersburg (ssc/eckerd) sits on the Pinellas peninsula between Tampa
+  // Bay and the Gulf; the outline draws it too thin to contain the town's
+  // internal point, which lands 1.7px into the bay.
+  eckerd: "Pinellas peninsula",
+};
+const OFFSHORE_TOLERANCE_PX = 3;
+
 describe("the projection", () => {
   test("every programme lands inside the state its own source row names", () => {
     const byName = new Map(STATE_OUTLINES.map((s) => [s.name, s.d]));
@@ -153,10 +189,32 @@ describe("the projection", () => {
         if (!code) continue;
         const d = byName.get(STATE_NAME[code] ?? "");
         if (!d) continue;
-        if (!insidePath(d, p.at.x, p.at.y)) wrong.push(`${p.slug} not inside ${code}`);
+        if (insidePath(d, p.at.x, p.at.y)) continue;
+        const coast = OFFSHORE_BY_SIMPLIFICATION[p.slug];
+        const off = distanceToPath(d, p.at.x, p.at.y);
+        if (coast && off <= OFFSHORE_TOLERANCE_PX) continue;
+        wrong.push(
+          `${p.slug} not inside ${code} (${off.toFixed(1)}px off${coast ? `, ${coast}` : ""})`,
+        );
       }
     }
     expect(wrong).toEqual([]);
+  });
+
+  test("an offshore allowance names a row that is actually offshore, and only just", () => {
+    // The list must not outlive the outline it excuses: a named row that the
+    // outline now contains, or one that was never placed, is a stale entry.
+    const byName = new Map(STATE_OUTLINES.map((s) => [s.name, s.d]));
+    for (const slug of Object.keys(OFFSHORE_BY_SIMPLIFICATION)) {
+      const placed = footprints.flatMap((f) => f.placed).find((p) => p.slug === slug);
+      expect(placed, slug).toBeDefined();
+      if (!placed) continue;
+      const d = byName.get(STATE_NAME[pointOf(slug)?.source?.state ?? ""] ?? "") ?? "";
+      expect(insidePath(d, placed.at.x, placed.at.y), `${slug} is inside now`).toBe(false);
+      expect(distanceToPath(d, placed.at.x, placed.at.y)).toBeLessThanOrEqual(
+        OFFSHORE_TOLERANCE_PX,
+      );
+    }
   });
 
   test("holds its published reference points", () => {

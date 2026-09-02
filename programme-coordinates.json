@@ -6,7 +6,7 @@
     "url": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2023_Gazetteer/2023_Gaz_place_national.zip",
     "license": "Public domain (work of the U.S. federal government)",
     "method": "programmes.json `city` parsed as \"Town, AP-state\", the AP abbreviation mapped to its USPS code, then matched against the Gazetteer NAME with its legal descriptor (city/town/village/CDP) stripped. Incorporated places are preferred over CDPs where both exist. INTPTLAT/INTPTLONG are the internal point. Every row records the GEOID it resolved to, so any row can be re-checked against the source.",
-    "resolved": "28 of 29 matched automatically; the 15 GLVC rows (2026-09-02) were matched the same way against the same file, Indianapolis to the consolidated-city 'city (balance)' row. The one that did not — Nashville — carries a `note` on its own row saying why, rather than being quietly corrected."
+    "resolved": "28 of 29 matched automatically; the 15 GLVC rows (2026-09-02) were matched the same way against the same file, Indianapolis to the consolidated-city 'city (balance)' row; the 22 RMAC and SSC rows (2026-09-02) likewise, Saint Leo to the Gazetteer's 'St. Leo town' and MSU Denver and Regis sharing Denver's point. The one that did not — Nashville — carries a `note` on its own row saying why, rather than being quietly corrected."
   },
   "programmes": {
     "aum": {
@@ -448,6 +448,227 @@
         "gazetteer_geoid": "2942032",
         "gazetteer_name": "Liberty city",
         "state": "MO"
+      }
+    },
+    "adams-state": {
+      "city": "Alamosa, Colo.",
+      "lat": 37.4745,
+      "lon": -105.877,
+      "source": {
+        "gazetteer_geoid": "0801090",
+        "gazetteer_name": "Alamosa city",
+        "state": "CO"
+      }
+    },
+    "colorado-christian": {
+      "city": "Lakewood, Colo.",
+      "lat": 39.6989,
+      "lon": -105.1176,
+      "source": {
+        "gazetteer_geoid": "0843000",
+        "gazetteer_name": "Lakewood city",
+        "state": "CO"
+      }
+    },
+    "colorado-mesa": {
+      "city": "Grand Junction, Colo.",
+      "lat": 39.0891,
+      "lon": -108.5675,
+      "source": {
+        "gazetteer_geoid": "0831660",
+        "gazetteer_name": "Grand Junction city",
+        "state": "CO"
+      }
+    },
+    "colorado-school-of-mines": {
+      "city": "Golden, Colo.",
+      "lat": 39.7425,
+      "lon": -105.2106,
+      "source": {
+        "gazetteer_geoid": "0830835",
+        "gazetteer_name": "Golden city",
+        "state": "CO"
+      }
+    },
+    "csu-pueblo": {
+      "city": "Pueblo, Colo.",
+      "lat": 38.2692,
+      "lon": -104.6108,
+      "source": {
+        "gazetteer_geoid": "0862000",
+        "gazetteer_name": "Pueblo city",
+        "state": "CO"
+      }
+    },
+    "fort-lewis": {
+      "city": "Durango, Colo.",
+      "lat": 37.2654,
+      "lon": -107.8782,
+      "source": {
+        "gazetteer_geoid": "0822035",
+        "gazetteer_name": "Durango city",
+        "state": "CO"
+      }
+    },
+    "msu-denver": {
+      "city": "Denver, Colo.",
+      "lat": 39.7619,
+      "lon": -104.8811,
+      "source": {
+        "gazetteer_geoid": "0820000",
+        "gazetteer_name": "Denver city",
+        "state": "CO"
+      }
+    },
+    "regis": {
+      "city": "Denver, Colo.",
+      "lat": 39.7619,
+      "lon": -104.8811,
+      "source": {
+        "gazetteer_geoid": "0820000",
+        "gazetteer_name": "Denver city",
+        "state": "CO"
+      }
+    },
+    "south-dakota-mines": {
+      "city": "Rapid City, S.D.",
+      "lat": 44.0711,
+      "lon": -103.2179,
+      "source": {
+        "gazetteer_geoid": "4652980",
+        "gazetteer_name": "Rapid City city",
+        "state": "SD"
+      }
+    },
+    "uccs": {
+      "city": "Colorado Springs, Colo.",
+      "lat": 38.8673,
+      "lon": -104.7607,
+      "source": {
+        "gazetteer_geoid": "0816000",
+        "gazetteer_name": "Colorado Springs city",
+        "state": "CO"
+      }
+    },
+    "westminster": {
+      "city": "Salt Lake City, Utah",
+      "lat": 40.7769,
+      "lon": -111.931,
+      "source": {
+        "gazetteer_geoid": "4967000",
+        "gazetteer_name": "Salt Lake City city",
+        "state": "UT"
+      }
+    },
+    "barry": {
+      "city": "Miami Shores, Fla.",
+      "lat": 25.867,
+      "lon": -80.1783,
+      "source": {
+        "gazetteer_geoid": "1245175",
+        "gazetteer_name": "Miami Shores village",
+        "state": "FL"
+      }
+    },
+    "eckerd": {
+      "city": "St. Petersburg, Fla.",
+      "lat": 27.7627,
+      "lon": -82.6441,
+      "source": {
+        "gazetteer_geoid": "1263000",
+        "gazetteer_name": "St. Petersburg city",
+        "state": "FL"
+      }
+    },
+    "embry-riddle": {
+      "city": "Daytona Beach, Fla.",
+      "lat": 29.1907,
+      "lon": -81.0971,
+      "source": {
+        "gazetteer_geoid": "1216525",
+        "gazetteer_name": "Daytona Beach city",
+        "state": "FL"
+      }
+    },
+    "florida-southern": {
+      "city": "Lakeland, Fla.",
+      "lat": 28.0555,
+      "lon": -81.9548,
+      "source": {
+        "gazetteer_geoid": "1238250",
+        "gazetteer_name": "Lakeland city",
+        "state": "FL"
+      }
+    },
+    "florida-tech": {
+      "city": "Melbourne, Fla.",
+      "lat": 28.1104,
+      "lon": -80.6627,
+      "source": {
+        "gazetteer_geoid": "1243975",
+        "gazetteer_name": "Melbourne city",
+        "state": "FL"
+      }
+    },
+    "lynn": {
+      "city": "Boca Raton, Fla.",
+      "lat": 26.3727,
+      "lon": -80.1037,
+      "source": {
+        "gazetteer_geoid": "1207300",
+        "gazetteer_name": "Boca Raton city",
+        "state": "FL"
+      }
+    },
+    "nova-southeastern": {
+      "city": "Fort Lauderdale, Fla.",
+      "lat": 26.1412,
+      "lon": -80.1467,
+      "source": {
+        "gazetteer_geoid": "1224000",
+        "gazetteer_name": "Fort Lauderdale city",
+        "state": "FL"
+      }
+    },
+    "palm-beach-atlantic": {
+      "city": "West Palm Beach, Fla.",
+      "lat": 26.7451,
+      "lon": -80.127,
+      "source": {
+        "gazetteer_geoid": "1276600",
+        "gazetteer_name": "West Palm Beach city",
+        "state": "FL"
+      }
+    },
+    "rollins": {
+      "city": "Winter Park, Fla.",
+      "lat": 28.5966,
+      "lon": -81.3457,
+      "source": {
+        "gazetteer_geoid": "1278300",
+        "gazetteer_name": "Winter Park city",
+        "state": "FL"
+      }
+    },
+    "saint-leo": {
+      "city": "Saint Leo, Fla.",
+      "lat": 28.3361,
+      "lon": -82.2582,
+      "source": {
+        "gazetteer_geoid": "1262775",
+        "gazetteer_name": "St. Leo town",
+        "state": "FL"
+      },
+      "note": "The programme publishes \"Saint Leo\"; the Gazetteer spells the town \"St. Leo town\". Matched explicitly by GEOID."
+    },
+    "tampa": {
+      "city": "Tampa, Fla.",
+      "lat": 27.9663,
+      "lon": -82.4776,
+      "source": {
+        "gazetteer_geoid": "1271000",
+        "gazetteer_name": "Tampa city",
+        "state": "FL"
       }
     }
   }
