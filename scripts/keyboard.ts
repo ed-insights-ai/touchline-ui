@@ -117,7 +117,15 @@ async function wire(url: string) {
   return { ws, send };
 }
 
-const KEYS: Record<string, number> = { Tab: 9, Escape: 27, Enter: 13 };
+const KEYS: Record<string, number> = {
+  Tab: 9,
+  Escape: 27,
+  Enter: 13,
+  ArrowDown: 40,
+  ArrowUp: 38,
+  End: 35,
+  Home: 36,
+};
 
 interface Wire {
   send: (method: string, params?: unknown) => Promise<Record<string, never>>;
@@ -261,6 +269,117 @@ for (const path of PAGES) {
   );
 }
 
+// ── The masthead's two menus hold the keyboard the same way ──────────────
+//
+// Conference, then Team (tui-wl8). Each is a <details> so the links inside
+// work with scripting off; what the island promises on top is what is pressed
+// here: aria-expanded that says the truth, arrows along the rows, Escape, and
+// the keyboard handed back to the trigger. The conference page carries the
+// "Teams" trigger and the team page the team's name; both are exercised.
+const MENU_PAGES = ["/glvc/", "/glvc/team/drury/"];
+const MENUS = ["hmenu-conf", "hmenu-team"];
+const FOCUS = `(() => { const a = document.activeElement;
+  return JSON.stringify({ tag: a ? a.tagName : "none", cls: a && a.className ? String(a.className) : "",
+    href: a && a.getAttribute ? a.getAttribute("href") : null,
+    inMenu: !!(a && a.closest && a.closest(".hmenu")) }); })()`;
+interface MenuFocus {
+  tag: string;
+  cls: string;
+  href: string | null;
+  inMenu: boolean;
+}
+const menuFocus = async () => JSON.parse((await evaluate(FOCUS)) as string) as MenuFocus;
+
+for (const path of MENU_PAGES) {
+  page = path;
+  const url = `http://localhost:${PORT}${base}${path}`;
+  await send("Emulation.setScriptExecutionDisabled", { value: false });
+  await send("Page.navigate", { url });
+  await settle();
+
+  for (const menu of MENUS) {
+    const sel = `.${menu}`;
+    const open = () => evaluate(`document.querySelector("${sel}").open`);
+    const expanded = () =>
+      evaluate(`document.querySelector("${sel} > summary").getAttribute("aria-expanded")`);
+    const rows = (await evaluate(`document.querySelectorAll("${sel} a.mrow").length`)) as number;
+    check(rows > 0, `${menu} offers rows`);
+    check((await expanded()) === "false", `${menu} closed: aria-expanded=false`);
+
+    await evaluate(`document.querySelector("${sel} > summary").focus()`);
+    await press("Enter");
+    check((await open()) === true, `${menu}: Enter on the trigger opens it`);
+    check((await expanded()) === "true", `${menu} open: aria-expanded=true`);
+
+    await press("ArrowDown");
+    let at = await menuFocus();
+    const first = (await evaluate(
+      `document.querySelector("${sel} a.mrow").getAttribute("href")`,
+    )) as string;
+    check(at.inMenu && at.href === first, `${menu}: ArrowDown moves to the first row`);
+    await press("ArrowDown");
+    at = await menuFocus();
+    check(at.inMenu && at.href !== first, `${menu}: ArrowDown moves to the second row`);
+    await press("ArrowUp");
+    at = await menuFocus();
+    check(at.href === first, `${menu}: ArrowUp moves back`);
+    await press("End");
+    at = await menuFocus();
+    const last = (await evaluate(
+      `(() => { const r = document.querySelectorAll("${sel} a.mrow"); return r[r.length - 1].getAttribute("href"); })()`,
+    )) as string;
+    check(at.href === last, `${menu}: End reaches the last row`);
+    await press("Home");
+    at = await menuFocus();
+    check(at.href === first, `${menu}: Home returns to the first`);
+
+    await press("Escape");
+    at = await menuFocus();
+    check((await open()) === false, `${menu}: Escape closes it`);
+    check((await expanded()) === "false", `${menu} closed again: aria-expanded=false`);
+    check(
+      at.tag === "SUMMARY" && at.cls.includes(menu === "hmenu-conf" ? "htab-conf" : "htab-team"),
+      `${menu}: focus returns to the trigger`,
+    );
+
+    // Opening one menu closes the other, so two never stand open at once.
+    const other = MENUS.find((m) => m !== menu) as string;
+    await evaluate(`document.querySelector("${sel} > summary").focus()`);
+    await press("Enter");
+    await evaluate(`document.querySelector(".${other} > summary").focus()`);
+    await press("Enter");
+    check(
+      (await open()) === false &&
+        (await evaluate(`document.querySelector(".${other}").open`)) === true,
+      `${menu}: opening the other menu closes this one`,
+    );
+    await press("Escape");
+  }
+
+  // ── With scripting off, the <details> is the whole feature ──────────────
+  await send("Emulation.setScriptExecutionDisabled", { value: true });
+  await send("Page.navigate", { url });
+  await settle();
+  for (const menu of MENUS) {
+    const sel = `.${menu}`;
+    await evaluate(`document.querySelector("${sel} > summary").focus()`);
+    await press("Enter");
+    check(
+      (await evaluate(`document.querySelector("${sel}").open`)) === true,
+      `${menu}: with scripting off Enter still opens the disclosure`,
+    );
+    await press("Tab");
+    const at = await menuFocus();
+    check(at.inMenu && at.tag === "A", `${menu}: with scripting off Tab reaches the first link`);
+    check(
+      (await evaluate(
+        `document.querySelector("${sel} > summary").hasAttribute("aria-expanded")`,
+      )) === false,
+      `${menu}: with scripting off no aria-expanded is promised`,
+    );
+  }
+}
+
 ws.close();
 chrome.kill();
 server.stop(true);
@@ -268,8 +387,10 @@ server.stop(true);
 const failed = results.filter((r) => !r.ok);
 for (const r of failed) console.log(`  FAIL  ${r.page}  ${r.what}`);
 console.log(
-  `keyboard: ${results.length - failed.length}/${results.length} checks on ${PAGES.length} pages — ${
-    failed.length === 0 ? "the dialog holds the keyboard" : `${failed.length} failing`
+  `keyboard: ${results.length - failed.length}/${results.length} checks on ${
+    PAGES.length + MENU_PAGES.length
+  } pages — ${
+    failed.length === 0 ? "the dialog and both menus hold the keyboard" : `${failed.length} failing`
   }`,
 );
 process.exit(failed.length === 0 ? 0 : 1);
