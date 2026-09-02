@@ -1,0 +1,207 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GLVC",
+  "generated_at": "2026-09-01T23:55:40+00:00",
+  "data_collected_at": "2026-09-01T23:46:04+00:00",
+  "headline": "Missouri S&T stand alone on two wins",
+  "dek": "Missouri S&T have won both their matches, scoring seven and conceding once, and no other programme has yet won twice. Five different players have scored those seven goals, three of them by Mike Banasik.",
+  "lede_basis": {
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "programme": "missouri-s-t",
+    "of": [
+      "drury",
+      "illinois-springfield",
+      "indianapolis",
+      "lewis",
+      "lincoln",
+      "maryville",
+      "mckendree",
+      "missouri-st-louis",
+      "quincy",
+      "rockhurst",
+      "southwest-baptist",
+      "truman",
+      "upper-iowa",
+      "william-jewell"
+    ],
+    "wins": 2,
+    "draws": 0,
+    "losses": 0,
+    "gf": 7,
+    "ga": 1,
+    "distinct_scorers_min": 5,
+    "source": "stats",
+    "player": "Mike Banasik",
+    "goals": 3
+  },
+  "lede_updated": "2026-09-01",
+  "pattern": {
+    "label": "derived",
+    "text": "The chart's height is a single afternoon: Southwest Baptist have played once, and the eight they scored at Sterling are more than Truman, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have managed between them.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "southwest-baptist": 8,
+        "missouri-s-t": 7,
+        "quincy": 6,
+        "drury": 3,
+        "lewis": 3,
+        "lincoln": 3,
+        "maryville": 3,
+        "rockhurst": 3,
+        "truman": 2,
+        "illinois-springfield": 1,
+        "indianapolis": 1,
+        "mckendree": 1,
+        "missouri-st-louis": 1,
+        "upper-iowa": 1,
+        "william-jewell": 0
+      },
+      "highlight": "southwest-baptist"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "southwest-baptist",
+      "of": [
+        "truman",
+        "illinois-springfield",
+        "indianapolis",
+        "mckendree",
+        "missouri-st-louis",
+        "upper-iowa",
+        "william-jewell"
+      ],
+      "gf": 8,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0
+    }
+  },
+  "wire": {
+    "line": "Southwest Baptist have played once, scored eight and conceded none.",
+    "basis": {
+      "programme": "southwest-baptist",
+      "gf": 8,
+      "ga": 0,
+      "wins": 1,
+      "draws": 0,
+      "losses": 0
+    },
+    "updated": "2026-09-01"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Seven matches are score gaps, finals with no published score, and all seven are dated before the earliest match that has one; no match past its date is without a result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 7,
+        "past_date_no_result": 0
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Indianapolis have won one and drawn one without conceding; Rick Lammerts has made seven saves and has yet to be beaten.",
+      "basis": {
+        "programme": "indianapolis",
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 1,
+        "ga": 0,
+        "source": "stats",
+        "player": "Rick Lammerts",
+        "saves": 7,
+        "goals_against": 0
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Upper Iowa have drawn both their matches, scoring once and conceding once, and play in the conference's opening match, away at Missouri S&T.",
+      "basis": {
+        "programme": "upper-iowa",
+        "wins": 0,
+        "draws": 2,
+        "losses": 0,
+        "gf": 1,
+        "ga": 1,
+        "conference_opens": "2026-09-04"
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Illinois Springfield have lost both matches and conceded six, more than any other programme; Kevin Kardel has made ten saves behind them.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "illinois-springfield",
+        "of": [
+          "drury",
+          "indianapolis",
+          "lewis",
+          "lincoln",
+          "maryville",
+          "mckendree",
+          "missouri-s-t",
+          "missouri-st-louis",
+          "quincy",
+          "rockhurst",
+          "southwest-baptist",
+          "truman",
+          "upper-iowa",
+          "william-jewell"
+        ],
+        "ga": 6,
+        "gf": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 2,
+        "source": "stats",
+        "player": "Kevin Kardel",
+        "saves": 10,
+        "goals_against": 6
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Leo Cann",
+      "programme": "quincy",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 8 shots"
+    },
+    {
+      "player": "Nathaniel Velasquez",
+      "programme": "southwest-baptist",
+      "position": "FWD",
+      "class": "JR",
+      "line": "2 G · 6 shots"
+    },
+    {
+      "player": "Jacob Panagos",
+      "programme": "truman",
+      "position": "MID",
+      "class": "JR",
+      "line": "2 G · 3 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-08-30 parkside v lewis",
+      "line": "Lewis had not scored in their opener against Purdue Northwest; at Parkside each goal came from a different scorer."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-01 kentucky-wesleyan v missouri-s-t",
+      "line": "Missouri S&T have yet to drop a point; Kentucky Wesleyan have already lost to a GLVC side, at Missouri-St. Louis."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-01T23:56:01.166Z"
+  }
+}

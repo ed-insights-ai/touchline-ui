@@ -41,13 +41,14 @@ export interface SiteConfig {
 export const site: SiteConfig = {
   season: Number(process.env.TOUCHLINE_SEASON ?? 2026),
   gender: (process.env.TOUCHLINE_GENDER ?? "men") as Gender,
-  conferences: ["gac", "lsc", "gsc"],
+  conferences: ["gac", "lsc", "gsc", "glvc"],
   home: "gac",
   asOf: process.env.TOUCHLINE_AS_OF?.trim() || undefined,
   conferenceNames: {
     gac: "Great American Conference",
     lsc: "Lone Star Conference",
     gsc: "Gulf South Conference",
+    glvc: "Great Lakes Valley Conference",
   },
   division: "NCAA Division II men's soccer",
   governingBody: "NCAA",
