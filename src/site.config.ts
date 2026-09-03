@@ -36,6 +36,14 @@ export interface SiteConfig {
    *  counted against the data and never sourced to the collect. It exists so
    *  the national map can say what share of the division this site follows. */
   divisionConferences: number;
+  /** Regions, in navigation order. A region groups conferences on the
+   *  footprint map, the home page past its column cap, and the masthead menu.
+   *  Config, never code: a later division adds rows here and nowhere else. */
+  regions: readonly { key: string; name: string }[];
+  /** Conference key → region key. Every conference must name a region listed
+   *  in `regions`; lib/regions.test.ts asserts it, and the test gate stands in
+   *  front of every publish. */
+  conferenceRegions: Readonly<Record<string, string>>;
 }
 
 export const site: SiteConfig = {
@@ -57,6 +65,22 @@ export const site: SiteConfig = {
   publisher: "EDInsights.AI",
   cadence: "once a day",
   divisionConferences: 19,
+  regions: [
+    { key: "northeast", name: "Northeast" },
+    { key: "mid-atlantic", name: "Mid-Atlantic" },
+    { key: "midwest", name: "Midwest" },
+    { key: "southeast", name: "Southeast" },
+    { key: "south-central", name: "South Central" },
+    { key: "west", name: "West" },
+  ],
+  conferenceRegions: {
+    gac: "south-central",
+    lsc: "south-central",
+    gsc: "southeast",
+    glvc: "midwest",
+    rmac: "west",
+    ssc: "southeast",
+  },
   nameOverrides: {
     "ncaa-1st-and-2nd-round": "NCAA First & Second Rounds",
     "ncaa-first-and-second-rounds": "NCAA First & Second Rounds",
