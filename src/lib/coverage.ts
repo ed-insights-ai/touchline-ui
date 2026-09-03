@@ -35,6 +35,13 @@ export const coverageCellSchema = z
      *  (GLVC, 2026-09-02) was refused by this contract whole. A marker, not a
      *  state: the cell's `state` is still the layer's outcome. */
     verified: z.literal("unchanged").optional(),
+    /** Rows the page published that the collector read and deliberately did
+     *  not mint, each named ("hosted other-match skipped: 2026-08-27, A v B":
+     *  a tournament match the programme hosted but did not play, listed on
+     *  its own schedule page; rib #84, beads tl-clk.10 and tl-5ru). A sibling
+     *  of `reason` on a cell whose `state` is unchanged by it: it says why the
+     *  page's row count and the fixture count differ, and nothing else. */
+    skips: z.array(z.string().min(1)).optional(),
   })
   .strict();
 export type CoverageCell = z.infer<typeof coverageCellSchema>;
