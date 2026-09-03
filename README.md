@@ -71,6 +71,13 @@ Conference labels, programme names and abbreviations come from the data files'
 own `programmes[]`. Opponents outside the collected conferences are named from
 box scores where one exists, then from `nameOverrides`, then from the slug.
 
+Each conference also names a region (`conferenceRegions`), and `site.regions`
+lists the regions in navigation order. Regions are configuration too; they group
+the footprint map, the home page past its column cap, and the masthead menu,
+each of which arrives in a later change. `src/lib/fixtures/density.ts` holds
+synthetic 12- and 19-conference sets so those can be tested before the
+conferences exist; it is for tests only.
+
 ## Programme identity
 
 The site reads `data/reference/programmes.json` from the data home
