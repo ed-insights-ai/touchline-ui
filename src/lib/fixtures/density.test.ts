@@ -75,8 +75,8 @@ describe("grouping", () => {
     const groups = byRegion(densityConferences(19), cfg);
     expect(groups.map((g) => [g.region.key, g.items.length])).toEqual([
       ["northeast", 3],
-      ["mid-atlantic", 3],
-      ["midwest", 2],
+      ["mid-atlantic", 2],
+      ["midwest", 3],
       ["southeast", 5],
       ["south-central", 2],
       ["west", 4],
@@ -131,8 +131,8 @@ describe("the home page past the cap", () => {
     const bands = homeBands(densityCards(19), densityConfig(19));
     expect(bands.map((b) => [b.region.key, b.columns.length])).toEqual([
       ["northeast", 3],
-      ["mid-atlantic", 3],
-      ["midwest", 2],
+      ["mid-atlantic", 2],
+      ["midwest", 3],
       ["southeast", 5],
       ["south-central", 2],
       ["west", 4],
@@ -199,7 +199,7 @@ describe("against the live config", () => {
     expect(DENSITY_REGIONS).toEqual([...site.regions]);
   });
 
-  test("the six live keys carry the region site.conferenceRegions gives them", () => {
+  test("every live key carries the region site.conferenceRegions gives it", () => {
     const cfg = densityConfig(12);
     for (const key of site.conferences) {
       expect(cfg.conferenceRegions[key], key).toBe(site.conferenceRegions[key] ?? "");

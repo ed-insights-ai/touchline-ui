@@ -232,7 +232,9 @@ const POSITIONS: readonly [RegExp, Line][] = [
   // "Mid" as its own word covers Shorter 2021's "Center Mid" and Ouachita
   // Baptist 2019's "Mid Fielder". Saint Edward's 2023 (lsc/saint-edwards)
   // codes its midfield ACM, AM and HCM: attacking and holding centre mids.
-  [/midfield|miidfield|\bmid\b|^mf$|^m$|^cm$|^cdm$|^cam$|^acm$|^am$|^hcm$/, "MID"],
+  // "LM/RM" is Tiffin's left-or-right midfielder, 2022 through 2024
+  // (g-mac/tiffin), beside "Midfielder" on the same roster.
+  [/midfield|miidfield|\bmid\b|^mf$|^m$|^cm$|^cdm$|^cam$|^acm$|^am$|^hcm$|^lm$|^rm$/, "MID"],
   // "B" is Missouri S&T's own initial for a back (2026 roster), beside "M-B".
   // RB, CB and LB are Southwest Baptist 2023's right, centre and left backs.
   // "DF" is Christian Brothers 2020 (gsc/christian-brothers); "FB" is a full
@@ -286,6 +288,10 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   goalkeper: "goalkeeper",
   // New Haven 2026 (ne10/new-haven): "Goalkeeer".
   goalkeeer: "goalkeeper",
+  // Mercyhurst 2023 (psac/mercyhurst): "Froward".
+  froward: "forward",
+  // West Virginia Wesleyan 2026 (mec/west-virginia-wesleyan): "Miedfielder/Defender".
+  miedfielder: "midfielder",
 };
 
 /**

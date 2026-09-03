@@ -169,6 +169,9 @@ describe("against the rosters this site actually collects", () => {
       "student assistant",
       "hs",
       "tr",
+      // psac/e-stroudsburg 2022, one row: a single letter the roster
+      // published in the position column (Pieter Neerhof, "q").
+      "q",
     ];
     // A roster the collector reads one column to the left, so that the name
     // field holds the number and the position field holds the NAME: every row
@@ -178,7 +181,9 @@ describe("against the rosters this site actually collects", () => {
     // thirty of them a season, so the roster is set aside whole. The defect
     // is the collector's, and it is asserted live here rather than assumed:
     // the exception ends the day a row of that roster carries a real name.
-    const SHIFTED_ROSTERS = new Set(["ecc/district-of-columbia"]);
+    // Northwood (g-mac/northwood) reads the same way, 2022 through 2026:
+    // "00", "Nick Borkowski", "Goalkeeper" under number, name, position.
+    const SHIFTED_ROSTERS = new Set(["ecc/district-of-columbia", "g-mac/northwood"]);
     const isShifted = (players: { name?: string }[]): boolean =>
       players.length > 0 && players.every((p) => /^\d+$/.test((p.name ?? "").trim()));
     // Every collected season, not just the two the site renders: the
