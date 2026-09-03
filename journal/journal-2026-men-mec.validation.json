@@ -1,0 +1,157 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-mec.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MEC",
+  "validated_at": "2026-09-03T15:55:34.241Z",
+  "data_collected_at": "2026-09-03T13:05:14+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Salem share the top of the scoring with two other programmes, but their six goals have come from six different scorers; no programme has spread its scoring wider.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "unchecked_figures": ["programmes_sharing_top: 2"]
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Half the conference is still unbeaten, and Concord have yet to concede a goal.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Five matches have passed their date without a published result, the earliest nineteen days ago; three of them are Point Park's and two are West Virginia Wesleyan's.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "unchecked_figures": [
+        "days_since_earliest: 19",
+        "point_park_no_result: 3",
+        "west_virginia_wesleyan_no_result: 2"
+      ]
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "The table rests on a single match, Salem's win at West Virginia Wesleyan; the next matches between members are three days away, four of them on one afternoon.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "unchecked_figures": [
+        "conference_matches_played: 1",
+        "days_to_next_member_match: 3",
+        "member_matches_that_day: 4"
+      ]
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Concord are the only programme yet to concede, and both their goals came in one match, against Virginia State.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Anthony Fusay has kept clean sheets in two of Point Park's three matches, and the three goals he has conceded all came in the other one.",
+      "checker": "player_stat+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "signal",
+      "text": "Leyton Collier's twelve shots have produced two goals for West Liberty; no other player on the leaders list has taken more than six.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "unchecked_figures": ["next_most_shots: 6"]
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Nate Kennedy — 3 G · 3 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Allan Logrillo — 2 G · 1 A · 3 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Leyton Collier — 2 G · 12 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-02 frostburg-state v bloomsburg",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-05 salem v millersville",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-03T15:54:09.159Z",
+    "generate_ms": 85080,
+    "validate_ms": 1,
+    "wall_ms": 85081,
+    "concurrency": 3
+  }
+}

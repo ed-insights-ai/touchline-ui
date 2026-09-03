@@ -185,6 +185,11 @@ const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> = {
   // Bay and the Gulf; the outline draws it too thin to contain the town's
   // internal point, which lands 1.7px into the bay.
   eckerd: "Pinellas peninsula",
+  // Wheeling (mec/wheeling) sits on the Ohio River in West Virginia's Northern
+  // Panhandle, a strip of the state a few miles wide between Ohio and
+  // Pennsylvania; the outline draws the river bank coarsely enough that the
+  // city's Gazetteer point lands 0.1px into Ohio.
+  wheeling: "Northern Panhandle",
 };
 const OFFSHORE_TOLERANCE_PX = 3;
 

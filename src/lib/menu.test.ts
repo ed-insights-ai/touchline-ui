@@ -151,28 +151,33 @@ describe("the edges", () => {
 describe("the packings, pinned", () => {
   const keysOf = (columns: MenuColumn[]) => columns.map((c) => c.regions.map((r) => r.region.key));
 
-  test("the nineteen: computed by hand from the rule, weights 4 4 3 6 3 5", () => {
-    // Northeast (4) opens column one, Mid-Atlantic (4) column two, Midwest (3)
-    // column three; Southeast (6) joins the lightest, Midwest's, making 9;
-    // South Central (3) joins Northeast's, making 7; West (5) joins the
-    // Mid-Atlantic's, making 9. Columns weigh 7, 9, 9.
+  test("the nineteen: computed by hand from the rule, weights 4 3 4 6 3 5", () => {
+    // Northeast (4) opens column one, Mid-Atlantic (3) column two, Midwest (4)
+    // column three; Southeast (6) joins the lightest, Mid-Atlantic's, making
+    // 9; South Central (3) joins Northeast's, making 7; West (5) joins the
+    // Midwest's, making 9. Columns weigh 7, 9, 9. (G-MAC is Midwest, as the
+    // live config places it, since the twelve-conference site.)
     const columns = menuColumns(densityEntries(19), densityConfig(19));
     expect(keysOf(columns)).toEqual([
       ["northeast", "south-central"],
-      ["mid-atlantic", "west"],
-      ["midwest", "southeast"],
+      ["mid-atlantic", "southeast"],
+      ["midwest", "west"],
     ]);
     expect(columns.map((c) => c.rows)).toEqual([7, 9, 9]);
   });
 
-  test("the twelve: weights 4 4 2 3 3 2 pack the same way, lighter", () => {
+  test("the twelve: weights 4 3 3 3 3 2 pack level, six rows a column", () => {
+    // Northeast (4), Mid-Atlantic (3), Midwest (3) open the three columns;
+    // Southeast (3) ties Mid-Atlantic's and Midwest's and takes the first,
+    // making 6; South Central (3) joins the Midwest's, making 6; West (2)
+    // joins the Northeast's, making 6.
     const columns = menuColumns(densityEntries(12), densityConfig(12));
     expect(keysOf(columns)).toEqual([
-      ["northeast", "south-central"],
-      ["mid-atlantic", "west"],
-      ["midwest", "southeast"],
+      ["northeast", "west"],
+      ["mid-atlantic", "southeast"],
+      ["midwest", "south-central"],
     ]);
-    expect(columns.map((c) => c.rows)).toEqual([7, 6, 5]);
+    expect(columns.map((c) => c.rows)).toEqual([6, 6, 6]);
   });
 
   test("the live six, by the same rule against the live config", () => {

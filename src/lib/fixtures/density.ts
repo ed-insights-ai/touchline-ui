@@ -112,10 +112,10 @@ export const DENSITY_CONFERENCES: readonly DensityConference[] = [
     total: 45,
   }),
   row(
-    "gmac",
+    "g-mac",
     "G-MAC",
     "Great Midwest Athletic Conference",
-    "mid-atlantic",
+    "midwest",
     11,
     [37.8, 43.7, -85.2, -80.9],
     { opens: "2026-09-12", played: 6, total: 55 },
@@ -209,7 +209,10 @@ export const DENSITY_CONFERENCES: readonly DensityConference[] = [
   ),
 ];
 
-/** The generator's twelve: the six live keys and six more. */
+/** The generator's twelve, which since batch 2 are the live twelve. The
+ *  G-MAC row carries the live key and region (g-mac, Midwest), not the
+ *  canvas's gmac/Mid-Atlantic: density.test.ts holds every live key to
+ *  site.conferenceRegions, and the live table is the one that renders. */
 const TWELVE = new Set([
   "gac",
   "lsc",
@@ -222,7 +225,7 @@ const TWELVE = new Set([
   "ecc",
   "psac",
   "mec",
-  "gmac",
+  "g-mac",
 ]);
 
 /** The rows for a size, in DENSITY_CONFERENCES order. */

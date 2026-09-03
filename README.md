@@ -12,7 +12,7 @@ build is `reference/ARCHITECTURE.md`.
 ```sh
 bun install
 bun run dev        # http://localhost:4321
-bun run build      # → dist/   (1,318 pages for 2026 men, the nine conferences in src/site.config.ts)
+bun run build      # → dist/   (1,772 pages for 2026 men, the twelve conferences in src/site.config.ts)
 bun run preview
 bun run check      # biome
 bunx tsc --noEmit  # types
@@ -83,8 +83,8 @@ head, whole regions per column, three columns balanced by row count
 (`src/lib/menu.ts`). The map draws every dot in one ink and tints nothing:
 hovering a key row or a dot group selects that conference in purple, and the
 key carries identity at rest. `src/lib/fixtures/density.ts` holds synthetic
-12- and 19-conference sets so those can be tested before the conferences
-exist; it is for tests only.
+12- and 19-conference sets so those sizes could be tested before the conferences
+existed (the twelve are live since batch 2); it is for tests only.
 
 ## Programme identity
 
