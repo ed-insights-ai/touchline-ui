@@ -67,7 +67,15 @@ function conferencePage(s: Season): Line[] {
   const lede = editorial(s, journal);
   const pattern = journal?.pattern ?? fallbackPattern(s);
   const findings = journal?.findings ?? fallbackFindings(s);
-  const out: Line[] = [{ where: `${s.key} headline`, text: lede.headline }];
+  // With no journal the headline is the figure the fallback prints, "27 of
+  // 145 matches played": a count in the shape of a sentence, not writing, and
+  // its two content words sit in any finding about played matches (measured
+  // 1.00 against CACC's box-score finding when NE10 and CACC were added). Left
+  // out of the words-moved property on the caption's terms, and covered
+  // verbatim by the sentence-twice test.
+  const headline: Line = { where: `${s.key} headline`, text: lede.headline };
+  if (!journal) headline.mechanical = true;
+  const out: Line[] = [headline];
   if (lede.dek) out.push({ where: `${s.key} dek`, text: lede.dek });
   if (pattern?.text) out.push({ where: `${s.key} pattern`, text: pattern.text });
   // The chart's caption is the page's own now, not the journal's, so the

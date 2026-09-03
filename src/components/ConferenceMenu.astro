@@ -9,7 +9,12 @@
 // keyboard.ts and scripts/visual.sh address it unchanged.
 //
 // Taken out of SiteHeader so the twelve- and nineteen-conference fixtures can
-// render the same panel the live six do, with no Season in hand.
+// render the same panel the live set does, with no Season in hand.
+//
+// The abbreviation column is sized here, not in the stylesheet: the longest
+// code across the rows, in characters, goes out as --mabbr-ch on the columns
+// and base.css turns it into a width. A fixed 46px fit four letters and no
+// more; a five-letter code would have been cut, and no test renders type.
 import { seasonHref } from "../lib/derive.ts";
 import type { MenuColumn } from "../lib/menu.ts";
 
@@ -23,13 +28,17 @@ interface Props {
   seasonLabel: string;
 }
 const { columns, currentKey, count, seasonLabel } = Astro.props;
+const abbrChars = Math.max(
+  1,
+  ...columns.flatMap((c) => c.regions.flatMap((r) => r.rows.map((e) => e.abbr.length))),
+);
 ---
 <div class="hmenu-panel">
   <div class="hmenu-head">
     <span class="hmenu-tag num">{count} conferences · {seasonLabel}</span>
     <button type="button" class="hmenu-close">Close</button>
   </div>
-  <div class="hmenu-cols">
+  <div class="hmenu-cols" style={`--mabbr-ch: ${abbrChars}`}>
     {columns.map((col) => (
       <div class="hmenu-col">
         {col.regions.map((r) => (

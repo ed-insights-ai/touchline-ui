@@ -241,9 +241,20 @@ const POSITIONS: readonly [RegExp, Line][] = [
   [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lb$|^fb$|^ob$/, "DEF"],
   // LW, RW and ST are Southwest Baptist 2023's wings and striker.
   // "FW" is Newman 2022 and Christian Brothers 2020; "FOR" is Shorter 2021;
-  // "S" is the striker beside "W" and "W/S" on Saint Edward's 2023.
-  [/forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^s$/, "FWD"],
+  // "S" is the striker beside "W" and "W/S" on Saint Edward's 2023. "A" is
+  // the attacker beside GK, D, M and F on Saint Leo 2025 (ssc/saint-leo) and
+  // Pace 2025 (ne10/pace).
+  [/forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^s$|^a$/, "FWD"],
 ];
+
+/**
+ * Pace 2025 (ne10/pace) printed the position and the player's club in one
+ * field: "F Pathfinder", "GK East Fishkill", "D Real Ole", "A/M East Meadow
+ * Soccer Club ECNL". The leading initials are the position and the club is
+ * not read. Only that shape: one initial, or two joined by a slash, then at
+ * least one more word.
+ */
+const CLUB_AFTER_INITIALS = /^((?:gk|[fmda])(?:\/(?:gk|[fmda]))?)\s+\S/i;
 
 /**
  * Published misspellings that are evidently one known position, mapped to it
@@ -273,6 +284,8 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   md: "midfielder",
   // William Jewell 2023 (glvc/william-jewell): "Goalkeper".
   goalkeper: "goalkeeper",
+  // New Haven 2026 (ne10/new-haven): "Goalkeeer".
+  goalkeeer: "goalkeeper",
 };
 
 /**
@@ -296,10 +309,11 @@ const PUBLISHED_FORMS: Readonly<Record<string, string>> = {
 export function positionLine(position: string | undefined): Line | null {
   if (!position) return null;
   const whole = PUBLISHED_FORMS[position.trim().toLowerCase()] ?? position;
+  const initialsOnly = CLUB_AFTER_INITIALS.exec(whole.trim())?.[1] ?? whole;
   // A roster that lists two positions lists the first one first: "Midfielder/
   // Defender" is a midfielder who covers. Read the first and ignore the rest,
   // which is what these pages have always printed.
-  const first = whole.split("/")[0] ?? "";
+  const first = initialsOnly.split("/")[0] ?? "";
   const word = first
     .toLowerCase()
     .replace(/[^a-z ]/g, " ")

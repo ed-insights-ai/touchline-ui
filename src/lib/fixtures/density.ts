@@ -45,7 +45,7 @@ export type DensitySize = 12 | 19;
 /** The same six rows as site.regions, in the same order, label nudges and
  *  all (density.test.ts holds the two equal). */
 export const DENSITY_REGIONS: readonly Region[] = [
-  { key: "northeast", name: "Northeast", label: { dx: 40, dy: -46 } },
+  { key: "northeast", name: "Northeast", label: { dx: -70, dy: -50 } },
   { key: "mid-atlantic", name: "Mid-Atlantic", label: { dx: -4, dy: 62 } },
   { key: "midwest", name: "Midwest", label: { dx: -19, dy: -113 } },
   { key: "southeast", name: "Southeast", label: { dx: 128, dy: -28 } },
