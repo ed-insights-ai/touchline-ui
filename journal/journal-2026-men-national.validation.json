@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-03T08:19:41.921Z",
+  "validated_at": "2026-09-03T15:57:03.824Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Southwest Baptist outscore every other programme in the division Southwest Baptist have scored fifteen goals in two matches and have yet to concede, and no other programme in the division has scored as many. The Great Lakes Valley Conference is the division's first to open conference play, and Southwest Baptist carry that record into it.",
+      "text": "Southwest Baptist outscore every other programme in the division Southwest Baptist have scored fifteen goals in two matches and have yet to concede, and no other programme in the division has scored as many. The Great Lakes Valley Conference is the next to open conference play, and Southwest Baptist carry the division's highest tally into it.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-03T08:18:36.727Z",
-    "generate_ms": 65191,
-    "validate_ms": 2,
-    "wall_ms": 65194
+    "started_at": "2026-09-03T15:56:22.651Z",
+    "generate_ms": 41170,
+    "validate_ms": 3,
+    "wall_ms": 41172
   }
 }

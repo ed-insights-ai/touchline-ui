@@ -1,0 +1,151 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-psac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PSAC",
+  "validated_at": "2026-09-03T15:56:11.514Z",
+  "data_collected_at": "2026-09-03T13:26:33+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "The conference's goals are stacked at one end: Millersville have outscored Bloomsburg and Seton Hill together, while at the other end Pitt-Johnstown, Slippery Rock and West Chester have no goal to draw.",
+      "unbacked": ["1"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "The conference's goals are stacked at one end: Millersville have outscored Bloomsburg and Seton Hill together, while at the other end Pitt-Johnstown, Slippery Rock and West Chester have no goal to draw.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Pitt-Johnstown are the only side yet to play a match on the record.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "E. Stroudsburg's season opener against Mercer County is the season's one score gap, a final with no published score, and five further dates have passed with no result at all.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Pitt-Johnstown have no played match on the record. Their dates at Shippensburg and at Mount Aloysius have passed with no result, and they play at Chestnut Hill tonight.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "California (Pa.) have conceded ten goals, more than any other programme has let in, and scored five.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Bloomsburg's seven goals have come from six different scorers.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Shepherd are unbeaten, with Aidan Houck making fifteen saves and conceding twice across their matches.",
+      "checker": "player_stat+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Zander Leik — 2 G · 1 A · 5 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Andrew Beagle — 2 G · 4 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Steven Arias — 2 G · 5 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-02 california-pa v millersville",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-03 chestnut-hill v pitt-johnstown",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-03T15:54:09.148Z",
+    "generate_ms": 122363,
+    "validate_ms": 1,
+    "wall_ms": 122364,
+    "concurrency": 3
+  }
+}

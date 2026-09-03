@@ -1,0 +1,164 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PSAC",
+  "generated_at": "2026-09-03T13:41:00+00:00",
+  "data_collected_at": "2026-09-03T13:26:33+00:00",
+  "headline": "Millersville score a dozen before conference play opens",
+  "dek": "Millersville have scored twelve and conceded three, and both of the season's box-score gaps are theirs: the site holds those scores and not the shape of them. Slippery Rock and West Chester have yet to score, and Pitt-Johnstown have yet to play.",
+  "lede_basis": {
+    "programme": "millersville",
+    "gf": 12,
+    "ga": 3,
+    "set": "box_score_gaps",
+    "all_of": "millersville",
+    "count": 2
+  },
+  "lede_updated": "2026-09-03",
+  "pattern": {
+    "label": "derived",
+    "text": "The conference's goals are stacked at one end: Millersville have outscored Bloomsburg and Seton Hill together, while at the other end Pitt-Johnstown, Slippery Rock and West Chester have no goal to draw.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "millersville": 12,
+        "bloomsburg": 7,
+        "california-pa": 5,
+        "e-stroudsburg": 5,
+        "gannon": 5,
+        "seton-hill": 4,
+        "lock-haven": 3,
+        "shepherd": 3,
+        "shippensburg": 2,
+        "pitt-johnstown": 0,
+        "slippery-rock": 0,
+        "west-chester": 0
+      },
+      "highlight": "millersville"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "millersville",
+      "of": ["bloomsburg", "seton-hill"],
+      "gf": 12
+    }
+  },
+  "wire": {
+    "line": "Pitt-Johnstown are the only side yet to play a match on the record.",
+    "basis": {
+      "programme": "pitt-johnstown",
+      "wins": 0,
+      "draws": 0,
+      "losses": 0
+    },
+    "updated": "2026-09-03"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "E. Stroudsburg's season opener against Mercer County is the season's one score gap, a final with no published score, and five further dates have passed with no result at all.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 1,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pitt-Johnstown have no played match on the record. Their dates at Shippensburg and at Mount Aloysius have passed with no result, and they play at Chestnut Hill tonight.",
+      "basis": {
+        "programme": "pitt-johnstown",
+        "wins": 0,
+        "draws": 0,
+        "losses": 0
+      }
+    },
+    {
+      "label": "derived",
+      "text": "California (Pa.) have conceded ten goals, more than any other programme has let in, and scored five.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "california-pa",
+        "of": [
+          "bloomsburg",
+          "e-stroudsburg",
+          "gannon",
+          "lock-haven",
+          "millersville",
+          "pitt-johnstown",
+          "seton-hill",
+          "shepherd",
+          "shippensburg",
+          "slippery-rock",
+          "west-chester"
+        ],
+        "gf": 5,
+        "ga": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Bloomsburg's seven goals have come from six different scorers.",
+      "basis": {
+        "programme": "bloomsburg",
+        "gf": 7,
+        "ga": 5,
+        "distinct_scorers_min": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Shepherd are unbeaten, with Aidan Houck making fifteen saves and conceding twice across their matches.",
+      "basis": {
+        "source": "stats",
+        "player": "Aidan Houck",
+        "programme": "shepherd",
+        "saves": 15,
+        "goals_against": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Zander Leik",
+      "programme": "millersville",
+      "position": "FWD",
+      "class": "5Y",
+      "line": "2 G · 1 A · 5 shots"
+    },
+    {
+      "player": "Andrew Beagle",
+      "programme": "bloomsburg",
+      "position": "DEF",
+      "class": "SO",
+      "line": "2 G · 4 shots"
+    },
+    {
+      "player": "Steven Arias",
+      "programme": "e-stroudsburg",
+      "position": "FWD",
+      "class": "JR",
+      "line": "2 G · 5 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-02 california-pa v millersville",
+      "line": "Millersville have won at home and away; California (Pa.) have yet to keep a clean sheet."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-03 chestnut-hill v pitt-johnstown",
+      "line": "Pitt-Johnstown have no match on the record yet; earlier dates passed without a published result."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-03T15:56:11.514Z"
+  }
+}

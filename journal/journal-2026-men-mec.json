@@ -1,0 +1,172 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MEC",
+  "generated_at": "2026-09-03T13:30:00+00:00",
+  "data_collected_at": "2026-09-03T13:05:14+00:00",
+  "headline": "Five sides unbeaten while Shawnee State concede twelve",
+  "dek": "Concord, Davis & Elkins, Frostburg State, Salem and West Liberty have yet to lose, and Concord have yet to concede. Shawnee State have let in twelve goals in three matches, more than any other programme in the conference has conceded all season.",
+  "lede_basis": {
+    "programme": "shawnee-state",
+    "gf": 2,
+    "ga": 12,
+    "wins": 0,
+    "draws": 1,
+    "losses": 2,
+    "played": 3,
+    "unbeaten_sides": 5,
+    "comparative": "greater_than_each",
+    "metric": "ga",
+    "of": [
+      "charleston",
+      "concord",
+      "davis-elkins",
+      "frostburg-state",
+      "point-park",
+      "salem",
+      "west-liberty",
+      "west-virginia-wesleyan",
+      "wheeling"
+    ]
+  },
+  "lede_updated": "2026-09-03",
+  "pattern": {
+    "label": "derived",
+    "text": "Salem share the top of the scoring with two other programmes, but their six goals have come from six different scorers; no programme has spread its scoring wider.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "charleston": 6,
+        "frostburg-state": 6,
+        "salem": 6,
+        "west-liberty": 5,
+        "wheeling": 4,
+        "davis-elkins": 3,
+        "concord": 2,
+        "point-park": 2,
+        "shawnee-state": 2,
+        "west-virginia-wesleyan": 2
+      },
+      "highlight": "salem"
+    },
+    "basis": {
+      "programme": "salem",
+      "gf": 6,
+      "ga": 2,
+      "distinct_scorers_min": 6,
+      "programmes_sharing_top": 2
+    }
+  },
+  "wire": {
+    "line": "Half the conference is still unbeaten, and Concord have yet to concede a goal.",
+    "basis": {
+      "programme": "concord",
+      "gf": 2,
+      "ga": 0
+    },
+    "updated": "2026-09-03"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Five matches have passed their date without a published result, the earliest nineteen days ago; three of them are Point Park's and two are West Virginia Wesleyan's.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5,
+        "days_since_earliest": 19,
+        "point_park_no_result": 3,
+        "west_virginia_wesleyan_no_result": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "The table rests on a single match, Salem's win at West Virginia Wesleyan; the next matches between members are three days away, four of them on one afternoon.",
+      "basis": {
+        "programme": "salem",
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "conference_matches_played": 1,
+        "days_to_next_member_match": 3,
+        "member_matches_that_day": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Concord are the only programme yet to concede, and both their goals came in one match, against Virginia State.",
+      "basis": {
+        "programme": "concord",
+        "gf": 2,
+        "ga": 0,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Anthony Fusay has kept clean sheets in two of Point Park's three matches, and the three goals he has conceded all came in the other one.",
+      "basis": {
+        "source": "stats",
+        "player": "Anthony Fusay",
+        "programme": "point-park",
+        "shutouts": 2,
+        "goals_against": 3,
+        "wins": 1,
+        "draws": 1,
+        "losses": 1
+      }
+    },
+    {
+      "label": "signal",
+      "text": "Leyton Collier's twelve shots have produced two goals for West Liberty; no other player on the leaders list has taken more than six.",
+      "basis": {
+        "source": "stats",
+        "player": "Leyton Collier",
+        "programme": "west-liberty",
+        "goals": 2,
+        "shots": 12,
+        "next_most_shots": 6
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Nate Kennedy",
+      "programme": "frostburg-state",
+      "position": "FWD",
+      "class": "SO",
+      "line": "3 G · 3 shots"
+    },
+    {
+      "player": "Allan Logrillo",
+      "programme": "charleston",
+      "position": "FWD",
+      "class": "SO",
+      "line": "2 G · 1 A · 3 shots"
+    },
+    {
+      "player": "Leyton Collier",
+      "programme": "west-liberty",
+      "position": "MID",
+      "class": "SO",
+      "line": "2 G · 12 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-02 frostburg-state v bloomsburg",
+      "line": "Frostburg State are yet to lose; only Lock Haven have taken anything off them."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-05 salem v millersville",
+      "line": "Salem have won both their matches and hold the only conference points on the table."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-03T15:55:34.241Z"
+  }
+}

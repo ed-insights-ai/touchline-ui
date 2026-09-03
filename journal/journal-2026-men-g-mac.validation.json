@@ -1,0 +1,145 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-g-mac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "G-MAC",
+  "validated_at": "2026-09-03T15:55:22.868Z",
+  "data_collected_at": "2026-09-03T15:34:05+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Findlay's six goals have come from five different scorers, and only two have gone in at the other end.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Every side but Findlay has already been beaten, and Cedarville and Kentucky Wesleyan have yet to score.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Five matches have gone past their date with no published result. Kentucky Wesleyan account for most of them, and the site holds their opening defeat at Missouri-St. Louis and nothing else.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Thomas More have scored six, as many as Findlay, and lost twice while conceding four.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Pedro Costa has saved all eight shots he has faced for Walsh and is yet to concede.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Cedarville have drawn once and lost once without scoring a goal.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Leo Egerer has taken eleven shots for Findlay, scoring twice and setting up one more.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Leo Egerer — 2 G · 1 A · 11 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Carson Oberski — 1 G · 3 A · 9 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Aiden Crowley — 2 G · 5 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-02 findlay v indianapolis",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-03 tiffin v saginaw-valley-state",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-03T15:54:09.160Z",
+    "generate_ms": 73705,
+    "validate_ms": 2,
+    "wall_ms": 73707,
+    "concurrency": 3
+  }
+}
