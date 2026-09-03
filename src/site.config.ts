@@ -23,6 +23,11 @@ export interface SiteConfig {
   conferences: readonly string[];
   /** The conference the site root opens on. Must appear in `conferences`. */
   home: string;
+  /** Up to this many conferences the home page shows one column each, in
+   *  kickoff order. Past it the same cards flow into region bands, one per
+   *  region in `regions` order (lib/home.ts `homeLayout`). The page grows by
+   *  rows, never by narrower columns. */
+  homeColumnCap: number;
   /** Build-time "today". Undefined means: use the date the data was collected,
    *  which is the only date the site can honestly claim to know about. */
   asOf?: string;
@@ -62,6 +67,7 @@ export const site: SiteConfig = {
   gender: (process.env.TOUCHLINE_GENDER ?? "men") as Gender,
   conferences: ["gac", "lsc", "gsc", "glvc", "rmac", "ssc"],
   home: "gac",
+  homeColumnCap: 6,
   asOf: process.env.TOUCHLINE_AS_OF?.trim() || undefined,
   conferenceNames: {
     gac: "Great American Conference",

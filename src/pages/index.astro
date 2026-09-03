@@ -14,6 +14,7 @@
 // mastheads, so the two surfaces cannot disagree; the tests recount both from
 // the fixture lists and make them meet.
 import FootprintBand from "../components/FootprintBand.astro";
+import HomeConferences from "../components/HomeConferences.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Page from "../layouts/Page.astro";
 import { hasScore, matchHref, seasonHref } from "../lib/derive.ts";
@@ -27,7 +28,11 @@ import {
   spell,
 } from "../lib/format.ts";
 import {
+  type BandColumn,
+  type CardView,
+  homeBands,
   homeColumns,
+  homeLayout,
   homeSeasons,
   lastNightLedger,
   lastNightOf,
@@ -36,8 +41,9 @@ import {
   nationalAsOf,
   nationalDescription,
   nationalMasthead,
+  opensLine,
 } from "../lib/home.ts";
-import { editorial, loadJournal, loadNationalJournal, PHASE_LIVE } from "../lib/journal.ts";
+import { editorial, loadJournal, loadNationalJournal } from "../lib/journal.ts";
 import { site } from "../site.config.ts";
 
 const seasons = homeSeasons();
@@ -158,12 +164,29 @@ const openLine =
       } from ${night} ${leftOpen.length === 1 ? "stands" : "stand"} without a published score.`
     : null;
 
-const opensLine = (c: (typeof columns)[number]): string =>
-  c.live
-    ? PHASE_LIVE
-    : c.opensOn
-      ? `OPENS ${monShort(c.opensOn).toUpperCase()} ${dayOfMonth(c.opensOn)}`
-      : "NO CONFERENCE DATE PUBLISHED";
+// What each card prints, in kickoff order. The card takes a view, not a
+// Season, so the layout below can be exercised on a synthetic set; the view
+// also carries what a band head needs (live, opener, kickoff).
+const views: (CardView & BandColumn)[] = columns.map((c) => ({
+  key: c.key,
+  code: c.code,
+  name: c.name,
+  opens: opensLine(c),
+  imminent: c.key === imminent && !c.live,
+  played: c.counts.played,
+  total: c.counts.total,
+  line: cards.get(c.key)?.line ?? null,
+  stamp: cardStamp(c.key),
+  href: seasonHref(c.key),
+  live: c.live,
+  opensOn: c.opensOn,
+  kickoff: c.kickoff,
+}));
+// N columns from config — the count is the conference list's, never a literal.
+// Up to the configured cap that is one column each; past it the same cards
+// flow into region bands (site.homeColumnCap, lib/home.ts).
+const layout = homeLayout(columns.length);
+const bands = homeBands(views);
 ---
 <Page title="Touchline — The Season Scorebook" description={description}>
   <div class="tl-page">
@@ -230,32 +253,7 @@ const opensLine = (c: (typeof columns)[number]): string =>
       {openLine && <p class="ln-open">{openLine}</p>}
     </section>
 
-    {/* N columns from config — the count is the conference list's, never a literal. */}
-    <section class="confs" style={`--conf-cols: ${columns.length};`}>
-      {columns.map((c) => (
-        <article class="conf">
-          <div class="conf-code num">{c.code}</div>
-          <div class="conf-name">{c.name}</div>
-          <div class={c.key === imminent && !c.live ? "conf-opens is-imminent num" : "conf-opens num"}>
-            {opensLine(c)}
-          </div>
-          {/* The played figure alone. "3 silent · 0 gaps" is house vocabulary,
-              and a column is the one place on the site with no room to define
-              it. The strip above stopped counting silences too (the owner's
-              ruling: what the division is missing is not this page's lead
-              information) — each season page carries its conference's full
-              accounting. */}
-          <div class="conf-counts num">
-            <span class="conf-frac">{c.counts.played} of {c.counts.total}</span>
-            <span class="conf-dim"> matches played</span>
-          </div>
-          <a class="conf-line serif-italic" href={seasonHref(c.key)}>{cards.get(c.key)?.line}</a>
-          {cardStamp(c.key) && <div class="conf-stamp num">{cardStamp(c.key)}</div>}
-          <div class="grow"></div>
-          <a class="conf-cta" href={seasonHref(c.key)}>OPEN THE SEASON →</a>
-        </article>
-      ))}
-    </section>
+    <HomeConferences cards={views} layout={layout} bands={bands} />
 
     <FootprintBand columns={columns} divisionConferences={site.divisionConferences} />
 
@@ -379,65 +377,10 @@ const opensLine = (c: (typeof columns)[number]): string =>
   }
   .ln-open { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
 
-  /* ── One column per conference ──────────────────────────────────────────── */
-  .confs {
-    display: grid;
-    grid-template-columns: repeat(var(--conf-cols, 1), minmax(0, 1fr));
-    padding: 26px 0;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .conf {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 0 28px;
-    min-width: 0;
-  }
-  .conf:first-child { padding-left: 0; }
-  .conf:last-child { padding-right: 0; }
-  .conf + .conf { border-left: 1px solid var(--hairline); }
-  .conf-code { font-size: 19px; font-weight: 600; }
-  .conf-name { font-size: 11px; color: var(--quiet); }
-  .conf-opens {
-    margin-top: 6px;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    color: var(--quiet);
-  }
-  .conf-opens.is-imminent { color: var(--accent); font-weight: 600; }
-  .conf-counts { font-size: 12.5px; }
-  .conf-frac { font-weight: 600; }
-  .conf-dim { color: var(--quiet); }
-  .conf-line {
-    margin-top: 8px;
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 16.5px;
-    line-height: 1.4;
-    color: var(--ink);
-    text-wrap: pretty;
-  }
-  .conf-line:hover { color: var(--accent-hover); }
-  /* When the line last changed. It stands until something more newsworthy
-     displaces it or it stops being true, so a reader looking at a sentence
-     that did not move today is owed the date it last did. */
-  .conf-stamp { margin-top: 5px; font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
-  .conf-cta {
-    margin-top: 10px;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .conf-cta:hover { color: var(--accent-hover); }
+  /* The conference cards and their layout: ConferenceCard.astro and
+     HomeConferences.astro. */
 
   /* ── Narrow ─────────────────────────────────────────────────────────────── */
-  @media (max-width: 1180px) {
-    .confs { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
-    .conf { padding: 0; }
-    .conf + .conf { border-left: none; border-top: 1px solid var(--hairline); padding-top: 24px; }
-  }
   @media (max-width: 720px) {
     .ledger { grid-template-columns: minmax(0, 1fr); }
     .nat-masthead { padding-top: 28px; }

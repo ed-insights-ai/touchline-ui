@@ -75,8 +75,9 @@ Each conference also names a region (`conferenceRegions`), and `site.regions`
 lists the regions in navigation order. Regions are configuration too; they group
 the footprint map's key and label the map itself (each region's label sits at
 the centroid of its dots plus a per-region `label` nudge from the same table),
-and later changes group the home page past its column cap and the masthead
-menu the same way. The map draws every dot in one ink and tints nothing:
+and the home page groups its cards the same way once the conferences outnumber
+`homeColumnCap` (six today): one column each up to the cap, region bands past
+it, each band a disclosure on a phone. The masthead menu will follow. The map draws every dot in one ink and tints nothing:
 hovering a key row or a dot group selects that conference in purple, and the
 key carries identity at rest. `src/lib/fixtures/density.ts` holds synthetic
 12- and 19-conference sets so those can be tested before the conferences

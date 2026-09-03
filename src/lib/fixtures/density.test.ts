@@ -12,11 +12,13 @@ import { join, resolve } from "node:path";
 import { site } from "../../site.config.ts";
 import { BASEMAP_VIEWBOX } from "../basemap.ts";
 import { regionLabels } from "../geo.ts";
+import { bandMeta, homeBands, homeLayout } from "../home.ts";
 import { assertRegions, byRegion, regionsInUse } from "../regions.ts";
 import {
   DENSITY_CONFERENCES,
   DENSITY_REGIONS,
   type DensitySize,
+  densityCards,
   densityConferences,
   densityConfig,
   densityFootprints,
@@ -90,6 +92,55 @@ describe("grouping", () => {
     expect(seen).toEqual([...seen].sort((a, b) => a - b));
     expect(seen.every((i) => i >= 0)).toBe(true);
     expect(groups.reduce((n, g) => n + g.items.length, 0)).toBe(12);
+  });
+});
+
+describe("the home page past the cap", () => {
+  test("at 12 and 19 the layout is bands, by the fixture's own cap", () => {
+    for (const size of SIZES) {
+      const cfg = densityConfig(size);
+      expect(cfg.homeColumnCap).toBe(site.homeColumnCap);
+      expect(homeLayout(size, cfg)).toBe("bands");
+    }
+  });
+
+  test("the cards are in kickoff order: live first, then by opener", () => {
+    for (const size of SIZES) {
+      const cards = densityCards(size);
+      expect(cards.length).toBe(size);
+      const kickoffs = cards.map((c) => c.kickoff ?? "9999-99-99");
+      expect([...kickoffs].sort()).toEqual(kickoffs);
+      const firstOpener = cards.findIndex((c) => !c.live);
+      expect(cards.slice(0, firstOpener).every((c) => c.live)).toBe(true);
+      expect(cards.slice(firstOpener).every((c) => !c.live)).toBe(true);
+      for (const c of cards) {
+        expect(c.line?.length ?? 0).toBeGreaterThan(0);
+        expect(c.stamp).toBeNull();
+        expect(c.href).toBe("#");
+      }
+      expect(cards.filter((c) => c.imminent).length).toBeLessThanOrEqual(1);
+    }
+  });
+
+  test("at 19, six bands with the generator's counts, and one of them imminent", () => {
+    const bands = homeBands(densityCards(19), densityConfig(19));
+    expect(bands.map((b) => [b.region.key, b.columns.length])).toEqual([
+      ["northeast", 3],
+      ["mid-atlantic", 3],
+      ["midwest", 2],
+      ["southeast", 5],
+      ["south-central", 2],
+      ["west", 4],
+    ]);
+    expect(bands.filter((b) => b.imminent).length).toBe(1);
+    for (const b of bands) {
+      const meta = bandMeta(b);
+      if (b.live > 0) expect(meta, b.region.key).toContain("LIVE");
+      else expect(meta, b.region.key).toContain("OPENS");
+    }
+    // Both kinds of head are exercised at this size.
+    expect(bands.some((b) => b.live > 0)).toBe(true);
+    expect(bands.some((b) => b.live === 0)).toBe(true);
   });
 });
 

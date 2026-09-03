@@ -1,0 +1,79 @@
+---
+// One conference's card on the home page: the unit the columns and the
+// region bands both lay out (HomeConferences.astro). It takes a view model
+// (lib/home.ts CardView), never a Season, so a synthetic set renders it too.
+// Everything about the card's own type lives here; where the card sits, its
+// gutters and the hairline between two of them are the layout's business.
+import type { CardView } from "../lib/home.ts";
+
+type Props = CardView;
+const { code, name, opens, imminent, played, total, line, stamp, href } = Astro.props;
+---
+<article class="conf">
+  <div class="conf-code num">{code}</div>
+  <div class="conf-name">{name}</div>
+  <div class={imminent ? "conf-opens is-imminent num" : "conf-opens num"}>
+    {opens}
+  </div>
+  {/* The played figure alone. "3 silent · 0 gaps" is house vocabulary,
+      and a column is the one place on the site with no room to define
+      it. The strip above stopped counting silences too (the owner's
+      ruling: what the division is missing is not this page's lead
+      information) — each season page carries its conference's full
+      accounting. */}
+  <div class="conf-counts num">
+    <span class="conf-frac">{played} of {total}</span>
+    <span class="conf-dim"> matches played</span>
+  </div>
+  <a class="conf-line serif-italic" href={href}>{line}</a>
+  {stamp && <div class="conf-stamp num">{stamp}</div>}
+  <div class="grow"></div>
+  <a class="conf-cta" href={href}>OPEN THE SEASON →</a>
+</article>
+
+<style>
+  /* The card's default gutters are its own; the layout zeroes the outer
+     ones and draws the hairline between neighbours. */
+  .conf {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 28px;
+    min-width: 0;
+  }
+  .conf-code { font-size: 19px; font-weight: 600; }
+  .conf-name { font-size: 11px; color: var(--quiet); }
+  .conf-opens {
+    margin-top: 6px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--quiet);
+  }
+  .conf-opens.is-imminent { color: var(--accent); font-weight: 600; }
+  .conf-counts { font-size: 12.5px; }
+  .conf-frac { font-weight: 600; }
+  .conf-dim { color: var(--quiet); }
+  .conf-line {
+    margin-top: 8px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16.5px;
+    line-height: 1.4;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .conf-line:hover { color: var(--accent-hover); }
+  /* When the line last changed. It stands until something more newsworthy
+     displaces it or it stops being true, so a reader looking at a sentence
+     that did not move today is owed the date it last did. */
+  .conf-stamp { margin-top: 5px; font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
+  .conf-cta {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .conf-cta:hover { color: var(--accent-hover); }
+</style>
