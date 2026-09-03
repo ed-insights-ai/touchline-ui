@@ -13,8 +13,10 @@
 //      positions the two could drift apart silently. There is one projection,
 //      written down once, below.
 
+import { site } from "../site.config.ts";
 import { BASEMAP_VIEWBOX } from "./basemap.ts";
 import { programmeOf } from "./programmes.ts";
+import { byRegion, type Region, type RegionConfig } from "./regions.ts";
 
 export interface ProgrammePoint {
   city: string;
@@ -161,6 +163,50 @@ export function footprintOf(
     states,
     widestGap: points.length > 1 ? Math.round(widest) : null,
   };
+}
+
+// ── Region labels ──────────────────────────────────────────────────────────
+
+export interface RegionLabel {
+  region: Region;
+  /** Where the label sits, in basemap viewBox units, to one decimal. */
+  x: number;
+  y: number;
+  /** How many conferences the region holds on this map. */
+  conferences: number;
+  /** How many programmes those conferences place on it. */
+  programmes: number;
+}
+
+/**
+ * One label per region with a placed dot: at the centroid of every placed
+ * point in the region's conferences, moved by the region's configured `label`
+ * offset so the word clears its own dots. Grouping is `byRegion`'s, in table
+ * order; a region whose members are all unplaced has no ground to label and
+ * gets none. Nothing here is inferred from a slug: the region a conference
+ * belongs to is config, and the points are the footprints' own.
+ */
+export function regionLabels(
+  footprints: readonly ConferenceFootprint[],
+  cfg: RegionConfig = site,
+): RegionLabel[] {
+  const out: RegionLabel[] = [];
+  for (const { region, items } of byRegion(footprints, cfg)) {
+    const points = items.flatMap((f) => f.placed.map((p) => p.at));
+    if (points.length === 0) continue;
+    const cx = points.reduce((s, p) => s + p.x, 0) / points.length;
+    const cy = points.reduce((s, p) => s + p.y, 0) / points.length;
+    const dx = region.label?.dx ?? 0;
+    const dy = region.label?.dy ?? 0;
+    out.push({
+      region,
+      x: Math.round((cx + dx) * 10) / 10,
+      y: Math.round((cy + dy) * 10) / 10,
+      conferences: items.length,
+      programmes: points.length,
+    });
+  }
+  return out;
 }
 
 /**

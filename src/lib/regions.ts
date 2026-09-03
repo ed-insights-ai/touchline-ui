@@ -12,9 +12,9 @@
 // The config is a parameter with `site` as its default, so a synthetic set
 // (lib/fixtures/density.ts) can drive the same functions the live site does.
 
-import { type SiteConfig, site } from "../site.config.ts";
+import { type Region, type SiteConfig, site } from "../site.config.ts";
 
-export type Region = { key: string; name: string };
+export type { Region };
 export type RegionConfig = Pick<SiteConfig, "regions" | "conferenceRegions">;
 
 /** The listed region a conference names. Throws, naming the conference, when
