@@ -79,15 +79,26 @@ export interface DivisionMatch {
   neutral: boolean;
 }
 
+/** The status as the fold compares it. Cancelled, postponed and scheduled
+ *  are one unplayed shape: two collectors reading one unplayed match may call
+ *  it by different words (ECC's file said postponed and NE10's said cancelled
+ *  of the same 2026-08-27 Staten Island v Assumption row; CACC said postponed
+ *  and ECC still said scheduled of 2026-09-02 Caldwell v Molloy), and that is
+ *  a difference of flavour, not of fact: no result either way. Which word the
+ *  folded match wears is the home conference's, decided where the canonical
+ *  record is chosen. Final and live stay their own shapes. */
+const UNPLAYED: ReadonlySet<Fixture["status"]> = new Set(["scheduled", "postponed", "cancelled"]);
+const shapeStatus = (f: Fixture): string => (UNPLAYED.has(f.status) ? "unplayed" : f.status);
+
 /** The facts two records of one match must agree on once the home side is
- *  set aside: the unordered score and the status. Order-free so that two
- *  sites each calling itself the home side still compare equal. */
+ *  set aside: the unordered score and whether the match was played. Order-free
+ *  so that two sites each calling itself the home side still compare equal. */
 const sideFreeShape = (f: Fixture): string => {
   const scored = [
     [f.home, f.home_score ?? "-"],
     [f.away, f.away_score ?? "-"],
   ].sort(([a], [b]) => String(a).localeCompare(String(b)));
-  return `${scored.map(([slug, score]) => `${slug}=${score}`).join("|")}|${f.status ?? "-"}`;
+  return `${scored.map(([slug, score]) => `${slug}=${score}`).join("|")}|${shapeStatus(f)}`;
 };
 
 /** Fold sightings into matches, keeping the order of first appearance. */
@@ -113,13 +124,16 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     if (!first) continue;
     // Two records may disagree on the home side (a neutral site, each site
     // writing itself as home) and still be one match. They may not disagree
-    // on the score or the status: that is two collectors publishing different
-    // facts, and the fold refuses to choose between them silently.
+    // on the score, or on played versus unplayed: that is two collectors
+    // publishing different facts, and the fold refuses to choose between them
+    // silently. The flavour of unplayed (scheduled, postponed, cancelled) is
+    // not a fact they must share; the folded match wears the home conference's word,
+    // because the canonical record below is the home conference's own.
     const shapes = new Set(group.map((s) => sideFreeShape(s.fixture)));
     if (shapes.size > 1) {
       throw new Error(
         `Touchline: the records of ${identity} disagree on the score or status: ${group
-          .map((s) => `${s.key} ${sideFreeShape(s.fixture)}`)
+          .map((s) => `${s.key} ${sideFreeShape(s.fixture)} (${s.fixture.status})`)
           .join("  vs  ")}`,
       );
     }

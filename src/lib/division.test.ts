@@ -8,7 +8,9 @@
  * three things being true of the data:
  *
  *   the two records agree on the date and the two slugs,
- *   they agree on which side is at home, the score and the status,
+ *   they agree on which side is at home, the score and whether it was played
+ *   (scheduled, postponed and cancelled are one unplayed shape; the flavour
+ *   may differ),
  *   and exactly one of them is the file of the conference the home side plays in.
  *
  * The first is what the identity is made of. The second is what makes it safe
@@ -64,17 +66,21 @@ describe("what makes two records one match", () => {
 });
 
 describe("the records agree, which is what makes folding safe", () => {
-  /** What a record says once the home side is set aside. */
+  /** What a record says once the home side is set aside. Cancelled and
+   *  postponed read as one unplayed word here, as they do in the fold: the
+   *  two collectors' choice between them is flavour, not fact. */
+  const unplayed = (status: string): boolean =>
+    status === "scheduled" || status === "cancelled" || status === "postponed";
   const sideFree = (s: Sighting): string =>
     [
       `${s.fixture.home}=${s.fixture.home_score ?? "-"}`,
       `${s.fixture.away}=${s.fixture.away_score ?? "-"}`,
     ]
       .sort()
-      .concat(s.fixture.status ?? "-")
+      .concat(unplayed(s.fixture.status) ? "unplayed" : s.fixture.status)
       .join("|");
 
-  test("both files publish the same score and status", () => {
+  test("both files publish the same score and the same played-or-unplayed status", () => {
     const disagreements: string[] = [];
     for (const m of shared) {
       const shapes = new Set(m.sightings.map(sideFree));
@@ -140,6 +146,88 @@ describe("the records agree, which is what makes folding safe", () => {
     expect(() => foldToMatches([a, bumped])).toThrow(/disagree on the score or status/);
     // And the same pair, untouched, folds to one match.
     expect(foldToMatches([a, b])).toHaveLength(1);
+  });
+});
+
+describe("cancelled and postponed fold as one unplayed shape", () => {
+  // The ruling: "Cancelled and postponed fold as one unplayed shape with the
+  // home side's conference status kept; a score disagreement still throws, a
+  // status flavour disagreement never does." Measured on 2026-08-27 Staten
+  // Island v Assumption, which ECC's file calls postponed and NE10's calls
+  // cancelled. Built here on a shared match with a home side, so that which
+  // record is the home conference's is a fact of the data and not a choice.
+  const pair = shared.find((m) => !m.neutral);
+  const records = (): { home: Sighting; peer: Sighting } => {
+    expect(pair, "no shared match with a home side in this data").toBeDefined();
+    const m = pair as (typeof shared)[number];
+    const home = m.sightings.find((s) => memberSlugs(s.season).has(s.fixture.home)) as Sighting;
+    const peer = m.sightings.find((s) => s !== home) as Sighting;
+    return { home, peer };
+  };
+  const withStatus = (s: Sighting, status: Sighting["fixture"]["status"]): Sighting => ({
+    ...s,
+    fixture: { ...s.fixture, status, home_score: undefined, away_score: undefined },
+  });
+
+  test("home conference says cancelled, the peer says postponed: the match is cancelled", () => {
+    const { home, peer } = records();
+    const out = foldToMatches([withStatus(home, "cancelled"), withStatus(peer, "postponed")]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.key).toBe(home.key);
+    expect(out[0]?.fixture.status).toBe("cancelled");
+  });
+
+  test("home conference says postponed, the peer says cancelled: the match is postponed", () => {
+    const { home, peer } = records();
+    // The peer arrives first, so that the answer is provably the home
+    // conference's word and not the first record's.
+    const out = foldToMatches([withStatus(peer, "cancelled"), withStatus(home, "postponed")]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.key).toBe(home.key);
+    expect(out[0]?.fixture.status).toBe("postponed");
+  });
+
+  test("home conference says postponed, the peer still says scheduled: the match is postponed", () => {
+    // 2026-09-02 Caldwell v Molloy the day ECC joined: CACC had moved it,
+    // ECC had not yet. No result either way, so the same rule and the same
+    // answer: the home conference's word.
+    const { home, peer } = records();
+    const out = foldToMatches([withStatus(peer, "scheduled"), withStatus(home, "postponed")]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.fixture.status).toBe("postponed");
+    expect(
+      foldToMatches([withStatus(home, "scheduled"), withStatus(peer, "postponed")])[0]?.fixture
+        .status,
+    ).toBe("scheduled");
+  });
+
+  test("a score disagreement still throws, whatever the status words", () => {
+    const { home, peer } = records();
+    const scored = (s: Sighting, n: number): Sighting => ({
+      ...s,
+      fixture: { ...s.fixture, status: "final", home_score: n, away_score: 0 },
+    });
+    expect(() => foldToMatches([scored(home, 1), scored(peer, 2)])).toThrow(
+      /disagree on the score or status/,
+    );
+  });
+
+  test("final against cancelled still throws: played versus unplayed is a fact", () => {
+    const { home, peer } = records();
+    const final: Sighting = {
+      ...home,
+      fixture: { ...home.fixture, status: "final", home_score: 1, away_score: 0 },
+    };
+    expect(() => foldToMatches([final, withStatus(peer, "cancelled")])).toThrow(
+      /disagree on the score or status/,
+    );
+    // And the other way about: a cancelled home record against a final peer.
+    expect(() =>
+      foldToMatches([
+        withStatus(home, "cancelled"),
+        { ...peer, fixture: { ...peer.fixture, status: "final", home_score: 1, away_score: 0 } },
+      ]),
+    ).toThrow(/disagree on the score or status/);
   });
 });
 
