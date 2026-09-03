@@ -1,0 +1,146 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-ne10.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "NE10",
+  "validated_at": "2026-09-03T08:17:42.635Z",
+  "data_collected_at": "2026-09-03T05:43:03+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "signal",
+      "text": "Goals are spread rather than carried: Inigo Burusco's three lead the conference, and the top-scoring side has five different scorers behind its seven.",
+      "checker": "player_stat+distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Eight of the ten programmes have already drawn a match.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "unchecked_figures": ["programmes_with_a_draw: 8", "programmes: 10"]
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Southern New Hampshire have scored seven and conceded one, with both of their wins kept to nil.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Andrea Farinella has made seventeen saves, more than any other goalkeeper listed.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Adelphi have scored once in three matches, and Enrico Cesarini Sforza is the only name on their scoresheet.",
+      "checker": "distinct_scorers+team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Franklin Pierce have scored six and conceded six across a goalless draw, a one-goal win and a one-goal defeat.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Twenty-four matches have been played and none is a score gap: every final carries its score.",
+      "checker": "unresolved+fixture_counts",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Inigo Burusco — 3 G · 1 A · 13 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Dani Almeida — 2 G · 2 A · 6 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Daniel Santos — 2 G · 1 A · 10 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-02 southern-new-hampshire v felician",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-03 saint-anselm v roberts-wesleyan",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-03T08:16:24.059Z",
+    "generate_ms": 78571,
+    "validate_ms": 3,
+    "wall_ms": 78575,
+    "concurrency": 3
+  }
+}

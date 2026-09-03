@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "ECC",
+  "generated_at": "2026-09-03T07:10:00+00:00",
+  "data_collected_at": "2026-09-03T06:34:15+00:00",
+  "headline": "District of Columbia yet to concede",
+  "dek": "The capital side have not been scored on, across a goalless draw at Goldey-Beacom and a home win over Seton Hill. Lorenzo Herrera has made thirteen saves and has not yet been beaten.",
+  "lede_basis": {
+    "programme": "district-of-columbia",
+    "wins": 1,
+    "draws": 1,
+    "losses": 0,
+    "gf": 2,
+    "ga": 0,
+    "source": "stats",
+    "player": "Lorenzo Herrera",
+    "saves": 13,
+    "goals_against": 0
+  },
+  "lede_updated": "2026-09-03",
+  "pattern": {
+    "label": "derived",
+    "text": "Mercy have outscored D'Youville, Molloy and Daemen together, yet have conceded three: the top of this chart is not its tightest defence.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "mercy": 4,
+        "queens": 4,
+        "st-thomas-aquinas": 3,
+        "district-of-columbia": 2,
+        "roberts-wesleyan": 2,
+        "staten-island": 2,
+        "d-youville": 1,
+        "molloy": 1,
+        "daemen": 0
+      },
+      "highlight": "mercy"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "mercy",
+      "of": ["d-youville", "molloy", "daemen"],
+      "gf": 4,
+      "ga": 3
+    }
+  },
+  "wire": {
+    "line": "Daemen have yet to play a match while every other member has already found the net.",
+    "basis": {
+      "programme": "daemen",
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "gf": 0,
+      "ga": 0
+    },
+    "updated": "2026-09-03"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches are past their date with no result published: District of Columbia's opening-day trip to Shepherd and Molloy's at Caldwell. There are no score gaps.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Matthew Solorio has kept two clean sheets for D'Youville, and both were goalless draws: the side has still not won.",
+      "basis": {
+        "source": "stats",
+        "player": "Matthew Solorio",
+        "programme": "d-youville",
+        "shutouts": 2,
+        "wins": 0,
+        "draws": 2,
+        "losses": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Queens have scored four times through four different players.",
+      "basis": {
+        "programme": "queens",
+        "gf": 4,
+        "distinct_scorers_min": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "St. Thomas Aquinas have three goals from three scorers, and have conceded as many as they have scored.",
+      "basis": {
+        "programme": "st-thomas-aquinas",
+        "gf": 3,
+        "ga": 3,
+        "distinct_scorers_min": 3
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jacob Darwesh Lund-Iversen",
+      "programme": "mercy",
+      "position": "FWD",
+      "class": "SR",
+      "line": "2 G · 1 A · 7 shots"
+    },
+    {
+      "player": "Taro Aboubakary",
+      "programme": "queens",
+      "position": "MID",
+      "class": "SO",
+      "line": "1 G · 8 shots"
+    },
+    {
+      "player": "Nico Gallegos",
+      "programme": "st-thomas-aquinas",
+      "position": "MID",
+      "class": "SR",
+      "line": "1 G · 5 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-02 district-of-columbia v seton-hill",
+      "line": "District of Columbia's first win of the season, and still no goal conceded."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-03 saint-anselm v roberts-wesleyan",
+      "line": "Roberts Wesleyan have won their only match so far; Saint Anselm have already beaten one ECC side, at Staten Island, and lost at home to another, Molloy."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-03T08:18:04.521Z"
+  }
+}
