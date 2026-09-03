@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-02T11:38:18+00:00",
-  "data_collected_at": "2026-09-02T11:30:22+00:00",
+  "generated_at": "2026-09-03T11:40:00+00:00",
+  "data_collected_at": "2026-09-03T11:31:02+00:00",
   "headline": "Southwest Baptist share fifteen goals among seven scorers",
   "dek": "Two matches into the season, Southwest Baptist have not conceded a goal, and no other programme has scored as many as they have. Nathaniel Velasquez has three of them, with an assist, from ten shots.",
   "lede_basis": {
@@ -40,22 +40,21 @@
     "shots": 10
   },
   "lede_updated": "2026-09-02",
-  "displaced_by": "Southwest Baptist's second win: fifteen goals in two matches, none conceded, seven scorers; Missouri S&T no longer alone on two wins.",
   "pattern": {
     "label": "derived",
-    "text": "In two matches Southwest Baptist have outscored most of the conference put together: Drury, Lewis, Lincoln, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have fewer goals between them.",
+    "text": "In two matches Southwest Baptist have outscored more than half the conference put together: Lewis, Lincoln, Maryville, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have fewer goals between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "southwest-baptist": 15,
         "missouri-s-t": 7,
-        "quincy": 6,
+        "quincy": 7,
         "truman": 5,
-        "drury": 3,
+        "drury": 4,
+        "rockhurst": 4,
         "lewis": 3,
         "lincoln": 3,
         "maryville": 3,
-        "rockhurst": 3,
         "illinois-springfield": 1,
         "indianapolis": 1,
         "mckendree": 1,
@@ -70,9 +69,9 @@
       "metric": "gf",
       "programme": "southwest-baptist",
       "of": [
-        "drury",
         "lewis",
         "lincoln",
+        "maryville",
         "illinois-springfield",
         "indianapolis",
         "mckendree",
@@ -138,18 +137,48 @@
     },
     {
       "label": "derived",
-      "text": "Indianapolis have won one and drawn one without conceding; Rick Lammerts has made seven saves and has yet to be beaten.",
+      "text": "Rockhurst have conceded ten goals, more than any other programme, and their two defeats have come at Fort Hays State and at home to Rogers State.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "rockhurst",
+        "of": [
+          "drury",
+          "illinois-springfield",
+          "indianapolis",
+          "lewis",
+          "lincoln",
+          "maryville",
+          "mckendree",
+          "missouri-s-t",
+          "missouri-st-louis",
+          "quincy",
+          "southwest-baptist",
+          "truman",
+          "upper-iowa",
+          "william-jewell"
+        ],
+        "gf": 4,
+        "ga": 10,
+        "wins": 1,
+        "draws": 0,
+        "losses": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Indianapolis have scored once and conceded once across a win, a draw and a defeat; Rick Lammerts has made eight saves and been beaten once.",
       "basis": {
         "programme": "indianapolis",
         "wins": 1,
         "draws": 1,
-        "losses": 0,
+        "losses": 1,
         "gf": 1,
-        "ga": 0,
+        "ga": 1,
         "source": "stats",
         "player": "Rick Lammerts",
-        "saves": 7,
-        "goals_against": 0
+        "saves": 8,
+        "goals_against": 1
       }
     }
   ],
@@ -159,7 +188,7 @@
       "programme": "quincy",
       "position": "FWD",
       "class": "JR",
-      "line": "3 G · 8 shots"
+      "line": "3 G · 12 shots"
     },
     {
       "player": "Felipe Gilberti",
@@ -178,16 +207,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-01 truman v hannibal-lagrange",
-      "line": "Truman had lost their home opener to Saint Cloud State by the same margin; this was their first win of the season."
+      "fixture_ref": "2026-09-02 rockhurst v rogers-state",
+      "line": "Rogers State leave having beaten McKendree, Maryville and Rockhurst in turn; Rockhurst have now conceded more goals than any programme in the conference."
     },
     "next_match": {
-      "fixture_ref": "2026-09-02 rockhurst v rogers-state",
-      "line": "Rogers State have already beaten McKendree and Maryville; Rockhurst have conceded more than they have scored."
+      "fixture_ref": "2026-09-03 cedarville v mckendree",
+      "line": "McKendree have lost both their matches by a single goal; Cedarville opened with a goalless draw against Indianapolis."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T11:38:40.988Z"
+    "validated_at": "2026-09-03T11:34:00.199Z"
   }
 }

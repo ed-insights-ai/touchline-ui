@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-09-02T04:03:58.880Z",
-  "data_collected_at": "2026-09-02T01:37:24+00:00",
+  "validated_at": "2026-09-03T11:33:48.820Z",
+  "data_collected_at": "2026-09-03T11:30:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,8 +20,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Five different players have scored Ouachita Baptist's six goals, and only Eric Godoy has scored twice.",
-      "checker": "player_stat+distinct_scorers+team_goals",
+      "text": "Rogers State alone have outscored Newman, Southern Nazarene, Northeastern State and Harding put together.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "The season's one score gap is Newman's, away at Cowley: the match is marked final and carries no score. Three more matches are past their date with no result published at all, a separate absence and a separate count.",
+      "text": "Ouachita Baptist's match at Southwest Baptist is past its date with no result published at all, the only match this season in that state. There is no score gap: every match marked final carries a score.",
       "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Ouachita Baptist's draw with Delta State is the only match this season that a programme in this conference has neither won nor lost.",
+      "text": "Ouachita Baptist's draw with Delta State is still the only match this season that a programme in this conference has neither won nor lost.",
       "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Tristan Miller has made ten saves for Rogers State and been beaten once.",
+      "text": "Tristan Miller has made twelve saves for Rogers State and been beaten twice.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,8 +83,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Both of Southern Nazarene's goals this season are Wesley Rodriguez's.",
-      "checker": "player_stat+team_goals",
+      "text": "Fort Hays State's six goals have come from six different players.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Eric Godoy — 2 G · 7 shots",
+      "text": "Harkaran Sahota — 2 G · 2 A · 3 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Wesley Rodriguez — 2 G · 4 shots",
+      "text": "Alex Laing — 2 G · 1 A · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Philip Bölk — 1 G · 1 A · 8 shots",
+      "text": "Eric Godoy — 2 G · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-01 ouachita-baptist v delta-state",
+      "text": "2026-09-02 rockhurst v rogers-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,11 +128,18 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-02 rockhurst v rogers-state",
+      "text": "2026-09-03 harding v dallas-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
-  ]
+  ],
+  "timing": {
+    "started_at": "2026-09-03T11:32:49.856Z",
+    "generate_ms": 58963,
+    "validate_ms": 1,
+    "wall_ms": 58964,
+    "concurrency": 4
+  }
 }

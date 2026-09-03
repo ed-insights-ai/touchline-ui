@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-09-02T11:38:40.988Z",
-  "data_collected_at": "2026-09-02T11:30:22+00:00",
+  "validated_at": "2026-09-03T11:34:00.199Z",
+  "data_collected_at": "2026-09-03T11:31:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 12,
-    "contradicted": 1,
+    "verified": 13,
+    "contradicted": 0,
     "unverifiable": 0,
-    "dropped": 1
+    "dropped": 0
   },
   "normalizations": [],
   "review": [],
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "In two matches Southwest Baptist have outscored most of the conference put together: Drury, Lewis, Lincoln, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have fewer goals between them.",
+      "text": "In two matches Southwest Baptist have outscored more than half the conference put together: Lewis, Lincoln, Maryville, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have fewer goals between them.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,18 +65,6 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Truman have scored five and conceded five across a win and a defeat; Jacob Panagos has three of the five from five shots.",
-      "checker": "player_stat+team_goals+team_record",
-      "verdict": "contradicted",
-      "mismatches": [
-        "wins: claimed 1, the source published none",
-        "losses: claimed 1, the source published none"
-      ],
-      "dropped": true
-    },
-    {
-      "path": "findings[3]",
-      "label": "derived",
       "text": "Upper Iowa have drawn both their matches, scoring once and conceding once, and play in the conference's opening match, away at Missouri S&T.",
       "checker": "team_goals+team_record+conference_opens",
       "verdict": "verified",
@@ -84,9 +72,18 @@
       "dropped": false
     },
     {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Rockhurst have conceded ten goals, more than any other programme, and their two defeats have come at Fort Hays State and at home to Rogers State.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Indianapolis have won one and drawn one without conceding; Rick Lammerts has made seven saves and has yet to be beaten.",
+      "text": "Indianapolis have scored once and conceded once across a win, a draw and a defeat; Rick Lammerts has made eight saves and been beaten once.",
       "checker": "player_stat+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -95,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Leo Cann — 3 G · 8 shots",
+      "text": "Leo Cann — 3 G · 12 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -122,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-01 truman v hannibal-lagrange",
+      "text": "2026-09-02 rockhurst v rogers-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -131,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-02 rockhurst v rogers-state",
+      "text": "2026-09-03 cedarville v mckendree",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-02T11:32:01.919Z",
-    "generate_ms": 399059,
+    "started_at": "2026-09-03T11:32:49.858Z",
+    "generate_ms": 70341,
     "validate_ms": 1,
-    "wall_ms": 399060,
+    "wall_ms": 70342,
     "concurrency": 4
   }
 }

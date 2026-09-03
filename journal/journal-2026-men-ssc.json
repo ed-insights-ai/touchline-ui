@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-02T11:36:06+00:00",
-  "data_collected_at": "2026-09-02T11:31:45+00:00",
+  "generated_at": "2026-09-03T11:36:00+00:00",
+  "data_collected_at": "2026-09-03T11:32:36+00:00",
   "headline": "Florida Southern win twice without conceding",
   "dek": "Four different players have scored Florida Southern's seven goals in wins over Barton and Middle Georgia State, and nobody has yet scored against them. Every other side in the conference has conceded.",
   "lede_basis": {
@@ -17,7 +17,6 @@
     "distinct_scorers_min": 4
   },
   "lede_updated": "2026-09-02",
-  "displaced_by": "Ricardo Marques's save line is not in today's brief; the dek drops that clause and the headline stands",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at the top of the chart, not spread through it: Rollins alone have outscored Eckerd, Florida Tech, Barry, Nova Southeastern and Saint Leo put together.",
@@ -27,8 +26,8 @@
         "rollins": 10,
         "embry-riddle": 8,
         "florida-southern": 7,
+        "palm-beach-atlantic": 5,
         "lynn": 4,
-        "palm-beach-atlantic": 4,
         "tampa": 4,
         "eckerd": 3,
         "florida-tech": 3,
@@ -75,14 +74,24 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Three matches have passed their date with no result published at all, and all three are Palm Beach Atlantic's: the earliest fell on the season's opening day, and the match against Barry, a fellow member, is among them. There is no score gap anywhere on the record.",
+      "text": "The record now carries one score gap: Nova Southeastern's home match against Florida Memorial has a final and no published score. Three more matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
       "basis": {
         "source": "fixtures",
-        "finals_without_score": 0,
+        "finals_without_score": 1,
         "past_date_no_result": 3,
         "set": "past_date_no_result",
         "all_of": "palm-beach-atlantic",
         "count": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Palm Beach Atlantic have yet to lose and have won only once; the draws at home to Carson-Newman and away at Young Harris account for the rest.",
+      "basis": {
+        "programme": "palm-beach-atlantic",
+        "wins": 1,
+        "draws": 2,
+        "losses": 0
       }
     },
     {
@@ -97,16 +106,15 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Tampa's four goals have come from four different scorers, in a draw at West Alabama and a defeat at AUM.",
+      "label": "observed",
+      "text": "Kobi Thomas has scored three of Palm Beach Atlantic's five goals, from thirteen shots.",
       "basis": {
-        "programme": "tampa",
-        "wins": 0,
-        "draws": 1,
-        "losses": 1,
-        "gf": 4,
-        "ga": 5,
-        "distinct_scorers_min": 4
+        "source": "stats",
+        "player": "Kobi Thomas",
+        "programme": "palm-beach-atlantic",
+        "goals": 3,
+        "shots": 13,
+        "gf": 5
       }
     },
     {
@@ -149,16 +157,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-01 rollins v flagler",
-      "line": "Rollins dropped points for the first time this season, and they have still not kept a clean sheet."
+      "fixture_ref": "2026-09-02 young-harris v palm-beach-atlantic",
+      "line": "Palm Beach Atlantic remain unbeaten, and have now drawn back-to-back matches."
     },
     "next_match": {
-      "fixture_ref": "2026-09-02 nova-southeastern v florida-memorial",
-      "line": "Nova Southeastern have lost both of their matches so far, each of them at home, and are still waiting for a first win."
+      "fixture_ref": "2026-09-03 saint-leo v emmanuel",
+      "line": "Saint Leo play at home for the first time this season, still without a win; Viktor Danielsson has their only goal so far."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T11:36:24.167Z"
+    "validated_at": "2026-09-03T11:34:34.974Z"
   }
 }

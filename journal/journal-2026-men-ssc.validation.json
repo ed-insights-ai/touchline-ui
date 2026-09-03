@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-02T11:36:24.167Z",
-  "data_collected_at": "2026-09-02T11:31:45+00:00",
+  "validated_at": "2026-09-03T11:34:34.974Z",
+  "data_collected_at": "2026-09-03T11:32:36+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Three matches have passed their date with no result published at all, and all three are Palm Beach Atlantic's: the earliest fell on the season's opening day, and the match against Barry, a fellow member, is among them. There is no score gap anywhere on the record.",
+      "text": "The record now carries one score gap: Nova Southeastern's home match against Florida Memorial has a final and no published score. Three more matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
       "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
-      "checker": "distinct_scorers+team_record",
+      "text": "Palm Beach Atlantic have yet to lose and have won only once; the draws at home to Carson-Newman and away at Young Harris account for the rest.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,14 +65,23 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Tampa's four goals have come from four different scorers, in a draw at West Alabama and a defeat at AUM.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
+      "checker": "distinct_scorers+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Kobi Thomas has scored three of Palm Beach Atlantic's five goals, from thirteen shots.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Henry Obi has made twelve saves in two defeats for Barry and conceded five.",
       "checker": "player_stat+team_record",
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-01 rollins v flagler",
+      "text": "2026-09-02 young-harris v palm-beach-atlantic",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-02 nova-southeastern v florida-memorial",
+      "text": "2026-09-03 saint-leo v emmanuel",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-02T11:32:01.927Z",
-    "generate_ms": 262240,
+    "started_at": "2026-09-03T11:33:48.891Z",
+    "generate_ms": 46082,
     "validate_ms": 1,
-    "wall_ms": 262240,
+    "wall_ms": 46083,
     "concurrency": 4
   }
 }

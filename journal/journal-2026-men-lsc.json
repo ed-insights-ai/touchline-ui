@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-02T11:33:46Z",
-  "data_collected_at": "2026-09-02T11:30:59+00:00",
+  "generated_at": "2026-09-03T11:35:12Z",
+  "data_collected_at": "2026-09-03T11:31:40+00:00",
   "headline": "West Texas A&M concede ten in two matches",
   "dek": "West Texas A&M opened with four goals and a clean sheet against Adams State, and have since lost at home to Fort Lewis and away at Colorado Christian without scoring. Only Sul Ross State, beaten in both their matches, have let in as many.",
   "lede_basis": {
@@ -30,7 +30,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "midwestern-state": 11,
-        "oklahoma-christian": 4,
+        "oklahoma-christian": 7,
         "saint-edwards": 4,
         "ut-dallas": 4,
         "west-texas-a-m": 4,
@@ -53,16 +53,16 @@
     }
   },
   "wire": {
-    "line": "Oklahoma Christian have won both their matches and have not conceded a goal.",
+    "line": "Oklahoma Christian remain unbeaten after three matches, and Newman are the only side to have scored against them.",
     "basis": {
       "programme": "oklahoma-christian",
-      "gf": 4,
-      "ga": 0,
-      "wins": 2,
+      "wins": 3,
       "draws": 0,
-      "losses": 0
+      "losses": 0,
+      "gf": 7,
+      "ga": 1
     },
-    "updated": "2026-09-01"
+    "updated": "2026-09-03"
   },
   "findings": [
     {
@@ -78,24 +78,27 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Every match with a published score now has a box score behind it: the count of box score gaps stands at zero, and it is a separate count from the score gaps and the matches past their date with no result.",
+      "label": "derived",
+      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's three matches and been beaten once.",
       "basis": {
-        "source": "matches",
-        "box_score_gaps": 0
+        "source": "stats",
+        "player": "Dante Caffaro",
+        "programme": "oklahoma-christian",
+        "shutouts": 2,
+        "goals_against": 1,
+        "wins": 3,
+        "draws": 0,
+        "losses": 0
       }
     },
     {
       "label": "derived",
-      "text": "UT Tyler have played once and won it without conceding, and Dennis Nyame's goal is the only one the programme has scored.",
+      "text": "UT Dallas's defeat in Hawaii was their first of the season; they had won one and drawn one before it.",
       "basis": {
-        "programme": "ut-tyler",
-        "gf": 1,
-        "ga": 0,
+        "programme": "ut-dallas",
         "wins": 1,
-        "draws": 0,
-        "losses": 0,
-        "distinct_scorers_min": 1
+        "draws": 1,
+        "losses": 1
       }
     },
     {
@@ -111,13 +114,13 @@
     },
     {
       "label": "derived",
-      "text": "Kaleo Perez-Francis has made six saves for St. Edward's and been beaten once.",
+      "text": "St. Mary's have lost both their matches without scoring a goal.",
       "basis": {
-        "source": "stats",
-        "player": "Kaleo Perez-Francis",
-        "programme": "saint-edwards",
-        "saves": 6,
-        "goals_against": 1
+        "programme": "saint-marys",
+        "wins": 0,
+        "draws": 0,
+        "losses": 2,
+        "gf": 0
       }
     }
   ],
@@ -134,28 +137,28 @@
       "programme": "oklahoma-christian",
       "position": "FWD",
       "class": "SO",
-      "line": "2 G · 6 shots"
+      "line": "3 G · 8 shots"
     },
     {
-      "player": "Augusto Militao",
-      "programme": "lubbock-christian",
+      "player": "Luis Alvis",
+      "programme": "oklahoma-christian",
       "position": "MID",
-      "class": "SR",
-      "line": "1 G · 1 A · 7 shots"
+      "class": "JR",
+      "line": "2 G · 1 A · 7 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-01 colorado-christian v west-texas-a-m",
-      "line": "West Texas A&M have not scored since their opening match; Colorado Christian had already lost to a Lone Star side this season, at Oklahoma Christian."
+      "fixture_ref": "2026-09-02 oklahoma-christian v newman",
+      "line": "Newman are the first side to score against Oklahoma Christian this season; they still visit Lubbock Christian and West Texas A&M before the month is out."
     },
     "next_match": {
-      "fixture_ref": "2026-09-02 oklahoma-christian v newman",
-      "line": "Oklahoma Christian's only away match so far was a win at Drury; Newman also visit Lubbock Christian and West Texas A&M before the month is out."
+      "fixture_ref": "2026-09-03 harding v dallas-baptist",
+      "line": "Dallas Baptist have yet to score this season and lost their only match at home to UT Tyler; Harding is their first trip away."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T11:34:05.359Z"
+    "validated_at": "2026-09-03T11:34:27.320Z"
   }
 }

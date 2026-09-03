@@ -3,42 +3,41 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-02T03:16:34Z",
-  "data_collected_at": "2026-09-02T01:37:24+00:00",
-  "headline": "Ouachita Baptist and Rogers State alone stay unbeaten",
-  "dek": "Ouachita Baptist have won twice without conceding a goal, and Rogers State have won twice with one against. The other five programmes have all lost at least once.",
+  "generated_at": "2026-09-03T12:05:00Z",
+  "data_collected_at": "2026-09-03T11:30:42+00:00",
+  "headline": "Rogers State's goals come from seven different players",
+  "dek": "Rogers State have won all three of their matches, and seven different players have shared their goals; only Harkaran Sahota and Alex Laing have scored twice. Ouachita Baptist remain the other unbeaten side and have yet to concede.",
   "lede_basis": {
-    "obu_wins": 2,
-    "obu_ga": 0,
-    "rsu_wins": 2,
-    "rsu_ga": 1,
-    "programmes_with_a_defeat": 5
+    "rsu_wins": 3,
+    "rsu_distinct_scorers": 7,
+    "sahota_goals": 2,
+    "laing_goals": 2,
+    "obu_ga": 0
   },
-  "lede_updated": "2026-09-01",
+  "lede_updated": "2026-09-03",
+  "displaced_by": "Rogers State's third win, at Rockhurst, took their scorers to seven; the old dek's Rogers State figures were no longer true.",
   "pattern": {
     "label": "derived",
-    "text": "Five different players have scored Ouachita Baptist's six goals, and only Eric Godoy has scored twice.",
+    "text": "Rogers State alone have outscored Newman, Southern Nazarene, Northeastern State and Harding put together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "rogers-state": 9,
+        "fort-hays-state": 6,
         "ouachita-baptist": 6,
-        "fort-hays-state": 4,
-        "rogers-state": 4,
-        "newman": 3,
+        "newman": 4,
         "southern-nazarene": 2,
         "northeastern-state": 1,
         "harding": 0
       },
-      "highlight": "ouachita-baptist"
+      "highlight": "rogers-state"
     },
     "basis": {
-      "programme": "ouachita-baptist",
-      "gf": 6,
-      "ga": 0,
-      "distinct_scorers_min": 5,
-      "source": "stats",
-      "player": "Eric Godoy",
-      "goals": 2
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "rogers-state",
+      "of": ["newman", "southern-nazarene", "northeastern-state", "harding"],
+      "gf": 9
     }
   },
   "wire": {
@@ -56,13 +55,13 @@
   "findings": [
     {
       "label": "observed",
-      "text": "The season's one score gap is Newman's, away at Cowley: the match is marked final and carries no score. Three more matches are past their date with no result published at all, a separate absence and a separate count.",
+      "text": "Ouachita Baptist's match at Southwest Baptist is past its date with no result published at all, the only match this season in that state. There is no score gap: every match marked final carries a score.",
       "basis": {
         "source": "fixtures",
-        "finals_without_score": 1,
-        "past_date_no_result": 3,
-        "set": "silent_finals",
-        "all_of": "newman",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "ouachita-baptist",
         "count": 1
       }
     },
@@ -76,75 +75,72 @@
     },
     {
       "label": "derived",
-      "text": "Ouachita Baptist's draw with Delta State is the only match this season that a programme in this conference has neither won nor lost.",
+      "text": "Ouachita Baptist's draw with Delta State is still the only match this season that a programme in this conference has neither won nor lost.",
       "basis": {
         "derived_from": "fixtures",
-        "wins": 7,
+        "wins": 9,
         "draws": 1,
-        "losses": 6,
-        "gf": 20,
-        "ga": 12
+        "losses": 8,
+        "gf": 28,
+        "ga": 17
       }
     },
     {
       "label": "derived",
-      "text": "Tristan Miller has made ten saves for Rogers State and been beaten once.",
+      "text": "Tristan Miller has made twelve saves for Rogers State and been beaten twice.",
       "basis": {
         "source": "stats",
         "player": "Tristan Miller",
         "programme": "rogers-state",
-        "saves": 10,
-        "goals_against": 1
+        "saves": 12,
+        "goals_against": 2
       }
     },
     {
       "label": "derived",
-      "text": "Both of Southern Nazarene's goals this season are Wesley Rodriguez's.",
+      "text": "Fort Hays State's six goals have come from six different players.",
       "basis": {
-        "source": "stats",
-        "player": "Wesley Rodriguez",
-        "programme": "southern-nazarene",
-        "goals": 2,
-        "gf": 2,
-        "ga": 3
+        "programme": "fort-hays-state",
+        "gf": 6,
+        "distinct_scorers_min": 6
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Harkaran Sahota",
+      "programme": "rogers-state",
+      "position": "FWD",
+      "class": "SO",
+      "line": "2 G · 2 A · 3 shots"
+    },
+    {
+      "player": "Alex Laing",
+      "programme": "rogers-state",
+      "position": "DEF",
+      "class": "SR",
+      "line": "2 G · 1 A · 5 shots"
+    },
     {
       "player": "Eric Godoy",
       "programme": "ouachita-baptist",
       "position": "DEF",
       "class": "FR",
       "line": "2 G · 7 shots"
-    },
-    {
-      "player": "Wesley Rodriguez",
-      "programme": "southern-nazarene",
-      "position": "FWD",
-      "class": "FR",
-      "line": "2 G · 4 shots"
-    },
-    {
-      "player": "Philip Bölk",
-      "programme": "ouachita-baptist",
-      "position": "MID",
-      "class": "SO",
-      "line": "1 G · 1 A · 8 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-01 ouachita-baptist v delta-state",
-      "line": "Ouachita Baptist had scored in each of their earlier matches; Delta State leave with a draw to set beside their win at Harding."
+      "fixture_ref": "2026-09-02 rockhurst v rogers-state",
+      "line": "Rockhurst had already beaten Newman on this ground; Rogers State leave with every match of their season won."
     },
     "next_match": {
-      "fixture_ref": "2026-09-02 rockhurst v rogers-state",
-      "line": "Rockhurst have already lost at Fort Hays State and won at home against Newman; Rogers State arrive unbeaten."
+      "fixture_ref": "2026-09-03 harding v dallas-baptist",
+      "line": "Harding's only match so far ended in a home defeat to Delta State without a goal of their own."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-02T04:03:58.880Z"
+    "validated_at": "2026-09-03T11:33:48.820Z"
   }
 }
