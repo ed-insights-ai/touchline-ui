@@ -53,65 +53,12 @@ const show = (d: Duplicate): string =>
  * collector fix lands.
  */
 const KNOWN: (Duplicate & { bead: string })[] = [
-  // Not an alias at all: Westminster's schedule page lists the tournament
-  // matches it HOSTED at Dumke Field (MSU Denver v Western Oregon on 08-27,
-  // MSU Denver v Northwest Nazarene on 08-29) and the collector read them as
-  // Westminster fixtures against MSU Denver. MSU Denver's own file, and
-  // Westminster's own rows those days, say who actually played. The rib's
-  // tl-5ru owns the read; these four entries expire with it.
-  {
-    conference: "rmac",
-    date: "2026-08-27",
-    opponent: "westminster",
-    member: "msu-denver",
-    alias: "northwest-nazarene",
-    bead: "tl-5ru",
-  },
-  {
-    conference: "rmac",
-    date: "2026-08-27",
-    opponent: "msu-denver",
-    member: "westminster",
-    alias: "western-oregon",
-    bead: "tl-5ru",
-  },
-  {
-    conference: "rmac",
-    date: "2026-08-29",
-    opponent: "westminster",
-    member: "msu-denver",
-    alias: "western-oregon",
-    bead: "tl-5ru",
-  },
-  {
-    conference: "rmac",
-    date: "2026-08-29",
-    opponent: "msu-denver",
-    member: "westminster",
-    alias: "northwest-nazarene",
-    bead: "tl-5ru",
-  },
-  {
-    conference: "lsc",
-    date: "2026-09-19",
-    opponent: "texas-a-m-international",
-    member: "ut-dallas",
-    alias: "of-texas-at-dallas",
-    bead: "tl-kvn",
-  },
-  {
-    conference: "lsc",
-    date: "2026-10-24",
-    opponent: "texas-a-m-international",
-    member: "ut-dallas",
-    alias: "of-texas-at-dallas",
-    bead: "tl-kvn",
-  },
-  // Jefferson's schedule reached Dominican (N.Y.) under a second slug, and
-  // UDC's the same in the ECC file (tui-1ht); both cleared in the collect
-  // that brought ECC onto the site, as AIC's had between the NE10 files
-  // collected at 03:10 and 05:43 UTC on 2026-09-03. The entries went with
-  // them, by the rule the test below holds this list to.
+  // Empty since the 2026-09-03 bug round: the Westminster hosted-tournament
+  // rows (tl-5ru, rib #84 skips a hosted other-match instead of minting it)
+  // and the UT Dallas second slug (tl-kvn, rib #82 folds the institution
+  // word) both cleared in the re-collect that followed, as Jefferson's and
+  // UDC's second slugs (tui-1ht) and AIC's had before them. The entries went
+  // with the defects, by the rule the test below holds this list to.
 ];
 
 /** Every place one file records a member and a stranger against the same side
