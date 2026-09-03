@@ -77,7 +77,10 @@ the footprint map's key and label the map itself (each region's label sits at
 the centroid of its dots plus a per-region `label` nudge from the same table),
 and the home page groups its cards the same way once the conferences outnumber
 `homeColumnCap` (six today): one column each up to the cap, region bands past
-it, each band a disclosure on a phone. The masthead menu will follow. The map draws every dot in one ink and tints nothing:
+it, each band a disclosure on a phone. The masthead's conference menu lists the
+conferences the same way: region-major, each region a run of rows under its own
+head, whole regions per column, three columns balanced by row count
+(`src/lib/menu.ts`). The map draws every dot in one ink and tints nothing:
 hovering a key row or a dot group selects that conference in purple, and the
 key carries identity at rest. `src/lib/fixtures/density.ts` holds synthetic
 12- and 19-conference sets so those can be tested before the conferences

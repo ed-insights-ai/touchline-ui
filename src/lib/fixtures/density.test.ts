@@ -12,7 +12,7 @@ import { join, resolve } from "node:path";
 import { site } from "../../site.config.ts";
 import { BASEMAP_VIEWBOX } from "../basemap.ts";
 import { regionLabels } from "../geo.ts";
-import { bandMeta, homeBands, homeLayout } from "../home.ts";
+import { bandMeta, homeBands, homeLayout, openBandIndex } from "../home.ts";
 import { assertRegions, byRegion, regionsInUse } from "../regions.ts";
 import {
   DENSITY_CONFERENCES,
@@ -119,10 +119,15 @@ describe("the home page past the cap", () => {
         expect(c.href).toBe("#");
       }
       expect(cards.filter((c) => c.imminent).length).toBeLessThanOrEqual(1);
+      // A band is purple exactly when one of its cards is: at both sizes the
+      // next kickoff is a live league's, so no card and no band wears it.
+      const bands = homeBands(cards, densityConfig(size));
+      expect(bands.filter((b) => b.imminent).length).toBe(cards.filter((c) => c.imminent).length);
+      expect(bands.filter((b) => b.imminent).length).toBe(0);
     }
   });
 
-  test("at 19, six bands with the generator's counts, and one of them imminent", () => {
+  test("at 19, six bands with the generator's counts, and none of them imminent", () => {
     const bands = homeBands(densityCards(19), densityConfig(19));
     expect(bands.map((b) => [b.region.key, b.columns.length])).toEqual([
       ["northeast", 3],
@@ -132,7 +137,12 @@ describe("the home page past the cap", () => {
       ["south-central", 2],
       ["west", 4],
     ]);
-    expect(bands.filter((b) => b.imminent).length).toBe(1);
+    // The most imminent kickoff here is the GLVC's, which is live, so its
+    // card wears the phase word and no purple. The Midwest head used to be
+    // purple over it: a false signal, by the ruling (tl-4an.19). No band is
+    // purple at this size, and the phone opens the first, the Northeast.
+    expect(bands.filter((b) => b.imminent)).toEqual([]);
+    expect(bands.map((b) => b.region.key)[openBandIndex(bands)]).toBe("northeast");
     for (const b of bands) {
       const meta = bandMeta(b);
       if (b.live > 0) expect(meta, b.region.key).toContain("LIVE");

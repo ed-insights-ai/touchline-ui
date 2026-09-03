@@ -262,10 +262,21 @@ a.card:hover { border-color: var(--accent); color: inherit; }
   display: none; border: 0; background: none; padding: 0; cursor: pointer;
   font: inherit; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
 }
-/* Conferences read down each column, alphabetically, in three columns;
-   teams keep the table's order in two. */
+/* Conferences read region-major: each region a run of rows under its own
+   small head, a column takes whole regions, balanced by row count
+   (lib/menu.ts packs them). One implicit column track per rendered column,
+   never an empty one. Teams keep the table's order in two columns. */
+.hmenu-cols { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; gap: 0 18px; align-items: start; }
+.hmenu-col { display: flex; flex-direction: column; gap: 2px; }
+/* The group is a name for assistive tech and nothing in the flow, so the
+   column's gap runs between every head and row alike. */
+.hmenu-group { display: contents; }
+.hmenu-region {
+  font-size: 10px; letter-spacing: 0.16em; font-weight: 600; color: var(--quiet);
+  text-transform: uppercase; padding: 10px 12px 4px;
+}
+.hmenu-col > .hmenu-group:first-child > .hmenu-region { padding-top: 2px; }
 .hmenu-grid { display: grid; gap: 2px 18px; }
-.hmenu-grid-conf { grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 1), auto); }
 .hmenu-grid-team { grid-template-columns: repeat(2, max-content); gap: 2px 14px; }
 .mrow {
   display: flex; align-items: center; gap: 12px;
@@ -282,17 +293,24 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 .mrow[aria-current="page"] .mname { font-weight: 500; }
 
 /* Between a phone and a laptop the menu is anchored to the header rather
-   than the trigger and spans it, in two columns, so three columns of full
-   conference names never run past the right edge (measured: +238px at 768). */
+   than the trigger and spans it, so three columns of full conference names
+   never run past the right edge (measured: +238px at 768). The packed
+   columns cannot repack in CSS, so here the panel is two multicol columns
+   over the region groups themselves: whole regions per column still, at the
+   browser's balance, names ellipsised. */
 @media (max-width: 1024px) {
   .hmenu { position: static; }
   .hmenu-panel { left: 0; right: 0; }
-  .hmenu-grid-conf { grid-auto-flow: row; grid-template-rows: none; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hmenu-cols { display: block; columns: 2; column-gap: 18px; }
+  .hmenu-col { display: contents; }
+  .hmenu-group { display: block; break-inside: avoid; }
+  .hmenu-group > .mrow + .mrow { margin-top: 2px; }
   .mrow { min-width: 0; }
   .mname { overflow: hidden; text-overflow: ellipsis; }
 }
 
-/* Below 480px each menu is a full-width sheet of 44px rows with a Close. */
+/* Below 480px each menu is a full-width sheet of 44px rows with a Close:
+   the columns and the groups stack into one list, region heads and all. */
 @media (max-width: 480px) {
   .htab { height: 44px; }
   .hmenu-panel {
@@ -302,7 +320,10 @@ a.card:hover { border-color: var(--accent); color: inherit; }
   }
   .hmenu-head { padding: 10px 4px 6px; }
   .hmenu-close { display: inline; }
-  .hmenu-grid, .hmenu-grid-conf, .hmenu-grid-team { display: flex; flex-direction: column; gap: 0; }
+  .hmenu-cols, .hmenu-col, .hmenu-group { display: flex; flex-direction: column; gap: 0; }
+  .hmenu-group > .mrow + .mrow { margin-top: 0; }
+  .hmenu-region, .hmenu-col > .hmenu-group:first-child > .hmenu-region { padding: 14px 4px 4px; }
+  .hmenu-grid, .hmenu-grid-team { display: flex; flex-direction: column; gap: 0; }
   .mrow, .hmenu-grid-team .mrow {
     height: auto; min-height: 44px; padding: 0 4px; border-radius: 0;
     border-bottom: 1px solid var(--hairline); white-space: normal;

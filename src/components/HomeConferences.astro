@@ -11,8 +11,11 @@
 // order, each a six-column grid at the design width. A card is never narrower
 // than six columns at 1328px make it (about 221px): a narrower viewport takes
 // fewer columns, never narrower cards. On a phone each band is a <details>
-// disclosure, no script, like the masthead menus; only the band holding the
-// most imminent conference opens by default.
+// disclosure, no script, like the masthead menus; the band whose card wears
+// the purple opens by default, and when none does (the next kickoff belongs
+// to a conference already under way) the first band opens instead
+// (lib/home.ts openBandIndex), so the phone never lands on a wall of closed
+// disclosures.
 //
 // Two trees for the bands, one hidden per width. A closed <details> renders
 // none of its content and no stylesheet can reveal it, so one tree of
@@ -25,7 +28,7 @@
 // the card is ConferenceCard's, and its scoped rules only ever describe the
 // card itself. Every rule below is about where a card sits.
 import type { CardView, HomeBand, HomeLayout } from "../lib/home.ts";
-import { bandHead, bandSummary } from "../lib/home.ts";
+import { bandHead, bandSummary, openBandIndex } from "../lib/home.ts";
 import ConferenceCard from "./ConferenceCard.astro";
 
 interface Props {
@@ -35,6 +38,7 @@ interface Props {
   bands: HomeBand<CardView>[];
 }
 const { cards, layout, bands } = Astro.props as Props;
+const openBand = openBandIndex(bands);
 ---
 {layout === "columns" ? (
   <section class="confs" style={`--conf-cols: ${cards.length};`}>
@@ -56,8 +60,8 @@ const { cards, layout, bands } = Astro.props as Props;
       ))}
     </div>
     <div class="pbands">
-      {bands.map((b) => (
-        <details class="pband" open={b.imminent}>
+      {bands.map((b, i) => (
+        <details class="pband" open={i === openBand}>
           <summary>
             <span class="pn">{b.region.name}</span>
             <span class={b.imminent ? "pm is-imminent num" : "pm num"}>{bandSummary(b)}</span>
