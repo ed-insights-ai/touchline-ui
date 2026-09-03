@@ -169,7 +169,6 @@ describe("against the rosters this site actually collects", () => {
       "student assistant",
       "hs",
       "tr",
-      "a",
     ];
     // Every collected season, not just the two the site renders: the
     // vocabulary is authored once for the whole archive, and Southwest

@@ -224,9 +224,11 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 /* The two disclosures beside the wordmark: Conference, then Team. Each
    trigger is a 58px tab so the 2px accent rule under the conference trigger
    sits on the header's own rule, exactly where the conference tab's did. The
-   header stays 58px at any count, because the count lives in the menu. */
+   header stays 58px at any count, because the count lives in the menu.
+   Neither disclosure is a positioning context: the panels are anchored to
+   the HEADER, not the trigger (tl-4an.20, below). */
 .hnav { display: flex; align-self: stretch; align-items: stretch; gap: 4px; }
-.hmenu { position: relative; display: flex; align-items: stretch; }
+.hmenu { position: static; display: flex; align-items: stretch; }
 .htab {
   list-style: none; cursor: pointer;
   display: flex; align-items: center; gap: 7px; padding: 0 13px;
@@ -247,9 +249,20 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 .htab-here { font-weight: 600; color: var(--ink); }
 
 /* The menu: card ground, 1px outline, 6px radius, dropped from the header's
-   rule. Only the current row is purple. */
+   rule. Only the current row is purple.
+
+   Anchored to the header at EVERY width (tl-4an.20, the coordinator's
+   ruling): the panel's containing block is .site-header, so it opens flush
+   with the header's left edge and drops from the header's rule, whichever
+   trigger opened it. Its width is its content's, the max-content columns,
+   and never more than the header's: nine conferences in three columns of
+   full names stay inside the page at any width, and the team menu, which
+   shares this rule, sits flush left the same way. left and right are both
+   0 so the panel has the header's whole width to resolve against; with a
+   width set, right yields, which is the flush-left the ruling asks for. */
 .hmenu-panel {
-  position: absolute; left: 0; top: 100%; z-index: 20;
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 20;
+  width: max-content; max-width: 100%;
   margin-top: -1px;
   padding: 12px 10px 10px;
   background: var(--card); border: 1px solid var(--outline); border-radius: 6px;
@@ -286,21 +299,25 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 .mrow:hover { background: var(--accent-wash-soft); color: var(--ink); }
 .mrow:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
 .hmenu-grid-team .mrow { height: 30px; }
-.mabbr { width: 46px; flex: none; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
+/* The abbreviation column is sized from the longest code the menu renders,
+   not a fixed number: ConferenceMenu sets --mabbr-ch on .hmenu-cols to that
+   length in characters. 0.75em is a capital's advance at 11px 600 (RMAC
+   measured 34px, 8.5px a letter, in Public Sans) and 13px the gap it leaves
+   after, so a four-letter code gets the 46px it always had and a fifth
+   letter buys its own room rather than an ellipsis. */
+.mabbr { width: calc(var(--mabbr-ch, 4) * 0.75em + 13px); flex: none; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; }
 .hmenu-grid-team .mabbr { width: 44px; }
 .mname { font-size: 13px; color: var(--secondary); }
 .mrow[aria-current="page"] .mabbr, .mrow[aria-current="page"] .mname { color: var(--accent); }
 .mrow[aria-current="page"] .mname { font-weight: 500; }
 
-/* Between a phone and a laptop the menu is anchored to the header rather
-   than the trigger and spans it, so three columns of full conference names
-   never run past the right edge (measured: +238px at 768). The packed
+/* Between a phone and a laptop the header-anchored panel meets its
+   max-width: three packed columns of full conference names ran +238px past
+   the right edge at 768 when they were anchored to the trigger. The packed
    columns cannot repack in CSS, so here the panel is two multicol columns
    over the region groups themselves: whole regions per column still, at the
    browser's balance, names ellipsised. */
 @media (max-width: 1024px) {
-  .hmenu { position: static; }
-  .hmenu-panel { left: 0; right: 0; }
   .hmenu-cols { display: block; columns: 2; column-gap: 18px; }
   .hmenu-col { display: contents; }
   .hmenu-group { display: block; break-inside: avoid; }
@@ -315,6 +332,7 @@ a.card:hover { border-color: var(--accent); color: inherit; }
   .htab { height: 44px; }
   .hmenu-panel {
     position: fixed; inset: 0; z-index: 30; margin: 0; border: 0; border-radius: 0;
+    width: auto; max-width: none;
     box-shadow: none; padding: 12px var(--gutter) 24px; overflow-y: auto;
     background: var(--paper);
   }

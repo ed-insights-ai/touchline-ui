@@ -65,7 +65,12 @@ export interface SiteConfig {
 export const site: SiteConfig = {
   season: Number(process.env.TOUCHLINE_SEASON ?? 2026),
   gender: (process.env.TOUCHLINE_GENDER ?? "men") as Gender,
-  conferences: ["gac", "lsc", "gsc", "glvc", "rmac", "ssc"],
+  // ECC is collected (data home 634e069) and named and placed below, but held
+  // out of the live set: its file and NE10's disagree on 2026-08-27 Assumption
+  // v Staten Island (NE10 says cancelled, ECC says final), and the division
+  // fold refuses to choose between two collectors' facts (lib/division.ts).
+  // Add "ecc" after "cacc" once the record agrees.
+  conferences: ["gac", "lsc", "gsc", "glvc", "rmac", "ssc", "ne10", "cacc"],
   home: "gac",
   homeColumnCap: 6,
   asOf: process.env.TOUCHLINE_AS_OF?.trim() || undefined,
@@ -76,6 +81,9 @@ export const site: SiteConfig = {
     glvc: "Great Lakes Valley Conference",
     rmac: "Rocky Mountain Athletic Conference",
     ssc: "Sunshine State Conference",
+    ne10: "Northeast-10 Conference",
+    cacc: "Central Atlantic Collegiate Conference",
+    ecc: "East Coast Conference",
   },
   division: "NCAA Division II men's soccer",
   governingBody: "NCAA",
@@ -83,7 +91,7 @@ export const site: SiteConfig = {
   cadence: "once a day",
   divisionConferences: 19,
   regions: [
-    { key: "northeast", name: "Northeast", label: { dx: 40, dy: -46 } },
+    { key: "northeast", name: "Northeast", label: { dx: -70, dy: -50 } },
     { key: "mid-atlantic", name: "Mid-Atlantic", label: { dx: -4, dy: 62 } },
     { key: "midwest", name: "Midwest", label: { dx: -19, dy: -113 } },
     { key: "southeast", name: "Southeast", label: { dx: 128, dy: -28 } },
@@ -97,6 +105,9 @@ export const site: SiteConfig = {
     glvc: "midwest",
     rmac: "west",
     ssc: "southeast",
+    ne10: "northeast",
+    cacc: "northeast",
+    ecc: "northeast",
   },
   nameOverrides: {
     "ncaa-1st-and-2nd-round": "NCAA First & Second Rounds",

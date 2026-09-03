@@ -107,6 +107,18 @@ const KNOWN: (Duplicate & { bead: string })[] = [
     alias: "of-texas-at-dallas",
     bead: "tl-kvn",
   },
+  // Jefferson's schedule reaches Dominican (N.Y.) under a second slug
+  // (tui-1ht). UDC has the same defect in the ECC file, which is not live
+  // yet; AIC had it in the NE10 file collected at 03:10 UTC on 2026-09-03 and
+  // not in the one collected at 05:43.
+  {
+    conference: "cacc",
+    date: "2026-09-19",
+    opponent: "jefferson",
+    member: "dominican",
+    alias: "dominican-of-n-y",
+    bead: "tui-1ht",
+  },
 ];
 
 /** Every place one file records a member and a stranger against the same side
