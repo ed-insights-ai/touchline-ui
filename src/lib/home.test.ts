@@ -22,6 +22,7 @@ import {
 import { divisionCounts } from "./division.ts";
 import { daysBetween, dowShort, shortDate, spell } from "./format.ts";
 import {
+  type BandColumn,
   bandHead,
   bandMeta,
   bandSummary,
@@ -40,10 +41,11 @@ import {
   nationalLede,
   nationalMasthead,
   nextLeagueKickoff,
+  openBandIndex,
 } from "./home.ts";
 import type { NationalJournalFile } from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
-import { regionsInUse } from "./regions.ts";
+import { type RegionConfig, regionsInUse } from "./regions.ts";
 
 const seasons = homeSeasons();
 const columns = homeColumns(seasons);
@@ -78,16 +80,68 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     }
   });
 
-  test("exactly one band is imminent while any kickoff is left", () => {
+  test("a band is imminent only when its card is: the most imminent key, and not live", () => {
     const bands = homeBands(columns);
     const imminent = bands.filter((b) => b.imminent);
     const key = mostImminentKey(columns);
-    if (key === null) {
+    const column = columns.find((c) => c.key === key);
+    if (!column || column.live) {
       expect(imminent.length).toBe(0);
       return;
     }
     expect(imminent.length).toBe(1);
     expect(imminent[0]?.columns.some((c) => c.key === key)).toBe(true);
+  });
+
+  // The ruling (tl-4an.19): purple marks one thing, the card whose opener is
+  // next, and a band head over no purple card is a false signal. Two synthetic
+  // sets so both sides of the rule are met whatever the live data says today.
+  const cfg: RegionConfig = {
+    regions: [
+      { key: "a", name: "A" },
+      { key: "b", name: "B" },
+    ],
+    conferenceRegions: { x: "a", y: "b", z: "b" },
+  };
+  const opener = (key: string, opensOn: string): BandColumn => ({
+    key,
+    live: false,
+    opensOn,
+    kickoff: opensOn,
+  });
+  const live = (key: string): BandColumn => ({
+    key,
+    live: true,
+    opensOn: null,
+    kickoff: "2026-09-02",
+  });
+
+  test("a live conference holding the most imminent kickoff yields no imminent band", () => {
+    const cols = [live("x"), opener("y", "2026-09-12"), opener("z", "2026-09-19")];
+    expect(mostImminentKey(cols)).toBe("x");
+    const bands = homeBands(cols, cfg);
+    expect(bands.map((b) => b.imminent)).toEqual([false, false]);
+    // And the phone opens the first band, not none.
+    expect(openBandIndex(bands)).toBe(0);
+  });
+
+  test("a not-live one yields exactly one imminent band, and the phone opens it", () => {
+    const cols = [opener("y", "2026-09-12"), live("x"), opener("z", "2026-09-19")];
+    const bands = homeBands(cols, cfg);
+    expect(bands.map((b) => [b.region.key, b.imminent])).toEqual([
+      ["a", false],
+      ["b", true],
+    ]);
+    expect(openBandIndex(bands)).toBe(1);
+  });
+
+  test("the phone open rule: the imminent band, else the first, else nothing", () => {
+    expect(openBandIndex([])).toBe(-1);
+    expect(openBandIndex([{ imminent: false }, { imminent: false }])).toBe(0);
+    expect(openBandIndex([{ imminent: false }, { imminent: true }])).toBe(1);
+    const bands = homeBands(columns);
+    const at = openBandIndex(bands);
+    expect(at).toBe(bands.some((b) => b.imminent) ? bands.findIndex((b) => b.imminent) : 0);
   });
 
   test("live and nextOpens are recounted from the columns", () => {

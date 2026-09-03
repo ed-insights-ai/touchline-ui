@@ -1,0 +1,50 @@
+---
+// The conference menu's panel: the head line, the Close, and the rows.
+//
+// Region-major: each region is a run of rows under its own small head, and a
+// column takes WHOLE regions, balanced by row count (lib/menu.ts does the
+// packing; this renders what it is handed, exactly the columns that exist).
+// The regions are config, and nothing here names one. Every row is the same
+// a.mrow it always was, so the keyboard island in SiteHeader, scripts/
+// keyboard.ts and scripts/visual.sh address it unchanged.
+//
+// Taken out of SiteHeader so the twelve- and nineteen-conference fixtures can
+// render the same panel the live six do, with no Season in hand.
+import { seasonHref } from "../lib/derive.ts";
+import type { MenuColumn } from "../lib/menu.ts";
+
+interface Props {
+  columns: MenuColumn[];
+  /** The conference the reader is inside, whose row is the one purple. */
+  currentKey?: string;
+  /** How many conferences the menu offers, for the head line. */
+  count: number;
+  /** "2026 · MEN", as the header prints it. */
+  seasonLabel: string;
+}
+const { columns, currentKey, count, seasonLabel } = Astro.props;
+---
+<div class="hmenu-panel">
+  <div class="hmenu-head">
+    <span class="hmenu-tag num">{count} conferences · {seasonLabel}</span>
+    <button type="button" class="hmenu-close">Close</button>
+  </div>
+  <div class="hmenu-cols">
+    {columns.map((col) => (
+      <div class="hmenu-col">
+        {col.regions.map((r) => (
+          <div class="hmenu-group" role="group" aria-label={r.region.name}>
+            <div class="hmenu-region">{r.region.name}</div>
+            {r.rows.map((c) => (
+              <a
+                class="mrow"
+                href={seasonHref(c.key)}
+                aria-current={c.key === currentKey ? "page" : undefined}
+              ><span class="mabbr">{c.abbr}</span><span class="mname">{c.name}</span></a>
+            ))}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

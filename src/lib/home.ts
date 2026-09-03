@@ -208,8 +208,10 @@ export interface HomeBand<T> {
   live: number;
   /** The earliest published opener among those not yet under way. */
   nextOpens: string | null;
-  /** Whether this band holds the most imminent conference. Exactly one band
-   *  does, or none when no kickoff is left anywhere. */
+  /** The band whose card wears the one purple; at most one band, none once
+   *  the next kickoff belongs to a conference already under way. Purple marks
+   *  one thing, and a head with no purple card under it is a false signal
+   *  (tl-4an.19). */
   imminent: boolean;
 }
 
@@ -230,8 +232,21 @@ export function homeBands<T extends BandColumn>(
         .filter((c) => !c.live && c.opensOn !== null)
         .map((c) => c.opensOn as string)
         .sort()[0] ?? null,
-    imminent: imminent !== null && items.some((c) => c.key === imminent),
+    // The card's own rule (pages/index.astro): the most imminent key, and not
+    // live. A live conference's card wears the phase word, not purple, so its
+    // band's head must not either.
+    imminent: imminent !== null && items.some((c) => c.key === imminent && !c.live),
   }));
+}
+
+/** Which band the phone opens by default: the imminent one, else the FIRST
+ *  (the top of the page, site.regions order), so the phone never lands on a
+ *  wall of closed disclosures once the next kickoff belongs to a conference
+ *  already under way. -1 with no bands. */
+export function openBandIndex(bands: readonly { imminent: boolean }[]): number {
+  if (bands.length === 0) return -1;
+  const at = bands.findIndex((b) => b.imminent);
+  return at < 0 ? 0 : at;
 }
 
 /** The head's meta, one wording for the desktop head, the phone summary and

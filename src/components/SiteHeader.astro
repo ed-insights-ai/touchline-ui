@@ -1,7 +1,9 @@
 ---
 import { site } from "../site.config.ts";
-import { homeHref, loadSeason, matchesHref, seasonHref, teamHref } from "../lib/derive.ts";
+import { homeHref, loadSeason, matchesHref, teamHref } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
+import { menuColumns } from "../lib/menu.ts";
+import ConferenceMenu from "./ConferenceMenu.astro";
 
 interface Props {
   season: Season;
@@ -13,21 +15,20 @@ interface Props {
 const { season, currentTeam, currentView } = Astro.props;
 
 // The conference menu is built from the conferences the data home actually
-// carries — a conference is configuration, and one that failed to collect is
-// simply not offered rather than offered and broken. Alphabetical by the
-// abbreviation the trigger shows, because that is the word a reader scans for.
-const conferences = site.conferences
-  .flatMap((key) => {
-    try {
-      const abbr = loadSeason(key).fixtures.conference;
-      return [{ key, abbr, name: site.conferenceNames[key] ?? abbr }];
-    } catch {
-      return [];
-    }
-  })
-  .sort((a, b) => a.abbr.localeCompare(b.abbr));
-const CONFERENCE_COLUMNS = 3;
-const conferenceRows = Math.max(1, Math.ceil(conferences.length / CONFERENCE_COLUMNS));
+// carries: a conference is configuration, and one that failed to collect is
+// simply not offered rather than offered and broken. The menu is region-major
+// (lib/menu.ts): each region a run of rows under its own head, whole regions
+// per column, the columns balanced by row count. The regions are config, so
+// nothing here names one. The trigger still shows the abbreviation.
+const entries = site.conferences.flatMap((key) => {
+  try {
+    const abbr = loadSeason(key).fixtures.conference;
+    return [{ key, abbr, name: site.conferenceNames[key] ?? abbr }];
+  } catch {
+    return [];
+  }
+});
+const columns = menuColumns(entries);
 
 // The publisher's own order, which is the order the conference lists itself in.
 const teams = season.fixtures.programmes;
@@ -58,21 +59,12 @@ const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpp
         <span class="htab-label">{season.fixtures.conference}</span>
         <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
       </summary>
-      <div class="hmenu-panel" style={`--rows: ${conferenceRows}`}>
-        <div class="hmenu-head">
-          <span class="hmenu-tag num">{conferences.length} conferences · {seasonLabel}</span>
-          <button type="button" class="hmenu-close">Close</button>
-        </div>
-        <div class="hmenu-grid hmenu-grid-conf">
-          {conferences.map((c) => (
-            <a
-              class="mrow"
-              href={seasonHref(c.key)}
-              aria-current={c.key === season.key ? "page" : undefined}
-            ><span class="mabbr">{c.abbr}</span><span class="mname">{c.name}</span></a>
-          ))}
-        </div>
-      </div>
+      <ConferenceMenu
+        columns={columns}
+        currentKey={season.key}
+        count={entries.length}
+        seasonLabel={seasonLabel}
+      />
     </details>
     <details class="hmenu hmenu-team">
       <summary
