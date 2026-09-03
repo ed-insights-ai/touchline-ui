@@ -1,0 +1,187 @@
+---
+// How the home page lays its conference cards out. It decides nothing about
+// the data: the page computes the views, the layout and the bands (lib/home.ts
+// homeLayout, homeBands) and this renders what it is handed.
+//
+// "columns": one column per conference, in kickoff order — the layout the
+// page has always had, moved here rule for rule so the render below the cap
+// is pixel-identical (scripts/visual.sh holds it to that).
+//
+// "bands": the same card flows into one band per region, in site.regions
+// order, each a six-column grid at the design width. A card is never narrower
+// than six columns at 1328px make it (about 221px): a narrower viewport takes
+// fewer columns, never narrower cards. On a phone each band is a <details>
+// disclosure, no script, like the masthead menus; only the band holding the
+// most imminent conference opens by default.
+//
+// Two trees for the bands, one hidden per width. A closed <details> renders
+// none of its content and no stylesheet can reveal it, so one tree of
+// disclosures cannot be open-and-flat on a desktop and closed on a phone
+// without a script. The hidden tree is display:none, which contributes
+// nothing to layout, so the harness's overflow assertion sees only the one
+// that shows. Below the cap there is one tree, as before.
+//
+// The layout rules that reach into a card (.conf) are written :global here:
+// the card is ConferenceCard's, and its scoped rules only ever describe the
+// card itself. Every rule below is about where a card sits.
+import type { CardView, HomeBand, HomeLayout } from "../lib/home.ts";
+import { bandHead, bandSummary } from "../lib/home.ts";
+import ConferenceCard from "./ConferenceCard.astro";
+
+interface Props {
+  /** In kickoff order. */
+  cards: readonly CardView[];
+  layout: HomeLayout;
+  bands: HomeBand<CardView>[];
+}
+const { cards, layout, bands } = Astro.props as Props;
+---
+{layout === "columns" ? (
+  <section class="confs" style={`--conf-cols: ${cards.length};`}>
+    {cards.map((c) => <ConferenceCard {...c} />)}
+  </section>
+) : (
+  <>
+    <div class="bands">
+      {bands.map((b) => (
+        <section class="band">
+          <div class="band-head">
+            <span class="band-name">{b.region.name}</span>
+            <span class={b.imminent ? "band-meta is-imminent num" : "band-meta num"}>{bandHead(b)}</span>
+          </div>
+          <div class="band-grid">
+            {b.columns.map((c) => <ConferenceCard {...c} />)}
+          </div>
+        </section>
+      ))}
+    </div>
+    <div class="pbands">
+      {bands.map((b) => (
+        <details class="pband" open={b.imminent}>
+          <summary>
+            <span class="pn">{b.region.name}</span>
+            <span class={b.imminent ? "pm is-imminent num" : "pm num"}>{bandSummary(b)}</span>
+            <span class="grow"></span>
+            <svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
+          </summary>
+          <div class="plist">
+            {b.columns.map((c) => <ConferenceCard {...c} />)}
+          </div>
+        </details>
+      ))}
+    </div>
+  </>
+)}
+
+<style>
+  /* ── One column per conference ──────────────────────────────────────────── */
+  .confs {
+    display: grid;
+    grid-template-columns: repeat(var(--conf-cols, 1), minmax(0, 1fr));
+    padding: 26px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .confs :global(.conf:first-child) { padding-left: 0; }
+  .confs :global(.conf:last-child) { padding-right: 0; }
+  .confs :global(.conf + .conf) { border-left: 1px solid var(--hairline); }
+
+  /* ── Region bands ───────────────────────────────────────────────────────── */
+  .bands { display: flex; flex-direction: column; border-bottom: 1px solid var(--hairline); }
+  .band { padding: 22px 0 26px; }
+  .band + .band { border-top: 1px solid var(--hairline-soft); }
+  /* The band head is the site's label register; nothing new is invented. */
+  .band-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .band-name {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    color: var(--quiet);
+    text-transform: uppercase;
+  }
+  .band-meta { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); }
+  .band-meta.is-imminent { color: var(--accent); font-weight: 600; }
+  .band-grid { display: grid; }
+  .band-grid :global(.conf + .conf) { border-left: 1px solid var(--hairline); }
+  /* Column counts by viewport, each range exclusive so no count has to undo
+     another's nth-child rules. The floor is the card six columns get at the
+     1328px measure (1440 less two 56px gutters): 221.33px. With the same
+     gutters, five columns clear it from 1220px, four from 998px, three from
+     776px and two from 721px; 720px and below is the phone, which is
+     disclosures. In each range the first card of a row loses its left gutter
+     and hairline, the last loses its right gutter, and every row past the
+     first stands 24px off the one above. */
+  @media (min-width: 1440px) {
+    .band-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .band-grid :global(.conf:nth-child(6n)) { padding-right: 0; }
+    .band-grid :global(.conf:nth-child(6n + 1)) { padding-left: 0; border-left: none; }
+    .band-grid :global(.conf:nth-child(n + 7)) { margin-top: 24px; }
+  }
+  @media (min-width: 1220px) and (max-width: 1439px) {
+    .band-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .band-grid :global(.conf:nth-child(5n)) { padding-right: 0; }
+    .band-grid :global(.conf:nth-child(5n + 1)) { padding-left: 0; border-left: none; }
+    .band-grid :global(.conf:nth-child(n + 6)) { margin-top: 24px; }
+  }
+  @media (min-width: 998px) and (max-width: 1219px) {
+    .band-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .band-grid :global(.conf:nth-child(4n)) { padding-right: 0; }
+    .band-grid :global(.conf:nth-child(4n + 1)) { padding-left: 0; border-left: none; }
+    .band-grid :global(.conf:nth-child(n + 5)) { margin-top: 24px; }
+  }
+  @media (min-width: 776px) and (max-width: 997px) {
+    .band-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .band-grid :global(.conf:nth-child(3n)) { padding-right: 0; }
+    .band-grid :global(.conf:nth-child(3n + 1)) { padding-left: 0; border-left: none; }
+    .band-grid :global(.conf:nth-child(n + 4)) { margin-top: 24px; }
+  }
+  @media (min-width: 721px) and (max-width: 775px) {
+    .band-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .band-grid :global(.conf:nth-child(2n)) { padding-right: 0; }
+    .band-grid :global(.conf:nth-child(2n + 1)) { padding-left: 0; border-left: none; }
+    .band-grid :global(.conf:nth-child(n + 3)) { margin-top: 24px; }
+  }
+
+  /* ── Phone: each band a disclosure ──────────────────────────────────────── */
+  .pbands { display: none; }
+  .pband { border-bottom: 1px solid var(--hairline); }
+  .pband > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    min-height: 52px;
+    padding: 14px 0;
+  }
+  .pband > summary::-webkit-details-marker { display: none; }
+  .pband > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  .chev {
+    width: 10px;
+    height: 10px;
+    stroke: var(--secondary);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: none;
+    align-self: center;
+  }
+  .pband[open] .chev { transform: rotate(180deg); }
+  .pn { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .pm { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); }
+  .pm.is-imminent { color: var(--accent); font-weight: 600; }
+  .plist { display: flex; flex-direction: column; padding-bottom: 8px; }
+  .plist :global(.conf) { padding: 0 0 20px; border-left: none; }
+  .plist :global(.conf + .conf) { border-top: 1px solid var(--hairline-soft); padding-top: 20px; }
+
+  /* ── Narrow ─────────────────────────────────────────────────────────────── */
+  @media (max-width: 1180px) {
+    .confs { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+    .confs :global(.conf) { padding: 0; }
+    .confs :global(.conf + .conf) { border-left: none; border-top: 1px solid var(--hairline); padding-top: 24px; }
+  }
+  @media (max-width: 720px) {
+    .bands { display: none; }
+    .pbands { display: block; }
+  }
+</style>

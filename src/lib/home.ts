@@ -10,7 +10,7 @@
 // The lede is assembled deterministically from counts and opener dates. It is
 // never a model call: the home page does not wait on a journal regeneration.
 
-import { site } from "../site.config.ts";
+import { type SiteConfig, site } from "../site.config.ts";
 import {
   byKickoff,
   conferenceOpensOn,
@@ -31,8 +31,9 @@ import {
   type Sighting,
 } from "./division.ts";
 import { dayNumber, dayOfMonth, dowShort, monShort, shortDate, spell, toISO } from "./format.ts";
-import { headlineForm, type NationalJournalFile } from "./journal.ts";
+import { headlineForm, type NationalJournalFile, PHASE_LIVE } from "./journal.ts";
 import type { Fixture } from "./model.ts";
+import { byRegion, type Region, type RegionConfig } from "./regions.ts";
 
 /** Every configured conference the data home has actually collected, in
  *  config order. One that failed to collect contributes nothing rather than
@@ -131,8 +132,126 @@ export function homeColumns(seasons: readonly Season[]): HomeColumn[] {
 
 /** Exactly one opener wears purple: the soonest league kickoff still ahead.
  *  A tie on the date falls back to config order, so the answer is one key. */
-export function mostImminentKey(columns: readonly HomeColumn[]): string | null {
+export function mostImminentKey(
+  columns: readonly { key: string; kickoff: string | null }[],
+): string | null {
   return columns.find((c) => c.kickoff !== null)?.key ?? null;
+}
+
+// ── The card and how the cards are laid out ─────────────────────────────────
+//
+// Up to the configured cap the page is one column per conference, in kickoff
+// order. Past it the SAME card flows into region bands, one per region in
+// site.regions order, and the phone folds each band into a disclosure. The
+// cap is config (site.homeColumnCap) and the regions come through byRegion,
+// so no component here decides anything from a conference or a region by
+// name. The page grows by rows, never by narrower columns.
+
+/** What a card prints, and nothing a Season is needed for: a synthetic set
+ *  (lib/fixtures/density.ts) renders the same component the live page does. */
+export interface CardView {
+  key: string;
+  /** The published abbreviation ("GAC"). */
+  code: string;
+  /** The configured full name. */
+  name: string;
+  /** The opens line, already worded: see opensLine(). */
+  opens: string;
+  /** Whether this card's opens line wears the one purple. */
+  imminent: boolean;
+  played: number;
+  total: number;
+  /** The wire, or the headline it falls back to. */
+  line: string | null;
+  /** "UPDATED SEP 1" when the line is older than the data it sits on. */
+  stamp: string | null;
+  href: string;
+}
+
+/** The little a band needs to know about a column to head itself. */
+export interface BandColumn {
+  key: string;
+  live: boolean;
+  opensOn: string | null;
+  kickoff: string | null;
+}
+
+/** A date as the cards and the band heads print it: "SEP 12". */
+export const opensStamp = (iso: string): string =>
+  `${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}`;
+
+/** The card's opens line: the phase word while the table is live, the opener
+ *  once one is published, the plain absence otherwise. The band heads reuse
+ *  the same words (bandMeta), so the two surfaces cannot drift. */
+export function opensLine(c: { live: boolean; opensOn: string | null }): string {
+  return c.live
+    ? PHASE_LIVE
+    : c.opensOn
+      ? `OPENS ${opensStamp(c.opensOn)}`
+      : "NO CONFERENCE DATE PUBLISHED";
+}
+
+export type HomeLayout = "columns" | "bands";
+export type LayoutConfig = Pick<SiteConfig, "homeColumnCap">;
+
+/** Columns up to the cap, bands past it. The cap is the config's, never a
+ *  literal here; the count is the conference list's. */
+export function homeLayout(count: number, cfg: LayoutConfig = site): HomeLayout {
+  return count <= cfg.homeColumnCap ? "columns" : "bands";
+}
+
+export interface HomeBand<T> {
+  region: Region;
+  /** The band's cards, in the order they were given (kickoff order). */
+  columns: T[];
+  /** How many of them are under way. */
+  live: number;
+  /** The earliest published opener among those not yet under way. */
+  nextOpens: string | null;
+  /** Whether this band holds the most imminent conference. Exactly one band
+   *  does, or none when no kickoff is left anywhere. */
+  imminent: boolean;
+}
+
+/** The columns grouped by region, in site.regions order, input order kept
+ *  inside each band (so pass them already in kickoff order); regions with no
+ *  column are dropped. Every column must name a listed region. */
+export function homeBands<T extends BandColumn>(
+  columns: readonly T[],
+  cfg: RegionConfig = site,
+): HomeBand<T>[] {
+  const imminent = mostImminentKey(columns);
+  return byRegion(columns, cfg).map(({ region, items }) => ({
+    region,
+    columns: items,
+    live: items.filter((c) => c.live).length,
+    nextOpens:
+      items
+        .filter((c) => !c.live && c.opensOn !== null)
+        .map((c) => c.opensOn as string)
+        .sort()[0] ?? null,
+    imminent: imminent !== null && items.some((c) => c.key === imminent),
+  }));
+}
+
+/** The head's meta, one wording for the desktop head, the phone summary and
+ *  the tests: "2 LIVE · NEXT OPENS SEP 19", "OPENS SEP 5", or the absence. */
+export function bandMeta(band: HomeBand<BandColumn>): string {
+  if (band.live > 0) {
+    return `${band.live} LIVE${band.nextOpens ? ` · NEXT OPENS ${opensStamp(band.nextOpens)}` : ""}`;
+  }
+  return band.nextOpens ? `OPENS ${opensStamp(band.nextOpens)}` : "NO CONFERENCE DATE PUBLISHED";
+}
+
+/** The desktop band head: "3 CONFERENCES · OPENS SEP 12". */
+export function bandHead(band: HomeBand<BandColumn>): string {
+  const n = band.columns.length;
+  return `${n} ${n === 1 ? "CONFERENCE" : "CONFERENCES"} · ${bandMeta(band)}`;
+}
+
+/** The phone disclosure's summary, shorter: "3 · 2 LIVE" or "3 · OPENS SEP 12". */
+export function bandSummary(band: HomeBand<BandColumn>): string {
+  return `${band.columns.length} · ${band.live > 0 ? `${band.live} LIVE` : bandMeta(band)}`;
 }
 
 /** Last night, literally: the calendar day before the national asOf. */

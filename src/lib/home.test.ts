@@ -22,8 +22,13 @@ import {
 import { divisionCounts } from "./division.ts";
 import { daysBetween, dowShort, shortDate, spell } from "./format.ts";
 import {
+  bandHead,
+  bandMeta,
+  bandSummary,
   type HomeColumn,
+  homeBands,
   homeColumns,
+  homeLayout,
   homeSeasons,
   lastNightLedger,
   lastNightOf,
@@ -38,10 +43,84 @@ import {
 } from "./home.ts";
 import type { NationalJournalFile } from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
+import { regionsInUse } from "./regions.ts";
 
 const seasons = homeSeasons();
 const columns = homeColumns(seasons);
 const national = divisionCounts(seasons);
+
+describe("up to the column cap the page is columns; past it, region bands", () => {
+  test("the live site's layout follows the relation, not a literal", () => {
+    expect(homeLayout(columns.length)).toBe(
+      site.conferences.length <= site.homeColumnCap ? "columns" : "bands",
+    );
+  });
+
+  test("the cap itself is columns; one more is bands", () => {
+    expect(homeLayout(site.homeColumnCap)).toBe("columns");
+    expect(homeLayout(site.homeColumnCap + 1)).toBe("bands");
+    // The cap is the config's: a different table gives a different answer.
+    expect(homeLayout(3, { homeColumnCap: 2 })).toBe("bands");
+    expect(homeLayout(2, { homeColumnCap: 2 })).toBe("columns");
+  });
+
+  test("every column lands in exactly one band, bands in region order, columns in input order", () => {
+    const bands = homeBands(columns);
+    const placed = bands.flatMap((b) => b.columns.map((c) => c.key));
+    expect(placed.length).toBe(columns.length);
+    expect(new Set(placed).size).toBe(columns.length);
+    expect(bands.map((b) => b.region.key)).toEqual(
+      regionsInUse(columns.map((c) => c.key)).map((r) => r.key),
+    );
+    for (const b of bands) {
+      const inputOrder = columns.filter((c) => b.columns.some((x) => x.key === c.key));
+      expect(b.columns.map((c) => c.key)).toEqual(inputOrder.map((c) => c.key));
+    }
+  });
+
+  test("exactly one band is imminent while any kickoff is left", () => {
+    const bands = homeBands(columns);
+    const imminent = bands.filter((b) => b.imminent);
+    const key = mostImminentKey(columns);
+    if (key === null) {
+      expect(imminent.length).toBe(0);
+      return;
+    }
+    expect(imminent.length).toBe(1);
+    expect(imminent[0]?.columns.some((c) => c.key === key)).toBe(true);
+  });
+
+  test("live and nextOpens are recounted from the columns", () => {
+    for (const b of homeBands(columns)) {
+      expect(b.live).toBe(b.columns.filter((c) => c.live).length);
+      const openers = b.columns
+        .filter((c) => !c.live && c.opensOn !== null)
+        .map((c) => c.opensOn as string)
+        .sort();
+      expect(b.nextOpens).toBe(openers[0] ?? null);
+    }
+  });
+
+  test("the head, the summary and the meta share one wording", () => {
+    for (const b of homeBands(columns)) {
+      const meta = bandMeta(b);
+      expect(bandHead(b)).toBe(
+        `${b.columns.length} ${b.columns.length === 1 ? "CONFERENCE" : "CONFERENCES"} · ${meta}`,
+      );
+      if (b.live > 0) {
+        expect(meta.startsWith(`${b.live} LIVE`)).toBe(true);
+        expect(bandSummary(b)).toBe(`${b.columns.length} · ${b.live} LIVE`);
+        if (b.nextOpens)
+          expect(meta).toContain(`NEXT OPENS ${shortDate(b.nextOpens).toUpperCase()}`);
+      } else if (b.nextOpens) {
+        expect(meta).toBe(`OPENS ${shortDate(b.nextOpens).toUpperCase()}`);
+        expect(bandSummary(b)).toBe(`${b.columns.length} · ${meta}`);
+      } else {
+        expect(meta).toBe("NO CONFERENCE DATE PUBLISHED");
+      }
+    }
+  });
+});
 
 describe("the columns are config, ordered by the soonest league kickoff", () => {
   test("every collected conference gets exactly one column, and none is invented", () => {
