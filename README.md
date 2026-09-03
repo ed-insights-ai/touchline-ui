@@ -12,7 +12,7 @@ build is `reference/ARCHITECTURE.md`.
 ```sh
 bun install
 bun run dev        # http://localhost:4321
-bun run build      # → dist/   (1,202 pages for 2026 men, the eight conferences in src/site.config.ts)
+bun run build      # → dist/   (1,318 pages for 2026 men, the nine conferences in src/site.config.ts)
 bun run preview
 bun run check      # biome
 bunx tsc --noEmit  # types

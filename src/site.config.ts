@@ -65,12 +65,7 @@ export interface SiteConfig {
 export const site: SiteConfig = {
   season: Number(process.env.TOUCHLINE_SEASON ?? 2026),
   gender: (process.env.TOUCHLINE_GENDER ?? "men") as Gender,
-  // ECC is collected (data home 634e069) and named and placed below, but held
-  // out of the live set: its file and NE10's disagree on 2026-08-27 Assumption
-  // v Staten Island (NE10 says cancelled, ECC says final), and the division
-  // fold refuses to choose between two collectors' facts (lib/division.ts).
-  // Add "ecc" after "cacc" once the record agrees.
-  conferences: ["gac", "lsc", "gsc", "glvc", "rmac", "ssc", "ne10", "cacc"],
+  conferences: ["gac", "lsc", "gsc", "glvc", "rmac", "ssc", "ne10", "cacc", "ecc"],
   home: "gac",
   homeColumnCap: 6,
   asOf: process.env.TOUCHLINE_AS_OF?.trim() || undefined,

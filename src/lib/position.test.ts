@@ -170,6 +170,17 @@ describe("against the rosters this site actually collects", () => {
       "hs",
       "tr",
     ];
+    // A roster the collector reads one column to the left, so that the name
+    // field holds the number and the position field holds the NAME: every row
+    // of ecc/district-of-columbia from 2022 through 2026 ("0", "Simon
+    // Birnstad", "Goalkeeper", "Senior" under number, name, position, class).
+    // No table of positions can place a name, and no allowlist should learn
+    // thirty of them a season, so the roster is set aside whole. The defect
+    // is the collector's, and it is asserted live here rather than assumed:
+    // the exception ends the day a row of that roster carries a real name.
+    const SHIFTED_ROSTERS = new Set(["ecc/district-of-columbia"]);
+    const isShifted = (players: { name?: string }[]): boolean =>
+      players.length > 0 && players.every((p) => /^\d+$/.test((p.name ?? "").trim()));
     // Every collected season, not just the two the site renders: the
     // vocabulary is authored once for the whole archive, and Southwest
     // Baptist's 2023 codes (tui-6e0) sat unplaced for as long as this read
@@ -183,7 +194,14 @@ describe("against the rosters this site actually collects", () => {
         if (!file) continue;
         seasonsRead++;
         for (const slug of Object.keys(file.rosters)) {
-          for (const player of file?.rosters[slug]?.players ?? []) {
+          const players = file?.rosters[slug]?.players ?? [];
+          if (SHIFTED_ROSTERS.has(`${conference}/${slug}`)) {
+            expect(isShifted(players), `${conference}/${slug} ${year}: no longer shifted`).toBe(
+              true,
+            );
+            continue;
+          }
+          for (const player of players) {
             checked++;
             if (positionLine(player.position) !== null) continue;
             const published = (player.position ?? "").trim().toLowerCase();
