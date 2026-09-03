@@ -1,0 +1,156 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-cacc.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CACC",
+  "validated_at": "2026-09-03T08:17:45.615Z",
+  "data_collected_at": "2026-09-03T06:34:02+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "Bridgeport's seven goals have come from six different scorers. The tallest bar on the chart is a spread of contributions, not one forward's tally, and Kristians Prieditis is the only Bridgeport player with more than one.",
+      "unbacked": ["1"]
+    },
+    {
+      "path": "findings[2].text",
+      "text": "Max Bond has made thirteen saves and conceded twice for Chestnut Hill, a save percentage of .867 across a win and a defeat.",
+      "unbacked": ["867"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Bridgeport's seven goals have come from six different scorers. The tallest bar on the chart is a spread of contributions, not one forward's tally, and Kristians Prieditis is the only Bridgeport player with more than one.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Bridgeport have scored seven goals, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Two matches carry a published result but no box score, and both are Goldey-Beacom's: the defeat by Pace and the goalless draw with District of Columbia that followed. The site has those scores and not the shape of them.",
+      "checker": "box_score_gaps+set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Bartu Yakkan has three of Felician's five goals and two assists, so he has had a hand in every goal Felician have scored.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Max Bond has made thirteen saves and conceded twice for Chestnut Hill, a save percentage of .867 across a win and a defeat.",
+      "checker": "player_stat+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Jefferson have lost both matches, conceding five and scoring once, through Thomas Dell'Omo at Bloomsburg.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Bruno Mestres has made seventeen saves for Holy Family and conceded six, without a shutout in three matches.",
+      "checker": "player_stat+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Bartu Yakkan — 3 G · 2 A · 9 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Kristians Prieditis — 2 G · 2 A · 11 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Samuel Macy — 2 G · 1 A · 4 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-02 franklin-pierce v bridgeport",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-03 georgian-court v staten-island",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-03T08:16:24.070Z",
+    "generate_ms": 81543,
+    "validate_ms": 1,
+    "wall_ms": 81545,
+    "concurrency": 3
+  }
+}
