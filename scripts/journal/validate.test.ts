@@ -248,9 +248,14 @@ describe("set claims", () => {
   });
 
   test("all_of checks every member of the set, not the count alone", () => {
-    // Whoever the first silence involves: the claim that ALL of them are that
-    // programme's is exactly as true as the data makes it today.
-    const candidate = silences[0]?.home ?? [...memberSlugs(season)][0];
+    // Whichever followed programme the first silence involves: the claim that
+    // ALL of them are that programme's is exactly as true as the data makes it
+    // today. The other side may be an opponent the site does not follow, and
+    // the validator rightly refuses a slug it cannot resolve.
+    const members = memberSlugs(season);
+    const first = silences[0];
+    const candidate =
+      (first && [first.home, first.away].find((slug) => members.has(slug))) ?? [...members][0];
     if (!candidate) throw new Error("no programme to test against");
     const holds =
       silences.length > 0 && silences.every((f) => f.home === candidate || f.away === candidate);
