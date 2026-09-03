@@ -10,6 +10,8 @@ import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { site } from "../../site.config.ts";
+import { BASEMAP_VIEWBOX } from "../basemap.ts";
+import { regionLabels } from "../geo.ts";
 import { assertRegions, byRegion, regionsInUse } from "../regions.ts";
 import {
   DENSITY_CONFERENCES,
@@ -17,6 +19,7 @@ import {
   type DensitySize,
   densityConferences,
   densityConfig,
+  densityFootprints,
 } from "./density.ts";
 
 const SIZES: readonly DensitySize[] = [12, 19];
@@ -87,6 +90,46 @@ describe("grouping", () => {
     expect(seen).toEqual([...seen].sort((a, b) => a - b));
     expect(seen.every((i) => i >= 0)).toBe(true);
     expect(groups.reduce((n, g) => n + g.items.length, 0)).toBe(12);
+  });
+});
+
+describe("the placeholder footprints", () => {
+  test("at 19, one footprint per row with as many placed points as programmes", () => {
+    const fps = densityFootprints(19);
+    expect(fps.length).toBe(19);
+    for (const [i, c] of densityConferences(19).entries()) {
+      expect(fps[i]?.key).toBe(c.key);
+      expect(fps[i]?.placed.length, c.key).toBe(c.programmes);
+      expect(
+        fps[i]?.unplaced.map((u) => u.name),
+        c.key,
+      ).toEqual(c.unplaced ?? []);
+    }
+  });
+
+  test("at 19, six region labels, all inside the frame", () => {
+    const labels = regionLabels(densityFootprints(19), densityConfig(19));
+    expect(labels.map((l) => l.region.key)).toEqual(DENSITY_REGIONS.map((r) => r.key));
+    const { x, y, w, h } = BASEMAP_VIEWBOX;
+    for (const l of labels) {
+      expect(l.x, l.region.key).toBeGreaterThanOrEqual(x);
+      expect(l.x, l.region.key).toBeLessThanOrEqual(x + w);
+      expect(l.y, l.region.key).toBeGreaterThanOrEqual(y);
+      expect(l.y, l.region.key).toBeLessThanOrEqual(y + h);
+    }
+  });
+
+  test("at 12, one label per region in use", () => {
+    const cfg = densityConfig(12);
+    const labels = regionLabels(densityFootprints(12), cfg);
+    expect(labels.map((l) => l.region.key)).toEqual(
+      regionsInUse(cfg.conferences, cfg).map((r) => r.key),
+    );
+  });
+
+  test("the scatter is deterministic", () => {
+    expect(densityFootprints(19)).toEqual(densityFootprints(19));
+    expect(densityFootprints(12)).toEqual(densityFootprints(12));
   });
 });
 

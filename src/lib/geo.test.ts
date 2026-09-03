@@ -12,9 +12,18 @@
 
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
-import { STATE_OUTLINES } from "./basemap.ts";
+import { BASEMAP_VIEWBOX, STATE_OUTLINES } from "./basemap.ts";
 import { loadSeason } from "./derive.ts";
-import { closestCrossConference, footprintOf, milesBetween, pointOf, projectPoint } from "./geo.ts";
+import {
+  closestCrossConference,
+  footprintOf,
+  milesBetween,
+  pointOf,
+  projectPoint,
+  regionLabels,
+} from "./geo.ts";
+import { homeSeasons } from "./home.ts";
+import { regionsInUse } from "./regions.ts";
 
 const collectedConferences = site.conferences.map((key) => {
   const season = loadSeason(key);
@@ -299,5 +308,90 @@ describe("why no territories are drawn", () => {
     // the assertion quietly relaxed.
     const narrowest = Math.min(...footprints.map((f) => f.widestGap ?? Number.POSITIVE_INFINITY));
     expect(near.miles).toBeLessThan(narrowest);
+  });
+});
+
+describe("region labels", () => {
+  // Built the way FootprintBand builds them: from the collected seasons.
+  const live = homeSeasons().map((season) =>
+    footprintOf(
+      season.key,
+      season.fixtures.conference,
+      site.conferenceNames[season.key] ?? season.key,
+      season.fixtures.programmes.map((p) => ({ slug: p.slug, name: p.name })),
+    ),
+  );
+  const labels = regionLabels(live);
+
+  test("one label per region in use that has a placed point, in table order", () => {
+    const expected = regionsInUse(live.map((f) => f.key))
+      .filter((r) => live.some((f) => site.conferenceRegions[f.key] === r.key && f.placed.length))
+      .map((r) => r.key);
+    expect(labels.map((l) => l.region.key)).toEqual(expected);
+  });
+
+  test("the counts sum to the footprints' own", () => {
+    expect(labels.reduce((n, l) => n + l.conferences, 0)).toBe(
+      live.filter((f) => f.placed.length > 0).length,
+    );
+    expect(labels.reduce((n, l) => n + l.programmes, 0)).toBe(
+      live.reduce((n, f) => n + f.placed.length, 0),
+    );
+  });
+
+  test("every label sits inside the frame, a margin clear of its edge", () => {
+    // A label near an edge is fine; one past it is clipped. 40 units is the
+    // margin the six-conference render needs at its widest label.
+    const margin = 40;
+    const { x, y, w, h } = BASEMAP_VIEWBOX;
+    for (const l of labels) {
+      expect(l.x, l.region.key).toBeGreaterThanOrEqual(x + margin);
+      expect(l.x, l.region.key).toBeLessThanOrEqual(x + w - margin);
+      expect(l.y, l.region.key).toBeGreaterThanOrEqual(y + margin);
+      expect(l.y, l.region.key).toBeLessThanOrEqual(y + h - margin);
+    }
+  });
+
+  test("a footprint with no placed point produces no label", () => {
+    const ghost = {
+      key: "ghost",
+      code: "GH",
+      name: "Ghost Conference",
+      placed: [],
+      unplaced: [{ slug: "nowhere", name: "Nowhere" }],
+      states: [],
+      widestGap: null,
+    };
+    const cfg = {
+      regions: [{ key: "r", name: "R" }],
+      conferenceRegions: { ghost: "r" },
+    };
+    expect(regionLabels([ghost], cfg)).toEqual([]);
+  });
+
+  test("the configured nudge moves the label off the centroid", () => {
+    const one = {
+      key: "one",
+      code: "ONE",
+      name: "One",
+      placed: [
+        { slug: "a", name: "A", city: "A", at: { x: 100, y: 100 } },
+        { slug: "b", name: "B", city: "B", at: { x: 120, y: 140 } },
+      ],
+      unplaced: [],
+      states: [],
+      widestGap: null,
+    };
+    const plain = regionLabels([one], {
+      regions: [{ key: "r", name: "R" }],
+      conferenceRegions: { one: "r" },
+    });
+    const nudged = regionLabels([one], {
+      regions: [{ key: "r", name: "R", label: { dx: 10, dy: 0 } }],
+      conferenceRegions: { one: "r" },
+    });
+    expect(plain[0]).toMatchObject({ x: 110, y: 120, conferences: 1, programmes: 2 });
+    expect(nudged[0]?.x).toBe(120);
+    expect(nudged[0]?.y).toBe(120);
   });
 });

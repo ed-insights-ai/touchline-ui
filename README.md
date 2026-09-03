@@ -73,10 +73,14 @@ box scores where one exists, then from `nameOverrides`, then from the slug.
 
 Each conference also names a region (`conferenceRegions`), and `site.regions`
 lists the regions in navigation order. Regions are configuration too; they group
-the footprint map, the home page past its column cap, and the masthead menu,
-each of which arrives in a later change. `src/lib/fixtures/density.ts` holds
-synthetic 12- and 19-conference sets so those can be tested before the
-conferences exist; it is for tests only.
+the footprint map's key and label the map itself (each region's label sits at
+the centroid of its dots plus a per-region `label` nudge from the same table),
+and later changes group the home page past its column cap and the masthead
+menu the same way. The map draws every dot in one ink and tints nothing:
+hovering a key row or a dot group selects that conference in purple, and the
+key carries identity at rest. `src/lib/fixtures/density.ts` holds synthetic
+12- and 19-conference sets so those can be tested before the conferences
+exist; it is for tests only.
 
 ## Programme identity
 

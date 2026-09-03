@@ -4,6 +4,17 @@
 
 export type Gender = "men" | "women";
 
+/** A region: the one grouping the site draws above the conference. */
+export interface Region {
+  key: string;
+  name: string;
+  /** Where the region's map label sits, as an offset in basemap viewBox
+   *  units from the centroid of the region's placed dots, so a label never
+   *  covers its own dots. Tuned by eye against the rendered map; a region
+   *  without one is labelled at its centroid. */
+  label?: { dx: number; dy: number };
+}
+
 export interface SiteConfig {
   season: number;
   gender: Gender;
@@ -39,7 +50,7 @@ export interface SiteConfig {
   /** Regions, in navigation order. A region groups conferences on the
    *  footprint map, the home page past its column cap, and the masthead menu.
    *  Config, never code: a later division adds rows here and nowhere else. */
-  regions: readonly { key: string; name: string }[];
+  regions: readonly Region[];
   /** Conference key → region key. Every conference must name a region listed
    *  in `regions`; lib/regions.test.ts asserts it, and the test gate stands in
    *  front of every publish. */
@@ -66,12 +77,12 @@ export const site: SiteConfig = {
   cadence: "once a day",
   divisionConferences: 19,
   regions: [
-    { key: "northeast", name: "Northeast" },
-    { key: "mid-atlantic", name: "Mid-Atlantic" },
-    { key: "midwest", name: "Midwest" },
-    { key: "southeast", name: "Southeast" },
-    { key: "south-central", name: "South Central" },
-    { key: "west", name: "West" },
+    { key: "northeast", name: "Northeast", label: { dx: 40, dy: -46 } },
+    { key: "mid-atlantic", name: "Mid-Atlantic", label: { dx: -4, dy: 62 } },
+    { key: "midwest", name: "Midwest", label: { dx: -19, dy: -113 } },
+    { key: "southeast", name: "Southeast", label: { dx: 128, dy: -28 } },
+    { key: "south-central", name: "South Central", label: { dx: 64, dy: 83 } },
+    { key: "west", name: "West", label: { dx: -10, dy: -70 } },
   ],
   conferenceRegions: {
     gac: "south-central",

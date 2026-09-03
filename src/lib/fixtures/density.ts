@@ -12,6 +12,7 @@
 // a programme town, and nothing here is a fact about any programme.
 
 import type { SiteConfig } from "../../site.config.ts";
+import { type ConferenceFootprint, projectPoint } from "../geo.ts";
 import type { Region, RegionConfig } from "../regions.ts";
 
 export type DensityConference = {
@@ -29,14 +30,15 @@ export type DensityConference = {
 
 export type DensitySize = 12 | 19;
 
-/** The same six rows as site.regions, in the same order. */
+/** The same six rows as site.regions, in the same order, label nudges and
+ *  all (density.test.ts holds the two equal). */
 export const DENSITY_REGIONS: readonly Region[] = [
-  { key: "northeast", name: "Northeast" },
-  { key: "mid-atlantic", name: "Mid-Atlantic" },
-  { key: "midwest", name: "Midwest" },
-  { key: "southeast", name: "Southeast" },
-  { key: "south-central", name: "South Central" },
-  { key: "west", name: "West" },
+  { key: "northeast", name: "Northeast", label: { dx: 40, dy: -46 } },
+  { key: "mid-atlantic", name: "Mid-Atlantic", label: { dx: -4, dy: 62 } },
+  { key: "midwest", name: "Midwest", label: { dx: -19, dy: -113 } },
+  { key: "southeast", name: "Southeast", label: { dx: 128, dy: -28 } },
+  { key: "south-central", name: "South Central", label: { dx: 64, dy: 83 } },
+  { key: "west", name: "West", label: { dx: -10, dy: -70 } },
 ];
 
 const row = (
@@ -170,4 +172,49 @@ export function densityConfig(size: DensitySize): DensityConfig {
     conferenceNames: Object.fromEntries(rows.map((c) => [c.key, c.name])),
     conferenceRegions: Object.fromEntries(rows.map((c) => [c.key, c.region])),
   };
+}
+
+/**
+ * Synthetic footprints for a size: one PLACEHOLDER point per programme,
+ * scattered inside the row's box by a seeded generator (the coordinator's
+ * canvas generator's LCG, so the two agree) and projected the way the live
+ * map projects. These are never programme towns; they exist so the map's
+ * region labels and key can be exercised at twelve and nineteen. A row's
+ * `unplaced` names become unplaced members with a name and no town; `states`
+ * stays empty and `widestGap` null, because a placeholder point holds no
+ * fact worth measuring.
+ */
+export function densityFootprints(size: DensitySize): ConferenceFootprint[] {
+  let seed = 7;
+  const rnd = (): number => {
+    seed = (seed * 16807) % 2147483647;
+    return seed / 2147483647;
+  };
+  return densityConferences(size).map((c) => {
+    const placed: ConferenceFootprint["placed"] = [];
+    for (let i = 0; i < c.programmes; i++) {
+      const lat = c.box.latMin + rnd() * (c.box.latMax - c.box.latMin);
+      const lon = c.box.lonMin + rnd() * (c.box.lonMax - c.box.lonMin);
+      const at = projectPoint(lon, lat);
+      if (!at) continue;
+      placed.push({
+        slug: `${c.key}-placeholder-${i + 1}`,
+        name: `[programme ${i + 1}]`,
+        city: "[town]",
+        at,
+      });
+    }
+    return {
+      key: c.key,
+      code: c.code,
+      name: c.name,
+      placed,
+      unplaced: (c.unplaced ?? []).map((name) => ({
+        slug: `${c.key}-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+        name,
+      })),
+      states: [],
+      widestGap: null,
+    };
+  });
 }
