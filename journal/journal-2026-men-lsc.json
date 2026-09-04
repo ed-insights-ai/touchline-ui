@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-03T11:35:12Z",
-  "data_collected_at": "2026-09-03T11:31:40+00:00",
+  "generated_at": "2026-09-04T11:38:00Z",
+  "data_collected_at": "2026-09-04T11:34:00+00:00",
   "headline": "West Texas A&M concede ten in two matches",
   "dek": "West Texas A&M opened with four goals and a clean sheet against Adams State, and have since lost at home to Fort Lewis and away at Colorado Christian without scoring. Only Sul Ross State, beaten in both their matches, have let in as many.",
   "lede_basis": {
@@ -31,13 +31,13 @@
       "values": {
         "midwestern-state": 11,
         "oklahoma-christian": 7,
-        "saint-edwards": 4,
+        "saint-edwards": 5,
         "ut-dallas": 4,
         "west-texas-a-m": 4,
         "lubbock-christian": 3,
         "texas-a-m-international": 3,
+        "dallas-baptist": 2,
         "ut-tyler": 1,
-        "dallas-baptist": 0,
         "saint-marys": 0,
         "sul-ross-state": 0
       },
@@ -67,14 +67,23 @@
   "findings": [
     {
       "label": "observed",
-      "text": "All three of the season's score gaps are Lubbock Christian's: each match is marked final and carries no published score. Two more matches are past their date with no result at all, a separate absence and a separate count.",
+      "text": "Five matches are past their date with no result published at all, and no match marked final is missing its score.",
       "basis": {
         "source": "fixtures",
-        "finals_without_score": 3,
-        "past_date_no_result": 2,
-        "set": "silent_finals",
-        "all_of": "lubbock-christian",
-        "count": 3
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Dallas Baptist had not scored before their trip to Harding; they have now won one and lost one, with two goals for and one against.",
+      "basis": {
+        "programme": "dallas-baptist",
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 2,
+        "ga": 1
       }
     },
     {
@@ -89,16 +98,6 @@
         "wins": 3,
         "draws": 0,
         "losses": 0
-      }
-    },
-    {
-      "label": "derived",
-      "text": "UT Dallas's defeat in Hawaii was their first of the season; they had won one and drawn one before it.",
-      "basis": {
-        "programme": "ut-dallas",
-        "wins": 1,
-        "draws": 1,
-        "losses": 1
       }
     },
     {
@@ -149,16 +148,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 oklahoma-christian v newman",
-      "line": "Newman are the first side to score against Oklahoma Christian this season; they still visit Lubbock Christian and West Texas A&M before the month is out."
+      "fixture_ref": "2026-09-03 harding v dallas-baptist",
+      "line": "Dallas Baptist's first goals of the season came on their first trip away; they had lost their only home match, to UT Tyler, without scoring."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 harding v dallas-baptist",
-      "line": "Dallas Baptist have yet to score this season and lost their only match at home to UT Tyler; Harding is their first trip away."
+      "fixture_ref": "2026-09-04 uccs v midwestern-state",
+      "line": "Midwestern State have won both their matches at home by wide margins and have yet to play away; UCCS have already beaten Sul Ross State and St. Mary's."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T11:34:27.320Z"
+    "validated_at": "2026-09-04T11:37:23.958Z"
   }
 }

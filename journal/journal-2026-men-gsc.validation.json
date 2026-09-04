@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-03T11:34:12.438Z",
-  "data_collected_at": "2026-09-03T11:31:14+00:00",
+  "validated_at": "2026-09-04T11:36:48.259Z",
+  "data_collected_at": "2026-09-04T11:33:48+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The scoring at the top is not one striker's doing: UAH's eight goals have come from seven different players.",
+      "text": "The scoring at the top is not one striker's doing: UAH's ten goals have come from seven different players.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -47,8 +47,8 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Lee have no match on the record before conference play opens, played or still to come: the first listed for them is the conference visit to AUM.",
-      "checker": "team_goals+team_record+conference_opens",
+      "text": "Five matches have passed their date with no result at all, the earliest Trevecca's at Belmont, and no final has been left without a score.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "The record's silences are all of the same kind: six matches have passed their date with no result at all, the latest Spring Hill's opener at Mobile, and no final has been left without a score.",
-      "checker": "unresolved",
+      "text": "Lee have no match on the record before conference play opens, played or still to come: the first listed for them is the conference visit to AUM.",
+      "checker": "team_goals+team_record+conference_opens",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Mississippi Christian have two matches on the record and no box score for either: the results are published, the detail behind them is not.",
-      "checker": "team_record+set_members",
+      "text": "Every published result now has its detail behind it: the box scores missing from Mississippi Christian's matches a day ago have been filled.",
+      "checker": "box_score_gaps",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Christian Brothers have conceded seven goals, more than any other programme has let in.",
+      "text": "West Alabama have conceded eight goals, more than any other programme has let in.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jaden McKree — 3 G · 4 shots",
+      "text": "Oli Orzechowski — 4 G · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Oli Orzechowski — 2 G · 10 shots",
+      "text": "Jaden McKree — 3 G · 4 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-02 francis-marion v aum",
+      "text": "2026-09-03 georgia-southwestern v uah",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-03 georgia-southwestern v uah",
+      "text": "2026-09-04 harding v christian-brothers",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-03T11:32:49.859Z",
-    "generate_ms": 82578,
+    "started_at": "2026-09-04T11:35:40.756Z",
+    "generate_ms": 67502,
     "validate_ms": 1,
-    "wall_ms": 82579,
+    "wall_ms": 67503,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-03T11:34:27.320Z",
-  "data_collected_at": "2026-09-03T11:31:40+00:00",
+  "validated_at": "2026-09-04T11:37:23.958Z",
+  "data_collected_at": "2026-09-04T11:34:00+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,8 +47,8 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "All three of the season's score gaps are Lubbock Christian's: each match is marked final and carries no published score. Two more matches are past their date with no result at all, a separate absence and a separate count.",
-      "checker": "unresolved+set_members",
+      "text": "Five matches are past their date with no result published at all, and no match marked final is missing its score.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's three matches and been beaten once.",
-      "checker": "player_stat+team_record",
+      "text": "Dallas Baptist had not scored before their trip to Harding; they have now won one and lost one, with two goals for and one against.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "UT Dallas's defeat in Hawaii was their first of the season; they had won one and drawn one before it.",
-      "checker": "team_record",
+      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's three matches and been beaten once.",
+      "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-02 oklahoma-christian v newman",
+      "text": "2026-09-03 harding v dallas-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-03 harding v dallas-baptist",
+      "text": "2026-09-04 uccs v midwestern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-03T11:33:30.385Z",
-    "generate_ms": 56935,
+    "started_at": "2026-09-04T11:36:24.222Z",
+    "generate_ms": 59735,
     "validate_ms": 1,
-    "wall_ms": 56935,
+    "wall_ms": 59736,
     "concurrency": 4
   }
 }

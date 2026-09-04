@@ -3,67 +3,56 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-09-03T11:52:00+00:00",
-  "data_collected_at": "2026-09-03T11:30:05+00:00",
+  "generated_at": "2026-09-04T11:52:00+00:00",
+  "data_collected_at": "2026-09-04T11:30:05+00:00",
   "headline": "Bridgeport and Georgian Court alone still unbeaten",
-  "dek": "Bridgeport have won once and drawn twice, scoring seven and conceding six, and hold the only unbeaten record in the conference that includes a win. Georgian Court have drawn at Bentley and at Saint Michael's and have not lost either. Every other programme in the CACC has already been beaten.",
+  "dek": "Georgian Court have won once and drawn twice, scoring seven and conceding four, and their first win came at home to Staten Island after draws on the road at Bentley and Saint Michael's. Bridgeport's record is the same shape, a win and two draws. Every other programme in the CACC has already been beaten.",
   "lede_basis": {
-    "programme": "bridgeport",
+    "programme": "georgian-court",
     "wins": 1,
     "draws": 2,
     "losses": 0,
     "gf": 7,
-    "ga": 6
+    "ga": 4
   },
-  "lede_updated": "2026-09-03",
+  "lede_updated": "2026-09-04",
+  "displaced_by": "Georgian Court's first win, at home to Staten Island: the dek's claim that only Bridgeport's unbeaten record included a win no longer holds; the headline stands",
   "pattern": {
     "label": "derived",
-    "text": "Bridgeport's seven goals have come from six different scorers. The tallest bar on the chart is a spread of contributions rather than any individual's tally.",
+    "text": "Georgian Court's seven goals have come from six different scorers, and so have Bridgeport's. The two tallest bars on the chart are both spreads of contributions rather than any individual's tally.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "bridgeport": 7,
+        "georgian-court": 7,
         "caldwell": 5,
         "felician": 5,
         "wilmington": 5,
-        "georgian-court": 3,
-        "chestnut-hill": 2,
+        "chestnut-hill": 4,
         "holy-family": 2,
         "post": 2,
         "dominican": 1,
         "goldey-beacom": 1,
         "jefferson": 1
       },
-      "highlight": "bridgeport"
+      "highlight": "georgian-court"
     },
     "basis": {
-      "programme": "bridgeport",
+      "programme": "georgian-court",
       "gf": 7,
-      "ga": 6,
+      "ga": 4,
       "distinct_scorers_min": 6
     }
   },
   "wire": {
-    "line": "Bridgeport have scored seven goals, more than any other programme in the conference.",
+    "line": "Bridgeport and Georgian Court remain unbeaten; every other side in the conference has already lost.",
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "programme": "bridgeport",
-      "gf": 7,
-      "of": [
-        "caldwell",
-        "chestnut-hill",
-        "dominican",
-        "felician",
-        "georgian-court",
-        "goldey-beacom",
-        "holy-family",
-        "jefferson",
-        "post",
-        "wilmington"
-      ]
+      "programme": "georgian-court",
+      "wins": 1,
+      "draws": 2,
+      "losses": 0
     },
-    "updated": "2026-09-03"
+    "updated": "2026-09-04"
   },
   "findings": [
     {
@@ -92,17 +81,17 @@
     },
     {
       "label": "observed",
-      "text": "Max Bond has made thirteen saves and conceded twice for Chestnut Hill, a save percentage of .867 across a win and a defeat.",
+      "text": "Max Bond has made seventeen saves and conceded six for Chestnut Hill, a save percentage of .739 across a win and two defeats.",
       "basis": {
         "source": "stats",
         "player": "Max Bond",
         "programme": "chestnut-hill",
-        "saves": 13,
-        "goals_against": 2,
-        "save_pct": 0.867,
+        "saves": 17,
+        "goals_against": 6,
+        "save_pct": 0.739,
         "wins": 1,
         "draws": 0,
-        "losses": 1
+        "losses": 2
       }
     },
     {
@@ -149,25 +138,25 @@
       "line": "2 G · 2 A · 11 shots"
     },
     {
-      "player": "Samuel Macy",
-      "programme": "wilmington",
-      "position": "MID",
+      "player": "Gijs van Eif",
+      "programme": "georgian-court",
+      "position": "FWD",
       "class": "SR",
-      "line": "2 G · 1 A · 4 shots"
+      "line": "2 G · 1 A · 17 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 franklin-pierce v bridgeport",
-      "line": "Bridgeport's first win of the season, after draws at American International and at home to Southern Connecticut."
+      "fixture_ref": "2026-09-03 georgian-court v staten-island",
+      "line": "Georgian Court's first win, and their first match at home, after draws at Bentley and at Saint Michael's."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 georgian-court v staten-island",
-      "line": "Georgian Court have drawn both of their matches on the road and have yet to play at home."
+      "fixture_ref": "2026-09-05 chestnut-hill v shippensburg",
+      "line": "Chestnut Hill have lost both matches they have played at home, after winning on the road at Lackawanna."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T11:33:30.308Z"
+    "validated_at": "2026-09-04T11:36:37.291Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-02T04:03:59.202Z",
-  "data_collected_at": "2026-09-02T02:44:37+00:00",
+  "validated_at": "2026-09-04T11:37:38.233Z",
+  "data_collected_at": "2026-09-04T11:34:54+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The scoring is concentrated, not shared: UCCS alone have outscored CSU Pueblo, MSU Denver, Colorado Mesa, Colorado School of Mines, Regis and Adams State combined.",
+      "text": "The scoring is still concentrated at the top: Fort Lewis alone have outscored CSU Pueblo, MSU Denver, Colorado School of Mines, Regis and Adams State combined.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Fort Lewis have won both their matches, scoring nine goals and conceding one.",
+      "text": "UCCS have won both their matches, scoring eleven goals without conceding.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,17 +65,17 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Bryan Amezcua has made fourteen saves in Adams State's goal and conceded five.",
-      "checker": "player_stat",
+      "text": "No match is a score gap today, but twelve have passed their date with no result published, the earliest from the season's opening day.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
-      "label": "observed",
-      "text": "Eight matches are score gaps, finals recorded without a score, the earliest from the season's opening day, and ten more have passed their date with no result published at all.",
-      "checker": "unresolved",
+      "label": "derived",
+      "text": "Westminster have drawn all three of their matches, scoring five and conceding five.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Colorado Mesa have conceded seven goals across a draw and a defeat.",
+      "text": "Colorado Mesa have conceded nine goals across two draws and a defeat.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Simão Agostinho — 4 G · 8 shots",
+      "text": "Simão Agostinho — 4 G · 1 A · 12 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-01 colorado-christian v west-texas-a-m",
+      "text": "2026-09-03 fort-lewis v saint-edwards",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,11 +128,18 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-03 fort-lewis v saint-edwards",
+      "text": "2026-09-04 uccs v midwestern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
-  ]
+  ],
+  "timing": {
+    "started_at": "2026-09-04T11:36:37.370Z",
+    "generate_ms": 60862,
+    "validate_ms": 1,
+    "wall_ms": 60863,
+    "concurrency": 4
+  }
 }

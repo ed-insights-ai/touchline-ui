@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-03T12:05:00Z",
-  "data_collected_at": "2026-09-03T11:30:42+00:00",
+  "generated_at": "2026-09-04T11:42:00Z",
+  "data_collected_at": "2026-09-04T11:33:27+00:00",
   "headline": "Rogers State's goals come from seven different players",
   "dek": "Rogers State have won all three of their matches, and seven different players have shared their goals; only Harkaran Sahota and Alex Laing have scored twice. Ouachita Baptist remain the other unbeaten side and have yet to concede.",
   "lede_basis": {
@@ -15,7 +15,6 @@
     "obu_ga": 0
   },
   "lede_updated": "2026-09-03",
-  "displaced_by": "Rogers State's third win, at Rockhurst, took their scorers to seven; the old dek's Rogers State figures were no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Rogers State alone have outscored Newman, Southern Nazarene, Northeastern State and Harding put together.",
@@ -41,16 +40,16 @@
     }
   },
   "wire": {
-    "line": "Harding have played once and are still waiting for their first goal of the season.",
+    "line": "Sides from this conference have now lost exactly as many matches outside it as they have won.",
     "basis": {
-      "programme": "harding",
-      "gf": 0,
-      "ga": 1,
-      "wins": 0,
-      "draws": 0,
-      "losses": 1
+      "derived_from": "fixtures",
+      "wins": 9,
+      "draws": 1,
+      "losses": 9,
+      "gf": 28,
+      "ga": 19
     },
-    "updated": "2026-09-01"
+    "updated": "2026-09-04"
   },
   "findings": [
     {
@@ -75,14 +74,26 @@
     },
     {
       "label": "derived",
-      "text": "Ouachita Baptist's draw with Delta State is still the only match this season that a programme in this conference has neither won nor lost.",
+      "text": "Harding's defeat by Dallas Baptist has levelled the conference's record against outside opponents at nine wins and nine defeats. Ouachita Baptist's draw with Delta State is still the only match this season that a programme in this conference has neither won nor lost.",
       "basis": {
         "derived_from": "fixtures",
         "wins": 9,
         "draws": 1,
-        "losses": 8,
+        "losses": 9,
         "gf": 28,
-        "ga": 17
+        "ga": 19
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Harding have lost both of their matches without scoring, and have conceded three goals.",
+      "basis": {
+        "programme": "harding",
+        "wins": 0,
+        "draws": 0,
+        "losses": 2,
+        "gf": 0,
+        "ga": 3
       }
     },
     {
@@ -94,15 +105,6 @@
         "programme": "rogers-state",
         "saves": 12,
         "goals_against": 2
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Fort Hays State's six goals have come from six different players.",
-      "basis": {
-        "programme": "fort-hays-state",
-        "gf": 6,
-        "distinct_scorers_min": 6
       }
     }
   ],
@@ -131,16 +133,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 rockhurst v rogers-state",
-      "line": "Rockhurst had already beaten Newman on this ground; Rogers State leave with every match of their season won."
+      "fixture_ref": "2026-09-03 harding v dallas-baptist",
+      "line": "Harding have now lost at home twice without scoring; Dallas Baptist go on to Ouachita Baptist, who have yet to concede."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 harding v dallas-baptist",
-      "line": "Harding's only match so far ended in a home defeat to Delta State without a goal of their own."
+      "fixture_ref": "2026-09-04 harding v christian-brothers",
+      "line": "Harding are still looking for a first goal, and a first point, in a season played so far entirely at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T11:33:48.820Z"
+    "validated_at": "2026-09-04T11:36:26.819Z"
   }
 }

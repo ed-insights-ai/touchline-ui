@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-03T11:34:34.974Z",
-  "data_collected_at": "2026-09-03T11:32:36+00:00",
+  "validated_at": "2026-09-04T11:37:34.118Z",
+  "data_collected_at": "2026-09-04T11:35:08+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are pooled at the top of the chart, not spread through it: Rollins alone have outscored Eckerd, Florida Tech, Barry, Nova Southeastern and Saint Leo put together.",
+      "text": "The goals are pooled at the top of the chart, not spread through it: Rollins alone have outscored Eckerd, Florida Tech, Barry and Nova Southeastern put together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "The record now carries one score gap: Nova Southeastern's home match against Florida Memorial has a final and no published score. Three more matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
+      "text": "The record carries no score gap today. Three matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
       "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Palm Beach Atlantic have yet to lose and have won only once; the draws at home to Carson-Newman and away at Young Harris account for the rest.",
-      "checker": "team_record",
+      "text": "Saint Leo's first win of the season came at home to Emmanuel, after a defeat at AUM and a draw at Mississippi College; four different players have now scored for them.",
+      "checker": "distinct_scorers+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
-      "checker": "distinct_scorers+team_record",
+      "text": "Tampa have drawn twice and lost once and are still without a win, the draws coming at West Alabama and at home to Clayton State.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -82,9 +82,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "observed",
-      "text": "Henry Obi has made twelve saves in two defeats for Barry and conceded five.",
-      "checker": "player_stat+team_record",
+      "label": "derived",
+      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
+      "checker": "distinct_scorers+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-02 young-harris v palm-beach-atlantic",
+      "text": "2026-09-03 saint-leo v emmanuel",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-03 saint-leo v emmanuel",
+      "text": "2026-09-04 delta-state v florida-southern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-03T11:33:48.891Z",
-    "generate_ms": 46082,
+    "started_at": "2026-09-04T11:36:48.333Z",
+    "generate_ms": 45784,
     "validate_ms": 1,
-    "wall_ms": 46083,
+    "wall_ms": 45784,
     "concurrency": 4
   }
 }

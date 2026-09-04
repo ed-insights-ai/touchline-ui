@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-03T13:41:00+00:00",
-  "data_collected_at": "2026-09-03T13:26:33+00:00",
+  "generated_at": "2026-09-04T11:52:00+00:00",
+  "data_collected_at": "2026-09-04T11:34:40+00:00",
   "headline": "Millersville score a dozen before conference play opens",
-  "dek": "Millersville have scored twelve and conceded three, and both of the season's box-score gaps are theirs: the site holds those scores and not the shape of them. Slippery Rock and West Chester have yet to score, and Pitt-Johnstown have yet to play.",
+  "dek": "Millersville have scored twelve and conceded three, and both of the season's box-score gaps are theirs: the site holds those scores and not the shape of them. Slippery Rock and West Chester have yet to score, and every programme now has a match on the record.",
   "lede_basis": {
     "programme": "millersville",
     "gf": 12,
@@ -15,10 +15,11 @@
     "all_of": "millersville",
     "count": 2
   },
-  "lede_updated": "2026-09-03",
+  "lede_updated": "2026-09-04",
+  "displaced_by": "Pitt-Johnstown played and won at Chestnut Hill, so the dek's 'yet to play' clause no longer held; the headline's story stands",
   "pattern": {
     "label": "derived",
-    "text": "The conference's goals are stacked at one end: Millersville have outscored Bloomsburg and Seton Hill together, while at the other end Pitt-Johnstown, Slippery Rock and West Chester have no goal to draw.",
+    "text": "The conference's goals are stacked at one end: Millersville have outscored Bloomsburg and Seton Hill together, while at the other end Slippery Rock and West Chester have no goal to draw.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -27,11 +28,11 @@
         "california-pa": 5,
         "e-stroudsburg": 5,
         "gannon": 5,
+        "pitt-johnstown": 4,
         "seton-hill": 4,
         "lock-haven": 3,
         "shepherd": 3,
         "shippensburg": 2,
-        "pitt-johnstown": 0,
         "slippery-rock": 0,
         "west-chester": 0
       },
@@ -46,33 +47,38 @@
     }
   },
   "wire": {
-    "line": "Pitt-Johnstown are the only side yet to play a match on the record.",
+    "line": "Slippery Rock and West Chester are the only sides yet to score.",
     "basis": {
-      "programme": "pitt-johnstown",
-      "wins": 0,
-      "draws": 0,
-      "losses": 0
+      "programme": "slippery-rock",
+      "gf": 0,
+      "ga": 1
     },
-    "updated": "2026-09-03"
+    "updated": "2026-09-04"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "E. Stroudsburg's season opener against Mercer County is the season's one score gap, a final with no published score, and five further dates have passed with no result at all.",
+      "text": "Shepherd's visit to District of Columbia is the one date on the record that has passed with no result, and it is Shepherd's alone; no final is missing its score.",
       "basis": {
         "source": "fixtures",
-        "finals_without_score": 1,
-        "past_date_no_result": 5
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "shepherd",
+        "count": 1
       }
     },
     {
       "label": "observed",
-      "text": "Pitt-Johnstown have no played match on the record. Their dates at Shippensburg and at Mount Aloysius have passed with no result, and they play at Chestnut Hill tonight.",
+      "text": "Pitt-Johnstown's first match on the record was a win at Chestnut Hill: four goals scored and two conceded, the four coming from four different scorers.",
       "basis": {
         "programme": "pitt-johnstown",
-        "wins": 0,
+        "wins": 1,
         "draws": 0,
-        "losses": 0
+        "losses": 0,
+        "gf": 4,
+        "ga": 2,
+        "distinct_scorers_min": 4
       }
     },
     {
@@ -149,16 +155,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 california-pa v millersville",
-      "line": "Millersville have won at home and away; California (Pa.) have yet to keep a clean sheet."
+      "fixture_ref": "2026-09-03 chestnut-hill v pitt-johnstown",
+      "line": "Pitt-Johnstown open their record with a win, the last of the conference's sides to play."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 chestnut-hill v pitt-johnstown",
-      "line": "Pitt-Johnstown have no match on the record yet; earlier dates passed without a published result."
+      "fixture_ref": "2026-09-04 ashland v gannon",
+      "line": "Ashland have already won at Millersville; this is Gannon's first match away from home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T15:56:11.514Z"
+    "validated_at": "2026-09-04T11:37:42.611Z"
   }
 }

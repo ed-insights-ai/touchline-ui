@@ -3,37 +3,37 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-03T11:35:02+00:00",
-  "data_collected_at": "2026-09-03T11:31:14+00:00",
-  "headline": "Three unbeaten sides win eight from eight",
-  "dek": "AUM, Trevecca and UAH have won all eight matches they have played between them, and AUM's first trip away from home ended the same way as the two at home. Below them, Delta State's win at Harding is the only one any other programme has, and Christian Brothers and Union have lost every match they have played.",
+  "generated_at": "2026-09-04T11:40:00+00:00",
+  "data_collected_at": "2026-09-04T11:33:48+00:00",
+  "headline": "UAH concede once in three wins",
+  "dek": "UAH have let in one goal in three matches and scored ten, and the win at Georgia Southwestern was their second away from home. AUM and Trevecca are unbeaten too, and the three have won all nine matches they have played between them; no other programme has won more than once.",
   "lede_basis": {
-    "derived_from": "fixtures",
-    "wins": 9,
-    "draws": 4,
-    "losses": 8,
-    "gf": 33,
-    "ga": 31,
-    "unbeaten_trio_played": 8,
-    "unbeaten_trio_wins": 8,
-    "aum_home_wins": 2,
-    "aum_away_wins": 1,
-    "other_programmes_wins": 1
+    "programme": "uah",
+    "wins": 3,
+    "draws": 0,
+    "losses": 0,
+    "gf": 10,
+    "ga": 1,
+    "uah_played": 3,
+    "uah_away_wins": 2,
+    "unbeaten_trio_played": 9,
+    "unbeaten_trio_wins": 9,
+    "other_programmes_max_wins": 1
   },
-  "lede_updated": "2026-09-03",
-  "displaced_by": "Outside record is now 9-4-8, so the conference no longer wins as often as it loses; the Sep 2 sweep took the unbeaten trio to eight wins from eight.",
+  "lede_updated": "2026-09-04",
+  "displaced_by": "UAH's win at Georgia Southwestern made 'eight from eight' stale, the trio now nine from nine; the lede moves to UAH's defence, beaten once all season.",
   "pattern": {
     "label": "derived",
-    "text": "The scoring at the top is not one striker's doing: UAH's eight goals have come from seven different players.",
+    "text": "The scoring at the top is not one striker's doing: UAH's ten goals have come from seven different players.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "uah": 8,
+        "uah": 10,
         "trevecca": 7,
         "aum": 6,
+        "west-alabama": 5,
         "mississippi-college": 3,
         "montevallo": 3,
-        "west-alabama": 3,
         "christian-brothers": 1,
         "delta-state": 1,
         "union": 1,
@@ -44,7 +44,7 @@
     },
     "basis": {
       "programme": "uah",
-      "gf": 8,
+      "gf": 10,
       "ga": 1,
       "distinct_scorers_min": 7
     }
@@ -56,11 +56,20 @@
       "metric": "gf",
       "programme": "uah",
       "of": ["christian-brothers", "delta-state", "union", "lee", "spring-hill"],
-      "gf": 8
+      "gf": 10
     },
     "updated": "2026-09-01"
   },
   "findings": [
+    {
+      "label": "observed",
+      "text": "Five matches have passed their date with no result at all, the earliest Trevecca's at Belmont, and no final has been left without a score.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
     {
       "label": "observed",
       "text": "Lee have no match on the record before conference play opens, played or still to come: the first listed for them is the conference visit to AUM.",
@@ -76,35 +85,22 @@
     },
     {
       "label": "observed",
-      "text": "The record's silences are all of the same kind: six matches have passed their date with no result at all, the latest Spring Hill's opener at Mobile, and no final has been left without a score.",
+      "text": "Every published result now has its detail behind it: the box scores missing from Mississippi Christian's matches a day ago have been filled.",
       "basis": {
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 6
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Mississippi Christian have two matches on the record and no box score for either: the results are published, the detail behind them is not.",
-      "basis": {
-        "set": "box_score_gaps",
-        "all_of": "mississippi-college",
-        "count": 2,
-        "programme": "mississippi-college",
-        "wins": 0,
-        "draws": 1,
-        "losses": 1
+        "source": "matches",
+        "box_score_gaps": 0
       }
     },
     {
       "label": "derived",
-      "text": "Christian Brothers have conceded seven goals, more than any other programme has let in.",
+      "text": "West Alabama have conceded eight goals, more than any other programme has let in.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
-        "programme": "christian-brothers",
+        "programme": "west-alabama",
         "of": [
           "aum",
+          "christian-brothers",
           "delta-state",
           "lee",
           "mississippi-college",
@@ -112,11 +108,10 @@
           "spring-hill",
           "trevecca",
           "uah",
-          "union",
-          "west-alabama"
+          "union"
         ],
-        "gf": 1,
-        "ga": 7
+        "gf": 5,
+        "ga": 8
       }
     },
     {
@@ -135,18 +130,18 @@
   ],
   "players_to_watch": [
     {
+      "player": "Oli Orzechowski",
+      "programme": "uah",
+      "position": "FWD",
+      "class": "SR",
+      "line": "4 G · 16 shots"
+    },
+    {
       "player": "Jaden McKree",
       "programme": "aum",
       "position": "FWD",
       "class": "SR",
       "line": "3 G · 4 shots"
-    },
-    {
-      "player": "Oli Orzechowski",
-      "programme": "uah",
-      "position": "FWD",
-      "class": "SR",
-      "line": "2 G · 10 shots"
     },
     {
       "player": "Chris Douglas",
@@ -158,16 +153,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 francis-marion v aum",
-      "line": "AUM's first trip away from home ended as every match at home had, and they remain unbeaten."
+      "fixture_ref": "2026-09-03 georgia-southwestern v uah",
+      "line": "A second win away from home for UAH, whose defence has been beaten once all season."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 georgia-southwestern v uah",
-      "line": "UAH have already won away from home, at Illinois Springfield, and have yet to concede at home."
+      "fixture_ref": "2026-09-04 harding v christian-brothers",
+      "line": "Christian Brothers have lost both matches they have played; Delta State have already won at Harding."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T11:34:12.438Z"
+    "validated_at": "2026-09-04T11:36:48.259Z"
   }
 }

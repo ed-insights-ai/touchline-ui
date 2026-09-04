@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-03T11:33:30.308Z",
-  "data_collected_at": "2026-09-03T11:30:05+00:00",
+  "validated_at": "2026-09-04T11:36:37.291Z",
+  "data_collected_at": "2026-09-04T11:30:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,16 +17,21 @@
   "normalizations": [],
   "review": [
     {
+      "path": "pattern.text",
+      "text": "Georgian Court's seven goals have come from six different scorers, and so have Bridgeport's. The two tallest bars on the chart are both spreads of contributions rather than any individual's tally.",
+      "unbacked": ["2"]
+    },
+    {
       "path": "findings[2].text",
-      "text": "Max Bond has made thirteen saves and conceded twice for Chestnut Hill, a save percentage of .867 across a win and a defeat.",
-      "unbacked": ["867"]
+      "text": "Max Bond has made seventeen saves and conceded six for Chestnut Hill, a save percentage of .739 across a win and two defeats.",
+      "unbacked": ["739"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Bridgeport's seven goals have come from six different scorers. The tallest bar on the chart is a spread of contributions rather than any individual's tally.",
+      "text": "Georgian Court's seven goals have come from six different scorers, and so have Bridgeport's. The two tallest bars on the chart are both spreads of contributions rather than any individual's tally.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +49,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Bridgeport have scored seven goals, more than any other programme in the conference.",
-      "checker": "team_goals+comparative",
+      "text": "Bridgeport and Georgian Court remain unbeaten; every other side in the conference has already lost.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Max Bond has made thirteen saves and conceded twice for Chestnut Hill, a save percentage of .867 across a win and a defeat.",
+      "text": "Max Bond has made seventeen saves and conceded six for Chestnut Hill, a save percentage of .739 across a win and two defeats.",
       "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Samuel Macy — 2 G · 1 A · 4 shots",
+      "text": "Gijs van Eif — 2 G · 1 A · 17 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-02 franklin-pierce v bridgeport",
+      "text": "2026-09-03 georgian-court v staten-island",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-03 georgian-court v staten-island",
+      "text": "2026-09-05 chestnut-hill v shippensburg",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-03T11:32:49.848Z",
-    "generate_ms": 40457,
-    "validate_ms": 2,
-    "wall_ms": 40460,
+    "started_at": "2026-09-04T11:35:40.742Z",
+    "generate_ms": 56547,
+    "validate_ms": 1,
+    "wall_ms": 56548,
     "concurrency": 4
   }
 }

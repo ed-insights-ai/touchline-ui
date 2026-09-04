@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-03T15:41:00+00:00",
-  "data_collected_at": "2026-09-03T15:34:05+00:00",
+  "generated_at": "2026-09-04T11:40:00+00:00",
+  "data_collected_at": "2026-09-04T11:32:59+00:00",
   "headline": "Findlay alone unbeaten while every rival has lost",
   "dek": "Findlay have won all three of their matches and conceded only twice. Every other programme in the conference has already been beaten, and Cedarville and Kentucky Wesleyan have yet to put a goal past anyone.",
   "lede_basis": {
@@ -24,13 +24,13 @@
       "values": {
         "findlay": 6,
         "thomas-more": 6,
-        "tiffin": 4,
+        "tiffin": 5,
+        "lake-erie": 4,
         "ashland": 3,
-        "lake-erie": 2,
+        "northwood": 3,
         "ohio-dominican": 2,
         "walsh": 2,
         "malone": 1,
-        "northwood": 1,
         "cedarville": 0,
         "kentucky-wesleyan": 0
       },
@@ -77,25 +77,25 @@
     },
     {
       "label": "observed",
-      "text": "Pedro Costa has saved all eight shots he has faced for Walsh and is yet to concede.",
+      "text": "David Ruiz Ospina has made fourteen saves for Lake Erie and has been beaten four times.",
       "basis": {
         "source": "stats",
-        "player": "Pedro Costa",
-        "programme": "walsh",
-        "saves": 8,
-        "goals_against": 0
+        "player": "David Ruiz Ospina",
+        "programme": "lake-erie",
+        "saves": 14,
+        "goals_against": 4
       }
     },
     {
       "label": "observed",
-      "text": "Cedarville have drawn once and lost once without scoring a goal.",
+      "text": "Cedarville have drawn once and lost twice without scoring a goal.",
       "basis": {
         "programme": "cedarville",
         "wins": 0,
         "draws": 1,
-        "losses": 1,
+        "losses": 2,
         "gf": 0,
-        "ga": 2
+        "ga": 4
       }
     },
     {
@@ -136,16 +136,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 findlay v indianapolis",
-      "line": "Findlay stay unbeaten; Indianapolis had already come away from Cedarville with a goalless draw."
+      "fixture_ref": "2026-09-03 cedarville v mckendree",
+      "line": "Cedarville are still without a goal this season; their only point is a goalless draw with Indianapolis."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 tiffin v saginaw-valley-state",
-      "line": "Tiffin have followed a home defeat with a home win and have scored in both."
+      "fixture_ref": "2026-09-04 ashland v gannon",
+      "line": "Gannon were beaten at home by Lake Erie without scoring; Ashland have lost at home and won away."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T15:55:22.868Z"
+    "validated_at": "2026-09-04T11:36:24.145Z"
   }
 }
