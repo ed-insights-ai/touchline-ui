@@ -693,7 +693,15 @@ describe("the masthead is derived, deterministically, from counts and opener dat
     const text = nationalDescription(columns, national);
     expect(text).toContain(`${national.played} of ${national.total} matches played`);
     expect(text).toContain(`across ${spell(columns.length)} conferences`);
-    expect(text).toContain("without a published score.");
+    // The score-gap sentence, in whichever form the count takes. Zero is the
+    // usual form now: the collector stores a scoreless final as scheduled
+    // (rib #85), so a silent final reaches the division only from an older
+    // file, and a test pinned to the plural form was pinned to the data.
+    expect(text).toContain(
+      national.silentFinals === 0
+        ? "No score gap stands: every final carries a published score."
+        : "without a published score.",
+    );
   });
 });
 

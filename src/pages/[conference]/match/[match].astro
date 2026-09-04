@@ -21,7 +21,10 @@ import { ledgerRows } from "../../../lib/plays.ts";
 import {
   type MatchState,
   metaDescription,
+  oneSourceNote,
 } from "../../../lib/matchstate.ts";
+import { matchIdentity, oneSidedFinals, postedSide, unpostedSides } from "../../../lib/division.ts";
+import { homeSeasons } from "../../../lib/home.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
@@ -165,6 +168,22 @@ const collectedStamp = `${monShort(season.collectedAt.slice(0, 10))} ${dayOfMont
 
 const gaps = boxScoreGaps(season);
 const gapReason = gaps.find((g) => g.fixtureId === fixture.id)?.reason;
+
+// A match between two of the conferences the site follows is in two files,
+// and for a night one of them can hold the score while the other still lists
+// the match as scheduled. The fold (lib/division.ts) takes the score; this
+// page says, in the same quiet register as the gap notes, that it stands on
+// one source — on both pages, because a reader on the unposted side is owed
+// the fact that the score exists.
+const twin = oneSidedFinals(homeSeasons()).find((m) => m.identity === matchIdentity(fixture));
+const oneSource = twin
+  ? oneSourceNote(twin.key === season.key && twin.fixture.id === fixture.id ? "posted" : "unposted", {
+      posted: postedSide(twin).name,
+      unposted: unpostedSides(twin)
+        .map((u) => u.name)
+        .join(" and "),
+    })
+  : null;
 
 const knownRows: { label: string; value: string }[] = [
   {
@@ -329,6 +348,7 @@ const awayName = names.name(fixture.away);
       ) : (
         explain[state] && <p class="hero-explain serif-italic">{explain[state]}</p>
       )}
+      {oneSource && <p class="hero-explain serif-italic">{oneSource}</p>}
     </section>
 
     {state === "played" && strip && stripHasInk && (

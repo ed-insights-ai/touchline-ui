@@ -4,8 +4,10 @@
 // matches, so a match between two of the conferences this site follows appears
 // in TWO files — once from each member's published schedule. The two records
 // agree on everything a reader can see: the date, both slugs, which side is at
-// home, the score, the status. What they do not share is an id, because an id
-// is the collector's own key and each collector made its own.
+// home, the score, the status — or, for a night, one of them has posted the
+// score and the other has not yet (foldToMatches says how that lag is read).
+// What they do not share is an id, because an id is the collector's own key
+// and each collector made its own.
 //
 // That is why nothing here identifies a match by its id. Any list or figure
 // that spans conferences has to fold the sightings back into one match first —
@@ -25,6 +27,7 @@ import {
   memberSlugs,
   type Season,
 } from "./derive.ts";
+import { dayOfMonth, monShort } from "./format.ts";
 import { type Fixture, isPlayed } from "./model.ts";
 
 /** What makes two records the same real-world match: the day, and the two
@@ -77,6 +80,15 @@ export interface DivisionMatch {
    *  this was measured on). It is one match, counted once and for both
    *  records; it carries no home side, and a surface must not print one. */
   neutral: boolean;
+  /** The score rests on ONE record: one file holds a scored final and the
+   *  other still holds the row as not yet played (scheduled or postponed).
+   *  A lag, not a disagreement — one programme's page posts the result the
+   *  same night and the opponent's page catches up a day later (2026-09-03
+   *  Cedarville v McKendree: G-MAC's file had Cedarville's final eighteen
+   *  hours before GLVC's file had McKendree's). The folded match wears the
+   *  final and its score, and says so wherever a surface names its silences:
+   *  the reader is owed the fact that only one source has spoken. */
+  oneSided: boolean;
 }
 
 /** The status as the fold compares it. Cancelled, postponed and scheduled
@@ -89,6 +101,13 @@ export interface DivisionMatch {
  *  record is chosen. Final and live stay their own shapes. */
 const UNPLAYED: ReadonlySet<Fixture["status"]> = new Set(["scheduled", "postponed", "cancelled"]);
 const shapeStatus = (f: Fixture): string => (UNPLAYED.has(f.status) ? "unplayed" : f.status);
+
+/** The two unplayed words that mean NOT YET: a page that still says scheduled
+ *  or postponed has said nothing about the result. Cancelled is not among
+ *  them — it is a positive claim that no match happened, and against a scored
+ *  final that is a real disagreement, not a lag. */
+const PENDING: ReadonlySet<Fixture["status"]> = new Set(["scheduled", "postponed"]);
+const isPending = (f: Fixture): boolean => PENDING.has(f.status) && !hasScore(f);
 
 /** The facts two records of one match must agree on once the home side is
  *  set aside: the unordered score and whether the match was played. Order-free
@@ -124,13 +143,31 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     if (!first) continue;
     // Two records may disagree on the home side (a neutral site, each site
     // writing itself as home) and still be one match. They may not disagree
-    // on the score, or on played versus unplayed: that is two collectors
-    // publishing different facts, and the fold refuses to choose between them
-    // silently. The flavour of unplayed (scheduled, postponed, cancelled) is
-    // not a fact they must share; the folded match wears the home conference's word,
-    // because the canonical record below is the home conference's own.
+    // on the score: that is two collectors publishing different facts, and
+    // the fold refuses to choose between them silently. The flavour of
+    // unplayed (scheduled, postponed, cancelled) is not a fact they must
+    // share; the folded match wears the home conference's word, because the
+    // canonical record below is the home conference's own.
+    //
+    // Played versus NOT YET is a lag rather than a fact in dispute. The
+    // split, every time it has been measured (Harding v Dallas Baptist and
+    // Cedarville v McKendree on 2026-09-03, Findlay v Indianapolis on 09-02),
+    // is one programme's page posting the score the same night while the
+    // opponent's page stays scheduled for eighteen hours or more. A scored
+    // final therefore beats a scheduled or postponed twin: the folded match
+    // takes the final and its score, and is marked one-sided so a surface can
+    // say which page has not spoken. Cancelled is not "not yet" — it is a
+    // claim that no match happened — so a final against cancelled still
+    // throws, as two different scores do. (A scoreless final does not reach
+    // this fold: the collector stores it as scheduled since rib #85.)
     const shapes = new Set(group.map((s) => sideFreeShape(s.fixture)));
-    if (shapes.size > 1) {
+    const posted = group.filter((s) => isScored(s.fixture));
+    const oneSided =
+      shapes.size > 1 &&
+      posted.length > 0 &&
+      new Set(posted.map((s) => sideFreeShape(s.fixture))).size === 1 &&
+      group.every((s) => isScored(s.fixture) || isPending(s.fixture));
+    if (shapes.size > 1 && !oneSided) {
       throw new Error(
         `Touchline: the records of ${identity} disagree on the score or status: ${group
           .map((s) => `${s.key} ${sideFreeShape(s.fixture)} (${s.fixture.status})`)
@@ -138,12 +175,17 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
       );
     }
     const neutral = new Set(group.map((s) => s.fixture.home)).size > 1;
+    // Only a record that holds the score may be canonical: the key and the
+    // fixture travel together (the link under a result is the key's own
+    // match page), so a one-sided match resolves to the record that posted.
+    const eligible = oneSided ? posted : group;
+    const lead = eligible[0] ?? first;
     // With a home side, the canonical record is the home side's own
     // conference, which exactly one of the sightings is. Without one, the
     // first in config order: deterministic, and keyed to the stable list.
     const canonical = neutral
-      ? first
-      : (group.find((s) => memberSlugs(s.season).has(s.fixture.home)) ?? first);
+      ? lead
+      : (eligible.find((s) => memberSlugs(s.season).has(s.fixture.home)) ?? lead);
     out.push({
       identity,
       codes: group.map((s) => s.code),
@@ -152,10 +194,48 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
       fixture: canonical.fixture,
       sightings: group,
       neutral,
+      oneSided,
     });
   }
   return out;
 }
+
+/** The programme whose page has NOT posted the score of a one-sided match:
+ *  the member side of each record that still reads as not yet played, named
+ *  by its own conference's file. Empty for a match that is not one-sided.
+ *  Named by slug and by the name the site prints, so a surface composes its
+ *  note from the same name every other line uses. */
+export function unpostedSides(m: DivisionMatch): { slug: string; name: string; key: string }[] {
+  if (!m.oneSided) return [];
+  const out: { slug: string; name: string; key: string }[] = [];
+  for (const s of m.sightings) {
+    if (isScored(s.fixture)) continue;
+    const members = memberSlugs(s.season);
+    const slug = [s.fixture.home, s.fixture.away].find((x) => members.has(x)) ?? s.fixture.home;
+    out.push({ slug, name: s.season.names.name(slug), key: s.key });
+  }
+  return out;
+}
+
+/** The record that DID post the score of a one-sided match: the canonical
+ *  one, by construction. Its member side is the programme whose page spoke. */
+export function postedSide(m: DivisionMatch): { slug: string; name: string; key: string } {
+  const members = memberSlugs(m.season);
+  const slug = [m.fixture.home, m.fixture.away].find((x) => members.has(x)) ?? m.fixture.home;
+  return { slug, name: m.season.names.name(slug), key: m.key };
+}
+
+/** Every match the division holds on one source only, in fold order. A
+ *  conference's own listing is the subset one of its own records is in:
+ *  the match belongs to both conferences, and each page names the silence. */
+export function oneSidedFinals(seasons: readonly Season[]): DivisionMatch[] {
+  return foldToMatches(allSightings(seasons)).filter((m) => m.oneSided);
+}
+
+/** The label a listing prints for a match: "Sep 3 · Cedarville v McKendree",
+ *  the box-score gaps' own form, so the two disclosures read alike. */
+export const matchLabel = (m: DivisionMatch): string =>
+  `${monShort(m.fixture.date)} ${dayOfMonth(m.fixture.date)} · ${m.season.names.name(m.fixture.home)} v ${m.season.names.name(m.fixture.away)}`;
 
 /** Every conference's record of every match it collected, in config order. */
 export function allSightings(seasons: readonly Season[]): Sighting[] {
@@ -241,8 +321,18 @@ export function divisionCounts(seasons: readonly Season[]): DivisionCounts {
       continue;
     }
     count("total", records);
-    if (isScored(f)) count("played", records);
-    else if (isPlayed(f) && !hasScore(f)) count("silentFinals", records);
+    // A one-sided match is played in ONE file and still scheduled in the
+    // other, so only the record that carries the score is an extra played
+    // record: the conference whose page has not posted counts it as unplayed
+    // on its own page, and the reconciliation holds record by record.
+    const carrying = (admit: (x: Fixture) => boolean): number =>
+      m.sightings.filter((s) => admit(s.fixture)).length;
+    if (isScored(f)) count("played", carrying(isScored));
+    else if (isPlayed(f) && !hasScore(f))
+      count(
+        "silentFinals",
+        carrying((x) => isPlayed(x) && !hasScore(x)),
+      );
   }
 
   // A gap is named by the collector that could not reach the box score, so it

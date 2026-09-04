@@ -31,6 +31,8 @@ import {
   upcomingFixtures,
 } from "../../lib/derive.ts";
 import type { Fixture } from "../../lib/derive.ts";
+import { matchLabel, oneSidedFinals, unpostedSides } from "../../lib/division.ts";
+import { homeSeasons } from "../../lib/home.ts";
 import {
   CHART_CAPTION,
   editorial,
@@ -66,6 +68,18 @@ const stale = isStale(journal, season);
 
 const counts = seasonCounts(season);
 const gaps = boxScoreGaps(season);
+// Shared matches whose score only one programme's page has posted, this
+// conference being party to them. The match belongs to both conferences, so
+// each page lists it — the one that posted and the one that has not — beside
+// the box score gaps, where the page already accounts for its silences.
+const oneSided = oneSidedFinals(homeSeasons())
+  .filter((m) => m.sightings.some((s) => s.key === season.key))
+  .map((m) => ({
+    label: matchLabel(m),
+    note: `${unpostedSides(m)
+      .map((u) => u.name)
+      .join(" and ")}'s page has not posted it`,
+  }));
 const live = tableIsLive(season);
 const opens = conferenceOpensOn(season);
 // Before conference play opens the table ranks every countable match a member
@@ -145,6 +159,7 @@ const nextLabel = (f: Fixture): string => {
       stamp={lede.stamp}
       counts={counts}
       gaps={gaps}
+      oneSided={oneSided}
       strip={strip}
       stale={stale}
     />

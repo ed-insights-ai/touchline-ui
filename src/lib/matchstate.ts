@@ -73,6 +73,25 @@ export function footNote(state: MatchState, counts: FootNoteCounts): string {
 }
 
 /**
+ * The note a match page carries when its score rests on one source.
+ *
+ * A match between two of the conferences the site follows is in two files,
+ * and for a night one of them has the score and the other still lists the
+ * match as scheduled (lib/division.ts foldToMatches). The page on the side
+ * that posted says which page has not; the page on the side that has not
+ * posted says where the score stands. Neither says why: the site knows what
+ * the collect found, and "not yet" is the whole of it.
+ */
+export function oneSourceNote(
+  side: "posted" | "unposted",
+  names: { posted: string; unposted: string },
+): string {
+  return side === "posted"
+    ? `Score from one source; ${names.unposted}'s page has not posted it.`
+    : `Score from one source: ${names.posted}'s page has posted it; ${names.unposted}'s has not.`;
+}
+
+/**
  * The page's own description, for an unfurl card and a search result.
  *
  * Composed from what was collected and nothing else: the two names, the score

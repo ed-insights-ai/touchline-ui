@@ -8,9 +8,10 @@
  * three things being true of the data:
  *
  *   the two records agree on the date and the two slugs,
- *   they agree on which side is at home, the score and whether it was played
- *   (scheduled, postponed and cancelled are one unplayed shape; the flavour
- *   may differ),
+ *   they agree on which side is at home and on the score (scheduled,
+ *   postponed and cancelled are one unplayed shape; the flavour may differ;
+ *   and a scored final beside a twin still marked scheduled or postponed is a
+ *   lag the fold reads as the final, marked one-sided),
  *   and exactly one of them is the file of the conference the home side plays in.
  *
  * The first is what the identity is made of. The second is what makes it safe
@@ -22,8 +23,15 @@
 
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
-import { memberSlugs } from "./derive.ts";
-import { foldToMatches, matchIdentity, type Sighting } from "./division.ts";
+import { isScored, memberSlugs } from "./derive.ts";
+import {
+  foldToMatches,
+  matchIdentity,
+  oneSidedFinals,
+  postedSide,
+  type Sighting,
+  unpostedSides,
+} from "./division.ts";
 import { homeSeasons } from "./home.ts";
 
 const seasons = homeSeasons();
@@ -80,20 +88,65 @@ describe("the records agree, which is what makes folding safe", () => {
       .concat(unplayed(s.fixture.status) ? "unplayed" : s.fixture.status)
       .join("|");
 
-  test("both files publish the same score and the same played-or-unplayed status", () => {
+  /** A record that has said nothing about the result yet. */
+  const pending = (s: Sighting): boolean =>
+    (s.fixture.status === "scheduled" || s.fixture.status === "postponed") &&
+    s.fixture.home_score === undefined;
+
+  test("both files publish the same score, or one has posted it and the other has not yet", () => {
     const disagreements: string[] = [];
     for (const m of shared) {
       const shapes = new Set(m.sightings.map(sideFree));
-      if (shapes.size > 1) {
+      if (shapes.size <= 1) {
+        expect(m.oneSided, m.identity).toBe(false);
+        continue;
+      }
+      // The one split the fold reads through: a scored final on one side, a
+      // not-yet row on the other. Anything else is two facts in dispute.
+      const posted = m.sightings.filter((s) => isScored(s.fixture));
+      const lag =
+        posted.length > 0 &&
+        new Set(posted.map(sideFree)).size === 1 &&
+        m.sightings.every((s) => isScored(s.fixture) || pending(s));
+      if (!lag) {
         disagreements.push(
           `${m.identity}: ${m.sightings.map((s) => `${s.key} ${sideFree(s)}`).join("  vs  ")}`,
         );
+        continue;
       }
+      expect(m.oneSided, m.identity).toBe(true);
+      // The folded match is the record that posted, score and all.
+      expect(isScored(m.fixture), m.identity).toBe(true);
+      expect(posted.some((s) => s.key === m.key && s.fixture.id === m.fixture.id)).toBe(true);
     }
     // Empty is the passing answer. A failure here is not a bug in the fold —
     // it is two collectors publishing different facts about one match, and the
     // fold has to stop choosing silently between them.
     expect(disagreements).toEqual([]);
+  });
+
+  test("a one-sided match names the page that has not posted, and the one that has", () => {
+    // Today's count is the data's, not the test's: it is whatever the night
+    // left unposted, and zero on a morning every page has caught up.
+    const oneSided = oneSidedFinals(seasons);
+    expect(oneSided.map((m) => m.identity)).toEqual(
+      folded.filter((m) => m.oneSided).map((m) => m.identity),
+    );
+    for (const m of oneSided) {
+      const unposted = unpostedSides(m);
+      expect(unposted.length, m.identity).toBe(m.sightings.length - 1);
+      const posted = postedSide(m);
+      // Each side is one of the two programmes, and they are different ones.
+      const pair = new Set([m.fixture.home, m.fixture.away]);
+      expect(pair.has(posted.slug), m.identity).toBe(true);
+      for (const u of unposted) {
+        expect(pair.has(u.slug), m.identity).toBe(true);
+        expect(u.slug, m.identity).not.toBe(posted.slug);
+        expect(u.name.length, m.identity).toBeGreaterThan(0);
+      }
+    }
+    // And a match both files scored names nobody.
+    for (const m of shared.filter((m) => !m.oneSided)) expect(unpostedSides(m)).toEqual([]);
   });
 
   test("a match with a home side: exactly one record is that side's own conference", () => {
@@ -113,8 +166,10 @@ describe("the records agree, which is what makes folding safe", () => {
       // site wrote itself as home; on 08-29 each wrote the OTHER side as home
       // under different venue strings. Neither shape is a home side, which is
       // why the definition is the disagreement itself and not who claimed
-      // what. Score and status agree, or it would not have folded at all.
-      expect(new Set(m.sightings.map(sideFree)).size, m.identity).toBe(1);
+      // what. Score and status agree — across the records that have posted a
+      // score, if only one has — or it would not have folded at all.
+      const spoken = m.oneSided ? m.sightings.filter((s) => isScored(s.fixture)) : m.sightings;
+      expect(new Set(spoken.map(sideFree)).size, m.identity).toBe(1);
       // Canonical is the first record in config order: stable, and not a
       // claim about home.
       expect(m.key, m.identity).toBe((m.sightings[0] as Sighting).key);
@@ -212,7 +267,19 @@ describe("cancelled and postponed fold as one unplayed shape", () => {
     );
   });
 
-  test("final against cancelled still throws: played versus unplayed is a fact", () => {
+  test("scheduled against scheduled folds as before: one match, no marker", () => {
+    const { home, peer } = records();
+    const out = foldToMatches([withStatus(home, "scheduled"), withStatus(peer, "scheduled")]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.fixture.status).toBe("scheduled");
+    expect(out[0]?.oneSided).toBe(false);
+    expect(out[0]?.key).toBe(home.key);
+  });
+
+  test("final against cancelled still throws: cancelled is a claim, not a silence", () => {
+    // The owner's line (2026-09-04): scheduled and postponed both mean "not
+    // yet"; cancelled says no match happened. A scored final against that is
+    // a real disagreement, and the fold refuses to choose.
     const { home, peer } = records();
     const final: Sighting = {
       ...home,
@@ -228,6 +295,101 @@ describe("cancelled and postponed fold as one unplayed shape", () => {
         { ...peer, fixture: { ...peer.fixture, status: "final", home_score: 1, away_score: 0 } },
       ]),
     ).toThrow(/disagree on the score or status/);
+  });
+});
+
+describe("a scored final beats a twin that has not posted yet", () => {
+  // The ruling (owner, 2026-09-04): the split between a scored final and a
+  // scheduled twin is always a lag, never a disagreement. Measured three
+  // times in one week — 2026-09-02 Findlay v Indianapolis, 2026-09-03
+  // Harding v Dallas Baptist, 2026-09-03 Cedarville v McKendree — each time
+  // one programme's page posting the score the same night and the opponent's
+  // page staying scheduled for eighteen hours or more, and each time the
+  // build refusing until it caught up. Built, like the block above, on a
+  // shared match with a home side.
+  const pair = shared.find((m) => !m.neutral);
+  const records = (): { home: Sighting; peer: Sighting } => {
+    expect(pair, "no shared match with a home side in this data").toBeDefined();
+    const m = pair as (typeof shared)[number];
+    const home = m.sightings.find((s) => memberSlugs(s.season).has(s.fixture.home)) as Sighting;
+    const peer = m.sightings.find((s) => s !== home) as Sighting;
+    return { home, peer };
+  };
+  const scored = (s: Sighting, h: number, a: number): Sighting => ({
+    ...s,
+    fixture: { ...s.fixture, status: "final", home_score: h, away_score: a },
+  });
+  const unposted = (s: Sighting, status: "scheduled" | "postponed" | "cancelled"): Sighting => ({
+    ...s,
+    fixture: { ...s.fixture, status, home_score: undefined, away_score: undefined },
+  });
+
+  test("final against scheduled folds to the final, marked one-sided", () => {
+    const { home, peer } = records();
+    const out = foldToMatches([scored(home, 2, 0), unposted(peer, "scheduled")]);
+    expect(out).toHaveLength(1);
+    const m = out[0] as (typeof out)[number];
+    expect(m.oneSided).toBe(true);
+    expect(m.fixture.status).toBe("final");
+    expect(m.fixture.home_score).toBe(2);
+    expect(m.fixture.away_score).toBe(0);
+    // Both conferences collected it; both codes stand.
+    expect(m.codes).toHaveLength(2);
+    expect(m.sightings).toHaveLength(2);
+    expect(m.neutral).toBe(false);
+    // The page that has not posted is the peer's own member side.
+    expect(unpostedSides(m).map((u) => u.key)).toEqual([peer.key]);
+    expect(postedSide(m).key).toBe(home.key);
+  });
+
+  test("and the folded record is the one that posted, whichever conference is home", () => {
+    // The home conference's page is the one still scheduled: the fold still
+    // takes the score, so the record — and the link — is the peer's.
+    const { home, peer } = records();
+    const out = foldToMatches([unposted(home, "scheduled"), scored(peer, 1, 1)]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.oneSided).toBe(true);
+    expect(out[0]?.key).toBe(peer.key);
+    expect(out[0]?.fixture.id).toBe(peer.fixture.id);
+    expect(unpostedSides(out[0] as (typeof out)[number]).map((u) => u.key)).toEqual([home.key]);
+  });
+
+  test("final against postponed folds the same way: postponed is also not yet", () => {
+    const { home, peer } = records();
+    const out = foldToMatches([scored(home, 3, 1), unposted(peer, "postponed")]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.oneSided).toBe(true);
+    expect(out[0]?.fixture.status).toBe("final");
+    expect(out[0]?.fixture.home_score).toBe(3);
+    expect(foldToMatches([unposted(peer, "postponed"), scored(home, 3, 1)])[0]?.oneSided).toBe(
+      true,
+    );
+  });
+
+  test("final 2–0 against final 1–0 still throws exactly as before", () => {
+    const { home, peer } = records();
+    expect(() => foldToMatches([scored(home, 2, 0), scored(peer, 1, 0)])).toThrow(
+      /disagree on the score or status/,
+    );
+  });
+
+  test("final against final with the same score is one match and no marker", () => {
+    const { home, peer } = records();
+    const out = foldToMatches([scored(home, 2, 0), scored(peer, 2, 0)]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.oneSided).toBe(false);
+    expect(out[0]?.key).toBe(home.key);
+    expect(unpostedSides(out[0] as (typeof out)[number])).toEqual([]);
+  });
+
+  test("the marker is the fold's, not the caller's order", () => {
+    const { home, peer } = records();
+    const a = foldToMatches([scored(home, 2, 0), unposted(peer, "scheduled")]);
+    const b = foldToMatches([unposted(peer, "scheduled"), scored(home, 2, 0)]);
+    expect(a[0]?.key).toBe(b[0]?.key);
+    expect(a[0]?.codes).toEqual(b[0]?.codes);
+    expect(a[0]?.oneSided).toBe(true);
+    expect(b[0]?.oneSided).toBe(true);
   });
 });
 

@@ -12,6 +12,9 @@ interface Props {
   dek?: string | null;
   counts: SeasonCounts;
   gaps: BoxScoreGap[];
+  /** Shared matches whose score only one programme's page has posted: the
+   *  label the gaps use, and which page has not spoken. Empty most days. */
+  oneSided?: { label: string; note: string }[];
   /** The figures strip beneath the lede, composed by the page. */
   strip: string[];
   /** When the headline and dek last changed — "UPDATED SEP 1". Null when the
@@ -22,7 +25,17 @@ interface Props {
   /** The journal was written against an earlier collect than this one. */
   stale?: boolean;
 }
-const { kicker, headline, dek, counts, gaps, strip, stamp = null, stale = false } = Astro.props;
+const {
+  kicker,
+  headline,
+  dek,
+  counts,
+  gaps,
+  oneSided = [],
+  strip,
+  stamp = null,
+  stale = false,
+} = Astro.props;
 ---
 
 <section class="masthead">
@@ -51,6 +64,25 @@ const { kicker, headline, dek, counts, gaps, strip, stamp = null, stale = false 
         </details>
       ) : (
         <span>{counts.gaps} BOX SCORE GAPS</span>
+      )}
+      {/* A final on one side only: the other programme's page has not posted
+          the score yet. Printed only while there is one, in the gap count's
+          own form, and it opens the same way. */}
+      {oneSided.length > 0 && (
+        <details class="disclosure gaps">
+          <summary class="gapcount">{oneSided.length} {oneSided.length === 1 ? "FINAL" : "FINALS"} ON ONE SIDE ONLY</summary>
+          <div class="gaps-panel">
+            <div class="gaps-head">
+              SHARED MATCHES WHOSE SCORE ONLY ONE PROGRAMME'S PAGE HAS POSTED
+            </div>
+            {oneSided.map((m) => (
+              <div class="gap-row">
+                <span class="gap-match">{m.label}</span>
+                <span class="gap-reason">{m.note}</span>
+              </div>
+            ))}
+          </div>
+        </details>
       )}
     </div>
   </div>
@@ -81,6 +113,7 @@ const { kicker, headline, dek, counts, gaps, strip, stamp = null, stale = false 
      on both surfaces. */
   .mast-stamp { font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
   .coverage { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); white-space: nowrap; }
+  .coverage > * + * { margin-left: 16px; }
   .gapcount {
     border-bottom: 1px dotted var(--faint);
     white-space: nowrap;

@@ -28,7 +28,7 @@
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { hasScore, loadSeason, matchDetailOf, type Season, squadOf } from "./derive.ts";
-import { divisionCounts } from "./division.ts";
+import { divisionCounts, oneSidedFinals, postedSide, unpostedSides } from "./division.ts";
 import { longDate, shortDate, spell } from "./format.ts";
 import {
   homeColumns,
@@ -45,7 +45,7 @@ import {
   loadJournal,
   loadNationalJournal,
 } from "./journal.ts";
-import { footNote, metaDescription, provenance } from "./matchstate.ts";
+import { footNote, metaDescription, oneSourceNote, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
 
 interface Line {
@@ -130,6 +130,21 @@ function matchPages(s: Season): Line[] {
     where: `${s.key} footnote`,
     text: footNote("silent-final", { finalsWithoutScore: 4, pastDateNoResult: 2, gaps: 1 }),
   });
+  // The one-source note, on both pages of every match the night left half
+  // posted, composed from the names the site prints. Zero lines on a morning
+  // every page has caught up, so the fixed sample below keeps the properties
+  // meeting the sentence.
+  for (const m of oneSidedFinals(seasons)) {
+    if (!m.sightings.some((x) => x.key === s.key)) continue;
+    const names = {
+      posted: postedSide(m).name,
+      unposted: unpostedSides(m)
+        .map((u) => u.name)
+        .join(" and "),
+    };
+    out.push({ where: `${s.key} ${m.identity} posted`, text: oneSourceNote("posted", names) });
+    out.push({ where: `${s.key} ${m.identity} unposted`, text: oneSourceNote("unposted", names) });
+  }
   return out;
 }
 
@@ -193,6 +208,10 @@ function playerCards(s: Season): Line[] {
 const ALL: Line[] = [
   ...nationalPage(),
   ...seasons.flatMap((s) => [...conferencePage(s), ...matchPages(s), ...playerCards(s)]),
+  ...(["posted", "unposted"] as const).map((side) => ({
+    where: `one-source sample ${side}`,
+    text: oneSourceNote(side, { posted: "Cedarville", unposted: "McKendree" }),
+  })),
 ];
 
 const show = (l: Line) => `${l.where}: ${l.text}`;

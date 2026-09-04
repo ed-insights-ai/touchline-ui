@@ -508,23 +508,37 @@ function sightingsOn(
  *  two codes, linking to two different pages (tui-y0q). It now wears both
  *  codes, because both are true, and resolves to the home side's conference. */
 export function lastNightLedger(seasons: readonly Season[], date: string): DivisionMatch[] {
-  return foldToMatches(sightingsOn(seasons, date, isScored)).sort(
-    (a, b) => byKickoff(a.fixture, b.fixture) || a.codes.join(" ").localeCompare(b.codes.join(" ")),
-  );
+  return nightMatches(seasons, date)
+    .filter((m) => isScored(m.fixture))
+    .sort(
+      (a, b) =>
+        byKickoff(a.fixture, b.fixture) || a.codes.join(" ").localeCompare(b.codes.join(" ")),
+    );
 }
 
-/** What the night left open: countable fixtures on the date that produced no
+/** What the night left open: countable matches on the date that produced no
  *  published score and were not called off. A postponed or cancelled match is
  *  answered, not open. Folded like the ledger: the sub-line counts these, and
  *  a count of records would say two matches where one was played. */
 export function lastNightOpen(seasons: readonly Season[], date: string): DivisionMatch[] {
-  return foldToMatches(
-    sightingsOn(
-      seasons,
-      date,
-      (f) => isCountable(f) && !isScored(f) && f.status !== "cancelled" && f.status !== "postponed",
-    ),
-  ).sort((a, b) => byKickoff(a.fixture, b.fixture));
+  return nightMatches(seasons, date)
+    .filter(
+      (m) =>
+        !isScored(m.fixture) &&
+        m.fixture.status !== "cancelled" &&
+        m.fixture.status !== "postponed",
+    )
+    .sort((a, b) => byKickoff(a.fixture, b.fixture));
+}
+
+/** Every countable match on a date, folded ONCE and then split between the
+ *  ledger and the open list. Folding each list from its own records read a
+ *  one-sided match twice — its scored record into the ledger and its
+ *  still-scheduled twin into the open count — so one match was both a result
+ *  and a silence on the same page. Folded together, the fold's own rule
+ *  (a scored final beats a not-yet twin) decides which list it is in. */
+function nightMatches(seasons: readonly Season[], date: string): DivisionMatch[] {
+  return foldToMatches(sightingsOn(seasons, date, isCountable));
 }
 
 // The division's figures are NOT the sum of the columns. They used to be, and
