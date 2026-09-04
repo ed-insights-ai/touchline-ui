@@ -1,0 +1,151 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-gliac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GLIAC",
+  "validated_at": "2026-09-04T15:59:29.728Z",
+  "data_collected_at": "2026-09-04T15:50:14+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[2].text",
+      "text": "Estefano Alvear has conceded a single goal for Purdue Northwest and kept two shutouts, a save percentage of .923.",
+      "unbacked": ["923"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "signal",
+      "text": "Purdue Northwest have scored only three goals and are unbeaten on the back of a single goal conceded. The shape of the chart is not the shape of the records: what a side allows has mattered more than what it scores.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Davenport have conceded ten goals already, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Nine matches whose dates have passed carry no published result, and there are no score gaps: every final on the record has its score.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Six played matches carry a result but no box score, every one of them Roosevelt's or St. Cloud State's.",
+      "checker": "box_score_gaps",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Estefano Alvear has conceded a single goal for Purdue Northwest and kept two shutouts, a save percentage of .923.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Saginaw Valley State have spread six goals across five different scorers.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "Roosevelt's four wins are more than any other programme has managed.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Fynn Mewes — 3 G · 1 A · 8 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Luca Rosen — 3 G · 1 A · 8 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Matty Telfer — 2 G · 1 A · 7 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-03 northern-michigan v lake-erie",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-05 lake-erie v roosevelt",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-04T15:57:43.344Z",
+    "generate_ms": 106380,
+    "validate_ms": 2,
+    "wall_ms": 106383,
+    "concurrency": 1
+  }
+}
