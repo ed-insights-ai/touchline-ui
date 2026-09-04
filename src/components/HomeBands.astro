@@ -31,10 +31,13 @@
 // page resolves the conference, and nothing is matched by name.
 //
 // The glyph before the code is the conference's position in its band
-// (lib/home.ts glyphAt), and the map draws the selected region's dots with
-// the same shape: the row is the legend, and the map stays one ink.
+// (lib/home.ts glyphAt), drawn in the hue of that same position (hueAt), and
+// the map draws the selected region's dots with the same shape in the same
+// hue: the row is the legend. Shape and colour together, never colour alone;
+// and the first position is the accent, so a band of one is the purple it
+// always was. Only the mark takes the hue — the code stays ink, as type does.
 import type { BandColumn, CardView, HomeBand } from "../lib/home.ts";
-import { bandHead, bandOpenFlags, glyphAt, leadLine, regionChips } from "../lib/home.ts";
+import { bandHead, bandOpenFlags, glyphAt, hueAt, leadLine, regionChips } from "../lib/home.ts";
 
 interface Props {
   bands: readonly HomeBand<CardView & BandColumn>[];
@@ -90,9 +93,10 @@ const chips = regionChips(bands);
             {b.columns.map((c, at) => {
               const lead = headline !== null && c.key === headline.key;
               const glyph = glyphAt(at);
+              const hue = hueAt(at);
               return (
                 <a
-                  class={`${lead ? "row lead hoverable" : "row hoverable"} mark-${glyph}`}
+                  class={`${lead ? "row lead hoverable" : "row hoverable"} mark-${glyph} hue-${hue}`}
                   data-k={c.key}
                   href={c.href}
                   title={c.line ?? undefined}
@@ -237,6 +241,13 @@ const chips = regionChips(bands);
   .mark { width: 11px; height: 11px; margin-right: 6px; vertical-align: -1px; color: var(--accent); }
   .mark circle, .mark path, .mark rect { fill: currentColor; }
   .mark .hollow { fill: var(--paper); stroke: currentColor; stroke-width: 2; }
+  /* The mark in its conference's hue, the same token its dots wear on the
+     map (HomeMap.astro). Hue 1 is the accent, which the mark already wears. */
+  .row.hue-2 .mark { color: var(--hue-2); }
+  .row.hue-3 .mark { color: var(--hue-3); }
+  .row.hue-4 .mark { color: var(--hue-4); }
+  .row.hue-5 .mark { color: var(--hue-5); }
+  .row.hue-6 .mark { color: var(--hue-6); }
   .opens { grid-area: opens; font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); white-space: nowrap; }
   .opens.is-imminent { color: var(--accent); font-weight: 600; }
   .played { grid-area: played; font-size: 12px; white-space: nowrap; }

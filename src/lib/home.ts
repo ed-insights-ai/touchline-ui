@@ -346,6 +346,34 @@ export function bandGlyphs(
   return Object.fromEntries(bands.flatMap((b) => b.columns.map((c, i) => [c.key, glyphAt(i)])));
 }
 
+// ── The hue a conference wears ──────────────────────────────────────────────
+//
+// The second encoding beside the shape (owner's ruling): inside the SELECTED
+// region each conference also wears a hue by the same position, so a band of
+// three reads as three colours and three shapes at once, and never as colour
+// alone. The hues are the --hue-N tokens (styles/tokens.css), a categorical
+// set in fixed order with the accent first, so a region of one conference
+// looks exactly as it did: purple. Unselected regions stay the dim one-ink
+// dots. The row's glyph is drawn in the same hue as the conference's dots, so
+// the row stays the legend. The class names a position, not a colour: the
+// stylesheet owns the colours, and the tokens test reads them there.
+
+/** How many hues the token set holds. A test holds tokens.css to it, and
+ *  holds it to the largest band the density fixtures draw. */
+export const HUE_COUNT = 6;
+
+/** The hue for the conference at this position in its band: 1-based, so
+ *  hue 1 is the accent. Wraps as the glyphs do. */
+export const hueAt = (position: number): number =>
+  (((position % HUE_COUNT) + HUE_COUNT) % HUE_COUNT) + 1;
+
+/** Conference key → hue, read off the bands. */
+export function bandHues(
+  bands: readonly { columns: readonly { key: string }[] }[],
+): Record<string, number> {
+  return Object.fromEntries(bands.flatMap((b) => b.columns.map((c, i) => [c.key, hueAt(i)])));
+}
+
 /** The conference a band's lead line speaks for: the one wearing the purple,
  *  else the first under way, else the first in the band. */
 function bandLead<T extends CardView & BandColumn>(band: HomeBand<T>): T | null {
@@ -406,10 +434,12 @@ export interface MapDot {
   region: string | null;
   /** The shape the dot takes while its region is selected; null when plain. */
   glyph: Glyph | null;
+  /** The hue the dot takes while its region is selected; null when plain. */
+  hue: number | null;
   /** The headline programme's dot, which wears a ring. */
   hl: boolean;
-  /** "dot", "dot on", "dot dim", with " mark-<glyph>" when the map selects
-   *  and " hl" for the headline programme. */
+  /** "dot", "dot on", "dot dim", with " mark-<glyph> hue-<n>" when the map
+   *  selects and " hl" for the headline programme. */
   cls: string;
 }
 
@@ -447,6 +477,9 @@ export interface MapSelection {
   /** Conference key → glyph (bandGlyphs). A conference it does not name is
    *  drawn as a plain dot in every state. */
   glyphOf?: Readonly<Record<string, Glyph>>;
+  /** Conference key → hue (bandHues). A conference it does not name wears
+   *  the accent while its region is selected, as every dot did before. */
+  hueOf?: Readonly<Record<string, number>>;
 }
 
 export function mapView(
@@ -458,6 +491,7 @@ export function mapView(
     f.placed.map((p) => {
       const region = selection ? (selection.regionOf[f.key] ?? null) : null;
       const glyph = selection?.glyphOf?.[f.key] ?? null;
+      const hue = selection?.hueOf?.[f.key] ?? null;
       const hl =
         selection?.headlineProgramme !== null &&
         selection?.headlineProgramme !== undefined &&
@@ -466,6 +500,7 @@ export function mapView(
         "dot",
         selection ? (region === selection.selected ? "on" : "dim") : "",
         glyph ? `mark-${glyph}` : "",
+        hue !== null ? `hue-${hue}` : "",
         hl ? "hl" : "",
       ]
         .filter(Boolean)
@@ -480,6 +515,7 @@ export function mapView(
         y: p.at.y,
         region,
         glyph,
+        hue,
         hl,
         cls,
       };
