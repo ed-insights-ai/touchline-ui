@@ -13,4 +13,4 @@
 //
 // Do not import this anywhere content-bearing: not into derive.ts, not into
 // the journal, and never near the numeral audit.
-export const builtAt = new Date().toISOString().slice(0, 19) + "Z";
+export const builtAt = `${new Date().toISOString().slice(0, 19)}Z`;
