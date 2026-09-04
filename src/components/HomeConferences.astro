@@ -4,9 +4,10 @@
 // (lib/home.ts, lib/geo.ts) and this renders what it is handed.
 //
 // "columns": one column per conference, in kickoff order — the layout the
-// page has always had for a site under its column cap, rule for rule, so the
-// render below the cap is pixel-identical (scripts/visual.sh holds it to
-// that).
+// page has always had for a site under its column cap, rule for rule — with
+// the map above it (owner's ruling): every dot one ink, the region labels
+// present but inert, no chips, no bands, no script. The map is the same
+// component the bands layout draws, in its plain mode (lib/home.ts mapView).
 //
 // "bands": the map-led section (tl-38t). The map sits beside the bands from
 // a section width of 900px, sticky while the bands scroll, and its region
@@ -29,7 +30,7 @@
 // from the bands (site.regions order), the conferences from the views.
 import type { ConferenceFootprint } from "../lib/geo.ts";
 import type { BandColumn, CardView, HomeBand, HomeLayout } from "../lib/home.ts";
-import { leadLine, openBandIndex } from "../lib/home.ts";
+import { leadLine, mapView, openBandIndex } from "../lib/home.ts";
 import ConferenceCard from "./ConferenceCard.astro";
 import HomeBands from "./HomeBands.astro";
 import HomeMap from "./HomeMap.astro";
@@ -68,10 +69,22 @@ const regionOf: Record<string, string> = Object.fromEntries(
 const openIsHeadline =
   headline !== null && openBand !== null && openBand.columns.some((c) => c.key === headline.key);
 const lead = openBand ? leadLine(openBand, openIsHeadline ? headline : null) : null;
+const map =
+  layout === "columns"
+    ? mapView(footprints, null)
+    : mapView(footprints, { regionOf, selected, headlineProgramme });
 ---
 {layout === "columns" ? (
-  <section class="confs-cols" style={`--conf-cols: ${cards.length};`}>
-    {cards.map((c) => <ConferenceCard {...c} />)}
+  <section class="confs-plain">
+    <div class="confs-head">
+      <h2 class="confs-sechead">THE CONFERENCES</h2>
+      <div class="grow"></div>
+      <div class="confs-scope num">{cards.length} CONFERENCES</div>
+    </div>
+    <HomeMap view={map} conferences={cards.length} divisionConferences={divisionConferences} />
+    <div class="confs-cols" style={`--conf-cols: ${cards.length};`}>
+      {cards.map((c) => <ConferenceCard {...c} />)}
+    </div>
   </section>
 ) : (
   <section class="confs" data-home-confs>
@@ -84,13 +97,7 @@ const lead = openBand ? leadLine(openBand, openIsHeadline ? headline : null) : n
     </div>
     {lead && <p class="lead-line">{lead}</p>}
     <div class="stage">
-      <HomeMap
-        footprints={footprints}
-        regionOf={regionOf}
-        selected={selected}
-        headlineProgramme={headlineProgramme}
-        divisionConferences={divisionConferences}
-      />
+      <HomeMap view={map} conferences={cards.length} divisionConferences={divisionConferences} />
       <HomeBands bands={bands} open={open} headline={headline} />
     </div>
     <script is:inline>
@@ -175,7 +182,8 @@ const lead = openBand ? leadLine(openBand, openIsHeadline ? headline : null) : n
 )}
 
 <style>
-  /* ── One column per conference ──────────────────────────────────────────── */
+  /* ── One column per conference, the map above ───────────────────────────── */
+  .confs-plain { padding: 18px 0 0; display: flex; flex-direction: column; gap: 16px; }
   .confs-cols {
     display: grid;
     grid-template-columns: repeat(var(--conf-cols, 1), minmax(0, 1fr));

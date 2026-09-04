@@ -40,6 +40,7 @@ import {
   spell,
   toISO,
 } from "./format.ts";
+import { type ConferenceFootprint, regionLabels } from "./geo.ts";
 import { headlineForm, type NationalJournalFile, PHASE_LIVE } from "./journal.ts";
 import type { Fixture } from "./model.ts";
 import { byRegion, type Region, type RegionConfig } from "./regions.ts";
@@ -350,6 +351,116 @@ export function leadLine<T extends CardView & BandColumn>(
     return `Open for the headline: ${headline.programme}, of the ${headline.code}. ${sentenceCase(doingClause(about))}.`;
   }
   return `${band.region.name}: ${doingClause(lead)}.`;
+}
+
+// ── What the map draws ──────────────────────────────────────────────────────
+//
+// The map is on the home page at every conference count (owner's ruling): a
+// site under the column cap draws it above the columns with no selection —
+// every dot one ink, the region labels present but inert — and a site past
+// the cap draws it beside the bands with one region selected. One view model
+// serves both so the plain map can be held to its rules without a render.
+
+export interface MapDot {
+  key: string;
+  code: string;
+  slug: string;
+  name: string;
+  city: string;
+  x: number;
+  y: number;
+  /** The region the dot answers to, when the map selects; null when plain. */
+  region: string | null;
+  /** "dot", "dot on", "dot dim", each with " hl" for the headline programme. */
+  cls: string;
+}
+
+export interface MapLabel {
+  key: string;
+  name: string;
+  x: number;
+  y: number;
+  conferences: number;
+  programmes: number;
+  on: boolean;
+  /** The band anchor the label opens, when the map selects; null when plain. */
+  href: string | null;
+}
+
+export interface MapView {
+  /** Whether the map carries a selection at all (bands layout). */
+  selecting: boolean;
+  dots: MapDot[];
+  labels: MapLabel[];
+  placed: number;
+  states: string[];
+  unplaced: { slug: string; name: string }[];
+  /** "129 PROGRAMMES · 29 STATES" */
+  footer: string;
+}
+
+export interface MapSelection {
+  /** Conference key → region key. */
+  regionOf: Readonly<Record<string, string>>;
+  /** The region open at rest. */
+  selected: string | null;
+  /** The slug of the programme the division's headline is about. */
+  headlineProgramme: string | null;
+}
+
+export function mapView(
+  footprints: readonly ConferenceFootprint[],
+  selection: MapSelection | null,
+  cfg: RegionConfig = site,
+): MapView {
+  const dots: MapDot[] = footprints.flatMap((f) =>
+    f.placed.map((p) => {
+      const region = selection ? (selection.regionOf[f.key] ?? null) : null;
+      const cls = [
+        "dot",
+        selection ? (region === selection.selected ? "on" : "dim") : "",
+        selection?.headlineProgramme !== null &&
+        selection?.headlineProgramme !== undefined &&
+        p.slug === selection.headlineProgramme
+          ? "hl"
+          : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+      return {
+        key: f.key,
+        code: f.code,
+        slug: p.slug,
+        name: p.name,
+        city: p.city,
+        x: p.at.x,
+        y: p.at.y,
+        region,
+        cls,
+      };
+    }),
+  );
+  const labels: MapLabel[] = regionLabels(footprints, cfg).map((l) => ({
+    key: l.region.key,
+    name: l.region.name,
+    x: l.x,
+    y: l.y,
+    conferences: l.conferences,
+    programmes: l.programmes,
+    on: selection !== null && l.region.key === selection.selected,
+    href: selection ? `#region-${l.region.key}` : null,
+  }));
+  const placed = dots.length;
+  const states = [...new Set(footprints.flatMap((f) => f.states))].sort();
+  return {
+    selecting: selection !== null,
+    dots,
+    labels,
+    placed,
+    states,
+    unplaced: footprints.flatMap((f) => f.unplaced),
+    footer: `${placed} PROGRAMMES · ${states.length} STATES`,
+  };
 }
 
 /** The head's meta, one wording for the band head and the tests:

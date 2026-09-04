@@ -12,7 +12,7 @@ import { join, resolve } from "node:path";
 import { site } from "../../site.config.ts";
 import { BASEMAP_VIEWBOX } from "../basemap.ts";
 import { regionLabels } from "../geo.ts";
-import { bandMeta, homeBands, homeLayout, openBandIndex } from "../home.ts";
+import { bandMeta, homeBands, homeLayout, mapView, openBandIndex } from "../home.ts";
 import { assertRegions, byRegion, regionsInUse } from "../regions.ts";
 import {
   DENSITY_CONFERENCES,
@@ -25,6 +25,8 @@ import {
 } from "./density.ts";
 
 const SIZES: readonly DensitySize[] = [12, 19];
+/** The other side of the column cap. */
+const SMALL: readonly DensitySize[] = [1, 3];
 const SRC = resolve(import.meta.dir, "..", "..");
 
 function* walk(dir: string): Generator<string> {
@@ -37,7 +39,7 @@ function* walk(dir: string): Generator<string> {
 
 describe("each size", () => {
   test("passes the region gate with the expected number of unique keys", () => {
-    for (const size of SIZES) {
+    for (const size of [...SMALL, ...SIZES]) {
       const cfg = densityConfig(size);
       expect(() => assertRegions(cfg.conferences, cfg)).not.toThrow();
       expect(cfg.conferences.length, `${size}`).toBe(size);
@@ -62,7 +64,7 @@ describe("each size", () => {
   });
 
   test("conferenceNames is defined for every key", () => {
-    for (const size of SIZES) {
+    for (const size of [...SMALL, ...SIZES]) {
       const cfg = densityConfig(size);
       for (const key of cfg.conferences) expect(cfg.conferenceNames[key], key).toBeDefined();
     }
@@ -157,6 +159,90 @@ describe("the home page past the cap", () => {
     // Both kinds of head are exercised at this size.
     expect(bands.some((b) => b.live > 0)).toBe(true);
     expect(bands.some((b) => b.live === 0)).toBe(true);
+  });
+});
+
+describe("the home page under the cap keeps the map (owner's ruling)", () => {
+  const COMPONENT = readFileSync(resolve(SRC, "components", "HomeConferences.astro"), "utf8");
+
+  test("at 1 and 3 the layout is columns, by the fixture's own cap", () => {
+    for (const size of SMALL) {
+      const cfg = densityConfig(size);
+      expect(cfg.conferences.length).toBe(size);
+      expect(homeLayout(size, cfg)).toBe("columns");
+      expect(densityCards(size).length).toBe(size);
+    }
+  });
+
+  test("the plain map draws the states, one dot per programme, the footer — and no selection", () => {
+    for (const size of SMALL) {
+      const cfg = densityConfig(size);
+      const fps = densityFootprints(size);
+      const view = mapView(fps, null, cfg);
+      expect(view.selecting).toBe(false);
+      // The states are the basemap's own; every dot is one ink, nothing on,
+      // nothing dim, no ring, no region to answer to.
+      expect(BASEMAP_VIEWBOX.w).toBeGreaterThan(0);
+      expect(view.dots.length).toBe(fps.reduce((n, f) => n + f.placed.length, 0));
+      expect(view.dots.length).toBeGreaterThan(0);
+      for (const d of view.dots) {
+        expect(d.cls, d.slug).toBe("dot");
+        expect(d.region, d.slug).toBeNull();
+      }
+      // The labels are present, one per region in use, and inert.
+      expect(view.labels.map((l) => l.key)).toEqual(
+        regionsInUse(cfg.conferences, cfg).map((r) => r.key),
+      );
+      for (const l of view.labels) {
+        expect(l.href, l.key).toBeNull();
+        expect(l.on, l.key).toBe(false);
+      }
+      // The footer names the counts the map draws; the placeholder points
+      // hold no state, so the state count is honestly zero here.
+      expect(view.footer).toBe(`${view.dots.length} PROGRAMMES · ${view.states.length} STATES`);
+      expect(view.unplaced).toEqual(fps.flatMap((f) => f.unplaced));
+    }
+  });
+
+  test("and the selecting map is the same dots with a selection laid over", () => {
+    const cfg = densityConfig(3);
+    const fps = densityFootprints(3);
+    const regionOf = Object.fromEntries(
+      fps.map((f) => [f.key, cfg.conferenceRegions[f.key] ?? ""]),
+    );
+    const view = mapView(
+      fps,
+      { regionOf, selected: "south-central", headlineProgramme: "gac-placeholder-1" },
+      cfg,
+    );
+    expect(view.selecting).toBe(true);
+    expect(view.dots.length).toBe(mapView(fps, null, cfg).dots.length);
+    expect(view.dots.filter((d) => d.cls.includes("on")).length).toBe(
+      fps
+        .filter((f) => regionOf[f.key] === "south-central")
+        .reduce((n, f) => n + f.placed.length, 0),
+    );
+    expect(view.dots.filter((d) => d.cls.includes("hl")).map((d) => d.slug)).toEqual([
+      "gac-placeholder-1",
+    ]);
+    expect(view.labels.map((l) => [l.key, l.on, l.href])).toEqual([
+      ["southeast", false, "#region-southeast"],
+      ["south-central", true, "#region-south-central"],
+    ]);
+  });
+
+  test("the columns branch composes the map and nothing that selects", () => {
+    // The repo has no component render harness, so the composition is held
+    // at the source: the columns branch draws HomeMap in plain mode and no
+    // bands, no chips, no script.
+    const columns = COMPONENT.slice(
+      COMPONENT.indexOf('layout === "columns" ? ('),
+      COMPONENT.indexOf(") : ("),
+    );
+    expect(columns).toContain("<HomeMap");
+    expect(columns).not.toContain("<HomeBands");
+    expect(columns).not.toContain("<script");
+    expect(COMPONENT).toMatch(/layout === "columns"\s*\?\s*mapView\(footprints, null\)/);
   });
 });
 
