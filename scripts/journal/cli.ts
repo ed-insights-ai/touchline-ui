@@ -46,7 +46,8 @@ import { buildNationalPrompt } from "./national-prompt.ts";
 import { validateNationalJournal } from "./national-validate.ts";
 import { pool } from "./pool.ts";
 import { buildPrompt } from "./prompt.ts";
-import { CHECKERS, type ValidationTiming, validateJournal } from "./validate.ts";
+import { generateThenValidate, type Validated } from "./regenerate.ts";
+import { CHECKERS, restatementDrops, type ValidationTiming, validateJournal } from "./validate.ts";
 import { ledeKey, standingDate, standingLede, standingNote } from "./wire.ts";
 
 const COMMANDS = new Set(["brief", "generate", "validate", "run"]);
@@ -277,10 +278,15 @@ function priorTiming<T>(path: string): T | undefined {
   }
 }
 
-async function generate(args: Args, season: Season, lines: Lines): Promise<number> {
+async function generate(
+  args: Args,
+  season: Season,
+  lines: Lines,
+  restatements: readonly string[] = [],
+  previous: JournalFile | null = readJournal(journalPath(args, season)),
+): Promise<number> {
   const brief = buildBrief(season);
-  const previous = readJournal(journalPath(args, season));
-  const prompt = buildPrompt({ brief, fixtures: fixtureIndex(season), previous });
+  const prompt = buildPrompt({ brief, fixtures: fixtureIndex(season), previous, restatements });
   mkdirSync(args.out, { recursive: true });
 
   if (args.dryRun) {
@@ -335,12 +341,12 @@ async function generate(args: Args, season: Season, lines: Lines): Promise<numbe
   return 0;
 }
 
-function validate(args: Args, season: Season, lines: Lines, measured?: Measured): number {
+function validate(args: Args, season: Season, lines: Lines, measured?: Measured): Validated {
   const path = journalPath(args, season);
   const journal = readJournal(path);
   if (!journal) {
     lines.log(`${keyOf(season)}: no journal at ${path} — nothing to validate.`);
-    return 0;
+    return { code: 0, restated: [] };
   }
   const validateStart = performance.now();
   const { journal: cleaned, report } = validateJournal(
@@ -398,7 +404,7 @@ function validate(args: Args, season: Season, lines: Lines, measured?: Measured)
       "  (dry run — pass --write to publish the journal with these claims removed and refs rewritten)",
     );
   }
-  return args.strict && t.dropped > 0 ? 1 : 0;
+  return { code: args.strict && t.dropped > 0 ? 1 : 0, restated: restatementDrops(report.claims) };
 }
 
 function brief(season: Season, lines: Lines): number {
@@ -475,12 +481,12 @@ async function generateNational(args: Args, lines: Lines): Promise<number> {
   return 0;
 }
 
-function validateNational(args: Args, lines: Lines, measured?: Measured): number {
+function validateNational(args: Args, lines: Lines, measured?: Measured): Validated {
   const path = nationalPath(args);
   const journal = readNationalJournal(path);
   if (!journal) {
     lines.log(`national: no journal at ${path} — nothing to validate.`);
-    return 0;
+    return { code: 0, restated: [] };
   }
   const validateStart = performance.now();
   const seasons = homeSeasons();
@@ -510,7 +516,11 @@ function validateNational(args: Args, lines: Lines, measured?: Measured): number
   for (const c of report.claims) {
     if (c.note) lines.log(`  NOTE ${c.path}: ${c.note}`);
     if (!c.dropped) continue;
-    lines.log(`  DROP ${c.path} — the masthead falls back to its floor`);
+    lines.log(
+      c.path === "headline"
+        ? `  DROP ${c.path} — the masthead falls back to its floor`
+        : `  DROP ${c.path} [${c.label}] ${c.text.slice(0, 72)}`,
+    );
     for (const m of c.mismatches) lines.log(`       ${m}`);
   }
   for (const r of report.review) {
@@ -519,7 +529,10 @@ function validateNational(args: Args, lines: Lines, measured?: Measured): number
   }
   lines.log(`  report: ${reportFile}`);
 
-  if (args.write && t.dropped > 0) {
+  // The headline is the lede; a dropped dek leaves the headline standing and
+  // the journal with it.
+  const ledeGone = report.claims.some((c) => c.path === "headline" && c.dropped);
+  if (args.write && ledeGone) {
     // A national journal is its lede and nothing else, so a dropped lede
     // leaves no journal — and writing an empty headline back would leave a
     // file the schema itself refuses to parse, which the next generate would
@@ -530,10 +543,12 @@ function validateNational(args: Args, lines: Lines, measured?: Measured): number
   } else if (args.write) {
     writeJson(path, cleaned, lines);
     lines.log(`  wrote the validated journal back to ${path}`);
-  } else if (t.dropped > 0) {
+  } else if (ledeGone) {
     lines.log("  (dry run — pass --write to remove the journal whose lede did not survive)");
+  } else if (t.dropped > 0) {
+    lines.log("  (dry run — pass --write to publish the journal with these claims removed)");
   }
-  return args.strict && t.dropped > 0 ? 1 : 0;
+  return { code: args.strict && t.dropped > 0 ? 1 : 0, restated: restatementDrops(report.claims) };
 }
 
 /** One journal's commands over one scope — a conference, or the division —
@@ -545,16 +560,28 @@ function validateNational(args: Args, lines: Lines, measured?: Measured): number
 interface Scope {
   key: string;
   brief(lines: Lines): number;
-  generate(lines: Lines): Promise<number>;
-  validate(lines: Lines, measured?: Measured): number;
+  /** The restatements are the words_moved drops of the reply before this
+   *  one, for the one regeneration; empty on the first ask. */
+  generate(lines: Lines, restatements?: readonly string[]): Promise<number>;
+  validate(lines: Lines, measured?: Measured): Validated;
 }
 
-const conferenceScope = (args: Args, season: Season): Scope => ({
-  key: keyOf(season),
-  brief: (lines) => brief(season, lines),
-  generate: (lines) => generate(args, season, lines),
-  validate: (lines, measured) => validate(args, season, lines, measured),
-});
+const conferenceScope = (args: Args, season: Season): Scope => {
+  // The journal on disk before this run. Read once: the regeneration must be
+  // stamped and prompted against the same previous journal as the first
+  // ask, not against the reply it is replacing — or a standing lede would
+  // lose its displaced_by note and a rewritten line its honest date.
+  let before: JournalFile | null | undefined;
+  return {
+    key: keyOf(season),
+    brief: (lines) => brief(season, lines),
+    generate: (lines, restatements) => {
+      if (before === undefined) before = readJournal(journalPath(args, season));
+      return generate(args, season, lines, restatements, before);
+    },
+    validate: (lines, measured) => validate(args, season, lines, measured),
+  };
+};
 
 const nationalScope = (args: Args): Scope => ({
   key: "national",
@@ -562,6 +589,8 @@ const nationalScope = (args: Args): Scope => ({
     lines.log(JSON.stringify(buildNationalBrief(homeSeasons()), null, 2));
     return 0;
   },
+  // The division's prompt carries no rewrite paragraph, so a restated dek
+  // there is dropped on the first pass and the headline stands.
   generate: (lines) => generateNational(args, lines),
   validate: (lines, measured) => validateNational(args, lines, measured),
 });
@@ -596,16 +625,21 @@ async function run(args: Args, scope: Scope, width: number): Promise<Outcome> {
   // Each step's time is kept whether or not the step finished: a model call
   // that fails after fifty seconds cost fifty seconds, and the log should
   // say so. A dry run or a replayed reply asked no model, and its time is
-  // then a fact about the disk, not the cost the cadence wants to know.
-  const generate = async (): Promise<number> => {
+  // then a fact about the disk, not the cost the cadence wants to know. A
+  // run that asked twice (the one regeneration below) cost both asks, so
+  // generate_ms is a sum.
+  const asked = !args.dryRun && !args.from;
+  const generate = async (restatements: readonly string[] = []): Promise<number> => {
     const from = performance.now();
     try {
-      return await scope.generate(lines);
+      return await scope.generate(lines, restatements);
     } finally {
-      if (!args.dryRun && !args.from) outcome.generate_ms = Math.round(performance.now() - from);
+      if (asked) {
+        outcome.generate_ms = (outcome.generate_ms ?? 0) + Math.round(performance.now() - from);
+      }
     }
   };
-  const validate = (measured?: Measured): number => {
+  const validate = (measured?: Measured): Validated => {
     const from = performance.now();
     try {
       return scope.validate(lines, measured);
@@ -613,6 +647,12 @@ async function run(args: Args, scope: Scope, width: number): Promise<Outcome> {
       outcome.validate_ms = Math.round(performance.now() - from);
     }
   };
+  const measured = (): Measured => ({
+    started_at,
+    started,
+    generate_ms: outcome.generate_ms,
+    concurrency: width,
+  });
   try {
     switch (args.command) {
       case "brief":
@@ -622,13 +662,36 @@ async function run(args: Args, scope: Scope, width: number): Promise<Outcome> {
         outcome.code = await generate();
         break;
       case "validate":
-        outcome.code = validate();
+        outcome.code = validate().code;
         break;
-      case "run":
-        outcome.code =
-          (await generate()) ||
-          validate({ started_at, started, generate_ms: outcome.generate_ms, concurrency: width });
+      case "run": {
+        // Generate, validate — and if validate dropped a line for restating
+        // another, ask once more with the report's words in the prompt. One
+        // retry, never a loop: a second reply still restating keeps the drop.
+        const ran = await generateThenValidate({
+          generate: (restatements) => {
+            if (restatements.length > 0) {
+              lines.log(`${scope.key}: asking the writer once more —`);
+              for (const r of restatements) lines.log(`  ${r}`);
+            }
+            return generate(restatements);
+          },
+          validate: () => validate(measured()),
+          mayRetry: asked,
+        });
+        outcome.code = ran.code;
+        if (ran.retryFailed) {
+          lines.warn(`${scope.key}: the regeneration failed; the first reply's journal stands.`);
+        }
+        for (const r of ran.unresolved) {
+          lines.log(
+            ran.retried
+              ? `${scope.key}: ${r.why}; ${r.path} dropped after one regeneration`
+              : `${scope.key}: ${r.why}; ${r.path} dropped`,
+          );
+        }
         break;
+      }
       default:
         throw new Error(`unknown command "${args.command}"`);
     }

@@ -184,6 +184,13 @@ Two things the pass reports without punishing:
   sidecar. It is not a failure — a basis may carry working notes — but an unread
   figure must never be mistaken for a confirmed one.
 
+And one thing it drops that no figure decides: a line that restates another line on
+the page (nine content words in ten shared) is dropped, lower altitude first — a
+featured line under the dek, a dek under the headline; the headline never goes. The
+rule is the site's own copy property (`src/lib/prose.ts`), so the validator and the
+publish gate cannot disagree about a sentence. `run` asks the writer once more with
+the clash named before accepting the drop.
+
 Checkers today: `player_stat`, `player_line`, `team_goals`, `team_goal_share`,
 `team_record`, `outside_record`, `distinct_scorers`, `unresolved`,
 `box_score_gaps`, `fixture_counts`, `conference_opens`, `goals_for_chart`,

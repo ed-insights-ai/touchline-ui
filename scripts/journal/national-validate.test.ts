@@ -220,3 +220,28 @@ describe("what a missing basis means, and what it does not", () => {
     expect(run(j).journal.dek).toBeUndefined();
   });
 });
+
+describe("a dek that is the headline with the words moved", () => {
+  test("is dropped, and the headline stands with the journal", () => {
+    const j = journal({
+      headline: "Harding have scored more goals than any other side in the division.",
+      dek: "More goals than any other side in the division: Harding have scored them.",
+    });
+    const result = validateNationalJournal(j, seasons, "test", CHECKERS);
+    expect(result.journal.headline).toBe(j.headline);
+    expect(result.journal.dek).toBeUndefined();
+    const claim = result.report.claims.find((c) => c.checker === "words_moved");
+    expect(claim).toMatchObject({ path: "dek", label: "restatement", dropped: true });
+    expect(result.report.review.some((r) => r.path === "dek")).toBe(false);
+  });
+
+  test("a dek that stands the headline up is kept", () => {
+    const j = journal({
+      headline: "Nothing decided anywhere yet.",
+      dek: "Every conference is still inside its non-conference weeks.",
+    });
+    const result = validateNationalJournal(j, seasons, "test", CHECKERS);
+    expect(result.journal.dek).toBe(j.dek);
+    expect(result.report.claims.some((c) => c.checker === "words_moved")).toBe(false);
+  });
+});
