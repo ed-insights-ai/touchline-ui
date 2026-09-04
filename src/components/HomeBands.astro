@@ -1,0 +1,261 @@
+---
+// The band column of the home page's conference section: a chip row for
+// thumbs, and one band per region with one ledger row per conference.
+//
+// Exactly one band is open, and it is open in the HTML (data-open,
+// aria-expanded), chosen by lib/home.ts openBandIndex before any script runs.
+// The closed bands render their head only. The head, every chip and every
+// map label is a link to the band's anchor (#region-<key>), so with no script
+// the page still does what the script does: the hash opens the targeted
+// band through :target and closes the one that was open at rest, and the
+// jump brings the head into view. That is why the heads are links and not
+// <details>: a row of disclosures could open two bands at once and could
+// close the last one, and neither is a state this section has.
+//
+// With the script running, the chips and the heads are one control with the
+// map: one selected region, shared by the map ink, the chips' aria-pressed
+// and the open band (HomeConferences.astro carries the script). The
+// [data-js] mark the script sets on this column switches the :target rules
+// off, so a hash a reader arrived with is honoured once by the script and
+// never fights it afterwards.
+//
+// Inside a band each conference is one ledger row: code, opens line, played
+// of total, the journal line trimmed to one line (the full sentence in the
+// row's title), the stamp, and the link. Same view the cards carried; no new
+// data. The headline conference's row carries the full sentence, unclamped,
+// and an IN THE HEADLINE mark — the division's journal names its programme,
+// the page resolves the conference, and nothing is matched by name.
+import type { BandColumn, CardView, HomeBand } from "../lib/home.ts";
+import { bandHead, bandOpenFlags, leadLine, regionChips } from "../lib/home.ts";
+
+interface Props {
+  bands: readonly HomeBand<CardView & BandColumn>[];
+  /** Index of the band open at rest. */
+  open: number;
+  /** The conference the division's headline is about, when a followed one. */
+  headline: { key: string; code: string; programme: string } | null;
+}
+const { bands, open, headline } = Astro.props as Props;
+const flags = bandOpenFlags(bands.length, open);
+const chips = regionChips(bands);
+---
+
+<div class="bandcol">
+  <nav class="chips" aria-label="Regions">
+    {chips.map((c, i) => (
+      <a
+        class="chip"
+        role="button"
+        href={`#region-${c.key}`}
+        data-region={c.key}
+        aria-pressed={flags[i] ? "true" : "false"}
+      >
+        {c.name}<span class="n num">{c.count}</span>
+      </a>
+    ))}
+  </nav>
+  <div class="bands">
+    {bands.map((b, i) => {
+      const isHeadlineBand = headline !== null && b.columns.some((c) => c.key === headline.key);
+      return (
+        <section
+          class="band"
+          id={`region-${b.region.key}`}
+          data-region={b.region.key}
+          data-open={flags[i] ? "true" : "false"}
+          data-lead={leadLine(b, null)}
+          data-lead-headline={isHeadlineBand ? leadLine(b, headline) : undefined}
+        >
+          <a
+            class="bhead"
+            href={`#region-${b.region.key}`}
+            data-region={b.region.key}
+            aria-expanded={flags[i] ? "true" : "false"}
+            aria-controls={`region-${b.region.key}-body`}
+          >
+            <span class="bname">{b.region.name}</span>
+            <span class={b.imminent ? "bmeta is-imminent num" : "bmeta num"}>{bandHead(b)}</span>
+            <span class="grow"></span>
+            <svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3.5 2 L6.5 5 L3.5 8" /></svg>
+          </a>
+          <div class="bbody" id={`region-${b.region.key}-body`}>
+            {b.columns.map((c) => {
+              const lead = headline !== null && c.key === headline.key;
+              return (
+                <a class={lead ? "row lead hoverable" : "row hoverable"} href={c.href} title={c.line ?? undefined}>
+                  <span class="code num">
+                    {c.code}
+                    {lead && <span class="hl">In the headline</span>}
+                  </span>
+                  <span class={c.imminent ? "opens is-imminent num" : "opens num"}>{c.opens}</span>
+                  <span class="played num"><b>{c.played} of {c.total}</b> <span class="dim">played</span></span>
+                  <span class="line serif-italic">{c.line}</span>
+                  <span class="stamp num">{c.stamp}</span>
+                  <span class="go">OPEN →</span>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .bandcol { min-width: 0; container-type: inline-size; container-name: bands; }
+
+  /* ── Chips: the map's region labels, for thumbs. Sticky while narrow. ──── */
+  .chips {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 10px 0;
+    margin: 0 0 4px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--paper);
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 11px;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    color: var(--quiet);
+    background: transparent;
+  }
+  .chip:hover { color: var(--accent-hover); border-color: var(--accent-hover); }
+  .chip:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .chip .n { font-weight: 400; margin-left: 5px; }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .chip[aria-pressed="true"] .n { color: rgba(255, 255, 255, 0.8); }
+  /* Beside the map the map's own labels are the control. */
+  @container confs (min-width: 900px) {
+    .chips { display: none; }
+  }
+
+  /* ── Bands: one open, the rest a head each. ────────────────────────────── */
+  .bands { border-top: 1px solid var(--hairline); }
+  .band { border-bottom: 1px solid var(--hairline); scroll-margin-top: 56px; }
+  .bhead {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 13px 0;
+    color: var(--ink);
+  }
+  .bhead:hover { color: var(--ink); }
+  .bhead:hover .bname { color: var(--accent-hover); }
+  .bhead:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+  .bname {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .bmeta { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); }
+  .bmeta.is-imminent { color: var(--accent); font-weight: 600; }
+  .chev {
+    width: 10px;
+    height: 10px;
+    stroke: var(--secondary);
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: none;
+    align-self: center;
+    transition: transform 0.12s;
+  }
+  @media (prefers-reduced-motion: reduce) { .chev { transition: none; } }
+  .band[data-open="true"] .chev { transform: rotate(90deg); }
+  .band[data-open="true"] .bname { color: var(--accent); }
+  .bbody { display: none; padding: 0 0 8px; }
+  .band[data-open="true"] .bbody { display: block; }
+
+  /* No script: the hash is the selection. The targeted band opens and the
+     band open at rest closes, so there is still exactly one. The script
+     marks the column and these rules stand down. */
+  .bandcol:not([data-js]) .bands:has(.band:target) .band[data-open="true"]:not(:target) .bbody { display: none; }
+  .bandcol:not([data-js]) .bands:has(.band:target) .band[data-open="true"]:not(:target) .bname { color: var(--ink); }
+  .bandcol:not([data-js]) .bands:has(.band:target) .band[data-open="true"]:not(:target) .chev { transform: none; }
+  .bandcol:not([data-js]) .band:target .bbody { display: block; }
+  .bandcol:not([data-js]) .band:target .bname { color: var(--accent); }
+  .bandcol:not([data-js]) .band:target .chev { transform: rotate(90deg); }
+
+  /* ── The ledger row: one conference, one line. ─────────────────────────── */
+  .row {
+    display: grid;
+    grid-template-columns: 58px 1fr auto auto;
+    grid-template-areas: "code opens played go" "line line line line";
+    column-gap: 14px;
+    row-gap: 4px;
+    align-items: baseline;
+    padding: 9px 4px;
+    border-top: 1px solid var(--hairline-soft);
+    min-width: 0;
+    color: inherit;
+  }
+  .row:hover { color: inherit; }
+  .code { grid-area: code; font-size: 15px; font-weight: 600; }
+  .opens { grid-area: opens; font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); white-space: nowrap; }
+  .opens.is-imminent { color: var(--accent); font-weight: 600; }
+  .played { grid-area: played; font-size: 12px; white-space: nowrap; }
+  .played b { font-weight: 600; }
+  .played .dim { color: var(--quiet); }
+  .line {
+    grid-area: line;
+    font-size: 15.5px;
+    line-height: 1.35;
+    color: var(--ink);
+    min-width: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  .row:hover .line { color: var(--accent-hover); }
+  .stamp { display: none; font-size: 9.5px; letter-spacing: 0.12em; color: var(--quiet); white-space: nowrap; }
+  .go { grid-area: go; font-size: 10px; letter-spacing: 0.14em; font-weight: 600; color: var(--accent); white-space: nowrap; }
+  /* Wide enough for one line: code, opens, played, the line, stamp, link. */
+  @container bands (min-width: 560px) {
+    .row {
+      grid-template-columns: 58px 96px 92px minmax(0, 1fr) auto auto;
+      grid-template-areas: "code opens played line stamp go";
+    }
+    .line { display: block; white-space: nowrap; text-overflow: ellipsis; }
+    .stamp { display: inline; grid-area: stamp; }
+    /* The headline row's full sentence takes a row of its own rather than
+       wrapping inside the one-line column. */
+    .row.lead {
+      grid-template-columns: 58px 96px 92px minmax(0, 1fr) auto auto;
+      grid-template-areas: "code opens played . stamp go" "line line line line line line";
+    }
+  }
+  @container bands (max-width: 420px) {
+    .row { grid-template-columns: 52px 1fr auto; grid-template-areas: "code opens played" "line line line"; }
+    .go { display: none; }
+    .line { -webkit-line-clamp: 2; font-size: 15px; }
+  }
+
+  /* The headline conference: the full sentence, and the mark. */
+  .row.lead { background: var(--accent-wash-soft); border-left: 3px solid var(--accent); padding-left: 10px; margin-left: -13px; }
+  .row.lead .line { display: block; white-space: normal; overflow: visible; text-wrap: pretty; }
+  .hl {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+</style>

@@ -1,191 +1,232 @@
 ---
-// How the home page lays its conference cards out. It decides nothing about
-// the data: the page computes the views, the layout and the bands (lib/home.ts
-// homeLayout, homeBands) and this renders what it is handed.
+// How the home page lays its conferences out. It decides nothing about the
+// data: the page computes the views, the layout, the bands and the footprints
+// (lib/home.ts, lib/geo.ts) and this renders what it is handed.
 //
 // "columns": one column per conference, in kickoff order — the layout the
-// page has always had, moved here rule for rule so the render below the cap
-// is pixel-identical (scripts/visual.sh holds it to that).
+// page has always had for a site under its column cap, rule for rule, so the
+// render below the cap is pixel-identical (scripts/visual.sh holds it to
+// that).
 //
-// "bands": the same card flows into one band per region, in site.regions
-// order, each a six-column grid at the design width. A card is never narrower
-// than six columns at 1328px make it (about 221px): a narrower viewport takes
-// fewer columns, never narrower cards. On a phone each band is a <details>
-// disclosure, no script, like the masthead menus; the band whose card wears
-// the purple opens by default, and when none does (the next kickoff belongs
-// to a conference already under way) the first band opens instead
-// (lib/home.ts openBandIndex), so the phone never lands on a wall of closed
-// disclosures.
+// "bands": the map-led section (tl-38t). The map sits beside the bands from
+// a section width of 900px, sticky while the bands scroll, and its region
+// labels are the control; narrower, the map stacks above a sticky chip row
+// and the bands, and the chips carry the job where the map is too small to
+// hit well. One region is selected — the map ink, the chips and the open
+// band share the one state — and exactly one band is open at rest, chosen
+// server-side (lib/home.ts openBandIndex): the headline's region, else the
+// imminent band, else the first.
 //
-// Two trees for the bands, one hidden per width. A closed <details> renders
-// none of its content and no stylesheet can reveal it, so one tree of
-// disclosures cannot be open-and-flat on a desktop and closed on a phone
-// without a script. The hidden tree is display:none, which contributes
-// nothing to layout, so the harness's overflow assertion sees only the one
-// that shows. Below the cap there is one tree, as before.
+// Server-rendered at rest, with one small script. The section reads
+// correctly with no script at all: the open band shows, the closed bands
+// show their heads, and every head, chip and map label is a link to its
+// band's anchor (HomeBands.astro says how :target keeps one band open). The
+// script below only moves the selection — hover previews on a fine pointer,
+// click or tap pins, a chip or a map label on a narrow section scrolls the
+// band head into view — and it fetches nothing.
 //
-// The layout rules that reach into a card (.conf) are written :global here:
-// the card is ConferenceCard's, and its scoped rules only ever describe the
-// card itself. Every rule below is about where a card sits.
-import type { CardView, HomeBand, HomeLayout } from "../lib/home.ts";
-import { bandHead, bandSummary, openBandIndex } from "../lib/home.ts";
+// Nothing conference- or region-specific is written here: the regions come
+// from the bands (site.regions order), the conferences from the views.
+import type { ConferenceFootprint } from "../lib/geo.ts";
+import type { BandColumn, CardView, HomeBand, HomeLayout } from "../lib/home.ts";
+import { leadLine, openBandIndex } from "../lib/home.ts";
 import ConferenceCard from "./ConferenceCard.astro";
+import HomeBands from "./HomeBands.astro";
+import HomeMap from "./HomeMap.astro";
 
 interface Props {
   /** In kickoff order. */
-  cards: readonly CardView[];
+  cards: readonly (CardView & BandColumn)[];
   layout: HomeLayout;
-  bands: HomeBand<CardView>[];
+  bands: HomeBand<CardView & BandColumn>[];
+  footprints: readonly ConferenceFootprint[];
+  /** The programme the division's headline is about (journal basis), if any. */
+  headlineProgramme: string | null;
+  /** The followed conference that lists a programme, or null. */
+  conferenceOf: (slug: string) => string | null;
+  /** The headline conference and programme, resolved by the page, or null. */
+  headline: { key: string; code: string; programme: string } | null;
+  divisionConferences: number;
 }
-const { cards, layout, bands } = Astro.props as Props;
-const openBand = openBandIndex(bands);
+const {
+  cards,
+  layout,
+  bands,
+  footprints,
+  headlineProgramme,
+  conferenceOf,
+  headline,
+  divisionConferences,
+} = Astro.props as Props;
+
+const open = openBandIndex(bands, headlineProgramme, conferenceOf);
+const openBand = bands[open] ?? null;
+const selected = openBand?.region.key ?? null;
+const regionOf: Record<string, string> = Object.fromEntries(
+  bands.flatMap((b) => b.columns.map((c) => [c.key, b.region.key])),
+);
+const openIsHeadline =
+  headline !== null && openBand !== null && openBand.columns.some((c) => c.key === headline.key);
+const lead = openBand ? leadLine(openBand, openIsHeadline ? headline : null) : null;
 ---
 {layout === "columns" ? (
-  <section class="confs" style={`--conf-cols: ${cards.length};`}>
+  <section class="confs-cols" style={`--conf-cols: ${cards.length};`}>
     {cards.map((c) => <ConferenceCard {...c} />)}
   </section>
 ) : (
-  <>
-    <div class="bands">
-      {bands.map((b) => (
-        <section class="band">
-          <div class="band-head">
-            <span class="band-name">{b.region.name}</span>
-            <span class={b.imminent ? "band-meta is-imminent num" : "band-meta num"}>{bandHead(b)}</span>
-          </div>
-          <div class="band-grid">
-            {b.columns.map((c) => <ConferenceCard {...c} />)}
-          </div>
-        </section>
-      ))}
+  <section class="confs" data-home-confs>
+    <div class="confs-head">
+      <h2 class="confs-sechead">THE CONFERENCES</h2>
+      <div class="grow"></div>
+      <div class="confs-scope num">
+        {cards.length} CONFERENCES · {bands.length} REGIONS
+      </div>
     </div>
-    <div class="pbands">
-      {bands.map((b, i) => (
-        <details class="pband" open={i === openBand}>
-          <summary>
-            <span class="pn">{b.region.name}</span>
-            <span class={b.imminent ? "pm is-imminent num" : "pm num"}>{bandSummary(b)}</span>
-            <span class="grow"></span>
-            <svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
-          </summary>
-          <div class="plist">
-            {b.columns.map((c) => <ConferenceCard {...c} />)}
-          </div>
-        </details>
-      ))}
+    {lead && <p class="lead-line">{lead}</p>}
+    <div class="stage">
+      <HomeMap
+        footprints={footprints}
+        regionOf={regionOf}
+        selected={selected}
+        headlineProgramme={headlineProgramme}
+        divisionConferences={divisionConferences}
+      />
+      <HomeBands bands={bands} open={open} headline={headline} />
     </div>
-  </>
+    <script is:inline>
+      (() => {
+        const root = document.querySelector("[data-home-confs]");
+        if (!root) return;
+        const col = root.querySelector(".bandcol");
+        if (col) col.dataset.js = "";
+        const lead = root.querySelector(".lead-line");
+        const bands = Array.from(root.querySelectorAll(".band"));
+        const atRest = bands.find((b) => b.dataset.open === "true");
+        if (!atRest) return;
+        let pinned = atRest.dataset.region;
+        let preview = null;
+        const all = (s) => Array.from(root.querySelectorAll(s));
+        // One state, applied everywhere it shows: the map's dots and labels,
+        // the chips, the bands, the lead line.
+        const apply = () => {
+          const rk = preview || pinned;
+          for (const d of all(".dot")) {
+            d.classList.toggle("on", d.dataset.region === rk);
+            d.classList.toggle("dim", d.dataset.region !== rk);
+          }
+          for (const t of all(".rlabel")) t.classList.toggle("on", t.dataset.region === rk);
+          for (const c of all(".chip")) c.setAttribute("aria-pressed", String(c.dataset.region === rk));
+          for (const b of bands) {
+            const on = b.dataset.region === rk;
+            b.dataset.open = String(on);
+            const head = b.querySelector(".bhead");
+            if (head) head.setAttribute("aria-expanded", String(on));
+            if (on && lead) lead.textContent = (!preview && b.dataset.leadHeadline) || b.dataset.lead || "";
+          }
+        };
+        const narrow = () => root.getBoundingClientRect().width < 900;
+        const pin = (rk, scroll) => {
+          pinned = rk;
+          preview = null;
+          apply();
+          if (!scroll || !narrow()) return;
+          const band = bands.find((b) => b.dataset.region === rk);
+          if (!band) return;
+          const chips = root.querySelector(".chips");
+          const pad = (chips ? chips.getBoundingClientRect().height : 0) + 8;
+          const top = band.getBoundingClientRect().top + window.scrollY - pad;
+          const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.scrollTo({ top, behavior: still ? "auto" : "smooth" });
+        };
+        root.addEventListener("click", (e) => {
+          const t = e.target.closest("[data-region]");
+          if (!t || !root.contains(t) || t.classList.contains("dot") || t.classList.contains("band")) return;
+          e.preventDefault();
+          // The open band's own head does nothing: there is always one open.
+          if (t.classList.contains("bhead") && t.dataset.region === pinned) return;
+          pin(t.dataset.region, !t.classList.contains("bhead"));
+        });
+        // Hover previews only where hover is a thing: a fine pointer.
+        const fine = matchMedia("(hover: hover) and (pointer: fine)");
+        const map = root.querySelector(".map");
+        if (map) {
+          map.addEventListener("pointerover", (e) => {
+            if (!fine.matches) return;
+            const t = e.target.closest("[data-region]");
+            if (t) {
+              preview = t.dataset.region;
+              apply();
+            }
+          });
+          map.addEventListener("pointerleave", () => {
+            if (preview) {
+              preview = null;
+              apply();
+            }
+          });
+        }
+        // A reader who arrived on a band's anchor gets that band, once.
+        const hash = location.hash.startsWith("#region-") ? location.hash.slice(8) : "";
+        if (hash && bands.some((b) => b.dataset.region === hash)) pin(hash, true);
+        else apply();
+      })();
+    </script>
+  </section>
 )}
 
 <style>
   /* ── One column per conference ──────────────────────────────────────────── */
-  .confs {
+  .confs-cols {
     display: grid;
     grid-template-columns: repeat(var(--conf-cols, 1), minmax(0, 1fr));
     padding: 26px 0;
     border-bottom: 1px solid var(--hairline);
   }
-  .confs :global(.conf:first-child) { padding-left: 0; }
-  .confs :global(.conf:last-child) { padding-right: 0; }
-  .confs :global(.conf + .conf) { border-left: 1px solid var(--hairline); }
-
-  /* ── Region bands ───────────────────────────────────────────────────────── */
-  .bands { display: flex; flex-direction: column; border-bottom: 1px solid var(--hairline); }
-  .band { padding: 22px 0 26px; }
-  .band + .band { border-top: 1px solid var(--hairline-soft); }
-  /* The band head is the site's label register; nothing new is invented. */
-  .band-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
-  .band-name {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    font-weight: 600;
-    color: var(--quiet);
-    text-transform: uppercase;
-  }
-  .band-meta { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); }
-  .band-meta.is-imminent { color: var(--accent); font-weight: 600; }
-  .band-grid { display: grid; }
-  .band-grid :global(.conf + .conf) { border-left: 1px solid var(--hairline); }
-  /* Column counts by viewport, each range exclusive so no count has to undo
-     another's nth-child rules. The floor is the card six columns get at the
-     1328px measure (1440 less two 56px gutters): 221.33px. With the same
-     gutters, five columns clear it from 1220px, four from 998px, three from
-     776px and two from 721px; 720px and below is the phone, which is
-     disclosures. In each range the first card of a row loses its left gutter
-     and hairline, the last loses its right gutter, and every row past the
-     first stands 24px off the one above. */
-  @media (min-width: 1440px) {
-    .band-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-    .band-grid :global(.conf:nth-child(6n)) { padding-right: 0; }
-    .band-grid :global(.conf:nth-child(6n + 1)) { padding-left: 0; border-left: none; }
-    .band-grid :global(.conf:nth-child(n + 7)) { margin-top: 24px; }
-  }
-  @media (min-width: 1220px) and (max-width: 1439px) {
-    .band-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-    .band-grid :global(.conf:nth-child(5n)) { padding-right: 0; }
-    .band-grid :global(.conf:nth-child(5n + 1)) { padding-left: 0; border-left: none; }
-    .band-grid :global(.conf:nth-child(n + 6)) { margin-top: 24px; }
-  }
-  @media (min-width: 998px) and (max-width: 1219px) {
-    .band-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .band-grid :global(.conf:nth-child(4n)) { padding-right: 0; }
-    .band-grid :global(.conf:nth-child(4n + 1)) { padding-left: 0; border-left: none; }
-    .band-grid :global(.conf:nth-child(n + 5)) { margin-top: 24px; }
-  }
-  @media (min-width: 776px) and (max-width: 997px) {
-    .band-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .band-grid :global(.conf:nth-child(3n)) { padding-right: 0; }
-    .band-grid :global(.conf:nth-child(3n + 1)) { padding-left: 0; border-left: none; }
-    .band-grid :global(.conf:nth-child(n + 4)) { margin-top: 24px; }
-  }
-  @media (min-width: 721px) and (max-width: 775px) {
-    .band-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .band-grid :global(.conf:nth-child(2n)) { padding-right: 0; }
-    .band-grid :global(.conf:nth-child(2n + 1)) { padding-left: 0; border-left: none; }
-    .band-grid :global(.conf:nth-child(n + 3)) { margin-top: 24px; }
-  }
-
-  /* ── Phone: each band a disclosure ──────────────────────────────────────── */
-  .pbands { display: none; }
-  .pband { border-bottom: 1px solid var(--hairline); }
-  .pband > summary {
-    list-style: none;
-    cursor: pointer;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    min-height: 52px;
-    padding: 14px 0;
-  }
-  .pband > summary::-webkit-details-marker { display: none; }
-  .pband > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
-  .chev {
-    width: 10px;
-    height: 10px;
-    stroke: var(--secondary);
-    fill: none;
-    stroke-width: 1.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    flex: none;
-    align-self: center;
-  }
-  .pband[open] .chev { transform: rotate(180deg); }
-  .pn { font-size: 12.5px; font-weight: 600; color: var(--ink); }
-  .pm { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); }
-  .pm.is-imminent { color: var(--accent); font-weight: 600; }
-  .plist { display: flex; flex-direction: column; padding-bottom: 8px; }
-  .plist :global(.conf) { padding: 0 0 20px; border-left: none; }
-  .plist :global(.conf + .conf) { border-top: 1px solid var(--hairline-soft); padding-top: 20px; }
-
-  /* ── Narrow ─────────────────────────────────────────────────────────────── */
+  .confs-cols :global(.conf:first-child) { padding-left: 0; }
+  .confs-cols :global(.conf:last-child) { padding-right: 0; }
+  .confs-cols :global(.conf + .conf) { border-left: 1px solid var(--hairline); }
   @media (max-width: 1180px) {
-    .confs { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
-    .confs :global(.conf) { padding: 0; }
-    .confs :global(.conf + .conf) { border-left: none; border-top: 1px solid var(--hairline); padding-top: 24px; }
+    .confs-cols { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+    .confs-cols :global(.conf) { padding: 0; }
+    .confs-cols :global(.conf + .conf) { border-left: none; border-top: 1px solid var(--hairline); padding-top: 24px; }
   }
-  @media (max-width: 720px) {
-    .bands { display: none; }
-    .pbands { display: block; }
+
+  /* ── The map-led section ────────────────────────────────────────────────── */
+  /* The section is the container its columns query: the two-column stage
+     from 900px of SECTION width, whatever the viewport. */
+  .confs {
+    container-type: inline-size;
+    container-name: confs;
+    padding: 18px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .confs-head { display: flex; align-items: baseline; gap: 12px; }
+  /* The same register as LAST NIGHT's head, one section down. */
+  .confs-sechead { margin: 0; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+  .confs-scope { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
+  /* The line under the head: what the open band is doing, and, while the
+     headline's band is the one open, why it is open. Serif italic, quiet —
+     the editorial whisper, one rung under the head. */
+  .lead-line {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--quiet);
+    text-wrap: pretty;
+  }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding-top: 6px; }
+  @container confs (min-width: 900px) {
+    .stage {
+      grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+      column-gap: 40px;
+      align-items: start;
+    }
+  }
+  @container confs (max-width: 720px) {
+    .confs-head { flex-wrap: wrap; gap: 6px 12px; }
   }
 </style>

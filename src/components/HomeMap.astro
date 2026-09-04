@@ -1,0 +1,186 @@
+---
+// The map column of the home page's conference section: where the collected
+// season is played, and the one control that selects a region on a pointer.
+//
+// What is drawn: a dot per programme town, a label per region at the centroid
+// of that region's dots, nudged by config so it clears them (site.regions,
+// geo.ts regionLabels). Nothing is tinted by conference. Six hues could not
+// tell nineteen conferences apart and no palette honestly tells thirty, so a
+// dot says "a programme plays here" and nothing else; and no state is shaded,
+// because the leagues interleave on the ground and any tinted territory would
+// claim ground its conference does not hold. A region is broad enough to own
+// its ground, so a region label is fine where a conference label was not.
+//
+// Selection is one state shared with the chip row and the bands beside it
+// (tl-38t): the selected region's dots wear the accent and its label lights;
+// every other dot steps back. That state is rendered here for the band open
+// at rest, so the page reads correctly before any script runs; the section's
+// one script (HomeConferences.astro) moves it on hover, click and tap. A
+// region label is a link to its band's anchor, so with no script a label
+// still opens its band — the hash jump does what the script would.
+//
+// The headline programme's dot wears a ring: the division's journal names
+// the programme its headline is about in its basis, and the ring is that
+// fact drawn, never a name matched out of the sentence.
+//
+// Every figure here is recomputed from the fixtures and the coordinates
+// file. The column prints no fixture counts: it answers where, the bands
+// answer how many, and the two never argue.
+import { BASEMAP_VIEWBOX, STATE_OUTLINES } from "../lib/basemap.ts";
+import { spell } from "../lib/format.ts";
+import { type ConferenceFootprint, regionLabels } from "../lib/geo.ts";
+
+interface Props {
+  footprints: readonly ConferenceFootprint[];
+  /** Conference key → region key, from the bands beside the map. */
+  regionOf: Readonly<Record<string, string>>;
+  /** The region open at rest. */
+  selected: string | null;
+  /** The slug of the programme the division's headline is about, if any. */
+  headlineProgramme: string | null;
+  /** How many conferences play this sport at all — context, not a collected figure. */
+  divisionConferences: number;
+}
+const { footprints, regionOf, selected, headlineProgramme, divisionConferences } =
+  Astro.props as Props;
+
+const placedCount = footprints.reduce((n, f) => n + f.placed.length, 0);
+const unplaced = footprints.flatMap((f) => f.unplaced);
+const states = [...new Set(footprints.flatMap((f) => f.states))].sort();
+const labels = regionLabels(footprints);
+
+const dotClass = (region: string | undefined, slug: string): string =>
+  [
+    "dot",
+    region === selected ? "on" : "dim",
+    headlineProgramme !== null && slug === headlineProgramme ? "hl" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+---
+
+<div class="mapcol">
+  <svg
+    class="map"
+    viewBox={`${BASEMAP_VIEWBOX.x} ${BASEMAP_VIEWBOX.y} ${BASEMAP_VIEWBOX.w} ${BASEMAP_VIEWBOX.h}`}
+    role="img"
+    aria-label={`Map of the lower 48 United States. ${placedCount} dots mark the towns of the programmes Touchline collects, across ${states.length} states in ${spell(footprints.length)} conferences, labelled by region. A region label opens that region's conferences beside the map.`}
+  >
+    <g class="land">
+      {STATE_OUTLINES.map((s) => <path d={s.d} />)}
+    </g>
+    {footprints.map((f) =>
+      f.placed.map((p) => (
+        <circle
+          class={dotClass(regionOf[f.key], p.slug)}
+          data-region={regionOf[f.key]}
+          cx={p.at.x}
+          cy={p.at.y}
+          r="4.5"
+        >
+          <title>{p.name} — {p.city} ({f.code})</title>
+        </circle>
+      )),
+    )}
+    {labels.map((l) => (
+      <a
+        class="rlink"
+        href={`#region-${l.region.key}`}
+        data-region={l.region.key}
+        aria-label={`${l.region.name}: ${l.conferences} ${l.conferences === 1 ? "conference" : "conferences"}, ${l.programmes} programmes. Open the band.`}
+      >
+        <rect class="rhit" x={l.x - 80} y={l.y - 20} width="160" height="30" rx="6" />
+        <text
+          class={l.region.key === selected ? "rlabel on" : "rlabel"}
+          data-region={l.region.key}
+          x={l.x}
+          y={l.y}
+          text-anchor="middle"
+        >
+          {l.region.name.toUpperCase()}<tspan class="rn" dx="6">{l.conferences} · {l.programmes}</tspan>
+        </text>
+      </a>
+    ))}
+  </svg>
+  <div class="mapfoot num">
+    <span>{placedCount} PROGRAMMES · {states.length} STATES</span>
+    <span class="chip chip-context">{footprints.length} OF {divisionConferences} CONFERENCES</span>
+  </div>
+  {unplaced.length > 0 && (
+    <p class="unplaced">
+      {unplaced.map((u) => u.name).join(", ")}{" "}
+      {unplaced.length === 1 ? "has" : "have"} no town on file, and {unplaced.length === 1 ? "is" : "are"} not drawn.
+    </p>
+  )}
+</div>
+
+<style>
+  .mapcol { min-width: 0; }
+  /* Beside the bands the map stays put while they scroll; the container is
+     the section (HomeConferences.astro), so this is a width of the section,
+     not of the viewport. */
+  @container confs (min-width: 900px) {
+    .mapcol { position: sticky; top: 24px; }
+  }
+  .map { display: block; width: 100%; height: auto; }
+  /* The basemap is drawn a step off the paper, close enough that the land is
+     a ground and not a figure (tui-3bz). */
+  .land path { fill: #e9e5da; stroke: #d5d0c3; stroke-width: 1; stroke-linejoin: round; }
+  /* One ink for every dot at rest; the selected region's come forward in the
+     accent and the rest step back to the bar ink, a mark already drawn here.
+     A paper stroke keeps two neighbours apart. */
+  .dot {
+    fill: var(--muted-mark);
+    stroke: var(--paper);
+    stroke-width: 1.6;
+    transition: fill 0.12s, r 0.12s;
+  }
+  .dot.dim { fill: var(--muted-bar); }
+  .dot.on { fill: var(--accent); r: 5.5; }
+  /* The headline programme's ring: the accent while its region is selected,
+     the bar ink while it is not, so the ring never claims the selection. */
+  .dot.hl { stroke: var(--accent); stroke-width: 2.4; paint-order: stroke; }
+  .dot.hl.dim { stroke: var(--muted-bar); }
+  @media (prefers-reduced-motion: reduce) { .dot { transition: none; } }
+  /* Region labels live on the map because a region is wide enough to own its
+     ground. The paper-coloured stroke under the letters keeps a label legible
+     where it crosses a coastline. */
+  .rlink { cursor: pointer; }
+  .rlink:focus-visible { outline: none; }
+  .rlink:focus-visible .rlabel { fill: var(--accent); }
+  .rhit { fill: transparent; }
+  .rlabel {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    fill: var(--ink-soft);
+    text-transform: uppercase;
+    paint-order: stroke;
+    stroke: var(--paper);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+    transition: fill 0.12s;
+  }
+  .rlabel.on, .rlink:hover .rlabel { fill: var(--accent); }
+  .rn { font-size: 10px; letter-spacing: 0.1em; font-weight: 400; fill: var(--quiet); }
+  .rlabel.on .rn { fill: var(--accent); }
+  .mapfoot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 0;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--quiet);
+  }
+  .unplaced { margin: 10px 0 0; font-size: 14px; color: var(--quiet); line-height: 1.5; }
+  @container confs (max-width: 720px) {
+    /* The SVG scales down with the column, so the label type steps up to
+       stay readable at phone width. */
+    .rlabel { font-size: 14px; }
+    .rn { font-size: 12px; }
+    .mapfoot { flex-wrap: wrap; gap: 6px 10px; }
+  }
+</style>

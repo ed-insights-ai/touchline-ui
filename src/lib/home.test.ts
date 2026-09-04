@@ -8,6 +8,7 @@
  */
 
 import { describe, expect, test } from "bun:test";
+import { existsSync, readFileSync } from "node:fs";
 import { site } from "../site.config.ts";
 import {
   boxScoreGaps,
@@ -20,13 +21,17 @@ import {
   seasonCounts,
 } from "./derive.ts";
 import { divisionCounts } from "./division.ts";
-import { daysBetween, dowShort, shortDate, spell } from "./format.ts";
+import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import {
   type BandColumn,
   bandHead,
   bandMeta,
-  bandSummary,
+  bandOpenFlags,
+  type CardView,
+  conferenceOfProgramme,
+  type HomeBand,
   type HomeColumn,
+  headlineProgrammeOf,
   homeBands,
   homeColumns,
   homeLayout,
@@ -34,6 +39,7 @@ import {
   lastNightLedger,
   lastNightOf,
   lastNightOpen,
+  leadLine,
   mostImminentKey,
   type NationalLede,
   nationalAsOf,
@@ -42,14 +48,19 @@ import {
   nationalMasthead,
   nextLeagueKickoff,
   openBandIndex,
+  opensLine,
+  regionChips,
 } from "./home.ts";
-import type { NationalJournalFile } from "./journal.ts";
+import { loadNationalJournal, type NationalJournalFile } from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
 import { type RegionConfig, regionsInUse } from "./regions.ts";
 
 const seasons = homeSeasons();
 const columns = homeColumns(seasons);
 const national = divisionCounts(seasons);
+
+/** No headline: the chooser's first leg has nothing to resolve. */
+const noHeadline = (): string | null => null;
 
 describe("up to the column cap the page is columns; past it, region bands", () => {
   test("the live site's layout follows the relation, not a literal", () => {
@@ -121,27 +132,257 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     expect(mostImminentKey(cols)).toBe("x");
     const bands = homeBands(cols, cfg);
     expect(bands.map((b) => b.imminent)).toEqual([false, false]);
-    // And the phone opens the first band, not none.
-    expect(openBandIndex(bands)).toBe(0);
+    // And with no headline the first band opens, not none.
+    expect(openBandIndex(bands, null, noHeadline)).toBe(0);
   });
 
-  test("a not-live one yields exactly one imminent band, and the phone opens it", () => {
+  test("a not-live one yields exactly one imminent band, and with no headline it opens", () => {
     const cols = [opener("y", "2026-09-12"), live("x"), opener("z", "2026-09-19")];
     const bands = homeBands(cols, cfg);
     expect(bands.map((b) => [b.region.key, b.imminent])).toEqual([
       ["a", false],
       ["b", true],
     ]);
-    expect(openBandIndex(bands)).toBe(1);
+    expect(openBandIndex(bands, null, noHeadline)).toBe(1);
   });
 
-  test("the phone open rule: the imminent band, else the first, else nothing", () => {
-    expect(openBandIndex([])).toBe(-1);
-    expect(openBandIndex([{ imminent: false }, { imminent: false }])).toBe(0);
-    expect(openBandIndex([{ imminent: false }, { imminent: true }])).toBe(1);
-    const bands = homeBands(columns);
-    const at = openBandIndex(bands);
-    expect(at).toBe(bands.some((b) => b.imminent) ? bands.findIndex((b) => b.imminent) : 0);
+  // The rule (tl-38t): exactly one band is open at rest, and it is the region
+  // of the conference the headline is about, else the imminent band, else the
+  // first. The headline names a programme, not a conference, and the chooser
+  // is handed the slug and a resolver rather than a region, so the whole
+  // chain — slug to conference to band — is what is under test.
+  describe("which band is open at rest", () => {
+    // y opens first and is not live, so its band (b) is imminent; x is under
+    // way; the headline, when there is one, is about a programme in z's band.
+    const cfg3: RegionConfig = {
+      regions: [
+        { key: "a", name: "A" },
+        { key: "b", name: "B" },
+        { key: "c", name: "C" },
+      ],
+      conferenceRegions: { x: "a", y: "b", z: "c" },
+    };
+    const cols = [opener("y", "2026-09-01"), live("x"), opener("z", "2026-09-19")];
+    const bands = homeBands(cols, cfg3);
+    /** The member index, in miniature: one programme each. */
+    const conferenceOf = (slug: string): string | null =>
+      ({ "x-town": "x", "y-town": "y", "z-town": "z" })[slug] ?? null;
+
+    test("the headline's region wins", () => {
+      expect(bands.map((b) => b.imminent)).toEqual([false, true, false]);
+      expect(openBandIndex(bands, "z-town", conferenceOf)).toBe(2);
+      expect(openBandIndex(bands, "x-town", conferenceOf)).toBe(0);
+    });
+
+    test("no headline: the imminent band", () => {
+      expect(openBandIndex(bands, null, conferenceOf)).toBe(1);
+    });
+
+    test("no headline and no imminent band: the first", () => {
+      const none = homeBands([live("x"), live("y"), live("z")], cfg3);
+      expect(none.map((b) => b.imminent)).toEqual([false, false, false]);
+      expect(openBandIndex(none, null, conferenceOf)).toBe(0);
+    });
+
+    test("a headline about a programme no followed season lists falls through to imminent", () => {
+      expect(conferenceOf("stranger")).toBeNull();
+      expect(openBandIndex(bands, "stranger", conferenceOf)).toBe(1);
+      // And to the first when nothing is imminent either.
+      const none = homeBands([live("x"), live("y"), live("z")], cfg3);
+      expect(openBandIndex(none, "stranger", conferenceOf)).toBe(0);
+    });
+
+    test("a headline whose conference sits in no band falls through the same way", () => {
+      // The resolver knows a conference the bands do not hold — a followed
+      // season that failed to collect today, say. Not the resolver's problem
+      // to know; the chooser's to survive.
+      expect(openBandIndex(bands, "w-town", () => "w")).toBe(1);
+    });
+
+    test("empty bands: -1", () => {
+      expect(openBandIndex([], "z-town", conferenceOf)).toBe(-1);
+      expect(openBandIndex([], null, conferenceOf)).toBe(-1);
+    });
+
+    test("the open flags mark exactly one band, the chosen one", () => {
+      expect(bandOpenFlags(3, 2)).toEqual([false, false, true]);
+      expect(bandOpenFlags(3, 0)).toEqual([true, false, false]);
+      expect(bandOpenFlags(0, -1)).toEqual([]);
+      const live = homeBands(columns);
+      const flags = bandOpenFlags(live.length, openBandIndex(live, null, noHeadline));
+      expect(flags.filter(Boolean).length).toBe(1);
+    });
+
+    test("on the live data the resolver is the member index, never a name", () => {
+      for (const s of seasons) {
+        for (const slug of memberSlugs(s)) {
+          const key = conferenceOfProgramme(seasons, slug);
+          expect(key, slug).not.toBeNull();
+          expect(memberSlugs(loadSeason(key as string)).has(slug), slug).toBe(true);
+        }
+      }
+      expect(conferenceOfProgramme(seasons, "no-such-programme")).toBeNull();
+      expect(conferenceOfProgramme(seasons, "")).toBeNull();
+    });
+
+    test("the headline programme is the journal's basis, and only a non-empty string", () => {
+      expect(headlineProgrammeOf(null)).toBeNull();
+      const none = { headline: "A story" } as unknown as NationalJournalFile;
+      expect(headlineProgrammeOf(none)).toBeNull();
+      const empty = {
+        headline: "A story",
+        basis: { programme: "" },
+      } as unknown as NationalJournalFile;
+      expect(headlineProgrammeOf(empty)).toBeNull();
+      const other = {
+        headline: "A story",
+        basis: { programme: 3 },
+      } as unknown as NationalJournalFile;
+      expect(headlineProgrammeOf(other)).toBeNull();
+      const named = {
+        headline: "A story",
+        basis: { programme: "some-town" },
+      } as unknown as NationalJournalFile;
+      expect(headlineProgrammeOf(named)).toBe("some-town");
+    });
+
+    test("the live page: the chain resolves, or falls through, the same way the page does", () => {
+      const journal = loadNationalJournal(site.season, site.gender);
+      const slug = headlineProgrammeOf(journal);
+      const live = homeBands(columns);
+      const at = openBandIndex(live, slug, (s) => conferenceOfProgramme(seasons, s));
+      const key = slug === null ? null : conferenceOfProgramme(seasons, slug);
+      if (key !== null) {
+        expect(live[at]?.columns.some((c) => c.key === key)).toBe(true);
+      } else {
+        expect(at).toBe(live.some((b) => b.imminent) ? live.findIndex((b) => b.imminent) : 0);
+      }
+    });
+  });
+
+  describe("the chips follow site.regions, filtered to the bands present", () => {
+    test("on the live data", () => {
+      const chips = regionChips(homeBands(columns));
+      expect(chips.map((c) => c.key)).toEqual(
+        site.regions
+          .filter((r) => columns.some((c) => site.conferenceRegions[c.key] === r.key))
+          .map((r) => r.key),
+      );
+      expect(chips.map((c) => c.name)).toEqual(
+        chips.map((c) => site.regions.find((r) => r.key === c.key)?.name ?? ""),
+      );
+      expect(chips.reduce((n, c) => n + c.count, 0)).toBe(columns.length);
+    });
+
+    test("and on a table with a region no conference names (tl-4an.21)", () => {
+      const cfg3: RegionConfig = {
+        regions: [
+          { key: "north", name: "North" },
+          { key: "empty", name: "Empty" },
+          { key: "south", name: "South" },
+        ],
+        conferenceRegions: { s: "south", n: "north" },
+      };
+      // Input order is kickoff order; the chips are table order regardless.
+      const chips = regionChips(homeBands([opener("s", "2026-09-05"), live("n")], cfg3));
+      expect(chips).toEqual([
+        { key: "north", name: "North", count: 1 },
+        { key: "south", name: "South", count: 1 },
+      ]);
+    });
+  });
+
+  describe("the lead line", () => {
+    const view = (
+      key: string,
+      code: string,
+      state: { live?: true; opensOn?: string; imminent?: true },
+    ): CardView & BandColumn => ({
+      key,
+      code,
+      name: code,
+      live: state.live === true,
+      opensOn: state.opensOn ?? null,
+      kickoff: state.opensOn ?? (state.live ? "2026-09-02" : null),
+      opens: opensLine({ live: state.live === true, opensOn: state.opensOn ?? null }),
+      imminent: state.imminent === true,
+      played: 1,
+      total: 10,
+      line: "A sentence the row carries.",
+      stamp: null,
+      href: "#",
+    });
+    const cfg2: RegionConfig = {
+      regions: [{ key: "mw", name: "Midwest" }],
+      conferenceRegions: { g: "mw", m: "mw" },
+    };
+    /** One region, so one band. */
+    const only = (views: (CardView & BandColumn)[]): HomeBand<CardView & BandColumn> =>
+      homeBands(views, cfg2)[0] as HomeBand<CardView & BandColumn>;
+
+    test("the plain case names the region and what its lead conference is doing", () => {
+      const band = only([
+        view("g", "GLVC", { opensOn: "2026-09-04", imminent: true }),
+        view("m", "G-MAC", { opensOn: "2026-09-12" }),
+      ]);
+      expect(leadLine(band, null)).toBe(`Midwest: the GLVC opens ${longDate("2026-09-04")}.`);
+      // And the row's own sentence is not restated: the rows beneath carry it.
+      expect(leadLine(band, null)).not.toContain("A sentence");
+    });
+
+    test("a band under way speaks for the live conference", () => {
+      const band = only([view("g", "GLVC", { live: true })]);
+      expect(leadLine(band, null)).toBe("Midwest: the GLVC is in conference play.");
+    });
+
+    test("the headline case says why the band is open", () => {
+      const band = only([
+        view("g", "GLVC", { opensOn: "2026-09-04", imminent: true }),
+        view("m", "G-MAC", { opensOn: "2026-09-12" }),
+      ]);
+      expect(leadLine(band, { programme: "Southwest Baptist", code: "GLVC" })).toBe(
+        `Open for the headline: Southwest Baptist, of the GLVC. The GLVC opens ${longDate("2026-09-04")}.`,
+      );
+      // The headline conference, not the band's lead, is the one spoken for.
+      expect(leadLine(band, { programme: "Somebody", code: "G-MAC" })).toBe(
+        `Open for the headline: Somebody, of the G-MAC. The G-MAC opens ${longDate("2026-09-12")}.`,
+      );
+    });
+  });
+
+  // The rendered page, when a build is on disk: exactly one band carries
+  // data-open="true", and it is the one the chooser names from the same
+  // journal and seasons. The repo has no component render harness, so this
+  // reads dist/ and stands down when there is none — `just verify` builds
+  // after the tests, so the assertion is live from the second run onward.
+  describe("the built home page", () => {
+    const dist = `${process.cwd()}/dist/index.html`;
+    test.skipIf(!existsSync(dist))("exactly one band is open, and it is the chosen one", () => {
+      const html = readFileSync(dist, "utf8");
+      if (homeLayout(columns.length) === "columns") {
+        expect(html).not.toContain("data-open=");
+        return;
+      }
+      const opens = [
+        ...html.matchAll(/<section[^>]*class="band[^"]*"[^>]*data-open="(true|false)"/g),
+      ];
+      const bands = homeBands(columns);
+      expect(opens.length).toBe(bands.length);
+      const open = opens.filter((m) => m[1] === "true");
+      expect(open.length).toBe(1);
+      const region = /data-region="([^"]+)"/.exec(open[0]?.[0] ?? "")?.[1];
+      const journal = loadNationalJournal(site.season, site.gender);
+      const at = openBandIndex(bands, headlineProgrammeOf(journal), (s) =>
+        conferenceOfProgramme(seasons, s),
+      );
+      expect(region).toBe(bands[at]?.region.key);
+      // The head says the same thing the attribute does.
+      const expanded = [...html.matchAll(/class="bhead[^"]*"[^>]*aria-expanded="true"/g)];
+      expect(expanded.length).toBe(1);
+      // And the chips are pressed the same way.
+      const pressed = [...html.matchAll(/class="chip[^"]*"[^>]*aria-pressed="true"/g)];
+      expect(pressed.length).toBe(1);
+    });
   });
 
   test("live and nextOpens are recounted from the columns", () => {
@@ -155,7 +396,7 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     }
   });
 
-  test("the head, the summary and the meta share one wording", () => {
+  test("the head and the meta share one wording", () => {
     for (const b of homeBands(columns)) {
       const meta = bandMeta(b);
       expect(bandHead(b)).toBe(
@@ -163,12 +404,10 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       );
       if (b.live > 0) {
         expect(meta.startsWith(`${b.live} LIVE`)).toBe(true);
-        expect(bandSummary(b)).toBe(`${b.columns.length} · ${b.live} LIVE`);
         if (b.nextOpens)
           expect(meta).toContain(`NEXT OPENS ${shortDate(b.nextOpens).toUpperCase()}`);
       } else if (b.nextOpens) {
         expect(meta).toBe(`OPENS ${shortDate(b.nextOpens).toUpperCase()}`);
-        expect(bandSummary(b)).toBe(`${b.columns.length} · ${meta}`);
       } else {
         expect(meta).toBe("NO CONFERENCE DATE PUBLISHED");
       }

@@ -140,9 +140,15 @@ describe("the home page past the cap", () => {
     // The most imminent kickoff here is the GLVC's, which is live, so its
     // card wears the phase word and no purple. The Midwest head used to be
     // purple over it: a false signal, by the ruling (tl-4an.19). No band is
-    // purple at this size, and the phone opens the first, the Northeast.
+    // purple at this size, and with no headline the first opens, the
+    // Northeast; a headline about a placeholder programme opens its band.
     expect(bands.filter((b) => b.imminent)).toEqual([]);
-    expect(bands.map((b) => b.region.key)[openBandIndex(bands)]).toBe("northeast");
+    expect(bands.map((b) => b.region.key)[openBandIndex(bands, null, () => null)]).toBe(
+      "northeast",
+    );
+    expect(
+      bands.map((b) => b.region.key)[openBandIndex(bands, "gsc-placeholder-1", () => "gsc")],
+    ).toBe("southeast");
     for (const b of bands) {
       const meta = bandMeta(b);
       if (b.live > 0) expect(meta, b.region.key).toContain("LIVE");
