@@ -47,6 +47,11 @@ export const programmeSchema = z
     name: z.string().min(1),
     conference: z.string().min(1),
     abbr: z.string().min(1).max(6).optional(),
+    /** touchline.fixtures/2 (contract changelog 2026-09-04, rib 51dc0d2, bead
+     *  tl-4sg.40): The conference's own grouping of this programme for the
+     *  season, spelled as the conference prints it ("East", "Northwest",
+     *  "Southwest"); present only when its membership window names one. */
+    division: z.string().min(1).optional(),
   })
   .strict();
 export type Programme = z.infer<typeof programmeSchema>;

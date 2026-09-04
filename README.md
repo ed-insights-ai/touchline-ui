@@ -87,6 +87,23 @@ key carries identity at rest. `src/lib/fixtures/density.ts` holds synthetic
 existed (the live site passed twelve in batch 3 and the fixture kept its synthetic
 twelve); it is for tests only.
 
+## Divisional standings
+
+A conference that prints its standings in divisions carries the division on
+every member of the season's fixtures file (`programmes[].division`, spelled
+as the conference prints it; touchline.fixtures/2, contract changelog
+2026-09-04, bead tl-4sg.40), and on none of any other. When every programme
+carries one, the season page groups the table by division, one table per
+division in the order the conference prints them, and then the conference-wide
+table beneath, headed THE CONFERENCE TABLE; the printed order is not in the
+data, so it is read as first appearance in `programmes[]`, which the rib
+writes in membership order. Which conference and what its divisions are called
+is the data's business (`src/lib/standings.ts` names none). A file with a
+division on some programmes and not others is one the rib's check refuses; if
+one arrives the page renders the one table and the build log says so. The
+journal brief carries the division beside each programme so a writer may name
+it.
+
 ## Programme identity
 
 The site reads `data/reference/programmes.json` from the data home
