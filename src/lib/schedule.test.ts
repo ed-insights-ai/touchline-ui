@@ -340,3 +340,23 @@ describe("kickoff times", () => {
     expect(kickoff("nonsense")).toBeNull();
   });
 });
+
+describe("how a forfeit and a disputed score are weighted", () => {
+  test("a forfeit's weight follows the award, not the printed score", () => {
+    // Upper Iowa 2024: "W, 2-2" beside "Win by forfeit". A draw by the
+    // figures, a home win by the award.
+    const f = { home_score: 2, away_score: 2, forfeit: "home" } as unknown as Fixture;
+    expect(weightOf(f, "home")).toBe("strong");
+    expect(weightOf(f, "away")).toBe("quiet");
+    const g = { home_score: 3, away_score: 0, forfeit: "away" } as unknown as Fixture;
+    expect(weightOf(g, "away")).toBe("strong");
+    expect(weightOf(g, "home")).toBe("quiet");
+  });
+
+  test("a disputed score weights neither side, whatever it says", () => {
+    const f = { home_score: 3, away_score: 0 } as unknown as Fixture;
+    expect(weightOf(f, "home", true)).toBe("even");
+    expect(weightOf(f, "away", true)).toBe("even");
+    expect(weightOf(f, "home")).toBe("strong");
+  });
+});

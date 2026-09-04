@@ -18,6 +18,7 @@ import {
   fixtureCount,
   goalsForByProgramme,
   loadSeason,
+  matchIdentity,
   memberSlugs,
   programmeCounts,
   unresolved,
@@ -478,5 +479,32 @@ describe("a line that is another line with the words moved", () => {
     const { journal: out, report } = validateJournal(j, season, "test");
     expect(out.featured?.last_match?.line).toBeDefined();
     expect(report.claims.some((c) => c.checker === "words_moved")).toBe(false);
+  });
+});
+
+describe("a disputed score is never read as a fact", () => {
+  // Two conference files printing different final scores for one match
+  // (division.ts foldToMatches). The site shows the home programme's figure
+  // with a mark and counts it nowhere; the validator has no figure it may
+  // vouch for, so a featured line resting on the match is contradicted and
+  // dropped, the nearest of the three verdicts to "nobody can say".
+  const fixture = season.fixtures.fixtures.find((f) => f.status === "final");
+  const ref = fixture ? `${fixture.date} ${fixture.home} v ${fixture.away}` : "";
+  const disputed = { ...season, disputed: new Set(fixture ? [matchIdentity(fixture)] : []) };
+
+  test("a featured line on a disputed match is contradicted, and says why", () => {
+    const j = journal({ featured: { last_match: { fixture_ref: ref, line: "A line." } } });
+    const { journal: out, report } = validateJournal(j, disputed, "test");
+    const claim = report.claims.find((c) => c.path === "featured.last_match");
+    expect(claim).toMatchObject({ checker: "fixture_ref", verdict: "contradicted", dropped: true });
+    expect(claim?.mismatches[0]).toContain("sources disagree on the score");
+    expect(out.featured?.last_match).toBeUndefined();
+  });
+
+  test("and the same ref on the undisputed season verifies", () => {
+    const j = journal({ featured: { last_match: { fixture_ref: ref, line: "A line." } } });
+    const { report } = validateJournal(j, season, "test");
+    const claim = report.claims.find((c) => c.path === "featured.last_match");
+    expect(claim?.verdict).toBe("verified");
   });
 });

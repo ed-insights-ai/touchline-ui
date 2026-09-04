@@ -15,23 +15,33 @@ import {
   boxScoreGaps,
   collectionLine,
   conferenceOpensOn,
+  DISPUTED_MARK,
+  disputedIdentities,
   exhibitionsOf,
+  FORFEIT_MARK,
   fixtureCount,
   goalsForByProgramme,
   hasScore,
   homeHref,
   isCountable,
+  isCounted,
   isExhibition,
   isScored,
   loadSeason,
+  markOf,
   matchDetailOf,
   matchesHref,
   matchHref,
+  matchIdentity,
   matchweeks,
   memberSlugs,
+  outsideRecord,
+  overallTable,
   playedCount,
   programmeCounts,
   recordOf,
+  resultFor,
+  resultsOf,
   scoredCount,
   seasonCounts,
   seasonHref,
@@ -44,8 +54,9 @@ import {
   unresolved,
 } from "./derive.ts";
 import { dayNumber, daysBetween, dowIndex, friendlies, monShort, toISO } from "./format.ts";
-import type { Fixture } from "./model.ts";
+import type { Fixture, FixturesFile } from "./model.ts";
 import { computeTable, isPlayed } from "./model.ts";
+import { nameBookFor } from "./names.ts";
 import { playerCard } from "./player.ts";
 
 const CONFERENCES = ["gac", "lsc", "gsc"] as const;
@@ -594,5 +605,167 @@ describe("the goals chart draws one population, and it is the season's", () => {
         expect(rows.get(f.away)?.goals ?? 0).toBe(ownGoals(season, f.away));
       }
     }
+  });
+});
+
+describe("a forfeit is the award, and a disputed score is nobody's fact", () => {
+  // Built, because the data home carries neither yet (the Upper Iowa 2024
+  // row is still scheduled until the rib re-collects it). Three members;
+  // alpha v bravo is a forfeit the host printed as 2-2 and awarded to the
+  // home side; alpha v charlie is a plain 1-0; bravo v charlie is a 3-1 that
+  // another file prints differently, so it is in dispute.
+  const fixture = (over: Partial<Fixture> & Pick<Fixture, "id" | "home" | "away">): Fixture => ({
+    date: "2026-09-05",
+    status: "final",
+    conference_game: true,
+    ...over,
+  });
+  const forfeit = fixture({
+    id: "syn:alpha:1",
+    home: "alpha",
+    away: "bravo",
+    home_score: 2,
+    away_score: 2,
+    forfeit: "home",
+  });
+  const plain = fixture({
+    id: "syn:alpha:2",
+    home: "alpha",
+    away: "charlie",
+    home_score: 1,
+    away_score: 0,
+  });
+  const contested = fixture({
+    id: "syn:bravo:3",
+    home: "bravo",
+    away: "charlie",
+    home_score: 3,
+    away_score: 1,
+  });
+  const file: FixturesFile = {
+    schema: "touchline.fixtures/2",
+    season: site.season,
+    gender: site.gender,
+    conference: "SYN",
+    collected_at: "2026-09-06T06:00:00Z",
+    programmes: [
+      { slug: "alpha", name: "Alpha", conference: "SYN" },
+      { slug: "bravo", name: "Bravo", conference: "SYN" },
+      { slug: "charlie", name: "Charlie", conference: "SYN" },
+    ],
+    fixtures: [forfeit, plain, contested],
+  };
+  // The other file's record of bravo v charlie: same day, same sides, a
+  // different score. disputedIdentities is the rule loadSeason fills the
+  // season's set from, applied here to the two files by hand.
+  const other: FixturesFile = {
+    ...file,
+    conference: "OTHER",
+    programmes: [{ slug: "charlie", name: "Charlie", conference: "OTHER" }],
+    fixtures: [{ ...contested, id: "other:charlie:9", home_score: 2, away_score: 1 }],
+  };
+  const disputed = disputedIdentities([file, other]);
+  const s: Season = {
+    key: "syn",
+    fixtures: file,
+    rosters: null,
+    stats: null,
+    matches: null,
+    coverage: null,
+    names: nameBookFor(file),
+    asOf: "2026-09-06",
+    collectedAt: file.collected_at,
+    disputed,
+  };
+
+  test("the disputed set holds exactly the match the two files disagree on", () => {
+    expect([...disputed]).toEqual([matchIdentity(contested)]);
+    // Same score in both files is not a dispute, and neither is a forfeit
+    // beside a plain final of the same score.
+    expect(
+      disputedIdentities([file, { ...other, fixtures: [{ ...contested, id: "x" }] }]).size,
+    ).toBe(0);
+    expect(
+      disputedIdentities([
+        file,
+        { ...other, fixtures: [{ ...forfeit, id: "y", forfeit: undefined }] },
+      ]).size,
+    ).toBe(0);
+  });
+
+  test("each fixture wears its mark, and only the disputed one is out of the record", () => {
+    expect(markOf(s, forfeit)).toBe(FORFEIT_MARK);
+    expect(markOf(s, contested)).toBe(DISPUTED_MARK);
+    expect(markOf(s, plain)).toBeNull();
+    expect(isCounted(s, forfeit)).toBe(true);
+    expect(isCounted(s, plain)).toBe(true);
+    expect(isCounted(s, contested)).toBe(false);
+    // Played and scored, all three: it is the score of the third that is
+    // unproven, not the match.
+    expect(scoredCount(s)).toBe(3);
+    expect(programmeCounts(s, "bravo").played).toBe(2);
+  });
+
+  test("the award is the result: 2-2 with forfeit home is a home win, and its goals are nobody's", () => {
+    expect(resultFor(forfeit, "home")).toBe("W");
+    expect(resultFor(forfeit, "away")).toBe("L");
+    const alpha = recordOf(s, "alpha");
+    expect(alpha).toEqual({ won: 2, drawn: 0, lost: 0, goalsFor: 1, goalsAgainst: 0, played: 2 });
+    const bravo = recordOf(s, "bravo");
+    // The forfeit is a loss with no goals either way; the disputed 3-1 is out.
+    expect(bravo).toEqual({ won: 0, drawn: 0, lost: 1, goalsFor: 0, goalsAgainst: 0, played: 1 });
+    expect(resultsOf(s, "bravo").map((r) => r.fixture.id)).toEqual([forfeit.id]);
+    expect(resultsOf(s, "alpha").map((r) => r.forfeit)).toEqual([true, false]);
+  });
+
+  test("scored and conceded exclude the forfeit's goals and the disputed match", () => {
+    const rows = new Map(goalsForByProgramme(s).map((g) => [g.slug, g]));
+    expect(rows.get("alpha")).toMatchObject({ goals: 1, conceded: 0 });
+    expect(rows.get("bravo")).toMatchObject({ goals: 0, conceded: 0 });
+    expect(rows.get("charlie")).toMatchObject({ goals: 0, conceded: 1 });
+  });
+
+  test("the tables count the award and not the goals, and leave the disputed match out", () => {
+    for (const rows of [table(s), overallTable(s)]) {
+      const by = new Map(rows.map((r) => [r.slug, r]));
+      expect(by.get("alpha")).toMatchObject({
+        played: 2,
+        won: 2,
+        points: 6,
+        goalsFor: 1,
+        goalsAgainst: 0,
+      });
+      expect(by.get("bravo")).toMatchObject({
+        played: 1,
+        lost: 1,
+        points: 0,
+        goalsFor: 0,
+        goalsAgainst: 0,
+      });
+      expect(by.get("charlie")).toMatchObject({
+        played: 1,
+        lost: 1,
+        points: 0,
+        goalsFor: 0,
+        goalsAgainst: 1,
+      });
+    }
+  });
+
+  test("the conference's record against outsiders reads the same rules", () => {
+    // Make bravo an outsider: the forfeit is then a member win over a
+    // non-member, the disputed match a non-member's match that counts nowhere.
+    const t: Season = {
+      ...s,
+      fixtures: { ...file, programmes: file.programmes.filter((p) => p.slug !== "bravo") },
+    };
+    expect(outsideRecord(t)).toEqual({
+      won: 1,
+      drawn: 0,
+      lost: 0,
+      goalsFor: 0,
+      goalsAgainst: 0,
+      played: 1,
+    });
   });
 });

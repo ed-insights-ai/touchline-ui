@@ -17,7 +17,14 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { footNote, type MatchState, provenance } from "./matchstate.ts";
+import {
+  disputedNote,
+  footNote,
+  forfeitNote,
+  type MatchState,
+  metaDescription,
+  provenance,
+} from "./matchstate.ts";
 
 const STATES: MatchState[] = [
   "played",
@@ -110,5 +117,59 @@ describe("provenance names a source, never an intention", () => {
     expect(provenance("off", { hasPlays: false, status: "cancelled" })).toContain(
       "marks this match cancelled",
     );
+  });
+});
+
+describe("a score that is not the whole result says so in the reader's words", () => {
+  // The two words are "by forfeit" and "disputed", lower case in running
+  // text; a scoreline in prose is set with an en dash; nothing here uses an
+  // em dash, which the copy properties reject.
+  const em = "\u2014";
+  const hyphenScore = /\d\s?-\s?\d/;
+
+  test("a forfeit names the side awarded the match, and that the goals count for nothing", () => {
+    const text = forfeitNote("Upper Iowa");
+    expect(text).toContain("Awarded to Upper Iowa by forfeit");
+    expect(text).toContain("count toward no tally");
+    expect(text).not.toContain(em);
+    expect(text).not.toMatch(hyphenScore);
+    expect(text).not.toMatch(/withheld|refused|declined/i);
+  });
+
+  test("a disputed match names both scores with their sources, and counts neither", () => {
+    const text = disputedNote({ home: "Upper Iowa", away: "Roosevelt" }, [
+      { source: "uiupeacocks.com", code: "GLVC", home_score: 3, away_score: 2 },
+      { source: "rooseveltlakers.com", code: "GLIAC", home_score: 2, away_score: 2 },
+    ]);
+    expect(text).toContain("uiupeacocks.com (GLVC file) has Upper Iowa 3\u20132 Roosevelt");
+    expect(text).toContain("rooseveltlakers.com (GLIAC file) has Upper Iowa 2\u20132 Roosevelt");
+    expect(text).toContain("neither is counted");
+    expect(text).not.toContain(em);
+    expect(text).not.toMatch(hyphenScore);
+  });
+
+  test("the description carries the mark beside the score", () => {
+    const base = {
+      home: "Upper Iowa",
+      away: "Roosevelt",
+      score: "2\u20132",
+      date: "September 5, 2024",
+      conference: "Great Lakes Valley Conference",
+      hasPlays: false,
+      status: "final",
+    };
+    expect(metaDescription("score-only", { ...base, mark: "by forfeit" })).toStartWith(
+      "Upper Iowa 2\u20132 Roosevelt (by forfeit), September 5, 2024.",
+    );
+    expect(metaDescription("score-only", { ...base, mark: "disputed" })).toContain("(disputed)");
+    expect(metaDescription("score-only", base)).not.toContain("(");
+  });
+
+  test("provenance names the forfeit and still claims no final", () => {
+    const text = provenance("score-only", { hasPlays: false, status: "final", forfeit: true });
+    expect(text).toContain("by forfeit");
+    expect(text.toLowerCase()).not.toContain("final");
+    expect(text).not.toMatch(/withheld|refused|declined/i);
+    expect(provenance("score-only", { hasPlays: false, status: "final" })).not.toContain("forfeit");
   });
 });

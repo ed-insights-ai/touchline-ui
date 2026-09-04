@@ -4,7 +4,10 @@ import Page from "../../../layouts/Page.astro";
 import {
   boxScoreGaps,
   hasScore,
+  isDisputed,
+  isForfeit,
   loadSeason,
+  markOf,
   matchDetailOf,
   matchSlug,
   matchesHref,
@@ -19,11 +22,19 @@ import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
 import {
+  disputedNote,
+  forfeitNote,
   type MatchState,
   metaDescription,
   oneSourceNote,
 } from "../../../lib/matchstate.ts";
-import { matchIdentity, oneSidedFinals, postedSide, unpostedSides } from "../../../lib/division.ts";
+import {
+  disputedFinals,
+  matchIdentity,
+  oneSidedFinals,
+  postedSide,
+  unpostedSides,
+} from "../../../lib/division.ts";
 import { homeSeasons } from "../../../lib/home.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
@@ -185,6 +196,22 @@ const oneSource = twin
     })
   : null;
 
+// A score that is not the whole result. A forfeit is the award, named under
+// the figures with the side it went to; a disputed match is two sources
+// printing two scores, both named with their sources. The mark beside the
+// figures is the same word every other surface prints (derive.ts markOf).
+const forfeit = isForfeit(fixture);
+const disputed = isDisputed(season, fixture);
+const mark = markOf(season, fixture);
+const disputedTwin = disputed
+  ? disputedFinals(homeSeasons()).find((m) => m.identity === matchIdentity(fixture))
+  : undefined;
+const resultNote = disputedTwin
+  ? disputedNote({ home: names.name(fixture.home), away: names.name(fixture.away) }, disputedTwin.scores)
+  : forfeit
+    ? forfeitNote(names.name(fixture.forfeit === "home" ? fixture.home : fixture.away))
+    : null;
+
 const knownRows: { label: string; value: string }[] = [
   {
     label: "DATE",
@@ -205,7 +232,9 @@ const knownRows: { label: string; value: string }[] = [
         : state === "silent-past"
           ? "Still listed as scheduled, with the date behind us"
           : state === "score-only"
-            ? `Result published · box score not collected${gapReason ? ` — ${gapReason}` : ""}`
+            ? forfeit
+              ? "Result by forfeit · no box score, because no match was played"
+              : `Result published · box score not collected${gapReason ? ` — ${gapReason}` : ""}`
             : `Listed as ${fixture.status}`,
   }]),
   {
@@ -216,8 +245,11 @@ const knownRows: { label: string; value: string }[] = [
 
 const explain: Record<State, string> = {
   played: "",
-  "score-only":
-    "The programme published the result but no box score Touchline could reach: a box score gap. The scoreline stands; the detail behind it does not exist here.",
+  // A forfeit has no box score to be missing; the note under the figures
+  // says what the result is instead.
+  "score-only": forfeit
+    ? ""
+    : "The programme published the result but no box score Touchline could reach: a box score gap. The scoreline stands; the detail behind it does not exist here.",
   "silent-final":
     "The programme's schedule marked this match finished but never entered a result: a score gap. The silence is the site's own, and it stays on the record, named.",
   "silent-past":
@@ -244,6 +276,7 @@ const awayName = names.name(fixture.away);
     home: homeName,
     away: awayName,
     score: scored ? `${fixture.home_score}–${fixture.away_score}` : null,
+    mark,
     date: `${longDate(fixture.date)}, ${season.fixtures.season}`,
     conference: site.conferenceNames[season.key] ?? season.fixtures.conference,
     hasPlays: plays.length > 0,
@@ -293,6 +326,7 @@ const awayName = names.name(fixture.away);
             <span class="figure figure-home">{scored ? fixture.home_score : "—"}</span>
             <span class="figure-dash">–</span>
             <span class="figure figure-away">{scored ? fixture.away_score : "—"}</span>
+            {mark && <span class="figure-mark label">{mark}</span>}
           </div>
         )}
         <AwaySide class="side side-away" href={awayLink}>
@@ -348,6 +382,7 @@ const awayName = names.name(fixture.away);
       ) : (
         explain[state] && <p class="hero-explain serif-italic">{explain[state]}</p>
       )}
+      {resultNote && <p class="hero-explain serif-italic">{resultNote}</p>}
       {oneSource && <p class="hero-explain serif-italic">{oneSource}</p>}
     </section>
 
@@ -552,6 +587,10 @@ const awayName = names.name(fixture.away);
   /* Centred on the figures, not baseline-aligned with them: at a fifth of
      their size a baseline dash read as an underscore (owner, 2026-09-01). */
   .figure-dash { font-size: 40px; color: var(--outline-quiet); align-self: center; }
+  /* "by forfeit" or "disputed", under the figures in the caps-label register:
+     the figures are printed as published, and this says what they are. */
+  .figures { position: relative; }
+  .figure-mark { position: absolute; left: 0; right: 0; top: 100%; margin-top: 6px; text-align: center; white-space: nowrap; }
   .figures-absent .figure { font-size: 84px; color: var(--outline-quiet); }
   .figures-absent .figure-dash { color: var(--dash); }
   .kickoff { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 148px; }

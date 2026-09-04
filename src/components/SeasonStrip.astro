@@ -13,6 +13,8 @@ interface Cell {
   opponent: string;
   /** The scoreline, or the date when there is not one. */
   line: string;
+  /** "by forfeit" or "disputed" under the scoreline, or null. */
+  mark?: string | null;
   result: "W" | "D" | "L" | null;
   isOpener: boolean;
   silent: boolean;
@@ -39,6 +41,7 @@ const { cells } = Astro.props;
     >
       <span class="cell-opp">{c.opponent}</span>
       <span class="cell-line">{c.line}</span>
+      {c.mark && <span class="cell-mark">{c.mark}</span>}
       <span class="cell-detail">{c.detail}</span>
     </a>
   ))}
@@ -63,6 +66,8 @@ const { cells } = Astro.props;
   }
   .cell-opp { font-size: 10px; font-weight: 600; color: var(--quiet); }
   .cell-line { font-size: 12px; color: var(--quiet); }
+  /* "by forfeit" or "disputed": the opponent line's register, under the score. */
+  .cell-mark { font-size: 9px; color: var(--quiet); letter-spacing: 0.06em; white-space: nowrap; }
   .cell:hover, .cell:focus-visible {
     background: var(--accent-wash-soft); border-radius: 5px 5px 0 0;
   }

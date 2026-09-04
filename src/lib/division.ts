@@ -21,22 +21,35 @@
 import { site } from "../site.config.ts";
 import {
   boxScoreGaps,
+  hasResult,
   hasScore,
   isExhibition,
   isScored,
+  matchIdentity,
   memberSlugs,
   type Season,
+  scoresDisagree,
 } from "./derive.ts";
 import { dayOfMonth, monShort } from "./format.ts";
-import { type Fixture, isPlayed } from "./model.ts";
+import { type Fixture, isForfeit, isPlayed } from "./model.ts";
 
-/** What makes two records the same real-world match: the day, and the two
- *  programmes in an order neither of them chose. Slugs are the same string in
- *  every file that names a programme, which is what lets this work at all —
- *  and is worth restating, because the day it stops being true this function
- *  silently starts counting one match as two again. */
-export const matchIdentity = (f: Fixture): string =>
-  `${f.date} ${[f.home, f.away].sort().join(" v ")}`;
+/** The identity lives in derive.ts now, beside the disputed-score rule that
+ *  the per-season figures read; it is re-exported here because this is where
+ *  every caller learned it, and because the day it stops being true this
+ *  fold silently starts counting one match as two again. */
+export { matchIdentity };
+
+/** One record's score of a disputed match, with the source it came from:
+ *  the conference file that holds it and the host that published it. */
+export interface DisputedScore {
+  key: string;
+  code: string;
+  /** The publishing host ("uiupeacocks.com"), or the code when the record
+   *  carries no source URL. */
+  source: string;
+  home_score: number;
+  away_score: number;
+}
 
 /** One conference's record of a match. */
 export interface Sighting {
@@ -89,6 +102,17 @@ export interface DivisionMatch {
    *  final and its score, and says so wherever a surface names its silences:
    *  the reader is owed the fact that only one source has spoken. */
   oneSided: boolean;
+  /** The records DISAGREE on the final score: two sources, two facts, and
+   *  the fold refuses to choose between them silently, but it no longer
+   *  refuses to build. The folded match wears the home programme's record
+   *  and score, marked disputed wherever a score is printed; both scores
+   *  stand in `scores` with their sources; and no record, tally or table
+   *  counts it until the sources agree (derive.ts isCounted). A final
+   *  against a cancelled twin is not a dispute and still fails the fold. */
+  disputed: boolean;
+  /** Each posted score with its source, in config order. Empty unless
+   *  disputed. */
+  scores: DisputedScore[];
 }
 
 /** The status as the fold compares it. Cancelled, postponed and scheduled
@@ -158,16 +182,24 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     // takes the final and its score, and is marked one-sided so a surface can
     // say which page has not spoken. Cancelled is not "not yet" — it is a
     // claim that no match happened — so a final against cancelled still
-    // throws, as two different scores do. (A scoreless final does not reach
-    // this fold: the collector stores it as scheduled since rib #85.)
+    // throws. (A scoreless final does not reach this fold: the collector
+    // stores it as scheduled since rib #85.)
+    //
+    // Two scored finals printing DIFFERENT scores are a dispute (owner's
+    // ruling, tl-wyv): the fold keeps the row, marks it, keeps both scores
+    // with their sources, and lets the build stand. Every record must still
+    // be a final or a not-yet: a cancelled twin beside any final is the one
+    // disagreement that is not about the score, and it still throws.
     const shapes = new Set(group.map((s) => sideFreeShape(s.fixture)));
-    const posted = group.filter((s) => isScored(s.fixture));
+    const posted = group.filter((s) => hasResult(s.fixture));
+    const spoken = group.every((s) => hasResult(s.fixture) || isPending(s.fixture));
+    const disputed = scoresDisagree(group.map((s) => s.fixture)) && spoken;
     const oneSided =
       shapes.size > 1 &&
       posted.length > 0 &&
       new Set(posted.map((s) => sideFreeShape(s.fixture))).size === 1 &&
-      group.every((s) => isScored(s.fixture) || isPending(s.fixture));
-    if (shapes.size > 1 && !oneSided) {
+      spoken;
+    if (shapes.size > 1 && !oneSided && !disputed) {
       throw new Error(
         `Touchline: the records of ${identity} disagree on the score or status: ${group
           .map((s) => `${s.key} ${sideFreeShape(s.fixture)} (${s.fixture.status})`)
@@ -177,8 +209,12 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     const neutral = new Set(group.map((s) => s.fixture.home)).size > 1;
     // Only a record that holds the score may be canonical: the key and the
     // fixture travel together (the link under a result is the key's own
-    // match page), so a one-sided match resolves to the record that posted.
-    const eligible = oneSided ? posted : group;
+    // match page), so a one-sided or disputed match resolves to a record
+    // that posted. Where one record marks a forfeit and another prints the
+    // bare score, the forfeit is the fuller fact and the fold takes it.
+    const scored = oneSided || disputed ? posted : group;
+    const awarded = scored.filter((s) => isForfeit(s.fixture));
+    const eligible = awarded.length > 0 ? awarded : scored;
     const lead = eligible[0] ?? first;
     // With a home side, the canonical record is the home side's own
     // conference, which exactly one of the sightings is. Without one, the
@@ -195,9 +231,34 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
       sightings: group,
       neutral,
       oneSided,
+      disputed,
+      scores: disputed
+        ? posted.map((s) => ({
+            key: s.key,
+            code: s.code,
+            source: hostOf(s.fixture.source_url) ?? s.code,
+            home_score: s.fixture.home_score as number,
+            away_score: s.fixture.away_score as number,
+          }))
+        : [],
     });
   }
   return out;
+}
+
+/** "uiupeacocks.com" from a record's source URL, or null when it has none. */
+function hostOf(url: string | undefined): string | null {
+  if (!url) return null;
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return null;
+  }
+}
+
+/** Every match the division holds two scores for, in fold order. */
+export function disputedFinals(seasons: readonly Season[]): DivisionMatch[] {
+  return foldToMatches(allSightings(seasons)).filter((m) => m.disputed);
 }
 
 /** The programme whose page has NOT posted the score of a one-sided match:
@@ -209,7 +270,7 @@ export function unpostedSides(m: DivisionMatch): { slug: string; name: string; k
   if (!m.oneSided) return [];
   const out: { slug: string; name: string; key: string }[] = [];
   for (const s of m.sightings) {
-    if (isScored(s.fixture)) continue;
+    if (hasResult(s.fixture)) continue;
     const members = memberSlugs(s.season);
     const slug = [s.fixture.home, s.fixture.away].find((x) => members.has(x)) ?? s.fixture.home;
     out.push({ slug, name: s.season.names.name(slug), key: s.key });

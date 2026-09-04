@@ -17,6 +17,7 @@ import {
   hasScore,
   isScored,
   latestResults,
+  markOf,
   matchDetailOf,
   outsideRecord,
   recordOf,
@@ -98,10 +99,14 @@ export interface Brief {
 /** A fixture as the brief names it: the canonical reference, then whatever is
  *  published about it. The two halves are separated by a bullet so the writer
  *  can see where the address ends — a `fixture_ref` is the address ALONE. */
-const ref = (f: Fixture): string => {
-  const extra = [hasScore(f) ? `${f.home_score}-${f.away_score}` : null, f.time ?? null].filter(
-    Boolean,
-  );
+const ref = (s: Season, f: Fixture): string => {
+  // The mark travels with the score so the writer never reads a forfeit's
+  // printed goals, or a disputed score, as a plain result.
+  const extra = [
+    hasScore(f) ? `${f.home_score}-${f.away_score}` : null,
+    markOf(s, f),
+    f.time ?? null,
+  ].filter(Boolean);
   return extra.length
     ? `${canonicalFixtureRef(f)}  ·  ${extra.join(" · ")}`
     : canonicalFixtureRef(f);
@@ -214,14 +219,14 @@ export function buildBrief(s: Season): Brief {
       line: l.line,
     })),
     keepers,
-    latest_results: latestResults(s).map((f) => ref(f)),
-    upcoming: upcomingFixtures(s).map((f) => ref(f)),
+    latest_results: latestResults(s).map((f) => ref(s, f)),
+    upcoming: upcomingFixtures(s).map((f) => ref(s, f)),
     silences: {
-      finals_without_score: silence.finalsWithoutScore.map((f) => ref(f)),
-      past_date_no_result: silence.pastDateNoResult.map((f) => ref(f)),
+      finals_without_score: silence.finalsWithoutScore.map((f) => ref(s, f)),
+      past_date_no_result: silence.pastDateNoResult.map((f) => ref(s, f)),
     },
     box_score_gaps: gaps.map((g) => ({
-      fixture: g.fixture ? ref(g.fixture) : g.fixtureId,
+      fixture: g.fixture ? ref(s, g.fixture) : g.fixtureId,
       reason: g.reason,
     })),
   };
@@ -231,5 +236,5 @@ export function buildBrief(s: Season): Brief {
  *  form the journal's `featured` block uses. Kept out of the brief's headline
  *  figures so it can be trimmed when a conference's card is long. */
 export function fixtureIndex(s: Season): string[] {
-  return s.fixtures.fixtures.filter((f) => isScored(f) || f.date >= s.asOf).map((f) => ref(f));
+  return s.fixtures.fixtures.filter((f) => isScored(f) || f.date >= s.asOf).map((f) => ref(s, f));
 }
