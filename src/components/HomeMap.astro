@@ -21,12 +21,15 @@
 // wears a ring — the journal names the programme in its basis; nothing is
 // matched out of the sentence.
 //
-// Inside the selected region the conferences are told apart by shape: each
-// dot is a group holding a disc and a diamond, and the dot's glyph class
-// (lib/home.ts bandGlyphs, by position in the band) says which shows and
-// whether it is filled or hollow while the region is on. Off, every dot is
-// the plain disc, so an unselected region reads as it always has. The same
-// glyph is printed before the code in the ledger row: the row is the legend.
+// Inside the selected region the conferences are told apart by shape and by
+// hue, both by position in the band: each dot is a group holding a disc, a
+// diamond and a square, and the dot's glyph class (lib/home.ts bandGlyphs)
+// says which shows and whether it is filled or hollow while the region is
+// on, and its hue class (bandHues) says which --hue-N token inks it. Off,
+// every dot is the plain dim disc, so an unselected region reads as it
+// always has. The same glyph, in the same hue, is printed before the code in
+// the ledger row: the row is the legend, and the region of one conference is
+// still the accent alone.
 //
 // Every figure here is recomputed from the fixtures and the coordinates
 // file. The column prints no fixture counts: it answers where, the columns
@@ -117,8 +120,18 @@ const { dots, labels, placed, states, unplaced, selecting } = view;
   .dot { --dot-ink: var(--muted-mark); }
   .dot.dim { --dot-ink: var(--muted-bar); }
   .dot.on { --dot-ink: var(--accent); }
+  /* On, the conference's hue by its position in the band; hue 1 is the
+     accent, so a dot with no hue class and a first conference are the same
+     purple. */
+  .dot.on.hue-1 { --dot-ink: var(--hue-1); }
+  .dot.on.hue-2 { --dot-ink: var(--hue-2); }
+  .dot.on.hue-3 { --dot-ink: var(--hue-3); }
+  .dot.on.hue-4 { --dot-ink: var(--hue-4); }
+  .dot.on.hue-5 { --dot-ink: var(--hue-5); }
+  .dot.on.hue-6 { --dot-ink: var(--hue-6); }
   /* A hovered row or dot lights its conference: the region's others step
-     back to the rest ink, still above the unselected regions, still shaped. */
+     back to the rest ink, still above the unselected regions, still shaped.
+     Written after the hues and more specific than them, so it wins. */
   .map.lit .dot.on:not(.lit) { --dot-ink: var(--muted-mark); }
   .pip {
     fill: var(--dot-ink);

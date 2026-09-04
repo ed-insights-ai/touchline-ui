@@ -51,6 +51,25 @@
   --accent-wash: rgba(109, 79, 224, 0.09);
   --accent-wash-soft: rgba(109, 79, 224, 0.05);
 
+  /* The conferences of the selected region on the home map, one hue each by
+     position in the band (lib/home.ts hueAt), beside the glyph each wears:
+     shape and colour together, never colour alone. A categorical set in
+     FIXED ORDER — the first is the accent, so a region of one conference is
+     the purple it always was; then teal, ochre, rose, blue, olive. Tuned by
+     the dataviz validator against the paper, not by eye: every adjacent pair
+     clears ΔE 9.4 under deutan/protan simulation and 16.5 in normal vision,
+     and every hue clears 3:1 on the paper. The count is held to
+     lib/home.ts HUE_COUNT and to the largest band the density fixtures draw.
+     Dark is retired (see the Match Centre note below), so there is no dark
+     set; the one validated against a dark ground is in the PR that added
+     these, for the day one returns. */
+  --hue-1: var(--accent);
+  --hue-2: #0f8f80;
+  --hue-3: #b56b00;
+  --hue-4: #c0244e;
+  --hue-5: #2a72c9;
+  --hue-6: #7a8a18;
+
   /* Results. Each of these plays two roles — type on a light ground
      (PlayerSheet's W/D/L letter, the strip's silent line) and a fill UNDER
      white type (the 16/20px W/D/L badges) — and both roles want the same

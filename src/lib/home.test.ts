@@ -21,11 +21,13 @@ import {
   seasonCounts,
 } from "./derive.ts";
 import { divisionCounts } from "./division.ts";
+import { densityCards, densityConfig } from "./fixtures/density.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import {
   type BandColumn,
   bandGlyphs,
   bandHead,
+  bandHues,
   bandMeta,
   bandOpenFlags,
   type CardView,
@@ -34,11 +36,13 @@ import {
   glyphAt,
   type HomeBand,
   type HomeColumn,
+  HUE_COUNT,
   headlineProgrammeOf,
   homeBands,
   homeColumns,
   homeLayout,
   homeSeasons,
+  hueAt,
   lastNightLedger,
   lastNightOf,
   lastNightOpen,
@@ -387,52 +391,62 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       expect(pressed.length).toBe(1);
     });
 
-    // The row is the map's legend: a band's rows wear a glyph each, by
-    // position, and every dot of that conference wears the same one, so the
-    // shapes the reader sees on the map are the shapes printed beside the
-    // codes. Read off the built page, where both sides are rendered.
-    test.skipIf(!existsSync(dist))("a band's rows and its map dots carry matching glyphs", () => {
-      const html = readFileSync(dist, "utf8");
-      if (homeLayout(columns.length) === "columns") {
-        // The plain map selects nothing and draws no glyph.
-        expect(html).not.toMatch(/class="dot[^"]*mark-/);
-        return;
-      }
-      const glyphOf = (cls: string): string => /(?:^| )mark-([a-z-]+)/.exec(cls)?.[1] ?? "";
-      const dots = new Map<string, Set<string>>();
-      for (const m of html.matchAll(/<g class="(dot[^"]*)"[^>]*data-k="([^"]+)"/g)) {
-        const g = glyphOf(m[1] ?? "");
-        expect(g, m[2]).not.toBe("");
-        const set = dots.get(m[2] ?? "") ?? new Set<string>();
-        set.add(g);
-        dots.set(m[2] ?? "", set);
-      }
-      expect(dots.size).toBeGreaterThan(0);
-      let rows = 0;
-      for (const b of homeBands(columns)) {
-        const start = html.indexOf(`id="region-${b.region.key}-body"`);
-        expect(start, b.region.key).toBeGreaterThan(-1);
-        const end = html.indexOf("</section>", start);
-        const body = html.slice(start, end);
-        const seen = [...body.matchAll(/<a class="(row[^"]*)"[^>]*data-k="([^"]+)"/g)];
-        expect(seen.map((m) => m[2])).toEqual(b.columns.map((c) => c.key));
-        seen.forEach((m, at) => {
-          rows++;
-          const glyph = glyphOf(m[1] ?? "");
-          expect(glyph, m[2]).toBe(glyphAt(at) as string);
-          // Every dot of this conference wears the row's glyph, and nothing else.
-          const worn = dots.get(m[2] ?? "");
-          if (worn) expect([...worn], m[2]).toEqual([glyph]);
-        });
-      }
-      expect(rows).toBe(columns.length);
-      // And every dot belongs to a row.
-      for (const k of dots.keys())
-        expect(
-          columns.some((c) => c.key === k),
-          k,
-        ).toBe(true);
-    });
+    // The row is the map's legend: a band's rows wear a glyph and a hue each,
+    // by position, and every dot of that conference wears the same pair, so
+    // the shapes and colours the reader sees on the map are the ones printed
+    // beside the codes. Read off the built page, where both sides are
+    // rendered. The two are checked as one mark ("disc/1") because the ruling
+    // is shape AND colour, never colour alone: a dot in the right hue with
+    // the wrong shape is as wrong as the reverse.
+    test.skipIf(!existsSync(dist))(
+      "a band's rows and its map dots carry matching glyphs and hues",
+      () => {
+        const html = readFileSync(dist, "utf8");
+        if (homeLayout(columns.length) === "columns") {
+          // The plain map selects nothing and draws no glyph and no hue.
+          expect(html).not.toMatch(/class="dot[^"]*mark-/);
+          expect(html).not.toMatch(/class="dot[^"]*hue-/);
+          return;
+        }
+        const glyphOf = (cls: string): string => /(?:^| )mark-([a-z-]+)/.exec(cls)?.[1] ?? "";
+        const hueOf = (cls: string): string => /(?:^| )hue-(\d+)/.exec(cls)?.[1] ?? "";
+        const markOf = (cls: string): string => `${glyphOf(cls)}/${hueOf(cls)}`;
+        const dots = new Map<string, Set<string>>();
+        for (const m of html.matchAll(/<g class="(dot[^"]*)"[^>]*data-k="([^"]+)"/g)) {
+          expect(glyphOf(m[1] ?? ""), m[2]).not.toBe("");
+          expect(hueOf(m[1] ?? ""), m[2]).not.toBe("");
+          const set = dots.get(m[2] ?? "") ?? new Set<string>();
+          set.add(markOf(m[1] ?? ""));
+          dots.set(m[2] ?? "", set);
+        }
+        expect(dots.size).toBeGreaterThan(0);
+        let rows = 0;
+        for (const b of homeBands(columns)) {
+          const start = html.indexOf(`id="region-${b.region.key}-body"`);
+          expect(start, b.region.key).toBeGreaterThan(-1);
+          const end = html.indexOf("</section>", start);
+          const body = html.slice(start, end);
+          const seen = [...body.matchAll(/<a class="(row[^"]*)"[^>]*data-k="([^"]+)"/g)];
+          expect(seen.map((m) => m[2])).toEqual(b.columns.map((c) => c.key));
+          seen.forEach((m, at) => {
+            rows++;
+            expect(glyphOf(m[1] ?? ""), m[2]).toBe(glyphAt(at) as string);
+            expect(hueOf(m[1] ?? ""), m[2]).toBe(String(hueAt(at)));
+            // Every dot of this conference wears the row's glyph in the row's
+            // hue, and nothing else.
+            const worn = dots.get(m[2] ?? "");
+            if (worn) expect([...worn], m[2]).toEqual([markOf(m[1] ?? "")]);
+          });
+        }
+        expect(rows).toBe(columns.length);
+        // And every dot belongs to a row.
+        for (const k of dots.keys())
+          expect(
+            columns.some((c) => c.key === k),
+            k,
+          ).toBe(true);
+      },
+    );
   });
 
   test("the glyph is the position in the band, and a band never repeats one", () => {
@@ -445,6 +459,47 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       expect(glyphs).toEqual(b.columns.map((_, i) => glyphAt(i)));
       expect(new Set(glyphs).size).toBe(b.columns.length);
     }
+  });
+
+  // The hue is the same position the glyph is, so a row's mark and its dots
+  // agree on both, and the first position is the accent — the one-conference
+  // region is the look the site had before there were hues.
+  test("the hue is the position in the band, 1-based, and the first is the accent", () => {
+    expect([0, 1, 2].map(hueAt)).toEqual([1, 2, 3]);
+    expect(hueAt(HUE_COUNT)).toBe(1);
+    for (const b of homeBands(columns)) {
+      const hues = b.columns.map((c) => bandHues(homeBands(columns))[c.key]);
+      expect(hues).toEqual(b.columns.map((_, i) => hueAt(i)));
+      expect(new Set(hues).size).toBe(b.columns.length);
+    }
+  });
+
+  // The palette lives in tokens.css, and a band may never have more
+  // conferences than it has hues, or two of them would wear the same colour.
+  // Held against the density fixtures — the twelve- and nineteen-conference
+  // sets the map is exercised at before the site follows that many — because
+  // the live config is the smallest band the site will ever draw, not the
+  // largest. And the token set is held to HUE_COUNT in both directions, so a
+  // hue added on one side without the other fails here.
+  test("tokens.css holds a hue for every position the largest band needs", () => {
+    const css = readFileSync(new URL("../styles/tokens.css", import.meta.url), "utf8").replace(
+      /\/\*[\s\S]*?\*\//g,
+      "",
+    );
+    const hues = [...css.matchAll(/--hue-(\d+)\s*:/g)].map((m) => Number(m[1]));
+    expect(hues).toEqual(Array.from({ length: HUE_COUNT }, (_, i) => i + 1));
+    expect(/--hue-1\s*:\s*var\(--accent\)/.test(css)).toBe(true);
+    const largest = Math.max(
+      ...([12, 19] as const).flatMap((size) =>
+        homeBands(densityCards(size), densityConfig(size)).map((b) => b.columns.length),
+      ),
+      ...homeBands(columns).map((b) => b.columns.length),
+    );
+    expect(largest).toBeGreaterThan(1);
+    expect(HUE_COUNT).toBeGreaterThanOrEqual(largest);
+    // And the shapes keep pace: a position with a hue and no glyph of its own
+    // would be colour alone, which the ruling forbids.
+    expect(GLYPHS.length).toBeGreaterThanOrEqual(HUE_COUNT);
   });
 
   test("live and nextOpens are recounted from the columns", () => {
