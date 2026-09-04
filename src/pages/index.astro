@@ -71,6 +71,12 @@ const lede = nationalMasthead(columns, asOf, national, journal);
 const description = nationalDescription(columns, national);
 const lastNight = lastNightOf(asOf);
 const ledger = lastNightLedger(seasons, lastNight);
+// The ledger's code column is sized for its widest truthful cell: the two
+// longest codes the site follows, joined the way the row joins them. Read
+// from the files, never typed: the thirteenth conference (GLIAC, printed
+// beside G-MAC) outgrew a fixed width and ran into the away side at 390.
+const codeLengths = seasons.map((s) => s.fixtures.conference.length).sort((a, b) => b - a);
+const lconfChars = (codeLengths[0] ?? 0) + (codeLengths[1] ?? 0) + " · ".length;
 const leftOpen = lastNightOpen(seasons, lastNight);
 
 // The line each card carries, and the day it last changed.
@@ -253,7 +259,7 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
         <div class="ln-date num">{dowLong(lastNight).toUpperCase()} {monShort(lastNight).toUpperCase()} {dayOfMonth(lastNight)}</div>
       </div>
       {ledger.length > 0 ? (
-        <div class="ledger num">
+        <div class="ledger num" style={`--lconf-ch: ${lconfChars}`}>
           {ledger.map((r) => (
             <a class="lrow hoverable" href={matchHref(r.key, r.fixture.id)}>
               <span class="lconf">{r.codes.join(" · ")}</span>
@@ -381,8 +387,10 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
     /* Wide enough for two codes. A non-conference match between two of these
        conferences was collected by both, and the row says so rather than
        picking one — the column is sized for the truthful cell, not the
-       common one, because a fixed grid that fits only one code would wrap it. */
-    grid-template-columns: 68px minmax(0, 1fr) auto minmax(0, 1fr);
+       common one, because a fixed grid that fits only one code would wrap it.
+       --lconf-ch is the widest pair's character count, from the files above;
+       6.5px is the .lconf glyph advance at 10px with its tracking, measured. */
+    grid-template-columns: calc(var(--lconf-ch, 10) * 6.5px) minmax(0, 1fr) auto minmax(0, 1fr);
     gap: 12px;
     align-items: baseline;
     padding: 8px 4px;
@@ -420,6 +428,9 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
   /* ── Narrow ─────────────────────────────────────────────────────────────── */
   @media (max-width: 720px) {
     .ledger { grid-template-columns: minmax(0, 1fr); }
+    /* The code column takes what the widest pair needs; the gaps give back
+       enough that a long name still fits beside it at 320. */
+    .lrow { gap: 8px; }
     .nat-masthead { padding-top: 28px; }
     .nat-headline { font-size: 28px; }
     .nat-dek { font-size: 15.5px; }

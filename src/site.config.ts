@@ -78,6 +78,7 @@ export const site: SiteConfig = {
     "psac",
     "mec",
     "g-mac",
+    "gliac",
   ],
   home: "gac",
   homeColumnCap: 6,
@@ -95,6 +96,7 @@ export const site: SiteConfig = {
     psac: "Pennsylvania State Athletic Conference",
     mec: "Mountain East Conference",
     "g-mac": "Great Midwest Athletic Conference",
+    gliac: "Great Lakes Intercollegiate Athletic Conference",
   },
   division: "NCAA Division II men's soccer",
   governingBody: "NCAA",
@@ -122,6 +124,7 @@ export const site: SiteConfig = {
     psac: "mid-atlantic",
     mec: "mid-atlantic",
     "g-mac": "midwest",
+    gliac: "midwest",
   },
   nameOverrides: {
     "ncaa-1st-and-2nd-round": "NCAA First & Second Rounds",

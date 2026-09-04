@@ -211,10 +211,13 @@ export const DENSITY_CONFERENCES: readonly DensityConference[] = [
   ),
 ];
 
-/** The generator's twelve, which since batch 2 are the live twelve. The
- *  G-MAC row carries the live key and region (g-mac, Midwest), not the
- *  canvas's gmac/Mid-Atlantic: density.test.ts holds every live key to
- *  site.conferenceRegions, and the live table is the one that renders. */
+/** The generator's twelve: the batch 2 site, and a design size in its own
+ *  right, so it stays a synthetic twelve now that the live site follows more
+ *  (batch 3 added the GLIAC as the thirteenth). The G-MAC row carries the
+ *  live key and region (g-mac, Midwest), not the canvas's gmac/Mid-Atlantic:
+ *  density.test.ts holds every live key to site.conferenceRegions against the
+ *  nineteen, which contain every live key, and the live table is the one
+ *  that renders. */
 const TWELVE = new Set([
   "gac",
   "lsc",
