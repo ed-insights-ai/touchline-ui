@@ -33,6 +33,7 @@ import {
 } from "../../lib/derive.ts";
 import type { Fixture } from "../../lib/derive.ts";
 import { matchLabel, oneSidedFinals, unpostedSides } from "../../lib/division.ts";
+import { CONFERENCE_WIDE_TITLE, divisionalTables } from "../../lib/standings.ts";
 import { homeSeasons } from "../../lib/home.ts";
 import {
   CHART_CAPTION,
@@ -87,6 +88,10 @@ const opens = conferenceOpensOn(season);
 // has played, against anyone, so it has a top and a bottom to read; from the
 // first conference result on it is the conference table and nothing else.
 const rows = live ? table(season) : overallTable(season);
+// A conference that prints its standings in divisions gets the same rows
+// grouped by division, in the order it prints them, ahead of the one table;
+// for every other conference this is null and the page is as it was.
+const divisions = divisionalTables(season, rows);
 
 // The figures strip beneath the lede is the page's own. A journal's
 // summary_stat is parsed and ignored: three journals wrote three different
@@ -315,7 +320,16 @@ const nextLabel = (f: Fixture): string => {
       </div>
 
       <div class="col">
-        <ConferenceTable season={season} rows={rows} live={live} />
+        {divisions ? (
+          <>
+            {divisions.map((d) => (
+              <ConferenceTable season={season} rows={d.rows} live={live} title={d.division.toUpperCase()} />
+            ))}
+            <ConferenceTable season={season} rows={rows} live={live} title={CONFERENCE_WIDE_TITLE} />
+          </>
+        ) : (
+          <ConferenceTable season={season} rows={rows} live={live} />
+        )}
       </div>
     </section>
 

@@ -10,7 +10,10 @@
 // second line beneath the name: the same figure the early table ranked on,
 // kept in view the way a standings page keeps its overall column. Which rows
 // arrive is the page's call (table or overallTable); the component only says
-// which it was given.
+// which it was given. A conference that prints its standings in divisions
+// gets one of these per division, headed by the division's printed name, and
+// then the conference-wide table beneath them (lib/standings.ts); the head is
+// the page's call too, and defaults to the one table most conferences print.
 import FormBadges from "./FormBadges.astro";
 import {
   formOf,
@@ -26,8 +29,10 @@ interface Props {
   rows: TableRow[];
   /** Conference play has begun: the rows are the conference table. */
   live: boolean;
+  /** The head rule's words. A division's table carries the division's name. */
+  title?: string;
 }
-const { season, rows, live } = Astro.props;
+const { season, rows, live, title = "THE TABLE" } = Astro.props;
 const form = (slug: string): Result[] => formOf(season, slug);
 const record = (r: TableRow): string => `${r.won}–${r.drawn}–${r.lost}`;
 // The all-matches record that sits beneath each conference row.
@@ -39,7 +44,7 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
     line is the conference table the dim line's own words carry ALL MATCHES
     instead. No footnote on the points: three for a win needs no explaining. */}
 <div class="thead">
-  <h2 class="ttitle">THE TABLE</h2>
+  <h2 class="ttitle">{title}</h2>
   {!live && <span class="tscope num">ALL MATCHES</span>}
 </div>
 <div class="table num">

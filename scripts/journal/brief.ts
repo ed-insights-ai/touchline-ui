@@ -41,7 +41,10 @@ export interface Brief {
     week: string;
     season_window: string;
   };
-  programmes: { slug: string; name: string; abbr: string }[];
+  /** `division` is the conference's own grouping of the programme, spelled as
+   *  the conference prints it, on every member of a conference that publishes
+   *  its standings in divisions and on none of any other (lib/standings.ts). */
+  programmes: { slug: string; name: string; abbr: string; division?: string }[];
   table: {
     mode: "live" | "pre-conference";
     conference_opens: string | null;
@@ -167,6 +170,7 @@ export function buildBrief(s: Season): Brief {
       slug: p.slug,
       name: p.name,
       abbr: p.abbr ?? s.names.abbr(p.slug),
+      ...(p.division !== undefined ? { division: p.division } : {}),
     })),
     table: {
       mode: tableIsLive(s) ? "live" : "pre-conference",
