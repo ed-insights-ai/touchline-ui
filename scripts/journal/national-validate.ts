@@ -18,6 +18,7 @@
 import { conferenceOpensOn, type Fixture, type Season, unresolved } from "../../src/lib/derive.ts";
 import { divisionCounts, matchIdentity } from "../../src/lib/division.ts";
 import type { NationalJournalFile } from "../../src/lib/journal.ts";
+import { restatements } from "../../src/lib/prose.ts";
 import { divisionVsOutside } from "./national.ts";
 import {
   type Checker,
@@ -252,6 +253,31 @@ export function validateNationalJournal(
     dropped,
     ...(notes.length ? { note: notes.join("; ") } : {}),
   });
+
+  // The conference validator's words-moved rule, over the one pair this
+  // journal has: a dek that is the headline with its words moved is dropped
+  // and the headline stands. The same module the site's copy properties
+  // measure with (src/lib/prose.ts), for the reason given at
+  // restatementClaims in validate.ts — the CACC dek of 2026-09-04 passed
+  // this validator's figures and failed the site gate on its words.
+  if (!dropped && out.dek) {
+    const [clash] = restatements([
+      { where: "headline", text: out.headline },
+      { where: "dek", text: out.dek },
+    ]);
+    if (clash) {
+      claims.push({
+        path: "dek",
+        label: "restatement",
+        text: out.dek,
+        checker: "words_moved",
+        verdict: "contradicted",
+        mismatches: [`dek restates headline (${clash.ratio.toFixed(2)})`],
+        dropped: true,
+      });
+      out.dek = undefined;
+    }
+  }
 
   const reviews: ReviewLine[] = dropped
     ? []

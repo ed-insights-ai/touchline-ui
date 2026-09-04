@@ -47,17 +47,7 @@ import {
 } from "./journal.ts";
 import { footNote, metaDescription, oneSourceNote, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
-
-interface Line {
-  /** Where a reader meets it, for a failure that says where to look. */
-  where: string;
-  text: string;
-  /** Composed by the page from a fixed string, not written for the page. A
-   *  mechanical line is short by design and shares its few content words
-   *  with any sentence about the same figure, so the pairwise overlap test
-   *  skips it; the sentence-twice test still covers it verbatim. */
-  mechanical?: true;
-}
+import { type Line, wordsMoved } from "./prose.ts";
 
 const seasons = site.conferences.map((k) => loadSeason(k));
 
@@ -294,20 +284,6 @@ describe("a programme has one name", () => {
 });
 
 describe("a sentence earns its place", () => {
-  const STOP = new Set(
-    (
-      "the and a an of in on at to for with that this is are has have had been by from its their it" +
-      " as no not all more than any other still out before after every one two those"
-    ).split(" "),
-  );
-  const content = (s: string): string[] =>
-    s
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, " ")
-      .split(/\s+/)
-      .map((w) => (/^\d+$/.test(w) ? "#" : w))
-      .filter((w) => w.length > 2 && !STOP.has(w));
-
   /** Sentences, normalised for comparison but not for reading. */
   const sentences = (s: string): string[] =>
     s
@@ -340,30 +316,8 @@ describe("a sentence earns its place", () => {
     expect(clashes).toEqual([]);
   });
 
-  /** Every pair of written lines whose content words are the same set moved
-   *  about. ratio = shared / min(|a|, |b|), so a short line is the
-   *  denominator: the chart caption's five content words all appear in any
-   *  dek about goals and matches (measured 1.00 on the GLVC add), which is
-   *  the caption being short, not the dek repeating it. Mechanical lines are
-   *  therefore left out here and covered verbatim by the sentence-twice test. */
-  const wordsMoved = (lines: readonly Line[]): string[] => {
-    const clashes: string[] = [];
-    for (let i = 0; i < lines.length; i++) {
-      for (let j = i + 1; j < lines.length; j++) {
-        const x = lines[i] as Line;
-        const y = lines[j] as Line;
-        if (x.mechanical || y.mechanical) continue;
-        const a = new Set(content(x.text));
-        const b = new Set(content(y.text));
-        if (a.size === 0 || b.size === 0) continue;
-        const shared = [...a].filter((w) => b.has(w)).length;
-        const ratio = shared / Math.min(a.size, b.size);
-        if (ratio >= 0.9) clashes.push(`${x.where} × ${y.where} — ${ratio.toFixed(2)}`);
-      }
-    }
-    return clashes;
-  };
-
+  // The tokeniser and the pairwise rule live in prose.ts, shared with the
+  // journal validator so the two cannot drift; the teeth are in prose.test.ts.
   test("no line on a page is another line with the words moved", () => {
     // Measured on this collect: the highest honest overlap between two
     // co-rendered lines is 0.77 — a finding that names which programme and
@@ -372,25 +326,6 @@ describe("a sentence earns its place", () => {
     // again.
     const clashes = seasons.flatMap((s) => wordsMoved(conferencePage(s)));
     expect(clashes).toEqual([]);
-  });
-
-  test("and the check still goes red on a real restatement", () => {
-    // The teeth: a dek that is the pattern line with its words moved is a
-    // clash, and the same dek beside the short mechanical caption is not.
-    const dek = {
-      where: "dek",
-      text: "Harding has scored more goals than any other side in the conference.",
-    };
-    const restated = {
-      where: "pattern",
-      text: "More goals than any other side in the conference: Harding has scored them.",
-    };
-    const caption = { where: "chart caption", text: CHART_CAPTION, mechanical: true as const };
-    expect(wordsMoved([dek, restated])).toHaveLength(1);
-    expect(wordsMoved([dek, caption])).toEqual([]);
-    // Without the mechanical mark the caption would clash, which is the
-    // failure this bead measured.
-    expect(wordsMoved([dek, { ...caption, mechanical: undefined }])).toEqual([]);
   });
 });
 

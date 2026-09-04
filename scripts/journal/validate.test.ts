@@ -400,3 +400,83 @@ describe("the wire is checked like a finding, and drops like one", () => {
     expect(result.report.review.some((r) => r.path === "wire")).toBe(false);
   });
 });
+
+describe("a line that is another line with the words moved", () => {
+  // The CACC dek and featured line of 2026-09-04, which the site gate flagged
+  // at 0.90 and this validator had never looked at. The rule is the site's
+  // own (src/lib/prose.ts) so the two cannot disagree about a sentence.
+  const dek =
+    "Georgian Court have won once and drawn twice, scoring seven and conceding four, and their " +
+    "first win came at home to Staten Island after draws on the road at Bentley and Saint " +
+    "Michael's. Bridgeport's record is the same shape, a win and two draws. Every other " +
+    "programme in the CACC has already been beaten.";
+  const featuredLine =
+    "Georgian Court's first win, and their first match at home, after draws at Bentley and at Saint Michael's.";
+  // A fixture that exists, so the featured card survives its own ref check.
+  const fixture = season.fixtures.fixtures[0];
+  const ref = fixture ? `${fixture.date} ${fixture.home} v ${fixture.away}` : "";
+
+  test("the lower line of the pair is dropped and the drop is a claim", () => {
+    const j = journal({
+      dek,
+      featured: { last_match: { fixture_ref: ref, line: featuredLine } },
+    });
+    const { journal: out, report } = validateJournal(j, season, "test");
+    expect(out.dek).toBe(dek);
+    expect(out.featured?.last_match?.fixture_ref).toBe(ref);
+    expect(out.featured?.last_match?.line).toBeUndefined();
+    const claim = report.claims.find((c) => c.checker === "words_moved");
+    expect(claim).toMatchObject({
+      path: "featured.last_match.line",
+      label: "restatement",
+      verdict: "contradicted",
+      dropped: true,
+      mismatches: ["featured.last_match.line restates dek (0.90)"],
+    });
+    expect(report.totals.dropped).toBe(1);
+  });
+
+  test("the headline is never dropped; a dek restating it goes instead", () => {
+    const j = journal({
+      headline: "Harding have scored more goals than any other side in the conference.",
+      dek: "More goals than any other side in the conference: Harding have scored them.",
+    });
+    const { journal: out, report } = validateJournal(j, season, "test");
+    expect(out.headline).toBe(j.headline);
+    expect(out.dek).toBeUndefined();
+    expect(report.claims.find((c) => c.checker === "words_moved")?.path).toBe("dek");
+    expect(report.review.some((r) => r.path === "dek")).toBe(false);
+  });
+
+  test("a finding restating the dek is removed and the others keep their places", () => {
+    const j = journal({
+      dek,
+      findings: [
+        { label: "context", text: "Something else entirely about the goalkeepers.", basis: {} },
+        { label: "context", text: featuredLine, basis: {} },
+        { label: "context", text: "A third thing about the fixture list.", basis: {} },
+      ],
+    });
+    const { journal: out, report } = validateJournal(j, season, "test");
+    expect(out.findings.map((f) => f.text)).toEqual([
+      "Something else entirely about the goalkeepers.",
+      "A third thing about the fixture list.",
+    ]);
+    expect(report.claims.find((c) => c.checker === "words_moved")?.path).toBe("findings[1].text");
+  });
+
+  test("elaboration is not repetition, and a journal saying each thing once is untouched", () => {
+    const j = journal({
+      dek,
+      featured: {
+        last_match: {
+          fixture_ref: ref,
+          line: "Staten Island had not conceded before the second half at Georgian Court.",
+        },
+      },
+    });
+    const { journal: out, report } = validateJournal(j, season, "test");
+    expect(out.featured?.last_match?.line).toBeDefined();
+    expect(report.claims.some((c) => c.checker === "words_moved")).toBe(false);
+  });
+});

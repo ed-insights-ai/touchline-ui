@@ -10,6 +10,10 @@ export interface PromptInput {
   brief: Brief;
   fixtures: string[];
   previous: JournalFile | null;
+  /** Lines the validator dropped from the reply before this one because each
+   *  was another line with the words moved — "featured.last_match.line
+   *  restates dek (0.90)". Set only on the one regeneration the CLI allows. */
+  restatements?: readonly string[];
 }
 
 export const GRAMMAR = `EVIDENCE GRAMMAR — every claim carries exactly one label.
@@ -246,13 +250,32 @@ comparing your lines against the previous journal's, and a date you wrote would
 be overwritten by it.`;
 
 export function buildPrompt(input: PromptInput): string {
-  const { brief, fixtures, previous } = input;
+  const { brief, fixtures, previous, restatements = [] } = input;
   const continuity = previous
     ? `PREVIOUS JOURNAL (written for collect ${previous.data_collected_at}).
 
 ${JSON.stringify(previous, null, 2)}
 `
     : "There is no previous journal for this conference. This is the first.";
+  // The one regeneration: the reply before this one said the same thing at
+  // two altitudes, and the persistence rules above would have it say so
+  // again. This paragraph outranks them for the lines it names.
+  const rewrite =
+    restatements.length === 0
+      ? ""
+      : `
+REWRITE — the validator dropped these lines from your previous reply, because each
+was another line on the same page with its words moved (nine content words in ten
+shared with the line it restates):
+${restatements.map((r) => `  - ${r}`).join("\n")}
+Write the journal again so that no two lines repeat each other. The line restated
+stands where the persistence rules keep it; write the line that restates it — the
+dek under its headline, the featured line under the dek, the finding under the
+pattern — so that it says something the other does not. This instruction outranks
+the persistence rules for the lines it names; every other line follows them as
+before. A pair still sharing its words will lose the lower line, and the page will
+print without it.
+`;
 
   return `You are the writer of Touchline, a season journal for ${brief.meta.conference} ${brief.meta.gender}'s
 soccer, ${brief.meta.season}. You write the editorial layer over collected data. You never
@@ -283,7 +306,7 @@ kickoff time, no team name, no annotation of any kind. So for the line
 ${fixtures.join("\n")}
 
 ${continuity}
-
+${rewrite}
 TASK — return ONE JSON object, schema "touchline.journal/1", and nothing else:
 no markdown fence, no commentary before or after.
 

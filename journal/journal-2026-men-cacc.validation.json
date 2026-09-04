@@ -4,7 +4,7 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-04T11:36:37.291Z",
+  "validated_at": "2026-09-04T15:01:47.592Z",
   "data_collected_at": "2026-09-04T11:30:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-04T11:35:40.742Z",
-    "generate_ms": 56547,
+    "started_at": "2026-09-04T15:00:37.608Z",
+    "generate_ms": 62218,
     "validate_ms": 1,
-    "wall_ms": 56548,
-    "concurrency": 4
+    "wall_ms": 62310,
+    "concurrency": 1
   }
 }

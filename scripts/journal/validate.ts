@@ -26,6 +26,7 @@ import {
   unresolved,
 } from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
+import { type Line, restatements } from "../../src/lib/prose.ts";
 
 export type Verdict = "verified" | "contradicted" | "unverifiable";
 
@@ -980,13 +981,6 @@ export function validateJournal(
   if (out.wire) reviews.push(...review("wire", out.wire.line, out.wire.basis, page));
 
   out.findings = out.findings.filter((f, i) => !record(`findings[${i}]`, f.label, f.text, f.basis));
-  // A surviving claim can still say a number its basis never mentioned — the
-  // checkers hold the basis to the data, not the sentence to the basis.
-  if (out.pattern)
-    reviews.push(...review("pattern.text", out.pattern.text, out.pattern.basis, page));
-  out.findings.forEach((f, i) => {
-    reviews.push(...review(`findings[${i}].text`, f.text, f.basis, page));
-  });
 
   // A player to watch is a claim that a named player published a named line.
   out.players_to_watch = out.players_to_watch.filter((p, i) => {
@@ -1044,6 +1038,25 @@ export function validateJournal(
     if (!match.fixture && out.featured) out.featured[key] = undefined;
   }
 
+  // Last, over what survived the checkers: a line that is another line with
+  // the words moved. The claim checks read figures; none of them reads the
+  // sentence, and a journal can pass every one while saying the same thing
+  // twice at two altitudes. Each clash drops the lower line; the headline is
+  // never dropped.
+  for (const c of restatementClaims(out)) claims.push(c);
+
+  // A surviving claim can still say a number its basis never mentioned — the
+  // checkers hold the basis to the data, not the sentence to the basis. Read
+  // after the restatement pass, so a dropped line is not reviewed and the
+  // findings' indices are the ones the written journal will carry.
+  if (out.pattern)
+    reviews.push(...review("pattern.text", out.pattern.text, out.pattern.basis, page));
+  out.findings.forEach((f, i) => {
+    reviews.push(...review(`findings[${i}].text`, f.text, f.basis, page));
+  });
+  const survived = new Set(restatementLines(out).map((l) => l.where));
+  const kept = reviews.filter((r) => survived.has(r.path));
+
   const totals = {
     checked: claims.length,
     verified: claims.filter((c) => c.verdict === "verified").length,
@@ -1068,11 +1081,113 @@ export function validateJournal(
       policy: POLICY,
       totals,
       normalizations,
-      review: reviews,
+      review: kept,
       claims,
     },
   };
 }
+
+/** The journal's own written lines, in altitude order — the first a reader
+ *  meets first. Every one is model prose, so none is mechanical; a path here
+ *  is the path the report names. Only the lines present are listed. */
+export function restatementLines(j: JournalFile): Line[] {
+  const out: Line[] = [{ where: "headline", text: j.headline }];
+  const add = (where: string, text: string | undefined): void => {
+    if (text) out.push({ where, text });
+  };
+  add("dek", j.dek);
+  add("wire", j.wire?.line);
+  add("summary_stat.detail", j.summary_stat?.detail);
+  add("table_state.statement", j.table_state?.statement);
+  add("table_state.footnote", j.table_state?.footnote);
+  add("pattern.text", j.pattern?.text);
+  j.findings.forEach((f, i) => {
+    add(`findings[${i}].text`, f.text);
+  });
+  add("featured.last_match.line", j.featured?.last_match?.line);
+  add("featured.next_match.line", j.featured?.next_match?.line);
+  return out;
+}
+
+/** The checker the site's copy properties already run, at the validator.
+ *
+ *  The ratio and the tokeniser are the site's own — `wordsMoved` in
+ *  src/lib/prose.ts, the module `copy.test.ts` imports — and deliberately
+ *  not a second implementation: the site test "no line on a page is another
+ *  line with the words moved" stands between every journal and the publish,
+ *  and a validator that judged the same sentence by a different rule would
+ *  pass what the gate then refuses. That is what happened on 2026-09-04: the
+ *  CACC cadence wrote a dek that restated its own featured.last_match line
+ *  ("Georgian Court's first win, and their first match at home, after draws
+ *  at Bentley and at Saint Michael's" — measured 0.90 against the dek), the
+ *  site gate blocked the publish, and this validator, the step the cadence
+ *  actually runs, had never looked. A rerun reproduced the dek, because the
+ *  headline stood and the writer is told to keep a standing lede.
+ *
+ *  Each clash drops the LOWER line of the pair — the later one in altitude
+ *  order, which is the one the page can most easily do without: a featured
+ *  line falls back to the page's mechanical one, a dropped finding leaves the
+ *  others, a dropped dek leaves the headline. The headline is never dropped.
+ *  A line already dropped is not measured again, so one restatement costs
+ *  one line. Every drop is a claim in the report — label "restatement",
+ *  checker "words_moved", verdict "contradicted", `dropped: true` — so the
+ *  totals, --strict and the console carry it with no new plumbing. */
+export function restatementClaims(out: JournalFile): ClaimReport[] {
+  const claims: ClaimReport[] = [];
+  const dropped = new Set<string>();
+  for (const r of restatements(restatementLines(out))) {
+    if (dropped.has(r.first.where) || dropped.has(r.second.where)) continue;
+    const path = r.second.where;
+    dropped.add(path);
+    claims.push({
+      path,
+      label: "restatement",
+      text: r.second.text,
+      checker: "words_moved",
+      verdict: "contradicted",
+      mismatches: [`${path} restates ${r.first.where} (${r.ratio.toFixed(2)})`],
+      dropped: true,
+    });
+  }
+  // Findings are removed by index from the end, so the paths named in the
+  // report stay the indices the writer's file had.
+  const findingIndex = (path: string): number | null => {
+    const m = /^findings\[(\d+)\]\.text$/.exec(path);
+    return m ? Number(m[1]) : null;
+  };
+  const gone = [...dropped].map(findingIndex).filter((i): i is number => i !== null);
+  out.findings = out.findings.filter((_, i) => !gone.includes(i));
+  for (const path of dropped) {
+    if (path === "dek") out.dek = undefined;
+    else if (path === "wire") out.wire = undefined;
+    else if (path === "summary_stat.detail" && out.summary_stat)
+      out.summary_stat.detail = undefined;
+    else if (path === "table_state.statement" && out.table_state)
+      out.table_state.statement = undefined;
+    else if (path === "table_state.footnote" && out.table_state)
+      out.table_state.footnote = undefined;
+    else if (path === "pattern.text") out.pattern = undefined;
+    else if (path === "featured.last_match.line" && out.featured?.last_match)
+      out.featured.last_match.line = undefined;
+    else if (path === "featured.next_match.line" && out.featured?.next_match)
+      out.featured.next_match.line = undefined;
+  }
+  return claims;
+}
+
+export interface RestatementDrop {
+  /** The line that went. */
+  path: string;
+  /** "<path> restates <other path> (0.90)" — what the CLI hands the writer
+   *  for its one regeneration, and prints when that did not settle it. */
+  why: string;
+}
+
+/** The lines a `words_moved` claim dropped, out of any report's claims. */
+export const restatementDrops = (claims: readonly ClaimReport[]): RestatementDrop[] =>
+  claims
+    .filter((c) => c.checker === "words_moved" && c.dropped)
+    .map((c) => ({ path: c.path, why: c.mismatches.join("; ") }));
 
 /** Read the figures out of a watchlist line ("2 G · 4 shots", ".909") and
  *  hold each against the published stat line. */
