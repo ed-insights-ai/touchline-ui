@@ -172,20 +172,11 @@ describe("against the rosters this site actually collects", () => {
       // psac/e-stroudsburg 2022, one row: a single letter the roster
       // published in the position column (Pieter Neerhof, "q").
       "q",
+      // ecc/district-of-columbia, staff rows the roster lists among the
+      // players once its columns read straight (rib #91).
+      "team manager",
+      "manager",
     ];
-    // A roster the collector reads one column to the left, so that the name
-    // field holds the number and the position field holds the NAME: every row
-    // of ecc/district-of-columbia from 2022 through 2026 ("0", "Simon
-    // Birnstad", "Goalkeeper", "Senior" under number, name, position, class).
-    // No table of positions can place a name, and no allowlist should learn
-    // thirty of them a season, so the roster is set aside whole. The defect
-    // is the collector's, and it is asserted live here rather than assumed:
-    // the exception ends the day a row of that roster carries a real name.
-    // Northwood (g-mac/northwood) reads the same way, 2022 through 2026:
-    // "00", "Nick Borkowski", "Goalkeeper" under number, name, position.
-    const SHIFTED_ROSTERS = new Set(["ecc/district-of-columbia", "g-mac/northwood"]);
-    const isShifted = (players: { name?: string }[]): boolean =>
-      players.length > 0 && players.every((p) => /^\d+$/.test((p.name ?? "").trim()));
     // Every collected season, not just the two the site renders: the
     // vocabulary is authored once for the whole archive, and Southwest
     // Baptist's 2023 codes (tui-6e0) sat unplaced for as long as this read
@@ -200,12 +191,6 @@ describe("against the rosters this site actually collects", () => {
         seasonsRead++;
         for (const slug of Object.keys(file.rosters)) {
           const players = file?.rosters[slug]?.players ?? [];
-          if (SHIFTED_ROSTERS.has(`${conference}/${slug}`)) {
-            expect(isShifted(players), `${conference}/${slug} ${year}: no longer shifted`).toBe(
-              true,
-            );
-            continue;
-          }
           for (const player of players) {
             checked++;
             if (positionLine(player.position) !== null) continue;
