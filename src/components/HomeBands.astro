@@ -19,14 +19,22 @@
 // off, so a hash a reader arrived with is honoured once by the script and
 // never fights it afterwards.
 //
-// Inside a band each conference is one ledger row: code, opens line, played
-// of total, the journal line trimmed to one line (the full sentence in the
-// row's title), the stamp, and the link. Same view the cards carried; no new
-// data. The headline conference's row carries the full sentence, unclamped,
-// and an IN THE HEADLINE mark — the division's journal names its programme,
-// the page resolves the conference, and nothing is matched by name.
+// Inside a band each conference is one ledger row on two lines: the glyph
+// and code, the opens line, played of total, the stamp and the link on the
+// first, and the journal sentence on the second, clamped to two lines (the
+// full sentence in the row's title). Same view the cards carried; no new
+// data. The first line's columns size to their text — only the code column
+// is fixed, so the codes align — because an opens line can be as long as
+// CONFERENCE PLAY UNDER WAY and a fixed column overprinted its neighbour.
+// The headline conference's row carries the full sentence, unclamped, and an
+// IN THE HEADLINE mark — the division's journal names its programme, the
+// page resolves the conference, and nothing is matched by name.
+//
+// The glyph before the code is the conference's position in its band
+// (lib/home.ts glyphAt), and the map draws the selected region's dots with
+// the same shape: the row is the legend, and the map stays one ink.
 import type { BandColumn, CardView, HomeBand } from "../lib/home.ts";
-import { bandHead, bandOpenFlags, leadLine, regionChips } from "../lib/home.ts";
+import { bandHead, bandOpenFlags, glyphAt, leadLine, regionChips } from "../lib/home.ts";
 
 interface Props {
   bands: readonly HomeBand<CardView & BandColumn>[];
@@ -79,11 +87,25 @@ const chips = regionChips(bands);
             <svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3.5 2 L6.5 5 L3.5 8" /></svg>
           </a>
           <div class="bbody" id={`region-${b.region.key}-body`}>
-            {b.columns.map((c) => {
+            {b.columns.map((c, at) => {
               const lead = headline !== null && c.key === headline.key;
+              const glyph = glyphAt(at);
               return (
-                <a class={lead ? "row lead hoverable" : "row hoverable"} href={c.href} title={c.line ?? undefined}>
+                <a
+                  class={`${lead ? "row lead hoverable" : "row hoverable"} mark-${glyph}`}
+                  data-k={c.key}
+                  href={c.href}
+                  title={c.line ?? undefined}
+                >
                   <span class="code num">
+                    <svg class="mark" viewBox="-8 -8 16 16" aria-hidden="true">
+                      {glyph === "disc" && <circle r="5.5" />}
+                      {glyph === "ring" && <circle class="hollow" r="5.5" />}
+                      {glyph === "diamond" && <path d="M0 -6.5 L6.5 0 L0 6.5 L-6.5 0 Z" />}
+                      {glyph === "hollow-diamond" && <path class="hollow" d="M0 -6.5 L6.5 0 L0 6.5 L-6.5 0 Z" />}
+                      {glyph === "square" && <rect x="-5" y="-5" width="10" height="10" />}
+                      {glyph === "hollow-square" && <rect class="hollow" x="-5" y="-5" width="10" height="10" />}
+                    </svg>
                     {c.code}
                     {lead && <span class="hl">In the headline</span>}
                   </span>
@@ -191,10 +213,14 @@ const chips = regionChips(bands);
   .bandcol:not([data-js]) .band:target .bname { color: var(--accent); }
   .bandcol:not([data-js]) .band:target .chev { transform: rotate(90deg); }
 
-  /* ── The ledger row: one conference, one line. ─────────────────────────── */
+  /* ── The ledger row: one conference, two lines. ────────────────────────── */
+  /* The first line's columns size to their content — the code column alone
+     is fixed, so the codes align down the band — and the link takes the rest
+     and sits at the end. Nothing here is a width a longer opens line could
+     overrun. */
   .row {
     display: grid;
-    grid-template-columns: 58px 1fr auto auto;
+    grid-template-columns: 72px max-content max-content minmax(0, 1fr);
     grid-template-areas: "code opens played go" "line line line line";
     column-gap: 14px;
     row-gap: 4px;
@@ -205,7 +231,12 @@ const chips = regionChips(bands);
     color: inherit;
   }
   .row:hover { color: inherit; }
+  /* A row lit from the map wears the hover wash: the same state, either side. */
+  .row.lit { background: var(--accent-wash-soft); }
   .code { grid-area: code; font-size: 15px; font-weight: 600; }
+  .mark { width: 11px; height: 11px; margin-right: 6px; vertical-align: -1px; color: var(--accent); }
+  .mark circle, .mark path, .mark rect { fill: currentColor; }
+  .mark .hollow { fill: var(--paper); stroke: currentColor; stroke-width: 2; }
   .opens { grid-area: opens; font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); white-space: nowrap; }
   .opens.is-imminent { color: var(--accent); font-weight: 600; }
   .played { grid-area: played; font-size: 12px; white-space: nowrap; }
@@ -219,31 +250,35 @@ const chips = regionChips(bands);
     min-width: 0;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
   .row:hover .line { color: var(--accent-hover); }
   .stamp { display: none; font-size: 9.5px; letter-spacing: 0.12em; color: var(--quiet); white-space: nowrap; }
-  .go { grid-area: go; font-size: 10px; letter-spacing: 0.14em; font-weight: 600; color: var(--accent); white-space: nowrap; }
-  /* Wide enough for one line: code, opens, played, the line, stamp, link. */
+  .go {
+    grid-area: go;
+    justify-self: end;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  /* Wide enough for the stamp on the first line. */
   @container bands (min-width: 560px) {
     .row {
-      grid-template-columns: 58px 96px 92px minmax(0, 1fr) auto auto;
-      grid-template-areas: "code opens played line stamp go";
+      grid-template-columns: 72px max-content max-content max-content minmax(0, 1fr);
+      grid-template-areas: "code opens played stamp go" "line line line line line";
     }
-    .line { display: block; white-space: nowrap; text-overflow: ellipsis; }
     .stamp { display: inline; grid-area: stamp; }
-    /* The headline row's full sentence takes a row of its own rather than
-       wrapping inside the one-line column. */
-    .row.lead {
-      grid-template-columns: 58px 96px 92px minmax(0, 1fr) auto auto;
-      grid-template-areas: "code opens played . stamp go" "line line line line line line";
-    }
   }
   @container bands (max-width: 420px) {
-    .row { grid-template-columns: 52px 1fr auto; grid-template-areas: "code opens played" "line line line"; }
+    .row { grid-template-columns: 64px minmax(0, 1fr) auto; grid-template-areas: "code opens played" "line line line"; }
     .go { display: none; }
-    .line { -webkit-line-clamp: 2; font-size: 15px; }
+    /* The opens line may wrap here: at phone width the longest one does not
+       fit beside the code and the count on one line. */
+    .opens { white-space: normal; }
+    .line { font-size: 15px; }
   }
 
   /* The headline conference: the full sentence, and the mark. */

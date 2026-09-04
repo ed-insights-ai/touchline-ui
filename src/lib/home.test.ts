@@ -24,11 +24,14 @@ import { divisionCounts } from "./division.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import {
   type BandColumn,
+  bandGlyphs,
   bandHead,
   bandMeta,
   bandOpenFlags,
   type CardView,
   conferenceOfProgramme,
+  GLYPHS,
+  glyphAt,
   type HomeBand,
   type HomeColumn,
   headlineProgrammeOf,
@@ -383,6 +386,65 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       const pressed = [...html.matchAll(/class="chip[^"]*"[^>]*aria-pressed="true"/g)];
       expect(pressed.length).toBe(1);
     });
+
+    // The row is the map's legend: a band's rows wear a glyph each, by
+    // position, and every dot of that conference wears the same one, so the
+    // shapes the reader sees on the map are the shapes printed beside the
+    // codes. Read off the built page, where both sides are rendered.
+    test.skipIf(!existsSync(dist))("a band's rows and its map dots carry matching glyphs", () => {
+      const html = readFileSync(dist, "utf8");
+      if (homeLayout(columns.length) === "columns") {
+        // The plain map selects nothing and draws no glyph.
+        expect(html).not.toMatch(/class="dot[^"]*mark-/);
+        return;
+      }
+      const glyphOf = (cls: string): string => /(?:^| )mark-([a-z-]+)/.exec(cls)?.[1] ?? "";
+      const dots = new Map<string, Set<string>>();
+      for (const m of html.matchAll(/<g class="(dot[^"]*)"[^>]*data-k="([^"]+)"/g)) {
+        const g = glyphOf(m[1] ?? "");
+        expect(g, m[2]).not.toBe("");
+        const set = dots.get(m[2] ?? "") ?? new Set<string>();
+        set.add(g);
+        dots.set(m[2] ?? "", set);
+      }
+      expect(dots.size).toBeGreaterThan(0);
+      let rows = 0;
+      for (const b of homeBands(columns)) {
+        const start = html.indexOf(`id="region-${b.region.key}-body"`);
+        expect(start, b.region.key).toBeGreaterThan(-1);
+        const end = html.indexOf("</section>", start);
+        const body = html.slice(start, end);
+        const seen = [...body.matchAll(/<a class="(row[^"]*)"[^>]*data-k="([^"]+)"/g)];
+        expect(seen.map((m) => m[2])).toEqual(b.columns.map((c) => c.key));
+        seen.forEach((m, at) => {
+          rows++;
+          const glyph = glyphOf(m[1] ?? "");
+          expect(glyph, m[2]).toBe(glyphAt(at) as string);
+          // Every dot of this conference wears the row's glyph, and nothing else.
+          const worn = dots.get(m[2] ?? "");
+          if (worn) expect([...worn], m[2]).toEqual([glyph]);
+        });
+      }
+      expect(rows).toBe(columns.length);
+      // And every dot belongs to a row.
+      for (const k of dots.keys())
+        expect(
+          columns.some((c) => c.key === k),
+          k,
+        ).toBe(true);
+    });
+  });
+
+  test("the glyph is the position in the band, and a band never repeats one", () => {
+    expect(GLYPHS.length).toBeGreaterThanOrEqual(4);
+    expect(GLYPHS.slice(0, 4)).toEqual(["disc", "ring", "diamond", "hollow-diamond"]);
+    expect([0, 1, 2, 3].map(glyphAt)).toEqual([...GLYPHS.slice(0, 4)]);
+    expect(glyphAt(GLYPHS.length) as string).toBe(GLYPHS[0]);
+    for (const b of homeBands(columns)) {
+      const glyphs = b.columns.map((c) => bandGlyphs(homeBands(columns))[c.key]);
+      expect(glyphs).toEqual(b.columns.map((_, i) => glyphAt(i)));
+      expect(new Set(glyphs).size).toBe(b.columns.length);
+    }
   });
 
   test("live and nextOpens are recounted from the columns", () => {
