@@ -228,6 +228,23 @@ missing piece.
 Absence is content, never an error page. Three-state truth is kept throughout:
 not collected ≠ not published ≠ no collector.
 
+Two more readings sit beside those states, both from the fixtures contract and
+the fold in `src/lib/division.ts`. A **forfeit** is a final whose fixture names
+the awarded side (`forfeit: "home" | "away"`); the score stays as the host
+printed it (Upper Iowa 2024 prints "W, 2-2" beside "Win by forfeit", and a host
+that printed nothing is stored as 1-0 to the awarded side), every surface that
+prints the score prints "by forfeit" beside it, the record counts the award as
+the win or loss whatever the score says, and the printed goals reach no tally,
+no table, and no player line. A **disputed** match is one whose two conference
+records print different final scores: the fold used to fail the build on it and
+now keeps the row, marked `disputed`, with both scores and their sources under
+the match; the ledger and season rows show the home programme's score with a
+"disputed" mark, the match page names both scores and where each came from, and
+the match stays out of every record, tally and table until the sources agree.
+The journal validator reads neither as a fact: a featured line resting on a
+disputed match is contradicted and dropped. A final against a cancelled twin is
+still a fold error, because cancelled is a claim that no match happened.
+
 Match Centre renders six states from the same data:
 
 | State | When |

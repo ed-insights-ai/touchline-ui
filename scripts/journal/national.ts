@@ -16,11 +16,15 @@ import {
   boxScoreGaps,
   canonicalFixtureRef,
   conferenceOpensOn,
+  DISPUTED_MARK,
+  FORFEIT_MARK,
   formOf,
   hasScore,
+  isForfeit,
   isScored,
   outsideRecord,
   recordOf,
+  resultFor,
   resultsOf,
   type Season,
   tableIsLive,
@@ -29,6 +33,7 @@ import {
 import {
   allSightings,
   type DivisionFigures,
+  type DivisionMatch,
   divisionCounts,
   foldToMatches,
   matchIdentity,
@@ -113,6 +118,11 @@ export interface NationalBrief {
       codes: string[];
       home_score: number;
       away_score: number;
+      /** "by forfeit" or "disputed" when the score is not the whole result.
+       *  A forfeit's goals count toward nothing; a disputed score is nobody's
+       *  fact yet, and `scores` holds each source's own. */
+      mark?: string;
+      scores?: { source: string; home_score: number; away_score: number }[];
       sides: {
         programme: string;
         conference: string;
@@ -167,16 +177,25 @@ export interface NationalBrief {
 /** A match as the brief names it: the canonical reference, then what the
  *  source published about it — the same grammar the conference brief uses, so
  *  a fixture_ref means the same thing on both. */
-const ref = (f: { date: string; home: string; away: string } & Record<string, unknown>): string => {
+const ref = (
+  f: { date: string; home: string; away: string } & Record<string, unknown>,
+  mark: string | null = null,
+): string => {
   const fixture = f as Parameters<typeof canonicalFixtureRef>[0];
   const extra = [
     hasScore(fixture) ? `${fixture.home_score}-${fixture.away_score}` : null,
+    mark,
     (fixture.time as string | undefined) ?? null,
   ].filter(Boolean);
   return extra.length
     ? `${canonicalFixtureRef(fixture)}  ·  ${extra.join(" · ")}`
     : canonicalFixtureRef(fixture);
 };
+
+/** The mark a folded match carries beside its score: disputed above all,
+ *  else a forfeit's. The fold's own flag, not the file's, decides disputed. */
+const ledgerMark = (m: DivisionMatch): string | null =>
+  m.disputed ? DISPUTED_MARK : isForfeit(m.fixture) ? FORFEIT_MARK : null;
 
 export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
   const columns = homeColumns(seasons);
@@ -232,7 +251,7 @@ export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
         matches_total: c.counts.total,
         line: cardLine(c.season),
       })),
-      ledger: ledger.map((m) => ({ codes: m.codes, match: ref(m.fixture) })),
+      ledger: ledger.map((m) => ({ codes: m.codes, match: ref(m.fixture, ledgerMark(m)) })),
       left_open: open.map((m) => ref(m.fixture)),
     },
     division: {
@@ -274,10 +293,20 @@ export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
     last_night: {
       date: night,
       results: ledger.map((m) => ({
-        match: ref(m.fixture),
+        match: ref(m.fixture, ledgerMark(m)),
         codes: m.codes,
         home_score: m.fixture.home_score ?? 0,
         away_score: m.fixture.away_score ?? 0,
+        ...(ledgerMark(m) ? { mark: ledgerMark(m) as string } : {}),
+        ...(m.disputed
+          ? {
+              scores: m.scores.map((x) => ({
+                source: x.source,
+                home_score: x.home_score,
+                away_score: x.away_score,
+              })),
+            }
+          : {}),
         sides: [m.fixture.home, m.fixture.away].map((slug) => {
           const own = bySlug.get(slug) ?? m.season;
           return { programme: slug, conference: codeOf(slug), ...around(own, slug, night) };
@@ -346,16 +375,20 @@ export function divisionVsOutside(
   const out = { wins: 0, draws: 0, losses: 0, gf: 0, ga: 0 };
   for (const m of foldToMatches(allSightings(seasons))) {
     const f = m.fixture;
-    if (!isScored(f) || !hasScore(f)) continue;
+    // A disputed score is nobody's fact; a forfeit's goals are nobody's goals.
+    if (m.disputed || !isScored(f) || !hasScore(f)) continue;
     const home = bySlug.has(f.home);
     const away = bySlug.has(f.away);
     if (home === away) continue; // both covered, or neither: not a division result
     const gf = home ? (f.home_score as number) : (f.away_score as number);
     const ga = home ? (f.away_score as number) : (f.home_score as number);
-    out.gf += gf;
-    out.ga += ga;
-    if (gf > ga) out.wins++;
-    else if (gf < ga) out.losses++;
+    if (!isForfeit(f)) {
+      out.gf += gf;
+      out.ga += ga;
+    }
+    const result = resultFor(f, home ? "home" : "away");
+    if (result === "W") out.wins++;
+    else if (result === "L") out.losses++;
     else out.draws++;
   }
   return out;

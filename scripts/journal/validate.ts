@@ -16,6 +16,8 @@ import {
   type Fixture,
   fixtureCount,
   goalsForByProgramme,
+  isDisputed,
+  isForfeit,
   matchDetailOf,
   matchFixtureRef,
   outsideRecord,
@@ -270,6 +272,8 @@ export const CHECKERS: Checker[] = [
       const found = new Set<string>();
       for (const f of ctx.season.fixtures.fixtures) {
         if (f.home !== slug && f.away !== slug) continue;
+        // A forfeit's goals are attributed to nobody, whatever a box score says.
+        if (isForfeit(f)) continue;
         const detail = matchDetailOf(ctx.season, f.id);
         if (!detail || detail.home_index === undefined) continue;
         const side = f.home === slug ? detail.home_index : 1 - detail.home_index;
@@ -1019,23 +1023,33 @@ export function validateJournal(
       normalizations.push({ path: `featured.${key}`, from: original, to: match.canonical });
       feat.fixture_ref = match.canonical;
     }
+    // A match whose sources disagree on the score has no score the validator
+    // may read as a fact, and a featured line is a line about the result.
+    // Contradicted is the nearest verdict: the data does not contradict the
+    // writer so much as itself, but the effect is the same, a figure nobody
+    // can vouch for must not stand under a reader's eye. Dropped, and the
+    // page falls back to the computed card as it does for any dropped ref.
+    const disputed = match.fixture !== null && isDisputed(season, match.fixture);
+    const ok = match.fixture !== null && !disputed;
     claims.push({
       path: `featured.${key}`,
       label: "observed",
       text: feat.fixture_ref,
       checker: "fixture_ref",
-      verdict: match.fixture ? "verified" : "contradicted",
-      mismatches: match.fixture
+      verdict: ok ? "verified" : "contradicted",
+      mismatches: ok
         ? []
         : [
-            match.ambiguous
-              ? `fixture_ref: "${original}" answers to more than one fixture`
-              : `fixture_ref: "${original}" matches no fixture in this file`,
+            disputed
+              ? `fixture_ref: "${original}" names a match whose sources disagree on the score; no figure of it can be read as a fact until they agree`
+              : match.ambiguous
+                ? `fixture_ref: "${original}" answers to more than one fixture`
+                : `fixture_ref: "${original}" matches no fixture in this file`,
           ],
-      dropped: !match.fixture,
+      dropped: !ok,
       ...(match.normalized ? { note: `rewritten to canonical form from "${original}"` } : {}),
     });
-    if (!match.fixture && out.featured) out.featured[key] = undefined;
+    if (!ok && out.featured) out.featured[key] = undefined;
   }
 
   // Last, over what survived the checkers: a line that is another line with

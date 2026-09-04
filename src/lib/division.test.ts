@@ -23,8 +23,22 @@
 
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
-import { isScored, memberSlugs } from "./derive.ts";
+import { loadFixtures } from "./data.ts";
 import {
+  DISPUTED_MARK,
+  disputedIdentities,
+  FORFEIT_MARK,
+  goalsForByProgramme,
+  isCounted,
+  isScored,
+  markOf,
+  memberSlugs,
+  overallTable,
+  recordOf,
+  type Season,
+} from "./derive.ts";
+import {
+  disputedFinals,
   foldToMatches,
   matchIdentity,
   oneSidedFinals,
@@ -33,6 +47,8 @@ import {
   unpostedSides,
 } from "./division.ts";
 import { homeSeasons } from "./home.ts";
+import type { Fixture, FixturesFile } from "./model.ts";
+import { nameBookFor } from "./names.ts";
 
 const seasons = homeSeasons();
 
@@ -190,7 +206,7 @@ describe("the records agree, which is what makes folding safe", () => {
     for (const id of expected) expect(folded.filter((m) => m.identity === id)).toHaveLength(1);
   });
 
-  test("a disagreement on the score itself is a hard failure, never a neutral site", () => {
+  test("a disagreement on the score itself is a dispute, never a neutral site", () => {
     const pair = shared.find((m) => m.neutral) ?? shared[0];
     expect(pair, "no shared match in this data to disagree about").toBeDefined();
     const [a, b] = (pair as (typeof shared)[number]).sightings as [Sighting, Sighting];
@@ -198,9 +214,15 @@ describe("the records agree, which is what makes folding safe", () => {
       ...b,
       fixture: { ...b.fixture, home_score: (b.fixture.home_score ?? 0) + 1 },
     };
-    expect(() => foldToMatches([a, bumped])).toThrow(/disagree on the score or status/);
-    // And the same pair, untouched, folds to one match.
+    // Since tl-wyv the fold keeps the row and marks it rather than failing
+    // the build: one match, disputed, both scores kept.
+    const out = foldToMatches([a, bumped]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.disputed).toBe(true);
+    expect(out[0]?.scores).toHaveLength(2);
+    // And the same pair, untouched, folds to one undisputed match.
     expect(foldToMatches([a, b])).toHaveLength(1);
+    expect(foldToMatches([a, b])[0]?.disputed).toBe(false);
   });
 });
 
@@ -256,15 +278,15 @@ describe("cancelled and postponed fold as one unplayed shape", () => {
     ).toBe("scheduled");
   });
 
-  test("a score disagreement still throws, whatever the status words", () => {
+  test("a score disagreement is a dispute, whatever the status words", () => {
     const { home, peer } = records();
     const scored = (s: Sighting, n: number): Sighting => ({
       ...s,
       fixture: { ...s.fixture, status: "final", home_score: n, away_score: 0 },
     });
-    expect(() => foldToMatches([scored(home, 1), scored(peer, 2)])).toThrow(
-      /disagree on the score or status/,
-    );
+    const out = foldToMatches([scored(home, 1), scored(peer, 2)]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.disputed).toBe(true);
   });
 
   test("scheduled against scheduled folds as before: one match, no marker", () => {
@@ -366,11 +388,12 @@ describe("a scored final beats a twin that has not posted yet", () => {
     );
   });
 
-  test("final 2–0 against final 1–0 still throws exactly as before", () => {
+  test("final 2–0 against final 1–0 is the disputed path, not a one-sided one", () => {
     const { home, peer } = records();
-    expect(() => foldToMatches([scored(home, 2, 0), scored(peer, 1, 0)])).toThrow(
-      /disagree on the score or status/,
-    );
+    const out = foldToMatches([scored(home, 2, 0), scored(peer, 1, 0)]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.disputed).toBe(true);
+    expect(out[0]?.oneSided).toBe(false);
   });
 
   test("final against final with the same score is one match and no marker", () => {
@@ -412,6 +435,302 @@ describe("the answer does not move when the caller's order does", () => {
     for (const m of shared) {
       const ranks = m.codes.map(rank);
       expect(ranks, m.identity).toEqual([...ranks].sort((a, b) => a - b));
+    }
+  });
+});
+
+/** A season stood up from one fixtures file, the way loadSeason does, minus
+ *  the layers the fold never reads. `disputed` is what loadSeason would fill
+ *  from every configured file; here it is the caller's, from the files the
+ *  test actually holds. */
+const seasonOf = (key: string, fixtures: FixturesFile, disputed?: ReadonlySet<string>): Season => ({
+  key,
+  fixtures,
+  rosters: null,
+  stats: null,
+  matches: null,
+  coverage: null,
+  names: nameBookFor(fixtures),
+  asOf: fixtures.collected_at.slice(0, 10),
+  collectedAt: fixtures.collected_at,
+  disputed,
+});
+const sightingOf = (season: Season, fixture: Fixture): Sighting => ({
+  key: season.key,
+  code: season.fixtures.conference,
+  season,
+  fixture,
+});
+
+describe("a forfeit final folds like any final, and the fold keeps the award", () => {
+  // The pair the ruling was measured on (tl-wyv). 2024-09-05 Upper Iowa v
+  // Roosevelt is in two files: GLVC's from Upper Iowa's own schedule
+  // (sidearm:upper-iowa:9017, "W, 2-2" beside "Win by forfeit"), GLIAC's from
+  // Roosevelt's (sidearm:roosevelt:4837, a plain final 2-2, home Upper Iowa).
+  // The rib (PR #93) stores the GLVC row as final 2-2 with forfeit "home";
+  // this data home still holds the row from before that fix, so the test
+  // patches it to the rib's shape, and the patch is a no-op the day the
+  // re-collect lands.
+  const glvc = loadFixtures(2024, "men", "glvc");
+  const gliac = loadFixtures(2024, "men", "gliac");
+  const uiu = glvc.fixtures.find((f) => f.id === "sidearm:upper-iowa:9017") as Fixture;
+  const rsu = gliac.fixtures.find((f) => f.id === "sidearm:roosevelt:4837") as Fixture;
+  const awarded: Fixture = {
+    ...uiu,
+    status: "final",
+    home_score: 2,
+    away_score: 2,
+    forfeit: "home",
+  };
+  const home = seasonOf("glvc", { ...glvc, fixtures: [awarded] });
+  const peer = seasonOf("gliac", { ...gliac, fixtures: [rsu] });
+
+  test("the rows are the ones the data home holds", () => {
+    expect(uiu).toMatchObject({ date: "2024-09-05", home: "upper-iowa", away: "roosevelt" });
+    expect(rsu).toMatchObject({
+      date: "2024-09-05",
+      home: "upper-iowa",
+      away: "roosevelt",
+      status: "final",
+      home_score: 2,
+      away_score: 2,
+    });
+    expect(rsu.forfeit).toBeUndefined();
+    expect(matchIdentity(uiu)).toBe(matchIdentity(rsu));
+  });
+
+  test("forfeit 2-2 beside a plain 2-2 folds to the forfeit version, undisputed, in either order", () => {
+    for (const order of [
+      [sightingOf(home, awarded), sightingOf(peer, rsu)],
+      [sightingOf(peer, rsu), sightingOf(home, awarded)],
+    ]) {
+      const out = foldToMatches(order);
+      expect(out).toHaveLength(1);
+      const m = out[0] as (typeof out)[number];
+      expect(m.disputed).toBe(false);
+      expect(m.oneSided).toBe(false);
+      expect(m.neutral).toBe(false);
+      expect(m.scores).toEqual([]);
+      expect(m.fixture.forfeit).toBe("home");
+      expect(m.fixture.id).toBe("sidearm:upper-iowa:9017");
+      expect(m.key).toBe("glvc");
+      expect(m.codes).toHaveLength(2);
+      expect(markOf(m.season, m.fixture)).toBe(FORFEIT_MARK);
+    }
+  });
+
+  test("the forfeit wins the fold even when it is the peer's record", () => {
+    // The home conference prints the bare score and the peer marks the
+    // award: the fuller fact is the peer's, and the folded match carries it.
+    const bare = seasonOf("glvc", { ...glvc, fixtures: [{ ...awarded, forfeit: undefined }] });
+    const marked = seasonOf("gliac", { ...gliac, fixtures: [{ ...rsu, forfeit: "home" }] });
+    const out = foldToMatches([
+      sightingOf(bare, bare.fixtures.fixtures[0] as Fixture),
+      sightingOf(marked, marked.fixtures.fixtures[0] as Fixture),
+    ]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.fixture.forfeit).toBe("home");
+    expect(out[0]?.key).toBe("gliac");
+    expect(out[0]?.disputed).toBe(false);
+  });
+
+  test("the record counts a home win for Upper Iowa, and scored and conceded exclude the goals", () => {
+    expect(recordOf(home, "upper-iowa")).toEqual({
+      won: 1,
+      drawn: 0,
+      lost: 0,
+      goalsFor: 0,
+      goalsAgainst: 0,
+      played: 1,
+    });
+    expect(recordOf(home, "roosevelt")).toMatchObject({
+      won: 0,
+      drawn: 0,
+      lost: 1,
+      goalsFor: 0,
+      goalsAgainst: 0,
+    });
+    const goals = goalsForByProgramme(home).find((g) => g.slug === "upper-iowa");
+    expect(goals).toMatchObject({ goals: 0, conceded: 0 });
+    const row = overallTable(home).find((r) => r.slug === "upper-iowa");
+    expect(row).toMatchObject({
+      played: 1,
+      won: 1,
+      drawn: 0,
+      points: 3,
+      goalsFor: 0,
+      goalsAgainst: 0,
+    });
+    // And the same pair without the award is the draw the figures say.
+    const plain = seasonOf("glvc", { ...glvc, fixtures: [{ ...awarded, forfeit: undefined }] });
+    expect(recordOf(plain, "upper-iowa")).toMatchObject({ drawn: 1, goalsFor: 2, goalsAgainst: 2 });
+  });
+
+  test("the same pair printing different scores takes the disputed path", () => {
+    const three = seasonOf("glvc", { ...glvc, fixtures: [{ ...awarded, home_score: 3 }] });
+    const out = foldToMatches([
+      sightingOf(three, three.fixtures.fixtures[0] as Fixture),
+      sightingOf(peer, rsu),
+    ]);
+    expect(out).toHaveLength(1);
+    const m = out[0] as (typeof out)[number];
+    expect(m.disputed).toBe(true);
+    expect(m.oneSided).toBe(false);
+    // The home programme's record and score, marked; both scores kept with
+    // the host that printed each, in config order.
+    expect(m.key).toBe("glvc");
+    expect(m.fixture.home_score).toBe(3);
+    expect(m.scores).toEqual([
+      { key: "glvc", code: "GLVC", source: "uiupeacocks.com", home_score: 3, away_score: 2 },
+      { key: "gliac", code: "GLIAC", source: "rooseveltlakers.com", home_score: 2, away_score: 2 },
+    ]);
+  });
+
+  test("2022 Bloomsburg v Chestnut Hill: a final beside a scheduled twin is a lag, not a dispute", () => {
+    // Both records mark it an exhibition. The fold reads a posted score
+    // whether or not the match counts: a friendly's lag is still a lag, and
+    // a friendly's two scores would still be a dispute, so the rule cannot
+    // rest on isScored, which leaves friendlies out of the record.
+    const cacc = loadFixtures(2022, "men", "cacc");
+    const psac = loadFixtures(2022, "men", "psac");
+    const posted = cacc.fixtures.find((f) => f.id === "sidearm:chestnut-hill:7659") as Fixture;
+    const waiting = psac.fixtures.find((f) => f.id === "sidearm:bloomsburg:14253") as Fixture;
+    expect(posted).toMatchObject({ status: "final", home_score: 1, away_score: 0 });
+    expect(waiting.status).toBe("scheduled");
+    const out = foldToMatches([
+      sightingOf(seasonOf("psac", { ...psac, fixtures: [waiting] }), waiting),
+      sightingOf(seasonOf("cacc", { ...cacc, fixtures: [posted] }), posted),
+    ]);
+    expect(out).toHaveLength(1);
+    expect(out[0]?.oneSided).toBe(true);
+    expect(out[0]?.disputed).toBe(false);
+    expect(out[0]?.fixture.id).toBe(posted.id);
+  });
+});
+
+describe("a disputed final keeps both scores instead of failing the build", () => {
+  // Built, because no pair in the data home disagrees yet. A shared match
+  // with a home side, from the live data, so that which record is the home
+  // conference's is a fact and not a choice.
+  const pair = shared.find((m) => !m.neutral);
+  const records = (): { home: Sighting; peer: Sighting } => {
+    expect(pair, "no shared match with a home side in this data").toBeDefined();
+    const m = pair as (typeof shared)[number];
+    const home = m.sightings.find((s) => memberSlugs(s.season).has(s.fixture.home)) as Sighting;
+    const peer = m.sightings.find((s) => s !== home) as Sighting;
+    return { home, peer };
+  };
+  const scored = (s: Sighting, h: number, a: number): Sighting => ({
+    ...s,
+    fixture: { ...s.fixture, status: "final", home_score: h, away_score: a },
+  });
+
+  test("both scores stand under the match, each with its source, in config order", () => {
+    const { home, peer } = records();
+    const out = foldToMatches([scored(peer, 1, 1), scored(home, 2, 1)]);
+    expect(out).toHaveLength(1);
+    const m = out[0] as (typeof out)[number];
+    expect(m.disputed).toBe(true);
+    expect(m.scores.map((x) => x.code)).toEqual(m.codes);
+    expect(m.scores.find((x) => x.key === home.key)).toMatchObject({
+      home_score: 2,
+      away_score: 1,
+    });
+    expect(m.scores.find((x) => x.key === peer.key)).toMatchObject({
+      home_score: 1,
+      away_score: 1,
+    });
+    for (const x of m.scores) expect(x.source.length).toBeGreaterThan(0);
+  });
+
+  test("the folded record is the home programme's, whichever arrived first", () => {
+    const { home, peer } = records();
+    for (const order of [
+      [scored(home, 2, 1), scored(peer, 1, 1)],
+      [scored(peer, 1, 1), scored(home, 2, 1)],
+    ]) {
+      const m = foldToMatches(order)[0] as ReturnType<typeof foldToMatches>[number];
+      expect(m.key).toBe(home.key);
+      expect(m.fixture.id).toBe(home.fixture.id);
+      expect(m.fixture.home_score).toBe(2);
+      expect(m.codes).toEqual((pair as (typeof shared)[number]).codes);
+    }
+  });
+
+  test("a third record still scheduled does not undo the dispute", () => {
+    const { home, peer } = records();
+    const waiting: Sighting = {
+      ...peer,
+      key: "third",
+      fixture: {
+        ...peer.fixture,
+        status: "scheduled",
+        home_score: undefined,
+        away_score: undefined,
+      },
+    };
+    const m = foldToMatches([scored(home, 2, 1), scored(peer, 1, 1), waiting])[0];
+    expect(m?.disputed).toBe(true);
+    expect(m?.scores).toHaveLength(2);
+  });
+
+  test("the season's figures leave it out, by the same rule the fold read", () => {
+    const { home, peer } = records();
+    const h = scored(home, 2, 1);
+    const p = scored(peer, 1, 1);
+    const disputed = disputedIdentities([
+      { ...home.season.fixtures, fixtures: [h.fixture] },
+      { ...peer.season.fixtures, fixtures: [p.fixture] },
+    ]);
+    expect([...disputed]).toEqual([matchIdentity(h.fixture)]);
+    const season: Season = {
+      ...home.season,
+      fixtures: { ...home.season.fixtures, fixtures: [h.fixture] },
+      disputed,
+    };
+    expect(isCounted(season, h.fixture)).toBe(false);
+    expect(markOf(season, h.fixture)).toBe(DISPUTED_MARK);
+    expect(recordOf(season, h.fixture.home).played).toBe(0);
+    expect(goalsForByProgramme(season).every((g) => g.goals === 0 && g.conceded === 0)).toBe(true);
+    // Agreement lifts it: the same two files with one score dispute nothing.
+    expect(
+      disputedIdentities([
+        { ...home.season.fixtures, fixtures: [h.fixture] },
+        { ...peer.season.fixtures, fixtures: [scored(peer, 2, 1).fixture] },
+      ]).size,
+    ).toBe(0);
+  });
+
+  test("final against cancelled is still a fold error, not a dispute", () => {
+    const { home, peer } = records();
+    const cancelled: Sighting = {
+      ...peer,
+      fixture: {
+        ...peer.fixture,
+        status: "cancelled",
+        home_score: undefined,
+        away_score: undefined,
+      },
+    };
+    expect(() => foldToMatches([scored(home, 2, 1), cancelled])).toThrow(
+      /disagree on the score or status/,
+    );
+    // And two different scores beside a cancelled third: still an error.
+    expect(() =>
+      foldToMatches([scored(home, 2, 1), scored({ ...peer, key: "third" }, 1, 1), cancelled]),
+    ).toThrow(/disagree on the score or status/);
+  });
+
+  test("the live data holds no disputed match today, and the listing says so", () => {
+    // The day this fails is the day two collectors published different
+    // facts about one match: the build stands, the row is marked, and this
+    // count is the number of them.
+    expect(disputedFinals(seasons).map((m) => m.identity)).toEqual(
+      folded.filter((m) => m.disputed).map((m) => m.identity),
+    );
+    for (const m of folded) {
+      if (!m.disputed) expect(m.scores, m.identity).toEqual([]);
+      else expect(m.scores.length, m.identity).toBeGreaterThan(1);
     }
   });
 });

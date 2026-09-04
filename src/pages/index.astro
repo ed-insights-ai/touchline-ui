@@ -16,7 +16,8 @@
 import HomeConferences from "../components/HomeConferences.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Page from "../layouts/Page.astro";
-import { hasScore, matchHref, seasonHref } from "../lib/derive.ts";
+import { DISPUTED_MARK, FORFEIT_MARK, hasScore, isForfeit, matchHref, seasonHref } from "../lib/derive.ts";
+import { outcome } from "../lib/model.ts";
 import { type DivisionMatch, divisionCounts } from "../lib/division.ts";
 import type { Fixture } from "../lib/derive.ts";
 import {
@@ -112,12 +113,20 @@ const cardStamp = (key: string): string | null => {
   return iso ? `UPDATED ${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}` : null;
 };
 
-// Winner side at weight 600, loser quiet, draws neutral.
-const sideClass = (f: Fixture, side: "home" | "away"): string => {
-  if (!hasScore(f) || f.home_score === f.away_score) return "lside";
-  const winner = f.home_score > f.away_score ? "home" : "away";
-  return side === winner ? "lside lwin" : "lside lquiet";
+// Winner side at weight 600, loser quiet, draws neutral. The winner is the
+// fixture's outcome, so a forfeit's weight follows the award and not the
+// printed score; a disputed row has no winner to weight.
+const sideClass = (f: Fixture, side: "home" | "away", disputed = false): string => {
+  const went = outcome(f);
+  if (disputed || !hasScore(f) || went === "draw" || went === null) return "lside";
+  return side === went ? "lside lwin" : "lside lquiet";
 };
+
+// The mark beside a score that is not the whole result: the fold's own
+// disputed flag first, then a forfeit's. Lower case, in the neutral mark's
+// register: it is a word beside a figure, not a label over one.
+const markOf = (r: DivisionMatch): string | null =>
+  r.disputed ? DISPUTED_MARK : isForfeit(r.fixture) ? FORFEIT_MARK : null;
 
 // A ledger row reads away · score · home, which is a claim about where the
 // match was played. A neutral-site match (two records, each site calling
@@ -134,8 +143,8 @@ const ledgerSides = (r: DivisionMatch): { left: LedgerSide; right: LedgerSide } 
   const f = r.fixture;
   if (!r.neutral) {
     return {
-      left: { slug: f.away, score: f.away_score, cls: `${sideClass(f, "away")} l-away` },
-      right: { slug: f.home, score: f.home_score, cls: sideClass(f, "home") },
+      left: { slug: f.away, score: f.away_score, cls: `${sideClass(f, "away", r.disputed)} l-away` },
+      right: { slug: f.home, score: f.home_score, cls: sideClass(f, "home", r.disputed) },
     };
   }
   const [a, b] = [f.home, f.away].sort();
@@ -143,8 +152,8 @@ const ledgerSides = (r: DivisionMatch): { left: LedgerSide; right: LedgerSide } 
   const scoreOf = (slug: string): number | undefined =>
     slug === f.home ? f.home_score : f.away_score;
   return {
-    left: { slug: a as string, score: scoreOf(a as string), cls: `${sideClass(f, sideOf(a as string))} l-away` },
-    right: { slug: b as string, score: scoreOf(b as string), cls: sideClass(f, sideOf(b as string)) },
+    left: { slug: a as string, score: scoreOf(a as string), cls: `${sideClass(f, sideOf(a as string), r.disputed)} l-away` },
+    right: { slug: b as string, score: scoreOf(b as string), cls: sideClass(f, sideOf(b as string), r.disputed) },
   };
 };
 
@@ -271,6 +280,7 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
                     <span class="lscore">
                       {hasScore(r.fixture) ? `${left.score}–${right.score}` : "—"}
                       {r.neutral && <span class="lneutral"> v</span>}
+                      {markOf(r) && <span class="lmark"> {markOf(r)}</span>}
                     </span>
                     <span class={right.cls}>{r.season.names.name(right.slug)}</span>
                   </>
@@ -409,6 +419,8 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
   .l-away { text-align: right; }
   /* The neutral mark: quiet, and the only thing that tells a neutral row apart. */
   .lneutral { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; }
+  /* "by forfeit" or "disputed": the same register, beside the score. */
+  .lmark { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; font-weight: 400; white-space: nowrap; }
   .lwin { font-weight: 600; }
   .lquiet { color: var(--secondary); }
   .lscore { font-weight: 600; }
