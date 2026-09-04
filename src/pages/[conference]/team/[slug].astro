@@ -386,6 +386,12 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
           a legend that will eventually describe a figure the page stopped
           drawing.
 
+          The returners split comes first because it is the figure's first cut,
+          and its swatch is the rule itself, standing between the two words with
+          no square either side of it. Two identical squares around a hairline
+          read as a colour key with no difference to explain; the hairline is
+          the mark (owner, 2026-09-04).
+
           The hollow square is not decoration and may not be quietly lost: it
           is a disclosure that the roster printed no class year, a fact about
           the collection rather than about the player. The minutes column is
@@ -395,6 +401,13 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
           and on every other page the item explained nothing (owner, 2026-09-01). */}
       <div class="shape-legend">
         <span class="legend-item">
+          <span class="label">Returners</span>
+          <span class="legend-swatch" aria-hidden="true">
+            <span class="shape-rule"></span>
+          </span>
+          <span class="label">newcomers</span>
+        </span>
+        <span class="legend-item">
           <span class="legend-swatch" aria-hidden="true">
             <span class="sq-box sq-fr"></span>
             <span class="sq-box sq-so"></span>
@@ -403,14 +416,6 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
             <span class="sq-box sq-5y"></span>
           </span>
           <span class="label">First year to fifth</span>
-        </span>
-        <span class="legend-item">
-          <span class="legend-swatch" aria-hidden="true">
-            <span class="sq-box sq-jr"></span>
-            <span class="shape-rule"></span>
-            <span class="sq-box sq-jr"></span>
-          </span>
-          <span class="label">Returners · newcomers</span>
         </span>
         <span class="legend-item">
           <span class="legend-swatch" aria-hidden="true">
@@ -641,9 +646,11 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
   .legend-item { display: flex; align-items: center; gap: 8px; }
   .legend-swatch { flex: none; display: flex; align-items: center; gap: 2px; height: 20px; }
   /* The rule hangs from the top of a 22px row of squares in the figure; in a
-     legend there is no row to hang from, so it centres. Its width, height and
-     ink are the figure's own. */
-  .shape-legend .shape-rule { align-self: center; margin: 0 4px; }
+     legend there is no row to hang from, so it centres between the two words
+     it divides, at the swatch's own height, and the item's gap spaces it from
+     each word exactly as it spaces every other swatch from its label. Its
+     width and ink are the figure's own. */
+  .shape-legend .shape-rule { align-self: center; height: 100%; margin: 0; }
   .shape-legend .shape-pct { min-width: 0; }
 
   /* ── Squad ──────────────────────────────────────────────────────────────── */
