@@ -13,7 +13,6 @@
 // Every count here comes through the same functions as the season pages'
 // mastheads, so the two surfaces cannot disagree; the tests recount both from
 // the fixture lists and make them meet.
-import FootprintBand from "../components/FootprintBand.astro";
 import HomeConferences from "../components/HomeConferences.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Page from "../layouts/Page.astro";
@@ -27,9 +26,12 @@ import {
   monShort,
   spell,
 } from "../lib/format.ts";
+import { type ConferenceFootprint, footprintOf } from "../lib/geo.ts";
 import {
   type BandColumn,
   type CardView,
+  conferenceOfProgramme,
+  headlineProgrammeOf,
   homeBands,
   homeColumns,
   homeLayout,
@@ -60,12 +62,8 @@ const asOf = nationalAsOf(seasons);
 // The division's journal writes the headline and the dek and nothing else.
 // Absent, or emptied by the validator, the masthead is exactly what it was
 // before one existed — the page never waits on a model call.
-const lede = nationalMasthead(
-  columns,
-  asOf,
-  national,
-  loadNationalJournal(site.season, site.gender),
-);
+const journal = loadNationalJournal(site.season, site.gender);
+const lede = nationalMasthead(columns, asOf, national, journal);
 // A share card and a search result meet these facts with no cards and no strip
 // beneath them, so the description keeps the full prose the masthead stopped
 // printing — and keeps it stable, because it identifies the page as much as it
@@ -187,6 +185,37 @@ const views: (CardView & BandColumn)[] = columns.map((c) => ({
 // flow into region bands (site.homeColumnCap, lib/home.ts).
 const layout = homeLayout(columns.length);
 const bands = homeBands(views);
+
+// The conference the division's headline is about, resolved and never
+// matched: the journal's basis names the programme, the member index names
+// the followed conference that lists it, and the band that holds that
+// conference opens at rest (lib/home.ts openBandIndex). A headline about a
+// programme no followed season lists resolves to nothing, and the section
+// falls back to the imminent band.
+const headlineProgramme = headlineProgrammeOf(journal);
+const conferenceOf = (slug: string): string | null => conferenceOfProgramme(seasons, slug);
+const headlineKey = headlineProgramme === null ? null : conferenceOf(headlineProgramme);
+const headlineColumn = columns.find((c) => c.key === headlineKey);
+const headline =
+  headlineProgramme !== null && headlineColumn
+    ? {
+        key: headlineColumn.key,
+        code: headlineColumn.code,
+        programme:
+          headlineColumn.season.fixtures.programmes.find((p) => p.slug === headlineProgramme)
+            ?.name ?? headlineColumn.season.names.name(headlineProgramme),
+      }
+    : null;
+
+// Where each conference plays, for the map beside the bands.
+const footprints: ConferenceFootprint[] = columns.map((c) =>
+  footprintOf(
+    c.key,
+    c.code,
+    c.name,
+    c.season.fixtures.programmes.map((p) => ({ slug: p.slug, name: p.name })),
+  ),
+);
 ---
 <Page title="Touchline — The Season Scorebook" description={description}>
   <div class="tl-page">
@@ -253,9 +282,16 @@ const bands = homeBands(views);
       {openLine && <p class="ln-open">{openLine}</p>}
     </section>
 
-    <HomeConferences cards={views} layout={layout} bands={bands} />
-
-    <FootprintBand columns={columns} divisionConferences={site.divisionConferences} />
+    <HomeConferences
+      cards={views}
+      layout={layout}
+      bands={bands}
+      footprints={footprints}
+      headlineProgramme={headlineProgramme}
+      conferenceOf={conferenceOf}
+      headline={headline}
+      divisionConferences={site.divisionConferences}
+    />
 
     <SiteFooter seasons={seasons} />
   </div>
@@ -377,8 +413,9 @@ const bands = homeBands(views);
   }
   .ln-open { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
 
-  /* The conference cards and their layout: ConferenceCard.astro and
-     HomeConferences.astro. */
+  /* The conferences — the columns under the cap, the map-led section past
+     it: ConferenceCard.astro, HomeConferences.astro, HomeMap.astro,
+     HomeBands.astro. */
 
   /* ── Narrow ─────────────────────────────────────────────────────────────── */
   @media (max-width: 720px) {

@@ -3,7 +3,9 @@
 // The density design was approved at twelve and nineteen conferences before
 // the site follows more than six. These sets let the map, the home page and
 // the masthead be exercised at those sizes now, driving the same helpers
-// (lib/regions.ts) the live config drives. Nothing in src/ outside a test
+// (lib/regions.ts) the live config drives. The one and the three are the
+// other side of the column cap: a site that small keeps the columns and the
+// map above them (owner's ruling), and the fixture holds that. Nothing in src/ outside a test
 // and this file may import this module; density.test.ts holds that line.
 //
 // The rows are the coordinator's canvas generator's, copied: key, code, name,
@@ -40,7 +42,7 @@ export type DensityConference = {
 /** The season state a row was drawn with: live, or opening on a date. */
 type DensityState = { live?: true; opens?: string; played: number; total: number };
 
-export type DensitySize = 12 | 19;
+export type DensitySize = 1 | 3 | 12 | 19;
 
 /** The same six rows as site.regions, in the same order, label nudges and
  *  all (density.test.ts holds the two equal). */
@@ -228,9 +230,14 @@ const TWELVE = new Set([
   "g-mac",
 ]);
 
+/** Under the cap: the site's first three conferences (two regions), and one. */
+const THREE = new Set(["gac", "lsc", "gsc"]);
+const ONE = new Set(["gac"]);
+
 /** The rows for a size, in DENSITY_CONFERENCES order. */
 export function densityConferences(size: DensitySize): readonly DensityConference[] {
-  return size === 19 ? DENSITY_CONFERENCES : DENSITY_CONFERENCES.filter((c) => TWELVE.has(c.key));
+  const keep = size === 19 ? null : size === 12 ? TWELVE : size === 3 ? THREE : ONE;
+  return keep === null ? DENSITY_CONFERENCES : DENSITY_CONFERENCES.filter((c) => keep.has(c.key));
 }
 
 export type DensityConfig = RegionConfig &

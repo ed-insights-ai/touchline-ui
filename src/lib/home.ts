@@ -30,7 +30,17 @@ import {
   foldToMatches,
   type Sighting,
 } from "./division.ts";
-import { dayNumber, dayOfMonth, dowShort, monShort, shortDate, spell, toISO } from "./format.ts";
+import {
+  dayNumber,
+  dayOfMonth,
+  dowShort,
+  longDate,
+  monShort,
+  shortDate,
+  spell,
+  toISO,
+} from "./format.ts";
+import { type ConferenceFootprint, regionLabels } from "./geo.ts";
 import { headlineForm, type NationalJournalFile, PHASE_LIVE } from "./journal.ts";
 import type { Fixture } from "./model.ts";
 import { byRegion, type Region, type RegionConfig } from "./regions.ts";
@@ -141,11 +151,11 @@ export function mostImminentKey(
 // ── The card and how the cards are laid out ─────────────────────────────────
 //
 // Up to the configured cap the page is one column per conference, in kickoff
-// order. Past it the SAME card flows into region bands, one per region in
-// site.regions order, and the phone folds each band into a disclosure. The
-// cap is config (site.homeColumnCap) and the regions come through byRegion,
-// so no component here decides anything from a conference or a region by
-// name. The page grows by rows, never by narrower columns.
+// order. Past it the SAME view flows into region bands beside the map, one
+// band per region in site.regions order, one conference per ledger row, and
+// exactly one band open at rest (openBandIndex, below). The cap is config
+// (site.homeColumnCap) and the regions come through byRegion, so no component
+// here decides anything from a conference or a region by name.
 
 /** What a card prints, and nothing a Season is needed for: a synthetic set
  *  (lib/fixtures/density.ts) renders the same component the live page does. */
@@ -239,18 +249,222 @@ export function homeBands<T extends BandColumn>(
   }));
 }
 
-/** Which band the phone opens by default: the imminent one, else the FIRST
- *  (the top of the page, site.regions order), so the phone never lands on a
- *  wall of closed disclosures once the next kickoff belongs to a conference
- *  already under way. -1 with no bands. */
-export function openBandIndex(bands: readonly { imminent: boolean }[]): number {
+// ── Which band is open at rest ──────────────────────────────────────────────
+//
+// Exactly one band is open, at every width, before any script runs (tl-38t).
+// Chosen in order: the region of the conference the division's headline is
+// about; else the imminent band; else the first. The headline names its
+// programme in the journal's basis, so the region is COMPUTED from a slug —
+// slug to the followed conference that lists it, conference to band — and
+// never matched out of the sentence.
+
+/** The programme the division's headline is about, as the journal's basis
+ *  names it, or null when the journal is absent or its basis names none. The
+ *  basis is a free record by schema; only a non-empty string counts. */
+export function headlineProgrammeOf(journal: NationalJournalFile | null): string | null {
+  const slug = journal?.basis?.programme;
+  return typeof slug === "string" && slug.length > 0 ? slug : null;
+}
+
+/** The followed conference whose members list the slug, or null for a
+ *  programme no followed season lists — the same member index the tables and
+ *  the ledger fold by (derive.ts memberSlugs), never a name match. Seasons
+ *  are searched in the order given (config order), so a programme two files
+ *  list — none does today — resolves to the first. */
+export function conferenceOfProgramme(seasons: readonly Season[], slug: string): string | null {
+  for (const s of seasons) if (memberSlugs(s).has(slug)) return s.key;
+  return null;
+}
+
+/** The band open at rest: the headline's region, else the imminent band,
+ *  else the first (the top of the page, site.regions order). -1 with no
+ *  bands. Pure: `conferenceOf` is the slug-to-conference resolver, and the
+ *  bands' own columns carry the conference-to-region step. A headline about
+ *  a programme no band holds falls through to the imminent leg. */
+export function openBandIndex<T extends { key: string }>(
+  bands: readonly { imminent: boolean; columns: readonly T[] }[],
+  headlineProgramme: string | null,
+  conferenceOf: (slug: string) => string | null,
+): number {
   if (bands.length === 0) return -1;
+  const key = headlineProgramme === null ? null : conferenceOf(headlineProgramme);
+  if (key !== null) {
+    const at = bands.findIndex((b) => b.columns.some((c) => c.key === key));
+    if (at >= 0) return at;
+  }
   const at = bands.findIndex((b) => b.imminent);
   return at < 0 ? 0 : at;
 }
 
-/** The head's meta, one wording for the desktop head, the phone summary and
- *  the tests: "2 LIVE · NEXT OPENS SEP 19", "OPENS SEP 5", or the absence. */
+/** Each band's open flag, exactly one true when there are bands: what the
+ *  markup writes as data-open and aria-expanded, so the no-script read is
+ *  the chooser's answer. */
+export function bandOpenFlags(count: number, open: number): boolean[] {
+  return Array.from({ length: count }, (_, i) => i === open);
+}
+
+/** The chip row: one per band, in the order the bands come (site.regions
+ *  order, regions with no conference dropped — byRegion's own). The chips
+ *  are the map's region labels for thumbs, so they follow the same table
+ *  and never a hand-typed list (tl-4an.21). */
+export function regionChips(
+  bands: readonly HomeBand<unknown>[],
+): { key: string; name: string; count: number }[] {
+  return bands.map((b) => ({ key: b.region.key, name: b.region.name, count: b.columns.length }));
+}
+
+/** The conference a band's lead line speaks for: the one wearing the purple,
+ *  else the first under way, else the first in the band. */
+function bandLead<T extends CardView & BandColumn>(band: HomeBand<T>): T | null {
+  return (
+    band.columns.find((c) => c.imminent) ??
+    band.columns.find((c) => c.live) ??
+    band.columns[0] ??
+    null
+  );
+}
+
+/** What a conference is doing, in one clause: "the GLVC opens Friday,
+ *  September 4", "the GAC is in conference play", or the absence. */
+function doingClause(c: CardView & BandColumn): string {
+  if (c.live) return `the ${c.code} is in conference play`;
+  if (c.opensOn) return `the ${c.code} opens ${longDate(c.opensOn)}`;
+  return `the ${c.code} has published no conference date`;
+}
+
+/** The line under the section head, for the band that is open.
+ *
+ *  Plain: the region and what its lead conference is doing — "Midwest: the
+ *  GLVC opens Friday, September 4." The headline band, while it is the one
+ *  pinned, says instead why it is open: "Open for the headline: Southwest
+ *  Baptist, of the GLVC. The GLVC opens Friday, September 4." The rows
+ *  beneath carry each conference's own line, so this line restates none of
+ *  them — a surface says what only it can say (the site's rule). */
+export function leadLine<T extends CardView & BandColumn>(
+  band: HomeBand<T>,
+  headline: { programme: string; code: string } | null,
+): string {
+  const lead = bandLead(band);
+  if (!lead) return `${band.region.name}.`;
+  if (headline) {
+    const about = band.columns.find((c) => c.code === headline.code) ?? lead;
+    return `Open for the headline: ${headline.programme}, of the ${headline.code}. ${sentenceCase(doingClause(about))}.`;
+  }
+  return `${band.region.name}: ${doingClause(lead)}.`;
+}
+
+// ── What the map draws ──────────────────────────────────────────────────────
+//
+// The map is on the home page at every conference count (owner's ruling): a
+// site under the column cap draws it above the columns with no selection —
+// every dot one ink, the region labels present but inert — and a site past
+// the cap draws it beside the bands with one region selected. One view model
+// serves both so the plain map can be held to its rules without a render.
+
+export interface MapDot {
+  key: string;
+  code: string;
+  slug: string;
+  name: string;
+  city: string;
+  x: number;
+  y: number;
+  /** The region the dot answers to, when the map selects; null when plain. */
+  region: string | null;
+  /** "dot", "dot on", "dot dim", each with " hl" for the headline programme. */
+  cls: string;
+}
+
+export interface MapLabel {
+  key: string;
+  name: string;
+  x: number;
+  y: number;
+  conferences: number;
+  programmes: number;
+  on: boolean;
+  /** The band anchor the label opens, when the map selects; null when plain. */
+  href: string | null;
+}
+
+export interface MapView {
+  /** Whether the map carries a selection at all (bands layout). */
+  selecting: boolean;
+  dots: MapDot[];
+  labels: MapLabel[];
+  placed: number;
+  states: string[];
+  unplaced: { slug: string; name: string }[];
+  /** "129 PROGRAMMES · 29 STATES" */
+  footer: string;
+}
+
+export interface MapSelection {
+  /** Conference key → region key. */
+  regionOf: Readonly<Record<string, string>>;
+  /** The region open at rest. */
+  selected: string | null;
+  /** The slug of the programme the division's headline is about. */
+  headlineProgramme: string | null;
+}
+
+export function mapView(
+  footprints: readonly ConferenceFootprint[],
+  selection: MapSelection | null,
+  cfg: RegionConfig = site,
+): MapView {
+  const dots: MapDot[] = footprints.flatMap((f) =>
+    f.placed.map((p) => {
+      const region = selection ? (selection.regionOf[f.key] ?? null) : null;
+      const cls = [
+        "dot",
+        selection ? (region === selection.selected ? "on" : "dim") : "",
+        selection?.headlineProgramme !== null &&
+        selection?.headlineProgramme !== undefined &&
+        p.slug === selection.headlineProgramme
+          ? "hl"
+          : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+      return {
+        key: f.key,
+        code: f.code,
+        slug: p.slug,
+        name: p.name,
+        city: p.city,
+        x: p.at.x,
+        y: p.at.y,
+        region,
+        cls,
+      };
+    }),
+  );
+  const labels: MapLabel[] = regionLabels(footprints, cfg).map((l) => ({
+    key: l.region.key,
+    name: l.region.name,
+    x: l.x,
+    y: l.y,
+    conferences: l.conferences,
+    programmes: l.programmes,
+    on: selection !== null && l.region.key === selection.selected,
+    href: selection ? `#region-${l.region.key}` : null,
+  }));
+  const placed = dots.length;
+  const states = [...new Set(footprints.flatMap((f) => f.states))].sort();
+  return {
+    selecting: selection !== null,
+    dots,
+    labels,
+    placed,
+    states,
+    unplaced: footprints.flatMap((f) => f.unplaced),
+    footer: `${placed} PROGRAMMES · ${states.length} STATES`,
+  };
+}
+
+/** The head's meta, one wording for the band head and the tests:
+ *  "2 LIVE · NEXT OPENS SEP 19", "OPENS SEP 5", or the absence. */
 export function bandMeta(band: HomeBand<BandColumn>): string {
   if (band.live > 0) {
     return `${band.live} LIVE${band.nextOpens ? ` · NEXT OPENS ${opensStamp(band.nextOpens)}` : ""}`;
@@ -258,15 +472,10 @@ export function bandMeta(band: HomeBand<BandColumn>): string {
   return band.nextOpens ? `OPENS ${opensStamp(band.nextOpens)}` : "NO CONFERENCE DATE PUBLISHED";
 }
 
-/** The desktop band head: "3 CONFERENCES · OPENS SEP 12". */
+/** The band head: "3 CONFERENCES · OPENS SEP 12". */
 export function bandHead(band: HomeBand<BandColumn>): string {
   const n = band.columns.length;
   return `${n} ${n === 1 ? "CONFERENCE" : "CONFERENCES"} · ${bandMeta(band)}`;
-}
-
-/** The phone disclosure's summary, shorter: "3 · 2 LIVE" or "3 · OPENS SEP 12". */
-export function bandSummary(band: HomeBand<BandColumn>): string {
-  return `${band.columns.length} · ${band.live > 0 ? `${band.live} LIVE` : bandMeta(band)}`;
 }
 
 /** Last night, literally: the calendar day before the national asOf. */

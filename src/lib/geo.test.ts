@@ -317,7 +317,7 @@ describe("why no territories are drawn", () => {
 });
 
 describe("region labels", () => {
-  // Built the way FootprintBand builds them: from the collected seasons.
+  // Built the way the home page builds them for HomeMap: from the collected seasons.
   const live = homeSeasons().map((season) =>
     footprintOf(
       season.key,
