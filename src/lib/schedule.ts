@@ -24,6 +24,7 @@ import {
   type Season,
 } from "./derive.ts";
 import { dayNumber, dowIndex, toISO } from "./format.ts";
+import { outcome } from "./model.ts";
 
 /**
  * A row whose home or away slug names an NCAA round rather than a programme.
@@ -263,10 +264,16 @@ export function kickoff(hhmm: string | undefined): string | null {
   return `${h}:${m[2]} ${h24 < 12 ? "am" : "pm"}`;
 }
 
-/** Which side, if either, the reader's eye should rest on. */
-export function weightOf(f: Fixture, side: "home" | "away"): "strong" | "quiet" | "even" {
-  if (!hasScore(f)) return "even";
-  if (f.home_score === f.away_score) return "even";
-  const winner = (f.home_score as number) > (f.away_score as number) ? "home" : "away";
-  return side === winner ? "strong" : "quiet";
+/** Which side, if either, the reader's eye should rest on. A forfeit's
+ *  weight follows the award, not the printed score; a disputed match has no
+ *  side to rest on, because neither score is a fact yet. */
+export function weightOf(
+  f: Fixture,
+  side: "home" | "away",
+  disputed = false,
+): "strong" | "quiet" | "even" {
+  if (disputed || !hasScore(f)) return "even";
+  const went = outcome(f);
+  if (went === "draw" || went === null) return "even";
+  return side === went ? "strong" : "quiet";
 }

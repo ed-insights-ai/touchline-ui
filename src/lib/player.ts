@@ -18,9 +18,13 @@ import {
   type Fixture,
   hasScore,
   isCountable,
+  isDisputed,
   isExhibition,
+  isForfeit,
   isScored,
+  markOf,
   matchDetailOf,
+  resultFor,
   type Season,
 } from "./derive.ts";
 import {
@@ -114,6 +118,8 @@ export interface LogRow {
   home: boolean;
   result: "W" | "D" | "L" | null;
   score: string | null;
+  /** "by forfeit" or "disputed" beside the score, or null (derive.ts markOf). */
+  mark: string | null;
   /** "5 sv · 0 ga" or "2 sh · 1 sog", or null when no box score was collected. */
   line: string | null;
   /** Why the line is missing, when it is. */
@@ -300,7 +306,9 @@ export function playerCard(
   const teamPlayed = s.fixtures.fixtures.filter(
     (f) => (f.home === slug || f.away === slug) && isScored(f),
   );
-  const available = teamPlayed.length * FULL_TIME;
+  // A forfeit was awarded, not played: no minute of it was available to
+  // anyone. It stays in the log, marked, and out of the minutes.
+  const available = teamPlayed.filter((f) => !isForfeit(f)).length * FULL_TIME;
   const played = stats?.minutes ?? keeperStats?.minutes;
   const apps = stats?.gp ?? keeperStats?.gp ?? 0;
   const starts = stats?.gs ?? keeperStats?.gs ?? 0;
@@ -412,14 +420,24 @@ export function playerCard(
         : own
           ? `${own.shots ?? 0} sh · ${own.sog ?? 0} sog`
           : null;
+    // A disputed score is shown and marked, never read as a result; a
+    // forfeit's result is the award. A forfeit has no box score to be
+    // absent from, and says so rather than naming a gap.
     log.push({
       date: shortDate(f.date),
       opponent: s.names.name(home ? f.away : f.home),
       home,
-      result: gf === null || ga === null ? null : gf > ga ? "W" : gf < ga ? "L" : "D",
+      result: isDisputed(s, f) ? null : resultFor(f, home ? "home" : "away"),
       score: gf === null || ga === null ? null : `${gf}–${ga}`,
+      mark: markOf(s, f),
       line: played,
-      absent: played ? null : detail ? "did not appear" : "box score unavailable",
+      absent: played
+        ? null
+        : detail
+          ? "did not appear"
+          : isForfeit(f)
+            ? "not played"
+            : "box score unavailable",
     });
   }
 

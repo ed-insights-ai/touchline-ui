@@ -92,6 +92,37 @@ export function oneSourceNote(
 }
 
 /**
+ * What a forfeit final says under its score.
+ *
+ * The award is the result and the printed goals are nobody's: the sentence
+ * names the side awarded the match, and says the score beside it is what the
+ * source printed and counts toward nothing. The site cannot tell a host's
+ * own printed score from the contract's 1-0 default, so it does not try to.
+ */
+export function forfeitNote(awarded: string): string {
+  return `Awarded to ${awarded} by forfeit. The score is as the source printed it; the result is the award, and the goals count toward no tally.`;
+}
+
+/**
+ * What a disputed match says under its score: both scores, each with the
+ * source it came from, and the fact that neither is counted. The names are
+ * the site's own for the two sides, in home-first order on every line, so a
+ * reader can compare the two figures without re-reading the sides.
+ */
+export function disputedNote(
+  names: { home: string; away: string },
+  scores: readonly { source: string; code: string; home_score: number; away_score: number }[],
+): string {
+  const each = scores
+    .map(
+      (s) =>
+        `${s.source} (${s.code} file) has ${names.home} ${s.home_score}–${s.away_score} ${names.away}`,
+    )
+    .join("; ");
+  return `The sources disagree on the score: ${each}. The home programme's figure is shown; neither is counted in any record until the sources agree.`;
+}
+
+/**
  * The page's own description, for an unfurl card and a search result.
  *
  * Composed from what was collected and nothing else: the two names, the score
@@ -107,13 +138,18 @@ export function metaDescription(
     away: string;
     /** "4–1" where a score was published, else null. */
     score: string | null;
+    /** "by forfeit" or "disputed" beside the score, when the score is not
+     *  the whole result (derive.ts markOf). Null otherwise. */
+    mark?: string | null;
     date: string;
     conference: string;
     hasPlays: boolean;
     status: string;
   },
 ): string {
-  const teams = m.score ? `${m.home} ${m.score} ${m.away}` : `${m.home} v ${m.away}`;
+  const teams = m.score
+    ? `${m.home} ${m.score} ${m.away}${m.mark ? ` (${m.mark})` : ""}`
+    : `${m.home} v ${m.away}`;
   const head = `${teams}, ${m.date}. ${m.conference}.`;
   switch (state) {
     case "played":
@@ -140,7 +176,7 @@ export function metaDescription(
  */
 export function provenance(
   state: MatchState,
-  source: { hasPlays: boolean; status: string },
+  source: { hasPlays: boolean; status: string; forfeit?: boolean },
 ): string {
   switch (state) {
     case "played":
@@ -148,7 +184,9 @@ export function provenance(
         ? "From the programme's published box score and play-by-play."
         : "From the programme's published box score.";
     case "score-only":
-      return "Result from the programme's published schedule; no box score was published.";
+      return source.forfeit
+        ? "Result by forfeit, from the programme's published schedule; no box score was published."
+        : "Result from the programme's published schedule; no box score was published.";
     case "silent-final":
       return "The programme's schedule marks this match final; no score was published.";
     case "silent-past":

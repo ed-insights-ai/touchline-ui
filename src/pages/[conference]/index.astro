@@ -18,6 +18,7 @@ import {
   latestResults,
   lastResult,
   loadSeason,
+  markOf,
   matchHref,
   matchesHref,
   playerClassOf,
@@ -179,6 +180,9 @@ const nextLabel = (f: Fixture): string => {
               {names.name(featuredLast.home)}
             </span>
             <span class="score serif">{scorelineWide(featuredLast)}</span>
+            {markOf(season, featuredLast) && (
+              <span class="card-mark">{markOf(season, featuredLast)}</span>
+            )}
             <span class={emphasis(featuredLast) === "away" ? "side-lead" : "side-quiet"}>
               {names.name(featuredLast.away)}
             </span>
@@ -353,6 +357,7 @@ const nextLabel = (f: Fixture): string => {
               <span class="astamp">FT</span>
               <span class="atext">
                 {names.name(f.home)} {scoreline(f)} {names.name(f.away)}
+                {markOf(season, f) && <span class="amark"> {markOf(season, f)}</span>}
               </span>
             </a>
           ))}
@@ -469,6 +474,9 @@ const nextLabel = (f: Fixture): string => {
   .card-score .side-quiet { font-size: 17px; color: var(--secondary); }
   .card-score .side-lead { font-size: 17px; font-weight: 600; }
   .card-score .score { font-size: 26px; }
+  /* "by forfeit" or "disputed" beside the score, in the venue line's register. */
+  .card-score .card-mark { font-size: 11.5px; color: var(--quiet); letter-spacing: 0.08em; }
+  .amark { color: var(--quiet); font-size: 10.5px; letter-spacing: 0.08em; }
   .card-fixture { font-size: 17px; }
   .card-fixture .side-quiet { color: var(--ink-soft); }
   .card-fixture .at { color: var(--quiet); }

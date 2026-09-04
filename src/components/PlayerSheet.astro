@@ -119,6 +119,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
               <span class="log-result">
                 {l.result && <span class={`res res-${RESULT[l.result]}`}>{l.result}</span>}
                 {l.score && <span class="log-score">{l.score}</span>}
+                {l.mark && <span class="log-mark">{l.mark}</span>}
               </span>
               <span class={`log-line${l.line ? "" : " log-line-absent"}`}>
                 {l.line ?? l.absent}
@@ -379,6 +380,8 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   .res-draw { color: var(--draw); }
   .res-loss { color: var(--loss); }
   .log-score { color: var(--secondary); }
+  /* "by forfeit" or "disputed" beside the score, in the date's register. */
+  .log-mark { color: var(--quiet); font-size: 10px; letter-spacing: 0.06em; white-space: nowrap; }
   .log-line { color: var(--secondary); text-align: right; }
   .log-line-absent { font-style: italic; color: var(--quiet); }
   .log-note { font-size: 12px; color: var(--quiet); padding-top: 6px; }

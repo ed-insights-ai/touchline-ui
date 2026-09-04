@@ -15,7 +15,7 @@
 //     and the venue when the schedule names one.
 import SiteFooter from "../../components/SiteFooter.astro";
 import Page from "../../layouts/Page.astro";
-import { hasScore, homeHref, matchHref, matchesHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
+import { hasScore, homeHref, isDisputed, markOf, matchHref, matchesHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
 import { dayOfMonth, dowLong, monLong, monShort } from "../../lib/format.ts";
 import {
   byDay,
@@ -131,12 +131,15 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                   >
                     {isResult(f) ? (
                       <>
-                        <span class={`mx-away mx-${weightOf(f, "away")}`}>
+                        <span class={`mx-away mx-${weightOf(f, "away", isDisputed(season, f))}`}>
                           {f.conference_game && <span class="vh">League match. </span>}
                           {names.name(f.away)}
                         </span>
                         <span class="mx-score num">{f.away_score}–{f.home_score}</span>
-                        <span class={`mx-home mx-${weightOf(f, "home")}`}>{names.name(f.home)}</span>
+                        <span class={`mx-home mx-${weightOf(f, "home", isDisputed(season, f))}`}>
+                          {names.name(f.home)}
+                          {markOf(season, f) && <span class="mx-mark-note"> {markOf(season, f)}</span>}
+                        </span>
                       </>
                     ) : isSilentFinal(f) ? (
                       <>
@@ -353,6 +356,9 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
      quiet rather than flagged. */
   .mx-waiting { color: var(--quiet); }
   .mx-waiting-note { font-size: 12px; color: var(--quiet); letter-spacing: 0.02em; }
+  /* "by forfeit" or "disputed" beside a result, in the waiting note's register:
+     the score is printed, and this says how far to trust it. */
+  .mx-mark-note { font-size: 12px; color: var(--quiet); letter-spacing: 0.02em; }
   .mx-silent-word { color: var(--loss); font-weight: 600; }
 
   .mx-row-upcoming { grid-template-columns: minmax(0, 1fr) auto; }

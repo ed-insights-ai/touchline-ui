@@ -86,9 +86,31 @@ export const fixtureSchema = z
      *  published. On every other row the key is absent; the contract promises
      *  no other value, so no other value is admitted. */
     neutral: z.literal(true).optional(),
+    /** touchline.fixtures/2 (owner's ruling, tl-wyv): the side AWARDED a
+     *  forfeit. Status stays final. The scores are the printed ones when the
+     *  host printed them (Upper Iowa 2024 game 9017 prints "W, 2-2" beside
+     *  "Win by forfeit"), else 1-0 to the awarded side; the award decides the
+     *  result whatever the score says. Absent on every other row. */
+    forfeit: z.enum(["home", "away"]).optional(),
   })
   .strict();
 export type Fixture = z.infer<typeof fixtureSchema>;
+
+/** Which side a fixture went to, or null while it has no score. A forfeit is
+ *  decided by the award, whatever score was printed beside it: 2-2 with
+ *  forfeit "home" is a home win. Every record on the site reads this and
+ *  never the raw comparison, so a forfeit cannot be read as a draw. */
+export function outcome(f: Fixture): "home" | "away" | "draw" | null {
+  if (f.forfeit) return f.forfeit;
+  if (typeof f.home_score !== "number" || typeof f.away_score !== "number") return null;
+  if (f.home_score > f.away_score) return "home";
+  if (f.away_score > f.home_score) return "away";
+  return "draw";
+}
+
+/** A forfeit's goals are nobody's: the printed figures stay on the page,
+ *  marked, and count toward no tally. */
+export const isForfeit = (f: Fixture): boolean => f.forfeit !== undefined;
 
 export const fixturesFileSchema = z
   .object({
@@ -415,15 +437,19 @@ export function computeTable(file: FixturesFile): TableRow[] {
     const a = row(f.away);
     h.played++;
     a.played++;
-    h.goalsFor += hs;
-    h.goalsAgainst += as;
-    a.goalsFor += as;
-    a.goalsAgainst += hs;
-    if (hs > as) {
+    // A forfeit's printed goals count toward nothing; the award is the result.
+    if (!isForfeit(f)) {
+      h.goalsFor += hs;
+      h.goalsAgainst += as;
+      a.goalsFor += as;
+      a.goalsAgainst += hs;
+    }
+    const went = outcome(f);
+    if (went === "home") {
       h.won++;
       a.lost++;
       h.points += 3;
-    } else if (as > hs) {
+    } else if (went === "away") {
       a.won++;
       h.lost++;
       a.points += 3;
@@ -460,8 +486,9 @@ export function computeOverallTable(file: FixturesFile): TableRow[] {
     if (typeof hs !== "number" || typeof as !== "number") continue;
     const h = bySlug.get(f.home);
     const a = bySlug.get(f.away);
-    if (h) credit(h, hs, as);
-    if (a) credit(a, as, hs);
+    const went = outcome(f);
+    if (h) credit(h, hs, as, went === "home" ? "W" : went === "away" ? "L" : "D", isForfeit(f));
+    if (a) credit(a, as, hs, went === "away" ? "W" : went === "home" ? "L" : "D", isForfeit(f));
   }
   return rank([...bySlug.values()]);
 }
@@ -481,15 +508,23 @@ function emptyRow(slug: string, name: string): TableRow {
   };
 }
 
-function credit(r: TableRow, gf: number, ga: number): void {
+function credit(
+  r: TableRow,
+  gf: number,
+  ga: number,
+  result: "W" | "D" | "L",
+  forfeit: boolean,
+): void {
   r.played++;
-  r.goalsFor += gf;
-  r.goalsAgainst += ga;
+  if (!forfeit) {
+    r.goalsFor += gf;
+    r.goalsAgainst += ga;
+  }
   r.goalDiff = r.goalsFor - r.goalsAgainst;
-  if (gf > ga) {
+  if (result === "W") {
     r.won++;
     r.points += 3;
-  } else if (gf < ga) {
+  } else if (result === "L") {
     r.lost++;
   } else {
     r.drawn++;

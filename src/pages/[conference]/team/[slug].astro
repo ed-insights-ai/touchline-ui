@@ -9,11 +9,14 @@ import {
   programmeCounts,
   formOf,
   hasScore,
+  isDisputed,
   isScored,
   leadKeeper,
   loadSeason,
+  markOf,
   matchHref,
   recordOf,
+  resultFor,
   resultsOf,
   squadByLine,
   squadOf,
@@ -118,13 +121,16 @@ const strip = all.map((f) => {
   const scored = isScored(f) && hasScore(f);
   const gf = scored ? (home ? f.home_score : f.away_score) : null;
   const ga = scored ? (home ? f.away_score : f.home_score) : null;
+  // The result follows the award on a forfeit and is withheld on a disputed
+  // score: the cell keeps the figure and wears the mark instead of a colour.
   return {
     fixture: f,
     opponent,
     home,
     scored,
-    result: gf === null || ga === null ? null : gf > ga ? "W" : gf < ga ? "L" : "D",
+    result: !scored || isDisputed(season, f) ? null : resultFor(f, home ? "home" : "away"),
     line: gf === null || ga === null ? null : `${gf}–${ga}`,
+    mark: markOf(season, f),
     isOpener: opener?.id === f.id,
     silent: f.status === "final" && !scored,
   };
@@ -150,7 +156,7 @@ const openerPanel = (() => {
     return {
       label: "THE OPENER",
       figure: `${first.goalsFor}–${first.goalsAgainst}`,
-      note: `${verb} ${where} ${names.name(first.opponent)}.`,
+      note: `${verb} ${where} ${names.name(first.opponent)}${first.forfeit ? " by forfeit" : ""}.`,
     };
   }
   return {
@@ -291,6 +297,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
           detail: `${c.home ? "vs" : "at"} ${names.name(c.opponent)} · ${longDate(c.fixture.date)}`,
           opponent: names.abbr(c.opponent),
           line: c.line ?? (c.silent ? "—" : numericDate(c.fixture.date)),
+          mark: c.mark,
           result: c.result as "W" | "D" | "L" | null,
           isOpener: c.isOpener,
           silent: c.silent,

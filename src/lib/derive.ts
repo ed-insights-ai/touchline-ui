@@ -35,7 +35,7 @@ import type {
   StatsFile,
   TableRow,
 } from "./model.ts";
-import { computeOverallTable, computeTable, isPlayed } from "./model.ts";
+import { computeOverallTable, computeTable, isForfeit, isPlayed, outcome } from "./model.ts";
 import { type NameBook, nameBookFor } from "./names.ts";
 import { assertProgrammesFor } from "./programmes.ts";
 
@@ -53,6 +53,11 @@ export interface Season {
   /** The date the site treats as today: the day the data was collected. */
   asOf: string;
   collectedAt: string;
+  /** The identities (matchIdentity) of matches whose two records, across the
+   *  configured conferences' files, print different final scores. Filled at
+   *  load from every configured file; a hand-built season names its own or
+   *  disputes nothing. Read through isDisputed, never directly. */
+  disputed?: ReadonlySet<string>;
 }
 
 const seasons = new Map<string, Season>();
@@ -74,6 +79,7 @@ export function loadSeason(key: string): Season {
     names: nameBookFor(fixtures),
     asOf: site.asOf ?? fixtures.collected_at.slice(0, 10),
     collectedAt: fixtures.collected_at,
+    disputed: disputedAcross(site.season, site.gender),
   };
   seasons.set(key, season);
   return season;
@@ -123,6 +129,117 @@ export const isExhibition = (f: Fixture): boolean => f.match_type === "exhibitio
 
 export const isScored = (f: Fixture): boolean => isCountable(f) && isPlayed(f) && hasScore(f);
 
+// ── Forfeits and disputed scores ────────────────────────────────────────────
+// Two ways a printed score is not the whole result. A FORFEIT is one source
+// saying the match was awarded: the award is the result, the printed goals
+// count toward nothing, and every surface says "by forfeit" beside the score.
+// A DISPUTED match is two sources printing different final scores for one
+// match: neither is a fact until they agree, so the match stays on every page
+// with the home programme's score and a "disputed" mark, and stays out of
+// every record and tally. The fold (division.ts) reads the same predicate
+// this file does, so the two cannot disagree about which matches those are.
+
+/** The reader's words. Lower case: they sit beside a score in running text. */
+export const FORFEIT_MARK = "by forfeit";
+export const DISPUTED_MARK = "disputed";
+
+export { isForfeit };
+
+/** What makes two records the same real-world match: the day, and the two
+ *  programmes in an order neither of them chose. Slugs are the same string in
+ *  every file that names a programme, which is what lets this work at all. */
+export const matchIdentity = (f: Fixture): string =>
+  `${f.date} ${[f.home, f.away].sort().join(" v ")}`;
+
+/** The score as two records of one match must agree on it: each side's goals
+ *  by slug, order-free, so two sites each calling itself home still compare
+ *  equal. The forfeit flag is NOT part of it: a record that marks the award
+ *  and one that prints the bare score are one fact, not two. */
+export const scoreShape = (f: Fixture): string =>
+  [
+    [f.home, f.home_score ?? "-"],
+    [f.away, f.away_score ?? "-"],
+  ]
+    .sort(([a], [b]) => String(a).localeCompare(String(b)))
+    .map(([slug, score]) => `${slug}=${score}`)
+    .join("|");
+
+/** A record that has POSTED a result: marked final, with a score, whether
+ *  or not the match counts. The fold reads this rather than isScored: a
+ *  friendly's lag is still a lag and a friendly's two scores are still a
+ *  dispute (2022-08-23 Bloomsburg v Chestnut Hill is an exhibition in both
+ *  files, final 1-0 in CACC's and scheduled in PSAC's). */
+export const hasResult = (f: Fixture): boolean => isPlayed(f) && hasScore(f);
+
+/** True when the posted results among these records of ONE match print more
+ *  than one score. The fold and the per-season figures both read this. */
+export const scoresDisagree = (records: readonly Fixture[]): boolean =>
+  new Set(records.filter(hasResult).map(scoreShape)).size > 1;
+
+/** Every identity the given files hold more than one score for. */
+export function disputedIdentities(files: readonly FixturesFile[]): Set<string> {
+  const byIdentity = new Map<string, Fixture[]>();
+  for (const file of files) {
+    for (const f of file.fixtures) {
+      const id = matchIdentity(f);
+      const seen = byIdentity.get(id);
+      if (seen) seen.push(f);
+      else byIdentity.set(id, [f]);
+    }
+  }
+  const out = new Set<string>();
+  for (const [id, records] of byIdentity) if (scoresDisagree(records)) out.add(id);
+  return out;
+}
+
+const disputedCache = new Map<string, Set<string>>();
+
+/** The disputed identities across every configured conference's file, read
+ *  once per season and gender. A conference the data home has not collected
+ *  contributes no records, as it contributes no members. */
+function disputedAcross(season: number, gender: string): Set<string> {
+  const cacheKey = `${season}-${gender}`;
+  const cached = disputedCache.get(cacheKey);
+  if (cached) return cached;
+  const files: FixturesFile[] = [];
+  for (const key of site.conferences) {
+    try {
+      files.push(loadFixtures(season, gender, key));
+    } catch {
+      // Not collected: nothing to disagree with.
+    }
+  }
+  const out = disputedIdentities(files);
+  disputedCache.set(cacheKey, out);
+  return out;
+}
+
+export const isDisputed = (s: Season, f: Fixture): boolean =>
+  s.disputed?.has(matchIdentity(f)) ?? false;
+
+/** A result a record may rest on: played, scored, countable, and not in
+ *  dispute between its sources. Records, tallies and tables read this;
+ *  counts of matches played keep reading isScored, because a disputed match
+ *  was played and scored, it is only the score that is unproven. */
+export const isCounted = (s: Season, f: Fixture): boolean => isScored(f) && !isDisputed(s, f);
+
+/** The mark a surface prints beside this fixture's score, or null. Disputed
+ *  first: a forfeit the sources disagree about is above all disputed. */
+export function markOf(s: Season, f: Fixture): string | null {
+  if (isDisputed(s, f)) return DISPUTED_MARK;
+  if (isForfeit(f)) return FORFEIT_MARK;
+  return null;
+}
+
+/** "W" / "D" / "L" from one side's end of the fixture, by the award where
+ *  there is one. Null while the fixture has no score. */
+export function resultFor(f: Fixture, side: "home" | "away"): Result | null {
+  const went = outcome(f);
+  if (went === null) return null;
+  if (went === "draw") return "D";
+  return went === side ? "W" : "L";
+}
+
 export function byKickoff(a: Fixture, b: Fixture): number {
   return a.date.localeCompare(b.date) || (a.time ?? "99:99").localeCompare(b.time ?? "99:99");
 }
@@ -136,15 +253,20 @@ export interface SideResult {
   fixture: Fixture;
   opponent: string;
   home: boolean;
+  /** The printed goals. On a forfeit they are what the host printed and
+   *  count toward nothing; the result is the award. */
   goalsFor: number;
   goalsAgainst: number;
   result: Result;
+  forfeit: boolean;
 }
 
+/** Every result a programme's record rests on: a disputed match is not in
+ *  it, because neither of its scores is a fact yet. */
 export function resultsOf(s: Season, slug: string): SideResult[] {
   const out: SideResult[] = [];
   for (const f of fixturesOf(s, slug)) {
-    if (!isScored(f) || !hasScore(f)) continue;
+    if (!isCounted(s, f) || !hasScore(f)) continue;
     const home = f.home === slug;
     const gf = home ? f.home_score : f.away_score;
     const ga = home ? f.away_score : f.home_score;
@@ -154,7 +276,8 @@ export function resultsOf(s: Season, slug: string): SideResult[] {
       home,
       goalsFor: gf,
       goalsAgainst: ga,
-      result: gf > ga ? "W" : gf < ga ? "L" : "D",
+      result: resultFor(f, home ? "home" : "away") ?? "D",
+      forfeit: isForfeit(f),
     });
   }
   return out;
@@ -178,8 +301,10 @@ export function recordOf(s: Season, slug: string): Record {
   const rec: Record = { won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, played: 0 };
   for (const r of resultsOf(s, slug)) {
     rec.played++;
-    rec.goalsFor += r.goalsFor;
-    rec.goalsAgainst += r.goalsAgainst;
+    if (!r.forfeit) {
+      rec.goalsFor += r.goalsFor;
+      rec.goalsAgainst += r.goalsAgainst;
+    }
     if (r.result === "W") rec.won++;
     else if (r.result === "D") rec.drawn++;
     else rec.lost++;
@@ -193,25 +318,35 @@ export function outsideRecord(s: Season): Record {
   const members = memberSlugs(s);
   const rec: Record = { won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, played: 0 };
   for (const f of s.fixtures.fixtures) {
-    if (!isScored(f) || !hasScore(f)) continue;
+    if (!isCounted(s, f) || !hasScore(f)) continue;
     const home = members.has(f.home);
     const away = members.has(f.away);
     if (home === away) continue; // both members, or neither: not "us vs them"
     const gf = home ? f.home_score : f.away_score;
     const ga = home ? f.away_score : f.home_score;
     rec.played++;
-    rec.goalsFor += gf;
-    rec.goalsAgainst += ga;
-    if (gf > ga) rec.won++;
-    else if (gf < ga) rec.lost++;
+    if (!isForfeit(f)) {
+      rec.goalsFor += gf;
+      rec.goalsAgainst += ga;
+    }
+    const result = resultFor(f, home ? "home" : "away");
+    if (result === "W") rec.won++;
+    else if (result === "L") rec.lost++;
     else rec.drawn++;
   }
   return rec;
 }
 
-export const table = (s: Season): TableRow[] => computeTable(s.fixtures);
+/** The fixtures a table may count: a disputed match is out until its sources
+ *  agree. The file is otherwise the file, so the tables' own guards stand. */
+const undisputed = (s: Season): FixturesFile => ({
+  ...s.fixtures,
+  fixtures: s.fixtures.fixtures.filter((f) => !isDisputed(s, f)),
+});
+
+export const table = (s: Season): TableRow[] => computeTable(undisputed(s));
 /** The table before conference play opens: every countable match, against anyone. */
-export const overallTable = (s: Season): TableRow[] => computeOverallTable(s.fixtures);
+export const overallTable = (s: Season): TableRow[] => computeOverallTable(undisputed(s));
 
 /** Goals each member has scored and conceded, most first, over every countable
  *  scored match — conference or not, flagged or not.
@@ -236,7 +371,9 @@ export function goalsForByProgramme(
   const tally = new Map<string, { goals: number; conceded: number }>();
   for (const p of s.fixtures.programmes) tally.set(p.slug, { goals: 0, conceded: 0 });
   for (const f of s.fixtures.fixtures) {
-    if (!isScored(f) || !hasScore(f)) continue;
+    if (!isCounted(s, f) || !hasScore(f)) continue;
+    // A forfeit's printed goals are nobody's; the award is a result, not a score.
+    if (isForfeit(f)) continue;
     const home = tally.get(f.home);
     if (home) {
       home.goals += f.home_score;
