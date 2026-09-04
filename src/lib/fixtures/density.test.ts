@@ -292,7 +292,9 @@ describe("against the live config", () => {
   });
 
   test("every live key carries the region site.conferenceRegions gives it", () => {
-    const cfg = densityConfig(12);
+    // Against the nineteen: the twelve is a synthetic design size, and the
+    // live site outgrew it in batch 3.
+    const cfg = densityConfig(19);
     for (const key of site.conferences) {
       expect(cfg.conferenceRegions[key], key).toBe(site.conferenceRegions[key] ?? "");
     }

@@ -190,6 +190,10 @@ const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> = {
   // Pennsylvania; the outline draws the river bank coarsely enough that the
   // city's Gazetteer point lands 0.1px into Ohio.
   wheeling: "Northern Panhandle",
+  // Marquette (gliac/northern-michigan) sits on the Lake Superior shore of
+  // the Upper Peninsula; the outline draws the lakeshore coarsely enough that
+  // the city's Gazetteer point lands 0.3px into the lake.
+  "northern-michigan": "Lake Superior shore",
 };
 const OFFSHORE_TOLERANCE_PX = 3;
 
