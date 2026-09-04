@@ -313,6 +313,39 @@ export function regionChips(
   return bands.map((b) => ({ key: b.region.key, name: b.region.name, count: b.columns.length }));
 }
 
+// ── The glyph a conference wears ────────────────────────────────────────────
+//
+// When a region is selected every dot in it wears the accent, so the two or
+// three conferences in the open band cannot be told apart on the map by
+// colour — and the map stays one ink (owner's ruling). They are told apart by
+// SHAPE: each conference in a band wears a glyph by its position in the band,
+// the row prints it before the code, and the selected region's dots are drawn
+// with it. So the row is the legend, and nothing is matched by name. A region
+// holds at most three conferences by the batch plan; the fourth and the fifth
+// still get a shape of their own, and only a seventh would wear the first
+// again.
+
+export const GLYPHS = [
+  "disc",
+  "ring",
+  "diamond",
+  "hollow-diamond",
+  "square",
+  "hollow-square",
+] as const;
+export type Glyph = (typeof GLYPHS)[number];
+
+/** The glyph for the conference at this position in its band. */
+export const glyphAt = (position: number): Glyph =>
+  GLYPHS[((position % GLYPHS.length) + GLYPHS.length) % GLYPHS.length] as Glyph;
+
+/** Conference key → glyph, read off the bands. */
+export function bandGlyphs(
+  bands: readonly { columns: readonly { key: string }[] }[],
+): Record<string, Glyph> {
+  return Object.fromEntries(bands.flatMap((b) => b.columns.map((c, i) => [c.key, glyphAt(i)])));
+}
+
 /** The conference a band's lead line speaks for: the one wearing the purple,
  *  else the first under way, else the first in the band. */
 function bandLead<T extends CardView & BandColumn>(band: HomeBand<T>): T | null {
@@ -371,7 +404,12 @@ export interface MapDot {
   y: number;
   /** The region the dot answers to, when the map selects; null when plain. */
   region: string | null;
-  /** "dot", "dot on", "dot dim", each with " hl" for the headline programme. */
+  /** The shape the dot takes while its region is selected; null when plain. */
+  glyph: Glyph | null;
+  /** The headline programme's dot, which wears a ring. */
+  hl: boolean;
+  /** "dot", "dot on", "dot dim", with " mark-<glyph>" when the map selects
+   *  and " hl" for the headline programme. */
   cls: string;
 }
 
@@ -406,6 +444,9 @@ export interface MapSelection {
   selected: string | null;
   /** The slug of the programme the division's headline is about. */
   headlineProgramme: string | null;
+  /** Conference key → glyph (bandGlyphs). A conference it does not name is
+   *  drawn as a plain dot in every state. */
+  glyphOf?: Readonly<Record<string, Glyph>>;
 }
 
 export function mapView(
@@ -416,14 +457,16 @@ export function mapView(
   const dots: MapDot[] = footprints.flatMap((f) =>
     f.placed.map((p) => {
       const region = selection ? (selection.regionOf[f.key] ?? null) : null;
+      const glyph = selection?.glyphOf?.[f.key] ?? null;
+      const hl =
+        selection?.headlineProgramme !== null &&
+        selection?.headlineProgramme !== undefined &&
+        p.slug === selection.headlineProgramme;
       const cls = [
         "dot",
         selection ? (region === selection.selected ? "on" : "dim") : "",
-        selection?.headlineProgramme !== null &&
-        selection?.headlineProgramme !== undefined &&
-        p.slug === selection.headlineProgramme
-          ? "hl"
-          : "",
+        glyph ? `mark-${glyph}` : "",
+        hl ? "hl" : "",
       ]
         .filter(Boolean)
         .join(" ");
@@ -436,6 +479,8 @@ export function mapView(
         x: p.at.x,
         y: p.at.y,
         region,
+        glyph,
+        hl,
         cls,
       };
     }),

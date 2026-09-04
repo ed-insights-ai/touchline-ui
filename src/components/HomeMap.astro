@@ -21,6 +21,13 @@
 // wears a ring — the journal names the programme in its basis; nothing is
 // matched out of the sentence.
 //
+// Inside the selected region the conferences are told apart by shape: each
+// dot is a group holding a disc and a diamond, and the dot's glyph class
+// (lib/home.ts bandGlyphs, by position in the band) says which shows and
+// whether it is filled or hollow while the region is on. Off, every dot is
+// the plain disc, so an unselected region reads as it always has. The same
+// glyph is printed before the code in the ledger row: the row is the legend.
+//
 // Every figure here is recomputed from the fixtures and the coordinates
 // file. The column prints no fixture counts: it answers where, the columns
 // or the bands answer how many, and the two never argue.
@@ -49,9 +56,13 @@ const { dots, labels, placed, states, unplaced, selecting } = view;
       {STATE_OUTLINES.map((s) => <path d={s.d} />)}
     </g>
     {dots.map((d) => (
-      <circle class={d.cls} data-region={d.region ?? undefined} cx={d.x} cy={d.y} r="4.5">
+      <g class={d.cls} data-region={d.region ?? undefined} data-k={d.key} transform={`translate(${d.x} ${d.y})`}>
         <title>{d.name} — {d.city} ({d.code})</title>
-      </circle>
+        {d.hl && <circle class="halo" r="8.5" />}
+        <circle class="pip disc" r="4.5" />
+        <path class="pip diamond" d="M0 -6.5 L6.5 0 L0 6.5 L-6.5 0 Z" />
+        <rect class="pip square" x="-5" y="-5" width="10" height="10" />
+      </g>
     ))}
     {labels.map((l) =>
       l.href ? (
@@ -100,20 +111,40 @@ const { dots, labels, placed, states, unplaced, selecting } = view;
   .land path { fill: #e9e5da; stroke: #d5d0c3; stroke-width: 1; stroke-linejoin: round; }
   /* One ink for every dot at rest; when the map selects, the selected
      region's come forward in the accent and the rest step back to the bar
-     ink, a mark already drawn here. A paper stroke keeps two neighbours apart. */
-  .dot {
-    fill: var(--muted-mark);
+     ink, a mark already drawn here. A paper stroke keeps two neighbours
+     apart. The ink is one variable per dot so a glyph's fill and stroke
+     follow the state without a rule per shape per state. */
+  .dot { --dot-ink: var(--muted-mark); }
+  .dot.dim { --dot-ink: var(--muted-bar); }
+  .dot.on { --dot-ink: var(--accent); }
+  /* A hovered row or dot lights its conference: the region's others step
+     back to the rest ink, still above the unselected regions, still shaped. */
+  .map.lit .dot.on:not(.lit) { --dot-ink: var(--muted-mark); }
+  .pip {
+    fill: var(--dot-ink);
     stroke: var(--paper);
     stroke-width: 1.6;
     transition: fill 0.12s, r 0.12s;
   }
-  .dot.dim { fill: var(--muted-bar); }
-  .dot.on { fill: var(--accent); r: 5.5; }
-  /* The headline programme's ring: the accent while its region is selected,
-     the bar ink while it is not, so the ring never claims the selection. */
-  .dot.hl { stroke: var(--accent); stroke-width: 2.4; paint-order: stroke; }
-  .dot.hl.dim { stroke: var(--muted-bar); }
-  @media (prefers-reduced-motion: reduce) { .dot { transition: none; } }
+  .dot.on .disc { r: 5.5; }
+  /* Off, the disc; on, the conference's glyph. The hollow ones are paper
+     with an ink edge, so a ring beside a disc is a ring and not a smaller
+     disc. */
+  .diamond, .square { display: none; }
+  .dot.on.mark-ring .disc, .dot.on.mark-hollow-diamond .diamond, .dot.on.mark-hollow-square .square {
+    fill: var(--paper);
+    stroke: var(--dot-ink);
+    stroke-width: 2;
+  }
+  .dot.on.mark-diamond .disc, .dot.on.mark-hollow-diamond .disc { display: none; }
+  .dot.on.mark-diamond .diamond, .dot.on.mark-hollow-diamond .diamond { display: inline; }
+  .dot.on.mark-square .disc, .dot.on.mark-hollow-square .disc { display: none; }
+  .dot.on.mark-square .square, .dot.on.mark-hollow-square .square { display: inline; }
+  /* The headline programme's ring, drawn outside the glyph with paper
+     between: the accent while its region is selected, the bar ink while it
+     is not, so the ring never claims the selection. */
+  .halo { fill: none; stroke: var(--dot-ink); stroke-width: 1.5; transition: stroke 0.12s; }
+  @media (prefers-reduced-motion: reduce) { .pip, .halo { transition: none; } }
   /* Region labels live on the map because a region is wide enough to own its
      ground. The paper-coloured stroke under the letters keeps a label legible
      where it crosses a coastline. */

@@ -26,11 +26,18 @@
 // click or tap pins, a chip or a map label on a narrow section scrolls the
 // band head into view — and it fetches nothing.
 //
+// Inside the selected region the conferences are told apart by shape, not
+// colour: each wears a glyph by its position in the band (lib/home.ts
+// bandGlyphs), printed before the code in its ledger row and drawn on its
+// dots, so the row is the legend. On a fine pointer, hovering a row or one
+// of its dots lights that conference's dots and steps the region's others
+// back; touch needs nothing more, the glyphs carry it.
+//
 // Nothing conference- or region-specific is written here: the regions come
 // from the bands (site.regions order), the conferences from the views.
 import type { ConferenceFootprint } from "../lib/geo.ts";
 import type { BandColumn, CardView, HomeBand, HomeLayout } from "../lib/home.ts";
-import { leadLine, mapView, openBandIndex } from "../lib/home.ts";
+import { bandGlyphs, leadLine, mapView, openBandIndex } from "../lib/home.ts";
 import ConferenceCard from "./ConferenceCard.astro";
 import HomeBands from "./HomeBands.astro";
 import HomeMap from "./HomeMap.astro";
@@ -72,7 +79,7 @@ const lead = openBand ? leadLine(openBand, openIsHeadline ? headline : null) : n
 const map =
   layout === "columns"
     ? mapView(footprints, null)
-    : mapView(footprints, { regionOf, selected, headlineProgramme });
+    : mapView(footprints, { regionOf, selected, headlineProgramme, glyphOf: bandGlyphs(bands) });
 ---
 {layout === "columns" ? (
   <section class="confs-plain">
@@ -112,15 +119,21 @@ const map =
         if (!atRest) return;
         let pinned = atRest.dataset.region;
         let preview = null;
+        // The one conference lit by hover, inside the selected region.
+        let lit = null;
         const all = (s) => Array.from(root.querySelectorAll(s));
+        const map = root.querySelector(".map");
         // One state, applied everywhere it shows: the map's dots and labels,
         // the chips, the bands, the lead line.
         const apply = () => {
           const rk = preview || pinned;
+          if (map) map.classList.toggle("lit", lit !== null);
           for (const d of all(".dot")) {
             d.classList.toggle("on", d.dataset.region === rk);
             d.classList.toggle("dim", d.dataset.region !== rk);
+            d.classList.toggle("lit", lit !== null && d.dataset.k === lit);
           }
+          for (const r of all(".row")) r.classList.toggle("lit", lit !== null && r.dataset.k === lit);
           for (const t of all(".rlabel")) t.classList.toggle("on", t.dataset.region === rk);
           for (const c of all(".chip")) c.setAttribute("aria-pressed", String(c.dataset.region === rk));
           for (const b of bands) {
@@ -155,19 +168,38 @@ const map =
         });
         // Hover previews only where hover is a thing: a fine pointer.
         const fine = matchMedia("(hover: hover) and (pointer: fine)");
-        const map = root.querySelector(".map");
         if (map) {
           map.addEventListener("pointerover", (e) => {
             if (!fine.matches) return;
             const t = e.target.closest("[data-region]");
-            if (t) {
-              preview = t.dataset.region;
+            if (!t) return;
+            preview = t.dataset.region;
+            // A dot lights its own conference; a label lights none.
+            lit = t.classList.contains("dot") ? t.dataset.k : null;
+            apply();
+          });
+          map.addEventListener("pointerleave", () => {
+            if (preview || lit !== null) {
+              preview = null;
+              lit = null;
               apply();
             }
           });
-          map.addEventListener("pointerleave", () => {
-            if (preview) {
-              preview = null;
+        }
+        // A row lights its conference's dots; leaving the bands puts them back.
+        if (col) {
+          col.addEventListener("pointerover", (e) => {
+            if (!fine.matches) return;
+            const r = e.target.closest(".row");
+            const k = r ? r.dataset.k : null;
+            if (k !== lit) {
+              lit = k;
+              apply();
+            }
+          });
+          col.addEventListener("pointerleave", () => {
+            if (lit !== null) {
+              lit = null;
               apply();
             }
           });
