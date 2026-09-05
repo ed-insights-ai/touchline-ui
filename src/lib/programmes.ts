@@ -104,6 +104,17 @@ export function programmeOf(slug: string): ProgrammeRow | null {
   return loadProgrammes().programmes[slug] ?? null;
 }
 
+/**
+ * The name a programme is displayed under: the reference's own when it holds
+ * a row, else the name the caller already has (a fixtures file's, a name
+ * book's). The reference disambiguates where a conference file does not:
+ * the CACC's file calls its member "Dominican" and the reference "Dominican
+ * (N.Y.)", beside the PacWest's "Dominican (Calif.)".
+ */
+export function displayNameOf(slug: string, fallback: string): string {
+  return programmeOf(slug)?.name ?? fallback;
+}
+
 export function identityOf(slug: string): { nickname: string; city: string } | null {
   const row = programmeOf(slug);
   return row ? { nickname: row.nickname, city: row.city } : null;

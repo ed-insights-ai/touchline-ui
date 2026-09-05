@@ -1,0 +1,169 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PACWEST",
+  "generated_at": "2026-09-05T16:40:00+00:00",
+  "data_collected_at": "2026-09-05T16:24:51+00:00",
+  "headline": "Hawai'i Hilo alone unbeaten in a losing conference",
+  "dek": "Hawai'i Hilo have won all three of their matches and conceded a single goal, with both of their meetings with fellow members among the wins. No other programme has won as often, and Vanguard have yet to take a point.",
+  "lede_basis": {
+    "programme": "hawaii-hilo",
+    "wins": 3,
+    "draws": 0,
+    "losses": 0,
+    "gf": 4,
+    "ga": 1,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": [
+      "biola",
+      "chaminade",
+      "concordia-irvine",
+      "dominican-of-california",
+      "hawaii-pacific",
+      "jessup",
+      "point-loma",
+      "vanguard",
+      "westmont"
+    ]
+  },
+  "lede_updated": "2026-09-05",
+  "pattern": {
+    "label": "observed",
+    "text": "Goals have not bought results at the top of the chart: Dominican (Calif.) share the lead on six goals without a win, having conceded seven, and their scoring is spread across six different players.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "dominican-of-california": 6,
+        "hawaii-pacific": 6,
+        "westmont": 6,
+        "concordia-irvine": 5,
+        "hawaii-hilo": 4,
+        "point-loma": 4,
+        "chaminade": 1,
+        "jessup": 1,
+        "vanguard": 1,
+        "biola": 0
+      },
+      "highlight": "dominican-of-california"
+    },
+    "basis": {
+      "programme": "dominican-of-california",
+      "gf": 6,
+      "ga": 7,
+      "wins": 0,
+      "draws": 2,
+      "losses": 1,
+      "distinct_scorers_min": 6
+    }
+  },
+  "wire": {
+    "line": "Vanguard have conceded eleven goals in three defeats, more than any other programme in the conference.",
+    "basis": {
+      "programme": "vanguard",
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "gf": 1,
+      "ga": 11,
+      "comparative": "greater_than_each",
+      "metric": "ga",
+      "of": [
+        "biola",
+        "chaminade",
+        "concordia-irvine",
+        "dominican-of-california",
+        "hawaii-hilo",
+        "hawaii-pacific",
+        "jessup",
+        "point-loma",
+        "westmont"
+      ]
+    },
+    "updated": "2026-09-05"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Fifteen matches dated before the end of August carry no published result, most of them preseason dates against non-collegiate or junior-college opponents; there are no score gaps.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Biola are the only programme without a goal: no scorer named across three matches, four conceded, and their one point came from a goalless draw at Colorado School of Mines.",
+      "basis": {
+        "programme": "biola",
+        "gf": 0,
+        "ga": 4,
+        "wins": 0,
+        "draws": 1,
+        "losses": 2,
+        "distinct_scorers_min": 0
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Aidan Strickler has made fifteen saves for Westmont at a save percentage of .789.",
+      "basis": {
+        "source": "stats",
+        "player": "Aidan Strickler",
+        "programme": "westmont",
+        "saves": 15,
+        "save_pct": 0.789
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Cole Friesen has scored once from ten shots for Point Loma.",
+      "basis": {
+        "source": "stats",
+        "player": "Cole Friesen",
+        "programme": "point-loma",
+        "goals": 1,
+        "shots": 10
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Keita Goto",
+      "programme": "hawaii-hilo",
+      "position": "MID",
+      "class": "JR",
+      "line": "2 G · 1 A · 4 shots"
+    },
+    {
+      "player": "Jonathan Moreno",
+      "programme": "concordia-irvine",
+      "position": "DEF",
+      "class": "SR",
+      "line": "1 G · 2 A · 7 shots"
+    },
+    {
+      "player": "Kristian Johnson",
+      "programme": "westmont",
+      "position": "DEF",
+      "class": "SR",
+      "line": "2 G · 3 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-04 hawaii-pacific v ut-dallas",
+      "line": "UT Dallas had lost at Hawai'i Hilo earlier in the week; Hawai'i Pacific had won their previous home match."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-05 western-washington v westmont",
+      "line": "Westmont have not won since Simon Fraser; Western Washington beat Point Loma earlier in the week."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-05T16:37:18.786Z"
+  }
+}

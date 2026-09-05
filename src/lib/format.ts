@@ -300,6 +300,17 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   midfelder: "midfielder",
   // Clayton State 2025 (pbc/clayton-state): "Mdifielder".
   mdifielder: "midfielder",
+  // Sonoma State 2022 (ccaa/sonoma-state): "Defneder".
+  defneder: "defender",
+  // Stanislaus State 2023 through 2025 (ccaa/stanislaus-state): "Defnder";
+  // Stanislaus State 2023: "Forwarrd".
+  defnder: "defender",
+  forwarrd: "forward",
+  // Westmont 2026 (pacwest/westmont): "Fowrard".
+  fowrard: "forward",
+  // Cal State LA 2024 (ccaa/cal-state-la): one "FF" on a roster where every
+  // other forward is "F".
+  ff: "forward",
 };
 
 /**

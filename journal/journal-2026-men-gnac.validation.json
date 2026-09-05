@@ -1,0 +1,145 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-gnac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GNAC",
+  "validated_at": "2026-09-05T16:38:29.923Z",
+  "data_collected_at": "2026-09-05T16:25:48+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Saint Martin's twelve goals are more than Northwest Nazarene and Simon Fraser have scored together.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Northwest Nazarene have drawn all three of their matches.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Three matches whose dates have passed carry no result, and every one of them is a Simon Fraser home match from August.",
+      "checker": "set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Saint Martin's own the conference's three box score gaps: results published, detail the collector could not reach.",
+      "checker": "set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Archie Dhima, a freshman forward, has four goals from ten shots for Western Oregon.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Connor Leistiko holds the conference's only shutouts, two of them, for Saint Martin's.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Western Oregon have scored nine and conceded nine, with one win, two draws and one loss.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Archie Dhima — 4 G · 1 A · 10 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Caleb Putney — 2 G · 2 A · 13 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Rafael Lucio — 3 G · 7 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-04 cal-state-dominguez-hills v western-oregon",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-05 seattle-pacific v point-loma",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-05T16:35:26.557Z",
+    "generate_ms": 183286,
+    "validate_ms": 1,
+    "wall_ms": 183364,
+    "concurrency": 3
+  }
+}

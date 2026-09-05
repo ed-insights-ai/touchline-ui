@@ -1,0 +1,186 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CCAA",
+  "generated_at": "2026-09-05T16:40:00+00:00",
+  "data_collected_at": "2026-09-05T16:24:02+00:00",
+  "headline": "Cal State LA yet to concede after three wins",
+  "dek": "Cal State LA have won all three of their matches without conceding a goal, and Abraham Ramirez has made thirteen saves behind them for three shutouts. Every other unbeaten side in the conference has already been scored on.",
+  "lede_basis": {
+    "source": "stats",
+    "player": "Abraham Ramirez",
+    "programme": "cal-state-la",
+    "saves": 13,
+    "shutouts": 3,
+    "goals_against": 0,
+    "wins": 3,
+    "draws": 0,
+    "losses": 0,
+    "gf": 6,
+    "ga": 0
+  },
+  "lede_updated": "2026-09-05",
+  "pattern": {
+    "label": "derived",
+    "text": "Fresno Pacific's twelve goals have come from four different scorers, and the total is more than Cal State East Bay, Menlo and UC Merced have managed between them.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "fresno-pacific": 12,
+        "cal-state-monterey-bay": 7,
+        "cal-state-dominguez-hills": 6,
+        "cal-state-la": 6,
+        "cal-state-san-marcos": 6,
+        "chico-state": 5,
+        "stanislaus-state": 5,
+        "cal-poly-humboldt": 4,
+        "cal-poly-pomona": 4,
+        "cal-state-san-bernardino": 4,
+        "cal-state-east-bay": 3,
+        "menlo": 2,
+        "uc-merced": 2
+      },
+      "highlight": "fresno-pacific"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "fresno-pacific",
+      "of": ["cal-state-east-bay", "menlo", "uc-merced"],
+      "gf": 12,
+      "distinct_scorers_min": 4
+    }
+  },
+  "wire": {
+    "line": "Fresno Pacific have scored twelve goals, more than any other programme in the conference.",
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "fresno-pacific",
+      "of": [
+        "cal-poly-humboldt",
+        "cal-poly-pomona",
+        "cal-state-dominguez-hills",
+        "cal-state-east-bay",
+        "cal-state-la",
+        "cal-state-monterey-bay",
+        "cal-state-san-bernardino",
+        "cal-state-san-marcos",
+        "chico-state",
+        "menlo",
+        "stanislaus-state",
+        "uc-merced"
+      ],
+      "gf": 12
+    },
+    "updated": "2026-09-05"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Ten matches on the schedule, every one of them dated before the first published result, have passed with no result recorded. No final is missing its score.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "One match with a published result has no box score behind it: Fresno Pacific's win at Pacific in August, for which no collected schedule page carried a link.",
+      "basis": {
+        "source": "matches",
+        "box_score_gaps": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Cal State East Bay have conceded ten goals, more than any other programme, and have yet to win.",
+      "basis": {
+        "programme": "cal-state-east-bay",
+        "wins": 0,
+        "draws": 1,
+        "losses": 2,
+        "gf": 3,
+        "ga": 10,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "cal-poly-humboldt",
+          "cal-poly-pomona",
+          "cal-state-dominguez-hills",
+          "cal-state-la",
+          "cal-state-monterey-bay",
+          "cal-state-san-bernardino",
+          "cal-state-san-marcos",
+          "chico-state",
+          "fresno-pacific",
+          "menlo",
+          "stanislaus-state",
+          "uc-merced"
+        ]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Cal State San Bernardino have conceded one goal across an unbeaten start of two wins and a draw.",
+      "basis": {
+        "programme": "cal-state-san-bernardino",
+        "wins": 2,
+        "draws": 1,
+        "losses": 0,
+        "gf": 4,
+        "ga": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Alexis Cervantes has taken thirteen shots for Stanislaus State and scored three times.",
+      "basis": {
+        "source": "stats",
+        "player": "Alexis Cervantes",
+        "programme": "stanislaus-state",
+        "shots": 13,
+        "goals": 3
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Kai Martin",
+      "programme": "cal-state-monterey-bay",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 7 shots"
+    },
+    {
+      "player": "Zion Vaughn",
+      "programme": "fresno-pacific",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 6 shots"
+    },
+    {
+      "player": "Alexis Cervantes",
+      "programme": "stanislaus-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 13 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-04 cal-state-dominguez-hills v western-oregon",
+      "line": "A win, a draw and a defeat for Dominguez Hills so far, with no two results alike."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-05 fresno-pacific v dominican-of-california",
+      "line": "Fresno Pacific's only defeat came at home, to Cal State San Bernardino; Dominican have already drawn at both UC Merced and Cal State East Bay."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-05T16:37:05.573Z"
+  }
+}

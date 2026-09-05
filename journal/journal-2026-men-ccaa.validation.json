@@ -1,0 +1,145 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-ccaa.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CCAA",
+  "validated_at": "2026-09-05T16:37:05.573Z",
+  "data_collected_at": "2026-09-05T16:24:02+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Fresno Pacific's twelve goals have come from four different scorers, and the total is more than Cal State East Bay, Menlo and UC Merced have managed between them.",
+      "checker": "distinct_scorers+team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Fresno Pacific have scored twelve goals, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Ten matches on the schedule, every one of them dated before the first published result, have passed with no result recorded. No final is missing its score.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "One match with a published result has no box score behind it: Fresno Pacific's win at Pacific in August, for which no collected schedule page carried a link.",
+      "checker": "box_score_gaps",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Cal State East Bay have conceded ten goals, more than any other programme, and have yet to win.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Cal State San Bernardino have conceded one goal across an unbeaten start of two wins and a draw.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Alexis Cervantes has taken thirteen shots for Stanislaus State and scored three times.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Kai Martin — 4 G · 7 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Zion Vaughn — 4 G · 6 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Alexis Cervantes — 3 G · 13 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-04 cal-state-dominguez-hills v western-oregon",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-05 fresno-pacific v dominican-of-california",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-05T16:35:26.549Z",
+    "generate_ms": 99019,
+    "validate_ms": 3,
+    "wall_ms": 99023,
+    "concurrency": 3
+  }
+}
