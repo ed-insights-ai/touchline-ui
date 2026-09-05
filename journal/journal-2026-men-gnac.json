@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GNAC",
+  "generated_at": "2026-09-05T16:45:00+00:00",
+  "data_collected_at": "2026-09-05T16:25:48+00:00",
+  "headline": "Seattle Pacific and Western Washington keep perfect records",
+  "dek": "Both sides have won every match they have played, and Seattle Pacific have scored ten goals in three of them. Northwest Nazarene are unbeaten too, without a win to show for it.",
+  "lede_basis": {
+    "programme": "seattle-pacific",
+    "wins": 3,
+    "draws": 0,
+    "losses": 0,
+    "gf": 10,
+    "ga": 5
+  },
+  "lede_updated": "2026-09-05",
+  "pattern": {
+    "label": "derived",
+    "text": "Saint Martin's twelve goals are more than Northwest Nazarene and Simon Fraser have scored together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "saint-martins": 12,
+        "seattle-pacific": 10,
+        "western-oregon": 9,
+        "western-washington": 7,
+        "northwest-nazarene": 4,
+        "simon-fraser": 2
+      },
+      "highlight": "saint-martins"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "saint-martins",
+      "of": ["northwest-nazarene", "simon-fraser"],
+      "gf": 12
+    }
+  },
+  "wire": {
+    "line": "Northwest Nazarene have drawn all three of their matches.",
+    "basis": {
+      "programme": "northwest-nazarene",
+      "wins": 0,
+      "draws": 3,
+      "losses": 0
+    },
+    "updated": "2026-09-05"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three matches whose dates have passed carry no result, and every one of them is a Simon Fraser home match from August.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "simon-fraser",
+        "count": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Saint Martin's own the conference's three box score gaps: results published, detail the collector could not reach.",
+      "basis": {
+        "set": "box_score_gaps",
+        "all_of": "saint-martins",
+        "count": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Archie Dhima, a freshman forward, has four goals from ten shots for Western Oregon.",
+      "basis": {
+        "source": "stats",
+        "player": "Archie Dhima",
+        "programme": "western-oregon",
+        "goals": 4,
+        "shots": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Connor Leistiko holds the conference's only shutouts, two of them, for Saint Martin's.",
+      "basis": {
+        "source": "stats",
+        "player": "Connor Leistiko",
+        "programme": "saint-martins",
+        "shutouts": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Western Oregon have scored nine and conceded nine, with one win, two draws and one loss.",
+      "basis": {
+        "programme": "western-oregon",
+        "wins": 1,
+        "draws": 2,
+        "losses": 1,
+        "gf": 9,
+        "ga": 9
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Archie Dhima",
+      "programme": "western-oregon",
+      "position": "FWD",
+      "class": "FR",
+      "line": "4 G · 1 A · 10 shots"
+    },
+    {
+      "player": "Caleb Putney",
+      "programme": "northwest-nazarene",
+      "position": "FWD",
+      "class": "JR",
+      "line": "2 G · 2 A · 13 shots"
+    },
+    {
+      "player": "Rafael Lucio",
+      "programme": "seattle-pacific",
+      "position": "FWD",
+      "class": "SR",
+      "line": "3 G · 7 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-04 cal-state-dominguez-hills v western-oregon",
+      "line": "Western Oregon have not won since their opening match."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-05 seattle-pacific v point-loma",
+      "line": "Seattle Pacific have yet to drop a point; Point Loma arrive from a defeat at Western Washington."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-05T16:38:29.923Z"
+  }
+}
