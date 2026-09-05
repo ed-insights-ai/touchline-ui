@@ -1,0 +1,156 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-cc.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CC",
+  "validated_at": "2026-09-05T14:07:35.959Z",
+  "data_collected_at": "2026-09-05T13:56:17+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[0].text",
+      "text": "Seventeen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13, while no match with a published final is missing its score.",
+      "unbacked": ["13"]
+    },
+    {
+      "path": "findings[1].text",
+      "text": "Against non-conference opponents the conference has drawn eight matches, one fewer than it has won, and has been beaten thirteen times.",
+      "unbacked": ["1"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Southern Wesleyan's nine goals have come from seven different scorers, and are more than Erskine, King, Chowan and Ferrum have managed together.",
+      "checker": "distinct_scorers+team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Lees-McRae and Shorter are the only sides yet to drop a point.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Seventeen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13, while no match with a published final is missing its score.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Against non-conference opponents the conference has drawn eight matches, one fewer than it has won, and has been beaten thirteen times.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Converse have scored seven goals and conceded four, and have one win to show for it.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Mount Olive's seven goals scored and seven conceded came from one heavy defeat at Mars Hill and one heavy win over Shaw.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Edouard Laberge has made twenty saves in Emmanuel's goal, and Emmanuel are still without a win.",
+      "checker": "player_stat+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Jacob Bandel — 2 G · 1 A · 7 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Josiah Pitts — 2 G · 7 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Drew Huff — 2 G · 5 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-03 saint-leo v emmanuel",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-05 lees-mcrae v belmont-abbey",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-05T14:05:53.742Z",
+    "generate_ms": 102215,
+    "validate_ms": 1,
+    "wall_ms": 102216,
+    "concurrency": 3
+  }
+}

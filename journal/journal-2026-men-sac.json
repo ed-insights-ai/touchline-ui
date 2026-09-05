@@ -1,0 +1,141 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SAC",
+  "generated_at": "2026-09-05T14:05:00+00:00",
+  "data_collected_at": "2026-09-05T13:50:29+00:00",
+  "headline": "Wingate win twice without conceding a goal",
+  "dek": "Wingate's three goals have come in two matches that cost them none. They are one of four programmes yet to lose, and the only one of the four not to have drawn.",
+  "lede_basis": {
+    "programme": "wingate",
+    "wins": 2,
+    "draws": 0,
+    "losses": 0,
+    "gf": 3,
+    "ga": 0,
+    "unbeaten_programmes": 4
+  },
+  "lede_updated": "2026-09-05",
+  "pattern": {
+    "label": "observed",
+    "text": "Mars Hill's twelve goals are spread across eight different scorers, and no one of them has more than Logan Knight's three.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "mars-hill": 12,
+        "lenoir-rhyne": 7,
+        "anderson": 5,
+        "carson-newman": 4,
+        "catawba": 4,
+        "lincoln-memorial": 3,
+        "wingate": 3,
+        "newberry": 1,
+        "tusculum": 1,
+        "coker": 0,
+        "emory-henry": 0
+      },
+      "highlight": "mars-hill"
+    },
+    "basis": {
+      "source": "stats",
+      "player": "Logan Knight",
+      "programme": "mars-hill",
+      "goals": 3,
+      "gf": 12,
+      "ga": 4,
+      "distinct_scorers_min": 8
+    }
+  },
+  "wire": {
+    "line": "Wingate have yet to concede; Emory & Henry have yet to see a result published.",
+    "basis": {
+      "programme": "wingate",
+      "gf": 3,
+      "ga": 0
+    },
+    "updated": "2026-09-05"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four matches whose dates have passed carry no result: Newberry's opening pair and both of Emory & Henry's. Emory & Henry have therefore played nothing the record can show.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "One match has a published result and no reachable box score, and it is Carson-Newman's: the home defeat by Trevecca, whose detail the collector could not tie to the date.",
+      "basis": {
+        "source": "matches",
+        "box_score_gaps": 1,
+        "set": "box_score_gaps",
+        "all_of": "carson-newman",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lenoir-Rhyne have scored seven and conceded nine, and remain without a win: one draw, two defeats.",
+      "basis": {
+        "programme": "lenoir-rhyne",
+        "wins": 0,
+        "draws": 1,
+        "losses": 2,
+        "gf": 7,
+        "ga": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Anderson's Asher Risell has kept two clean sheets and conceded one goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Asher Risell",
+        "programme": "anderson",
+        "shutouts": 2,
+        "goals_against": 1
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Logan Knight",
+      "programme": "mars-hill",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 8 shots"
+    },
+    {
+      "player": "Oskar Dahlberg",
+      "programme": "lenoir-rhyne",
+      "position": "FWD",
+      "class": "SR",
+      "line": "2 G · 1 A · 3 shots"
+    },
+    {
+      "player": "Austin Vicenzino",
+      "programme": "wingate",
+      "position": "FWD",
+      "class": "FR",
+      "line": "2 G · 4 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-02 converse v wingate",
+      "line": "Wingate have still not conceded; Converse had already taken a point at Anderson."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-05 lincoln-memorial v wingate",
+      "line": "Wingate have yet to concede; Lincoln Memorial have won away and lost away and not yet played at home."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-05T14:07:45.470Z"
+  }
+}

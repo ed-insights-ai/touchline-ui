@@ -1,0 +1,159 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CC",
+  "generated_at": "2026-09-05T14:12:00+00:00",
+  "data_collected_at": "2026-09-05T13:56:17+00:00",
+  "headline": "King lose all three matches before conference play",
+  "dek": "King have lost at Trevecca, at Lee and at home to Milligan, scoring twice and conceding seven. North Greenville are the only other side yet to take a point; every other programme in the conference has at least a draw to its name.",
+  "lede_basis": {
+    "programme": "king",
+    "wins": 0,
+    "draws": 0,
+    "losses": 3,
+    "gf": 2,
+    "ga": 7
+  },
+  "lede_updated": "2026-09-05",
+  "pattern": {
+    "label": "derived",
+    "text": "Southern Wesleyan's nine goals have come from seven different scorers, and are more than Erskine, King, Chowan and Ferrum have managed together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "southern-wesleyan": 9,
+        "converse": 7,
+        "mount-olive": 7,
+        "lees-mcrae": 5,
+        "francis-marion": 4,
+        "shorter": 4,
+        "belmont-abbey": 3,
+        "emmanuel": 3,
+        "chowan": 2,
+        "erskine": 2,
+        "king": 2,
+        "north-greenville": 2,
+        "young-harris": 2,
+        "barton": 1,
+        "ferrum": 0
+      },
+      "highlight": "southern-wesleyan"
+    },
+    "basis": {
+      "programme": "southern-wesleyan",
+      "gf": 9,
+      "distinct_scorers_min": 7,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["erskine", "king", "chowan", "ferrum"]
+    }
+  },
+  "wire": {
+    "line": "Lees-McRae and Shorter are the only sides yet to drop a point.",
+    "basis": {
+      "programme": "lees-mcrae",
+      "wins": 2,
+      "draws": 0,
+      "losses": 0
+    },
+    "updated": "2026-09-05"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Seventeen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13, while no match with a published final is missing its score.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 17
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Against non-conference opponents the conference has drawn eight matches, one fewer than it has won, and has been beaten thirteen times.",
+      "basis": {
+        "derived_from": "fixtures",
+        "wins": 9,
+        "draws": 8,
+        "losses": 13,
+        "gf": 48,
+        "ga": 49
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Converse have scored seven goals and conceded four, and have one win to show for it.",
+      "basis": {
+        "programme": "converse",
+        "wins": 1,
+        "draws": 1,
+        "losses": 1,
+        "gf": 7,
+        "ga": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Mount Olive's seven goals scored and seven conceded came from one heavy defeat at Mars Hill and one heavy win over Shaw.",
+      "basis": {
+        "programme": "mount-olive",
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 7,
+        "ga": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Edouard Laberge has made twenty saves in Emmanuel's goal, and Emmanuel are still without a win.",
+      "basis": {
+        "source": "stats",
+        "player": "Edouard Laberge",
+        "programme": "emmanuel",
+        "saves": 20,
+        "wins": 0,
+        "draws": 1,
+        "losses": 2
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jacob Bandel",
+      "programme": "converse",
+      "position": "FWD",
+      "class": "SO",
+      "line": "2 G · 1 A · 7 shots"
+    },
+    {
+      "player": "Josiah Pitts",
+      "programme": "southern-wesleyan",
+      "position": "DEF",
+      "class": "SR",
+      "line": "2 G · 7 shots"
+    },
+    {
+      "player": "Drew Huff",
+      "programme": "mount-olive",
+      "position": "FWD",
+      "class": "FR",
+      "line": "2 G · 5 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-03 saint-leo v emmanuel",
+      "line": "Emmanuel remain without a win, though nobody has beaten them by more than a single goal."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-05 lees-mcrae v belmont-abbey",
+      "line": "Both sides arrive unbeaten; Lees-McRae have won every match they have played, Belmont Abbey have drawn more than they have won."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-05T14:07:35.959Z"
+  }
+}

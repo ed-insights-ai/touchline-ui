@@ -1,0 +1,145 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-pbc.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PBC",
+  "validated_at": "2026-09-05T14:06:57.298Z",
+  "data_collected_at": "2026-09-05T13:58:10+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "North Georgia's eight goals have come from seven different scorers; the spread, not the total, is what separates them from the rest.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Lander are the only programme still without a goal.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Six matches have passed their date with no published result, and there are no score gaps.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Clayton State have won two and drawn one, scoring seven and conceding two.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Lander have drawn one and lost one without scoring, and have no scorer to name.",
+      "checker": "distinct_scorers+team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Miguel Pineda has made seven saves for North Georgia without conceding.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "Theo Hoang has scored four of Georgia Southwestern's six goals from seven shots.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Theo Hoang — 4 G · 7 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Javier Gongora Andres — 3 G · 11 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Isaac Calderon — 2 G · 1 A · 6 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-04 north-georgia v palm-beach-atlantic",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-05 florida-tech v clayton-state",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-05T14:05:53.744Z",
+    "generate_ms": 63551,
+    "validate_ms": 2,
+    "wall_ms": 63553,
+    "concurrency": 3
+  }
+}

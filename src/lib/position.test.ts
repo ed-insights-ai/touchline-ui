@@ -75,6 +75,8 @@ describe("the words a roster prints", () => {
     expect(positionLine("Foward")).toBe("FWD");
     expect(positionLine("Miidfielder")).toBe("MID");
     expect(positionLine("Midfielder/Foward")).toBe("MID");
+    expect(positionLine("Midfelder")).toBe("MID");
+    expect(positionLine("Mdifielder")).toBe("MID");
   });
 
   test("a published misspelling maps through the explicit list, not by resemblance", () => {
@@ -96,7 +98,14 @@ describe("the words a roster prints", () => {
     expect(positionLine("M-B")).toBe("MID");
     expect(positionLine("B")).toBe("DEF");
     expect(positionLine("CM")).toBe("MID");
-    expect(positionLine("Midfelder")).toBeNull();
+    // Francis Marion 2023 and 2025: the two-letter token, hyphen-joined.
+    expect(positionLine("MF-D")).toBe("MID");
+    expect(positionLine("F-MF")).toBe("FWD");
+    // North Greenville 2023: comma-joined, and a centre forward as "CF".
+    expect(positionLine("CAM,LW")).toBe("MID");
+    expect(positionLine("CF")).toBe("FWD");
+    // "Midfelder" was this line until Lincoln Memorial 2026 published it.
+    expect(positionLine("Midfeelder")).toBeNull();
   });
 
   test("the two-letter positional codes Southwest Baptist 2023 writes", () => {
