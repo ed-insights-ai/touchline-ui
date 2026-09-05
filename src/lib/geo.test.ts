@@ -17,9 +17,11 @@ import { loadSeason } from "./derive.ts";
 import {
   closestCrossConference,
   footprintOf,
+  MAP_FRAME,
   milesBetween,
   pointOf,
   projectPoint,
+  provinceOf,
   regionLabels,
 } from "./geo.ts";
 import { homeSeasons } from "./home.ts";
@@ -280,6 +282,55 @@ describe("the projection", () => {
   });
 });
 
+describe("members the frame cannot hold", () => {
+  test("a point outside the frame is off-frame; no row at all is no-point; a province is counted", () => {
+    // Honolulu has a Gazetteer row and projects off the lower-48 frame;
+    // Burnaby has a row with no state and projects inside it; the third slug
+    // has no row anywhere.
+    const f = footprintOf("t", "T", "Test", [
+      { slug: "chaminade", name: "Chaminade" },
+      { slug: "simon-fraser", name: "Simon Fraser" },
+      { slug: "no-such-programme", name: "Nowhere" },
+    ]);
+    expect(f.placed.map((p) => p.slug)).toEqual(["simon-fraser"]);
+    expect(f.unplaced).toEqual([
+      { slug: "chaminade", name: "Chaminade", reason: "off-frame" },
+      { slug: "no-such-programme", name: "Nowhere", reason: "no-point" },
+    ]);
+    expect(f.states).toEqual([]);
+    expect(f.provinces).toEqual(["B.C."]);
+  });
+
+  test("a province is read from the town, never from a state row", () => {
+    expect(provinceOf("Burnaby, B.C.")).toBe("B.C.");
+    expect(provinceOf("Toronto, ON, Canada")).toBe("ON");
+    expect(provinceOf("Honolulu, Hawaii")).toBe(null);
+    expect(provinceOf("San Rafael, Calif.")).toBe(null);
+    for (const f of footprints) {
+      for (const p of f.placed) {
+        if (pointOf(p.slug)?.state) expect(f.provinces).not.toContain(provinceOf(p.city) ?? "");
+      }
+    }
+  });
+
+  test("the frame is the basemap with headroom, and every placed pip is whole inside it", () => {
+    expect(MAP_FRAME.x).toBe(BASEMAP_VIEWBOX.x);
+    expect(MAP_FRAME.w).toBe(BASEMAP_VIEWBOX.w);
+    expect(MAP_FRAME.y).toBeLessThan(BASEMAP_VIEWBOX.y);
+    expect(MAP_FRAME.y + MAP_FRAME.h).toBe(BASEMAP_VIEWBOX.y + BASEMAP_VIEWBOX.h);
+    // The halo is the widest thing drawn at a point (HomeMap.astro r="8.5").
+    const halo = 8.5;
+    for (const f of footprints) {
+      for (const p of f.placed) {
+        expect(p.at.y - halo, p.slug).toBeGreaterThanOrEqual(MAP_FRAME.y);
+        expect(p.at.y + halo, p.slug).toBeLessThanOrEqual(MAP_FRAME.y + MAP_FRAME.h);
+        expect(p.at.x - halo, p.slug).toBeGreaterThanOrEqual(MAP_FRAME.x);
+        expect(p.at.x + halo, p.slug).toBeLessThanOrEqual(MAP_FRAME.x + MAP_FRAME.w);
+      }
+    }
+  });
+});
+
 describe("what the band prints", () => {
   test("widest gap is the greatest distance between two members, recomputed", () => {
     for (const c of collectedConferences) {
@@ -377,8 +428,9 @@ describe("region labels", () => {
       code: "GH",
       name: "Ghost Conference",
       placed: [],
-      unplaced: [{ slug: "nowhere", name: "Nowhere" }],
+      unplaced: [{ slug: "nowhere", name: "Nowhere", reason: "no-point" as const }],
       states: [],
+      provinces: [],
       widestGap: null,
     };
     const cfg = {
@@ -399,6 +451,7 @@ describe("region labels", () => {
       ],
       unplaced: [],
       states: [],
+      provinces: [],
       widestGap: null,
     };
     const plain = regionLabels([one], {

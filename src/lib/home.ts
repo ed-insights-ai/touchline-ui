@@ -40,7 +40,7 @@ import {
   spell,
   toISO,
 } from "./format.ts";
-import { type ConferenceFootprint, regionLabels } from "./geo.ts";
+import { type ConferenceFootprint, regionLabels, type UnplacedProgramme } from "./geo.ts";
 import { headlineForm, type NationalJournalFile, PHASE_LIVE } from "./journal.ts";
 import type { Fixture } from "./model.ts";
 import { byRegion, type Region, type RegionConfig } from "./regions.ts";
@@ -462,9 +462,52 @@ export interface MapView {
   labels: MapLabel[];
   placed: number;
   states: string[];
-  unplaced: { slug: string; name: string }[];
-  /** "129 PROGRAMMES · 29 STATES" */
+  provinces: string[];
+  unplaced: UnplacedProgramme[];
+  /** "129 PROGRAMMES · 29 STATES", "195 PROGRAMMES · 39 STATES AND ONE PROVINCE" */
   footer: string;
+}
+
+/** "39 STATES", "39 STATES AND ONE PROVINCE", "39 STATES AND TWO PROVINCES":
+ *  the places the dots fall in, states as the Gazetteer names them and any
+ *  province a point outside the US names. Never a bare state count when a
+ *  drawn member plays outside the states. */
+export function placesLine(states: readonly string[], provinces: readonly string[]): string {
+  const s = `${states.length} ${states.length === 1 ? "STATE" : "STATES"}`;
+  if (provinces.length === 0) return s;
+  const p = provinces.length === 1 ? "PROVINCE" : "PROVINCES";
+  return `${s} AND ${spell(provinces.length).toUpperCase()} ${p}`;
+}
+
+/** "A, B and C" */
+const listNames = (names: readonly string[]): string =>
+  names.length <= 1
+    ? names.join("")
+    : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+
+/**
+ * The sentences beneath the map for members with no dot, one per kind and
+ * each naming its members: off the frame (a town the map does not reach:
+ * Honolulu, Hilo), then no town on file at all. "No town on file" is reserved
+ * for the second kind; a member with a point is never said to have none.
+ */
+export function unplacedLines(unplaced: readonly UnplacedProgramme[]): string[] {
+  const lines: string[] = [];
+  const off = unplaced.filter((u) => u.reason === "off-frame").map((u) => u.name);
+  const none = unplaced.filter((u) => u.reason === "no-point").map((u) => u.name);
+  if (off.length > 0) {
+    const one = off.length === 1;
+    lines.push(
+      `${listNames(off)} ${one ? "is" : "are"} off this map: ${one ? "its town lies" : "their towns lie"} outside the frame it draws.`,
+    );
+  }
+  if (none.length > 0) {
+    const one = none.length === 1;
+    lines.push(
+      `${listNames(none)} ${one ? "has" : "have"} no town on file, and ${one ? "is" : "are"} not drawn.`,
+    );
+  }
+  return lines;
 }
 
 export interface MapSelection {
@@ -533,14 +576,16 @@ export function mapView(
   }));
   const placed = dots.length;
   const states = [...new Set(footprints.flatMap((f) => f.states))].sort();
+  const provinces = [...new Set(footprints.flatMap((f) => f.provinces))].sort();
   return {
     selecting: selection !== null,
     dots,
     labels,
     placed,
     states,
+    provinces,
     unplaced: footprints.flatMap((f) => f.unplaced),
-    footer: `${placed} PROGRAMMES · ${states.length} STATES`,
+    footer: `${placed} PROGRAMMES · ${placesLine(states, provinces)}`,
   };
 }
 

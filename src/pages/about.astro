@@ -8,6 +8,8 @@ import Page from "../layouts/Page.astro";
 import { homeHref, loadSeason } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 import { dayOfMonth, monShort } from "../lib/format.ts";
+import { footprintOf } from "../lib/geo.ts";
+import { unplacedLines } from "../lib/home.ts";
 import { site } from "../site.config.ts";
 
 // Only conferences the data home actually carries are described — a
@@ -20,6 +22,19 @@ const seasons: Season[] = site.conferences.flatMap((key) => {
   }
 });
 const named = seasons.map((s) => site.conferenceNames[s.key] ?? s.fixtures.conference);
+// The members the home page's map draws no dot for, by name and by reason,
+// in the same words the map itself uses (lib/home.ts unplacedLines).
+const offMap = unplacedLines(
+  seasons.flatMap(
+    (s) =>
+      footprintOf(
+        s.key,
+        s.fixtures.conference,
+        site.conferenceNames[s.key] ?? s.fixtures.conference,
+        s.fixtures.programmes.map((p) => ({ slug: p.slug, name: p.name })),
+      ).unplaced,
+  ),
+);
 const conferenceList =
   named.length <= 1
     ? (named[0] ?? "")
@@ -155,6 +170,11 @@ const stamp = (iso: string): string =>
         those files and one hand-kept reference — each programme's nickname and city, the
         only facts here no collector produced. No estimates, no third-party feeds.
       </p>
+      {offMap.length > 0 && (
+        <p class="para">
+          The home page's map draws the lower 48 states. {offMap.join(" ")}
+        </p>
+      )}
       <div class="stamps num">
         {seasons.map((s) => (
           <div class="stamp-row">

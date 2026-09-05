@@ -15,6 +15,7 @@
 
 import { site } from "../site.config.ts";
 import { BASEMAP_VIEWBOX } from "./basemap.ts";
+import { originOf } from "./origin.ts";
 import { programmeOf } from "./programmes.ts";
 import { byRegion, type Region, type RegionConfig } from "./regions.ts";
 
@@ -36,6 +37,37 @@ export function pointOf(slug: string): ProgrammePoint | null {
     lon: row.point.lon,
     state: row.provenance.point.state ?? null,
   };
+}
+
+/** Headroom above the basemap, in viewBox units. Burnaby, B.C. projects 2.3
+ *  units below the outlines' top edge, so a pip drawn there (radius 4.5, halo
+ *  8.5) was cut off at the frame; ten units keeps the halo whole. */
+const PIP_HEADROOM = 10;
+
+/** The frame the map draws and projectPoint clips to: the basemap's own,
+ *  padded above so a point at its top edge is drawn whole. The projection
+ *  itself is untouched, so no point moves. */
+export const MAP_FRAME = {
+  x: BASEMAP_VIEWBOX.x,
+  y: BASEMAP_VIEWBOX.y - PIP_HEADROOM,
+  w: BASEMAP_VIEWBOX.w,
+  h: BASEMAP_VIEWBOX.h + PIP_HEADROOM,
+} as const;
+
+/**
+ * The province a Canadian town's city string ends in ("Burnaby, B.C." →
+ * "B.C."), or null for any other town. Canada is the one nation the origin
+ * table already knows by its provinces, so the notion is read from there
+ * rather than written down a second time.
+ */
+export function provinceOf(city: string): string | null {
+  const origin = originOf(city);
+  if (origin.kind !== "abroad" || origin.nation.iso !== "ca") return null;
+  const segments = city
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s && s.toLowerCase() !== "canada");
+  return segments[segments.length - 1] ?? null;
 }
 
 // ── The projection ─────────────────────────────────────────────────────────
@@ -88,7 +120,7 @@ export function projectPoint(lon: number, lat: number): ScreenPoint | null {
   // Screen y grows downward; the projection's does not.
   const y = TRANSLATE[1] - SCALE * (ry - RAW_CENTER[1]);
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-  const { x: vx, y: vy, w, h } = BASEMAP_VIEWBOX;
+  const { x: vx, y: vy, w, h } = MAP_FRAME;
   if (x < vx || x > vx + w || y < vy || y > vy + h) return null;
   return { x, y };
 }
@@ -102,17 +134,35 @@ export interface PlacedProgramme {
   at: ScreenPoint;
 }
 
+/** Why a member draws no dot: its point lies outside the frame (Honolulu,
+ *  Hilo), or this site holds no point for it at all. */
+export type UnplacedReason = "off-frame" | "no-point";
+
+export interface UnplacedProgramme {
+  slug: string;
+  name: string;
+  reason: UnplacedReason;
+}
+
 export interface ConferenceFootprint {
   key: string;
   code: string;
   name: string;
   /** Members with a coordinate row, in the order the fixtures file lists them. */
   placed: PlacedProgramme[];
-  /** Members this site holds no point for. Named, never silently dropped. */
-  unplaced: { slug: string; name: string }[];
+  /** Members with no dot, each with its reason. Named, never silently
+   *  dropped. */
+  unplaced: UnplacedProgramme[];
   /** Postal codes of the states its placed members play in, alphabetical. */
   states: string[];
-  /** Greatest distance in miles between any two placed members, or null. */
+  /** Canadian provinces its placed members play in, as the town prints them
+   *  ("B.C."), alphabetical. A point outside the US names no state, so the
+   *  count of places is states and provinces together. */
+  provinces: string[];
+  /** Greatest distance in miles between any two PLACED members, or null. A
+   *  member off the frame is named, not measured, so this is the gap between
+   *  mainland members and any label printing it must say so; nothing on the
+   *  site prints it today. */
   widestGap: number | null;
 }
 
@@ -135,7 +185,7 @@ export function footprintOf(
   members: readonly { slug: string; name: string }[],
 ): ConferenceFootprint {
   const placed: PlacedProgramme[] = [];
-  const unplaced: { slug: string; name: string }[] = [];
+  const unplaced: UnplacedProgramme[] = [];
   const points: ProgrammePoint[] = [];
   for (const m of members) {
     const p = pointOf(m.slug);
@@ -144,7 +194,7 @@ export function footprintOf(
       placed.push({ slug: m.slug, name: m.name, city: p.city, at });
       points.push(p);
     } else {
-      unplaced.push({ slug: m.slug, name: m.name });
+      unplaced.push({ slug: m.slug, name: m.name, reason: p ? "off-frame" : "no-point" });
     }
   }
   let widest = 0;
@@ -154,6 +204,14 @@ export function footprintOf(
   const states = [
     ...new Set(placed.map((p) => pointOf(p.slug)?.state).filter((s): s is string => !!s)),
   ].sort();
+  const provinces = [
+    ...new Set(
+      points
+        .filter((p) => p.state === null)
+        .map((p) => provinceOf(p.city))
+        .filter((s): s is string => !!s),
+    ),
+  ].sort();
   return {
     key,
     code,
@@ -161,6 +219,7 @@ export function footprintOf(
     placed,
     unplaced,
     states,
+    provinces,
     widestGap: points.length > 1 ? Math.round(widest) : null,
   };
 }

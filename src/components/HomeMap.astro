@@ -34,9 +34,10 @@
 // Every figure here is recomputed from the fixtures and the coordinates
 // file. The column prints no fixture counts: it answers where, the columns
 // or the bands answer how many, and the two never argue.
-import { BASEMAP_VIEWBOX, STATE_OUTLINES } from "../lib/basemap.ts";
+import { STATE_OUTLINES } from "../lib/basemap.ts";
 import { spell } from "../lib/format.ts";
-import type { MapView } from "../lib/home.ts";
+import { MAP_FRAME } from "../lib/geo.ts";
+import { type MapView, placesLine, unplacedLines } from "../lib/home.ts";
 
 interface Props {
   view: MapView;
@@ -45,15 +46,17 @@ interface Props {
   divisionConferences: number;
 }
 const { view, conferences, divisionConferences } = Astro.props as Props;
-const { dots, labels, placed, states, unplaced, selecting } = view;
+const { dots, labels, placed, states, provinces, unplaced, selecting } = view;
+const places = placesLine(states, provinces).toLowerCase();
+const absent = unplacedLines(unplaced);
 ---
 
 <div class="mapcol">
   <svg
     class="map"
-    viewBox={`${BASEMAP_VIEWBOX.x} ${BASEMAP_VIEWBOX.y} ${BASEMAP_VIEWBOX.w} ${BASEMAP_VIEWBOX.h}`}
+    viewBox={`${MAP_FRAME.x} ${MAP_FRAME.y} ${MAP_FRAME.w} ${MAP_FRAME.h}`}
     role="img"
-    aria-label={`Map of the lower 48 United States. ${placed} dots mark the towns of the programmes Touchline collects, across ${states.length} states in ${spell(conferences)} conferences, labelled by region.${selecting ? " A region label opens that region's conferences beside the map." : ""}`}
+    aria-label={`Map of the lower 48 United States. ${placed} dots mark the towns of the programmes Touchline collects, across ${places} in ${spell(conferences)} conferences, labelled by region.${selecting ? " A region label opens that region's conferences beside the map." : ""}`}
   >
     <g class="land">
       {STATE_OUTLINES.map((s) => <path d={s.d} />)}
@@ -91,12 +94,9 @@ const { dots, labels, placed, states, unplaced, selecting } = view;
     <span>{view.footer}</span>
     <span class="chip chip-context">{conferences} OF {divisionConferences} CONFERENCES</span>
   </div>
-  {unplaced.length > 0 && (
-    <p class="unplaced">
-      {unplaced.map((u) => u.name).join(", ")}{" "}
-      {unplaced.length === 1 ? "has" : "have"} no town on file, and {unplaced.length === 1 ? "is" : "are"} not drawn.
-    </p>
-  )}
+  {absent.map((line) => (
+    <p class="unplaced">{line}</p>
+  ))}
 </div>
 
 <style>

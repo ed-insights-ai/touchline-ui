@@ -35,7 +35,8 @@ export type DensityConference = {
   opens: string | null;
   played: number;
   total: number;
-  /** Members the box cannot hold (Hawaii, Canada), by name. */
+  /** Members the box cannot hold (Hawaii, Canada), by name: towns the frame
+   *  does not reach, so they are the off-frame kind. */
   unplaced?: string[];
 };
 
@@ -343,8 +344,10 @@ export function densityFootprints(size: DensitySize): ConferenceFootprint[] {
       unplaced: (c.unplaced ?? []).map((name) => ({
         slug: `${c.key}-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
         name,
+        reason: "off-frame" as const,
       })),
       states: [],
+      provinces: [],
       widestGap: null,
     };
   });

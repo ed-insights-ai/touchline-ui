@@ -3,6 +3,7 @@ import { site } from "../site.config.ts";
 import { homeHref, loadSeason, matchesHref, teamHref } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 import { menuColumns } from "../lib/menu.ts";
+import { displayNameOf } from "../lib/programmes.ts";
 import ConferenceMenu from "./ConferenceMenu.astro";
 
 interface Props {
@@ -33,6 +34,7 @@ const columns = menuColumns(entries);
 // The publisher's own order, which is the order the conference lists itself in.
 const teams = season.fixtures.programmes;
 const current = teams.find((p) => p.slug === currentTeam);
+const currentName = current ? displayNameOf(current.slug, current.name) : null;
 const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpperCase()}`;
 ---
 <header class="site-header">
@@ -69,9 +71,9 @@ const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpp
     <details class="hmenu hmenu-team">
       <summary
         class:list={["htab", "htab-team", { "htab-here": !!current }]}
-        aria-label={current ? `Team: ${current.name}` : "Teams"}
+        aria-label={currentName ? `Team: ${currentName}` : "Teams"}
       >
-        <span class="htab-label">{current ? current.name : "Teams"}</span>
+        <span class="htab-label">{currentName ?? "Teams"}</span>
         <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
       </summary>
       <div class="hmenu-panel">
@@ -85,7 +87,7 @@ const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpp
               class="mrow"
               href={teamHref(season.key, p.slug)}
               aria-current={p.slug === currentTeam ? "page" : undefined}
-            ><span class="mabbr">{p.abbr ?? ""}</span><span class="mname">{p.name}</span></a>
+            ><span class="mabbr">{p.abbr ?? ""}</span><span class="mname">{displayNameOf(p.slug, p.name)}</span></a>
           ))}
         </div>
       </div>

@@ -23,6 +23,7 @@ import {
 import { allSightings, divisionCounts, foldToMatches } from "./division.ts";
 import { densityCards, densityConfig } from "./fixtures/density.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
+import { footprintOf } from "./geo.ts";
 import {
   type BandColumn,
   bandGlyphs,
@@ -47,6 +48,7 @@ import {
   lastNightOf,
   lastNightOpen,
   leadLine,
+  mapView,
   mostImminentKey,
   type NationalLede,
   nationalAsOf,
@@ -56,7 +58,9 @@ import {
   nextLeagueKickoff,
   openBandIndex,
   opensLine,
+  placesLine,
   regionChips,
+  unplacedLines,
 } from "./home.ts";
 import { loadNationalJournal, type NationalJournalFile } from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
@@ -1063,5 +1067,51 @@ describe("the reconciliation the page stopped printing", () => {
         fromFixtures.total(),
       ),
     ).not.toEqual([]);
+  });
+});
+
+describe("the map's places and its members with no dot", () => {
+  test("the places line counts states, and provinces only when a point names one", () => {
+    expect(placesLine(["CA", "OR"], [])).toBe("2 STATES");
+    expect(placesLine(["CA"], [])).toBe("1 STATE");
+    expect(placesLine(["CA", "OR"], ["B.C."])).toBe("2 STATES AND ONE PROVINCE");
+    expect(placesLine(["CA"], ["B.C.", "ON"])).toBe("1 STATE AND TWO PROVINCES");
+  });
+
+  test("a member off the frame is named as off the map; no town on file is reserved for a member with no point", () => {
+    const off = { slug: "x-hilo", name: "Hilo Synthetic", reason: "off-frame" as const };
+    const off2 = { slug: "x-hon", name: "Honolulu Synthetic", reason: "off-frame" as const };
+    const none = { slug: "x-none", name: "Nowhere Synthetic", reason: "no-point" as const };
+    expect(unplacedLines([off])).toEqual([
+      "Hilo Synthetic is off this map: its town lies outside the frame it draws.",
+    ]);
+    expect(unplacedLines([none])).toEqual([
+      "Nowhere Synthetic has no town on file, and is not drawn.",
+    ]);
+    expect(unplacedLines([off, none, off2])).toEqual([
+      "Hilo Synthetic and Honolulu Synthetic are off this map: their towns lie outside the frame it draws.",
+      "Nowhere Synthetic has no town on file, and is not drawn.",
+    ]);
+    expect(unplacedLines([])).toEqual([]);
+    // The one wording never describes the other kind.
+    expect(unplacedLines([off]).join(" ")).not.toContain("no town on file");
+    expect(unplacedLines([none]).join(" ")).not.toContain("off this map");
+  });
+
+  test("the live map's footer says states and one province, and names Hawaii as off the map", () => {
+    const footprints = seasons.map((s) =>
+      footprintOf(
+        s.key,
+        s.fixtures.conference,
+        s.key,
+        s.fixtures.programmes.map((p) => ({ slug: p.slug, name: p.name })),
+      ),
+    );
+    const view = mapView(footprints, null);
+    expect(view.footer).toBe(
+      `${view.placed} PROGRAMMES · ${placesLine(view.states, view.provinces)}`,
+    );
+    if (view.provinces.length > 0) expect(view.footer).toMatch(/ AND (ONE|TWO|\w+) PROVINCES?$/);
+    for (const u of view.unplaced) expect(["off-frame", "no-point"]).toContain(u.reason);
   });
 });

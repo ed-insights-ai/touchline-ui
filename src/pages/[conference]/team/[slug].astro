@@ -24,7 +24,7 @@ import {
   flagHref,
 } from "../../../lib/derive.ts";
 import type { Fixture, Season } from "../../../lib/derive.ts";
-import { identityLine } from "../../../lib/programmes.ts";
+import { displayNameOf, identityLine } from "../../../lib/programmes.ts";
 import { countOrigins, originOf } from "../../../lib/origin.ts";
 import { returnedShare, tenureGrid } from "../../../lib/tenure.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
@@ -246,7 +246,9 @@ const spread = (squares: { tenure: { step: keyof typeof TENURE_WORDS | null } }[
 };
 
 
-const title = programme?.name ?? names.name(slug);
+// The reference's name where it holds one: the fixtures file's "Dominican"
+// is "Dominican (N.Y.)" there, beside the PacWest's "Dominican (Calif.)".
+const title = displayNameOf(slug, programme?.name ?? names.name(slug));
 // Absent identity is a designed state: the meta line simply starts at the record.
 const identity = identityLine(slug);
 // Whether any square on this roster is hollow — a player whose class year the
