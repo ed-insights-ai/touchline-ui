@@ -153,3 +153,37 @@ describe("the composed sentences agree with their own figures", () => {
     }
   });
 });
+
+describe("the match log carries the box score's minutes", () => {
+  const rows = everyCard.flatMap(({ card }) => card.log);
+  const withBox = rows.filter((r) => r.line !== null);
+
+  test("a row with a box line reads its minutes off the same line, never invents them", () => {
+    // Minutes come only from a box score the player is on: no line, no minutes.
+    for (const r of rows.filter((r) => r.line === null)) {
+      expect(r.minutes).toBeNull();
+      expect(r.sub).toBeNull();
+    }
+    // Every minute figure is a whole number inside one match.
+    for (const r of withBox.filter((r) => r.minutes !== null)) {
+      expect(Number.isInteger(r.minutes)).toBe(true);
+      expect(r.minutes as number).toBeGreaterThanOrEqual(0);
+      expect(r.minutes as number).toBeLessThanOrEqual(150);
+    }
+  });
+
+  test("the boxes print minutes often enough for the column to be worth a reader's eye", () => {
+    // Every SideArm and PrestoSports skin the site reads prints a minutes
+    // column; a collapse to zero would mean the parser stopped reading it.
+    const printed = withBox.filter((r) => r.minutes !== null).length;
+    expect(withBox.length).toBeGreaterThan(0);
+    expect(printed / withBox.length).toBeGreaterThan(0.9);
+  });
+
+  test("a substitute is marked only when the box says they did not start", () => {
+    const subs = withBox.filter((r) => r.sub === true);
+    const starters = withBox.filter((r) => r.sub === false);
+    expect(subs.length).toBeGreaterThan(0);
+    expect(starters.length).toBeGreaterThan(0);
+  });
+});

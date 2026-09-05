@@ -121,6 +121,13 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
                 {l.score && <span class="log-score">{l.score}</span>}
                 {l.mark && <span class="log-mark">{l.mark}</span>}
               </span>
+              <span class="log-min">
+                {l.minutes !== null && (
+                  <>
+                    {l.minutes}&prime;{l.sub && <span class="log-sub">sub</span>}
+                  </>
+                )}
+              </span>
               <span class={`log-line${l.line ? "" : " log-line-absent"}`}>
                 {l.line ?? l.absent}
               </span>
@@ -368,7 +375,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
   .log { display: flex; flex-direction: column; }
   .log-row {
-    display: grid; grid-template-columns: 46px 1fr 62px 82px; gap: 8px;
+    display: grid; grid-template-columns: 46px 1fr 62px 44px 82px; gap: 8px;
     padding: 5px 0; font-size: 12px; align-items: baseline;
   }
   .log-row + .log-row { border-top: 1px solid var(--hairline-soft); }
@@ -382,6 +389,9 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   .log-score { color: var(--secondary); }
   /* "by forfeit" or "disputed" beside the score, in the date's register. */
   .log-mark { color: var(--quiet); font-size: 10px; letter-spacing: 0.06em; white-space: nowrap; }
+  /* Minutes on the pitch, off the box score; "sub" when they came off the bench. */
+  .log-min { text-align: right; color: var(--secondary); white-space: nowrap; }
+  .log-sub { margin-left: 4px; font-size: 10px; letter-spacing: 0.04em; color: var(--quiet); }
   .log-line { color: var(--secondary); text-align: right; }
   .log-line-absent { font-style: italic; color: var(--quiet); }
   .log-note { font-size: 12px; color: var(--quiet); padding-top: 6px; }
@@ -395,7 +405,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
   @media (max-width: 560px) {
     .sheet-panel { padding: 18px 18px 28px; }
-    .log-row { grid-template-columns: 44px 1fr 56px; }
+    .log-row { grid-template-columns: 44px 1fr 56px 44px; }
     .log-line { grid-column: 2 / -1; text-align: left; }
   }
 </style>

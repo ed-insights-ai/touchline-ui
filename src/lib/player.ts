@@ -122,6 +122,13 @@ export interface LogRow {
   mark: string | null;
   /** "5 sv · 0 ga" or "2 sh · 1 sog", or null when no box score was collected. */
   line: string | null;
+  /** Minutes this player was on the pitch, off the box score's own line, or
+   *  null when the box printed no minutes column or the player is not on it.
+   *  A box that prints 0 is a listed player who never came on: 0, not null. */
+  minutes: number | null;
+  /** Came off the bench: the box score's started flag, false. Null when the
+   *  box carries no line or no flag. */
+  sub: boolean | null;
   /** Why the line is missing, when it is. */
   absent: string | null;
 }
@@ -414,6 +421,9 @@ export function playerCard(
     const ownKeeper = lineFor(team?.keepers, id, folded);
     const gf = hasScore(f) ? (home ? f.home_score : f.away_score) : null;
     const ga = hasScore(f) ? (home ? f.away_score : f.home_score) : null;
+    // The line the minutes are read off: a keeper's own keeper line where the
+    // box has one (an outfield line for a keeper who took a shot lacks them).
+    const appeared = keeper && ownKeeper ? ownKeeper : (own ?? ownKeeper);
     const played =
       keeper && ownKeeper
         ? `${ownKeeper.saves ?? 0} sv · ${ownKeeper.goals_against ?? 0} ga`
@@ -431,6 +441,8 @@ export function playerCard(
       score: gf === null || ga === null ? null : `${gf}–${ga}`,
       mark: markOf(s, f),
       line: played,
+      minutes: appeared?.minutes ?? null,
+      sub: appeared?.started === undefined ? null : !appeared.started,
       absent: played
         ? null
         : detail
