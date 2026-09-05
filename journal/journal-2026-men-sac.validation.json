@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-sac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SAC",
+  "validated_at": "2026-09-05T14:07:45.470Z",
+  "data_collected_at": "2026-09-05T13:50:29+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "observed",
+      "text": "Mars Hill's twelve goals are spread across eight different scorers, and no one of them has more than Logan Knight's three.",
+      "checker": "player_stat+distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Wingate have yet to concede; Emory & Henry have yet to see a result published.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Four matches whose dates have passed carry no result: Newberry's opening pair and both of Emory & Henry's. Emory & Henry have therefore played nothing the record can show.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "One match has a published result and no reachable box score, and it is Carson-Newman's: the home defeat by Trevecca, whose detail the collector could not tie to the date.",
+      "checker": "box_score_gaps+set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Lenoir-Rhyne have scored seven and conceded nine, and remain without a win: one draw, two defeats.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Anderson's Asher Risell has kept two clean sheets and conceded one goal.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Logan Knight — 3 G · 8 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Oskar Dahlberg — 2 G · 1 A · 3 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Austin Vicenzino — 2 G · 4 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-09-02 converse v wingate",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-09-05 lincoln-memorial v wingate",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-09-05T14:05:53.737Z",
+    "generate_ms": 111731,
+    "validate_ms": 1,
+    "wall_ms": 111732,
+    "concurrency": 3
+  }
+}

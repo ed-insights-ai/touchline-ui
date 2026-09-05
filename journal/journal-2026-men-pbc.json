@@ -1,0 +1,149 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PBC",
+  "generated_at": "2026-09-05T14:05:00+00:00",
+  "data_collected_at": "2026-09-05T13:58:10+00:00",
+  "headline": "North Georgia unbeaten with seven scorers and one goal conceded",
+  "dek": "North Georgia have won three and drawn one, and have conceded a single goal across those matches. Seven different players have scored their eight goals. Clayton State are the only other side yet to lose.",
+  "lede_basis": {
+    "programme": "north-georgia",
+    "wins": 3,
+    "draws": 1,
+    "losses": 0,
+    "gf": 8,
+    "ga": 1,
+    "distinct_scorers_min": 7
+  },
+  "lede_updated": "2026-09-05",
+  "pattern": {
+    "label": "derived",
+    "text": "North Georgia's eight goals have come from seven different scorers; the spread, not the total, is what separates them from the rest.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "north-georgia": 8,
+        "clayton-state": 7,
+        "georgia-southwestern": 6,
+        "middle-georgia-state": 5,
+        "usc-aiken": 4,
+        "flagler": 3,
+        "lander": 0
+      },
+      "highlight": "north-georgia"
+    },
+    "basis": {
+      "programme": "north-georgia",
+      "gf": 8,
+      "ga": 1,
+      "distinct_scorers_min": 7
+    }
+  },
+  "wire": {
+    "line": "Lander are the only programme still without a goal.",
+    "basis": {
+      "programme": "lander",
+      "gf": 0,
+      "ga": 2
+    },
+    "updated": "2026-09-05"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Six matches have passed their date with no published result, and there are no score gaps.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Clayton State have won two and drawn one, scoring seven and conceding two.",
+      "basis": {
+        "programme": "clayton-state",
+        "wins": 2,
+        "draws": 1,
+        "losses": 0,
+        "gf": 7,
+        "ga": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lander have drawn one and lost one without scoring, and have no scorer to name.",
+      "basis": {
+        "programme": "lander",
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 0,
+        "ga": 2,
+        "distinct_scorers_min": 0
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Miguel Pineda has made seven saves for North Georgia without conceding.",
+      "basis": {
+        "source": "stats",
+        "player": "Miguel Pineda",
+        "programme": "north-georgia",
+        "saves": 7,
+        "goals_against": 0
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Theo Hoang has scored four of Georgia Southwestern's six goals from seven shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Theo Hoang",
+        "programme": "georgia-southwestern",
+        "goals": 4,
+        "shots": 7,
+        "gf": 6,
+        "ga": 5
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Theo Hoang",
+      "programme": "georgia-southwestern",
+      "position": "FWD",
+      "class": "SR",
+      "line": "4 G · 7 shots"
+    },
+    {
+      "player": "Javier Gongora Andres",
+      "programme": "middle-georgia-state",
+      "position": "FWD",
+      "class": "SO",
+      "line": "3 G · 11 shots"
+    },
+    {
+      "player": "Isaac Calderon",
+      "programme": "north-georgia",
+      "position": "MID",
+      "class": "SR",
+      "line": "2 G · 1 A · 6 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-09-04 north-georgia v palm-beach-atlantic",
+      "line": "North Georgia remain unbeaten and have kept another clean sheet."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-05 florida-tech v clayton-state",
+      "line": "Clayton State are unbeaten; Florida Tech held North Georgia to a goalless draw this week."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-09-05T14:06:57.298Z"
+  }
+}
