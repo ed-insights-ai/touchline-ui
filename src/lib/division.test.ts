@@ -29,6 +29,7 @@ import {
   disputedIdentities,
   FORFEIT_MARK,
   goalsForByProgramme,
+  hasResult,
   isCounted,
   isScored,
   markOf,
@@ -117,13 +118,20 @@ describe("the records agree, which is what makes folding safe", () => {
         expect(m.oneSided, m.identity).toBe(false);
         continue;
       }
-      // The one split the fold reads through: a scored final on one side, a
-      // not-yet row on the other. Anything else is two facts in dispute.
-      const posted = m.sightings.filter((s) => isScored(s.fixture));
+      // The one split the fold reads through: a posted final on one side, a
+      // not-yet row on the other. Anything else is two facts in dispute. The
+      // predicate is the fold's own (hasResult): a friendly's posted score is
+      // still a posted score. Measured on the two 2026 Lander pre-season
+      // matches, marked exhibition and scored on landerbearcats.com while
+      // Southern Wesleyan's and Newberry's pages still list them unscored;
+      // a test recounting with isScored called that a dispute the fold never
+      // saw, and was testing its own rule rather than the site's (tl-1go
+      // carries the rib side: a friendly marked on either page marks both).
+      const posted = m.sightings.filter((s) => hasResult(s.fixture));
       const lag =
         posted.length > 0 &&
         new Set(posted.map(sideFree)).size === 1 &&
-        m.sightings.every((s) => isScored(s.fixture) || pending(s));
+        m.sightings.every((s) => hasResult(s.fixture) || pending(s));
       if (!lag) {
         disagreements.push(
           `${m.identity}: ${m.sightings.map((s) => `${s.key} ${sideFree(s)}`).join("  vs  ")}`,
@@ -132,7 +140,7 @@ describe("the records agree, which is what makes folding safe", () => {
       }
       expect(m.oneSided, m.identity).toBe(true);
       // The folded match is the record that posted, score and all.
-      expect(isScored(m.fixture), m.identity).toBe(true);
+      expect(hasResult(m.fixture), m.identity).toBe(true);
       expect(posted.some((s) => s.key === m.key && s.fixture.id === m.fixture.id)).toBe(true);
     }
     // Empty is the passing answer. A failure here is not a bug in the fold —
@@ -184,7 +192,7 @@ describe("the records agree, which is what makes folding safe", () => {
       // why the definition is the disagreement itself and not who claimed
       // what. Score and status agree — across the records that have posted a
       // score, if only one has — or it would not have folded at all.
-      const spoken = m.oneSided ? m.sightings.filter((s) => isScored(s.fixture)) : m.sightings;
+      const spoken = m.oneSided ? m.sightings.filter((s) => hasResult(s.fixture)) : m.sightings;
       expect(new Set(spoken.map(sideFree)).size, m.identity).toBe(1);
       // Canonical is the first record in config order: stable, and not a
       // claim about home.
