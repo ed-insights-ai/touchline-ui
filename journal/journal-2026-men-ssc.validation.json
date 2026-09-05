@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-04T11:37:34.118Z",
-  "data_collected_at": "2026-09-04T11:35:08+00:00",
+  "validated_at": "2026-09-05T11:39:59.404Z",
+  "data_collected_at": "2026-09-05T11:35:37+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Florida Southern's third win came at Delta State, their first away from home, and it was as clean as the two before it. Four different players have scored their ten goals; nobody has scored against them, and every other side in the conference has conceded.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are pooled at the top of the chart, not spread through it: Rollins alone have outscored Eckerd, Florida Tech, Barry and Nova Southeastern put together.",
+      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd, Florida Tech, Barry and Nova Southeastern put together, and have done it without conceding.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -55,9 +61,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "derived",
-      "text": "Saint Leo's first win of the season came at home to Emmanuel, after a defeat at AUM and a draw at Mississippi College; four different players have now scored for them.",
-      "checker": "distinct_scorers+team_record",
+      "label": "observed",
+      "text": "Kobi Thomas has scored three of Palm Beach Atlantic's five goals, from seventeen shots.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Tampa have drawn twice and lost once and are still without a win, the draws coming at West Alabama and at home to Clayton State.",
+      "text": "Palm Beach Atlantic have not won since their opening match against Lincoln Memorial: draws at home to Carson-Newman and at Young Harris, then defeat at North Georgia.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +80,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Kobi Thomas has scored three of Palm Beach Atlantic's five goals, from thirteen shots.",
-      "checker": "player_stat+team_goals",
+      "text": "Trent Murphy has made fifteen saves for Eckerd and conceded six, with no clean sheet yet.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Six different players have scored for Embry-Riddle in wins over Trinity of Jacksonville and Georgia Southwestern, the widest spread of scorers in the conference.",
+      "text": "Embry-Riddle are unbeaten after a draw at Spring Hill, and six different players have scored for them, the widest spread of scorers in the conference.",
       "checker": "distinct_scorers+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Lukas Bludau — 3 G · 5 shots",
+      "text": "Hector Oliver — 4 G · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Robin Muenst — 2 G · 2 A · 4 shots",
+      "text": "Lukas Bludau — 3 G · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-03 saint-leo v emmanuel",
+      "text": "2026-09-04 north-georgia v palm-beach-atlantic",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-04 delta-state v florida-southern",
+      "text": "2026-09-05 florida-tech v clayton-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-04T11:36:48.333Z",
-    "generate_ms": 45784,
+    "started_at": "2026-09-05T11:38:52.102Z",
+    "generate_ms": 67301,
     "validate_ms": 1,
-    "wall_ms": 45784,
+    "wall_ms": 67302,
     "concurrency": 4
   }
 }

@@ -3,35 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-04T11:40:00+00:00",
-  "data_collected_at": "2026-09-04T11:34:54+00:00",
-  "headline": "Fort Lewis lead the scoring after three straight wins",
-  "dek": "Seven different players have scored for Fort Lewis in wins at Lubbock Christian, at West Texas A&M and at home to Saint Edward's, and only two goals have gone past them. No other programme in the conference has scored as many as their twelve.",
+  "generated_at": "2026-09-05T11:40:00+00:00",
+  "data_collected_at": "2026-09-05T11:35:19+00:00",
+  "headline": "Fort Lewis and UCCS share the scoring lead",
+  "dek": "UCCS's draw at home to Midwestern State was the first time they had conceded this season, and it left them level with Fort Lewis on twelve goals. Neither side has lost a match.",
   "lede_basis": {
-    "programme": "fort-lewis",
-    "wins": 3,
-    "draws": 0,
+    "programme": "uccs",
+    "wins": 2,
+    "draws": 1,
     "losses": 0,
     "gf": 12,
-    "ga": 2,
-    "distinct_scorers_min": 7,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "uccs",
-      "colorado-christian",
-      "south-dakota-mines",
-      "westminster",
-      "colorado-mesa",
-      "csu-pueblo",
-      "msu-denver",
-      "colorado-school-of-mines",
-      "regis",
-      "adams-state"
-    ]
+    "ga": 1
   },
-  "lede_updated": "2026-09-04",
-  "displaced_by": "Fort Lewis's third win takes them past UCCS as the conference's top scorers; the standing dek's score-gap sentence no longer holds, those matches now sit as past dates with no result.",
+  "lede_updated": "2026-09-05",
+  "displaced_by": "UCCS's draw with Midwestern State levels them with Fort Lewis on twelve goals; the standing dek's 'no other programme has scored as many' no longer holds.",
   "pattern": {
     "label": "derived",
     "text": "The scoring is still concentrated at the top: Fort Lewis alone have outscored CSU Pueblo, MSU Denver, Colorado School of Mines, Regis and Adams State combined.",
@@ -39,13 +24,13 @@
       "kind": "goals-for-by-team",
       "values": {
         "fort-lewis": 12,
-        "uccs": 11,
+        "uccs": 12,
+        "south-dakota-mines": 8,
         "colorado-christian": 5,
-        "south-dakota-mines": 5,
+        "msu-denver": 5,
         "westminster": 5,
         "colorado-mesa": 4,
         "csu-pueblo": 3,
-        "msu-denver": 3,
         "colorado-school-of-mines": 1,
         "regis": 1,
         "adams-state": 0
@@ -75,26 +60,25 @@
   "findings": [
     {
       "label": "derived",
-      "text": "UCCS have won both their matches, scoring eleven goals without conceding.",
+      "text": "UCCS conceded their first goal of the season in the draw with Midwestern State, and remain unbeaten with twelve scored.",
       "basis": {
         "programme": "uccs",
         "wins": 2,
-        "draws": 0,
+        "draws": 1,
         "losses": 0,
-        "gf": 11,
-        "ga": 0
+        "gf": 12,
+        "ga": 1
       }
     },
     {
       "label": "observed",
-      "text": "Hugo Sjöberg has yet to concede for UCCS, with seven saves across two shutouts.",
+      "text": "Hugo Sjöberg's twelve saves for UCCS have come at the cost of a single goal.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
-        "saves": 7,
-        "goals_against": 0,
-        "shutouts": 2
+        "saves": 12,
+        "goals_against": 1
       }
     },
     {
@@ -120,14 +104,14 @@
     },
     {
       "label": "derived",
-      "text": "Colorado Mesa have conceded nine goals across two draws and a defeat.",
+      "text": "CSU Pueblo have won both their matches without conceding a goal.",
       "basis": {
-        "programme": "colorado-mesa",
-        "wins": 0,
-        "draws": 2,
-        "losses": 1,
-        "gf": 4,
-        "ga": 9
+        "programme": "csu-pueblo",
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "gf": 3,
+        "ga": 0
       }
     }
   ],
@@ -144,7 +128,7 @@
       "programme": "uccs",
       "position": "MID",
       "class": "FR",
-      "line": "3 G · 1 A · 5 shots"
+      "line": "3 G · 1 A · 6 shots"
     },
     {
       "player": "Lucas Miranda",
@@ -156,16 +140,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-03 fort-lewis v saint-edwards",
-      "line": "Fort Lewis's first home win of the season, after victories on the road at Lubbock Christian and West Texas A&M."
+      "fixture_ref": "2026-09-04 uccs v midwestern-state",
+      "line": "UCCS's unbeaten start survives, but their clean record does not; Midwestern State had already beaten Colorado Mesa at home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-04 uccs v midwestern-state",
-      "line": "UCCS have yet to concede a goal; Midwestern State have already beaten one RMAC side, Colorado Mesa, at home."
+      "fixture_ref": "2026-09-05 csu-pueblo v newman",
+      "line": "CSU Pueblo have yet to concede a goal, and only Fort Lewis have won more often in the conference."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-04T11:37:38.233Z"
+    "validated_at": "2026-09-05T11:39:39.921Z"
   }
 }

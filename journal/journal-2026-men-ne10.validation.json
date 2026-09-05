@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-03T08:17:42.635Z",
-  "data_collected_at": "2026-09-03T05:43:03+00:00",
+  "validated_at": "2026-09-05T11:38:52.028Z",
+  "data_collected_at": "2026-09-05T11:34:50+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 13,
-    "contradicted": 0,
+    "verified": 11,
+    "contradicted": 2,
     "unverifiable": 0,
-    "dropped": 0
+    "dropped": 2
   },
   "normalizations": [],
   "review": [],
@@ -56,6 +56,15 @@
     },
     {
       "path": "findings[1]",
+      "label": "derived",
+      "text": "Saint Anselm have won two of their three matches, and three different players have scored their four goals.",
+      "checker": "distinct_scorers+team_goals+team_record+fixture_counts",
+      "verdict": "contradicted",
+      "mismatches": ["matches_played: claimed 3, data holds 26"],
+      "dropped": true
+    },
+    {
+      "path": "findings[2]",
       "label": "observed",
       "text": "Andrea Farinella has made seventeen saves, more than any other goalkeeper listed.",
       "checker": "player_stat",
@@ -64,27 +73,18 @@
       "dropped": false
     },
     {
-      "path": "findings[2]",
-      "label": "derived",
-      "text": "Adelphi have scored once in three matches, and Enrico Cesarini Sforza is the only name on their scoresheet.",
-      "checker": "distinct_scorers+team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Franklin Pierce have scored six and conceded six across a goalless draw, a one-goal win and a one-goal defeat.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "text": "Saint Michael's are without a win after three matches, having drawn two and lost one.",
+      "checker": "team_record+fixture_counts",
+      "verdict": "contradicted",
+      "mismatches": ["matches_played: claimed 3, data holds 26"],
+      "dropped": true
     },
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Twenty-four matches have been played and none is a score gap: every final carries its score.",
+      "text": "Twenty-six matches have been played and none is a score gap: every final carries its score.",
       "checker": "unresolved+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +102,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Dani Almeida — 2 G · 2 A · 6 shots",
+      "text": "Daniel Santos — 2 G · 2 A · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -111,7 +111,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Daniel Santos — 2 G · 1 A · 10 shots",
+      "text": "Dani Almeida — 2 G · 2 A · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-02 southern-new-hampshire v felician",
+      "text": "2026-09-03 saint-anselm v roberts-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-03 saint-anselm v roberts-wesleyan",
+      "text": "2026-09-05 adelphi v monroe",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-03T08:16:24.059Z",
-    "generate_ms": 78571,
-    "validate_ms": 3,
-    "wall_ms": 78575,
-    "concurrency": 3
+    "started_at": "2026-09-05T11:37:59.381Z",
+    "generate_ms": 52646,
+    "validate_ms": 1,
+    "wall_ms": 52647,
+    "concurrency": 4
   }
 }

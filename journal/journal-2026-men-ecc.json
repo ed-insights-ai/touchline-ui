@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-03T07:10:00+00:00",
-  "data_collected_at": "2026-09-03T06:34:15+00:00",
+  "generated_at": "2026-09-05T12:05:00+00:00",
+  "data_collected_at": "2026-09-05T11:30:31+00:00",
   "headline": "District of Columbia yet to concede",
   "dek": "The capital side have not been scored on, across a goalless draw at Goldey-Beacom and a home win over Seton Hill. Lorenzo Herrera has made thirteen saves and has not yet been beaten.",
   "lede_basis": {
@@ -22,42 +22,42 @@
   "lede_updated": "2026-09-03",
   "pattern": {
     "label": "derived",
-    "text": "Mercy have outscored D'Youville, Molloy and Daemen together, yet have conceded three: the top of this chart is not its tightest defence.",
+    "text": "Staten Island have scored as often as St. Thomas Aquinas, yet have conceded seven and are the only side still without a point: this chart ranks attacks, and attack has not been their problem.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "mercy": 4,
         "queens": 4,
         "st-thomas-aquinas": 3,
+        "staten-island": 3,
+        "daemen": 2,
         "district-of-columbia": 2,
         "roberts-wesleyan": 2,
-        "staten-island": 2,
         "d-youville": 1,
-        "molloy": 1,
-        "daemen": 0
+        "molloy": 1
       },
       "highlight": "mercy"
     },
     "basis": {
-      "comparative": "greater_than_sum",
-      "metric": "gf",
-      "programme": "mercy",
-      "of": ["d-youville", "molloy", "daemen"],
-      "gf": 4,
-      "ga": 3
+      "programme": "staten-island",
+      "wins": 0,
+      "draws": 0,
+      "losses": 2,
+      "gf": 3,
+      "ga": 7
     }
   },
   "wire": {
-    "line": "Daemen have yet to play a match while every other member has already found the net.",
+    "line": "The conference has drawn as often as it has won against outside opposition, and lost more often than either.",
     "basis": {
-      "programme": "daemen",
-      "wins": 0,
-      "draws": 0,
-      "losses": 0,
-      "gf": 0,
-      "ga": 0
+      "derived_from": "fixtures",
+      "wins": 6,
+      "draws": 6,
+      "losses": 9,
+      "gf": 22,
+      "ga": 28
     },
-    "updated": "2026-09-03"
+    "updated": "2026-09-05"
   },
   "findings": [
     {
@@ -93,12 +93,25 @@
     },
     {
       "label": "derived",
-      "text": "St. Thomas Aquinas have three goals from three scorers, and have conceded as many as they have scored.",
+      "text": "Daemen have conceded six goals and are still without a win, a total only Staten Island have exceeded.",
       "basis": {
-        "programme": "st-thomas-aquinas",
-        "gf": 3,
-        "ga": 3,
-        "distinct_scorers_min": 3
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "daemen",
+        "of": [
+          "d-youville",
+          "district-of-columbia",
+          "mercy",
+          "molloy",
+          "queens",
+          "roberts-wesleyan",
+          "st-thomas-aquinas"
+        ],
+        "wins": 0,
+        "draws": 1,
+        "losses": 2,
+        "gf": 2,
+        "ga": 6
       }
     }
   ],
@@ -127,16 +140,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 district-of-columbia v seton-hill",
-      "line": "District of Columbia's first win of the season, and still no goal conceded."
+      "fixture_ref": "2026-09-03 saint-anselm v roberts-wesleyan",
+      "line": "Roberts Wesleyan's first defeat, after their win at Assumption; Saint Anselm have now beaten Staten Island and Roberts Wesleyan and lost at home to Molloy."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 saint-anselm v roberts-wesleyan",
-      "line": "Roberts Wesleyan have won their only match so far; Saint Anselm have already beaten one ECC side, at Staten Island, and lost at home to another, Molloy."
+      "fixture_ref": "2026-09-05 dominican v staten-island",
+      "line": "Dominican have already lost at home to Queens and to St. Thomas Aquinas without scoring a goal; Staten Island have been beaten in both of their matches."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T08:18:04.521Z"
+    "validated_at": "2026-09-05T11:38:37.376Z"
   }
 }

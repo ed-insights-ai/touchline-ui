@@ -3,51 +3,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-03T11:40:00+00:00",
-  "data_collected_at": "2026-09-03T11:31:02+00:00",
-  "headline": "Southwest Baptist share fifteen goals among seven scorers",
-  "dek": "Two matches into the season, Southwest Baptist have not conceded a goal, and no other programme has scored as many as they have. Nathaniel Velasquez has three of them, with an assist, from ten shots.",
+  "generated_at": "2026-09-05T11:40:00+00:00",
+  "data_collected_at": "2026-09-05T11:33:45+00:00",
+  "headline": "Missouri S&T take the opening conference points",
+  "dek": "Missouri S&T beat Upper Iowa in the conference's opening match, their third win from three, with eight goals scored and one conceded. Six different players have scored for them.",
   "lede_basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "southwest-baptist",
-    "of": [
-      "drury",
-      "illinois-springfield",
-      "indianapolis",
-      "lewis",
-      "lincoln",
-      "maryville",
-      "mckendree",
-      "missouri-s-t",
-      "missouri-st-louis",
-      "quincy",
-      "rockhurst",
-      "truman",
-      "upper-iowa",
-      "william-jewell"
-    ],
-    "gf": 15,
-    "ga": 0,
-    "wins": 2,
+    "programme": "missouri-s-t",
+    "wins": 3,
     "draws": 0,
     "losses": 0,
-    "distinct_scorers_min": 7,
-    "source": "stats",
-    "player": "Nathaniel Velasquez",
-    "goals": 3,
-    "assists": 1,
-    "shots": 10
+    "gf": 8,
+    "ga": 1,
+    "distinct_scorers_min": 6
   },
-  "lede_updated": "2026-09-02",
+  "lede_updated": "2026-09-05",
+  "displaced_by": "Conference play opened and Missouri S&T won the first conference match",
   "pattern": {
     "label": "derived",
-    "text": "In two matches Southwest Baptist have outscored more than half the conference put together: Lewis, Lincoln, Maryville, Illinois Springfield, Indianapolis, McKendree, Missouri-St. Louis, Upper Iowa and William Jewell have fewer goals between them.",
+    "text": "Southwest Baptist's fifteen goals from two matches exceed the combined total of Lewis, Lincoln, Maryville, Illinois Springfield, Indianapolis, Missouri-St. Louis, Upper Iowa and William Jewell; the shape is one side and a field.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "southwest-baptist": 15,
-        "missouri-s-t": 7,
+        "missouri-s-t": 8,
         "quincy": 7,
         "truman": 5,
         "drury": 4,
@@ -55,9 +33,9 @@
         "lewis": 3,
         "lincoln": 3,
         "maryville": 3,
+        "mckendree": 3,
         "illinois-springfield": 1,
         "indianapolis": 1,
-        "mckendree": 1,
         "missouri-st-louis": 1,
         "upper-iowa": 1,
         "william-jewell": 0
@@ -74,7 +52,6 @@
         "maryville",
         "illinois-springfield",
         "indianapolis",
-        "mckendree",
         "missouri-st-louis",
         "upper-iowa",
         "william-jewell"
@@ -100,39 +77,27 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Seven matches are score gaps, finals with no published score, and all seven are dated before the earliest published result.",
+      "text": "Three matches past their date carry no published result: Drury's at home to Evangel and away at Wash U, and Missouri S&T's visit to Kentucky Wesleyan. No final is missing its score.",
       "basis": {
         "source": "fixtures",
-        "finals_without_score": 7,
-        "past_date_no_result": 1
+        "finals_without_score": 0,
+        "past_date_no_result": 3
       }
     },
     {
       "label": "derived",
-      "text": "Missouri S&T have won both their matches, scoring seven and conceding once, and the one match past its date with no published result is theirs, away at Kentucky Wesleyan.",
-      "basis": {
-        "programme": "missouri-s-t",
-        "wins": 2,
-        "draws": 0,
-        "losses": 0,
-        "gf": 7,
-        "ga": 1,
-        "set": "past_date_no_result",
-        "all_of": "missouri-s-t",
-        "count": 1
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Upper Iowa have drawn both their matches, scoring once and conceding once, and play in the conference's opening match, away at Missouri S&T.",
+      "text": "Upper Iowa have drawn twice and lost once, scoring one goal in all and conceding two; Noah Nymark-Pedersen has made twelve saves behind them.",
       "basis": {
         "programme": "upper-iowa",
         "wins": 0,
         "draws": 2,
-        "losses": 0,
+        "losses": 1,
         "gf": 1,
-        "ga": 1,
-        "conference_opens": "2026-09-04"
+        "ga": 2,
+        "source": "stats",
+        "player": "Noah Nymark-Pedersen",
+        "saves": 12,
+        "goals_against": 2
       }
     },
     {
@@ -167,18 +132,29 @@
     },
     {
       "label": "derived",
-      "text": "Indianapolis have scored once and conceded once across a win, a draw and a defeat; Rick Lammerts has made eight saves and been beaten once.",
+      "text": "Seven different players have scored Southwest Baptist's fifteen goals; Nathaniel Velasquez has three of them, with an assist, from ten shots.",
       "basis": {
-        "programme": "indianapolis",
-        "wins": 1,
-        "draws": 1,
-        "losses": 1,
-        "gf": 1,
-        "ga": 1,
+        "programme": "southwest-baptist",
+        "gf": 15,
+        "ga": 0,
+        "distinct_scorers_min": 7,
         "source": "stats",
-        "player": "Rick Lammerts",
-        "saves": 8,
-        "goals_against": 1
+        "player": "Nathaniel Velasquez",
+        "goals": 3,
+        "assists": 1,
+        "shots": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "William Jewell have yet to score, losing both their matches and conceding four, and host Lewis in their conference opener.",
+      "basis": {
+        "programme": "william-jewell",
+        "wins": 0,
+        "draws": 0,
+        "losses": 2,
+        "gf": 0,
+        "ga": 4
       }
     }
   ],
@@ -191,32 +167,32 @@
       "line": "3 G · 12 shots"
     },
     {
-      "player": "Felipe Gilberti",
-      "programme": "southwest-baptist",
-      "position": "MID",
-      "class": "JR",
-      "line": "2 G · 3 A · 7 shots"
-    },
-    {
       "player": "Mike Banasik",
       "programme": "missouri-s-t",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 7 shots"
+      "line": "3 G · 8 shots"
+    },
+    {
+      "player": "Jacob Panagos",
+      "programme": "truman",
+      "position": "MID",
+      "class": "JR",
+      "line": "3 G · 5 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-02 rockhurst v rogers-state",
-      "line": "Rogers State leave having beaten McKendree, Maryville and Rockhurst in turn; Rockhurst have now conceded more goals than any programme in the conference."
+      "fixture_ref": "2026-09-04 missouri-s-t v upper-iowa",
+      "line": "Upper Iowa arrived unbeaten after draws at Roosevelt and at Viterbo; Missouri S&T's visit to Kentucky Wesleyan still has no published result."
     },
     "next_match": {
-      "fixture_ref": "2026-09-03 cedarville v mckendree",
-      "line": "McKendree have lost both their matches by a single goal; Cedarville opened with a goalless draw against Indianapolis."
+      "fixture_ref": "2026-09-05 truman v drury",
+      "line": "Drury have won away at Northeastern State since losing at home to Oklahoma Christian; Truman have scored in every match and conceded in every one too."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-03T11:34:00.199Z"
+    "validated_at": "2026-09-05T11:39:16.686Z"
   }
 }

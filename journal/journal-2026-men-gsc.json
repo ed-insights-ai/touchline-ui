@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-04T11:40:00+00:00",
-  "data_collected_at": "2026-09-04T11:33:48+00:00",
+  "generated_at": "2026-09-05T11:40:00+00:00",
+  "data_collected_at": "2026-09-05T11:34:02+00:00",
   "headline": "UAH concede once in three wins",
   "dek": "UAH have let in one goal in three matches and scored ten, and the win at Georgia Southwestern was their second away from home. AUM and Trevecca are unbeaten too, and the three have won all nine matches they have played between them; no other programme has won more than once.",
   "lede_basis": {
@@ -21,7 +21,6 @@
     "other_programmes_max_wins": 1
   },
   "lede_updated": "2026-09-04",
-  "displaced_by": "UAH's win at Georgia Southwestern made 'eight from eight' stale, the trio now nine from nine; the lede moves to UAH's defence, beaten once all season.",
   "pattern": {
     "label": "derived",
     "text": "The scoring at the top is not one striker's doing: UAH's ten goals have come from seven different players.",
@@ -31,14 +30,14 @@
         "uah": 10,
         "trevecca": 7,
         "aum": 6,
+        "mississippi-college": 6,
         "west-alabama": 5,
-        "mississippi-college": 3,
+        "christian-brothers": 3,
+        "lee": 3,
         "montevallo": 3,
-        "christian-brothers": 1,
+        "union": 2,
         "delta-state": 1,
-        "union": 1,
-        "lee": 0,
-        "spring-hill": 0
+        "spring-hill": 1
       },
       "highlight": "uah"
     },
@@ -50,15 +49,28 @@
     }
   },
   "wire": {
-    "line": "UAH have scored more goals than Christian Brothers, Delta State, Union, Lee and Spring Hill have between them.",
+    "line": "Union have lost all three of their matches, more defeats than any other programme.",
     "basis": {
-      "comparative": "greater_than_sum",
-      "metric": "gf",
-      "programme": "uah",
-      "of": ["christian-brothers", "delta-state", "union", "lee", "spring-hill"],
-      "gf": 10
+      "comparative": "greater_than_each",
+      "metric": "losses",
+      "programme": "union",
+      "of": [
+        "aum",
+        "christian-brothers",
+        "delta-state",
+        "lee",
+        "mississippi-college",
+        "montevallo",
+        "spring-hill",
+        "trevecca",
+        "uah",
+        "west-alabama"
+      ],
+      "wins": 0,
+      "draws": 0,
+      "losses": 3
     },
-    "updated": "2026-09-01"
+    "updated": "2026-09-05"
   },
   "findings": [
     {
@@ -72,46 +84,37 @@
     },
     {
       "label": "observed",
-      "text": "Lee have no match on the record before conference play opens, played or still to come: the first listed for them is the conference visit to AUM.",
+      "text": "Union's defeat to Kentucky Wesleyan is the one published result with no detail behind it: no box-score link on any collected schedule page.",
       "basis": {
-        "programme": "lee",
-        "wins": 0,
-        "draws": 0,
-        "losses": 0,
-        "gf": 0,
-        "ga": 0,
-        "conference_opens": "2026-09-11"
+        "source": "matches",
+        "box_score_gaps": 1,
+        "set": "box_score_gaps",
+        "all_of": "union",
+        "count": 1
       }
     },
     {
       "label": "observed",
-      "text": "Every published result now has its detail behind it: the box scores missing from Mississippi Christian's matches a day ago have been filled.",
+      "text": "Lee are unbeaten, with one win and two draws, and have conceded two goals.",
       "basis": {
-        "source": "matches",
-        "box_score_gaps": 0
+        "programme": "lee",
+        "wins": 1,
+        "draws": 2,
+        "losses": 0,
+        "gf": 3,
+        "ga": 2
       }
     },
     {
-      "label": "derived",
-      "text": "West Alabama have conceded eight goals, more than any other programme has let in.",
+      "label": "observed",
+      "text": "Delta State have scored once all season, Tazjean Bird's goal at Harding, and that was the match they won.",
       "basis": {
-        "comparative": "greater_than_each",
-        "metric": "ga",
-        "programme": "west-alabama",
-        "of": [
-          "aum",
-          "christian-brothers",
-          "delta-state",
-          "lee",
-          "mississippi-college",
-          "montevallo",
-          "spring-hill",
-          "trevecca",
-          "uah",
-          "union"
-        ],
-        "gf": 5,
-        "ga": 8
+        "programme": "delta-state",
+        "wins": 1,
+        "draws": 1,
+        "losses": 2,
+        "gf": 1,
+        "ga": 5
       }
     },
     {
@@ -137,32 +140,32 @@
       "line": "4 G · 16 shots"
     },
     {
+      "player": "Harry McLean",
+      "programme": "mississippi-college",
+      "position": "FWD",
+      "class": "FR",
+      "line": "3 G · 6 shots"
+    },
+    {
       "player": "Jaden McKree",
       "programme": "aum",
       "position": "FWD",
       "class": "SR",
       "line": "3 G · 4 shots"
-    },
-    {
-      "player": "Chris Douglas",
-      "programme": "trevecca",
-      "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 8 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-03 georgia-southwestern v uah",
-      "line": "A second win away from home for UAH, whose defence has been beaten once all season."
+      "fixture_ref": "2026-09-04 mississippi-college v eckerd",
+      "line": "Mississippi Christian's first win of the season, and their first clean sheet."
     },
     "next_match": {
-      "fixture_ref": "2026-09-04 harding v christian-brothers",
-      "line": "Christian Brothers have lost both matches they have played; Delta State have already won at Harding."
+      "fixture_ref": "2026-09-05 uah v tuskegee",
+      "line": "UAH have yet to drop a point; Tuskegee have already won at Union."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-04T11:36:48.259Z"
+    "validated_at": "2026-09-05T11:37:59.305Z"
   }
 }

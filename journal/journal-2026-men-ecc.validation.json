@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-03T08:18:04.521Z",
-  "data_collected_at": "2026-09-03T06:34:15+00:00",
+  "validated_at": "2026-09-05T11:38:37.376Z",
+  "data_collected_at": "2026-09-05T11:30:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -20,8 +20,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Mercy have outscored D'Youville, Molloy and Daemen together, yet have conceded three: the top of this chart is not its tightest defence.",
-      "checker": "team_goals+comparative",
+      "text": "Staten Island have scored as often as St. Thomas Aquinas, yet have conceded seven and are the only side still without a point: this chart ranks attacks, and attack has not been their problem.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Daemen have yet to play a match while every other member has already found the net.",
-      "checker": "team_goals+team_record",
+      "text": "The conference has drawn as often as it has won against outside opposition, and lost more often than either.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "St. Thomas Aquinas have three goals from three scorers, and have conceded as many as they have scored.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "Daemen have conceded six goals and are still without a win, a total only Staten Island have exceeded.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-02 district-of-columbia v seton-hill",
+      "text": "2026-09-03 saint-anselm v roberts-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-03 saint-anselm v roberts-wesleyan",
+      "text": "2026-09-05 dominican v staten-island",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-03T08:16:24.071Z",
-    "generate_ms": 100448,
+    "started_at": "2026-09-05T11:36:04.297Z",
+    "generate_ms": 153003,
     "validate_ms": 1,
-    "wall_ms": 100449,
-    "concurrency": 3
+    "wall_ms": 153079,
+    "concurrency": 4
   }
 }

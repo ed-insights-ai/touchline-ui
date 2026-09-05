@@ -4,23 +4,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-04T11:37:23.958Z",
-  "data_collected_at": "2026-09-04T11:34:00+00:00",
+  "validated_at": "2026-09-05T11:37:44.811Z",
+  "data_collected_at": "2026-09-05T11:34:23+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 13,
-    "contradicted": 0,
+    "verified": 12,
+    "contradicted": 1,
     "unverifiable": 0,
-    "dropped": 0
+    "dropped": 1
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[1].text",
+      "text": "Six different players have scored UT Dallas's eight goals, half of them on one night at Hawaii Pacific.",
+      "unbacked": ["1"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Seven different players have scored Midwestern State's eleven goals, and Jose Ortiz has four of them.",
+      "text": "Seven different players have scored Midwestern State's twelve goals, and Jose Ortiz has four of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -56,14 +62,24 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Dallas Baptist had not scored before their trip to Harding; they have now won one and lost one, with two goals for and one against.",
-      "checker": "team_goals+team_record",
+      "text": "Six different players have scored UT Dallas's eight goals, half of them on one night at Hawaii Pacific.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "unchecked_figures": ["goals_at_hawaii_pacific: 4"]
     },
     {
       "path": "findings[2]",
+      "label": "derived",
+      "text": "Midwestern State have conceded two goals in three matches and are still unbeaten after their first trip away, a draw at UCCS.",
+      "checker": "team_goals+team_record+fixture_counts",
+      "verdict": "contradicted",
+      "mismatches": ["played: claimed 3, data holds 26"],
+      "dropped": true
+    },
+    {
+      "path": "findings[3]",
       "label": "derived",
       "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's three matches and been beaten once.",
       "checker": "player_stat+team_record",
@@ -72,7 +88,7 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[4]",
       "label": "derived",
       "text": "Fernando Hernandez has made eighteen saves for Sul Ross State and has yet to keep a clean sheet.",
       "checker": "player_stat",
@@ -81,18 +97,9 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
-      "label": "derived",
-      "text": "St. Mary's have lost both their matches without scoring a goal.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jose Ortiz — 4 G · 8 shots",
+      "text": "Jose Ortiz — 4 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-03 harding v dallas-baptist",
+      "text": "2026-09-04 hawaii-pacific v ut-dallas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-04 uccs v midwestern-state",
+      "text": "2026-09-05 texas-a-m-international v sul-ross-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +143,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-04T11:36:24.222Z",
-    "generate_ms": 59735,
+    "started_at": "2026-09-05T11:37:04.344Z",
+    "generate_ms": 40465,
     "validate_ms": 1,
-    "wall_ms": 59736,
+    "wall_ms": 40466,
     "concurrency": 4
   }
 }

@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-04T11:40:00+00:00",
-  "data_collected_at": "2026-09-04T11:32:59+00:00",
+  "generated_at": "2026-09-05T11:40:00+00:00",
+  "data_collected_at": "2026-09-05T11:32:53+00:00",
   "headline": "Findlay alone unbeaten while every rival has lost",
-  "dek": "Findlay have won all three of their matches and conceded only twice. Every other programme in the conference has already been beaten, and Cedarville and Kentucky Wesleyan have yet to put a goal past anyone.",
+  "dek": "Findlay have won all three of their matches and conceded only twice. Kentucky Wesleyan scored their first goals of the season to win at Union, which leaves Cedarville as the only programme in the conference still without a goal.",
   "lede_basis": {
     "programme": "findlay",
     "wins": 3,
@@ -15,7 +15,8 @@
     "gf": 6,
     "ga": 2
   },
-  "lede_updated": "2026-09-03",
+  "lede_updated": "2026-09-05",
+  "displaced_by": "Kentucky Wesleyan scored at Union, so the dek's claim that they had yet to score is false; headline still true and kept",
   "pattern": {
     "label": "derived",
     "text": "Findlay's six goals have come from five different scorers, and only two have gone in at the other end.",
@@ -25,14 +26,14 @@
         "findlay": 6,
         "thomas-more": 6,
         "tiffin": 5,
+        "ashland": 4,
         "lake-erie": 4,
-        "ashland": 3,
         "northwood": 3,
+        "kentucky-wesleyan": 2,
         "ohio-dominican": 2,
         "walsh": 2,
         "malone": 1,
-        "cedarville": 0,
-        "kentucky-wesleyan": 0
+        "cedarville": 0
       },
       "highlight": "findlay"
     },
@@ -44,19 +45,18 @@
     }
   },
   "wire": {
-    "line": "Every side but Findlay has already been beaten, and Cedarville and Kentucky Wesleyan have yet to score.",
+    "line": "Kentucky Wesleyan have scored at last, winning at Union, and Cedarville are now the only side without a goal.",
     "basis": {
-      "programme": "findlay",
-      "wins": 3,
-      "draws": 0,
-      "losses": 0
+      "programme": "kentucky-wesleyan",
+      "gf": 2,
+      "ga": 2
     },
-    "updated": "2026-09-03"
+    "updated": "2026-09-05"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Five matches have gone past their date with no published result. Kentucky Wesleyan account for most of them, and the site holds their opening defeat at Missouri-St. Louis and nothing else.",
+      "text": "Five matches have gone past their date with no published result. Kentucky Wesleyan account for most of them, and Walsh's visit to Pitt-Johnstown is the other.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -64,26 +64,23 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Thomas More have scored six, as many as Findlay, and lost twice while conceding four.",
+      "label": "observed",
+      "text": "Kentucky Wesleyan's win at Union is the season's one box score gap: the site holds the score and no detail of how it came about.",
       "basis": {
-        "programme": "thomas-more",
-        "wins": 1,
-        "draws": 0,
-        "losses": 2,
-        "gf": 6,
-        "ga": 4
+        "source": "matches",
+        "box_score_gaps": 1
       }
     },
     {
       "label": "observed",
-      "text": "David Ruiz Ospina has made fourteen saves for Lake Erie and has been beaten four times.",
+      "text": "Kentucky Wesleyan's two goals at Union are their first of the season, and they have now won one and lost one of the matches the site can see.",
       "basis": {
-        "source": "stats",
-        "player": "David Ruiz Ospina",
-        "programme": "lake-erie",
-        "saves": 14,
-        "goals_against": 4
+        "programme": "kentucky-wesleyan",
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 2,
+        "ga": 2
       }
     },
     {
@@ -136,16 +133,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-03 cedarville v mckendree",
-      "line": "Cedarville are still without a goal this season; their only point is a goalless draw with Indianapolis."
+      "fixture_ref": "2026-09-04 union v kentucky-wesleyan",
+      "line": "Kentucky Wesleyan's first goals of the season came in a match the site holds as a score and nothing more."
     },
     "next_match": {
-      "fixture_ref": "2026-09-04 ashland v gannon",
-      "line": "Gannon were beaten at home by Lake Erie without scoring; Ashland have lost at home and won away."
+      "fixture_ref": "2026-09-05 lake-erie v roosevelt",
+      "line": "Roosevelt beat Cedarville without conceding; Lake Erie have not won since their opening night at Gannon."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-04T11:36:24.145Z"
+    "validated_at": "2026-09-05T11:37:04.271Z"
   }
 }

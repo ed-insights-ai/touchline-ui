@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-04T11:37:38.233Z",
-  "data_collected_at": "2026-09-04T11:34:54+00:00",
+  "validated_at": "2026-09-05T11:39:39.921Z",
+  "data_collected_at": "2026-09-05T11:35:19+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "UCCS have won both their matches, scoring eleven goals without conceding.",
+      "text": "UCCS conceded their first goal of the season in the draw with Midwestern State, and remain unbeaten with twelve scored.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Hugo Sjöberg has yet to concede for UCCS, with seven saves across two shutouts.",
+      "text": "Hugo Sjöberg's twelve saves for UCCS have come at the cost of a single goal.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Colorado Mesa have conceded nine goals across two draws and a defeat.",
+      "text": "CSU Pueblo have won both their matches without conceding a goal.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Toby Benitez — 3 G · 1 A · 5 shots",
+      "text": "Toby Benitez — 3 G · 1 A · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-03 fort-lewis v saint-edwards",
+      "text": "2026-09-04 uccs v midwestern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-04 uccs v midwestern-state",
+      "text": "2026-09-05 csu-pueblo v newman",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-04T11:36:37.370Z",
-    "generate_ms": 60862,
+    "started_at": "2026-09-05T11:38:37.450Z",
+    "generate_ms": 62470,
     "validate_ms": 1,
-    "wall_ms": 60863,
+    "wall_ms": 62471,
     "concurrency": 4
   }
 }

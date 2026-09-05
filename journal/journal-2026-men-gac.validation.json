@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-09-04T11:36:26.819Z",
-  "data_collected_at": "2026-09-04T11:33:27+00:00",
+  "validated_at": "2026-09-05T11:36:58.156Z",
+  "data_collected_at": "2026-09-05T11:33:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Sides from this conference have now lost exactly as many matches outside it as they have won.",
-      "checker": "outside_record",
+      "text": "Harding's first goal of the season means every programme in the conference has now scored.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Harding's defeat by Dallas Baptist has levelled the conference's record against outside opponents at nine wins and nine defeats. Ouachita Baptist's draw with Delta State is still the only match this season that a programme in this conference has neither won nor lost.",
+      "text": "Harding's defeat by Christian Brothers has tipped the conference's record against outside opponents to ten defeats against nine wins. Ouachita Baptist's draw with Delta State is still the only match this season that a programme in this conference has neither won nor lost.",
       "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Harding have lost both of their matches without scoring, and have conceded three goals.",
-      "checker": "team_goals+team_record",
+      "text": "Harding have lost all three of their matches, every one of them at home, scoring once and conceding five. Reik Barrack is their only scorer.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Tristan Miller has made twelve saves for Rogers State and been beaten twice.",
+      "text": "Andrew Wagenblatt has made fifteen saves for Harding and been beaten five times.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-03 harding v dallas-baptist",
+      "text": "2026-09-04 harding v christian-brothers",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-04 harding v christian-brothers",
+      "text": "2026-09-05 ouachita-baptist v dallas-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-04T11:35:40.755Z",
-    "generate_ms": 46062,
+    "started_at": "2026-09-05T11:36:04.310Z",
+    "generate_ms": 53845,
     "validate_ms": 1,
-    "wall_ms": 46063,
+    "wall_ms": 53846,
     "concurrency": 4
   }
 }
