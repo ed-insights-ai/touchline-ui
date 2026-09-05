@@ -21,6 +21,8 @@ import {
   matchIdentity,
   memberSlugs,
   programmeCounts,
+  recordOf,
+  scoredCount,
   unresolved,
 } from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
@@ -226,6 +228,63 @@ describe("comparative claims", () => {
     const c = claimOf(j);
     expect(c?.verdict).toBe("contradicted");
     expect(c?.mismatches.join(" ")).toContain("not a relation");
+  });
+});
+
+describe("fixture counts read the basis's scope", () => {
+  // The 2026-09-05 cadence dropped three true findings (LSC Midwestern State,
+  // NE10 Saint Anselm and Saint Michael's) because a basis naming a programme
+  // had its "played: 3" held against the conference's 26 scored finals. The
+  // team checkers on the same basis had already passed.
+  const member = [...memberSlugs(season)]
+    .sort()
+    .find((slug) => programmeCounts(season, slug).played > 0);
+  if (!member) throw new Error("no member has a scored final to test against");
+  const own = programmeCounts(season, member);
+  const rec = recordOf(season, member);
+  const teamBasis = {
+    source: "fixtures",
+    programme: member,
+    ga: rec.goalsAgainst,
+    wins: rec.won,
+    draws: rec.drawn,
+    losses: rec.lost,
+    played: own.played,
+  };
+
+  test("a basis that names a programme is held to that programme's played count", () => {
+    const j = finding("derived", `${member} have conceded in ${own.played} matches.`, teamBasis);
+    const c = claimOf(j);
+    expect(c?.checker).toContain("team_record");
+    expect(c?.checker).toContain("fixture_counts");
+    expect(c?.verdict).toBe("verified");
+    expect(c?.dropped).toBe(false);
+  });
+
+  test("and a wrong team count is contradicted with the team's figure, not the season's", () => {
+    const j = finding("derived", "A played count one too many.", {
+      ...teamBasis,
+      played: own.played + 1,
+    });
+    const c = claimOf(j);
+    expect(c?.verdict).toBe("contradicted");
+    expect(c?.mismatches).toContain(`played: claimed ${own.played + 1}, data holds ${own.played}`);
+  });
+
+  test("a basis naming no programme is still the conference's count", () => {
+    const wide = scoredCount(season);
+    const ok = finding("observed", `${wide} matches have a published score.`, {
+      source: "fixtures",
+      played: wide,
+    });
+    expect(claimOf(ok)?.verdict).toBe("verified");
+    const off = finding("observed", "A season count one too many.", {
+      source: "fixtures",
+      played: wide + 1,
+    });
+    const c = claimOf(off);
+    expect(c?.verdict).toBe("contradicted");
+    expect(c?.mismatches).toContain(`played: claimed ${wide + 1}, data holds ${wide}`);
   });
 });
 
