@@ -425,15 +425,29 @@ export const CHECKERS: Checker[] = [
         "total",
         "scored",
       ),
-    check: (b, { season }) => {
+    check: (b, ctx) => {
       const out: string[] = [];
+      // A basis that names a programme is about THAT programme's fixtures,
+      // not the conference's: team_record and team_goals on the same basis
+      // already read it that way, and holding its "played" against the
+      // season-wide count dropped three true findings in the 2026-09-05
+      // cadence (LSC, Midwestern State "conceded two goals in three matches":
+      // played claimed 3, data held the conference's 26). The programme's
+      // reading is programmeCounts, the same one the comparative "played"
+      // metric ranges over.
+      const slug = typeof b.programme === "string" ? ctx.resolve(b.programme) : null;
+      if (typeof b.programme === "string" && !slug)
+        return [`programme: "${String(b.programme)}" is not a programme this site follows`];
+      const own = slug ? programmeCounts(ctx.seasonOf(slug), slug) : null;
+      // Read only on the conference-wide path: the division ctx throws here.
+      const wide = (): Season => ctx.season;
       // "Played" means a final WITH a published score, at every spelling. The
       // count of finals with no score is a silent-final count and never a
       // played one — the two were one number until exhibitions came out of
       // the record, and a checker that still conflated them would drop
       // correct claims for disagreeing with the old definition.
       for (const key of ["matches_total", "fixtures_total", "total"]) {
-        compare(b, key, fixtureCount(season), out);
+        compare(b, key, own ? own.total : fixtureCount(wide()), out);
       }
       for (const key of [
         "matches_played",
@@ -442,10 +456,10 @@ export const CHECKERS: Checker[] = [
         "played",
         "scored",
       ]) {
-        compare(b, key, scoredCount(season), out);
+        compare(b, key, own ? own.played : scoredCount(wide()), out);
       }
       for (const key of ["silent_finals"]) {
-        compare(b, key, unresolved(season).finalsWithoutScore.length, out);
+        compare(b, key, own ? own.silentFinals : unresolved(wide()).finalsWithoutScore.length, out);
       }
       return out;
     },
