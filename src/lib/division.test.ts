@@ -31,7 +31,6 @@ import {
   goalsForByProgramme,
   hasResult,
   isCounted,
-  isScored,
   markOf,
   memberSlugs,
   overallTable,
