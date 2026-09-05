@@ -173,10 +173,24 @@ describe("the records agree, which is what makes folding safe", () => {
   });
 
   test("a match with a home side: exactly one record is that side's own conference", () => {
+    // The canonical record is the fold's choice, and the fold's rule is the
+    // contract: the posted record first, the home side as the tiebreak among
+    // the records that posted. Both files posting is the common shape, and
+    // there the home side's own conference is canonical. Where one file has
+    // posted and the other still holds the row as scheduled, the posted
+    // record is canonical whichever side is at home: the 2026-08-18 Lander
+    // at Southern Wesleyan match is CC's by home side and PBC's by the fold,
+    // because PBC's file posted the score (and the exhibition mark) and CC's
+    // did not.
     for (const m of shared.filter((m) => !m.neutral)) {
       const home = m.sightings.filter((s) => memberSlugs(s.season).has(s.fixture.home));
       expect(home.length, m.identity).toBe(1);
-      expect(m.key, m.identity).toBe((home[0] as Sighting).key);
+      const posted = m.sightings.filter((s) => hasResult(s.fixture));
+      const expected =
+        posted.length > 0 && posted.length < m.sightings.length
+          ? (posted[0] as Sighting).key
+          : (home[0] as Sighting).key;
+      expect(m.key, m.identity).toBe(expected);
     }
   });
 

@@ -20,7 +20,7 @@ import {
   memberSlugs,
   seasonCounts,
 } from "./derive.ts";
-import { divisionCounts } from "./division.ts";
+import { allSightings, divisionCounts, foldToMatches } from "./division.ts";
 import { densityCards, densityConfig } from "./fixtures/density.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import {
@@ -839,7 +839,7 @@ describe("the masthead is derived, deterministically, from counts and opener dat
  * So this reads the figures back out of the two surfaces that publish them —
  * the masthead strip a reader meets and the description a share card meets —
  * and compares them against a sum recounted from the fixtures MINUS a
- * duplicate count recounted from the fixtures. Neither comes from
+ * duplicate count recounted from the folded matches. Neither comes from
  * divisionCounts(), which is the thing under test and could only ever agree
  * with itself. Each check has a matching test that perturbs an input and
  * proves it goes red, because a reconciliation that cannot fail is a comment.
@@ -851,17 +851,35 @@ describe("the reconciliation the page stopped printing", () => {
   const asOf = nationalAsOf(seasons);
   const sum = (pick: (c: HomeColumn) => number): number => columns.reduce((n, c) => n + pick(c), 0);
 
-  /** What two conferences collected twice, recounted from the raw lists by the
-   *  same identity the page must fold on — the day and the two programmes,
-   *  never the id, which is the collector's own key. Counted as EXTRA records
-   *  rather than as shared matches, so it stays right if one ever reaches
-   *  three files. */
+  /** What the columns carried under a figure that the folded set does not,
+   *  recounted from the FOLDED matches rather than from divisionCounts: every
+   *  record whose own row meets the figure's definition, less the one the
+   *  folded match counts if its canonical row meets it. The canonical row is
+   *  the fold's choice (posted record first, home side as the tiebreak), and
+   *  it decides the match type as it decides the score: the 2026 Lander
+   *  pre-season pair is an exhibition in PBC's posted record and a scheduled
+   *  league fixture in CC's and SAC's, so its CC and SAC rows are extra
+   *  total records and no exhibition record is extra. Counted as EXTRA
+   *  records rather than as shared matches, so it stays right if one ever
+   *  reaches three files. */
   function duplicatedRecords(admit: (f: Fixture) => boolean): number {
+    let extra = 0;
+    for (const m of foldToMatches(allSightings(seasons))) {
+      extra += m.sightings.filter((s) => admit(s.fixture)).length - (admit(m.fixture) ? 1 : 0);
+    }
+    return extra;
+  }
+
+  /** A gap is the collector's, not the row's: it folds by the match it
+   *  belongs to, and every record of that match past the first is extra. */
+  function duplicatedGapRecords(): number {
     const groups = new Map<string, number>();
     for (const c of columns) {
-      for (const f of loadSeason(c.key).fixtures.fixtures) {
-        if (!admit(f)) continue;
-        const id = `${f.date} ${[f.home, f.away].sort().join(" v ")}`;
+      for (const g of boxScoreGaps(loadSeason(c.key))) {
+        const f = g.fixture;
+        const id = f
+          ? `${f.date} ${[f.home, f.away].sort().join(" v ")}`
+          : `?${c.key}:${g.fixtureId}`;
         groups.set(id, (groups.get(id) ?? 0) + 1);
       }
     }
@@ -968,15 +986,7 @@ describe("the reconciliation the page stopped printing", () => {
     // collect, and the day one appears the figure must already be right rather
     // than needing a second fix.
     expect(national.silentFinals).toBe(fromFixtures.silentFinals());
-    expect(national.gaps).toBe(
-      sum((c) => c.counts.gaps) -
-        duplicatedRecords((f) => {
-          const ids = new Set(
-            columns.flatMap((c) => boxScoreGaps(loadSeason(c.key)).map((g) => g.fixtureId)),
-          );
-          return ids.has(f.id);
-        }),
-    );
+    expect(national.gaps).toBe(sum((c) => c.counts.gaps) - duplicatedGapRecords());
     expect(national.exhibitions).toBe(sum((c) => c.exhibitions) - duplicatedRecords(isExhibition));
     // And the figures' own duplicate terms are the ones recounted here.
     expect(national.duplicated.total).toBe(duplicatedRecords(isCountable));

@@ -23,6 +23,7 @@ import {
   boxScoreGaps,
   hasResult,
   hasScore,
+  isCountable,
   isExhibition,
   isScored,
   matchIdentity,
@@ -374,26 +375,40 @@ export function divisionCounts(seasons: readonly Season[]): DivisionCounts {
     duplicated[key] += records - 1;
   };
 
+  // A folded match is what its canonical sighting says it is: the fold has
+  // already chosen the record that decides the score (posted record first,
+  // home side as the tiebreak), and the same record decides the match type.
+  // The 2026 Lander pre-season pair is the case this was measured on: PBC's
+  // file marks both as exhibitions and posts the scores, CC's and SAC's still
+  // hold them as scheduled league fixtures. The match is a friendly, because
+  // the canonical sighting says so, and it is not in the total.
+  //
+  // The duplicate term is then whatever the columns carried under a figure
+  // that the folded match does not: every sighting whose OWN row meets the
+  // figure's definition, less the one the folded match counts if its
+  // canonical row meets it. Computed per figure rather than per match, so
+  // that "sum of the columns less duplicated" reconciles by construction
+  // even where the records classify one match differently, as the Lander
+  // pair does: its CC and SAC rows are extra total records, and its PBC row
+  // is the one exhibition record the fold counts.
+  const rowIsSilentFinal = (x: Fixture): boolean => isCountable(x) && isPlayed(x) && !hasScore(x);
+  const figureOf = (x: Fixture): keyof DivisionFigures | null => {
+    if (isExhibition(x)) return "exhibitions";
+    if (isScored(x)) return "played";
+    if (rowIsSilentFinal(x)) return "silentFinals";
+    return null;
+  };
   for (const m of foldToMatches(allSightings(seasons))) {
-    const f = m.fixture;
-    const records = m.sightings.length;
-    if (isExhibition(f)) {
-      count("exhibitions", records);
-      continue;
-    }
-    count("total", records);
-    // A one-sided match is played in ONE file and still scheduled in the
-    // other, so only the record that carries the score is an extra played
-    // record: the conference whose page has not posted counts it as unplayed
-    // on its own page, and the reconciliation holds record by record.
-    const carrying = (admit: (x: Fixture) => boolean): number =>
-      m.sightings.filter((s) => admit(s.fixture)).length;
-    if (isScored(f)) count("played", carrying(isScored));
-    else if (isPlayed(f) && !hasScore(f))
-      count(
-        "silentFinals",
-        carrying((x) => isPlayed(x) && !hasScore(x)),
-      );
+    const canonical = figureOf(m.fixture);
+    const rows = m.sightings.map((s) => s.fixture);
+    const carried = (admit: (x: Fixture) => boolean): number =>
+      rows.filter(admit).length - (admit(m.fixture) ? 1 : 0);
+    if (canonical !== null) figures[canonical]++;
+    if (isCountable(m.fixture)) figures.total++;
+    duplicated.total += carried(isCountable);
+    duplicated.exhibitions += carried(isExhibition);
+    duplicated.played += carried(isScored);
+    duplicated.silentFinals += carried(rowIsSilentFinal);
   }
 
   // A gap is named by the collector that could not reach the box score, so it
