@@ -50,7 +50,7 @@ export const DENSITY_REGIONS: readonly Region[] = [
   { key: "northeast", name: "Northeast", label: { dx: -70, dy: -50 } },
   { key: "mid-atlantic", name: "Mid-Atlantic", label: { dx: -4, dy: 62 } },
   { key: "midwest", name: "Midwest", label: { dx: -19, dy: -113 } },
-  { key: "southeast", name: "Southeast", label: { dx: 128, dy: -28 } },
+  { key: "southeast", name: "Southeast", label: { dx: 140, dy: -28 } },
   { key: "south-central", name: "South Central", label: { dx: 64, dy: 83 } },
   { key: "west", name: "West", label: { dx: -10, dy: -70 } },
 ];

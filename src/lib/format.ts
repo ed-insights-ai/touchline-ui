@@ -246,17 +246,21 @@ const POSITIONS: readonly [RegExp, Line][] = [
   // "S" is the striker beside "W" and "W/S" on Saint Edward's 2023. "A" is
   // the attacker beside GK, D, M and F on Saint Leo 2025 (ssc/saint-leo) and
   // Pace 2025 (ne10/pace).
-  [/forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^s$|^a$/, "FWD"],
+  // "CF" is the centre forward on North Greenville 2023 (cc/north-greenville),
+  // beside CAM and LW.
+  [/forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^cf$|^s$|^a$/, "FWD"],
 ];
 
 /**
  * Pace 2025 (ne10/pace) printed the position and the player's club in one
  * field: "F Pathfinder", "GK East Fishkill", "D Real Ole", "A/M East Meadow
  * Soccer Club ECNL". The leading initials are the position and the club is
- * not read. Only that shape: one initial, or two joined by a slash, then at
- * least one more word.
+ * not read. Barton 2023 and 2026 (cc/barton) print the same shape with the
+ * two-letter token: "MF Radford Univ.", "GK Richmond Hill HS". Only that
+ * shape: one initial (or GK, or MF), or two joined by a slash, then at least
+ * one more word.
  */
-const CLUB_AFTER_INITIALS = /^((?:gk|[fmda])(?:\/(?:gk|[fmda]))?)\s+\S/i;
+const CLUB_AFTER_INITIALS = /^((?:gk|mf|[fmda])(?:\/(?:gk|mf|[fmda]))?)\s+\S/i;
 
 /**
  * Published misspellings that are evidently one known position, mapped to it
@@ -292,6 +296,10 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   froward: "forward",
   // West Virginia Wesleyan 2026 (mec/west-virginia-wesleyan): "Miedfielder/Defender".
   miedfielder: "midfielder",
+  // Lincoln Memorial 2026 (sac/lincoln-memorial): "Midfelder".
+  midfelder: "midfielder",
+  // Clayton State 2025 (pbc/clayton-state): "Mdifielder".
+  mdifielder: "midfielder",
 };
 
 /**
@@ -318,8 +326,9 @@ export function positionLine(position: string | undefined): Line | null {
   const initialsOnly = CLUB_AFTER_INITIALS.exec(whole.trim())?.[1] ?? whole;
   // A roster that lists two positions lists the first one first: "Midfielder/
   // Defender" is a midfielder who covers. Read the first and ignore the rest,
-  // which is what these pages have always printed.
-  const first = initialsOnly.split("/")[0] ?? "";
+  // which is what these pages have always printed. North Greenville 2023
+  // (cc/north-greenville) joins the two with a comma instead: "CAM,LW".
+  const first = initialsOnly.split(/[/,]/)[0] ?? "";
   const word = first
     .toLowerCase()
     .replace(/[^a-z ]/g, " ")
@@ -329,7 +338,11 @@ export function positionLine(position: string | undefined): Line | null {
   // Single-letter positions joined by a hyphen — "F-M", "M-B" on Missouri
   // S&T's 2026 roster — are the two-position form again in initials, and
   // the first listed is the position. The hyphen is already a space here.
-  const initials = /^[a-z]( [a-z])+$/.test(word) ? (word[0] as string) : word;
+  // Francis Marion (cc/francis-marion) joins the two-letter token the same
+  // way: "MF-D" in 2023, "F-MF" in 2025.
+  const initials = /^(?:gk|mf|[a-z])(?: (?:gk|mf|[a-z]))+$/.test(word)
+    ? (word.split(" ")[0] as string)
+    : word;
   // Word by word, so "Center Middlefielder" is corrected the same as "Middlefielder".
   const spelled = initials
     .split(" ")
