@@ -141,7 +141,10 @@ describe("the coordinate join", () => {
     for (const c of collectedConferences) {
       expect(c.footprint.placed.length + c.footprint.unplaced.length).toBe(c.members.length);
     }
-    const total = footprints.reduce((n, f) => n + f.placed.length, 0);
+    // Placed and unplaced together: a member the frame cannot hold (the
+    // PacWest's three in Hawaii) is named in the band, never dropped, so the
+    // two lists still account for every published member.
+    const total = footprints.reduce((n, f) => n + f.placed.length + f.unplaced.length, 0);
     expect(total).toBe(seasons.reduce((n, s) => n + s.fixtures.programmes.length, 0));
   });
 
@@ -194,6 +197,10 @@ const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> = {
   // the Upper Peninsula; the outline draws the lakeshore coarsely enough that
   // the city's Gazetteer point lands 0.3px into the lake.
   "northern-michigan": "Lake Superior shore",
+  // Santa Barbara (ccaa/westmont) sits on the Pacific shore under the Santa
+  // Ynez range; the outline draws the coast coarsely enough that the city's
+  // Gazetteer point lands 0.6px into the Pacific.
+  westmont: "Santa Barbara coast",
 };
 const OFFSHORE_TOLERANCE_PX = 3;
 
@@ -276,9 +283,12 @@ describe("the projection", () => {
 describe("what the band prints", () => {
   test("widest gap is the greatest distance between two members, recomputed", () => {
     for (const c of collectedConferences) {
+      // Over the PLACED members, as footprintOf's contract says: a member
+      // with a point the frame cannot hold (Honolulu, Hilo) is unplaced and
+      // draws no dot, and the gap the band prints is the gap between dots.
       const pts = c.members
         .map((m) => pointOf(m.slug))
-        .filter((p): p is NonNullable<typeof p> => !!p);
+        .filter((p): p is NonNullable<typeof p> => !!p && projectPoint(p.lon, p.lat) !== null);
       let widest = 0;
       for (const [x, a] of pts.entries()) {
         for (const b of pts.slice(x + 1)) widest = Math.max(widest, milesBetween(a, b));
