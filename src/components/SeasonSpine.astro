@@ -43,6 +43,20 @@ const todayFlag = window.weekIndex ? `TODAY · WEEK ${window.weekIndex} OF ${win
 // With both flags on the line they can meet — today within a fortnight of the
 // opener — so each takes its own row: the league above, TODAY nearest the marks.
 const twoRows = spine !== null && spine.todayAt !== null && spine.leagueOpensAt !== null;
+// A month label whose span to the NEXT label is under a tenth of the line is
+// tight: at 390px that is under 38px, and even "AUG" plus a gap does not fit
+// before "SEP" starts. The GAC's season opens in the last days of August, so
+// its August spans 7.7%; the LSC's spans 25%. The last label is never tight —
+// it is pulled back onto its own tick and nothing follows it. The attribute
+// is set here and read only by the phone media query below, so the desktop
+// keeps every month (UI review, 2026-09-06).
+const TIGHT_SPAN = 0.1;
+const tight = (i: number): boolean => {
+  const months = spine?.months ?? [];
+  const next = months[i + 1];
+  const here = months[i];
+  return next !== undefined && here !== undefined && next.at - here.at < TIGHT_SPAN;
+};
 
 ---
 
@@ -89,8 +103,15 @@ const twoRows = spine !== null && spine.todayAt !== null && spine.leagueOpensAt 
       </div>
       <div class="sp-axis"></div>
       <div class="sp-months">
-        {spine.months.map((mo) => (
-          <div class="sp-month" style={`left: ${(mo.at * 100).toFixed(3)}%; transform: translateX(-${(mo.at * 100).toFixed(3)}%);`}>{mo.label}</div>
+        {spine.months.map((mo, i) => (
+          <div class="sp-month" data-tight={tight(i) ? "" : undefined} style={`left: ${(mo.at * 100).toFixed(3)}%; transform: translateX(-${(mo.at * 100).toFixed(3)}%);`}>
+            {/* Both forms are in the markup and CSS picks one: the full name
+                where there is room, the three letters on a phone, where a
+                season opening mid-August put AUGUST under SEPTEMBER. No
+                script; the label is the only thing that gives way. */}
+            <span class="sp-month-long">{mo.label}</span>
+            <span class="sp-month-short">{mo.label.slice(0, 3)}</span>
+          </div>
         ))}
       </div>
     </div>
@@ -185,6 +206,7 @@ const twoRows = spine !== null && spine.todayAt !== null && spine.leagueOpensAt 
     color: var(--quiet);
     white-space: nowrap;
   }
+  .sp-month-short { display: none; }
   @media (max-width: 720px) {
     /* Nothing moves and no mark is dropped; only the labels give way, because
        they are the part that stops resolving at this width. */
@@ -195,6 +217,14 @@ const twoRows = spine !== null && spine.todayAt !== null && spine.leagueOpensAt 
     .sp-marks { height: 66px; }
     .sp-flag { font-size: 10px; letter-spacing: 0.1em; }
     .sp-month { font-size: 10px; letter-spacing: 0.1em; }
+    /* Below the threshold the month wears its three letters. Toggled with
+       display alone: a hidden-but-positioned span is the kind of invisible
+       element that has made a page scroll sideways before (visual.sh). */
+    .sp-month-long { display: none; }
+    .sp-month-short { display: inline; }
+    /* And a month too short for even three letters gives way entirely; the
+       marks' own hidden text still names every date in full. */
+    .sp-month[data-tight] { display: none; }
     .sp-legend { font-size: 10px; gap: 3px 10px; }
   }
 </style>

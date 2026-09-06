@@ -253,9 +253,12 @@ const nextLabel = (f: Fixture): string => {
                     const h = chartMax > 0 ? Math.round((value / chartMax) * 100) : 0;
                     return (
                       <div class="chart-col">
-                        {(isMax || value === 0) && (
-                          <div class={`chart-value num${isMax ? " is-max" : " is-zero"}`}>{value}</div>
-                        )}
+                        {/* Every bar carries its value: on a phone the bars
+                            stand a few pixels apart and a height cannot be
+                            read against the one labelled max. The leader's
+                            figure is ink; every other wears the quiet style
+                            the zero used to (UI review, 2026-09-06). */}
+                        <div class={`chart-value num${isMax ? " is-max" : " is-quiet"}`}>{value}</div>
                         {value > 0 && (
                           <div
                             class={`chart-bar${isMax ? " is-max" : ""}`}
@@ -462,7 +465,7 @@ const nextLabel = (f: Fixture): string => {
      2026-09-01). The leader's value and abbreviation are text, so they wear
      ink, not a series colour. */
   .chart-value.is-max { color: var(--ink); }
-  .chart-value.is-zero { font-size: 11px; font-weight: 400; color: var(--quiet); }
+  .chart-value.is-quiet { font-size: 11px; font-weight: 400; color: var(--quiet); }
   .chart-bar { background: var(--light-future); border-radius: 3px 3px 0 0; }
   .chart-bar.is-max { background: var(--tenure-jr); }
   .chart-axis { display: flex; gap: 14px; padding: 0 4px; font-size: 10.5px; }
