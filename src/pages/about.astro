@@ -4,8 +4,9 @@
 // they are the product's thesis restated in the words a reader needs, and the
 // last clause of each is where the honesty lives.
 import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import Page from "../layouts/Page.astro";
-import { homeHref, loadSeason } from "../lib/derive.ts";
+import { loadSeason } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 import { dayOfMonth, monShort } from "../lib/format.ts";
 import { footprintOf } from "../lib/geo.ts";
@@ -50,14 +51,9 @@ const stamp = (iso: string): string =>
   description="What Touchline is, where its numbers come from, and what each word on it means."
 >
   <div class="tl-page about">
-    <header class="ahead">
-      <a class="wordmark" href={homeHref()}>
-        <span class="wordmark-square"></span>
-        <span class="wordmark-name">Touchline</span>
-      </a>
-      <div class="grow"></div>
-      <a class="back" href={homeHref()}>← HOME</a>
-    </header>
+    {/* The shared header (tl-3rlo): the wordmark is the way home, and the
+        conference menu is the way anywhere else. */}
+    <SiteHeader />
 
     <section class="lede">
       <h1 class="atitle serif">About &amp; method</h1>
@@ -191,16 +187,6 @@ const stamp = (iso: string): string =>
 
 <style>
   .about { min-height: 100vh; }
-  .ahead {
-    height: 58px;
-    display: flex; align-items: center; gap: 22px;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .ahead .wordmark { color: var(--ink); }
-  .grow { flex: 1; }
-  .back { font-size: 12px; letter-spacing: 0.1em; color: var(--secondary); }
-  .back:hover { color: var(--ink); }
-
   .lede { padding: 40px 0 30px; max-width: 720px; }
   .atitle { margin: 0 0 16px; font-size: 42px; line-height: 1.1; letter-spacing: -0.005em; }
   .intro {

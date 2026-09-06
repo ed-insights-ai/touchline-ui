@@ -15,6 +15,7 @@
 // the fixture lists and make them meet.
 import HomeConferences from "../components/HomeConferences.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import Page from "../layouts/Page.astro";
 import { DISPUTED_MARK, FORFEIT_MARK, hasScore, isForfeit, matchHref, seasonHref } from "../lib/derive.ts";
 import { outcome } from "../lib/model.ts";
@@ -235,6 +236,7 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
 ---
 <Page title="Touchline — The Season Scorebook" description={description}>
   <div class="tl-page">
+    <SiteHeader />
     <header class="nat-masthead">
       {/* The root is the top of the site; its own wordmark points nowhere. */}
       <h1 class="wordmark nat-wordmark">
