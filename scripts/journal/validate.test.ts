@@ -13,6 +13,8 @@
  */
 
 import { describe, expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   boxScoreGaps,
   fixtureCount,
@@ -27,7 +29,7 @@ import {
 } from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
 import { WIRE_MAX_CHARS } from "../../src/lib/prose.ts";
-import { restatementDrops, validateJournal } from "./validate.ts";
+import { coverageSubject, restatementDrops, validateJournal } from "./validate.ts";
 
 const season = loadSeason("gac");
 
@@ -611,5 +613,71 @@ describe("a disputed score is never read as a fact", () => {
     const { report } = validateJournal(j, season, "test");
     const claim = report.claims.find((c) => c.path === "featured.last_match");
     expect(claim?.verdict).toBe("verified");
+  });
+});
+
+describe("a finding is about the football, not the collection", () => {
+  // The two findings the GAC journal of 2026-09-06 opened with, verbatim.
+  // Both verified — their figures were true — and both are the masthead's
+  // coverage disclosure said again at finding altitude (UI review, 2026-09-06).
+  const noScoreGap =
+    "There is no score gap: every match marked final carries a score, and no match is past its date without a result.";
+  const boxScores =
+    "Every match with a published score also has a box score behind it. The collector reached the detail of each.";
+  // And three that stand: the football, and a NAMED silence, which the prompt
+  // asks for whenever the brief reports one.
+  const football = [
+    "Harding have lost all three of their matches, every one of them at home, scoring once and conceding five. Reik Barrack is their only scorer.",
+    "Northeastern State's win over Oklahoma Christian was their first of the season, and their four goals have come from three different players.",
+    "Harding's match at Southern Nazarene on Sep 2 is marked final with no score, the conference's one score gap.",
+    "Two matches are past their date with no result, both of them Arkansas Tech's.",
+  ];
+
+  test("the tell reads the opening sentence and names the phrase", () => {
+    expect(coverageSubject(noScoreGap)).toBe('"no score gap"');
+    expect(coverageSubject(boxScores)).toBe('"box score behind"');
+    expect(coverageSubject("Seven matches carry no box-score link.")).toBe('"box-score link"');
+    expect(coverageSubject("Every page the collector reached was complete.")).toBe(
+      '"the collector"',
+    );
+    for (const text of football) expect(coverageSubject(text)).toBeNull();
+    // A coverage sentence AFTER a football one is not the finding's subject.
+    expect(coverageSubject(`${football[0]} ${boxScores}`)).toBeNull();
+  });
+
+  test("a coverage finding is dropped as a claim the CLI can ask about, and the football stands", () => {
+    const j = journal({
+      findings: [
+        {
+          label: "observed",
+          text: noScoreGap,
+          basis: { source: "fixtures", finals_without_score: 0, past_date_no_result: 0 },
+        },
+        { label: "observed", text: boxScores, basis: { source: "matches", box_score_gaps: 0 } },
+        ...football.map((text) => ({ label: "context" as const, text, basis: {} })),
+      ],
+    });
+    const { journal: out, report } = validateJournal(j, season, "test");
+    expect(out.findings.map((f) => f.text)).toEqual(football);
+    const dropped = report.claims.filter((c) => c.checker === "coverage_subject");
+    expect(dropped.map((c) => c.path)).toEqual(["findings[0]", "findings[1]"]);
+    expect(dropped.every((c) => c.dropped && c.verdict === "contradicted")).toBe(true);
+    expect(dropped[0]?.mismatches[0]).toContain("belongs in the coverage disclosure");
+    // The writer is asked once more, as for a restatement.
+    expect(restatementDrops(report.claims).map((d) => d.path)).toEqual([
+      "findings[0]",
+      "findings[1]",
+    ]);
+  });
+
+  test("the live GAC journal leaves the validator with no coverage finding", () => {
+    // Read-only: the file on disk is never regenerated or written by a test.
+    // Whatever the cadence wrote today, nothing about the collection survives
+    // to the page, and a finding that verified on its figures is no exception.
+    const raw = JSON.parse(
+      readFileSync(join(import.meta.dir, "../../journal/journal-2026-men-gac.json"), "utf8"),
+    ) as JournalFile;
+    const { journal: out } = validateJournal(raw, season, "gac");
+    expect(out.findings.filter((f) => coverageSubject(f.text) !== null)).toEqual([]);
   });
 });

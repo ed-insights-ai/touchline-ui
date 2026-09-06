@@ -1017,7 +1017,26 @@ export function validateJournal(
   }
   if (out.wire) reviews.push(...review("wire", out.wire.line, out.wire.basis, page));
 
-  out.findings = out.findings.filter((f, i) => !record(`findings[${i}]`, f.label, f.text, f.basis));
+  // Two passes over one index, so the paths in the report stay the indices
+  // the writer's file had: the basis check first, then — for a finding whose
+  // figures hold — the question of what it is about.
+  out.findings = out.findings.filter((f, i) => {
+    if (record(`findings[${i}]`, f.label, f.text, f.basis)) return false;
+    const why = coverageSubject(f.text);
+    if (why === null) return true;
+    claims.push({
+      path: `findings[${i}]`,
+      label: f.label,
+      text: f.text,
+      checker: "coverage_subject",
+      verdict: "contradicted",
+      mismatches: [
+        `findings[${i}] is about collection coverage (${why}); that belongs in the coverage disclosure, not a finding`,
+      ],
+      dropped: true,
+    });
+    return false;
+  });
 
   // A player to watch is a claim that a named player published a named line.
   out.players_to_watch = out.players_to_watch.filter((p, i) => {
@@ -1134,6 +1153,46 @@ export function validateJournal(
   };
 }
 
+/**
+ * Is this finding about the collection rather than the football?
+ *
+ * The GAC journal of 2026-09-06 opened with two of them — "There is no score
+ * gap: every match marked final carries a score" and "Every match with a
+ * published score also has a box score behind it. The collector reached the
+ * detail of each" — and both verified, because their figures were true. The
+ * prompt says findings are about the football and that how complete the
+ * collection is belongs in the page's coverage disclosure, which the masthead
+ * composes from the data itself; a finding that says it again is the
+ * disclosure at the wrong altitude (UI review, 2026-09-06).
+ *
+ * The tell is deliberately narrow and reads the OPENING sentence, since that
+ * is the finding's subject: pages collected, box scores available or not, the
+ * collector and what it reached, data coverage, and the completeness claim
+ * that no score gap exists. A finding that names a particular score gap or a
+ * match past its date with no result is a fact about a match, and stands —
+ * the prompt asks for one whenever the brief reports any. Returns the phrase
+ * that told, or null.
+ */
+const COVERAGE_TELLS: readonly RegExp[] = [
+  /\bbox[- ]scores?\b[^.]*\b(?:behind|available|reach\w*|collect\w*|missing|link\w*|gaps?)\b/i,
+  /\b(?:no|reach\w*|collect\w*|missing|without)\b[^.]*\bbox[- ]scores?\b/i,
+  /\bthe collector\b/i,
+  /\b(?:collected|collection)\b/i,
+  /\b(?:data|page|source) coverage\b|\bcoverage of\b/i,
+  /\bpages? (?:collected|reached|read|fetched|missing)\b/i,
+  /\bno score gaps?\b|\bwithout a score gap\b/i,
+  /\bevery match\b[^.]*\b(?:carries|has|holds|with) a (?:published )?score\b/i,
+];
+
+export function coverageSubject(text: string): string | null {
+  const opening = text.split(/(?<=[.!?])\s+/)[0] ?? text;
+  for (const re of COVERAGE_TELLS) {
+    const m = re.exec(opening);
+    if (m) return `"${m[0]}"`;
+  }
+  return null;
+}
+
 /** The journal's own written lines, in altitude order — the first a reader
  *  meets first. Every one is model prose, so none is mechanical; a path here
  *  is the path the report names. Only the lines present are listed. */
@@ -1232,9 +1291,10 @@ export interface RestatementDrop {
 }
 
 /** The checkers whose drop is the writer's to mend: a line that restates
- *  another, and a wire over its cap. Both are faults of the sentence rather
- *  than of the data, so the CLI asks once more with the report's words. */
-const REWRITABLE: ReadonlySet<string> = new Set(["words_moved", "wire_length"]);
+ *  another, a wire over its cap, and a finding about the collection rather
+ *  than the football. All three are faults of the sentence rather than of the
+ *  data, so the CLI asks once more with the report's words. */
+const REWRITABLE: ReadonlySet<string> = new Set(["words_moved", "wire_length", "coverage_subject"]);
 
 /** The lines a `words_moved` or `wire_length` claim dropped, out of any
  *  report's claims. */

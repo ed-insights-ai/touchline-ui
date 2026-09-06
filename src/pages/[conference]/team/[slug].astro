@@ -32,6 +32,7 @@ import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { playerCard } from "../../../lib/player.ts";
 import {
+  clockTime,
   daysBetween,
   dowShort,
   initialLast,
@@ -170,23 +171,32 @@ const keeperNote = keeper
   ? `${keeper.name}: ${keeper.saves ?? 0} ${keeper.saves === 1 ? "save" : "saves"}, ${keeper.goals_against ?? 0} conceded, ${keeper.minutes ?? 0} minutes.`
   : "No goalkeeping line has been published.";
 
-// The figure counts every match in the fortnight, so the note has to account
-// for every one of them — a count that outruns what the page shows for it is
-// the reader's first reason to stop trusting the other counts.
+// The figure is the next opponent, and the note says where and when, then who
+// follows. It was a count of the fortnight's matches — "4" — a figure nobody
+// came to the page for (UI review, 2026-09-06). The note still accounts for
+// every match in the fortnight: a list that outruns what the page shows for
+// it is the reader's first reason to stop trusting the other counts.
 const NEXT_SHOWN = 3;
-const nextNote = upcoming.length
+const nextMatch = upcoming[0];
+const opponentOf = (f: Fixture): string => (f.home === slug ? f.away : f.home);
+const nextFigure = nextMatch ? names.abbr(opponentOf(nextMatch)) : "—";
+const nextNote = nextMatch
   ? [
-      upcoming
-        .slice(0, NEXT_SHOWN)
-        .map(
-          (f) =>
-            `${f.home === slug ? "" : "at "}${names.name(f.home === slug ? f.away : f.home)} ${dowShort(f.date)}`,
-        )
-        .join(", "),
-      upcoming.length > NEXT_SHOWN ? `+ ${upcoming.length - NEXT_SHOWN} more` : null,
+      `${nextMatch.home === slug ? "At home to" : "Away at"} ${names.name(opponentOf(nextMatch))}, ${longDate(nextMatch.date)}${clockTime(nextMatch.time) ? ` · ${clockTime(nextMatch.time)}` : ""}.`,
+      upcoming.length > 1
+        ? `Then ${[
+            upcoming
+              .slice(1, NEXT_SHOWN)
+              .map((f) => `${f.home === slug ? "" : "at "}${names.name(opponentOf(f))} ${dowShort(f.date)}`)
+              .join(", "),
+            upcoming.length > NEXT_SHOWN ? `+ ${upcoming.length - NEXT_SHOWN} more` : null,
+          ]
+            .filter(Boolean)
+            .join(", ")}.`
+        : null,
     ]
       .filter(Boolean)
-      .join(", ")
+      .join(" ")
   : "No match inside the fortnight.";
 
 // ── The squad's shape, as tenure ───────────────────────────────────────────
@@ -315,8 +325,11 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
           <div class="stat-figure serif num">{openerPanel.figure}</div>
           <div class="stat-note">{openerPanel.note}</div>
         </div>
+        {/* The label names the figure: .750 is a save percentage, printed as
+            the source prints it, and GOALKEEPING left a reader to guess what
+            the number was (UI review, 2026-09-06). */}
         <div class="stat">
-          <div class="label">GOALKEEPING</div>
+          <div class="label">SAVE PCT</div>
           <div class="stat-figure stat-figure-sm serif num">
             {keeper ? (rate3(keeper.save_pct) ?? "—") : "—"}
           </div>
@@ -324,7 +337,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
         </div>
         <div class="stat">
           <div class="label">NEXT UP</div>
-          <div class="stat-figure stat-figure-sm serif num">{upcoming.length}</div>
+          <div class="stat-figure stat-figure-sm serif num">{nextFigure}</div>
           <div class="stat-note">{nextNote}</div>
         </div>
       </div>
@@ -358,20 +371,24 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
                 <span class="vh">
                   {row.label}: {spread(row.returners)} returning; {spread(row.newcomers)} new.
                 </span>
+                {/* Each square is the link the SQUAD rows already carry: the
+                    player's sheet, opened on :target. A native tooltip was
+                    the only way to learn whose square it was, and a phone has
+                    no hover (UI review, 2026-09-06). */}
                 {row.returners.map((sq) => (
-                  <span class="sq" title={sq.title}>
+                  <a class="sq" href={`#${cardFor(sq.name)?.anchor ?? ""}`} title={sq.title} aria-label={sq.title}>
                     <span class={`sq-box${sq.tenure.step ? ` sq-${sq.tenure.step.toLowerCase()}` : " sq-open"}`}></span>
                     {sq.nation && <span class="sq-dot"></span>}
-                  </span>
+                  </a>
                 ))}
                 {row.returners.length > 0 && row.newcomers.length > 0 && (
                   <span class="shape-rule"></span>
                 )}
                 {row.newcomers.map((sq) => (
-                  <span class="sq" title={sq.title}>
+                  <a class="sq" href={`#${cardFor(sq.name)?.anchor ?? ""}`} title={sq.title} aria-label={sq.title}>
                     <span class={`sq-box${sq.tenure.step ? ` sq-${sq.tenure.step.toLowerCase()}` : " sq-open"}`}></span>
                     {sq.nation && <span class="sq-dot"></span>}
-                  </span>
+                  </a>
                 ))}
               </div>
               <div class="shape-minutes">
@@ -623,6 +640,10 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
   /* A fixed height whether or not the dot is there, so a row of squares sits
      on one line and does not shuffle when one player is from abroad. */
   .sq { display: flex; flex-direction: column; align-items: center; gap: 2px; height: 20px; }
+  /* A square that is a link keeps the grid's ink; the outline on hover is the
+     same accent the squad rows' names take. */
+  a.sq { color: inherit; text-decoration: none; }
+  a.sq:hover .sq-box { outline: 1.5px solid var(--accent); outline-offset: 1px; }
   .sq-box { width: 14px; height: 14px; border-radius: 3px; background: var(--tenure-fr); }
   .sq-fr { background: var(--tenure-fr); }
   .sq-so { background: var(--tenure-so); }

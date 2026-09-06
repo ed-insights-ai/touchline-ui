@@ -278,7 +278,9 @@ where the persistence rules keep it; write the line that restates it — the dek
 under its headline, the featured line under the dek, the finding under the
 pattern — so that it says something the other does not. A wire over its cap is
 too long for the card: write it again at ${WIRE_MAX_CHARS} characters or fewer,
-about the same news. This instruction outranks the persistence rules for the
+about the same news. A finding dropped as "about collection coverage" said how
+complete the collection is; write a finding about the football in its place.
+This instruction outranks the persistence rules for the
 lines it names; every other line follows them as before. A pair still sharing
 its words, or a wire still over the cap, will lose the line, and the page will
 print without it.
@@ -346,6 +348,14 @@ no markdown fence, no commentary before or after.
 Three to five findings. Exactly three players to watch. The chart's values must be
 the brief's goals_for map, unchanged. At least one finding must name a score gap,
 or a past date with no result, if the brief reports any.
+
+FINDINGS ARE ABOUT THE FOOTBALL. How complete the collection is — pages
+collected, box scores available or not, what the collector reached, that every
+final carries a score — belongs in the page's coverage disclosure, which the
+page composes from the data itself and prints above the headline. A finding
+whose subject is collection coverage is dropped by the validator even when its
+figures are right. Naming a particular score gap, or a match past its date with
+no result, is a fact about a match and stands.
 
 EVERY NUMBER YOU WRITE MUST BE IN A BASIS.
 A basis is not decoration on a finding — it is the list of figures that sentence
