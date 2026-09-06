@@ -4,6 +4,7 @@
 // audit is a claim that will be dropped.
 
 import type { JournalFile } from "../../src/lib/journal.ts";
+import { WIRE_MAX_CHARS } from "../../src/lib/prose.ts";
 import type { Brief } from "./brief.ts";
 
 export interface PromptInput {
@@ -12,7 +13,8 @@ export interface PromptInput {
   previous: JournalFile | null;
   /** Lines the validator dropped from the reply before this one because each
    *  was another line with the words moved — "featured.last_match.line
-   *  restates dek (0.90)". Set only on the one regeneration the CLI allows. */
+   *  restates dek (0.90)" — or the wire ran over its cap — "wire.line 161
+   *  characters, cap 140". Set only on the one regeneration the CLI allows. */
   restatements?: readonly string[];
 }
 
@@ -191,6 +193,8 @@ attention and tells them nothing they did not have.
   shipped on that card.
   So: never a clock time, never a scoreline, never the opens-date, never the
   played count. All four are checked and all four will fail the build.
+  And at most ${WIRE_MAX_CHARS} characters, counted: a longer wire is dropped
+  by the validator and the card falls back to your headline.
   The "headline" above is NOT this line and may not be reused as it. The
   headline heads a page that prints the counts and the table BENEATH it; the
   wire sits on a card that prints them BESIDE it. One sentence cannot be the
@@ -258,22 +262,25 @@ ${JSON.stringify(previous, null, 2)}
 `
     : "There is no previous journal for this conference. This is the first.";
   // The one regeneration: the reply before this one said the same thing at
-  // two altitudes, and the persistence rules above would have it say so
-  // again. This paragraph outranks them for the lines it names.
+  // two altitudes, or wrote a wire the card cannot hold, and the persistence
+  // rules above would have it do so again. This paragraph outranks them for
+  // the lines it names.
   const rewrite =
     restatements.length === 0
       ? ""
       : `
-REWRITE — the validator dropped these lines from your previous reply, because each
-was another line on the same page with its words moved (nine content words in ten
-shared with the line it restates):
+REWRITE — the validator dropped these lines from your previous reply:
 ${restatements.map((r) => `  - ${r}`).join("\n")}
-Write the journal again so that no two lines repeat each other. The line restated
-stands where the persistence rules keep it; write the line that restates it — the
-dek under its headline, the featured line under the dek, the finding under the
-pattern — so that it says something the other does not. This instruction outranks
-the persistence rules for the lines it names; every other line follows them as
-before. A pair still sharing its words will lose the lower line, and the page will
+A line that "restates" another was another line on the same page with its words
+moved (nine content words in ten shared with the line it restates). Write the
+journal again so that no two lines repeat each other. The line restated stands
+where the persistence rules keep it; write the line that restates it — the dek
+under its headline, the featured line under the dek, the finding under the
+pattern — so that it says something the other does not. A wire over its cap is
+too long for the card: write it again at ${WIRE_MAX_CHARS} characters or fewer,
+about the same news. This instruction outranks the persistence rules for the
+lines it names; every other line follows them as before. A pair still sharing
+its words, or a wire still over the cap, will lose the line, and the page will
 print without it.
 `;
 

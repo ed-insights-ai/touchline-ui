@@ -44,6 +44,14 @@ const restating =
   "Georgian Court's first win, and their first match at home, after draws at Bentley and at Saint Michael's.";
 const fixed = "Staten Island had not conceded before the second half at Georgian Court.";
 
+/** The LSC wire of 2026-09-06: 161 characters, which the site gate refused
+ *  after the validator had passed it, and the cap it now drops it at. */
+const longWire =
+  "Oklahoma Christian's unbeaten start is over after defeat at Northeastern State; " +
+  "Midwestern State, Texas A&M International and UT Tyler are the sides yet to lose.";
+const shortWire = "Oklahoma Christian's unbeaten start is over, and three sides are yet to lose.";
+const withWire = (line: string): JournalFile => ({ ...journal(fixed), wire: { line } });
+
 /** A model that answers each ask from a script, and a validate over what it
  *  last wrote. Records what each ask was told. */
 function fake(replies: JournalFile[]): Steps & { asked: string[][]; written: JournalFile[] } {
@@ -102,6 +110,22 @@ describe("the one regeneration", () => {
     expect(out.retried).toBe(false);
     expect(out.unresolved.map((r) => r.path)).toEqual(["featured.last_match.line"]);
     expect(steps.asked).toHaveLength(1);
+  });
+
+  test("a wire over the cap is asked again with the cap in the report's words, and a short one settles it", async () => {
+    const steps = fake([withWire(longWire), withWire(shortWire)]);
+    const out = await generateThenValidate(steps);
+    expect(out.retried).toBe(true);
+    expect(out.unresolved).toEqual([]);
+    expect(steps.asked).toEqual([[], ["wire.line 161 characters, cap 140"]]);
+  });
+
+  test("a model that writes the long wire twice keeps the drop", async () => {
+    const steps = fake([withWire(longWire), withWire(longWire)]);
+    const out = await generateThenValidate(steps);
+    expect(out.retried).toBe(true);
+    expect(out.unresolved.map((r) => r.path)).toEqual(["wire"]);
+    expect(steps.asked).toHaveLength(2);
   });
 
   test("a retry whose ask fails leaves the first reply standing, and says so", async () => {

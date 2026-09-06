@@ -29,6 +29,17 @@ export interface Line {
  *  repetition. Nine content words in ten is saying it again. */
 export const WORDS_MOVED_RATIO = 0.9;
 
+/** The most characters a wire may run to. The wire is one line on the
+ *  national page's card, under the code, the name, the opens-date and the
+ *  played count, and tweet-length by design. One constant for the two
+ *  places that measure it: the copy properties (copy.test.ts) hold the live
+ *  wires to it at the gate, and the journal validator
+ *  (scripts/journal/validate.ts) drops an over-cap wire before the page
+ *  sees it, so the CLI can ask the writer once more. The LSC wire of
+ *  2026-09-06 ran to 161 and stopped the publish at the gate while the
+ *  validator, the step the cadence runs, had never measured it. */
+export const WIRE_MAX_CHARS = 140;
+
 const STOP = new Set(
   (
     "the and a an of in on at to for with that this is are has have had been by from its their it" +

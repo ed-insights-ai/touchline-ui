@@ -560,8 +560,9 @@ function validateNational(args: Args, lines: Lines, measured?: Measured): Valida
 interface Scope {
   key: string;
   brief(lines: Lines): number;
-  /** The restatements are the words_moved drops of the reply before this
-   *  one, for the one regeneration; empty on the first ask. */
+  /** The restatements are the words_moved and wire_length drops of the
+   *  reply before this one, for the one regeneration; empty on the first
+   *  ask. */
   generate(lines: Lines, restatements?: readonly string[]): Promise<number>;
   validate(lines: Lines, measured?: Measured): Validated;
 }
@@ -666,8 +667,9 @@ async function run(args: Args, scope: Scope, width: number): Promise<Outcome> {
         break;
       case "run": {
         // Generate, validate — and if validate dropped a line for restating
-        // another, ask once more with the report's words in the prompt. One
-        // retry, never a loop: a second reply still restating keeps the drop.
+        // another, or the wire for running over its cap, ask once more with
+        // the report's words in the prompt. One retry, never a loop: a
+        // second reply with the same fault keeps the drop.
         const ran = await generateThenValidate({
           generate: (restatements) => {
             if (restatements.length > 0) {

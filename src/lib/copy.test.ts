@@ -47,7 +47,7 @@ import {
 } from "./journal.ts";
 import { footNote, metaDescription, oneSourceNote, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
-import { type Line, wordsMoved } from "./prose.ts";
+import { type Line, WIRE_MAX_CHARS, wordsMoved } from "./prose.ts";
 
 const seasons = site.conferences.map((k) => loadSeason(k));
 
@@ -244,6 +244,30 @@ describe("a programme has one name", () => {
       .map((w) => (w === "st" ? "saint" : w))
       .join(" ");
 
+  /**
+   * Trim the punctuation a phrase picks up from the sentence around it. An
+   * apostrophe inside the name survives, because it is part of the name:
+   * St. Edward's ends in one. A trailing apostrophe AFTER AN S does not: it
+   * is the possessive of a name that ends in s, and it belongs to the
+   * sentence. The ECC dek's "Queens' second" names Queens, and the strip
+   * that kept its apostrophe folded "Queens'" onto the canonical "Queens"
+   * and flagged the site's own spelling as a variant of itself.
+   */
+  const trim = (phrase: string): string =>
+    phrase.replace(/^[^\w]+|[^\w'’]+$/g, "").replace(/(?<=s)['’]$/, "");
+
+  test("the strip keeps an apostrophe in a name and drops a possessive's after an s", () => {
+    expect(trim("Queens'")).toBe("Queens");
+    expect(trim("Queens’")).toBe("Queens");
+    expect(trim("(Queens',")).toBe("Queens");
+    expect(trim("St. Edward's.")).toBe("St. Edward's");
+    expect(trim("Edward's")).toBe("Edward's");
+    // The control: a possessive spelled with the extra s is left as written,
+    // and it folds to a key no programme has, so it is nobody's offender.
+    expect(trim("Queens's")).toBe("Queens's");
+    expect(fold(trim("Queens's"))).not.toBe(fold("Queens"));
+  });
+
   test("no composed sentence names a programme a way the site does not", () => {
     const offenders: string[] = [];
     for (const s of seasons) {
@@ -263,13 +287,7 @@ describe("a programme has one name", () => {
         const words = l.text.split(/\s+/);
         for (let i = 0; i < words.length; i++) {
           for (let n = 1; n <= 6 && i + n <= words.length; n++) {
-            // Trim the punctuation a phrase picks up from the sentence
-            // around it. An apostrophe survives, because it is inside the
-            // name — St. Edward's ends in one.
-            const phrase = words
-              .slice(i, i + n)
-              .join(" ")
-              .replace(/^[^\w]+|[^\w'’]+$/g, "");
+            const phrase = trim(words.slice(i, i + n).join(" "));
             if (phrase.length < 4 || allowed.has(phrase)) continue;
             const canonical = wanted.get(fold(phrase));
             if (canonical && canonical !== phrase) {
@@ -379,8 +397,12 @@ describe("the wire says what the card cannot", () => {
    * The predicate is separate from the data so it has teeth today: no journal
    * has written a wire yet, and a property that runs over an empty set is a
    * comment. It is run over the live wires AND over lines written to break it.
+   *
+   * The length cap is the validator's too (prose.ts WIRE_MAX_CHARS): the LSC
+   * wire of 2026-09-06 ran to 161, the validator had never measured it, and
+   * this test stopped the publish over a line the cadence could have fixed.
    */
-  const WIRE_MAX = 140;
+  const WIRE_MAX = WIRE_MAX_CHARS;
 
   interface Card {
     played: number;

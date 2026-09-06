@@ -26,7 +26,8 @@ import {
   unresolved,
 } from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
-import { validateJournal } from "./validate.ts";
+import { WIRE_MAX_CHARS } from "../../src/lib/prose.ts";
+import { restatementDrops, validateJournal } from "./validate.ts";
 
 const season = loadSeason("gac");
 
@@ -448,6 +449,51 @@ describe("the wire is checked like a finding, and drops like one", () => {
     // never taking part in it.
     expect(wireOf(j)?.line).toBe(line);
     expect(paths(j)).not.toContain("wire");
+  });
+
+  // The LSC wire of 2026-09-06, which the site gate refused at 161 characters
+  // after this validator had passed it. It carries no basis and no digit, so
+  // nothing else here has a word to say about it: only its length.
+  const overCap =
+    "Oklahoma Christian's unbeaten start is over after defeat at Northeastern State; " +
+    "Midwestern State, Texas A&M International and UT Tyler are the sides yet to lose.";
+
+  test("a wire over the cap is dropped, and the drop is a claim the CLI can ask about", () => {
+    expect(overCap.length).toBe(161);
+    const { journal: out, report } = validateJournal(
+      journal({ wire: { line: overCap } }),
+      season,
+      "test",
+    );
+    expect(out.wire).toBeUndefined();
+    expect(report.claims.find((c) => c.checker === "wire_length")).toMatchObject({
+      path: "wire",
+      text: overCap,
+      verdict: "contradicted",
+      dropped: true,
+      mismatches: [`wire.line 161 characters, cap ${WIRE_MAX_CHARS}`],
+    });
+    expect(report.totals.dropped).toBe(1);
+    // A dropped wire is not reviewed, and the drop reaches the regeneration.
+    expect(report.review.some((r) => r.path === "wire")).toBe(false);
+    expect(restatementDrops(report.claims)).toEqual([
+      { path: "wire", why: `wire.line 161 characters, cap ${WIRE_MAX_CHARS}` },
+    ]);
+  });
+
+  test("a wire exactly at the cap is kept", () => {
+    const words =
+      "Nobody in the conference has kept a clean sheet yet, and nobody is close to one ";
+    const atCap = `${words.repeat(3).slice(0, WIRE_MAX_CHARS - 1)}.`;
+    expect(atCap.length).toBe(WIRE_MAX_CHARS);
+    const { journal: out, report } = validateJournal(
+      journal({ wire: { line: atCap } }),
+      season,
+      "test",
+    );
+    expect(out.wire?.line).toBe(atCap);
+    expect(report.claims.some((c) => c.checker === "wire_length")).toBe(false);
+    expect(restatementDrops(report.claims)).toEqual([]);
   });
 
   test("a journal with no wire at all validates exactly as it did", () => {

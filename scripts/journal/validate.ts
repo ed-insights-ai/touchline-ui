@@ -28,7 +28,7 @@ import {
   unresolved,
 } from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
-import { type Line, restatements } from "../../src/lib/prose.ts";
+import { type Line, restatements, WIRE_MAX_CHARS } from "../../src/lib/prose.ts";
 
 export type Verdict = "verified" | "contradicted" | "unverifiable";
 
@@ -996,6 +996,25 @@ export function validateJournal(
   if (out.wire?.basis && record("wire", "observed", out.wire.line, out.wire.basis)) {
     out.wire = undefined;
   }
+  // And it is held to its length. The card sets the wire in one line under
+  // the figures, and the site's copy properties refuse one over
+  // WIRE_MAX_CHARS at the gate; a validator that never measured it left the
+  // LSC journal of 2026-09-06 (161 characters) to stop the publish after the
+  // cadence had passed it. Over the cap the wire drops as a claim, checker
+  // "wire_length", and the card falls back to the headline; the CLI reads
+  // the drop and asks the writer once more, as it does for a restatement.
+  if (out.wire && out.wire.line.length > WIRE_MAX_CHARS) {
+    claims.push({
+      path: "wire",
+      label: "length",
+      text: out.wire.line,
+      checker: "wire_length",
+      verdict: "contradicted",
+      mismatches: [`wire.line ${out.wire.line.length} characters, cap ${WIRE_MAX_CHARS}`],
+      dropped: true,
+    });
+    out.wire = undefined;
+  }
   if (out.wire) reviews.push(...review("wire", out.wire.line, out.wire.basis, page));
 
   out.findings = out.findings.filter((f, i) => !record(`findings[${i}]`, f.label, f.text, f.basis));
@@ -1206,15 +1225,22 @@ export function restatementClaims(out: JournalFile): ClaimReport[] {
 export interface RestatementDrop {
   /** The line that went. */
   path: string;
-  /** "<path> restates <other path> (0.90)" — what the CLI hands the writer
-   *  for its one regeneration, and prints when that did not settle it. */
+  /** "<path> restates <other path> (0.90)", or "wire.line 161 characters,
+   *  cap 140" — what the CLI hands the writer for its one regeneration, and
+   *  prints when that did not settle it. */
   why: string;
 }
 
-/** The lines a `words_moved` claim dropped, out of any report's claims. */
+/** The checkers whose drop is the writer's to mend: a line that restates
+ *  another, and a wire over its cap. Both are faults of the sentence rather
+ *  than of the data, so the CLI asks once more with the report's words. */
+const REWRITABLE: ReadonlySet<string> = new Set(["words_moved", "wire_length"]);
+
+/** The lines a `words_moved` or `wire_length` claim dropped, out of any
+ *  report's claims. */
 export const restatementDrops = (claims: readonly ClaimReport[]): RestatementDrop[] =>
   claims
-    .filter((c) => c.checker === "words_moved" && c.dropped)
+    .filter((c) => c.checker !== null && REWRITABLE.has(c.checker) && c.dropped)
     .map((c) => ({ path: c.path, why: c.mismatches.join("; ") }));
 
 /** Read the figures out of a watchlist line ("2 G · 4 shots", ".909") and

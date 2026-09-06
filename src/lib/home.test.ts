@@ -12,6 +12,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { site } from "../site.config.ts";
 import {
   boxScoreGaps,
+  hasResult,
   hasScore,
   isCountable,
   isExhibition,
@@ -631,10 +632,31 @@ describe("the ledger holds only played finals — silences never enter it", () =
       expect(new Set(row.sightings.map((s) => s.key)).size).toBe(row.sightings.length);
       // Both codes are printed, because both conferences did collect it.
       expect(row.codes.length).toBe(row.sightings.length);
-      // And the row resolves to the conference the home side plays in — when
-      // there is one. A neutral-site row has no home side to resolve by.
+      // And the row resolves by the fold's own contract (division.ts
+      // foldToMatches, and the #34 note there): the posted record first, the
+      // home side's conference as the tiebreak among the records that
+      // posted. So the home side is a member of SOME sighting's season
+      // always, and of the row's own season whenever every record posted.
+      // The 2026-09-05 Bentley v Post match is the case that tells the two
+      // apart: canonical on Bentley's NE10 sighting (2-1 final, home Post)
+      // while Post's own CACC page still held the row as scheduled, so the
+      // row's home side is not an NE10 member and the old assertion, home
+      // side in the row's season, was the test's rule rather than the
+      // fold's. A neutral-site row has no home side to resolve by.
       if (row.neutral) continue;
-      expect(memberSlugs(row.season).has(row.fixture.home), row.identity).toBe(true);
+      expect(
+        row.sightings.some((s) => memberSlugs(s.season).has(row.fixture.home)),
+        row.identity,
+      ).toBe(true);
+      const posted = row.sightings.filter((s) => hasResult(s.fixture));
+      if (posted.length === row.sightings.length) {
+        expect(memberSlugs(row.season).has(row.fixture.home), row.identity).toBe(true);
+      } else {
+        expect(
+          posted.some((s) => s.key === row.key),
+          row.identity,
+        ).toBe(true);
+      }
     }
   });
 
