@@ -1,9 +1,15 @@
 # The Footprint — a map for Touchline
 
 Investigation and pixel reference for the geographic view of the collected
-season. `reference/mocks/map.html` is the binding pixel reference for the map
-itself; the band that shipped from it is `src/components/FootprintBand.astro`,
-and the coordinates both need are in the data home's
+season. Kept as investigation history: every count below (programmes, states,
+fixtures, the three conferences named) is as of 2026-08-31, when this note
+was written and the site followed GAC, LSC and GSC. The conferences the site
+follows now are the list in `src/site.config.ts`, and the map reads the same
+file; the finding does not depend on the counts.
+
+`reference/mocks/map.html` is the binding pixel reference for the map itself;
+the band that shipped from it is `src/components/FootprintBand.astro`, and the
+coordinates both need are in the data home's
 `data/reference/programmes.json` (`touchline.programmes/2`), beside
 `membership.json`.
 

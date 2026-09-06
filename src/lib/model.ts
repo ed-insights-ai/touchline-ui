@@ -7,12 +7,24 @@
 //     http://www.apache.org/licenses/LICENSE-2.0
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VENDORED, verbatim, from keelson-rib-touchline `src/model.ts`.
+// Descends from keelson-rib-touchline `src/model.ts`; this site owns this copy.
 //
-// The rib is the authority for these shapes; this site is a reader. It is
-// vendored rather than imported so the build has no runtime dependency on the
-// rib — the only contract between them is the JSON in the data home. When the
-// rib's model changes, re-copy this file; do not edit it here.
+// The rib is the authority for the shapes of the files it writes, and it
+// publishes that contract as one sample document per schema under its
+// `contracts/` directory, held to the writer by the rib's own CI. This file
+// is the reader's side of that contract, not a verbatim copy of the rib's
+// module: it was copied once, and has since taken site-side doc comments and
+// site-side rules (the forfeit award in `outcome`, the exhibition and
+// non-member guards in `computeTable`) that the rib's file does not carry.
+// Nothing is imported from the rib, so the build has no runtime dependency
+// on it; the JSON in the data home is the only thing the two repos share.
+//
+// Two tests hold this file to the rib's contract, reading the rib checkout:
+// `contracts.test.ts` parses every published fixture under these strict
+// schemas, and `model-drift.test.ts` compares the field inventory of the four
+// season-file schemas here with what the rib's fixtures exercise, in both
+// directions, naming any key that drifts. Edit this file here; when the rib's
+// contract changes, those two tests say which key moved.
 //
 // Site-specific derivations live in `derive.ts`, never in this file.
 // ─────────────────────────────────────────────────────────────────────────────

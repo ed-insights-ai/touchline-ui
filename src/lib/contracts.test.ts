@@ -8,18 +8,18 @@
 // writer), and a reader-side tightening fails here, in this repo's gate, and
 // never on the published build.
 //
-// The fixtures are read from the rib checkout, never copied here: a copy is a
-// second source of truth that drifts. `TOUCHLINE_CONTRACTS_DIR` names the
-// directory; the default is a sibling checkout of the rib next to this repo.
-// When neither exists the suite skips with the path it looked at in the test
-// name, so an absent checkout reads as absent and not as green.
+// The fixtures are read from the rib checkout, never copied here; see
+// contracts-dir.ts for where, and model-drift.test.ts for the other check
+// that reads the same files. When the directory is absent the suite skips
+// with the path it looked at in the test name, so an absent checkout reads
+// as absent and not as green.
 //
 // The journal is out of scope here: its writer is this repo, not the rib.
 
 import { describe, expect, test } from "bun:test";
-import { existsSync, readFileSync } from "node:fs";
-import { homedir } from "node:os";
-import { join, resolve } from "node:path";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { contractsDir, contractsPresent } from "./contracts-dir.ts";
 import { COVERAGE_SCHEMA, coverageFileSchema } from "./coverage.ts";
 import {
   FIXTURES_SCHEMA,
@@ -33,28 +33,8 @@ import {
 } from "./model.ts";
 import { PROGRAMMES_SCHEMA, programmesFileSchema } from "./programmes.ts";
 
-/** The one file every published contracts/ directory carries. */
-const MARKER = "coverage-1.json";
-const SIBLING = resolve(import.meta.dir, "..", "..", "..", "keelson-rib-touchline", "contracts");
-
-function expandTilde(p: string): string {
-  return p === "~" || p.startsWith("~/") ? join(homedir(), p.slice(1)) : p;
-}
-
-/** Where the rib's contracts/ directory is, mirroring how `dataRoot()` reads
- *  `TOUCHLINE_DATA_DIR`. Being pointed at the rib checkout rather than its
- *  contracts/ directory is a likely enough slip to recognise. */
-export function contractsDir(): string {
-  const override = process.env.TOUCHLINE_CONTRACTS_DIR?.trim();
-  const dir = resolve(override ? expandTilde(override) : SIBLING);
-  if (!existsSync(join(dir, MARKER)) && existsSync(join(dir, "contracts", MARKER))) {
-    return join(dir, "contracts");
-  }
-  return dir;
-}
-
 const dir = contractsDir();
-const present = existsSync(join(dir, MARKER));
+const present = contractsPresent(dir);
 
 /** One fixture per schema this site reads; the file name carries the version. */
 const contracts = [
