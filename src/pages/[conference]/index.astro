@@ -146,7 +146,9 @@ const emphasis = (f: Fixture): "home" | "away" =>
 const daysUntil = (iso: string): number => dayNumber(iso) - dayNumber(season.asOf);
 const nextLabel = (f: Fixture): string => {
   const d = daysUntil(f.date);
-  const when = d === 0 ? "TONIGHT" : d === 1 ? "TOMORROW" : stampDate(f.date);
+  // TODAY, not TONIGHT: a same-day kickoff can be 2:00 PM, and the clock
+  // beside it says when (UI review, 2026-09-06).
+  const when = d === 0 ? "TODAY" : d === 1 ? "TOMORROW" : stampDate(f.date);
   const t = clockTime(f.time);
   return t ? `${when} · ${t}` : when;
 };
