@@ -65,6 +65,7 @@ import {
 } from "./home.ts";
 import { loadNationalJournal, type NationalJournalFile } from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
+import { conferenceEntries, ledgerSummary, splitLedger } from "./nav.ts";
 import { type RegionConfig, regionsInUse } from "./regions.ts";
 
 const seasons = homeSeasons();
@@ -478,6 +479,61 @@ describe("up to the column cap the page is columns; past it, region bands", () =
             columns.some((c) => c.key === k),
             k,
           ).toBe(true);
+      },
+    );
+
+    // The find-your-conference strip (tl-tav2): every collected conference,
+    // once, in config order, each a link to its own overview with the full
+    // name on the title — read off the built page, where the links are.
+    test.skipIf(stale !== null)("the strip lists every configured conference exactly once", () => {
+      const html = readFileSync(dist, "utf8");
+      const strip = /<nav class="conf-strip[^"]*"[^>]*>([\s\S]*?)<\/nav>/.exec(html)?.[1] ?? "";
+      expect(strip).not.toBe("");
+      const links = [
+        ...strip.matchAll(
+          /<a class="conf-chip"[^>]*href="([^"]+)"[^>]*title="([^"]+)"[^>]*>([^<]+)<\/a>/g,
+        ),
+      ];
+      const entries = conferenceEntries(seasons);
+      expect(entries.map((e) => e.key)).toEqual(
+        site.conferences.filter((k) => seasons.some((s) => s.key === k)),
+      );
+      // The built page carries the deploy base and the test process may not,
+      // so the link is held by its last segment: the conference's own key.
+      const keyOf = (href: string): string => /\/([^/]+)\/$/.exec(href)?.[1] ?? href;
+      expect(links.map((m) => keyOf(m[1] ?? ""))).toEqual(entries.map((e) => e.key));
+      expect(new Set(links.map((m) => m[1])).size).toBe(links.length);
+      expect(links.map((m) => m[3])).toEqual(entries.map((e) => e.abbr));
+      expect(links.map((m) => m[2])).toEqual(entries.map((e) => e.name));
+    });
+
+    // The ledger's fold: the first cap rows stand in the open, the rest sit
+    // inside a native <details> whose summary counts the whole night.
+    test.skipIf(stale !== null)(
+      "the ledger folds past the cap, and the summary counts the night",
+      () => {
+        const html = readFileSync(dist, "utf8");
+        const ledger = lastNightLedger(seasons, lastNightOf(nationalAsOf(seasons)));
+        const section =
+          /<section class="lastnight[^"]*"[^>]*>([\s\S]*?)<\/section>/.exec(html)?.[1] ?? "";
+        expect(section).not.toBe("");
+        const rowsIn = (s: string): number => [...s.matchAll(/<a class="lrow[ "]/g)].length;
+        expect(rowsIn(section)).toBe(ledger.length);
+        const at = section.indexOf('<details class="ledger-more');
+        const { open, folded } = splitLedger(ledger, site.homeLedgerCap);
+        if (folded.length === 0) {
+          expect(at).toBe(-1);
+          expect(rowsIn(section)).toBe(open.length);
+          return;
+        }
+        expect(at).toBeGreaterThan(-1);
+        expect(rowsIn(section.slice(0, at))).toBe(open.length);
+        expect(rowsIn(section.slice(at))).toBe(folded.length);
+        const summary = /<summary[^>]*class="ledger-sum[^"]*"[^>]*>([^<]*)<\/summary>/.exec(
+          section,
+        )?.[1];
+        expect(summary).toBe(ledgerSummary(ledger.length));
+        expect(Number(/\d+/.exec(summary ?? "")?.[0])).toBe(ledger.length);
       },
     );
   });
