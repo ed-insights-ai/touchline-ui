@@ -8,7 +8,8 @@
 
 set shell := ["bash", "-uc"]
 
-# How a collect is invoked. The launchd cadence script is the source of truth
+# How a collect is invoked. The rib's bin/touchline-collect-cadence.sh (installed
+# behind a launchd shim) is the source of truth
 # for that command; this delegates rather than restating it. It is passed its
 # `collect` mode — collect and detect only — because with no argument the
 # script runs its FULL loop (collect, journal, commit, publish), and `just all`

@@ -390,14 +390,16 @@ SITE_BASE=/touchline-ui SITE_URL=https://ed-insights-ai.github.io just build
 just publish
 ```
 
-The loop is **not yet automated**: the launchd cadence job still only runs the
-collect, so the site holds at whatever collect last went through `just`.
+The loop is automated: the launchd cadence job (the rib's
+`bin/touchline-collect-cadence.sh`, run through a shim) collects every
+conference each morning, regenerates the conference and national journals for
+whatever changed, commits them on `main`, and runs `just publish`. Its log and a
+per-run JSON record live under `~/.keelson/logs/`.
 
 Every internal link goes through that base. `dist/` is host-agnostic, so Cloudflare
 Pages or Netlify would serve the same branch unchanged.
 
 ## What is not built yet
 
-- The player sheet (`reference/mocks/player.html`) — a phase-2 island.
 - Interaction model beyond links: week-dot rewind, evidence-chip provenance
   detail, coverage-gap detail. The hooks are in place (titles, hover states).
