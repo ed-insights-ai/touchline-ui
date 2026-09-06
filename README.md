@@ -12,7 +12,7 @@ build is `reference/ARCHITECTURE.md`.
 ```sh
 bun install
 bun run dev        # http://localhost:4321
-bun run build      # → dist/   (2,795 pages for 2026 men, the nineteen conferences in src/site.config.ts)
+bun run build      # → dist/   one season, the conferences in src/site.config.ts; the build prints the page count
 bun run preview
 bun run check      # biome
 bunx tsc --noEmit  # types
@@ -39,15 +39,21 @@ The files read, and the contracts they must satisfy:
 | `data/coverage.json` | `touchline.coverage/1` |
 | `data/reference/programmes.json` | `touchline.programmes/2` |
 
-`src/lib/model.ts` is vendored **verbatim** from the rib's `src/model.ts` — the
-rib is the authority for these shapes. Re-copy it when the rib's model changes;
-never edit it here. The only contract between the two repos is the JSON.
+`src/lib/model.ts` descends from the rib's `src/model.ts` and is this site's
+own file: the rib is the authority for the shapes of the files it writes, and
+this is the reader's side of that contract, with site-side rules the rib's
+file does not carry (its header says which). The only contract between the two
+repos is the JSON.
 
-The rib also publishes one sample document per schema under its `contracts/`
-directory. `src/lib/contracts.test.ts` parses each under this site's strict
-schema, so a writer-side shape change fails in the rib's CI and a reader-side
-tightening fails in `bun test` here, never on the published build. The fixtures
-are read from the rib checkout, not copied:
+What holds the two together is the contract the rib publishes: one sample
+document per schema under its `contracts/` directory, cut to exercise every
+field the writer can emit and held to the writer by the rib's CI.
+`src/lib/contracts.test.ts` parses each under this site's strict schema, and
+`src/lib/model-drift.test.ts` compares the four season-file schemas' field
+inventory with those documents key by key, naming any key that drifts in
+either direction. So a writer-side shape change fails in the rib's CI and a
+reader-side tightening fails in `bun test` here, never on the published build.
+The fixtures are read from the rib checkout, not copied:
 
 ```
 TOUCHLINE_CONTRACTS_DIR   the rib's contracts/ directory
@@ -64,8 +70,10 @@ with a warning naming the path.
 ## Conferences are configuration
 
 `src/site.config.ts` holds the season, gender, and the conference file keys in
-navigation order. No conference name appears anywhere in the code. Switching the
-site to GSC or LSC alone is an edit to that file; all three render today.
+navigation order. No conference name appears anywhere in the code. Narrowing
+the site to one conference or adding another is an edit to that file and
+nothing else; every conference it lists renders, and how many that is today
+is that list's length (the build prints the page count).
 
 Conference labels, programme names and abbreviations come from the data files'
 own `programmes[]`. Opponents outside the collected conferences are named from
@@ -76,11 +84,11 @@ lists the regions in navigation order. Regions are configuration too; they group
 the footprint map's key and label the map itself (each region's label sits at
 the centroid of its dots plus a per-region `label` nudge from the same table),
 and the home page groups its cards the same way once the conferences outnumber
-`homeColumnCap` (six today): one column each up to the cap, region bands past
-it, each band a disclosure on a phone. The masthead's conference menu lists the
-conferences the same way: region-major, each region a run of rows under its own
-head, whole regions per column, three columns balanced by row count
-(`src/lib/menu.ts`). The map draws every dot in one ink and tints nothing:
+`homeColumnCap` (set in the same file): one column each up to the cap, region
+bands past it, each band a disclosure on a phone. The masthead's conference
+menu lists the conferences the same way: region-major, each region a run of
+rows under its own head, whole regions per column, three columns balanced by
+row count (`src/lib/menu.ts`). The map draws every dot in one ink and tints nothing:
 hovering a key row or a dot group selects that conference in purple, and the
 key carries identity at rest. `src/lib/fixtures/density.ts` holds synthetic
 12- and 19-conference sets so those sizes could be tested before the conferences
@@ -135,15 +143,16 @@ order:
 
 1. `$TOUCHLINE_JOURNAL_DIR/journal-{season}-{gender}-{conf}.json`
 2. `{data home}/data/journal/journal-…json`
-3. `./journal/journal-…json`  ← where `journal/journal-2026-men-gac.json` lives
-   today, seeded from `reference/journal.sample.json`
+3. `./journal/journal-…json`  ← where the checked-in journals live, one per
+   conference in `src/site.config.ts`; the first was seeded from
+   `reference/journal.sample.json`
 
 **AI is never a runtime dependency.** A journal that is missing, stale, or
 malformed leaves the pages standing. Without one, the Season page composes its
 headline, dek, pattern chart, findings and watchlist from the data alone — see
 `fallbackPattern` / `fallbackFindings` in `src/lib/journal.ts` and
-`conferenceLeaders` in `src/lib/derive.ts`. `/lsc/` and `/gsc/` show that state
-right now; `/gac/` shows the written one.
+`conferenceLeaders` in `src/lib/derive.ts`. A conference with no journal file
+shows that state; one with a journal shows the written one.
 
 ### Writing one
 
@@ -286,9 +295,10 @@ obvious reading:
    `"goal"` or `"penalty"`. Two of the four `penalty` plays in the 2026 data are
    *misses* (`"PENALTY KICK MISS, saved by …"`). Treating the type as the
    discriminator would put two goals on the site that were never scored.
-2. **Document order is the record.** 28 plays across the three conferences have
-   no clock — 25 of them in one GSC match. Those rows show an em-dash and say
-   *no clock published*. Nothing is sorted by clock and no time is inferred.
+2. **Document order is the record.** Plays with no clock exist in the collected
+   data — most of them in a single GSC match. Those rows show an em-dash and
+   say *no clock published*. Nothing is sorted by clock and no time is
+   inferred.
 3. **Names are cut at the sentence's own connectives** — `Assist by`, ` for `,
    `, saved by` — never at the first comma, because a published name *contains*
    a comma. Cutting there turns `"Doe, Lawrence Assist by Hernandez, Victor"`
@@ -300,8 +310,8 @@ spelling the rest of the page uses. A name the teamsheet does not carry is
 flipped on its comma and otherwise left alone — including `"unknown player"`,
 which is what the source actually said.
 
-Other published forms the parser handles, all verified against 4,222 rendered
-rows in all three conferences:
+Other published forms the parser handles, each verified against the rendered
+rows of the conferences collected when it was written:
 
 | Published | Rendered |
 |---|---|
