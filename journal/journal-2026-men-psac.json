@@ -3,37 +3,38 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-05T11:52:00+00:00",
-  "data_collected_at": "2026-09-05T11:35:06+00:00",
-  "headline": "Millersville score a dozen before conference play opens",
-  "dek": "Millersville have scored twelve and conceded three, and both of the season's box-score gaps are theirs: the site holds those scores and not the shape of them. Slippery Rock and West Chester have yet to score, and every programme now has a match on the record.",
+  "generated_at": "2026-09-06T11:52:00+00:00",
+  "data_collected_at": "2026-09-06T11:34:53+00:00",
+  "headline": "Every side in the conference has now scored",
+  "dek": "Slippery Rock had not scored before Saturday; then they put four past District of Columbia, while West Chester's first goal of the season came the same afternoon at Wilmington. West Chester have yet to win or lose; Slippery Rock have already done both.",
   "lede_basis": {
-    "programme": "millersville",
-    "gf": 12,
-    "ga": 3,
-    "set": "box_score_gaps",
-    "all_of": "millersville",
-    "count": 2
+    "programme": "slippery-rock",
+    "gf": 4,
+    "ga": 2,
+    "wins": 1,
+    "draws": 1,
+    "losses": 1
   },
-  "lede_updated": "2026-09-04",
+  "lede_updated": "2026-09-06",
+  "displaced_by": "Slippery Rock and West Chester both scored on Sep 5; the standing lines said neither had, and Millersville are past a dozen",
   "pattern": {
     "label": "derived",
-    "text": "The conference's goals are stacked at one end: Millersville have outscored Bloomsburg and Seton Hill together, while at the other end Slippery Rock and West Chester have no goal to draw.",
+    "text": "The goals still sit at one end: Millersville have outscored Gannon and East Stroudsburg together, while the bottom of the chart has filled in and no programme is now without a goal.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "millersville": 12,
-        "bloomsburg": 7,
+        "millersville": 15,
+        "bloomsburg": 10,
         "gannon": 7,
+        "e-stroudsburg": 6,
         "california-pa": 5,
-        "e-stroudsburg": 5,
+        "shepherd": 5,
         "pitt-johnstown": 4,
         "seton-hill": 4,
+        "slippery-rock": 4,
         "lock-haven": 3,
-        "shepherd": 3,
-        "shippensburg": 2,
-        "slippery-rock": 0,
-        "west-chester": 0
+        "shippensburg": 3,
+        "west-chester": 1
       },
       "highlight": "millersville"
     },
@@ -41,18 +42,21 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "millersville",
-      "of": ["bloomsburg", "seton-hill"],
-      "gf": 12
+      "of": ["gannon", "e-stroudsburg"],
+      "gf": 15
     }
   },
   "wire": {
-    "line": "Slippery Rock and West Chester are the only sides yet to score.",
+    "line": "Millersville have scored fifteen and conceded three, and all three of the season's box-score gaps are theirs.",
     "basis": {
-      "programme": "slippery-rock",
-      "gf": 0,
-      "ga": 1
+      "programme": "millersville",
+      "gf": 15,
+      "ga": 3,
+      "set": "box_score_gaps",
+      "all_of": "millersville",
+      "count": 3
     },
-    "updated": "2026-09-04"
+    "updated": "2026-09-06"
   },
   "findings": [
     {
@@ -69,30 +73,20 @@
     },
     {
       "label": "observed",
-      "text": "Gannon have won both matches since losing their opener at home to Lake Erie, the second of them at Ashland, the side that had won at Millersville.",
+      "text": "Bloomsburg's ten goals have come from eight different scorers, and their one defeat was at Frostburg State.",
       "basis": {
-        "programme": "gannon",
-        "wins": 2,
+        "programme": "bloomsburg",
+        "wins": 3,
         "draws": 0,
-        "losses": 1
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Pitt-Johnstown's first match on the record was a win at Chestnut Hill: four goals scored and two conceded, the four coming from four different scorers.",
-      "basis": {
-        "programme": "pitt-johnstown",
-        "wins": 1,
-        "draws": 0,
-        "losses": 0,
-        "gf": 4,
-        "ga": 2,
-        "distinct_scorers_min": 4
+        "losses": 1,
+        "gf": 10,
+        "ga": 5,
+        "distinct_scorers_min": 8
       }
     },
     {
       "label": "derived",
-      "text": "California (Pa.) have conceded ten goals, more than any other programme has let in, and scored five.",
+      "text": "California (Pa.) have conceded twelve goals, more than any other programme has let in, and scored five.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -111,19 +105,19 @@
           "west-chester"
         ],
         "gf": 5,
-        "ga": 10
+        "ga": 12
       }
     },
     {
       "label": "observed",
-      "text": "Shepherd are unbeaten, with Aidan Houck making fifteen saves and conceding twice across their matches.",
+      "text": "Shepherd are unbeaten, with Aidan Houck making fifteen saves and conceding three across their matches.",
       "basis": {
         "source": "stats",
         "player": "Aidan Houck",
         "programme": "shepherd",
         "saves": 15,
-        "goals_against": 2,
-        "wins": 1,
+        "goals_against": 3,
+        "wins": 2,
         "draws": 1,
         "losses": 0
       }
@@ -131,39 +125,39 @@
   ],
   "players_to_watch": [
     {
+      "player": "Steven Arias",
+      "programme": "e-stroudsburg",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 7 shots"
+    },
+    {
+      "player": "Roy Parkyn",
+      "programme": "millersville",
+      "position": "MID",
+      "class": "SR",
+      "line": "3 G · 6 shots"
+    },
+    {
       "player": "Rafa Hyde",
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
       "line": "2 G · 2 A · 12 shots"
-    },
-    {
-      "player": "Zander Leik",
-      "programme": "millersville",
-      "position": "FWD",
-      "class": "5Y",
-      "line": "2 G · 1 A · 5 shots"
-    },
-    {
-      "player": "Andrew Beagle",
-      "programme": "bloomsburg",
-      "position": "DEF",
-      "class": "SO",
-      "line": "2 G · 4 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-04 ashland v gannon",
-      "line": "Gannon's first match away from home ends a run: Ashland had already won at Millersville."
+      "fixture_ref": "2026-09-05 slippery-rock v district-of-columbia",
+      "line": "Slippery Rock's first goals of the season, all in one afternoon; District of Columbia had beaten Seton Hill, and their date with Shepherd still has no result."
     },
     "next_match": {
-      "fixture_ref": "2026-09-05 slippery-rock v district-of-columbia",
-      "line": "Slippery Rock have yet to score; District of Columbia have beaten Seton Hill, and their date with Shepherd still has no result."
+      "fixture_ref": "2026-09-06 pitt-johnstown v georgian-court",
+      "line": "Pitt-Johnstown's only match on the record was a win at Chestnut Hill; this is their first at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T11:39:20.489Z"
+    "validated_at": "2026-09-06T11:44:18.232Z"
   }
 }

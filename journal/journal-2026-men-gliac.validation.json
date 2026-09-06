@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-05T11:36:38.657Z",
-  "data_collected_at": "2026-09-05T11:33:33+00:00",
+  "validated_at": "2026-09-06T11:41:50.306Z",
+  "data_collected_at": "2026-09-06T11:33:10+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,15 +18,15 @@
   "review": [
     {
       "path": "findings[2].text",
-      "text": "Estefano Alvear has conceded a single goal for Purdue Northwest and kept two shutouts, a save percentage of .923.",
-      "unbacked": ["923"]
+      "text": "Estefano Alvear has conceded three goals for Purdue Northwest and kept two shutouts, a save percentage of .857.",
+      "unbacked": ["857"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Purdue Northwest have scored only three goals and are unbeaten on the back of a single goal conceded. The shape of the chart is not the shape of the records: what a side allows has mattered more than what it scores.",
+      "text": "Purdue Northwest have scored six goals and are unbeaten with three conceded. The chart ranks what sides score; the records so far have followed what they allow.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Estefano Alvear has conceded a single goal for Purdue Northwest and kept two shutouts, a save percentage of .923.",
+      "text": "Estefano Alvear has conceded three goals for Purdue Northwest and kept two shutouts, a save percentage of .857.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Saginaw Valley State have spread six goals across five different scorers.",
+      "text": "Purdue Northwest have spread six goals across five different scorers.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Fynn Mewes — 3 G · 1 A · 8 shots",
+      "text": "Fynn Mewes — 4 G · 1 A · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Matty Telfer — 2 G · 1 A · 7 shots",
+      "text": "Andrés García — 3 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-03 northern-michigan v lake-erie",
+      "text": "2026-09-05 lake-erie v roosevelt",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-05 lake-erie v roosevelt",
+      "text": "2026-09-06 saginaw-valley-state v northern-michigan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-05T11:36:04.311Z",
-    "generate_ms": 34343,
-    "validate_ms": 3,
-    "wall_ms": 34346,
+    "started_at": "2026-09-06T11:40:30.735Z",
+    "generate_ms": 79569,
+    "validate_ms": 1,
+    "wall_ms": 79570,
     "concurrency": 4
   }
 }

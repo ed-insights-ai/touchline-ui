@@ -3,43 +3,44 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-05T11:48:00+00:00",
-  "data_collected_at": "2026-09-05T11:33:33+00:00",
+  "generated_at": "2026-09-06T11:48:00+00:00",
+  "data_collected_at": "2026-09-06T11:33:10+00:00",
   "headline": "Roosevelt unbeaten and scoring like no one else",
-  "dek": "Roosevelt have scored twelve goals and conceded five without losing, more than Davenport, Purdue Northwest and Wisconsin-Parkside have managed between them. Only Purdue Northwest and Saginaw Valley State have otherwise gone unbeaten, and no member has yet met another.",
+  "dek": "Roosevelt have scored thirteen goals and conceded six without losing, more than Davenport, Purdue Northwest and Wisconsin-Parkside have managed between them. Only Purdue Northwest and Saginaw Valley State have otherwise gone unbeaten, and no member has yet met another.",
   "lede_basis": {
     "programme": "roosevelt",
-    "gf": 12,
-    "ga": 5,
+    "gf": 13,
+    "ga": 6,
     "wins": 4,
-    "draws": 2,
+    "draws": 3,
     "losses": 0,
     "comparative": "greater_than_sum",
     "metric": "gf",
     "of": ["davenport", "purdue-northwest", "wisconsin-parkside"]
   },
-  "lede_updated": "2026-09-04",
+  "lede_updated": "2026-09-06",
+  "displaced_by": "Roosevelt's draw at Lake Erie moved the dek's figures to thirteen scored and six conceded; the headline stands",
   "pattern": {
     "label": "signal",
-    "text": "Purdue Northwest have scored only three goals and are unbeaten on the back of a single goal conceded. The shape of the chart is not the shape of the records: what a side allows has mattered more than what it scores.",
+    "text": "Purdue Northwest have scored six goals and are unbeaten with three conceded. The chart ranks what sides score; the records so far have followed what they allow.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "roosevelt": 12,
+        "roosevelt": 13,
         "northern-michigan": 7,
+        "purdue-northwest": 6,
         "saginaw-valley-state": 6,
         "st-cloud-state": 4,
         "davenport": 3,
-        "purdue-northwest": 3,
         "wisconsin-parkside": 3
       },
       "highlight": "roosevelt"
     },
     "basis": {
       "programme": "purdue-northwest",
-      "gf": 3,
-      "ga": 1,
-      "wins": 2,
+      "gf": 6,
+      "ga": 3,
+      "wins": 3,
       "draws": 1,
       "losses": 0
     }
@@ -83,24 +84,24 @@
     },
     {
       "label": "observed",
-      "text": "Estefano Alvear has conceded a single goal for Purdue Northwest and kept two shutouts, a save percentage of .923.",
+      "text": "Estefano Alvear has conceded three goals for Purdue Northwest and kept two shutouts, a save percentage of .857.",
       "basis": {
         "source": "stats",
         "player": "Estefano Alvear",
         "programme": "purdue-northwest",
-        "goals_against": 1,
+        "goals_against": 3,
         "shutouts": 2,
-        "save_pct": 0.923
+        "save_pct": 0.857
       }
     },
     {
       "label": "derived",
-      "text": "Saginaw Valley State have spread six goals across five different scorers.",
+      "text": "Purdue Northwest have spread six goals across five different scorers.",
       "basis": {
-        "programme": "saginaw-valley-state",
+        "programme": "purdue-northwest",
         "distinct_scorers_min": 5,
         "gf": 6,
-        "ga": 4
+        "ga": 3
       }
     },
     {
@@ -109,7 +110,7 @@
       "basis": {
         "programme": "roosevelt",
         "wins": 4,
-        "draws": 2,
+        "draws": 3,
         "losses": 0,
         "comparative": "greater_than_each",
         "metric": "wins",
@@ -130,7 +131,7 @@
       "programme": "roosevelt",
       "position": "FWD",
       "class": "5Y",
-      "line": "3 G · 1 A · 8 shots"
+      "line": "4 G · 1 A · 10 shots"
     },
     {
       "player": "Luca Rosen",
@@ -140,25 +141,25 @@
       "line": "3 G · 1 A · 8 shots"
     },
     {
-      "player": "Matty Telfer",
-      "programme": "saginaw-valley-state",
+      "player": "Andrés García",
+      "programme": "st-cloud-state",
       "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 1 A · 7 shots"
+      "class": "5Y",
+      "line": "3 G · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-03 northern-michigan v lake-erie",
-      "line": "Northern Michigan's only defeat came at Tiffin, where Saginaw Valley State have since drawn."
+      "fixture_ref": "2026-09-05 lake-erie v roosevelt",
+      "line": "Roosevelt stay unbeaten; Lake Erie arrived from defeat at Northern Michigan."
     },
     "next_match": {
-      "fixture_ref": "2026-09-05 lake-erie v roosevelt",
-      "line": "Roosevelt have yet to lose; Lake Erie arrive from defeat at Northern Michigan."
+      "fixture_ref": "2026-09-06 saginaw-valley-state v northern-michigan",
+      "line": "The first meeting of two members this season, though not yet a conference match; Saginaw Valley State are unbeaten."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T11:36:38.657Z"
+    "validated_at": "2026-09-06T11:41:50.306Z"
   }
 }

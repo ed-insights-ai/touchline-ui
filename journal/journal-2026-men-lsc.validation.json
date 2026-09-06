@@ -4,24 +4,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-05T11:37:44.811Z",
-  "data_collected_at": "2026-09-05T11:34:23+00:00",
+  "validated_at": "2026-09-06T11:43:02.783Z",
+  "data_collected_at": "2026-09-06T11:33:54+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 12,
-    "contradicted": 1,
+    "verified": 13,
+    "contradicted": 0,
     "unverifiable": 0,
-    "dropped": 1
+    "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[1].text",
-      "text": "Six different players have scored UT Dallas's eight goals, half of them on one night at Hawaii Pacific.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -44,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Oklahoma Christian remain unbeaten after three matches, and Newman are the only side to have scored against them.",
-      "checker": "team_goals+team_record",
+      "text": "Oklahoma Christian's unbeaten start is over after defeat at Northeastern State; Midwestern State, Texas A&M International and UT Tyler are the sides yet to lose.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,27 +56,26 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Six different players have scored UT Dallas's eight goals, half of them on one night at Hawaii Pacific.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "Sul Ross State have lost all three of their matches without scoring, and have conceded eleven.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["goals_at_hawaii_pacific: 4"]
+      "dropped": false
     },
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Midwestern State have conceded two goals in three matches and are still unbeaten after their first trip away, a draw at UCCS.",
-      "checker": "team_goals+team_record+fixture_counts",
-      "verdict": "contradicted",
-      "mismatches": ["played: claimed 3, data holds 26"],
-      "dropped": true
+      "text": "Fernando Hernandez has made twenty-three saves for Sul Ross State and has yet to keep a clean sheet.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's three matches and been beaten once.",
-      "checker": "player_stat+team_record",
+      "text": "Dallas Baptist have won both matches since losing to UT Tyler on the opening night, scoring five and conceding two.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -90,8 +83,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Fernando Hernandez has made eighteen saves for Sul Ross State and has yet to keep a clean sheet.",
-      "checker": "player_stat",
+      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's four matches and conceded four goals.",
+      "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -99,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jose Ortiz — 4 G · 9 shots",
+      "text": "Kenzo Shabazz-Edwards — 4 G · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -108,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kenzo Shabazz-Edwards — 3 G · 8 shots",
+      "text": "Jose Ortiz — 4 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -117,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Luis Alvis — 2 G · 1 A · 7 shots",
+      "text": "Luis Alvis — 2 G · 1 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-04 hawaii-pacific v ut-dallas",
+      "text": "2026-09-05 northeastern-state v oklahoma-christian",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-05 texas-a-m-international v sul-ross-state",
+      "text": "2026-09-06 msu-denver v midwestern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -143,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-05T11:37:04.344Z",
-    "generate_ms": 40465,
+    "started_at": "2026-09-06T11:41:50.380Z",
+    "generate_ms": 72401,
     "validate_ms": 1,
-    "wall_ms": 40466,
+    "wall_ms": 72402,
     "concurrency": 4
   }
 }

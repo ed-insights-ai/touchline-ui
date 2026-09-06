@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-05T14:07:45.470Z",
-  "data_collected_at": "2026-09-05T13:50:29+00:00",
+  "validated_at": "2026-09-06T11:44:55.693Z",
+  "data_collected_at": "2026-09-06T11:35:25+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Mars Hill's twelve goals are spread across eight different scorers, and no one of them has more than Logan Knight's three.",
+      "text": "Mars Hill's thirteen goals are spread across eight different scorers, and no one of them has more than Logan Knight's four.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Wingate have yet to concede; Emory & Henry have yet to see a result published.",
-      "checker": "team_goals",
+      "text": "Only Anderson and Catawba remain unbeaten; Emory & Henry still have no published result at all.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,14 +65,23 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Lenoir-Rhyne have scored seven and conceded nine, and remain without a win: one draw, two defeats.",
-      "checker": "team_goals+team_record",
+      "text": "Newberry have lost all three of the matches that carry a result, scoring once and conceding nine. Giuseppe Gereau is the only player to have scored for them.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Lenoir-Rhyne have scored eight and conceded ten, and remain without a win: two draws, two defeats.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Anderson's Asher Risell has kept two clean sheets and conceded one goal.",
       "checker": "player_stat",
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Logan Knight — 3 G · 8 shots",
+      "text": "Logan Knight — 4 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Oskar Dahlberg — 2 G · 1 A · 3 shots",
+      "text": "Oskar Dahlberg — 3 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Austin Vicenzino — 2 G · 4 shots",
+      "text": "Alex Payton — 2 G · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-02 converse v wingate",
+      "text": "2026-09-05 newberry v catawba",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-05 lincoln-memorial v wingate",
+      "text": "2026-09-06 anderson v coker",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-05T14:05:53.737Z",
-    "generate_ms": 111731,
+    "started_at": "2026-09-06T11:43:51.693Z",
+    "generate_ms": 63999,
     "validate_ms": 1,
-    "wall_ms": 111732,
-    "concurrency": 3
+    "wall_ms": 64000,
+    "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-04T15:01:47.592Z",
-  "data_collected_at": "2026-09-04T11:30:05+00:00",
+  "validated_at": "2026-09-06T11:39:47.777Z",
+  "data_collected_at": "2026-09-06T11:30:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -22,9 +22,9 @@
       "unbacked": ["2"]
     },
     {
-      "path": "findings[2].text",
-      "text": "Max Bond has made seventeen saves and conceded six for Chestnut Hill, a save percentage of .739 across a win and two defeats.",
-      "unbacked": ["739"]
+      "path": "findings[3].text",
+      "text": "Max Bond has now made 28 saves for Chestnut Hill and conceded seven, a save percentage of .800.",
+      "unbacked": ["800"]
     }
   ],
   "claims": [
@@ -58,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Two matches carry a published result but no box score, and both are Goldey-Beacom's: the defeat by Pace and the goalless draw with District of Columbia that followed. The site has those scores and not the shape of them.",
+      "text": "Three matches carry a published result but no box score, and all three are Goldey-Beacom's: the defeat by Pace, the goalless draw with District of Columbia, and the defeat at Bloomsburg. The site has those scores and not the shape of them.",
       "checker": "box_score_gaps+set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -66,9 +66,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "derived",
-      "text": "Bartu Yakkan has three of Felician's five goals and two assists, so he has had a hand in every goal Felician have scored.",
-      "checker": "player_stat+team_goals",
+      "label": "observed",
+      "text": "Post's home match with Bentley has passed its date without a published result, the only match in the conference in that state.",
+      "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -76,8 +76,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Max Bond has made seventeen saves and conceded six for Chestnut Hill, a save percentage of .739 across a win and two defeats.",
-      "checker": "player_stat+team_record",
+      "text": "Jefferson have lost all three of their matches, conceding twelve goals against three scored.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -85,17 +85,17 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Jefferson have lost both matches, conceding five and scoring once, through Thomas Dell'Omo at Bloomsburg.",
-      "checker": "team_goals+team_record",
+      "text": "Max Bond has now made 28 saves for Chestnut Hill and conceded seven, a save percentage of .800.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[4]",
-      "label": "observed",
-      "text": "Bruno Mestres has made seventeen saves for Holy Family and conceded six, without a shutout across a win, a draw and a defeat.",
-      "checker": "player_stat+team_record",
+      "label": "derived",
+      "text": "Bartu Yakkan has scored three of Felician's six goals and assisted two of the others.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-03 georgian-court v staten-island",
+      "text": "2026-09-05 southern-new-hampshire v jefferson",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-05 chestnut-hill v shippensburg",
+      "text": "2026-09-06 pitt-johnstown v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-04T15:00:37.608Z",
-    "generate_ms": 62218,
-    "validate_ms": 1,
-    "wall_ms": 62310,
-    "concurrency": 1
+    "started_at": "2026-09-06T11:38:49.197Z",
+    "generate_ms": 58577,
+    "validate_ms": 2,
+    "wall_ms": 58580,
+    "concurrency": 4
   }
 }

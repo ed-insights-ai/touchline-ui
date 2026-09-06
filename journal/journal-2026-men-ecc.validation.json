@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-05T11:38:37.376Z",
-  "data_collected_at": "2026-09-05T11:30:31+00:00",
+  "validated_at": "2026-09-06T11:40:30.663Z",
+  "data_collected_at": "2026-09-06T11:31:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Staten Island have scored as often as St. Thomas Aquinas, yet have conceded seven and are the only side still without a point: this chart ranks attacks, and attack has not been their problem.",
+      "text": "Staten Island sit second on this chart and have still lost twice: six goals scored are outweighed by seven conceded, and this chart ranks attacks only.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "The conference has drawn as often as it has won against outside opposition, and lost more often than either.",
-      "checker": "outside_record",
+      "text": "No side is still unbeaten, and only Queens have won twice.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Matthew Solorio has kept two clean sheets for D'Youville, and both were goalless draws: the side has still not won.",
-      "checker": "player_stat+team_record",
+      "text": "Daemen have conceded eight goals, more than any other programme, and are still without a win.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Queens have scored four times through four different players.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "D'Youville's two clean sheets, both Matthew Solorio's, were both goalless draws: the side has drawn twice, lost twice, and is still without a win.",
+      "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Daemen have conceded six goals and are still without a win, a total only Staten Island have exceeded.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Lorenzo Herrera has made 21 saves for District of Columbia, and all four goals past him came at Slippery Rock.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 2 G · 1 A · 7 shots",
+      "text": "Tommy Gunn — 2 G · 2 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Taro Aboubakary — 1 G · 8 shots",
+      "text": "Deniz Karcher — 2 G · 1 A · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Nico Gallegos — 1 G · 5 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 2 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-03 saint-anselm v roberts-wesleyan",
+      "text": "2026-09-05 slippery-rock v district-of-columbia",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-05 dominican v staten-island",
+      "text": "2026-09-06 bridgeport v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-05T11:36:04.297Z",
-    "generate_ms": 153003,
+    "started_at": "2026-09-06T11:38:49.213Z",
+    "generate_ms": 101448,
     "validate_ms": 1,
-    "wall_ms": 153079,
+    "wall_ms": 101449,
     "concurrency": 4
   }
 }

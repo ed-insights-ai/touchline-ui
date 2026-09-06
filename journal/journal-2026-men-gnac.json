@@ -3,19 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-09-05T16:45:00+00:00",
-  "data_collected_at": "2026-09-05T16:25:48+00:00",
+  "generated_at": "2026-09-06T11:45:00+00:00",
+  "data_collected_at": "2026-09-06T11:33:33+00:00",
   "headline": "Seattle Pacific and Western Washington keep perfect records",
-  "dek": "Both sides have won every match they have played, and Seattle Pacific have scored ten goals in three of them. Northwest Nazarene are unbeaten too, without a win to show for it.",
+  "dek": "Seattle Pacific have won all four they have played and scored eleven doing it, and Western Washington have matched them win for win. Northwest Nazarene's first victory, at Menlo, keeps them unbeaten too.",
   "lede_basis": {
     "programme": "seattle-pacific",
-    "wins": 3,
+    "wins": 4,
     "draws": 0,
     "losses": 0,
-    "gf": 10,
+    "gf": 11,
     "ga": 5
   },
-  "lede_updated": "2026-09-05",
+  "lede_updated": "2026-09-06",
+  "displaced_by": "dek only: both perfect sides now four from four, and Northwest Nazarene have won at Menlo",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's twelve goals are more than Northwest Nazarene and Simon Fraser have scored together.",
@@ -23,11 +24,11 @@
       "kind": "goals-for-by-team",
       "values": {
         "saint-martins": 12,
-        "seattle-pacific": 10,
+        "seattle-pacific": 11,
         "western-oregon": 9,
-        "western-washington": 7,
-        "northwest-nazarene": 4,
-        "simon-fraser": 2
+        "western-washington": 9,
+        "northwest-nazarene": 5,
+        "simon-fraser": 3
       },
       "highlight": "saint-martins"
     },
@@ -40,14 +41,16 @@
     }
   },
   "wire": {
-    "line": "Northwest Nazarene have drawn all three of their matches.",
+    "line": "Western Washington have won four times and conceded four goals.",
     "basis": {
-      "programme": "northwest-nazarene",
-      "wins": 0,
-      "draws": 3,
-      "losses": 0
+      "programme": "western-washington",
+      "wins": 4,
+      "draws": 0,
+      "losses": 0,
+      "gf": 9,
+      "ga": 4
     },
-    "updated": "2026-09-05"
+    "updated": "2026-09-06"
   },
   "findings": [
     {
@@ -81,24 +84,23 @@
     },
     {
       "label": "observed",
-      "text": "Connor Leistiko holds the conference's only shutouts, two of them, for Saint Martin's.",
+      "text": "Connor Leistiko has two shutouts and seventeen saves for Saint Martin's.",
       "basis": {
         "source": "stats",
         "player": "Connor Leistiko",
         "programme": "saint-martins",
+        "saves": 17,
         "shutouts": 2
       }
     },
     {
       "label": "observed",
-      "text": "Western Oregon have scored nine and conceded nine, with one win, two draws and one loss.",
+      "text": "Northwest Nazarene's win at Menlo was their first of the season, after three draws.",
       "basis": {
-        "programme": "western-oregon",
+        "programme": "northwest-nazarene",
         "wins": 1,
-        "draws": 2,
-        "losses": 1,
-        "gf": 9,
-        "ga": 9
+        "draws": 3,
+        "losses": 0
       }
     }
   ],
@@ -111,32 +113,32 @@
       "line": "4 G · 1 A · 10 shots"
     },
     {
-      "player": "Caleb Putney",
-      "programme": "northwest-nazarene",
-      "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 2 A · 13 shots"
-    },
-    {
       "player": "Rafael Lucio",
       "programme": "seattle-pacific",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 7 shots"
+      "line": "4 G · 12 shots"
+    },
+    {
+      "player": "Caleb Putney",
+      "programme": "northwest-nazarene",
+      "position": "FWD",
+      "class": "JR",
+      "line": "2 G · 2 A · 14 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-04 cal-state-dominguez-hills v western-oregon",
-      "line": "Western Oregon have not won since their opening match."
+      "fixture_ref": "2026-09-05 menlo v northwest-nazarene",
+      "line": "Northwest Nazarene's first win of the season, after a run of draws."
     },
     "next_match": {
-      "fixture_ref": "2026-09-05 seattle-pacific v point-loma",
-      "line": "Seattle Pacific have yet to drop a point; Point Loma arrive from a defeat at Western Washington."
+      "fixture_ref": "2026-09-10 regis v seattle-pacific",
+      "line": "Seattle Pacific have yet to drop a point, and this is their first match away from home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T16:38:29.923Z"
+    "validated_at": "2026-09-06T11:41:54.364Z"
   }
 }

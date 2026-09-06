@@ -3,26 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-05T11:38:00Z",
-  "data_collected_at": "2026-09-05T11:34:23+00:00",
-  "headline": "West Texas A&M concede ten in two matches",
-  "dek": "West Texas A&M opened with four goals and a clean sheet against Adams State, and have since lost at home to Fort Lewis and away at Colorado Christian without scoring. Only Sul Ross State, beaten in both their matches, have let in as many.",
+  "generated_at": "2026-09-06T11:38:00Z",
+  "data_collected_at": "2026-09-06T11:33:54+00:00",
+  "headline": "West Texas A&M go three matches without a goal",
+  "dek": "West Texas A&M scored four and kept a clean sheet against Adams State on the opening day, and have not scored since, losing at home to Fort Lewis and away at Colorado Christian and Southern Nazarene. Their eleven goals conceded are matched only by Sul Ross State, who have yet to score at all.",
   "lede_basis": {
     "programme": "west-texas-a-m",
     "wins": 1,
     "draws": 0,
-    "losses": 2,
+    "losses": 3,
     "gf": 4,
-    "ga": 10,
+    "ga": 11,
     "goals_in_opening_match": 4,
     "goals_conceded_in_opening_match": 0,
     "goals_since_opening_match": 0,
-    "defeats_since_opening_match": 2,
-    "srsu_ga": 10,
-    "srsu_losses": 2,
-    "srsu_played": 2
+    "defeats_since_opening_match": 3,
+    "srsu_gf": 0,
+    "srsu_ga": 11
   },
-  "lede_updated": "2026-09-02",
+  "lede_updated": "2026-09-06",
+  "displaced_by": "West Texas A&M's third straight scoreless defeat, at Southern Nazarene; Sul Ross State's third match also made the old dek's 'both their matches' false",
   "pattern": {
     "label": "derived",
     "text": "Seven different players have scored Midwestern State's twelve goals, and Jose Ortiz has four of them.",
@@ -30,15 +30,15 @@
       "kind": "goals-for-by-team",
       "values": {
         "midwestern-state": 12,
+        "oklahoma-christian": 9,
         "ut-dallas": 8,
-        "oklahoma-christian": 7,
+        "dallas-baptist": 5,
         "saint-edwards": 5,
+        "texas-a-m-international": 4,
         "west-texas-a-m": 4,
         "lubbock-christian": 3,
-        "texas-a-m-international": 3,
-        "dallas-baptist": 2,
-        "ut-tyler": 1,
-        "saint-marys": 0,
+        "saint-marys": 3,
+        "ut-tyler": 3,
         "sul-ross-state": 0
       },
       "highlight": "midwestern-state"
@@ -53,16 +53,14 @@
     }
   },
   "wire": {
-    "line": "Oklahoma Christian remain unbeaten after three matches, and Newman are the only side to have scored against them.",
+    "line": "Oklahoma Christian's unbeaten start is over after defeat at Northeastern State; Midwestern State, Texas A&M International and UT Tyler are the sides yet to lose.",
     "basis": {
       "programme": "oklahoma-christian",
       "wins": 3,
       "draws": 0,
-      "losses": 0,
-      "gf": 7,
-      "ga": 1
+      "losses": 1
     },
-    "updated": "2026-09-03"
+    "updated": "2026-09-06"
   },
   "findings": [
     {
@@ -76,41 +74,62 @@
     },
     {
       "label": "derived",
-      "text": "Six different players have scored UT Dallas's eight goals, half of them on one night at Hawaii Pacific.",
+      "text": "Sul Ross State have lost all three of their matches without scoring, and have conceded eleven.",
       "basis": {
-        "programme": "ut-dallas",
-        "gf": 8,
-        "distinct_scorers_min": 6,
-        "goals_at_hawaii_pacific": 4
+        "programme": "sul-ross-state",
+        "wins": 0,
+        "draws": 0,
+        "losses": 3,
+        "gf": 0,
+        "ga": 11
       }
     },
     {
       "label": "derived",
-      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's three matches and been beaten once.",
+      "text": "Fernando Hernandez has made twenty-three saves for Sul Ross State and has yet to keep a clean sheet.",
+      "basis": {
+        "source": "stats",
+        "player": "Fernando Hernandez",
+        "programme": "sul-ross-state",
+        "saves": 23,
+        "shutouts": 0
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Dallas Baptist have won both matches since losing to UT Tyler on the opening night, scoring five and conceding two.",
+      "basis": {
+        "programme": "dallas-baptist",
+        "wins": 2,
+        "draws": 0,
+        "losses": 1,
+        "gf": 5,
+        "ga": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's four matches and conceded four goals.",
       "basis": {
         "source": "stats",
         "player": "Dante Caffaro",
         "programme": "oklahoma-christian",
         "shutouts": 2,
-        "goals_against": 1,
+        "goals_against": 4,
         "wins": 3,
         "draws": 0,
-        "losses": 0
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Fernando Hernandez has made eighteen saves for Sul Ross State and has yet to keep a clean sheet.",
-      "basis": {
-        "source": "stats",
-        "player": "Fernando Hernandez",
-        "programme": "sul-ross-state",
-        "saves": 18,
-        "shutouts": 0
+        "losses": 1
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Kenzo Shabazz-Edwards",
+      "programme": "oklahoma-christian",
+      "position": "FWD",
+      "class": "SO",
+      "line": "4 G · 10 shots"
+    },
     {
       "player": "Jose Ortiz",
       "programme": "midwestern-state",
@@ -119,32 +138,25 @@
       "line": "4 G · 9 shots"
     },
     {
-      "player": "Kenzo Shabazz-Edwards",
-      "programme": "oklahoma-christian",
-      "position": "FWD",
-      "class": "SO",
-      "line": "3 G · 8 shots"
-    },
-    {
       "player": "Luis Alvis",
       "programme": "oklahoma-christian",
       "position": "MID",
       "class": "JR",
-      "line": "2 G · 1 A · 7 shots"
+      "line": "2 G · 1 A · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-04 hawaii-pacific v ut-dallas",
-      "line": "UT Dallas had lost at Hawaii Hilo without scoring earlier in the week; this was their first win away from home."
+      "fixture_ref": "2026-09-05 northeastern-state v oklahoma-christian",
+      "line": "Oklahoma Christian's first defeat of the season; Newman had been the only side to score against them before it."
     },
     "next_match": {
-      "fixture_ref": "2026-09-05 texas-a-m-international v sul-ross-state",
-      "line": "Two conference members meet before conference play opens: Sul Ross State have yet to score this season, and Texas A&M International have yet to lose."
+      "fixture_ref": "2026-09-06 msu-denver v midwestern-state",
+      "line": "Midwestern State have won both matches at home and drawn their only one away so far, at UCCS."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T11:37:44.811Z"
+    "validated_at": "2026-09-06T11:43:02.783Z"
   }
 }

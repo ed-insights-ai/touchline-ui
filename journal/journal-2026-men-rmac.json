@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-05T11:40:00+00:00",
-  "data_collected_at": "2026-09-05T11:35:19+00:00",
+  "generated_at": "2026-09-06T11:40:00+00:00",
+  "data_collected_at": "2026-09-06T11:35:14+00:00",
   "headline": "Fort Lewis and UCCS share the scoring lead",
   "dek": "UCCS's draw at home to Midwestern State was the first time they had conceded this season, and it left them level with Fort Lewis on twelve goals. Neither side has lost a match.",
   "lede_basis": {
@@ -16,22 +16,21 @@
     "ga": 1
   },
   "lede_updated": "2026-09-05",
-  "displaced_by": "UCCS's draw with Midwestern State levels them with Fort Lewis on twelve goals; the standing dek's 'no other programme has scored as many' no longer holds.",
   "pattern": {
     "label": "derived",
-    "text": "The scoring is still concentrated at the top: Fort Lewis alone have outscored CSU Pueblo, MSU Denver, Colorado School of Mines, Regis and Adams State combined.",
+    "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than Fort Lewis have alone.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "fort-lewis": 12,
         "uccs": 12,
+        "westminster": 9,
         "south-dakota-mines": 8,
-        "colorado-christian": 5,
+        "colorado-christian": 7,
+        "csu-pueblo": 7,
+        "colorado-mesa": 5,
         "msu-denver": 5,
-        "westminster": 5,
-        "colorado-mesa": 4,
-        "csu-pueblo": 3,
-        "colorado-school-of-mines": 1,
+        "colorado-school-of-mines": 2,
         "regis": 1,
         "adams-state": 0
       },
@@ -41,7 +40,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "fort-lewis",
-      "of": ["csu-pueblo", "msu-denver", "colorado-school-of-mines", "regis", "adams-state"],
+      "of": ["colorado-mesa", "colorado-school-of-mines", "regis", "adams-state"],
       "gf": 12
     }
   },
@@ -60,14 +59,33 @@
   "findings": [
     {
       "label": "derived",
-      "text": "UCCS conceded their first goal of the season in the draw with Midwestern State, and remain unbeaten with twelve scored.",
+      "text": "Westminster's win over Jamestown was their first of the season after three draws, and they remain unbeaten.",
       "basis": {
-        "programme": "uccs",
-        "wins": 2,
-        "draws": 1,
+        "programme": "westminster",
+        "wins": 1,
+        "draws": 3,
+        "losses": 0
+      }
+    },
+    {
+      "label": "derived",
+      "text": "CSU Pueblo conceded for the first time this season against Newman, and have won all three of their matches.",
+      "basis": {
+        "programme": "csu-pueblo",
+        "wins": 3,
+        "draws": 0,
         "losses": 0,
-        "gf": 12,
+        "gf": 7,
         "ga": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "No match is a score gap today, but twelve have passed their date with no result published, the earliest from the season's opening day.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 12
       }
     },
     {
@@ -82,36 +100,13 @@
       }
     },
     {
-      "label": "observed",
-      "text": "No match is a score gap today, but twelve have passed their date with no result published, the earliest from the season's opening day.",
-      "basis": {
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 12
-      }
-    },
-    {
       "label": "derived",
-      "text": "Westminster have drawn all three of their matches, scoring five and conceding five.",
+      "text": "Colorado Mesa have drawn three matches and lost one, and are still without a win.",
       "basis": {
-        "programme": "westminster",
+        "programme": "colorado-mesa",
         "wins": 0,
         "draws": 3,
-        "losses": 0,
-        "gf": 5,
-        "ga": 5
-      }
-    },
-    {
-      "label": "derived",
-      "text": "CSU Pueblo have won both their matches without conceding a goal.",
-      "basis": {
-        "programme": "csu-pueblo",
-        "wins": 2,
-        "draws": 0,
-        "losses": 0,
-        "gf": 3,
-        "ga": 0
+        "losses": 1
       }
     }
   ],
@@ -140,16 +135,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-04 uccs v midwestern-state",
-      "line": "UCCS's unbeaten start survives, but their clean record does not; Midwestern State had already beaten Colorado Mesa at home."
+      "fixture_ref": "2026-09-05 westminster v jamestown",
+      "line": "Westminster's unbeaten start finally includes a win; Jamestown had already drawn with Colorado Mesa and South Dakota Mines."
     },
     "next_match": {
-      "fixture_ref": "2026-09-05 csu-pueblo v newman",
-      "line": "CSU Pueblo have yet to concede a goal, and only Fort Lewis have won more often in the conference."
+      "fixture_ref": "2026-09-06 uccs v lubbock-christian",
+      "line": "Lubbock Christian have already lost to Fort Lewis and MSU Denver and beaten Adams State; UCCS have yet to lose."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T11:39:39.921Z"
+    "validated_at": "2026-09-06T11:44:15.894Z"
   }
 }

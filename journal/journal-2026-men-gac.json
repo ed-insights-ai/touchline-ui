@@ -3,31 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-05T11:40:00Z",
-  "data_collected_at": "2026-09-05T11:33:17+00:00",
-  "headline": "Rogers State's goals come from seven different players",
-  "dek": "Rogers State have won all three of their matches, and seven different players have shared their goals; only Harkaran Sahota and Alex Laing have scored twice. Ouachita Baptist remain the other unbeaten side and have yet to concede.",
+  "generated_at": "2026-09-06T11:40:00Z",
+  "data_collected_at": "2026-09-06T11:33:00+00:00",
+  "headline": "Rogers State alone remain unbeaten",
+  "dek": "Ouachita Baptist conceded three times in defeat by Dallas Baptist, the first goals they had let in this season, and Rogers State's draw at UT Tyler was the first match they have not won. Nine different players have now scored for Rogers State; no other programme has more than six.",
   "lede_basis": {
+    "obu_goals_conceded": 3,
+    "obu_ga_before": 0,
     "rsu_wins": 3,
-    "rsu_distinct_scorers": 7,
-    "sahota_goals": 2,
-    "laing_goals": 2,
-    "obu_ga": 0
+    "rsu_draws": 1,
+    "rsu_losses": 0,
+    "rsu_distinct_scorers": 9,
+    "fhsu_distinct_scorers": 6,
+    "obu_distinct_scorers": 6
   },
-  "lede_updated": "2026-09-03",
+  "lede_updated": "2026-09-06",
+  "displaced_by": "Ouachita Baptist's first defeat and Rogers State's first draw leave Rogers State the only unbeaten side",
   "pattern": {
     "label": "derived",
-    "text": "Rogers State alone have outscored Newman, Southern Nazarene, Northeastern State and Harding put together.",
+    "text": "Rogers State have outscored Newman, Northeastern State and Harding put together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "rogers-state": 9,
+        "rogers-state": 11,
+        "ouachita-baptist": 7,
         "fort-hays-state": 6,
-        "ouachita-baptist": 6,
-        "newman": 4,
-        "southern-nazarene": 2,
-        "harding": 1,
-        "northeastern-state": 1
+        "newman": 5,
+        "northeastern-state": 4,
+        "southern-nazarene": 3,
+        "harding": 1
       },
       "highlight": "rogers-state"
     },
@@ -35,30 +39,30 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "rogers-state",
-      "of": ["newman", "southern-nazarene", "northeastern-state", "harding"],
-      "gf": 9
+      "of": ["newman", "northeastern-state", "harding"],
+      "gf": 11
     }
   },
   "wire": {
-    "line": "Harding's first goal of the season means every programme in the conference has now scored.",
+    "line": "Ouachita Baptist's unbeaten start ended at home to Dallas Baptist, the first goals they had conceded all season.",
     "basis": {
-      "programme": "harding",
-      "gf": 1,
-      "ga": 5
+      "programme": "ouachita-baptist",
+      "wins": 2,
+      "draws": 1,
+      "losses": 1,
+      "gf": 7,
+      "ga": 3
     },
-    "updated": "2026-09-05"
+    "updated": "2026-09-06"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Ouachita Baptist's match at Southwest Baptist is past its date with no result published at all, the only match this season in that state. There is no score gap: every match marked final carries a score.",
+      "text": "There is no score gap: every match marked final carries a score, and no match is past its date without a result.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 1,
-        "set": "past_date_no_result",
-        "all_of": "ouachita-baptist",
-        "count": 1
+        "past_date_no_result": 0
       }
     },
     {
@@ -71,14 +75,27 @@
     },
     {
       "label": "derived",
-      "text": "Harding's defeat by Christian Brothers has tipped the conference's record against outside opponents to ten defeats against nine wins. Ouachita Baptist's draw with Delta State is still the only match this season that a programme in this conference has neither won nor lost.",
+      "text": "Against outside opponents the conference has scored thirty-seven goals and conceded thirty-two, yet has twelve defeats to eleven wins. Rogers State's draw at UT Tyler is the second match this season that a programme in this conference has neither won nor lost.",
       "basis": {
         "derived_from": "fixtures",
-        "wins": 9,
-        "draws": 1,
-        "losses": 10,
-        "gf": 29,
-        "ga": 21
+        "wins": 11,
+        "draws": 2,
+        "losses": 12,
+        "gf": 37,
+        "ga": 32
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Northeastern State's win over Oklahoma Christian was their first of the season, and their four goals have come from three different players.",
+      "basis": {
+        "programme": "northeastern-state",
+        "wins": 1,
+        "draws": 0,
+        "losses": 3,
+        "gf": 4,
+        "ga": 6,
+        "distinct_scorers_min": 3
       }
     },
     {
@@ -92,17 +109,6 @@
         "gf": 1,
         "ga": 5,
         "distinct_scorers_min": 1
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Andrew Wagenblatt has made fifteen saves for Harding and been beaten five times.",
-      "basis": {
-        "source": "stats",
-        "player": "Andrew Wagenblatt",
-        "programme": "harding",
-        "saves": 15,
-        "goals_against": 5
       }
     }
   ],
@@ -122,25 +128,25 @@
       "line": "2 G · 1 A · 5 shots"
     },
     {
-      "player": "Eric Godoy",
-      "programme": "ouachita-baptist",
-      "position": "DEF",
-      "class": "FR",
-      "line": "2 G · 7 shots"
+      "player": "Carter Adams",
+      "programme": "northeastern-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "2 G · 1 A · 4 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-04 harding v christian-brothers",
-      "line": "Reik Barrack's goal was Harding's first of the season, but they have still lost every match they have played, all of them at home."
+      "fixture_ref": "2026-09-05 ouachita-baptist v dallas-baptist",
+      "line": "Ouachita Baptist had not conceded a goal before this match; they leave it with their first defeat, and Rogers State as the conference's only unbeaten side."
     },
     "next_match": {
-      "fixture_ref": "2026-09-05 ouachita-baptist v dallas-baptist",
-      "line": "Ouachita Baptist have yet to concede; Dallas Baptist arrive having already won at Harding."
+      "fixture_ref": "2026-09-06 fort-lewis v fort-hays-state",
+      "line": "Fort Hays State have yet to play away; every match so far has been at home, including their only defeat."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T11:36:58.156Z"
+    "validated_at": "2026-09-06T11:41:20.209Z"
   }
 }

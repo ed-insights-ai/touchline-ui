@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-05T11:40:00+00:00",
-  "data_collected_at": "2026-09-05T11:35:37+00:00",
+  "generated_at": "2026-09-06T11:40:00+00:00",
+  "data_collected_at": "2026-09-06T11:36:00+00:00",
   "headline": "Ricardo Marques unbeaten after eleven saves",
   "dek": "Florida Southern's third win came at Delta State, their first away from home, and it was as clean as the two before it. Four different players have scored their ten goals; nobody has scored against them, and every other side in the conference has conceded.",
   "lede_basis": {
@@ -22,23 +22,22 @@
     "distinct_scorers_min": 4
   },
   "lede_updated": "2026-09-05",
-  "displaced_by": "Florida Southern's third win, at Delta State, still without conceding; the old line counted two",
   "pattern": {
     "label": "derived",
-    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd, Florida Tech, Barry and Nova Southeastern put together, and have done it without conceding.",
+    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have done it without conceding.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "florida-southern": 10,
         "rollins": 10,
         "embry-riddle": 9,
+        "saint-leo": 7,
+        "florida-tech": 5,
         "palm-beach-atlantic": 5,
         "tampa": 5,
         "lynn": 4,
-        "saint-leo": 4,
+        "barry": 3,
         "eckerd": 3,
-        "florida-tech": 3,
-        "barry": 1,
         "nova-southeastern": 1
       },
       "highlight": "florida-southern"
@@ -47,7 +46,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "florida-southern",
-      "of": ["eckerd", "florida-tech", "barry", "nova-southeastern"],
+      "of": ["barry", "eckerd", "nova-southeastern"],
       "gf": 10,
       "ga": 0
     }
@@ -92,37 +91,35 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Kobi Thomas has scored three of Palm Beach Atlantic's five goals, from seventeen shots.",
-      "basis": {
-        "source": "stats",
-        "player": "Kobi Thomas",
-        "programme": "palm-beach-atlantic",
-        "goals": 3,
-        "shots": 17,
-        "gf": 5
-      }
-    },
-    {
       "label": "derived",
-      "text": "Palm Beach Atlantic have not won since their opening match against Lincoln Memorial: draws at home to Carson-Newman and at Young Harris, then defeat at North Georgia.",
+      "text": "Saint Leo have won their last two, at home to Emmanuel and Mars Hill, after opening with defeat at AUM and a draw at Mississippi College.",
       "basis": {
-        "programme": "palm-beach-atlantic",
-        "wins": 1,
-        "draws": 2,
+        "programme": "saint-leo",
+        "wins": 2,
+        "draws": 1,
         "losses": 1
       }
     },
     {
       "label": "observed",
-      "text": "Trent Murphy has made fifteen saves for Eckerd and conceded six, with no clean sheet yet.",
+      "text": "Elias Ronning Orn has made twelve saves for Florida Tech and conceded five. His one clean sheet came at North Georgia.",
       "basis": {
         "source": "stats",
-        "player": "Trent Murphy",
-        "programme": "eckerd",
-        "saves": 15,
-        "goals_against": 6,
-        "shutouts": 0
+        "player": "Elias Ronning Orn",
+        "programme": "florida-tech",
+        "saves": 12,
+        "goals_against": 5,
+        "shutouts": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Barry drew at Flagler and are still without a win, after defeats at North Georgia and Clayton State.",
+      "basis": {
+        "programme": "barry",
+        "wins": 0,
+        "draws": 1,
+        "losses": 2
       }
     },
     {
@@ -153,25 +150,25 @@
       "line": "4 G · 5 shots"
     },
     {
-      "player": "Lukas Bludau",
-      "programme": "embry-riddle",
-      "position": "MID",
-      "class": "SO",
-      "line": "3 G · 6 shots"
+      "player": "Virgilio Escala",
+      "programme": "saint-leo",
+      "position": "FWD",
+      "class": "JR",
+      "line": "2 G · 2 A · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-04 north-georgia v palm-beach-atlantic",
-      "line": "Palm Beach Atlantic have not won since their opening match; North Georgia have yet to concede against a side from this conference."
+      "fixture_ref": "2026-09-05 saint-leo v mars-hill",
+      "line": "Saint Leo have won both matches at home after failing to win either on the road."
     },
     "next_match": {
-      "fixture_ref": "2026-09-05 florida-tech v clayton-state",
-      "line": "Clayton State have already beaten Barry and drawn at Tampa; Florida Tech have not lost since their opening match."
+      "fixture_ref": "2026-09-06 mississippi-college v florida-southern",
+      "line": "Florida Southern have yet to concede; Mississippi College have already beaten Eckerd and held Saint Leo."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T11:39:59.404Z"
+    "validated_at": "2026-09-06T11:44:49.158Z"
   }
 }

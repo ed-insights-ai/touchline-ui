@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-05T11:37:59.305Z",
-  "data_collected_at": "2026-09-05T11:34:02+00:00",
+  "validated_at": "2026-09-06T11:42:42.159Z",
+  "data_collected_at": "2026-09-06T11:33:44+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,7 +15,13 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[4].text",
+      "text": "Charles Carriglitto has kept clean sheets in two of Lee's four matches.",
+      "unbacked": ["4"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
@@ -38,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Union have lost all three of their matches, more defeats than any other programme.",
-      "checker": "team_record+comparative",
+      "text": "West Alabama have conceded ten goals, more than any other programme, and have yet to win.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Union's defeat to Kentucky Wesleyan is the one published result with no detail behind it: no box-score link on any collected schedule page.",
-      "checker": "box_score_gaps+set_members",
+      "text": "Every published result now has a box score behind it; the gap behind Union's defeat to Kentucky Wesleyan has been closed.",
+      "checker": "box_score_gaps",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Lee are unbeaten, with one win and two draws, and have conceded two goals.",
+      "text": "Lee are unbeaten, with two wins and two draws, and have conceded two goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Hunter Walker has kept clean sheets in two of Trevecca's three matches.",
+      "text": "Charles Carriglitto has kept clean sheets in two of Lee's four matches.",
       "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-04 mississippi-college v eckerd",
+      "text": "2026-09-05 lee v tusculum",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-05 uah v tuskegee",
+      "text": "2026-09-06 christian-brothers v union",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-05T11:36:58.230Z",
-    "generate_ms": 61074,
+    "started_at": "2026-09-06T11:41:20.286Z",
+    "generate_ms": 81871,
     "validate_ms": 1,
-    "wall_ms": 61075,
+    "wall_ms": 81872,
     "concurrency": 4
   }
 }

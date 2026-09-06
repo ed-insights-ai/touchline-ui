@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-09-05T11:37:04.271Z",
-  "data_collected_at": "2026-09-05T11:32:53+00:00",
+  "validated_at": "2026-09-06T11:40:48.504Z",
+  "data_collected_at": "2026-09-06T11:32:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Kentucky Wesleyan's two goals at Union are their first of the season, and they have now won one and lost one of the matches the site can see.",
+      "text": "Cedarville have drawn once and lost three times, conceding six goals and scoring none, after Saturday's defeat at Maryville.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Cedarville have drawn once and lost twice without scoring a goal.",
+      "text": "Malone's win over California (PA) on Saturday was their first of the season, after losing their opener to Salem.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Leo Egerer has taken eleven shots for Findlay, scoring twice and setting up one more.",
+      "text": "Nick Cherry has two shutouts for Tiffin, and Saturday's goalless draw with Davenport was the second of them.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-04 union v kentucky-wesleyan",
+      "text": "2026-09-05 tiffin v davenport",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-05 lake-erie v roosevelt",
+      "text": "2026-09-06 thomas-more v wisconsin-parkside",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-05T11:36:04.308Z",
-    "generate_ms": 59962,
+    "started_at": "2026-09-06T11:39:47.850Z",
+    "generate_ms": 60652,
     "validate_ms": 1,
-    "wall_ms": 59963,
+    "wall_ms": 60653,
     "concurrency": 4
   }
 }
