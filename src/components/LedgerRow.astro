@@ -1,0 +1,113 @@
+---
+// One row of the home page's LAST NIGHT ledger: codes, away, score, home.
+//
+// Taken out of index.astro when the ledger learned to fold (tl-tav2): the
+// rows in the open and the rows behind the disclosure are the same row, so
+// the row is written once and the page places it twice. The rules are the
+// ones the page carried, word for word.
+import { DISPUTED_MARK, FORFEIT_MARK, hasScore, isForfeit, matchHref } from "../lib/derive.ts";
+import type { Fixture } from "../lib/derive.ts";
+import type { DivisionMatch } from "../lib/division.ts";
+import { outcome } from "../lib/model.ts";
+
+interface Props {
+  r: DivisionMatch;
+}
+const { r } = Astro.props;
+
+// Winner side at weight 600, loser quiet, draws neutral. The winner is the
+// fixture's outcome, so a forfeit's weight follows the award and not the
+// printed score; a disputed row has no winner to weight.
+const sideClass = (f: Fixture, side: "home" | "away", disputed = false): string => {
+  const went = outcome(f);
+  if (disputed || !hasScore(f) || went === "draw" || went === null) return "lside";
+  return side === went ? "lside lwin" : "lside lquiet";
+};
+
+// The mark beside a score that is not the whole result: the fold's own
+// disputed flag first, then a forfeit's. Lower case, in the neutral mark's
+// register: it is a word beside a figure, not a label over one.
+const mark: string | null = r.disputed ? DISPUTED_MARK : isForfeit(r.fixture) ? FORFEIT_MARK : null;
+
+// A ledger row reads away · score · home, which is a claim about where the
+// match was played. A neutral-site match (the collector's own flag on any
+// record, or two records each calling itself home; the fold's `neutral`
+// covers both, tl-a33) has no home side to claim, so its row is set in the
+// order the fold's identity uses — the two slugs sorted — with the score in
+// that order and a "v" where the home sense would have been. Both sides are
+// printed with the same weight rule; only the sense is withheld.
+interface LedgerSide {
+  slug: string;
+  score: number | undefined;
+  cls: string;
+}
+const sides = (): { left: LedgerSide; right: LedgerSide } => {
+  const f = r.fixture;
+  if (!r.neutral) {
+    return {
+      left: { slug: f.away, score: f.away_score, cls: `${sideClass(f, "away", r.disputed)} l-away` },
+      right: { slug: f.home, score: f.home_score, cls: sideClass(f, "home", r.disputed) },
+    };
+  }
+  const [a, b] = [f.home, f.away].sort();
+  const sideOf = (slug: string): "home" | "away" => (slug === f.home ? "home" : "away");
+  const scoreOf = (slug: string): number | undefined =>
+    slug === f.home ? f.home_score : f.away_score;
+  return {
+    left: { slug: a as string, score: scoreOf(a as string), cls: `${sideClass(f, sideOf(a as string), r.disputed)} l-away` },
+    right: { slug: b as string, score: scoreOf(b as string), cls: sideClass(f, sideOf(b as string), r.disputed) },
+  };
+};
+const { left, right } = sides();
+---
+<a class="lrow hoverable" href={matchHref(r.key, r.fixture.id)}>
+  <span class="lconf">{r.codes.join(" · ")}</span>
+  <span class={left.cls}>{r.season.names.name(left.slug)}</span>
+  <span class="lscore">
+    {hasScore(r.fixture) ? `${left.score}–${right.score}` : "—"}
+    {r.neutral && <span class="lneutral"> v</span>}
+    {mark && <span class="lmark"> {mark}</span>}
+  </span>
+  <span class={right.cls}>{r.season.names.name(right.slug)}</span>
+</a>
+
+<style>
+  .lrow {
+    display: grid;
+    /* Wide enough for two codes. A non-conference match between two of these
+       conferences was collected by both, and the row says so rather than
+       picking one — the column is sized for the truthful cell, not the
+       common one, because a fixed grid that fits only one code would wrap it.
+       --lconf-ch is the widest pair's character count, set on the ledger by
+       the page from the files; 6.5px is the .lconf glyph advance at 10px with
+       its tracking, measured. */
+    grid-template-columns: calc(var(--lconf-ch, 10) * 6.5px) minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: baseline;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--hairline-soft);
+    color: inherit;
+    font-size: 13.5px;
+  }
+  .lconf {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    color: var(--quiet);
+    white-space: nowrap;
+  }
+  .lside { min-width: 0; }
+  .l-away { text-align: right; }
+  /* The neutral mark: quiet, and the only thing that tells a neutral row apart. */
+  .lneutral { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; }
+  /* "by forfeit" or "disputed": the same register, beside the score. */
+  .lmark { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; font-weight: 400; white-space: nowrap; }
+  .lwin { font-weight: 600; }
+  .lquiet { color: var(--secondary); }
+  .lscore { font-weight: 600; }
+  /* The code column takes what the widest pair needs; the gaps give back
+     enough that a long name still fits beside it at 320. */
+  @media (max-width: 720px) {
+    .lrow { gap: 8px; }
+  }
+</style>

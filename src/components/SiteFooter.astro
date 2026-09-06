@@ -3,21 +3,18 @@
 // site last looked, and whose it is. Three zones — left, centre, right — the
 // same three everywhere.
 //
-// The disclaimer sentence IS the link to About. It leads to the page that
-// explains both the independence it claims and the method behind every figure
-// on the site, so the link text describes where it goes, which a bare "About"
-// never did.
+// The disclaimer sentence is plain text; beside it, the one link, and it reads
+// 'About & method' on every page (tl-3rlo). The link text names where it goes
+// — the page that explains both the independence the sentence claims and the
+// method behind every figure on the site — which a bare "About" never did.
 //
-// It used to carry the scope and the season year too, and two comments here
-// claimed it was the only home either of them had. It is not carrying them any
-// more, so here is where they actually live now: the national masthead's
-// kicker names the division on the home page, the matches page names both in
-// its own header, the site header carries the season year on every season and
-// team page, and the About page names scope and season in full. A MATCH page
-// names neither — which is what the disclaimer link is for: it is the only
-// route to the method from 374 pages whose mastheads carry no site navigation
-// at all, and that is why it wears an underline rather than trusting a reader
-// to hover a sentence to find out it was a link.
+// The footer used to carry the scope and the season year too, and two
+// comments here claimed it was the only home either of them had. It is not
+// carrying them any more, so here is where they actually live now: the site
+// header names the conference and the season year on every page, the
+// national masthead's kicker names the division on the home page, and the
+// About page names scope and season in full. The link wears an underline
+// rather than trusting a reader to hover a sentence to find out it was one.
 //
 // Freshness is one stamp, and on a page speaking for several conferences it is
 // the OLDEST of them. It is the only single claim true of every figure on the
@@ -44,9 +41,9 @@ const published = new Date().getUTCFullYear();
 
 <footer class="site-footer">
   <span class="sf-cell sf-left">
-    <a class="sf-link" href={aboutHref()}>
-      Touchline is independent and not affiliated with the {site.governingBody}
-    </a>
+    Touchline is independent and not affiliated with the {site.governingBody}
+    <span class="sf-sep" aria-hidden="true">·</span>
+    <a class="sf-link" href={aboutHref()}>About &amp; method</a>
   </span>
   <span class="sf-cell sf-mid num">{collected}</span>
   <span class="sf-cell sf-right num">© {published} {site.publisher}</span>
@@ -71,6 +68,7 @@ const published = new Date().getUTCFullYear();
     color: var(--quiet);
   }
   .sf-left { justify-self: start; }
+  .sf-sep { margin: 0 6px; color: var(--outline-quiet); }
   .sf-mid { justify-self: center; }
   .sf-right { justify-self: end; }
   /* The zones separate the cells; the middots that did it when this was one
@@ -101,7 +99,9 @@ const published = new Date().getUTCFullYear();
      has to be measured again rather than assumed to still hold.
 
      Stacked lines read left. Three different lengths centred under one another
-     look like a ransom note, and the eye has one edge to return to. */
+     look like a ransom note, and the eye has one edge to return to. The
+     disclaimer and its link were one sentence and are now a sentence and a
+     link: the same 980 still holds, measured again after the change. */
   @media (max-width: 1024px) {
     .site-footer {
       grid-template-columns: minmax(0, 1fr);

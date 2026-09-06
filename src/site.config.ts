@@ -28,6 +28,12 @@ export interface SiteConfig {
    *  region in `regions` order (lib/home.ts `homeLayout`). The page grows by
    *  rows, never by narrower columns. */
   homeColumnCap: number;
+  /** The home page's ledger prints this many of last night's results in the
+   *  open; the rest fold into a native disclosure whose summary counts them
+   *  all. At 390px sixty-odd rows put the conferences three screens down, and
+   *  the ledger is still the thesis, so it keeps its place and its first rows
+   *  — but not the whole night (tl-tav2). Applied at every width. */
+  homeLedgerCap: number;
   /** Build-time "today". Undefined means: use the date the data was collected,
    *  which is the only date the site can honestly claim to know about. */
   asOf?: string;
@@ -88,6 +94,7 @@ export const site: SiteConfig = {
   ],
   home: "gac",
   homeColumnCap: 6,
+  homeLedgerCap: 8,
   asOf: process.env.TOUCHLINE_AS_OF?.trim() || undefined,
   conferenceNames: {
     gac: "Great American Conference",

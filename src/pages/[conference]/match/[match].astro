@@ -10,16 +10,14 @@ import {
   markOf,
   matchDetailOf,
   matchSlug,
-  matchesHref,
-  seasonHref,
   teamPageHref,
 } from "../../../lib/derive.ts";
-import { homeHref } from "../../../lib/derive.ts";
 import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import MatchTimeline from "../../../components/MatchTimeline.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
+import SiteHeader from "../../../components/SiteHeader.astro";
 import { ledgerRows } from "../../../lib/plays.ts";
 import {
   disputedNote,
@@ -101,11 +99,6 @@ const BADGE: Record<State, { text: string; tone: "accent" | "alert" }> = {
 };
 const badge = BADGE[state];
 
-// Named in full here because a match report is a page readers arrive at
-// directly, from anywhere, with no idea what three letters stand for.
-const conferenceName = (
-  site.conferenceNames[season.key] ?? season.fixtures.conference
-).toUpperCase();
 const surname = (name: string): string => {
   const parts = name.trim().split(/\s+/);
   return parts.length > 1 ? parts.slice(1).join(" ") : name;
@@ -284,25 +277,11 @@ const awayName = names.name(fixture.away);
   })}
 >
   <div class="tl-page match">
-    <header class="mhead">
-      <div class="mhead-left">
-      <a class="back" href={seasonHref(season.key)}>← SEASON</a>
-      {/* The Match Centre has its own masthead rather than the site header, so
-          the persistent link is repeated here in that header's own register —
-          without this it would be absent from 379 of the site's 416 pages,
-          which are exactly the pages a reader is on when they want the rest of
-          the calendar. No arrow: this is a lateral move, not a way back. */}
-      <a class="back mhead-view" href={matchesHref(season.key)}>MATCHES</a>
-      </div>
-      <a class="wordmark" href={homeHref()}>
-        <span class="wordmark-square"></span>
-        <span class="wordmark-name mword">Touchline · Match Centre</span>
-      </a>
-      {/* The conference alone at the right: the date is the hero's and the
-          kind of match is the page's badge and marks. The wordmark is centred
-          on the page, not between its neighbours (owner, 2026-09-01). */}
-      <div class="mmeta">{conferenceName}</div>
-    </header>
+    {/* The shared header (tl-3rlo): the conference's full name, the two menus
+        and the Overview / Matches nav, on the page a reader most often lands
+        on from anywhere — the Match Centre used to draw its own masthead with
+        a Season/Matches pair, and named the conference at the right. */}
+    <SiteHeader season={season} />
 
     <section class={`hero${state === "played" ? "" : " hero-quiet"}${state === "preview" ? " hero-preview" : ""}`}>
       <h1 class="vh">
@@ -536,23 +515,6 @@ const awayName = names.name(fixture.away);
 <style>
   .match { min-height: 100vh; padding-bottom: 36px; }
 
-  /* The wordmark reads as the masthead it is, not as a link, so it keeps ink
-     on hover the way the site header’s does. */
-  .mhead .wordmark { color: var(--ink); }
-  .mhead {
-    height: 54px;
-    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 22px;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .mhead-left { display: flex; align-items: center; justify-self: start; }
-  .mhead .wordmark { justify-self: center; }
-  .mmeta { justify-self: end; }
-  .back { font-size: 12px; letter-spacing: 0.1em; color: var(--quiet); }
-  .mhead-view { padding-left: 15px; margin-left: 15px; border-left: 1px solid var(--hairline); }
-  .back:hover { color: var(--ink); }
-  .mword { font-size: 19px; }
-  .mmeta { font-size: 11px; letter-spacing: 0.14em; color: var(--quiet); }
-
   /* ── Hero ───────────────────────────────────────────────────────────────── */
   .hero {
     padding: 30px 0 24px;
@@ -698,15 +660,6 @@ const awayName = names.name(fixture.away);
      Anything that genuinely cannot reflow — the timeline is a scale drawing
      of ninety minutes — scrolls inside its own box instead. */
   @media (max-width: 720px) {
-    .mhead {
-      height: auto; padding: 10px 0; gap: 10px 16px;
-      flex-wrap: wrap; justify-content: space-between;
-    }
-    .mhead { grid-template-columns: 1fr; height: auto; padding: 10px 0; row-gap: 6px; }
-    .mhead .wordmark, .mmeta { justify-self: start; }
-    .mword { font-size: 16px; }
-    .mmeta { font-size: 10px; letter-spacing: 0.1em; }
-
     .figure { font-size: 56px; }
     .hero-explain { font-size: 14px; }
 

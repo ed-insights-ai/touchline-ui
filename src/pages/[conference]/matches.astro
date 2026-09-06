@@ -14,8 +14,9 @@
 //   • still to come — away at home, the kickoff the home programme published,
 //     and the venue when the schedule names one.
 import SiteFooter from "../../components/SiteFooter.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
 import Page from "../../layouts/Page.astro";
-import { hasScore, homeHref, isDisputed, markOf, matchHref, matchesHref, seasonHref, loadSeason, type Fixture } from "../../lib/derive.ts";
+import { hasScore, isDisputed, markOf, matchHref, loadSeason, type Fixture } from "../../lib/derive.ts";
 import { dayOfMonth, dowLong, monLong, monShort } from "../../lib/format.ts";
 import {
   byDay,
@@ -89,20 +90,9 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
 
 <Page title={title} description={dek}>
   <div class="tl-page">
-    <header class="mx-masthead">
-      <div class="mx-left">
-      <a class="mx-back" href={seasonHref(season.key)}>← SEASON</a>
-      {/* The reader is here. This is the only header on the site where that is
-          true of this link, so it is the only place aria-current can say so. */}
-      <a class="mx-back mx-view" href={matchesHref(season.key)} aria-current="page">MATCHES</a>
-      </div>
-      <a class="wordmark mx-wordmark" href={homeHref()}>
-        <span class="wordmark-square"></span>
-        <span class="wordmark-name">Touchline</span>
-        <span class="mx-wordmark-sub"> · Matches</span>
-      </a>
-      <div class="mx-context num">{code} · {site.division.toUpperCase()} · {season.fixtures.season}</div>
-    </header>
+    {/* The shared header (tl-3rlo), with Matches current in its view nav —
+        the Season/Matches pair this page used to draw for itself. */}
+    <SiteHeader season={season} />
 
     <div class="mx-lede">
       <h1 class="mx-h1 serif">Matches</h1>
@@ -250,29 +240,6 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
 </Page>
 
 <style>
-  .mx-masthead {
-    height: 58px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 16px;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .mx-left { display: flex; align-items: center; justify-self: start; }
-  .mx-masthead .mx-wordmark { justify-self: center; }
-  .mx-context { justify-self: end; }
-  .mx-back { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary); }
-  .mx-back:hover { color: var(--accent); }
-  .mx-view { padding-left: 14px; margin-left: 14px; border-left: 1px solid var(--hairline); }
-  .mx-view[aria-current="page"] { color: var(--ink); }
-  .mx-view[aria-current="page"]:hover { color: var(--ink); }
-  /* The wordmark reads as the masthead it is, not as a link, so it keeps ink
-     on hover the way the site header’s does. */
-  .mx-masthead .mx-wordmark { color: var(--ink); }
-  .mx-wordmark .wordmark-name { font-size: 19px; }
-  .mx-wordmark-sub { font-family: var(--serif); font-style: italic; font-size: 19px; }
-  .mx-context { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
-
   .mx-lede { padding: 28px 0 20px; border-bottom: 1px solid var(--hairline); }
   .mx-h1 { margin: 0; font-size: 38px; line-height: 1.1; }
   .mx-dek { margin: 10px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--quiet); max-width: 720px; }

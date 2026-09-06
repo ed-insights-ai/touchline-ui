@@ -1,51 +1,79 @@
 ---
+// The one header, on every page (tl-3rlo). It has two shapes and one grammar:
+// with no conference in scope — the home, About — it is the wordmark, the
+// season, and the conference menu; inside a conference it adds the team menu
+// and a quiet view nav (Overview, Matches) for the pages of that conference.
+// A match page and the matches page wear it too, where a Season/Matches pair
+// used to stand in for it.
 import { site } from "../site.config.ts";
-import { homeHref, loadSeason, matchesHref, teamHref } from "../lib/derive.ts";
+import { homeHref, matchesHref, seasonHref, teamHref } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
+import { homeSeasons } from "../lib/home.ts";
 import { menuColumns } from "../lib/menu.ts";
+import { conferenceEntries } from "../lib/nav.ts";
 import { displayNameOf } from "../lib/programmes.ts";
 import ConferenceMenu from "./ConferenceMenu.astro";
 
 interface Props {
-  season: Season;
+  /** The conference the reader is inside, when there is one. Absent on the
+   *  home and About: the header then carries the conference menu alone. */
+  season?: Season;
   /** The team named on the second trigger, when the reader is on a team's page. */
   currentTeam?: string;
-  /** Set on the matches page, the one view this header links to by name. */
-  currentView?: "matches";
+  /** False on the one page whose own masthead IS the wordmark — the home —
+   *  so the header does not stack a second Touchline over the first. Every
+   *  other page keeps it: it is the way back to the top of the site. */
+  wordmark?: boolean;
 }
-const { season, currentTeam, currentView } = Astro.props;
+const { season, currentTeam, wordmark = true } = Astro.props;
 
 // The conference menu is built from the conferences the data home actually
-// carries: a conference is configuration, and one that failed to collect is
-// simply not offered rather than offered and broken. The menu is region-major
-// (lib/menu.ts): each region a run of rows under its own head, whole regions
-// per column, the columns balanced by row count. The regions are config, so
-// nothing here names one. The trigger still shows the abbreviation.
-const entries = site.conferences.flatMap((key) => {
-  try {
-    const abbr = loadSeason(key).fixtures.conference;
-    return [{ key, abbr, name: site.conferenceNames[key] ?? abbr }];
-  } catch {
-    return [];
-  }
-});
+// carries (lib/nav.ts): a conference is configuration, and one that failed to
+// collect is simply not offered rather than offered and broken. The menu is
+// region-major (lib/menu.ts): each region a run of rows under its own head,
+// whole regions per column, the columns balanced by row count. The regions
+// are config, so nothing here names one. The trigger shows the abbreviation
+// inside a conference, and the word Conferences where there is none.
+const entries = conferenceEntries(homeSeasons());
 const columns = menuColumns(entries);
 
 // The publisher's own order, which is the order the conference lists itself in.
-const teams = season.fixtures.programmes;
+const teams = season?.fixtures.programmes ?? [];
 const current = teams.find((p) => p.slug === currentTeam);
 const currentName = current ? displayNameOf(current.slug, current.name) : null;
-const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpperCase()}`;
+const seasonLabel = season
+  ? `${season.fixtures.season} · ${season.fixtures.gender.toUpperCase()}`
+  : `${site.season} · ${site.gender.toUpperCase()}`;
+const confName = season ? (site.conferenceNames[season.key] ?? season.fixtures.conference) : null;
+
+// Which view of the conference this page is, read off the page's own address
+// rather than told by each page: the overview is the conference's root and
+// the matches page its /matches/, and a team or match page is neither. Astro
+// carries the deploy base in the URL already, the same base the hrefs carry.
+const here = Astro.url.pathname.replace(/\/?$/, "/");
+const isView = (href: string): boolean => here === href.replace(/\/?$/, "/");
 ---
 <header class="site-header">
   {/* The wordmark is the way back to the top of the site, so it points at the
       national home — not at the conference the reader happens to be inside. */}
-  <a class="wordmark" href={homeHref()}>
-    <span class="wordmark-square"></span>
-    <span class="wordmark-name">Touchline</span>
-  </a>
+  {wordmark && (
+    <a class="wordmark" href={homeHref()}>
+      <span class="wordmark-square"></span>
+      <span class="wordmark-name">Touchline</span>
+    </a>
+  )}
+  {/* Where the reader is, in words: the conference's full name, and it is the
+      direct way to that conference's overview (tl-3rlo) — the menu beside it
+      is for going somewhere else. With no conference in scope the tag is the
+      season alone. */}
   <div class="season-tag num">
-    {site.conferenceNames[season.key] ?? season.fixtures.conference} · {seasonLabel}
+    {season && confName ? (
+      <>
+        <a class="season-conf" href={seasonHref(season.key)}>{confName}</a> · {seasonLabel}
+      </>
+    ) : (
+      seasonLabel
+    )}
   </div>
   {/* Two disclosures, one grammar: where you are, and where you can go. Each
       is a <details>, so the links inside work with scripting off and the
@@ -55,53 +83,66 @@ const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpp
       handed back to the trigger it left. The 2px accent rule stays on the
       conference trigger — it is still the answer to "which conference is
       this" — and nothing else in the header is purple but the current row. */}
-  <nav class="hnav" aria-label="Conferences and teams">
+  <nav class="hnav" aria-label={season ? "Conferences and teams" : "Conferences"}>
     <details class="hmenu hmenu-conf">
-      <summary class="htab htab-conf" aria-label={`Conference: ${season.fixtures.conference}`}>
-        <span class="htab-label">{season.fixtures.conference}</span>
+      <summary
+        class="htab htab-conf"
+        aria-label={season ? `Conference: ${season.fixtures.conference}` : "Conferences"}
+      >
+        <span class="htab-label">{season ? season.fixtures.conference : "Conferences"}</span>
         <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
       </summary>
       <ConferenceMenu
         columns={columns}
-        currentKey={season.key}
+        currentKey={season?.key}
         count={entries.length}
         seasonLabel={seasonLabel}
       />
     </details>
-    <details class="hmenu hmenu-team">
-      <summary
-        class:list={["htab", "htab-team", { "htab-here": !!current }]}
-        aria-label={currentName ? `Team: ${currentName}` : "Teams"}
-      >
-        <span class="htab-label">{currentName ?? "Teams"}</span>
-        <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
-      </summary>
-      <div class="hmenu-panel">
-        <div class="hmenu-head">
-          <span class="hmenu-tag num">{teams.length} programmes · {season.fixtures.conference}</span>
-          <button type="button" class="hmenu-close">Close</button>
+    {season && (
+      <details class="hmenu hmenu-team">
+        <summary
+          class:list={["htab", "htab-team", { "htab-here": !!current }]}
+          aria-label={currentName ? `Team: ${currentName}` : "Teams"}
+        >
+          <span class="htab-label">{currentName ?? "Teams"}</span>
+          <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
+        </summary>
+        <div class="hmenu-panel">
+          <div class="hmenu-head">
+            <span class="hmenu-tag num">{teams.length} programmes · {season.fixtures.conference}</span>
+            <button type="button" class="hmenu-close">Close</button>
+          </div>
+          <div class="hmenu-grid hmenu-grid-team">
+            {teams.map((p) => (
+              <a
+                class="mrow"
+                href={teamHref(season.key, p.slug)}
+                aria-current={p.slug === currentTeam ? "page" : undefined}
+              ><span class="mabbr">{p.abbr ?? ""}</span><span class="mname">{displayNameOf(p.slug, p.name)}</span></a>
+            ))}
+          </div>
         </div>
-        <div class="hmenu-grid hmenu-grid-team">
-          {teams.map((p) => (
-            <a
-              class="mrow"
-              href={teamHref(season.key, p.slug)}
-              aria-current={p.slug === currentTeam ? "page" : undefined}
-            ><span class="mabbr">{p.abbr ?? ""}</span><span class="mname">{displayNameOf(p.slug, p.name)}</span></a>
-          ))}
-        </div>
-      </div>
-    </details>
+      </details>
+    )}
   </nav>
-  {/* A view WITHIN the conference the reader is already in, so it takes the
-      trigger's type register and none of its vocabulary: no chevron, no rule.
-      A hairline sets it apart from the two controls that move. */}
-  <nav class="viewnav" aria-label="Views">
-    <a
-      href={matchesHref(season.key)}
-      aria-current={currentView === "matches" ? "page" : undefined}
-    >Matches</a>
-  </nav>
+  {/* The views WITHIN the conference the reader is already in, so they take
+      the trigger's type register and none of its vocabulary: no chevron, no
+      rule. A hairline sets them apart from the two controls that move. Teams
+      is the menu above — there is no teams page to link to — so the nav is
+      the two pages a conference has. */}
+  {season && (
+    <nav class="viewnav" aria-label="Views">
+      <a
+        href={seasonHref(season.key)}
+        aria-current={isView(seasonHref(season.key)) ? "page" : undefined}
+      >Overview</a>
+      <a
+        href={matchesHref(season.key)}
+        aria-current={isView(matchesHref(season.key)) ? "page" : undefined}
+      >Matches</a>
+    </nav>
+  )}
   <div class="grow"></div>
 </header>
 
@@ -182,6 +223,13 @@ const seasonLabel = `${season.fixtures.season} · ${season.fixtures.gender.toUpp
     color: var(--secondary);
     white-space: nowrap;
   }
+  /* The conference's name is a link in the tag's own register: quiet, and it
+     answers with ink on hover, the way the view nav does. No underline and no
+     accent — the 2px rule on the trigger beside it already says where the
+     reader is, and a second purple thing in the header would compete with it. */
+  .season-conf { color: inherit; }
+  .season-conf:hover { color: var(--ink); }
+  .viewnav { gap: 16px; }
   @media (max-width: 1180px) {
     .site-header { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 14px; }
   }
