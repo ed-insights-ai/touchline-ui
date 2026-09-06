@@ -88,11 +88,14 @@ export interface DivisionMatch {
   fixture: Fixture;
   /** Every record of it, the canonical one included. */
   sightings: Sighting[];
-  /** The records disagree on which side was at home and agree on everything
-   *  else: a neutral-site match, each site having written itself as the home
-   *  side (the 2026 Rogers State tournament in Claremore, Okla. is the case
-   *  this was measured on). It is one match, counted once and for both
-   *  records; it carries no home side, and a surface must not print one. */
+  /** A neutral-site match, known either way (tl-a33): ANY record carries the
+   *  collector's `neutral` flag (the schedule page itself marked the site),
+   *  OR the records disagree on which side was at home and agree on
+   *  everything else, each site having written itself as the home side (the
+   *  2026 Rogers State tournament in Claremore, Okla. is the case this was
+   *  measured on). Either way it is one match, counted once and for both
+   *  records; it carries no home side, and a surface must not print one —
+   *  a flag-only neutral renders exactly as a disagreement neutral does. */
   neutral: boolean;
   /** The score rests on ONE record: one file holds a scored final and the
    *  other still holds the row as not yet played (scheduled or postponed).
@@ -207,7 +210,17 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
           .join("  vs  ")}`,
       );
     }
-    const neutral = new Set(group.map((s) => s.fixture.home)).size > 1;
+    // A neutral site is known two ways, and either is enough (tl-a33). The
+    // collector's own flag: a schedule page that marked the site neutral,
+    // which is the only way a match seen by ONE file, or by two files that
+    // both copied the same listed home, can be known for one. And the
+    // records' disagreement on the home side: each site writing itself as
+    // home, which is how the Rogers State tournament was first recognised
+    // before the flag was collected. Neither is a home side: the flag says
+    // the printed home is a slot, not a claim.
+    const homesDisagree = new Set(group.map((s) => s.fixture.home)).size > 1;
+    const flagged = group.some((s) => s.fixture.neutral === true);
+    const neutral = flagged || homesDisagree;
     // Only a record that holds the score may be canonical: the key and the
     // fixture travel together (the link under a result is the key's own
     // match page), so a one-sided or disputed match resolves to a record
@@ -217,10 +230,15 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     const awarded = scored.filter((s) => isForfeit(s.fixture));
     const eligible = awarded.length > 0 ? awarded : scored;
     const lead = eligible[0] ?? first;
-    // With a home side, the canonical record is the home side's own
-    // conference, which exactly one of the sightings is. Without one, the
-    // first in config order: deterministic, and keyed to the stable list.
-    const canonical = neutral
+    // With an agreed home side, the canonical record is that side's own
+    // conference, which exactly one of the sightings is. That tiebreak is
+    // kept for a flagged neutral too: the printed home is still the one
+    // fact both files share, and the choice — posted record first, printed
+    // home side second — must not move because a flag arrived. Where the
+    // records disagree on the home side there is nothing to break the tie
+    // on, so the first in config order: deterministic, and keyed to the
+    // stable list.
+    const canonical = homesDisagree
       ? lead
       : (eligible.find((s) => memberSlugs(s.season).has(s.fixture.home)) ?? lead);
     out.push({

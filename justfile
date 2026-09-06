@@ -9,8 +9,13 @@
 set shell := ["bash", "-uc"]
 
 # How a collect is invoked. The launchd cadence script is the source of truth
-# for that command; this delegates rather than restating it.
-collect_cmd := env_var_or_default("TOUCHLINE_COLLECT_CMD", "sh " + env_var('HOME') + "/.keelson/scripts/touchline-collect-cadence.sh")
+# for that command; this delegates rather than restating it. It is passed its
+# `collect` mode — collect and detect only — because with no argument the
+# script runs its FULL loop (collect, journal, commit, publish), and `just all`
+# runs journal, build and publish itself right after this step: the default
+# would journal and publish twice, the first time behind `all`'s back (tl-u2kt).
+# TOUCHLINE_COLLECT_CMD overrides the whole command, mode included.
+collect_cmd := env_var_or_default("TOUCHLINE_COLLECT_CMD", "sh " + env_var('HOME') + "/.keelson/scripts/touchline-collect-cadence.sh collect")
 
 # Where the built site is published from, and to.
 branch := env_var_or_default("PUBLISH_BRANCH", "gh-pages")
@@ -40,6 +45,8 @@ gate:
     bun test
 
 # Ask the sources for today's record. Costs network and time; nothing else does.
+# Collect only: the journal and the publish are the recipes below, not the
+# script's own loop.
 collect:
     @echo "→ collect"
     {{collect_cmd}}
