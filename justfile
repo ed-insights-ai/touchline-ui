@@ -71,12 +71,16 @@ build:
     @echo "→ build  (base {{site_base}})"
     TOUCHLINE_STRICT_BASE=1 SITE_BASE="{{site_base}}" SITE_URL="{{site_url}}" bun run build
 
-# Types, lint, tests, and a clean build — the gate before publishing.
+# Types, lint, a clean build, then the tests — the gate before publishing.
+# The build comes BEFORE the tests because home.test reads dist/index.html
+# and holds it to the current source; testing first holds yesterday's build
+# to today's tree (tl-om7). `publish` orders its own build and gate the same
+# way.
 verify:
     bunx tsc --noEmit -p tsconfig.json
     bun run check
-    bun test
     TOUCHLINE_STRICT_BASE=1 SITE_BASE="{{site_base}}" SITE_URL="{{site_url}}" bun run build
+    bun test
     bun scripts/links.ts dist "{{site_base}}"
 
 # Pixel-diff the built site against a saved baseline, at desktop and phone
@@ -113,8 +117,12 @@ deployed stamp="":
 # all exist and whose every link and stylesheet 404s — which is not visible
 # from a local server, where root-relative URLs resolve. So the deploy builds
 # its own artefact and refuses to ship one whose links do not resolve at the
-# path it is about to serve them from.
-publish: _require-git gate build
+# path it is about to serve them from. The gate runs AFTER that build, on the
+# same terms as `verify`: home.test reads the built page, and a gate before
+# the build is holding the previous deploy's page to this tree (tl-om7). The
+# gate still stands in front of the push — a failing test stops the publish
+# with the artefact built and unshipped.
+publish: _require-git build gate
     @echo "→ publish to {{branch}}"
     @test -d dist || (echo "dist/ is missing — run \`just build\` first" && exit 1)
     bun scripts/links.ts dist "{{site_base}}"

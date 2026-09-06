@@ -8,7 +8,7 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { site } from "../site.config.ts";
 import {
   boxScoreGaps,
@@ -362,14 +362,42 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     });
   });
 
-  // The rendered page, when a build is on disk: exactly one band carries
-  // data-open="true", and it is the one the chooser names from the same
-  // journal and seasons. The repo has no component render harness, so this
-  // reads dist/ and stands down when there is none — `just verify` builds
-  // after the tests, so the assertion is live from the second run onward.
+  // The rendered page, when a CURRENT build is on disk: exactly one band
+  // carries data-open="true", and it is the one the chooser names from the
+  // same journal and seasons. The repo has no component render harness, so
+  // this reads dist/ and stands down when there is none — or when it predates
+  // the source it would be held to: a dist/ older than the newest file under
+  // src/ is some earlier tree's page, and holding it to this tree's markup
+  // fails the suite for a change nobody has built yet (tl-om7). `just verify`
+  // and `just publish` build before they test, so on those paths the
+  // assertion is always live.
   describe("the built home page", () => {
+    /** The newest mtime under a directory, walked in full. */
+    const newestUnder = (dir: string): { at: number; file: string } => {
+      let newest = { at: 0, file: dir };
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const path = `${dir}/${entry.name}`;
+        const found = entry.isDirectory()
+          ? newestUnder(path)
+          : { at: statSync(path).mtimeMs, file: path };
+        if (found.at > newest.at) newest = found;
+      }
+      return newest;
+    };
+    /** Why the built page cannot be held to this tree, or null when it can. */
+    const builtPageIsStale = (page: string, src: string): string | null => {
+      if (!existsSync(page)) return `${page} is missing — run \`just build\` first`;
+      const built = statSync(page).mtimeMs;
+      const source = newestUnder(src);
+      return source.at > built
+        ? `${page} predates ${source.file} — run \`just build\` first`
+        : null;
+    };
+
     const dist = `${process.cwd()}/dist/index.html`;
-    test.skipIf(!existsSync(dist))("exactly one band is open, and it is the chosen one", () => {
+    const stale = builtPageIsStale(dist, `${process.cwd()}/src`);
+    if (stale) console.warn(`skipping "the built home page": ${stale}`);
+    test.skipIf(stale !== null)("exactly one band is open, and it is the chosen one", () => {
       const html = readFileSync(dist, "utf8");
       if (homeLayout(columns.length) === "columns") {
         expect(html).not.toContain("data-open=");
@@ -403,7 +431,7 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     // rendered. The two are checked as one mark ("disc/1") because the ruling
     // is shape AND colour, never colour alone: a dot in the right hue with
     // the wrong shape is as wrong as the reverse.
-    test.skipIf(!existsSync(dist))(
+    test.skipIf(stale !== null)(
       "a band's rows and its map dots carry matching glyphs and hues",
       () => {
         const html = readFileSync(dist, "utf8");

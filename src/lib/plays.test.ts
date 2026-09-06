@@ -212,6 +212,141 @@ describe("stripping a side's own tag needs a word boundary", () => {
   });
 });
 
+describe("a side tag the box score does not spell is stripped only on the teamsheet's word", () => {
+  // Tampa v West Alabama, 2026-08-27 (tampaspartans.com, 20260827_k1ap): the
+  // box score names the side "Tampa" and abbreviates it "Tampa", the plays
+  // tag it "UT". A tag nobody strips is flipped into the name — the site
+  // printed "Manuel UT Carmona".
+  const tampa = (players: { name: string }[]) =>
+    detail({
+      home_index: 1,
+      teams: [
+        {
+          name: "Tampa",
+          abbr: "Tampa",
+          periods: [1, 2],
+          players,
+          keepers: [{ name: "Alex Hare" }],
+        },
+        {
+          name: "West Alabama",
+          abbr: "West Ala.",
+          periods: [2, 0],
+          players: [{ name: "Dan Erez" }],
+          keepers: [{ name: "Dan Erez" }],
+        },
+      ],
+    } as Partial<MatchDetail>);
+  const roster = [
+    { name: "Manuel Carmona" },
+    { name: "Tassilo Koerner" },
+    { name: "Dagur Hafthorsson" },
+    { name: "Felix Poschmann" },
+  ];
+  const plays: MatchDetail["plays"] = [
+    {
+      period: "2",
+      clock: "48:08",
+      team: 0,
+      type: "goal",
+      text: "GOAL by UT Carmona, Manuel Assist by Hafthorsson, Dagur.",
+      score: [1, 2],
+    },
+    {
+      period: "1",
+      clock: "34:37",
+      team: 0,
+      type: "shot",
+      text: "Shot by UT Koerner, Tassilo, out top right.",
+    },
+    {
+      period: "2",
+      clock: "83:32",
+      team: 0,
+      type: "yellow",
+      text: "Yellow card on UT Carmona, Manuel.",
+    },
+    { period: "2", clock: "45:53", team: 0, type: "yellow", text: "Yellow card on UT TEAM." },
+    {
+      period: "2",
+      clock: "84:38",
+      team: 0,
+      type: "sub",
+      text: "UT substitution: Carmona, Manuel for Poschmann, Felix.",
+    },
+  ];
+
+  test("the tag is stripped when the lineup vouches it names nobody", () => {
+    const rows = rowsOf(plays, tampa(roster));
+    expect(rows.map(shown)).toEqual([
+      "GOAL — Manuel Carmona (Dagur Hafthorsson)",
+      "Shot — Tassilo Koerner, out top right",
+      "Yellow card — Manuel Carmona",
+      "Yellow card — TEAM",
+      "Substitution — Manuel Carmona for Felix Poschmann",
+    ]);
+  });
+
+  test("a tag that is a word of a lineup name is never stripped", () => {
+    // A side whose plays are tagged "UT" and whose teamsheet carries a player
+    // called Ut: the parser cannot tell the two apart, so it leaves the line
+    // as the old behaviour would.
+    const rows = rowsOf(
+      [
+        {
+          period: "1",
+          clock: "34:37",
+          team: 0,
+          type: "shot",
+          text: "Shot by UT Koerner, Tassilo, out top right.",
+        },
+      ],
+      tampa([...roster, { name: "Bao Ut" }]),
+    );
+    expect(rows.map(shown)).toEqual(["Shot — Tassilo UT Koerner, out top right"]);
+  });
+
+  test("without a teamsheet nothing is guessed", () => {
+    const rows = rowsOf(
+      [
+        {
+          period: "1",
+          clock: "34:37",
+          team: 0,
+          type: "shot",
+          text: "Shot by UT Koerner, Tassilo, out top right.",
+        },
+      ],
+      detail({
+        home_index: 1,
+        teams: [
+          { name: "Tampa", abbr: "Tampa", periods: [1, 2] },
+          { name: "West Alabama", abbr: "West Ala.", periods: [2, 0] },
+        ],
+      } as Partial<MatchDetail>),
+    );
+    expect(rows.map(shown)).toEqual(["Shot — Tassilo UT Koerner, out top right"]);
+  });
+
+  test("a sentence's own capitalised opener is not a tag", () => {
+    // "GOAL by …" leads every goal line; "GOAL" is on no teamsheet either.
+    const [row] = rowsOf(
+      [
+        {
+          period: "2",
+          clock: "48:08",
+          team: 0,
+          type: "goal",
+          text: "GOAL by UT TEAM.",
+          score: [1, 2],
+        },
+      ],
+      tampa(roster),
+    );
+    expect(row?.scorer).toBe("no player credited");
+  });
+});
+
 describe("absence keeps its place", () => {
   test("a play with no clock renders one and is not reordered", () => {
     const rows = rowsOf([
