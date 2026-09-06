@@ -202,7 +202,9 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
 ---
 <Page title="Touchline — The Season Scorebook" description={description}>
   <div class="tl-page">
-    <SiteHeader />
+    {/* The shared header without its wordmark: the masthead beneath it is the
+        wordmark here, and two stacked would read as a mistake. */}
+    <SiteHeader wordmark={false} />
     <header class="nat-masthead">
       {/* The root is the top of the site; its own wordmark points nowhere. */}
       <h1 class="wordmark nat-wordmark">

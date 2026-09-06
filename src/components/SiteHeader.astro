@@ -20,8 +20,12 @@ interface Props {
   season?: Season;
   /** The team named on the second trigger, when the reader is on a team's page. */
   currentTeam?: string;
+  /** False on the one page whose own masthead IS the wordmark — the home —
+   *  so the header does not stack a second Touchline over the first. Every
+   *  other page keeps it: it is the way back to the top of the site. */
+  wordmark?: boolean;
 }
-const { season, currentTeam } = Astro.props;
+const { season, currentTeam, wordmark = true } = Astro.props;
 
 // The conference menu is built from the conferences the data home actually
 // carries (lib/nav.ts): a conference is configuration, and one that failed to
@@ -52,10 +56,12 @@ const isView = (href: string): boolean => here === href.replace(/\/?$/, "/");
 <header class="site-header">
   {/* The wordmark is the way back to the top of the site, so it points at the
       national home — not at the conference the reader happens to be inside. */}
-  <a class="wordmark" href={homeHref()}>
-    <span class="wordmark-square"></span>
-    <span class="wordmark-name">Touchline</span>
-  </a>
+  {wordmark && (
+    <a class="wordmark" href={homeHref()}>
+      <span class="wordmark-square"></span>
+      <span class="wordmark-name">Touchline</span>
+    </a>
+  )}
   {/* Where the reader is, in words: the conference's full name, and it is the
       direct way to that conference's overview (tl-3rlo) — the menu beside it
       is for going somewhere else. With no conference in scope the tag is the
