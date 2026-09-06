@@ -12,7 +12,7 @@
 // figure it might reach for.
 
 import type { NationalJournalFile } from "../../src/lib/journal.ts";
-import type { NationalBrief } from "./national.ts";
+import { type NationalBrief, STANDING_MAX_AGE_DAYS } from "./national.ts";
 import { VOICE } from "./prompt.ts";
 
 export interface NationalPromptInput {
@@ -152,11 +152,40 @@ the page beneath it, it is the wrong sentence.`;
 
 export const PERSISTENCE = `THE HEADLINE STANDS UNTIL IT IS DISPLACED.
 
-It is not rewritten because a day has passed. Reuse the previous journal's
-headline and dek VERBATIM unless one of two things is true: something more
-newsworthy has happened, or the standing line is no longer true of today's
-data. Nothing else displaces it — not a fresh collect, not a wish to have
-written something new. A quiet day is a day the line stands.
+It is not rewritten because a day has passed. On a QUIET DAY — the brief's
+"night.kind" is "quiet", the ledger holds no result — reuse the previous
+journal's headline and dek VERBATIM unless the standing line is no longer true
+of today's data or the brief says it has aged out. Nothing else displaces it on
+a quiet day — not a fresh collect, not a wish to have written something new.
+
+THREE RULES DECIDE WHETHER IT IS DISPLACED, AND BY WHAT.
+
+1. DISPLACEMENT IS A FRESH RANKING, ON EQUAL FOOTING. When the line is
+   displaced — because it went false, because a results night outranks it, or
+   because it aged out — the new headline is chosen by ranking every
+   conference's card and wire and every result of last night against each
+   other, and the brief's "candidates" list holds them all in the desk's
+   order. THE FALSIFIED SUBJECT HAS NO PRIORITY. A line about one programme
+   that stops being true is not replaced by the next fact about that
+   programme: that fact is merely the one in front of you, and a headline
+   that follows one subject for days because each day's rewrite starts from
+   yesterday's subject is the failure this rule exists to stop. The old
+   subject wins only if it would win from a blank page.
+
+2. A RESULTS NIGHT OUTRANKS A STANDING LINE. When "night.kind" is
+   "results", the headline leads with the strongest result-driven story of
+   that night — what a result MEANT, tier 1 above — even when the standing
+   line is still true. The one exception: a standing line that is itself
+   about that night ("standing.about_last_night" is true) stands. When a
+   results night displaces the line, "displaced_by" names the result that
+   won.
+
+3. A STANDING LINE AGES OUT AT ${STANDING_MAX_AGE_DAYS} DAYS. "standing.aged_out" is
+   computed for you from the previous journal's "updated" date against the
+   page's as-of; do not work it out yourself. When it is true, the line yields
+   to the strongest current story even though it is still true, and
+   "displaced_by" is the single word "age". When it is false, age alone
+   displaces nothing.
 
 One more thing displaces a standing headline: its form. A headline that is a
 sentence — a fronted clause, more than ten words, a full stop — is rewritten
@@ -193,6 +222,19 @@ export function buildNationalPrompt(input: NationalPromptInput): string {
 ${JSON.stringify(previous, null, 2)}
 `
     : "There is no previous national journal. This is the first.";
+  const standing = brief.standing
+    ? `THE STANDING LINE, as the brief judges it today:
+  headline          "${brief.standing.headline}"
+  last changed      ${brief.standing.updated ?? "unknown"} (${brief.standing.age_days === null ? "age unknown" : `${brief.standing.age_days} day${brief.standing.age_days === 1 ? "" : "s"} old`})
+  aged out          ${brief.standing.aged_out ? `YES — it yields today, "displaced_by": "age"` : "no"}
+  about last night  ${brief.standing.about_last_night ? "yes" : "no"}`
+    : "THE STANDING LINE: none — there is no previous journal.";
+  const candidates = brief.candidates
+    .map(
+      (c) =>
+        `  ${String(c.rank).padStart(2)}. [${c.kind}] ${c.conferences.join(" · ")}  ${c.story}${c.meaning?.length ? `\n        meant: ${c.meaning.join("; ")}` : ""}`,
+    )
+    .join("\n");
 
   return `You are the writer of Touchline, a season journal for ${brief.meta.division}, ${brief.meta.season}.
 This is the DIVISION's page — the one page that sees every conference at once. You
@@ -211,6 +253,15 @@ ${cards}
 ${STORY_SELECTION}
 
 ${PERSISTENCE}
+
+LAST NIGHT was a ${brief.night.kind === "results" ? `RESULTS NIGHT — ${brief.night.results} result${brief.night.results === 1 ? "" : "s"} in the ledger` : "QUIET DAY — no result in the ledger"} (${brief.night.date}).
+
+${standing}
+
+CANDIDATES — every story the headline may be chosen from, in the desk's order:
+results first, then each conference's card line before any conference's
+second story. On displacement, rank these on equal footing.
+${candidates || "  (none)"}
 
 BRIEF — every figure available to you, computed from the collected files.
 ${JSON.stringify(brief, null, 2)}

@@ -441,8 +441,10 @@ function stampNational(
 
 async function generateNational(args: Args, lines: Lines): Promise<number> {
   const seasons = homeSeasons();
-  const brief = buildNationalBrief(seasons);
   const previous = readNationalJournal(nationalPath(args));
+  // The brief reads the previous journal too: the standing line's age and
+  // whether it is about last night are the brief's facts, not the writer's.
+  const brief = buildNationalBrief(seasons, previous);
   const prompt = buildNationalPrompt({
     brief,
     fixtures: nationalFixtureIndex(seasons),
@@ -587,7 +589,13 @@ const conferenceScope = (args: Args, season: Season): Scope => {
 const nationalScope = (args: Args): Scope => ({
   key: "national",
   brief: (lines) => {
-    lines.log(JSON.stringify(buildNationalBrief(homeSeasons()), null, 2));
+    lines.log(
+      JSON.stringify(
+        buildNationalBrief(homeSeasons(), readNationalJournal(nationalPath(args))),
+        null,
+        2,
+      ),
+    );
     return 0;
   },
   // The division's prompt carries no rewrite paragraph, so a restated dek
