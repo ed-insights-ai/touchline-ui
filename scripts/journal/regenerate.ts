@@ -1,17 +1,18 @@
 // The one regeneration.
 //
 // A journal whose validate step dropped a line for restating another line
-// (checker "words_moved") gets the model asked once more, with the report's
-// own words for what clashed appended to the prompt. Once, never a loop: if
-// the second reply carries the same restatement the drop stands, and the
-// console says so. Pure over its two steps so that the decision — retry or
-// not, resolved or not — is testable with a fake model and no file.
+// (checker "words_moved"), or a wire for running over its cap (checker
+// "wire_length"), gets the model asked once more, with the report's own
+// words for what was wrong appended to the prompt. Once, never a loop: if
+// the second reply carries the same fault the drop stands, and the console
+// says so. Pure over its two steps so that the decision — retry or not,
+// resolved or not — is testable with a fake model and no file.
 
 import type { RestatementDrop } from "./validate.ts";
 
 export interface Validated {
   code: number;
-  /** The words_moved drops on this pass's report. */
+  /** The words_moved and wire_length drops on this pass's report. */
   restated: RestatementDrop[];
 }
 

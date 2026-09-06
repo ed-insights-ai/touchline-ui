@@ -53,12 +53,38 @@ const show = (d: Duplicate): string =>
  * collector fix lands.
  */
 const KNOWN: (Duplicate & { bead: string })[] = [
-  // Empty since the 2026-09-03 bug round: the Westminster hosted-tournament
+  // Emptied by the 2026-09-03 bug round: the Westminster hosted-tournament
   // rows (tl-5ru, rib #84 skips a hosted other-match instead of minting it)
   // and the UT Dallas second slug (tl-kvn, rib #82 folds the institution
   // word) both cleared in the re-collect that followed, as Jefferson's and
   // UDC's second slugs (tui-1ht) and AIC's had before them. The entries went
   // with the defects, by the rule the test below holds this list to.
+  //
+  // Refilled on 2026-09-06 by Saint Michael's page, which prints event
+  // placeholders as rows of its own: on 09-09 a "v Colby-Sawyer" row placed
+  // at the SMC Tennis Courts beside the real match at Franklin Pierce, and
+  // on 09-12 an "Aldrich Invitational" row at Middlebury, an event and not a
+  // programme, beside the real match AIC's own page has. The NE10 collect
+  // minted a stranger from each. Not two slugs for one programme, but the
+  // same shape, and the same double count until the parser skips a
+  // placeholder row (tl-v1q, child .8 carries the skip; this list's bead
+  // form has no room for the suffix).
+  {
+    conference: "ne10",
+    date: "2026-09-09",
+    opponent: "saint-michael-s",
+    member: "franklin-pierce",
+    alias: "colby-sawyer",
+    bead: "tl-v1q",
+  },
+  {
+    conference: "ne10",
+    date: "2026-09-12",
+    opponent: "saint-michael-s",
+    member: "american-international",
+    alias: "aldrich-invitational",
+    bead: "tl-v1q",
+  },
 ];
 
 /** Every place one file records a member and a stranger against the same side

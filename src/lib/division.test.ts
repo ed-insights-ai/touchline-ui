@@ -132,6 +132,31 @@ describe("the records agree, which is what makes folding safe", () => {
         new Set(posted.map(sideFree)).size === 1 &&
         m.sightings.every((s) => hasResult(s.fixture) || pending(s));
       if (!lag) {
+        // Two posted finals printing different scores. Since #30 the fold
+        // does not choose between them: the pair is marked disputed, both
+        // scores stand in `scores` with their sources, and the page prints
+        // the mark. That IS the fold's honest output, so a live disagreement
+        // is reported here and never fails the gate; which page is stale is
+        // rib work (tl-5po), and the data is not the test's to correct. The
+        // standing case is 2026-09-05 Chico State v Saint Martin's: a 3-0
+        // final with a 3-0 box on the CCAA file (sidearm:chico-state:7000)
+        // and a 2-0 final with a 2-0 box on the GNAC file
+        // (sidearm:saint-martins:6679).
+        expect(m.disputed, m.identity).toBe(true);
+        expect(m.oneSided, m.identity).toBe(false);
+        expect(m.scores.length, m.identity).toBe(posted.length);
+        expect(m.scores.length, m.identity).toBeGreaterThan(1);
+        for (const s of posted) {
+          expect(
+            m.scores.some(
+              (x) =>
+                x.key === s.key &&
+                x.home_score === s.fixture.home_score &&
+                x.away_score === s.fixture.away_score,
+            ),
+            `${m.identity}: ${s.key}'s score is not among the disputed scores`,
+          ).toBe(true);
+        }
         disagreements.push(
           `${m.identity}: ${m.sightings.map((s) => `${s.key} ${sideFree(s)}`).join("  vs  ")}`,
         );
@@ -142,10 +167,15 @@ describe("the records agree, which is what makes folding safe", () => {
       expect(hasResult(m.fixture), m.identity).toBe(true);
       expect(posted.some((s) => s.key === m.key && s.fixture.id === m.fixture.id)).toBe(true);
     }
-    // Empty is the passing answer. A failure here is not a bug in the fold —
-    // it is two collectors publishing different facts about one match, and the
-    // fold has to stop choosing silently between them.
-    expect(disagreements).toEqual([]);
+    // Empty is the quiet answer. A disagreement is not a bug in the fold: it
+    // is two collectors publishing different facts about one match, and the
+    // fold has stopped choosing silently between them by marking the pair.
+    // Say which ones, for the morning's log; the gate stands either way.
+    if (disagreements.length > 0) {
+      console.log(
+        `division: ${disagreements.length} disputed final${disagreements.length === 1 ? "" : "s"}, marked by the fold:\n  ${disagreements.join("\n  ")}`,
+      );
+    }
   });
 
   test("a one-sided match names the page that has not posted, and the one that has", () => {
