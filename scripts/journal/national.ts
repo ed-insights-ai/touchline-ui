@@ -47,7 +47,7 @@ import {
   nationalAsOf,
   nationalLede,
 } from "../../src/lib/home.ts";
-import { editorial, loadJournal } from "../../src/lib/journal.ts";
+import { editorial, loadJournal, type NationalJournalFile } from "../../src/lib/journal.ts";
 import { site } from "../../src/site.config.ts";
 
 export interface NationalBrief {
@@ -172,6 +172,163 @@ export interface NationalBrief {
      *  folds first and keeps only matches with exactly one covered side. */
     division_vs_outside: { wins: number; draws: number; losses: number; gf: number; ga: number };
   };
+  /** Last night, judged: a results night or a quiet day. The prompt's
+   *  persistence rules turn on this one word, so it is computed here rather
+   *  than left to the writer to infer from the length of a list. */
+  night: { date: string; results: number; kind: NightKind };
+  /** The previous journal's line, and the two facts about it the writer is
+   *  not asked to work out: how old it is, and whether it has aged out. The
+   *  age is the journal's own `updated` stamp against the page's "today", and
+   *  the threshold is STANDING_MAX_AGE_DAYS — arithmetic done in code so the
+   *  rule is data-driven, not the model's. Null when there is no previous
+   *  journal. */
+  standing: StandingLine | null;
+  /** Every story the headline may be chosen from, in the order the desk
+   *  ranks them: last night's results first, then each conference's card line
+   *  before any conference's second story. On displacement the writer ranks
+   *  these on equal footing; the falsified subject is not placed ahead. */
+  candidates: Candidate[];
+}
+
+export type NightKind = "results" | "quiet";
+
+/** A standing line yields to the strongest current story once it is this
+ *  many days old, even when it is still true. Three, by the owner's ruling
+ *  (tl-bb4r): the Southwest Baptist line stood four days. */
+export const STANDING_MAX_AGE_DAYS = 3;
+
+export interface StandingLine {
+  headline: string;
+  dek: string | null;
+  /** The day the line last changed, from the previous journal; null when
+   *  that journal carried no stamp. */
+  updated: string | null;
+  /** Days from `updated` to the page's as-of; null when there is no stamp. */
+  age_days: number | null;
+  /** True once age_days has reached STANDING_MAX_AGE_DAYS. */
+  aged_out: boolean;
+  max_age_days: number;
+  fixture_ref: string | null;
+  /** Whether the standing line's fixture_ref is one of last night's matches —
+   *  the one case a results night does not displace it. */
+  about_last_night: boolean;
+}
+
+export interface Candidate {
+  rank: number;
+  kind: "result" | "card" | "headline";
+  conferences: string[];
+  /** The story, as data: a result's match reference, or a card's line. */
+  story: string;
+  /** What a result did to a season — "first defeat", "first win", "unbeaten
+   *  start over" — computed from each side's record before and after. A
+   *  result that changed nothing season-level carries an empty list and
+   *  ranks behind the ones that did. */
+  meaning?: string[];
+}
+
+interface Tally {
+  wins: number;
+  draws: number;
+  losses: number;
+}
+
+export interface NightResultSide {
+  programme: string;
+  conference: string;
+  before: Tally;
+  after: Tally;
+}
+
+export interface NightResult {
+  match: string;
+  codes: string[];
+  sides: NightResultSide[];
+}
+
+/** What a result meant to a side, read off its record before and after. */
+export function sideMeaning(side: NightResultSide): string[] {
+  const { before, after, programme } = side;
+  const played = before.wins + before.draws + before.losses;
+  const out: string[] = [];
+  if (played === 0) out.push(`${programme}: first result of the season`);
+  if (before.losses === 0 && after.losses > 0) {
+    out.push(played > 0 ? `${programme}: unbeaten start over` : `${programme}: first defeat`);
+  }
+  if (before.wins === 0 && after.wins > 0 && played > 0) out.push(`${programme}: first win`);
+  if (before.draws === 0 && after.draws > 0 && played > 0 && before.losses === 0) {
+    out.push(`${programme}: first points dropped`);
+  }
+  return out;
+}
+
+/** The night's kind, from the ledger alone. */
+export const nightKind = (results: number): NightKind => (results > 0 ? "results" : "quiet");
+
+/** The standing line's age against the page's as-of, and whether it has
+ *  aged out. Pure, so the threshold is a test rather than a model's sum. */
+export function standingAge(
+  updated: string | undefined | null,
+  asOf: string,
+): { updated: string | null; age_days: number | null; aged_out: boolean } {
+  if (!updated) return { updated: null, age_days: null, aged_out: false };
+  const age = daysBetween(updated, asOf);
+  return { updated, age_days: age, aged_out: age >= STANDING_MAX_AGE_DAYS };
+}
+
+/** The previous journal read as a standing line, with the facts the writer
+ *  is told rather than asked to compute. */
+export function standingLine(
+  previous: Pick<NationalJournalFile, "headline" | "dek" | "updated" | "fixture_ref"> | null,
+  asOf: string,
+  lastNight: readonly { match: string }[],
+): StandingLine | null {
+  if (!previous) return null;
+  const address = (m: string): string => m.split(" · ")[0]?.trim() ?? m;
+  const ref = previous.fixture_ref ?? null;
+  return {
+    headline: previous.headline,
+    dek: previous.dek ?? null,
+    ...standingAge(previous.updated, asOf),
+    max_age_days: STANDING_MAX_AGE_DAYS,
+    fixture_ref: ref,
+    about_last_night: ref !== null && lastNight.some((m) => address(m.match) === address(ref)),
+  };
+}
+
+/**
+ * The stories the headline is chosen from, ranked.
+ *
+ * Results first, the ones that changed a season-level fact ahead of the ones
+ * that did not, in ledger order within each. Then the conferences, round
+ * robin: every conference's first story (its card line) before any
+ * conference's second (its journal headline, when the card shows a wire
+ * instead). A list where one conference's whole journal came before the next
+ * conference's first line would be the ordering the old prompt fell into —
+ * the subject in front of the writer winning by being in front.
+ */
+export function rankCandidates(
+  results: readonly NightResult[],
+  conferences: readonly { code: string; stories: readonly string[] }[],
+): Candidate[] {
+  const out: Candidate[] = [];
+  const meant = results.map((r) => ({ r, meaning: r.sides.flatMap(sideMeaning) }));
+  const ordered = [
+    ...meant.filter((x) => x.meaning.length > 0),
+    ...meant.filter((x) => x.meaning.length === 0),
+  ];
+  for (const { r, meaning } of ordered) {
+    out.push({ rank: 0, kind: "result", conferences: r.codes, story: r.match, meaning });
+  }
+  const deepest = Math.max(0, ...conferences.map((c) => c.stories.length));
+  for (let i = 0; i < deepest; i++) {
+    for (const c of conferences) {
+      const story = c.stories[i];
+      if (!story) continue;
+      out.push({ rank: 0, kind: i === 0 ? "card" : "headline", conferences: [c.code], story });
+    }
+  }
+  return out.map((c, i) => ({ ...c, rank: i + 1 }));
 }
 
 /** A match as the brief names it: the canonical reference, then what the
@@ -197,7 +354,10 @@ const ref = (
 const ledgerMark = (m: DivisionMatch): string | null =>
   m.disputed ? DISPUTED_MARK : isForfeit(m.fixture) ? FORFEIT_MARK : null;
 
-export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
+export function buildNationalBrief(
+  seasons: readonly Season[],
+  previous: NationalJournalFile | null = null,
+): NationalBrief {
   const columns = homeColumns(seasons);
   const asOf = nationalAsOf(seasons);
   const counts = divisionCounts(seasons);
@@ -211,6 +371,15 @@ export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
   const cardLine = (s: Season): string => {
     const journal = loadJournal(s);
     return journal?.wire?.line ?? editorial(s, journal).headline;
+  };
+  // A conference's stories, first to second: the card line, then the journal
+  // headline when the card shows a wire in its place — the same two lines,
+  // never a third, so no conference is offered more than it prints.
+  const stories = (s: Season): string[] => {
+    const journal = loadJournal(s);
+    const card = cardLine(s);
+    const headline = editorial(s, journal).headline;
+    return headline && headline !== card ? [card, headline] : [card];
   };
 
   const bySlug = new Map<string, Season>();
@@ -231,6 +400,16 @@ export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
       form: formOf(s, slug).join("") || "—",
     };
   };
+
+  const results: NightResult[] = ledger.map((m) => ({
+    match: ref(m.fixture, ledgerMark(m)),
+    codes: m.codes,
+    sides: [m.fixture.home, m.fixture.away].map((slug) => {
+      const own = bySlug.get(slug) ?? m.season;
+      const { before, after } = around(own, slug, night);
+      return { programme: slug, conference: codeOf(slug), before, after };
+    }),
+  }));
 
   return {
     meta: {
@@ -362,6 +541,12 @@ export function buildNationalBrief(seasons: readonly Season[]): NationalBrief {
       }),
       division_vs_outside: divisionVsOutside(seasons, bySlug),
     },
+    night: { date: night, results: ledger.length, kind: nightKind(ledger.length) },
+    standing: standingLine(previous, asOf, results),
+    candidates: rankCandidates(
+      results,
+      columns.map((c) => ({ code: c.code, stories: stories(c.season) })),
+    ),
   };
 }
 
