@@ -211,8 +211,12 @@ describe("the records agree, which is what makes folding safe", () => {
     // record is canonical whichever side is at home: the 2026-08-18 Lander
     // at Southern Wesleyan match is CC's by home side and PBC's by the fold,
     // because PBC's file posted the score (and the exhibition mark) and CC's
-    // did not.
-    for (const m of shared.filter((m) => !m.neutral)) {
+    // did not. The rule is keyed to the records AGREEING on a home side,
+    // not to the match being non-neutral: a match both files list under the
+    // same home and one file flags neutral (tl-a33) is neutral, and its
+    // canonical record is still chosen by this rule.
+    const agreed = shared.filter((m) => new Set(m.sightings.map((s) => s.fixture.home)).size === 1);
+    for (const m of agreed) {
       const home = m.sightings.filter((s) => memberSlugs(s.season).has(s.fixture.home));
       expect(home.length, m.identity).toBe(1);
       const posted = m.sightings.filter((s) => hasResult(s.fixture));
@@ -224,22 +228,26 @@ describe("the records agree, which is what makes folding safe", () => {
     }
   });
 
-  test("a neutral-site match is the records disagreeing on the home side and nothing else", () => {
+  test("a neutral-site match is any record's neutral flag, or the records disagreeing on the home side", () => {
     for (const m of shared) {
       const homes = new Set(m.sightings.map((s) => s.fixture.home));
-      expect(m.neutral, m.identity).toBe(homes.size > 1);
+      const flagged = m.sightings.some((s) => s.fixture.neutral === true);
+      expect(m.neutral, m.identity).toBe(flagged || homes.size > 1);
       if (!m.neutral) continue;
       // Measured on the two Rogers State tournament matches: on 08-27 each
       // site wrote itself as home; on 08-29 each wrote the OTHER side as home
       // under different venue strings. Neither shape is a home side, which is
-      // why the definition is the disagreement itself and not who claimed
+      // why the disagreement itself is a definition and not who claimed
       // what. Score and status agree — across the records that have posted a
       // score, if only one has — or it would not have folded at all.
       const spoken = m.oneSided ? m.sightings.filter((s) => hasResult(s.fixture)) : m.sightings;
       expect(new Set(spoken.map(sideFree)).size, m.identity).toBe(1);
-      // Canonical is the first record in config order: stable, and not a
-      // claim about home.
-      expect(m.key, m.identity).toBe((m.sightings[0] as Sighting).key);
+      // Where the records disagree, canonical is the first record in config
+      // order: stable, and not a claim about home. Where they agree on a
+      // printed home and a flag makes the match neutral, the canonical
+      // record is chosen exactly as for a match with a home side (the test
+      // above holds it to that rule), so the flag moves no link.
+      if (homes.size > 1) expect(m.key, m.identity).toBe((m.sightings[0] as Sighting).key);
     }
   });
 
@@ -783,5 +791,132 @@ describe("a disputed final keeps both scores instead of failing the build", () =
       if (!m.disputed) expect(m.scores, m.identity).toEqual([]);
       else expect(m.scores.length, m.identity).toBeGreaterThan(1);
     }
+  });
+});
+
+describe("the collector's neutral flag makes a match neutral on its own (tl-a33)", () => {
+  // The fixture contract's `neutral: true` is the schedule page itself
+  // marking the site. Before this the fold read neutrality only from two
+  // records disagreeing on the home side, so a neutral-site match seen by
+  // ONE file — or by two files that both copied the same listed home — lost
+  // the flag and the ledger printed a home side the page had disclaimed.
+  //
+  // Measured on two rows the data home holds. 2026-08-29 Morningside v
+  // South Dakota Mines is in RMAC's file only (Morningside is NAIA, in no
+  // file this site follows): one record, flagged, final 3-0. 2026-08-27
+  // Cal State East Bay v Midwestern State is in two files under the SAME
+  // printed home: LSC's row (from MSU's own page) carries the flag, CCAA's
+  // row (from East Bay's page) does not.
+  const rmac = loadFixtures(2026, "men", "rmac");
+  const lsc = loadFixtures(2026, "men", "lsc");
+  const ccaa = loadFixtures(2026, "men", "ccaa");
+  const single = rmac.fixtures.find((f) => f.id === "sidearm:south-dakota-mines:11505") as Fixture;
+  const msu = lsc.fixtures.find((f) => f.id === "sidearm:midwestern-state:13294") as Fixture;
+  const csueb = ccaa.fixtures.find((f) => f.id === "sidearm:cal-state-east-bay:6999") as Fixture;
+  const rmacSeason = seasonOf("rmac", { ...rmac, fixtures: [single] });
+  const lscSeason = seasonOf("lsc", { ...lsc, fixtures: [msu] });
+  const ccaaSeason = seasonOf("ccaa", { ...ccaa, fixtures: [csueb] });
+  const unflagged = (f: Fixture): Fixture => {
+    const { neutral: _drop, ...rest } = f;
+    return rest as Fixture;
+  };
+  const flaggedAs = (f: Fixture): Fixture => ({ ...f, neutral: true });
+  const swapped = (f: Fixture): Fixture => ({
+    ...f,
+    home: f.away,
+    away: f.home,
+    home_score: f.away_score,
+    away_score: f.home_score,
+  });
+  const only = (out: ReturnType<typeof foldToMatches>): (typeof out)[number] => {
+    expect(out).toHaveLength(1);
+    return out[0] as (typeof out)[number];
+  };
+
+  test("the rows are the ones the data home holds", () => {
+    expect(single).toMatchObject({
+      date: "2026-08-29",
+      home: "south-dakota-mines",
+      away: "morningside",
+      status: "final",
+      neutral: true,
+    });
+    expect(msu).toMatchObject({
+      date: "2026-08-27",
+      home: "midwestern-state",
+      away: "cal-state-east-bay",
+      status: "final",
+      neutral: true,
+    });
+    expect(csueb).toMatchObject({
+      date: "2026-08-27",
+      home: "midwestern-state",
+      away: "cal-state-east-bay",
+      status: "final",
+    });
+    expect(csueb.neutral).toBeUndefined();
+    expect(matchIdentity(msu)).toBe(matchIdentity(csueb));
+  });
+
+  test("a single-sourced flagged match is neutral, and its one record is canonical", () => {
+    const m = only(foldToMatches([sightingOf(rmacSeason, single)]));
+    expect(m.neutral).toBe(true);
+    expect(m.key).toBe("rmac");
+    expect(m.fixture.id).toBe(single.id);
+    expect(m.sightings).toHaveLength(1);
+    // And the same row with the flag stripped is a home match: the flag is
+    // the only thing that made it neutral.
+    expect(only(foldToMatches([sightingOf(rmacSeason, unflagged(single))])).neutral).toBe(false);
+  });
+
+  test("flag on one record only: neutral, in either order, and the folded row is unchanged", () => {
+    for (const order of [
+      [sightingOf(lscSeason, msu), sightingOf(ccaaSeason, csueb)],
+      [sightingOf(ccaaSeason, csueb), sightingOf(lscSeason, msu)],
+    ]) {
+      const m = only(foldToMatches(order));
+      expect(m.neutral).toBe(true);
+      expect(m.disputed).toBe(false);
+      expect(m.oneSided).toBe(false);
+      expect(m.codes).toHaveLength(2);
+      // The records agree on the printed home, so the canonical record is the
+      // printed home side's own conference, as it was before the flag was
+      // read: the flag changes the sense of the row, never its link.
+      expect(m.key).toBe("lsc");
+      expect(m.fixture.id).toBe(msu.id);
+    }
+  });
+
+  test("flag on both records: neutral, same canonical choice", () => {
+    const m = only(
+      foldToMatches([sightingOf(lscSeason, msu), sightingOf(ccaaSeason, flaggedAs(csueb))]),
+    );
+    expect(m.neutral).toBe(true);
+    expect(m.key).toBe("lsc");
+  });
+
+  test("no flag anywhere and an agreed home: not neutral", () => {
+    const m = only(
+      foldToMatches([sightingOf(lscSeason, unflagged(msu)), sightingOf(ccaaSeason, csueb)]),
+    );
+    expect(m.neutral).toBe(false);
+    expect(m.key).toBe("lsc");
+  });
+
+  test("no flag anywhere but the records disagree on the home side: still neutral, canonical by config order", () => {
+    // The pre-flag definition, kept: each site writing itself as home. The
+    // CCAA record is swapped so East Bay is its home side, scores swapped
+    // with it so the two still agree on the result.
+    const a = sightingOf(lscSeason, unflagged(msu));
+    const b = sightingOf(ccaaSeason, swapped(csueb));
+    const m = only(foldToMatches([a, b]));
+    expect(m.neutral).toBe(true);
+    expect(m.disputed).toBe(false);
+    // No agreed home side to break the tie on: the first in config order.
+    const first = [...site.conferences].find((k) => k === "lsc" || k === "ccaa") as string;
+    expect(m.key).toBe(first);
+    // And the same disagreement with the flag present on top folds the same.
+    expect(only(foldToMatches([sightingOf(lscSeason, msu), b])).neutral).toBe(true);
+    expect(only(foldToMatches([sightingOf(lscSeason, msu), b])).key).toBe(first);
   });
 });

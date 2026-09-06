@@ -129,11 +129,12 @@ const markOf = (r: DivisionMatch): string | null =>
   r.disputed ? DISPUTED_MARK : isForfeit(r.fixture) ? FORFEIT_MARK : null;
 
 // A ledger row reads away · score · home, which is a claim about where the
-// match was played. A neutral-site match (two records, each site calling
-// itself home) has no home side to claim, so its row is set in the order the
-// fold's identity uses — the two slugs sorted — with the score in that order
-// and a "v" where the home sense would have been. Both sides are printed
-// with the same weight rule; only the sense is withheld.
+// match was played. A neutral-site match (the collector's own flag on any
+// record, or two records each calling itself home; the fold's `neutral`
+// covers both, tl-a33) has no home side to claim, so its row is set in the
+// order the fold's identity uses — the two slugs sorted — with the score in
+// that order and a "v" where the home sense would have been. Both sides are
+// printed with the same weight rule; only the sense is withheld.
 interface LedgerSide {
   slug: string;
   score: number | undefined;
