@@ -60,18 +60,25 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 
 ## Build & Test
 
-_Add your build and test commands here_
-
 ```bash
-# Example:
-# npm install
-# npm test
+bun install
+just verify            # tsc, biome, build, bun test, link check: the gate before any publish
+bun test               # the tests alone (model drift, copy properties, fold, home)
+bun run journal run --conference gac   # the AI step; --all, --national; never run by the build
+just build             # static site into dist/ with the project-page base
 ```
+
+`TOUCHLINE_DATA_DIR` names the data home (default `~/keelson/d2-soccer`);
+`TOUCHLINE_CONTRACTS_DIR` names the rib's `contracts/` for the drift tests.
 
 ## Architecture Overview
 
-_Add a brief overview of your project architecture_
+A static Astro site rebuilt from the rib's JSON data home on every collect: 19 configured conferences, one journal per conference plus a national one written by a model and validated against the data, published to `gh-pages` by `just publish`. See `reference/ARCHITECTURE.md`.
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+- A conference is configuration (`src/site.config.ts`): no conference name, region or count appears in code.
+- The data home is read-only to this repo; the journal writes to `journal/`.
+- Text as published: names, plays and figures print as the source published them, nothing is inferred from a slug, and intent words (withheld, refused, declined) are barred.
+- Every journal claim carries a `basis`; the validator drops what it cannot recompute, and a dropped claim is the system working.
+- `src/lib/model.ts` is this site's copy of the rib contract; `model-drift.test.ts` and `contracts.test.ts` hold it to the rib's `contracts/`.
