@@ -2,10 +2,10 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-05T16:40:00+00:00",
-  "data_collected_at": "2026-09-05T11:33:45+00:00",
-  "headline": "Southwest Baptist outscore every other programme in the division",
-  "dek": "Southwest Baptist have scored fifteen goals in two matches and have yet to concede, and no other programme in the division has scored as many. Both wins came before conference play, and the tally is carried into the Great Lakes Valley Conference season intact.",
+  "generated_at": "2026-09-06T16:00:00+00:00",
+  "data_collected_at": "2026-09-06T11:33:21+00:00",
+  "headline": "Southwest Baptist drop first points, still outscore the division",
+  "dek": "Southwest Baptist's perfect start is over after a home draw with Missouri-St. Louis. Their seventeen goals are still more than any other programme in the division has scored, and they carry that tally, and an unbeaten record, into the Great Lakes Valley Conference table.",
   "basis": {
     "comparative": "greater_than_each",
     "metric": "gf",
@@ -209,15 +209,16 @@
       "western-oregon",
       "western-washington"
     ],
-    "gf": 15,
-    "ga": 0,
+    "gf": 17,
     "wins": 2,
-    "matches_played": 2
+    "draws": 1,
+    "losses": 0
   },
   "fixture_ref": "2026-09-05 southwest-baptist v missouri-st-louis",
-  "updated": "2026-09-05",
+  "updated": "2026-09-06",
+  "displaced_by": "Southwest Baptist conceded and drew at home; the standing dek's 'yet to concede' is no longer true, and their division-leading tally now stands beside a dropped-points story",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-05T16:39:27.268Z"
+    "validated_at": "2026-09-06T14:06:43.955Z"
   }
 }
