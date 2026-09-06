@@ -136,6 +136,17 @@ function takeName(text: string, index: NameIndex): { name: string; rest: string 
  * player called "ate Samuel Fitschen". And a clause that is *only* the side's
  * name ("Foul on Central Baptist (AR).") is a play attributed to the side, so
  * the name stays: stripping it would leave the row saying nothing.
+ *
+ * The play-by-play does not always tag the side the way the box score does:
+ * Tampa's box score names and abbreviates it "Tampa", while its plays say
+ * "Shot by UT Koerner, Tassilo" — and a tag nobody strips is flipped into the
+ * name, printing "Tassilo UT Koerner". So when neither the abbreviation nor
+ * the name leads, a leading all-capitals word is taken as the side's tag IF
+ * this side's teamsheet vouches that it is not a name: the word appears in no
+ * lineup name of the side, and what follows it is capitalised the way a name
+ * is (a leading "GOAL by …" stays whole, because "by" is not). Without a
+ * teamsheet nothing is stripped — the fallback is the old behaviour, never a
+ * guess.
  */
 function stripTeam(text: string, team: MatchTeam | undefined): string {
   if (!team) return text;
@@ -148,7 +159,26 @@ function stripTeam(text: string, team: MatchTeam | undefined): string {
     if (trimStop(kept) === "") continue;
     return kept;
   }
-  return text;
+  return stripUnlistedTag(text, team);
+}
+
+/** Every word the side's teamsheet spells, in the key the name index uses. */
+function lineupWords(team: MatchTeam): Set<string> | null {
+  const names = [...(team.players ?? []), ...(team.keepers ?? [])].map((line) => line.name);
+  if (names.length === 0) return null;
+  const words = new Set<string>();
+  for (const name of names) for (const word of tokenKey(name).split(" ")) words.add(word);
+  return words;
+}
+
+/** "UT Koerner, Tassilo" → "Koerner, Tassilo", when the teamsheet says "UT" names nobody. */
+function stripUnlistedTag(text: string, team: MatchTeam): string {
+  const words = lineupWords(team);
+  if (!words) return text;
+  const lead = /^([A-Z]{2,})\s+(?=[A-Z])/.exec(text);
+  if (!lead || words.has(tokenKey(lead[1] ?? ""))) return text;
+  const kept = text.slice(lead[0].length);
+  return trimStop(kept) === "" ? text : kept;
 }
 
 // ── Per-type sentence grammars ──────────────────────────────────────────────
