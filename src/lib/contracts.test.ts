@@ -42,7 +42,7 @@ const contracts = [
   { file: "fixtures-2.json", schema: FIXTURES_SCHEMA, parse: fixturesFileSchema.parse },
   { file: "rosters-1.json", schema: ROSTERS_SCHEMA, parse: rostersFileSchema.parse },
   { file: "stats-1.json", schema: STATS_SCHEMA, parse: statsFileSchema.parse },
-  { file: "matches-1.json", schema: MATCHES_SCHEMA, parse: matchesFileSchema.parse },
+  { file: "matches-2.json", schema: MATCHES_SCHEMA, parse: matchesFileSchema.parse },
   { file: "programmes-2.json", schema: PROGRAMMES_SCHEMA, parse: programmesFileSchema.parse },
 ] as const;
 
@@ -81,7 +81,7 @@ describe("the rib's contract fixtures parse under this site's schemas", () => {
   });
 
   test("the matches fixture carries a card of unknown colour", () => {
-    const file = matchesFileSchema.parse(read("matches-1.json"));
+    const file = matchesFileSchema.parse(read("matches-2.json"));
     const cards = Object.values(file.matches).flatMap((m) => m.cards ?? []);
     expect(cards.some((card) => card.type === "unknown")).toBe(true);
   });

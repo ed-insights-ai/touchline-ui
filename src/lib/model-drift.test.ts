@@ -144,7 +144,7 @@ const dir = contractsDir();
 
 /** The four season files, the schemas model.ts reads them with, and the keys
  *  each declares that the rib's fixture does not exercise as of its contract
- *  changelog of 2026-09-05. Every one of these is declared by the rib's own
+ *  changelog of 2026-09-07. Every one of these is declared by the rib's own
  *  src/model.ts as well, so none is a site invention: `clock` is the live
  *  fixture's minute, and no collect has caught a live row; `offsides` is a
  *  box-score team line the fixture's pages did not print; and the match line
@@ -162,7 +162,7 @@ const seasonFiles = [
   { file: "rosters-1.json", schema: ROSTERS_SCHEMA, shape: rostersFileSchema, unexercised: [] },
   { file: "stats-1.json", schema: STATS_SCHEMA, shape: statsFileSchema, unexercised: [] },
   {
-    file: "matches-1.json",
+    file: "matches-2.json",
     schema: MATCHES_SCHEMA,
     shape: matchesFileSchema,
     unexercised: [

@@ -15,7 +15,7 @@ launchd (daily)
         │     data/raw_html (the fetch cache), data/errors, data/research,
         │     data/reports
         │     contracts the rib publishes under its contracts/: fixtures-2,
-        │       rosters-1, stats-1, matches-1, coverage-1, programmes-2,
+        │       rosters-1, stats-1, matches-2, coverage-1, programmes-2,
         │       membership
         ├─ journal ───────────► journal/journal-{season}-{gender}-{conf}.json
         │     one per changed conference, then journal-{season}-{gender}-national.json
@@ -41,7 +41,7 @@ Read-only to this repo. `TOUCHLINE_DATA_DIR` names its root (default
 `~/keelson/d2-soccer`); `src/lib/data.ts` is the only reader of the season
 files and refuses a file whose `schema` string it does not know. The four
 season files are read per conference under `touchline.fixtures/2`,
-`rosters/1`, `stats/1` and `matches/1`; `coverage.json` (`touchline.coverage/1`)
+`rosters/1`, `stats/1` and `matches/2` (the reader admits the older `matches/1` until every season is rewritten); `coverage.json` (`touchline.coverage/1`)
 records what each collect managed, in four states (complete, empty,
 unavailable, no-collector). `data/reference/programmes.json`
 (`touchline.programmes/2`) supplies nickname, town and map point per
