@@ -60,51 +60,14 @@ const KNOWN: (Duplicate & { bead: string })[] = [
   // UDC's second slugs (tui-1ht) and AIC's had before them. The entries went
   // with the defects, by the rule the test below holds this list to.
   //
-  // Refilled on 2026-09-06 by Saint Michael's page, which prints event
-  // placeholders as rows of its own: on 09-09 a "v Colby-Sawyer" row placed
-  // at the SMC Tennis Courts beside the real match at Franklin Pierce, and
-  // on 09-12 an "Aldrich Invitational" row at Middlebury, an event and not a
-  // programme, beside the real match AIC's own page has. The NE10 collect
-  // minted a stranger from each. Not two slugs for one programme, but the
-  // same shape, and the same double count until the parser skips a
-  // placeholder row (tl-v1q, child .8 carries the skip; this list's bead
-  // form has no room for the suffix).
-  {
-    conference: "ne10",
-    date: "2026-09-09",
-    opponent: "saint-michael-s",
-    member: "franklin-pierce",
-    alias: "colby-sawyer",
-    bead: "tl-v1q",
-  },
-  {
-    conference: "ne10",
-    date: "2026-09-12",
-    opponent: "saint-michael-s",
-    member: "american-international",
-    alias: "aldrich-invitational",
-    bead: "tl-v1q",
-  },
-  // 2026-09-07, the third stranger from the same page, and the one that names
-  // the cause. Saint Michael's page was fetched live beside AIC's: both print
-  // one men's match on 09-12, Saint Michael's at American International, 4 pm,
-  // Ronald J. Abdow Field (SMC event 10129, AIC event 26910). The stored row
-  // sidearm:saint-michael-s:9817, "at D'Youville, Buffalo, 12 pm", is not on
-  // SMC's men's schedule at all: the page embeds an all-sports upcoming-events
-  // block, and 9817 sits there under "2026 Women's Soccer Schedule", as 9816
-  // (at Roberts Wesleyan, 09-11) does, and as 9873 above sits under "2026
-  // Men's Cross Country Schedule" and the 09-09 Colby-Sawyer row under men's
-  // tennis. Not a placeholder row but another sport's fixture, read as ours:
-  // the parser must hold that block to the men's soccer schedule. SMC's page
-  // is the wrong one; AIC's is right.
-  {
-    conference: "ne10",
-    date: "2026-09-12",
-    opponent: "saint-michael-s",
-    member: "american-international",
-    alias: "d-youville",
-    bead: "tl-v1q",
-  },
+  // Refilled 2026-09-06 and emptied again 2026-09-07 by Saint Michael's page,
+  // which embeds an all-sports upcoming-events block under the same component
+  // type as the men's soccer stub: a "v Colby-Sawyer" row at the SMC Tennis
+  // Courts (men's tennis), an "Aldrich Invitational" row (men's cross
+  // country) and an "at D'Youville" row (women's soccer) all reached the NE10
+  // file as men's soccer fixtures, each a stranger beside the real match on
+  // the member's own page. tl-4sg.41 (rib #114) holds that block to the
+  // sport each event names; the re-collect that followed cleared all three.
 ];
 
 /** Every place one file records a member and a stranger against the same side
