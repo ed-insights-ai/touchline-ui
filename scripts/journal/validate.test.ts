@@ -31,7 +31,16 @@ import type { JournalFile } from "../../src/lib/journal.ts";
 import { WIRE_MAX_CHARS } from "../../src/lib/prose.ts";
 import { coverageSubject, restatementDrops, validateJournal } from "./validate.ts";
 
-const season = loadSeason("gac");
+// The season's dateline is pinned. pageFacts() vouches for the date parts of
+// asOf, collectedAt and the conference's opening day, and a live collect
+// stamps both of the first two with today: on the 7th "Seven" was vouched for
+// and the digits test failed, on the 20th "Twenty" would be. With the dateline
+// held at 2026-08-30 the vouched set is 2026, 8, 30 and the opening day's 9
+// and 17 — no number under test below may be one of those. The clock time is
+// deliberately 21:07:31, which pageFacts() must ignore. The football is still
+// read live: every derived expectation is computed from this same object.
+const DATELINE = { asOf: "2026-08-30", collectedAt: "2026-08-30T21:07:31Z" };
+const season = { ...loadSeason("gac"), ...DATELINE };
 
 /** A journal with only the fields under test filled in. */
 function journal(over: Partial<JournalFile>): JournalFile {
@@ -41,7 +50,7 @@ function journal(over: Partial<JournalFile>): JournalFile {
     gender: "men",
     conference: "GAC",
     generated_at: "2026-08-30T21:30:00Z",
-    data_collected_at: season.collectedAt,
+    data_collected_at: DATELINE.collectedAt,
     headline: "A headline with no numbers in it at all.",
     findings: [],
     players_to_watch: [],

@@ -85,6 +85,26 @@ const KNOWN: (Duplicate & { bead: string })[] = [
     alias: "aldrich-invitational",
     bead: "tl-v1q",
   },
+  // 2026-09-07, the third stranger from the same page, and the one that names
+  // the cause. Saint Michael's page was fetched live beside AIC's: both print
+  // one men's match on 09-12, Saint Michael's at American International, 4 pm,
+  // Ronald J. Abdow Field (SMC event 10129, AIC event 26910). The stored row
+  // sidearm:saint-michael-s:9817, "at D'Youville, Buffalo, 12 pm", is not on
+  // SMC's men's schedule at all: the page embeds an all-sports upcoming-events
+  // block, and 9817 sits there under "2026 Women's Soccer Schedule", as 9816
+  // (at Roberts Wesleyan, 09-11) does, and as 9873 above sits under "2026
+  // Men's Cross Country Schedule" and the 09-09 Colby-Sawyer row under men's
+  // tennis. Not a placeholder row but another sport's fixture, read as ours:
+  // the parser must hold that block to the men's soccer schedule. SMC's page
+  // is the wrong one; AIC's is right.
+  {
+    conference: "ne10",
+    date: "2026-09-12",
+    opponent: "saint-michael-s",
+    member: "american-international",
+    alias: "d-youville",
+    bead: "tl-v1q",
+  },
 ];
 
 /** Every place one file records a member and a stranger against the same side
