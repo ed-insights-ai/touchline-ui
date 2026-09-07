@@ -22,7 +22,13 @@ import { buildNationalBrief } from "./national.ts";
 import { validateNationalJournal } from "./national-validate.ts";
 import { CHECKERS } from "./validate.ts";
 
-const seasons = homeSeasons();
+// Every season's dateline is pinned, as in validate.test.ts: the validator
+// vouches for the date parts of each collect, and a live collect is stamped
+// today, so "Fourteen" below would pass unflagged on the 14th of any month.
+// Held at 2026-08-30 the vouched days are 30 and the conferences' opening
+// days; no number under test may be one of those. The football is read live.
+const DATELINE = { asOf: "2026-08-30", collectedAt: "2026-08-30T21:07:31Z" };
+const seasons = homeSeasons().map((s) => ({ ...s, ...DATELINE }));
 const counts = divisionCounts(seasons);
 const brief = buildNationalBrief(seasons);
 
@@ -32,7 +38,7 @@ function journal(over: Partial<NationalJournalFile>): NationalJournalFile {
     season: 2026,
     gender: "men",
     generated_at: "2026-09-01T12:00:00Z",
-    data_collected_at: seasons[0]?.collectedAt ?? "",
+    data_collected_at: DATELINE.collectedAt,
     headline: "A headline with no numbers in it at all.",
     ...over,
   } as NationalJournalFile;
