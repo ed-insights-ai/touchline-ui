@@ -3,34 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-09-06T15:10:00+00:00",
-  "data_collected_at": "2026-09-06T11:30:05+00:00",
-  "headline": "Bridgeport and Georgian Court alone still unbeaten",
-  "dek": "Georgian Court have won once and drawn twice, scoring seven and conceding four, and their first win came at home to Staten Island after draws on the road at Bentley and Saint Michael's. Bridgeport's record is the same shape, a win and two draws. Every other programme in the CACC has already been beaten.",
+  "generated_at": "2026-09-07T12:05:00+00:00",
+  "data_collected_at": "2026-09-07T11:30:04+00:00",
+  "headline": "Georgian Court win on the road, stand alone unbeaten",
+  "dek": "Georgian Court have now won twice and drawn twice, scoring twelve goals and conceding six, and the second win came on the road at Pitt-Johnstown after two away draws. Bridgeport, unbeaten alongside them a day earlier, lost at home to Mercy, and every other programme in the CACC had already been beaten.",
   "lede_basis": {
     "programme": "georgian-court",
-    "wins": 1,
+    "wins": 2,
     "draws": 2,
     "losses": 0,
-    "gf": 7,
-    "ga": 4
+    "gf": 12,
+    "ga": 6
   },
-  "lede_updated": "2026-09-04",
+  "lede_updated": "2026-09-07",
+  "displaced_by": "Bridgeport beaten at home by Mercy; Georgian Court alone unbeaten after winning at Pitt-Johnstown",
   "pattern": {
     "label": "derived",
-    "text": "Georgian Court's seven goals have come from six different scorers, and so have Bridgeport's. The two tallest bars on the chart are both spreads of contributions rather than any individual's tally.",
+    "text": "Georgian Court's twelve goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "georgian-court": 12,
         "bridgeport": 7,
-        "georgian-court": 7,
         "felician": 6,
         "wilmington": 6,
         "caldwell": 5,
         "chestnut-hill": 5,
+        "post": 4,
         "holy-family": 3,
         "jefferson": 3,
-        "post": 2,
         "dominican": 1,
         "goldey-beacom": 1
       },
@@ -38,45 +39,25 @@
     },
     "basis": {
       "programme": "georgian-court",
-      "gf": 7,
-      "ga": 4,
-      "distinct_scorers_min": 6
+      "gf": 12,
+      "ga": 6,
+      "distinct_scorers_min": 7,
+      "source": "stats",
+      "player": "Sander Rynning",
+      "goals": 3
     }
   },
   "wire": {
-    "line": "Bridgeport and Georgian Court remain unbeaten; every other side in the conference has already lost.",
+    "line": "Bridgeport's run ended at home to Mercy, leaving Georgian Court as the only side in the conference still unbeaten.",
     "basis": {
       "programme": "georgian-court",
-      "wins": 1,
+      "wins": 2,
       "draws": 2,
       "losses": 0
     },
-    "updated": "2026-09-04"
+    "updated": "2026-09-07"
   },
   "findings": [
-    {
-      "label": "observed",
-      "text": "Three matches carry a published result but no box score, and all three are Goldey-Beacom's: the defeat by Pace, the goalless draw with District of Columbia, and the defeat at Bloomsburg. The site has those scores and not the shape of them.",
-      "basis": {
-        "set": "box_score_gaps",
-        "all_of": "goldey-beacom",
-        "count": 3,
-        "source": "matches",
-        "box_score_gaps": 3
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Post's home match with Bentley has passed its date without a published result, the only match in the conference in that state.",
-      "basis": {
-        "set": "past_date_no_result",
-        "all_of": "post",
-        "count": 1,
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 1
-      }
-    },
     {
       "label": "observed",
       "text": "Jefferson have lost all three of their matches, conceding twelve goals against three scored.",
@@ -87,6 +68,30 @@
         "losses": 3,
         "gf": 3,
         "ga": 12
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Post have won twice, at Adelphi and at home to Bentley, drawn with Franklin Pierce and lost to Charleston, four goals scored and four conceded.",
+      "basis": {
+        "programme": "post",
+        "wins": 2,
+        "draws": 1,
+        "losses": 1,
+        "gf": 4,
+        "ga": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Dominican have drawn once and lost three times, scoring one goal, Noah Rosa's in the draw with Pace, and conceding nine.",
+      "basis": {
+        "programme": "dominican",
+        "wins": 0,
+        "draws": 1,
+        "losses": 3,
+        "gf": 1,
+        "ga": 9
       }
     },
     {
@@ -124,32 +129,32 @@
       "line": "3 G · 2 A · 9 shots"
     },
     {
-      "player": "Kristians Prieditis",
-      "programme": "bridgeport",
-      "position": "FWD",
-      "class": "SO",
-      "line": "2 G · 2 A · 11 shots"
-    },
-    {
       "player": "Gijs van Eif",
       "programme": "georgian-court",
       "position": "FWD",
       "class": "SR",
-      "line": "2 G · 1 A · 17 shots"
+      "line": "2 G · 4 A · 20 shots"
+    },
+    {
+      "player": "Sander Rynning",
+      "programme": "georgian-court",
+      "position": "MID",
+      "class": "SO",
+      "line": "3 G · 1 A · 6 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 southern-new-hampshire v jefferson",
-      "line": "Jefferson have lost every match they have played and have conceded more than any other CACC programme."
+      "fixture_ref": "2026-09-06 bridgeport v mercy",
+      "line": "Bridgeport's first defeat of the season, and the first match in which they have failed to score."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 pitt-johnstown v georgian-court",
-      "line": "Georgian Court are unbeaten but have yet to win away from home; Pitt-Johnstown have already won at Chestnut Hill this week."
+      "fixture_ref": "2026-09-08 molloy v holy-family",
+      "line": "Holy Family's only win came at home to Queens; they have yet to take a point away from home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:39:47.777Z"
+    "validated_at": "2026-09-07T11:41:58.317Z"
   }
 }

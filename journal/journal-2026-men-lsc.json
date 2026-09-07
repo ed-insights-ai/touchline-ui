@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-06T12:05:00Z",
-  "data_collected_at": "2026-09-06T11:33:54+00:00",
+  "generated_at": "2026-09-07T12:04:00Z",
+  "data_collected_at": "2026-09-07T11:34:22+00:00",
   "headline": "West Texas A&M go three matches without a goal",
   "dek": "West Texas A&M scored four and kept a clean sheet against Adams State on the opening day, and have not scored since, losing at home to Fort Lewis and away at Colorado Christian and Southern Nazarene. Their eleven goals conceded are matched only by Sul Ross State, who have yet to score at all.",
   "lede_basis": {
@@ -24,18 +24,18 @@
   "lede_updated": "2026-09-06",
   "pattern": {
     "label": "derived",
-    "text": "Seven different players have scored Midwestern State's twelve goals, and Jose Ortiz has four of them.",
+    "text": "Eight different players have scored Midwestern State's fourteen goals, and Jose Ortiz has five of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 12,
+        "midwestern-state": 14,
+        "ut-dallas": 10,
         "oklahoma-christian": 9,
-        "ut-dallas": 8,
         "dallas-baptist": 5,
         "saint-edwards": 5,
+        "lubbock-christian": 4,
         "texas-a-m-international": 4,
         "west-texas-a-m": 4,
-        "lubbock-christian": 3,
         "saint-marys": 3,
         "ut-tyler": 3,
         "sul-ross-state": 0
@@ -44,11 +44,11 @@
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 12,
-      "distinct_scorers_min": 7,
+      "gf": 14,
+      "distinct_scorers_min": 8,
       "source": "stats",
       "player": "Jose Ortiz",
-      "goals": 4
+      "goals": 5
     }
   },
   "wire": {
@@ -64,11 +64,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Five matches are past their date with no result published at all, and no match marked final is missing its score.",
+      "text": "Four matches are past their date with no result published, among them Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, and St. Edward's against Southwestern.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 5
+        "past_date_no_result": 4
       }
     },
     {
@@ -85,6 +85,32 @@
     },
     {
       "label": "derived",
+      "text": "Midwestern State have won both matches at home and drawn both away, scoring fourteen and conceding four.",
+      "basis": {
+        "programme": "midwestern-state",
+        "wins": 2,
+        "draws": 2,
+        "losses": 0,
+        "gf": 14,
+        "ga": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UT Dallas have won three, drawn one and lost one, and their ten goals are more than Lubbock Christian and West Texas A&M have scored together.",
+      "basis": {
+        "comparative": "greater_than_sum",
+        "metric": "gf",
+        "programme": "ut-dallas",
+        "of": ["lubbock-christian", "west-texas-a-m"],
+        "wins": 3,
+        "draws": 1,
+        "losses": 1,
+        "gf": 10
+      }
+    },
+    {
+      "label": "derived",
       "text": "Fernando Hernandez has made twenty-three saves for Sul Ross State and has yet to keep a clean sheet.",
       "basis": {
         "source": "stats",
@@ -93,35 +119,16 @@
         "saves": 23,
         "shutouts": 0
       }
-    },
-    {
-      "label": "derived",
-      "text": "Dallas Baptist have won both matches since losing to UT Tyler on the opening night, scoring five and conceding two.",
-      "basis": {
-        "programme": "dallas-baptist",
-        "wins": 2,
-        "draws": 0,
-        "losses": 1,
-        "gf": 5,
-        "ga": 2
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Dante Caffaro has kept two clean sheets in Oklahoma Christian's four matches and conceded four goals.",
-      "basis": {
-        "source": "stats",
-        "player": "Dante Caffaro",
-        "programme": "oklahoma-christian",
-        "shutouts": 2,
-        "goals_against": 4,
-        "wins": 3,
-        "draws": 0,
-        "losses": 1
-      }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Jose Ortiz",
+      "programme": "midwestern-state",
+      "position": "FWD",
+      "class": "SR",
+      "line": "5 G · 11 shots"
+    },
     {
       "player": "Kenzo Shabazz-Edwards",
       "programme": "oklahoma-christian",
@@ -130,32 +137,25 @@
       "line": "4 G · 10 shots"
     },
     {
-      "player": "Jose Ortiz",
-      "programme": "midwestern-state",
+      "player": "Osi Iyamah",
+      "programme": "ut-dallas",
       "position": "FWD",
-      "class": "SR",
-      "line": "4 G · 9 shots"
-    },
-    {
-      "player": "Luis Alvis",
-      "programme": "oklahoma-christian",
-      "position": "MID",
       "class": "JR",
-      "line": "2 G · 1 A · 9 shots"
+      "line": "3 G · 1 A · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 northeastern-state v oklahoma-christian",
-      "line": "Oklahoma Christian's first defeat of the season; Newman had been the only side to score against them before it."
+      "fixture_ref": "2026-09-06 msu-denver v midwestern-state",
+      "line": "Midwestern State are still unbeaten, and have yet to win away from home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 msu-denver v midwestern-state",
-      "line": "Midwestern State have won both matches at home and drawn their only one away so far, at UCCS."
+      "fixture_ref": "2026-09-09 saint-marys v sul-ross-state",
+      "line": "Sul Ross State have yet to score this season; St. Mary's come in off their first win."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T13:38:27.180Z"
+    "validated_at": "2026-09-07T11:42:57.991Z"
   }
 }

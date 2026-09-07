@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-06T11:48:00+00:00",
-  "data_collected_at": "2026-09-06T11:33:10+00:00",
+  "generated_at": "2026-09-07T11:46:00+00:00",
+  "data_collected_at": "2026-09-07T11:33:18+00:00",
   "headline": "Roosevelt unbeaten and scoring like no one else",
-  "dek": "Roosevelt have scored thirteen goals and conceded six without losing, more than Davenport, Purdue Northwest and Wisconsin-Parkside have managed between them. Only Purdue Northwest and Saginaw Valley State have otherwise gone unbeaten, and no member has yet met another.",
+  "dek": "Roosevelt have scored thirteen goals and conceded six without losing, more than Davenport, Purdue Northwest and Wisconsin-Parkside have managed between them. Purdue Northwest and Saginaw Valley State are the only other sides unbeaten, and Saginaw Valley State kept that by beating Northern Michigan in the season's first meeting between members.",
   "lede_basis": {
     "programme": "roosevelt",
     "gf": 13,
@@ -18,18 +18,18 @@
     "metric": "gf",
     "of": ["davenport", "purdue-northwest", "wisconsin-parkside"]
   },
-  "lede_updated": "2026-09-06",
-  "displaced_by": "Roosevelt's draw at Lake Erie moved the dek's figures to thirteen scored and six conceded; the headline stands",
+  "lede_updated": "2026-09-07",
+  "displaced_by": "Saginaw Valley State beat Northern Michigan in the first meeting between members, so the dek's line that no member had met another no longer holds; the headline stands",
   "pattern": {
     "label": "signal",
-    "text": "Purdue Northwest have scored six goals and are unbeaten with three conceded. The chart ranks what sides score; the records so far have followed what they allow.",
+    "text": "Saginaw Valley State have spread ten goals across seven different scorers and conceded five. The chart ranks what sides score; the sides scoring most are also the ones that have not lost.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "roosevelt": 13,
-        "northern-michigan": 7,
+        "saginaw-valley-state": 10,
+        "northern-michigan": 8,
         "purdue-northwest": 6,
-        "saginaw-valley-state": 6,
         "st-cloud-state": 4,
         "davenport": 3,
         "wisconsin-parkside": 3
@@ -37,37 +37,26 @@
       "highlight": "roosevelt"
     },
     "basis": {
-      "programme": "purdue-northwest",
-      "gf": 6,
-      "ga": 3,
-      "wins": 3,
-      "draws": 1,
-      "losses": 0
+      "programme": "saginaw-valley-state",
+      "distinct_scorers_min": 7,
+      "gf": 10,
+      "ga": 5
     }
   },
   "wire": {
-    "line": "Davenport have conceded ten goals already, more than any other programme in the conference.",
+    "line": "Saginaw Valley State beat Northern Michigan in the season's first meeting between members and remain unbeaten.",
     "basis": {
-      "programme": "davenport",
-      "gf": 3,
-      "ga": 10,
-      "comparative": "greater_than_each",
-      "metric": "ga",
-      "of": [
-        "northern-michigan",
-        "purdue-northwest",
-        "roosevelt",
-        "saginaw-valley-state",
-        "st-cloud-state",
-        "wisconsin-parkside"
-      ]
+      "programme": "saginaw-valley-state",
+      "wins": 2,
+      "draws": 2,
+      "losses": 0
     },
-    "updated": "2026-09-04"
+    "updated": "2026-09-07"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Nine matches whose dates have passed carry no published result, and there are no score gaps: every final on the record has its score.",
+      "text": "Nine matches whose dates have passed carry no published result, the earliest of them Northern Michigan's opening match against Green Bay.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -76,32 +65,27 @@
     },
     {
       "label": "observed",
-      "text": "Six played matches carry a result but no box score, every one of them Roosevelt's or St. Cloud State's.",
+      "text": "Cedrik Strupler has conceded one goal for Roosevelt and saved fourteen shots, a save percentage of .933.",
       "basis": {
-        "source": "matches",
-        "box_score_gaps": 6
+        "source": "stats",
+        "player": "Cedrik Strupler",
+        "programme": "roosevelt",
+        "saves": 14,
+        "goals_against": 1,
+        "save_pct": 0.933
       }
     },
     {
       "label": "observed",
-      "text": "Estefano Alvear has conceded three goals for Purdue Northwest and kept two shutouts, a save percentage of .857.",
+      "text": "Luca Rosen has scored four of Northern Michigan's eight goals, from thirteen shots.",
       "basis": {
         "source": "stats",
-        "player": "Estefano Alvear",
-        "programme": "purdue-northwest",
-        "goals_against": 3,
-        "shutouts": 2,
-        "save_pct": 0.857
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Purdue Northwest have spread six goals across five different scorers.",
-      "basis": {
-        "programme": "purdue-northwest",
-        "distinct_scorers_min": 5,
-        "gf": 6,
-        "ga": 3
+        "player": "Luca Rosen",
+        "programme": "northern-michigan",
+        "goals": 4,
+        "shots": 13,
+        "gf": 8,
+        "ga": 9
       }
     },
     {
@@ -123,43 +107,53 @@
           "wisconsin-parkside"
         ]
       }
+    },
+    {
+      "label": "derived",
+      "text": "Wisconsin-Parkside have scored three goals, one from each of three different scorers.",
+      "basis": {
+        "programme": "wisconsin-parkside",
+        "distinct_scorers_min": 3,
+        "gf": 3,
+        "ga": 5
+      }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Luca Rosen",
+      "programme": "northern-michigan",
+      "position": "FWD",
+      "class": "SR",
+      "line": "4 G · 1 A · 13 shots"
+    },
+    {
+      "player": "Matty Telfer",
+      "programme": "saginaw-valley-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 1 A · 9 shots"
+    },
     {
       "player": "Fynn Mewes",
       "programme": "roosevelt",
       "position": "FWD",
       "class": "5Y",
       "line": "4 G · 1 A · 10 shots"
-    },
-    {
-      "player": "Luca Rosen",
-      "programme": "northern-michigan",
-      "position": "FWD",
-      "class": "SR",
-      "line": "3 G · 1 A · 8 shots"
-    },
-    {
-      "player": "Andrés García",
-      "programme": "st-cloud-state",
-      "position": "FWD",
-      "class": "5Y",
-      "line": "3 G · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 lake-erie v roosevelt",
-      "line": "Roosevelt stay unbeaten; Lake Erie arrived from defeat at Northern Michigan."
+      "fixture_ref": "2026-09-06 saginaw-valley-state v northern-michigan",
+      "line": "Saginaw Valley State stay unbeaten in the season's first meeting between members; Northern Michigan have alternated wins and defeats."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 saginaw-valley-state v northern-michigan",
-      "line": "The first meeting of two members this season, though not yet a conference match; Saginaw Valley State are unbeaten."
+      "fixture_ref": "2026-09-09 st-cloud-state v jamestown",
+      "line": "St. Cloud State's only win came at Truman; they have lost at Quincy and Saint Thomas since."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:41:50.306Z"
+    "validated_at": "2026-09-07T11:42:51.566Z"
   }
 }

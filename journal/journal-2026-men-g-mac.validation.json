@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-09-06T11:40:48.504Z",
-  "data_collected_at": "2026-09-06T11:32:35+00:00",
+  "validated_at": "2026-09-07T11:42:03.090Z",
+  "data_collected_at": "2026-09-07T11:32:29+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Findlay's six goals have come from five different scorers, and only two have gone in at the other end.",
+      "text": "Thomas More's seven goals have come from six different scorers, so their attack rests on nobody in particular.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Kentucky Wesleyan's win at Union is the season's one box score gap: the site holds the score and no detail of how it came about.",
-      "checker": "box_score_gaps",
+      "text": "Thomas More have won both of their matches at home and lost both away, at Trevecca and at Point Park.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -73,15 +73,6 @@
     },
     {
       "path": "findings[3]",
-      "label": "observed",
-      "text": "Malone's win over California (PA) on Saturday was their first of the season, after losing their opener to Salem.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
       "label": "observed",
       "text": "Nick Cherry has two shutouts for Tiffin, and Saturday's goalless draw with Davenport was the second of them.",
       "checker": "player_stat",
@@ -110,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Aiden Crowley — 2 G · 5 shots",
+      "text": "Anwar Benkandil — 2 G · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 tiffin v davenport",
+      "text": "2026-09-06 thomas-more v wisconsin-parkside",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 thomas-more v wisconsin-parkside",
+      "text": "2026-09-08 findlay v northwood",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:39:47.850Z",
-    "generate_ms": 60652,
+    "started_at": "2026-09-07T11:40:11.328Z",
+    "generate_ms": 111687,
     "validate_ms": 1,
-    "wall_ms": 60653,
+    "wall_ms": 111762,
     "concurrency": 4
   }
 }

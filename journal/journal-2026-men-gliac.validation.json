@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-06T11:41:50.306Z",
-  "data_collected_at": "2026-09-06T11:33:10+00:00",
+  "validated_at": "2026-09-07T11:42:51.566Z",
+  "data_collected_at": "2026-09-07T11:33:18+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,17 +17,22 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[2].text",
-      "text": "Estefano Alvear has conceded three goals for Purdue Northwest and kept two shutouts, a save percentage of .857.",
-      "unbacked": ["857"]
+      "path": "findings[1].text",
+      "text": "Cedrik Strupler has conceded one goal for Roosevelt and saved fourteen shots, a save percentage of .933.",
+      "unbacked": ["933"]
+    },
+    {
+      "path": "findings[4].text",
+      "text": "Wisconsin-Parkside have scored three goals, one from each of three different scorers.",
+      "unbacked": ["1"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Purdue Northwest have scored six goals and are unbeaten with three conceded. The chart ranks what sides score; the records so far have followed what they allow.",
-      "checker": "team_goals+team_record",
+      "text": "Saginaw Valley State have spread ten goals across seven different scorers and conceded five. The chart ranks what sides score; the sides scoring most are also the ones that have not lost.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -44,8 +49,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Davenport have conceded ten goals already, more than any other programme in the conference.",
-      "checker": "team_goals+comparative",
+      "text": "Saginaw Valley State beat Northern Michigan in the season's first meeting between members and remain unbeaten.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -53,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Nine matches whose dates have passed carry no published result, and there are no score gaps: every final on the record has its score.",
+      "text": "Nine matches whose dates have passed carry no published result, the earliest of them Northern Michigan's opening match against Green Bay.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -62,8 +67,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Six played matches carry a result but no box score, every one of them Roosevelt's or St. Cloud State's.",
-      "checker": "box_score_gaps",
+      "text": "Cedrik Strupler has conceded one goal for Roosevelt and saved fourteen shots, a save percentage of .933.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,23 +76,14 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Estefano Alvear has conceded three goals for Purdue Northwest and kept two shutouts, a save percentage of .857.",
-      "checker": "player_stat",
+      "text": "Luca Rosen has scored four of Northern Michigan's eight goals, from thirteen shots.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "Purdue Northwest have spread six goals across five different scorers.",
-      "checker": "distinct_scorers+team_goals",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
       "label": "derived",
       "text": "Roosevelt's four wins are more than any other programme has managed.",
       "checker": "team_record+comparative",
@@ -96,9 +92,18 @@
       "dropped": false
     },
     {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "Wisconsin-Parkside have scored three goals, one from each of three different scorers.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Fynn Mewes — 4 G · 1 A · 10 shots",
+      "text": "Luca Rosen — 4 G · 1 A · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Luca Rosen — 3 G · 1 A · 8 shots",
+      "text": "Matty Telfer — 4 G · 1 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Andrés García — 3 G · 9 shots",
+      "text": "Fynn Mewes — 4 G · 1 A · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 lake-erie v roosevelt",
+      "text": "2026-09-06 saginaw-valley-state v northern-michigan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 saginaw-valley-state v northern-michigan",
+      "text": "2026-09-09 st-cloud-state v jamestown",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:40:30.735Z",
-    "generate_ms": 79569,
+    "started_at": "2026-09-07T11:41:36.231Z",
+    "generate_ms": 75334,
     "validate_ms": 1,
-    "wall_ms": 79570,
+    "wall_ms": 75335,
     "concurrency": 4
   }
 }

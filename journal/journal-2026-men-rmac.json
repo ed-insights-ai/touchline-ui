@@ -3,45 +3,56 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-06T11:40:00+00:00",
-  "data_collected_at": "2026-09-06T11:35:14+00:00",
-  "headline": "Fort Lewis and UCCS share the scoring lead",
-  "dek": "UCCS's draw at home to Midwestern State was the first time they had conceded this season, and it left them level with Fort Lewis on twelve goals. Neither side has lost a match.",
+  "generated_at": "2026-09-07T11:40:00+00:00",
+  "data_collected_at": "2026-09-07T11:35:54+00:00",
+  "headline": "UCCS go clear of Fort Lewis in goals scored",
+  "dek": "UCCS's win over Lubbock Christian and Fort Lewis's draw at Fort Hays State split the two on Sunday, and UCCS now lead the scoring on fourteen goals. Both remain unbeaten, and only CSU Pueblo have won every match they have played.",
   "lede_basis": {
+    "comparative": "greater_than_each",
+    "metric": "gf",
     "programme": "uccs",
-    "wins": 2,
-    "draws": 1,
-    "losses": 0,
-    "gf": 12,
-    "ga": 1
+    "of": [
+      "fort-lewis",
+      "westminster",
+      "south-dakota-mines",
+      "colorado-christian",
+      "csu-pueblo",
+      "msu-denver",
+      "colorado-mesa",
+      "colorado-school-of-mines",
+      "regis",
+      "adams-state"
+    ],
+    "gf": 14
   },
-  "lede_updated": "2026-09-05",
+  "lede_updated": "2026-09-07",
+  "displaced_by": "UCCS beat Lubbock Christian while Fort Lewis drew at Fort Hays State; the scoring lead is no longer shared",
   "pattern": {
     "label": "derived",
-    "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than Fort Lewis have alone.",
+    "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than UCCS have alone.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fort-lewis": 12,
-        "uccs": 12,
+        "uccs": 14,
+        "fort-lewis": 13,
         "westminster": 9,
         "south-dakota-mines": 8,
         "colorado-christian": 7,
         "csu-pueblo": 7,
+        "msu-denver": 7,
         "colorado-mesa": 5,
-        "msu-denver": 5,
         "colorado-school-of-mines": 2,
         "regis": 1,
         "adams-state": 0
       },
-      "highlight": "fort-lewis"
+      "highlight": "uccs"
     },
     "basis": {
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "fort-lewis",
+      "programme": "uccs",
       "of": ["colorado-mesa", "colorado-school-of-mines", "regis", "adams-state"],
-      "gf": 12
+      "gf": 14
     }
   },
   "wire": {
@@ -59,44 +70,44 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Westminster's win over Jamestown was their first of the season after three draws, and they remain unbeaten.",
+      "text": "Fort Lewis's draw at Fort Hays State was the first match this season they have failed to win; they have three wins and have not lost.",
       "basis": {
-        "programme": "westminster",
-        "wins": 1,
-        "draws": 3,
+        "programme": "fort-lewis",
+        "wins": 3,
+        "draws": 1,
         "losses": 0
       }
     },
     {
-      "label": "derived",
-      "text": "CSU Pueblo conceded for the first time this season against Newman, and have won all three of their matches.",
-      "basis": {
-        "programme": "csu-pueblo",
-        "wins": 3,
-        "draws": 0,
-        "losses": 0,
-        "gf": 7,
-        "ga": 1
-      }
-    },
-    {
       "label": "observed",
-      "text": "No match is a score gap today, but twelve have passed their date with no result published, the earliest from the season's opening day.",
+      "text": "No match is a score gap today, but nine have passed their date with no result published, the earliest from the season's opening day.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 12
+        "past_date_no_result": 9
       }
     },
     {
       "label": "observed",
-      "text": "Hugo Sjöberg's twelve saves for UCCS have come at the cost of a single goal.",
+      "text": "Hugo Sjöberg's seventeen saves for UCCS have come at the cost of two goals.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
-        "saves": 12,
-        "goals_against": 1
+        "saves": 17,
+        "goals_against": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Regis's draw at Cal State San Bernardino leaves them with one goal scored and one conceded across a win, a draw and a defeat.",
+      "basis": {
+        "programme": "regis",
+        "wins": 1,
+        "draws": 1,
+        "losses": 1,
+        "gf": 1,
+        "ga": 1
       }
     },
     {
@@ -116,35 +127,35 @@
       "programme": "fort-lewis",
       "position": "FWD",
       "class": "SO",
-      "line": "4 G · 1 A · 12 shots"
+      "line": "5 G · 1 A · 15 shots"
     },
     {
-      "player": "Toby Benitez",
+      "player": "Yohann Fila",
       "programme": "uccs",
-      "position": "MID",
-      "class": "FR",
-      "line": "3 G · 1 A · 6 shots"
+      "position": "FWD",
+      "class": "SO",
+      "line": "3 G · 1 A · 14 shots"
     },
     {
-      "player": "Lucas Miranda",
+      "player": "Zach Peroff",
       "programme": "south-dakota-mines",
-      "position": "FWD",
-      "class": "FR",
-      "line": "3 G · 5 shots"
+      "position": "DEF",
+      "class": "SR",
+      "line": "3 G · 4 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 westminster v jamestown",
-      "line": "Westminster's unbeaten start finally includes a win; Jamestown had already drawn with Colorado Mesa and South Dakota Mines."
+      "fixture_ref": "2026-09-06 uccs v lubbock-christian",
+      "line": "UCCS remain unbeaten; Lubbock Christian have now lost to Fort Lewis, MSU Denver and UCCS and beaten only Adams State."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 uccs v lubbock-christian",
-      "line": "Lubbock Christian have already lost to Fort Lewis and MSU Denver and beaten Adams State; UCCS have yet to lose."
+      "fixture_ref": "2026-09-09 uccs v hawaii-hilo",
+      "line": "UCCS have yet to lose and have scored in every match; Hawaii Hilo also visit CSU Pueblo and MSU Denver later in the month."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:44:15.894Z"
+    "validated_at": "2026-09-07T11:46:19.751Z"
   }
 }

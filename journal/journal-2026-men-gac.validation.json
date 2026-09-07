@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-09-06T15:14:45.517Z",
-  "data_collected_at": "2026-09-06T11:33:00+00:00",
+  "validated_at": "2026-09-07T11:41:36.159Z",
+  "data_collected_at": "2026-09-07T11:32:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Against outside opponents the conference has scored thirty-seven goals and conceded thirty-two, yet has twelve defeats to eleven wins. Rogers State's draw at UT Tyler is the second match this season that a programme in this conference has neither won nor lost.",
+      "text": "Against outside opponents the conference has scored thirty-eight goals and conceded thirty-three, yet has twelve defeats to eleven wins. Fort Hays State's draw with Fort Lewis is the third match this season that a programme in this conference has neither won nor lost.",
       "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Fort Hays State's six goals have come from six different players; nobody has scored twice for them.",
+      "text": "Fort Hays State's seven goals have come from six different players, and they have yet to play away from home.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -64,9 +64,9 @@
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Northeastern State's win over Oklahoma Christian was their first of the season, and their four goals have come from three different players.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "label": "observed",
+      "text": "Len Valkema has scored twice for Fort Hays State from five shots, the first of their scorers to score more than once.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Carter Adams — 2 G · 1 A · 4 shots",
+      "text": "Len Valkema — 2 G · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 ouachita-baptist v dallas-baptist",
+      "text": "2026-09-06 fort-hays-state v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 fort-lewis v fort-hays-state",
+      "text": "2026-09-07 tampa v harding",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T15:13:59.371Z",
-    "generate_ms": 46144,
-    "validate_ms": 2,
-    "wall_ms": 46147,
-    "concurrency": 1
+    "started_at": "2026-09-07T11:40:36.256Z",
+    "generate_ms": 59902,
+    "validate_ms": 1,
+    "wall_ms": 59903,
+    "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-06T12:05:00Z",
-  "data_collected_at": "2026-09-06T11:33:00+00:00",
+  "generated_at": "2026-09-07T12:05:00Z",
+  "data_collected_at": "2026-09-07T11:32:55+00:00",
   "headline": "Rogers State alone remain unbeaten",
   "dek": "Ouachita Baptist conceded three times in defeat by Dallas Baptist, the first goals they had let in this season, and Rogers State's draw at UT Tyler was the first match they have not won. Nine different players have now scored for Rogers State; no other programme has more than six.",
   "lede_basis": {
@@ -25,8 +25,8 @@
       "kind": "goals-for-by-team",
       "values": {
         "rogers-state": 11,
+        "fort-hays-state": 7,
         "ouachita-baptist": 7,
-        "fort-hays-state": 6,
         "newman": 5,
         "northeastern-state": 4,
         "southern-nazarene": 3,
@@ -57,37 +57,35 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Against outside opponents the conference has scored thirty-seven goals and conceded thirty-two, yet has twelve defeats to eleven wins. Rogers State's draw at UT Tyler is the second match this season that a programme in this conference has neither won nor lost.",
+      "text": "Against outside opponents the conference has scored thirty-eight goals and conceded thirty-three, yet has twelve defeats to eleven wins. Fort Hays State's draw with Fort Lewis is the third match this season that a programme in this conference has neither won nor lost.",
       "basis": {
         "derived_from": "fixtures",
         "wins": 11,
-        "draws": 2,
+        "draws": 3,
         "losses": 12,
-        "gf": 37,
-        "ga": 32
+        "gf": 38,
+        "ga": 33
       }
     },
     {
       "label": "derived",
-      "text": "Fort Hays State's six goals have come from six different players; nobody has scored twice for them.",
+      "text": "Fort Hays State's seven goals have come from six different players, and they have yet to play away from home.",
       "basis": {
         "programme": "fort-hays-state",
-        "gf": 6,
-        "ga": 2,
+        "gf": 7,
+        "ga": 3,
         "distinct_scorers_min": 6
       }
     },
     {
-      "label": "derived",
-      "text": "Northeastern State's win over Oklahoma Christian was their first of the season, and their four goals have come from three different players.",
+      "label": "observed",
+      "text": "Len Valkema has scored twice for Fort Hays State from five shots, the first of their scorers to score more than once.",
       "basis": {
-        "programme": "northeastern-state",
-        "wins": 1,
-        "draws": 0,
-        "losses": 3,
-        "gf": 4,
-        "ga": 6,
-        "distinct_scorers_min": 3
+        "source": "stats",
+        "player": "Len Valkema",
+        "programme": "fort-hays-state",
+        "goals": 2,
+        "shots": 5
       }
     },
     {
@@ -131,25 +129,25 @@
       "line": "2 G · 1 A · 5 shots"
     },
     {
-      "player": "Carter Adams",
-      "programme": "northeastern-state",
+      "player": "Len Valkema",
+      "programme": "fort-hays-state",
       "position": "FWD",
       "class": "JR",
-      "line": "2 G · 1 A · 4 shots"
+      "line": "2 G · 5 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 ouachita-baptist v dallas-baptist",
-      "line": "Ouachita Baptist had not conceded a goal before this match; they leave it with their first defeat, and Rogers State as the conference's only unbeaten side."
+      "fixture_ref": "2026-09-06 fort-hays-state v fort-lewis",
+      "line": "Fort Hays State have still to play away from home; their first trip comes at West Texas A&M on Thursday."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 fort-lewis v fort-hays-state",
-      "line": "Fort Hays State have yet to play away; every match so far has been at home, including their only defeat."
+      "fixture_ref": "2026-09-07 tampa v harding",
+      "line": "Harding's first match away from home; they have lost every match so far, and Reik Barrack is their only scorer."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T15:14:45.517Z"
+    "validated_at": "2026-09-07T11:41:36.159Z"
   }
 }

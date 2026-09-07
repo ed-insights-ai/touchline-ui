@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-06T11:43:26.068Z",
-  "data_collected_at": "2026-09-06T11:34:15+00:00",
+  "validated_at": "2026-09-07T11:43:27.235Z",
+  "data_collected_at": "2026-09-07T11:34:57+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -76,8 +76,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Thirty-four matches have been played of 121 and none is a score gap: every final carries its score.",
-      "checker": "unresolved+fixture_counts",
+      "text": "Pace have conceded two goals in three matches, none of which they have lost.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -121,7 +121,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 mansfield v saint-michael-s",
+      "text": "2026-09-08 saint-michael-s v middlebury",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,10 +129,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:42:18.722Z",
-    "generate_ms": 67345,
+    "started_at": "2026-09-07T11:42:51.639Z",
+    "generate_ms": 35595,
     "validate_ms": 1,
-    "wall_ms": 67346,
+    "wall_ms": 35596,
     "concurrency": 4
   }
 }

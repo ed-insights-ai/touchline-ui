@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-06T11:44:55.693Z",
-  "data_collected_at": "2026-09-06T11:35:25+00:00",
+  "validated_at": "2026-09-07T11:47:08.463Z",
+  "data_collected_at": "2026-09-07T11:36:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches whose dates have passed carry no result: Newberry's opening pair and both of Emory & Henry's. Emory & Henry have therefore played nothing the record can show.",
+      "text": "Four matches whose dates have passed carry no result: Newberry's opener at Converse, and every match Emory & Henry have had so far, the home match against Lynn among them.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,15 +56,6 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "One match has a published result and no reachable box score, and it is Carson-Newman's: the home defeat by Trevecca, whose detail the collector could not tie to the date.",
-      "checker": "box_score_gaps+set_members",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[2]",
-      "label": "observed",
       "text": "Newberry have lost all three of the matches that carry a result, scoring once and conceding nine. Giuseppe Gereau is the only player to have scored for them.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
@@ -72,7 +63,7 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[2]",
       "label": "observed",
       "text": "Lenoir-Rhyne have scored eight and conceded ten, and remain without a win: two draws, two defeats.",
       "checker": "team_goals+team_record",
@@ -81,9 +72,18 @@
       "dropped": false
     },
     {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Anderson's Asher Risell has kept two clean sheets and conceded three goals.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Anderson's Asher Risell has kept two clean sheets and conceded one goal.",
+      "text": "Carson-Newman's Elijah Buford has made fourteen saves and been beaten twice, without yet keeping a clean sheet.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 newberry v catawba",
+      "text": "2026-09-06 anderson v coker",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 anderson v coker",
+      "text": "2026-09-07 florida-tech v mars-hill",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:43:51.693Z",
-    "generate_ms": 63999,
+    "started_at": "2026-09-07T11:45:08.143Z",
+    "generate_ms": 120245,
     "validate_ms": 1,
-    "wall_ms": 64000,
+    "wall_ms": 120320,
     "concurrency": 4
   }
 }

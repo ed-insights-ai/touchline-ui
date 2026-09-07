@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-09-06T11:39:58.819Z",
-  "data_collected_at": "2026-09-06T11:30:55+00:00",
+  "validated_at": "2026-09-07T11:41:50.329Z",
+  "data_collected_at": "2026-09-07T11:30:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fresno Pacific's fourteen goals have come from five different scorers, and the total is more than Cal State San Bernardino, Cal State East Bay, UC Merced and Menlo have scored between them.",
+      "text": "Cal State Monterey Bay have scored fourteen goals through eight different scorers, and the total is more than Cal State San Bernardino, Cal State East Bay, UC Merced and Menlo have managed between them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Ten matches have passed their date with no result recorded, the earliest on the season's opening day and the latest in August. No final is missing its score.",
+      "text": "Nine matches have passed their date with no result recorded, the earliest on the season's opening day and the latest in August.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -55,9 +55,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "One match with a published result has no box score behind it: Fresno Pacific's win at Pacific in August, for which no collected schedule page carried a link.",
-      "checker": "box_score_gaps",
+      "label": "derived",
+      "text": "Cal State East Bay have conceded seventeen goals, more than any other programme, and have yet to win.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Cal State East Bay have conceded ten goals, more than any other programme, and have yet to win.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Cal State San Bernardino have won two and drawn two, and have conceded a single goal across them.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kai Martin — 4 G · 7 shots",
+      "text": "Kai Martin — 4 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Alexis Cervantes — 3 G · 15 shots",
+      "text": "Philip Wolny — 2 G · 4 A · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 fresno-pacific v dominican-of-california",
+      "text": "2026-09-06 cal-state-east-bay v cal-state-monterey-bay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 cal-state-east-bay v cal-state-monterey-bay",
+      "text": "2026-09-09 fresno-pacific v pacific-union",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:38:49.211Z",
-    "generate_ms": 69607,
+    "started_at": "2026-09-07T11:39:29.086Z",
+    "generate_ms": 141169,
     "validate_ms": 1,
-    "wall_ms": 69608,
+    "wall_ms": 141243,
     "concurrency": 4
   }
 }

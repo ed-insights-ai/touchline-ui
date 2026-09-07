@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-09-06T11:48:00+00:00",
-  "data_collected_at": "2026-09-06T11:34:27+00:00",
+  "generated_at": "2026-09-07T11:50:00+00:00",
+  "data_collected_at": "2026-09-07T11:35:10+00:00",
   "headline": "Hawai'i Hilo alone unbeaten in a losing conference",
   "dek": "Hawai'i Hilo have won all three of their matches and conceded a single goal, with both of their meetings with fellow members among the wins. No other programme has won as often, and every other side in the conference has already lost at least once.",
   "lede_basis": {
@@ -29,7 +29,6 @@
     ]
   },
   "lede_updated": "2026-09-06",
-  "displaced_by": "Vanguard's draw at Cal Poly Pomona; the standing dek said they had no point",
   "pattern": {
     "label": "observed",
     "text": "Concordia Irvine's nine goals have come from eight different scorers, a spread matched only by Dominican (Calif.), though they have conceded six in reaching the top of the chart.",
@@ -71,49 +70,40 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Fifteen matches dated before the end of August carry no published result, most of them preseason dates against non-collegiate or junior-college opponents; there are no score gaps.",
+      "text": "Twelve matches dated in August still carry no published result, Dominican (Calif.)'s date at Menlo among them; the Dominican matches that do have a score have ended in three draws and one defeat.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 15
+        "past_date_no_result": 12,
+        "programme": "dominican-of-california",
+        "wins": 0,
+        "draws": 3,
+        "losses": 1
       }
     },
     {
       "label": "observed",
-      "text": "Vanguard's draw with Cal Poly Pomona was their first point of the season; they have conceded twelve goals, more than any other programme in the conference.",
+      "text": "Chaminade have lost all three of their matches, scoring once and conceding six; the visit of UT Dallas was the third defeat.",
       "basis": {
-        "programme": "vanguard",
+        "programme": "chaminade",
         "wins": 0,
-        "draws": 1,
+        "draws": 0,
         "losses": 3,
-        "gf": 2,
-        "ga": 12,
-        "comparative": "greater_than_each",
-        "metric": "ga",
-        "of": [
-          "biola",
-          "chaminade",
-          "concordia-irvine",
-          "dominican-of-california",
-          "hawaii-hilo",
-          "hawaii-pacific",
-          "jessup",
-          "point-loma",
-          "westmont"
-        ]
+        "gf": 1,
+        "ga": 6
       }
     },
     {
       "label": "observed",
-      "text": "Biola scored for the first time this season at Colorado Christian, two goals from two different scorers, and remain without a win after two draws and two defeats.",
+      "text": "Hawai'i Pacific's six goals have come from six different scorers, yet they have conceded seven and lost two of their three matches.",
       "basis": {
-        "programme": "biola",
-        "gf": 2,
-        "ga": 6,
-        "wins": 0,
-        "draws": 2,
+        "programme": "hawaii-pacific",
+        "wins": 1,
+        "draws": 0,
         "losses": 2,
-        "distinct_scorers_min": 2
+        "gf": 6,
+        "ga": 7,
+        "distinct_scorers_min": 6
       }
     },
     {
@@ -166,16 +156,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 colorado-school-of-mines v concordia-irvine",
-      "line": "Concordia Irvine had drawn at Colorado Christian earlier in the week; Colorado School of Mines had held Biola to a goalless draw on the same ground."
+      "fixture_ref": "2026-09-06 chaminade v ut-dallas",
+      "line": "UT Dallas lost only at Hawai'i Hilo on their tour of the islands; Chaminade have still not scored at home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 chaminade v ut-dallas",
-      "line": "Chaminade have yet to win; UT Dallas lost at Hawai'i Hilo and then won at Hawai'i Pacific on this tour."
+      "fixture_ref": "2026-09-09 uccs v hawaii-hilo",
+      "line": "Every Hawai'i Hilo result so far has come at home or against a fellow member."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:43:53.341Z"
+    "validated_at": "2026-09-07T11:44:53.609Z"
   }
 }

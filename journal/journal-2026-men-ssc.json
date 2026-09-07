@@ -3,42 +3,41 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-06T11:40:00+00:00",
-  "data_collected_at": "2026-09-06T11:36:00+00:00",
-  "headline": "Ricardo Marques unbeaten after eleven saves",
-  "dek": "Florida Southern's third win came at Delta State, their first away from home, and it was as clean as the two before it. Four different players have scored their ten goals; nobody has scored against them, and every other side in the conference has conceded.",
+  "generated_at": "2026-09-07T11:40:00+00:00",
+  "data_collected_at": "2026-09-07T11:36:36+00:00",
+  "headline": "Florida Southern win a fourth and concede a first",
+  "dek": "Florida Southern's fourth win came at Mississippi College, and it was the first match in which they conceded. Twelve scored and one allowed; Ricardo Marques had kept three clean sheets before the goal went in.",
   "lede_basis": {
     "source": "stats",
     "player": "Ricardo Marques",
     "programme": "florida-southern",
-    "saves": 11,
-    "goals_against": 0,
+    "goals_against": 1,
     "shutouts": 3,
-    "wins": 3,
+    "wins": 4,
     "draws": 0,
     "losses": 0,
-    "gf": 10,
-    "ga": 0,
-    "distinct_scorers_min": 4
+    "gf": 12,
+    "ga": 1
   },
-  "lede_updated": "2026-09-05",
+  "lede_updated": "2026-09-07",
+  "displaced_by": "Florida Southern conceded their first goal at Mississippi College; the standing dek said nobody had scored against them.",
   "pattern": {
     "label": "derived",
-    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have done it without conceding.",
+    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have conceded once while doing it.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 10,
+        "florida-southern": 12,
         "rollins": 10,
         "embry-riddle": 9,
         "saint-leo": 7,
         "florida-tech": 5,
+        "lynn": 5,
         "palm-beach-atlantic": 5,
         "tampa": 5,
-        "lynn": 4,
+        "nova-southeastern": 4,
         "barry": 3,
-        "eckerd": 3,
-        "nova-southeastern": 1
+        "eckerd": 3
       },
       "highlight": "florida-southern"
     },
@@ -47,40 +46,26 @@
       "metric": "gf",
       "programme": "florida-southern",
       "of": ["barry", "eckerd", "nova-southeastern"],
-      "gf": 10,
-      "ga": 0
+      "gf": 12,
+      "ga": 1
     }
   },
   "wire": {
-    "line": "Rollins have conceded more goals than any other side in the conference and have still not lost.",
+    "line": "Eckerd have lost three straight without scoring; their only goals came in the win that opened their season.",
     "basis": {
-      "programme": "rollins",
-      "wins": 2,
-      "draws": 1,
-      "losses": 0,
-      "gf": 10,
-      "ga": 8,
-      "comparative": "greater_than_each",
-      "metric": "ga",
-      "of": [
-        "barry",
-        "eckerd",
-        "embry-riddle",
-        "florida-southern",
-        "florida-tech",
-        "lynn",
-        "nova-southeastern",
-        "palm-beach-atlantic",
-        "saint-leo",
-        "tampa"
-      ]
+      "programme": "eckerd",
+      "wins": 1,
+      "draws": 0,
+      "losses": 3,
+      "gf": 3,
+      "ga": 9
     },
-    "updated": "2026-09-02"
+    "updated": "2026-09-07"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "The record carries no score gap today. Three matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
+      "text": "Three matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -92,49 +77,57 @@
     },
     {
       "label": "derived",
-      "text": "Saint Leo have won their last two, at home to Emmanuel and Mars Hill, after opening with defeat at AUM and a draw at Mississippi College.",
+      "text": "Nova Southeastern won for the first time at Montevallo, having lost both home matches, to Carson-Newman and Lincoln Memorial.",
       "basis": {
-        "programme": "saint-leo",
-        "wins": 2,
-        "draws": 1,
-        "losses": 1
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Elias Ronning Orn has made twelve saves for Florida Tech and conceded five. His one clean sheet came at North Georgia.",
-      "basis": {
-        "source": "stats",
-        "player": "Elias Ronning Orn",
-        "programme": "florida-tech",
-        "saves": 12,
-        "goals_against": 5,
-        "shutouts": 1
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Barry drew at Flagler and are still without a win, after defeats at North Georgia and Clayton State.",
-      "basis": {
-        "programme": "barry",
-        "wins": 0,
-        "draws": 1,
+        "programme": "nova-southeastern",
+        "wins": 1,
+        "draws": 0,
         "losses": 2
       }
     },
     {
       "label": "derived",
-      "text": "Embry-Riddle are unbeaten after a draw at Spring Hill, and six different players have scored for them, the widest spread of scorers in the conference.",
+      "text": "Lynn are unbeaten but have drawn their last two on the road, after beating Mississippi College at home in their opener.",
       "basis": {
-        "programme": "embry-riddle",
+        "programme": "lynn",
+        "wins": 1,
+        "draws": 2,
+        "losses": 0
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Henry Obi has made seventeen saves for Barry and conceded seven, without a clean sheet.",
+      "basis": {
+        "source": "stats",
+        "player": "Henry Obi",
+        "programme": "barry",
+        "saves": 17,
+        "goals_against": 7,
+        "shutouts": 0
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Rollins have scored ten and conceded eight, and are still unbeaten after two wins and a draw.",
+      "basis": {
+        "programme": "rollins",
         "wins": 2,
         "draws": 1,
         "losses": 0,
-        "distinct_scorers_min": 6
+        "gf": 10,
+        "ga": 8
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Hector Oliver",
+      "programme": "florida-southern",
+      "position": "MID",
+      "class": "JR",
+      "line": "4 G · 1 A · 7 shots"
+    },
     {
       "player": "Pablo Herrero",
       "programme": "rollins",
@@ -143,32 +136,25 @@
       "line": "4 G · 7 shots"
     },
     {
-      "player": "Hector Oliver",
-      "programme": "florida-southern",
-      "position": "MID",
-      "class": "JR",
-      "line": "4 G · 5 shots"
-    },
-    {
-      "player": "Virgilio Escala",
-      "programme": "saint-leo",
+      "player": "Kobi Thomas",
+      "programme": "palm-beach-atlantic",
       "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 2 A · 9 shots"
+      "class": "SO",
+      "line": "3 G · 1 A · 17 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 saint-leo v mars-hill",
-      "line": "Saint Leo have won both matches at home after failing to win either on the road."
+      "fixture_ref": "2026-09-06 montevallo v nova-southeastern",
+      "line": "Nova Southeastern's first win of the season, in their first match away from home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 mississippi-college v florida-southern",
-      "line": "Florida Southern have yet to concede; Mississippi College have already beaten Eckerd and held Saint Leo."
+      "fixture_ref": "2026-09-07 tampa v harding",
+      "line": "Tampa are still looking for a first win after draws with West Alabama and Clayton State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:44:49.158Z"
+    "validated_at": "2026-09-07T11:47:19.413Z"
   }
 }

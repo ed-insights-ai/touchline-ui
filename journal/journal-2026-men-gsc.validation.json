@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-06T11:42:42.159Z",
-  "data_collected_at": "2026-09-06T11:33:44+00:00",
+  "validated_at": "2026-09-07T11:44:46.271Z",
+  "data_collected_at": "2026-09-07T11:34:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,9 +17,9 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[4].text",
-      "text": "Charles Carriglitto has kept clean sheets in two of Lee's four matches.",
-      "unbacked": ["4"]
+      "path": "wire",
+      "text": "Union's win at Christian Brothers is the first between two members this season, and Union's first win of any kind.",
+      "unbacked": ["2"]
     }
   ],
   "claims": [
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "West Alabama have conceded ten goals, more than any other programme, and have yet to win.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Union's win at Christian Brothers is the first between two members this season, and Union's first win of any kind.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -53,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Five matches have passed their date with no result at all, the earliest Trevecca's at Belmont, and no final has been left without a score.",
+      "text": "Five matches have passed their date with no result at all, the earliest Trevecca's at Belmont.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -62,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Every published result now has a box score behind it; the gap behind Union's defeat to Kentucky Wesleyan has been closed.",
-      "checker": "box_score_gaps",
+      "text": "Daniel Santema has kept three clean sheets for Delta State and has conceded three goals all season.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Lee are unbeaten, with two wins and two draws, and have conceded two goals.",
+      "text": "Christian Brothers have lost three of their four matches and conceded ten goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Delta State have scored once all season, Tazjean Bird's goal at Harding, and that was the match they won.",
+      "text": "Lee are unbeaten, with two wins and two draws, and have conceded two goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -89,8 +89,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Charles Carriglitto has kept clean sheets in two of Lee's four matches.",
-      "checker": "player_stat+team_record",
+      "text": "Harry McLean, a freshman, has scored four goals for Mississippi Christian from seven shots.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Harry McLean — 3 G · 6 shots",
+      "text": "Harry McLean — 4 G · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 lee v tusculum",
+      "text": "2026-09-06 delta-state v eckerd",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 christian-brothers v union",
+      "text": "2026-09-08 spring-hill v tuskegee",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:41:20.286Z",
-    "generate_ms": 81871,
+    "started_at": "2026-09-07T11:41:58.391Z",
+    "generate_ms": 167804,
     "validate_ms": 1,
-    "wall_ms": 81872,
+    "wall_ms": 167879,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-09-06T11:46:00+00:00",
-  "data_collected_at": "2026-09-06T11:30:41+00:00",
+  "generated_at": "2026-09-07T11:46:00+00:00",
+  "data_collected_at": "2026-09-07T11:30:37+00:00",
   "headline": "Ferrum find goals at Barton, keep tightest defence",
   "dek": "Ferrum had not scored before Saturday. Three different players found the net at Barton, and the one goal Ferrum conceded there is the only one they have let in all season. No other side in the conference has conceded so few.",
   "lede_basis": {
@@ -17,7 +17,6 @@
     "distinct_scorers_min": 3
   },
   "lede_updated": "2026-09-06",
-  "displaced_by": "Conference play opened on Sep 5; King's before-conference line is out of date, and Ferrum, goalless until Saturday, scored three at Barton with the conference's lowest goals-against.",
   "pattern": {
     "label": "derived",
     "text": "Southern Wesleyan's eleven goals have come from seven different scorers and are more than Barton, King and Ferrum have scored together, yet they have lost as often as they have won.",
@@ -67,11 +66,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Seventeen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13, while no match with a published final is missing its score.",
+      "text": "Sixteen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13 and the latest Mount Olive's visit to Virginia State on Sep 4.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 17
+        "past_date_no_result": 16
       }
     },
     {
@@ -128,7 +127,7 @@
       "programme": "southern-wesleyan",
       "position": "DEF",
       "class": "SR",
-      "line": "3 G · 12 shots"
+      "line": "3 G · 11 shots"
     },
     {
       "player": "Lucas Vila",
@@ -157,6 +156,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:40:50.629Z"
+    "validated_at": "2026-09-07T11:40:11.255Z"
   }
 }

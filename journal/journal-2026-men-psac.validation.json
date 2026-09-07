@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-06T11:44:18.232Z",
-  "data_collected_at": "2026-09-06T11:34:53+00:00",
+  "validated_at": "2026-09-07T11:45:39.911Z",
+  "data_collected_at": "2026-09-07T11:35:30+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
+    "checked": 13,
     "verified": 12,
-    "contradicted": 0,
+    "contradicted": 1,
     "unverifiable": 0,
-    "dropped": 0
+    "dropped": 1
   },
   "normalizations": [],
   "review": [
@@ -62,11 +62,14 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Bloomsburg's ten goals have come from eight different scorers, and their one defeat was at Frostburg State.",
-      "checker": "distinct_scorers+team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "text": "Noah Pawling has scored three of Pitt-Johnstown's six goals, and the side have conceded seven in a win and a defeat.",
+      "checker": "player_stat+team_goals+team_record",
+      "verdict": "contradicted",
+      "mismatches": [
+        "wins: claimed 1, the source published none",
+        "losses: claimed 1, the source published none"
+      ],
+      "dropped": true
     },
     {
       "path": "findings[2]",
@@ -80,6 +83,15 @@
     {
       "path": "findings[3]",
       "label": "observed",
+      "text": "Bloomsburg's ten goals have come from eight different scorers, and their one defeat was at Frostburg State.",
+      "checker": "distinct_scorers+team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
       "text": "Shepherd are unbeaten, with Aidan Houck making fifteen saves and conceding three across their matches.",
       "checker": "player_stat+team_record",
       "verdict": "verified",
@@ -89,7 +101,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Steven Arias — 3 G · 7 shots",
+      "text": "Noah Pawling — 3 G · 8 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +110,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Roy Parkyn — 3 G · 6 shots",
+      "text": "Steven Arias — 3 G · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +128,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 slippery-rock v district-of-columbia",
+      "text": "2026-09-06 pitt-johnstown v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +137,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 pitt-johnstown v georgian-court",
+      "text": "2026-09-08 post v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,10 +145,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:43:02.857Z",
-    "generate_ms": 75373,
+    "started_at": "2026-09-07T11:44:46.342Z",
+    "generate_ms": 53568,
     "validate_ms": 1,
-    "wall_ms": 75374,
+    "wall_ms": 53569,
     "concurrency": 4
   }
 }

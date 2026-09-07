@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-06T11:44:15.894Z",
-  "data_collected_at": "2026-09-06T11:35:14+00:00",
+  "validated_at": "2026-09-07T11:46:19.751Z",
+  "data_collected_at": "2026-09-07T11:35:54+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "UCCS's win over Lubbock Christian and Fort Lewis's draw at Fort Hays State split the two on Sunday, and UCCS now lead the scoring on fourteen goals. Both remain unbeaten, and only CSU Pueblo have won every match they have played.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than Fort Lewis have alone.",
+      "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than UCCS have alone.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Westminster's win over Jamestown was their first of the season after three draws, and they remain unbeaten.",
+      "text": "Fort Lewis's draw at Fort Hays State was the first match this season they have failed to win; they have three wins and have not lost.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -55,9 +61,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "derived",
-      "text": "CSU Pueblo conceded for the first time this season against Newman, and have won all three of their matches.",
-      "checker": "team_goals+team_record",
+      "label": "observed",
+      "text": "No match is a score gap today, but nine have passed their date with no result published, the earliest from the season's opening day.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,17 +71,17 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "No match is a score gap today, but twelve have passed their date with no result published, the earliest from the season's opening day.",
-      "checker": "unresolved",
+      "text": "Hugo Sjöberg's seventeen saves for UCCS have come at the cost of two goals.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
-      "label": "observed",
-      "text": "Hugo Sjöberg's twelve saves for UCCS have come at the cost of a single goal.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Regis's draw at Cal State San Bernardino leaves them with one goal scored and one conceded across a win, a draw and a defeat.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Simão Agostinho — 4 G · 1 A · 12 shots",
+      "text": "Simão Agostinho — 5 G · 1 A · 15 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Toby Benitez — 3 G · 1 A · 6 shots",
+      "text": "Yohann Fila — 3 G · 1 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lucas Miranda — 3 G · 5 shots",
+      "text": "Zach Peroff — 3 G · 4 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 westminster v jamestown",
+      "text": "2026-09-06 uccs v lubbock-christian",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 uccs v lubbock-christian",
+      "text": "2026-09-09 uccs v hawaii-hilo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:43:26.142Z",
-    "generate_ms": 49751,
+    "started_at": "2026-09-07T11:44:53.683Z",
+    "generate_ms": 86067,
     "validate_ms": 1,
-    "wall_ms": 49752,
+    "wall_ms": 86068,
     "concurrency": 4
   }
 }

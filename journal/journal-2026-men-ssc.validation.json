@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-06T11:44:49.158Z",
-  "data_collected_at": "2026-09-06T11:36:00+00:00",
+  "validated_at": "2026-09-07T11:47:19.413Z",
+  "data_collected_at": "2026-09-07T11:36:36+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "Florida Southern's third win came at Delta State, their first away from home, and it was as clean as the two before it. Four different players have scored their ten goals; nobody has scored against them, and every other side in the conference has conceded.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have done it without conceding.",
+      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have conceded once while doing it.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Rollins have conceded more goals than any other side in the conference and have still not lost.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Eckerd have lost three straight without scoring; their only goals came in the win that opened their season.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -53,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "The record carries no score gap today. Three matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
+      "text": "Three matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
       "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Saint Leo have won their last two, at home to Emmanuel and Mars Hill, after opening with defeat at AUM and a draw at Mississippi College.",
+      "text": "Nova Southeastern won for the first time at Montevallo, having lost both home matches, to Carson-Newman and Lincoln Memorial.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -70,18 +64,18 @@
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "Elias Ronning Orn has made twelve saves for Florida Tech and conceded five. His one clean sheet came at North Georgia.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Lynn are unbeaten but have drawn their last two on the road, after beating Mississippi College at home in their opener.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "Barry drew at Flagler and are still without a win, after defeats at North Georgia and Clayton State.",
-      "checker": "team_record",
+      "label": "observed",
+      "text": "Henry Obi has made seventeen saves for Barry and conceded seven, without a clean sheet.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,8 +83,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Embry-Riddle are unbeaten after a draw at Spring Hill, and six different players have scored for them, the widest spread of scorers in the conference.",
-      "checker": "distinct_scorers+team_record",
+      "text": "Rollins have scored ten and conceded eight, and are still unbeaten after two wins and a draw.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Pablo Herrero — 4 G · 7 shots",
+      "text": "Hector Oliver — 4 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Hector Oliver — 4 G · 5 shots",
+      "text": "Pablo Herrero — 4 G · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Virgilio Escala — 2 G · 2 A · 9 shots",
+      "text": "Kobi Thomas — 3 G · 1 A · 17 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 saint-leo v mars-hill",
+      "text": "2026-09-06 montevallo v nova-southeastern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 mississippi-college v florida-southern",
+      "text": "2026-09-07 tampa v harding",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:43:53.414Z",
-    "generate_ms": 55742,
+    "started_at": "2026-09-07T11:45:39.984Z",
+    "generate_ms": 99428,
     "validate_ms": 1,
-    "wall_ms": 55743,
+    "wall_ms": 99429,
     "concurrency": 4
   }
 }

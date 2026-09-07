@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-09-06T11:42:55.316Z",
-  "data_collected_at": "2026-09-06T11:34:04+00:00",
+  "validated_at": "2026-09-07T11:45:08.072Z",
+  "data_collected_at": "2026-09-07T11:34:45+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,17 +15,22 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[3].text",
+      "text": "Josiah Emerson has made twelve saves and conceded two goals for Frostburg State; his save percentage of .857 is the highest of any listed keeper.",
+      "unbacked": ["857"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Salem share the top of the scoring with two other programmes, but their six goals have come from six different scorers; no programme has spread its scoring wider.",
+      "text": "Charleston's nine goals have come from eight different scorers; no programme has spread its scoring wider.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["programmes_sharing_top: 2"]
+      "dropped": false
     },
     {
       "path": "pattern.chart",
@@ -39,49 +44,49 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Salem's unbeaten start is over; Concord are the last programme without a goal against.",
-      "checker": "team_goals",
+      "text": "Every programme has now conceded, and only West Virginia Wesleyan are still without a win.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[0]",
-      "label": "observed",
-      "text": "No match has passed its date without a published result, and no final is missing its score; the record is complete to the day.",
-      "checker": "unresolved",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[1]",
       "label": "derived",
-      "text": "The table still rests on a single match, Salem's win at West Virginia Wesleyan; four matches between members follow on the afternoon of the collect.",
-      "checker": "team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["conference_matches_played: 1", "member_matches_that_day: 4"]
-    },
-    {
-      "path": "findings[2]",
-      "label": "derived",
-      "text": "Salem conceded more goals to Millersville than they had in their first two matches together.",
+      "text": "Shawnee State's first win came in their fourth match; they had conceded twelve goals in the three before it.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
       "unchecked_figures": [
-        "goals_conceded_v_millersville: 3",
-        "goals_conceded_first_two_matches: 2"
+        "match_of_first_win: 4",
+        "matches_before_first_win: 3",
+        "goals_conceded_before_first_win: 12"
       ]
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Frostburg State are unbeaten after four matches but have drawn two of them, and three goals is all they have conceded.",
+      "checker": "team_goals+team_record+fixture_counts",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "West Virginia Wesleyan have scored in each of their three matches and lost all of them, conceding seven goals.",
+      "checker": "team_goals+team_record+fixture_counts",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Anthony Fusay has kept clean sheets in two of Point Park's three matches, and the three goals he has conceded all came in the other one.",
-      "checker": "player_stat+team_record",
+      "text": "Josiah Emerson has made twelve saves and conceded two goals for Frostburg State; his save percentage of .857 is the highest of any listed keeper.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,17 +94,17 @@
     {
       "path": "findings[4]",
       "label": "signal",
-      "text": "Leyton Collier's twelve shots have produced two goals for West Liberty; no other player on the leaders list has taken more than six.",
+      "text": "Leyton Collier's twelve shots have produced two goals for West Liberty; no other player on the leaders list has taken more than eight.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["next_most_shots: 6"]
+      "unchecked_figures": ["next_most_shots: 8"]
     },
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Nate Kennedy — 3 G · 3 shots",
+      "text": "Nate Kennedy — 3 G · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -108,7 +113,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Allan Logrillo — 2 G · 1 A · 3 shots",
+      "text": "Allan Logrillo — 2 G · 2 A · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +131,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 salem v millersville",
+      "text": "2026-09-06 charleston v concord",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +140,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 charleston v concord",
+      "text": "2026-09-08 shawnee-state v cincinnati-clermont",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -143,10 +148,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:41:54.437Z",
-    "generate_ms": 60877,
+    "started_at": "2026-09-07T11:42:32.541Z",
+    "generate_ms": 155456,
     "validate_ms": 1,
-    "wall_ms": 60878,
+    "wall_ms": 155530,
     "concurrency": 4
   }
 }

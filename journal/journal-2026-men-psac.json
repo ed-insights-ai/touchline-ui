@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-06T11:52:00+00:00",
-  "data_collected_at": "2026-09-06T11:34:53+00:00",
+  "generated_at": "2026-09-07T11:50:00+00:00",
+  "data_collected_at": "2026-09-07T11:35:30+00:00",
   "headline": "Every side in the conference has now scored",
   "dek": "Slippery Rock had not scored before Saturday; then they put four past District of Columbia, while West Chester's first goal of the season came the same afternoon at Wilmington. West Chester have yet to win or lose; Slippery Rock have already done both.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "losses": 1
   },
   "lede_updated": "2026-09-06",
-  "displaced_by": "Slippery Rock and West Chester both scored on Sep 5; the standing lines said neither had, and Millersville are past a dozen",
   "pattern": {
     "label": "derived",
     "text": "The goals still sit at one end: Millersville have outscored Gannon and East Stroudsburg together, while the bottom of the chart has filled in and no programme is now without a goal.",
@@ -27,9 +26,9 @@
         "bloomsburg": 10,
         "gannon": 7,
         "e-stroudsburg": 6,
+        "pitt-johnstown": 6,
         "california-pa": 5,
         "shepherd": 5,
-        "pitt-johnstown": 4,
         "seton-hill": 4,
         "slippery-rock": 4,
         "lock-haven": 3,
@@ -72,19 +71,6 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Bloomsburg's ten goals have come from eight different scorers, and their one defeat was at Frostburg State.",
-      "basis": {
-        "programme": "bloomsburg",
-        "wins": 3,
-        "draws": 0,
-        "losses": 1,
-        "gf": 10,
-        "ga": 5,
-        "distinct_scorers_min": 8
-      }
-    },
-    {
       "label": "derived",
       "text": "California (Pa.) have conceded twelve goals, more than any other programme has let in, and scored five.",
       "basis": {
@@ -110,6 +96,19 @@
     },
     {
       "label": "observed",
+      "text": "Bloomsburg's ten goals have come from eight different scorers, and their one defeat was at Frostburg State.",
+      "basis": {
+        "programme": "bloomsburg",
+        "wins": 3,
+        "draws": 0,
+        "losses": 1,
+        "gf": 10,
+        "ga": 5,
+        "distinct_scorers_min": 8
+      }
+    },
+    {
+      "label": "observed",
       "text": "Shepherd are unbeaten, with Aidan Houck making fifteen saves and conceding three across their matches.",
       "basis": {
         "source": "stats",
@@ -125,18 +124,18 @@
   ],
   "players_to_watch": [
     {
+      "player": "Noah Pawling",
+      "programme": "pitt-johnstown",
+      "position": "MID",
+      "class": "JR",
+      "line": "3 G · 8 shots"
+    },
+    {
       "player": "Steven Arias",
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
       "line": "3 G · 7 shots"
-    },
-    {
-      "player": "Roy Parkyn",
-      "programme": "millersville",
-      "position": "MID",
-      "class": "SR",
-      "line": "3 G · 6 shots"
     },
     {
       "player": "Rafa Hyde",
@@ -148,16 +147,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 slippery-rock v district-of-columbia",
-      "line": "Slippery Rock's first goals of the season, all in one afternoon; District of Columbia had beaten Seton Hill, and their date with Shepherd still has no result."
+      "fixture_ref": "2026-09-06 pitt-johnstown v georgian-court",
+      "line": "Pitt-Johnstown's first home match of the season and their first defeat; their only previous result was a win at Chestnut Hill."
     },
     "next_match": {
-      "fixture_ref": "2026-09-06 pitt-johnstown v georgian-court",
-      "line": "Pitt-Johnstown's only match on the record was a win at Chestnut Hill; this is their first at home."
+      "fixture_ref": "2026-09-08 post v gannon",
+      "line": "Gannon have won every match since losing their opener at home to Lake Erie; this is their last before conference play."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:44:18.232Z"
+    "validated_at": "2026-09-07T11:45:39.911Z"
   }
 }

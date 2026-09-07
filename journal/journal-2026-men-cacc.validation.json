@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-06T11:39:47.777Z",
-  "data_collected_at": "2026-09-06T11:30:05+00:00",
+  "validated_at": "2026-09-07T11:41:58.317Z",
+  "data_collected_at": "2026-09-07T11:30:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,8 +18,8 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Georgian Court's seven goals have come from six different scorers, and so have Bridgeport's. The two tallest bars on the chart are both spreads of contributions rather than any individual's tally.",
-      "unbacked": ["2"]
+      "text": "Georgian Court's twelve goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
+      "unbacked": ["1"]
     },
     {
       "path": "findings[3].text",
@@ -31,8 +31,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Georgian Court's seven goals have come from six different scorers, and so have Bridgeport's. The two tallest bars on the chart are both spreads of contributions rather than any individual's tally.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "Georgian Court's twelve goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
+      "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -49,7 +49,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Bridgeport and Georgian Court remain unbeaten; every other side in the conference has already lost.",
+      "text": "Bridgeport's run ended at home to Mercy, leaving Georgian Court as the only side in the conference still unbeaten.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -58,8 +58,8 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Three matches carry a published result but no box score, and all three are Goldey-Beacom's: the defeat by Pace, the goalless draw with District of Columbia, and the defeat at Bloomsburg. The site has those scores and not the shape of them.",
-      "checker": "box_score_gaps+set_members",
+      "text": "Jefferson have lost all three of their matches, conceding twelve goals against three scored.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -67,16 +67,16 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Post's home match with Bentley has passed its date without a published result, the only match in the conference in that state.",
-      "checker": "unresolved+set_members",
+      "text": "Post have won twice, at Adelphi and at home to Bentley, drawn with Franklin Pierce and lost to Charleston, four goals scored and four conceded.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "Jefferson have lost all three of their matches, conceding twelve goals against three scored.",
+      "label": "derived",
+      "text": "Dominican have drawn once and lost three times, scoring one goal, Noah Rosa's in the draw with Pace, and conceding nine.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kristians Prieditis — 2 G · 2 A · 11 shots",
+      "text": "Gijs van Eif — 2 G · 4 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Gijs van Eif — 2 G · 1 A · 17 shots",
+      "text": "Sander Rynning — 3 G · 1 A · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 southern-new-hampshire v jefferson",
+      "text": "2026-09-06 bridgeport v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-06 pitt-johnstown v georgian-court",
+      "text": "2026-09-08 molloy v holy-family",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-06T11:38:49.197Z",
-    "generate_ms": 58577,
-    "validate_ms": 2,
-    "wall_ms": 58580,
+    "started_at": "2026-09-07T11:39:29.075Z",
+    "generate_ms": 149164,
+    "validate_ms": 1,
+    "wall_ms": 149242,
     "concurrency": 4
   }
 }
