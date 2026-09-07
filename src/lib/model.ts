@@ -44,7 +44,11 @@ import { z } from "zod";
 export const FIXTURES_SCHEMA = "touchline.fixtures/2";
 export const ROSTERS_SCHEMA = "touchline.rosters/1";
 export const STATS_SCHEMA = "touchline.stats/1";
-export const MATCHES_SCHEMA = "touchline.matches/1";
+export const MATCHES_SCHEMA = "touchline.matches/2";
+/** The matches tag before `player_ref` (rib contract changelog 2026-09-07). The
+ *  data home holds files under it until the backfill rewrites every season, so
+ *  the reader admits both; nothing this site renders needs the field yet. */
+export const MATCHES_SCHEMA_LEGACY = "touchline.matches/1";
 
 export const genderSchema = z.enum(["men", "women"]);
 export type Gender = z.infer<typeof genderSchema>;
@@ -264,13 +268,36 @@ export const statsFileSchema = z
   .strict();
 export type StatsFile = z.infer<typeof statsFileSchema>;
 
+/** How a match line's identity was resolved (rib bead tl-y8q). A box score
+ *  links a bio for the site owner's roster only, so `player_id` is absent on
+ *  the opponent's side; `player_ref` names the player anyway and says how:
+ *  `page` (the page's own link, id equals `player_id`), `twin` (the opponent's
+ *  own box score of the same match), `roster` (the programme's season roster,
+ *  by exact folded name or shirt number and surname), or `key` (unresolved;
+ *  a synthetic `slug:foldedname:number`, stable within a season and joinable
+ *  to nothing outside the box scores). No route guesses a spelling. */
+export const playerRefSourceSchema = z.enum(["page", "twin", "roster", "key"]);
+export type PlayerRefSource = z.infer<typeof playerRefSourceSchema>;
+
+export const playerRefSchema = z
+  .object({
+    id: z.string().min(1),
+    source: playerRefSourceSchema,
+  })
+  .strict();
+export type PlayerRef = z.infer<typeof playerRefSchema>;
+
 /** One player's line in a single match, off the box score's own table. */
 export const matchPlayerLineSchema = z
   .object({
     name: z.string().min(1),
     /** Same SideArm player id as the roster and season stats, when the row
-     *  linked a bio — the owner's players do, opponents usually don't. */
+     *  linked a bio — the owner's players do, opponents usually don't. As
+     *  printed on the page; absent when the page printed none. */
     player_id: z.string().optional(),
+    /** Who the line is, with the route it came by: every line under
+     *  `touchline.matches/2` carries one; absent only in a legacy `/1` file. */
+    player_ref: playerRefSchema.optional(),
     number: z.string().optional(),
     position: z.string().optional(),
     started: z.boolean().optional(),
@@ -372,7 +399,7 @@ export type MatchDetail = z.infer<typeof matchDetailSchema>;
 
 export const matchesFileSchema = z
   .object({
-    schema: z.literal(MATCHES_SCHEMA),
+    schema: z.enum([MATCHES_SCHEMA, MATCHES_SCHEMA_LEGACY]),
     season: z.number().int(),
     gender: genderSchema,
     collected_at: z.string().min(1),
