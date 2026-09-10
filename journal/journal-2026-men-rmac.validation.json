@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-07T11:46:19.751Z",
-  "data_collected_at": "2026-09-07T11:35:54+00:00",
+  "validated_at": "2026-09-10T11:47:22.129Z",
+  "data_collected_at": "2026-09-10T11:36:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "UCCS's win over Lubbock Christian and Fort Lewis's draw at Fort Hays State split the two on Sunday, and UCCS now lead the scoring on fourteen goals. Both remain unbeaten, and only CSU Pueblo have won every match they have played.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -52,15 +46,6 @@
     },
     {
       "path": "findings[0]",
-      "label": "derived",
-      "text": "Fort Lewis's draw at Fort Hays State was the first match this season they have failed to win; they have three wins and have not lost.",
-      "checker": "team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[1]",
       "label": "observed",
       "text": "No match is a score gap today, but nine have passed their date with no result published, the earliest from the season's opening day.",
       "checker": "unresolved",
@@ -69,10 +54,19 @@
       "dropped": false
     },
     {
-      "path": "findings[2]",
+      "path": "findings[1]",
       "label": "observed",
-      "text": "Hugo Sjöberg's seventeen saves for UCCS have come at the cost of two goals.",
+      "text": "Hugo Sjöberg's nineteen saves for UCCS have come at the cost of three goals.",
       "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Fort Lewis have three wins and a draw and have not lost, and play at Northwest Nazarene today.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Yohann Fila — 3 G · 1 A · 14 shots",
+      "text": "Yohann Fila — 3 G · 1 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 uccs v lubbock-christian",
+      "text": "2026-09-09 uccs v hawaii-hilo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-09 uccs v hawaii-hilo",
+      "text": "2026-09-10 northwest-nazarene v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:44:53.683Z",
-    "generate_ms": 86067,
+    "started_at": "2026-09-10T11:46:22.014Z",
+    "generate_ms": 60113,
     "validate_ms": 1,
-    "wall_ms": 86068,
+    "wall_ms": 60114,
     "concurrency": 4
   }
 }

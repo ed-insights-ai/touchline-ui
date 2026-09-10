@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-07T11:42:51.566Z",
-  "data_collected_at": "2026-09-07T11:33:18+00:00",
+  "validated_at": "2026-09-10T11:42:10.728Z",
+  "data_collected_at": "2026-09-10T11:32:57+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,13 +18,8 @@
   "review": [
     {
       "path": "findings[1].text",
-      "text": "Cedrik Strupler has conceded one goal for Roosevelt and saved fourteen shots, a save percentage of .933.",
-      "unbacked": ["933"]
-    },
-    {
-      "path": "findings[4].text",
-      "text": "Wisconsin-Parkside have scored three goals, one from each of three different scorers.",
-      "unbacked": ["1"]
+      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
+      "unbacked": ["857"]
     }
   ],
   "claims": [
@@ -67,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Cedrik Strupler has conceded one goal for Roosevelt and saved fourteen shots, a save percentage of .933.",
+      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -93,9 +88,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "derived",
-      "text": "Wisconsin-Parkside have scored three goals, one from each of three different scorers.",
-      "checker": "distinct_scorers+team_goals",
+      "label": "observed",
+      "text": "Andrés García has scored three of St. Cloud State's four goals, from eleven shots, while the side has conceded eleven.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -130,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 saginaw-valley-state v northern-michigan",
+      "text": "2026-09-09 st-cloud-state v jamestown",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-09 st-cloud-state v jamestown",
+      "text": "2026-09-12 aquinas v davenport",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:41:36.231Z",
-    "generate_ms": 75334,
+    "started_at": "2026-09-10T11:41:19.960Z",
+    "generate_ms": 50766,
     "validate_ms": 1,
-    "wall_ms": 75335,
+    "wall_ms": 50767,
     "concurrency": 4
   }
 }

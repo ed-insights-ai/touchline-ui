@@ -3,53 +3,70 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-07T11:40:00+00:00",
-  "data_collected_at": "2026-09-07T11:32:29+00:00",
-  "headline": "Findlay alone unbeaten while every rival has lost",
-  "dek": "Findlay have won all three of their matches and conceded only twice. Kentucky Wesleyan scored their first goals of the season to win at Union, which leaves Cedarville as the only programme in the conference still without a goal.",
+  "generated_at": "2026-09-10T11:40:00+00:00",
+  "data_collected_at": "2026-09-10T11:32:09+00:00",
+  "headline": "Findlay open conference play with a fourth straight win",
+  "dek": "Findlay have beaten Northwood in the first conference match of the season, their fourth win in four, and have conceded only twice all year. Ohio Dominican and Walsh drew the other opener, and Cedarville remain the one programme in the conference yet to score.",
   "lede_basis": {
     "programme": "findlay",
-    "wins": 3,
+    "wins": 4,
     "draws": 0,
     "losses": 0,
-    "gf": 6,
+    "gf": 7,
     "ga": 2
   },
-  "lede_updated": "2026-09-05",
+  "lede_updated": "2026-09-10",
+  "displaced_by": "Conference play opened on Sep 8 and Findlay won the opener for a fourth win in four.",
   "pattern": {
     "label": "derived",
-    "text": "Thomas More's seven goals have come from six different scorers, so their attack rests on nobody in particular.",
+    "text": "Ohio Dominican's seven goals have come from five different scorers, but they have conceded nine, more than any other programme, so the spread of their attack is covering for the defence rather than building on it.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "findlay": 7,
+        "ohio-dominican": 7,
         "thomas-more": 7,
-        "findlay": 6,
+        "walsh": 6,
         "lake-erie": 5,
-        "ohio-dominican": 5,
         "tiffin": 5,
         "ashland": 4,
-        "walsh": 4,
         "malone": 3,
         "northwood": 3,
         "kentucky-wesleyan": 2,
         "cedarville": 0
       },
-      "highlight": "thomas-more"
+      "highlight": "ohio-dominican"
     },
     "basis": {
-      "programme": "thomas-more",
+      "programme": "ohio-dominican",
       "gf": 7,
-      "distinct_scorers_min": 6
+      "ga": 9,
+      "distinct_scorers_min": 5,
+      "comparative": "greater_than_each",
+      "metric": "ga",
+      "of": [
+        "ashland",
+        "cedarville",
+        "findlay",
+        "kentucky-wesleyan",
+        "lake-erie",
+        "malone",
+        "northwood",
+        "thomas-more",
+        "tiffin",
+        "walsh"
+      ]
     }
   },
   "wire": {
-    "line": "Kentucky Wesleyan have scored at last, winning at Union, and Cedarville are now the only side without a goal.",
+    "line": "Findlay have won the first conference match and all four they have played; Cedarville have still not scored.",
     "basis": {
-      "programme": "kentucky-wesleyan",
-      "gf": 2,
-      "ga": 2
+      "programme": "findlay",
+      "wins": 4,
+      "draws": 0,
+      "losses": 0
     },
-    "updated": "2026-09-05"
+    "updated": "2026-09-10"
   },
   "findings": [
     {
@@ -63,12 +80,14 @@
     },
     {
       "label": "observed",
-      "text": "Thomas More have won both of their matches at home and lost both away, at Trevecca and at Point Park.",
+      "text": "Northwood have lost three times and drawn once, the defeat at Findlay following a home loss to Northern Michigan and one at Purdue Northwest, and have conceded eight goals.",
       "basis": {
-        "programme": "thomas-more",
-        "wins": 2,
-        "draws": 0,
-        "losses": 2
+        "programme": "northwood",
+        "wins": 0,
+        "draws": 1,
+        "losses": 3,
+        "gf": 3,
+        "ga": 8
       }
     },
     {
@@ -85,50 +104,62 @@
     },
     {
       "label": "observed",
-      "text": "Nick Cherry has two shutouts for Tiffin, and Saturday's goalless draw with Davenport was the second of them.",
+      "text": "Thomas More have won both of their matches at home and lost both away, at Trevecca and at Point Park.",
+      "basis": {
+        "programme": "thomas-more",
+        "wins": 2,
+        "draws": 0,
+        "losses": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pedro Costa has made thirteen saves for Walsh and been beaten twice, a save percentage of .867.",
       "basis": {
         "source": "stats",
-        "player": "Nick Cherry",
-        "programme": "tiffin",
-        "shutouts": 2
+        "player": "Pedro Costa",
+        "programme": "walsh",
+        "saves": 13,
+        "goals_against": 2,
+        "save_pct": 0.867
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Leo Egerer",
-      "programme": "findlay",
-      "position": "FWD",
-      "class": "SR",
-      "line": "2 G · 1 A · 11 shots"
-    },
-    {
       "player": "Carson Oberski",
       "programme": "findlay",
       "position": "FWD",
       "class": "SR",
-      "line": "1 G · 3 A · 9 shots"
+      "line": "2 G · 3 A · 14 shots"
     },
     {
-      "player": "Anwar Benkandil",
-      "programme": "thomas-more",
+      "player": "Maddux Camden",
+      "programme": "ohio-dominican",
       "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 11 shots"
+      "class": "SR",
+      "line": "2 G · 2 A · 7 shots"
+    },
+    {
+      "player": "Aleksandar Miketic",
+      "programme": "walsh",
+      "position": "FWD",
+      "class": "FR",
+      "line": "2 G · 1 A · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-06 thomas-more v wisconsin-parkside",
-      "line": "Thomas More have yet to concede at home, and their next outing is the conference opener at Malone."
+      "fixture_ref": "2026-09-08 ohio-dominican v walsh",
+      "line": "Ohio Dominican have drawn more often than they have won, and Walsh have yet to win away from home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-08 findlay v northwood",
-      "line": "Findlay open conference play against a Northwood side still waiting for a first win of the season."
+      "fixture_ref": "2026-09-10 cedarville v ohio-dominican",
+      "line": "Cedarville are still without a goal this season, and Ohio Dominican have not kept a clean sheet in any of their matches."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:42:03.090Z"
+    "validated_at": "2026-09-10T11:42:26.071Z"
   }
 }

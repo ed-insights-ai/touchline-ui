@@ -3,64 +3,77 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-07T11:50:00+00:00",
-  "data_collected_at": "2026-09-07T11:35:30+00:00",
-  "headline": "Every side in the conference has now scored",
-  "dek": "Slippery Rock had not scored before Saturday; then they put four past District of Columbia, while West Chester's first goal of the season came the same afternoon at Wilmington. West Chester have yet to win or lose; Slippery Rock have already done both.",
+  "generated_at": "2026-09-10T11:50:00+00:00",
+  "data_collected_at": "2026-09-10T11:35:56+00:00",
+  "headline": "Millersville end Shepherd's unbeaten start on opening night",
+  "dek": "Shepherd had not lost until Millersville came to town on opening night and left with a fourth win from five matches. Shippensburg, unbeaten themselves, beat Bloomsburg the same evening, and between them they hold every point the table has yet awarded.",
   "lede_basis": {
-    "programme": "slippery-rock",
-    "gf": 4,
-    "ga": 2,
-    "wins": 1,
-    "draws": 1,
+    "programme": "millersville",
+    "wins": 4,
+    "draws": 0,
     "losses": 1
   },
-  "lede_updated": "2026-09-06",
+  "lede_updated": "2026-09-10",
+  "displaced_by": "conference play opened: Millersville won at Shepherd and Shippensburg beat Bloomsburg",
   "pattern": {
     "label": "derived",
-    "text": "The goals still sit at one end: Millersville have outscored Gannon and East Stroudsburg together, while the bottom of the chart has filled in and no programme is now without a goal.",
+    "text": "Millersville have scored more than any other programme while conceding three goals in five matches; the scoring and the tightest defence sit at the same end of the chart.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "millersville": 15,
-        "bloomsburg": 10,
-        "gannon": 7,
-        "e-stroudsburg": 6,
-        "pitt-johnstown": 6,
+        "millersville": 16,
+        "bloomsburg": 11,
+        "e-stroudsburg": 9,
+        "gannon": 9,
+        "lock-haven": 8,
+        "pitt-johnstown": 7,
+        "seton-hill": 6,
+        "shippensburg": 6,
         "california-pa": 5,
         "shepherd": 5,
-        "seton-hill": 4,
-        "slippery-rock": 4,
-        "lock-haven": 3,
-        "shippensburg": 3,
-        "west-chester": 1
+        "slippery-rock": 5,
+        "west-chester": 3
       },
       "highlight": "millersville"
     },
     "basis": {
-      "comparative": "greater_than_sum",
+      "comparative": "greater_than_each",
       "metric": "gf",
       "programme": "millersville",
-      "of": ["gannon", "e-stroudsburg"],
-      "gf": 15
+      "of": [
+        "bloomsburg",
+        "california-pa",
+        "e-stroudsburg",
+        "gannon",
+        "lock-haven",
+        "pitt-johnstown",
+        "seton-hill",
+        "shepherd",
+        "shippensburg",
+        "slippery-rock",
+        "west-chester"
+      ],
+      "gf": 16,
+      "ga": 3,
+      "wins": 4,
+      "draws": 0,
+      "losses": 1
     }
   },
   "wire": {
-    "line": "Millersville have scored fifteen and conceded three, and all three of the season's box-score gaps are theirs.",
+    "line": "Shippensburg are the last unbeaten side in the conference after Shepherd fell at home to Millersville on opening night.",
     "basis": {
-      "programme": "millersville",
-      "gf": 15,
-      "ga": 3,
-      "set": "box_score_gaps",
-      "all_of": "millersville",
-      "count": 3
+      "programme": "shippensburg",
+      "wins": 1,
+      "draws": 2,
+      "losses": 0
     },
-    "updated": "2026-09-06"
+    "updated": "2026-09-10"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Shepherd's visit to District of Columbia is the one date on the record that has passed with no result, and it is Shepherd's alone; no final is missing its score.",
+      "text": "Shepherd's home match against District of Columbia is the one date on the record that has passed with no result, and it is Shepherd's alone; no final is missing its score.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -72,7 +85,7 @@
     },
     {
       "label": "derived",
-      "text": "California (Pa.) have conceded twelve goals, more than any other programme has let in, and scored five.",
+      "text": "California (Pa.) have conceded thirteen goals, more than any other programme has let in, and have lost three of their five matches.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -91,72 +104,85 @@
           "west-chester"
         ],
         "gf": 5,
-        "ga": 12
+        "ga": 13,
+        "wins": 1,
+        "draws": 1,
+        "losses": 3
       }
     },
     {
       "label": "observed",
-      "text": "Bloomsburg's ten goals have come from eight different scorers, and their one defeat was at Frostburg State.",
+      "text": "Lock Haven have scored eight and conceded eleven without winning in four matches, and six different players have scored for them.",
+      "basis": {
+        "programme": "lock-haven",
+        "wins": 0,
+        "draws": 2,
+        "losses": 2,
+        "gf": 8,
+        "ga": 11,
+        "distinct_scorers_min": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bloomsburg's eleven goals have come from eight different scorers, and both their defeats have come away from home.",
       "basis": {
         "programme": "bloomsburg",
         "wins": 3,
         "draws": 0,
-        "losses": 1,
-        "gf": 10,
-        "ga": 5,
+        "losses": 2,
+        "gf": 11,
+        "ga": 8,
         "distinct_scorers_min": 8
       }
     },
     {
       "label": "observed",
-      "text": "Shepherd are unbeaten, with Aidan Houck making fifteen saves and conceding three across their matches.",
+      "text": "Aidan Houck has made twenty saves for Shepherd and conceded four goals across their matches.",
       "basis": {
         "source": "stats",
         "player": "Aidan Houck",
         "programme": "shepherd",
-        "saves": 15,
-        "goals_against": 3,
-        "wins": 2,
-        "draws": 1,
-        "losses": 0
+        "saves": 20,
+        "goals_against": 4
       }
     }
   ],
   "players_to_watch": [
     {
+      "player": "Zander Leik",
+      "programme": "millersville",
+      "position": "FWD",
+      "class": "5Y",
+      "line": "3 G · 1 A · 8 shots"
+    },
+    {
       "player": "Noah Pawling",
       "programme": "pitt-johnstown",
       "position": "MID",
       "class": "JR",
-      "line": "3 G · 8 shots"
+      "line": "3 G · 9 shots"
     },
     {
       "player": "Steven Arias",
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "3 G · 7 shots"
-    },
-    {
-      "player": "Rafa Hyde",
-      "programme": "gannon",
-      "position": "FWD",
-      "class": "SR",
-      "line": "2 G · 2 A · 12 shots"
+      "line": "3 G · 8 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-06 pitt-johnstown v georgian-court",
-      "line": "Pitt-Johnstown's first home match of the season and their first defeat; their only previous result was a win at Chestnut Hill."
+      "fixture_ref": "2026-09-09 shepherd v millersville",
+      "line": "Shepherd's first defeat of the season; Millersville have won every match since losing at home to Ashland."
     },
     "next_match": {
-      "fixture_ref": "2026-09-08 post v gannon",
-      "line": "Gannon have won every match since losing their opener at home to Lake Erie; this is their last before conference play."
+      "fixture_ref": "2026-09-12 shippensburg v west-chester",
+      "line": "Shippensburg are the conference's last unbeaten side; West Chester have yet to win a match this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:45:39.911Z"
+    "validated_at": "2026-09-10T11:47:26.757Z"
   }
 }

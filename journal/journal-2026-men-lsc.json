@@ -3,25 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-07T12:04:00Z",
-  "data_collected_at": "2026-09-07T11:34:22+00:00",
-  "headline": "West Texas A&M go three matches without a goal",
-  "dek": "West Texas A&M scored four and kept a clean sheet against Adams State on the opening day, and have not scored since, losing at home to Fort Lewis and away at Colorado Christian and Southern Nazarene. Their eleven goals conceded are matched only by Sul Ross State, who have yet to score at all.",
+  "generated_at": "2026-09-10T11:52:00Z",
+  "data_collected_at": "2026-09-10T11:34:15+00:00",
+  "headline": "St. Mary's put ten past Sul Ross State",
+  "dek": "St. Mary's had scored three goals in their first three matches and lost two of them. Sul Ross State have now lost all four of theirs, and their keeper Fernando Hernandez has made twenty-six saves without a clean sheet.",
   "lede_basis": {
-    "programme": "west-texas-a-m",
-    "wins": 1,
+    "source": "stats",
+    "player": "Fernando Hernandez",
+    "programme": "sul-ross-state",
+    "saves": 26,
+    "shutouts": 0,
+    "wins": 0,
     "draws": 0,
-    "losses": 3,
-    "gf": 4,
-    "ga": 11,
-    "goals_in_opening_match": 4,
-    "goals_conceded_in_opening_match": 0,
-    "goals_since_opening_match": 0,
-    "defeats_since_opening_match": 3,
-    "srsu_gf": 0,
-    "srsu_ga": 11
+    "losses": 4,
+    "goals_in_latest_match": 10,
+    "stmu_goals_before_latest_match": 3,
+    "stmu_matches_before_latest_match": 3,
+    "stmu_defeats_before_latest_match": 2
   },
-  "lede_updated": "2026-09-06",
+  "lede_updated": "2026-09-10",
+  "displaced_by": "St. Mary's ten goals against Sul Ross State; the standing dek's claim that West Texas A&M's eleven conceded were matched only by Sul Ross State no longer holds",
   "pattern": {
     "label": "derived",
     "text": "Eight different players have scored Midwestern State's fourteen goals, and Jose Ortiz has five of them.",
@@ -29,6 +30,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "midwestern-state": 14,
+        "saint-marys": 13,
         "ut-dallas": 10,
         "oklahoma-christian": 9,
         "dallas-baptist": 5,
@@ -36,7 +38,6 @@
         "lubbock-christian": 4,
         "texas-a-m-international": 4,
         "west-texas-a-m": 4,
-        "saint-marys": 3,
         "ut-tyler": 3,
         "sul-ross-state": 0
       },
@@ -52,14 +53,16 @@
     }
   },
   "wire": {
-    "line": "Oklahoma Christian's unbeaten start is over; Midwestern State, Texas A&M International and UT Tyler are the sides yet to lose.",
+    "line": "Sul Ross State have conceded twenty-one goals in four matches and are yet to score.",
     "basis": {
-      "programme": "oklahoma-christian",
-      "wins": 3,
+      "programme": "sul-ross-state",
+      "wins": 0,
       "draws": 0,
-      "losses": 1
+      "losses": 4,
+      "gf": 0,
+      "ga": 21
     },
-    "updated": "2026-09-06"
+    "updated": "2026-09-10"
   },
   "findings": [
     {
@@ -73,26 +76,12 @@
     },
     {
       "label": "derived",
-      "text": "Sul Ross State have lost all three of their matches without scoring, and have conceded eleven.",
+      "text": "Oklahoma Christian have won three and lost two, and both defeats have come away from home, at Northeastern State and Rogers State.",
       "basis": {
-        "programme": "sul-ross-state",
-        "wins": 0,
+        "programme": "oklahoma-christian",
+        "wins": 3,
         "draws": 0,
-        "losses": 3,
-        "gf": 0,
-        "ga": 11
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Midwestern State have won both matches at home and drawn both away, scoring fourteen and conceding four.",
-      "basis": {
-        "programme": "midwestern-state",
-        "wins": 2,
-        "draws": 2,
-        "losses": 0,
-        "gf": 14,
-        "ga": 4
+        "losses": 2
       }
     },
     {
@@ -111,13 +100,26 @@
     },
     {
       "label": "derived",
-      "text": "Fernando Hernandez has made twenty-three saves for Sul Ross State and has yet to keep a clean sheet.",
+      "text": "Texas A&M International have won two and drawn one, and have conceded a single goal.",
       "basis": {
-        "source": "stats",
-        "player": "Fernando Hernandez",
-        "programme": "sul-ross-state",
-        "saves": 23,
-        "shutouts": 0
+        "programme": "texas-a-m-international",
+        "wins": 2,
+        "draws": 1,
+        "losses": 0,
+        "gf": 4,
+        "ga": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Midwestern State have won both matches at home and drawn both away, scoring fourteen and conceding four.",
+      "basis": {
+        "programme": "midwestern-state",
+        "wins": 2,
+        "draws": 2,
+        "losses": 0,
+        "gf": 14,
+        "ga": 4
       }
     }
   ],
@@ -130,32 +132,32 @@
       "line": "5 G · 11 shots"
     },
     {
+      "player": "Eduardo Fernandez",
+      "programme": "saint-marys",
+      "position": "FWD",
+      "class": "SO",
+      "line": "4 G · 1 A · 7 shots"
+    },
+    {
       "player": "Kenzo Shabazz-Edwards",
       "programme": "oklahoma-christian",
       "position": "FWD",
       "class": "SO",
-      "line": "4 G · 10 shots"
-    },
-    {
-      "player": "Osi Iyamah",
-      "programme": "ut-dallas",
-      "position": "FWD",
-      "class": "JR",
-      "line": "3 G · 1 A · 9 shots"
+      "line": "4 G · 14 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-06 msu-denver v midwestern-state",
-      "line": "Midwestern State are still unbeaten, and have yet to win away from home."
+      "fixture_ref": "2026-09-09 saint-marys v sul-ross-state",
+      "line": "St. Mary's have now won as many as they have lost, and Sul Ross State are still without a goal of their own."
     },
     "next_match": {
-      "fixture_ref": "2026-09-09 saint-marys v sul-ross-state",
-      "line": "Sul Ross State have yet to score this season; St. Mary's come in off their first win."
+      "fixture_ref": "2026-09-10 midwestern-state v southern-nazarene",
+      "line": "Midwestern State have yet to lose; Southern Nazarene have already beaten West Texas A&M this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:42:57.991Z"
+    "validated_at": "2026-09-10T11:46:21.940Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-07T11:47:08.463Z",
-  "data_collected_at": "2026-09-07T11:36:06+00:00",
+  "validated_at": "2026-09-10T11:48:16.482Z",
+  "data_collected_at": "2026-09-10T11:36:46+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,7 +15,13 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Anderson have won four and drawn one, with twelve goals shared among seven different scorers and four conceded. Catawba, the conference's other unbeaten side, won away on the same night, and the two do not meet until October.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
@@ -47,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches whose dates have passed carry no result: Newberry's opener at Converse, and every match Emory & Henry have had so far, the home match against Lynn among them.",
+      "text": "Five matches whose dates have passed carry no result: Newberry's opener at Converse, and every match Emory & Henry have had so far, the latest away at Chowan.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Newberry have lost all three of the matches that carry a result, scoring once and conceding nine. Giuseppe Gereau is the only player to have scored for them.",
+      "text": "Newberry have lost all four of the matches that carry a result, scoring twice and conceding eleven. Giuseppe Gereau and Shotaro Sekinada are the only players to have scored for them.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,14 +71,23 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Lenoir-Rhyne have scored eight and conceded ten, and remain without a win: two draws, two defeats.",
-      "checker": "team_goals+team_record",
+      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty saves and conceded five, without yet keeping a clean sheet.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Wingate have scored four and conceded three, and have gone from two wins without conceding to two defeats in a row.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Anderson's Asher Risell has kept two clean sheets and conceded three goals.",
       "checker": "player_stat",
@@ -81,18 +96,9 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
-      "label": "observed",
-      "text": "Carson-Newman's Elijah Buford has made fourteen saves and been beaten twice, without yet keeping a clean sheet.",
-      "checker": "player_stat",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Logan Knight — 4 G · 9 shots",
+      "text": "Logan Knight — 4 G · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Alex Payton — 2 G · 11 shots",
+      "text": "Alex Payton — 3 G · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 anderson v coker",
+      "text": "2026-09-09 mount-olive v anderson",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-07 florida-tech v mars-hill",
+      "text": "2026-09-12 catawba v mars-hill",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:45:08.143Z",
-    "generate_ms": 120245,
+    "started_at": "2026-09-10T11:46:55.699Z",
+    "generate_ms": 80781,
     "validate_ms": 1,
-    "wall_ms": 120320,
+    "wall_ms": 80782,
     "concurrency": 4
   }
 }

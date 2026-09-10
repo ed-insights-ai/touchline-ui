@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-09-07T11:45:54.071Z",
-  "data_collected_at": "2026-09-07T11:35:22+00:00",
+  "validated_at": "2026-09-10T11:47:21.414Z",
+  "data_collected_at": "2026-09-10T11:35:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 14,
+    "checked": 13,
     "verified": 13,
-    "contradicted": 1,
+    "contradicted": 0,
     "unverifiable": 0,
-    "dropped": 1
+    "dropped": 0
   },
   "normalizations": [],
   "review": [
@@ -20,18 +20,13 @@
       "path": "findings[0].text",
       "text": "Six matches have passed their date with no published result, among them Clayton State's visit to Oglethorpe and Middle Georgia State's to Columbia on 22 August.",
       "unbacked": ["22"]
-    },
-    {
-      "path": "findings[4].text",
-      "text": "Lander have scored three goals, one each from three different scorers.",
-      "unbacked": ["1"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "North Georgia's eleven goals are more than USC Aiken and Lander have scored between them, and eight different players have shared them.",
+      "text": "North Georgia's fourteen goals are more than USC Aiken and Lander have scored between them, and eight different players have shared them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -49,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Flagler have drawn all three of their matches and are still unbeaten.",
-      "checker": "team_record",
+      "text": "Clayton State won at Middle Georgia State on opening night and have now scored twelve goals from five different scorers.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -66,9 +61,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "Kalle Kuisma has made ten saves for Clayton State and has conceded twice.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Javier Gongora Andres has scored six of Middle Georgia State's eleven goals from twenty shots.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -84,9 +79,9 @@
     },
     {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "Javier Gongora Andres has scored five of Middle Georgia State's nine goals from sixteen shots.",
-      "checker": "player_stat+team_goals",
+      "label": "observed",
+      "text": "Kalle Kuisma has made ten saves for Clayton State and has conceded twice.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -94,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Lander have scored three goals, one each from three different scorers.",
+      "text": "Lander's six goals have come from five different scorers.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Javier Gongora Andres — 5 G · 16 shots",
+      "text": "Javier Gongora Andres — 6 G · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Theo Hoang — 5 G · 9 shots",
+      "text": "Isaac Calderon — 5 G · 2 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Camilo Velez — 2 G · 1 A · 8 shots",
+      "text": "Theo Hoang — 5 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 north-georgia v aum",
+      "text": "2026-09-09 north-georgia v lander",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,27 +134,18 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-09 north-georgia v lander",
+      "text": "2026-09-12 flagler v clayton-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
-    },
-    {
-      "path": "featured.last_match.line",
-      "label": "restatement",
-      "text": "North Georgia end their non-conference run unbeaten; only Flagler join them in that going into conference play.",
-      "checker": "words_moved",
-      "verdict": "contradicted",
-      "mismatches": ["featured.last_match.line restates headline (1.00)"],
-      "dropped": true
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:43:27.307Z",
-    "generate_ms": 146688,
+    "started_at": "2026-09-10T11:44:45.311Z",
+    "generate_ms": 156025,
     "validate_ms": 1,
-    "wall_ms": 146764,
+    "wall_ms": 156101,
     "concurrency": 4
   }
 }

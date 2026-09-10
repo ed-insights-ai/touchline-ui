@@ -3,55 +3,53 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-07T12:00:00+00:00",
-  "data_collected_at": "2026-09-07T11:34:57+00:00",
-  "headline": "Southern New Hampshire outscore every other programme",
-  "dek": "Nine different players have scored Southern New Hampshire's fourteen goals in four matches, and Inigo Burusco has five of them from sixteen shots. No other programme has more than seven, and Pace, on that seven, are the only other side still unbeaten after Bentley lost at Post.",
+  "generated_at": "2026-09-10T12:05:00+00:00",
+  "data_collected_at": "2026-09-10T11:34:58+00:00",
+  "headline": "Franklin Pierce shut out Bentley in members' first meeting",
+  "dek": "Franklin Pierce kept Bentley scoreless in the first match between two NE10 sides this season, and their eleven goals now trail only Southern New Hampshire's fourteen. Bentley have conceded nine in four matches and have lost the last two of them.",
   "lede_basis": {
-    "source": "stats",
-    "player": "Inigo Burusco",
-    "programme": "southern-new-hampshire",
-    "goals": 5,
-    "shots": 16,
-    "distinct_scorers_min": 9,
-    "gf": 14,
-    "ga": 3,
-    "wins": 3,
+    "programme": "franklin-pierce",
+    "gf": 11,
+    "ga": 6,
+    "wins": 2,
     "draws": 1,
-    "losses": 0,
-    "matches_played": 4,
+    "losses": 1,
     "comparative": "greater_than_each",
     "metric": "gf",
     "of": [
       "pace",
+      "assumption",
       "american-international",
-      "franklin-pierce",
       "saint-anselm",
       "saint-michael-s",
       "bentley",
       "adelphi",
-      "southern-connecticut",
-      "assumption"
+      "southern-connecticut"
     ],
-    "next_best_gf": 7
+    "southern_new_hampshire_gf": 14,
+    "bentley_ga": 9,
+    "bentley_matches_played": 4,
+    "bentley_last_losses": 2,
+    "member_meetings": 1
   },
-  "lede_updated": "2026-09-06",
+  "lede_updated": "2026-09-10",
+  "displaced_by": "Franklin Pierce 5-0 Bentley on 2026-09-09, the first match between members; the old dek's 'no other programme has more than seven' no longer holds with Franklin Pierce on eleven and Pace on eight",
   "pattern": {
     "label": "signal",
-    "text": "The tallest bar is also the widest: nine different players have scored for Southern New Hampshire, while no other programme has used more than five.",
+    "text": "The two tallest bars are built differently: nine players have scored Southern New Hampshire's fourteen goals, while Franklin Pierce's eleven come from four.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "southern-new-hampshire": 14,
-        "pace": 7,
+        "franklin-pierce": 11,
+        "pace": 8,
+        "assumption": 7,
         "american-international": 6,
-        "franklin-pierce": 6,
         "saint-anselm": 6,
         "saint-michael-s": 6,
         "bentley": 5,
         "adelphi": 4,
-        "southern-connecticut": 4,
-        "assumption": 3
+        "southern-connecticut": 4
       },
       "highlight": "southern-new-hampshire"
     },
@@ -59,32 +57,54 @@
       "programme": "southern-new-hampshire",
       "distinct_scorers_min": 9,
       "gf": 14,
-      "max_other_distinct_scorers": 5
+      "franklin_pierce_distinct_scorers_min": 4,
+      "franklin_pierce_gf": 11
     }
   },
   "wire": {
-    "line": "Eight of the ten programmes have already drawn a match.",
+    "line": "Franklin Pierce kept a clean sheet against Bentley in the season's first match between conference members.",
     "basis": {
-      "derived_from": "fixtures",
-      "wins": 14,
-      "draws": 11,
-      "losses": 9,
-      "gf": 61,
-      "ga": 47,
-      "programmes_with_a_draw": 8,
-      "programmes": 10
+      "programme": "franklin-pierce",
+      "wins": 2,
+      "draws": 1,
+      "losses": 1,
+      "member_meetings": 1
     },
-    "updated": "2026-09-03"
+    "updated": "2026-09-10"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Southern Connecticut are the only programme still without a win, with two draws and one defeat.",
+      "text": "Southern Connecticut remain the only programme without a win, with two draws and one defeat from three matches.",
       "basis": {
         "programme": "southern-connecticut",
         "wins": 0,
         "draws": 2,
-        "losses": 1
+        "losses": 1,
+        "matches_played": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pace are unbeaten after four matches but have drawn the last two, both away from home.",
+      "basis": {
+        "programme": "pace",
+        "wins": 2,
+        "draws": 2,
+        "losses": 0,
+        "matches_played": 4,
+        "last_two_draws": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Cody Holbert has taken twenty shots, more than any other player listed, and scored four of Assumption's goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Cody Holbert",
+        "programme": "assumption",
+        "goals": 4,
+        "shots": 20
       }
     },
     {
@@ -107,19 +127,6 @@
         "programme": "adelphi",
         "saves": 19
       }
-    },
-    {
-      "label": "observed",
-      "text": "Pace have conceded two goals in three matches, none of which they have lost.",
-      "basis": {
-        "programme": "pace",
-        "gf": 7,
-        "ga": 2,
-        "wins": 2,
-        "draws": 1,
-        "losses": 0,
-        "matches_played": 3
-      }
     }
   ],
   "players_to_watch": [
@@ -131,32 +138,32 @@
       "line": "5 G · 1 A · 16 shots"
     },
     {
-      "player": "Brian Jones",
-      "programme": "saint-anselm",
-      "position": "MID",
-      "class": "JR",
-      "line": "3 G · 12 shots"
+      "player": "Guillermo Rios",
+      "programme": "franklin-pierce",
+      "position": "FWD",
+      "class": "SR",
+      "line": "4 G · 9 shots"
     },
     {
-      "player": "Daniel Santos",
-      "programme": "pace",
-      "position": "MID",
+      "player": "Cody Holbert",
+      "programme": "assumption",
+      "position": "FWD",
       "class": "SR",
-      "line": "2 G · 2 A · 10 shots"
+      "line": "4 G · 20 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 southern-new-hampshire v jefferson",
-      "line": "Southern New Hampshire are still unbeaten and have scored in every match; Pace's next away trip is to Jefferson."
+      "fixture_ref": "2026-09-09 franklin-pierce v bentley",
+      "line": "Franklin Pierce have scored in every match since a goalless opener; Bentley have now conceded more than any other programme."
     },
     "next_match": {
-      "fixture_ref": "2026-09-08 saint-michael-s v middlebury",
-      "line": "Saint Michael's have not lost since their opening match and arrive off a win over Roberts Wesleyan."
+      "fixture_ref": "2026-09-12 assumption v saint-anselm",
+      "line": "Both sides arrive on winning runs, Saint Anselm's the longer, in the second meeting of members this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:43:27.235Z"
+    "validated_at": "2026-09-10T11:46:55.626Z"
   }
 }

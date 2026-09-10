@@ -3,52 +3,53 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-07T11:45:00+00:00",
-  "data_collected_at": "2026-09-07T11:30:58+00:00",
-  "headline": "Cal State LA yet to concede after three wins",
-  "dek": "Cal State LA have won all three of their matches without conceding a goal, and Abraham Ramirez has made thirteen saves behind them for three shutouts. Every other unbeaten side in the conference has already been scored on.",
+  "generated_at": "2026-09-10T11:45:00+00:00",
+  "data_collected_at": "2026-09-10T11:31:12+00:00",
+  "headline": "Abraham Ramirez shuts out a fourth opponent",
+  "dek": "Cal State LA have won four times and have not yet conceded, with Abraham Ramirez making fourteen saves behind them. The conference's other unbeaten sides have all been scored on already.",
   "lede_basis": {
     "source": "stats",
     "player": "Abraham Ramirez",
     "programme": "cal-state-la",
-    "saves": 13,
-    "shutouts": 3,
+    "saves": 14,
+    "shutouts": 4,
     "goals_against": 0,
-    "wins": 3,
+    "wins": 4,
     "draws": 0,
     "losses": 0,
-    "gf": 6,
+    "gf": 7,
     "ga": 0
   },
-  "lede_updated": "2026-09-05",
+  "lede_updated": "2026-09-10",
+  "displaced_by": "Cal State LA's fourth win and fourth shutout; the standing three-win line is no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Cal State Monterey Bay have scored fourteen goals through eight different scorers, and the total is more than Cal State San Bernardino, Cal State East Bay, UC Merced and Menlo have managed between them.",
+    "text": "Fresno Pacific's 22 goals are more than Cal State Monterey Bay and Cal State Dominguez Hills have scored together, and eight different players have shared them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "fresno-pacific": 22,
         "cal-state-monterey-bay": 14,
-        "fresno-pacific": 14,
-        "cal-state-dominguez-hills": 6,
-        "cal-state-la": 6,
+        "cal-state-dominguez-hills": 7,
+        "cal-state-la": 7,
+        "cal-state-east-bay": 6,
+        "cal-state-san-bernardino": 6,
         "cal-state-san-marcos": 6,
         "stanislaus-state": 6,
         "cal-poly-humboldt": 5,
         "cal-poly-pomona": 5,
         "chico-state": 5,
-        "cal-state-east-bay": 4,
-        "cal-state-san-bernardino": 4,
         "uc-merced": 3,
         "menlo": 2
       },
-      "highlight": "cal-state-monterey-bay"
+      "highlight": "fresno-pacific"
     },
     "basis": {
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "cal-state-monterey-bay",
-      "of": ["cal-state-san-bernardino", "cal-state-east-bay", "uc-merced", "menlo"],
-      "gf": 14,
+      "programme": "fresno-pacific",
+      "of": ["cal-state-monterey-bay", "cal-state-dominguez-hills"],
+      "gf": 22,
       "distinct_scorers_min": 8
     }
   },
@@ -74,14 +75,14 @@
     },
     {
       "label": "derived",
-      "text": "Cal State East Bay have conceded seventeen goals, more than any other programme, and have yet to win.",
+      "text": "Cal State East Bay have conceded twenty goals, more than any other programme, and have yet to win.",
       "basis": {
         "programme": "cal-state-east-bay",
         "wins": 0,
         "draws": 1,
-        "losses": 3,
-        "gf": 4,
-        "ga": 17,
+        "losses": 4,
+        "gf": 6,
+        "ga": 20,
         "comparative": "greater_than_each",
         "metric": "ga",
         "of": [
@@ -102,14 +103,14 @@
     },
     {
       "label": "derived",
-      "text": "Cal State San Bernardino have won two and drawn two, and have conceded a single goal across them.",
+      "text": "Cal State San Bernardino have won three and drawn two, and have conceded two goals across them.",
       "basis": {
         "programme": "cal-state-san-bernardino",
-        "wins": 2,
+        "wins": 3,
         "draws": 2,
         "losses": 0,
-        "gf": 4,
-        "ga": 1
+        "gf": 6,
+        "ga": 2
       }
     },
     {
@@ -124,13 +125,13 @@
     },
     {
       "label": "observed",
-      "text": "Alexis Cervantes has taken fifteen shots for Stanislaus State and scored three times.",
+      "text": "Zion Vaughn has scored six goals from thirteen shots for Fresno Pacific.",
       "basis": {
         "source": "stats",
-        "player": "Alexis Cervantes",
-        "programme": "stanislaus-state",
-        "shots": 15,
-        "goals": 3
+        "player": "Zion Vaughn",
+        "programme": "fresno-pacific",
+        "goals": 6,
+        "shots": 13
       }
     }
   ],
@@ -140,7 +141,14 @@
       "programme": "fresno-pacific",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 1 A · 9 shots"
+      "line": "6 G · 1 A · 13 shots"
+    },
+    {
+      "player": "Noah Naranjo",
+      "programme": "fresno-pacific",
+      "position": "FWD",
+      "class": "FR",
+      "line": "4 G · 1 A · 8 shots"
     },
     {
       "player": "Kai Martin",
@@ -148,27 +156,20 @@
       "position": "FWD",
       "class": "JR",
       "line": "4 G · 9 shots"
-    },
-    {
-      "player": "Philip Wolny",
-      "programme": "cal-state-monterey-bay",
-      "position": "FWD",
-      "class": "SO",
-      "line": "2 G · 4 A · 5 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-06 cal-state-east-bay v cal-state-monterey-bay",
-      "line": "Cal State East Bay have now conceded more than any other programme in the conference; Cal State Monterey Bay remain unbeaten but have yet to keep a clean sheet."
+      "fixture_ref": "2026-09-09 fresno-pacific v pacific-union",
+      "line": "Fresno Pacific have now outscored every other programme in the conference, and the win ends a home run of a defeat and a draw."
     },
     "next_match": {
-      "fixture_ref": "2026-09-09 fresno-pacific v pacific-union",
-      "line": "Fresno Pacific opened with a run of wins and have not won since, losing and then drawing at home."
+      "fixture_ref": "2026-09-10 vanguard v cal-state-monterey-bay",
+      "line": "Cal State Monterey Bay are unbeaten but have yet to keep a clean sheet; Vanguard have yet to beat a CCAA side."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:41:50.329Z"
+    "validated_at": "2026-09-10T11:41:06.465Z"
   }
 }

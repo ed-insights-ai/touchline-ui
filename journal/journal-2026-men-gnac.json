@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-09-06T11:45:00+00:00",
-  "data_collected_at": "2026-09-06T11:33:33+00:00",
+  "generated_at": "2026-09-10T11:45:00+00:00",
+  "data_collected_at": "2026-09-10T11:33:28+00:00",
   "headline": "Seattle Pacific and Western Washington keep perfect records",
   "dek": "Seattle Pacific have won all four they have played and scored eleven doing it, and Western Washington have matched them win for win. Northwest Nazarene's first victory, at Menlo, keeps them unbeaten too.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 5
   },
   "lede_updated": "2026-09-06",
-  "displaced_by": "dek only: both perfect sides now four from four, and Northwest Nazarene have won at Menlo",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's twelve goals are more than Northwest Nazarene and Simon Fraser have scored together.",
@@ -63,12 +62,12 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Saint Martin's own the conference's three box score gaps: results published, detail the collector could not reach.",
+      "label": "derived",
+      "text": "Western Oregon have conceded exactly as many goals as they have scored, nine of each.",
       "basis": {
-        "set": "box_score_gaps",
-        "all_of": "saint-martins",
-        "count": 3
+        "programme": "western-oregon",
+        "gf": 9,
+        "ga": 9
       }
     },
     {
@@ -84,23 +83,30 @@
     },
     {
       "label": "observed",
-      "text": "Connor Leistiko has two shutouts and seventeen saves for Saint Martin's.",
+      "text": "Connor Leistiko has two shutouts for Saint Martin's and has conceded five goals.",
       "basis": {
         "source": "stats",
         "player": "Connor Leistiko",
         "programme": "saint-martins",
-        "saves": 17,
-        "shutouts": 2
+        "shutouts": 2,
+        "goals_against": 5
       }
     },
     {
-      "label": "observed",
-      "text": "Northwest Nazarene's win at Menlo was their first of the season, after three draws.",
+      "label": "derived",
+      "text": "Northwest Nazarene have drawn three times, more draws than any other programme in the conference.",
       "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
         "programme": "northwest-nazarene",
-        "wins": 1,
-        "draws": 3,
-        "losses": 0
+        "of": [
+          "saint-martins",
+          "seattle-pacific",
+          "simon-fraser",
+          "western-oregon",
+          "western-washington"
+        ],
+        "draws": 3
       }
     }
   ],
@@ -129,8 +135,8 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-05 menlo v northwest-nazarene",
-      "line": "Northwest Nazarene's first win of the season, after a run of draws."
+      "fixture_ref": "2026-09-05 western-washington v westmont",
+      "line": "Western Washington's first clean sheet of the season, having conceded in every win before it."
     },
     "next_match": {
       "fixture_ref": "2026-09-10 regis v seattle-pacific",
@@ -139,6 +145,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-06T11:41:54.364Z"
+    "validated_at": "2026-09-10T11:43:20.996Z"
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-07T11:46:00+00:00",
-  "data_collected_at": "2026-09-07T11:33:18+00:00",
+  "generated_at": "2026-09-10T11:46:00+00:00",
+  "data_collected_at": "2026-09-10T11:32:57+00:00",
   "headline": "Roosevelt unbeaten and scoring like no one else",
   "dek": "Roosevelt have scored thirteen goals and conceded six without losing, more than Davenport, Purdue Northwest and Wisconsin-Parkside have managed between them. Purdue Northwest and Saginaw Valley State are the only other sides unbeaten, and Saginaw Valley State kept that by beating Northern Michigan in the season's first meeting between members.",
   "lede_basis": {
@@ -19,7 +19,6 @@
     "of": ["davenport", "purdue-northwest", "wisconsin-parkside"]
   },
   "lede_updated": "2026-09-07",
-  "displaced_by": "Saginaw Valley State beat Northern Michigan in the first meeting between members, so the dek's line that no member had met another no longer holds; the headline stands",
   "pattern": {
     "label": "signal",
     "text": "Saginaw Valley State have spread ten goals across seven different scorers and conceded five. The chart ranks what sides score; the sides scoring most are also the ones that have not lost.",
@@ -65,14 +64,14 @@
     },
     {
       "label": "observed",
-      "text": "Cedrik Strupler has conceded one goal for Roosevelt and saved fourteen shots, a save percentage of .933.",
+      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
       "basis": {
         "source": "stats",
-        "player": "Cedrik Strupler",
-        "programme": "roosevelt",
-        "saves": 14,
-        "goals_against": 1,
-        "save_pct": 0.933
+        "player": "Estefano Alvear",
+        "programme": "purdue-northwest",
+        "saves": 18,
+        "goals_against": 3,
+        "save_pct": 0.857
       }
     },
     {
@@ -109,13 +108,16 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Wisconsin-Parkside have scored three goals, one from each of three different scorers.",
+      "label": "observed",
+      "text": "Andrés García has scored three of St. Cloud State's four goals, from eleven shots, while the side has conceded eleven.",
       "basis": {
-        "programme": "wisconsin-parkside",
-        "distinct_scorers_min": 3,
-        "gf": 3,
-        "ga": 5
+        "source": "stats",
+        "player": "Andrés García",
+        "programme": "st-cloud-state",
+        "goals": 3,
+        "shots": 11,
+        "gf": 4,
+        "ga": 11
       }
     }
   ],
@@ -144,16 +146,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-06 saginaw-valley-state v northern-michigan",
-      "line": "Saginaw Valley State stay unbeaten in the season's first meeting between members; Northern Michigan have alternated wins and defeats."
+      "fixture_ref": "2026-09-09 st-cloud-state v jamestown",
+      "line": "St. Cloud State's only win of the season came at Truman; every match since has been a defeat."
     },
     "next_match": {
-      "fixture_ref": "2026-09-09 st-cloud-state v jamestown",
-      "line": "St. Cloud State's only win came at Truman; they have lost at Quincy and Saint Thomas since."
+      "fixture_ref": "2026-09-12 aquinas v davenport",
+      "line": "Davenport are still without a win; the draws at Northwood and Tiffin ended a losing start."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:42:51.566Z"
+    "validated_at": "2026-09-10T11:42:10.728Z"
   }
 }

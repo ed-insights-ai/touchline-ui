@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-07T11:42:57.991Z",
-  "data_collected_at": "2026-09-07T11:34:22+00:00",
+  "validated_at": "2026-09-10T11:46:21.940Z",
+  "data_collected_at": "2026-09-10T11:34:15+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Oklahoma Christian's unbeaten start is over; Midwestern State, Texas A&M International and UT Tyler are the sides yet to lose.",
-      "checker": "team_record",
+      "text": "Sul Ross State have conceded twenty-one goals in four matches and are yet to score.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,23 +56,14 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Sul Ross State have lost all three of their matches without scoring, and have conceded eleven.",
-      "checker": "team_goals+team_record",
+      "text": "Oklahoma Christian have won three and lost two, and both defeats have come away from home, at Northeastern State and Rogers State.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Midwestern State have won both matches at home and drawn both away, scoring fourteen and conceding four.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[3]",
       "label": "derived",
       "text": "UT Dallas have won three, drawn one and lost one, and their ten goals are more than Lubbock Christian and West Texas A&M have scored together.",
       "checker": "team_goals+team_record+comparative",
@@ -81,10 +72,19 @@
       "dropped": false
     },
     {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Texas A&M International have won two and drawn one, and have conceded a single goal.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Fernando Hernandez has made twenty-three saves for Sul Ross State and has yet to keep a clean sheet.",
-      "checker": "player_stat",
+      "text": "Midwestern State have won both matches at home and drawn both away, scoring fourteen and conceding four.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kenzo Shabazz-Edwards — 4 G · 10 shots",
+      "text": "Eduardo Fernandez — 4 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Osi Iyamah — 3 G · 1 A · 9 shots",
+      "text": "Kenzo Shabazz-Edwards — 4 G · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 msu-denver v midwestern-state",
+      "text": "2026-09-09 saint-marys v sul-ross-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-09 saint-marys v sul-ross-state",
+      "text": "2026-09-10 midwestern-state v southern-nazarene",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:42:03.163Z",
-    "generate_ms": 54827,
+    "started_at": "2026-09-10T11:42:56.171Z",
+    "generate_ms": 205691,
     "validate_ms": 1,
-    "wall_ms": 54828,
+    "wall_ms": 205767,
     "concurrency": 4
   }
 }

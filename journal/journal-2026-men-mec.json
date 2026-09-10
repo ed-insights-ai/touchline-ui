@@ -3,49 +3,50 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-09-07T12:05:00+00:00",
-  "data_collected_at": "2026-09-07T11:34:45+00:00",
-  "headline": "Concord's clean sheet run ends at Charleston",
-  "dek": "Concord had let nothing past in two matches before Charleston scored three against them, and no programme in the conference now holds a clean record. Frostburg State, West Liberty and Davis & Elkins are the three sides still unbeaten, and between them they have conceded seven goals in eight matches.",
+  "generated_at": "2026-09-10T12:05:00+00:00",
+  "data_collected_at": "2026-09-10T11:34:37+00:00",
+  "headline": "Unbeaten trio have conceded four goals apiece",
+  "dek": "Frostburg State, West Liberty and Davis & Elkins are the three sides yet to lose, and each has let in exactly four goals. The other seven programmes have fifteen defeats between them, and West Virginia Wesleyan account for four of those on their own.",
   "lede_basis": {
-    "programme": "concord",
-    "gf": 3,
-    "ga": 3,
-    "wins": 1,
-    "draws": 1,
-    "losses": 1,
-    "matches_before_conceding": 2,
-    "goals_conceded_v_charleston": 3,
+    "programme": "frostburg-state",
+    "wins": 3,
+    "draws": 2,
+    "losses": 0,
+    "gf": 10,
+    "ga": 4,
     "unbeaten_sides": 3,
-    "unbeaten_sides_ga": 7,
-    "unbeaten_sides_played": 8
+    "goals_conceded_by_each_unbeaten_side": 4,
+    "other_programmes": 7,
+    "other_programmes_losses": 15,
+    "west_virginia_wesleyan_losses": 4
   },
-  "lede_updated": "2026-09-07",
-  "displaced_by": "Concord conceded three at Charleston; no programme is now without a goal against, so the standing headline was no longer true",
+  "lede_updated": "2026-09-10",
+  "displaced_by": "Midweek results moved the unbeaten sides' figures on; seven conceded in eight was no longer true, and each of the three now sits on exactly four against",
   "pattern": {
     "label": "derived",
-    "text": "Charleston's nine goals have come from eight different scorers; no programme has spread its scoring wider.",
+    "text": "Charleston's fourteen goals have come from nine different scorers, and no one of them has more than three; the scoring is spread, not carried.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "charleston": 9,
-        "frostburg-state": 7,
+        "charleston": 14,
+        "shawnee-state": 11,
+        "frostburg-state": 10,
+        "west-liberty": 8,
+        "davis-elkins": 7,
+        "point-park": 6,
         "salem": 6,
-        "shawnee-state": 5,
-        "west-liberty": 5,
-        "wheeling": 5,
-        "davis-elkins": 4,
-        "point-park": 4,
-        "concord": 3,
+        "wheeling": 6,
+        "concord": 5,
         "west-virginia-wesleyan": 3
       },
       "highlight": "charleston"
     },
     "basis": {
       "programme": "charleston",
-      "gf": 9,
+      "gf": 14,
       "ga": 6,
-      "distinct_scorers_min": 8
+      "distinct_scorers_min": 9,
+      "most_goals_by_one_scorer": 3
     }
   },
   "wire": {
@@ -54,78 +55,80 @@
       "programme": "west-virginia-wesleyan",
       "wins": 0,
       "draws": 0,
-      "losses": 3
+      "losses": 4
     },
     "updated": "2026-09-07"
   },
   "findings": [
     {
       "label": "derived",
-      "text": "Shawnee State's first win came in their fourth match; they had conceded twelve goals in the three before it.",
+      "text": "Charleston have won four of their five matches and scored fourteen goals; their one defeat came at home to a visitor from outside the conference.",
       "basis": {
-        "programme": "shawnee-state",
-        "wins": 1,
-        "draws": 1,
-        "losses": 2,
-        "gf": 5,
-        "ga": 13,
-        "match_of_first_win": 4,
-        "matches_before_first_win": 3,
-        "goals_conceded_before_first_win": 12
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Frostburg State are unbeaten after four matches but have drawn two of them, and three goals is all they have conceded.",
-      "basis": {
-        "programme": "frostburg-state",
-        "wins": 2,
-        "draws": 2,
-        "losses": 0,
-        "gf": 7,
-        "ga": 3,
-        "played": 4
-      }
-    },
-    {
-      "label": "observed",
-      "text": "West Virginia Wesleyan have scored in each of their three matches and lost all of them, conceding seven goals.",
-      "basis": {
-        "programme": "west-virginia-wesleyan",
-        "wins": 0,
+        "programme": "charleston",
+        "wins": 4,
         "draws": 0,
-        "losses": 3,
-        "gf": 3,
-        "ga": 7,
-        "played": 3
+        "losses": 1,
+        "gf": 14,
+        "ga": 6,
+        "played": 5
       }
     },
     {
       "label": "observed",
-      "text": "Josiah Emerson has made twelve saves and conceded two goals for Frostburg State; his save percentage of .857 is the highest of any listed keeper.",
+      "text": "Josiah Emerson has made fourteen saves and conceded three goals for Frostburg State, the fewest goals against of any listed keeper.",
       "basis": {
         "source": "stats",
         "player": "Josiah Emerson",
         "programme": "frostburg-state",
-        "saves": 12,
-        "goals_against": 2,
-        "save_pct": 0.857
+        "saves": 14,
+        "goals_against": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "West Virginia Wesleyan have lost all four of their matches, three of them to conference opponents, and have scored three goals while conceding nine.",
+      "basis": {
+        "programme": "west-virginia-wesleyan",
+        "wins": 0,
+        "draws": 0,
+        "losses": 4,
+        "gf": 3,
+        "ga": 9,
+        "played": 4,
+        "conference_losses": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Shawnee State have scored eleven goals and conceded thirteen; six of the eleven came in a single match.",
+      "basis": {
+        "programme": "shawnee-state",
+        "gf": 11,
+        "ga": 13,
+        "goals_in_one_match": 6
       }
     },
     {
       "label": "signal",
-      "text": "Leyton Collier's twelve shots have produced two goals for West Liberty; no other player on the leaders list has taken more than eight.",
+      "text": "Leyton Collier's fourteen shots have produced three goals for West Liberty; no other player on the leaders list has taken more than ten.",
       "basis": {
         "source": "stats",
         "player": "Leyton Collier",
         "programme": "west-liberty",
-        "goals": 2,
-        "shots": 12,
-        "next_most_shots": 8
+        "goals": 3,
+        "shots": 14,
+        "next_most_shots": 10
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Martin Echarren",
+      "programme": "charleston",
+      "position": "FWD",
+      "class": "SO",
+      "line": "3 G · 1 A · 10 shots"
+    },
     {
       "player": "Nate Kennedy",
       "programme": "frostburg-state",
@@ -134,32 +137,25 @@
       "line": "3 G · 5 shots"
     },
     {
-      "player": "Allan Logrillo",
-      "programme": "charleston",
-      "position": "FWD",
-      "class": "SO",
-      "line": "2 G · 2 A · 6 shots"
-    },
-    {
       "player": "Leyton Collier",
       "programme": "west-liberty",
       "position": "MID",
       "class": "SO",
-      "line": "2 G · 12 shots"
+      "line": "3 G · 14 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-06 charleston v concord",
-      "line": "The first goals Concord have given up this season; Charleston have found the net in every match they have played."
+      "fixture_ref": "2026-09-09 salem v charleston",
+      "line": "Charleston remain the only side to have won both of their conference matches; Salem's opening wins have been followed by consecutive defeats."
     },
     "next_match": {
-      "fixture_ref": "2026-09-08 shawnee-state v cincinnati-clermont",
-      "line": "Shawnee State arrive off their first win of the season; the visitors are not a conference member, so the table is untouched."
+      "fixture_ref": "2026-09-12 point-park v davis-elkins",
+      "line": "Davis & Elkins are still unbeaten; Point Park won their first conference match and lost their second."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:45:08.072Z"
+    "validated_at": "2026-09-10T11:44:45.238Z"
   }
 }

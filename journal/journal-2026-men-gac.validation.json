@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-09-07T11:41:36.159Z",
-  "data_collected_at": "2026-09-07T11:32:55+00:00",
+  "validated_at": "2026-09-10T11:42:56.097Z",
+  "data_collected_at": "2026-09-10T11:32:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
-    "contradicted": 0,
+    "checked": 12,
+    "verified": 11,
+    "contradicted": 1,
     "unverifiable": 0,
-    "dropped": 0
+    "dropped": 1
   },
   "normalizations": [],
   "review": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Ouachita Baptist's unbeaten start ended at home to Dallas Baptist, the first goals they had conceded all season.",
+      "text": "Harding have lost all four of their matches, conceding ten goals and scoring once.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -47,43 +47,37 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Against outside opponents the conference has scored thirty-eight goals and conceded thirty-three, yet has twelve defeats to eleven wins. Fort Hays State's draw with Fort Lewis is the third match this season that a programme in this conference has neither won nor lost.",
-      "checker": "outside_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[1]",
-      "label": "derived",
-      "text": "Fort Hays State's seven goals have come from six different players, and they have yet to play away from home.",
+      "text": "Ouachita Baptist's ten goals have come from seven different players, and the three they have conceded all came in the defeat by Dallas Baptist.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
-      "path": "findings[2]",
+      "path": "findings[1]",
       "label": "observed",
-      "text": "Len Valkema has scored twice for Fort Hays State from five shots, the first of their scorers to score more than once.",
+      "text": "Harding's goalkeeper Andrew Wagenblatt has made twenty-two saves and conceded ten goals, without a shutout.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[2]",
       "label": "derived",
-      "text": "Harding have lost all three of their matches, every one of them at home, scoring once and conceding five. Reik Barrack is their only scorer.",
-      "checker": "distinct_scorers+team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "text": "Southern Nazarene have won twice and lost once while scoring three goals, two of them by the freshman forward Wesley Rodriguez.",
+      "checker": "player_stat+team_goals+team_record",
+      "verdict": "contradicted",
+      "mismatches": [
+        "wins: claimed 2, the source published none",
+        "losses: claimed 1, the source published none"
+      ],
+      "dropped": true
     },
     {
-      "path": "findings[4]",
+      "path": "findings[3]",
       "label": "observed",
-      "text": "Harding's goalkeeper Andrew Wagenblatt has made fifteen saves and conceded five.",
+      "text": "Tristan Miller has conceded four goals for Rogers State and kept two shutouts, the second of them against Oklahoma Christian on Wednesday.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +86,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Harkaran Sahota — 2 G · 2 A · 3 shots",
+      "text": "Harkaran Sahota — 2 G · 2 A · 4 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +95,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Alex Laing — 2 G · 1 A · 5 shots",
+      "text": "Philip Bölk — 2 G · 1 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +104,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Len Valkema — 2 G · 5 shots",
+      "text": "Wesley Rodriguez — 2 G · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +113,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 fort-hays-state v fort-lewis",
+      "text": "2026-09-09 rogers-state v oklahoma-christian",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +122,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-07 tampa v harding",
+      "text": "2026-09-10 west-texas-a-m v fort-hays-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +130,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:40:36.256Z",
-    "generate_ms": 59902,
+    "started_at": "2026-09-10T11:41:10.572Z",
+    "generate_ms": 105523,
     "validate_ms": 1,
-    "wall_ms": 59903,
+    "wall_ms": 105524,
     "concurrency": 4
   }
 }

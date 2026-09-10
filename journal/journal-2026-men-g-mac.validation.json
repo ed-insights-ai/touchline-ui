@@ -4,24 +4,30 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-09-07T11:42:03.090Z",
-  "data_collected_at": "2026-09-07T11:32:29+00:00",
+  "validated_at": "2026-09-10T11:42:26.071Z",
+  "data_collected_at": "2026-09-10T11:32:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[4].text",
+      "text": "Pedro Costa has made thirteen saves for Walsh and been beaten twice, a save percentage of .867.",
+      "unbacked": ["867"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Thomas More's seven goals have come from six different scorers, so their attack rests on nobody in particular.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "Ohio Dominican's seven goals have come from five different scorers, but they have conceded nine, more than any other programme, so the spread of their attack is covering for the defence rather than building on it.",
+      "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -38,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Kentucky Wesleyan have scored at last, winning at Union, and Cedarville are now the only side without a goal.",
-      "checker": "team_goals",
+      "text": "Findlay have won the first conference match and all four they have played; Cedarville have still not scored.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Thomas More have won both of their matches at home and lost both away, at Trevecca and at Point Park.",
-      "checker": "team_record",
+      "text": "Northwood have lost three times and drawn once, the defeat at Findlay following a home loss to Northern Michigan and one at Purdue Northwest, and have conceded eight goals.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +80,16 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Nick Cherry has two shutouts for Tiffin, and Saturday's goalless draw with Davenport was the second of them.",
+      "text": "Thomas More have won both of their matches at home and lost both away, at Trevecca and at Point Park.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Pedro Costa has made thirteen saves for Walsh and been beaten twice, a save percentage of .867.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Leo Egerer — 2 G · 1 A · 11 shots",
+      "text": "Carson Oberski — 2 G · 3 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Carson Oberski — 1 G · 3 A · 9 shots",
+      "text": "Maddux Camden — 2 G · 2 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Anwar Benkandil — 2 G · 11 shots",
+      "text": "Aleksandar Miketic — 2 G · 1 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 thomas-more v wisconsin-parkside",
+      "text": "2026-09-08 ohio-dominican v walsh",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-08 findlay v northwood",
+      "text": "2026-09-10 cedarville v ohio-dominican",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:40:11.328Z",
-    "generate_ms": 111687,
+    "started_at": "2026-09-10T11:41:06.542Z",
+    "generate_ms": 79527,
     "validate_ms": 1,
-    "wall_ms": 111762,
+    "wall_ms": 79528,
     "concurrency": 4
   }
 }

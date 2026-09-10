@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-07T11:47:19.413Z",
-  "data_collected_at": "2026-09-07T11:36:36+00:00",
+  "validated_at": "2026-09-10T11:48:48.386Z",
+  "data_collected_at": "2026-09-10T11:39:18+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Eckerd have lost three straight without scoring; their only goals came in the win that opened their season.",
-      "checker": "team_goals+team_record",
+      "text": "Barry are the only side yet to win, with a draw and two defeats before conference play opens.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,8 +47,8 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Three matches have passed their date with no result at all, and all three are Palm Beach Atlantic's, among them the match against Barry, a fellow member.",
-      "checker": "unresolved+set_members",
+      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's against Trinity.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Nova Southeastern won for the first time at Montevallo, having lost both home matches, to Carson-Newman and Lincoln Memorial.",
-      "checker": "team_record",
+      "text": "Tampa's first win came at home to Harding after two draws and a defeat; they have scored ten and conceded six.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,26 +65,26 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Lynn are unbeaten but have drawn their last two on the road, after beating Mississippi College at home in their opener.",
-      "checker": "team_record",
+      "text": "Rollins' first defeat was at home to Embry-Riddle; they have scored eleven and conceded ten, more than any other programme has let in.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
-      "label": "observed",
-      "text": "Henry Obi has made seventeen saves for Barry and conceded seven, without a clean sheet.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Lynn are still unbeaten and have drawn three in a row away from home since beating Mississippi College in their opener.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[4]",
-      "label": "derived",
-      "text": "Rollins have scored ten and conceded eight, and are still unbeaten after two wins and a draw.",
-      "checker": "team_goals+team_record",
+      "label": "observed",
+      "text": "Ricardo Marques has kept three clean sheets for Florida Southern and conceded one goal.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Hector Oliver — 4 G · 1 A · 7 shots",
+      "text": "Finlay Prain — 4 G · 2 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Pablo Herrero — 4 G · 7 shots",
+      "text": "Hector Oliver — 4 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 montevallo v nova-southeastern",
+      "text": "2026-09-09 rollins v embry-riddle",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-07 tampa v harding",
+      "text": "2026-09-10 saint-leo v florida-southern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:45:39.984Z",
-    "generate_ms": 99428,
+    "started_at": "2026-09-10T11:47:21.489Z",
+    "generate_ms": 86895,
     "validate_ms": 1,
-    "wall_ms": 99429,
+    "wall_ms": 86896,
     "concurrency": 4
   }
 }

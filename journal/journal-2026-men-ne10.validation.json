@@ -4,28 +4,34 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-07T11:43:27.235Z",
-  "data_collected_at": "2026-09-07T11:34:57+00:00",
+  "validated_at": "2026-09-10T11:46:55.626Z",
+  "data_collected_at": "2026-09-10T11:34:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "The two tallest bars are built differently: nine players have scored Southern New Hampshire's fourteen goals, while Franklin Pierce's eleven come from four.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "signal",
-      "text": "The tallest bar is also the widest: nine different players have scored for Southern New Hampshire, while no other programme has used more than five.",
+      "text": "The two tallest bars are built differently: nine players have scored Southern New Hampshire's fourteen goals, while Franklin Pierce's eleven come from four.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["max_other_distinct_scorers: 5"]
+      "unchecked_figures": ["franklin_pierce_distinct_scorers_min: 4", "franklin_pierce_gf: 11"]
     },
     {
       "path": "pattern.chart",
@@ -39,18 +45,18 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Eight of the ten programmes have already drawn a match.",
-      "checker": "outside_record",
+      "text": "Franklin Pierce kept a clean sheet against Bentley in the season's first match between conference members.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["programmes_with_a_draw: 8", "programmes: 10"]
+      "unchecked_figures": ["member_meetings: 1"]
     },
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Southern Connecticut are the only programme still without a win, with two draws and one defeat.",
-      "checker": "team_record",
+      "text": "Southern Connecticut remain the only programme without a win, with two draws and one defeat from three matches.",
+      "checker": "team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -58,16 +64,17 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Saint Anselm have won three of their four matches, all three in succession after an opening defeat.",
+      "text": "Pace are unbeaten after four matches but have drawn the last two, both away from home.",
       "checker": "team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "unchecked_figures": ["last_two_draws: 2"]
     },
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Andrea Farinella has made nineteen saves, more than any other goalkeeper listed.",
+      "text": "Cody Holbert has taken twenty shots, more than any other player listed, and scored four of Assumption's goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -76,8 +83,17 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Pace have conceded two goals in three matches, none of which they have lost.",
-      "checker": "team_goals+team_record+fixture_counts",
+      "text": "Saint Anselm have won three of their four matches, all three in succession after an opening defeat.",
+      "checker": "team_record+fixture_counts",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Andrea Farinella has made nineteen saves, more than any other goalkeeper listed.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -94,7 +110,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Brian Jones — 3 G · 12 shots",
+      "text": "Guillermo Rios — 4 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +119,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Daniel Santos — 2 G · 2 A · 10 shots",
+      "text": "Cody Holbert — 4 G · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +128,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 southern-new-hampshire v jefferson",
+      "text": "2026-09-09 franklin-pierce v bentley",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +137,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-08 saint-michael-s v middlebury",
+      "text": "2026-09-12 assumption v saint-anselm",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,10 +145,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:42:51.639Z",
-    "generate_ms": 35595,
+    "started_at": "2026-09-10T11:43:47.802Z",
+    "generate_ms": 187744,
     "validate_ms": 1,
-    "wall_ms": 35596,
+    "wall_ms": 187822,
     "concurrency": 4
   }
 }

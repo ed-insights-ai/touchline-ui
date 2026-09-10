@@ -3,37 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-07T11:40:00+00:00",
-  "data_collected_at": "2026-09-07T11:35:54+00:00",
-  "headline": "UCCS go clear of Fort Lewis in goals scored",
-  "dek": "UCCS's win over Lubbock Christian and Fort Lewis's draw at Fort Hays State split the two on Sunday, and UCCS now lead the scoring on fourteen goals. Both remain unbeaten, and only CSU Pueblo have won every match they have played.",
+  "generated_at": "2026-09-10T11:40:00+00:00",
+  "data_collected_at": "2026-09-10T11:36:16+00:00",
+  "headline": "UCCS beat Hawaii Hilo and stay unbeaten",
+  "dek": "UCCS beat Hawaii Hilo on Wednesday for a fourth win, with a draw against Midwestern State the only match they have not won, and they have conceded three goals all season. Hawaii Hilo go on to CSU Pueblo and then MSU Denver, and CSU Pueblo have yet to lose.",
   "lede_basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
     "programme": "uccs",
-    "of": [
-      "fort-lewis",
-      "westminster",
-      "south-dakota-mines",
-      "colorado-christian",
-      "csu-pueblo",
-      "msu-denver",
-      "colorado-mesa",
-      "colorado-school-of-mines",
-      "regis",
-      "adams-state"
-    ],
-    "gf": 14
+    "wins": 4,
+    "draws": 1,
+    "losses": 0,
+    "gf": 16,
+    "ga": 3
   },
-  "lede_updated": "2026-09-07",
-  "displaced_by": "UCCS beat Lubbock Christian while Fort Lewis drew at Fort Hays State; the scoring lead is no longer shared",
+  "lede_updated": "2026-09-10",
+  "displaced_by": "UCCS beat Hawaii Hilo; the standing dek's fourteen goals is out of date, and the unbeaten run is now the story rather than the scoring gap",
   "pattern": {
     "label": "derived",
     "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than UCCS have alone.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "uccs": 14,
+        "uccs": 16,
         "fort-lewis": 13,
         "westminster": 9,
         "south-dakota-mines": 8,
@@ -52,7 +42,7 @@
       "metric": "gf",
       "programme": "uccs",
       "of": ["colorado-mesa", "colorado-school-of-mines", "regis", "adams-state"],
-      "gf": 14
+      "gf": 16
     }
   },
   "wire": {
@@ -69,16 +59,6 @@
   },
   "findings": [
     {
-      "label": "derived",
-      "text": "Fort Lewis's draw at Fort Hays State was the first match this season they have failed to win; they have three wins and have not lost.",
-      "basis": {
-        "programme": "fort-lewis",
-        "wins": 3,
-        "draws": 1,
-        "losses": 0
-      }
-    },
-    {
       "label": "observed",
       "text": "No match is a score gap today, but nine have passed their date with no result published, the earliest from the season's opening day.",
       "basis": {
@@ -89,13 +69,23 @@
     },
     {
       "label": "observed",
-      "text": "Hugo Sjöberg's seventeen saves for UCCS have come at the cost of two goals.",
+      "text": "Hugo Sjöberg's nineteen saves for UCCS have come at the cost of three goals.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
-        "saves": 17,
-        "goals_against": 2
+        "saves": 19,
+        "goals_against": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Fort Lewis have three wins and a draw and have not lost, and play at Northwest Nazarene today.",
+      "basis": {
+        "programme": "fort-lewis",
+        "wins": 3,
+        "draws": 1,
+        "losses": 0
       }
     },
     {
@@ -134,7 +124,7 @@
       "programme": "uccs",
       "position": "FWD",
       "class": "SO",
-      "line": "3 G · 1 A · 14 shots"
+      "line": "3 G · 1 A · 16 shots"
     },
     {
       "player": "Zach Peroff",
@@ -146,16 +136,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-06 uccs v lubbock-christian",
-      "line": "UCCS remain unbeaten; Lubbock Christian have now lost to Fort Lewis, MSU Denver and UCCS and beaten only Adams State."
+      "fixture_ref": "2026-09-09 uccs v hawaii-hilo",
+      "line": "UCCS remain unbeaten and have scored in every match; Hawaii Hilo go on to CSU Pueblo and MSU Denver."
     },
     "next_match": {
-      "fixture_ref": "2026-09-09 uccs v hawaii-hilo",
-      "line": "UCCS have yet to lose and have scored in every match; Hawaii Hilo also visit CSU Pueblo and MSU Denver later in the month."
+      "fixture_ref": "2026-09-10 northwest-nazarene v fort-lewis",
+      "line": "Fort Lewis are unbeaten and have scored in every match; Northwest Nazarene have already drawn at Westminster and at MSU Denver."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:46:19.751Z"
+    "validated_at": "2026-09-10T11:47:22.129Z"
   }
 }

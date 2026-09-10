@@ -2,21 +2,30 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-07T12:00:00+00:00",
-  "data_collected_at": "2026-09-07T11:32:29+00:00",
-  "headline": "AUM's unbeaten start ends at North Georgia",
-  "dek": "AUM had won all three of their matches before the trip to North Georgia, and the defeat there is the first of their season. They go back to the Gulf South Conference with three wins and one loss, their perfect record gone before conference play has begun.",
+  "generated_at": "2026-09-10T12:00:00+00:00",
+  "data_collected_at": "2026-09-10T11:32:09+00:00",
+  "headline": "Fresno Pacific outscore every programme in the division",
+  "dek": "Fresno Pacific's win over Pacific Union carried them past Southwest Baptist, who had scored more than any other programme in the division before last night. No side in any of the conferences has scored as many goals since the season began, and only the page that sees every conference at once can say so.",
   "basis": {
-    "programme": "aum",
-    "wins": 3,
-    "draws": 0,
-    "losses": 1
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "fresno-pacific",
+    "of": [
+      "southwest-baptist",
+      "millersville",
+      "uccs",
+      "cal-state-monterey-bay",
+      "charleston",
+      "midwestern-state",
+      "north-georgia",
+      "southern-new-hampshire"
+    ]
   },
-  "fixture_ref": "2026-09-06 north-georgia v aum",
-  "updated": "2026-09-07",
-  "displaced_by": "results night: AUM's unbeaten start ended at North Georgia, the strongest first-defeat story of the 22 results",
+  "fixture_ref": "2026-09-09 fresno-pacific v pacific-union",
+  "updated": "2026-09-10",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-07T11:47:56.152Z"
+    "validated_at": "2026-09-10T11:49:51.498Z"
   }
 }

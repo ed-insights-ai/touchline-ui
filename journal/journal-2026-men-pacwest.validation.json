@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-07T11:44:53.609Z",
-  "data_collected_at": "2026-09-07T11:35:10+00:00",
+  "validated_at": "2026-09-10T11:46:00.181Z",
+  "data_collected_at": "2026-09-10T11:35:10+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -23,16 +23,16 @@
     },
     {
       "path": "findings[4].text",
-      "text": "Aidan Strickler has made nineteen saves for Westmont at a save percentage of .760.",
-      "unbacked": ["760"]
+      "text": "Aidan Strickler has made twenty saves for Westmont at a save percentage of .714.",
+      "unbacked": ["714"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Concordia Irvine's nine goals have come from eight different scorers, a spread matched only by Dominican (Calif.), though they have conceded six in reaching the top of the chart.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "Concordia Irvine's ten goals have come from nine different scorers, yet they have conceded eight and lost as many matches as they have won.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -49,8 +49,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Concordia Irvine have scored nine goals, more than Biola, Chaminade, Jessup and Vanguard together.",
-      "checker": "team_goals+comparative",
+      "text": "No side in the conference is unbeaten any longer; Hawai'i Hilo's first defeat came at UCCS after three wins.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -58,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Twelve matches dated in August still carry no published result, Dominican (Calif.)'s date at Menlo among them; the Dominican matches that do have a score have ended in three draws and one defeat.",
+      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one draw and three defeats.",
       "checker": "team_record+unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -94,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Aidan Strickler has made nineteen saves for Westmont at a save percentage of .760.",
+      "text": "Aidan Strickler has made twenty saves for Westmont at a save percentage of .714.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Keita Goto — 2 G · 1 A · 4 shots",
+      "text": "Keita Goto — 2 G · 1 A · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jonathan Moreno — 1 G · 2 A · 8 shots",
+      "text": "Jonathan Moreno — 1 G · 2 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-06 chaminade v ut-dallas",
+      "text": "2026-09-09 uccs v hawaii-hilo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-09 uccs v hawaii-hilo",
+      "text": "2026-09-10 vanguard v cal-state-monterey-bay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-07T11:42:58.065Z",
-    "generate_ms": 115471,
+    "started_at": "2026-09-10T11:44:42.533Z",
+    "generate_ms": 77645,
     "validate_ms": 1,
-    "wall_ms": 115545,
+    "wall_ms": 77646,
     "concurrency": 4
   }
 }
