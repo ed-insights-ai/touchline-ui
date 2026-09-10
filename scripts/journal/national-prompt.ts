@@ -88,14 +88,16 @@ below in larger type than a sentence can compete with, and a headline repeating
 one has spent the top of the site saying what the reader can already see.
 
   headline   a HEADLINE, not a sentence, and set in large serif type: present
-             tense, active voice, the subject first, ten words or fewer, no
+             tense, active voice, the subject first, ten words or fewer and
+             never past a hundred characters, no
              leading clause and no full stop. What happened, or what is true
              of the division, that the page below does not show. The page
              removes a trailing full stop mechanically; the rest of the form
              is yours.
   dek        the lede beneath the headline: the opening paragraph of the
              story it names, in the desk's voice, set in serif and read as
-             prose. Two or three sentences, sixty words at most, in the
+             prose. Two or three sentences and at most 280 characters —
+             about forty-five words; the validator drops a longer one — in the
              tense a match report is written in, with the figures folded
              into the sentences rather than listed. Not the headline again
              in longer form: if a clause could be cut and the reader would

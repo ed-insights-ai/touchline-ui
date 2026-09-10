@@ -70,7 +70,10 @@ const stamp = process.argv[3];
 // exits red because the deploy it was asked to verify never appeared (tui-26b).
 let timedOut = false;
 if (stamp) {
-  const deadline = Date.now() + 180_000;
+  // GitHub Pages took 3m51s to build the 2026-09-09 deploy; three minutes
+  // called that publish red while the site was landing. Eight minutes is
+  // past any build the branch has seen, and a real failure costs little more.
+  const deadline = Date.now() + 480_000;
   process.stdout.write(`  waiting for the deploy to carry ${stamp} `);
   for (;;) {
     const html = await fetch(`${root}/`, { redirect: "follow" })

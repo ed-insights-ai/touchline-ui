@@ -205,9 +205,14 @@ function askModel(args: Args, prompt: string): Promise<string> {
     child.on("close", (status) => {
       if (failed) return;
       if (status !== 0) {
-        fail(
-          `\`${args.modelCommand}\` exited ${status}: ${Buffer.concat(err).toString("utf8").trim()}`,
-        );
+        // The cadence of 2026-09-08 and -09 logged nineteen "exited 1:" lines
+        // with nothing after the colon: the command wrote its complaint to
+        // stdout, or nowhere. Say which, and keep the tail of whatever it said.
+        const said = Buffer.concat(err).toString("utf8").trim();
+        const wrote = Buffer.concat(out).toString("utf8").trim();
+        const why =
+          said || (wrote ? `(stdout) ${wrote.slice(-400)}` : "(no output on stderr or stdout)");
+        fail(`\`${args.modelCommand}\` exited ${status}: ${why}`);
         return;
       }
       resolve(Buffer.concat(out).toString("utf8"));
