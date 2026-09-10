@@ -2,10 +2,10 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-10T12:00:00+00:00",
+  "generated_at": "2026-09-10T12:05:00+00:00",
   "data_collected_at": "2026-09-10T11:32:09+00:00",
   "headline": "Fresno Pacific outscore every programme in the division",
-  "dek": "Fresno Pacific's win over Pacific Union carried them past Southwest Baptist, who had scored more than any other programme in the division before last night. No side in any of the conferences has scored as many goals since the season began, and only the page that sees every conference at once can say so.",
+  "dek": "Fresno Pacific's win over Pacific Union carried them past Southwest Baptist, who had scored more than any other side in the division before last night. No side in any conference has scored as many this season, and only the page that sees every conference at once can say so.",
   "basis": {
     "comparative": "greater_than_each",
     "metric": "gf",
@@ -23,9 +23,9 @@
   },
   "fixture_ref": "2026-09-09 fresno-pacific v pacific-union",
   "updated": "2026-09-10",
-  "displaced_by": "age",
+  "displaced_by": "form",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:49:51.498Z"
+    "validated_at": "2026-09-10T18:33:43.457Z"
   }
 }
