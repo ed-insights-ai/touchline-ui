@@ -40,6 +40,16 @@ export const WORDS_MOVED_RATIO = 0.9;
  *  validator, the step the cadence runs, had never measured it. */
 export const WIRE_MAX_CHARS = 140;
 
+/** The national masthead's two altitudes, measured the same way. The headline
+ *  sets at 38px across a 900px measure: about a hundred characters is one
+ *  balanced line and a bit. The dek runs to 154 characters with three
+ *  conferences named; 280 leaves room for a fourth and refuses a paragraph.
+ *  The site's copy properties refuse either over its cap at the gate, and the
+ *  national validator drops it first — the dek of 2026-09-10 ran to 304 and
+ *  stopped the publish at the gate after the validator had passed its figures. */
+export const HEADLINE_MAX_CHARS = 100;
+export const DEK_MAX_CHARS = 280;
+
 const STOP = new Set(
   (
     "the and a an of in on at to for with that this is are has have had been by from its their it" +

@@ -240,7 +240,15 @@ export const CHECKERS: Checker[] = [
       const keeper = teams.flatMap(([, t]) => t.keepers).find((k) => k.name === name);
       if (!outfield && !keeper)
         return [`player: "${name}" has no published line in ${wanted ?? "the conference"}`];
+      // A keeper's line carries wins and losses, and so does a team record.
+      // Beside `draws` they are the team's (a keeper's row says ties), and
+      // team_record on the same basis holds them: read here as the keeper's
+      // they dropped two true findings in the 2026-09-10 cadence — a forward
+      // with no such columns (GAC, "the source published none") and a keeper
+      // who sat out the one defeat (GLVC, "losses: claimed 1, data holds 0").
+      const teamRecord = has(b, "draws");
       for (const key of STAT_KEYS) {
+        if (teamRecord && (key === "wins" || key === "losses")) continue;
         const actual =
           (outfield as Record<string, unknown> | undefined)?.[key] ??
           (keeper as Record<string, unknown> | undefined)?.[key];

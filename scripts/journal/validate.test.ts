@@ -283,6 +283,30 @@ describe("fixture counts read the basis's scope", () => {
     expect(c?.mismatches).toContain(`played: claimed ${own.played + 1}, data holds ${own.played}`);
   });
 
+  test("wins and losses beside draws are the team's record, not the keeper's", () => {
+    // The 2026-09-10 GLVC finding: a keeper's saves and his side's record on
+    // one basis. The keeper sat out the one defeat, so his row's losses and
+    // the team's disagree, and only the team's is what the sentence claims.
+    const team = Object.entries(season.stats?.teams ?? {}).find(([, t]) => t.keepers.length > 0);
+    if (!team) throw new Error("the conference has no keeper lines");
+    const [slug, t] = team;
+    const keeper = t.keepers[0];
+    if (!keeper) throw new Error("unreachable");
+    const rec = recordOf(season, slug);
+    const j = finding("derived", `${keeper.name} has made saves for a side with a record.`, {
+      player: keeper.name,
+      programme: slug,
+      saves: keeper.saves,
+      wins: rec.won,
+      draws: rec.drawn,
+      losses: rec.lost,
+    });
+    const c = claimOf(j);
+    expect(c?.checker).toContain("player_stat");
+    expect(c?.checker).toContain("team_record");
+    expect(c?.verdict).toBe("verified");
+  });
+
   test("a basis naming no programme is still the conference's count", () => {
     const wide = scoredCount(season);
     const ok = finding("observed", `${wide} matches have a published score.`, {

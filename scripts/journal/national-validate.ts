@@ -18,7 +18,7 @@
 import { conferenceOpensOn, type Fixture, type Season, unresolved } from "../../src/lib/derive.ts";
 import { divisionCounts, matchIdentity } from "../../src/lib/division.ts";
 import type { NationalJournalFile } from "../../src/lib/journal.ts";
-import { restatements } from "../../src/lib/prose.ts";
+import { DEK_MAX_CHARS, HEADLINE_MAX_CHARS, restatements } from "../../src/lib/prose.ts";
 import { divisionVsOutside } from "./national.ts";
 import {
   type Checker,
@@ -242,7 +242,7 @@ export function validateNationalJournal(
   // The headline and dek stand or fall together: they are one lede, the dek
   // exists to stand the headline up, and a dek left under a dropped headline
   // would be a sentence supporting nothing.
-  const dropped = out.basis ? shouldDrop("observed", verdict) : false;
+  let dropped = out.basis ? shouldDrop("observed", verdict) : false;
   claims.push({
     path: "headline",
     label: "observed",
@@ -253,6 +253,37 @@ export function validateNationalJournal(
     dropped,
     ...(notes.length ? { note: notes.join("; ") } : {}),
   });
+
+  // And each is held to its altitude, as the wire is to its card: the site's
+  // copy properties refuse a headline or dek over its cap at the gate, and a
+  // validator that never measured the dek let the one of 2026-09-10 (304
+  // characters) stop the publish after the cadence had passed its figures.
+  // An over-cap headline is the lede gone, as a contradicted one is; an
+  // over-cap dek drops alone and the headline stands.
+  if (!dropped && out.headline.length > HEADLINE_MAX_CHARS) {
+    claims.push({
+      path: "headline",
+      label: "length",
+      text: out.headline,
+      checker: "headline_length",
+      verdict: "contradicted",
+      mismatches: [`headline ${out.headline.length} characters, cap ${HEADLINE_MAX_CHARS}`],
+      dropped: true,
+    });
+    dropped = true;
+  }
+  if (!dropped && out.dek && out.dek.length > DEK_MAX_CHARS) {
+    claims.push({
+      path: "dek",
+      label: "length",
+      text: out.dek,
+      checker: "dek_length",
+      verdict: "contradicted",
+      mismatches: [`dek ${out.dek.length} characters, cap ${DEK_MAX_CHARS}`],
+      dropped: true,
+    });
+    out.dek = undefined;
+  }
 
   // The conference validator's words-moved rule, over the one pair this
   // journal has: a dek that is the headline with its words moved is dropped

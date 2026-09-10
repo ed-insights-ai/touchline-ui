@@ -47,7 +47,13 @@ import {
 } from "./journal.ts";
 import { footNote, metaDescription, oneSourceNote, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
-import { type Line, WIRE_MAX_CHARS, wordsMoved } from "./prose.ts";
+import {
+  DEK_MAX_CHARS,
+  HEADLINE_MAX_CHARS,
+  type Line,
+  WIRE_MAX_CHARS,
+  wordsMoved,
+} from "./prose.ts";
 
 const seasons = site.conferences.map((k) => loadSeason(k));
 
@@ -355,11 +361,12 @@ describe("a line fits the altitude it is set at", () => {
    * past that the sentence has outgrown the altitude rather than the type
    * being too large for it.
    */
-  const HEADLINE_MAX = 100;
+  const HEADLINE_MAX = HEADLINE_MAX_CHARS;
   /** Measured on this collect: the openers sentence runs to 154 characters
    *  with three conferences named. The cap leaves room for a fourth and
-   *  refuses a paragraph. */
-  const DEK_MAX = 280;
+   *  refuses a paragraph. The figure lives in prose.ts so the national
+   *  validator measures with the same one. */
+  const DEK_MAX = DEK_MAX_CHARS;
 
   test("the national headline sets in one balanced line", () => {
     // Null today — the floor writes no headline rather than manufacture one —

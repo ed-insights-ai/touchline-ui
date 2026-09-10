@@ -18,6 +18,7 @@ import { describe, expect, test } from "bun:test";
 import { divisionCounts } from "../../src/lib/division.ts";
 import { homeColumns, homeSeasons } from "../../src/lib/home.ts";
 import type { NationalJournalFile } from "../../src/lib/journal.ts";
+import { DEK_MAX_CHARS, HEADLINE_MAX_CHARS } from "../../src/lib/prose.ts";
 import { buildNationalBrief } from "./national.ts";
 import { validateNationalJournal } from "./national-validate.ts";
 import { CHECKERS } from "./validate.ts";
@@ -224,6 +225,42 @@ describe("what a missing basis means, and what it does not", () => {
       basis: { vibes: 3 },
     });
     expect(run(j).journal.dek).toBeUndefined();
+  });
+});
+
+describe("a line over its altitude", () => {
+  // The dek of 2026-09-10 ran to 304 characters, passed every figure here,
+  // and stopped the publish at the site's gate. The cap is measured first now.
+  const words = (n: number): string =>
+    "word "
+      .repeat(Math.ceil(n / 5))
+      .trim()
+      .slice(0, n);
+
+  test("an over-cap dek is dropped and the headline stands", () => {
+    const dek = `Every conference is still inside its weeks, ${words(DEK_MAX_CHARS)}.`;
+    const j = journal({ headline: "Nothing decided anywhere yet.", dek });
+    const result = run(j);
+    expect(result.journal.headline).toBe(j.headline);
+    expect(result.journal.dek).toBeUndefined();
+    expect(result.report.claims.find((c) => c.checker === "dek_length")).toMatchObject({
+      path: "dek",
+      label: "length",
+      dropped: true,
+    });
+  });
+
+  test("a dek under the cap is not measured out", () => {
+    const j = journal({ headline: "Nothing decided anywhere yet.", dek: words(DEK_MAX_CHARS) });
+    expect(run(j).journal.dek).toBe(j.dek);
+  });
+
+  test("an over-cap headline is the lede gone, dek and all", () => {
+    const j = journal({ headline: words(HEADLINE_MAX_CHARS + 1), dek: "A dek under it." });
+    const result = run(j);
+    expect(result.journal.headline).toBe("");
+    expect(result.journal.dek).toBeUndefined();
+    expect(result.report.claims.some((c) => c.checker === "headline_length")).toBe(true);
   });
 });
 
