@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-10T11:48:48.386Z",
-  "data_collected_at": "2026-09-10T11:39:18+00:00",
+  "validated_at": "2026-09-11T11:44:06.249Z",
+  "data_collected_at": "2026-09-11T11:37:39+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's against Trinity.",
+      "text": "Five matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, Eckerd's against Trinity, and Saint Leo's at home to Florida Southern, which is listed again for today.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-10 saint-leo v florida-southern",
+      "text": "2026-09-11 saint-leo v florida-southern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:47:21.489Z",
-    "generate_ms": 86895,
+    "started_at": "2026-09-11T11:43:22.780Z",
+    "generate_ms": 43468,
     "validate_ms": 1,
-    "wall_ms": 86896,
+    "wall_ms": 43469,
     "concurrency": 4
   }
 }

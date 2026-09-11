@@ -3,44 +3,39 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-10T11:45:00+00:00",
-  "data_collected_at": "2026-09-10T11:31:12+00:00",
-  "headline": "Abraham Ramirez shuts out a fourth opponent",
-  "dek": "Cal State LA have won four times and have not yet conceded, with Abraham Ramirez making fourteen saves behind them. The conference's other unbeaten sides have all been scored on already.",
+  "generated_at": "2026-09-11T11:45:00+00:00",
+  "data_collected_at": "2026-09-11T11:31:02+00:00",
+  "headline": "Cal State LA win four and concede nothing",
+  "dek": "Cal State LA have won all four of their matches, scoring seven goals and conceding none, and no other side in the conference has kept its sheet clean that long. Cal State Monterey Bay have also won every match they have played, but have not kept the goals out.",
   "lede_basis": {
-    "source": "stats",
-    "player": "Abraham Ramirez",
     "programme": "cal-state-la",
-    "saves": 14,
-    "shutouts": 4,
-    "goals_against": 0,
     "wins": 4,
     "draws": 0,
     "losses": 0,
     "gf": 7,
     "ga": 0
   },
-  "lede_updated": "2026-09-10",
-  "displaced_by": "Cal State LA's fourth win and fourth shutout; the standing three-win line is no longer true",
+  "lede_updated": "2026-09-11",
+  "displaced_by": "Abraham Ramirez's keeper line is absent from today's brief, so the standing lede cannot be recomputed; the side's own record can",
   "pattern": {
     "label": "derived",
-    "text": "Fresno Pacific's 22 goals are more than Cal State Monterey Bay and Cal State Dominguez Hills have scored together, and eight different players have shared them.",
+    "text": "Fresno Pacific's 22 goals are more than Cal State Monterey Bay and Menlo have scored together, and eight different players have shared them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "fresno-pacific": 22,
-        "cal-state-monterey-bay": 14,
+        "cal-state-monterey-bay": 15,
+        "stanislaus-state": 9,
         "cal-state-dominguez-hills": 7,
         "cal-state-la": 7,
+        "cal-poly-humboldt": 6,
+        "cal-poly-pomona": 6,
         "cal-state-east-bay": 6,
         "cal-state-san-bernardino": 6,
         "cal-state-san-marcos": 6,
-        "stanislaus-state": 6,
-        "cal-poly-humboldt": 5,
-        "cal-poly-pomona": 5,
-        "chico-state": 5,
-        "uc-merced": 3,
-        "menlo": 2
+        "chico-state": 6,
+        "menlo": 5,
+        "uc-merced": 3
       },
       "highlight": "fresno-pacific"
     },
@@ -48,7 +43,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "fresno-pacific",
-      "of": ["cal-state-monterey-bay", "cal-state-dominguez-hills"],
+      "of": ["cal-state-monterey-bay", "menlo"],
       "gf": 22,
       "distinct_scorers_min": 8
     }
@@ -115,10 +110,10 @@
     },
     {
       "label": "observed",
-      "text": "Chico State have lost all three matches counted to their record, and their home match against Saint Martin's carries a result the source marks as disputed.",
+      "text": "Chico State's win at Dominican of California was their first of the season, after three defeats.",
       "basis": {
         "programme": "chico-state",
-        "wins": 0,
+        "wins": 1,
         "draws": 0,
         "losses": 3
       }
@@ -160,16 +155,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 fresno-pacific v pacific-union",
-      "line": "Fresno Pacific have now outscored every other programme in the conference, and the win ends a home run of a defeat and a draw."
+      "fixture_ref": "2026-09-10 jessup v menlo",
+      "line": "Menlo's first match away from home this season, and their first without conceding."
     },
     "next_match": {
-      "fixture_ref": "2026-09-10 vanguard v cal-state-monterey-bay",
-      "line": "Cal State Monterey Bay are unbeaten but have yet to keep a clean sheet; Vanguard have yet to beat a CCAA side."
+      "fixture_ref": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
+      "line": "Cal State Dominguez Hills have yet to win at home; their only victory so far came on the road at Vanguard."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:41:06.465Z"
+    "validated_at": "2026-09-11T11:41:48.099Z"
   }
 }

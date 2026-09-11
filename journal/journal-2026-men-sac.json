@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-10T11:52:00+00:00",
-  "data_collected_at": "2026-09-10T11:36:46+00:00",
+  "generated_at": "2026-09-11T11:52:00+00:00",
+  "data_collected_at": "2026-09-11T11:37:08+00:00",
   "headline": "Unbeaten Anderson and Catawba win again on the road",
   "dek": "Anderson have won four and drawn one, with twelve goals shared among seven different scorers and four conceded. Catawba, the conference's other unbeaten side, won away on the same night, and the two do not meet until October.",
   "lede_basis": {
@@ -17,7 +17,6 @@
     "distinct_scorers_min": 7
   },
   "lede_updated": "2026-09-10",
-  "displaced_by": "Catawba's standing figures moved on (twelve scored now, not nine); Anderson's fourth straight win at Mount Olive and Catawba's win at Barton on the same night",
   "pattern": {
     "label": "observed",
     "text": "Mars Hill's thirteen goals are spread across eight different scorers, and no one of them has more than Logan Knight's four.",
@@ -152,6 +151,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:48:16.482Z"
+    "validated_at": "2026-09-11T11:43:42.683Z"
   }
 }

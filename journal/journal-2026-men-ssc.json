@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-10T11:45:00+00:00",
-  "data_collected_at": "2026-09-10T11:39:18+00:00",
+  "generated_at": "2026-09-11T11:45:00+00:00",
+  "data_collected_at": "2026-09-11T11:37:39+00:00",
   "headline": "Embry-Riddle end Rollins' unbeaten start",
   "dek": "Embry-Riddle went to Rollins and won, the season's first result between SSC sides, and stay unbeaten after three wins and a draw. Eleven scored and five conceded; Rollins had not lost until then.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 5
   },
   "lede_updated": "2026-09-10",
-  "displaced_by": "Embry-Riddle won at Rollins, the first result between two members and Rollins' first defeat; the standing lines were about Florida Southern's fourth win three days earlier.",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have conceded once while doing it.",
@@ -59,11 +58,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's against Trinity.",
+      "text": "Five matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, Eckerd's against Trinity, and Saint Leo's at home to Florida Southern, which is listed again for today.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 4
+        "past_date_no_result": 5
       }
     },
     {
@@ -155,12 +154,12 @@
       "line": "Rollins' first defeat of the season; Embry-Riddle remain unbeaten."
     },
     "next_match": {
-      "fixture_ref": "2026-09-10 saint-leo v florida-southern",
+      "fixture_ref": "2026-09-11 saint-leo v florida-southern",
       "line": "Florida Southern have yet to drop a point; Saint Leo are unbeaten at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:48:48.386Z"
+    "validated_at": "2026-09-11T11:44:06.249Z"
   }
 }

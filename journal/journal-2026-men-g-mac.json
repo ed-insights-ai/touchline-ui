@@ -3,70 +3,60 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-10T11:40:00+00:00",
-  "data_collected_at": "2026-09-10T11:32:09+00:00",
-  "headline": "Findlay open conference play with a fourth straight win",
-  "dek": "Findlay have beaten Northwood in the first conference match of the season, their fourth win in four, and have conceded only twice all year. Ohio Dominican and Walsh drew the other opener, and Cedarville remain the one programme in the conference yet to score.",
+  "generated_at": "2026-09-11T11:40:00+00:00",
+  "data_collected_at": "2026-09-11T11:31:43+00:00",
+  "headline": "Cedarville score at last and take their first win",
+  "dek": "Cedarville had not scored all season until Ohio Dominican visited on Thursday, when two goals from two different scorers brought their first win. The defence is still the concern: they have conceded six, and have drawn once and lost three times.",
   "lede_basis": {
-    "programme": "findlay",
-    "wins": 4,
-    "draws": 0,
-    "losses": 0,
-    "gf": 7,
-    "ga": 2
+    "programme": "cedarville",
+    "wins": 1,
+    "draws": 1,
+    "losses": 3,
+    "gf": 2,
+    "ga": 6,
+    "distinct_scorers_min": 2
   },
-  "lede_updated": "2026-09-10",
-  "displaced_by": "Conference play opened on Sep 8 and Findlay won the opener for a fourth win in four.",
+  "lede_updated": "2026-09-11",
+  "displaced_by": "Cedarville, goalless all season, scored twice and beat Ohio Dominican on Sep 10; the standing dek said they had yet to score.",
   "pattern": {
     "label": "derived",
-    "text": "Ohio Dominican's seven goals have come from five different scorers, but they have conceded nine, more than any other programme, so the spread of their attack is covering for the defence rather than building on it.",
+    "text": "Eight different scorers have shared Lake Erie's nine goals, the attack spread wider than any other in the conference, yet they have conceded six and lost as often as they have won.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "lake-erie": 9,
+        "thomas-more": 9,
+        "tiffin": 8,
         "findlay": 7,
         "ohio-dominican": 7,
-        "thomas-more": 7,
         "walsh": 6,
-        "lake-erie": 5,
-        "tiffin": 5,
         "ashland": 4,
-        "malone": 3,
+        "malone": 4,
+        "kentucky-wesleyan": 3,
         "northwood": 3,
-        "kentucky-wesleyan": 2,
-        "cedarville": 0
+        "cedarville": 2
       },
-      "highlight": "ohio-dominican"
+      "highlight": "lake-erie"
     },
     "basis": {
-      "programme": "ohio-dominican",
-      "gf": 7,
-      "ga": 9,
-      "distinct_scorers_min": 5,
-      "comparative": "greater_than_each",
-      "metric": "ga",
-      "of": [
-        "ashland",
-        "cedarville",
-        "findlay",
-        "kentucky-wesleyan",
-        "lake-erie",
-        "malone",
-        "northwood",
-        "thomas-more",
-        "tiffin",
-        "walsh"
-      ]
+      "programme": "lake-erie",
+      "gf": 9,
+      "ga": 6,
+      "distinct_scorers_min": 8,
+      "wins": 2,
+      "draws": 1,
+      "losses": 2
     }
   },
   "wire": {
-    "line": "Findlay have won the first conference match and all four they have played; Cedarville have still not scored.",
+    "line": "Findlay are the only unbeaten side left, and Cedarville, goalless until this week, have now scored and won.",
     "basis": {
       "programme": "findlay",
       "wins": 4,
       "draws": 0,
       "losses": 0
     },
-    "updated": "2026-09-10"
+    "updated": "2026-09-11"
   },
   "findings": [
     {
@@ -80,48 +70,62 @@
     },
     {
       "label": "observed",
-      "text": "Northwood have lost three times and drawn once, the defeat at Findlay following a home loss to Northern Michigan and one at Purdue Northwest, and have conceded eight goals.",
+      "text": "Ohio Dominican have conceded eleven goals, more than any other programme, and have won once, drawn twice and lost twice while scoring seven.",
       "basis": {
-        "programme": "northwood",
-        "wins": 0,
-        "draws": 1,
-        "losses": 3,
-        "gf": 3,
-        "ga": 8
+        "programme": "ohio-dominican",
+        "wins": 1,
+        "draws": 2,
+        "losses": 2,
+        "gf": 7,
+        "ga": 11,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "ashland",
+          "cedarville",
+          "findlay",
+          "kentucky-wesleyan",
+          "lake-erie",
+          "malone",
+          "northwood",
+          "thomas-more",
+          "tiffin",
+          "walsh"
+        ]
       }
     },
     {
       "label": "observed",
-      "text": "Cedarville have drawn once and lost three times, conceding six goals and scoring none, after Saturday's defeat at Maryville.",
+      "text": "Tiffin have scored eight and conceded four, and have lost only once, at home to Charleston on the opening day.",
       "basis": {
-        "programme": "cedarville",
-        "wins": 0,
-        "draws": 1,
-        "losses": 3,
-        "gf": 0,
-        "ga": 6
+        "programme": "tiffin",
+        "wins": 2,
+        "draws": 2,
+        "losses": 1,
+        "gf": 8,
+        "ga": 4
       }
     },
     {
       "label": "observed",
-      "text": "Thomas More have won both of their matches at home and lost both away, at Trevecca and at Point Park.",
+      "text": "Thomas More have won three and lost two, and Thursday's win at Malone was their first away from home after defeats at Trevecca and Point Park.",
       "basis": {
         "programme": "thomas-more",
-        "wins": 2,
+        "wins": 3,
         "draws": 0,
         "losses": 2
       }
     },
     {
       "label": "observed",
-      "text": "Pedro Costa has made thirteen saves for Walsh and been beaten twice, a save percentage of .867.",
+      "text": "Brandyn Bowden has made twenty saves for Ohio Dominican and been beaten eleven times, a save percentage of .645.",
       "basis": {
         "source": "stats",
-        "player": "Pedro Costa",
-        "programme": "walsh",
-        "saves": 13,
-        "goals_against": 2,
-        "save_pct": 0.867
+        "player": "Brandyn Bowden",
+        "programme": "ohio-dominican",
+        "saves": 20,
+        "goals_against": 11,
+        "save_pct": 0.645
       }
     }
   ],
@@ -134,32 +138,32 @@
       "line": "2 G · 3 A · 14 shots"
     },
     {
-      "player": "Maddux Camden",
-      "programme": "ohio-dominican",
-      "position": "FWD",
+      "player": "Yaw Turkson",
+      "programme": "tiffin",
+      "position": "MID",
       "class": "SR",
-      "line": "2 G · 2 A · 7 shots"
+      "line": "2 G · 1 A · 7 shots"
     },
     {
-      "player": "Aleksandar Miketic",
-      "programme": "walsh",
-      "position": "FWD",
-      "class": "FR",
-      "line": "2 G · 1 A · 9 shots"
+      "player": "Veljko Radovanovic",
+      "programme": "lake-erie",
+      "position": "MID",
+      "class": "SR",
+      "line": "2 G · 10 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-08 ohio-dominican v walsh",
-      "line": "Ohio Dominican have drawn more often than they have won, and Walsh have yet to win away from home."
+      "fixture_ref": "2026-09-10 cedarville v ohio-dominican",
+      "line": "Cedarville had not scored all season before this; Ohio Dominican have still not kept a clean sheet."
     },
     "next_match": {
-      "fixture_ref": "2026-09-10 cedarville v ohio-dominican",
-      "line": "Cedarville are still without a goal this season, and Ohio Dominican have not kept a clean sheet in any of their matches."
+      "fixture_ref": "2026-09-12 thomas-more v lake-erie",
+      "line": "Thomas More have won every match at home this season, and Lake Erie have failed to score only once, at Indianapolis."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:42:26.071Z"
+    "validated_at": "2026-09-11T11:42:17.114Z"
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-10T12:05:00+00:00",
-  "data_collected_at": "2026-09-10T11:31:39+00:00",
+  "generated_at": "2026-09-11T12:05:00+00:00",
+  "data_collected_at": "2026-09-11T11:31:20+00:00",
   "headline": "Lund-Iversen scores six of Mercy's nine",
   "dek": "The senior forward has taken twelve shots and made one assist beside the six goals. Mercy have lost only on opening day, to East Stroudsburg at home, and have won three times and drawn once since.",
   "lede_basis": {
@@ -21,7 +21,6 @@
     "losses": 1
   },
   "lede_updated": "2026-09-10",
-  "displaced_by": "Queens' standing figures (nine goals, seven scorers) outgrown; Lund-Iversen doubled to six goals across Mercy's two wins this week",
   "pattern": {
     "label": "derived",
     "text": "Staten Island have scored seven, behind only Queens and Mercy, and have one win to show for it: nine conceded outweigh them, and this chart ranks attacks only.",
@@ -73,7 +72,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Two matches are past their date with no result published: District of Columbia's opening-day trip to Shepherd and Molloy's at Caldwell. There are no score gaps.",
+      "text": "Two matches are past their date with no result published: District of Columbia's opening-day trip to Shepherd and Molloy's at Caldwell.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -188,6 +187,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:41:31.652Z"
+    "validated_at": "2026-09-11T11:41:03.221Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-10T11:47:22.129Z",
-  "data_collected_at": "2026-09-10T11:36:16+00:00",
+  "validated_at": "2026-09-11T11:44:01.557Z",
+  "data_collected_at": "2026-09-11T11:36:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -55,9 +55,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "Hugo Sjöberg's nineteen saves for UCCS have come at the cost of three goals.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Regis's win over Seattle Pacific is their second, and they have scored four goals and conceded two across two wins, a draw and a defeat.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Fort Lewis have three wins and a draw and have not lost, and play at Northwest Nazarene today.",
+      "text": "Westminster's win over Western Washington is their second, and with three draws beside it they are still unbeaten.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Regis's draw at Cal State San Bernardino leaves them with one goal scored and one conceded across a win, a draw and a defeat.",
+      "text": "Colorado School of Mines have lost four and drawn one after the defeat to UT Tyler, and have scored two goals while conceding ten.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -82,9 +82,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "derived",
-      "text": "Colorado Mesa have drawn three matches and lost one, and are still without a win.",
-      "checker": "team_record",
+      "label": "observed",
+      "text": "Zach Jennings has made eighteen saves for Regis and been beaten twice.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Simão Agostinho — 5 G · 1 A · 15 shots",
+      "text": "Simão Agostinho — 5 G · 1 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Zach Peroff — 3 G · 4 shots",
+      "text": "Owen Gallo — 3 G · 1 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 uccs v hawaii-hilo",
+      "text": "2026-09-10 northwest-nazarene v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-10 northwest-nazarene v fort-lewis",
+      "text": "2026-09-12 simon-fraser v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:46:22.014Z",
-    "generate_ms": 60113,
+    "started_at": "2026-09-11T11:42:51.792Z",
+    "generate_ms": 69763,
     "validate_ms": 1,
-    "wall_ms": 60114,
+    "wall_ms": 69764,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-09-10T11:50:00+00:00",
-  "data_collected_at": "2026-09-10T11:35:10+00:00",
+  "generated_at": "2026-09-11T11:50:00+00:00",
+  "data_collected_at": "2026-09-11T11:35:29+00:00",
   "headline": "Hawai'i Hilo's unbeaten run ends at UCCS",
   "dek": "Hawai'i Hilo went to UCCS with three wins and no defeat, and came home with their first loss and only the third goal they have conceded. No other programme has won as often, and none in the conference is now without a defeat.",
   "lede_basis": {
@@ -29,7 +29,6 @@
     ]
   },
   "lede_updated": "2026-09-10",
-  "displaced_by": "Hawai'i Hilo lost at UCCS; the conference's last unbeaten side is gone",
   "pattern": {
     "label": "observed",
     "text": "Concordia Irvine's ten goals have come from nine different scorers, yet they have conceded eight and lost as many matches as they have won.",
@@ -37,15 +36,15 @@
       "kind": "goals-for-by-team",
       "values": {
         "concordia-irvine": 10,
+        "hawaii-pacific": 9,
         "westmont": 9,
         "dominican-of-california": 8,
-        "hawaii-pacific": 6,
         "hawaii-hilo": 5,
         "point-loma": 5,
+        "chaminade": 3,
         "jessup": 3,
         "biola": 2,
-        "vanguard": 2,
-        "chaminade": 1
+        "vanguard": 2
       },
       "highlight": "concordia-irvine"
     },
@@ -72,7 +71,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one draw and three defeats.",
+      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one draw and four defeats.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -80,60 +79,67 @@
         "programme": "vanguard",
         "wins": 0,
         "draws": 1,
-        "losses": 3
+        "losses": 4
       }
     },
     {
       "label": "observed",
-      "text": "Chaminade have lost all three of their matches, scoring once and conceding six; the visit of UT Dallas was the third defeat.",
+      "text": "Chaminade have lost all four of their matches, scoring three and conceding ten; the trip to Saint Martin's was the fourth defeat.",
       "basis": {
         "programme": "chaminade",
         "wins": 0,
         "draws": 0,
-        "losses": 3,
-        "gf": 1,
-        "ga": 6
+        "losses": 4,
+        "gf": 3,
+        "ga": 10
       }
     },
     {
       "label": "observed",
-      "text": "Hawai'i Pacific's six goals have come from six different scorers, yet they have conceded seven and lost two of their three matches.",
+      "text": "Hawai'i Pacific's nine goals have come from seven different scorers, yet they have conceded ten and won only one of their four matches.",
       "basis": {
         "programme": "hawaii-pacific",
         "wins": 1,
-        "draws": 0,
+        "draws": 1,
         "losses": 2,
-        "gf": 6,
-        "ga": 7,
-        "distinct_scorers_min": 6
+        "gf": 9,
+        "ga": 10,
+        "distinct_scorers_min": 7
       }
     },
     {
       "label": "observed",
-      "text": "Robert Ronco has scored both of Vanguard's two goals, from ten shots.",
+      "text": "Robert Ronco has scored both of Vanguard's two goals, from fourteen shots.",
       "basis": {
         "source": "stats",
         "player": "Robert Ronco",
         "programme": "vanguard",
         "goals": 2,
-        "shots": 10,
-        "gf": 2,
-        "ga": 12
+        "shots": 14,
+        "gf": 2
       }
     },
     {
       "label": "observed",
-      "text": "Aidan Strickler has made twenty saves for Westmont at a save percentage of .714.",
+      "text": "Dominican (Calif.) have drawn three of their five matches and won none, scoring eight and conceding ten.",
       "basis": {
-        "source": "stats",
-        "player": "Aidan Strickler",
-        "programme": "westmont",
-        "saves": 20,
-        "save_pct": 0.714
+        "programme": "dominican-of-california",
+        "wins": 0,
+        "draws": 3,
+        "losses": 2,
+        "gf": 8,
+        "ga": 10
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Kelly Takara",
+      "programme": "hawaii-pacific",
+      "position": "FWD",
+      "class": "SR",
+      "line": "3 G · 1 A · 8 shots"
+    },
     {
       "player": "Keita Goto",
       "programme": "hawaii-hilo",
@@ -147,27 +153,20 @@
       "position": "DEF",
       "class": "SR",
       "line": "1 G · 2 A · 9 shots"
-    },
-    {
-      "player": "Kristian Johnson",
-      "programme": "westmont",
-      "position": "DEF",
-      "class": "SR",
-      "line": "2 G · 3 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 uccs v hawaii-hilo",
-      "line": "Hawai'i Hilo's first defeat of the season, and their first result away from home against a side outside the conference."
+      "fixture_ref": "2026-09-10 saint-martins v chaminade",
+      "line": "Chaminade have yet to take a point from any match; Saint Martin's had already won at Westmont."
     },
     "next_match": {
-      "fixture_ref": "2026-09-10 vanguard v cal-state-monterey-bay",
-      "line": "Vanguard have yet to win; their visitors have already beaten Dominican (Calif.) and Jessup."
+      "fixture_ref": "2026-09-12 point-loma v cal-state-monterey-bay",
+      "line": "Cal State Monterey Bay have already beaten Dominican (Calif.), Jessup and Vanguard; Point Loma have lost only away from home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:46:00.181Z"
+    "validated_at": "2026-09-11T11:43:23.972Z"
   }
 }

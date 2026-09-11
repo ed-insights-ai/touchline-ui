@@ -3,20 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-10T11:40:00+00:00",
-  "data_collected_at": "2026-09-10T11:36:16+00:00",
-  "headline": "UCCS beat Hawaii Hilo and stay unbeaten",
-  "dek": "UCCS beat Hawaii Hilo on Wednesday for a fourth win, with a draw against Midwestern State the only match they have not won, and they have conceded three goals all season. Hawaii Hilo go on to CSU Pueblo and then MSU Denver, and CSU Pueblo have yet to lose.",
+  "generated_at": "2026-09-11T11:40:00+00:00",
+  "data_collected_at": "2026-09-11T11:36:34+00:00",
+  "headline": "Fort Lewis lose their first match at Northwest Nazarene",
+  "dek": "Fort Lewis lost at Northwest Nazarene on Thursday, their first defeat after three wins and a draw. It was also the first match in which they have failed to score; they have thirteen goals for the season and have conceded four.",
   "lede_basis": {
-    "programme": "uccs",
-    "wins": 4,
+    "programme": "fort-lewis",
+    "wins": 3,
     "draws": 1,
-    "losses": 0,
-    "gf": 16,
-    "ga": 3
+    "losses": 1,
+    "gf": 13,
+    "ga": 4
   },
-  "lede_updated": "2026-09-10",
-  "displaced_by": "UCCS beat Hawaii Hilo; the standing dek's fourteen goals is out of date, and the unbeaten run is now the story rather than the scoring gap",
+  "lede_updated": "2026-09-11",
+  "displaced_by": "Fort Lewis's first defeat, at Northwest Nazarene, is newer and larger than UCCS's day-old win over Hawaii Hilo",
   "pattern": {
     "label": "derived",
     "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than UCCS have alone.",
@@ -25,14 +25,14 @@
       "values": {
         "uccs": 16,
         "fort-lewis": 13,
-        "westminster": 9,
-        "south-dakota-mines": 8,
-        "colorado-christian": 7,
+        "westminster": 12,
+        "south-dakota-mines": 10,
+        "colorado-christian": 8,
         "csu-pueblo": 7,
         "msu-denver": 7,
         "colorado-mesa": 5,
+        "regis": 4,
         "colorado-school-of-mines": 2,
-        "regis": 1,
         "adams-state": 0
       },
       "highlight": "uccs"
@@ -68,46 +68,48 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Hugo Sjöberg's nineteen saves for UCCS have come at the cost of three goals.",
+      "label": "derived",
+      "text": "Regis's win over Seattle Pacific is their second, and they have scored four goals and conceded two across two wins, a draw and a defeat.",
       "basis": {
-        "source": "stats",
-        "player": "Hugo Sjöberg",
-        "programme": "uccs",
-        "saves": 19,
-        "goals_against": 3
+        "programme": "regis",
+        "wins": 2,
+        "draws": 1,
+        "losses": 1,
+        "gf": 4,
+        "ga": 2
       }
     },
     {
       "label": "derived",
-      "text": "Fort Lewis have three wins and a draw and have not lost, and play at Northwest Nazarene today.",
+      "text": "Westminster's win over Western Washington is their second, and with three draws beside it they are still unbeaten.",
       "basis": {
-        "programme": "fort-lewis",
-        "wins": 3,
-        "draws": 1,
+        "programme": "westminster",
+        "wins": 2,
+        "draws": 3,
         "losses": 0
       }
     },
     {
       "label": "derived",
-      "text": "Regis's draw at Cal State San Bernardino leaves them with one goal scored and one conceded across a win, a draw and a defeat.",
+      "text": "Colorado School of Mines have lost four and drawn one after the defeat to UT Tyler, and have scored two goals while conceding ten.",
       "basis": {
-        "programme": "regis",
-        "wins": 1,
+        "programme": "colorado-school-of-mines",
+        "wins": 0,
         "draws": 1,
-        "losses": 1,
-        "gf": 1,
-        "ga": 1
+        "losses": 4,
+        "gf": 2,
+        "ga": 10
       }
     },
     {
-      "label": "derived",
-      "text": "Colorado Mesa have drawn three matches and lost one, and are still without a win.",
+      "label": "observed",
+      "text": "Zach Jennings has made eighteen saves for Regis and been beaten twice.",
       "basis": {
-        "programme": "colorado-mesa",
-        "wins": 0,
-        "draws": 3,
-        "losses": 1
+        "source": "stats",
+        "player": "Zach Jennings",
+        "programme": "regis",
+        "saves": 18,
+        "goals_against": 2
       }
     }
   ],
@@ -117,7 +119,7 @@
       "programme": "fort-lewis",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 1 A · 15 shots"
+      "line": "5 G · 1 A · 16 shots"
     },
     {
       "player": "Yohann Fila",
@@ -127,25 +129,25 @@
       "line": "3 G · 1 A · 16 shots"
     },
     {
-      "player": "Zach Peroff",
-      "programme": "south-dakota-mines",
-      "position": "DEF",
+      "player": "Owen Gallo",
+      "programme": "westminster",
+      "position": "MID",
       "class": "SR",
-      "line": "3 G · 4 shots"
+      "line": "3 G · 1 A · 14 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 uccs v hawaii-hilo",
-      "line": "UCCS remain unbeaten and have scored in every match; Hawaii Hilo go on to CSU Pueblo and MSU Denver."
+      "fixture_ref": "2026-09-10 northwest-nazarene v fort-lewis",
+      "line": "Fort Lewis's first defeat, and the first match they have not scored in; Northwest Nazarene had already drawn at Westminster and at MSU Denver."
     },
     "next_match": {
-      "fixture_ref": "2026-09-10 northwest-nazarene v fort-lewis",
-      "line": "Fort Lewis are unbeaten and have scored in every match; Northwest Nazarene have already drawn at Westminster and at MSU Denver."
+      "fixture_ref": "2026-09-12 simon-fraser v uccs",
+      "line": "UCCS are unbeaten and have scored in every match; the draw with Midwestern State is the only points they have dropped."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:47:22.129Z"
+    "validated_at": "2026-09-11T11:44:01.557Z"
   }
 }

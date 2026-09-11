@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-10T11:50:00+00:00",
-  "data_collected_at": "2026-09-10T11:35:56+00:00",
+  "generated_at": "2026-09-11T11:50:00+00:00",
+  "data_collected_at": "2026-09-11T11:36:14+00:00",
   "headline": "Millersville end Shepherd's unbeaten start on opening night",
   "dek": "Shepherd had not lost until Millersville came to town on opening night and left with a fourth win from five matches. Shippensburg, unbeaten themselves, beat Bloomsburg the same evening, and between them they hold every point the table has yet awarded.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 1
   },
   "lede_updated": "2026-09-10",
-  "displaced_by": "conference play opened: Millersville won at Shepherd and Shippensburg beat Bloomsburg",
   "pattern": {
     "label": "derived",
     "text": "Millersville have scored more than any other programme while conceding three goals in five matches; the scoring and the tightest defence sit at the same end of the chart.",
@@ -73,7 +72,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Shepherd's home match against District of Columbia is the one date on the record that has passed with no result, and it is Shepherd's alone; no final is missing its score.",
+      "text": "Shepherd's home match against District of Columbia is the one date on the record that has passed with no result, and it is Shepherd's alone.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -183,6 +182,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:47:26.757Z"
+    "validated_at": "2026-09-11T11:43:22.706Z"
   }
 }

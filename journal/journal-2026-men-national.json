@@ -2,30 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-10T12:05:00+00:00",
-  "data_collected_at": "2026-09-10T11:32:09+00:00",
-  "headline": "Fresno Pacific outscore every programme in the division",
-  "dek": "Fresno Pacific's win over Pacific Union carried them past Southwest Baptist, who had scored more than any other side in the division before last night. No side in any conference has scored as many this season, and only the page that sees every conference at once can say so.",
+  "generated_at": "2026-09-11T12:05:00+00:00",
+  "data_collected_at": "2026-09-11T11:33:30+00:00",
+  "headline": "Western Washington's unbeaten start ends at Westminster",
+  "dek": "Western Washington had won all four of their matches before they travelled to Westminster and lost. Seattle Pacific, unbeaten too until last night, fell at Regis the same evening, and Fort Lewis's own unbeaten start ended at Northwest Nazarene.",
   "basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "fresno-pacific",
-    "of": [
-      "southwest-baptist",
-      "millersville",
-      "uccs",
-      "cal-state-monterey-bay",
-      "charleston",
-      "midwestern-state",
-      "north-georgia",
-      "southern-new-hampshire"
-    ]
+    "programme": "western-washington",
+    "wins": 4,
+    "draws": 0,
+    "losses": 1
   },
-  "fixture_ref": "2026-09-09 fresno-pacific v pacific-union",
-  "updated": "2026-09-10",
-  "displaced_by": "form",
+  "fixture_ref": "2026-09-10 westminster v western-washington",
+  "updated": "2026-09-11",
+  "displaced_by": "results night: Western Washington's unbeaten start over at Westminster",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T18:33:43.457Z"
+    "validated_at": "2026-09-11T11:44:39.668Z"
   }
 }

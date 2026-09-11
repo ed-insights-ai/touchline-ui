@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-10T11:47:26.757Z",
-  "data_collected_at": "2026-09-10T11:35:56+00:00",
+  "validated_at": "2026-09-11T11:43:22.706Z",
+  "data_collected_at": "2026-09-11T11:36:14+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -63,7 +63,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Shepherd's home match against District of Columbia is the one date on the record that has passed with no result, and it is Shepherd's alone; no final is missing its score.",
+      "text": "Shepherd's home match against District of Columbia is the one date on the record that has passed with no result, and it is Shepherd's alone.",
       "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -152,10 +152,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:46:00.255Z",
-    "generate_ms": 86500,
+    "started_at": "2026-09-11T11:42:46.115Z",
+    "generate_ms": 36589,
     "validate_ms": 1,
-    "wall_ms": 86501,
+    "wall_ms": 36590,
     "concurrency": 4
   }
 }

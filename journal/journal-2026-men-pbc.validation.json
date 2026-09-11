@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-09-10T11:47:21.414Z",
-  "data_collected_at": "2026-09-10T11:35:35+00:00",
+  "validated_at": "2026-09-11T11:43:12.191Z",
+  "data_collected_at": "2026-09-11T11:35:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Kalle Kuisma has made ten saves for Clayton State and has conceded twice.",
+      "text": "Kalle Kuisma has conceded twice in Clayton State's goal this season.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:44:45.311Z",
-    "generate_ms": 156025,
+    "started_at": "2026-09-11T11:42:45.555Z",
+    "generate_ms": 26635,
     "validate_ms": 1,
-    "wall_ms": 156101,
+    "wall_ms": 26636,
     "concurrency": 4
   }
 }

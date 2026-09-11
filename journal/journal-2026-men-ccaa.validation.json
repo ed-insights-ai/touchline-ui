@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-09-10T11:41:06.465Z",
-  "data_collected_at": "2026-09-10T11:31:12+00:00",
+  "validated_at": "2026-09-11T11:41:48.099Z",
+  "data_collected_at": "2026-09-11T11:31:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fresno Pacific's 22 goals are more than Cal State Monterey Bay and Cal State Dominguez Hills have scored together, and eight different players have shared them.",
+      "text": "Fresno Pacific's 22 goals are more than Cal State Monterey Bay and Menlo have scored together, and eight different players have shared them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Chico State have lost all three matches counted to their record, and their home match against Saint Martin's carries a result the source marks as disputed.",
+      "text": "Chico State's win at Dominican of California was their first of the season, after three defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 fresno-pacific v pacific-union",
+      "text": "2026-09-10 jessup v menlo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-10 vanguard v cal-state-monterey-bay",
+      "text": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:39:47.531Z",
-    "generate_ms": 78924,
-    "validate_ms": 3,
-    "wall_ms": 78928,
+    "started_at": "2026-09-11T11:40:30.037Z",
+    "generate_ms": 78060,
+    "validate_ms": 1,
+    "wall_ms": 78061,
     "concurrency": 4
   }
 }

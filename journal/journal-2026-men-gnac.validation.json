@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "validated_at": "2026-09-10T11:43:20.996Z",
-  "data_collected_at": "2026-09-10T11:33:28+00:00",
+  "validated_at": "2026-09-11T11:42:39.942Z",
+  "data_collected_at": "2026-09-11T11:33:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Saint Martin's twelve goals are more than Northwest Nazarene and Simon Fraser have scored together.",
+      "text": "Saint Martin's sixteen goals are more than Northwest Nazarene and Simon Fraser have scored together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Western Washington have won four times and conceded four goals.",
-      "checker": "team_goals+team_record",
+      "text": "Northwest Nazarene are the last unbeaten side in the conference, with two wins and three draws.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Western Oregon have conceded exactly as many goals as they have scored, nine of each.",
+      "text": "Western Oregon have conceded exactly as many goals as they have scored, ten of each.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Archie Dhima, a freshman forward, has four goals from ten shots for Western Oregon.",
+      "text": "Archie Dhima, a freshman forward, has five goals from seventeen shots for Western Oregon.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Connor Leistiko has two shutouts for Saint Martin's and has conceded five goals.",
+      "text": "Quinn Sappington has made 21 saves for Western Washington while conceding four goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,8 +83,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Northwest Nazarene have drawn three times, more draws than any other programme in the conference.",
-      "checker": "team_record+comparative",
+      "text": "Eight different players have scored for Saint Martin's this season.",
+      "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Archie Dhima — 4 G · 1 A · 10 shots",
+      "text": "Archie Dhima — 5 G · 1 A · 17 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Rafael Lucio — 4 G · 12 shots",
+      "text": "Rafael Lucio — 5 G · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Caleb Putney — 2 G · 2 A · 14 shots",
+      "text": "Caleb Putney — 3 G · 2 A · 17 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-05 western-washington v westmont",
+      "text": "2026-09-10 western-washington v westminster",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-10 regis v seattle-pacific",
+      "text": "2026-09-12 northwest-nazarene v colorado-mesa",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:42:10.803Z",
-    "generate_ms": 70115,
+    "started_at": "2026-09-11T11:41:48.175Z",
+    "generate_ms": 51765,
     "validate_ms": 1,
-    "wall_ms": 70192,
+    "wall_ms": 51766,
     "concurrency": 4
   }
 }

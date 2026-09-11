@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-10T12:04:00Z",
-  "data_collected_at": "2026-09-10T11:32:34+00:00",
+  "generated_at": "2026-09-11T12:04:00Z",
+  "data_collected_at": "2026-09-11T11:32:10+00:00",
   "headline": "Rogers State score through ten different players",
   "dek": "Their win at home to Oklahoma Christian on Wednesday made it five matches without defeat, with thirteen goals scored and four conceded. No other programme has had more than seven different scorers, and only Ouachita Baptist have had that many.",
   "lede_basis": {
@@ -18,7 +18,6 @@
     "obu_distinct_scorers": 7
   },
   "lede_updated": "2026-09-10",
-  "displaced_by": "Rogers State's tenth distinct scorer and Ouachita Baptist's seventh; the standing dek's nine and six no longer hold",
   "pattern": {
     "label": "derived",
     "text": "Rogers State have outscored Newman, Northeastern State and Harding put together.",
@@ -28,9 +27,9 @@
         "rogers-state": 13,
         "ouachita-baptist": 10,
         "fort-hays-state": 7,
-        "newman": 5,
-        "northeastern-state": 4,
-        "southern-nazarene": 3,
+        "newman": 6,
+        "northeastern-state": 5,
+        "southern-nazarene": 4,
         "harding": 1
       },
       "highlight": "rogers-state"
@@ -57,6 +56,25 @@
   },
   "findings": [
     {
+      "label": "observed",
+      "text": "Fort Hays State's match at West Texas A&M on Thursday has passed its date without a published result, the only one in the conference to have done so.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "fort-hays-state",
+        "count": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Newman have lost four matches in a row since their opening win at William Jewell, the latest at Lubbock Christian on Thursday.",
+      "basis": {
+        "programme": "newman",
+        "wins": 1,
+        "draws": 0,
+        "losses": 4
+      }
+    },
+    {
       "label": "derived",
       "text": "Ouachita Baptist's ten goals have come from seven different players, and the three they have conceded all came in the defeat by Dallas Baptist.",
       "basis": {
@@ -64,18 +82,6 @@
         "gf": 10,
         "ga": 3,
         "distinct_scorers_min": 7
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Harding's goalkeeper Andrew Wagenblatt has made twenty-two saves and conceded ten goals, without a shutout.",
-      "basis": {
-        "source": "stats",
-        "player": "Andrew Wagenblatt",
-        "programme": "harding",
-        "saves": 22,
-        "goals_against": 10,
-        "shutouts": 0
       }
     },
     {
@@ -106,25 +112,25 @@
       "line": "2 G · 1 A · 9 shots"
     },
     {
-      "player": "Wesley Rodriguez",
-      "programme": "southern-nazarene",
+      "player": "Carter Adams",
+      "programme": "northeastern-state",
       "position": "FWD",
-      "class": "FR",
-      "line": "2 G · 6 shots"
+      "class": "JR",
+      "line": "2 G · 1 A · 7 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 rogers-state v oklahoma-christian",
-      "line": "Rogers State remain the only side in the conference without a defeat; Oklahoma Christian had lost at Northeastern State on Saturday."
+      "fixture_ref": "2026-09-10 lubbock-christian v newman",
+      "line": "Newman have not won since their opening night at William Jewell; Lubbock Christian host Fort Hays State on Saturday."
     },
     "next_match": {
-      "fixture_ref": "2026-09-10 west-texas-a-m v fort-hays-state",
-      "line": "Fort Hays State have yet to play away from home; West Texas A&M lost at Southern Nazarene on Saturday."
+      "fixture_ref": "2026-09-12 lubbock-christian v fort-hays-state",
+      "line": "Lubbock Christian beat Newman on Thursday; Fort Hays State's Thursday match at West Texas A&M still has no published result."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:42:56.097Z"
+    "validated_at": "2026-09-11T11:42:01.773Z"
   }
 }

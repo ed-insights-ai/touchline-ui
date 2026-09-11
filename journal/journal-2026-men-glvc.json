@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-10T11:40:00+00:00",
-  "data_collected_at": "2026-09-10T11:33:10+00:00",
+  "generated_at": "2026-09-11T11:40:00+00:00",
+  "data_collected_at": "2026-09-11T11:32:38+00:00",
   "headline": "Missouri S&T win all four, conceding once",
   "dek": "Missouri S&T have won all four matches they have played, and the only goal they have conceded came on the opening night at Northeastern State. Seven different players have shared their ten goals, and conference play has opened with clean sheets against Upper Iowa and at William Jewell.",
   "lede_basis": {
@@ -17,7 +17,6 @@
     "distinct_scorers_min": 7
   },
   "lede_updated": "2026-09-10",
-  "displaced_by": "Missouri S&T four wins from four with one goal conceded after the 9 September results night",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist's seventeen goals still exceed the six lowest-scoring programmes' total together, but the shape is no longer one side and a field: Drury, Missouri S&T and Quincy have closed on them while Southwest Baptist have not played since they were held.",
@@ -129,18 +128,18 @@
       "line": "4 G · 20 shots"
     },
     {
-      "player": "Mike Banasik",
-      "programme": "missouri-s-t",
-      "position": "FWD",
-      "class": "SR",
-      "line": "4 G · 11 shots"
-    },
-    {
       "player": "Jacob Panagos",
       "programme": "truman",
       "position": "MID",
       "class": "JR",
       "line": "4 G · 7 shots"
+    },
+    {
+      "player": "Nathaniel Velasquez",
+      "programme": "southwest-baptist",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 1 A · 12 shots"
     }
   ],
   "featured": {
@@ -155,6 +154,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-10T11:44:42.460Z"
+    "validated_at": "2026-09-11T11:41:54.546Z"
   }
 }

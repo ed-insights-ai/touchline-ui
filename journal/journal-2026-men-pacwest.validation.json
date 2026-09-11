@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-10T11:46:00.181Z",
-  "data_collected_at": "2026-09-10T11:35:10+00:00",
+  "validated_at": "2026-09-11T11:43:23.972Z",
+  "data_collected_at": "2026-09-11T11:35:29+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,13 +18,13 @@
   "review": [
     {
       "path": "findings[2].text",
-      "text": "Hawai'i Pacific's six goals have come from six different scorers, yet they have conceded seven and lost two of their three matches.",
-      "unbacked": ["3"]
+      "text": "Hawai'i Pacific's nine goals have come from seven different scorers, yet they have conceded ten and won only one of their four matches.",
+      "unbacked": ["4"]
     },
     {
       "path": "findings[4].text",
-      "text": "Aidan Strickler has made twenty saves for Westmont at a save percentage of .714.",
-      "unbacked": ["714"]
+      "text": "Dominican (Calif.) have drawn three of their five matches and won none, scoring eight and conceding ten.",
+      "unbacked": ["5"]
     }
   ],
   "claims": [
@@ -58,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one draw and three defeats.",
+      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one draw and four defeats.",
       "checker": "team_record+unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Chaminade have lost all three of their matches, scoring once and conceding six; the visit of UT Dallas was the third defeat.",
+      "text": "Chaminade have lost all four of their matches, scoring three and conceding ten; the trip to Saint Martin's was the fourth defeat.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Hawai'i Pacific's six goals have come from six different scorers, yet they have conceded seven and lost two of their three matches.",
+      "text": "Hawai'i Pacific's nine goals have come from seven different scorers, yet they have conceded ten and won only one of their four matches.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Robert Ronco has scored both of Vanguard's two goals, from ten shots.",
+      "text": "Robert Ronco has scored both of Vanguard's two goals, from fourteen shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -94,8 +94,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Aidan Strickler has made twenty saves for Westmont at a save percentage of .714.",
-      "checker": "player_stat",
+      "text": "Dominican (Calif.) have drawn three of their five matches and won none, scoring eight and conceding ten.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Keita Goto — 2 G · 1 A · 5 shots",
+      "text": "Kelly Takara — 3 G · 1 A · 8 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jonathan Moreno — 1 G · 2 A · 9 shots",
+      "text": "Keita Goto — 2 G · 1 A · 5 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kristian Johnson — 2 G · 3 shots",
+      "text": "Jonathan Moreno — 1 G · 2 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 uccs v hawaii-hilo",
+      "text": "2026-09-10 saint-martins v chaminade",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-10 vanguard v cal-state-monterey-bay",
+      "text": "2026-09-12 point-loma v cal-state-monterey-bay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:44:42.533Z",
-    "generate_ms": 77645,
+    "started_at": "2026-09-11T11:42:40.015Z",
+    "generate_ms": 43955,
     "validate_ms": 1,
-    "wall_ms": 77646,
+    "wall_ms": 43956,
     "concurrency": 4
   }
 }

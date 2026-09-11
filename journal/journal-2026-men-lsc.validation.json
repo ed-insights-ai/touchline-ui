@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-10T11:46:21.940Z",
-  "data_collected_at": "2026-09-10T11:34:15+00:00",
+  "validated_at": "2026-09-11T11:42:46.033Z",
+  "data_collected_at": "2026-09-11T11:34:11+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Eight different players have scored Midwestern State's fourteen goals, and Jose Ortiz has five of them.",
+      "text": "Ten different players have scored Midwestern State's seventeen goals, and Jose Ortiz has six of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches are past their date with no result published, among them Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, and St. Edward's against Southwestern.",
+      "text": "Five matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, and West Texas A&M's against Fort Hays State.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Oklahoma Christian have won three and lost two, and both defeats have come away from home, at Northeastern State and Rogers State.",
-      "checker": "team_record",
+      "text": "UT Dallas have won four, drawn one and lost one, and their twelve goals are more than Lubbock Christian and West Texas A&M have scored together.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "UT Dallas have won three, drawn one and lost one, and their ten goals are more than Lubbock Christian and West Texas A&M have scored together.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Midwestern State have won all three matches at home and drawn both away, scoring seventeen and conceding five.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Texas A&M International have won two and drawn one, and have conceded a single goal.",
+      "text": "UT Tyler have won two and drawn one, and have conceded two goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Midwestern State have won both matches at home and drawn both away, scoring fourteen and conceding four.",
+      "text": "Texas A&M International have won two and drawn one, and have conceded a single goal.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jose Ortiz — 5 G · 11 shots",
+      "text": "Jose Ortiz — 6 G · 17 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Eduardo Fernandez — 4 G · 1 A · 7 shots",
+      "text": "Osi Iyamah — 4 G · 1 A · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kenzo Shabazz-Edwards — 4 G · 14 shots",
+      "text": "Eduardo Fernandez — 4 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 saint-marys v sul-ross-state",
+      "text": "2026-09-10 midwestern-state v southern-nazarene",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-10 midwestern-state v southern-nazarene",
+      "text": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:42:56.171Z",
-    "generate_ms": 205691,
+    "started_at": "2026-09-11T11:42:01.847Z",
+    "generate_ms": 44185,
     "validate_ms": 1,
-    "wall_ms": 205767,
+    "wall_ms": 44186,
     "concurrency": 4
   }
 }
