@@ -3,30 +3,45 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-11T11:45:00+00:00",
-  "data_collected_at": "2026-09-11T11:37:39+00:00",
-  "headline": "Embry-Riddle end Rollins' unbeaten start",
-  "dek": "Embry-Riddle went to Rollins and won, the season's first result between SSC sides, and stay unbeaten after three wins and a draw. Eleven scored and five conceded; Rollins had not lost until then.",
+  "generated_at": "2026-09-12T11:45:00+00:00",
+  "data_collected_at": "2026-09-12T11:37:43+00:00",
+  "headline": "Florida Southern's perfect start ends at Saint Leo",
+  "dek": "Florida Southern had won four without a defeat before going to Saint Leo, where they lost for the first time and let in four of the five goals they have conceded all season. They have still scored fifteen, more than any other programme.",
   "lede_basis": {
-    "programme": "embry-riddle",
-    "wins": 3,
-    "draws": 1,
-    "losses": 0,
-    "gf": 11,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "florida-southern",
+    "of": [
+      "barry",
+      "eckerd",
+      "embry-riddle",
+      "florida-tech",
+      "lynn",
+      "nova-southeastern",
+      "palm-beach-atlantic",
+      "rollins",
+      "saint-leo",
+      "tampa"
+    ],
+    "wins": 4,
+    "draws": 0,
+    "losses": 1,
+    "gf": 15,
     "ga": 5
   },
-  "lede_updated": "2026-09-10",
+  "lede_updated": "2026-09-12",
+  "displaced_by": "Saint Leo beat Florida Southern, Florida Southern's first defeat after four straight wins",
   "pattern": {
     "label": "derived",
-    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have conceded once while doing it.",
+    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and the gap has grown since they last played.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 12,
+        "florida-southern": 15,
         "embry-riddle": 11,
         "rollins": 11,
+        "saint-leo": 11,
         "tampa": 10,
-        "saint-leo": 7,
         "lynn": 6,
         "florida-tech": 5,
         "palm-beach-atlantic": 5,
@@ -41,40 +56,39 @@
       "metric": "gf",
       "programme": "florida-southern",
       "of": ["barry", "eckerd", "nova-southeastern"],
-      "gf": 12,
-      "ga": 1
+      "gf": 15
     }
   },
   "wire": {
-    "line": "Barry are the only side yet to win, with a draw and two defeats before conference play opens.",
+    "line": "Florida Southern's first defeat leaves Embry-Riddle and Lynn as the only unbeaten sides.",
     "basis": {
-      "programme": "barry",
-      "wins": 0,
-      "draws": 1,
-      "losses": 2
+      "programme": "florida-southern",
+      "wins": 4,
+      "draws": 0,
+      "losses": 1
     },
-    "updated": "2026-09-10"
+    "updated": "2026-09-12"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Five matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, Eckerd's against Trinity, and Saint Leo's at home to Florida Southern, which is listed again for today.",
+      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's against Trinity.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 5
+        "past_date_no_result": 4
       }
     },
     {
       "label": "derived",
-      "text": "Tampa's first win came at home to Harding after two draws and a defeat; they have scored ten and conceded six.",
+      "text": "Saint Leo have not lost since their opener at AUM, drawing once and winning three, and have scored eleven and conceded nine.",
       "basis": {
-        "programme": "tampa",
-        "wins": 1,
-        "draws": 2,
+        "programme": "saint-leo",
+        "wins": 3,
+        "draws": 1,
         "losses": 1,
-        "gf": 10,
-        "ga": 6
+        "gf": 11,
+        "ga": 9
       }
     },
     {
@@ -115,17 +129,24 @@
     },
     {
       "label": "observed",
-      "text": "Ricardo Marques has kept three clean sheets for Florida Southern and conceded one goal.",
+      "text": "Ricardo Marques has kept three clean sheets for Florida Southern and has conceded five goals in all.",
       "basis": {
         "source": "stats",
         "player": "Ricardo Marques",
         "programme": "florida-southern",
         "shutouts": 3,
-        "goals_against": 1
+        "goals_against": 5
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Luis Gaitan",
+      "programme": "saint-leo",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 2 A · 10 shots"
+    },
     {
       "player": "Finlay Prain",
       "programme": "rollins",
@@ -138,28 +159,21 @@
       "programme": "florida-southern",
       "position": "MID",
       "class": "JR",
-      "line": "4 G · 1 A · 7 shots"
-    },
-    {
-      "player": "Kobi Thomas",
-      "programme": "palm-beach-atlantic",
-      "position": "FWD",
-      "class": "SO",
-      "line": "3 G · 1 A · 17 shots"
+      "line": "4 G · 1 A · 8 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 rollins v embry-riddle",
-      "line": "Rollins' first defeat of the season; Embry-Riddle remain unbeaten."
+      "fixture_ref": "2026-09-11 saint-leo v florida-southern",
+      "line": "Florida Southern's first defeat of the season; Saint Leo are unbeaten since their opener."
     },
     "next_match": {
-      "fixture_ref": "2026-09-11 saint-leo v florida-southern",
-      "line": "Florida Southern have yet to drop a point; Saint Leo are unbeaten at home."
+      "fixture_ref": "2026-09-12 tampa v rollins",
+      "line": "Rollins have conceded more than any other side in the conference; Tampa are unbeaten at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-11T11:44:06.249Z"
+    "validated_at": "2026-09-12T11:44:07.434Z"
   }
 }

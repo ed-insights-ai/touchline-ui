@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-11T11:44:06.249Z",
-  "data_collected_at": "2026-09-11T11:37:39+00:00",
+  "validated_at": "2026-09-12T11:44:07.434Z",
+  "data_collected_at": "2026-09-12T11:37:43+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and have conceded once while doing it.",
+      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and the gap has grown since they last played.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Barry are the only side yet to win, with a draw and two defeats before conference play opens.",
+      "text": "Florida Southern's first defeat leaves Embry-Riddle and Lynn as the only unbeaten sides.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Five matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, Eckerd's against Trinity, and Saint Leo's at home to Florida Southern, which is listed again for today.",
+      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's against Trinity.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Tampa's first win came at home to Harding after two draws and a defeat; they have scored ten and conceded six.",
+      "text": "Saint Leo have not lost since their opener at AUM, drawing once and winning three, and have scored eleven and conceded nine.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Ricardo Marques has kept three clean sheets for Florida Southern and conceded one goal.",
+      "text": "Ricardo Marques has kept three clean sheets for Florida Southern and has conceded five goals in all.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Finlay Prain — 4 G · 2 A · 14 shots",
+      "text": "Luis Gaitan — 4 G · 2 A · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Hector Oliver — 4 G · 1 A · 7 shots",
+      "text": "Finlay Prain — 4 G · 2 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kobi Thomas — 3 G · 1 A · 17 shots",
+      "text": "Hector Oliver — 4 G · 1 A · 8 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 rollins v embry-riddle",
+      "text": "2026-09-11 saint-leo v florida-southern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-11 saint-leo v florida-southern",
+      "text": "2026-09-12 tampa v rollins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-11T11:43:22.780Z",
-    "generate_ms": 43468,
+    "started_at": "2026-09-12T11:42:45.574Z",
+    "generate_ms": 81858,
     "validate_ms": 1,
-    "wall_ms": 43469,
+    "wall_ms": 81859,
     "concurrency": 4
   }
 }

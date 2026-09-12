@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-11T11:44:39.668Z",
+  "validated_at": "2026-09-12T11:44:45.821Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Western Washington's unbeaten start ends at Westminster Western Washington had won all four of their matches before they travelled to Westminster and lost. Seattle Pacific, unbeaten too until last night, fell at Regis the same evening, and Fort Lewis's own unbeaten start ended at Northwest Nazarene.",
+      "text": "Saint Leo end Florida Southern's perfect start Florida Southern had won all four of their matches before they went to Saint Leo and lost. UAH, Southwest Baptist and Texas A&M International all won the same evening, and each of them is still unbeaten.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-11T11:44:12.669Z",
-    "generate_ms": 26996,
+    "started_at": "2026-09-12T11:44:09.858Z",
+    "generate_ms": 35962,
     "validate_ms": 1,
-    "wall_ms": 26998
+    "wall_ms": 35963
   }
 }

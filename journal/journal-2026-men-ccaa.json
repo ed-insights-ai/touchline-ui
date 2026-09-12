@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-11T11:45:00+00:00",
-  "data_collected_at": "2026-09-11T11:31:02+00:00",
+  "generated_at": "2026-09-12T11:45:00+00:00",
+  "data_collected_at": "2026-09-12T11:31:12+00:00",
   "headline": "Cal State LA win four and concede nothing",
   "dek": "Cal State LA have won all four of their matches, scoring seven goals and conceding none, and no other side in the conference has kept its sheet clean that long. Cal State Monterey Bay have also won every match they have played, but have not kept the goals out.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 0
   },
   "lede_updated": "2026-09-11",
-  "displaced_by": "Abraham Ramirez's keeper line is absent from today's brief, so the standing lede cannot be recomputed; the side's own record can",
   "pattern": {
     "label": "derived",
     "text": "Fresno Pacific's 22 goals are more than Cal State Monterey Bay and Menlo have scored together, and eight different players have shared them.",
@@ -25,8 +24,8 @@
       "values": {
         "fresno-pacific": 22,
         "cal-state-monterey-bay": 15,
+        "cal-state-dominguez-hills": 9,
         "stanislaus-state": 9,
-        "cal-state-dominguez-hills": 7,
         "cal-state-la": 7,
         "cal-poly-humboldt": 6,
         "cal-poly-pomona": 6,
@@ -110,12 +109,12 @@
     },
     {
       "label": "observed",
-      "text": "Chico State's win at Dominican of California was their first of the season, after three defeats.",
+      "text": "Cal State Dominguez Hills' defeat to Texas A&M International leaves them with one win, two draws and two defeats, and the win came on the road at Vanguard.",
       "basis": {
-        "programme": "chico-state",
+        "programme": "cal-state-dominguez-hills",
         "wins": 1,
-        "draws": 0,
-        "losses": 3
+        "draws": 2,
+        "losses": 2
       }
     },
     {
@@ -155,16 +154,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-10 jessup v menlo",
-      "line": "Menlo's first match away from home this season, and their first without conceding."
+      "fixture_ref": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
+      "line": "Cal State Dominguez Hills have now conceded in every match they have played this season."
     },
     "next_match": {
-      "fixture_ref": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
-      "line": "Cal State Dominguez Hills have yet to win at home; their only victory so far came on the road at Vanguard."
+      "fixture_ref": "2026-09-12 point-loma v cal-state-monterey-bay",
+      "line": "Point Loma have already faced Cal Poly Pomona, Cal State San Bernardino and Cal State Dominguez Hills without losing; Cal State Monterey Bay have yet to drop a point."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-11T11:41:48.099Z"
+    "validated_at": "2026-09-12T11:41:23.458Z"
   }
 }

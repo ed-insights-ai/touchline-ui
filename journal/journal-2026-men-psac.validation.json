@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-11T11:43:22.706Z",
-  "data_collected_at": "2026-09-11T11:36:14+00:00",
+  "validated_at": "2026-09-12T11:42:58.859Z",
+  "data_collected_at": "2026-09-12T11:36:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -23,7 +23,7 @@
     },
     {
       "path": "pattern.text",
-      "text": "Millersville have scored more than any other programme while conceding three goals in five matches; the scoring and the tightest defence sit at the same end of the chart.",
+      "text": "Millersville have scored more than any other programme while conceding three goals in five matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
       "unbacked": ["5"]
     },
     {
@@ -36,7 +36,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Millersville have scored more than any other programme while conceding three goals in five matches; the scoring and the tightest defence sit at the same end of the chart.",
+      "text": "Millersville have scored more than any other programme while conceding three goals in five matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -152,10 +152,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-11T11:42:46.115Z",
-    "generate_ms": 36589,
+    "started_at": "2026-09-12T11:42:26.349Z",
+    "generate_ms": 32509,
     "validate_ms": 1,
-    "wall_ms": 36590,
+    "wall_ms": 32510,
     "concurrency": 4
   }
 }

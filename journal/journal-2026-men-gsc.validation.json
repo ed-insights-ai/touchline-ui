@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-11T11:42:21.953Z",
-  "data_collected_at": "2026-09-11T11:33:30+00:00",
+  "validated_at": "2026-09-12T11:42:17.896Z",
+  "data_collected_at": "2026-09-12T11:33:46+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "wire",
-      "text": "Union's win at Christian Brothers is the first between two members this season, and Union's first win of any kind.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The scoring at the top is not one striker's doing: UAH's ten goals have come from seven different players.",
+      "text": "The scoring at the top is still shared: UAH's twelve goals have come from eight different players.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -44,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Union's win at Christian Brothers is the first between two members this season, and Union's first win of any kind.",
+      "text": "UAH and Trevecca, both still unbeaten, meet each other in the first week of conference play.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -70,9 +64,9 @@
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Christian Brothers have scored eight goals, and at least six different players have scored them.",
-      "checker": "distinct_scorers+team_goals",
+      "label": "observed",
+      "text": "Daniel Santema has kept three clean sheets for Delta State and conceded three goals.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Spring Hill have drawn one and lost one, and have scored one goal.",
+      "text": "West Alabama have drawn one and lost four, and have conceded twelve goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Oli Orzechowski — 4 G · 16 shots",
+      "text": "Oli Orzechowski — 4 G · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 delta-state v christian-brothers",
+      "text": "2026-09-11 west-alabama v uah",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-11 west-alabama v uah",
+      "text": "2026-09-12 aum v lee",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-11T11:41:54.620Z",
-    "generate_ms": 27332,
+    "started_at": "2026-09-12T11:41:23.543Z",
+    "generate_ms": 54353,
     "validate_ms": 1,
-    "wall_ms": 27333,
+    "wall_ms": 54354,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-11T11:42:46.033Z",
-  "data_collected_at": "2026-09-11T11:34:11+00:00",
+  "validated_at": "2026-09-12T11:42:26.275Z",
+  "data_collected_at": "2026-09-12T11:34:10+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Five matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, and West Texas A&M's against Fort Hays State.",
+      "text": "Four matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, and St. Edward's against Southwestern.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "UT Tyler have won two and drawn one, and have conceded two goals.",
+      "text": "Texas A&M International have won three and drawn one, and have conceded three goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Texas A&M International have won two and drawn one, and have conceded a single goal.",
+      "text": "UT Tyler have won two and drawn one, and have conceded two goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-10 midwestern-state v southern-nazarene",
+      "text": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
+      "text": "2026-09-12 ouachita-baptist v ut-dallas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-11T11:42:01.847Z",
-    "generate_ms": 44185,
+    "started_at": "2026-09-12T11:41:39.212Z",
+    "generate_ms": 47062,
     "validate_ms": 1,
-    "wall_ms": 44186,
+    "wall_ms": 47063,
     "concurrency": 4
   }
 }

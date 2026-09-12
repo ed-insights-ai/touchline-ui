@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-09-11T11:41:48.099Z",
-  "data_collected_at": "2026-09-11T11:31:02+00:00",
+  "validated_at": "2026-09-12T11:41:23.458Z",
+  "data_collected_at": "2026-09-12T11:31:12+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Chico State's win at Dominican of California was their first of the season, after three defeats.",
+      "text": "Cal State Dominguez Hills' defeat to Texas A&M International leaves them with one win, two draws and two defeats, and the win came on the road at Vanguard.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-10 jessup v menlo",
+      "text": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
+      "text": "2026-09-12 point-loma v cal-state-monterey-bay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-11T11:40:30.037Z",
-    "generate_ms": 78060,
+    "started_at": "2026-09-12T11:40:32.944Z",
+    "generate_ms": 50513,
     "validate_ms": 1,
-    "wall_ms": 78061,
+    "wall_ms": 50514,
     "concurrency": 4
   }
 }

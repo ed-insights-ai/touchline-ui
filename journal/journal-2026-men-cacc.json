@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-09-11T11:46:00+00:00",
-  "data_collected_at": "2026-09-11T11:30:06+00:00",
+  "generated_at": "2026-09-12T11:45:00+00:00",
+  "data_collected_at": "2026-09-12T11:30:01+00:00",
   "headline": "Georgian Court win on the road, stand alone unbeaten",
   "dek": "Georgian Court have now won twice and drawn twice, scoring twelve goals and conceding six, and the second win came on the road at Pitt-Johnstown after two away draws. Bridgeport, unbeaten alongside them a day earlier, lost at home to Mercy, and every other programme in the CACC had already been beaten.",
   "lede_basis": {
@@ -71,14 +71,14 @@
     },
     {
       "label": "observed",
-      "text": "Felician have scored eleven goals and conceded twelve, with one win, two draws and two defeats.",
+      "text": "Dominican have scored one goal all season, drawing once and losing three times with nine conceded.",
       "basis": {
-        "programme": "felician",
-        "wins": 1,
-        "draws": 2,
-        "losses": 2,
-        "gf": 11,
-        "ga": 12
+        "programme": "dominican",
+        "wins": 0,
+        "draws": 1,
+        "losses": 3,
+        "gf": 1,
+        "ga": 9
       }
     },
     {
@@ -153,6 +153,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-11T11:41:05.036Z"
+    "validated_at": "2026-09-12T11:41:13.611Z"
   }
 }

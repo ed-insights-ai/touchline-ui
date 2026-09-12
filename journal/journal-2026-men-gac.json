@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-11T12:04:00Z",
-  "data_collected_at": "2026-09-11T11:32:10+00:00",
+  "generated_at": "2026-09-12T12:02:00Z",
+  "data_collected_at": "2026-09-12T11:32:23+00:00",
   "headline": "Rogers State score through ten different players",
   "dek": "Their win at home to Oklahoma Christian on Wednesday made it five matches without defeat, with thirteen goals scored and four conceded. No other programme has had more than seven different scorers, and only Ouachita Baptist have had that many.",
   "lede_basis": {
@@ -56,15 +56,6 @@
   },
   "findings": [
     {
-      "label": "observed",
-      "text": "Fort Hays State's match at West Texas A&M on Thursday has passed its date without a published result, the only one in the conference to have done so.",
-      "basis": {
-        "set": "past_date_no_result",
-        "all_of": "fort-hays-state",
-        "count": 1
-      }
-    },
-    {
       "label": "derived",
       "text": "Newman have lost four matches in a row since their opening win at William Jewell, the latest at Lubbock Christian on Thursday.",
       "basis": {
@@ -85,6 +76,15 @@
       }
     },
     {
+      "label": "derived",
+      "text": "Reik Barrack is Harding's only scorer this season; their one goal came in the defeat by Christian Brothers.",
+      "basis": {
+        "programme": "harding",
+        "gf": 1,
+        "distinct_scorers_min": 1
+      }
+    },
+    {
       "label": "observed",
       "text": "Tristan Miller has conceded four goals for Rogers State and kept two shutouts, the second of them against Oklahoma Christian on Wednesday.",
       "basis": {
@@ -93,6 +93,16 @@
         "programme": "rogers-state",
         "goals_against": 4,
         "shutouts": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Southern Nazarene have won two and lost two, the defeats coming in their first match, at home to Maryville, and their latest, at Midwestern State on Thursday.",
+      "basis": {
+        "programme": "southern-nazarene",
+        "wins": 2,
+        "draws": 0,
+        "losses": 2
       }
     }
   ],
@@ -126,11 +136,11 @@
     },
     "next_match": {
       "fixture_ref": "2026-09-12 lubbock-christian v fort-hays-state",
-      "line": "Lubbock Christian beat Newman on Thursday; Fort Hays State's Thursday match at West Texas A&M still has no published result."
+      "line": "Lubbock Christian beat Newman on Thursday; Fort Hays State have lost only to Regis and have not played since drawing with Fort Lewis."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-11T11:42:01.773Z"
+    "validated_at": "2026-09-12T11:41:49.745Z"
   }
 }

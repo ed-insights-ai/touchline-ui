@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-11T11:40:00+00:00",
-  "data_collected_at": "2026-09-11T11:32:38+00:00",
+  "generated_at": "2026-09-12T11:40:00+00:00",
+  "data_collected_at": "2026-09-12T11:32:55+00:00",
   "headline": "Missouri S&T win all four, conceding once",
   "dek": "Missouri S&T have won all four matches they have played, and the only goal they have conceded came on the opening night at Northeastern State. Seven different players have shared their ten goals, and conference play has opened with clean sheets against Upper Iowa and at William Jewell.",
   "lede_basis": {
@@ -19,11 +19,11 @@
   "lede_updated": "2026-09-10",
   "pattern": {
     "label": "derived",
-    "text": "Southwest Baptist's seventeen goals still exceed the six lowest-scoring programmes' total together, but the shape is no longer one side and a field: Drury, Missouri S&T and Quincy have closed on them while Southwest Baptist have not played since they were held.",
+    "text": "Southwest Baptist's twenty-four goals now exceed Drury's and Missouri S&T's together, the next two on the chart; the only conference side they have met is the only side to have held them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southwest-baptist": 17,
+        "southwest-baptist": 24,
         "drury": 12,
         "missouri-s-t": 10,
         "quincy": 10,
@@ -45,25 +45,18 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "southwest-baptist",
-      "of": [
-        "indianapolis",
-        "lincoln",
-        "mckendree",
-        "illinois-springfield",
-        "upper-iowa",
-        "william-jewell"
-      ],
-      "gf": 17
+      "of": ["drury", "missouri-s-t"],
+      "gf": 24
     }
   },
   "wire": {
     "line": "Missouri-St. Louis are the first side to score against Southwest Baptist this season, and they did it twice.",
     "basis": {
       "programme": "southwest-baptist",
-      "wins": 2,
+      "wins": 3,
       "draws": 1,
       "losses": 0,
-      "gf": 17,
+      "gf": 24,
       "ga": 2
     },
     "updated": "2026-09-06"
@@ -80,14 +73,14 @@
     },
     {
       "label": "derived",
-      "text": "Drury have won four and lost one, scoring twelve and conceding four; the defeat was at home to Oklahoma Christian, and at least eight different players have scored for them.",
+      "text": "Southwest Baptist have won three and drawn one, scoring twenty-four and conceding two, and at least eight different players have shared the goals.",
       "basis": {
-        "programme": "drury",
-        "wins": 4,
-        "draws": 0,
-        "losses": 1,
-        "gf": 12,
-        "ga": 4,
+        "programme": "southwest-baptist",
+        "wins": 3,
+        "draws": 1,
+        "losses": 0,
+        "gf": 24,
+        "ga": 2,
         "distinct_scorers_min": 8
       }
     },
@@ -121,6 +114,13 @@
   ],
   "players_to_watch": [
     {
+      "player": "Nathaniel Velasquez",
+      "programme": "southwest-baptist",
+      "position": "FWD",
+      "class": "JR",
+      "line": "5 G · 2 A · 16 shots"
+    },
+    {
       "player": "Leo Cann",
       "programme": "quincy",
       "position": "FWD",
@@ -133,27 +133,20 @@
       "position": "MID",
       "class": "JR",
       "line": "4 G · 7 shots"
-    },
-    {
-      "player": "Nathaniel Velasquez",
-      "programme": "southwest-baptist",
-      "position": "FWD",
-      "class": "JR",
-      "line": "3 G · 1 A · 12 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 drury v illinois-springfield",
-      "line": "Drury have not lost since Oklahoma Christian visited; Illinois Springfield are still without a win."
+      "fixture_ref": "2026-09-11 avila v southwest-baptist",
+      "line": "Southwest Baptist have conceded only to Missouri-St. Louis, and have now scored in every match they have played."
     },
     "next_match": {
-      "fixture_ref": "2026-09-11 avila v southwest-baptist",
-      "line": "Southwest Baptist are unbeaten and have scored in every match they have played; the trip to Avila is outside the conference."
+      "fixture_ref": "2026-09-12 quincy v missouri-s-t",
+      "line": "Missouri S&T have yet to drop a point in any match; Quincy have not lost since the opening night at Wisconsin-Parkside."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-11T11:41:54.546Z"
+    "validated_at": "2026-09-12T11:42:00.589Z"
   }
 }
