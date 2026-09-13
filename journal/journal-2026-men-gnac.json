@@ -3,29 +3,30 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-09-12T11:45:00+00:00",
-  "data_collected_at": "2026-09-12T11:33:27+00:00",
-  "headline": "Northwest Nazarene stand as the last unbeaten side",
-  "dek": "Seattle Pacific lost at Regis and Western Washington lost at home to Westminster on the same afternoon, ending the perfect starts both had carried into the day. Northwest Nazarene, who have won twice and drawn three times without losing, are now the only programme in the conference without a defeat.",
+  "generated_at": "2026-09-13T11:45:00+00:00",
+  "data_collected_at": "2026-09-13T11:34:20+00:00",
+  "headline": "Northwest Nazarene's unbeaten start ends at home",
+  "dek": "Northwest Nazarene lost at home to Colorado Mesa on Saturday, the last programme in the conference to take a defeat. They had won twice and drawn three times before it. Every side has now lost at least once, and only Seattle Pacific and Western Washington are yet to draw.",
   "lede_basis": {
     "programme": "northwest-nazarene",
     "wins": 2,
     "draws": 3,
-    "losses": 0
+    "losses": 1
   },
-  "lede_updated": "2026-09-11",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Northwest Nazarene lost at home to Colorado Mesa; no unbeaten side remains",
   "pattern": {
     "label": "derived",
-    "text": "Saint Martin's sixteen goals are more than Northwest Nazarene and Simon Fraser have scored together.",
+    "text": "Saint Martin's eighteen goals are more than Northwest Nazarene and Simon Fraser have scored together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "saint-martins": 16,
-        "seattle-pacific": 12,
-        "western-oregon": 10,
+        "saint-martins": 18,
+        "seattle-pacific": 13,
+        "western-oregon": 13,
         "western-washington": 10,
         "northwest-nazarene": 6,
-        "simon-fraser": 3
+        "simon-fraser": 4
       },
       "highlight": "saint-martins"
     },
@@ -34,18 +35,18 @@
       "metric": "gf",
       "programme": "saint-martins",
       "of": ["northwest-nazarene", "simon-fraser"],
-      "gf": 16
+      "gf": 18
     }
   },
   "wire": {
-    "line": "Northwest Nazarene are the last unbeaten side in the conference, with two wins and three draws.",
+    "line": "Northwest Nazarene's defeat at home to Colorado Mesa leaves no unbeaten side in the conference.",
     "basis": {
       "programme": "northwest-nazarene",
       "wins": 2,
       "draws": 3,
-      "losses": 0
+      "losses": 1
     },
-    "updated": "2026-09-11"
+    "updated": "2026-09-13"
   },
   "findings": [
     {
@@ -58,23 +59,14 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Western Oregon have conceded exactly as many goals as they have scored, ten of each.",
-      "basis": {
-        "programme": "western-oregon",
-        "gf": 10,
-        "ga": 10
-      }
-    },
-    {
       "label": "observed",
-      "text": "Archie Dhima, a freshman forward, has five goals from seventeen shots for Western Oregon.",
+      "text": "Archie Dhima, a freshman forward, has six goals from 21 shots for Western Oregon.",
       "basis": {
         "source": "stats",
         "player": "Archie Dhima",
         "programme": "western-oregon",
-        "goals": 5,
-        "shots": 17
+        "goals": 6,
+        "shots": 21
       }
     },
     {
@@ -90,10 +82,20 @@
     },
     {
       "label": "derived",
-      "text": "Eight different players have scored for Saint Martin's this season.",
+      "text": "Nine different players have scored for Saint Martin's this season.",
       "basis": {
         "programme": "saint-martins",
-        "distinct_scorers_min": 8
+        "distinct_scorers_min": 9
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Seattle Pacific have won five times and lost once, and have yet to draw a match.",
+      "basis": {
+        "programme": "seattle-pacific",
+        "wins": 5,
+        "draws": 0,
+        "losses": 1
       }
     }
   ],
@@ -103,7 +105,7 @@
       "programme": "western-oregon",
       "position": "FWD",
       "class": "FR",
-      "line": "5 G · 1 A · 17 shots"
+      "line": "6 G · 2 A · 21 shots"
     },
     {
       "player": "Rafael Lucio",
@@ -113,25 +115,25 @@
       "line": "5 G · 14 shots"
     },
     {
-      "player": "Caleb Putney",
-      "programme": "northwest-nazarene",
-      "position": "FWD",
+      "player": "Juan Diaz",
+      "programme": "saint-martins",
+      "position": "MID",
       "class": "JR",
-      "line": "3 G · 2 A · 17 shots"
+      "line": "2 G · 5 A · 8 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-10 western-washington v westminster",
-      "line": "Western Washington's first defeat of the season, having won every match before it."
+      "fixture_ref": "2026-09-12 northwest-nazarene v colorado-mesa",
+      "line": "Northwest Nazarene's first defeat of the season, the last side in the conference to take one."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 northwest-nazarene v colorado-mesa",
-      "line": "Northwest Nazarene are the conference's last unbeaten side, and have drawn more often than they have won."
+      "fixture_ref": "2026-09-13 regis v western-washington",
+      "line": "Regis beat Seattle Pacific on this ground earlier in the week; Western Washington arrive after their first defeat and have yet to draw."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:41:39.139Z"
+    "validated_at": "2026-09-13T11:44:05.143Z"
   }
 }

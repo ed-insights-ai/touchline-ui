@@ -3,38 +3,39 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-12T11:45:00+00:00",
-  "data_collected_at": "2026-09-12T11:31:12+00:00",
-  "headline": "Cal State LA win four and concede nothing",
-  "dek": "Cal State LA have won all four of their matches, scoring seven goals and conceding none, and no other side in the conference has kept its sheet clean that long. Cal State Monterey Bay have also won every match they have played, but have not kept the goals out.",
+  "generated_at": "2026-09-13T11:45:00+00:00",
+  "data_collected_at": "2026-09-13T11:31:05+00:00",
+  "headline": "Cal State Monterey Bay fall, Cal State LA stay perfect",
+  "dek": "Cal State Monterey Bay's unbeaten start ended on the road at Point Loma, leaving Cal State LA as the only side in the conference still winning every match. They won at Westmont the same day, a fifth win in five, and have yet to concede a goal.",
   "lede_basis": {
     "programme": "cal-state-la",
-    "wins": 4,
+    "wins": 5,
     "draws": 0,
     "losses": 0,
-    "gf": 7,
+    "gf": 8,
     "ga": 0
   },
-  "lede_updated": "2026-09-11",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Cal State Monterey Bay's first defeat, at Point Loma; Cal State LA now five from five and still unbreached",
   "pattern": {
     "label": "derived",
-    "text": "Fresno Pacific's 22 goals are more than Cal State Monterey Bay and Menlo have scored together, and eight different players have shared them.",
+    "text": "Fresno Pacific's 24 goals are more than Cal State Monterey Bay and Menlo have scored together, and nine different players have shared them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fresno-pacific": 22,
-        "cal-state-monterey-bay": 15,
+        "fresno-pacific": 24,
+        "cal-state-monterey-bay": 17,
+        "stanislaus-state": 11,
         "cal-state-dominguez-hills": 9,
-        "stanislaus-state": 9,
-        "cal-state-la": 7,
-        "cal-poly-humboldt": 6,
-        "cal-poly-pomona": 6,
-        "cal-state-east-bay": 6,
+        "cal-poly-humboldt": 8,
+        "cal-state-east-bay": 8,
+        "cal-state-la": 8,
+        "cal-state-san-marcos": 8,
+        "chico-state": 8,
+        "cal-poly-pomona": 7,
         "cal-state-san-bernardino": 6,
-        "cal-state-san-marcos": 6,
-        "chico-state": 6,
-        "menlo": 5,
-        "uc-merced": 3
+        "uc-merced": 6,
+        "menlo": 5
       },
       "highlight": "fresno-pacific"
     },
@@ -43,19 +44,21 @@
       "metric": "gf",
       "programme": "fresno-pacific",
       "of": ["cal-state-monterey-bay", "menlo"],
-      "gf": 22,
-      "distinct_scorers_min": 8
+      "gf": 24,
+      "distinct_scorers_min": 9
     }
   },
   "wire": {
-    "line": "UC Merced have played three matches and drawn every one of them.",
+    "line": "Cal State East Bay have conceded twenty-three goals and are the only side in the conference still without a win.",
     "basis": {
-      "programme": "uc-merced",
+      "programme": "cal-state-east-bay",
       "wins": 0,
-      "draws": 3,
-      "losses": 0
+      "draws": 1,
+      "losses": 5,
+      "gf": 8,
+      "ga": 23
     },
-    "updated": "2026-09-06"
+    "updated": "2026-09-13"
   },
   "findings": [
     {
@@ -69,30 +72,39 @@
     },
     {
       "label": "derived",
-      "text": "Cal State East Bay have conceded twenty goals, more than any other programme, and have yet to win.",
+      "text": "Cal State Monterey Bay lost for the first time at Point Loma, but their seventeen goals are still more than any programme's except Fresno Pacific's.",
       "basis": {
-        "programme": "cal-state-east-bay",
-        "wins": 0,
-        "draws": 1,
-        "losses": 4,
-        "gf": 6,
-        "ga": 20,
+        "programme": "cal-state-monterey-bay",
+        "wins": 4,
+        "draws": 0,
+        "losses": 1,
+        "gf": 17,
+        "ga": 9,
         "comparative": "greater_than_each",
-        "metric": "ga",
+        "metric": "gf",
         "of": [
           "cal-poly-humboldt",
           "cal-poly-pomona",
           "cal-state-dominguez-hills",
+          "cal-state-east-bay",
           "cal-state-la",
-          "cal-state-monterey-bay",
           "cal-state-san-bernardino",
           "cal-state-san-marcos",
           "chico-state",
-          "fresno-pacific",
           "menlo",
           "stanislaus-state",
           "uc-merced"
         ]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "UC Merced's win at Jessup was their first of the season, after three draws, and they remain unbeaten.",
+      "basis": {
+        "programme": "uc-merced",
+        "wins": 1,
+        "draws": 3,
+        "losses": 0
       }
     },
     {
@@ -109,23 +121,13 @@
     },
     {
       "label": "observed",
-      "text": "Cal State Dominguez Hills' defeat to Texas A&M International leaves them with one win, two draws and two defeats, and the win came on the road at Vanguard.",
-      "basis": {
-        "programme": "cal-state-dominguez-hills",
-        "wins": 1,
-        "draws": 2,
-        "losses": 2
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Zion Vaughn has scored six goals from thirteen shots for Fresno Pacific.",
+      "text": "Zion Vaughn has scored seven goals from fifteen shots for Fresno Pacific.",
       "basis": {
         "source": "stats",
         "player": "Zion Vaughn",
         "programme": "fresno-pacific",
-        "goals": 6,
-        "shots": 13
+        "goals": 7,
+        "shots": 15
       }
     }
   ],
@@ -135,35 +137,35 @@
       "programme": "fresno-pacific",
       "position": "FWD",
       "class": "JR",
-      "line": "6 G · 1 A · 13 shots"
-    },
-    {
-      "player": "Noah Naranjo",
-      "programme": "fresno-pacific",
-      "position": "FWD",
-      "class": "FR",
-      "line": "4 G · 1 A · 8 shots"
+      "line": "7 G · 1 A · 15 shots"
     },
     {
       "player": "Kai Martin",
       "programme": "cal-state-monterey-bay",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 9 shots"
+      "line": "6 G · 13 shots"
+    },
+    {
+      "player": "Alexis Cervantes",
+      "programme": "stanislaus-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "5 G · 19 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
-      "line": "Cal State Dominguez Hills have now conceded in every match they have played this season."
+      "fixture_ref": "2026-09-12 point-loma v cal-state-monterey-bay",
+      "line": "Cal State Monterey Bay had won every match before this one; Point Loma had already beaten Cal Poly Pomona and drawn with Cal State San Bernardino and Cal State Dominguez Hills."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 point-loma v cal-state-monterey-bay",
-      "line": "Point Loma have already faced Cal Poly Pomona, Cal State San Bernardino and Cal State Dominguez Hills without losing; Cal State Monterey Bay have yet to drop a point."
+      "fixture_ref": "2026-09-13 cal-state-san-bernardino v texas-a-m-international",
+      "line": "Texas A&M International arrive from a win at Cal State Dominguez Hills; Cal State San Bernardino have yet to lose."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:41:23.458Z"
+    "validated_at": "2026-09-13T11:42:18.425Z"
   }
 }

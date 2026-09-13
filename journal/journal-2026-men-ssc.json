@@ -3,51 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-12T11:45:00+00:00",
-  "data_collected_at": "2026-09-12T11:37:43+00:00",
-  "headline": "Florida Southern's perfect start ends at Saint Leo",
-  "dek": "Florida Southern had won four without a defeat before going to Saint Leo, where they lost for the first time and let in four of the five goals they have conceded all season. They have still scored fifteen, more than any other programme.",
+  "generated_at": "2026-09-13T11:45:00+00:00",
+  "data_collected_at": "2026-09-13T11:40:34+00:00",
+  "headline": "Embry-Riddle, Florida Tech and Tampa win the conference openers",
+  "dek": "Embry-Riddle are the only one of the opening night's winners still unbeaten, with four wins and a draw behind them. Florida Tech won at Nova Southeastern without conceding, and Tampa kept Rollins out at home, where they have yet to lose.",
   "lede_basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "florida-southern",
-    "of": [
-      "barry",
-      "eckerd",
-      "embry-riddle",
-      "florida-tech",
-      "lynn",
-      "nova-southeastern",
-      "palm-beach-atlantic",
-      "rollins",
-      "saint-leo",
-      "tampa"
-    ],
+    "programme": "embry-riddle",
     "wins": 4,
-    "draws": 0,
-    "losses": 1,
-    "gf": 15,
-    "ga": 5
+    "draws": 1,
+    "losses": 0
   },
-  "lede_updated": "2026-09-12",
-  "displaced_by": "Saint Leo beat Florida Southern, Florida Southern's first defeat after four straight wins",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Conference play opened; Embry-Riddle, Florida Tech and Tampa won the first matches between members",
   "pattern": {
     "label": "derived",
-    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and the gap has grown since they last played.",
+    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, though Barry's win at Florida Memorial has narrowed the margin.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "florida-southern": 15,
-        "embry-riddle": 11,
+        "embry-riddle": 13,
+        "tampa": 12,
         "rollins": 11,
         "saint-leo": 11,
-        "tampa": 10,
+        "florida-tech": 8,
+        "barry": 6,
         "lynn": 6,
-        "florida-tech": 5,
         "palm-beach-atlantic": 5,
-        "nova-southeastern": 4,
-        "barry": 3,
-        "eckerd": 3
+        "eckerd": 4,
+        "nova-southeastern": 4
       },
       "highlight": "florida-southern"
     },
@@ -81,19 +65,19 @@
     },
     {
       "label": "derived",
-      "text": "Saint Leo have not lost since their opener at AUM, drawing once and winning three, and have scored eleven and conceded nine.",
+      "text": "Florida Tech have conceded five goals across three wins, two draws and a defeat, and neither Mars Hill nor Nova Southeastern could score against them.",
       "basis": {
-        "programme": "saint-leo",
+        "programme": "florida-tech",
         "wins": 3,
-        "draws": 1,
+        "draws": 2,
         "losses": 1,
-        "gf": 11,
-        "ga": 9
+        "gf": 8,
+        "ga": 5
       }
     },
     {
       "label": "derived",
-      "text": "Rollins' first defeat was at home to Embry-Riddle; they have scored eleven and conceded ten, more than any other programme has let in.",
+      "text": "Rollins have lost two in a row, at home to Embry-Riddle and then at Tampa, and their twelve goals conceded are more than any other programme has let in.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -112,9 +96,9 @@
         ],
         "wins": 2,
         "draws": 1,
-        "losses": 1,
+        "losses": 2,
         "gf": 11,
-        "ga": 10
+        "ga": 12
       }
     },
     {
@@ -141,18 +125,18 @@
   ],
   "players_to_watch": [
     {
+      "player": "Finlay Prain",
+      "programme": "rollins",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 2 A · 18 shots"
+    },
+    {
       "player": "Luis Gaitan",
       "programme": "saint-leo",
       "position": "FWD",
       "class": "JR",
       "line": "4 G · 2 A · 10 shots"
-    },
-    {
-      "player": "Finlay Prain",
-      "programme": "rollins",
-      "position": "FWD",
-      "class": "JR",
-      "line": "4 G · 2 A · 14 shots"
     },
     {
       "player": "Hector Oliver",
@@ -164,16 +148,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-11 saint-leo v florida-southern",
-      "line": "Florida Southern's first defeat of the season; Saint Leo are unbeaten since their opener."
+      "fixture_ref": "2026-09-12 tampa v rollins",
+      "line": "Tampa have yet to lose at home; Rollins have now lost back-to-back matches after opening the season unbeaten."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 tampa v rollins",
-      "line": "Rollins have conceded more than any other side in the conference; Tampa are unbeaten at home."
+      "fixture_ref": "2026-09-15 embry-riddle v scad",
+      "line": "Embry-Riddle have won every match at home and have yet to lose anywhere."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:44:07.434Z"
+    "validated_at": "2026-09-13T11:47:40.362Z"
   }
 }

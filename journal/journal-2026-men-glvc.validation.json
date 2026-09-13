@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-09-12T11:42:00.589Z",
-  "data_collected_at": "2026-09-12T11:32:55+00:00",
+  "validated_at": "2026-09-13T11:46:13.354Z",
+  "data_collected_at": "2026-09-13T11:33:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -18,20 +18,15 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Southwest Baptist's twenty-four goals now exceed Drury's and Missouri S&T's together, the next two on the chart; the only conference side they have met is the only side to have held them.",
-      "unbacked": ["2"]
-    },
-    {
-      "path": "findings[2].text",
-      "text": "William Jewell have lost all four of their matches and have yet to score; they have conceded seven, the last two of them at home to Missouri S&T.",
-      "unbacked": ["2"]
+      "text": "Southwest Baptist's twenty-four goals exceed what the six lowest-scoring programmes have managed between them; the conference's scoring is one bar and then a slope.",
+      "unbacked": ["1", "6"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southwest Baptist's twenty-four goals now exceed Drury's and Missouri S&T's together, the next two on the chart; the only conference side they have met is the only side to have held them.",
+      "text": "Southwest Baptist's twenty-four goals exceed what the six lowest-scoring programmes have managed between them; the conference's scoring is one bar and then a slope.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -67,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Southwest Baptist have won three and drawn one, scoring twenty-four and conceding two, and at least eight different players have shared the goals.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Drury have won five and lost one, scoring fourteen and conceding four; the defeat was at home to Oklahoma Christian, and they have not dropped a point since.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -76,8 +71,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "William Jewell have lost all four of their matches and have yet to score; they have conceded seven, the last two of them at home to Missouri S&T.",
-      "checker": "team_goals+team_record",
+      "text": "William Jewell have lost all five of their matches; Daniel Pirillo's goal at Indianapolis on Saturday was their first of the season, against nine conceded.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -85,8 +80,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Asgrimur Vidisson has made twenty-two saves for Maryville and conceded five goals, with two clean sheets; Maryville have won three and lost two.",
-      "checker": "player_stat+team_record",
+      "text": "Jake Offerman has made eighteen saves for Quincy and conceded three goals, with two clean sheets.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -103,7 +98,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Leo Cann — 4 G · 20 shots",
+      "text": "Leo Cann — 5 G · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +116,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-11 avila v southwest-baptist",
+      "text": "2026-09-12 quincy v missouri-s-t",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +125,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 quincy v missouri-s-t",
+      "text": "2026-09-13 lincoln v southwest-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -138,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-12T11:41:08.594Z",
-    "generate_ms": 51994,
+    "started_at": "2026-09-13T11:42:38.127Z",
+    "generate_ms": 215147,
     "validate_ms": 1,
-    "wall_ms": 51995,
+    "wall_ms": 215224,
     "concurrency": 4
   }
 }

@@ -3,30 +3,31 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-12T12:02:00Z",
-  "data_collected_at": "2026-09-12T11:32:23+00:00",
-  "headline": "Rogers State score through ten different players",
-  "dek": "Their win at home to Oklahoma Christian on Wednesday made it five matches without defeat, with thirteen goals scored and four conceded. No other programme has had more than seven different scorers, and only Ouachita Baptist have had that many.",
+  "generated_at": "2026-09-13T12:01:00Z",
+  "data_collected_at": "2026-09-13T11:33:15+00:00",
+  "headline": "Rogers State's unbeaten start ends at home",
+  "dek": "Saint Mary's won at Rogers State on Saturday, the hosts' first defeat in six matches. Rogers State have still scored fourteen goals through ten different players, more than any other programme, and Fort Hays State, who host them on the opening night of conference play, have drawn their last two matches.",
   "lede_basis": {
-    "rsu_distinct_scorers": 10,
-    "rsu_matches_unbeaten": 5,
+    "rsu_matches": 6,
     "rsu_wins": 4,
     "rsu_draws": 1,
-    "rsu_losses": 0,
-    "rsu_gf": 13,
-    "rsu_ga": 4,
-    "obu_distinct_scorers": 7
+    "rsu_losses": 1,
+    "rsu_gf": 14,
+    "rsu_distinct_scorers": 10,
+    "fhsu_consecutive_draws": 2,
+    "fhsu_draws": 2
   },
-  "lede_updated": "2026-09-10",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Rogers State's first defeat, at home to Saint Mary's on 2026-09-12; the standing dek's unbeaten run and its goal figures no longer hold.",
   "pattern": {
     "label": "derived",
     "text": "Rogers State have outscored Newman, Northeastern State and Harding put together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "rogers-state": 13,
+        "rogers-state": 14,
         "ouachita-baptist": 10,
-        "fort-hays-state": 7,
+        "fort-hays-state": 8,
         "newman": 6,
         "northeastern-state": 5,
         "southern-nazarene": 4,
@@ -39,7 +40,7 @@
       "metric": "gf",
       "programme": "rogers-state",
       "of": ["newman", "northeastern-state", "harding"],
-      "gf": 13
+      "gf": 14
     }
   },
   "wire": {
@@ -56,13 +57,32 @@
   },
   "findings": [
     {
+      "label": "observed",
+      "text": "Ouachita Baptist's match at home to UT Dallas on Saturday is the one match past its date with no result published.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "ouachita-baptist",
+        "count": 1
+      }
+    },
+    {
       "label": "derived",
-      "text": "Newman have lost four matches in a row since their opening win at William Jewell, the latest at Lubbock Christian on Thursday.",
+      "text": "Newman have lost five matches in a row since their opening win at William Jewell, the latest at West Texas A&M on Saturday.",
       "basis": {
         "programme": "newman",
         "wins": 1,
         "draws": 0,
-        "losses": 4
+        "losses": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Fort Hays State have drawn their last two matches, at home to Fort Lewis and at Lubbock Christian, and their one defeat was at home to Regis.",
+      "basis": {
+        "programme": "fort-hays-state",
+        "wins": 2,
+        "draws": 2,
+        "losses": 1
       }
     },
     {
@@ -76,43 +96,31 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Reik Barrack is Harding's only scorer this season; their one goal came in the defeat by Christian Brothers.",
-      "basis": {
-        "programme": "harding",
-        "gf": 1,
-        "distinct_scorers_min": 1
-      }
-    },
-    {
       "label": "observed",
-      "text": "Tristan Miller has conceded four goals for Rogers State and kept two shutouts, the second of them against Oklahoma Christian on Wednesday.",
+      "text": "Andrew Wagenblatt has made twenty-two saves for Harding, with no shutout to show for them.",
       "basis": {
         "source": "stats",
-        "player": "Tristan Miller",
-        "programme": "rogers-state",
-        "goals_against": 4,
-        "shutouts": 2
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Southern Nazarene have won two and lost two, the defeats coming in their first match, at home to Maryville, and their latest, at Midwestern State on Thursday.",
-      "basis": {
-        "programme": "southern-nazarene",
-        "wins": 2,
-        "draws": 0,
-        "losses": 2
+        "player": "Andrew Wagenblatt",
+        "programme": "harding",
+        "saves": 22,
+        "shutouts": 0
       }
     }
   ],
   "players_to_watch": [
     {
+      "player": "Len Valkema",
+      "programme": "fort-hays-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 9 shots"
+    },
+    {
       "player": "Harkaran Sahota",
       "programme": "rogers-state",
       "position": "FWD",
       "class": "SO",
-      "line": "2 G · 2 A · 4 shots"
+      "line": "2 G · 2 A · 7 shots"
     },
     {
       "player": "Philip Bölk",
@@ -120,27 +128,20 @@
       "position": "MID",
       "class": "SO",
       "line": "2 G · 1 A · 9 shots"
-    },
-    {
-      "player": "Carter Adams",
-      "programme": "northeastern-state",
-      "position": "FWD",
-      "class": "JR",
-      "line": "2 G · 1 A · 7 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-10 lubbock-christian v newman",
-      "line": "Newman have not won since their opening night at William Jewell; Lubbock Christian host Fort Hays State on Saturday."
+      "fixture_ref": "2026-09-12 rogers-state v saint-marys",
+      "line": "Rogers State had won every home match before this; they open conference play at Fort Hays State on Thursday."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 lubbock-christian v fort-hays-state",
-      "line": "Lubbock Christian beat Newman on Thursday; Fort Hays State have lost only to Regis and have not played since drawing with Fort Lewis."
+      "fixture_ref": "2026-09-13 oklahoma-christian v southern-nazarene",
+      "line": "Oklahoma Christian have beaten Newman but lost at Northeastern State and at Rogers State; Southern Nazarene arrive from defeat at Midwestern State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:41:49.745Z"
+    "validated_at": "2026-09-13T11:43:46.064Z"
   }
 }

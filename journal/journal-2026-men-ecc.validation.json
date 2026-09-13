@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-12T11:41:08.521Z",
-  "data_collected_at": "2026-09-12T11:31:35+00:00",
+  "validated_at": "2026-09-13T11:42:33.392Z",
+  "data_collected_at": "2026-09-13T11:31:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,19 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "Queens have scored more than Roberts Wesleyan and Staten Island together, and nine different players have done the scoring; the spread of the attack, not one striker, is what sets them apart.",
+      "unbacked": ["1"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Staten Island have scored seven, behind only Queens and Mercy, and have one win to show for it: nine conceded outweigh them, and this chart ranks attacks only.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Queens have scored more than Roberts Wesleyan and Staten Island together, and nine different players have done the scoring; the spread of the attack, not one striker, is what sets them apart.",
+      "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -38,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Eight different players have scored for Queens, and the side has lost only at Holy Family.",
-      "checker": "distinct_scorers+team_record",
+      "text": "District of Columbia have won three and lost once, on five goals scored; Lorenzo Herrera has made 31 saves behind them.",
+      "checker": "player_stat+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Daemen have conceded fourteen goals, more than any other programme, and the goalless draw at Saint Michael's is all they have to show.",
+      "text": "Daemen have conceded fifteen goals, more than any other programme, and two draws, at Saint Michael's and at home to Salem, are all they have to show.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Queens have scored thirteen goals, more than any other programme, and conceded four; the defeat at Holy Family is the only match they have lost.",
+      "text": "Queens have scored sixteen goals, more than any other programme, and conceded five; the defeat at Holy Family is the only match they have lost.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "D'Youville's win at California was their first of the season, and Matthew Solorio's third clean sheet after two goalless draws.",
+      "text": "D'Youville have won their last two, at California and at home to Pitt-Johnstown, without conceding, and Matthew Solorio now has four clean sheets.",
       "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,8 +89,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Lorenzo Herrera has made 31 saves for District of Columbia, and all four goals past him came at Slippery Rock.",
-      "checker": "player_stat",
+      "text": "Six different players have scored Roberts Wesleyan's eight goals; nine conceded have held the side to one win.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Keithlend Cesar — 3 G · 3 A · 8 shots",
+      "text": "Keithlend Cesar — 4 G · 3 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Tommy Gunn — 3 G · 2 A · 10 shots",
+      "text": "Tommy Gunn — 3 G · 2 A · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 bridgeport v queens",
+      "text": "2026-09-12 queens v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 molloy v adelphi",
+      "text": "2026-09-13 southern-connecticut v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-12T11:40:32.946Z",
-    "generate_ms": 35574,
+    "started_at": "2026-09-13T11:41:04.097Z",
+    "generate_ms": 89292,
     "validate_ms": 1,
-    "wall_ms": 35575,
+    "wall_ms": 89294,
     "concurrency": 4
   }
 }

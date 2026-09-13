@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-10T11:42:10.728Z",
-  "data_collected_at": "2026-09-10T11:32:57+00:00",
+  "validated_at": "2026-09-13T11:43:41.654Z",
+  "data_collected_at": "2026-09-13T11:33:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,7 +17,7 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[1].text",
+      "path": "findings[2].text",
       "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
       "unbacked": ["857"]
     }
@@ -25,9 +25,9 @@
   "claims": [
     {
       "path": "pattern",
-      "label": "signal",
-      "text": "Saginaw Valley State have spread ten goals across seven different scorers and conceded five. The chart ranks what sides score; the sides scoring most are also the ones that have not lost.",
-      "checker": "distinct_scorers+team_goals",
+      "label": "derived",
+      "text": "Scoring most no longer means losing least: Northern Michigan's fifteen goals, from six different scorers, sit beside ten conceded, more than any unbeaten side has let in.",
+      "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Saginaw Valley State beat Northern Michigan in the season's first meeting between members and remain unbeaten.",
-      "checker": "team_record",
+      "text": "Luca Rosen has eight goals for Northern Michigan, more than half of everything the side has scored.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
-      "checker": "player_stat",
+      "text": "Davenport's win at Aquinas was their first of the season, after two defeats and two draws.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,8 +71,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Luca Rosen has scored four of Northern Michigan's eight goals, from thirteen shots.",
-      "checker": "player_stat+team_goals",
+      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Andrés García has scored three of St. Cloud State's four goals, from eleven shots, while the side has conceded eleven.",
+      "text": "Andrés García has scored four of St. Cloud State's six goals, from thirteen shots, while the side has conceded twelve.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luca Rosen — 4 G · 1 A · 13 shots",
+      "text": "Luca Rosen — 8 G · 1 A · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Matty Telfer — 4 G · 1 A · 9 shots",
+      "text": "Fynn Mewes — 4 G · 1 A · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Fynn Mewes — 4 G · 1 A · 10 shots",
+      "text": "Matty Telfer — 4 G · 1 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 st-cloud-state v jamestown",
+      "text": "2026-09-12 northern-michigan v jamestown",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 aquinas v davenport",
+      "text": "2026-09-16 saginaw-valley-state v davenport",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-10T11:41:19.960Z",
-    "generate_ms": 50766,
+    "started_at": "2026-09-13T11:42:33.467Z",
+    "generate_ms": 68185,
     "validate_ms": 1,
-    "wall_ms": 50767,
+    "wall_ms": 68186,
     "concurrency": 4
   }
 }

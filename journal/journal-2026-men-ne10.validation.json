@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-12T11:42:27.638Z",
-  "data_collected_at": "2026-09-12T11:35:10+00:00",
+  "validated_at": "2026-09-13T11:45:49.120Z",
+  "data_collected_at": "2026-09-13T11:35:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,24 +17,24 @@
   "normalizations": [],
   "review": [
     {
-      "path": "dek",
-      "text": "Franklin Pierce kept Bentley scoreless in the first match between two NE10 sides this season, and their eleven goals now trail only Southern New Hampshire's fourteen. Bentley have conceded nine in four matches and have lost the last two of them.",
-      "unbacked": ["10"]
+      "path": "pattern.text",
+      "text": "Thirteen different players have scored Southern New Hampshire's twenty goals, while Franklin Pierce and Assumption reach the same thirteen by different routes: four scorers for one, six for the other.",
+      "unbacked": ["1"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "signal",
-      "text": "The two tallest bars are built differently: nine players have scored Southern New Hampshire's fourteen goals, while Franklin Pierce's eleven come from four.",
+      "text": "Thirteen different players have scored Southern New Hampshire's twenty goals, while Franklin Pierce and Assumption reach the same thirteen by different routes: four scorers for one, six for the other.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
       "unchecked_figures": [
+        "franklin_pierce_gf: 13",
         "franklin_pierce_distinct_scorers_min: 4",
-        "franklin_pierce_gf: 11",
-        "tallest_bars: 2"
+        "assumption_distinct_scorers_min: 6"
       ]
     },
     {
@@ -49,12 +49,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Franklin Pierce kept a clean sheet against Bentley in the season's first match between conference members.",
-      "checker": "team_record",
+      "text": "Southern New Hampshire have scored twenty and conceded three, and nobody has beaten them yet.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["member_meetings: 1"]
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -68,17 +67,16 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Pace are unbeaten after four matches but have drawn the last two, both away from home.",
-      "checker": "team_record+fixture_counts",
+      "text": "Pace are unbeaten after five matches, and only three goals have gone past them.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["last_two_draws: 2"]
+      "dropped": false
     },
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Cody Holbert has taken twenty shots, more than any other player listed, and scored four of Assumption's goals.",
+      "text": "Cody Holbert has scored six goals from twenty-four shots, more goals than any other player listed.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -87,8 +85,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Saint Anselm have won three of their four matches, all three in succession after an opening defeat.",
-      "checker": "team_record+fixture_counts",
+      "text": "Saint Anselm have conceded ten goals, more than any other programme, and have lost two of their five matches.",
+      "checker": "team_goals+team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -96,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Andrea Farinella has made nineteen saves, more than any other goalkeeper listed.",
+      "text": "Andrea Farinella has made twenty saves, more than any other goalkeeper listed.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -105,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Inigo Burusco — 5 G · 1 A · 16 shots",
+      "text": "Cody Holbert — 6 G · 24 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -114,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Guillermo Rios — 4 G · 9 shots",
+      "text": "Inigo Burusco — 5 G · 1 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -123,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Cody Holbert — 4 G · 20 shots",
+      "text": "Guillermo Rios — 5 G · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -132,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 franklin-pierce v bentley",
+      "text": "2026-09-12 assumption v saint-anselm",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -141,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 assumption v saint-anselm",
+      "text": "2026-09-13 southern-connecticut v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -149,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-12T11:42:00.663Z",
-    "generate_ms": 26975,
+    "started_at": "2026-09-13T11:44:36.869Z",
+    "generate_ms": 72249,
     "validate_ms": 1,
-    "wall_ms": 26976,
+    "wall_ms": 72250,
     "concurrency": 4
   }
 }

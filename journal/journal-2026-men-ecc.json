@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-12T11:45:00+00:00",
-  "data_collected_at": "2026-09-12T11:31:35+00:00",
+  "generated_at": "2026-09-13T11:45:00+00:00",
+  "data_collected_at": "2026-09-13T11:31:16+00:00",
   "headline": "Lund-Iversen scores six of Mercy's nine",
   "dek": "The senior forward has taken twelve shots and made one assist beside the six goals. Mercy have lost only on opening day, to East Stroudsburg at home, and have won three times and drawn once since.",
   "lede_basis": {
@@ -23,51 +23,45 @@
   "lede_updated": "2026-09-10",
   "pattern": {
     "label": "derived",
-    "text": "Staten Island have scored seven, behind only Queens and Mercy, and have one win to show for it: nine conceded outweigh them, and this chart ranks attacks only.",
+    "text": "Queens have scored more than Roberts Wesleyan and Staten Island together, and nine different players have done the scoring; the spread of the attack, not one striker, is what sets them apart.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "queens": 13,
+        "queens": 16,
         "mercy": 9,
+        "roberts-wesleyan": 8,
         "staten-island": 7,
-        "roberts-wesleyan": 5,
-        "d-youville": 4,
-        "daemen": 4,
-        "district-of-columbia": 4,
-        "molloy": 3,
-        "st-thomas-aquinas": 3
+        "d-youville": 6,
+        "daemen": 5,
+        "district-of-columbia": 5,
+        "st-thomas-aquinas": 4,
+        "molloy": 3
       },
       "highlight": "queens"
     },
     "basis": {
-      "comparative": "greater_than_each",
+      "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "staten-island",
-      "of": [
-        "roberts-wesleyan",
-        "d-youville",
-        "daemen",
-        "district-of-columbia",
-        "molloy",
-        "st-thomas-aquinas"
-      ],
-      "wins": 1,
-      "draws": 0,
-      "losses": 3,
-      "gf": 7,
-      "ga": 9
+      "programme": "queens",
+      "of": ["roberts-wesleyan", "staten-island"],
+      "gf": 16,
+      "distinct_scorers_min": 9
     }
   },
   "wire": {
-    "line": "Eight different players have scored for Queens, and the side has lost only at Holy Family.",
+    "line": "District of Columbia have won three and lost once, on five goals scored; Lorenzo Herrera has made 31 saves behind them.",
     "basis": {
-      "programme": "queens",
-      "distinct_scorers_min": 8,
+      "source": "stats",
+      "player": "Lorenzo Herrera",
+      "programme": "district-of-columbia",
+      "saves": 31,
       "wins": 3,
       "draws": 1,
-      "losses": 1
+      "losses": 1,
+      "gf": 5,
+      "ga": 4
     },
-    "updated": "2026-09-10"
+    "updated": "2026-09-13"
   },
   "findings": [
     {
@@ -81,7 +75,7 @@
     },
     {
       "label": "derived",
-      "text": "Daemen have conceded fourteen goals, more than any other programme, and the goalless draw at Saint Michael's is all they have to show.",
+      "text": "Daemen have conceded fifteen goals, more than any other programme, and two draws, at Saint Michael's and at home to Salem, are all they have to show.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -97,15 +91,15 @@
           "staten-island"
         ],
         "wins": 0,
-        "draws": 1,
+        "draws": 2,
         "losses": 4,
-        "gf": 4,
-        "ga": 14
+        "gf": 5,
+        "ga": 15
       }
     },
     {
       "label": "derived",
-      "text": "Queens have scored thirteen goals, more than any other programme, and conceded four; the defeat at Holy Family is the only match they have lost.",
+      "text": "Queens have scored sixteen goals, more than any other programme, and conceded five; the defeat at Holy Family is the only match they have lost.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "gf",
@@ -120,35 +114,37 @@
           "st-thomas-aquinas",
           "staten-island"
         ],
-        "gf": 13,
-        "ga": 4,
-        "wins": 3,
+        "gf": 16,
+        "ga": 5,
+        "wins": 4,
         "draws": 1,
         "losses": 1
       }
     },
     {
       "label": "derived",
-      "text": "D'Youville's win at California was their first of the season, and Matthew Solorio's third clean sheet after two goalless draws.",
+      "text": "D'Youville have won their last two, at California and at home to Pitt-Johnstown, without conceding, and Matthew Solorio now has four clean sheets.",
       "basis": {
         "source": "stats",
         "player": "Matthew Solorio",
         "programme": "d-youville",
-        "shutouts": 3,
-        "wins": 1,
+        "shutouts": 4,
+        "wins": 2,
         "draws": 2,
         "losses": 2
       }
     },
     {
       "label": "derived",
-      "text": "Lorenzo Herrera has made 31 saves for District of Columbia, and all four goals past him came at Slippery Rock.",
+      "text": "Six different players have scored Roberts Wesleyan's eight goals; nine conceded have held the side to one win.",
       "basis": {
-        "source": "stats",
-        "player": "Lorenzo Herrera",
-        "programme": "district-of-columbia",
-        "saves": 31,
-        "goals_against": 4
+        "programme": "roberts-wesleyan",
+        "distinct_scorers_min": 6,
+        "gf": 8,
+        "ga": 9,
+        "wins": 1,
+        "draws": 2,
+        "losses": 2
       }
     }
   ],
@@ -165,28 +161,28 @@
       "programme": "queens",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 3 A · 8 shots"
+      "line": "4 G · 3 A · 9 shots"
     },
     {
       "player": "Tommy Gunn",
       "programme": "queens",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 2 A · 10 shots"
+      "line": "3 G · 2 A · 11 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 bridgeport v queens",
-      "line": "Queens have scored in every match this season; Bridgeport had already lost at home to Mercy on Sunday."
+      "fixture_ref": "2026-09-12 queens v georgian-court",
+      "line": "Queens have scored in every match this season; Georgian Court had already beaten Staten Island earlier this month."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 molloy v adelphi",
-      "line": "Adelphi held Mercy goalless earlier this month; Molloy are yet to win at home, with their match at Caldwell still without a result."
+      "fixture_ref": "2026-09-13 southern-connecticut v mercy",
+      "line": "Mercy have not lost since opening day, and have won away only at Bridgeport; Adelphi held them goalless on their other trip."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:41:08.521Z"
+    "validated_at": "2026-09-13T11:42:33.392Z"
   }
 }

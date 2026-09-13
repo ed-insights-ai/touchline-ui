@@ -3,41 +3,41 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-12T11:40:00+00:00",
-  "data_collected_at": "2026-09-12T11:32:55+00:00",
-  "headline": "Missouri S&T win all four, conceding once",
-  "dek": "Missouri S&T have won all four matches they have played, and the only goal they have conceded came on the opening night at Northeastern State. Seven different players have shared their ten goals, and conference play has opened with clean sheets against Upper Iowa and at William Jewell.",
+  "generated_at": "2026-09-13T11:40:00+00:00",
+  "data_collected_at": "2026-09-13T11:33:49+00:00",
+  "headline": "Quincy end Missouri S&T's perfect start",
+  "dek": "Missouri S&T's unbeaten start ended at Quincy on Saturday, the first point they have dropped and only the second goal they have conceded all season. Quincy, held at home by Indianapolis in midweek, are the first side to keep them from scoring.",
   "lede_basis": {
     "programme": "missouri-s-t",
     "wins": 4,
     "draws": 0,
-    "losses": 0,
+    "losses": 1,
     "gf": 10,
-    "ga": 1,
-    "distinct_scorers_min": 7
+    "ga": 2
   },
-  "lede_updated": "2026-09-10",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Missouri S&T lost at Quincy on 12 September, their first defeat and first dropped point",
   "pattern": {
     "label": "derived",
-    "text": "Southwest Baptist's twenty-four goals now exceed Drury's and Missouri S&T's together, the next two on the chart; the only conference side they have met is the only side to have held them.",
+    "text": "Southwest Baptist's twenty-four goals exceed what the six lowest-scoring programmes have managed between them; the conference's scoring is one bar and then a slope.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "southwest-baptist": 24,
-        "drury": 12,
+        "drury": 14,
+        "quincy": 11,
         "missouri-s-t": 10,
-        "quincy": 10,
         "maryville": 9,
+        "mckendree": 8,
         "truman": 7,
         "missouri-st-louis": 6,
         "rockhurst": 6,
+        "indianapolis": 5,
         "lewis": 5,
-        "indianapolis": 3,
+        "illinois-springfield": 3,
         "lincoln": 3,
-        "mckendree": 3,
-        "illinois-springfield": 2,
         "upper-iowa": 2,
-        "william-jewell": 0
+        "william-jewell": 1
       },
       "highlight": "southwest-baptist"
     },
@@ -45,7 +45,14 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "southwest-baptist",
-      "of": ["drury", "missouri-s-t"],
+      "of": [
+        "indianapolis",
+        "lewis",
+        "illinois-springfield",
+        "lincoln",
+        "upper-iowa",
+        "william-jewell"
+      ],
       "gf": 24
     }
   },
@@ -73,42 +80,39 @@
     },
     {
       "label": "derived",
-      "text": "Southwest Baptist have won three and drawn one, scoring twenty-four and conceding two, and at least eight different players have shared the goals.",
+      "text": "Drury have won five and lost one, scoring fourteen and conceding four; the defeat was at home to Oklahoma Christian, and they have not dropped a point since.",
       "basis": {
-        "programme": "southwest-baptist",
-        "wins": 3,
-        "draws": 1,
-        "losses": 0,
-        "gf": 24,
-        "ga": 2,
-        "distinct_scorers_min": 8
+        "programme": "drury",
+        "wins": 5,
+        "draws": 0,
+        "losses": 1,
+        "gf": 14,
+        "ga": 4
       }
     },
     {
       "label": "derived",
-      "text": "William Jewell have lost all four of their matches and have yet to score; they have conceded seven, the last two of them at home to Missouri S&T.",
+      "text": "William Jewell have lost all five of their matches; Daniel Pirillo's goal at Indianapolis on Saturday was their first of the season, against nine conceded.",
       "basis": {
         "programme": "william-jewell",
         "wins": 0,
         "draws": 0,
-        "losses": 4,
-        "gf": 0,
-        "ga": 7
+        "losses": 5,
+        "gf": 1,
+        "ga": 9,
+        "distinct_scorers_min": 1
       }
     },
     {
       "label": "derived",
-      "text": "Asgrimur Vidisson has made twenty-two saves for Maryville and conceded five goals, with two clean sheets; Maryville have won three and lost two.",
+      "text": "Jake Offerman has made eighteen saves for Quincy and conceded three goals, with two clean sheets.",
       "basis": {
         "source": "stats",
-        "player": "Asgrimur Vidisson",
-        "programme": "maryville",
-        "saves": 22,
-        "goals_against": 5,
-        "shutouts": 2,
-        "wins": 3,
-        "draws": 0,
-        "losses": 2
+        "player": "Jake Offerman",
+        "programme": "quincy",
+        "saves": 18,
+        "goals_against": 3,
+        "shutouts": 2
       }
     }
   ],
@@ -125,7 +129,7 @@
       "programme": "quincy",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 20 shots"
+      "line": "5 G · 25 shots"
     },
     {
       "player": "Jacob Panagos",
@@ -137,16 +141,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-11 avila v southwest-baptist",
-      "line": "Southwest Baptist have conceded only to Missouri-St. Louis, and have now scored in every match they have played."
+      "fixture_ref": "2026-09-12 quincy v missouri-s-t",
+      "line": "Quincy have not lost since the opening night at Wisconsin-Parkside."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 quincy v missouri-s-t",
-      "line": "Missouri S&T have yet to drop a point in any match; Quincy have not lost since the opening night at Wisconsin-Parkside."
+      "fixture_ref": "2026-09-13 lincoln v southwest-baptist",
+      "line": "Neither side has lost yet; Lincoln have drawn more often than they have won, and Southwest Baptist have scored in every match they have played."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:42:00.589Z"
+    "validated_at": "2026-09-13T11:46:13.354Z"
   }
 }

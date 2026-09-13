@@ -3,36 +3,37 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-12T11:40:00+00:00",
-  "data_collected_at": "2026-09-12T11:36:38+00:00",
-  "headline": "Fort Lewis lose their first match at Northwest Nazarene",
-  "dek": "Fort Lewis lost at Northwest Nazarene on Thursday, their first defeat after three wins and a draw. It was also the first match in which they have failed to score; they have thirteen goals for the season and have conceded four.",
+  "generated_at": "2026-09-13T11:40:00+00:00",
+  "data_collected_at": "2026-09-13T11:37:22+00:00",
+  "headline": "Adams State score at last and win at Wayland Baptist",
+  "dek": "Adams State's goal at Wayland Baptist on Saturday was their first of the season, and it won them their first match. The three defeats before it had all come without a goal, and seven have gone in at the other end.",
   "lede_basis": {
-    "programme": "fort-lewis",
-    "wins": 3,
-    "draws": 1,
-    "losses": 1,
-    "gf": 13,
-    "ga": 4
+    "programme": "adams-state",
+    "wins": 1,
+    "draws": 0,
+    "losses": 3,
+    "gf": 1,
+    "ga": 7
   },
-  "lede_updated": "2026-09-11",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Adams State's first goal and first win, at Wayland Baptist",
   "pattern": {
     "label": "derived",
     "text": "The gap between the top and the bottom of the chart is still wide: Colorado Mesa, Colorado School of Mines, Regis and Adams State have scored fewer goals together than UCCS have alone.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "uccs": 16,
+        "uccs": 17,
         "fort-lewis": 13,
         "westminster": 12,
+        "colorado-christian": 10,
         "south-dakota-mines": 10,
-        "colorado-christian": 8,
-        "csu-pueblo": 7,
+        "csu-pueblo": 8,
+        "colorado-mesa": 7,
         "msu-denver": 7,
-        "colorado-mesa": 5,
         "regis": 4,
-        "colorado-school-of-mines": 2,
-        "adams-state": 0
+        "colorado-school-of-mines": 3,
+        "adams-state": 1
       },
       "highlight": "uccs"
     },
@@ -41,20 +42,20 @@
       "metric": "gf",
       "programme": "uccs",
       "of": ["colorado-mesa", "colorado-school-of-mines", "regis", "adams-state"],
-      "gf": 16
+      "gf": 17
     }
   },
   "wire": {
-    "line": "Adams State have lost all three of their matches and are yet to score.",
+    "line": "CSU Pueblo have won all four of their matches and conceded one goal, and are the only side yet to drop a point.",
     "basis": {
-      "programme": "adams-state",
-      "wins": 0,
+      "programme": "csu-pueblo",
+      "wins": 4,
       "draws": 0,
-      "losses": 3,
-      "gf": 0,
-      "ga": 7
+      "losses": 0,
+      "gf": 8,
+      "ga": 1
     },
-    "updated": "2026-09-02"
+    "updated": "2026-09-13"
   },
   "findings": [
     {
@@ -68,47 +69,47 @@
     },
     {
       "label": "derived",
-      "text": "Regis's win over Seattle Pacific is their second, and they have scored four goals and conceded two across two wins, a draw and a defeat.",
-      "basis": {
-        "programme": "regis",
-        "wins": 2,
-        "draws": 1,
-        "losses": 1,
-        "gf": 4,
-        "ga": 2
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Westminster's win over Western Washington is their second, and with three draws beside it they are still unbeaten.",
+      "text": "Westminster's defeat by Seattle Pacific is their first, after two wins and three draws, and it is the first match in which they have failed to score.",
       "basis": {
         "programme": "westminster",
         "wins": 2,
         "draws": 3,
-        "losses": 0
+        "losses": 1,
+        "gf": 12,
+        "ga": 7
       }
     },
     {
       "label": "derived",
-      "text": "Colorado School of Mines have lost four and drawn one after the defeat to UT Tyler, and have scored two goals while conceding ten.",
+      "text": "CSU Pueblo's win over Hawaii Hilo is their fourth in four matches, and they have scored eight goals while conceding one.",
+      "basis": {
+        "programme": "csu-pueblo",
+        "wins": 4,
+        "draws": 0,
+        "losses": 0,
+        "gf": 8,
+        "ga": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Colorado School of Mines have lost five and drawn one after the defeat to Dallas Baptist, and are the only side still without a win.",
       "basis": {
         "programme": "colorado-school-of-mines",
         "wins": 0,
         "draws": 1,
-        "losses": 4,
-        "gf": 2,
-        "ga": 10
+        "losses": 5
       }
     },
     {
       "label": "observed",
-      "text": "Zach Jennings has made eighteen saves for Regis and been beaten twice.",
+      "text": "Hugo Sjöberg has made 23 saves for UCCS and been beaten four times.",
       "basis": {
         "source": "stats",
-        "player": "Zach Jennings",
-        "programme": "regis",
-        "saves": 18,
-        "goals_against": 2
+        "player": "Hugo Sjöberg",
+        "programme": "uccs",
+        "saves": 23,
+        "goals_against": 4
       }
     }
   ],
@@ -125,28 +126,28 @@
       "programme": "uccs",
       "position": "FWD",
       "class": "SO",
-      "line": "3 G · 1 A · 16 shots"
+      "line": "3 G · 1 A · 18 shots"
     },
     {
       "player": "Owen Gallo",
       "programme": "westminster",
       "position": "MID",
       "class": "SR",
-      "line": "3 G · 1 A · 14 shots"
+      "line": "3 G · 1 A · 17 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-10 northwest-nazarene v fort-lewis",
-      "line": "Fort Lewis's first defeat, and the first match they have not scored in; Northwest Nazarene had already drawn at Westminster and at MSU Denver."
+      "fixture_ref": "2026-09-12 westminster v seattle-pacific",
+      "line": "Westminster's first defeat, and the first match they have not scored in; Seattle Pacific had lost at Regis on Thursday."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 simon-fraser v uccs",
-      "line": "UCCS are unbeaten and have scored in every match; the draw with Midwestern State is the only points they have dropped."
+      "fixture_ref": "2026-09-13 regis v western-washington",
+      "line": "Regis have lost only at Cal State LA; Western Washington arrive from a defeat at Westminster on Thursday."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:42:52.138Z"
+    "validated_at": "2026-09-13T11:47:09.844Z"
   }
 }

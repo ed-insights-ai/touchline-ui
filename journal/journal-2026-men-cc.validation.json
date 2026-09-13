@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "validated_at": "2026-09-12T11:41:04.714Z",
-  "data_collected_at": "2026-09-12T11:30:35+00:00",
+  "validated_at": "2026-09-13T11:42:38.053Z",
+  "data_collected_at": "2026-09-13T11:30:44+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,21 +17,26 @@
   "normalizations": [],
   "review": [
     {
+      "path": "wire",
+      "text": "King have lost every match they have played; Lees-McRae have yet to lose one.",
+      "unbacked": ["1"]
+    },
+    {
       "path": "findings[0].text",
       "text": "Sixteen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13 and the latest Mount Olive's visit to Virginia State on Sep 4.",
-      "unbacked": ["4", "13"]
+      "unbacked": ["4"]
     },
     {
       "path": "findings[3].text",
-      "text": "Barton have scored twice in four matches, each goal from a different player, and have conceded ten.",
-      "unbacked": ["4"]
+      "text": "Chowan's first win of the season came at home to Erskine on Sep 12, after two draws and two defeats.",
+      "unbacked": ["12"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southern Wesleyan have scored more goals than any other programme, from seven different scorers, and have still lost three of their five matches.",
+      "text": "Southern Wesleyan have scored thirteen goals from nine different scorers and have lost three matches, more than either programme above them on the chart.",
       "checker": "distinct_scorers+team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -49,7 +54,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "King are the only side without a point, four defeats from four.",
+      "text": "King have lost every match they have played; Lees-McRae have yet to lose one.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,8 +72,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "North Greenville's first win came at Belmont Abbey on Sep 8, after three defeats in which they had scored every time.",
-      "checker": "team_goals+team_record",
+      "text": "King have lost all five of their matches, scoring three goals and conceding sixteen; only two players have scored for them.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -76,7 +81,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Enzo Joly, a freshman, has three of Emmanuel's eight goals, from ten shots.",
+      "text": "Enzo Joly, a freshman, has five of Emmanuel's twelve goals, from fifteen shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -85,8 +90,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Barton have scored twice in four matches, each goal from a different player, and have conceded ten.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Chowan's first win of the season came at home to Erskine on Sep 12, after two draws and two defeats.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -94,7 +99,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Lucas Kibrya has made 29 saves for Chowan and been beaten seven times, in a side that has yet to win.",
+      "text": "Vicent Sanchis has been beaten five times for Francis Marion and has kept two clean sheets.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +108,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Lucas Vila — 3 G · 2 A · 9 shots",
+      "text": "Lucas Vila — 4 G · 2 A · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +117,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Josiah Pitts — 3 G · 11 shots",
+      "text": "Andrea Marrazzo — 3 G · 1 A · 21 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +126,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Andrea Marrazzo — 2 G · 1 A · 16 shots",
+      "text": "Daniel Osorno — 3 G · 1 A · 12 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +135,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 wingate v francis-marion",
+      "text": "2026-09-12 young-harris v king",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +144,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 young-harris v king",
+      "text": "2026-09-16 emmanuel v converse",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +152,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-12T11:40:32.941Z",
-    "generate_ms": 31769,
-    "validate_ms": 3,
-    "wall_ms": 31772,
+    "started_at": "2026-09-13T11:41:04.092Z",
+    "generate_ms": 93958,
+    "validate_ms": 1,
+    "wall_ms": 93959,
     "concurrency": 4
   }
 }

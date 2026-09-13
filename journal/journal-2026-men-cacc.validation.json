@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-12T11:41:13.611Z",
-  "data_collected_at": "2026-09-12T11:30:01+00:00",
+  "validated_at": "2026-09-13T11:42:05.864Z",
+  "data_collected_at": "2026-09-13T11:30:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,12 +18,12 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Georgian Court's twelve goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
+      "text": "Georgian Court's thirteen goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
       "unbacked": ["1"]
     },
     {
-      "path": "findings[3].text",
-      "text": "Max Bond has now made 35 saves for Chestnut Hill and conceded eight, a save percentage of .814.",
+      "path": "findings[4].text",
+      "text": "Max Bond has made 35 saves for Chestnut Hill and conceded eight, a save percentage of .814.",
       "unbacked": ["814"]
     }
   ],
@@ -31,7 +31,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Georgian Court's twelve goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
+      "text": "Georgian Court's thirteen goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -49,7 +49,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Bridgeport's run ended at home to Mercy, leaving Georgian Court as the only side in the conference still unbeaten.",
+      "text": "Jefferson have lost all five of their matches, and after Georgian Court's defeat at Queens every other side has lost at least once.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -58,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Jefferson have lost all four of their matches, conceding thirteen goals against three scored.",
+      "text": "Jefferson have lost all five of their matches, conceding fourteen goals against three scored.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Dominican have scored one goal all season, drawing once and losing three times with nine conceded.",
+      "text": "Chestnut Hill's win at Virginia State levels their record at two wins, two draws and two losses, with ten goals scored and eleven conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Goldey-Beacom's win over Pitt-Johnstown was their first of the season; they have drawn once and lost twice, six goals scored and seven conceded.",
+      "text": "Wilmington's defeat at Southern New Hampshire leaves them with two wins, one draw and two losses, seven goals scored and eleven conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -85,8 +85,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Max Bond has now made 35 saves for Chestnut Hill and conceded eight, a save percentage of .814.",
-      "checker": "player_stat",
+      "text": "Dominican have scored one goal all season, drawing once and losing three times with nine conceded.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -94,8 +94,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Caldwell have won twice and lost once, with seven goals scored and five conceded, the second win coming at Staten Island.",
-      "checker": "team_goals+team_record",
+      "text": "Max Bond has made 35 saves for Chestnut Hill and conceded eight, a save percentage of .814.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Bartu Yakkan — 3 G · 2 A · 9 shots",
+      "text": "Gijs van Eif — 3 G · 4 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Gijs van Eif — 2 G · 4 A · 20 shots",
+      "text": "Dane Bodziak — 4 G · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Sander Rynning — 3 G · 1 A · 6 shots",
+      "text": "Bartu Yakkan — 3 G · 2 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 felician v lock-haven",
+      "text": "2026-09-12 queens v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 queens v georgian-court",
+      "text": "2026-09-13 felician v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-12T11:40:32.934Z",
-    "generate_ms": 40676,
-    "validate_ms": 1,
-    "wall_ms": 40677,
+    "started_at": "2026-09-13T11:41:04.083Z",
+    "generate_ms": 61777,
+    "validate_ms": 2,
+    "wall_ms": 61780,
     "concurrency": 4
   }
 }

@@ -3,60 +3,56 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-11T11:40:00+00:00",
-  "data_collected_at": "2026-09-11T11:31:43+00:00",
-  "headline": "Cedarville score at last and take their first win",
-  "dek": "Cedarville had not scored all season until Ohio Dominican visited on Thursday, when two goals from two different scorers brought their first win. The defence is still the concern: they have conceded six, and have drawn once and lost three times.",
+  "generated_at": "2026-09-13T11:40:00+00:00",
+  "data_collected_at": "2026-09-13T11:32:44+00:00",
+  "headline": "Findlay's unbeaten run ends at Kentucky Wesleyan",
+  "dek": "Findlay had won all four of their matches before Saturday, when Kentucky Wesleyan beat them for the first defeat of Findlay's season. Cedarville and Tiffin, each still unbeaten in conference play, now share the top of the table, and Cedarville, who had not scored a week ago, have found the net in every conference match since.",
   "lede_basis": {
-    "programme": "cedarville",
-    "wins": 1,
-    "draws": 1,
-    "losses": 3,
-    "gf": 2,
-    "ga": 6,
-    "distinct_scorers_min": 2
+    "programme": "findlay",
+    "wins": 4,
+    "draws": 0,
+    "losses": 1
   },
-  "lede_updated": "2026-09-11",
-  "displaced_by": "Cedarville, goalless all season, scored twice and beat Ohio Dominican on Sep 10; the standing dek said they had yet to score.",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Findlay, the last unbeaten side, lost at Kentucky Wesleyan on Sep 12; the standing dek's Cedarville figures (six conceded) also no longer hold after the win over Ashland.",
   "pattern": {
     "label": "derived",
-    "text": "Eight different scorers have shared Lake Erie's nine goals, the attack spread wider than any other in the conference, yet they have conceded six and lost as often as they have won.",
+    "text": "Lake Erie have scored twelve, level with Thomas More at the top of the chart, but have conceded nine, and their record of two wins, two draws and two defeats says the goals are going in at both ends.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "lake-erie": 9,
-        "thomas-more": 9,
-        "tiffin": 8,
-        "findlay": 7,
+        "lake-erie": 12,
+        "thomas-more": 12,
+        "tiffin": 10,
+        "findlay": 8,
+        "walsh": 8,
         "ohio-dominican": 7,
-        "walsh": 6,
-        "ashland": 4,
-        "malone": 4,
-        "kentucky-wesleyan": 3,
-        "northwood": 3,
-        "cedarville": 2
+        "cedarville": 6,
+        "northwood": 6,
+        "ashland": 5,
+        "kentucky-wesleyan": 5,
+        "malone": 4
       },
       "highlight": "lake-erie"
     },
     "basis": {
       "programme": "lake-erie",
-      "gf": 9,
-      "ga": 6,
-      "distinct_scorers_min": 8,
+      "gf": 12,
+      "ga": 9,
       "wins": 2,
-      "draws": 1,
+      "draws": 2,
       "losses": 2
     }
   },
   "wire": {
-    "line": "Findlay are the only unbeaten side left, and Cedarville, goalless until this week, have now scored and won.",
+    "line": "Findlay's defeat at Kentucky Wesleyan leaves no unbeaten side; Cedarville and Tiffin top the table with perfect conference records.",
     "basis": {
       "programme": "findlay",
       "wins": 4,
       "draws": 0,
-      "losses": 0
+      "losses": 1
     },
-    "updated": "2026-09-11"
+    "updated": "2026-09-13"
   },
   "findings": [
     {
@@ -70,24 +66,24 @@
     },
     {
       "label": "observed",
-      "text": "Ohio Dominican have conceded eleven goals, more than any other programme, and have won once, drawn twice and lost twice while scoring seven.",
+      "text": "Ashland have conceded twelve goals, more than any other programme, and have lost four times and won once, at Millersville.",
       "basis": {
-        "programme": "ohio-dominican",
+        "programme": "ashland",
         "wins": 1,
-        "draws": 2,
-        "losses": 2,
-        "gf": 7,
-        "ga": 11,
+        "draws": 0,
+        "losses": 4,
+        "gf": 5,
+        "ga": 12,
         "comparative": "greater_than_each",
         "metric": "ga",
         "of": [
-          "ashland",
           "cedarville",
           "findlay",
           "kentucky-wesleyan",
           "lake-erie",
           "malone",
           "northwood",
+          "ohio-dominican",
           "thomas-more",
           "tiffin",
           "walsh"
@@ -96,36 +92,27 @@
     },
     {
       "label": "observed",
-      "text": "Tiffin have scored eight and conceded four, and have lost only once, at home to Charleston on the opening day.",
+      "text": "Tiffin have conceded four goals all season and have lost only once, at home to Charleston on the opening day; since then they have won three and drawn two.",
       "basis": {
         "programme": "tiffin",
-        "wins": 2,
+        "wins": 3,
         "draws": 2,
         "losses": 1,
-        "gf": 8,
+        "gf": 10,
         "ga": 4
       }
     },
     {
       "label": "observed",
-      "text": "Thomas More have won three and lost two, and Thursday's win at Malone was their first away from home after defeats at Trevecca and Point Park.",
-      "basis": {
-        "programme": "thomas-more",
-        "wins": 3,
-        "draws": 0,
-        "losses": 2
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Brandyn Bowden has made twenty saves for Ohio Dominican and been beaten eleven times, a save percentage of .645.",
+      "text": "Ethan Hensley has conceded four goals for Findlay and kept two clean sheets, with thirteen saves and a save percentage of .765.",
       "basis": {
         "source": "stats",
-        "player": "Brandyn Bowden",
-        "programme": "ohio-dominican",
-        "saves": 20,
-        "goals_against": 11,
-        "save_pct": 0.645
+        "player": "Ethan Hensley",
+        "programme": "findlay",
+        "saves": 13,
+        "goals_against": 4,
+        "shutouts": 2,
+        "save_pct": 0.765
       }
     }
   ],
@@ -135,35 +122,35 @@
       "programme": "findlay",
       "position": "FWD",
       "class": "SR",
-      "line": "2 G · 3 A · 14 shots"
+      "line": "2 G · 3 A · 15 shots"
     },
     {
-      "player": "Yaw Turkson",
-      "programme": "tiffin",
-      "position": "MID",
-      "class": "SR",
-      "line": "2 G · 1 A · 7 shots"
+      "player": "Brendan Gerard",
+      "programme": "northwood",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 11 shots"
     },
     {
-      "player": "Veljko Radovanovic",
-      "programme": "lake-erie",
-      "position": "MID",
+      "player": "Maddux Camden",
+      "programme": "ohio-dominican",
+      "position": "FWD",
       "class": "SR",
-      "line": "2 G · 10 shots"
+      "line": "2 G · 2 A · 7 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-10 cedarville v ohio-dominican",
-      "line": "Cedarville had not scored all season before this; Ohio Dominican have still not kept a clean sheet."
+      "fixture_ref": "2026-09-12 kentucky-wesleyan v findlay",
+      "line": "Findlay had won every match before this; Kentucky Wesleyan had lost at home to Lake Erie in midweek."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 thomas-more v lake-erie",
-      "line": "Thomas More have won every match at home this season, and Lake Erie have failed to score only once, at Indianapolis."
+      "fixture_ref": "2026-09-17 tiffin v findlay",
+      "line": "Tiffin have lost only on the opening day; Findlay arrive off their first defeat of the season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-11T11:42:17.114Z"
+    "validated_at": "2026-09-13T11:43:18.775Z"
   }
 }

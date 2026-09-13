@@ -3,79 +3,83 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-09-12T11:45:00+00:00",
-  "data_collected_at": "2026-09-12T11:30:35+00:00",
-  "headline": "Young Harris, Lees-McRae and Ferrum remain unbeaten",
-  "dek": "Young Harris have drawn both of their matches outside the conference and won both inside it, at home to Southern Wesleyan and then at Erskine. Their four goals conceded in four matches is bettered only by Lees-McRae and Ferrum.",
+  "generated_at": "2026-09-13T11:45:00+00:00",
+  "data_collected_at": "2026-09-13T11:30:44+00:00",
+  "headline": "Young Harris lead on points and on goals",
+  "dek": "Young Harris have won all three of their conference matches and drawn the two they played outside it. Their fourteen goals are more than any other programme has scored, and they have conceded four; only Lees-McRae have let in fewer.",
   "lede_basis": {
     "programme": "young-harris",
-    "wins": 2,
+    "wins": 3,
     "draws": 2,
     "losses": 0,
-    "gf": 7,
-    "ga": 4
+    "gf": 14,
+    "ga": 4,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "barton",
+      "belmont-abbey",
+      "chowan",
+      "converse",
+      "emmanuel",
+      "erskine",
+      "ferrum",
+      "francis-marion",
+      "king",
+      "lees-mcrae",
+      "mount-olive",
+      "north-greenville",
+      "shorter",
+      "southern-wesleyan"
+    ]
   },
-  "lede_updated": "2026-09-10",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Young Harris won a third conference match, at home to King, and moved top of the goals chart; the standing dek counted two conference wins in four matches.",
   "pattern": {
     "label": "derived",
-    "text": "Southern Wesleyan have scored more goals than any other programme, from seven different scorers, and have still lost three of their five matches.",
+    "text": "Southern Wesleyan have scored thirteen goals from nine different scorers and have lost three matches, more than either programme above them on the chart.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southern-wesleyan": 11,
-        "converse": 10,
+        "young-harris": 14,
+        "francis-marion": 13,
+        "southern-wesleyan": 13,
+        "emmanuel": 12,
+        "chowan": 11,
+        "converse": 11,
+        "mount-olive": 10,
         "shorter": 9,
-        "emmanuel": 8,
-        "francis-marion": 8,
-        "lees-mcrae": 7,
-        "mount-olive": 7,
-        "young-harris": 7,
-        "ferrum": 6,
-        "north-greenville": 6,
-        "chowan": 5,
-        "erskine": 4,
-        "belmont-abbey": 3,
-        "king": 3,
-        "barton": 2
+        "lees-mcrae": 8,
+        "north-greenville": 8,
+        "ferrum": 7,
+        "erskine": 6,
+        "belmont-abbey": 5,
+        "barton": 4,
+        "king": 3
       },
       "highlight": "southern-wesleyan"
     },
     "basis": {
       "programme": "southern-wesleyan",
-      "gf": 11,
-      "distinct_scorers_min": 7,
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "of": [
-        "barton",
-        "belmont-abbey",
-        "chowan",
-        "converse",
-        "emmanuel",
-        "erskine",
-        "ferrum",
-        "francis-marion",
-        "king",
-        "lees-mcrae",
-        "mount-olive",
-        "north-greenville",
-        "shorter",
-        "young-harris"
-      ],
+      "gf": 13,
+      "distinct_scorers_min": 9,
       "wins": 2,
-      "draws": 0,
-      "losses": 3
+      "draws": 1,
+      "losses": 3,
+      "comparative": "greater_than_each",
+      "metric": "losses",
+      "of": ["young-harris", "francis-marion"]
     }
   },
   "wire": {
-    "line": "King are the only side without a point, four defeats from four.",
+    "line": "King have lost every match they have played; Lees-McRae have yet to lose one.",
     "basis": {
       "programme": "king",
       "wins": 0,
       "draws": 0,
-      "losses": 4
+      "losses": 5
     },
-    "updated": "2026-09-10"
+    "updated": "2026-09-13"
   },
   "findings": [
     {
@@ -89,50 +93,50 @@
     },
     {
       "label": "derived",
-      "text": "North Greenville's first win came at Belmont Abbey on Sep 8, after three defeats in which they had scored every time.",
+      "text": "King have lost all five of their matches, scoring three goals and conceding sixteen; only two players have scored for them.",
       "basis": {
-        "programme": "north-greenville",
-        "wins": 1,
+        "programme": "king",
+        "wins": 0,
         "draws": 0,
-        "losses": 3,
-        "gf": 6,
-        "ga": 8
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Enzo Joly, a freshman, has three of Emmanuel's eight goals, from ten shots.",
-      "basis": {
-        "source": "stats",
-        "player": "Enzo Joly",
-        "programme": "emmanuel",
-        "goals": 3,
-        "shots": 10,
-        "gf": 8
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Barton have scored twice in four matches, each goal from a different player, and have conceded ten.",
-      "basis": {
-        "programme": "barton",
-        "wins": 1,
-        "draws": 0,
-        "losses": 3,
-        "gf": 2,
-        "ga": 10,
+        "losses": 5,
+        "gf": 3,
+        "ga": 16,
         "distinct_scorers_min": 2
       }
     },
     {
       "label": "observed",
-      "text": "Lucas Kibrya has made 29 saves for Chowan and been beaten seven times, in a side that has yet to win.",
+      "text": "Enzo Joly, a freshman, has five of Emmanuel's twelve goals, from fifteen shots.",
       "basis": {
         "source": "stats",
-        "player": "Lucas Kibrya",
+        "player": "Enzo Joly",
+        "programme": "emmanuel",
+        "goals": 5,
+        "shots": 15,
+        "gf": 12
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Chowan's first win of the season came at home to Erskine on Sep 12, after two draws and two defeats.",
+      "basis": {
         "programme": "chowan",
-        "saves": 29,
-        "goals_against": 7
+        "wins": 1,
+        "draws": 2,
+        "losses": 2,
+        "gf": 11,
+        "ga": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Vicent Sanchis has been beaten five times for Francis Marion and has kept two clean sheets.",
+      "basis": {
+        "source": "stats",
+        "player": "Vicent Sanchis",
+        "programme": "francis-marion",
+        "goals_against": 5,
+        "shutouts": 2
       }
     }
   ],
@@ -142,35 +146,35 @@
       "programme": "francis-marion",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 2 A · 9 shots"
-    },
-    {
-      "player": "Josiah Pitts",
-      "programme": "southern-wesleyan",
-      "position": "DEF",
-      "class": "SR",
-      "line": "3 G · 11 shots"
+      "line": "4 G · 2 A · 11 shots"
     },
     {
       "player": "Andrea Marrazzo",
       "programme": "lees-mcrae",
       "position": "MID",
       "class": "FR",
-      "line": "2 G · 1 A · 16 shots"
+      "line": "3 G · 1 A · 21 shots"
+    },
+    {
+      "player": "Daniel Osorno",
+      "programme": "young-harris",
+      "position": "FWD",
+      "class": "SO",
+      "line": "3 G · 1 A · 12 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 wingate v francis-marion",
-      "line": "Francis Marion have won away at Chowan and now at Wingate inside a week, after losing at home to AUM."
+      "fixture_ref": "2026-09-12 young-harris v king",
+      "line": "Young Harris have won every conference match they have played; King have lost every match of any kind."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 young-harris v king",
-      "line": "Young Harris have won both of their conference matches; King have lost every match they have played."
+      "fixture_ref": "2026-09-16 emmanuel v converse",
+      "line": "Emmanuel have won both of their conference matches away from home; Converse have drawn their last two."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:41:04.714Z"
+    "validated_at": "2026-09-13T11:42:38.053Z"
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-12T11:52:00Z",
-  "data_collected_at": "2026-09-12T11:34:10+00:00",
+  "generated_at": "2026-09-13T11:50:00Z",
+  "data_collected_at": "2026-09-13T11:35:08+00:00",
   "headline": "St. Mary's put ten past Sul Ross State",
   "dek": "St. Mary's had scored three goals in their first three matches and lost two of them. Sul Ross State have now lost all four of theirs, and their keeper Fernando Hernandez has made twenty-six saves without a clean sheet.",
   "lede_basis": {
@@ -24,27 +24,27 @@
   "lede_updated": "2026-09-10",
   "pattern": {
     "label": "derived",
-    "text": "Ten different players have scored Midwestern State's seventeen goals, and Jose Ortiz has six of them.",
+    "text": "Ten different players have scored Midwestern State's nineteen goals, and Jose Ortiz has six of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 17,
-        "saint-marys": 13,
+        "midwestern-state": 19,
+        "saint-marys": 15,
         "ut-dallas": 12,
         "oklahoma-christian": 9,
-        "lubbock-christian": 7,
+        "dallas-baptist": 8,
+        "lubbock-christian": 8,
+        "ut-tyler": 8,
         "texas-a-m-international": 7,
-        "dallas-baptist": 6,
         "saint-edwards": 6,
-        "ut-tyler": 6,
-        "west-texas-a-m": 4,
+        "west-texas-a-m": 5,
         "sul-ross-state": 0
       },
       "highlight": "midwestern-state"
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 17,
+      "gf": 19,
       "distinct_scorers_min": 10,
       "source": "stats",
       "player": "Jose Ortiz",
@@ -66,37 +66,37 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Four matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, and St. Edward's against Southwestern.",
+      "text": "Five matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, and UT Dallas's at Ouachita Baptist.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 4
+        "past_date_no_result": 5
       }
     },
     {
       "label": "derived",
-      "text": "UT Dallas have won four, drawn one and lost one, and their twelve goals are more than Lubbock Christian and West Texas A&M have scored together.",
+      "text": "Midwestern State have won four and drawn two, and have conceded six goals.",
+      "basis": {
+        "programme": "midwestern-state",
+        "wins": 4,
+        "draws": 2,
+        "losses": 0,
+        "gf": 19,
+        "ga": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UT Dallas have won four, drawn one and lost one, and their twelve goals are more than St. Edward's and West Texas A&M have scored together.",
       "basis": {
         "comparative": "greater_than_sum",
         "metric": "gf",
         "programme": "ut-dallas",
-        "of": ["lubbock-christian", "west-texas-a-m"],
+        "of": ["saint-edwards", "west-texas-a-m"],
         "wins": 4,
         "draws": 1,
         "losses": 1,
         "gf": 12
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Midwestern State have won all three matches at home and drawn both away, scoring seventeen and conceding five.",
-      "basis": {
-        "programme": "midwestern-state",
-        "wins": 3,
-        "draws": 2,
-        "losses": 0,
-        "gf": 17,
-        "ga": 5
       }
     },
     {
@@ -113,14 +113,14 @@
     },
     {
       "label": "derived",
-      "text": "UT Tyler have won two and drawn one, and have conceded two goals.",
+      "text": "UT Tyler have won two and drawn two, and have conceded four goals.",
       "basis": {
         "programme": "ut-tyler",
         "wins": 2,
-        "draws": 1,
+        "draws": 2,
         "losses": 0,
-        "gf": 6,
-        "ga": 2
+        "gf": 8,
+        "ga": 4
       }
     }
   ],
@@ -130,7 +130,14 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "6 G · 17 shots"
+      "line": "6 G · 18 shots"
+    },
+    {
+      "player": "Eduardo Fernandez",
+      "programme": "saint-marys",
+      "position": "FWD",
+      "class": "SO",
+      "line": "5 G · 2 A · 9 shots"
     },
     {
       "player": "Osi Iyamah",
@@ -138,27 +145,20 @@
       "position": "FWD",
       "class": "JR",
       "line": "4 G · 1 A · 13 shots"
-    },
-    {
-      "player": "Eduardo Fernandez",
-      "programme": "saint-marys",
-      "position": "FWD",
-      "class": "SO",
-      "line": "4 G · 1 A · 7 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-11 cal-state-dominguez-hills v texas-a-m-international",
-      "line": "Texas A&M International remain unbeaten; Cal State Dominguez Hills have now lost at home to St. Edward's and to them."
+      "fixture_ref": "2026-09-12 rogers-state v saint-marys",
+      "line": "St. Mary's have not lost since August; Rogers State had beaten Oklahoma Christian at home earlier in the week."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 ouachita-baptist v ut-dallas",
-      "line": "UT Dallas have won their last three; Ouachita Baptist have already lost at home to Dallas Baptist this season."
+      "fixture_ref": "2026-09-13 oklahoma-christian v southern-nazarene",
+      "line": "Oklahoma Christian have not won since Newman; Southern Nazarene have already beaten West Texas A&M and lost at Midwestern State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:42:26.275Z"
+    "validated_at": "2026-09-13T11:44:41.760Z"
   }
 }

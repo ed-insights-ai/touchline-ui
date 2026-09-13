@@ -3,55 +3,69 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-12T11:52:00+00:00",
-  "data_collected_at": "2026-09-12T11:37:12+00:00",
-  "headline": "Unbeaten Anderson and Catawba win again on the road",
-  "dek": "Anderson have won four and drawn one, with twelve goals shared among seven different scorers and four conceded. Catawba, the conference's other unbeaten side, won away on the same night, and the two do not meet until October.",
+  "generated_at": "2026-09-13T11:52:00+00:00",
+  "data_collected_at": "2026-09-13T11:37:56+00:00",
+  "headline": "Catawba shut out Mars Hill and top the table",
+  "dek": "Catawba have scored fourteen goals, more than any other programme, and conceded three in four wins and a draw. On Saturday they held Mars Hill without a goal in a conference match. Anderson, the only other unbeaten side, have also won four and drawn one, and the two do not meet until October.",
   "lede_basis": {
-    "programme": "anderson",
+    "programme": "catawba",
     "wins": 4,
     "draws": 1,
     "losses": 0,
-    "gf": 12,
-    "ga": 4,
-    "distinct_scorers_min": 7
+    "gf": 14,
+    "ga": 3,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "anderson",
+      "carson-newman",
+      "coker",
+      "emory-henry",
+      "lenoir-rhyne",
+      "lincoln-memorial",
+      "mars-hill",
+      "newberry",
+      "tusculum",
+      "wingate"
+    ]
   },
-  "lede_updated": "2026-09-10",
+  "lede_updated": "2026-09-13",
+  "displaced_by": "Catawba beat Mars Hill, the conference's top scorers, in a conference match and now lead the goal chart on fourteen.",
   "pattern": {
     "label": "observed",
-    "text": "Mars Hill's thirteen goals are spread across eight different scorers, and no one of them has more than Logan Knight's four.",
+    "text": "Wingate's twelve goals have come from nine different scorers, and no one of them has more than Austin Vicenzino's three.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "catawba": 14,
         "mars-hill": 13,
         "anderson": 12,
-        "catawba": 12,
+        "wingate": 12,
         "lenoir-rhyne": 8,
+        "carson-newman": 7,
         "lincoln-memorial": 6,
-        "carson-newman": 5,
-        "wingate": 4,
+        "coker": 4,
         "tusculum": 3,
-        "coker": 2,
         "newberry": 2,
         "emory-henry": 0
       },
-      "highlight": "mars-hill"
+      "highlight": "wingate"
     },
     "basis": {
       "source": "stats",
-      "player": "Logan Knight",
-      "programme": "mars-hill",
-      "goals": 4,
-      "gf": 13,
-      "ga": 7,
-      "distinct_scorers_min": 8
+      "player": "Austin Vicenzino",
+      "programme": "wingate",
+      "goals": 3,
+      "gf": 12,
+      "ga": 4,
+      "distinct_scorers_min": 9
     }
   },
   "wire": {
     "line": "Only Anderson and Catawba remain unbeaten; Emory & Henry still have no published result at all.",
     "basis": {
       "programme": "catawba",
-      "wins": 3,
+      "wins": 4,
       "draws": 1,
       "losses": 0
     },
@@ -60,24 +74,36 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Five matches whose dates have passed carry no result: Newberry's opener at Converse, and every match Emory & Henry have had so far, the latest away at Chowan.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and every match Emory & Henry have had so far, the latest at home to Palm Beach Atlantic.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 5
+        "past_date_no_result": 6
       }
     },
     {
       "label": "observed",
-      "text": "Newberry have lost all four of the matches that carry a result, scoring twice and conceding eleven. Giuseppe Gereau and Shotaro Sekinada are the only players to have scored for them.",
+      "text": "Newberry have lost all five of the matches that carry a result, scoring twice and conceding thirteen. Giuseppe Gereau and Shotaro Sekinada are the only players to have scored for them.",
       "basis": {
         "programme": "newberry",
         "wins": 0,
         "draws": 0,
-        "losses": 4,
+        "losses": 5,
         "gf": 2,
-        "ga": 11,
+        "ga": 13,
         "distinct_scorers_min": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Wingate have scored twelve and conceded four in three wins and two defeats, and followed a home defeat to Francis Marion with a win at Middle Georgia State.",
+      "basis": {
+        "programme": "wingate",
+        "wins": 3,
+        "draws": 0,
+        "losses": 2,
+        "gf": 12,
+        "ga": 4
       }
     },
     {
@@ -94,29 +120,24 @@
     },
     {
       "label": "observed",
-      "text": "Wingate have scored four and conceded three, and have gone from two wins without conceding to two defeats in a row.",
-      "basis": {
-        "programme": "wingate",
-        "wins": 2,
-        "draws": 0,
-        "losses": 2,
-        "gf": 4,
-        "ga": 3
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Anderson's Asher Risell has kept two clean sheets and conceded three goals.",
+      "text": "Carson-Newman's Elijah Buford has made eighteen saves and conceded two goals.",
       "basis": {
         "source": "stats",
-        "player": "Asher Risell",
-        "programme": "anderson",
-        "shutouts": 2,
-        "goals_against": 3
+        "player": "Elijah Buford",
+        "programme": "carson-newman",
+        "saves": 18,
+        "goals_against": 2
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Alex Payton",
+      "programme": "catawba",
+      "position": "MID",
+      "class": "SO",
+      "line": "4 G · 16 shots"
+    },
     {
       "player": "Logan Knight",
       "programme": "mars-hill",
@@ -125,32 +146,25 @@
       "line": "4 G · 10 shots"
     },
     {
-      "player": "Oskar Dahlberg",
-      "programme": "lenoir-rhyne",
+      "player": "Austin Vicenzino",
+      "programme": "wingate",
       "position": "FWD",
-      "class": "SR",
-      "line": "3 G · 1 A · 7 shots"
-    },
-    {
-      "player": "Alex Payton",
-      "programme": "catawba",
-      "position": "MID",
-      "class": "SO",
-      "line": "3 G · 13 shots"
+      "class": "FR",
+      "line": "3 G · 6 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-09 mount-olive v anderson",
-      "line": "Anderson have still not lost; Mount Olive had already been beaten by Mars Hill."
+      "fixture_ref": "2026-09-12 catawba v mars-hill",
+      "line": "Catawba remain unbeaten and have yet to concede in a conference match; Mars Hill had not won since their trip to North Greenville."
     },
     "next_match": {
-      "fixture_ref": "2026-09-12 catawba v mars-hill",
-      "line": "Catawba are unbeaten; Mars Hill have scored more than any other programme, and drew their last match at Florida Tech."
+      "fixture_ref": "2026-09-15 emory-henry v anderson",
+      "line": "Anderson are unbeaten; Emory & Henry have no published result from any match yet."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-12T11:43:10.301Z"
+    "validated_at": "2026-09-13T11:47:42.023Z"
   }
 }

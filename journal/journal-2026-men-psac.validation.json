@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-12T11:42:58.859Z",
-  "data_collected_at": "2026-09-12T11:36:06+00:00",
+  "validated_at": "2026-09-13T11:48:01.636Z",
+  "data_collected_at": "2026-09-13T11:37:01+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,26 +17,26 @@
   "normalizations": [],
   "review": [
     {
-      "path": "dek",
-      "text": "Shepherd had not lost until Millersville came to town on opening night and left with a fourth win from five matches. Shippensburg, unbeaten themselves, beat Bloomsburg the same evening, and between them they hold every point the table has yet awarded.",
-      "unbacked": ["5"]
+      "path": "pattern.text",
+      "text": "Millersville have scored more than any other programme while conceding three goals in six matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
+      "unbacked": ["6"]
     },
     {
-      "path": "pattern.text",
-      "text": "Millersville have scored more than any other programme while conceding three goals in five matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
-      "unbacked": ["5"]
+      "path": "findings[1].text",
+      "text": "Pitt-Johnstown have conceded fourteen goals, more than any other programme has let in, and have lost three of their four matches.",
+      "unbacked": ["4"]
     },
     {
       "path": "findings[2].text",
-      "text": "Lock Haven have scored eight and conceded eleven without winning in four matches, and six different players have scored for them.",
-      "unbacked": ["4"]
+      "text": "Lock Haven have drawn three and lost two of their five matches without a win, and their nine goals have come from seven different players.",
+      "unbacked": ["5"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Millersville have scored more than any other programme while conceding three goals in five matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
+      "text": "Millersville have scored more than any other programme while conceding three goals in six matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -54,7 +54,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Shippensburg are the last unbeaten side in the conference after Shepherd fell at home to Millersville on opening night.",
+      "text": "Every programme has now lost at least once; West Chester's first win of the season came at the last unbeaten side, Shippensburg.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -72,7 +72,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "California (Pa.) have conceded thirteen goals, more than any other programme has let in, and have lost three of their five matches.",
+      "text": "Pitt-Johnstown have conceded fourteen goals, more than any other programme has let in, and have lost three of their four matches.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -81,7 +81,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Lock Haven have scored eight and conceded eleven without winning in four matches, and six different players have scored for them.",
+      "text": "Lock Haven have drawn three and lost two of their five matches without a win, and their nine goals have come from seven different players.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -90,8 +90,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Bloomsburg's eleven goals have come from eight different scorers, and both their defeats have come away from home.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Rafael Santos has three goals and four assists from seventeen shots for Seton Hill.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -99,7 +99,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Aidan Houck has made twenty saves for Shepherd and conceded four goals across their matches.",
+      "text": "Aidan Houck has made twenty-six saves for Shepherd and conceded five goals across their matches.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +135,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-09 shepherd v millersville",
+      "text": "2026-09-12 shippensburg v west-chester",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -144,7 +144,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 shippensburg v west-chester",
+      "text": "2026-09-13 felician v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -152,10 +152,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-12T11:42:26.349Z",
-    "generate_ms": 32509,
+    "started_at": "2026-09-13T11:45:49.197Z",
+    "generate_ms": 132355,
     "validate_ms": 1,
-    "wall_ms": 32510,
+    "wall_ms": 132432,
     "concurrency": 4
   }
 }

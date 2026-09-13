@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-12T11:42:45.502Z",
-  "data_collected_at": "2026-09-12T11:35:22+00:00",
+  "validated_at": "2026-09-13T11:45:58.575Z",
+  "data_collected_at": "2026-09-13T11:36:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,21 +17,21 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[2].text",
-      "text": "Hawai'i Pacific's nine goals have come from seven different scorers, yet they have conceded ten and won only one of their four matches.",
-      "unbacked": ["4"]
+      "path": "pattern.text",
+      "text": "Concordia Irvine's thirteen goals have come from eleven different scorers, yet they have still conceded ten and lost two of their six matches.",
+      "unbacked": ["6"]
     },
     {
       "path": "findings[4].text",
-      "text": "Dominican (Calif.) have drawn three of their five matches and won none, scoring eight and conceding ten.",
-      "unbacked": ["5"]
+      "text": "Dominican (Calif.) have drawn three of their six matches and won none, scoring eight and conceding twelve.",
+      "unbacked": ["6"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Concordia Irvine's ten goals have come from nine different scorers, yet they have conceded eight and lost as many matches as they have won.",
+      "text": "Concordia Irvine's thirteen goals have come from eleven different scorers, yet they have still conceded ten and lost two of their six matches.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -49,7 +49,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "No side in the conference is unbeaten any longer; Hawai'i Hilo's first defeat came at UCCS after three wins.",
+      "text": "Chaminade have lost all five matches they have played; no other programme is still without a point.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -58,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one draw and four defeats.",
+      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one win, one draw and four defeats.",
       "checker": "team_record+unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Chaminade have lost all four of their matches, scoring three and conceding ten; the trip to Saint Martin's was the fourth defeat.",
+      "text": "Chaminade have lost all five of their matches, scoring three and conceding thirteen; the trip to Western Oregon was the fifth defeat.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,8 +76,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Hawai'i Pacific's nine goals have come from seven different scorers, yet they have conceded ten and won only one of their four matches.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Hawai'i Hilo have lost two matches in a row after opening with three wins, scoring five and conceding four across the five.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -85,8 +85,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Robert Ronco has scored both of Vanguard's two goals, from fourteen shots.",
-      "checker": "player_stat+team_goals",
+      "text": "Cole Friesen has scored twice for Point Loma from twenty shots.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -94,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Dominican (Calif.) have drawn three of their five matches and won none, scoring eight and conceding ten.",
+      "text": "Dominican (Calif.) have drawn three of their six matches and won none, scoring eight and conceding twelve.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kelly Takara — 3 G · 1 A · 8 shots",
+      "text": "Kelly Takara — 3 G · 1 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Keita Goto — 2 G · 1 A · 5 shots",
+      "text": "Jack Merrill — 3 G · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Jonathan Moreno — 1 G · 2 A · 9 shots",
+      "text": "Keita Goto — 2 G · 1 A · 6 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-10 saint-martins v chaminade",
+      "text": "2026-09-12 vanguard v cal-state-east-bay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-12 point-loma v cal-state-monterey-bay",
+      "text": "2026-09-14 msu-denver v hawaii-hilo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-12T11:42:17.067Z",
-    "generate_ms": 28434,
+    "started_at": "2026-09-13T11:44:41.833Z",
+    "generate_ms": 76740,
     "validate_ms": 1,
-    "wall_ms": 28435,
+    "wall_ms": 76741,
     "concurrency": 4
   }
 }
