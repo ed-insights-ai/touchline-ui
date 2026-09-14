@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-13T12:01:00Z",
-  "data_collected_at": "2026-09-13T11:33:15+00:00",
+  "generated_at": "2026-09-14T12:01:00Z",
+  "data_collected_at": "2026-09-14T11:32:11+00:00",
   "headline": "Rogers State's unbeaten start ends at home",
   "dek": "Saint Mary's won at Rogers State on Saturday, the hosts' first defeat in six matches. Rogers State have still scored fourteen goals through ten different players, more than any other programme, and Fort Hays State, who host them on the opening night of conference play, have drawn their last two matches.",
   "lede_basis": {
@@ -18,7 +18,6 @@
     "fhsu_draws": 2
   },
   "lede_updated": "2026-09-13",
-  "displaced_by": "Rogers State's first defeat, at home to Saint Mary's on 2026-09-12; the standing dek's unbeaten run and its goal figures no longer hold.",
   "pattern": {
     "label": "derived",
     "text": "Rogers State have outscored Newman, Northeastern State and Harding put together.",
@@ -29,8 +28,8 @@
         "ouachita-baptist": 10,
         "fort-hays-state": 8,
         "newman": 6,
+        "southern-nazarene": 6,
         "northeastern-state": 5,
-        "southern-nazarene": 4,
         "harding": 1
       },
       "highlight": "rogers-state"
@@ -77,12 +76,12 @@
     },
     {
       "label": "derived",
-      "text": "Fort Hays State have drawn their last two matches, at home to Fort Lewis and at Lubbock Christian, and their one defeat was at home to Regis.",
+      "text": "Southern Nazarene's win at Oklahoma Christian on Sunday was their third in five matches, after defeat at Midwestern State in their previous away match.",
       "basis": {
-        "programme": "fort-hays-state",
-        "wins": 2,
-        "draws": 2,
-        "losses": 1
+        "programme": "southern-nazarene",
+        "wins": 3,
+        "draws": 0,
+        "losses": 2
       }
     },
     {
@@ -132,16 +131,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 rogers-state v saint-marys",
-      "line": "Rogers State had won every home match before this; they open conference play at Fort Hays State on Thursday."
+      "fixture_ref": "2026-09-13 oklahoma-christian v southern-nazarene",
+      "line": "Oklahoma Christian have beaten Newman but lost to Northeastern State, Rogers State and now Southern Nazarene; the visitors arrived from defeat at Midwestern State."
     },
     "next_match": {
-      "fixture_ref": "2026-09-13 oklahoma-christian v southern-nazarene",
-      "line": "Oklahoma Christian have beaten Newman but lost at Northeastern State and at Rogers State; Southern Nazarene arrive from defeat at Midwestern State."
+      "fixture_ref": "2026-09-15 william-jewell v harding",
+      "line": "Harding have yet to win or draw; William Jewell have already lost at home to Newman and away at Fort Hays State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:43:46.064Z"
+    "validated_at": "2026-09-14T11:42:01.425Z"
   }
 }

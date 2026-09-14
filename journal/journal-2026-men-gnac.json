@@ -3,18 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-09-13T11:45:00+00:00",
-  "data_collected_at": "2026-09-13T11:34:20+00:00",
-  "headline": "Northwest Nazarene's unbeaten start ends at home",
-  "dek": "Northwest Nazarene lost at home to Colorado Mesa on Saturday, the last programme in the conference to take a defeat. They had won twice and drawn three times before it. Every side has now lost at least once, and only Seattle Pacific and Western Washington are yet to draw.",
+  "generated_at": "2026-09-14T11:45:00+00:00",
+  "data_collected_at": "2026-09-14T11:33:24+00:00",
+  "headline": "Seattle Pacific alone still without a draw",
+  "dek": "Western Washington drew at Regis on Sunday, and Seattle Pacific are now the only programme in the conference yet to share the points. Seattle Pacific have won five matches and lost one, and that defeat came at Regis too, earlier in the same week.",
   "lede_basis": {
-    "programme": "northwest-nazarene",
-    "wins": 2,
-    "draws": 3,
+    "programme": "seattle-pacific",
+    "wins": 5,
+    "draws": 0,
     "losses": 1
   },
-  "lede_updated": "2026-09-13",
-  "displaced_by": "Northwest Nazarene lost at home to Colorado Mesa; no unbeaten side remains",
+  "lede_updated": "2026-09-14",
+  "displaced_by": "Western Washington drew at Regis; the standing dek said they had yet to draw",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's eighteen goals are more than Northwest Nazarene and Simon Fraser have scored together.",
@@ -24,7 +24,7 @@
         "saint-martins": 18,
         "seattle-pacific": 13,
         "western-oregon": 13,
-        "western-washington": 10,
+        "western-washington": 11,
         "northwest-nazarene": 6,
         "simon-fraser": 4
       },
@@ -89,13 +89,14 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Seattle Pacific have won five times and lost once, and have yet to draw a match.",
+      "label": "observed",
+      "text": "Juan Diaz has five assists for Saint Martin's, more than the two goals he has scored himself.",
       "basis": {
-        "programme": "seattle-pacific",
-        "wins": 5,
-        "draws": 0,
-        "losses": 1
+        "source": "stats",
+        "player": "Juan Diaz",
+        "programme": "saint-martins",
+        "assists": 5,
+        "goals": 2
       }
     }
   ],
@@ -124,16 +125,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 northwest-nazarene v colorado-mesa",
-      "line": "Northwest Nazarene's first defeat of the season, the last side in the conference to take one."
+      "fixture_ref": "2026-09-13 regis v western-washington",
+      "line": "Western Washington's first draw of the season, on the ground where Seattle Pacific had lost earlier in the week."
     },
     "next_match": {
-      "fixture_ref": "2026-09-13 regis v western-washington",
-      "line": "Regis beat Seattle Pacific on this ground earlier in the week; Western Washington arrive after their first defeat and have yet to draw."
+      "fixture_ref": "2026-09-16 dallas-baptist v seattle-pacific",
+      "line": "Seattle Pacific are the only side in the conference yet to draw; their only defeat came away, at Regis."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:44:05.143Z"
+    "validated_at": "2026-09-14T11:42:26.949Z"
   }
 }

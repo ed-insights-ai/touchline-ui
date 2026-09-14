@@ -3,25 +3,28 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-09-13T12:02:00+00:00",
-  "data_collected_at": "2026-09-13T11:35:42+00:00",
-  "headline": "Unbeaten trio have conceded four goals apiece",
-  "dek": "Frostburg State, West Liberty and Davis & Elkins are the three sides yet to lose, and each has let in exactly four goals. The other seven programmes have seventeen defeats between them, and West Virginia Wesleyan account for five of those on their own.",
+  "generated_at": "2026-09-14T11:58:00+00:00",
+  "data_collected_at": "2026-09-14T11:35:03+00:00",
+  "headline": "West Liberty alone still winning every match",
+  "dek": "West Liberty have won all four of their matches and are the only programme yet to drop a point. Frostburg State and Davis & Elkins are also unbeaten, but have three draws between them. The other seven programmes have nineteen defeats between them, and West Virginia Wesleyan and Wheeling account for nine of those.",
   "lede_basis": {
-    "programme": "frostburg-state",
-    "wins": 3,
-    "draws": 2,
+    "programme": "west-liberty",
+    "wins": 4,
+    "draws": 0,
     "losses": 0,
-    "gf": 10,
-    "ga": 4,
+    "played": 4,
     "unbeaten_sides": 3,
-    "goals_conceded_by_each_unbeaten_side": 4,
+    "frostburg_state_draws": 2,
+    "davis_elkins_draws": 1,
+    "draws_between_frostburg_and_davis_elkins": 3,
     "other_programmes": 7,
-    "other_programmes_losses": 17,
-    "west_virginia_wesleyan_losses": 5
+    "other_programmes_losses": 19,
+    "west_virginia_wesleyan_losses": 5,
+    "wheeling_losses": 4,
+    "west_virginia_wesleyan_and_wheeling_losses": 9
   },
-  "lede_updated": "2026-09-13",
-  "displaced_by": "dek figures outgrown by the 12 Sep results: the other seven now have seventeen defeats and West Virginia Wesleyan five of them; headline still true and kept",
+  "lede_updated": "2026-09-14",
+  "displaced_by": "West Liberty conceded at Wheeling on 13 Sep, so the unbeaten trio no longer have four goals against apiece; West Liberty are now the only side with a perfect record",
   "pattern": {
     "label": "derived",
     "text": "Charleston's fourteen goals have come from nine different scorers, and no one of them has more than three; the scoring is spread, not carried.",
@@ -29,14 +32,14 @@
       "kind": "goals-for-by-team",
       "values": {
         "charleston": 14,
-        "shawnee-state": 11,
+        "shawnee-state": 12,
         "frostburg-state": 10,
+        "west-liberty": 10,
         "davis-elkins": 8,
-        "west-liberty": 8,
+        "concord": 7,
         "salem": 7,
+        "wheeling": 7,
         "point-park": 6,
-        "wheeling": 6,
-        "concord": 5,
         "west-virginia-wesleyan": 3
       },
       "highlight": "charleston"
@@ -62,15 +65,16 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Charleston have won four of their five matches and scored fourteen goals; their one defeat came at home to a visitor from outside the conference.",
+      "text": "West Liberty have won all four of their matches, and three of the four were won by a single goal.",
       "basis": {
-        "programme": "charleston",
+        "programme": "west-liberty",
         "wins": 4,
         "draws": 0,
-        "losses": 1,
-        "gf": 14,
-        "ga": 6,
-        "played": 5
+        "losses": 0,
+        "gf": 10,
+        "ga": 5,
+        "played": 4,
+        "wins_by_one_goal": 3
       }
     },
     {
@@ -99,11 +103,11 @@
     },
     {
       "label": "derived",
-      "text": "Shawnee State have scored eleven goals and conceded thirteen; six of the eleven came in a single match.",
+      "text": "Shawnee State have scored twelve goals and conceded fifteen; six of the twelve came in a single match.",
       "basis": {
         "programme": "shawnee-state",
-        "gf": 11,
-        "ga": 13,
+        "gf": 12,
+        "ga": 15,
         "goals_in_one_match": 6
       }
     },
@@ -145,16 +149,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 point-park v davis-elkins",
-      "line": "Davis & Elkins are still unbeaten; Point Park have followed two straight wins with consecutive defeats."
+      "fixture_ref": "2026-09-13 wheeling v west-liberty",
+      "line": "West Liberty are still the only side to have won every match; Wheeling have lost every conference match they have played."
     },
     "next_match": {
-      "fixture_ref": "2026-09-13 wheeling v west-liberty",
-      "line": "West Liberty have won every match they have played; Wheeling have lost both of their conference matches so far."
+      "fixture_ref": "2026-09-16 frostburg-state v west-liberty",
+      "line": "Frostburg State have yet to lose at home; West Liberty have yet to drop a point anywhere."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:45:37.935Z"
+    "validated_at": "2026-09-14T11:43:14.880Z"
   }
 }

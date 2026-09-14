@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-13T11:50:00Z",
-  "data_collected_at": "2026-09-13T11:35:08+00:00",
+  "generated_at": "2026-09-14T11:50:00Z",
+  "data_collected_at": "2026-09-14T11:34:32+00:00",
   "headline": "St. Mary's put ten past Sul Ross State",
   "dek": "St. Mary's had scored three goals in their first three matches and lost two of them. Sul Ross State have now lost all four of theirs, and their keeper Fernando Hernandez has made twenty-six saves without a clean sheet.",
   "lede_basis": {
@@ -31,7 +31,7 @@
         "midwestern-state": 19,
         "saint-marys": 15,
         "ut-dallas": 12,
-        "oklahoma-christian": 9,
+        "oklahoma-christian": 10,
         "dallas-baptist": 8,
         "lubbock-christian": 8,
         "ut-tyler": 8,
@@ -101,26 +101,26 @@
     },
     {
       "label": "derived",
-      "text": "Texas A&M International have won three and drawn one, and have conceded three goals.",
+      "text": "Texas A&M International had conceded three goals in five matches before losing at Cal State San Bernardino; they have now conceded seven, and have won three, drawn one and lost one.",
       "basis": {
         "programme": "texas-a-m-international",
         "wins": 3,
         "draws": 1,
-        "losses": 0,
+        "losses": 1,
         "gf": 7,
-        "ga": 3
+        "ga": 7,
+        "ga_before_latest_match": 3,
+        "matches_before_latest_match": 5
       }
     },
     {
       "label": "derived",
-      "text": "UT Tyler have won two and drawn two, and have conceded four goals.",
+      "text": "Oklahoma Christian won their first three matches and have lost the three since.",
       "basis": {
-        "programme": "ut-tyler",
-        "wins": 2,
-        "draws": 2,
-        "losses": 0,
-        "gf": 8,
-        "ga": 4
+        "programme": "oklahoma-christian",
+        "wins": 3,
+        "draws": 0,
+        "losses": 3
       }
     }
   ],
@@ -149,16 +149,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 rogers-state v saint-marys",
-      "line": "St. Mary's have not lost since August; Rogers State had beaten Oklahoma Christian at home earlier in the week."
+      "fixture_ref": "2026-09-13 cal-state-san-bernardino v texas-a-m-international",
+      "line": "Texas A&M International arrived unbeaten, having won at Cal State Dominguez Hills two days earlier; this was their first defeat."
     },
     "next_match": {
-      "fixture_ref": "2026-09-13 oklahoma-christian v southern-nazarene",
-      "line": "Oklahoma Christian have not won since Newman; Southern Nazarene have already beaten West Texas A&M and lost at Midwestern State."
+      "fixture_ref": "2026-09-15 oklahoma-christian v oklahoma-panhandle-state",
+      "line": "Oklahoma Christian have not won since Newman, and have lost every match since."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:44:41.760Z"
+    "validated_at": "2026-09-14T11:42:49.316Z"
   }
 }

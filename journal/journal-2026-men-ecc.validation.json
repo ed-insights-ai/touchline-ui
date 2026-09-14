@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-13T11:42:33.392Z",
-  "data_collected_at": "2026-09-13T11:31:16+00:00",
+  "validated_at": "2026-09-14T11:41:42.523Z",
+  "data_collected_at": "2026-09-14T11:31:21+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 6 G · 1 A · 12 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 8 G · 1 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 queens v georgian-court",
+      "text": "2026-09-13 southern-connecticut v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-13 southern-connecticut v mercy",
+      "text": "2026-09-15 st-thomas-aquinas v monroe",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-13T11:41:04.097Z",
-    "generate_ms": 89292,
+    "started_at": "2026-09-14T11:40:34.891Z",
+    "generate_ms": 67630,
     "validate_ms": 1,
-    "wall_ms": 89294,
+    "wall_ms": 67632,
     "concurrency": 4
   }
 }

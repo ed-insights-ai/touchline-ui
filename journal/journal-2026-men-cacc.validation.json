@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-13T11:42:05.864Z",
-  "data_collected_at": "2026-09-13T11:30:06+00:00",
+  "validated_at": "2026-09-14T11:41:22.108Z",
+  "data_collected_at": "2026-09-14T11:30:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Chestnut Hill's win at Virginia State levels their record at two wins, two draws and two losses, with ten goals scored and eleven conceded.",
+      "text": "Felician's home defeat by Gannon is their third loss of the season against one win and two draws, with eleven goals scored and thirteen conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Wilmington's defeat at Southern New Hampshire leaves them with two wins, one draw and two losses, seven goals scored and eleven conceded.",
+      "text": "Chestnut Hill's win at Virginia State levels their record at two wins, two draws and two losses, with ten goals scored and eleven conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 queens v georgian-court",
+      "text": "2026-09-13 felician v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-13 felician v gannon",
+      "text": "2026-09-15 dominican v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-13T11:41:04.083Z",
-    "generate_ms": 61777,
-    "validate_ms": 2,
-    "wall_ms": 61780,
+    "started_at": "2026-09-14T11:40:34.874Z",
+    "generate_ms": 47232,
+    "validate_ms": 1,
+    "wall_ms": 47233,
     "concurrency": 4
   }
 }

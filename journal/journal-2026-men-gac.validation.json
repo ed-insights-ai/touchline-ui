@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-09-13T11:43:46.064Z",
-  "data_collected_at": "2026-09-13T11:33:15+00:00",
+  "validated_at": "2026-09-14T11:42:01.425Z",
+  "data_collected_at": "2026-09-14T11:32:11+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,7 +15,13 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[2].text",
+      "text": "Southern Nazarene's win at Oklahoma Christian on Sunday was their third in five matches, after defeat at Midwestern State in their previous away match.",
+      "unbacked": ["5"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
@@ -65,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Fort Hays State have drawn their last two matches, at home to Fort Lewis and at Lubbock Christian, and their one defeat was at home to Regis.",
+      "text": "Southern Nazarene's win at Oklahoma Christian on Sunday was their third in five matches, after defeat at Midwestern State in their previous away match.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 rogers-state v saint-marys",
+      "text": "2026-09-13 oklahoma-christian v southern-nazarene",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-13 oklahoma-christian v southern-nazarene",
+      "text": "2026-09-15 william-jewell v harding",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-13T11:42:18.502Z",
-    "generate_ms": 87560,
+    "started_at": "2026-09-14T11:41:14.022Z",
+    "generate_ms": 47402,
     "validate_ms": 1,
-    "wall_ms": 87561,
+    "wall_ms": 47403,
     "concurrency": 4
   }
 }

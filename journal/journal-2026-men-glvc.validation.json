@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-09-13T11:46:13.354Z",
-  "data_collected_at": "2026-09-13T11:33:49+00:00",
+  "validated_at": "2026-09-14T11:42:37.170Z",
+  "data_collected_at": "2026-09-14T11:32:45+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -18,7 +18,7 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Southwest Baptist's twenty-four goals exceed what the six lowest-scoring programmes have managed between them; the conference's scoring is one bar and then a slope.",
+      "text": "Southwest Baptist's twenty-five goals exceed what the six lowest-scoring programmes have managed between them; the conference's scoring is one bar and then a slope.",
       "unbacked": ["1", "6"]
     }
   ],
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southwest Baptist's twenty-four goals exceed what the six lowest-scoring programmes have managed between them; the conference's scoring is one bar and then a slope.",
+      "text": "Southwest Baptist's twenty-five goals exceed what the six lowest-scoring programmes have managed between them; the conference's scoring is one bar and then a slope.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Missouri-St. Louis are the first side to score against Southwest Baptist this season, and they did it twice.",
-      "checker": "team_goals+team_record",
+      "text": "Lincoln are the last side in the conference without a defeat, and they got there by beating Southwest Baptist.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Drury have won five and lost one, scoring fourteen and conceding four; the defeat was at home to Oklahoma Christian, and they have not dropped a point since.",
+      "text": "Lincoln are the only programme in the conference yet to lose: two wins and two draws, six goals scored and three conceded, with Sunday's win over Southwest Baptist their first at home.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "William Jewell have lost all five of their matches; Daniel Pirillo's goal at Indianapolis on Saturday was their first of the season, against nine conceded.",
+      "text": "Southwest Baptist have won three, drawn one and lost one, scoring twenty-five and conceding five; the defeat came at Lincoln on Sunday, and eight different players have scored for them.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,8 +80,17 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jake Offerman has made eighteen saves for Quincy and conceded three goals, with two clean sheets.",
-      "checker": "player_stat",
+      "text": "Drury have won five and lost one, scoring fourteen and conceding four; the defeat was at home to Oklahoma Christian, and they have not dropped a point since.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "William Jewell have lost all five of their matches; Daniel Pirillo's goal at Indianapolis on Saturday was their first of the season, against nine conceded.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Nathaniel Velasquez — 5 G · 2 A · 16 shots",
+      "text": "Nathaniel Velasquez — 5 G · 2 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Jacob Panagos — 4 G · 7 shots",
+      "text": "Jacob Panagos — 5 G · 8 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 quincy v missouri-s-t",
+      "text": "2026-09-13 lincoln v southwest-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-13 lincoln v southwest-baptist",
+      "text": "2026-09-15 william-jewell v harding",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-13T11:42:38.127Z",
-    "generate_ms": 215147,
+    "started_at": "2026-09-14T11:41:22.183Z",
+    "generate_ms": 74987,
     "validate_ms": 1,
-    "wall_ms": 215224,
+    "wall_ms": 74988,
     "concurrency": 4
   }
 }

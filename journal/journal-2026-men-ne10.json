@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-13T12:04:00+00:00",
-  "data_collected_at": "2026-09-13T11:35:56+00:00",
+  "generated_at": "2026-09-14T12:02:00+00:00",
+  "data_collected_at": "2026-09-14T11:35:15+00:00",
   "headline": "Home sides win all three meetings between members so far",
   "dek": "Franklin Pierce, Assumption and American International have each beaten a fellow member, and every one of the three wins came at home. Assumption's thirteen goals now match Franklin Pierce's, and only Southern New Hampshire, with twenty, have scored more.",
   "lede_basis": {
@@ -30,7 +30,6 @@
     "member_meetings_won_by_home_side": 3
   },
   "lede_updated": "2026-09-13",
-  "displaced_by": "Assumption beat Saint Anselm and American International beat Saint Michael's, making three meetings between members, all won at home.",
   "pattern": {
     "label": "signal",
     "text": "Thirteen different players have scored Southern New Hampshire's twenty goals, while Franklin Pierce and Assumption reach the same thirteen by different routes: four scorers for one, six for the other.",
@@ -45,8 +44,8 @@
         "american-international": 7,
         "bentley": 7,
         "saint-michael-s": 6,
-        "adelphi": 4,
-        "southern-connecticut": 4
+        "southern-connecticut": 5,
+        "adelphi": 4
       },
       "highlight": "southern-new-hampshire"
     },
@@ -75,13 +74,13 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Southern Connecticut remain the only programme without a win, with two draws and one defeat from three matches.",
+      "text": "Southern Connecticut remain the only programme without a win, with two draws and two defeats from four matches after losing at home to Mercy.",
       "basis": {
         "programme": "southern-connecticut",
         "wins": 0,
         "draws": 2,
-        "losses": 1,
-        "matches_played": 3
+        "losses": 2,
+        "matches_played": 4
       }
     },
     {
@@ -170,16 +169,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 assumption v saint-anselm",
-      "line": "Assumption have scored in every match this season; Saint Anselm's winning run ends here."
+      "fixture_ref": "2026-09-13 southern-connecticut v mercy",
+      "line": "Southern Connecticut remain the only member still waiting for a first win; Mercy had already held Adelphi goalless this month."
     },
     "next_match": {
-      "fixture_ref": "2026-09-13 southern-connecticut v mercy",
-      "line": "Southern Connecticut are the only member still without a win; Mercy held Adelphi goalless earlier this month."
+      "fixture_ref": "2026-09-15 saint-michael-s v fisher",
+      "line": "Saint Michael's lost their last match, at American International; Fisher were beaten at Assumption earlier this month."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:45:49.120Z"
+    "validated_at": "2026-09-14T11:43:11.310Z"
   }
 }

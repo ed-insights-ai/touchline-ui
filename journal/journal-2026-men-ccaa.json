@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-13T11:45:00+00:00",
-  "data_collected_at": "2026-09-13T11:31:05+00:00",
+  "generated_at": "2026-09-14T11:45:00+00:00",
+  "data_collected_at": "2026-09-14T11:30:58+00:00",
   "headline": "Cal State Monterey Bay fall, Cal State LA stay perfect",
   "dek": "Cal State Monterey Bay's unbeaten start ended on the road at Point Loma, leaving Cal State LA as the only side in the conference still winning every match. They won at Westmont the same day, a fifth win in five, and have yet to concede a goal.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 0
   },
   "lede_updated": "2026-09-13",
-  "displaced_by": "Cal State Monterey Bay's first defeat, at Point Loma; Cal State LA now five from five and still unbreached",
   "pattern": {
     "label": "derived",
     "text": "Fresno Pacific's 24 goals are more than Cal State Monterey Bay and Menlo have scored together, and nine different players have shared them.",
@@ -26,6 +25,7 @@
         "fresno-pacific": 24,
         "cal-state-monterey-bay": 17,
         "stanislaus-state": 11,
+        "cal-state-san-bernardino": 10,
         "cal-state-dominguez-hills": 9,
         "cal-poly-humboldt": 8,
         "cal-state-east-bay": 8,
@@ -33,7 +33,6 @@
         "cal-state-san-marcos": 8,
         "chico-state": 8,
         "cal-poly-pomona": 7,
-        "cal-state-san-bernardino": 6,
         "uc-merced": 6,
         "menlo": 5
       },
@@ -109,13 +108,13 @@
     },
     {
       "label": "derived",
-      "text": "Cal State San Bernardino have won three and drawn two, and have conceded two goals across them.",
+      "text": "Cal State San Bernardino have won four and drawn two after beating Texas A&M International, and have conceded two goals across them.",
       "basis": {
         "programme": "cal-state-san-bernardino",
-        "wins": 3,
+        "wins": 4,
         "draws": 2,
         "losses": 0,
-        "gf": 6,
+        "gf": 10,
         "ga": 2
       }
     },
@@ -156,16 +155,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 point-loma v cal-state-monterey-bay",
-      "line": "Cal State Monterey Bay had won every match before this one; Point Loma had already beaten Cal Poly Pomona and drawn with Cal State San Bernardino and Cal State Dominguez Hills."
+      "fixture_ref": "2026-09-13 cal-state-san-bernardino v texas-a-m-international",
+      "line": "Cal State San Bernardino remain unbeaten, and only Cal State LA have conceded fewer goals; Texas A&M International had arrived from a win at Cal State Dominguez Hills."
     },
     "next_match": {
-      "fixture_ref": "2026-09-13 cal-state-san-bernardino v texas-a-m-international",
-      "line": "Texas A&M International arrive from a win at Cal State Dominguez Hills; Cal State San Bernardino have yet to lose."
+      "fixture_ref": "2026-09-14 cal-state-san-marcos v westmont",
+      "line": "Cal State San Marcos have won every match since their defeat at Concordia Irvine; Westmont have already beaten Cal State East Bay and lost to Cal State LA."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:42:18.425Z"
+    "validated_at": "2026-09-14T11:41:13.948Z"
   }
 }

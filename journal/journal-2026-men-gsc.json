@@ -3,27 +3,41 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-13T11:40:00+00:00",
-  "data_collected_at": "2026-09-13T11:34:40+00:00",
-  "headline": "AUM hand Lee their first defeat of the season",
-  "dek": "Lee had won three and drawn two without a defeat before Saturday, and then lost at AUM. Trevecca were held at Montevallo the same evening, so UAH, who have conceded twice in four matches, are now the only side in the conference still winning every match they play.",
+  "generated_at": "2026-09-14T11:40:00+00:00",
+  "data_collected_at": "2026-09-14T11:33:56+00:00",
+  "headline": "West Alabama's first win makes them the top scorers",
+  "dek": "West Alabama had drawn one and lost four before Saturday, and then beat Tuskegee at home for their first win of the season. Their fourteen goals are now the most of any programme in the conference, and they have still conceded thirteen.",
   "lede_basis": {
-    "programme": "lee",
-    "wins": 3,
-    "draws": 2,
-    "losses": 1,
-    "uah_wins": 4,
-    "uah_played": 4,
-    "uah_ga": 2
+    "programme": "west-alabama",
+    "wins": 1,
+    "draws": 1,
+    "losses": 4,
+    "gf": 14,
+    "ga": 13,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "aum",
+      "christian-brothers",
+      "delta-state",
+      "lee",
+      "mississippi-college",
+      "montevallo",
+      "spring-hill",
+      "trevecca",
+      "uah",
+      "union"
+    ]
   },
-  "lede_updated": "2026-09-13",
-  "displaced_by": "The first Saturday of conference play: Lee's first defeat, at AUM",
+  "lede_updated": "2026-09-14",
+  "displaced_by": "West Alabama's first win of the season, at home to Tuskegee, takes them past UAH as the conference's top scorers",
   "pattern": {
     "label": "derived",
-    "text": "The scoring at the top is still shared: UAH's twelve goals have come from eight different players.",
+    "text": "The tallest bar is not the strongest side: West Alabama have scored fourteen and conceded thirteen, and have won once in six matches.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "west-alabama": 14,
         "uah": 12,
         "christian-brothers": 11,
         "trevecca": 11,
@@ -31,18 +45,20 @@
         "aum": 8,
         "lee": 6,
         "montevallo": 6,
-        "west-alabama": 6,
         "union": 5,
         "delta-state": 4,
         "spring-hill": 1
       },
-      "highlight": "uah"
+      "highlight": "west-alabama"
     },
     "basis": {
-      "programme": "uah",
-      "gf": 12,
-      "ga": 2,
-      "distinct_scorers_min": 8
+      "programme": "west-alabama",
+      "gf": 14,
+      "ga": 13,
+      "wins": 1,
+      "draws": 1,
+      "losses": 4,
+      "played": 6
     }
   },
   "wire": {
@@ -77,13 +93,23 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Lee's defeat at AUM was their first of the season, after three wins and two draws.",
+      "label": "derived",
+      "text": "West Alabama's fourteen goals have come from seven different scorers.",
       "basis": {
-        "programme": "lee",
-        "wins": 3,
-        "draws": 2,
-        "losses": 1
+        "programme": "west-alabama",
+        "gf": 14,
+        "distinct_scorers_min": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "David Nunez has five goals from nineteen shots for West Alabama.",
+      "basis": {
+        "source": "stats",
+        "player": "David Nunez",
+        "programme": "west-alabama",
+        "goals": 5,
+        "shots": 19
       }
     },
     {
@@ -97,21 +123,16 @@
         "gf": 1,
         "ga": 7
       }
-    },
-    {
-      "label": "observed",
-      "text": "West Alabama have drawn one and lost four, and have conceded twelve goals.",
-      "basis": {
-        "programme": "west-alabama",
-        "wins": 0,
-        "draws": 1,
-        "losses": 4,
-        "gf": 6,
-        "ga": 12
-      }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "David Nunez",
+      "programme": "west-alabama",
+      "position": "FWD",
+      "class": "SR",
+      "line": "5 G · 2 A · 19 shots"
+    },
     {
       "player": "Chris Douglas",
       "programme": "trevecca",
@@ -125,27 +146,20 @@
       "position": "FWD",
       "class": "SO",
       "line": "4 G · 1 A · 23 shots"
-    },
-    {
-      "player": "Oli Orzechowski",
-      "programme": "uah",
-      "position": "FWD",
-      "class": "SR",
-      "line": "4 G · 20 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 aum v lee",
-      "line": "Lee came in unbeaten; AUM have lost only at North Georgia."
+      "fixture_ref": "2026-09-13 west-alabama v tuskegee",
+      "line": "West Alabama's first win of the season; Tuskegee had already won at Union."
     },
     "next_match": {
-      "fixture_ref": "2026-09-13 west-alabama v tuskegee",
-      "line": "West Alabama are still without a win; Tuskegee have already won at Union."
+      "fixture_ref": "2026-09-15 mississippi-college v blue-mountain-christian",
+      "line": "Mississippi Christian have scored in every match this season, and won their conference opener at home to Union."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:44:36.795Z"
+    "validated_at": "2026-09-14T11:42:38.139Z"
   }
 }

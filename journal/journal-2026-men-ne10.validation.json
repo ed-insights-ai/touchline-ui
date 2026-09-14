@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-13T11:45:49.120Z",
-  "data_collected_at": "2026-09-13T11:35:56+00:00",
+  "validated_at": "2026-09-14T11:43:11.310Z",
+  "data_collected_at": "2026-09-14T11:35:15+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -58,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Southern Connecticut remain the only programme without a win, with two draws and one defeat from three matches.",
+      "text": "Southern Connecticut remain the only programme without a win, with two draws and two defeats from four matches after losing at home to Mercy.",
       "checker": "team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 assumption v saint-anselm",
+      "text": "2026-09-13 southern-connecticut v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-13 southern-connecticut v mercy",
+      "text": "2026-09-15 saint-michael-s v fisher",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-13T11:44:36.869Z",
-    "generate_ms": 72249,
+    "started_at": "2026-09-14T11:42:37.246Z",
+    "generate_ms": 34063,
     "validate_ms": 1,
-    "wall_ms": 72250,
+    "wall_ms": 34064,
     "concurrency": 4
   }
 }

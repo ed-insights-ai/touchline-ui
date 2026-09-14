@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-13T11:44:36.795Z",
-  "data_collected_at": "2026-09-13T11:34:40+00:00",
+  "validated_at": "2026-09-14T11:42:38.139Z",
+  "data_collected_at": "2026-09-14T11:33:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,8 +20,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The scoring at the top is still shared: UAH's twelve goals have come from eight different players.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "The tallest bar is not the strongest side: West Alabama have scored fourteen and conceded thirteen, and have won once in six matches.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -64,15 +64,24 @@
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "Lee's defeat at AUM was their first of the season, after three wins and two draws.",
-      "checker": "team_record",
+      "label": "derived",
+      "text": "West Alabama's fourteen goals have come from seven different scorers.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "David Nunez has five goals from nineteen shots for West Alabama.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Spring Hill have drawn one and lost two, and have scored one goal.",
       "checker": "team_goals+team_record",
@@ -81,18 +90,9 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
-      "label": "observed",
-      "text": "West Alabama have drawn one and lost four, and have conceded twelve goals.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Chris Douglas — 5 G · 13 shots",
+      "text": "David Nunez — 5 G · 2 A · 19 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Karim Gegg — 4 G · 1 A · 23 shots",
+      "text": "Chris Douglas — 5 G · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Oli Orzechowski — 4 G · 20 shots",
+      "text": "Karim Gegg — 4 G · 1 A · 23 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 aum v lee",
+      "text": "2026-09-13 west-alabama v tuskegee",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-13 west-alabama v tuskegee",
+      "text": "2026-09-15 mississippi-college v blue-mountain-christian",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-13T11:43:41.732Z",
-    "generate_ms": 55061,
+    "started_at": "2026-09-14T11:41:42.597Z",
+    "generate_ms": 55541,
     "validate_ms": 1,
-    "wall_ms": 55062,
+    "wall_ms": 55542,
     "concurrency": 4
   }
 }
