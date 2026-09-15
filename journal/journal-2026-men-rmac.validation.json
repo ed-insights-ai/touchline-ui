@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-14T11:43:56.794Z",
-  "data_collected_at": "2026-09-14T11:36:44+00:00",
+  "validated_at": "2026-09-15T11:42:09.851Z",
+  "data_collected_at": "2026-09-15T11:35:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Regis's draw with Western Washington leaves them with two wins, two draws and one defeat, and they have conceded three goals all season.",
+      "text": "MSU Denver's win over Hawaii Hilo on Monday is their second of the season, alongside two draws and one defeat, and they have conceded six goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "CSU Pueblo's win over Hawaii Hilo is their fourth in four matches, and they have scored eight goals while conceding one.",
+      "text": "South Dakota Mines' draw with Dakota Wesleyan takes them to twelve goals scored, with two wins, two draws and one defeat behind them.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Colorado School of Mines have lost five and drawn one after the defeat to Dallas Baptist, and are the only side still without a win.",
+      "text": "Colorado School of Mines have lost five and drawn one, and go to Adams State on Tuesday as the only side still without a win.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Zach Jennings has made nineteen saves for Regis and been beaten three times.",
+      "text": "Lucas Miranda has scored four of South Dakota Mines' goals from seven shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Yohann Fila — 3 G · 1 A · 18 shots",
+      "text": "Lucas Miranda — 4 G · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Owen Gallo — 3 G · 1 A · 17 shots",
+      "text": "Yohann Fila — 3 G · 1 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-13 regis v western-washington",
+      "text": "2026-09-14 msu-denver v hawaii-hilo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-14 msu-denver v hawaii-hilo",
+      "text": "2026-09-16 adams-state v colorado-school-of-mines",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-14T11:43:11.386Z",
-    "generate_ms": 45407,
+    "started_at": "2026-09-15T11:41:32.112Z",
+    "generate_ms": 37737,
     "validate_ms": 1,
-    "wall_ms": 45408,
+    "wall_ms": 37738,
     "concurrency": 4
   }
 }

@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-14T12:05:00+00:00",
+  "generated_at": "2026-09-15T12:05:00+00:00",
   "data_collected_at": "2026-09-13T11:37:56+00:00",
-  "headline": "Division's top scorers Southwest Baptist lose for the first time",
-  "dek": "Southwest Baptist have scored more goals than any other programme in the division, and nobody had beaten them until Lincoln did. Lincoln are now the last unbeaten side in their conference; Texas A&M International's unbeaten start ended the same afternoon.",
+  "headline": "Hawaii Hilo's third straight defeat levels their record",
+  "dek": "Hawaii Hilo have not won since their opening matches, and the defeat at MSU Denver is their third in succession. Three wins and three defeats, and not a draw among them, is the record they carry into Pacific West Conference play.",
   "basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "southwest-baptist",
-    "of_any": 1
+    "programme": "hawaii-hilo",
+    "wins": 3,
+    "draws": 0,
+    "losses": 3
   },
-  "fixture_ref": "2026-09-13 lincoln v southwest-baptist",
-  "updated": "2026-09-14",
-  "displaced_by": "results night: the division's top scorers lost for the first time, at Lincoln",
+  "fixture_ref": "2026-09-14 msu-denver v hawaii-hilo",
+  "updated": "2026-09-15",
+  "displaced_by": "results night: Hawaii Hilo's third defeat in succession, at MSU Denver, leaves them level at three wins and three losses",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-14T11:44:43.536Z"
+    "validated_at": "2026-09-15T11:42:55.759Z"
   }
 }

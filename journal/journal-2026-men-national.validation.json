@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-14T11:44:43.536Z",
+  "validated_at": "2026-09-15T11:42:55.759Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,18 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Division's top scorers Southwest Baptist lose for the first time Southwest Baptist have scored more goals than any other programme in the division, and nobody had beaten them until Lincoln did. Lincoln are now the last unbeaten side in their conference; Texas A&M International's unbeaten start ended the same afternoon.",
-      "checker": "comparative",
+      "text": "Hawaii Hilo's third straight defeat levels their record Hawaii Hilo have not won since their opening matches, and the defeat at MSU Denver is their third in succession. Three wins and three defeats, and not a draw among them, is the record they carry into Pacific West Conference play.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "held against every other programme; the nearest is fresno-pacific at 24"
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-09-14T11:44:01.906Z",
-    "generate_ms": 41623,
-    "validate_ms": 7,
-    "wall_ms": 41630
+    "started_at": "2026-09-15T11:42:20.992Z",
+    "generate_ms": 34766,
+    "validate_ms": 1,
+    "wall_ms": 34767
   }
 }

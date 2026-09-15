@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-09-14T11:42:37.170Z",
-  "data_collected_at": "2026-09-14T11:32:45+00:00",
+  "validated_at": "2026-09-15T11:41:15.121Z",
+  "data_collected_at": "2026-09-15T11:33:08+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-14T11:41:22.183Z",
-    "generate_ms": 74987,
+    "started_at": "2026-09-15T11:40:37.703Z",
+    "generate_ms": 37416,
     "validate_ms": 1,
-    "wall_ms": 74988,
+    "wall_ms": 37417,
     "concurrency": 4
   }
 }

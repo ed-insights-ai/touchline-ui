@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-14T11:45:00+00:00",
-  "data_collected_at": "2026-09-14T11:30:58+00:00",
+  "generated_at": "2026-09-15T11:45:00+00:00",
+  "data_collected_at": "2026-09-15T11:31:23+00:00",
   "headline": "Cal State Monterey Bay fall, Cal State LA stay perfect",
   "dek": "Cal State Monterey Bay's unbeaten start ended on the road at Point Loma, leaving Cal State LA as the only side in the conference still winning every match. They won at Westmont the same day, a fifth win in five, and have yet to concede a goal.",
   "lede_basis": {
@@ -26,11 +26,11 @@
         "cal-state-monterey-bay": 17,
         "stanislaus-state": 11,
         "cal-state-san-bernardino": 10,
+        "cal-state-san-marcos": 10,
         "cal-state-dominguez-hills": 9,
         "cal-poly-humboldt": 8,
         "cal-state-east-bay": 8,
         "cal-state-la": 8,
-        "cal-state-san-marcos": 8,
         "chico-state": 8,
         "cal-poly-pomona": 7,
         "uc-merced": 6,
@@ -70,6 +70,16 @@
       }
     },
     {
+      "label": "observed",
+      "text": "Cal State San Marcos' draw with Westmont was their first of the season; they have won three, drawn one and lost one.",
+      "basis": {
+        "programme": "cal-state-san-marcos",
+        "wins": 3,
+        "draws": 1,
+        "losses": 1
+      }
+    },
+    {
       "label": "derived",
       "text": "Cal State Monterey Bay lost for the first time at Point Loma, but their seventeen goals are still more than any programme's except Fresno Pacific's.",
       "basis": {
@@ -94,16 +104,6 @@
           "stanislaus-state",
           "uc-merced"
         ]
-      }
-    },
-    {
-      "label": "observed",
-      "text": "UC Merced's win at Jessup was their first of the season, after three draws, and they remain unbeaten.",
-      "basis": {
-        "programme": "uc-merced",
-        "wins": 1,
-        "draws": 3,
-        "losses": 0
       }
     },
     {
@@ -155,16 +155,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 cal-state-san-bernardino v texas-a-m-international",
-      "line": "Cal State San Bernardino remain unbeaten, and only Cal State LA have conceded fewer goals; Texas A&M International had arrived from a win at Cal State Dominguez Hills."
+      "fixture_ref": "2026-09-14 cal-state-san-marcos v westmont",
+      "line": "Cal State San Marcos are still unbeaten since their defeat at Concordia Irvine, though the run of wins is over; Westmont had beaten Cal State East Bay and lost to Cal State LA within the week."
     },
     "next_match": {
-      "fixture_ref": "2026-09-14 cal-state-san-marcos v westmont",
-      "line": "Cal State San Marcos have won every match since their defeat at Concordia Irvine; Westmont have already beaten Cal State East Bay and lost to Cal State LA."
+      "fixture_ref": "2026-09-15 menlo v hawaii-pacific",
+      "line": "Menlo arrive from a win at Jessup and have yet to draw a match; Hawaii Pacific drew at Stanislaus State and lost at Chico State on the same trip."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-14T11:41:13.948Z"
+    "validated_at": "2026-09-15T11:40:37.627Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-14T11:43:04.603Z",
-  "data_collected_at": "2026-09-14T11:35:30+00:00",
+  "validated_at": "2026-09-15T11:42:05.357Z",
+  "data_collected_at": "2026-09-15T11:34:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Chaminade have lost all five of their matches, scoring three and conceding thirteen; the trip to Western Oregon was the fifth defeat.",
+      "text": "Hawai'i Hilo have lost three matches in a row after opening with three wins; the defeat at MSU Denver leaves them with five goals scored and five conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Hawai'i Hilo have lost two matches in a row after opening with three wins, scoring five and conceding four across the five.",
+      "text": "Westmont's draw at Cal State San Marcos leaves them with two wins, two draws and four defeats, eleven goals scored and thirteen conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Keita Goto — 2 G · 1 A · 6 shots",
+      "text": "Keita Goto — 2 G · 1 A · 7 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 vanguard v cal-state-east-bay",
+      "text": "2026-09-14 msu-denver v hawaii-hilo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-14 msu-denver v hawaii-hilo",
+      "text": "2026-09-15 cal-state-dominguez-hills v concordia-irvine",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-14T11:42:38.213Z",
-    "generate_ms": 26389,
+    "started_at": "2026-09-15T11:41:17.762Z",
+    "generate_ms": 47593,
     "validate_ms": 1,
-    "wall_ms": 26390,
+    "wall_ms": 47594,
     "concurrency": 4
   }
 }

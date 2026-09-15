@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-09-14T11:43:14.880Z",
-  "data_collected_at": "2026-09-14T11:35:03+00:00",
+  "validated_at": "2026-09-15T11:41:32.037Z",
+  "data_collected_at": "2026-09-15T11:34:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -87,12 +87,12 @@
     {
       "path": "findings[4]",
       "label": "signal",
-      "text": "Leyton Collier's fourteen shots have produced three goals for West Liberty; no other player on the leaders list has taken more than ten.",
+      "text": "Leyton Collier's fourteen shots have produced three goals for West Liberty; no other player on the leaders list has taken more than eleven.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["next_most_shots: 10"]
+      "unchecked_figures": ["next_most_shots: 11"]
     },
     {
       "path": "players_to_watch[0]",
@@ -141,10 +141,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-14T11:42:27.023Z",
-    "generate_ms": 47857,
+    "started_at": "2026-09-15T11:40:57.918Z",
+    "generate_ms": 34118,
     "validate_ms": 1,
-    "wall_ms": 47858,
+    "wall_ms": 34118,
     "concurrency": 4
   }
 }
