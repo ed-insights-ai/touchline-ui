@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-15T11:42:05.357Z",
-  "data_collected_at": "2026-09-15T11:34:58+00:00",
+  "validated_at": "2026-09-16T11:42:42.038Z",
+  "data_collected_at": "2026-09-16T11:34:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,11 +17,6 @@
   "normalizations": [],
   "review": [
     {
-      "path": "pattern.text",
-      "text": "Concordia Irvine's thirteen goals have come from eleven different scorers, yet they have still conceded ten and lost two of their six matches.",
-      "unbacked": ["6"]
-    },
-    {
       "path": "findings[4].text",
       "text": "Dominican (Calif.) have drawn three of their six matches and won none, scoring eight and conceding twelve.",
       "unbacked": ["6"]
@@ -31,7 +26,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Concordia Irvine's thirteen goals have come from eleven different scorers, yet they have still conceded ten and lost two of their six matches.",
+      "text": "Hawai'i Pacific have scored twelve goals from eight different scorers and won once, because they have conceded fifteen.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Westmont's draw at Cal State San Marcos leaves them with two wins, two draws and four defeats, eleven goals scored and thirteen conceded.",
+      "text": "Point Loma stand level at two wins, two draws and two defeats, with nine goals scored and seven conceded, before Thursday's match at Vanguard.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Cole Friesen has scored twice for Point Loma from twenty shots.",
+      "text": "Aidan Strickler has made thirty saves for Westmont and conceded eleven goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kelly Takara — 3 G · 1 A · 9 shots",
+      "text": "Kelly Takara — 3 G · 2 A · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-14 msu-denver v hawaii-hilo",
+      "text": "2026-09-15 menlo v hawaii-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-15 cal-state-dominguez-hills v concordia-irvine",
+      "text": "2026-09-17 vanguard v point-loma",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-15T11:41:17.762Z",
-    "generate_ms": 47593,
+    "started_at": "2026-09-16T11:41:39.252Z",
+    "generate_ms": 62786,
     "validate_ms": 1,
-    "wall_ms": 47594,
+    "wall_ms": 62787,
     "concurrency": 4
   }
 }

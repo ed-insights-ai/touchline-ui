@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-15T11:40:00+00:00",
-  "data_collected_at": "2026-09-15T11:33:08+00:00",
+  "generated_at": "2026-09-16T11:40:00+00:00",
+  "data_collected_at": "2026-09-16T11:33:10+00:00",
   "headline": "Lincoln hand Southwest Baptist a first defeat",
   "dek": "Lincoln beat Southwest Baptist on Sunday, the first defeat of Southwest Baptist's season, and are now the only side in the conference that has not lost. They have won two and drawn two, and have conceded three goals in all.",
   "lede_basis": {
@@ -35,8 +35,8 @@
         "indianapolis": 5,
         "lewis": 5,
         "illinois-springfield": 3,
-        "upper-iowa": 2,
-        "william-jewell": 1
+        "william-jewell": 3,
+        "upper-iowa": 2
       },
       "highlight": "southwest-baptist"
     },
@@ -89,6 +89,18 @@
     },
     {
       "label": "derived",
+      "text": "William Jewell's win at home to Harding on Tuesday was their first of the season after five defeats; they have now scored three goals and conceded nine, and the match was their first without a goal against.",
+      "basis": {
+        "programme": "william-jewell",
+        "wins": 1,
+        "draws": 0,
+        "losses": 5,
+        "gf": 3,
+        "ga": 9
+      }
+    },
+    {
+      "label": "derived",
       "text": "Southwest Baptist have won three, drawn one and lost one, scoring twenty-five and conceding five; the defeat came at Lincoln on Sunday, and eight different players have scored for them.",
       "basis": {
         "programme": "southwest-baptist",
@@ -110,19 +122,6 @@
         "losses": 1,
         "gf": 14,
         "ga": 4
-      }
-    },
-    {
-      "label": "derived",
-      "text": "William Jewell have lost all five of their matches; Daniel Pirillo's goal at Indianapolis on Saturday was their first of the season, against nine conceded.",
-      "basis": {
-        "programme": "william-jewell",
-        "wins": 0,
-        "draws": 0,
-        "losses": 5,
-        "gf": 1,
-        "ga": 9,
-        "distinct_scorers_min": 1
       }
     }
   ],
@@ -151,16 +150,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 lincoln v southwest-baptist",
-      "line": "Lincoln's only previous win had come away at Northeastern State; Southwest Baptist had not lost before this."
+      "fixture_ref": "2026-09-15 william-jewell v harding",
+      "line": "William Jewell's first win of the season, and the first match in which they have not conceded."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 william-jewell v harding",
-      "line": "William Jewell have lost every match they have played, and Daniel Pirillo's goal at Indianapolis on Saturday remains their only one."
+      "fixture_ref": "2026-09-16 maryville v southwest-baptist",
+      "line": "Southwest Baptist have lost only at Lincoln; Maryville have not lost since conference play opened."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-15T11:41:15.121Z"
+    "validated_at": "2026-09-16T11:41:36.390Z"
   }
 }

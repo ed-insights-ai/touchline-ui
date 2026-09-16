@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-14T11:42:49.316Z",
-  "data_collected_at": "2026-09-14T11:34:32+00:00",
+  "validated_at": "2026-09-16T11:41:51.552Z",
+  "data_collected_at": "2026-09-16T11:33:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Five matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, and UT Dallas's at Ouachita Baptist.",
+      "text": "Six matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, UT Dallas's at Ouachita Baptist, and Oklahoma Christian's against Oklahoma Panhandle State.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-15 oklahoma-christian v oklahoma-panhandle-state",
+      "text": "2026-09-16 dallas-baptist v seattle-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-14T11:42:01.500Z",
-    "generate_ms": 47815,
+    "started_at": "2026-09-16T11:41:16.593Z",
+    "generate_ms": 34958,
     "validate_ms": 1,
-    "wall_ms": 47816,
+    "wall_ms": 34959,
     "concurrency": 4
   }
 }

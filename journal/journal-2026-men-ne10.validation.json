@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-15T11:41:50.124Z",
-  "data_collected_at": "2026-09-15T11:34:47+00:00",
+  "validated_at": "2026-09-16T11:42:25.241Z",
+  "data_collected_at": "2026-09-16T11:34:37+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -52,6 +52,15 @@
     {
       "path": "findings[0]",
       "label": "observed",
+      "text": "Saint Michael's have conceded eleven goals, more than any other programme, and have lost three of their six matches.",
+      "checker": "team_goals+team_record+fixture_counts+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
       "text": "Southern Connecticut remain the only programme without a win, with two draws and two defeats from four matches after losing at home to Mercy.",
       "checker": "team_record+fixture_counts",
       "verdict": "verified",
@@ -59,7 +68,7 @@
       "dropped": false
     },
     {
-      "path": "findings[1]",
+      "path": "findings[2]",
       "label": "observed",
       "text": "Pace are unbeaten after five matches, and only three goals have gone past them.",
       "checker": "team_goals+team_record+fixture_counts",
@@ -68,7 +77,7 @@
       "dropped": false
     },
     {
-      "path": "findings[2]",
+      "path": "findings[3]",
       "label": "observed",
       "text": "Cody Holbert has scored six goals from twenty-four shots, more goals than any other player listed.",
       "checker": "player_stat",
@@ -77,18 +86,9 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
-      "label": "observed",
-      "text": "Saint Anselm have conceded ten goals, more than any other programme, and have lost two of their five matches.",
-      "checker": "team_goals+team_record+fixture_counts+comparative",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Andrea Farinella has made twenty saves, more than any other goalkeeper listed.",
+      "text": "Andrea Farinella has made twenty-four saves, more than any other goalkeeper listed.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -124,7 +124,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-13 southern-connecticut v mercy",
+      "text": "2026-09-15 adelphi v caldwell",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,7 +133,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-15 saint-michael-s v fisher",
+      "text": "2026-09-16 assumption v bentley",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -141,10 +141,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-15T11:41:15.194Z",
-    "generate_ms": 34929,
+    "started_at": "2026-09-16T11:41:36.465Z",
+    "generate_ms": 48775,
     "validate_ms": 1,
-    "wall_ms": 34930,
+    "wall_ms": 48776,
     "concurrency": 4
   }
 }

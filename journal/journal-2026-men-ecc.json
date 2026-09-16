@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-15T11:45:00+00:00",
-  "data_collected_at": "2026-09-15T11:31:49+00:00",
+  "generated_at": "2026-09-16T11:45:00+00:00",
+  "data_collected_at": "2026-09-16T11:31:27+00:00",
   "headline": "Mercy arrive at conference play with one defeat",
   "dek": "The loss came on opening day, to East Stroudsburg at home; four wins and a draw have followed, the last at Southern Connecticut. Jacob Darwesh Lund-Iversen has scored eight of the eleven goals from sixteen shots, and Mercy have conceded six.",
   "lede_basis": {
@@ -33,8 +33,8 @@
         "d-youville": 6,
         "daemen": 5,
         "district-of-columbia": 5,
-        "st-thomas-aquinas": 4,
-        "molloy": 3
+        "st-thomas-aquinas": 5,
+        "molloy": 4
       },
       "highlight": "queens"
     },
@@ -135,15 +135,14 @@
     },
     {
       "label": "derived",
-      "text": "Six different players have scored Roberts Wesleyan's eight goals; nine conceded have held the side to one win.",
+      "text": "Molloy have won at Saint Anselm and now at Dominican and have conceded three goals all season; the defeat at home to Assumption is their only loss.",
       "basis": {
-        "programme": "roberts-wesleyan",
-        "distinct_scorers_min": 6,
-        "gf": 8,
-        "ga": 9,
-        "wins": 1,
+        "programme": "molloy",
+        "gf": 4,
+        "ga": 3,
+        "wins": 2,
         "draws": 2,
-        "losses": 2
+        "losses": 1
       }
     }
   ],
@@ -172,16 +171,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 southern-connecticut v mercy",
-      "line": "Mercy have now won away at Bridgeport and Southern Connecticut and drawn at Adelphi; the opening-day defeat at home remains their only loss."
+      "fixture_ref": "2026-09-15 dominican v molloy",
+      "line": "Molloy have won away at Saint Anselm and at Dominican; their only defeat came at home to Assumption, and their draws have both been at home too."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 st-thomas-aquinas v monroe",
-      "line": "Monroe have already scored at Mercy and at Daemen this season; St. Thomas Aquinas have not won since their trip to Dominican."
+      "fixture_ref": "2026-09-16 queens v wilmington",
+      "line": "Queens have scored in every match this season; the defeat at Holy Family is their only loss."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-15T11:40:27.256Z"
+    "validated_at": "2026-09-16T11:40:48.583Z"
   }
 }

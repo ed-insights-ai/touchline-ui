@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-09-15T11:45:00+00:00",
-  "data_collected_at": "2026-09-15T11:30:05+00:00",
+  "generated_at": "2026-09-16T11:45:00+00:00",
+  "data_collected_at": "2026-09-16T11:30:02+00:00",
   "headline": "Georgian Court's unbeaten run ends at Queens",
   "dek": "Georgian Court had won twice and drawn twice before the defeat at Queens, the last unbeaten record in the conference. Every programme in the CACC has now been beaten at least once, with the whole of conference play still ahead.",
   "lede_basis": {
@@ -57,6 +57,30 @@
   "findings": [
     {
       "label": "observed",
+      "text": "Dominican's home defeat by Molloy is their fourth loss against one draw, and they have still scored only one goal all season while conceding ten.",
+      "basis": {
+        "programme": "dominican",
+        "wins": 0,
+        "draws": 1,
+        "losses": 4,
+        "gf": 1,
+        "ga": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Caldwell's defeat at Adelphi is their third loss against two wins, with seven goals scored and ten conceded.",
+      "basis": {
+        "programme": "caldwell",
+        "wins": 2,
+        "draws": 0,
+        "losses": 3,
+        "gf": 7,
+        "ga": 10
+      }
+    },
+    {
+      "label": "observed",
       "text": "Jefferson have lost all five of their matches, conceding fourteen goals against three scored.",
       "basis": {
         "programme": "jefferson",
@@ -69,38 +93,14 @@
     },
     {
       "label": "observed",
-      "text": "Felician's home defeat by Gannon is their third loss of the season against one win and two draws, with eleven goals scored and thirteen conceded.",
+      "text": "Post have scored six goals and conceded six across two wins, two draws and one loss.",
       "basis": {
-        "programme": "felician",
-        "wins": 1,
-        "draws": 2,
-        "losses": 3,
-        "gf": 11,
-        "ga": 13
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Chestnut Hill's win at Virginia State levels their record at two wins, two draws and two losses, with ten goals scored and eleven conceded.",
-      "basis": {
-        "programme": "chestnut-hill",
+        "programme": "post",
         "wins": 2,
         "draws": 2,
-        "losses": 2,
-        "gf": 10,
-        "ga": 11
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Dominican have scored one goal all season, drawing once and losing three times with nine conceded.",
-      "basis": {
-        "programme": "dominican",
-        "wins": 0,
-        "draws": 1,
-        "losses": 3,
-        "gf": 1,
-        "ga": 9
+        "losses": 1,
+        "gf": 6,
+        "ga": 6
       }
     },
     {
@@ -141,16 +141,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 felician v gannon",
-      "line": "Felician's winless run since beating American International goes on, and they have conceded in every match of it; Gannon leave the CACC with a draw at Post and a win at Felician."
+      "fixture_ref": "2026-09-15 adelphi v caldwell",
+      "line": "Caldwell have not scored since their win at Staten Island; Adelphi had lost at home to both Wilmington and Post before this."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 dominican v molloy",
-      "line": "Dominican are yet to win, and Noah Rosa is their only scorer; Molloy held Holy Family to a draw at home."
+      "fixture_ref": "2026-09-16 bridgeport v southern-new-hampshire",
+      "line": "Bridgeport are winless at home this season; Southern New Hampshire have already beaten Felician, Jefferson and Wilmington, each by a wide margin."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-15T11:40:26.081Z"
+    "validated_at": "2026-09-16T11:40:30.076Z"
   }
 }

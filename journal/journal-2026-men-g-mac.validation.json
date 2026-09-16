@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-09-15T11:40:53.497Z",
-  "data_collected_at": "2026-09-15T11:32:13+00:00",
+  "validated_at": "2026-09-16T11:40:55.308Z",
+  "data_collected_at": "2026-09-16T11:31:57+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Brendan Gerard — 3 G · 11 shots",
+      "text": "Aleksandar Miketic — 3 G · 1 A · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -133,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-15T11:40:26.156Z",
-    "generate_ms": 27340,
+    "started_at": "2026-09-16T11:40:19.632Z",
+    "generate_ms": 35675,
     "validate_ms": 1,
-    "wall_ms": 27341,
+    "wall_ms": 35676,
     "concurrency": 4
   }
 }

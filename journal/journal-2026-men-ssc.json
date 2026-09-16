@@ -3,17 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-15T11:45:00+00:00",
-  "data_collected_at": "2026-09-15T11:37:04+00:00",
-  "headline": "Embry-Riddle, Florida Tech and Tampa win the conference openers",
-  "dek": "Embry-Riddle are the only one of the opening night's winners still unbeaten, with four wins and a draw behind them. Florida Tech won at Nova Southeastern without conceding, and Tampa kept Rollins out at home, where they have yet to lose.",
+  "generated_at": "2026-09-16T11:45:00+00:00",
+  "data_collected_at": "2026-09-16T11:37:00+00:00",
+  "headline": "Embry-Riddle stretch unbeaten start with fifth win",
+  "dek": "Embry-Riddle beat SCAD at home for a fifth win, the draw at Spring Hill the only point they have dropped. They have conceded six goals in all, and no side has beaten them at home or away.",
   "lede_basis": {
     "programme": "embry-riddle",
-    "wins": 4,
+    "wins": 5,
     "draws": 1,
-    "losses": 0
+    "losses": 0,
+    "gf": 14,
+    "ga": 6
   },
-  "lede_updated": "2026-09-13",
+  "lede_updated": "2026-09-16",
+  "displaced_by": "Embry-Riddle's win over SCAD: the standing dek's four wins and a draw is no longer true",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, though Barry's win at Florida Memorial has narrowed the margin.",
@@ -21,7 +24,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "florida-southern": 15,
-        "embry-riddle": 13,
+        "embry-riddle": 14,
         "tampa": 12,
         "rollins": 11,
         "saint-leo": 11,
@@ -147,16 +150,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 tampa v rollins",
-      "line": "Tampa have yet to lose at home; Rollins have now lost back-to-back matches after opening the season unbeaten."
+      "fixture_ref": "2026-09-15 embry-riddle v scad",
+      "line": "Embry-Riddle have not lost this season; the only points they have dropped came at Spring Hill."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 embry-riddle v scad",
-      "line": "Embry-Riddle have won every match at home and have yet to lose anywhere."
+      "fixture_ref": "2026-09-16 saint-leo v tampa",
+      "line": "Saint Leo have won every match at home; Tampa arrive on back-to-back wins without conceding."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-15T11:42:16.589Z"
+    "validated_at": "2026-09-16T11:43:20.182Z"
   }
 }

@@ -3,78 +3,64 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-13T11:52:00+00:00",
-  "data_collected_at": "2026-09-13T11:37:56+00:00",
-  "headline": "Catawba shut out Mars Hill and top the table",
-  "dek": "Catawba have scored fourteen goals, more than any other programme, and conceded three in four wins and a draw. On Saturday they held Mars Hill without a goal in a conference match. Anderson, the only other unbeaten side, have also won four and drawn one, and the two do not meet until October.",
+  "generated_at": "2026-09-16T11:50:00+00:00",
+  "data_collected_at": "2026-09-16T11:36:30+00:00",
+  "headline": "Newberry win at last as Anderson are held",
+  "dek": "Newberry, who had lost every match that carried a result, won at Bob Jones on Tuesday. Anderson were held to a draw at Emory & Henry, their second draw of an unbeaten season, and their fourteen goals now match Catawba's at the top of the chart.",
   "lede_basis": {
-    "programme": "catawba",
+    "programme": "anderson",
     "wins": 4,
-    "draws": 1,
+    "draws": 2,
     "losses": 0,
     "gf": 14,
-    "ga": 3,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "anderson",
-      "carson-newman",
-      "coker",
-      "emory-henry",
-      "lenoir-rhyne",
-      "lincoln-memorial",
-      "mars-hill",
-      "newberry",
-      "tusculum",
-      "wingate"
-    ]
+    "ga": 6
   },
-  "lede_updated": "2026-09-13",
-  "displaced_by": "Catawba beat Mars Hill, the conference's top scorers, in a conference match and now lead the goal chart on fourteen.",
+  "lede_updated": "2026-09-16",
+  "displaced_by": "Anderson drew at Emory & Henry and drew level with Catawba on fourteen goals, so Catawba no longer lead the chart alone; Newberry won their first match.",
   "pattern": {
     "label": "observed",
-    "text": "Wingate's twelve goals have come from nine different scorers, and no one of them has more than Austin Vicenzino's three.",
+    "text": "Anderson's fourteen goals have come from eight different scorers, and no one of them has more than Jonas Zethofer's three; they have conceded six.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "anderson": 14,
         "catawba": 14,
         "mars-hill": 13,
-        "anderson": 12,
         "wingate": 12,
         "lenoir-rhyne": 8,
         "carson-newman": 7,
+        "newberry": 7,
         "lincoln-memorial": 6,
         "coker": 4,
         "tusculum": 3,
-        "newberry": 2,
-        "emory-henry": 0
+        "emory-henry": 2
       },
-      "highlight": "wingate"
+      "highlight": "anderson"
     },
     "basis": {
       "source": "stats",
-      "player": "Austin Vicenzino",
-      "programme": "wingate",
+      "player": "Jonas Zethofer",
+      "programme": "anderson",
       "goals": 3,
-      "gf": 12,
-      "ga": 4,
-      "distinct_scorers_min": 9
+      "gf": 14,
+      "ga": 6,
+      "distinct_scorers_min": 8
     }
   },
   "wire": {
-    "line": "Only Anderson and Catawba remain unbeaten; Emory & Henry still have no published result at all.",
+    "line": "Newberry win at last, and Emory & Henry hold Anderson in the only match of theirs to carry a result.",
     "basis": {
-      "programme": "catawba",
-      "wins": 4,
-      "draws": 1,
-      "losses": 0
+      "programme": "newberry",
+      "wins": 1,
+      "draws": 0,
+      "losses": 5
     },
-    "updated": "2026-09-06"
+    "updated": "2026-09-16"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and every match Emory & Henry have had so far, the latest at home to Palm Beach Atlantic.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and every Emory & Henry match but Tuesday's, the latest of them at home to Palm Beach Atlantic.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -83,15 +69,30 @@
     },
     {
       "label": "observed",
-      "text": "Newberry have lost all five of the matches that carry a result, scoring twice and conceding thirteen. Giuseppe Gereau and Shotaro Sekinada are the only players to have scored for them.",
+      "text": "Newberry's win at Bob Jones was their first of the season; they have scored seven and conceded sixteen in one win and five defeats.",
       "basis": {
         "programme": "newberry",
-        "wins": 0,
+        "wins": 1,
         "draws": 0,
         "losses": 5,
-        "gf": 2,
-        "ga": 13,
-        "distinct_scorers_min": 2
+        "gf": 7,
+        "ga": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Catawba have scored fourteen and conceded three in four wins and a draw; Alex Payton has four of the goals from sixteen shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Alex Payton",
+        "programme": "catawba",
+        "goals": 4,
+        "shots": 16,
+        "wins": 4,
+        "draws": 1,
+        "losses": 0,
+        "gf": 14,
+        "ga": 3
       }
     },
     {
@@ -104,18 +105,6 @@
         "losses": 2,
         "gf": 12,
         "ga": 4
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty saves and conceded five, without yet keeping a clean sheet.",
-      "basis": {
-        "source": "stats",
-        "player": "Daniel Benedek Miklosi",
-        "programme": "lincoln-memorial",
-        "saves": 20,
-        "goals_against": 5,
-        "shutouts": 0
       }
     },
     {
@@ -146,25 +135,25 @@
       "line": "4 G · 10 shots"
     },
     {
-      "player": "Austin Vicenzino",
-      "programme": "wingate",
+      "player": "Ben Curtis",
+      "programme": "newberry",
       "position": "FWD",
-      "class": "FR",
-      "line": "3 G · 6 shots"
+      "class": "SO",
+      "line": "3 G · 1 A · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-12 catawba v mars-hill",
-      "line": "Catawba remain unbeaten and have yet to concede in a conference match; Mars Hill had not won since their trip to North Greenville."
+      "fixture_ref": "2026-09-15 emory-henry v anderson",
+      "line": "Anderson remain unbeaten but have been held again; for Emory & Henry it is the only match of theirs to carry a result."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 emory-henry v anderson",
-      "line": "Anderson are unbeaten; Emory & Henry have no published result from any match yet."
+      "fixture_ref": "2026-09-16 lincoln-memorial v lenoir-rhyne",
+      "line": "Lincoln Memorial have won their only conference match so far; Lenoir-Rhyne are still without a win of any kind."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-13T11:47:42.023Z"
+    "validated_at": "2026-09-16T11:43:04.859Z"
   }
 }

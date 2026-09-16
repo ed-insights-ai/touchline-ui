@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-09-15T11:40:37.627Z",
-  "data_collected_at": "2026-09-15T11:31:23+00:00",
+  "validated_at": "2026-09-16T11:40:50.254Z",
+  "data_collected_at": "2026-09-16T11:31:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[0].text",
+      "text": "Ten matches have passed their date with no result recorded; the latest is Cal State Dominguez Hills' match with Concordia Irvine, and every other one was in August.",
+      "unbacked": ["1"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fresno Pacific's 24 goals are more than Cal State Monterey Bay and Menlo have scored together, and nine different players have shared them.",
+      "text": "Fresno Pacific's 24 goals are more than Stanislaus State and Cal State San Bernardino have scored together, and nine different players have shared them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Nine matches have passed their date with no result recorded, the earliest on the season's opening day and the latest in August.",
+      "text": "Ten matches have passed their date with no result recorded; the latest is Cal State Dominguez Hills' match with Concordia Irvine, and every other one was in August.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Cal State San Marcos' draw with Westmont was their first of the season; they have won three, drawn one and lost one.",
-      "checker": "team_record",
+      "text": "Menlo's draw with Hawaii Pacific was their first of the season, and leaves them with two wins, two defeats, eight goals scored and eight conceded.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,17 +71,17 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Cal State Monterey Bay lost for the first time at Point Loma, but their seventeen goals are still more than any programme's except Fresno Pacific's.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Cal State San Bernardino have won four and drawn two after beating Texas A&M International, and have conceded two goals across them.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "Cal State San Bernardino have won four and drawn two after beating Texas A&M International, and have conceded two goals across them.",
-      "checker": "team_goals+team_record",
+      "label": "observed",
+      "text": "UC Merced have won one and drawn three, and have yet to lose.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-14 cal-state-san-marcos v westmont",
+      "text": "2026-09-15 menlo v hawaii-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-15 menlo v hawaii-pacific",
+      "text": "2026-09-18 cal-poly-humboldt v menlo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-15T11:39:55.509Z",
-    "generate_ms": 42116,
+    "started_at": "2026-09-16T11:39:50.799Z",
+    "generate_ms": 59453,
     "validate_ms": 1,
-    "wall_ms": 42117,
+    "wall_ms": 59454,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-15T12:01:00Z",
-  "data_collected_at": "2026-09-15T11:32:36+00:00",
+  "generated_at": "2026-09-16T12:01:00Z",
+  "data_collected_at": "2026-09-16T11:32:34+00:00",
   "headline": "Rogers State's unbeaten start ends at home",
   "dek": "Saint Mary's won at Rogers State on Saturday, the hosts' first defeat in six matches. Rogers State have still scored fourteen goals through ten different players, more than any other programme, and Fort Hays State, who host them on the opening night of conference play, have drawn their last two matches.",
   "lede_basis": {
@@ -43,16 +43,13 @@
     }
   },
   "wire": {
-    "line": "Harding have lost all four of their matches, conceding ten goals and scoring once.",
+    "line": "Ouachita Baptist have conceded three goals all season, every one of them on the same afternoon against Dallas Baptist.",
     "basis": {
-      "programme": "harding",
-      "wins": 0,
-      "draws": 0,
-      "losses": 4,
-      "gf": 1,
-      "ga": 10
+      "programme": "ouachita-baptist",
+      "gf": 10,
+      "ga": 3
     },
-    "updated": "2026-09-10"
+    "updated": "2026-09-16"
   },
   "findings": [
     {
@@ -62,6 +59,17 @@
         "set": "past_date_no_result",
         "all_of": "ouachita-baptist",
         "count": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Harding have lost all five of their matches, the latest at William Jewell on Tuesday, and have scored once.",
+      "basis": {
+        "programme": "harding",
+        "wins": 0,
+        "draws": 0,
+        "losses": 5,
+        "gf": 1
       }
     },
     {
@@ -82,16 +90,6 @@
         "wins": 3,
         "draws": 0,
         "losses": 2
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Ouachita Baptist's ten goals have come from seven different players, and the three they have conceded all came in the defeat by Dallas Baptist.",
-      "basis": {
-        "programme": "ouachita-baptist",
-        "gf": 10,
-        "ga": 3,
-        "distinct_scorers_min": 7
       }
     },
     {
@@ -131,16 +129,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 oklahoma-christian v southern-nazarene",
-      "line": "Oklahoma Christian have beaten Newman but lost to Northeastern State, Rogers State and now Southern Nazarene; the visitors arrived from defeat at Midwestern State."
+      "fixture_ref": "2026-09-15 william-jewell v harding",
+      "line": "Harding arrived without a win or a draw and left the same way; it was William Jewell's first win over a GAC side after losing to Newman and Fort Hays State."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 william-jewell v harding",
-      "line": "Harding have yet to win or draw; William Jewell have already lost at home to Newman and away at Fort Hays State."
+      "fixture_ref": "2026-09-17 fort-hays-state v rogers-state",
+      "line": "Fort Hays State have not won since beating William Jewell; Rogers State arrive from their first defeat of the season, at home to Saint Mary's."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-15T11:40:57.843Z"
+    "validated_at": "2026-09-16T11:41:39.179Z"
   }
 }

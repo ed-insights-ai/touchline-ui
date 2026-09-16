@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-13T11:47:42.023Z",
-  "data_collected_at": "2026-09-13T11:37:56+00:00",
+  "validated_at": "2026-09-16T11:43:04.859Z",
+  "data_collected_at": "2026-09-16T11:36:30+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "Catawba have scored fourteen goals, more than any other programme, and conceded three in four wins and a draw. On Saturday they held Mars Hill without a goal in a conference match. Anderson, the only other unbeaten side, have also won four and drawn one, and the two do not meet until October.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Wingate's twelve goals have come from nine different scorers, and no one of them has more than Austin Vicenzino's three.",
+      "text": "Anderson's fourteen goals have come from eight different scorers, and no one of them has more than Jonas Zethofer's three; they have conceded six.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -44,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Only Anderson and Catawba remain unbeaten; Emory & Henry still have no published result at all.",
+      "text": "Newberry win at last, and Emory & Henry hold Anderson in the only match of theirs to carry a result.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -53,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and every match Emory & Henry have had so far, the latest at home to Palm Beach Atlantic.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and every Emory & Henry match but Tuesday's, the latest of them at home to Palm Beach Atlantic.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -62,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Newberry have lost all five of the matches that carry a result, scoring twice and conceding thirteen. Giuseppe Gereau and Shotaro Sekinada are the only players to have scored for them.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Newberry's win at Bob Jones was their first of the season; they have scored seven and conceded sixteen in one win and five defeats.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Wingate have scored twelve and conceded four in three wins and two defeats, and followed a home defeat to Francis Marion with a win at Middle Georgia State.",
-      "checker": "team_goals+team_record",
+      "text": "Catawba have scored fourteen and conceded three in four wins and a draw; Alex Payton has four of the goals from sixteen shots.",
+      "checker": "player_stat+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -80,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty saves and conceded five, without yet keeping a clean sheet.",
-      "checker": "player_stat",
+      "text": "Wingate have scored twelve and conceded four in three wins and two defeats, and followed a home defeat to Francis Marion with a win at Middle Georgia State.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Austin Vicenzino — 3 G · 6 shots",
+      "text": "Ben Curtis — 3 G · 1 A · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 catawba v mars-hill",
+      "text": "2026-09-15 emory-henry v anderson",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-15 emory-henry v anderson",
+      "text": "2026-09-16 lincoln-memorial v lenoir-rhyne",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-13T11:46:13.428Z",
-    "generate_ms": 88593,
+    "started_at": "2026-09-16T11:41:51.628Z",
+    "generate_ms": 73230,
     "validate_ms": 1,
-    "wall_ms": 88594,
+    "wall_ms": 73231,
     "concurrency": 4
   }
 }

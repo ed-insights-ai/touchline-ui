@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-15T11:42:09.851Z",
-  "data_collected_at": "2026-09-15T11:35:56+00:00",
+  "validated_at": "2026-09-16T11:42:24.553Z",
+  "data_collected_at": "2026-09-16T11:36:01+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Colorado School of Mines have lost five and drawn one, and go to Adams State on Tuesday as the only side still without a win.",
+      "text": "Colorado School of Mines have lost five and drawn one, and go to Adams State today as the only side still without a win.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-15T11:41:32.112Z",
-    "generate_ms": 37737,
+    "started_at": "2026-09-16T11:41:50.492Z",
+    "generate_ms": 34059,
     "validate_ms": 1,
-    "wall_ms": 37738,
+    "wall_ms": 34060,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-14T11:50:00Z",
-  "data_collected_at": "2026-09-14T11:34:32+00:00",
+  "generated_at": "2026-09-16T11:50:00Z",
+  "data_collected_at": "2026-09-16T11:33:53+00:00",
   "headline": "St. Mary's put ten past Sul Ross State",
   "dek": "St. Mary's had scored three goals in their first three matches and lost two of them. Sul Ross State have now lost all four of theirs, and their keeper Fernando Hernandez has made twenty-six saves without a clean sheet.",
   "lede_basis": {
@@ -66,11 +66,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Five matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, and UT Dallas's at Ouachita Baptist.",
+      "text": "Six matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, UT Dallas's at Ouachita Baptist, and Oklahoma Christian's against Oklahoma Panhandle State.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 5
+        "past_date_no_result": 6
       }
     },
     {
@@ -153,12 +153,12 @@
       "line": "Texas A&M International arrived unbeaten, having won at Cal State Dominguez Hills two days earlier; this was their first defeat."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 oklahoma-christian v oklahoma-panhandle-state",
-      "line": "Oklahoma Christian have not won since Newman, and have lost every match since."
+      "fixture_ref": "2026-09-16 dallas-baptist v seattle-pacific",
+      "line": "Dallas Baptist have not lost since their opening match against UT Tyler, winning at Harding, Ouachita Baptist and Colorado School of Mines along the way."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-14T11:42:49.316Z"
+    "validated_at": "2026-09-16T11:41:51.552Z"
   }
 }

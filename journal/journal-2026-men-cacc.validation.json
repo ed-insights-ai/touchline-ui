@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-15T11:40:26.081Z",
-  "data_collected_at": "2026-09-15T11:30:05+00:00",
+  "validated_at": "2026-09-16T11:40:30.076Z",
+  "data_collected_at": "2026-09-16T11:30:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -58,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Jefferson have lost all five of their matches, conceding fourteen goals against three scored.",
+      "text": "Dominican's home defeat by Molloy is their fourth loss against one draw, and they have still scored only one goal all season while conceding ten.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Felician's home defeat by Gannon is their third loss of the season against one win and two draws, with eleven goals scored and thirteen conceded.",
+      "text": "Caldwell's defeat at Adelphi is their third loss against two wins, with seven goals scored and ten conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Chestnut Hill's win at Virginia State levels their record at two wins, two draws and two losses, with ten goals scored and eleven conceded.",
+      "text": "Jefferson have lost all five of their matches, conceding fourteen goals against three scored.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Dominican have scored one goal all season, drawing once and losing three times with nine conceded.",
+      "text": "Post have scored six goals and conceded six across two wins, two draws and one loss.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-13 felician v gannon",
+      "text": "2026-09-15 adelphi v caldwell",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-15 dominican v molloy",
+      "text": "2026-09-16 bridgeport v southern-new-hampshire",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-15T11:39:55.498Z",
-    "generate_ms": 30579,
-    "validate_ms": 3,
-    "wall_ms": 30582,
+    "started_at": "2026-09-16T11:39:50.789Z",
+    "generate_ms": 39285,
+    "validate_ms": 1,
+    "wall_ms": 39287,
     "concurrency": 4
   }
 }
