@@ -3,123 +3,126 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-09-16T11:52:00+00:00",
-  "data_collected_at": "2026-09-16T11:34:21+00:00",
-  "headline": "West Liberty alone still winning every match",
-  "dek": "West Liberty have won all four of their matches and are the only programme yet to drop a point. Frostburg State and Davis & Elkins are also unbeaten, but have three draws between them. The other seven programmes have nineteen defeats between them, and West Virginia Wesleyan and Wheeling account for nine of those.",
+  "generated_at": "2026-09-17T11:50:00+00:00",
+  "data_collected_at": "2026-09-17T11:36:58+00:00",
+  "headline": "Frostburg State end West Liberty's perfect run",
+  "dek": "West Liberty had won all four of their matches until they went to Frostburg State and lost without scoring. Frostburg State and Davis & Elkins are now the only unbeaten programmes left, and between them they have drawn three of the eleven matches they have played.",
   "lede_basis": {
     "programme": "west-liberty",
     "wins": 4,
     "draws": 0,
-    "losses": 0,
-    "played": 4,
-    "unbeaten_sides": 3,
+    "losses": 1,
+    "gf": 10,
+    "ga": 8,
+    "wins_before_first_defeat": 4,
+    "unbeaten_programmes": 2,
     "frostburg_state_draws": 2,
     "davis_elkins_draws": 1,
     "draws_between_frostburg_and_davis_elkins": 3,
-    "other_programmes": 7,
-    "other_programmes_losses": 19,
-    "west_virginia_wesleyan_losses": 5,
-    "wheeling_losses": 4,
-    "west_virginia_wesleyan_and_wheeling_losses": 9
+    "frostburg_state_played": 6,
+    "davis_elkins_played": 5,
+    "matches_between_frostburg_and_davis_elkins": 11
   },
-  "lede_updated": "2026-09-14",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "West Liberty lost at Frostburg State on 2026-09-16; the standing headline was no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Charleston's fourteen goals have come from nine different scorers, and no one of them has more than three; the scoring is spread, not carried.",
+    "text": "Charleston have scored more than Frostburg State and Davis & Elkins together, and twelve different players have contributed to their twenty-four; the scoring is spread, not carried.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "charleston": 14,
-        "shawnee-state": 12,
-        "frostburg-state": 10,
+        "charleston": 24,
+        "frostburg-state": 13,
+        "shawnee-state": 13,
+        "davis-elkins": 10,
         "west-liberty": 10,
-        "davis-elkins": 8,
-        "concord": 7,
-        "salem": 7,
-        "wheeling": 7,
-        "point-park": 6,
+        "concord": 8,
+        "point-park": 8,
+        "salem": 8,
+        "wheeling": 8,
         "west-virginia-wesleyan": 3
       },
       "highlight": "charleston"
     },
     "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
       "programme": "charleston",
-      "gf": 14,
-      "ga": 6,
-      "distinct_scorers_min": 9,
-      "most_goals_by_one_scorer": 3
+      "of": ["frostburg-state", "davis-elkins"],
+      "gf": 24,
+      "distinct_scorers_min": 12
     }
   },
   "wire": {
-    "line": "Every programme has now conceded, and only West Virginia Wesleyan are still without a win.",
+    "line": "Charleston scored ten in a single match against West Virginia Wesleyan, more than Wesleyan have scored all season.",
     "basis": {
-      "programme": "west-virginia-wesleyan",
-      "wins": 0,
-      "draws": 0,
-      "losses": 5
+      "programme": "charleston",
+      "gf": 24,
+      "ga": 6,
+      "goals_in_one_match": 10,
+      "west_virginia_wesleyan_gf": 3
     },
-    "updated": "2026-09-07"
+    "updated": "2026-09-17"
   },
   "findings": [
     {
       "label": "derived",
-      "text": "West Liberty have won all four of their matches, and three of the four were won by a single goal.",
+      "text": "Frostburg State are unbeaten after six matches and have conceded four goals in them.",
       "basis": {
-        "programme": "west-liberty",
+        "programme": "frostburg-state",
         "wins": 4,
-        "draws": 0,
+        "draws": 2,
         "losses": 0,
-        "gf": 10,
-        "ga": 5,
-        "played": 4,
-        "wins_by_one_goal": 3
+        "gf": 13,
+        "ga": 4,
+        "played": 6
       }
     },
     {
       "label": "observed",
-      "text": "Anthony Fusay has two shutouts for Point Park, and no other keeper on the list has any.",
+      "text": "Josiah Emerson has made nineteen saves in Frostburg State's goal and been beaten three times.",
       "basis": {
         "source": "stats",
-        "player": "Anthony Fusay",
-        "programme": "point-park",
-        "shutouts": 2
+        "player": "Josiah Emerson",
+        "programme": "frostburg-state",
+        "saves": 19,
+        "goals_against": 3
       }
     },
     {
       "label": "derived",
-      "text": "West Virginia Wesleyan have lost all five of their matches, three of them to conference opponents, and have scored three goals while conceding thirteen.",
+      "text": "West Virginia Wesleyan have lost all six of their matches, and have scored three goals while conceding twenty-three.",
       "basis": {
         "programme": "west-virginia-wesleyan",
         "wins": 0,
         "draws": 0,
-        "losses": 5,
+        "losses": 6,
         "gf": 3,
-        "ga": 13,
-        "played": 5,
-        "conference_losses": 3
+        "ga": 23,
+        "played": 6
       }
     },
     {
-      "label": "derived",
-      "text": "Shawnee State have scored twelve goals and conceded fifteen; six of the twelve came in a single match.",
+      "label": "observed",
+      "text": "Martin Echarren has six goals for Charleston from seventeen shots, the most goals by any player on the leaders list.",
       "basis": {
-        "programme": "shawnee-state",
-        "gf": 12,
-        "ga": 15,
-        "goals_in_one_match": 6
+        "source": "stats",
+        "player": "Martin Echarren",
+        "programme": "charleston",
+        "goals": 6,
+        "shots": 17
       }
     },
     {
       "label": "signal",
-      "text": "Leyton Collier's fourteen shots have produced three goals for West Liberty; no other player on the leaders list has taken more than eleven.",
+      "text": "Leyton Collier has taken seventeen shots for West Liberty and scored three times; nobody else outside Charleston has taken more than eleven.",
       "basis": {
         "source": "stats",
         "player": "Leyton Collier",
         "programme": "west-liberty",
         "goals": 3,
-        "shots": 14,
-        "next_most_shots": 11
+        "shots": 17,
+        "next_most_shots_outside_charleston": 11
       }
     }
   ],
@@ -129,35 +132,35 @@
       "programme": "charleston",
       "position": "FWD",
       "class": "SO",
-      "line": "3 G · 1 A · 10 shots"
+      "line": "6 G · 2 A · 17 shots"
     },
     {
-      "player": "Nate Kennedy",
+      "player": "Frank Stare",
       "programme": "frostburg-state",
       "position": "FWD",
       "class": "SO",
-      "line": "3 G · 5 shots"
+      "line": "3 G · 2 A · 9 shots"
     },
     {
       "player": "Leyton Collier",
       "programme": "west-liberty",
       "position": "MID",
       "class": "SO",
-      "line": "3 G · 1 A · 14 shots"
+      "line": "3 G · 1 A · 17 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 wheeling v west-liberty",
-      "line": "West Liberty are still the only side to have won every match; Wheeling have lost every conference match they have played."
+      "fixture_ref": "2026-09-16 charleston v west-virginia-wesleyan",
+      "line": "Charleston have won every conference match they have played; West Virginia Wesleyan are still without a point anywhere."
     },
     "next_match": {
-      "fixture_ref": "2026-09-16 frostburg-state v west-liberty",
-      "line": "Frostburg State have yet to lose at home; West Liberty have yet to drop a point anywhere."
+      "fixture_ref": "2026-09-19 california-pa v west-virginia-wesleyan",
+      "line": "West Virginia Wesleyan have lost every match this season and have yet to score more than once in any of them."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:41:50.416Z"
+    "validated_at": "2026-09-17T11:46:50.679Z"
   }
 }

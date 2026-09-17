@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-16T11:43:46.617Z",
+  "validated_at": "2026-09-17T11:49:37.327Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "William Jewell's first win comes against winless Harding William Jewell had lost all five of their matches before Harding came to visit, and the win is their first of the season. Harding arrived without a win of their own and leave without one, having now lost every match they have played.",
+      "text": "West Liberty's unbeaten start ends at Frostburg State West Liberty had won all four of their matches before they went to Frostburg State, and they leave with their first defeat of the season. Frostburg State, who inflicted it, are still without a defeat of their own.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-16T11:43:23.202Z",
-    "generate_ms": 23414,
+    "started_at": "2026-09-17T11:49:10.242Z",
+    "generate_ms": 27083,
     "validate_ms": 1,
-    "wall_ms": 23416
+    "wall_ms": 27085
   }
 }

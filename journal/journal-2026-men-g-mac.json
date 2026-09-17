@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-16T11:40:00+00:00",
-  "data_collected_at": "2026-09-16T11:31:57+00:00",
+  "generated_at": "2026-09-17T11:40:00+00:00",
+  "data_collected_at": "2026-09-17T11:32:12+00:00",
   "headline": "Findlay's unbeaten run ends at Kentucky Wesleyan",
-  "dek": "Findlay had won all four of their matches before Saturday, when Kentucky Wesleyan beat them for the first defeat of Findlay's season. Cedarville and Tiffin, each still unbeaten in conference play, now share the top of the table, and Cedarville, who had not scored a week ago, have found the net in every conference match since.",
+  "dek": "Findlay had won all four of their matches before Saturday, when Kentucky Wesleyan beat them for the first defeat of Findlay's season. Cedarville and Tiffin, each still unbeaten in conference play, share the top of the table, and Cedarville, who did not score in any match before conference play, have found the net in every conference match since.",
   "lede_basis": {
     "programme": "findlay",
     "wins": 4,
     "draws": 0,
     "losses": 1
   },
-  "lede_updated": "2026-09-13",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "form: the dek counted a date in weeks",
   "pattern": {
     "label": "derived",
     "text": "Lake Erie have scored twelve, level with Thomas More at the top of the chart, but have conceded nine, and their record of two wins, two draws and two defeats says the goals are going in at both ends.",
@@ -27,10 +28,10 @@
         "walsh": 8,
         "ohio-dominican": 7,
         "cedarville": 6,
+        "northwood": 6,
         "ashland": 5,
         "kentucky-wesleyan": 5,
-        "malone": 4,
-        "northwood": 3
+        "malone": 4
       },
       "highlight": "lake-erie"
     },
@@ -150,6 +151,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:40:55.308Z"
+    "validated_at": "2026-09-17T11:44:23.792Z"
   }
 }

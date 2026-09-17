@@ -3,71 +3,58 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-14T11:50:00+00:00",
-  "data_collected_at": "2026-09-14T11:36:12+00:00",
-  "headline": "West Chester win first match, end Shippensburg's unbeaten run",
-  "dek": "West Chester had drawn twice and lost once without a win before they went to Shippensburg and came away with one, and Shippensburg had not lost until they arrived. Millersville and Shepherd both drew the same afternoon, so no side in the conference is still unbeaten.",
+  "generated_at": "2026-09-17T11:52:00+00:00",
+  "data_collected_at": "2026-09-17T11:38:27+00:00",
+  "headline": "Millersville's defence sets them apart at the top",
+  "dek": "Millersville followed their win at Shepherd with another over West Chester on Wednesday, and have conceded four goals in seven matches, as few as any side in the conference has let in. Only Slippery Rock have kept the figure that low, and they have played fewer matches to do it.",
   "lede_basis": {
-    "programme": "west-chester",
-    "wins": 1,
-    "draws": 2,
-    "losses": 1
+    "programme": "millersville",
+    "wins": 5,
+    "draws": 1,
+    "losses": 1,
+    "gf": 18,
+    "ga": 4
   },
-  "lede_updated": "2026-09-13",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "Millersville beat West Chester on 2026-09-16 for a second conference win, four conceded in seven matches",
   "pattern": {
     "label": "derived",
-    "text": "Millersville have scored more than any other programme while conceding three goals in six matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
+    "text": "Millersville have scored eighteen, more than West Chester and Shippensburg have managed between them, and the two sides at the foot of the chart both lost on Wednesday.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "millersville": 16,
-        "bloomsburg": 12,
-        "e-stroudsburg": 10,
-        "gannon": 10,
-        "seton-hill": 10,
-        "lock-haven": 9,
-        "pitt-johnstown": 7,
-        "shepherd": 6,
-        "shippensburg": 6,
-        "california-pa": 5,
-        "slippery-rock": 5,
-        "west-chester": 5
+        "millersville": 18,
+        "bloomsburg": 16,
+        "e-stroudsburg": 13,
+        "gannon": 12,
+        "lock-haven": 12,
+        "slippery-rock": 12,
+        "seton-hill": 11,
+        "pitt-johnstown": 8,
+        "shepherd": 8,
+        "california-pa": 7,
+        "shippensburg": 7,
+        "west-chester": 6
       },
       "highlight": "millersville"
     },
     "basis": {
-      "comparative": "greater_than_each",
+      "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "millersville",
-      "of": [
-        "bloomsburg",
-        "california-pa",
-        "e-stroudsburg",
-        "gannon",
-        "lock-haven",
-        "pitt-johnstown",
-        "seton-hill",
-        "shepherd",
-        "shippensburg",
-        "slippery-rock",
-        "west-chester"
-      ],
-      "gf": 16,
-      "ga": 3,
-      "wins": 4,
-      "draws": 1,
-      "losses": 1
+      "of": ["west-chester", "shippensburg"],
+      "gf": 18
     }
   },
   "wire": {
-    "line": "Every programme has now lost at least once; West Chester's first win of the season came at the last unbeaten side, Shippensburg.",
+    "line": "Lock Haven are still without a win after six matches, four of them drawn.",
     "basis": {
-      "programme": "west-chester",
-      "wins": 1,
-      "draws": 2,
-      "losses": 1
+      "programme": "lock-haven",
+      "wins": 0,
+      "draws": 4,
+      "losses": 2
     },
-    "updated": "2026-09-13"
+    "updated": "2026-09-17"
   },
   "findings": [
     {
@@ -84,104 +71,88 @@
     },
     {
       "label": "observed",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning three and drawing one since, and have conceded seven goals in five matches.",
+      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals in six matches.",
       "basis": {
         "programme": "gannon",
-        "wins": 3,
+        "wins": 4,
         "draws": 1,
         "losses": 1,
-        "gf": 10,
-        "ga": 7
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Pitt-Johnstown have conceded fourteen goals, more than any other programme has let in, and have lost three of their four matches.",
-      "basis": {
-        "comparative": "greater_than_each",
-        "metric": "ga",
-        "programme": "pitt-johnstown",
-        "of": [
-          "bloomsburg",
-          "california-pa",
-          "e-stroudsburg",
-          "gannon",
-          "lock-haven",
-          "millersville",
-          "seton-hill",
-          "shepherd",
-          "shippensburg",
-          "slippery-rock",
-          "west-chester"
-        ],
-        "gf": 7,
-        "ga": 14,
-        "wins": 1,
-        "draws": 0,
-        "losses": 3
+        "gf": 12,
+        "ga": 8
       }
     },
     {
       "label": "observed",
-      "text": "Lock Haven have drawn three and lost two of their five matches without a win, and their nine goals have come from seven different players.",
+      "text": "Slippery Rock have conceded four goals in five matches and scored twelve, with seven different players among the scorers.",
       "basis": {
-        "programme": "lock-haven",
-        "wins": 0,
-        "draws": 3,
-        "losses": 2,
-        "gf": 9,
-        "ga": 12,
+        "programme": "slippery-rock",
+        "wins": 2,
+        "draws": 2,
+        "losses": 1,
+        "gf": 12,
+        "ga": 4,
         "distinct_scorers_min": 7
       }
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has three goals and four assists from seventeen shots for Seton Hill.",
+      "text": "Rafael Santos has three goals and five assists from eighteen shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
         "goals": 3,
-        "assists": 4,
-        "shots": 17
+        "assists": 5,
+        "shots": 18
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Aidan Houck has made twenty-nine saves for Shepherd and been beaten six times.",
+      "basis": {
+        "source": "stats",
+        "player": "Aidan Houck",
+        "programme": "shepherd",
+        "saves": 29,
+        "goals_against": 6
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Zander Leik",
-      "programme": "millersville",
+      "player": "Kaden Reynolds",
+      "programme": "slippery-rock",
       "position": "FWD",
-      "class": "5Y",
-      "line": "3 G · 1 A · 8 shots"
+      "class": "JR",
+      "line": "4 G · 1 A · 22 shots"
     },
     {
-      "player": "Noah Pawling",
-      "programme": "pitt-johnstown",
+      "player": "Roy Parkyn",
+      "programme": "millersville",
       "position": "MID",
-      "class": "JR",
-      "line": "3 G · 9 shots"
+      "class": "SR",
+      "line": "4 G · 9 shots"
     },
     {
       "player": "Steven Arias",
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "3 G · 8 shots"
+      "line": "4 G · 11 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 felician v gannon",
-      "line": "Gannon have not lost since their opening day; Felician have yet to beat a conference side."
+      "fixture_ref": "2026-09-16 shepherd v shippensburg",
+      "line": "Shepherd have not lost since Millersville visited; Shippensburg have not won since beating Bloomsburg."
     },
     "next_match": {
-      "fixture_ref": "2026-09-16 millersville v west-chester",
-      "line": "Both sides won their conference openers; Millersville's only defeat of the season came at home, to Ashland."
+      "fixture_ref": "2026-09-19 millersville v e-stroudsburg",
+      "line": "Millersville have yet to drop a point in conference play; E. Stroudsburg have not won since beating Lackawanna."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-14T11:43:54.745Z"
+    "validated_at": "2026-09-17T11:49:05.265Z"
   }
 }

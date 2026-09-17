@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-16T11:45:00+00:00",
-  "data_collected_at": "2026-09-16T11:31:04+00:00",
+  "generated_at": "2026-09-17T11:45:00+00:00",
+  "data_collected_at": "2026-09-17T11:31:17+00:00",
   "headline": "Cal State Monterey Bay fall, Cal State LA stay perfect",
   "dek": "Cal State Monterey Bay's unbeaten start ended on the road at Point Loma, leaving Cal State LA as the only side in the conference still winning every match. They won at Westmont the same day, a fifth win in five, and have yet to concede a goal.",
   "lede_basis": {
@@ -24,10 +24,10 @@
       "values": {
         "fresno-pacific": 24,
         "cal-state-monterey-bay": 17,
+        "cal-state-dominguez-hills": 13,
         "stanislaus-state": 11,
         "cal-state-san-bernardino": 10,
         "cal-state-san-marcos": 10,
-        "cal-state-dominguez-hills": 9,
         "cal-poly-humboldt": 8,
         "cal-state-east-bay": 8,
         "cal-state-la": 8,
@@ -62,23 +62,23 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Ten matches have passed their date with no result recorded; the latest is Cal State Dominguez Hills' match with Concordia Irvine, and every other one was in August.",
+      "text": "Nine matches have passed their date with no result recorded, every one of them in August; the latest is Chico State's match with Yuba.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 10
+        "past_date_no_result": 9
       }
     },
     {
       "label": "observed",
-      "text": "Menlo's draw with Hawaii Pacific was their first of the season, and leaves them with two wins, two defeats, eight goals scored and eight conceded.",
+      "text": "Cal State Dominguez Hills' win over Concordia Irvine was their first since August, and leaves them with two wins, two draws and two defeats, thirteen goals scored and twelve conceded.",
       "basis": {
-        "programme": "menlo",
+        "programme": "cal-state-dominguez-hills",
         "wins": 2,
-        "draws": 1,
+        "draws": 2,
         "losses": 2,
-        "gf": 8,
-        "ga": 8
+        "gf": 13,
+        "ga": 12
       }
     },
     {
@@ -140,8 +140,8 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-15 menlo v hawaii-pacific",
-      "line": "Menlo had never drawn a match this season before it; Hawaii Pacific have now drawn at Stanislaus State and Menlo and lost at Chico State on the same California trip."
+      "fixture_ref": "2026-09-15 cal-state-dominguez-hills v concordia-irvine",
+      "line": "Cal State Dominguez Hills had not won since August before this; Concordia Irvine arrived having won at Fresno Pacific on their previous outing."
     },
     "next_match": {
       "fixture_ref": "2026-09-18 cal-poly-humboldt v menlo",
@@ -150,6 +150,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:40:50.254Z"
+    "validated_at": "2026-09-17T11:43:46.274Z"
   }
 }

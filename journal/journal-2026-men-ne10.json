@@ -3,47 +3,42 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-16T11:40:00+00:00",
-  "data_collected_at": "2026-09-16T11:34:37+00:00",
-  "headline": "Home sides win all three meetings between members so far",
-  "dek": "Franklin Pierce, Assumption and American International have each beaten a fellow member, and every one of the three wins came at home. Assumption's thirteen goals now match Franklin Pierce's, and only Southern New Hampshire, with twenty, have scored more.",
+  "generated_at": "2026-09-17T11:45:00+00:00",
+  "data_collected_at": "2026-09-17T11:37:25+00:00",
+  "headline": "Pace and Southern New Hampshire enter conference play unbeaten",
+  "dek": "Both have four wins and two draws from six matches, and have got there by different routes: Southern New Hampshire have scored twenty-four goals to Pace's eleven, while only four have gone past Pace. The home side is still unbeaten in the four meetings between members, three won and one drawn.",
   "lede_basis": {
-    "programme": "southern-new-hampshire",
-    "gf": 20,
-    "ga": 3,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "assumption",
-      "franklin-pierce",
-      "pace",
-      "saint-anselm",
-      "american-international",
-      "bentley",
-      "saint-michael-s",
-      "adelphi",
-      "southern-connecticut"
-    ],
-    "assumption_gf": 13,
-    "franklin_pierce_gf": 13,
-    "member_meetings": 3,
-    "member_meetings_won_by_home_side": 3
+    "programme": "pace",
+    "wins": 4,
+    "draws": 2,
+    "losses": 0,
+    "gf": 11,
+    "ga": 4,
+    "matches_played": 6,
+    "southern_new_hampshire_wins": 4,
+    "southern_new_hampshire_draws": 2,
+    "southern_new_hampshire_losses": 0,
+    "southern_new_hampshire_gf": 24,
+    "member_meetings": 4,
+    "member_meetings_won_by_home_side": 3,
+    "member_meetings_drawn": 1
   },
-  "lede_updated": "2026-09-13",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "Assumption's draw with Bentley ends the run of home wins between members; two sides reach six matches unbeaten on the eve of conference play",
   "pattern": {
     "label": "signal",
-    "text": "Thirteen different players have scored Southern New Hampshire's twenty goals, while Franklin Pierce and Assumption reach the same thirteen by different routes: four scorers at Franklin Pierce, six at Assumption.",
+    "text": "Southern New Hampshire's twenty-four goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Pace sit mid-chart on eleven, and the four they have conceded is the smaller figure that explains their unbeaten record.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southern-new-hampshire": 20,
-        "assumption": 13,
+        "southern-new-hampshire": 24,
+        "assumption": 15,
         "franklin-pierce": 13,
-        "pace": 9,
+        "pace": 11,
+        "bentley": 9,
         "adelphi": 8,
         "saint-anselm": 8,
         "american-international": 7,
-        "bentley": 7,
         "saint-michael-s": 7,
         "southern-connecticut": 5
       },
@@ -52,50 +47,46 @@
     "basis": {
       "programme": "southern-new-hampshire",
       "distinct_scorers_min": 13,
-      "gf": 20,
-      "franklin_pierce_gf": 13,
-      "franklin_pierce_distinct_scorers_min": 4,
-      "assumption_gf": 13,
-      "assumption_distinct_scorers_min": 6
+      "gf": 24,
+      "pace_gf": 11,
+      "pace_ga": 4
     }
   },
   "wire": {
-    "line": "Southern New Hampshire have scored twenty and conceded three, and nobody has beaten them yet.",
+    "line": "Two sides go into conference play unbeaten, and Southern Connecticut go in without a win.",
     "basis": {
-      "programme": "southern-new-hampshire",
-      "gf": 20,
-      "ga": 3,
-      "wins": 4,
-      "draws": 1,
-      "losses": 0
+      "programme": "southern-connecticut",
+      "wins": 0,
+      "draws": 2,
+      "losses": 2,
+      "unbeaten_programmes": 2
     },
-    "updated": "2026-09-13"
+    "updated": "2026-09-17"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Saint Michael's have conceded eleven goals, more than any other programme, and have lost three of their six matches.",
+      "text": "Southern New Hampshire conceded four goals at Bridgeport, more than they had conceded in their first five matches together.",
       "basis": {
-        "programme": "saint-michael-s",
-        "wins": 1,
-        "draws": 2,
-        "losses": 3,
-        "gf": 7,
-        "ga": 11,
-        "matches_played": 6,
-        "comparative": "greater_than_each",
-        "metric": "ga",
-        "of": [
-          "adelphi",
-          "american-international",
-          "assumption",
-          "bentley",
-          "franklin-pierce",
-          "pace",
-          "saint-anselm",
-          "southern-connecticut",
-          "southern-new-hampshire"
-        ]
+        "programme": "southern-new-hampshire",
+        "gf": 24,
+        "ga": 7,
+        "goals_conceded_at_bridgeport": 4,
+        "matches_before_bridgeport": 5,
+        "goals_conceded_before_bridgeport": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Assumption's draw with Bentley is the first of the four meetings between members that the home side has not won.",
+      "basis": {
+        "programme": "assumption",
+        "wins": 3,
+        "draws": 1,
+        "losses": 1,
+        "member_meetings": 4,
+        "member_meetings_won_by_home_side": 3,
+        "member_meetings_drawn": 1
       }
     },
     {
@@ -111,36 +102,23 @@
     },
     {
       "label": "observed",
-      "text": "Pace are unbeaten after five matches, and only three goals have gone past them.",
-      "basis": {
-        "programme": "pace",
-        "wins": 3,
-        "draws": 2,
-        "losses": 0,
-        "gf": 9,
-        "ga": 3,
-        "matches_played": 5
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Cody Holbert has scored six goals from twenty-four shots, more goals than any other player listed.",
+      "text": "Cody Holbert has scored eight goals from twenty-nine shots, more goals than any other player listed.",
       "basis": {
         "source": "stats",
         "player": "Cody Holbert",
         "programme": "assumption",
-        "goals": 6,
-        "shots": 24
+        "goals": 8,
+        "shots": 29
       }
     },
     {
       "label": "observed",
-      "text": "Andrea Farinella has made twenty-four saves, more than any other goalkeeper listed.",
+      "text": "Joe Zweben has made twenty-eight saves, more than any other goalkeeper listed.",
       "basis": {
         "source": "stats",
-        "player": "Andrea Farinella",
-        "programme": "adelphi",
-        "saves": 24
+        "player": "Joe Zweben",
+        "programme": "pace",
+        "saves": 28
       }
     }
   ],
@@ -150,14 +128,14 @@
       "programme": "assumption",
       "position": "FWD",
       "class": "SR",
-      "line": "6 G · 24 shots"
+      "line": "8 G · 29 shots"
     },
     {
       "player": "Inigo Burusco",
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
-      "line": "5 G · 1 A · 16 shots"
+      "line": "6 G · 1 A · 17 shots"
     },
     {
       "player": "Guillermo Rios",
@@ -169,16 +147,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-15 adelphi v caldwell",
-      "line": "Adelphi have not lost since the opening week; Caldwell had already beaten Saint Michael's and lost at Bentley."
+      "fixture_ref": "2026-09-16 bridgeport v southern-new-hampshire",
+      "line": "Southern New Hampshire remain unbeaten but conceded more here than in the whole season before it; Bridgeport had already drawn at American International and won at Franklin Pierce."
     },
     "next_match": {
-      "fixture_ref": "2026-09-16 assumption v bentley",
-      "line": "Another meeting between members, and the home side has won every one so far; Bentley lost the last of them at Franklin Pierce."
+      "fixture_ref": "2026-09-18 southern-connecticut v franklin-pierce",
+      "line": "Conference play opens with Southern Connecticut still looking for a first win; Franklin Pierce arrive having won their last two, including the heaviest of the meetings between members so far."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:42:25.241Z"
+    "validated_at": "2026-09-17T11:47:13.839Z"
   }
 }

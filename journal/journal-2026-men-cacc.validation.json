@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-16T11:40:30.076Z",
-  "data_collected_at": "2026-09-16T11:30:02+00:00",
+  "validated_at": "2026-09-17T11:44:24.228Z",
+  "data_collected_at": "2026-09-17T11:30:03+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,11 +17,6 @@
   "normalizations": [],
   "review": [
     {
-      "path": "pattern.text",
-      "text": "Georgian Court's thirteen goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
-      "unbacked": ["1"]
-    },
-    {
       "path": "findings[4].text",
       "text": "Max Bond has made 35 saves for Chestnut Hill and conceded eight, a save percentage of .814.",
       "unbacked": ["814"]
@@ -30,9 +25,9 @@
   "claims": [
     {
       "path": "pattern",
-      "label": "derived",
-      "text": "Georgian Court's thirteen goals have come from seven different scorers, and Sander Rynning has three of them. The tallest bar is a spread of contributions rather than one player's tally.",
-      "checker": "player_stat+distinct_scorers+team_goals",
+      "label": "observed",
+      "text": "Felician's twelve goals, the most of any programme but Georgian Court, have bought one win against four defeats, with fifteen conceded.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -58,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Dominican's home defeat by Molloy is their fourth loss against one draw, and they have still scored only one goal all season while conceding ten.",
+      "text": "Bridgeport's draw with Southern New Hampshire is their third against one win and two defeats; they have scored eleven goals and conceded sixteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Caldwell's defeat at Adelphi is their third loss against two wins, with seven goals scored and ten conceded.",
+      "text": "Wilmington's defeat at Queens is their third against two wins and one draw, and they have conceded fourteen goals to eight scored.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Jefferson have lost all five of their matches, conceding fourteen goals against three scored.",
+      "text": "Dominican's home defeat by Molloy is their fourth loss against one draw, and they have still scored only one goal all season while conceding ten.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Gijs van Eif — 3 G · 4 A · 25 shots",
+      "text": "Gijs van Eif — 5 G · 5 A · 32 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-15 adelphi v caldwell",
+      "text": "2026-09-16 georgian-court v roberts-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-16 bridgeport v southern-new-hampshire",
+      "text": "2026-09-19 georgian-court v post",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-16T11:39:50.789Z",
-    "generate_ms": 39285,
+    "started_at": "2026-09-17T11:42:58.454Z",
+    "generate_ms": 85772,
     "validate_ms": 1,
-    "wall_ms": 39287,
+    "wall_ms": 85773,
     "concurrency": 4
   }
 }

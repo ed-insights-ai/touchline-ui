@@ -3,64 +3,71 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-16T11:45:00+00:00",
-  "data_collected_at": "2026-09-16T11:31:27+00:00",
-  "headline": "Mercy arrive at conference play with one defeat",
-  "dek": "The loss came on opening day, to East Stroudsburg at home; four wins and a draw have followed, the last at Southern Connecticut. Jacob Darwesh Lund-Iversen has scored eight of the eleven goals from sixteen shots, and Mercy have conceded six.",
+  "generated_at": "2026-09-17T11:45:00+00:00",
+  "data_collected_at": "2026-09-17T11:31:43+00:00",
+  "headline": "Mercy and Queens arrive level at conference play",
+  "dek": "Each has won five, drawn one and lost once, and each has conceded six goals. Mercy's opening-day defeat at home to East Stroudsburg is still their only one, and Jacob Darwesh Lund-Iversen has scored eight of their fourteen goals from seventeen shots.",
   "lede_basis": {
     "source": "stats",
     "player": "Jacob Darwesh Lund-Iversen",
     "programme": "mercy",
     "goals": 8,
-    "shots": 16,
-    "gf": 11,
+    "shots": 17,
+    "gf": 14,
     "ga": 6,
-    "wins": 4,
+    "wins": 5,
     "draws": 1,
     "losses": 1
   },
-  "lede_updated": "2026-09-14",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "Queens beat Wilmington and Mercy beat American International on Sep 16, leaving both on five wins, one draw, one defeat and six conceded; the standing dek's four wins and eleven goals were no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Queens have scored more than Roberts Wesleyan and Staten Island together, and nine different players have done the scoring; the spread of the attack, not one striker, is what sets them apart.",
+    "text": "Queens have scored nineteen goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "queens": 16,
-        "mercy": 11,
-        "roberts-wesleyan": 8,
-        "staten-island": 7,
-        "d-youville": 6,
-        "daemen": 5,
-        "district-of-columbia": 5,
+        "queens": 19,
+        "mercy": 14,
+        "staten-island": 11,
+        "roberts-wesleyan": 10,
+        "d-youville": 7,
+        "daemen": 6,
+        "district-of-columbia": 6,
         "st-thomas-aquinas": 5,
         "molloy": 4
       },
       "highlight": "queens"
     },
     "basis": {
-      "comparative": "greater_than_sum",
+      "comparative": "greater_than_each",
       "metric": "gf",
       "programme": "queens",
-      "of": ["roberts-wesleyan", "staten-island"],
-      "gf": 16,
+      "of": [
+        "d-youville",
+        "daemen",
+        "district-of-columbia",
+        "mercy",
+        "molloy",
+        "roberts-wesleyan",
+        "st-thomas-aquinas",
+        "staten-island"
+      ],
+      "gf": 19,
       "distinct_scorers_min": 9
     }
   },
   "wire": {
-    "line": "District of Columbia have won three and lost once, on five goals scored; Lorenzo Herrera has made 31 saves behind them.",
+    "line": "Molloy have conceded three goals all season and lost once, at home to Assumption; Daemen are their first conference visitors.",
     "basis": {
-      "source": "stats",
-      "player": "Lorenzo Herrera",
-      "programme": "district-of-columbia",
-      "saves": 31,
-      "wins": 3,
-      "draws": 1,
-      "losses": 1,
-      "gf": 5,
-      "ga": 4
+      "programme": "molloy",
+      "gf": 4,
+      "ga": 3,
+      "wins": 2,
+      "draws": 2,
+      "losses": 1
     },
-    "updated": "2026-09-13"
+    "updated": "2026-09-17"
   },
   "findings": [
     {
@@ -74,7 +81,7 @@
     },
     {
       "label": "derived",
-      "text": "Daemen have conceded fifteen goals, more than any other programme, and two draws, at Saint Michael's and at home to Salem, are all they have to show.",
+      "text": "Daemen have conceded 22 goals, more than any other programme, and are still without a win; the home defeat to Slippery Rock was their fifth.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -91,58 +98,48 @@
         ],
         "wins": 0,
         "draws": 2,
-        "losses": 4,
-        "gf": 5,
-        "ga": 15
+        "losses": 5,
+        "gf": 6,
+        "ga": 22
       }
     },
     {
       "label": "derived",
-      "text": "Queens have scored sixteen goals, more than any other programme, and conceded five; the defeat at Holy Family is the only match they have lost.",
+      "text": "Queens have won every match since the defeat at Holy Family, the latest at home to Wilmington, and have conceded six goals all season against nineteen scored.",
       "basis": {
-        "comparative": "greater_than_each",
-        "metric": "gf",
         "programme": "queens",
-        "of": [
-          "d-youville",
-          "daemen",
-          "district-of-columbia",
-          "mercy",
-          "molloy",
-          "roberts-wesleyan",
-          "st-thomas-aquinas",
-          "staten-island"
-        ],
-        "gf": 16,
-        "ga": 5,
-        "wins": 4,
+        "gf": 19,
+        "ga": 6,
+        "wins": 5,
         "draws": 1,
         "losses": 1
       }
     },
     {
       "label": "derived",
-      "text": "D'Youville have won their last two, at California and at home to Pitt-Johnstown, without conceding, and Matthew Solorio now has four clean sheets.",
+      "text": "Lorenzo Herrera has made 35 saves and conceded five for District of Columbia, who have lost once, at Slippery Rock.",
       "basis": {
         "source": "stats",
-        "player": "Matthew Solorio",
-        "programme": "d-youville",
-        "shutouts": 4,
-        "wins": 2,
+        "player": "Lorenzo Herrera",
+        "programme": "district-of-columbia",
+        "saves": 35,
+        "goals_against": 5,
+        "wins": 3,
         "draws": 2,
-        "losses": 2
+        "losses": 1
       }
     },
     {
       "label": "derived",
-      "text": "Molloy have won at Saint Anselm and now at Dominican and have conceded three goals all season; the defeat at home to Assumption is their only loss.",
+      "text": "Staten Island's eleven goals have come from eight different players, and the win at home to Goldey-Beacom was their second of the season.",
       "basis": {
-        "programme": "molloy",
-        "gf": 4,
-        "ga": 3,
+        "programme": "staten-island",
+        "gf": 11,
+        "ga": 10,
+        "distinct_scorers_min": 8,
         "wins": 2,
-        "draws": 2,
-        "losses": 1
+        "draws": 0,
+        "losses": 3
       }
     }
   ],
@@ -152,35 +149,35 @@
       "programme": "mercy",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 1 A · 16 shots"
+      "line": "8 G · 2 A · 17 shots"
     },
     {
       "player": "Keithlend Cesar",
       "programme": "queens",
       "position": "FWD",
       "class": "SR",
-      "line": "4 G · 3 A · 9 shots"
+      "line": "4 G · 3 A · 11 shots"
     },
     {
       "player": "Tommy Gunn",
       "programme": "queens",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 2 A · 11 shots"
+      "line": "4 G · 2 A · 12 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-15 dominican v molloy",
-      "line": "Molloy have won away at Saint Anselm and at Dominican; their only defeat came at home to Assumption, and their draws have both been at home too."
+      "fixture_ref": "2026-09-16 mercy v american-international",
+      "line": "Mercy have not lost since opening day, and American International had already been held scoreless by St. Thomas Aquinas."
     },
     "next_match": {
-      "fixture_ref": "2026-09-16 queens v wilmington",
-      "line": "Queens have scored in every match this season; the defeat at Holy Family is their only loss."
+      "fixture_ref": "2026-09-19 queens v roberts-wesleyan",
+      "line": "Queens have scored in every match this season; Roberts Wesleyan have conceded in every one of theirs."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:40:48.583Z"
+    "validated_at": "2026-09-17T11:44:28.903Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-16T11:41:51.552Z",
-  "data_collected_at": "2026-09-16T11:33:53+00:00",
+  "validated_at": "2026-09-17T11:46:01.487Z",
+  "data_collected_at": "2026-09-17T11:36:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -74,12 +74,12 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Texas A&M International had conceded three goals in five matches before losing at Cal State San Bernardino; they have now conceded seven, and have won three, drawn one and lost one.",
-      "checker": "team_goals+team_record",
+      "text": "Dallas Baptist had gone four matches without defeat since losing their opener to UT Tyler; the home defeat to Seattle Pacific leaves them with three wins, one draw and two defeats.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["ga_before_latest_match: 3", "matches_before_latest_match: 5"]
+      "unchecked_figures": ["unbeaten_run_before_latest_match: 4"]
     },
     {
       "path": "findings[4]",
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-13 cal-state-san-bernardino v texas-a-m-international",
+      "text": "2026-09-16 dallas-baptist v seattle-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-16 dallas-baptist v seattle-pacific",
+      "text": "2026-09-17 sul-ross-state v ut-dallas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-16T11:41:16.593Z",
-    "generate_ms": 34958,
+    "started_at": "2026-09-17T11:45:13.294Z",
+    "generate_ms": 48192,
     "validate_ms": 1,
-    "wall_ms": 34959,
+    "wall_ms": 48193,
     "concurrency": 4
   }
 }

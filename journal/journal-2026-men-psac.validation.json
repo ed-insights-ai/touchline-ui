@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-14T11:43:54.745Z",
-  "data_collected_at": "2026-09-14T11:36:12+00:00",
+  "validated_at": "2026-09-17T11:49:05.265Z",
+  "data_collected_at": "2026-09-17T11:38:27+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,23 +17,28 @@
   "normalizations": [],
   "review": [
     {
-      "path": "pattern.text",
-      "text": "Millersville have scored more than any other programme while conceding three goals in six matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
+      "path": "dek",
+      "text": "Millersville followed their win at Shepherd with another over West Chester on Wednesday, and have conceded four goals in seven matches, as few as any side in the conference has let in. Only Slippery Rock have kept the figure that low, and they have played fewer matches to do it.",
+      "unbacked": ["7"]
+    },
+    {
+      "path": "wire",
+      "text": "Lock Haven are still without a win after six matches, four of them drawn.",
       "unbacked": ["6"]
     },
     {
+      "path": "pattern.text",
+      "text": "Millersville have scored eighteen, more than West Chester and Shippensburg have managed between them, and the two sides at the foot of the chart both lost on Wednesday.",
+      "unbacked": ["2"]
+    },
+    {
       "path": "findings[1].text",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning three and drawing one since, and have conceded seven goals in five matches.",
-      "unbacked": ["5"]
+      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals in six matches.",
+      "unbacked": ["6"]
     },
     {
       "path": "findings[2].text",
-      "text": "Pitt-Johnstown have conceded fourteen goals, more than any other programme has let in, and have lost three of their four matches.",
-      "unbacked": ["4"]
-    },
-    {
-      "path": "findings[3].text",
-      "text": "Lock Haven have drawn three and lost two of their five matches without a win, and their nine goals have come from seven different players.",
+      "text": "Slippery Rock have conceded four goals in five matches and scored twelve, with seven different players among the scorers.",
       "unbacked": ["5"]
     }
   ],
@@ -41,8 +46,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Millersville have scored more than any other programme while conceding three goals in six matches, as few as any side has let in; the scoring and the meanest defence sit at the same end of the chart.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Millersville have scored eighteen, more than West Chester and Shippensburg have managed between them, and the two sides at the foot of the chart both lost on Wednesday.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -59,7 +64,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Every programme has now lost at least once; West Chester's first win of the season came at the last unbeaten side, Shippensburg.",
+      "text": "Lock Haven are still without a win after six matches, four of them drawn.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -77,7 +82,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning three and drawing one since, and have conceded seven goals in five matches.",
+      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals in six matches.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -85,9 +90,9 @@
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Pitt-Johnstown have conceded fourteen goals, more than any other programme has let in, and have lost three of their four matches.",
-      "checker": "team_goals+team_record+comparative",
+      "label": "observed",
+      "text": "Slippery Rock have conceded four goals in five matches and scored twelve, with seven different players among the scorers.",
+      "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -95,8 +100,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Lock Haven have drawn three and lost two of their five matches without a win, and their nine goals have come from seven different players.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Rafael Santos has three goals and five assists from eighteen shots for Seton Hill.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -104,7 +109,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Rafael Santos has three goals and four assists from seventeen shots for Seton Hill.",
+      "text": "Aidan Houck has made twenty-nine saves for Shepherd and been beaten six times.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -113,7 +118,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Zander Leik — 3 G · 1 A · 8 shots",
+      "text": "Kaden Reynolds — 4 G · 1 A · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -122,7 +127,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Noah Pawling — 3 G · 9 shots",
+      "text": "Roy Parkyn — 4 G · 9 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -131,7 +136,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Steven Arias — 3 G · 8 shots",
+      "text": "Steven Arias — 4 G · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -140,7 +145,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-13 felician v gannon",
+      "text": "2026-09-16 shepherd v shippensburg",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -149,7 +154,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-16 millersville v west-chester",
+      "text": "2026-09-19 millersville v e-stroudsburg",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -157,10 +162,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-14T11:43:04.678Z",
-    "generate_ms": 50066,
+    "started_at": "2026-09-17T11:46:29.665Z",
+    "generate_ms": 155524,
     "validate_ms": 1,
-    "wall_ms": 50067,
+    "wall_ms": 155600,
     "concurrency": 4
   }
 }

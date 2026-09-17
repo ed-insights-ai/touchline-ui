@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "validated_at": "2026-09-16T11:41:20.483Z",
-  "data_collected_at": "2026-09-16T11:33:30+00:00",
+  "validated_at": "2026-09-17T11:45:13.221Z",
+  "data_collected_at": "2026-09-17T11:35:15+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Quinn Sappington has made 21 saves for Western Washington while conceding four goals.",
+      "text": "Quinn Sappington has made 25 saves for Western Washington while conceding four goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-13 regis v western-washington",
+      "text": "2026-09-16 dallas-baptist v seattle-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-16 dallas-baptist v seattle-pacific",
+      "text": "2026-09-17 saint-marys v saint-martins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-16T11:40:55.382Z",
-    "generate_ms": 25100,
+    "started_at": "2026-09-17T11:44:28.978Z",
+    "generate_ms": 44243,
     "validate_ms": 1,
-    "wall_ms": 25101,
+    "wall_ms": 44243,
     "concurrency": 4
   }
 }

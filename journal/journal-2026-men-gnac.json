@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-09-16T11:45:00+00:00",
-  "data_collected_at": "2026-09-16T11:33:30+00:00",
+  "generated_at": "2026-09-17T11:45:00+00:00",
+  "data_collected_at": "2026-09-17T11:35:15+00:00",
   "headline": "Seattle Pacific alone still without a draw",
-  "dek": "Western Washington drew at Regis on Sunday, and Seattle Pacific are now the only programme in the conference yet to share the points. Seattle Pacific have won five matches and lost one, and that defeat came at Regis too, earlier in the same week.",
+  "dek": "Seattle Pacific won at Dallas Baptist on Wednesday, their sixth win against a single defeat, and remain the only programme in the conference yet to share the points. The defeat came at Regis, where Western Washington drew on Sunday.",
   "lede_basis": {
     "programme": "seattle-pacific",
-    "wins": 5,
+    "wins": 6,
     "draws": 0,
     "losses": 1
   },
-  "lede_updated": "2026-09-14",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "Seattle Pacific's sixth win, at Dallas Baptist; the standing dek's win count of five was no longer true",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's eighteen goals are more than Northwest Nazarene and Simon Fraser have scored together.",
@@ -21,9 +22,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "saint-martins": 18,
-        "seattle-pacific": 13,
+        "seattle-pacific": 14,
         "western-oregon": 13,
-        "western-washington": 11,
+        "western-washington": 13,
         "northwest-nazarene": 6,
         "simon-fraser": 4
       },
@@ -70,12 +71,12 @@
     },
     {
       "label": "observed",
-      "text": "Quinn Sappington has made 21 saves for Western Washington while conceding four goals.",
+      "text": "Quinn Sappington has made 25 saves for Western Washington while conceding four goals.",
       "basis": {
         "source": "stats",
         "player": "Quinn Sappington",
         "programme": "western-washington",
-        "saves": 21,
+        "saves": 25,
         "goals_against": 4
       }
     },
@@ -124,16 +125,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 regis v western-washington",
-      "line": "Western Washington's first draw of the season, on the ground where Seattle Pacific had lost earlier in the week."
+      "fixture_ref": "2026-09-16 dallas-baptist v seattle-pacific",
+      "line": "Seattle Pacific have now won every match but the one at Regis, and have still never drawn."
     },
     "next_match": {
-      "fixture_ref": "2026-09-16 dallas-baptist v seattle-pacific",
-      "line": "Seattle Pacific are the only side in the conference yet to draw; their only defeat came away, at Regis."
+      "fixture_ref": "2026-09-17 saint-marys v saint-martins",
+      "line": "Saint Martin's have not lost since Chico State, and no side in the conference has scored more."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:41:20.483Z"
+    "validated_at": "2026-09-17T11:45:13.221Z"
   }
 }

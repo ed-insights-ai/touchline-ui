@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-09-16T11:40:50.254Z",
-  "data_collected_at": "2026-09-16T11:31:04+00:00",
+  "validated_at": "2026-09-17T11:43:46.274Z",
+  "data_collected_at": "2026-09-17T11:31:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[0].text",
-      "text": "Ten matches have passed their date with no result recorded; the latest is Cal State Dominguez Hills' match with Concordia Irvine, and every other one was in August.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -53,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Ten matches have passed their date with no result recorded; the latest is Cal State Dominguez Hills' match with Concordia Irvine, and every other one was in August.",
+      "text": "Nine matches have passed their date with no result recorded, every one of them in August; the latest is Chico State's match with Yuba.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Menlo's draw with Hawaii Pacific was their first of the season, and leaves them with two wins, two defeats, eight goals scored and eight conceded.",
+      "text": "Cal State Dominguez Hills' win over Concordia Irvine was their first since August, and leaves them with two wins, two draws and two defeats, thirteen goals scored and twelve conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-15 menlo v hawaii-pacific",
+      "text": "2026-09-15 cal-state-dominguez-hills v concordia-irvine",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-16T11:39:50.799Z",
-    "generate_ms": 59453,
-    "validate_ms": 1,
-    "wall_ms": 59454,
+    "started_at": "2026-09-17T11:42:58.465Z",
+    "generate_ms": 47805,
+    "validate_ms": 3,
+    "wall_ms": 47808,
     "concurrency": 4
   }
 }

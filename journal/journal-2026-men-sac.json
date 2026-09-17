@@ -3,59 +3,74 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-16T11:50:00+00:00",
-  "data_collected_at": "2026-09-16T11:36:30+00:00",
-  "headline": "Newberry win at last as Anderson are held",
-  "dek": "Newberry, who had lost every match that carried a result, won at Bob Jones on Tuesday. Anderson were held to a draw at Emory & Henry, their second draw of an unbeaten season, and their fourteen goals now match Catawba's at the top of the chart.",
+  "generated_at": "2026-09-17T11:52:00+00:00",
+  "data_collected_at": "2026-09-17T11:39:21+00:00",
+  "headline": "Catawba pull clear at the top of the chart",
+  "dek": "Catawba beat Virginia State at home on Wednesday and have now scored twenty-two goals and conceded three in five wins and a draw, more than any other programme has scored. Lincoln Memorial put Lenoir-Rhyne away the same night and, like Catawba, have yet to drop a point in conference play.",
   "lede_basis": {
-    "programme": "anderson",
-    "wins": 4,
-    "draws": 2,
+    "programme": "catawba",
+    "wins": 5,
+    "draws": 1,
     "losses": 0,
-    "gf": 14,
-    "ga": 6
+    "gf": 22,
+    "ga": 3,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "anderson",
+      "mars-hill",
+      "wingate",
+      "lincoln-memorial",
+      "lenoir-rhyne",
+      "carson-newman",
+      "newberry",
+      "coker",
+      "tusculum",
+      "emory-henry"
+    ]
   },
-  "lede_updated": "2026-09-16",
-  "displaced_by": "Anderson drew at Emory & Henry and drew level with Catawba on fourteen goals, so Catawba no longer lead the chart alone; Newberry won their first match.",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "Catawba scored eight against Virginia State and moved to twenty-two goals, so Anderson no longer match them at the top of the chart.",
   "pattern": {
     "label": "observed",
-    "text": "Anderson's fourteen goals have come from eight different scorers, and no one of them has more than Jonas Zethofer's three; they have conceded six.",
+    "text": "Catawba have scored twenty-two and conceded three, and no one player has more than Alex Payton's four of those goals.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "catawba": 22,
         "anderson": 14,
-        "catawba": 14,
         "mars-hill": 13,
         "wingate": 12,
+        "lincoln-memorial": 11,
         "lenoir-rhyne": 8,
         "carson-newman": 7,
         "newberry": 7,
-        "lincoln-memorial": 6,
         "coker": 4,
         "tusculum": 3,
         "emory-henry": 2
       },
-      "highlight": "anderson"
+      "highlight": "catawba"
     },
     "basis": {
       "source": "stats",
-      "player": "Jonas Zethofer",
-      "programme": "anderson",
-      "goals": 3,
-      "gf": 14,
-      "ga": 6,
-      "distinct_scorers_min": 8
+      "player": "Alex Payton",
+      "programme": "catawba",
+      "goals": 4,
+      "gf": 22,
+      "ga": 3
     }
   },
   "wire": {
-    "line": "Newberry win at last, and Emory & Henry hold Anderson in the only match of theirs to carry a result.",
+    "line": "Catawba have conceded three goals all season, and only Belmont Abbey have taken a point off them.",
     "basis": {
-      "programme": "newberry",
-      "wins": 1,
-      "draws": 0,
-      "losses": 5
+      "programme": "catawba",
+      "wins": 5,
+      "draws": 1,
+      "losses": 0,
+      "gf": 22,
+      "ga": 3
     },
-    "updated": "2026-09-16"
+    "updated": "2026-09-17"
   },
   "findings": [
     {
@@ -69,6 +84,41 @@
     },
     {
       "label": "observed",
+      "text": "Lincoln Memorial have scored eleven and conceded five in three wins, a draw and a defeat; the defeat was their opener at Palm Beach Atlantic.",
+      "basis": {
+        "programme": "lincoln-memorial",
+        "wins": 3,
+        "draws": 1,
+        "losses": 1,
+        "gf": 11,
+        "ga": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lenoir-Rhyne are still without a win: two draws and four defeats, eight scored and sixteen conceded, the latest defeat at Lincoln Memorial on Wednesday.",
+      "basis": {
+        "programme": "lenoir-rhyne",
+        "wins": 0,
+        "draws": 2,
+        "losses": 4,
+        "gf": 8,
+        "ga": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty-six saves and conceded five goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Daniel Benedek Miklosi",
+        "programme": "lincoln-memorial",
+        "saves": 26,
+        "goals_against": 5
+      }
+    },
+    {
+      "label": "observed",
       "text": "Newberry's win at Bob Jones was their first of the season; they have scored seven and conceded sixteen in one win and five defeats.",
       "basis": {
         "programme": "newberry",
@@ -78,45 +128,6 @@
         "gf": 7,
         "ga": 16
       }
-    },
-    {
-      "label": "observed",
-      "text": "Catawba have scored fourteen and conceded three in four wins and a draw; Alex Payton has four of the goals from sixteen shots.",
-      "basis": {
-        "source": "stats",
-        "player": "Alex Payton",
-        "programme": "catawba",
-        "goals": 4,
-        "shots": 16,
-        "wins": 4,
-        "draws": 1,
-        "losses": 0,
-        "gf": 14,
-        "ga": 3
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Wingate have scored twelve and conceded four in three wins and two defeats, and followed a home defeat to Francis Marion with a win at Middle Georgia State.",
-      "basis": {
-        "programme": "wingate",
-        "wins": 3,
-        "draws": 0,
-        "losses": 2,
-        "gf": 12,
-        "ga": 4
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Carson-Newman's Elijah Buford has made eighteen saves and conceded two goals.",
-      "basis": {
-        "source": "stats",
-        "player": "Elijah Buford",
-        "programme": "carson-newman",
-        "saves": 18,
-        "goals_against": 2
-      }
     }
   ],
   "players_to_watch": [
@@ -125,7 +136,7 @@
       "programme": "catawba",
       "position": "MID",
       "class": "SO",
-      "line": "4 G · 16 shots"
+      "line": "4 G · 19 shots"
     },
     {
       "player": "Logan Knight",
@@ -135,25 +146,25 @@
       "line": "4 G · 10 shots"
     },
     {
-      "player": "Ben Curtis",
-      "programme": "newberry",
+      "player": "Breno Andreucci",
+      "programme": "catawba",
       "position": "FWD",
-      "class": "SO",
-      "line": "3 G · 1 A · 9 shots"
+      "class": "JR",
+      "line": "3 G · 1 A · 14 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-15 emory-henry v anderson",
-      "line": "Anderson remain unbeaten but have been held again; for Emory & Henry it is the only match of theirs to carry a result."
+      "fixture_ref": "2026-09-16 catawba v virginia-state",
+      "line": "Catawba remain unbeaten, and have not conceded since their win over North Greenville in August."
     },
     "next_match": {
-      "fixture_ref": "2026-09-16 lincoln-memorial v lenoir-rhyne",
-      "line": "Lincoln Memorial have won their only conference match so far; Lenoir-Rhyne are still without a win of any kind."
+      "fixture_ref": "2026-09-19 catawba v emory-henry",
+      "line": "Catawba have not conceded since August; Emory & Henry's only published result is a draw with Anderson."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:43:04.859Z"
+    "validated_at": "2026-09-17T11:48:21.354Z"
   }
 }

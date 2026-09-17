@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-16T12:05:00+00:00",
-  "data_collected_at": "2026-09-15T11:33:48+00:00",
-  "headline": "William Jewell's first win comes against winless Harding",
-  "dek": "William Jewell had lost all five of their matches before Harding came to visit, and the win is their first of the season. Harding arrived without a win of their own and leave without one, having now lost every match they have played.",
+  "generated_at": "2026-09-17T12:05:00+00:00",
+  "data_collected_at": "2026-09-17T11:33:58+00:00",
+  "headline": "West Liberty's unbeaten start ends at Frostburg State",
+  "dek": "West Liberty had won all four of their matches before they went to Frostburg State, and they leave with their first defeat of the season. Frostburg State, who inflicted it, are still without a defeat of their own.",
   "basis": {
-    "programme": "william-jewell",
-    "wins": 1,
+    "programme": "west-liberty",
+    "wins": 4,
     "draws": 0,
-    "losses": 5
+    "losses": 1
   },
-  "fixture_ref": "2026-09-15 william-jewell v harding",
-  "updated": "2026-09-16",
-  "displaced_by": "results night: William Jewell's first win of the season, at home to Harding, after five defeats",
+  "fixture_ref": "2026-09-16 frostburg-state v west-liberty",
+  "updated": "2026-09-17",
+  "displaced_by": "results night: Frostburg State end West Liberty's perfect start, a first defeat after four wins",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-16T11:43:46.617Z"
+    "validated_at": "2026-09-17T11:49:37.327Z"
   }
 }

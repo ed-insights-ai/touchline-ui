@@ -3,49 +3,36 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-15T11:40:00+00:00",
-  "data_collected_at": "2026-09-15T11:33:48+00:00",
-  "headline": "West Alabama's first win makes them the top scorers",
-  "dek": "West Alabama had drawn one and lost four before Saturday, and then beat Tuskegee at home for their first win of the season. Their fourteen goals are now the most of any programme in the conference, and they have still conceded thirteen.",
+  "generated_at": "2026-09-17T11:42:00+00:00",
+  "data_collected_at": "2026-09-17T11:35:36+00:00",
+  "headline": "Unbeaten UAH and Trevecca cancel each other out",
+  "dek": "UAH and Trevecca, the only programmes yet to lose a match this season, drew with each other on Wednesday. UAH have now won four and drawn one, and have conceded three goals in those five matches.",
   "lede_basis": {
-    "programme": "west-alabama",
-    "wins": 1,
+    "programme": "uah",
+    "wins": 4,
     "draws": 1,
-    "losses": 4,
-    "gf": 14,
-    "ga": 13,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "aum",
-      "christian-brothers",
-      "delta-state",
-      "lee",
-      "mississippi-college",
-      "montevallo",
-      "spring-hill",
-      "trevecca",
-      "uah",
-      "union"
-    ]
+    "losses": 0,
+    "ga": 3,
+    "played": 5
   },
-  "lede_updated": "2026-09-14",
+  "lede_updated": "2026-09-17",
+  "displaced_by": "The two unbeaten sides drew with each other on 2026-09-16; the standing dek's West Alabama goals-against figure is also no longer true.",
   "pattern": {
     "label": "derived",
-    "text": "The tallest bar is not the strongest side: West Alabama have scored fourteen and conceded thirteen, and have won once in six matches.",
+    "text": "The tallest bar is not the strongest side: West Alabama have scored fourteen and conceded fourteen, and have won once in seven matches.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "west-alabama": 14,
-        "uah": 12,
-        "christian-brothers": 11,
-        "trevecca": 11,
+        "christian-brothers": 13,
+        "uah": 13,
+        "trevecca": 12,
+        "aum": 11,
         "mississippi-college": 10,
-        "aum": 8,
-        "lee": 6,
-        "montevallo": 6,
-        "union": 5,
-        "delta-state": 4,
+        "montevallo": 8,
+        "lee": 7,
+        "union": 7,
+        "delta-state": 5,
         "spring-hill": 1
       },
       "highlight": "west-alabama"
@@ -53,22 +40,23 @@
     "basis": {
       "programme": "west-alabama",
       "gf": 14,
-      "ga": 13,
+      "ga": 14,
       "wins": 1,
       "draws": 1,
-      "losses": 4,
-      "played": 6
+      "losses": 5,
+      "played": 7
     }
   },
   "wire": {
-    "line": "UAH and Trevecca, both still unbeaten, meet each other in the first week of conference play.",
+    "line": "AUM have won five of six and are the only side with a perfect start to conference play.",
     "basis": {
-      "programme": "uah",
-      "wins": 4,
+      "programme": "aum",
+      "wins": 5,
       "draws": 0,
-      "losses": 0
+      "losses": 1,
+      "played": 6
     },
-    "updated": "2026-09-12"
+    "updated": "2026-09-17"
   },
   "findings": [
     {
@@ -82,13 +70,13 @@
     },
     {
       "label": "observed",
-      "text": "Hunter Walker has conceded three goals for Trevecca and kept three clean sheets.",
+      "text": "Hunter Walker has conceded four goals for Trevecca and kept three clean sheets.",
       "basis": {
         "source": "stats",
         "player": "Hunter Walker",
         "programme": "trevecca",
         "shutouts": 3,
-        "goals_against": 3
+        "goals_against": 4
       }
     },
     {
@@ -102,25 +90,25 @@
     },
     {
       "label": "observed",
-      "text": "David Nunez has five goals from nineteen shots for West Alabama.",
+      "text": "David Nunez has five goals from twenty-two shots for West Alabama.",
       "basis": {
         "source": "stats",
         "player": "David Nunez",
         "programme": "west-alabama",
         "goals": 5,
-        "shots": 19
+        "shots": 22
       }
     },
     {
       "label": "observed",
-      "text": "Spring Hill have drawn one and lost two, and have scored one goal.",
+      "text": "Spring Hill have drawn one and lost three, and have scored one goal while conceding ten.",
       "basis": {
         "programme": "spring-hill",
         "wins": 0,
         "draws": 1,
-        "losses": 2,
+        "losses": 3,
         "gf": 1,
-        "ga": 7
+        "ga": 10
       }
     }
   ],
@@ -130,14 +118,14 @@
       "programme": "west-alabama",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 2 A · 19 shots"
+      "line": "5 G · 2 A · 22 shots"
     },
     {
       "player": "Chris Douglas",
       "programme": "trevecca",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 13 shots"
+      "line": "5 G · 14 shots"
     },
     {
       "player": "Karim Gegg",
@@ -149,16 +137,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-13 west-alabama v tuskegee",
-      "line": "West Alabama's first win of the season; Tuskegee had already won at Union."
+      "fixture_ref": "2026-09-16 uah v trevecca",
+      "line": "Both sides remain unbeaten; UAH had already won at West Alabama, and Trevecca had drawn at Montevallo."
     },
     "next_match": {
-      "fixture_ref": "2026-09-15 mississippi-college v blue-mountain-christian",
-      "line": "Mississippi Christian have scored in every match this season, and won their conference opener at home to Union."
+      "fixture_ref": "2026-09-19 aum v christian-brothers",
+      "line": "AUM have yet to concede in conference play; Christian Brothers have yet to lose in it."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-15T11:41:25.187Z"
+    "validated_at": "2026-09-17T11:45:45.022Z"
   }
 }
