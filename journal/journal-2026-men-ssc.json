@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-17T11:46:00+00:00",
-  "data_collected_at": "2026-09-17T11:39:54+00:00",
+  "generated_at": "2026-09-18T11:45:00+00:00",
+  "data_collected_at": "2026-09-18T11:37:55+00:00",
   "headline": "Embry-Riddle stretch unbeaten start with fifth win",
   "dek": "Embry-Riddle beat SCAD at home for a fifth win, the draw at Spring Hill the only point they have dropped. They have conceded six goals in all, and no side has beaten them at home or away.",
   "lede_basis": {
@@ -18,7 +18,7 @@
   "lede_updated": "2026-09-16",
   "pattern": {
     "label": "derived",
-    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and none of those sides has yet taken a point in conference play.",
+    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -26,13 +26,13 @@
         "embry-riddle": 14,
         "tampa": 13,
         "saint-leo": 12,
+        "rollins": 11,
         "lynn": 9,
         "florida-tech": 8,
         "barry": 6,
         "nova-southeastern": 6,
         "palm-beach-atlantic": 6,
-        "eckerd": 1,
-        "rollins": 1
+        "eckerd": 4
       },
       "highlight": "florida-southern"
     },
@@ -40,7 +40,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "florida-southern",
-      "of": ["barry", "eckerd", "nova-southeastern"],
+      "of": ["eckerd", "nova-southeastern"],
       "gf": 16
     }
   },
@@ -57,11 +57,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Three matches have passed their date with no result, and all three are Palm Beach Atlantic's: against Florida Atlantic, Barry and Strive Academy.",
+      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's at home to Trinity.",
       "basis": {
-        "set": "past_date_no_result",
-        "all_of": "palm-beach-atlantic",
-        "count": 3
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
       }
     },
     {
@@ -88,14 +88,14 @@
     },
     {
       "label": "derived",
-      "text": "Rollins have lost both of their matches, at home to Embry-Riddle and then at Tampa, and have scored once while conceding four.",
+      "text": "Rollins opened with two wins and have since drawn one and lost two, conceding twelve goals against eleven scored.",
       "basis": {
         "programme": "rollins",
-        "wins": 0,
-        "draws": 0,
+        "wins": 2,
+        "draws": 1,
         "losses": 2,
-        "gf": 1,
-        "ga": 4
+        "gf": 11,
+        "ga": 12
       }
     },
     {
@@ -112,6 +112,13 @@
   ],
   "players_to_watch": [
     {
+      "player": "Finlay Prain",
+      "programme": "rollins",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 2 A · 18 shots"
+    },
+    {
       "player": "Luis Gaitan",
       "programme": "saint-leo",
       "position": "FWD",
@@ -124,19 +131,12 @@
       "position": "FWD",
       "class": "SO",
       "line": "4 G · 1 A · 24 shots"
-    },
-    {
-      "player": "Hector Oliver",
-      "programme": "florida-southern",
-      "position": "MID",
-      "class": "JR",
-      "line": "4 G · 1 A · 9 shots"
     }
   ],
   "featured": {
     "last_match": {
       "fixture_ref": "2026-09-16 saint-leo v tampa",
-      "line": "Saint Leo have still not lost at home; Tampa have gone four matches without defeat."
+      "line": "Saint Leo have still not lost at home; Tampa have not lost since August."
     },
     "next_match": {
       "fixture_ref": "2026-09-19 florida-southern v lynn",
@@ -145,6 +145,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-17T11:49:07.443Z"
+    "validated_at": "2026-09-18T11:44:03.754Z"
   }
 }

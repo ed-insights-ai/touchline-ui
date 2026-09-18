@@ -4,30 +4,24 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-09-17T11:44:23.792Z",
-  "data_collected_at": "2026-09-17T11:32:12+00:00",
+  "validated_at": "2026-09-18T11:42:08.700Z",
+  "data_collected_at": "2026-09-18T11:32:28+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[3].text",
-      "text": "Ethan Hensley has conceded four goals for Findlay and kept two clean sheets, with thirteen saves and a save percentage of .765.",
-      "unbacked": ["765"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Lake Erie have scored twelve, level with Thomas More at the top of the chart, but have conceded nine, and their record of two wins, two draws and two defeats says the goals are going in at both ends.",
-      "checker": "team_goals+team_record",
+      "text": "The scoring sits with the sides at the top of the table: Lake Erie's sixteen goals are more than Kentucky Wesleyan and Northwood have managed together.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -44,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Findlay's defeat at Kentucky Wesleyan leaves no unbeaten side; Cedarville and Tiffin top the table with perfect conference records.",
+      "text": "No perfect conference record survives: Cedarville lost at home to Malone and Tiffin drew, letting Lake Erie and Thomas More draw level.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -62,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Ashland have conceded twelve goals, more than any other programme, and have lost four times and won once, at Millersville.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Tiffin have conceded five goals all season and have lost only once, at home to Charleston on the opening day; since then they have won three and drawn three.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Tiffin have conceded four goals all season and have lost only once, at home to Charleston on the opening day; since then they have won three and drawn two.",
+      "text": "Ohio Dominican have conceded fifteen goals, and have won once, drawn twice and lost three times.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +74,16 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Ethan Hensley has conceded four goals for Findlay and kept two clean sheets, with thirteen saves and a save percentage of .765.",
+      "text": "Alex Banjac has scored five goals for Lake Erie from fourteen shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Nick Cherry has kept four clean sheets in goal for Tiffin.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Carson Oberski — 2 G · 3 A · 15 shots",
+      "text": "Alex Banjac — 5 G · 1 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Aleksandar Miketic — 3 G · 1 A · 11 shots",
+      "text": "Tom Woodward — 3 G · 3 A · 21 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Maddux Camden — 2 G · 2 A · 7 shots",
+      "text": "Garbhan Feeney — 1 G · 5 A · 21 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-12 kentucky-wesleyan v findlay",
+      "text": "2026-09-17 cedarville v malone",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-17 tiffin v findlay",
+      "text": "2026-09-19 malone v lake-erie",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-17T11:43:46.348Z",
-    "generate_ms": 37442,
+    "started_at": "2026-09-18T11:40:50.237Z",
+    "generate_ms": 78461,
     "validate_ms": 1,
-    "wall_ms": 37443,
+    "wall_ms": 78462,
     "concurrency": 4
   }
 }

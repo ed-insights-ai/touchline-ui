@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-09-17T11:50:00+00:00",
-  "data_collected_at": "2026-09-17T11:37:47+00:00",
+  "generated_at": "2026-09-18T11:50:00+00:00",
+  "data_collected_at": "2026-09-18T11:35:52+00:00",
   "headline": "Concordia Irvine's fifteen goals buy only three wins",
   "dek": "Concordia Irvine lost at Cal State Dominguez Hills on Tuesday, their third defeat against three wins and a draw. Fifteen goals, more than any other programme has scored, have come from twelve different scorers; fourteen have gone in at the other end.",
   "lede_basis": {
@@ -37,12 +37,12 @@
       "kind": "goals-for-by-team",
       "values": {
         "concordia-irvine": 15,
+        "point-loma": 13,
         "hawaii-pacific": 12,
         "westmont": 11,
-        "point-loma": 9,
         "dominican-of-california": 8,
+        "vanguard": 7,
         "hawaii-hilo": 5,
-        "vanguard": 5,
         "jessup": 4,
         "biola": 3,
         "chaminade": 3
@@ -72,7 +72,19 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one win, one draw and four defeats.",
+      "text": "Point Loma won at Vanguard on Thursday and are the only programme with more wins than defeats: three wins, two draws and two defeats, with thirteen goals scored and nine conceded.",
+      "basis": {
+        "programme": "point-loma",
+        "wins": 3,
+        "draws": 2,
+        "losses": 2,
+        "gf": 13,
+        "ga": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one win, one draw and five defeats.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -80,7 +92,7 @@
         "programme": "vanguard",
         "wins": 1,
         "draws": 1,
-        "losses": 4
+        "losses": 5
       }
     },
     {
@@ -93,18 +105,6 @@
         "losses": 3,
         "gf": 5,
         "ga": 5
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Point Loma stand level at two wins, two draws and two defeats, with nine goals scored and seven conceded, before Thursday's match at Vanguard.",
-      "basis": {
-        "programme": "point-loma",
-        "wins": 2,
-        "draws": 2,
-        "losses": 2,
-        "gf": 9,
-        "ga": 7
       }
     },
     {
@@ -127,7 +127,8 @@
         "draws": 3,
         "losses": 3,
         "gf": 8,
-        "ga": 12
+        "ga": 12,
+        "played": 6
       }
     }
   ],
@@ -156,16 +157,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-15 menlo v hawaii-pacific",
-      "line": "Hawai'i Pacific have not won since beating Chaminade at home; Menlo had already beaten Jessup."
+      "fixture_ref": "2026-09-17 vanguard v point-loma",
+      "line": "Point Loma had not won away before this; no programme has conceded more than Vanguard."
     },
     "next_match": {
-      "fixture_ref": "2026-09-17 vanguard v point-loma",
-      "line": "Vanguard's only win came at home; Point Loma have already drawn with Cal State Dominguez Hills, who beat Vanguard."
+      "fixture_ref": "2026-09-19 point-loma v westmont",
+      "line": "Point Loma come in on successive wins; Westmont have not won away since their opening match."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-17T11:46:29.590Z"
+    "validated_at": "2026-09-18T11:43:14.547Z"
   }
 }

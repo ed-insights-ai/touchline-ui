@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-09-17T11:44:36.584Z",
-  "data_collected_at": "2026-09-17T11:33:58+00:00",
+  "validated_at": "2026-09-18T11:42:19.727Z",
+  "data_collected_at": "2026-09-18T11:32:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[3].text",
-      "text": "Southern Nazarene's win at Oklahoma Christian on Sunday was their third in five matches, after defeat at Midwestern State in their previous away match.",
-      "unbacked": ["5"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Rogers State have outscored Newman, Northeastern State and Harding put together.",
+      "text": "Rogers State have outscored Newman and Northeastern State put together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Ouachita Baptist have conceded three goals all season, every one of them on the same afternoon against Dallas Baptist.",
-      "checker": "team_goals",
+      "text": "Newman ended a run of five straight defeats by beating Northeastern State on the first night of conference play.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -53,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Ouachita Baptist's match at home to UT Dallas on Saturday is the one match past its date with no result published.",
+      "text": "Ouachita Baptist's match at home to UT Dallas last Saturday is the one match past its date with no result published.",
       "checker": "set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Harding have lost all five of their matches, the latest at William Jewell on Tuesday, and have scored once.",
+      "text": "Harding have lost all six of their matches, the latest at Southern Nazarene on Thursday, and have scored twice.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Newman have lost five matches in a row since their opening win at William Jewell, the latest at West Texas A&M on Saturday.",
+      "text": "Southern Nazarene have won four times and lost twice, beating Oklahoma Christian and Harding since their defeat at Midwestern State.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Southern Nazarene's win at Oklahoma Christian on Sunday was their third in five matches, after defeat at Midwestern State in their previous away match.",
-      "checker": "team_record",
+      "text": "Ouachita Baptist, who have yet to play a conference match, have scored ten goals and conceded three.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Len Valkema — 3 G · 9 shots",
+      "text": "Len Valkema — 3 G · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-15 william-jewell v harding",
+      "text": "2026-09-17 newman v northeastern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-17 fort-hays-state v rogers-state",
+      "text": "2026-09-19 southern-nazarene v ouachita-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-17T11:44:09.527Z",
-    "generate_ms": 27056,
+    "started_at": "2026-09-18T11:41:16.147Z",
+    "generate_ms": 63578,
     "validate_ms": 1,
-    "wall_ms": 27057,
+    "wall_ms": 63579,
     "concurrency": 4
   }
 }

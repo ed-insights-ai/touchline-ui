@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-17T11:45:00+00:00",
-  "data_collected_at": "2026-09-17T11:34:14+00:00",
+  "generated_at": "2026-09-18T11:45:00+00:00",
+  "data_collected_at": "2026-09-18T11:33:16+00:00",
   "headline": "Saginaw Valley State start conference play as top scorers",
   "dek": "Saginaw Valley State's win over Davenport took them past Northern Michigan as the conference's top scorers: sixteen goals from nine different players, with five conceded. Three wins and two draws leave them alongside Roosevelt and Purdue Northwest as the sides yet to lose.",
   "lede_basis": {
@@ -27,7 +27,6 @@
     ]
   },
   "lede_updated": "2026-09-17",
-  "displaced_by": "Saginaw Valley State's win over Davenport in the conference opener took them past Northern Michigan as top scorers",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Saginaw Valley State alone have scored more than Davenport, St. Cloud State and Wisconsin-Parkside together.",
@@ -36,9 +35,9 @@
       "values": {
         "saginaw-valley-state": 16,
         "northern-michigan": 15,
-        "roosevelt": 13,
-        "purdue-northwest": 6,
-        "st-cloud-state": 6,
+        "roosevelt": 14,
+        "purdue-northwest": 8,
+        "st-cloud-state": 7,
         "davenport": 4,
         "wisconsin-parkside": 3
       },
@@ -86,15 +85,23 @@
       }
     },
     {
-      "label": "observed",
-      "text": "Davenport have now conceded sixteen goals and scored four, and the defeat at Saginaw Valley State was their third of the season.",
+      "label": "derived",
+      "text": "Roosevelt's five wins are more than any other programme has managed.",
       "basis": {
-        "programme": "davenport",
-        "wins": 1,
-        "draws": 2,
-        "losses": 3,
-        "gf": 4,
-        "ga": 16
+        "programme": "roosevelt",
+        "wins": 5,
+        "draws": 3,
+        "losses": 0,
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "of": [
+          "davenport",
+          "northern-michigan",
+          "purdue-northwest",
+          "saginaw-valley-state",
+          "st-cloud-state",
+          "wisconsin-parkside"
+        ]
       }
     },
     {
@@ -111,34 +118,26 @@
     },
     {
       "label": "observed",
-      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
+      "text": "Cedrik Strupler has saved nineteen shots and conceded one goal for Roosevelt, a save percentage of .950.",
       "basis": {
         "source": "stats",
-        "player": "Estefano Alvear",
-        "programme": "purdue-northwest",
-        "saves": 18,
-        "goals_against": 3,
-        "save_pct": 0.857
+        "player": "Cedrik Strupler",
+        "programme": "roosevelt",
+        "saves": 19,
+        "goals_against": 1,
+        "save_pct": 0.95
       }
     },
     {
-      "label": "derived",
-      "text": "Roosevelt's four wins are more than any other programme has managed.",
+      "label": "observed",
+      "text": "Davenport have now conceded sixteen goals and scored four, and the defeat at Saginaw Valley State was their third of the season.",
       "basis": {
-        "programme": "roosevelt",
-        "wins": 4,
-        "draws": 3,
-        "losses": 0,
-        "comparative": "greater_than_each",
-        "metric": "wins",
-        "of": [
-          "davenport",
-          "northern-michigan",
-          "purdue-northwest",
-          "saginaw-valley-state",
-          "st-cloud-state",
-          "wisconsin-parkside"
-        ]
+        "programme": "davenport",
+        "wins": 1,
+        "draws": 2,
+        "losses": 3,
+        "gf": 4,
+        "ga": 16
       }
     }
   ],
@@ -162,21 +161,21 @@
       "programme": "roosevelt",
       "position": "FWD",
       "class": "5Y",
-      "line": "4 G · 1 A · 10 shots"
+      "line": "5 G · 1 A · 16 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-16 saginaw-valley-state v davenport",
-      "line": "Saginaw Valley State remain unbeaten and are now the conference's top scorers; Davenport have conceded more than any other side."
+      "fixture_ref": "2026-09-17 roosevelt v wisconsin-parkside",
+      "line": "Roosevelt are still unbeaten and have more wins than any other side; Wisconsin-Parkside have lost more often than they have won."
     },
     "next_match": {
-      "fixture_ref": "2026-09-17 st-cloud-state v purdue-northwest",
-      "line": "Purdue Northwest are yet to lose; St. Cloud State have lost more often than they have won."
+      "fixture_ref": "2026-09-18 saginaw-valley-state v northern-michigan",
+      "line": "Saginaw Valley State have yet to lose and won when these sides met earlier this month; Northern Michigan have alternated wins and defeats all season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-17T11:45:29.057Z"
+    "validated_at": "2026-09-18T11:41:51.175Z"
   }
 }

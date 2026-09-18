@@ -3,38 +3,34 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-17T11:50:00Z",
-  "data_collected_at": "2026-09-17T11:36:17+00:00",
-  "headline": "St. Mary's put ten past Sul Ross State",
-  "dek": "St. Mary's had scored three goals in their first three matches and lost two of them. Sul Ross State have now lost all four of theirs, and their keeper Fernando Hernandez has made twenty-six saves without a clean sheet.",
+  "generated_at": "2026-09-18T11:50:00Z",
+  "data_collected_at": "2026-09-18T11:34:43+00:00",
+  "headline": "Midwestern State win a fifth and stay unbeaten",
+  "dek": "Midwestern State beat Western Oregon for a third straight win, after draws at UCCS and MSU Denver. UT Tyler are the only other side yet to lose, and they have drawn three of their five matches, the latest at home to Simon Fraser.",
   "lede_basis": {
-    "source": "stats",
-    "player": "Fernando Hernandez",
-    "programme": "sul-ross-state",
-    "saves": 26,
-    "shutouts": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 4,
-    "goals_in_latest_match": 10,
-    "stmu_goals_before_latest_match": 3,
-    "stmu_matches_before_latest_match": 3,
-    "stmu_defeats_before_latest_match": 2
+    "programme": "midwestern-state",
+    "wins": 5,
+    "draws": 2,
+    "losses": 0,
+    "consecutive_wins": 3,
+    "ut_tyler_draws": 3,
+    "ut_tyler_matches": 5
   },
-  "lede_updated": "2026-09-10",
+  "lede_updated": "2026-09-18",
+  "displaced_by": "Sul Ross State's fifth defeat made the standing dek's figures untrue; Midwestern State's fifth win leaves them and UT Tyler the only unbeaten sides.",
   "pattern": {
     "label": "derived",
-    "text": "Ten different players have scored Midwestern State's nineteen goals, and Jose Ortiz has six of them.",
+    "text": "Ten different players have scored Midwestern State's twenty goals, and Jose Ortiz has six of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 19,
-        "saint-marys": 15,
-        "ut-dallas": 12,
+        "midwestern-state": 20,
+        "saint-marys": 18,
+        "ut-dallas": 16,
         "oklahoma-christian": 10,
+        "ut-tyler": 9,
         "dallas-baptist": 8,
         "lubbock-christian": 8,
-        "ut-tyler": 8,
         "texas-a-m-international": 7,
         "saint-edwards": 6,
         "west-texas-a-m": 5,
@@ -44,7 +40,7 @@
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 19,
+      "gf": 20,
       "distinct_scorers_min": 10,
       "source": "stats",
       "player": "Jose Ortiz",
@@ -52,16 +48,14 @@
     }
   },
   "wire": {
-    "line": "Sul Ross State have conceded twenty-one goals in four matches and are yet to score.",
+    "line": "St. Mary's lost their first two matches and have won every one since.",
     "basis": {
-      "programme": "sul-ross-state",
-      "wins": 0,
+      "programme": "saint-marys",
+      "wins": 4,
       "draws": 0,
-      "losses": 4,
-      "gf": 0,
-      "ga": 21
+      "losses": 2
     },
-    "updated": "2026-09-10"
+    "updated": "2026-09-18"
   },
   "findings": [
     {
@@ -75,39 +69,28 @@
     },
     {
       "label": "derived",
-      "text": "Midwestern State have won four and drawn two, and have conceded six goals.",
+      "text": "Sul Ross State have lost all five of their matches, conceding 25 goals and scoring none.",
       "basis": {
-        "programme": "midwestern-state",
-        "wins": 4,
-        "draws": 2,
-        "losses": 0,
-        "gf": 19,
-        "ga": 6
+        "programme": "sul-ross-state",
+        "wins": 0,
+        "draws": 0,
+        "losses": 5,
+        "gf": 0,
+        "ga": 25
       }
     },
     {
       "label": "derived",
-      "text": "UT Dallas have won four, drawn one and lost one, and their twelve goals are more than St. Edward's and West Texas A&M have scored together.",
+      "text": "UT Dallas have won five, drawn one and lost one, and their sixteen goals are more than St. Edward's and West Texas A&M have scored together.",
       "basis": {
         "comparative": "greater_than_sum",
         "metric": "gf",
         "programme": "ut-dallas",
         "of": ["saint-edwards", "west-texas-a-m"],
-        "wins": 4,
+        "wins": 5,
         "draws": 1,
         "losses": 1,
-        "gf": 12
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Dallas Baptist had gone four matches without defeat since losing their opener to UT Tyler; the home defeat to Seattle Pacific leaves them with three wins, one draw and two defeats.",
-      "basis": {
-        "programme": "dallas-baptist",
-        "wins": 3,
-        "draws": 1,
-        "losses": 2,
-        "unbeaten_run_before_latest_match": 4
+        "gf": 16
       }
     },
     {
@@ -119,6 +102,16 @@
         "draws": 0,
         "losses": 3
       }
+    },
+    {
+      "label": "observed",
+      "text": "Fernando Hernandez has made 38 saves in goal for Sul Ross State.",
+      "basis": {
+        "source": "stats",
+        "player": "Fernando Hernandez",
+        "programme": "sul-ross-state",
+        "saves": 38
+      }
     }
   ],
   "players_to_watch": [
@@ -127,14 +120,14 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "6 G · 18 shots"
+      "line": "6 G · 22 shots"
     },
     {
       "player": "Eduardo Fernandez",
       "programme": "saint-marys",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 2 A · 9 shots"
+      "line": "5 G · 2 A · 11 shots"
     },
     {
       "player": "Osi Iyamah",
@@ -146,16 +139,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-16 dallas-baptist v seattle-pacific",
-      "line": "Dallas Baptist's first defeat since their opening match against UT Tyler; they had won at Harding, Ouachita Baptist and Colorado School of Mines in between."
-    },
-    "next_match": {
       "fixture_ref": "2026-09-17 sul-ross-state v ut-dallas",
       "line": "Sul Ross State have yet to score this season; UT Dallas have not lost since Hawaii Hilo, though their match at Ouachita Baptist still has no result published."
+    },
+    "next_match": {
+      "fixture_ref": "2026-09-18 dallas-baptist v western-washington",
+      "line": "Dallas Baptist lost at home to Seattle Pacific in their last match; Western Washington won at St. Edward's the same night."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-17T11:46:01.487Z"
+    "validated_at": "2026-09-18T11:43:11.436Z"
   }
 }

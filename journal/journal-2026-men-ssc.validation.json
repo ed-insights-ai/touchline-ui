@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-17T11:49:07.443Z",
-  "data_collected_at": "2026-09-17T11:39:54+00:00",
+  "validated_at": "2026-09-18T11:44:03.754Z",
+  "data_collected_at": "2026-09-18T11:37:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Barry, Eckerd and Nova Southeastern put together, and none of those sides has yet taken a point in conference play.",
+      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,8 +47,8 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Three matches have passed their date with no result, and all three are Palm Beach Atlantic's: against Florida Atlantic, Barry and Strive Academy.",
-      "checker": "set_members",
+      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's at home to Trinity.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Rollins have lost both of their matches, at home to Embry-Riddle and then at Tampa, and have scored once while conceding four.",
+      "text": "Rollins opened with two wins and have since drawn one and lost two, conceding twelve goals against eleven scored.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luis Gaitan — 4 G · 2 A · 12 shots",
+      "text": "Finlay Prain — 4 G · 2 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kobi Thomas — 4 G · 1 A · 24 shots",
+      "text": "Luis Gaitan — 4 G · 2 A · 12 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Hector Oliver — 4 G · 1 A · 9 shots",
+      "text": "Kobi Thomas — 4 G · 1 A · 24 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-17T11:47:47.592Z",
-    "generate_ms": 79850,
+    "started_at": "2026-09-18T11:43:14.625Z",
+    "generate_ms": 49127,
     "validate_ms": 1,
-    "wall_ms": 79851,
+    "wall_ms": 49128,
     "concurrency": 4
   }
 }

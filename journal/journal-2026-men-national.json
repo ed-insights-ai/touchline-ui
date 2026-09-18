@@ -2,21 +2,20 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-17T12:05:00+00:00",
-  "data_collected_at": "2026-09-17T11:33:58+00:00",
-  "headline": "West Liberty's unbeaten start ends at Frostburg State",
-  "dek": "West Liberty had won all four of their matches before they went to Frostburg State, and they leave with their first defeat of the season. Frostburg State, who inflicted it, are still without a defeat of their own.",
+  "generated_at": "2026-09-18T12:05:00+00:00",
+  "data_collected_at": "2026-09-18T11:35:23+00:00",
+  "headline": "Sul Ross State alone in the division without a goal",
+  "dek": "Sul Ross State lost again, this time to UT Dallas, and are still waiting for a goal this season. They have conceded twenty-five, and every other programme in the division has scored.",
   "basis": {
-    "programme": "west-liberty",
-    "wins": 4,
-    "draws": 0,
-    "losses": 1
+    "programme": "sul-ross-state",
+    "gf": 0,
+    "ga": 25
   },
-  "fixture_ref": "2026-09-16 frostburg-state v west-liberty",
-  "updated": "2026-09-17",
-  "displaced_by": "results night: Frostburg State end West Liberty's perfect start, a first defeat after four wins",
+  "fixture_ref": "2026-09-17 sul-ross-state v ut-dallas",
+  "updated": "2026-09-18",
+  "displaced_by": "results night: Sul Ross State lose to UT Dallas and remain the only programme in the division yet to score",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-17T11:49:37.327Z"
+    "validated_at": "2026-09-18T11:44:26.297Z"
   }
 }

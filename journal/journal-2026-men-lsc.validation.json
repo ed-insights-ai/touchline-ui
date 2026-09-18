@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-17T11:46:01.487Z",
-  "data_collected_at": "2026-09-17T11:36:17+00:00",
+  "validated_at": "2026-09-18T11:43:11.436Z",
+  "data_collected_at": "2026-09-18T11:34:43+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Ten different players have scored Midwestern State's nineteen goals, and Jose Ortiz has six of them.",
+      "text": "Ten different players have scored Midwestern State's twenty goals, and Jose Ortiz has six of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Sul Ross State have conceded twenty-one goals in four matches and are yet to score.",
-      "checker": "team_goals+team_record",
+      "text": "St. Mary's lost their first two matches and have won every one since.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Midwestern State have won four and drawn two, and have conceded six goals.",
+      "text": "Sul Ross State have lost all five of their matches, conceding 25 goals and scoring none.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "UT Dallas have won four, drawn one and lost one, and their twelve goals are more than St. Edward's and West Texas A&M have scored together.",
+      "text": "UT Dallas have won five, drawn one and lost one, and their sixteen goals are more than St. Edward's and West Texas A&M have scored together.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -74,16 +74,6 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Dallas Baptist had gone four matches without defeat since losing their opener to UT Tyler; the home defeat to Seattle Pacific leaves them with three wins, one draw and two defeats.",
-      "checker": "team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["unbeaten_run_before_latest_match: 4"]
-    },
-    {
-      "path": "findings[4]",
-      "label": "derived",
       "text": "Oklahoma Christian won their first three matches and have lost the three since.",
       "checker": "team_record",
       "verdict": "verified",
@@ -91,9 +81,18 @@
       "dropped": false
     },
     {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Fernando Hernandez has made 38 saves in goal for Sul Ross State.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jose Ortiz — 6 G · 18 shots",
+      "text": "Jose Ortiz — 6 G · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Eduardo Fernandez — 5 G · 2 A · 9 shots",
+      "text": "Eduardo Fernandez — 5 G · 2 A · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 dallas-baptist v seattle-pacific",
+      "text": "2026-09-17 sul-ross-state v ut-dallas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-17 sul-ross-state v ut-dallas",
+      "text": "2026-09-18 dallas-baptist v western-washington",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-17T11:45:13.294Z",
-    "generate_ms": 48192,
+    "started_at": "2026-09-18T11:42:08.776Z",
+    "generate_ms": 62658,
     "validate_ms": 1,
-    "wall_ms": 48193,
+    "wall_ms": 62659,
     "concurrency": 4
   }
 }

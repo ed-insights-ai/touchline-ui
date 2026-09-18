@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-17T11:45:29.057Z",
-  "data_collected_at": "2026-09-17T11:34:14+00:00",
+  "validated_at": "2026-09-18T11:41:51.175Z",
+  "data_collected_at": "2026-09-18T11:33:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,8 +18,8 @@
   "review": [
     {
       "path": "findings[3].text",
-      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
-      "unbacked": ["857"]
+      "text": "Cedrik Strupler has saved nineteen shots and conceded one goal for Roosevelt, a save percentage of .950.",
+      "unbacked": ["950"]
     }
   ],
   "claims": [
@@ -61,9 +61,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "Davenport have now conceded sixteen goals and scored four, and the defeat at Saginaw Valley State was their third of the season.",
-      "checker": "team_goals+team_record",
+      "label": "derived",
+      "text": "Roosevelt's five wins are more than any other programme has managed.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Estefano Alvear has saved eighteen shots and conceded three goals for Purdue Northwest, a save percentage of .857.",
+      "text": "Cedrik Strupler has saved nineteen shots and conceded one goal for Roosevelt, a save percentage of .950.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -88,9 +88,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "derived",
-      "text": "Roosevelt's four wins are more than any other programme has managed.",
-      "checker": "team_record+comparative",
+      "label": "observed",
+      "text": "Davenport have now conceded sixteen goals and scored four, and the defeat at Saginaw Valley State was their third of the season.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -116,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Fynn Mewes — 4 G · 1 A · 10 shots",
+      "text": "Fynn Mewes — 5 G · 1 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 saginaw-valley-state v davenport",
+      "text": "2026-09-17 roosevelt v wisconsin-parkside",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-17 st-cloud-state v purdue-northwest",
+      "text": "2026-09-18 saginaw-valley-state v northern-michigan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-17T11:44:23.868Z",
-    "generate_ms": 65187,
+    "started_at": "2026-09-18T11:41:16.272Z",
+    "generate_ms": 34901,
     "validate_ms": 1,
-    "wall_ms": 65189,
+    "wall_ms": 34902,
     "concurrency": 4
   }
 }

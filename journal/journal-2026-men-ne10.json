@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-17T11:45:00+00:00",
-  "data_collected_at": "2026-09-17T11:37:25+00:00",
+  "generated_at": "2026-09-18T11:45:00+00:00",
+  "data_collected_at": "2026-09-18T11:35:23+00:00",
   "headline": "Pace and Southern New Hampshire enter conference play unbeaten",
   "dek": "Both have four wins and two draws from six matches, and have got there by different routes: Southern New Hampshire have scored twenty-four goals to Pace's eleven, while only four have gone past Pace. The home side is still unbeaten in the four meetings between members, three won and one drawn.",
   "lede_basis": {
@@ -24,7 +24,6 @@
     "member_meetings_drawn": 1
   },
   "lede_updated": "2026-09-17",
-  "displaced_by": "Assumption's draw with Bentley ends the run of home wins between members; two sides reach six matches unbeaten on the eve of conference play",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's twenty-four goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Pace sit mid-chart on eleven, and the four they have conceded is the smaller figure that explains their unbeaten record.",
@@ -152,11 +151,11 @@
     },
     "next_match": {
       "fixture_ref": "2026-09-18 southern-connecticut v franklin-pierce",
-      "line": "Conference play opens with Southern Connecticut still looking for a first win; Franklin Pierce arrive having won their last two, including the heaviest of the meetings between members so far."
+      "line": "Conference play opens with Southern Connecticut still looking for a first win; Franklin Pierce arrive on back-to-back wins, including the heaviest of the meetings between members so far."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-17T11:47:13.839Z"
+    "validated_at": "2026-09-18T11:42:48.859Z"
   }
 }
