@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-18T11:42:48.859Z",
-  "data_collected_at": "2026-09-18T11:35:23+00:00",
+  "validated_at": "2026-09-19T11:42:18.765Z",
+  "data_collected_at": "2026-09-19T11:34:48+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,46 +38,40 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Two sides go into conference play unbeaten, and Southern Connecticut go in without a win.",
+      "text": "Franklin Pierce were held in the conference opener, and no side has yet lost at home to another member.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["unbeaten_programmes: 2"]
+      "dropped": false
     },
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Southern New Hampshire conceded four goals at Bridgeport, more than they had conceded in their first five matches together.",
-      "checker": "team_goals",
+      "text": "Southern Connecticut's draw with Franklin Pierce was their third in five matches, and they remain the only programme without a win.",
+      "checker": "team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": [
-        "goals_conceded_at_bridgeport: 4",
-        "matches_before_bridgeport: 5",
-        "goals_conceded_before_bridgeport: 3"
-      ]
+      "dropped": false
     },
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Assumption's draw with Bentley is the first of the four meetings between members that the home side has not won.",
+      "text": "Franklin Pierce's draw at Southern Connecticut leaves the home side unbeaten in the five meetings between members, three won and two drawn.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
       "unchecked_figures": [
-        "member_meetings: 4",
+        "member_meetings: 5",
         "member_meetings_won_by_home_side: 3",
-        "member_meetings_drawn: 1"
+        "member_meetings_drawn: 2"
       ]
     },
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Southern Connecticut remain the only programme without a win, with two draws and two defeats from four matches after losing at home to Mercy.",
-      "checker": "team_record+fixture_counts",
+      "text": "Guillermo Rios has scored six goals from fifteen shots for Franklin Pierce.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -121,7 +115,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Guillermo Rios — 5 G · 11 shots",
+      "text": "Guillermo Rios — 6 G · 15 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +124,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 bridgeport v southern-new-hampshire",
+      "text": "2026-09-18 southern-connecticut v franklin-pierce",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +133,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-18 southern-connecticut v franklin-pierce",
+      "text": "2026-09-19 southern-new-hampshire v american-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +141,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-18T11:42:19.803Z",
-    "generate_ms": 29054,
+    "started_at": "2026-09-19T11:41:16.680Z",
+    "generate_ms": 62084,
     "validate_ms": 1,
-    "wall_ms": 29055,
+    "wall_ms": 62085,
     "concurrency": 4
   }
 }

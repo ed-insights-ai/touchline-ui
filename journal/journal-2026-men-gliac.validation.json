@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-18T11:41:51.175Z",
-  "data_collected_at": "2026-09-18T11:33:16+00:00",
+  "validated_at": "2026-09-19T11:42:10.260Z",
+  "data_collected_at": "2026-09-19T11:32:41+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[3].text",
-      "text": "Cedrik Strupler has saved nineteen shots and conceded one goal for Roosevelt, a save percentage of .950.",
-      "unbacked": ["950"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -44,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Nine different players have now scored for Saginaw Valley State, who are unbeaten and top scorers after the conference opener.",
-      "checker": "distinct_scorers+team_goals+team_record+comparative",
+      "text": "Roosevelt keeper Cedrik Strupler has conceded one goal all season, and unbeaten Purdue Northwest are the next side to try him.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Matty Telfer has scored seven of Saginaw Valley State's sixteen goals, from thirteen shots.",
-      "checker": "player_stat+team_goals",
+      "text": "Luca Rosen has scored eight goals from twenty-seven shots for Northern Michigan.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -80,17 +74,17 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Cedrik Strupler has saved nineteen shots and conceded one goal for Roosevelt, a save percentage of .950.",
-      "checker": "player_stat",
+      "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from eighteen shots.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[4]",
-      "label": "observed",
-      "text": "Davenport have now conceded sixteen goals and scored four, and the defeat at Saginaw Valley State was their third of the season.",
-      "checker": "team_goals+team_record",
+      "label": "derived",
+      "text": "Davenport's sixteen goals conceded are more than any other programme has let in.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luca Rosen — 8 G · 1 A · 22 shots",
+      "text": "Luca Rosen — 8 G · 2 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Matty Telfer — 7 G · 2 A · 13 shots",
+      "text": "Matty Telfer — 7 G · 2 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-17 roosevelt v wisconsin-parkside",
+      "text": "2026-09-18 saginaw-valley-state v northern-michigan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-18 saginaw-valley-state v northern-michigan",
+      "text": "2026-09-20 roosevelt v purdue-northwest",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-18T11:41:16.272Z",
-    "generate_ms": 34901,
+    "started_at": "2026-09-19T11:40:17.885Z",
+    "generate_ms": 112288,
     "validate_ms": 1,
-    "wall_ms": 34902,
+    "wall_ms": 112374,
     "concurrency": 4
   }
 }

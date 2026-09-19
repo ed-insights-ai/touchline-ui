@@ -3,17 +3,28 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-09-18T11:45:00+00:00",
-  "data_collected_at": "2026-09-18T11:34:11+00:00",
-  "headline": "Seattle Pacific alone still without a draw",
-  "dek": "Seattle Pacific won at Dallas Baptist on Wednesday, their sixth win against a single defeat, and remain the only programme in the conference yet to share the points. The defeat came at Regis, where Western Washington drew on Sunday.",
+  "generated_at": "2026-09-19T11:45:00+00:00",
+  "data_collected_at": "2026-09-19T11:33:27+00:00",
+  "headline": "Seattle Pacific take seven wins into conference play",
+  "dek": "Seattle Pacific won at Saint Edward's on Friday, their seventh win against a single defeat, and have more wins than any other programme in the conference. Western Washington made the same two visits in the opposite order and lost at Dallas Baptist.",
   "lede_basis": {
+    "comparative": "greater_than_each",
+    "metric": "wins",
     "programme": "seattle-pacific",
-    "wins": 6,
+    "of": [
+      "northwest-nazarene",
+      "saint-martins",
+      "simon-fraser",
+      "western-oregon",
+      "western-washington"
+    ],
+    "wins": 7,
     "draws": 0,
-    "losses": 1
+    "losses": 1,
+    "visits_compared": 2
   },
-  "lede_updated": "2026-09-17",
+  "lede_updated": "2026-09-19",
+  "displaced_by": "The standing dek's 'sixth win' is no longer true: Seattle Pacific won at Saint Edward's for a seventh.",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's nineteen goals are more than Northwest Nazarene and Simon Fraser have scored together.",
@@ -21,9 +32,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "saint-martins": 19,
-        "seattle-pacific": 14,
+        "seattle-pacific": 17,
+        "western-washington": 14,
         "western-oregon": 13,
-        "western-washington": 13,
         "northwest-nazarene": 7,
         "simon-fraser": 5
       },
@@ -111,7 +122,7 @@
       "programme": "seattle-pacific",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 14 shots"
+      "line": "5 G · 15 shots"
     },
     {
       "player": "Juan Diaz",
@@ -123,16 +134,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-17 northwest-nazarene v west-texas-a-m",
-      "line": "Northwest Nazarene have answered the Colorado Mesa defeat with a win and a clean sheet."
+      "fixture_ref": "2026-09-18 saint-edwards v seattle-pacific",
+      "line": "Seattle Pacific have won every match since the defeat at Regis, and have still never drawn."
     },
     "next_match": {
-      "fixture_ref": "2026-09-18 saint-edwards v seattle-pacific",
-      "line": "Seattle Pacific have still never drawn; Western Washington won on this ground on Wednesday."
+      "fixture_ref": "2026-09-19 west-texas-a-m v saint-martins",
+      "line": "Saint Martin's have yet to take a point away from home; West Texas A&M lost at Northwest Nazarene on Thursday."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-18T11:42:12.502Z"
+    "validated_at": "2026-09-19T11:41:16.591Z"
   }
 }

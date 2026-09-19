@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-18T11:40:00Z",
-  "data_collected_at": "2026-09-18T11:32:56+00:00",
+  "generated_at": "2026-09-19T11:40:00Z",
+  "data_collected_at": "2026-09-19T11:32:24+00:00",
   "headline": "Home sides win every match on conference opening night",
   "dek": "Fort Hays State, Southern Nazarene and Newman each won at home on Thursday as conference play began. Newman's win ended a run of five straight defeats, and Fort Hays State's followed two draws. Rogers State, unbeaten through their first five matches, have now lost two in a row.",
   "lede_basis": {
@@ -19,7 +19,6 @@
     "rsu_losses": 2
   },
   "lede_updated": "2026-09-18",
-  "displaced_by": "conference play opened on 2026-09-17 and the home side won every match",
   "pattern": {
     "label": "derived",
     "text": "Rogers State have outscored Newman and Northeastern State put together.",
@@ -136,11 +135,11 @@
     },
     "next_match": {
       "fixture_ref": "2026-09-19 southern-nazarene v ouachita-baptist",
-      "line": "Ouachita Baptist play their first conference match, with no result published for them since they won at Hendrix; Southern Nazarene arrive on back-to-back wins."
+      "line": "Ouachita Baptist play their first conference match, with no result published for them since they won at Hendrix; Southern Nazarene come in on back-to-back wins."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-18T11:42:19.727Z"
+    "validated_at": "2026-09-19T11:40:37.384Z"
   }
 }

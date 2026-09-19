@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-18T11:50:00Z",
-  "data_collected_at": "2026-09-18T11:34:43+00:00",
+  "generated_at": "2026-09-19T11:50:00Z",
+  "data_collected_at": "2026-09-19T11:34:04+00:00",
   "headline": "Midwestern State win a fifth and stay unbeaten",
   "dek": "Midwestern State beat Western Oregon for a third straight win, after draws at UCCS and MSU Denver. UT Tyler are the only other side yet to lose, and they have drawn three of their five matches, the latest at home to Simon Fraser.",
   "lede_basis": {
@@ -17,7 +17,6 @@
     "ut_tyler_matches": 5
   },
   "lede_updated": "2026-09-18",
-  "displaced_by": "Sul Ross State's fifth defeat made the standing dek's figures untrue; Midwestern State's fifth win leaves them and UT Tyler the only unbeaten sides.",
   "pattern": {
     "label": "derived",
     "text": "Ten different players have scored Midwestern State's twenty goals, and Jose Ortiz has six of them.",
@@ -27,12 +26,12 @@
         "midwestern-state": 20,
         "saint-marys": 18,
         "ut-dallas": 16,
+        "dallas-baptist": 10,
         "oklahoma-christian": 10,
         "ut-tyler": 9,
-        "dallas-baptist": 8,
         "lubbock-christian": 8,
+        "saint-edwards": 7,
         "texas-a-m-international": 7,
-        "saint-edwards": 6,
         "west-texas-a-m": 5,
         "sul-ross-state": 0
       },
@@ -139,16 +138,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-17 sul-ross-state v ut-dallas",
-      "line": "Sul Ross State have yet to score this season; UT Dallas have not lost since Hawaii Hilo, though their match at Ouachita Baptist still has no result published."
+      "fixture_ref": "2026-09-18 dallas-baptist v western-washington",
+      "line": "Dallas Baptist's win followed a home defeat to Seattle Pacific; Western Washington had won at St. Edward's in their previous match."
     },
     "next_match": {
-      "fixture_ref": "2026-09-18 dallas-baptist v western-washington",
-      "line": "Dallas Baptist lost at home to Seattle Pacific in their last match; Western Washington won at St. Edward's the same night."
+      "fixture_ref": "2026-09-19 texas-a-m-international v ut-dallas",
+      "line": "UT Dallas have won every match since losing at Hawaii Hilo; Texas A&M International's defeat at Cal State San Bernardino last time out was their first."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-18T11:43:11.436Z"
+    "validated_at": "2026-09-19T11:41:45.206Z"
   }
 }

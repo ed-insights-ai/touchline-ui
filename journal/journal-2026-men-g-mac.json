@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-18T11:40:00+00:00",
-  "data_collected_at": "2026-09-18T11:32:28+00:00",
+  "generated_at": "2026-09-19T11:40:00+00:00",
+  "data_collected_at": "2026-09-19T11:31:54+00:00",
   "headline": "Lake Erie join Tiffin and Thomas More at the top",
   "dek": "Lake Erie beat Ohio Dominican on Thursday to draw level with Tiffin and Thomas More at the top of the table, none of them beaten in conference play. Cedarville, who had shared the lead with Tiffin, lost at home to Malone. Lake Erie's two defeats both came away from home before conference play opened.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 2
   },
   "lede_updated": "2026-09-18",
-  "displaced_by": "truth: Cedarville lost at home to Malone, so the standing dek's shared lead of Cedarville and Tiffin no longer holds; Lake Erie, Tiffin and Thomas More are now level at the top",
   "pattern": {
     "label": "derived",
     "text": "The scoring sits with the sides at the top of the table: Lake Erie's sixteen goals are more than Kentucky Wesleyan and Northwood have managed together.",
@@ -142,6 +141,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-18T11:42:08.700Z"
+    "validated_at": "2026-09-19T11:40:37.503Z"
   }
 }

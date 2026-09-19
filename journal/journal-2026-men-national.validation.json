@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-18T11:44:26.297Z",
+  "validated_at": "2026-09-19T11:43:00.113Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Sul Ross State alone in the division without a goal Sul Ross State lost again, this time to UT Dallas, and are still waiting for a goal this season. They have conceded twenty-five, and every other programme in the division has scored.",
-      "checker": "team_goals",
+      "text": "Saginaw Valley State's unbeaten start ends against Northern Michigan Saginaw Valley State's unbeaten start ended at home to Northern Michigan, a side they had beaten earlier in the month. Three wins and two draws came before the defeat. It leaves Roosevelt and Purdue Northwest as the GLIAC's only sides yet to lose.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-09-18T11:44:07.031Z",
-    "generate_ms": 19263,
+    "started_at": "2026-09-19T11:42:38.185Z",
+    "generate_ms": 21927,
     "validate_ms": 1,
-    "wall_ms": 19265
+    "wall_ms": 21928
   }
 }

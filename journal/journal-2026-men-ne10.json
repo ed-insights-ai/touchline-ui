@@ -3,27 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-18T11:45:00+00:00",
-  "data_collected_at": "2026-09-18T11:35:23+00:00",
-  "headline": "Pace and Southern New Hampshire enter conference play unbeaten",
-  "dek": "Both have four wins and two draws from six matches, and have got there by different routes: Southern New Hampshire have scored twenty-four goals to Pace's eleven, while only four have gone past Pace. The home side is still unbeaten in the four meetings between members, three won and one drawn.",
+  "generated_at": "2026-09-19T11:45:00+00:00",
+  "data_collected_at": "2026-09-19T11:34:48+00:00",
+  "headline": "Southern Connecticut hold Franklin Pierce as conference play opens",
+  "dek": "Southern Connecticut are still without a win, but their third draw in five matches took a point off a Franklin Pierce side that had won its previous two. No member has yet lost at home to another, and Pace and Southern New Hampshire have yet to lose at all.",
   "lede_basis": {
-    "programme": "pace",
-    "wins": 4,
-    "draws": 2,
-    "losses": 0,
-    "gf": 11,
-    "ga": 4,
-    "matches_played": 6,
-    "southern_new_hampshire_wins": 4,
-    "southern_new_hampshire_draws": 2,
-    "southern_new_hampshire_losses": 0,
-    "southern_new_hampshire_gf": 24,
-    "member_meetings": 4,
-    "member_meetings_won_by_home_side": 3,
-    "member_meetings_drawn": 1
+    "programme": "southern-connecticut",
+    "wins": 0,
+    "draws": 3,
+    "losses": 2,
+    "matches_played": 5,
+    "franklin_pierce_consecutive_wins_before_draw": 2
   },
-  "lede_updated": "2026-09-17",
+  "lede_updated": "2026-09-19",
+  "displaced_by": "Conference play opened with Southern Connecticut v Franklin Pierce drawn; the standing dek's four member meetings are now five",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's twenty-four goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Pace sit mid-chart on eleven, and the four they have conceded is the smaller figure that explains their unbeaten record.",
@@ -32,14 +25,14 @@
       "values": {
         "southern-new-hampshire": 24,
         "assumption": 15,
-        "franklin-pierce": 13,
+        "franklin-pierce": 15,
         "pace": 11,
         "bentley": 9,
         "adelphi": 8,
         "saint-anselm": 8,
         "american-international": 7,
         "saint-michael-s": 7,
-        "southern-connecticut": 5
+        "southern-connecticut": 7
       },
       "highlight": "southern-new-hampshire"
     },
@@ -52,51 +45,49 @@
     }
   },
   "wire": {
-    "line": "Two sides go into conference play unbeaten, and Southern Connecticut go in without a win.",
+    "line": "Franklin Pierce were held in the conference opener, and no side has yet lost at home to another member.",
     "basis": {
-      "programme": "southern-connecticut",
-      "wins": 0,
+      "programme": "franklin-pierce",
+      "wins": 3,
       "draws": 2,
-      "losses": 2,
-      "unbeaten_programmes": 2
+      "losses": 1
     },
-    "updated": "2026-09-17"
+    "updated": "2026-09-19"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Southern New Hampshire conceded four goals at Bridgeport, more than they had conceded in their first five matches together.",
-      "basis": {
-        "programme": "southern-new-hampshire",
-        "gf": 24,
-        "ga": 7,
-        "goals_conceded_at_bridgeport": 4,
-        "matches_before_bridgeport": 5,
-        "goals_conceded_before_bridgeport": 3
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Assumption's draw with Bentley is the first of the four meetings between members that the home side has not won.",
-      "basis": {
-        "programme": "assumption",
-        "wins": 3,
-        "draws": 1,
-        "losses": 1,
-        "member_meetings": 4,
-        "member_meetings_won_by_home_side": 3,
-        "member_meetings_drawn": 1
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Southern Connecticut remain the only programme without a win, with two draws and two defeats from four matches after losing at home to Mercy.",
+      "text": "Southern Connecticut's draw with Franklin Pierce was their third in five matches, and they remain the only programme without a win.",
       "basis": {
         "programme": "southern-connecticut",
         "wins": 0,
-        "draws": 2,
+        "draws": 3,
         "losses": 2,
-        "matches_played": 4
+        "matches_played": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Franklin Pierce's draw at Southern Connecticut leaves the home side unbeaten in the five meetings between members, three won and two drawn.",
+      "basis": {
+        "programme": "franklin-pierce",
+        "wins": 3,
+        "draws": 2,
+        "losses": 1,
+        "member_meetings": 5,
+        "member_meetings_won_by_home_side": 3,
+        "member_meetings_drawn": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Guillermo Rios has scored six goals from fifteen shots for Franklin Pierce.",
+      "basis": {
+        "source": "stats",
+        "player": "Guillermo Rios",
+        "programme": "franklin-pierce",
+        "goals": 6,
+        "shots": 15
       }
     },
     {
@@ -141,21 +132,21 @@
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 11 shots"
+      "line": "6 G · 15 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-16 bridgeport v southern-new-hampshire",
-      "line": "Southern New Hampshire remain unbeaten but conceded more here than in the whole season before it; Bridgeport had already drawn at American International and won at Franklin Pierce."
+      "fixture_ref": "2026-09-18 southern-connecticut v franklin-pierce",
+      "line": "Southern Connecticut are still without a win but have now drawn more often than they have lost; Franklin Pierce arrived on back-to-back wins."
     },
     "next_match": {
-      "fixture_ref": "2026-09-18 southern-connecticut v franklin-pierce",
-      "line": "Conference play opens with Southern Connecticut still looking for a first win; Franklin Pierce arrive on back-to-back wins, including the heaviest of the meetings between members so far."
+      "fixture_ref": "2026-09-19 southern-new-hampshire v american-international",
+      "line": "Southern New Hampshire have yet to lose and open their conference schedule at home; American International lost their last match without scoring."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-18T11:42:48.859Z"
+    "validated_at": "2026-09-19T11:42:18.765Z"
   }
 }

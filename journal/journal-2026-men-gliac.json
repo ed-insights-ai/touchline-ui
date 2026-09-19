@@ -3,38 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-18T11:45:00+00:00",
-  "data_collected_at": "2026-09-18T11:33:16+00:00",
-  "headline": "Saginaw Valley State start conference play as top scorers",
-  "dek": "Saginaw Valley State's win over Davenport took them past Northern Michigan as the conference's top scorers: sixteen goals from nine different players, with five conceded. Three wins and two draws leave them alongside Roosevelt and Purdue Northwest as the sides yet to lose.",
+  "generated_at": "2026-09-19T11:50:00+00:00",
+  "data_collected_at": "2026-09-19T11:32:41+00:00",
+  "headline": "Northern Michigan end Saginaw Valley State's unbeaten start",
+  "dek": "Northern Michigan won at Saginaw Valley State, where they had lost earlier this month, to take a fourth win against two defeats. The home side had not been beaten all season until then, which leaves Roosevelt and Purdue Northwest alone without a loss.",
   "lede_basis": {
-    "programme": "saginaw-valley-state",
-    "gf": 16,
-    "ga": 5,
-    "wins": 3,
-    "draws": 2,
-    "losses": 0,
-    "distinct_scorers_min": 9,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "davenport",
-      "northern-michigan",
-      "purdue-northwest",
-      "roosevelt",
-      "st-cloud-state",
-      "wisconsin-parkside"
-    ]
+    "programme": "northern-michigan",
+    "wins": 4,
+    "draws": 0,
+    "losses": 2
   },
-  "lede_updated": "2026-09-17",
+  "lede_updated": "2026-09-19",
+  "displaced_by": "Saginaw Valley State lost at home to Northern Michigan on 2026-09-18: no longer unbeaten, and no longer sole top scorers, so the standing lines were untrue.",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Saginaw Valley State alone have scored more than Davenport, St. Cloud State and Wisconsin-Parkside together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "saginaw-valley-state": 16,
-        "northern-michigan": 15,
+        "northern-michigan": 17,
+        "saginaw-valley-state": 17,
         "roosevelt": 14,
         "purdue-northwest": 8,
         "st-cloud-state": 7,
@@ -45,34 +33,21 @@
     },
     "basis": {
       "programme": "saginaw-valley-state",
-      "gf": 16,
+      "gf": 17,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["davenport", "st-cloud-state", "wisconsin-parkside"]
     }
   },
   "wire": {
-    "line": "Nine different players have now scored for Saginaw Valley State, who are unbeaten and top scorers after the conference opener.",
+    "line": "Roosevelt keeper Cedrik Strupler has conceded one goal all season, and unbeaten Purdue Northwest are the next side to try him.",
     "basis": {
-      "programme": "saginaw-valley-state",
-      "distinct_scorers_min": 9,
-      "gf": 16,
-      "ga": 5,
-      "wins": 3,
-      "draws": 2,
-      "losses": 0,
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "of": [
-        "davenport",
-        "northern-michigan",
-        "purdue-northwest",
-        "roosevelt",
-        "st-cloud-state",
-        "wisconsin-parkside"
-      ]
+      "source": "stats",
+      "player": "Cedrik Strupler",
+      "programme": "roosevelt",
+      "goals_against": 1
     },
-    "updated": "2026-09-17"
+    "updated": "2026-09-19"
   },
   "findings": [
     {
@@ -106,38 +81,44 @@
     },
     {
       "label": "observed",
-      "text": "Matty Telfer has scored seven of Saginaw Valley State's sixteen goals, from thirteen shots.",
+      "text": "Luca Rosen has scored eight goals from twenty-seven shots for Northern Michigan.",
+      "basis": {
+        "source": "stats",
+        "player": "Luca Rosen",
+        "programme": "northern-michigan",
+        "goals": 8,
+        "shots": 27
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from eighteen shots.",
       "basis": {
         "source": "stats",
         "player": "Matty Telfer",
         "programme": "saginaw-valley-state",
         "goals": 7,
-        "shots": 13,
-        "gf": 16
+        "shots": 18,
+        "gf": 17
       }
     },
     {
-      "label": "observed",
-      "text": "Cedrik Strupler has saved nineteen shots and conceded one goal for Roosevelt, a save percentage of .950.",
-      "basis": {
-        "source": "stats",
-        "player": "Cedrik Strupler",
-        "programme": "roosevelt",
-        "saves": 19,
-        "goals_against": 1,
-        "save_pct": 0.95
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Davenport have now conceded sixteen goals and scored four, and the defeat at Saginaw Valley State was their third of the season.",
+      "label": "derived",
+      "text": "Davenport's sixteen goals conceded are more than any other programme has let in.",
       "basis": {
         "programme": "davenport",
-        "wins": 1,
-        "draws": 2,
-        "losses": 3,
         "gf": 4,
-        "ga": 16
+        "ga": 16,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "northern-michigan",
+          "purdue-northwest",
+          "roosevelt",
+          "saginaw-valley-state",
+          "st-cloud-state",
+          "wisconsin-parkside"
+        ]
       }
     }
   ],
@@ -147,14 +128,14 @@
       "programme": "northern-michigan",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 1 A · 22 shots"
+      "line": "8 G · 2 A · 27 shots"
     },
     {
       "player": "Matty Telfer",
       "programme": "saginaw-valley-state",
       "position": "FWD",
       "class": "JR",
-      "line": "7 G · 2 A · 13 shots"
+      "line": "7 G · 2 A · 18 shots"
     },
     {
       "player": "Fynn Mewes",
@@ -166,16 +147,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-17 roosevelt v wisconsin-parkside",
-      "line": "Roosevelt are still unbeaten and have more wins than any other side; Wisconsin-Parkside have lost more often than they have won."
+      "fixture_ref": "2026-09-18 saginaw-valley-state v northern-michigan",
+      "line": "Northern Michigan have won consecutive matches for the first time this season, having alternated wins and defeats until now."
     },
     "next_match": {
-      "fixture_ref": "2026-09-18 saginaw-valley-state v northern-michigan",
-      "line": "Saginaw Valley State have yet to lose and won when these sides met earlier this month; Northern Michigan have alternated wins and defeats all season."
+      "fixture_ref": "2026-09-20 roosevelt v purdue-northwest",
+      "line": "Neither side has lost this season; Roosevelt have drawn more often than Purdue Northwest, who have won every match since their draw at Quincy."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-18T11:41:51.175Z"
+    "validated_at": "2026-09-19T11:42:10.260Z"
   }
 }

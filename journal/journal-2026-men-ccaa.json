@@ -3,38 +3,42 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-17T11:45:00+00:00",
-  "data_collected_at": "2026-09-17T11:31:17+00:00",
-  "headline": "Cal State Monterey Bay fall, Cal State LA stay perfect",
-  "dek": "Cal State Monterey Bay's unbeaten start ended on the road at Point Loma, leaving Cal State LA as the only side in the conference still winning every match. They won at Westmont the same day, a fifth win in five, and have yet to concede a goal.",
+  "generated_at": "2026-09-19T11:45:00+00:00",
+  "data_collected_at": "2026-09-19T11:31:05+00:00",
+  "headline": "Fresno Pacific lose at home to Cal State San Marcos",
+  "dek": "Fresno Pacific opened conference play with a home defeat by Cal State San Marcos, the only visitors to win on the opening day. No side in the conference has outscored them across all matches, yet they have now lost three of their eight.",
   "lede_basis": {
-    "programme": "cal-state-la",
-    "wins": 5,
-    "draws": 0,
-    "losses": 0,
-    "gf": 8,
-    "ga": 0
+    "programme": "fresno-pacific",
+    "wins": 4,
+    "draws": 1,
+    "losses": 3,
+    "played": 8,
+    "gf": 25,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 12
   },
-  "lede_updated": "2026-09-13",
+  "lede_updated": "2026-09-19",
+  "displaced_by": "conference play opened on 2026-09-18: Fresno Pacific, the conference's top scorers, lost at home to Cal State San Marcos, the only away win of the six matches",
   "pattern": {
     "label": "derived",
-    "text": "Fresno Pacific's 24 goals are more than Stanislaus State and Cal State San Bernardino have scored together, and nine different players have shared them.",
+    "text": "Fresno Pacific's 25 goals are more than Stanislaus State and Cal State San Bernardino have scored together, and nine different players have shared them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fresno-pacific": 24,
-        "cal-state-monterey-bay": 17,
-        "cal-state-dominguez-hills": 13,
-        "stanislaus-state": 11,
+        "fresno-pacific": 25,
+        "cal-state-monterey-bay": 18,
+        "cal-state-dominguez-hills": 14,
+        "cal-state-san-marcos": 12,
+        "stanislaus-state": 12,
+        "cal-poly-humboldt": 11,
+        "cal-state-la": 11,
         "cal-state-san-bernardino": 10,
-        "cal-state-san-marcos": 10,
-        "cal-poly-humboldt": 8,
-        "cal-state-east-bay": 8,
-        "cal-state-la": 8,
-        "chico-state": 8,
+        "cal-state-east-bay": 9,
+        "chico-state": 9,
         "menlo": 8,
-        "cal-poly-pomona": 7,
-        "uc-merced": 6
+        "uc-merced": 8,
+        "cal-poly-pomona": 7
       },
       "highlight": "fresno-pacific"
     },
@@ -43,21 +47,20 @@
       "metric": "gf",
       "programme": "fresno-pacific",
       "of": ["stanislaus-state", "cal-state-san-bernardino"],
-      "gf": 24,
+      "gf": 25,
       "distinct_scorers_min": 9
     }
   },
   "wire": {
-    "line": "Cal State East Bay have conceded twenty-three goals and are the only side in the conference still without a win.",
+    "line": "Cal State LA have won all six of their matches and have yet to concede a goal.",
     "basis": {
-      "programme": "cal-state-east-bay",
-      "wins": 0,
-      "draws": 1,
-      "losses": 5,
-      "gf": 8,
-      "ga": 23
+      "programme": "cal-state-la",
+      "wins": 6,
+      "draws": 0,
+      "losses": 0,
+      "ga": 0
     },
-    "updated": "2026-09-13"
+    "updated": "2026-09-19"
   },
   "findings": [
     {
@@ -71,14 +74,13 @@
     },
     {
       "label": "observed",
-      "text": "Cal State Dominguez Hills' win over Concordia Irvine was their first since August, and leaves them with two wins, two draws and two defeats, thirteen goals scored and twelve conceded.",
+      "text": "Abraham Ramirez has kept six shutouts for Cal State LA and has yet to concede a goal.",
       "basis": {
-        "programme": "cal-state-dominguez-hills",
-        "wins": 2,
-        "draws": 2,
-        "losses": 2,
-        "gf": 13,
-        "ga": 12
+        "source": "stats",
+        "player": "Abraham Ramirez",
+        "programme": "cal-state-la",
+        "shutouts": 6,
+        "goals_against": 0
       }
     },
     {
@@ -95,23 +97,22 @@
     },
     {
       "label": "observed",
-      "text": "UC Merced have won one and drawn three, and have yet to lose.",
+      "text": "UC Merced have won two and drawn three, and have yet to lose.",
       "basis": {
         "programme": "uc-merced",
-        "wins": 1,
+        "wins": 2,
         "draws": 3,
         "losses": 0
       }
     },
     {
       "label": "observed",
-      "text": "Zion Vaughn has scored seven goals from fifteen shots for Fresno Pacific.",
+      "text": "Cal State East Bay drew at Chico State and remain the only side in the conference without a win, with two draws and five defeats.",
       "basis": {
-        "source": "stats",
-        "player": "Zion Vaughn",
-        "programme": "fresno-pacific",
-        "goals": 7,
-        "shots": 15
+        "programme": "cal-state-east-bay",
+        "wins": 0,
+        "draws": 2,
+        "losses": 5
       }
     }
   ],
@@ -121,7 +122,7 @@
       "programme": "fresno-pacific",
       "position": "FWD",
       "class": "JR",
-      "line": "7 G · 1 A · 15 shots"
+      "line": "7 G · 1 A · 16 shots"
     },
     {
       "player": "Kai Martin",
@@ -140,16 +141,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-15 cal-state-dominguez-hills v concordia-irvine",
-      "line": "Cal State Dominguez Hills had not won since August before this; Concordia Irvine arrived having won at Fresno Pacific on their previous outing."
+      "fixture_ref": "2026-09-18 cal-state-la v cal-poly-pomona",
+      "line": "Cal State LA have still to concede this season; Cal Poly Pomona have lost back-to-back matches."
     },
     "next_match": {
-      "fixture_ref": "2026-09-18 cal-poly-humboldt v menlo",
-      "line": "Conference play opens with Cal Poly Humboldt yet to win since August; Menlo are unbeaten since their defeat by Northwest Nazarene."
+      "fixture_ref": "2026-09-20 cal-state-san-marcos v cal-state-san-bernardino",
+      "line": "Cal State San Bernardino are unbeaten and the last side to begin conference play; Cal State San Marcos won away on the opening day."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-17T11:43:46.274Z"
+    "validated_at": "2026-09-19T11:41:14.405Z"
   }
 }
