@@ -3,36 +3,37 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-19T11:45:00+00:00",
-  "data_collected_at": "2026-09-19T11:36:56+00:00",
-  "headline": "Embry-Riddle stretch unbeaten start with fifth win",
-  "dek": "Embry-Riddle beat SCAD at home for a fifth win, the draw at Spring Hill the only point they have dropped. They have conceded six goals in all, and no side has beaten them at home or away.",
+  "generated_at": "2026-09-20T11:50:00+00:00",
+  "data_collected_at": "2026-09-20T11:41:10+00:00",
+  "headline": "Florida Southern end Lynn's unbeaten start",
+  "dek": "Florida Southern beat Lynn at home for a sixth win, having conceded six goals all season, and share the top of the table with Florida Tech. Their one defeat came at Saint Leo, who have since lost at Florida Tech.",
   "lede_basis": {
-    "programme": "embry-riddle",
-    "wins": 5,
-    "draws": 1,
-    "losses": 0,
-    "gf": 14,
+    "programme": "florida-southern",
+    "wins": 6,
+    "draws": 0,
+    "losses": 1,
+    "gf": 18,
     "ga": 6
   },
-  "lede_updated": "2026-09-16",
+  "lede_updated": "2026-09-20",
+  "displaced_by": "Standing dek no longer true: Embry-Riddle drew at Barry and have conceded eight; Florida Southern beating Lynn, the other unbeaten side, is the larger story.",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 16,
-        "embry-riddle": 14,
+        "florida-southern": 18,
+        "embry-riddle": 16,
+        "saint-leo": 14,
         "tampa": 13,
-        "saint-leo": 12,
-        "rollins": 11,
-        "lynn": 9,
-        "florida-tech": 8,
-        "barry": 6,
+        "rollins": 12,
+        "florida-tech": 11,
+        "lynn": 10,
+        "barry": 8,
+        "eckerd": 8,
         "nova-southeastern": 6,
-        "palm-beach-atlantic": 6,
-        "eckerd": 4
+        "palm-beach-atlantic": 6
       },
       "highlight": "florida-southern"
     },
@@ -41,18 +42,18 @@
       "metric": "gf",
       "programme": "florida-southern",
       "of": ["eckerd", "nova-southeastern"],
-      "gf": 16
+      "gf": 18
     }
   },
   "wire": {
-    "line": "Florida Southern's first defeat leaves Embry-Riddle and Lynn as the only unbeaten sides.",
+    "line": "Embry-Riddle, held at Barry, are the last side in the conference yet to lose.",
     "basis": {
-      "programme": "florida-southern",
+      "programme": "embry-riddle",
       "wins": 5,
-      "draws": 0,
-      "losses": 1
+      "draws": 2,
+      "losses": 0
     },
-    "updated": "2026-09-12"
+    "updated": "2026-09-20"
   },
   "findings": [
     {
@@ -66,47 +67,44 @@
     },
     {
       "label": "derived",
-      "text": "Lynn have won both of their matches at home and drawn all three away, and are yet to lose.",
+      "text": "Lynn have lost one match, at Florida Southern, after winning two at home and drawing three away.",
       "basis": {
         "programme": "lynn",
         "wins": 2,
         "draws": 3,
-        "losses": 0
+        "losses": 1
       }
     },
     {
       "label": "derived",
-      "text": "Florida Southern have won five matches and lost one, at Saint Leo, and have conceded five goals all season.",
+      "text": "Embry-Riddle have won five matches and drawn two, scoring sixteen goals and conceding eight.",
       "basis": {
-        "programme": "florida-southern",
+        "programme": "embry-riddle",
         "wins": 5,
-        "draws": 0,
-        "losses": 1,
+        "draws": 2,
+        "losses": 0,
         "gf": 16,
-        "ga": 5
+        "ga": 8
       }
     },
     {
       "label": "derived",
-      "text": "Rollins opened with two wins and have since drawn one and lost two, conceding twelve goals against eleven scored.",
+      "text": "Eckerd beat Ave Maria at home for a second win, ending a run of five straight defeats.",
       "basis": {
-        "programme": "rollins",
+        "programme": "eckerd",
         "wins": 2,
-        "draws": 1,
-        "losses": 2,
-        "gf": 11,
-        "ga": 12
+        "draws": 0,
+        "losses": 5
       }
     },
     {
       "label": "observed",
-      "text": "Ricardo Marques has kept four clean sheets for Florida Southern and has conceded five goals in all.",
+      "text": "Virgilio Escala has seven assists for Saint Leo.",
       "basis": {
         "source": "stats",
-        "player": "Ricardo Marques",
-        "programme": "florida-southern",
-        "shutouts": 4,
-        "goals_against": 5
+        "player": "Virgilio Escala",
+        "programme": "saint-leo",
+        "assists": 7
       }
     }
   ],
@@ -116,7 +114,7 @@
       "programme": "rollins",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 2 A · 18 shots"
+      "line": "5 G · 2 A · 19 shots"
     },
     {
       "player": "Luis Gaitan",
@@ -130,21 +128,21 @@
       "programme": "palm-beach-atlantic",
       "position": "FWD",
       "class": "SO",
-      "line": "4 G · 1 A · 24 shots"
+      "line": "4 G · 1 A · 26 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-16 saint-leo v tampa",
-      "line": "Saint Leo have still not lost at home; Tampa have not lost since August."
+      "fixture_ref": "2026-09-19 florida-southern v lynn",
+      "line": "Lynn had not lost until now; Florida Southern have won every match at home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-19 florida-southern v lynn",
-      "line": "Lynn have yet to lose this season; Florida Southern have yet to concede at home."
+      "fixture_ref": "2026-09-23 embry-riddle v rollins",
+      "line": "Embry-Riddle have yet to lose and have already won at Rollins this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-19T11:42:33.237Z"
+    "validated_at": "2026-09-20T11:46:17.858Z"
   }
 }

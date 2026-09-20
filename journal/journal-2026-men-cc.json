@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-09-19T11:45:00+00:00",
-  "data_collected_at": "2026-09-19T11:30:34+00:00",
+  "generated_at": "2026-09-20T11:45:00+00:00",
+  "data_collected_at": "2026-09-20T11:30:43+00:00",
   "headline": "Chowan overtake Young Harris as the conference's top scorers",
   "dek": "Chowan have scored nineteen goals, more than any other programme, and eleven different players have shared them. The goals have not bought a clean record: Chowan have lost two matches and drawn two, and Young Harris, still unbeaten, remain above them in the table.",
   "lede_basis": {
@@ -41,19 +41,19 @@
       "kind": "goals-for-by-team",
       "values": {
         "chowan": 19,
+        "francis-marion": 18,
         "young-harris": 17,
-        "francis-marion": 15,
-        "southern-wesleyan": 15,
-        "emmanuel": 14,
+        "emmanuel": 16,
+        "southern-wesleyan": 16,
+        "lees-mcrae": 13,
+        "north-greenville": 12,
         "converse": 11,
-        "mount-olive": 10,
+        "mount-olive": 11,
         "shorter": 10,
         "ferrum": 9,
-        "lees-mcrae": 8,
-        "north-greenville": 8,
-        "belmont-abbey": 6,
-        "erskine": 6,
-        "barton": 4,
+        "belmont-abbey": 7,
+        "erskine": 7,
+        "barton": 5,
         "king": 3
       },
       "highlight": "chowan"
@@ -80,7 +80,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Fifteen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13 and the latest Mount Olive's visit to Virginia State on Sep 4.",
+      "text": "Fifteen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist and the latest Converse's home match against Young Harris.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -102,36 +102,37 @@
     },
     {
       "label": "observed",
-      "text": "Enzo Joly, a freshman, has six of Emmanuel's fourteen goals, from eighteen shots.",
+      "text": "Enzo Joly, a freshman, has seven of Emmanuel's sixteen goals, from 24 shots.",
       "basis": {
         "source": "stats",
         "player": "Enzo Joly",
         "programme": "emmanuel",
-        "goals": 6,
-        "shots": 18,
-        "gf": 14
+        "goals": 7,
+        "shots": 24,
+        "gf": 16
       }
     },
     {
       "label": "derived",
-      "text": "Ferrum have won three matches and drawn two and are yet to lose; they have conceded four goals.",
+      "text": "Lees-McRae have won five matches and drawn two and are yet to lose; they have conceded four goals.",
       "basis": {
-        "programme": "ferrum",
-        "wins": 3,
+        "programme": "lees-mcrae",
+        "wins": 5,
         "draws": 2,
         "losses": 0,
         "ga": 4
       }
     },
     {
-      "label": "observed",
-      "text": "Jackson Bennett has been beaten eight times for Belmont Abbey and has kept three clean sheets.",
+      "label": "derived",
+      "text": "Francis Marion have won six matches, drawn one and lost one, scoring eighteen goals and conceding six.",
       "basis": {
-        "source": "stats",
-        "player": "Jackson Bennett",
-        "programme": "belmont-abbey",
-        "goals_against": 8,
-        "shutouts": 3
+        "programme": "francis-marion",
+        "wins": 6,
+        "draws": 1,
+        "losses": 1,
+        "gf": 18,
+        "ga": 6
       }
     }
   ],
@@ -148,28 +149,28 @@
       "programme": "lees-mcrae",
       "position": "MID",
       "class": "FR",
-      "line": "3 G · 1 A · 26 shots"
+      "line": "4 G · 1 A · 27 shots"
     },
     {
-      "player": "Daniel Osorno",
-      "programme": "young-harris",
+      "player": "Jose Coutinho",
+      "programme": "francis-marion",
       "position": "FWD",
-      "class": "SO",
-      "line": "3 G · 1 A · 12 shots"
+      "class": "JR",
+      "line": "4 G · 2 A · 14 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-16 chowan v barton",
-      "line": "Chowan have not lost since Francis Marion beat them at home; Barton have yet to win a conference match."
+      "fixture_ref": "2026-09-19 ferrum v southern-wesleyan",
+      "line": "Ferrum had not lost all season before this; Southern Wesleyan have won back-to-back conference matches."
     },
     "next_match": {
-      "fixture_ref": "2026-09-19 converse v young-harris",
-      "line": "Young Harris have won every conference match they have played; Converse have not won since their visit to King."
+      "fixture_ref": "2026-09-22 lees-mcrae v king",
+      "line": "Lees-McRae have yet to concede a goal at home; King have not scored since Converse visited them."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-19T11:40:12.005Z"
+    "validated_at": "2026-09-20T11:42:43.707Z"
   }
 }

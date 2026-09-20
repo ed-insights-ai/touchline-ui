@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-09-19T11:45:00+00:00",
-  "data_collected_at": "2026-09-19T11:34:22+00:00",
+  "generated_at": "2026-09-20T11:45:00+00:00",
+  "data_collected_at": "2026-09-20T11:36:07+00:00",
   "headline": "Frostburg State end West Liberty's perfect run",
   "dek": "West Liberty had won all four of their matches until they went to Frostburg State and lost without scoring. Frostburg State and Davis & Elkins are now the only unbeaten programmes left, and between them they have drawn three of the eleven matches they have played.",
   "lede_basis": {
@@ -33,12 +33,12 @@
         "charleston": 24,
         "frostburg-state": 13,
         "shawnee-state": 13,
+        "wheeling": 13,
         "davis-elkins": 10,
         "west-liberty": 10,
         "concord": 8,
         "point-park": 8,
         "salem": 8,
-        "wheeling": 8,
         "west-virginia-wesleyan": 3
       },
       "highlight": "charleston"
@@ -103,25 +103,25 @@
     },
     {
       "label": "observed",
-      "text": "Martin Echarren has six goals for Charleston from seventeen shots, the most goals by any player on the leaders list.",
+      "text": "Jon-Michael Gordon has four goals for Wheeling from fourteen shots.",
       "basis": {
         "source": "stats",
-        "player": "Martin Echarren",
-        "programme": "charleston",
-        "goals": 6,
-        "shots": 17
+        "player": "Jon-Michael Gordon",
+        "programme": "wheeling",
+        "goals": 4,
+        "shots": 14
       }
     },
     {
-      "label": "signal",
-      "text": "Leyton Collier has taken seventeen shots for West Liberty and scored three times; nobody else outside Charleston has taken more than eleven.",
+      "label": "observed",
+      "text": "One match is past its date with no result published, and it is West Virginia Wesleyan's.",
       "basis": {
-        "source": "stats",
-        "player": "Leyton Collier",
-        "programme": "west-liberty",
-        "goals": 3,
-        "shots": 17,
-        "next_most_shots_outside_charleston": 11
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "west-virginia-wesleyan",
+        "count": 1
       }
     }
   ],
@@ -150,16 +150,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-16 charleston v west-virginia-wesleyan",
-      "line": "Charleston have won every conference match they have played; West Virginia Wesleyan are still without a point anywhere."
+      "fixture_ref": "2026-09-19 wheeling v seton-hill",
+      "line": "Wheeling's first win since August; they have still lost every conference match they have played."
     },
     "next_match": {
-      "fixture_ref": "2026-09-19 california-pa v west-virginia-wesleyan",
-      "line": "West Virginia Wesleyan have lost every match this season and have yet to score more than once in any of them."
+      "fixture_ref": "2026-09-20 west-liberty v davis-elkins",
+      "line": "Davis & Elkins are unbeaten; West Liberty's only defeat came against the conference's other unbeaten side."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-19T11:41:42.610Z"
+    "validated_at": "2026-09-20T11:44:11.450Z"
   }
 }

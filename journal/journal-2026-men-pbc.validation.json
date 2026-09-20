@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-09-19T11:42:04.172Z",
-  "data_collected_at": "2026-09-19T11:35:21+00:00",
+  "validated_at": "2026-09-20T11:44:58.806Z",
+  "data_collected_at": "2026-09-20T11:37:22+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "North Georgia's eighteen goals are more than USC Aiken and Lander have scored between them, and nine different players have shared them.",
+      "text": "North Georgia's 21 goals are more than USC Aiken and Lander have scored between them, and nine different players have shared them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Every side but Flagler has now dropped points inside the conference; USC Aiken are the only one without any.",
+      "text": "Flagler and North Georgia drew their meeting and remain the only sides yet to lose this season.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Isaac Calderon has scored seven of North Georgia's eighteen goals from twenty-four shots.",
+      "text": "Isaac Calderon has scored eight of North Georgia's 21 goals from 26 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Javier Gongora Andres has scored six of Middle Georgia State's thirteen goals from twenty-three shots.",
+      "text": "Javier Gongora Andres has scored seven of Middle Georgia State's sixteen goals from 26 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Ryan Rivas has conceded three times in Flagler's goal this season.",
+      "text": "Ryan Rivas has conceded six times in Flagler's goal this season.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Isaac Calderon — 7 G · 2 A · 24 shots",
+      "text": "Isaac Calderon — 8 G · 2 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Javier Gongora Andres — 6 G · 23 shots",
+      "text": "Javier Gongora Andres — 7 G · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 usc-aiken v flagler",
+      "text": "2026-09-19 flagler v north-georgia",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 flagler v north-georgia",
+      "text": "2026-09-23 north-georgia v georgia-southwestern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:41:42.687Z",
-    "generate_ms": 21485,
+    "started_at": "2026-09-20T11:44:11.525Z",
+    "generate_ms": 47281,
     "validate_ms": 1,
-    "wall_ms": 21486,
+    "wall_ms": 47281,
     "concurrency": 4
   }
 }

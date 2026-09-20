@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-09-19T11:41:02.786Z",
-  "data_collected_at": "2026-09-19T11:33:08+00:00",
+  "validated_at": "2026-09-20T11:43:34.586Z",
+  "data_collected_at": "2026-09-20T11:33:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,20 +18,20 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Southwest Baptist's twenty-seven goals exceed what the five lowest-scoring programmes have managed between them; the shape is no longer one bar and a slope, since Maryville's afternoon against them pulled the second bar close.",
+      "text": "Southwest Baptist's twenty-eight goals exceed what the five lowest-scoring programmes have managed between them; the shape is no longer one bar and a slope, since Maryville's afternoon against them pulled the second bar close.",
       "unbacked": ["1", "5"]
     },
     {
       "path": "findings[4].text",
-      "text": "Asgrimur Vidisson has made twenty-eight saves for Maryville and conceded seven, a save percentage of .800.",
-      "unbacked": ["800"]
+      "text": "Asgrimur Vidisson has made thirty-three saves for Maryville and conceded eight, a save percentage of .805.",
+      "unbacked": ["805"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southwest Baptist's twenty-seven goals exceed what the five lowest-scoring programmes have managed between them; the shape is no longer one bar and a slope, since Maryville's afternoon against them pulled the second bar close.",
+      "text": "Southwest Baptist's twenty-eight goals exceed what the five lowest-scoring programmes have managed between them; the shape is no longer one bar and a slope, since Maryville's afternoon against them pulled the second bar close.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -58,8 +58,8 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches past their date carry no published result: Drury's at home to Evangel and away at Wash U, Missouri S&T's visit to Kentucky Wesleyan, and Lincoln's home match with McKendree, the one conference match of 9 September without a result.",
-      "checker": "unresolved",
+      "text": "Two matches past their date carry no published result, and both are Drury's: at home to Evangel and away at Wash U.",
+      "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Southwest Baptist have won three, drawn one and lost two, the defeats at Lincoln on Sunday and Maryville on Wednesday; they have scored twenty-seven and conceded fifteen, and at least eight different players have scored for them.",
+      "text": "Southwest Baptist have won four, drawn one and lost two, Saturday's win at home to Lewis coming after defeats at Lincoln and Maryville; they have scored twenty-eight and conceded fifteen, and at least eight different players have scored for them.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -94,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Asgrimur Vidisson has made twenty-eight saves for Maryville and conceded seven, a save percentage of .800.",
+      "text": "Asgrimur Vidisson has made thirty-three saves for Maryville and conceded eight, a save percentage of .805.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Leo Cann — 6 G · 1 A · 28 shots",
+      "text": "Leo Cann — 6 G · 1 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Nathaniel Velasquez — 5 G · 2 A · 19 shots",
+      "text": "Nathaniel Velasquez — 5 G · 2 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 maryville v southwest-baptist",
+      "text": "2026-09-19 drury v indianapolis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 drury v indianapolis",
+      "text": "2026-09-20 truman v lincoln",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:40:37.460Z",
-    "generate_ms": 25324,
+    "started_at": "2026-09-20T11:42:43.784Z",
+    "generate_ms": 50801,
     "validate_ms": 1,
-    "wall_ms": 25325,
+    "wall_ms": 50802,
     "concurrency": 4
   }
 }

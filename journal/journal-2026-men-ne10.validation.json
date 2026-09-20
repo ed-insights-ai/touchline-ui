@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-19T11:42:18.765Z",
-  "data_collected_at": "2026-09-19T11:34:48+00:00",
+  "validated_at": "2026-09-20T11:44:56.179Z",
+  "data_collected_at": "2026-09-20T11:36:25+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Southern New Hampshire's twenty-four goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Pace sit mid-chart on eleven, and the four they have conceded is the smaller figure that explains their unbeaten record.",
+      "text": "Southern New Hampshire's twenty-six goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Pace sit mid-chart on eleven, and the four they have conceded is the smaller figure that explains their unbeaten record.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,40 +38,45 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Franklin Pierce were held in the conference opener, and no side has yet lost at home to another member.",
-      "checker": "team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[0]",
-      "label": "observed",
-      "text": "Southern Connecticut's draw with Franklin Pierce was their third in five matches, and they remain the only programme without a win.",
-      "checker": "team_record+fixture_counts",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[1]",
-      "label": "observed",
-      "text": "Franklin Pierce's draw at Southern Connecticut leaves the home side unbeaten in the five meetings between members, three won and two drawn.",
+      "text": "Away sides had not won a meeting between members until Bentley did at Adelphi, ten days after losing by five at Franklin Pierce.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
       "unchecked_figures": [
-        "member_meetings: 5",
-        "member_meetings_won_by_home_side: 3",
-        "member_meetings_drawn: 2"
+        "days_since_defeat_at_franklin_pierce: 10",
+        "margin_of_defeat_at_franklin_pierce: 5"
       ]
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Bentley's win at Adelphi was the first by an away side in the eight meetings between members; five went to the home side and two were drawn.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "unchecked_figures": [
+        "member_meetings: 8",
+        "member_meetings_won_by_home_side: 5",
+        "member_meetings_drawn: 2",
+        "member_meetings_won_by_away_side: 1"
+      ]
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Cody Holbert has scored nine of Assumption's eighteen goals.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Guillermo Rios has scored six goals from fifteen shots for Franklin Pierce.",
-      "checker": "player_stat",
+      "text": "Saint Michael's have lost four matches, more than any other programme.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -79,7 +84,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Cody Holbert has scored eight goals from twenty-nine shots, more goals than any other player listed.",
+      "text": "Guillermo Rios has scored six goals from fifteen shots for Franklin Pierce.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -97,7 +102,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Cody Holbert — 8 G · 29 shots",
+      "text": "Cody Holbert — 9 G · 2 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -106,7 +111,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Inigo Burusco — 6 G · 1 A · 17 shots",
+      "text": "Inigo Burusco — 7 G · 2 A · 21 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -124,7 +129,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-18 southern-connecticut v franklin-pierce",
+      "text": "2026-09-19 adelphi v bentley",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,7 +138,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 southern-new-hampshire v american-international",
+      "text": "2026-09-20 saint-anselm v pace",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -141,10 +146,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:41:16.680Z",
-    "generate_ms": 62084,
+    "started_at": "2026-09-20T11:43:34.661Z",
+    "generate_ms": 81517,
     "validate_ms": 1,
-    "wall_ms": 62085,
+    "wall_ms": 81518,
     "concurrency": 4
   }
 }

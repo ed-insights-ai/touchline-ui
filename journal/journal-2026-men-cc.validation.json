@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "validated_at": "2026-09-19T11:40:12.005Z",
-  "data_collected_at": "2026-09-19T11:30:34+00:00",
+  "validated_at": "2026-09-20T11:42:43.707Z",
+  "data_collected_at": "2026-09-20T11:30:43+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,11 +20,6 @@
       "path": "wire",
       "text": "King have lost every match they have played; Lees-McRae have yet to lose one.",
       "unbacked": ["1"]
-    },
-    {
-      "path": "findings[0].text",
-      "text": "Fifteen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13 and the latest Mount Olive's visit to Virginia State on Sep 4.",
-      "unbacked": ["4", "13"]
     }
   ],
   "claims": [
@@ -58,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Fifteen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist on Aug 13 and the latest Mount Olive's visit to Virginia State on Sep 4.",
+      "text": "Fifteen matches dated before today carry no result at all, the earliest Converse's home match against Spartanburg Methodist and the latest Converse's home match against Young Harris.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Enzo Joly, a freshman, has six of Emmanuel's fourteen goals, from eighteen shots.",
+      "text": "Enzo Joly, a freshman, has seven of Emmanuel's sixteen goals, from 24 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Ferrum have won three matches and drawn two and are yet to lose; they have conceded four goals.",
+      "text": "Lees-McRae have won five matches and drawn two and are yet to lose; they have conceded four goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -93,9 +88,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "observed",
-      "text": "Jackson Bennett has been beaten eight times for Belmont Abbey and has kept three clean sheets.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Francis Marion have won six matches, drawn one and lost one, scoring eighteen goals and conceding six.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -112,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Andrea Marrazzo — 3 G · 1 A · 26 shots",
+      "text": "Andrea Marrazzo — 4 G · 1 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Daniel Osorno — 3 G · 1 A · 12 shots",
+      "text": "Jose Coutinho — 4 G · 2 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 chowan v barton",
+      "text": "2026-09-19 ferrum v southern-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 converse v young-harris",
+      "text": "2026-09-22 lees-mcrae v king",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:39:46.974Z",
-    "generate_ms": 25028,
-    "validate_ms": 2,
-    "wall_ms": 25031,
+    "started_at": "2026-09-20T11:41:46.978Z",
+    "generate_ms": 56727,
+    "validate_ms": 1,
+    "wall_ms": 56728,
     "concurrency": 4
   }
 }

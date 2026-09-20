@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-18T11:43:15.493Z",
-  "data_collected_at": "2026-09-18T11:36:31+00:00",
+  "validated_at": "2026-09-20T11:45:41.526Z",
+  "data_collected_at": "2026-09-20T11:37:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,36 +17,21 @@
   "normalizations": [],
   "review": [
     {
-      "path": "dek",
-      "text": "Millersville followed their win at Shepherd with another over West Chester on Wednesday, and have conceded four goals in seven matches, as few as any side in the conference has let in. Only Slippery Rock have kept the figure that low, and they have played fewer matches to do it.",
-      "unbacked": ["7"]
-    },
-    {
-      "path": "wire",
-      "text": "Lock Haven are still without a win after six matches, four of them drawn.",
-      "unbacked": ["6"]
-    },
-    {
-      "path": "pattern.text",
-      "text": "Millersville have scored eighteen, more than West Chester and Shippensburg have managed between them, and the two sides at the foot of the chart both lost on Wednesday.",
-      "unbacked": ["2"]
-    },
-    {
       "path": "findings[1].text",
       "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals in six matches.",
       "unbacked": ["6"]
     },
     {
       "path": "findings[2].text",
-      "text": "Slippery Rock have conceded four goals in five matches and scored twelve, with seven different players among the scorers.",
-      "unbacked": ["5"]
+      "text": "Slippery Rock have conceded five goals in six matches and scored thirteen, with eight different players among the scorers.",
+      "unbacked": ["6"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Millersville have scored eighteen, more than West Chester and Shippensburg have managed between them, and the two sides at the foot of the chart both lost on Wednesday.",
+      "text": "Bloomsburg have scored sixteen, more than West Chester and Shippensburg have managed between them, and sit beneath both in the table: goals scored across the season are not what the conference table is rewarding.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -64,8 +49,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lock Haven are still without a win after six matches, four of them drawn.",
-      "checker": "team_record",
+      "text": "West Chester are level at the top of the table having scored seven goals all season, the fewest in the conference.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -91,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Slippery Rock have conceded four goals in five matches and scored twelve, with seven different players among the scorers.",
+      "text": "Slippery Rock have conceded five goals in six matches and scored thirteen, with eight different players among the scorers.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -100,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Rafael Santos has three goals and five assists from eighteen shots for Seton Hill.",
+      "text": "Rafael Santos has three goals and five assists from nineteen shots for Seton Hill.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -109,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Aidan Houck has made twenty-nine saves for Shepherd and been beaten six times.",
+      "text": "Aidan Houck has made 32 saves for Shepherd and been beaten six times.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kaden Reynolds — 4 G · 1 A · 22 shots",
+      "text": "Steven Arias — 5 G · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Roy Parkyn — 4 G · 9 shots",
+      "text": "Kaden Reynolds — 4 G · 1 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -136,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Steven Arias — 4 G · 11 shots",
+      "text": "Roy Parkyn — 4 G · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -145,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 shepherd v shippensburg",
+      "text": "2026-09-19 millersville v e-stroudsburg",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -154,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 millersville v e-stroudsburg",
+      "text": "2026-09-23 west-chester v e-stroudsburg",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -162,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-18T11:42:48.935Z",
-    "generate_ms": 26556,
+    "started_at": "2026-09-20T11:44:21.611Z",
+    "generate_ms": 79914,
     "validate_ms": 1,
-    "wall_ms": 26557,
+    "wall_ms": 79915,
     "concurrency": 4
   }
 }

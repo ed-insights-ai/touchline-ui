@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-19T11:42:26.620Z",
-  "data_collected_at": "2026-09-19T11:35:53+00:00",
+  "validated_at": "2026-09-20T11:45:22.747Z",
+  "data_collected_at": "2026-09-20T11:38:19+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:41:45.280Z",
-    "generate_ms": 41339,
+    "started_at": "2026-09-20T11:44:56.256Z",
+    "generate_ms": 26490,
     "validate_ms": 1,
-    "wall_ms": 41340,
+    "wall_ms": 26490,
     "concurrency": 4
   }
 }

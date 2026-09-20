@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-19T11:41:16.243Z",
-  "data_collected_at": "2026-09-19T11:33:49+00:00",
+  "validated_at": "2026-09-20T11:44:09.205Z",
+  "data_collected_at": "2026-09-20T11:34:47+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 13,
-    "contradicted": 0,
+    "verified": 12,
+    "contradicted": 1,
     "unverifiable": 0,
-    "dropped": 0
+    "dropped": 1
   },
   "normalizations": [],
   "review": [],
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The tallest bar is not the strongest side: West Alabama have scored fourteen and conceded fourteen, and have won once in seven matches.",
+      "text": "Goals have not meant points: West Alabama have scored fourteen and conceded fourteen, and have won once in seven matches.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -38,11 +38,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Spring Hill have scored once in four matches, conceded ten, and are still without a win.",
-      "checker": "team_goals+team_record+fixture_counts",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "text": "Chris Douglas has seven of Trevecca's eighteen goals, and Trevecca have yet to lose.",
+      "checker": "player_stat+team_goals+team_record",
+      "verdict": "contradicted",
+      "mismatches": ["losses: claimed 0, the source published none"],
+      "dropped": true
     },
     {
       "path": "findings[0]",
@@ -55,15 +55,24 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "Hunter Walker has conceded four goals for Trevecca and kept three clean sheets.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Spring Hill have scored one goal in five matches and have lost four of them.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
+      "label": "observed",
+      "text": "Hunter Walker has conceded six goals for Trevecca and kept three clean sheets.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
       "label": "derived",
       "text": "West Alabama's fourteen goals have come from seven different scorers.",
       "checker": "distinct_scorers+team_goals",
@@ -72,18 +81,9 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
-      "label": "observed",
-      "text": "David Nunez has five goals from twenty-two shots for West Alabama.",
-      "checker": "player_stat",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Patrick Schott has made thirty-three saves for Union, more than any other goalkeeper listed, and has conceded ten goals.",
+      "text": "Patrick Schott has made 42 saves for Union and has conceded ten goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "David Nunez — 5 G · 2 A · 22 shots",
+      "text": "Chris Douglas — 7 G · 1 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Chris Douglas — 5 G · 14 shots",
+      "text": "David Nunez — 5 G · 2 A · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Karim Gegg — 4 G · 1 A · 23 shots",
+      "text": "Karim Gegg — 5 G · 1 A · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 uah v trevecca",
+      "text": "2026-09-19 aum v christian-brothers",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 aum v christian-brothers",
+      "text": "2026-09-20 west-alabama v harding",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:41:02.860Z",
-    "generate_ms": 13382,
+    "started_at": "2026-09-20T11:43:11.245Z",
+    "generate_ms": 57959,
     "validate_ms": 1,
-    "wall_ms": 13383,
+    "wall_ms": 57960,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-19T11:40:13.005Z",
-  "data_collected_at": "2026-09-19T11:30:03+00:00",
+  "validated_at": "2026-09-20T11:42:51.230Z",
+  "data_collected_at": "2026-09-20T11:30:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,16 +18,16 @@
   "review": [
     {
       "path": "findings[4].text",
-      "text": "Max Bond has made 35 saves for Chestnut Hill and conceded eight, a save percentage of .814.",
-      "unbacked": ["814"]
+      "text": "Max Bond has made 41 saves for Chestnut Hill and conceded ten, a save percentage of .804.",
+      "unbacked": ["804"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Felician's twelve goals, the most of any programme but Georgian Court, have bought one win against four defeats, with fifteen conceded.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Only Georgian Court have scored more than they have conceded: nineteen for and eleven against, where every other programme is in deficit.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Jefferson have lost all five of their matches, and after Georgian Court's defeat at Queens every other side has lost at least once.",
-      "checker": "team_record",
+      "text": "Georgian Court have scored more than any other side and are the only programme with more wins than defeats.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -53,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Bridgeport's draw with Southern New Hampshire is their third against one win and two defeats; they have scored eleven goals and conceded sixteen.",
+      "text": "Bridgeport's win over Chestnut Hill is their second, against three draws and two defeats; they have scored thirteen goals and conceded sixteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Wilmington's defeat at Queens is their third against two wins and one draw, and they have conceded fourteen goals to eight scored.",
+      "text": "Dominican's win over Jefferson is their first, against one draw and four defeats, and they have scored three goals all season while conceding eleven.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Dominican's home defeat by Molloy is their fourth loss against one draw, and they have still scored only one goal all season while conceding ten.",
+      "text": "Post's defeat at Georgian Court is their second, against two wins and two draws; they have scored six goals and conceded seven.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Post have scored six goals and conceded six across two wins, two draws and one loss.",
+      "text": "Felician's draw at Wilmington is their third, against one win and four defeats; they have scored thirteen goals and conceded sixteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Max Bond has made 35 saves for Chestnut Hill and conceded eight, a save percentage of .814.",
+      "text": "Max Bond has made 41 saves for Chestnut Hill and conceded ten, a save percentage of .804.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Gijs van Eif — 5 G · 5 A · 32 shots",
+      "text": "Gijs van Eif — 5 G · 5 A · 34 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 georgian-court v roberts-wesleyan",
+      "text": "2026-09-19 georgian-court v post",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 georgian-court v post",
+      "text": "2026-09-22 jefferson v bryant-and-stratton",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:39:46.966Z",
-    "generate_ms": 26037,
+    "started_at": "2026-09-20T11:41:46.970Z",
+    "generate_ms": 64258,
     "validate_ms": 1,
-    "wall_ms": 26039,
+    "wall_ms": 64260,
     "concurrency": 4
   }
 }

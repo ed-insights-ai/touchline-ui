@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-19T11:42:33.237Z",
-  "data_collected_at": "2026-09-19T11:36:56+00:00",
+  "validated_at": "2026-09-20T11:46:17.858Z",
+  "data_collected_at": "2026-09-20T11:41:10+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Florida Southern's first defeat leaves Embry-Riddle and Lynn as the only unbeaten sides.",
+      "text": "Embry-Riddle, held at Barry, are the last side in the conference yet to lose.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Lynn have won both of their matches at home and drawn all three away, and are yet to lose.",
+      "text": "Lynn have lost one match, at Florida Southern, after winning two at home and drawing three away.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Florida Southern have won five matches and lost one, at Saint Leo, and have conceded five goals all season.",
+      "text": "Embry-Riddle have won five matches and drawn two, scoring sixteen goals and conceding eight.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Rollins opened with two wins and have since drawn one and lost two, conceding twelve goals against eleven scored.",
-      "checker": "team_goals+team_record",
+      "text": "Eckerd beat Ave Maria at home for a second win, ending a run of five straight defeats.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Ricardo Marques has kept four clean sheets for Florida Southern and has conceded five goals in all.",
+      "text": "Virgilio Escala has seven assists for Saint Leo.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Finlay Prain — 4 G · 2 A · 18 shots",
+      "text": "Finlay Prain — 5 G · 2 A · 19 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kobi Thomas — 4 G · 1 A · 24 shots",
+      "text": "Kobi Thomas — 4 G · 1 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 saint-leo v tampa",
+      "text": "2026-09-19 florida-southern v lynn",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 florida-southern v lynn",
+      "text": "2026-09-23 embry-riddle v rollins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:42:10.336Z",
-    "generate_ms": 22900,
+    "started_at": "2026-09-20T11:45:17.334Z",
+    "generate_ms": 60523,
     "validate_ms": 1,
-    "wall_ms": 22901,
+    "wall_ms": 60524,
     "concurrency": 4
   }
 }

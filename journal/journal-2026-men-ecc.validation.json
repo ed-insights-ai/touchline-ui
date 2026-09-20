@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-19T11:40:17.812Z",
-  "data_collected_at": "2026-09-19T11:31:31+00:00",
+  "validated_at": "2026-09-20T11:43:11.171Z",
+  "data_collected_at": "2026-09-20T11:31:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,7 +18,7 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Queens have scored nineteen goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
+      "text": "Queens have scored 22 goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
       "unbacked": ["1"]
     }
   ],
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Queens have scored nineteen goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
+      "text": "Queens have scored 22 goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Molloy have conceded three goals all season and lost once, at home to Assumption; Daemen are their first conference visitors.",
+      "text": "Molloy scored more goals at home to Daemen than in all their earlier matches together.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -53,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Two matches are past their date with no result published: District of Columbia's opening-day trip to Shepherd and Molloy's at Caldwell.",
+      "text": "One match is past its date with no result published: District of Columbia's opening-day trip to Shepherd.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -62,16 +62,17 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Daemen have conceded 22 goals, more than any other programme, and are still without a win; the home defeat to Slippery Rock was their fifth.",
+      "text": "Daemen have conceded 29 goals, more than any two other programmes together, and are still without a win; the defeat at Molloy was their sixth.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "\"any 2 others\" was held against the strongest 2: roberts-wesleyan 17 + staten-island 10"
     },
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Queens have won every match since the defeat at Holy Family, the latest at home to Wilmington, and have conceded six goals all season against nineteen scored.",
+      "text": "Queens have won every match since the defeat at Holy Family, the latest at home to Roberts Wesleyan, and have conceded six goals all season against 22 scored.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,8 +81,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Lorenzo Herrera has made 35 saves and conceded five for District of Columbia, who have lost once, at Slippery Rock.",
-      "checker": "player_stat+team_record",
+      "text": "Molloy have lost once, at home to Assumption, and have conceded four goals all season against eleven scored.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,8 +90,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Staten Island's eleven goals have come from eight different players, and the win at home to Goldey-Beacom was their second of the season.",
-      "checker": "distinct_scorers+team_goals+team_record",
+      "text": "Lorenzo Herrera has made 40 saves and conceded six for District of Columbia, whose home defeat to Lock Haven was their second.",
+      "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -98,7 +99,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 8 G · 2 A · 17 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 9 G · 3 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +108,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Keithlend Cesar — 4 G · 3 A · 11 shots",
+      "text": "Keithlend Cesar — 4 G · 3 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +117,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Tommy Gunn — 4 G · 2 A · 12 shots",
+      "text": "Tommy Gunn — 4 G · 2 A · 15 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 mercy v american-international",
+      "text": "2026-09-19 mercy v st-thomas-aquinas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 queens v roberts-wesleyan",
+      "text": "2026-09-23 st-thomas-aquinas v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +143,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:39:46.981Z",
-    "generate_ms": 30830,
+    "started_at": "2026-09-20T11:41:46.981Z",
+    "generate_ms": 84189,
     "validate_ms": 1,
-    "wall_ms": 30831,
+    "wall_ms": 84190,
     "concurrency": 4
   }
 }

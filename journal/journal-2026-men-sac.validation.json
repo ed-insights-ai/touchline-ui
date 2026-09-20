@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-19T11:42:28.750Z",
-  "data_collected_at": "2026-09-19T11:36:24+00:00",
+  "validated_at": "2026-09-20T11:45:49.325Z",
+  "data_collected_at": "2026-09-20T11:38:37+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Catawba have conceded three goals all season, and only Belmont Abbey have taken a point off them.",
-      "checker": "team_goals+team_record",
+      "text": "Emory & Henry have two published results, both draws, and both against the conference's unbeaten sides.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and every Emory & Henry match but Tuesday's, the latest of them at home to Palm Beach Atlantic.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest all Emory & Henry's, the latest of them at home to Palm Beach Atlantic.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Lincoln Memorial have scored eleven and conceded five in three wins, a draw and a defeat; the defeat was their opener at Palm Beach Atlantic.",
+      "text": "Newberry have won their last two after five defeats, and have scored nine and conceded sixteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Lenoir-Rhyne are still without a win: two draws and four defeats, eight scored and sixteen conceded, the latest defeat at Lincoln Memorial on Wednesday.",
+      "text": "Lincoln Memorial have scored eleven and conceded seven in three wins, a draw and two defeats; the latest defeat came at Newberry on Saturday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty-six saves and conceded five goals.",
-      "checker": "player_stat",
+      "text": "Lenoir-Rhyne are still without a win: two draws and four defeats, eight scored and sixteen conceded, the latest defeat at Lincoln Memorial on Wednesday.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,8 +83,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Newberry's win at Bob Jones was their first of the season; they have scored seven and conceded sixteen in one win and five defeats.",
-      "checker": "team_goals+team_record",
+      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty-eight saves and conceded seven goals.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Alex Payton — 4 G · 19 shots",
+      "text": "Luis Munoz — 2 G · 6 A · 21 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Logan Knight — 4 G · 10 shots",
+      "text": "Ben Curtis — 4 G · 1 A · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Breno Andreucci — 3 G · 1 A · 14 shots",
+      "text": "Alex Payton — 4 G · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-16 catawba v virginia-state",
+      "text": "2026-09-19 anderson v carson-newman",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-19 catawba v emory-henry",
+      "text": "2026-09-20 lenoir-rhyne v wingate",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:42:04.247Z",
-    "generate_ms": 24502,
+    "started_at": "2026-09-20T11:44:58.881Z",
+    "generate_ms": 50443,
     "validate_ms": 1,
-    "wall_ms": 24503,
+    "wall_ms": 50444,
     "concurrency": 4
   }
 }

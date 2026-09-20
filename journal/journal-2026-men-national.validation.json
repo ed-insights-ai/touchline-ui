@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-19T11:43:00.113Z",
+  "validated_at": "2026-09-20T11:46:42.997Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Saginaw Valley State's unbeaten start ends against Northern Michigan Saginaw Valley State's unbeaten start ended at home to Northern Michigan, a side they had beaten earlier in the month. Three wins and two draws came before the defeat. It leaves Roosevelt and Purdue Northwest as the GLIAC's only sides yet to lose.",
+      "text": "Midwestern State stand alone unbeaten in the Lone Star Conference UT Tyler's unbeaten start ended at home to Western Oregon of the Great Northwest. Midwestern State beat Simon Fraser the same day to reach six wins and two draws, and no other Lone Star side is still without a defeat.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:42:38.185Z",
-    "generate_ms": 21927,
+    "started_at": "2026-09-20T11:46:20.900Z",
+    "generate_ms": 22095,
     "validate_ms": 1,
-    "wall_ms": 21928
+    "wall_ms": 22097
   }
 }

@@ -3,30 +3,31 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-09-19T11:45:00+00:00",
-  "data_collected_at": "2026-09-19T11:35:21+00:00",
-  "headline": "Flagler pull clear as North Georgia draw again",
-  "dek": "Flagler won at USC Aiken to make it three conference wins from three, while North Georgia drew again, at Clayton State. Neither side has lost this season, and Flagler's only dropped points are three draws outside the conference.",
+  "generated_at": "2026-09-20T11:45:00+00:00",
+  "data_collected_at": "2026-09-20T11:37:22+00:00",
+  "headline": "North Georgia end Flagler's perfect conference start",
+  "dek": "North Georgia drew at Flagler, the only points Flagler have dropped inside the conference. Neither side has lost this season. Flagler have won three and drawn four, and all of the wins have come against conference opponents.",
   "lede_basis": {
     "programme": "flagler",
     "wins": 3,
-    "draws": 3,
+    "draws": 4,
     "losses": 0
   },
-  "lede_updated": "2026-09-17",
+  "lede_updated": "2026-09-20",
+  "displaced_by": "Flagler drew at home to North Georgia on 19 Sep: their conference record is no longer perfect, and the standing dek's draws figure and 'outside the conference' claim are no longer true.",
   "pattern": {
     "label": "derived",
-    "text": "North Georgia's eighteen goals are more than USC Aiken and Lander have scored between them, and nine different players have shared them.",
+    "text": "North Georgia's 21 goals are more than USC Aiken and Lander have scored between them, and nine different players have shared them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "north-georgia": 18,
+        "north-georgia": 21,
+        "middle-georgia-state": 16,
         "clayton-state": 15,
-        "middle-georgia-state": 13,
-        "flagler": 12,
+        "flagler": 15,
         "georgia-southwestern": 9,
         "lander": 8,
-        "usc-aiken": 5
+        "usc-aiken": 6
       },
       "highlight": "north-georgia"
     },
@@ -35,20 +36,20 @@
       "metric": "gf",
       "programme": "north-georgia",
       "of": ["usc-aiken", "lander"],
-      "gf": 18,
-      "ga": 7,
+      "gf": 21,
+      "ga": 10,
       "distinct_scorers_min": 9
     }
   },
   "wire": {
-    "line": "Every side but Flagler has now dropped points inside the conference; USC Aiken are the only one without any.",
+    "line": "Flagler and North Georgia drew their meeting and remain the only sides yet to lose this season.",
     "basis": {
-      "programme": "usc-aiken",
-      "wins": 1,
-      "draws": 0,
-      "losses": 3
+      "programme": "flagler",
+      "wins": 3,
+      "draws": 4,
+      "losses": 0
     },
-    "updated": "2026-09-17"
+    "updated": "2026-09-20"
   },
   "findings": [
     {
@@ -62,28 +63,28 @@
     },
     {
       "label": "derived",
-      "text": "Isaac Calderon has scored seven of North Georgia's eighteen goals from twenty-four shots.",
+      "text": "Isaac Calderon has scored eight of North Georgia's 21 goals from 26 shots.",
       "basis": {
         "source": "stats",
         "player": "Isaac Calderon",
         "programme": "north-georgia",
-        "goals": 7,
-        "shots": 24,
-        "gf": 18,
-        "ga": 7
+        "goals": 8,
+        "shots": 26,
+        "gf": 21,
+        "ga": 10
       }
     },
     {
       "label": "derived",
-      "text": "Javier Gongora Andres has scored six of Middle Georgia State's thirteen goals from twenty-three shots.",
+      "text": "Javier Gongora Andres has scored seven of Middle Georgia State's sixteen goals from 26 shots.",
       "basis": {
         "source": "stats",
         "player": "Javier Gongora Andres",
         "programme": "middle-georgia-state",
-        "goals": 6,
-        "shots": 23,
-        "gf": 13,
-        "ga": 23
+        "goals": 7,
+        "shots": 26,
+        "gf": 16,
+        "ga": 24
       }
     },
     {
@@ -101,12 +102,12 @@
     },
     {
       "label": "observed",
-      "text": "Ryan Rivas has conceded three times in Flagler's goal this season.",
+      "text": "Ryan Rivas has conceded six times in Flagler's goal this season.",
       "basis": {
         "source": "stats",
         "player": "Ryan Rivas",
         "programme": "flagler",
-        "goals_against": 3
+        "goals_against": 6
       }
     }
   ],
@@ -116,14 +117,14 @@
       "programme": "north-georgia",
       "position": "MID",
       "class": "SR",
-      "line": "7 G · 2 A · 24 shots"
+      "line": "8 G · 2 A · 26 shots"
     },
     {
       "player": "Javier Gongora Andres",
       "programme": "middle-georgia-state",
       "position": "FWD",
       "class": "SO",
-      "line": "6 G · 23 shots"
+      "line": "7 G · 26 shots"
     },
     {
       "player": "Theo Hoang",
@@ -135,16 +136,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-16 usc-aiken v flagler",
-      "line": "Flagler have still not lost this season; USC Aiken have lost both of their conference matches."
+      "fixture_ref": "2026-09-19 flagler v north-georgia",
+      "line": "Neither side has lost this season; the draw is the only conference match Flagler have not won."
     },
     "next_match": {
-      "fixture_ref": "2026-09-19 flagler v north-georgia",
-      "line": "The only two unbeaten sides meet; Flagler have won every conference match and North Georgia have drawn two of theirs."
+      "fixture_ref": "2026-09-23 north-georgia v georgia-southwestern",
+      "line": "North Georgia are unbeaten but have drawn more conference matches than they have won; Georgia Southwestern have yet to win inside the conference."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-19T11:42:04.172Z"
+    "validated_at": "2026-09-20T11:44:58.806Z"
   }
 }
