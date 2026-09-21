@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-09-20T11:45:00+00:00",
-  "data_collected_at": "2026-09-20T11:37:22+00:00",
+  "generated_at": "2026-09-21T11:45:00+00:00",
+  "data_collected_at": "2026-09-21T11:35:50+00:00",
   "headline": "North Georgia end Flagler's perfect conference start",
   "dek": "North Georgia drew at Flagler, the only points Flagler have dropped inside the conference. Neither side has lost this season. Flagler have won three and drawn four, and all of the wins have come against conference opponents.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 0
   },
   "lede_updated": "2026-09-20",
-  "displaced_by": "Flagler drew at home to North Georgia on 19 Sep: their conference record is no longer perfect, and the standing dek's draws figure and 'outside the conference' claim are no longer true.",
   "pattern": {
     "label": "derived",
     "text": "North Georgia's 21 goals are more than USC Aiken and Lander have scored between them, and nine different players have shared them.",
@@ -146,6 +145,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:44:58.806Z"
+    "validated_at": "2026-09-21T11:42:31.492Z"
   }
 }

@@ -3,51 +3,52 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-19T11:50:00+00:00",
-  "data_collected_at": "2026-09-19T11:32:41+00:00",
-  "headline": "Northern Michigan end Saginaw Valley State's unbeaten start",
-  "dek": "Northern Michigan won at Saginaw Valley State, where they had lost earlier this month, to take a fourth win against two defeats. The home side had not been beaten all season until then, which leaves Roosevelt and Purdue Northwest alone without a loss.",
+  "generated_at": "2026-09-21T11:50:00+00:00",
+  "data_collected_at": "2026-09-21T11:32:49+00:00",
+  "headline": "Roosevelt stand alone as the conference's unbeaten side",
+  "dek": "Roosevelt beat Purdue Northwest at home, handing the visitors a defeat they had avoided all season and leaving every other programme with a loss to their name. Roosevelt have won six and drawn three since the season began.",
   "lede_basis": {
-    "programme": "northern-michigan",
-    "wins": 4,
-    "draws": 0,
-    "losses": 2
+    "programme": "roosevelt",
+    "wins": 6,
+    "draws": 3,
+    "losses": 0
   },
-  "lede_updated": "2026-09-19",
-  "displaced_by": "Saginaw Valley State lost at home to Northern Michigan on 2026-09-18: no longer unbeaten, and no longer sole top scorers, so the standing lines were untrue.",
+  "lede_updated": "2026-09-21",
+  "displaced_by": "Roosevelt beat Purdue Northwest on 2026-09-20: Purdue Northwest are no longer without a loss and Northern Michigan have since drawn, so the standing dek was untrue.",
   "pattern": {
     "label": "derived",
-    "text": "The scoring is top-heavy: Saginaw Valley State alone have scored more than Davenport, St. Cloud State and Wisconsin-Parkside together.",
+    "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Purdue Northwest and St. Cloud State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "northern-michigan": 17,
+        "northern-michigan": 18,
         "saginaw-valley-state": 17,
-        "roosevelt": 14,
+        "roosevelt": 16,
         "purdue-northwest": 8,
         "st-cloud-state": 7,
-        "davenport": 4,
-        "wisconsin-parkside": 3
+        "wisconsin-parkside": 6,
+        "davenport": 5
       },
-      "highlight": "saginaw-valley-state"
+      "highlight": "northern-michigan"
     },
     "basis": {
-      "programme": "saginaw-valley-state",
-      "gf": 17,
+      "programme": "northern-michigan",
+      "gf": 18,
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "of": ["davenport", "st-cloud-state", "wisconsin-parkside"]
+      "of": ["purdue-northwest", "st-cloud-state"]
     }
   },
   "wire": {
-    "line": "Roosevelt keeper Cedrik Strupler has conceded one goal all season, and unbeaten Purdue Northwest are the next side to try him.",
+    "line": "Luca Rosen has scored nine of Northern Michigan's eighteen goals, and Roosevelt, the only unbeaten side, are yet to face him.",
     "basis": {
       "source": "stats",
-      "player": "Cedrik Strupler",
-      "programme": "roosevelt",
-      "goals_against": 1
+      "player": "Luca Rosen",
+      "programme": "northern-michigan",
+      "goals": 9,
+      "gf": 18
     },
-    "updated": "2026-09-19"
+    "updated": "2026-09-21"
   },
   "findings": [
     {
@@ -61,10 +62,10 @@
     },
     {
       "label": "derived",
-      "text": "Roosevelt's five wins are more than any other programme has managed.",
+      "text": "Roosevelt's six wins are more than any other programme has managed.",
       "basis": {
         "programme": "roosevelt",
-        "wins": 5,
+        "wins": 6,
         "draws": 3,
         "losses": 0,
         "comparative": "greater_than_each",
@@ -81,13 +82,13 @@
     },
     {
       "label": "observed",
-      "text": "Luca Rosen has scored eight goals from twenty-seven shots for Northern Michigan.",
+      "text": "Luca Rosen has scored nine goals from 33 shots for Northern Michigan.",
       "basis": {
         "source": "stats",
         "player": "Luca Rosen",
         "programme": "northern-michigan",
-        "goals": 8,
-        "shots": 27
+        "goals": 9,
+        "shots": 33
       }
     },
     {
@@ -103,22 +104,13 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Davenport's sixteen goals conceded are more than any other programme has let in.",
+      "label": "observed",
+      "text": "Cedrik Strupler has kept four shutouts in goal for Roosevelt.",
       "basis": {
-        "programme": "davenport",
-        "gf": 4,
-        "ga": 16,
-        "comparative": "greater_than_each",
-        "metric": "ga",
-        "of": [
-          "northern-michigan",
-          "purdue-northwest",
-          "roosevelt",
-          "saginaw-valley-state",
-          "st-cloud-state",
-          "wisconsin-parkside"
-        ]
+        "source": "stats",
+        "player": "Cedrik Strupler",
+        "programme": "roosevelt",
+        "shutouts": 4
       }
     }
   ],
@@ -128,7 +120,7 @@
       "programme": "northern-michigan",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 2 A · 27 shots"
+      "line": "9 G · 2 A · 33 shots"
     },
     {
       "player": "Matty Telfer",
@@ -142,21 +134,21 @@
       "programme": "roosevelt",
       "position": "FWD",
       "class": "5Y",
-      "line": "5 G · 1 A · 16 shots"
+      "line": "6 G · 1 A · 19 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-18 saginaw-valley-state v northern-michigan",
-      "line": "Northern Michigan have won consecutive matches for the first time this season, having alternated wins and defeats until now."
+      "fixture_ref": "2026-09-20 roosevelt v purdue-northwest",
+      "line": "Purdue Northwest had neither lost nor failed to score in a match this season until this one."
     },
     "next_match": {
-      "fixture_ref": "2026-09-20 roosevelt v purdue-northwest",
-      "line": "Neither side has lost this season; Roosevelt have drawn more often than Purdue Northwest, who have won every match since their draw at Quincy."
+      "fixture_ref": "2026-09-23 roosevelt v st-cloud-state",
+      "line": "Roosevelt have yet to lose; St. Cloud State have lost both conference matches they have played, each of them at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-19T11:42:10.260Z"
+    "validated_at": "2026-09-21T11:42:10.198Z"
   }
 }

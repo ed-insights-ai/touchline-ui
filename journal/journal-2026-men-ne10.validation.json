@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-20T11:44:56.179Z",
-  "data_collected_at": "2026-09-20T11:36:25+00:00",
+  "validated_at": "2026-09-21T11:42:51.735Z",
+  "data_collected_at": "2026-09-21T11:35:11+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,11 +20,17 @@
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Southern New Hampshire's twenty-six goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Pace sit mid-chart on eleven, and the four they have conceded is the smaller figure that explains their unbeaten record.",
+      "text": "Southern New Hampshire's twenty-six goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Saint Anselm have won four of their six matches while scoring ten and conceding eleven, so the chart's order is not the order of results.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "unchecked_figures": [
+        "saint_anselm_wins: 4",
+        "saint_anselm_matches_played: 6",
+        "saint_anselm_gf: 10",
+        "saint_anselm_ga: 11"
+      ]
     },
     {
       "path": "pattern.chart",
@@ -38,30 +44,20 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Away sides had not won a meeting between members until Bentley did at Adelphi, ten days after losing by five at Franklin Pierce.",
+      "text": "Southern New Hampshire are the last programme yet to lose after Saint Anselm ended Pace's unbeaten start.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": [
-        "days_since_defeat_at_franklin_pierce: 10",
-        "margin_of_defeat_at_franklin_pierce: 5"
-      ]
+      "dropped": false
     },
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Bentley's win at Adelphi was the first by an away side in the eight meetings between members; five went to the home side and two were drawn.",
+      "text": "Southern New Hampshire have won five matches and drawn two, and are the only programme without a defeat.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": [
-        "member_meetings: 8",
-        "member_meetings_won_by_home_side: 5",
-        "member_meetings_drawn: 2",
-        "member_meetings_won_by_away_side: 1"
-      ]
+      "dropped": false
     },
     {
       "path": "findings[1]",
@@ -93,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Joe Zweben has made twenty-eight saves, more than any other goalkeeper listed.",
+      "text": "Joe Zweben has made thirty-eight saves, more than any other goalkeeper listed.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-19 adelphi v bentley",
+      "text": "2026-09-20 saint-anselm v pace",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -138,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-20 saint-anselm v pace",
+      "text": "2026-09-23 southern-new-hampshire v saint-anselm",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -146,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-20T11:43:34.661Z",
-    "generate_ms": 81517,
+    "started_at": "2026-09-21T11:41:57.935Z",
+    "generate_ms": 53800,
     "validate_ms": 1,
-    "wall_ms": 81518,
+    "wall_ms": 53801,
     "concurrency": 4
   }
 }

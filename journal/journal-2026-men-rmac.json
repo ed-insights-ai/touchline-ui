@@ -3,58 +3,70 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-20T11:45:00+00:00",
-  "data_collected_at": "2026-09-20T11:38:19+00:00",
-  "headline": "CSU Pueblo beat Colorado Christian and stay perfect",
-  "dek": "CSU Pueblo beat Colorado Christian on Thursday for their fifth win in five matches, and have conceded one goal in all of them. Every other programme has dropped points; UCCS, the only other unbeaten side, have drawn nearly as often as they have won.",
+  "generated_at": "2026-09-21T11:45:00+00:00",
+  "data_collected_at": "2026-09-21T11:36:29+00:00",
+  "headline": "CSU Pueblo and UCCS both win away to stay unbeaten",
+  "dek": "CSU Pueblo won at Fort Lewis on Sunday for their sixth win in six matches, and have conceded two goals in all of them. UCCS, who won at Regis the same day, are the only other side yet to lose.",
   "lede_basis": {
     "programme": "csu-pueblo",
-    "wins": 5,
+    "wins": 6,
     "draws": 0,
     "losses": 0,
-    "gf": 10,
-    "ga": 1
+    "ga": 2
   },
-  "lede_updated": "2026-09-18",
+  "lede_updated": "2026-09-21",
+  "displaced_by": "CSU Pueblo's sixth win, at Fort Lewis, made the five-in-five dek untrue; UCCS also won away to stay the only other unbeaten side",
   "pattern": {
     "label": "derived",
-    "text": "The chart is stretched at both ends: UCCS have scored more goals than Colorado Mesa, Colorado School of Mines and Adams State have together, and the sides in between sit within a few goals of one another.",
+    "text": "The chart is stretched at both ends: South Dakota Mines have scored more goals than Colorado Mesa, Colorado School of Mines and Adams State have together, and UCCS have matched them goal for goal.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "uccs": 19,
-        "south-dakota-mines": 15,
-        "fort-lewis": 14,
+        "south-dakota-mines": 21,
+        "uccs": 21,
+        "fort-lewis": 15,
+        "csu-pueblo": 13,
+        "msu-denver": 12,
         "westminster": 12,
+        "colorado-mesa": 11,
         "colorado-christian": 10,
-        "csu-pueblo": 10,
-        "msu-denver": 10,
-        "colorado-mesa": 8,
-        "regis": 8,
+        "regis": 9,
         "colorado-school-of-mines": 5,
         "adams-state": 1
       },
-      "highlight": "uccs"
+      "highlight": "south-dakota-mines"
     },
     "basis": {
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "uccs",
+      "programme": "south-dakota-mines",
       "of": ["colorado-mesa", "colorado-school-of-mines", "adams-state"],
-      "gf": 19
+      "gf": 21
     }
   },
   "wire": {
-    "line": "UCCS are unbeaten and have scored nineteen goals, but have drawn three of their seven matches.",
+    "line": "CSU Pueblo have won every match they have played, six in all, and no other programme has as many wins.",
     "basis": {
-      "programme": "uccs",
-      "wins": 4,
-      "draws": 3,
-      "losses": 0,
-      "gf": 19,
-      "ga": 6
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "programme": "csu-pueblo",
+      "of": [
+        "adams-state",
+        "colorado-christian",
+        "colorado-mesa",
+        "colorado-school-of-mines",
+        "fort-lewis",
+        "msu-denver",
+        "regis",
+        "south-dakota-mines",
+        "uccs",
+        "westminster"
+      ],
+      "wins": 6,
+      "draws": 0,
+      "losses": 0
     },
-    "updated": "2026-09-18"
+    "updated": "2026-09-21"
   },
   "findings": [
     {
@@ -68,84 +80,84 @@
     },
     {
       "label": "derived",
-      "text": "Colorado School of Mines' home defeat to South Dakota Mines on Friday was their sixth, beside two draws, and they remain the only side without a win.",
-      "basis": {
-        "programme": "colorado-school-of-mines",
-        "wins": 0,
-        "draws": 2,
-        "losses": 6
-      }
-    },
-    {
-      "label": "derived",
-      "text": "South Dakota Mines' win at Colorado School of Mines on Friday was their third of the season, beside two draws and one defeat, and they have scored fifteen goals in all.",
-      "basis": {
-        "programme": "south-dakota-mines",
-        "wins": 3,
-        "draws": 2,
-        "losses": 1,
-        "gf": 15
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Regis's win at Westminster on Thursday was their third of the season, beside two draws and one defeat, and they have conceded three goals in all.",
-      "basis": {
-        "programme": "regis",
-        "wins": 3,
-        "draws": 2,
-        "losses": 1,
-        "ga": 3
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Adams State's draw with Colorado School of Mines is their first of the season; their one goal still stands alone against seven conceded, across a win, a draw and three defeats.",
+      "text": "Adams State's defeat at South Dakota Mines on Sunday was their fourth, beside one win and one draw, and they have scored one goal against thirteen conceded.",
       "basis": {
         "programme": "adams-state",
         "wins": 1,
         "draws": 1,
-        "losses": 3,
+        "losses": 4,
         "gf": 1,
-        "ga": 7
+        "ga": 13
+      }
+    },
+    {
+      "label": "derived",
+      "text": "South Dakota Mines' win over Adams State on Sunday was their fourth of the season, beside two draws and one defeat, and they have scored twenty-one goals in all.",
+      "basis": {
+        "programme": "south-dakota-mines",
+        "wins": 4,
+        "draws": 2,
+        "losses": 1,
+        "gf": 21
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Colorado Mesa's win at Colorado Christian on Sunday was their second of the season, beside four draws and one defeat.",
+      "basis": {
+        "programme": "colorado-mesa",
+        "wins": 2,
+        "draws": 4,
+        "losses": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Regis's home defeat to UCCS on Sunday was their second of the season, beside three wins and two draws, and they have conceded five goals in all.",
+      "basis": {
+        "programme": "regis",
+        "wins": 3,
+        "draws": 2,
+        "losses": 2,
+        "ga": 5
       }
     }
   ],
   "players_to_watch": [
     {
+      "player": "Nickolas North",
+      "programme": "south-dakota-mines",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 4 A · 19 shots"
+    },
+    {
       "player": "Simão Agostinho",
       "programme": "fort-lewis",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 1 A · 21 shots"
+      "line": "5 G · 1 A · 25 shots"
     },
     {
-      "player": "Yohann Fila",
-      "programme": "uccs",
+      "player": "Richie Tabares Ochoa",
+      "programme": "colorado-mesa",
       "position": "FWD",
-      "class": "SO",
-      "line": "4 G · 1 A · 25 shots"
-    },
-    {
-      "player": "Lucas Miranda",
-      "programme": "south-dakota-mines",
-      "position": "FWD",
-      "class": "FR",
-      "line": "4 G · 11 shots"
+      "class": "JR",
+      "line": "5 G · 1 A · 22 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-18 colorado-school-of-mines v south-dakota-mines",
-      "line": "Colorado School of Mines are still without a win; South Dakota Mines are unbeaten since losing to Rocky Mountain."
+      "fixture_ref": "2026-09-20 fort-lewis v csu-pueblo",
+      "line": "CSU Pueblo have still to drop a point; Fort Lewis had not lost at home until now."
     },
     "next_match": {
-      "fixture_ref": "2026-09-20 fort-lewis v csu-pueblo",
-      "line": "CSU Pueblo have yet to drop a point; Fort Lewis have not lost at home."
+      "fixture_ref": "2026-09-24 colorado-mesa v uccs",
+      "line": "UCCS have yet to lose; Colorado Mesa are unbeaten since their defeat at Midwestern State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:45:22.747Z"
+    "validated_at": "2026-09-21T11:43:38.631Z"
   }
 }

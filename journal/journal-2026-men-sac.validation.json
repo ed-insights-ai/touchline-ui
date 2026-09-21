@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-20T11:45:49.325Z",
-  "data_collected_at": "2026-09-20T11:38:37+00:00",
+  "validated_at": "2026-09-21T11:43:03.054Z",
+  "data_collected_at": "2026-09-21T11:37:11+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Newberry have won their last two after five defeats, and have scored nine and conceded sixteen.",
+      "text": "Lenoir-Rhyne are still without a win: three draws and four defeats, nine scored and seventeen conceded, the latest a draw at home to Wingate on Sunday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Lincoln Memorial have scored eleven and conceded seven in three wins, a draw and two defeats; the latest defeat came at Newberry on Saturday.",
+      "text": "Newberry have won their last two after five defeats, and have scored nine and conceded sixteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Lenoir-Rhyne are still without a win: two draws and four defeats, eight scored and sixteen conceded, the latest defeat at Lincoln Memorial on Wednesday.",
+      "text": "Lincoln Memorial have scored eleven and conceded seven in three wins, a draw and two defeats; the latest defeat came at Newberry on Saturday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-19 anderson v carson-newman",
+      "text": "2026-09-20 lenoir-rhyne v wingate",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-20 lenoir-rhyne v wingate",
+      "text": "2026-09-22 anderson v north-greenville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-20T11:44:58.881Z",
-    "generate_ms": 50443,
+    "started_at": "2026-09-21T11:42:36.807Z",
+    "generate_ms": 26246,
     "validate_ms": 1,
-    "wall_ms": 50444,
+    "wall_ms": 26247,
     "concurrency": 4
   }
 }

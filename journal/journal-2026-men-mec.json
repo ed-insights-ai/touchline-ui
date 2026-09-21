@@ -3,43 +3,38 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-09-20T11:45:00+00:00",
-  "data_collected_at": "2026-09-20T11:36:07+00:00",
-  "headline": "Frostburg State end West Liberty's perfect run",
-  "dek": "West Liberty had won all four of their matches until they went to Frostburg State and lost without scoring. Frostburg State and Davis & Elkins are now the only unbeaten programmes left, and between them they have drawn three of the eleven matches they have played.",
+  "generated_at": "2026-09-21T11:45:00+00:00",
+  "data_collected_at": "2026-09-21T11:34:32+00:00",
+  "headline": "Davis & Elkins are the last unbeaten side",
+  "dek": "Frostburg State went to Point Park unbeaten in six matches and lost, which leaves Davis & Elkins alone without a defeat after their win at West Liberty. Charleston sit above them in the table, having won all four of their conference matches, but were beaten at home in August.",
   "lede_basis": {
-    "programme": "west-liberty",
-    "wins": 4,
-    "draws": 0,
-    "losses": 1,
-    "gf": 10,
-    "ga": 8,
-    "wins_before_first_defeat": 4,
-    "unbeaten_programmes": 2,
-    "frostburg_state_draws": 2,
-    "davis_elkins_draws": 1,
-    "draws_between_frostburg_and_davis_elkins": 3,
-    "frostburg_state_played": 6,
-    "davis_elkins_played": 5,
-    "matches_between_frostburg_and_davis_elkins": 11
+    "programme": "davis-elkins",
+    "wins": 5,
+    "draws": 1,
+    "losses": 0,
+    "unbeaten_programmes": 1,
+    "frostburg_state_matches_before_first_defeat": 6,
+    "charleston_conference_wins": 4,
+    "charleston_conference_played": 4
   },
-  "lede_updated": "2026-09-17",
+  "lede_updated": "2026-09-21",
+  "displaced_by": "Frostburg State lost at Point Park, so the standing dek's two unbeaten programmes are now one: Davis & Elkins",
   "pattern": {
     "label": "derived",
-    "text": "Charleston have scored more than Frostburg State and Davis & Elkins together, and twelve different players have contributed to their twenty-four; the scoring is spread, not carried.",
+    "text": "Charleston have scored more than Davis & Elkins and Concord, the sides next to them in the table, together, and twelve different players have contributed to their twenty-six; the scoring is spread, not carried.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "charleston": 24,
-        "frostburg-state": 13,
+        "charleston": 26,
+        "frostburg-state": 14,
         "shawnee-state": 13,
         "wheeling": 13,
-        "davis-elkins": 10,
+        "davis-elkins": 12,
+        "concord": 10,
+        "point-park": 10,
         "west-liberty": 10,
-        "concord": 8,
-        "point-park": 8,
         "salem": 8,
-        "west-virginia-wesleyan": 3
+        "west-virginia-wesleyan": 5
       },
       "highlight": "charleston"
     },
@@ -47,8 +42,8 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "charleston",
-      "of": ["frostburg-state", "davis-elkins"],
-      "gf": 24,
+      "of": ["davis-elkins", "concord"],
+      "gf": 26,
       "distinct_scorers_min": 12
     }
   },
@@ -56,49 +51,51 @@
     "line": "Charleston scored ten in a single match against West Virginia Wesleyan, more than Wesleyan have scored all season.",
     "basis": {
       "programme": "charleston",
-      "gf": 24,
+      "gf": 26,
       "ga": 6,
       "goals_in_one_match": 10,
-      "west_virginia_wesleyan_gf": 3
+      "west_virginia_wesleyan_gf": 5
     },
     "updated": "2026-09-17"
   },
   "findings": [
     {
       "label": "derived",
-      "text": "Frostburg State are unbeaten after six matches and have conceded four goals in them.",
+      "text": "Davis & Elkins have won five of their six matches and conceded five goals in them.",
       "basis": {
-        "programme": "frostburg-state",
-        "wins": 4,
-        "draws": 2,
+        "programme": "davis-elkins",
+        "wins": 5,
+        "draws": 1,
         "losses": 0,
-        "gf": 13,
-        "ga": 4,
+        "gf": 12,
+        "ga": 5,
         "played": 6
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Josiah Emerson has made nineteen saves in Frostburg State's goal and been beaten three times.",
-      "basis": {
-        "source": "stats",
-        "player": "Josiah Emerson",
-        "programme": "frostburg-state",
-        "saves": 19,
-        "goals_against": 3
       }
     },
     {
       "label": "derived",
-      "text": "West Virginia Wesleyan have lost all six of their matches, and have scored three goals while conceding twenty-three.",
+      "text": "Charleston have won six of their seven matches, scoring twenty-six goals and conceding six.",
+      "basis": {
+        "programme": "charleston",
+        "wins": 6,
+        "draws": 0,
+        "losses": 1,
+        "gf": 26,
+        "ga": 6,
+        "played": 7
+      }
+    },
+    {
+      "label": "derived",
+      "text": "West Virginia Wesleyan are without a win after seven matches, with one draw and six defeats, and have conceded twenty-five goals.",
       "basis": {
         "programme": "west-virginia-wesleyan",
         "wins": 0,
-        "draws": 0,
+        "draws": 1,
         "losses": 6,
-        "gf": 3,
-        "ga": 23,
-        "played": 6
+        "gf": 5,
+        "ga": 25,
+        "played": 7
       }
     },
     {
@@ -114,14 +111,12 @@
     },
     {
       "label": "observed",
-      "text": "One match is past its date with no result published, and it is West Virginia Wesleyan's.",
+      "text": "Anthony Fusay has two shutouts in Point Park's goal.",
       "basis": {
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 1,
-        "set": "past_date_no_result",
-        "all_of": "west-virginia-wesleyan",
-        "count": 1
+        "source": "stats",
+        "player": "Anthony Fusay",
+        "programme": "point-park",
+        "shutouts": 2
       }
     }
   ],
@@ -131,35 +126,35 @@
       "programme": "charleston",
       "position": "FWD",
       "class": "SO",
-      "line": "6 G · 2 A · 17 shots"
+      "line": "6 G · 2 A · 18 shots"
+    },
+    {
+      "player": "Hector Moreno",
+      "programme": "point-park",
+      "position": "FWD",
+      "class": "SR",
+      "line": "4 G · 13 shots"
     },
     {
       "player": "Frank Stare",
       "programme": "frostburg-state",
       "position": "FWD",
       "class": "SO",
-      "line": "3 G · 2 A · 9 shots"
-    },
-    {
-      "player": "Leyton Collier",
-      "programme": "west-liberty",
-      "position": "MID",
-      "class": "SO",
-      "line": "3 G · 1 A · 17 shots"
+      "line": "3 G · 2 A · 10 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 wheeling v seton-hill",
-      "line": "Wheeling's first win since August; they have still lost every conference match they have played."
+      "fixture_ref": "2026-09-20 point-park v frostburg-state",
+      "line": "Frostburg State's first defeat of the season; Point Park had gone without a win since beating Wheeling."
     },
     "next_match": {
-      "fixture_ref": "2026-09-20 west-liberty v davis-elkins",
-      "line": "Davis & Elkins are unbeaten; West Liberty's only defeat came against the conference's other unbeaten side."
+      "fixture_ref": "2026-09-23 shawnee-state v davis-elkins",
+      "line": "Davis & Elkins are the only side yet to lose; Shawnee State have not won since before their trip to Concord."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:44:11.450Z"
+    "validated_at": "2026-09-21T11:42:36.731Z"
   }
 }

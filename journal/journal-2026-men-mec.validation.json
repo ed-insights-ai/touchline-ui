@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-09-20T11:44:11.450Z",
-  "data_collected_at": "2026-09-20T11:36:07+00:00",
+  "validated_at": "2026-09-21T11:42:36.731Z",
+  "data_collected_at": "2026-09-21T11:34:32+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more than Frostburg State and Davis & Elkins together, and twelve different players have contributed to their twenty-four; the scoring is spread, not carried.",
+      "text": "Charleston have scored more than Davis & Elkins and Concord, the sides next to them in the table, together, and twelve different players have contributed to their twenty-six; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -43,12 +43,12 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["goals_in_one_match: 10", "west_virginia_wesleyan_gf: 3"]
+      "unchecked_figures": ["goals_in_one_match: 10", "west_virginia_wesleyan_gf: 5"]
     },
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Frostburg State are unbeaten after six matches and have conceded four goals in them.",
+      "text": "Davis & Elkins have won five of their six matches and conceded five goals in them.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -56,9 +56,9 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "Josiah Emerson has made nineteen saves in Frostburg State's goal and been beaten three times.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Charleston have won six of their seven matches, scoring twenty-six goals and conceding six.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -66,7 +66,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "West Virginia Wesleyan have lost all six of their matches, and have scored three goals while conceding twenty-three.",
+      "text": "West Virginia Wesleyan are without a win after seven matches, with one draw and six defeats, and have conceded twenty-five goals.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -84,8 +84,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "One match is past its date with no result published, and it is West Virginia Wesleyan's.",
-      "checker": "unresolved+set_members",
+      "text": "Anthony Fusay has two shutouts in Point Park's goal.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -93,7 +93,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Martin Echarren — 6 G · 2 A · 17 shots",
+      "text": "Martin Echarren — 6 G · 2 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +102,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Frank Stare — 3 G · 2 A · 9 shots",
+      "text": "Hector Moreno — 4 G · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -111,7 +111,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Leyton Collier — 3 G · 1 A · 17 shots",
+      "text": "Frank Stare — 3 G · 2 A · 10 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-19 wheeling v seton-hill",
+      "text": "2026-09-20 point-park v frostburg-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-20 west-liberty v davis-elkins",
+      "text": "2026-09-23 shawnee-state v davis-elkins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-20T11:43:29.831Z",
-    "generate_ms": 41618,
+    "started_at": "2026-09-21T11:41:39.191Z",
+    "generate_ms": 57540,
     "validate_ms": 1,
-    "wall_ms": 41619,
+    "wall_ms": 57541,
     "concurrency": 4
   }
 }

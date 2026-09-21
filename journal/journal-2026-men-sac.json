@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-20T11:50:00+00:00",
-  "data_collected_at": "2026-09-20T11:38:37+00:00",
+  "generated_at": "2026-09-21T11:50:00+00:00",
+  "data_collected_at": "2026-09-21T11:37:11+00:00",
   "headline": "Anderson draw level with Catawba at the top",
   "dek": "Anderson beat Carson-Newman at home on Saturday and sit level with Catawba at the top, after Catawba were held goalless by Emory & Henry the same day. Anderson, like Catawba, are unbeaten, with five wins and two draws. Lincoln Memorial, perfect in conference play until the weekend, lost at Newberry.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 0
   },
   "lede_updated": "2026-09-20",
-  "displaced_by": "Catawba and Lincoln Memorial both dropped their first conference points on Saturday, so the standing dek is no longer true; Anderson's win over Carson-Newman puts them level with Catawba.",
   "pattern": {
     "label": "observed",
     "text": "Catawba have scored twenty-two and conceded three, and no one player has more than Alex Payton's four of those goals.",
@@ -24,11 +23,11 @@
         "catawba": 22,
         "anderson": 17,
         "mars-hill": 13,
-        "wingate": 12,
+        "wingate": 13,
         "lincoln-memorial": 11,
         "carson-newman": 9,
+        "lenoir-rhyne": 9,
         "newberry": 9,
-        "lenoir-rhyne": 8,
         "coker": 4,
         "tusculum": 3,
         "emory-henry": 2
@@ -66,6 +65,18 @@
     },
     {
       "label": "observed",
+      "text": "Lenoir-Rhyne are still without a win: three draws and four defeats, nine scored and seventeen conceded, the latest a draw at home to Wingate on Sunday.",
+      "basis": {
+        "programme": "lenoir-rhyne",
+        "wins": 0,
+        "draws": 3,
+        "losses": 4,
+        "gf": 9,
+        "ga": 17
+      }
+    },
+    {
+      "label": "observed",
       "text": "Newberry have won their last two after five defeats, and have scored nine and conceded sixteen.",
       "basis": {
         "programme": "newberry",
@@ -86,18 +97,6 @@
         "losses": 2,
         "gf": 11,
         "ga": 7
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Lenoir-Rhyne are still without a win: two draws and four defeats, eight scored and sixteen conceded, the latest defeat at Lincoln Memorial on Wednesday.",
-      "basis": {
-        "programme": "lenoir-rhyne",
-        "wins": 0,
-        "draws": 2,
-        "losses": 4,
-        "gf": 8,
-        "ga": 16
       }
     },
     {
@@ -137,16 +136,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 anderson v carson-newman",
-      "line": "Anderson remain unbeaten; Carson-Newman have now lost as many as they have won."
+      "fixture_ref": "2026-09-20 lenoir-rhyne v wingate",
+      "line": "Lenoir-Rhyne are still without a win; Wingate have yet to win a conference match."
     },
     "next_match": {
-      "fixture_ref": "2026-09-20 lenoir-rhyne v wingate",
-      "line": "Lenoir-Rhyne are still without a win; Wingate lost their only conference match so far."
+      "fixture_ref": "2026-09-22 anderson v north-greenville",
+      "line": "Anderson are unbeaten; North Greenville have already lost to Catawba and to Mars Hill."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:45:49.325Z"
+    "validated_at": "2026-09-21T11:43:03.054Z"
   }
 }

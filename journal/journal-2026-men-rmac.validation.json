@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-20T11:45:22.747Z",
-  "data_collected_at": "2026-09-20T11:38:19+00:00",
+  "validated_at": "2026-09-21T11:43:38.631Z",
+  "data_collected_at": "2026-09-21T11:36:29+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,23 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "wire",
-      "text": "UCCS are unbeaten and have scored nineteen goals, but have drawn three of their seven matches.",
-      "unbacked": ["7"]
-    },
-    {
-      "path": "pattern.text",
-      "text": "The chart is stretched at both ends: UCCS have scored more goals than Colorado Mesa, Colorado School of Mines and Adams State have together, and the sides in between sit within a few goals of one another.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The chart is stretched at both ends: UCCS have scored more goals than Colorado Mesa, Colorado School of Mines and Adams State have together, and the sides in between sit within a few goals of one another.",
+      "text": "The chart is stretched at both ends: South Dakota Mines have scored more goals than Colorado Mesa, Colorado School of Mines and Adams State have together, and UCCS have matched them goal for goal.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -49,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "UCCS are unbeaten and have scored nineteen goals, but have drawn three of their seven matches.",
-      "checker": "team_goals+team_record",
+      "text": "CSU Pueblo have won every match they have played, six in all, and no other programme has as many wins.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -67,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Colorado School of Mines' home defeat to South Dakota Mines on Friday was their sixth, beside two draws, and they remain the only side without a win.",
-      "checker": "team_record",
+      "text": "Adams State's defeat at South Dakota Mines on Sunday was their fourth, beside one win and one draw, and they have scored one goal against thirteen conceded.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -76,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "South Dakota Mines' win at Colorado School of Mines on Friday was their third of the season, beside two draws and one defeat, and they have scored fifteen goals in all.",
+      "text": "South Dakota Mines' win over Adams State on Sunday was their fourth of the season, beside two draws and one defeat, and they have scored twenty-one goals in all.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -85,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Regis's win at Westminster on Thursday was their third of the season, beside two draws and one defeat, and they have conceded three goals in all.",
-      "checker": "team_goals+team_record",
+      "text": "Colorado Mesa's win at Colorado Christian on Sunday was their second of the season, beside four draws and one defeat.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -94,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Adams State's draw with Colorado School of Mines is their first of the season; their one goal still stands alone against seven conceded, across a win, a draw and three defeats.",
+      "text": "Regis's home defeat to UCCS on Sunday was their second of the season, beside three wins and two draws, and they have conceded five goals in all.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Simão Agostinho — 5 G · 1 A · 21 shots",
+      "text": "Nickolas North — 4 G · 4 A · 19 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Yohann Fila — 4 G · 1 A · 25 shots",
+      "text": "Simão Agostinho — 5 G · 1 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lucas Miranda — 4 G · 11 shots",
+      "text": "Richie Tabares Ochoa — 5 G · 1 A · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-18 colorado-school-of-mines v south-dakota-mines",
+      "text": "2026-09-20 fort-lewis v csu-pueblo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-20 fort-lewis v csu-pueblo",
+      "text": "2026-09-24 colorado-mesa v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-20T11:44:56.256Z",
-    "generate_ms": 26490,
+    "started_at": "2026-09-21T11:42:31.568Z",
+    "generate_ms": 67062,
     "validate_ms": 1,
-    "wall_ms": 26490,
+    "wall_ms": 67063,
     "concurrency": 4
   }
 }

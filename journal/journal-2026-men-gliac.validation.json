@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-19T11:42:10.260Z",
-  "data_collected_at": "2026-09-19T11:32:41+00:00",
+  "validated_at": "2026-09-21T11:42:10.198Z",
+  "data_collected_at": "2026-09-21T11:32:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The scoring is top-heavy: Saginaw Valley State alone have scored more than Davenport, St. Cloud State and Wisconsin-Parkside together.",
+      "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Purdue Northwest and St. Cloud State together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Roosevelt keeper Cedrik Strupler has conceded one goal all season, and unbeaten Purdue Northwest are the next side to try him.",
-      "checker": "player_stat",
+      "text": "Luca Rosen has scored nine of Northern Michigan's eighteen goals, and Roosevelt, the only unbeaten side, are yet to face him.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Roosevelt's five wins are more than any other programme has managed.",
+      "text": "Roosevelt's six wins are more than any other programme has managed.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Luca Rosen has scored eight goals from twenty-seven shots for Northern Michigan.",
+      "text": "Luca Rosen has scored nine goals from 33 shots for Northern Michigan.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -82,9 +82,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "derived",
-      "text": "Davenport's sixteen goals conceded are more than any other programme has let in.",
-      "checker": "team_goals+comparative",
+      "label": "observed",
+      "text": "Cedrik Strupler has kept four shutouts in goal for Roosevelt.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luca Rosen — 8 G · 2 A · 27 shots",
+      "text": "Luca Rosen — 9 G · 2 A · 33 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Fynn Mewes — 5 G · 1 A · 16 shots",
+      "text": "Fynn Mewes — 6 G · 1 A · 19 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-18 saginaw-valley-state v northern-michigan",
+      "text": "2026-09-20 roosevelt v purdue-northwest",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-20 roosevelt v purdue-northwest",
+      "text": "2026-09-23 roosevelt v st-cloud-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-19T11:40:17.885Z",
-    "generate_ms": 112288,
+    "started_at": "2026-09-21T11:40:55.898Z",
+    "generate_ms": 74298,
     "validate_ms": 1,
-    "wall_ms": 112374,
+    "wall_ms": 74299,
     "concurrency": 4
   }
 }

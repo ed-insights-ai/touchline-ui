@@ -3,37 +3,37 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-20T11:45:00+00:00",
-  "data_collected_at": "2026-09-20T11:36:25+00:00",
-  "headline": "Bentley take the first away win between members",
-  "dek": "Bentley's single goal at Adelphi made them the first side to beat another member away from home; every other meeting has gone to the home side or been drawn. Ten days before, Bentley had lost by five at Franklin Pierce. Pace and Southern New Hampshire have still to lose to anyone.",
+  "generated_at": "2026-09-21T11:45:00+00:00",
+  "data_collected_at": "2026-09-21T11:35:11+00:00",
+  "headline": "Saint Anselm end Pace's unbeaten start",
+  "dek": "Pace had gone six matches without defeat, and conceded four goals in them, before losing at Saint Anselm. Southern New Hampshire are now the only programme yet to lose, and Southern Connecticut the only one yet to win.",
   "lede_basis": {
-    "programme": "bentley",
-    "wins": 3,
+    "programme": "pace",
+    "wins": 4,
     "draws": 2,
-    "losses": 2,
-    "goals_scored_at_adelphi": 1,
-    "away_wins_between_members": 1,
-    "days_since_defeat_at_franklin_pierce": 10,
-    "margin_of_defeat_at_franklin_pierce": 5
+    "losses": 1,
+    "pace_matches_unbeaten_before_defeat": 6,
+    "pace_goals_conceded_before_defeat": 4,
+    "southern_new_hampshire_losses": 0,
+    "southern_connecticut_wins": 0
   },
-  "lede_updated": "2026-09-20",
-  "displaced_by": "Bentley won at Adelphi, the first away win between members; the standing dek's claim that no member had lost at home to another is no longer true",
+  "lede_updated": "2026-09-21",
+  "displaced_by": "Pace lost at Saint Anselm, their first defeat; the standing dek's claim that Pace have still to lose is no longer true",
   "pattern": {
     "label": "signal",
-    "text": "Southern New Hampshire's twenty-six goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Pace sit mid-chart on eleven, and the four they have conceded is the smaller figure that explains their unbeaten record.",
+    "text": "Southern New Hampshire's twenty-six goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Saint Anselm have won four of their six matches while scoring ten and conceding eleven, so the chart's order is not the order of results.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "southern-new-hampshire": 26,
         "assumption": 18,
         "franklin-pierce": 15,
-        "pace": 11,
+        "pace": 12,
         "bentley": 10,
+        "saint-anselm": 10,
         "saint-michael-s": 9,
         "adelphi": 8,
         "american-international": 8,
-        "saint-anselm": 8,
         "southern-connecticut": 7
       },
       "highlight": "southern-new-hampshire"
@@ -42,35 +42,31 @@
       "programme": "southern-new-hampshire",
       "distinct_scorers_min": 13,
       "gf": 26,
-      "pace_gf": 11,
-      "pace_ga": 4
+      "saint_anselm_wins": 4,
+      "saint_anselm_matches_played": 6,
+      "saint_anselm_gf": 10,
+      "saint_anselm_ga": 11
     }
   },
   "wire": {
-    "line": "Away sides had not won a meeting between members until Bentley did at Adelphi, ten days after losing by five at Franklin Pierce.",
+    "line": "Southern New Hampshire are the last programme yet to lose after Saint Anselm ended Pace's unbeaten start.",
     "basis": {
-      "programme": "bentley",
-      "wins": 3,
+      "programme": "southern-new-hampshire",
+      "wins": 5,
       "draws": 2,
-      "losses": 2,
-      "days_since_defeat_at_franklin_pierce": 10,
-      "margin_of_defeat_at_franklin_pierce": 5
+      "losses": 0
     },
-    "updated": "2026-09-20"
+    "updated": "2026-09-21"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Bentley's win at Adelphi was the first by an away side in the eight meetings between members; five went to the home side and two were drawn.",
+      "text": "Southern New Hampshire have won five matches and drawn two, and are the only programme without a defeat.",
       "basis": {
-        "programme": "bentley",
-        "wins": 3,
+        "programme": "southern-new-hampshire",
+        "wins": 5,
         "draws": 2,
-        "losses": 2,
-        "member_meetings": 8,
-        "member_meetings_won_by_home_side": 5,
-        "member_meetings_drawn": 2,
-        "member_meetings_won_by_away_side": 1
+        "losses": 0
       }
     },
     {
@@ -118,12 +114,12 @@
     },
     {
       "label": "observed",
-      "text": "Joe Zweben has made twenty-eight saves, more than any other goalkeeper listed.",
+      "text": "Joe Zweben has made thirty-eight saves, more than any other goalkeeper listed.",
       "basis": {
         "source": "stats",
         "player": "Joe Zweben",
         "programme": "pace",
-        "saves": 28
+        "saves": 38
       }
     }
   ],
@@ -152,16 +148,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 adelphi v bentley",
-      "line": "Bentley have not lost since their defeat at Franklin Pierce; Adelphi had gone back-to-back matches without conceding."
+      "fixture_ref": "2026-09-20 saint-anselm v pace",
+      "line": "Saint Anselm have yet to draw a match this season; Pace had yet to lose one."
     },
     "next_match": {
-      "fixture_ref": "2026-09-20 saint-anselm v pace",
-      "line": "Both sides open their conference schedule; Pace have yet to lose, and Saint Anselm's winning run ended at Assumption."
+      "fixture_ref": "2026-09-23 southern-new-hampshire v saint-anselm",
+      "line": "Southern New Hampshire are the only programme yet to lose; Saint Anselm have just ended the conference's other unbeaten start."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:44:56.179Z"
+    "validated_at": "2026-09-21T11:42:51.735Z"
   }
 }

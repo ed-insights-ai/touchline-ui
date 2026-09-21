@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-20T11:46:42.997Z",
+  "validated_at": "2026-09-21T11:44:03.980Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Midwestern State stand alone unbeaten in the Lone Star Conference UT Tyler's unbeaten start ended at home to Western Oregon of the Great Northwest. Midwestern State beat Simon Fraser the same day to reach six wins and two draws, and no other Lone Star side is still without a defeat.",
-      "checker": "team_record",
+      "text": "Cal State LA drop their first points, still without conceding Cal State Monterey Bay held Cal State LA to a draw, ending a winning start that had run since the season opened. The visitors have still scored eleven goals and conceded none, and no other programme in the division has kept every opponent out.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-09-20T11:46:20.900Z",
-    "generate_ms": 22095,
-    "validate_ms": 1,
-    "wall_ms": 22097
+    "started_at": "2026-09-21T11:43:42.168Z",
+    "generate_ms": 21809,
+    "validate_ms": 2,
+    "wall_ms": 21811
   }
 }

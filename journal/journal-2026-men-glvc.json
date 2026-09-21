@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-20T11:40:00+00:00",
-  "data_collected_at": "2026-09-20T11:33:53+00:00",
+  "generated_at": "2026-09-21T11:40:00+00:00",
+  "data_collected_at": "2026-09-21T11:33:04+00:00",
   "headline": "Indianapolis take the first conference points off Drury",
-  "dek": "Drury's draw at home to Indianapolis on Saturday was the first conference match they have failed to win, and it left their season at six wins, one draw and one defeat, with twenty-one goals scored and eight conceded. They still lead the table; Lincoln, who play at Truman today, are the only side unbeaten by anyone.",
+  "dek": "Drury's draw at home to Indianapolis on Saturday was the first conference match they have failed to win, and it left their season at six wins, one draw and one defeat, with twenty-one goals scored and eight conceded. They still lead the table; Lincoln, who drew at Truman on Sunday, are the only side unbeaten by anyone.",
   "lede_basis": {
     "programme": "drury",
     "wins": 6,
@@ -15,8 +15,8 @@
     "gf": 21,
     "ga": 8
   },
-  "lede_updated": "2026-09-20",
-  "displaced_by": "Drury drew at home to Indianapolis on 19 September, so the perfect conference record no longer holds",
+  "lede_updated": "2026-09-21",
+  "displaced_by": "Headline stands; the dek said Lincoln 'play at Truman today' and that match has now been played, a draw on 20 September, so the clause was no longer true",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist's twenty-eight goals exceed what the five lowest-scoring programmes have managed between them; the shape is no longer one bar and a slope, since Maryville's afternoon against them pulled the second bar close.",
@@ -28,11 +28,11 @@
         "drury": 21,
         "missouri-s-t": 16,
         "quincy": 14,
+        "truman": 13,
         "rockhurst": 11,
         "indianapolis": 10,
+        "lincoln": 10,
         "mckendree": 10,
-        "truman": 10,
-        "lincoln": 7,
         "lewis": 6,
         "missouri-st-louis": 6,
         "illinois-springfield": 5,
@@ -54,7 +54,7 @@
     "basis": {
       "programme": "lincoln",
       "wins": 3,
-      "draws": 2,
+      "draws": 3,
       "losses": 0
     },
     "updated": "2026-09-14"
@@ -74,14 +74,26 @@
     },
     {
       "label": "derived",
-      "text": "Lincoln are the only programme in the conference yet to lose: three wins and two draws, seven goals scored and three conceded, with Wednesday's win at Upper Iowa their first away from home since conference play opened.",
+      "text": "Lincoln are the only programme in the conference yet to lose: three wins and three draws, ten goals scored and six conceded, the latest draw coming at Truman on Sunday.",
       "basis": {
         "programme": "lincoln",
         "wins": 3,
-        "draws": 2,
+        "draws": 3,
         "losses": 0,
-        "gf": 7,
-        "ga": 3
+        "gf": 10,
+        "ga": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Truman have scored thirteen goals and conceded thirteen, and Jacob Panagos has eight of the ones they have scored.",
+      "basis": {
+        "source": "stats",
+        "player": "Jacob Panagos",
+        "programme": "truman",
+        "goals": 8,
+        "gf": 13,
+        "ga": 13
       }
     },
     {
@@ -90,19 +102,6 @@
       "basis": {
         "programme": "drury",
         "distinct_scorers_min": 10
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Southwest Baptist have won four, drawn one and lost two, Saturday's win at home to Lewis coming after defeats at Lincoln and Maryville; they have scored twenty-eight and conceded fifteen, and at least eight different players have scored for them.",
-      "basis": {
-        "programme": "southwest-baptist",
-        "wins": 4,
-        "draws": 1,
-        "losses": 2,
-        "gf": 28,
-        "ga": 15,
-        "distinct_scorers_min": 8
       }
     },
     {
@@ -120,6 +119,13 @@
   ],
   "players_to_watch": [
     {
+      "player": "Jacob Panagos",
+      "programme": "truman",
+      "position": "MID",
+      "class": "JR",
+      "line": "8 G · 15 shots"
+    },
+    {
       "player": "Leo Cann",
       "programme": "quincy",
       "position": "FWD",
@@ -132,27 +138,20 @@
       "position": "FWD",
       "class": "JR",
       "line": "5 G · 2 A · 20 shots"
-    },
-    {
-      "player": "Jacob Panagos",
-      "programme": "truman",
-      "position": "MID",
-      "class": "JR",
-      "line": "5 G · 11 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 drury v indianapolis",
-      "line": "Indianapolis have not lost since their opening conference match at Rockhurst; Drury had not conceded more than once in a conference match before it."
+      "fixture_ref": "2026-09-20 truman v lincoln",
+      "line": "Lincoln had not conceded away from home in conference play before it; Truman have drawn both home conference matches since losing there to Drury."
     },
     "next_match": {
-      "fixture_ref": "2026-09-20 truman v lincoln",
-      "line": "Lincoln have yet to concede away from home in conference play; Truman's only conference defeat came at home, to Drury."
+      "fixture_ref": "2026-09-23 rockhurst v lincoln",
+      "line": "Lincoln have yet to lose to anyone this season; Rockhurst's only conference defeat came at home, to Truman."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:43:34.586Z"
+    "validated_at": "2026-09-21T11:41:57.859Z"
   }
 }
