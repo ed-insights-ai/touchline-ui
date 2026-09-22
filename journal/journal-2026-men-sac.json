@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-21T11:50:00+00:00",
-  "data_collected_at": "2026-09-21T11:37:11+00:00",
+  "generated_at": "2026-09-22T11:50:00+00:00",
+  "data_collected_at": "2026-09-22T11:37:19+00:00",
   "headline": "Anderson draw level with Catawba at the top",
   "dek": "Anderson beat Carson-Newman at home on Saturday and sit level with Catawba at the top, after Catawba were held goalless by Emory & Henry the same day. Anderson, like Catawba, are unbeaten, with five wins and two draws. Lincoln Memorial, perfect in conference play until the weekend, lost at Newberry.",
   "lede_basis": {
@@ -56,11 +56,12 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest all Emory & Henry's, the latest of them at home to Palm Beach Atlantic.",
+      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, Emory & Henry's run from late August to mid-September, and now Saturday's meeting of Mars Hill and Tusculum, a conference match with nothing published three days on.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 6
+        "past_date_no_result": 7,
+        "days_since": 3
       }
     },
     {
@@ -146,6 +147,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-21T11:43:03.054Z"
+    "validated_at": "2026-09-22T11:41:58.010Z"
   }
 }

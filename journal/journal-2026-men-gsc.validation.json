@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-21T11:42:13.554Z",
-  "data_collected_at": "2026-09-21T11:33:44+00:00",
+  "validated_at": "2026-09-22T11:41:23.382Z",
+  "data_collected_at": "2026-09-22T11:34:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "David Nunez — 8 G · 2 A · 25 shots",
+      "text": "David Nunez — 8 G · 3 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-21T11:41:31.578Z",
-    "generate_ms": 41974,
+    "started_at": "2026-09-22T11:40:52.457Z",
+    "generate_ms": 30925,
     "validate_ms": 1,
-    "wall_ms": 41976,
+    "wall_ms": 30926,
     "concurrency": 4
   }
 }

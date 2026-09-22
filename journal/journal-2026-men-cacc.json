@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-09-20T11:45:00+00:00",
-  "data_collected_at": "2026-09-20T11:30:06+00:00",
+  "generated_at": "2026-09-22T11:45:00+00:00",
+  "data_collected_at": "2026-09-22T11:30:06+00:00",
   "headline": "Jefferson lose at Dominican and remain without a point",
   "dek": "Jefferson have lost all six of their matches, more defeats than any other programme has, and the latest came at Dominican, who had not won before. They have scored four goals and conceded sixteen.",
   "lede_basis": {
@@ -30,7 +30,6 @@
     "ga": 16
   },
   "lede_updated": "2026-09-20",
-  "displaced_by": "Standing dek no longer true: Georgian Court have nineteen goals and the four programmes it named now equal that sum. Jefferson's sixth straight defeat, at previously winless Dominican, won.",
   "pattern": {
     "label": "observed",
     "text": "Only Georgian Court have scored more than they have conceded: nineteen for and eleven against, where every other programme is in deficit.",
@@ -193,6 +192,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:42:51.230Z"
+    "validated_at": "2026-09-22T11:40:52.379Z"
   }
 }

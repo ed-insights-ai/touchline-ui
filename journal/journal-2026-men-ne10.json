@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-21T11:45:00+00:00",
-  "data_collected_at": "2026-09-21T11:35:11+00:00",
+  "generated_at": "2026-09-22T11:45:00+00:00",
+  "data_collected_at": "2026-09-22T11:35:23+00:00",
   "headline": "Saint Anselm end Pace's unbeaten start",
   "dek": "Pace had gone six matches without defeat, and conceded four goals in them, before losing at Saint Anselm. Southern New Hampshire are now the only programme yet to lose, and Southern Connecticut the only one yet to win.",
   "lede_basis": {
@@ -18,7 +18,6 @@
     "southern_connecticut_wins": 0
   },
   "lede_updated": "2026-09-21",
-  "displaced_by": "Pace lost at Saint Anselm, their first defeat; the standing dek's claim that Pace have still to lose is no longer true",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's twenty-six goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Saint Anselm have won four of their six matches while scoring ten and conceding eleven, so the chart's order is not the order of results.",
@@ -158,6 +157,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-21T11:42:51.735Z"
+    "validated_at": "2026-09-22T11:41:38.752Z"
   }
 }
