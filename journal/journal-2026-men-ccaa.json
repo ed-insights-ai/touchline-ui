@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-21T11:45:00+00:00",
-  "data_collected_at": "2026-09-21T11:31:08+00:00",
+  "generated_at": "2026-09-23T11:45:00+00:00",
+  "data_collected_at": "2026-09-23T11:31:15+00:00",
   "headline": "Cal State Monterey Bay end Cal State LA's winning run",
   "dek": "Cal State Monterey Bay held Cal State LA to a goalless draw, ending a run of six straight wins. Cal State LA have still to concede in seven matches this season, and Cal State San Bernardino, who won at Cal State San Marcos on the same day, are the only other unbeaten side in the conference.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 0
   },
   "lede_updated": "2026-09-21",
-  "displaced_by": "standing dek no longer true (Fresno Pacific have now played nine, not eight); on 2026-09-20 Cal State LA's run of six straight wins ended in a goalless draw at Cal State Monterey Bay",
   "pattern": {
     "label": "derived",
     "text": "Fresno Pacific's 27 goals are more than Stanislaus State and Cal State San Bernardino have scored together, and ten different players have shared them.",
@@ -151,6 +150,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-21T11:41:31.503Z"
+    "validated_at": "2026-09-23T11:40:16.785Z"
   }
 }

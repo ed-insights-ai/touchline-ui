@@ -3,17 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-22T11:50:00+00:00",
-  "data_collected_at": "2026-09-22T11:37:19+00:00",
-  "headline": "Anderson draw level with Catawba at the top",
-  "dek": "Anderson beat Carson-Newman at home on Saturday and sit level with Catawba at the top, after Catawba were held goalless by Emory & Henry the same day. Anderson, like Catawba, are unbeaten, with five wins and two draws. Lincoln Memorial, perfect in conference play until the weekend, lost at Newberry.",
+  "generated_at": "2026-09-23T11:50:00+00:00",
+  "data_collected_at": "2026-09-23T11:36:16+00:00",
+  "headline": "Anderson make it six wins without defeat",
+  "dek": "Anderson beat North Greenville at home on Tuesday for their sixth win of the season and remain unbeaten, with twenty scored and eight conceded. Catawba, unbeaten too, sit level with them at the top of the table, and the two do not meet until the middle of October.",
   "lede_basis": {
     "programme": "anderson",
-    "wins": 5,
+    "wins": 6,
     "draws": 2,
-    "losses": 0
+    "losses": 0,
+    "gf": 20,
+    "ga": 8
   },
-  "lede_updated": "2026-09-20",
+  "lede_updated": "2026-09-23",
+  "displaced_by": "Anderson's sixth win, at home to North Greenville; the standing dek's five wins is no longer true",
   "pattern": {
     "label": "observed",
     "text": "Catawba have scored twenty-two and conceded three, and no one player has more than Alex Payton's four of those goals.",
@@ -21,7 +24,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "catawba": 22,
-        "anderson": 17,
+        "anderson": 20,
         "mars-hill": 13,
         "wingate": 13,
         "lincoln-memorial": 11,
@@ -56,12 +59,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, Emory & Henry's run from late August to mid-September, and now Saturday's meeting of Mars Hill and Tusculum, a conference match with nothing published three days on.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest of them Emory & Henry's, from late August to mid-September.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 7,
-        "days_since": 3
+        "past_date_no_result": 6
       }
     },
     {
@@ -102,13 +104,13 @@
     },
     {
       "label": "observed",
-      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty-eight saves and conceded seven goals.",
+      "text": "Wingate's Cole Freeman has made twenty-seven saves and conceded three goals.",
       "basis": {
         "source": "stats",
-        "player": "Daniel Benedek Miklosi",
-        "programme": "lincoln-memorial",
-        "saves": 28,
-        "goals_against": 7
+        "player": "Cole Freeman",
+        "programme": "wingate",
+        "saves": 27,
+        "goals_against": 3
       }
     }
   ],
@@ -118,7 +120,7 @@
       "programme": "anderson",
       "position": "FWD",
       "class": "SR",
-      "line": "2 G · 6 A · 21 shots"
+      "line": "3 G · 7 A · 23 shots"
     },
     {
       "player": "Ben Curtis",
@@ -137,16 +139,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-20 lenoir-rhyne v wingate",
-      "line": "Lenoir-Rhyne are still without a win; Wingate have yet to win a conference match."
+      "fixture_ref": "2026-09-22 anderson v north-greenville",
+      "line": "Anderson have still not lost; North Greenville have now lost to Catawba, Mars Hill and Anderson."
     },
     "next_match": {
-      "fixture_ref": "2026-09-22 anderson v north-greenville",
-      "line": "Anderson are unbeaten; North Greenville have already lost to Catawba and to Mars Hill."
+      "fixture_ref": "2026-09-23 tusculum v lincoln-memorial",
+      "line": "Tusculum have yet to win a conference match; Lincoln Memorial lost at Newberry on Saturday."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-22T11:41:58.010Z"
+    "validated_at": "2026-09-23T11:42:36.425Z"
   }
 }

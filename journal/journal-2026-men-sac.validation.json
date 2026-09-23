@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-22T11:41:58.010Z",
-  "data_collected_at": "2026-09-22T11:37:19+00:00",
+  "validated_at": "2026-09-23T11:42:36.425Z",
+  "data_collected_at": "2026-09-23T11:36:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,12 +47,11 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, Emory & Henry's run from late August to mid-September, and now Saturday's meeting of Mars Hill and Tusculum, a conference match with nothing published three days on.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest of them Emory & Henry's, from late August to mid-September.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["days_since: 3"]
+      "dropped": false
     },
     {
       "path": "findings[1]",
@@ -84,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Lincoln Memorial's Daniel Benedek Miklosi has made twenty-eight saves and conceded seven goals.",
+      "text": "Wingate's Cole Freeman has made twenty-seven saves and conceded three goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -93,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luis Munoz — 2 G · 6 A · 21 shots",
+      "text": "Luis Munoz — 3 G · 7 A · 23 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-20 lenoir-rhyne v wingate",
+      "text": "2026-09-22 anderson v north-greenville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-22 anderson v north-greenville",
+      "text": "2026-09-23 tusculum v lincoln-memorial",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-22T11:41:27.347Z",
-    "generate_ms": 30663,
+    "started_at": "2026-09-23T11:41:44.093Z",
+    "generate_ms": 52331,
     "validate_ms": 1,
-    "wall_ms": 30663,
+    "wall_ms": 52331,
     "concurrency": 4
   }
 }

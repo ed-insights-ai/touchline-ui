@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-20T11:50:00Z",
-  "data_collected_at": "2026-09-20T11:35:27+00:00",
+  "generated_at": "2026-09-23T11:45:00Z",
+  "data_collected_at": "2026-09-23T11:33:56+00:00",
   "headline": "UT Tyler's first defeat leaves Midwestern State alone unbeaten",
   "dek": "UT Tyler lost at home to Western Oregon, their first defeat in six matches, two days after Midwestern State had beaten the same visitors. Midwestern State then beat Simon Fraser for a fourth straight win, and they open conference play at St. Edward's, who have lost three of their last four.",
   "lede_basis": {
@@ -20,7 +20,6 @@
     "saint_edwards_last_matches_counted": 4
   },
   "lede_updated": "2026-09-20",
-  "displaced_by": "UT Tyler lost to Western Oregon, so the standing dek's 'only other side yet to lose' is no longer true; Midwestern State's win was their sixth, not a fifth",
   "pattern": {
     "label": "derived",
     "text": "Ten different players have scored Midwestern State's 24 goals, and Jose Ortiz has seven of them.",
@@ -111,12 +110,14 @@
     },
     {
       "label": "observed",
-      "text": "Fernando Hernandez has made 44 saves in goal for Sul Ross State.",
+      "text": "Jake Morris has conceded seven goals for Midwestern State from 31 saves, with two shutouts.",
       "basis": {
         "source": "stats",
-        "player": "Fernando Hernandez",
-        "programme": "sul-ross-state",
-        "saves": 44
+        "player": "Jake Morris",
+        "programme": "midwestern-state",
+        "saves": 31,
+        "goals_against": 7,
+        "shutouts": 2
       }
     }
   ],
@@ -155,6 +156,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:44:21.534Z"
+    "validated_at": "2026-09-23T11:41:44.019Z"
   }
 }

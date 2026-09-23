@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-20T11:44:21.534Z",
-  "data_collected_at": "2026-09-20T11:35:27+00:00",
+  "validated_at": "2026-09-23T11:41:44.019Z",
+  "data_collected_at": "2026-09-23T11:33:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -84,7 +84,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Fernando Hernandez has made 44 saves in goal for Sul Ross State.",
+      "text": "Jake Morris has conceded seven goals for Midwestern State from 31 saves, with two shutouts.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-20T11:43:25.873Z",
-    "generate_ms": 55661,
+    "started_at": "2026-09-23T11:41:12.412Z",
+    "generate_ms": 31606,
     "validate_ms": 1,
-    "wall_ms": 55662,
+    "wall_ms": 31607,
     "concurrency": 4
   }
 }

@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-22T11:42:18.435Z",
+  "validated_at": "2026-09-23T11:44:21.326Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Cal State LA drop their first points, still without conceding Cal State Monterey Bay held Cal State LA to a draw, ending a winning start that had run since the season opened. The visitors have still scored eleven goals and conceded none, and no other programme in the division has kept every opponent out.",
-      "checker": "team_goals",
+      "text": "Jefferson's first win ends a run of six defeats Jefferson had lost every match they played this season before the visitors arrived. One win now sits beside six defeats, and no draw, in a record that until last night held nothing but losses.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-09-22T11:42:09.044Z",
-    "generate_ms": 9389,
+    "started_at": "2026-09-23T11:43:55.402Z",
+    "generate_ms": 25921,
     "validate_ms": 2,
-    "wall_ms": 9391
+    "wall_ms": 25923
   }
 }

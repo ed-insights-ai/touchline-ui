@@ -3,20 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-09-20T11:50:00+00:00",
-  "data_collected_at": "2026-09-20T11:36:37+00:00",
-  "headline": "Chaminade still without a point after six matches",
-  "dek": "Chaminade lost at Hawai'i Pacific on Saturday, where they had already lost this month, and have now been beaten in all six matches they have played. They have scored three goals and conceded fifteen. Biola and Dominican (Calif.) are also without a win, but both have drawn.",
+  "generated_at": "2026-09-23T11:50:00+00:00",
+  "data_collected_at": "2026-09-23T11:35:00+00:00",
+  "headline": "Dominican's first win of the season comes at Jessup",
+  "dek": "Dominican (Calif.) had drawn three and lost three before Tuesday's visit to Jessup, and have now scored thirteen goals and conceded thirteen. Biola and Chaminade are the programmes still without a win; Chaminade have no point either.",
   "lede_basis": {
-    "programme": "chaminade",
-    "wins": 0,
-    "draws": 0,
-    "losses": 6,
-    "gf": 3,
-    "ga": 15
+    "programme": "dominican-of-california",
+    "wins": 1,
+    "draws": 3,
+    "losses": 3,
+    "gf": 13,
+    "ga": 13
   },
-  "lede_updated": "2026-09-20",
-  "displaced_by": "standing lede no longer true (Concordia Irvine now seventeen goals, four wins); Chaminade's sixth defeat in six is the story",
+  "lede_updated": "2026-09-23",
+  "displaced_by": "Dominican (Calif.) won for the first time, at Jessup; the standing dek said they were without a win",
   "pattern": {
     "label": "derived",
     "text": "Concordia Irvine's seventeen goals are more than Jessup, Hawai'i Hilo and Biola have scored together, yet they have conceded fifteen.",
@@ -26,10 +26,10 @@
         "concordia-irvine": 17,
         "point-loma": 15,
         "hawaii-pacific": 14,
+        "dominican-of-california": 13,
         "westmont": 13,
-        "dominican-of-california": 8,
+        "jessup": 7,
         "vanguard": 7,
-        "jessup": 6,
         "hawaii-hilo": 5,
         "biola": 4,
         "chaminade": 3
@@ -69,6 +69,18 @@
   "findings": [
     {
       "label": "observed",
+      "text": "Jessup's defeat by Dominican (Calif.) on Tuesday was their fifth against two wins and one draw; they have scored seven goals and conceded seventeen.",
+      "basis": {
+        "programme": "jessup",
+        "wins": 2,
+        "draws": 1,
+        "losses": 5,
+        "gf": 7,
+        "ga": 17
+      }
+    },
+    {
+      "label": "observed",
       "text": "Point Loma drew with Westmont on Saturday and have three wins, three draws and two defeats, with fifteen goals scored and eleven conceded.",
       "basis": {
         "programme": "point-loma",
@@ -106,25 +118,14 @@
     },
     {
       "label": "observed",
-      "text": "Aidan Strickler has made 33 saves for Westmont and conceded thirteen goals.",
+      "text": "Chaminade have been beaten in all six matches they have played, scoring three goals and conceding fifteen; their next match is at Point Loma on Thursday.",
       "basis": {
-        "source": "stats",
-        "player": "Aidan Strickler",
-        "programme": "westmont",
-        "saves": 33,
-        "goals_against": 13
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Jessup won at UC Santa Cruz on Saturday, their second win against one draw and four defeats, with six goals scored and twelve conceded.",
-      "basis": {
-        "programme": "jessup",
-        "wins": 2,
-        "draws": 1,
-        "losses": 4,
-        "gf": 6,
-        "ga": 12
+        "programme": "chaminade",
+        "wins": 0,
+        "draws": 0,
+        "losses": 6,
+        "gf": 3,
+        "ga": 15
       }
     }
   ],
@@ -153,16 +154,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 hawaii-pacific v chaminade",
-      "line": "Both of Hawai'i Pacific's wins this season have come at home to Chaminade."
+      "fixture_ref": "2026-09-22 jessup v dominican-of-california",
+      "line": "Jessup's only home win of the season came against Cal Poly Humboldt; every other match at home has been lost."
     },
     "next_match": {
-      "fixture_ref": "2026-09-22 jessup v dominican-of-california",
-      "line": "Jessup won away on Saturday; Dominican (Calif.) have drawn as often as they have lost and are yet to win."
+      "fixture_ref": "2026-09-23 vanguard v westmont",
+      "line": "Vanguard have conceded more goals than any other side in the conference; Westmont arrive on two straight draws."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-20T11:45:17.258Z"
+    "validated_at": "2026-09-23T11:43:50.196Z"
   }
 }

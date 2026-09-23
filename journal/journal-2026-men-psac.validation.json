@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-22T11:41:56.145Z",
-  "data_collected_at": "2026-09-22T11:36:13+00:00",
+  "validated_at": "2026-09-23T11:41:53.396Z",
+  "data_collected_at": "2026-09-23T11:35:29+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[1].text",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals in six matches.",
-      "unbacked": ["6"]
-    },
-    {
-      "path": "findings[2].text",
-      "text": "Slippery Rock have conceded five goals in six matches and scored thirteen, with eight different players among the scorers.",
-      "unbacked": ["6"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -67,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals in six matches.",
+      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals all season.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Slippery Rock have conceded five goals in six matches and scored thirteen, with eight different players among the scorers.",
+      "text": "Slippery Rock have conceded five goals and scored thirteen, with eight different players among the scorers.",
       "checker": "distinct_scorers+team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-22T11:41:23.457Z",
-    "generate_ms": 32688,
+    "started_at": "2026-09-23T11:41:16.392Z",
+    "generate_ms": 37003,
     "validate_ms": 1,
-    "wall_ms": 32689,
+    "wall_ms": 37004,
     "concurrency": 4
   }
 }
