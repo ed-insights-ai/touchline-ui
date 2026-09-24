@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-23T11:44:21.326Z",
+  "validated_at": "2026-09-24T11:46:59.425Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Jefferson's first win ends a run of six defeats Jefferson had lost every match they played this season before the visitors arrived. One win now sits beside six defeats, and no draw, in a record that until last night held nothing but losses.",
+      "text": "Daemen leave Roberts Wesleyan with a first win Daemen had drawn two matches and lost six before last night, and had not won any. The record now reads one win, two draws and six defeats, and that win, taken away from home, is the only one in it.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-23T11:43:55.402Z",
-    "generate_ms": 25921,
+    "started_at": "2026-09-24T11:46:12.166Z",
+    "generate_ms": 47256,
     "validate_ms": 2,
-    "wall_ms": 25923
+    "wall_ms": 47259
   }
 }

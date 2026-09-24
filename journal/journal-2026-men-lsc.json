@@ -3,34 +3,32 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-23T11:45:00Z",
-  "data_collected_at": "2026-09-23T11:33:56+00:00",
-  "headline": "UT Tyler's first defeat leaves Midwestern State alone unbeaten",
-  "dek": "UT Tyler lost at home to Western Oregon, their first defeat in six matches, two days after Midwestern State had beaten the same visitors. Midwestern State then beat Simon Fraser for a fourth straight win, and they open conference play at St. Edward's, who have lost three of their last four.",
+  "generated_at": "2026-09-24T11:45:00Z",
+  "data_collected_at": "2026-09-24T11:34:06+00:00",
+  "headline": "Conference play opens with three goalless draws",
+  "dek": "Midwestern State won at St. Edward's for a fifth straight win and remain the conference's only unbeaten side after nine matches. St. Mary's were the night's only other winner, beating Lubbock Christian, while UT Dallas, Dallas Baptist and Texas A&M International each drew without a goal being scored.",
   "lede_basis": {
     "programme": "midwestern-state",
-    "wins": 6,
+    "wins": 7,
     "draws": 2,
     "losses": 0,
-    "consecutive_wins": 4,
-    "ut_tyler_matches": 6,
-    "ut_tyler_losses": 1,
-    "days_between_western_oregon_matches": 2,
-    "saint_edwards_losses_in_last_four": 3,
-    "saint_edwards_last_matches_counted": 4
+    "consecutive_wins": 5,
+    "matches_played": 9,
+    "goalless_draws_on_opening_night": 3
   },
-  "lede_updated": "2026-09-20",
+  "lede_updated": "2026-09-24",
+  "displaced_by": "Conference play opened on 23 September: three of five matches goalless, Midwestern State won at St. Edward's",
   "pattern": {
     "label": "derived",
-    "text": "Ten different players have scored Midwestern State's 24 goals, and Jose Ortiz has seven of them.",
+    "text": "Ten different players have scored Midwestern State's 25 goals, and Jose Ortiz has seven of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 24,
+        "midwestern-state": 25,
+        "saint-marys": 22,
         "ut-dallas": 19,
-        "saint-marys": 18,
+        "lubbock-christian": 13,
         "oklahoma-christian": 13,
-        "lubbock-christian": 12,
         "dallas-baptist": 10,
         "texas-a-m-international": 9,
         "ut-tyler": 9,
@@ -42,7 +40,7 @@
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 24,
+      "gf": 25,
       "distinct_scorers_min": 10,
       "source": "stats",
       "player": "Jose Ortiz",
@@ -85,39 +83,52 @@
     },
     {
       "label": "derived",
-      "text": "UT Dallas have won six, drawn one and lost one, and their nineteen goals are more than St. Edward's and West Texas A&M have scored together.",
+      "text": "UT Dallas have won six, drawn two and lost one, and their nineteen goals are more than St. Edward's and West Texas A&M have scored together.",
       "basis": {
         "comparative": "greater_than_sum",
         "metric": "gf",
         "programme": "ut-dallas",
         "of": ["saint-edwards", "west-texas-a-m"],
         "wins": 6,
-        "draws": 1,
+        "draws": 2,
         "losses": 1,
         "gf": 19
       }
     },
     {
       "label": "derived",
-      "text": "Oklahoma Christian's win over Science and Arts ended a run of three straight defeats.",
+      "text": "UT Tyler have drawn four of their seven matches, more draws than any other programme in the conference.",
       "basis": {
-        "programme": "oklahoma-christian",
-        "wins": 4,
-        "draws": 0,
-        "losses": 3,
-        "consecutive_losses_before_win": 3
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "ut-tyler",
+        "of": [
+          "dallas-baptist",
+          "lubbock-christian",
+          "midwestern-state",
+          "oklahoma-christian",
+          "saint-edwards",
+          "saint-marys",
+          "sul-ross-state",
+          "texas-a-m-international",
+          "ut-dallas",
+          "west-texas-a-m"
+        ],
+        "wins": 2,
+        "draws": 4,
+        "losses": 1,
+        "matches_played": 7
       }
     },
     {
       "label": "observed",
-      "text": "Jake Morris has conceded seven goals for Midwestern State from 31 saves, with two shutouts.",
+      "text": "Jake Morris has conceded seven goals for Midwestern State and kept three shutouts.",
       "basis": {
         "source": "stats",
         "player": "Jake Morris",
         "programme": "midwestern-state",
-        "saves": 31,
         "goals_against": 7,
-        "shutouts": 2
+        "shutouts": 3
       }
     }
   ],
@@ -127,14 +138,14 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "7 G · 25 shots"
+      "line": "7 G · 26 shots"
     },
     {
       "player": "Eduardo Fernandez",
       "programme": "saint-marys",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 2 A · 11 shots"
+      "line": "6 G · 2 A · 12 shots"
     },
     {
       "player": "Avery Brazzell",
@@ -146,16 +157,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 texas-a-m-international v ut-dallas",
-      "line": "UT Dallas have won every match since losing at Hawaii Hilo; Texas A&M International have now lost back-to-back matches after an unbeaten start."
+      "fixture_ref": "2026-09-23 saint-edwards v midwestern-state",
+      "line": "Midwestern State remain the conference's only unbeaten side; St. Edward's have not won since August."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 oklahoma-christian v ut-dallas",
-      "line": "UT Dallas arrive on a run of straight wins; Oklahoma Christian ended a losing run against Science and Arts last time out."
+      "fixture_ref": "2026-09-26 sul-ross-state v saint-marys",
+      "line": "St. Mary's have already beaten Sul Ross State once this season, and Sul Ross State have still to score a goal."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:41:44.019Z"
+    "validated_at": "2026-09-24T11:43:11.283Z"
   }
 }

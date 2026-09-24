@@ -3,23 +3,32 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-23T11:45:00+00:00",
-  "data_collected_at": "2026-09-23T11:31:29+00:00",
-  "headline": "St. Thomas Aquinas end Mercy's unbeaten run",
-  "dek": "Mercy had not lost since opening day, and then lost at home to a St. Thomas Aquinas side without a win since August. Jacob Darwesh Lund-Iversen has scored nine of Mercy's sixteen goals from twenty shots, and both of their defeats have come on their own ground. Queens, level with them until then, won again.",
+  "generated_at": "2026-09-24T11:45:00+00:00",
+  "data_collected_at": "2026-09-24T11:31:35+00:00",
+  "headline": "Daemen win for the first time this season",
+  "dek": "Daemen, who have conceded thirty goals, more than any other programme, won on the road at Roberts Wesleyan for the first victory of their season. The same evening Queens, who had won every match since the defeat at Holy Family, lost at home to Staten Island without scoring.",
   "lede_basis": {
-    "source": "stats",
-    "player": "Jacob Darwesh Lund-Iversen",
-    "programme": "mercy",
-    "goals": 9,
-    "shots": 20,
-    "gf": 16,
-    "ga": 9,
-    "wins": 5,
-    "draws": 1,
-    "losses": 2
+    "comparative": "greater_than_each",
+    "metric": "ga",
+    "programme": "daemen",
+    "of": [
+      "d-youville",
+      "district-of-columbia",
+      "mercy",
+      "molloy",
+      "queens",
+      "roberts-wesleyan",
+      "st-thomas-aquinas",
+      "staten-island"
+    ],
+    "wins": 1,
+    "draws": 2,
+    "losses": 6,
+    "gf": 10,
+    "ga": 30
   },
-  "lede_updated": "2026-09-20",
+  "lede_updated": "2026-09-24",
+  "displaced_by": "Daemen's first win of the season, at Roberts Wesleyan; Queens beaten at home by Staten Island",
   "pattern": {
     "label": "derived",
     "text": "Queens have scored 22 goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
@@ -28,12 +37,12 @@
       "values": {
         "queens": 22,
         "mercy": 16,
+        "staten-island": 13,
         "molloy": 11,
-        "staten-island": 11,
-        "roberts-wesleyan": 10,
+        "roberts-wesleyan": 11,
+        "daemen": 10,
+        "d-youville": 8,
         "st-thomas-aquinas": 8,
-        "d-youville": 7,
-        "daemen": 7,
         "district-of-columbia": 6
       },
       "highlight": "queens"
@@ -57,16 +66,16 @@
     }
   },
   "wire": {
-    "line": "Molloy scored more goals at home to Daemen than in all their earlier matches together.",
+    "line": "Queens' first home defeat of the season came against Staten Island, the first match in which they have failed to score.",
     "basis": {
-      "programme": "molloy",
-      "gf": 11,
-      "ga": 4,
-      "wins": 3,
-      "draws": 2,
-      "losses": 1
+      "programme": "queens",
+      "wins": 6,
+      "draws": 1,
+      "losses": 2,
+      "gf": 22,
+      "ga": 8
     },
-    "updated": "2026-09-20"
+    "updated": "2026-09-24"
   },
   "findings": [
     {
@@ -80,55 +89,53 @@
     },
     {
       "label": "derived",
-      "text": "Daemen have conceded 29 goals, more than any two other programmes together, and are still without a win; the defeat at Molloy was their sixth.",
-      "basis": {
-        "comparative": "greater_than_sum",
-        "metric": "ga",
-        "programme": "daemen",
-        "of_any": 2,
-        "wins": 0,
-        "draws": 2,
-        "losses": 6,
-        "gf": 7,
-        "ga": 29
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Queens have won every match since the defeat at Holy Family, the latest at home to Roberts Wesleyan, and have conceded six goals all season against 22 scored.",
+      "text": "Queens have conceded eight goals all season, and the home defeat to Staten Island was the first match in which they did not score.",
       "basis": {
         "programme": "queens",
-        "gf": 22,
-        "ga": 6,
         "wins": 6,
         "draws": 1,
-        "losses": 1
+        "losses": 2,
+        "gf": 22,
+        "ga": 8
       }
     },
     {
       "label": "derived",
-      "text": "Molloy have lost once, at home to Assumption, and have conceded four goals all season against eleven scored.",
+      "text": "Molloy have conceded four goals all season against eleven scored, and have not lost since the home defeat to Assumption.",
       "basis": {
         "programme": "molloy",
-        "gf": 11,
-        "ga": 4,
         "wins": 3,
-        "draws": 2,
-        "losses": 1
+        "draws": 3,
+        "losses": 1,
+        "gf": 11,
+        "ga": 4
       }
     },
     {
       "label": "derived",
-      "text": "Lorenzo Herrera has made 40 saves and conceded six for District of Columbia, whose home defeat to Lock Haven was their second.",
+      "text": "Lorenzo Herrera has made 44 saves for District of Columbia and conceded seven; the defeat at D'Youville was the side's third.",
       "basis": {
         "source": "stats",
         "player": "Lorenzo Herrera",
         "programme": "district-of-columbia",
-        "saves": 40,
-        "goals_against": 6,
+        "saves": 44,
+        "goals_against": 7,
         "wins": 3,
         "draws": 2,
-        "losses": 2
+        "losses": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Jacob Darwesh Lund-Iversen has scored nine of Mercy's sixteen goals from 23 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Jacob Darwesh Lund-Iversen",
+        "programme": "mercy",
+        "goals": 9,
+        "shots": 23,
+        "gf": 16,
+        "ga": 9
       }
     }
   ],
@@ -138,35 +145,35 @@
       "programme": "mercy",
       "position": "FWD",
       "class": "SR",
-      "line": "9 G · 3 A · 20 shots"
+      "line": "9 G · 3 A · 23 shots"
     },
     {
       "player": "Keithlend Cesar",
       "programme": "queens",
       "position": "FWD",
       "class": "SR",
-      "line": "4 G · 3 A · 14 shots"
+      "line": "4 G · 3 A · 15 shots"
     },
     {
-      "player": "Tommy Gunn",
-      "programme": "queens",
+      "player": "Ethan Robinson",
+      "programme": "d-youville",
       "position": "FWD",
       "class": "SR",
-      "line": "4 G · 2 A · 15 shots"
+      "line": "4 G · 29 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 mercy v st-thomas-aquinas",
-      "line": "St. Thomas Aquinas's other win also came on the road, at Dominican."
+      "fixture_ref": "2026-09-23 queens v staten-island",
+      "line": "Staten Island's other away win, at Dominican, also came without conceding a goal."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 st-thomas-aquinas v molloy",
-      "line": "Both won their conference openers; St. Thomas Aquinas have yet to win at home, and Molloy have yet to lose away."
+      "fixture_ref": "2026-09-26 d-youville v molloy",
+      "line": "Neither has lost in conference play; Molloy have yet to concede away from home, and D'Youville have won their last two at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:40:15.107Z"
+    "validated_at": "2026-09-24T11:42:50.750Z"
   }
 }

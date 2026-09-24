@@ -3,33 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-23T11:40:00+00:00",
-  "data_collected_at": "2026-09-23T11:33:35+00:00",
-  "headline": "AUM alone still winning every conference match",
-  "dek": "AUM beat Christian Brothers on Saturday for a sixth win in seven matches, and their one defeat came outside the conference. UAH and Trevecca, behind them in the table, are still the only programmes yet to lose a match at all.",
+  "generated_at": "2026-09-24T11:40:00+00:00",
+  "data_collected_at": "2026-09-24T11:33:40+00:00",
+  "headline": "UAH last unbeaten side after Trevecca fall",
+  "dek": "Trevecca's defeat at home to Lee on Wednesday leaves UAH the only programme yet to lose a match. They have won six and drawn one, conceding three goals in seven, and go to AUM on Saturday, who are unbeaten in the conference too.",
   "lede_basis": {
-    "programme": "aum",
+    "programme": "uah",
     "wins": 6,
-    "draws": 0,
-    "losses": 1,
+    "draws": 1,
+    "losses": 0,
+    "ga": 3,
     "played": 7
   },
-  "lede_updated": "2026-09-20",
+  "lede_updated": "2026-09-24",
+  "displaced_by": "Trevecca's first defeat leaves UAH the only unbeaten programme",
   "pattern": {
     "label": "derived",
-    "text": "Goals have not meant points: West Alabama have scored 22 and conceded sixteen, and have won twice in eight matches.",
+    "text": "Goals have not meant points: West Alabama have scored 26 and conceded sixteen, and have won three of nine matches.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "west-alabama": 22,
-        "trevecca": 18,
-        "uah": 14,
-        "christian-brothers": 13,
-        "aum": 12,
-        "mississippi-college": 12,
-        "montevallo": 9,
+        "west-alabama": 26,
+        "trevecca": 19,
+        "christian-brothers": 15,
+        "uah": 15,
+        "aum": 14,
+        "mississippi-college": 14,
+        "lee": 10,
+        "montevallo": 10,
         "union": 8,
-        "lee": 7,
         "delta-state": 5,
         "spring-hill": 1
       },
@@ -37,35 +39,23 @@
     },
     "basis": {
       "programme": "west-alabama",
-      "gf": 22,
+      "gf": 26,
       "ga": 16,
-      "wins": 2,
+      "wins": 3,
       "draws": 1,
       "losses": 5,
-      "played": 8
+      "played": 9
     }
   },
   "wire": {
-    "line": "West Alabama have scored more than any other programme and have yet to take a point in conference play.",
+    "line": "Every programme but UAH has now lost at least once.",
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "programme": "west-alabama",
-      "gf": 22,
-      "of": [
-        "aum",
-        "christian-brothers",
-        "delta-state",
-        "lee",
-        "mississippi-college",
-        "montevallo",
-        "spring-hill",
-        "trevecca",
-        "uah",
-        "union"
-      ]
+      "programme": "uah",
+      "wins": 6,
+      "draws": 1,
+      "losses": 0
     },
-    "updated": "2026-09-21"
+    "updated": "2026-09-24"
   },
   "findings": [
     {
@@ -91,33 +81,33 @@
     },
     {
       "label": "observed",
-      "text": "Hunter Walker has conceded six goals for Trevecca and kept three clean sheets.",
+      "text": "Hunter Walker has conceded nine goals for Trevecca and kept three clean sheets.",
       "basis": {
         "source": "stats",
         "player": "Hunter Walker",
         "programme": "trevecca",
         "shutouts": 3,
-        "goals_against": 6
+        "goals_against": 9
       }
     },
     {
       "label": "derived",
-      "text": "West Alabama's 22 goals have come from eight different scorers.",
+      "text": "West Alabama's 26 goals have come from eight different scorers.",
       "basis": {
         "programme": "west-alabama",
-        "gf": 22,
+        "gf": 26,
         "distinct_scorers_min": 8
       }
     },
     {
       "label": "observed",
-      "text": "Patrick Schott has made 42 saves for Union and has conceded ten goals.",
+      "text": "Patrick Schott has made 51 saves for Union and has conceded eleven goals.",
       "basis": {
         "source": "stats",
         "player": "Patrick Schott",
         "programme": "union",
-        "saves": 42,
-        "goals_against": 10
+        "saves": 51,
+        "goals_against": 11
       }
     }
   ],
@@ -127,7 +117,7 @@
       "programme": "west-alabama",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 3 A · 25 shots"
+      "line": "10 G · 4 A · 29 shots"
     },
     {
       "player": "Chris Douglas",
@@ -141,21 +131,21 @@
       "programme": "mississippi-college",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 1 A · 29 shots"
+      "line": "5 G · 2 A · 32 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-20 west-alabama v harding",
-      "line": "Both of West Alabama's wins have come at home against sides from outside the conference, and Harding have now lost to every GSC programme they have met."
+      "fixture_ref": "2026-09-23 trevecca v lee",
+      "line": "Trevecca's first defeat of the season leaves UAH the only programme yet to lose; Lee have alternated wins and defeats since conference play opened."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 montevallo v aum",
-      "line": "AUM have yet to concede in conference play; Montevallo are unbeaten in it and won for the first time this season on Saturday."
+      "fixture_ref": "2026-09-26 aum v uah",
+      "line": "The table's top two meet: AUM have won every conference match they have played, and UAH have yet to lose one anywhere."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:41:16.317Z"
+    "validated_at": "2026-09-24T11:42:45.190Z"
   }
 }

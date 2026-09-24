@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-23T12:05:00+00:00",
-  "data_collected_at": "2026-09-23T11:32:16+00:00",
-  "headline": "Jefferson's first win ends a run of six defeats",
-  "dek": "Jefferson had lost every match they played this season before the visitors arrived. One win now sits beside six defeats, and no draw, in a record that until last night held nothing but losses.",
+  "generated_at": "2026-09-24T12:05:00+00:00",
+  "data_collected_at": "2026-09-24T11:32:32+00:00",
+  "headline": "Daemen leave Roberts Wesleyan with a first win",
+  "dek": "Daemen had drawn two matches and lost six before last night, and had not won any. The record now reads one win, two draws and six defeats, and that win, taken away from home, is the only one in it.",
   "basis": {
-    "programme": "jefferson",
+    "programme": "daemen",
     "wins": 1,
-    "draws": 0,
+    "draws": 2,
     "losses": 6
   },
-  "fixture_ref": "2026-09-22 jefferson v bryant-and-stratton",
-  "updated": "2026-09-23",
-  "displaced_by": "results night: Jefferson's first win of the season after six straight defeats",
+  "fixture_ref": "2026-09-23 roberts-wesleyan v daemen",
+  "updated": "2026-09-24",
+  "displaced_by": "results night: Daemen's first win of the season after two draws and six defeats",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:44:21.326Z"
+    "validated_at": "2026-09-24T11:46:59.425Z"
   }
 }

@@ -3,36 +3,37 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-23T11:45:00+00:00",
-  "data_collected_at": "2026-09-23T11:35:29+00:00",
-  "headline": "E. Stroudsburg end Millersville's winning start to conference play",
-  "dek": "E. Stroudsburg went to Millersville on Saturday and beat a side that had won every conference match it had played. They have lost three times this season and conceded fifteen goals to the fourteen they have scored, yet have still to lose a match that counts towards the table.",
+  "generated_at": "2026-09-24T11:45:00+00:00",
+  "data_collected_at": "2026-09-24T11:35:55+00:00",
+  "headline": "E. Stroudsburg go top after another away win",
+  "dek": "E. Stroudsburg won at Millersville on Saturday and at West Chester on Wednesday, and lead the conference having yet to lose a match that counts towards the table. Across the whole season they have scored fifteen and conceded fifteen, and each of their three defeats came before conference play opened.",
   "lede_basis": {
     "programme": "e-stroudsburg",
-    "wins": 4,
+    "wins": 5,
     "draws": 2,
     "losses": 3,
-    "gf": 14,
+    "gf": 15,
     "ga": 15
   },
-  "lede_updated": "2026-09-20",
+  "lede_updated": "2026-09-24",
+  "displaced_by": "E. Stroudsburg won at West Chester and now lead the table outright; the standing dek's goal figures no longer hold",
   "pattern": {
     "label": "derived",
-    "text": "Bloomsburg have scored sixteen, more than West Chester and Shippensburg have managed between them, and sit beneath both in the table: goals scored across the season are not what the conference table is rewarding.",
+    "text": "Millersville have scored more than West Chester and Pitt-Johnstown together, and the goals have come from six different players rather than a single forward: the spread of scorers, not one name, is what the chart is drawing.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "millersville": 18,
-        "bloomsburg": 16,
-        "e-stroudsburg": 14,
-        "lock-haven": 13,
+        "millersville": 22,
+        "bloomsburg": 18,
+        "e-stroudsburg": 15,
+        "gannon": 15,
+        "lock-haven": 14,
+        "seton-hill": 14,
         "slippery-rock": 13,
-        "gannon": 12,
-        "seton-hill": 12,
-        "california-pa": 9,
-        "shepherd": 9,
+        "california-pa": 11,
+        "shepherd": 11,
+        "shippensburg": 11,
         "pitt-johnstown": 8,
-        "shippensburg": 8,
         "west-chester": 7
       },
       "highlight": "millersville"
@@ -40,19 +41,20 @@
     "basis": {
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "bloomsburg",
-      "of": ["west-chester", "shippensburg"],
-      "gf": 16
+      "programme": "millersville",
+      "of": ["west-chester", "pitt-johnstown"],
+      "gf": 22,
+      "distinct_scorers_min": 6
     }
   },
   "wire": {
-    "line": "West Chester are level at the top of the table having scored seven goals all season, the fewest in the conference.",
+    "line": "Millersville have scored 22 goals and conceded five, and still do not lead the table.",
     "basis": {
-      "programme": "west-chester",
-      "gf": 7,
-      "ga": 6
+      "programme": "millersville",
+      "gf": 22,
+      "ga": 5
     },
-    "updated": "2026-09-20"
+    "updated": "2026-09-24"
   },
   "findings": [
     {
@@ -69,50 +71,47 @@
     },
     {
       "label": "observed",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning four and drawing one since, and have conceded eight goals all season.",
+      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning five and drawing one since, and have conceded nine goals all season.",
       "basis": {
         "programme": "gannon",
-        "wins": 4,
+        "wins": 5,
         "draws": 1,
         "losses": 1,
-        "gf": 12,
-        "ga": 8
+        "gf": 15,
+        "ga": 9
       }
     },
     {
       "label": "observed",
-      "text": "Slippery Rock have conceded five goals and scored thirteen, with eight different players among the scorers.",
+      "text": "West Chester have scored seven goals and conceded seven, and only three players have scored for them.",
       "basis": {
-        "programme": "slippery-rock",
-        "wins": 2,
-        "draws": 3,
-        "losses": 1,
-        "gf": 13,
-        "ga": 5,
-        "distinct_scorers_min": 8
+        "programme": "west-chester",
+        "gf": 7,
+        "ga": 7,
+        "distinct_scorers_min": 3
       }
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has three goals and five assists from nineteen shots for Seton Hill.",
+      "text": "Rafael Santos has three goals and seven assists from 24 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
         "goals": 3,
-        "assists": 5,
-        "shots": 19
+        "assists": 7,
+        "shots": 24
       }
     },
     {
       "label": "observed",
-      "text": "Aidan Houck has made 32 saves for Shepherd and been beaten six times.",
+      "text": "Aidan Houck has made 39 saves for Shepherd and been beaten eight times.",
       "basis": {
         "source": "stats",
         "player": "Aidan Houck",
         "programme": "shepherd",
-        "saves": 32,
-        "goals_against": 6
+        "saves": 39,
+        "goals_against": 8
       }
     }
   ],
@@ -122,35 +121,35 @@
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 13 shots"
+      "line": "5 G · 15 shots"
     },
     {
       "player": "Kaden Reynolds",
       "programme": "slippery-rock",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 1 A · 28 shots"
+      "line": "4 G · 1 A · 33 shots"
     },
     {
       "player": "Roy Parkyn",
       "programme": "millersville",
       "position": "MID",
       "class": "SR",
-      "line": "4 G · 10 shots"
+      "line": "5 G · 1 A · 12 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 millersville v e-stroudsburg",
-      "line": "E. Stroudsburg had not won away since their trip to Jefferson; Millersville had not lost since Ashland's visit."
+      "fixture_ref": "2026-09-23 west-chester v e-stroudsburg",
+      "line": "E. Stroudsburg arrived having won at Millersville on Saturday; West Chester had yet to concede at home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 west-chester v e-stroudsburg",
-      "line": "E. Stroudsburg have yet to lose in conference play; West Chester's only conference defeat came at Millersville."
+      "fixture_ref": "2026-09-26 e-stroudsburg v shippensburg",
+      "line": "E. Stroudsburg have yet to lose in conference play; Shippensburg's only conference win came at home to Bloomsburg."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:41:53.396Z"
+    "validated_at": "2026-09-24T11:44:42.036Z"
   }
 }

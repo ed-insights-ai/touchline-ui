@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-09-22T11:41:27.271Z",
-  "data_collected_at": "2026-09-22T11:35:07+00:00",
+  "validated_at": "2026-09-24T11:43:37.862Z",
+  "data_collected_at": "2026-09-24T11:34:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more than Davis & Elkins and Concord, the sides next to them in the table, together, and twelve different players have contributed to their twenty-six; the scoring is spread, not carried.",
+      "text": "Charleston have scored more than Davis & Elkins and Concord, the sides next to them in the table, together, and twelve different players have contributed to their twenty-seven; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -48,7 +48,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Davis & Elkins have won five of their six matches and conceded five goals in them.",
+      "text": "Davis & Elkins have won six of their seven matches and conceded five goals in them.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -57,7 +57,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Charleston have won six of their seven matches, scoring twenty-six goals and conceding six.",
+      "text": "Charleston have won seven of their eight matches, scoring twenty-seven goals and conceding six.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -75,7 +75,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Jon-Michael Gordon has four goals for Wheeling from fourteen shots.",
+      "text": "Frank Stare has six goals and three assists for Frostburg State from sixteen shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -84,7 +84,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Anthony Fusay has two shutouts in Point Park's goal.",
+      "text": "Floyd Watts has made forty saves in Shawnee State's goal and been beaten fourteen times.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -93,7 +93,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Martin Echarren — 6 G · 2 A · 18 shots",
+      "text": "Frank Stare — 6 G · 3 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +102,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Hector Moreno — 4 G · 13 shots",
+      "text": "Martin Echarren — 6 G · 2 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -111,7 +111,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Frank Stare — 3 G · 2 A · 10 shots",
+      "text": "Tomas Petrungaro — 4 G · 5 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-20 point-park v frostburg-state",
+      "text": "2026-09-23 shawnee-state v davis-elkins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-23 shawnee-state v davis-elkins",
+      "text": "2026-09-26 davis-elkins v west-virginia-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-22T11:40:54.929Z",
-    "generate_ms": 32341,
+    "started_at": "2026-09-24T11:42:45.266Z",
+    "generate_ms": 52594,
     "validate_ms": 1,
-    "wall_ms": 32342,
+    "wall_ms": 52595,
     "concurrency": 4
   }
 }

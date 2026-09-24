@@ -3,36 +3,37 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-22T11:50:00+00:00",
-  "data_collected_at": "2026-09-22T11:39:50+00:00",
-  "headline": "Florida Southern end Lynn's unbeaten start",
-  "dek": "Florida Southern beat Lynn at home for a sixth win, having conceded six goals all season, and share the top of the table with Florida Tech. Their one defeat came at Saint Leo, who have since lost at Florida Tech.",
+  "generated_at": "2026-09-24T11:50:00+00:00",
+  "data_collected_at": "2026-09-24T11:39:37+00:00",
+  "headline": "Rollins avenge home defeat at Embry-Riddle",
+  "dek": "Beaten at home by Embry-Riddle before conference play opened, Rollins won the return and ended their hosts' unbeaten season. Rollins have now won four matches, drawn one and lost two, and have not conceded a goal since losing at Tampa.",
   "lede_basis": {
-    "programme": "florida-southern",
-    "wins": 6,
-    "draws": 0,
-    "losses": 1,
-    "gf": 18,
-    "ga": 6
+    "programme": "rollins",
+    "wins": 4,
+    "draws": 1,
+    "losses": 2,
+    "gf": 13,
+    "ga": 12
   },
-  "lede_updated": "2026-09-20",
+  "lede_updated": "2026-09-24",
+  "displaced_by": "Rollins won at Embry-Riddle, the last unbeaten side; Florida Southern no longer share the top of the table and have conceded seven, not six",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 18,
+        "florida-southern": 22,
         "embry-riddle": 16,
+        "tampa": 15,
+        "palm-beach-atlantic": 14,
         "saint-leo": 14,
-        "tampa": 13,
-        "rollins": 12,
-        "florida-tech": 11,
-        "lynn": 10,
-        "barry": 8,
-        "eckerd": 8,
-        "nova-southeastern": 6,
-        "palm-beach-atlantic": 6
+        "rollins": 13,
+        "florida-tech": 12,
+        "barry": 11,
+        "lynn": 11,
+        "eckerd": 9,
+        "nova-southeastern": 8
       },
       "highlight": "florida-southern"
     },
@@ -41,18 +42,18 @@
       "metric": "gf",
       "programme": "florida-southern",
       "of": ["eckerd", "nova-southeastern"],
-      "gf": 18
+      "gf": 22
     }
   },
   "wire": {
-    "line": "Embry-Riddle, held at Barry, are the last side in the conference yet to lose.",
+    "line": "Rollins have ended Embry-Riddle's unbeaten run, and no side in the conference is now without a defeat.",
     "basis": {
       "programme": "embry-riddle",
       "wins": 5,
       "draws": 2,
-      "losses": 0
+      "losses": 1
     },
-    "updated": "2026-09-20"
+    "updated": "2026-09-24"
   },
   "findings": [
     {
@@ -66,82 +67,82 @@
     },
     {
       "label": "derived",
-      "text": "Lynn have lost one match, at Florida Southern, after winning two at home and drawing three away.",
+      "text": "Embry-Riddle's defeat at home to Rollins was their first of the season, after five wins and two draws.",
       "basis": {
-        "programme": "lynn",
-        "wins": 2,
-        "draws": 3,
+        "programme": "embry-riddle",
+        "wins": 5,
+        "draws": 2,
         "losses": 1
       }
     },
     {
       "label": "derived",
-      "text": "Embry-Riddle have won five matches and drawn two, scoring sixteen goals and conceding eight.",
+      "text": "Palm Beach Atlantic have conceded six goals across three wins, three draws and two defeats.",
       "basis": {
-        "programme": "embry-riddle",
-        "wins": 5,
-        "draws": 2,
-        "losses": 0,
-        "gf": 16,
-        "ga": 8
+        "programme": "palm-beach-atlantic",
+        "wins": 3,
+        "draws": 3,
+        "losses": 2,
+        "gf": 14,
+        "ga": 6
       }
     },
     {
       "label": "derived",
-      "text": "Eckerd beat Ave Maria at home for a second win, ending a run of five straight defeats.",
+      "text": "Florida Tech have won four, drawn three and lost one, and have not lost since their opening match.",
       "basis": {
-        "programme": "eckerd",
-        "wins": 2,
-        "draws": 0,
-        "losses": 5
+        "programme": "florida-tech",
+        "wins": 4,
+        "draws": 3,
+        "losses": 1
       }
     },
     {
       "label": "observed",
-      "text": "Virgilio Escala has seven assists for Saint Leo.",
+      "text": "Ricardo Marques has kept four shutouts for Florida Southern.",
       "basis": {
         "source": "stats",
-        "player": "Virgilio Escala",
-        "programme": "saint-leo",
-        "assists": 7
+        "player": "Ricardo Marques",
+        "programme": "florida-southern",
+        "shutouts": 4
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Finlay Prain",
-      "programme": "rollins",
-      "position": "FWD",
-      "class": "JR",
-      "line": "5 G · 2 A · 19 shots"
-    },
-    {
-      "player": "Luis Gaitan",
-      "programme": "saint-leo",
-      "position": "FWD",
-      "class": "JR",
-      "line": "4 G · 2 A · 12 shots"
-    },
-    {
       "player": "Kobi Thomas",
       "programme": "palm-beach-atlantic",
       "position": "FWD",
       "class": "SO",
-      "line": "4 G · 1 A · 26 shots"
+      "line": "8 G · 3 A · 30 shots"
+    },
+    {
+      "player": "Darcy Moffat",
+      "programme": "florida-southern",
+      "position": "FWD",
+      "class": "SR",
+      "line": "5 G · 5 A · 15 shots"
+    },
+    {
+      "player": "Finlay Prain",
+      "programme": "rollins",
+      "position": "FWD",
+      "class": "JR",
+      "line": "6 G · 2 A · 23 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 florida-southern v lynn",
-      "line": "Lynn had not lost until now; Florida Southern have won every match at home."
+      "fixture_ref": "2026-09-23 embry-riddle v rollins",
+      "line": "Embry-Riddle had won the earlier meeting at Rollins and had not lost all season; Rollins have kept out every opponent since losing at Tampa."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 embry-riddle v rollins",
-      "line": "Embry-Riddle have yet to lose and have already won at Rollins this season."
+      "fixture_ref": "2026-09-26 barry v tampa",
+      "line": "Tampa are unbeaten since August; Barry have yet to win at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-22T11:42:06.371Z"
+    "validated_at": "2026-09-24T11:46:09.330Z"
   }
 }

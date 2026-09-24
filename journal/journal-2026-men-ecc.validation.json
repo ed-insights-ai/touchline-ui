@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-23T11:40:15.107Z",
-  "data_collected_at": "2026-09-23T11:31:29+00:00",
+  "validated_at": "2026-09-24T11:42:50.750Z",
+  "data_collected_at": "2026-09-24T11:31:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -44,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Molloy scored more goals at home to Daemen than in all their earlier matches together.",
+      "text": "Queens' first home defeat of the season came against Staten Island, the first match in which they have failed to score.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -62,17 +62,16 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Daemen have conceded 29 goals, more than any two other programmes together, and are still without a win; the defeat at Molloy was their sixth.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Queens have conceded eight goals all season, and the home defeat to Staten Island was the first match in which they did not score.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "\"any 2 others\" was held against the strongest 2: roberts-wesleyan 17 + staten-island 10"
+      "dropped": false
     },
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Queens have won every match since the defeat at Holy Family, the latest at home to Roberts Wesleyan, and have conceded six goals all season against 22 scored.",
+      "text": "Molloy have conceded four goals all season against eleven scored, and have not lost since the home defeat to Assumption.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -81,8 +80,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Molloy have lost once, at home to Assumption, and have conceded four goals all season against eleven scored.",
-      "checker": "team_goals+team_record",
+      "text": "Lorenzo Herrera has made 44 saves for District of Columbia and conceded seven; the defeat at D'Youville was the side's third.",
+      "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -90,8 +89,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Lorenzo Herrera has made 40 saves and conceded six for District of Columbia, whose home defeat to Lock Haven was their second.",
-      "checker": "player_stat+team_record",
+      "text": "Jacob Darwesh Lund-Iversen has scored nine of Mercy's sixteen goals from 23 shots.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -99,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 9 G · 3 A · 20 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 9 G · 3 A · 23 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -108,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Keithlend Cesar — 4 G · 3 A · 14 shots",
+      "text": "Keithlend Cesar — 4 G · 3 A · 15 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -117,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Tommy Gunn — 4 G · 2 A · 15 shots",
+      "text": "Ethan Robinson — 4 G · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-19 mercy v st-thomas-aquinas",
+      "text": "2026-09-23 queens v staten-island",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-23 st-thomas-aquinas v molloy",
+      "text": "2026-09-26 d-youville v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -143,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-23T11:39:42.081Z",
-    "generate_ms": 33023,
-    "validate_ms": 3,
-    "wall_ms": 33027,
+    "started_at": "2026-09-24T11:40:05.481Z",
+    "generate_ms": 165183,
+    "validate_ms": 1,
+    "wall_ms": 165267,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-23T11:50:00+00:00",
-  "data_collected_at": "2026-09-23T11:36:16+00:00",
+  "generated_at": "2026-09-24T11:50:00+00:00",
+  "data_collected_at": "2026-09-24T11:36:51+00:00",
   "headline": "Anderson make it six wins without defeat",
   "dek": "Anderson beat North Greenville at home on Tuesday for their sixth win of the season and remain unbeaten, with twenty scored and eight conceded. Catawba, unbeaten too, sit level with them at the top of the table, and the two do not meet until the middle of October.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 8
   },
   "lede_updated": "2026-09-23",
-  "displaced_by": "Anderson's sixth win, at home to North Greenville; the standing dek's five wins is no longer true",
   "pattern": {
     "label": "observed",
     "text": "Catawba have scored twenty-two and conceded three, and no one player has more than Alex Payton's four of those goals.",
@@ -25,15 +24,15 @@
       "values": {
         "catawba": 22,
         "anderson": 20,
-        "mars-hill": 13,
+        "mars-hill": 15,
         "wingate": 13,
-        "lincoln-memorial": 11,
-        "carson-newman": 9,
-        "lenoir-rhyne": 9,
-        "newberry": 9,
-        "coker": 4,
-        "tusculum": 3,
-        "emory-henry": 2
+        "lincoln-memorial": 12,
+        "carson-newman": 11,
+        "lenoir-rhyne": 10,
+        "newberry": 10,
+        "coker": 6,
+        "emory-henry": 6,
+        "tusculum": 4
       },
       "highlight": "catawba"
     },
@@ -47,14 +46,29 @@
     }
   },
   "wire": {
-    "line": "Emory & Henry have two published results, both draws, and both against the conference's unbeaten sides.",
+    "line": "Lenoir-Rhyne are the only side still without a win, and have conceded more goals than any other programme.",
     "basis": {
-      "programme": "emory-henry",
+      "programme": "lenoir-rhyne",
       "wins": 0,
-      "draws": 2,
-      "losses": 0
+      "draws": 3,
+      "losses": 5,
+      "ga": 21,
+      "comparative": "greater_than_each",
+      "metric": "ga",
+      "of": [
+        "anderson",
+        "carson-newman",
+        "catawba",
+        "coker",
+        "emory-henry",
+        "lincoln-memorial",
+        "mars-hill",
+        "newberry",
+        "tusculum",
+        "wingate"
+      ]
     },
-    "updated": "2026-09-20"
+    "updated": "2026-09-24"
   },
   "findings": [
     {
@@ -68,49 +82,49 @@
     },
     {
       "label": "observed",
-      "text": "Lenoir-Rhyne are still without a win: three draws and four defeats, nine scored and seventeen conceded, the latest a draw at home to Wingate on Sunday.",
+      "text": "Lenoir-Rhyne are still without a win: three draws and five defeats, ten scored and twenty-one conceded, the latest a home defeat to Emory & Henry on Wednesday.",
       "basis": {
         "programme": "lenoir-rhyne",
         "wins": 0,
         "draws": 3,
-        "losses": 4,
-        "gf": 9,
-        "ga": 17
+        "losses": 5,
+        "gf": 10,
+        "ga": 21
       }
     },
     {
       "label": "observed",
-      "text": "Newberry have won their last two after five defeats, and have scored nine and conceded sixteen.",
+      "text": "Emory & Henry's win at Lenoir-Rhyne on Wednesday was their first published result that was not a draw: one win and two draws, six scored and three conceded.",
+      "basis": {
+        "programme": "emory-henry",
+        "wins": 1,
+        "draws": 2,
+        "losses": 0,
+        "gf": 6,
+        "ga": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Newberry's run of two wins ended at Coker on Wednesday; they have two wins and six defeats, ten scored and eighteen conceded.",
       "basis": {
         "programme": "newberry",
         "wins": 2,
         "draws": 0,
-        "losses": 5,
-        "gf": 9,
-        "ga": 16
+        "losses": 6,
+        "gf": 10,
+        "ga": 18
       }
     },
     {
       "label": "observed",
-      "text": "Lincoln Memorial have scored eleven and conceded seven in three wins, a draw and two defeats; the latest defeat came at Newberry on Saturday.",
-      "basis": {
-        "programme": "lincoln-memorial",
-        "wins": 3,
-        "draws": 1,
-        "losses": 2,
-        "gf": 11,
-        "ga": 7
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Wingate's Cole Freeman has made twenty-seven saves and conceded three goals.",
+      "text": "Wingate's Cole Freeman has made twenty-nine saves and conceded five goals.",
       "basis": {
         "source": "stats",
         "player": "Cole Freeman",
         "programme": "wingate",
-        "saves": 27,
-        "goals_against": 3
+        "saves": 29,
+        "goals_against": 5
       }
     }
   ],
@@ -123,11 +137,11 @@
       "line": "3 G · 7 A · 23 shots"
     },
     {
-      "player": "Ben Curtis",
-      "programme": "newberry",
+      "player": "Logan Knight",
+      "programme": "mars-hill",
       "position": "FWD",
-      "class": "SO",
-      "line": "4 G · 1 A · 11 shots"
+      "class": "JR",
+      "line": "5 G · 11 shots"
     },
     {
       "player": "Alex Payton",
@@ -139,16 +153,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-22 anderson v north-greenville",
-      "line": "Anderson have still not lost; North Greenville have now lost to Catawba, Mars Hill and Anderson."
+      "fixture_ref": "2026-09-23 lenoir-rhyne v emory-henry",
+      "line": "Emory & Henry's first win of the season; Lenoir-Rhyne have still not won."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 tusculum v lincoln-memorial",
-      "line": "Tusculum have yet to win a conference match; Lincoln Memorial lost at Newberry on Saturday."
+      "fixture_ref": "2026-09-26 wingate v anderson",
+      "line": "Anderson have still not lost; Wingate have lost their last two at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:42:36.425Z"
+    "validated_at": "2026-09-24T11:45:06.064Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-22T11:41:38.752Z",
-  "data_collected_at": "2026-09-22T11:35:23+00:00",
+  "validated_at": "2026-09-24T11:43:44.873Z",
+  "data_collected_at": "2026-09-24T11:35:10+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,16 +20,15 @@
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Southern New Hampshire's twenty-six goals are spread across at least thirteen scorers, so no single player carries the tallest bar; Saint Anselm have won four of their six matches while scoring ten and conceding eleven, so the chart's order is not the order of results.",
+      "text": "Southern New Hampshire's twenty-nine goals are spread across at least fifteen scorers, so no single player carries the tallest bar; Southern Connecticut, at the foot of the chart with eight, have drawn four of their six matches, so the shortest bar is not the worst record.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
       "unchecked_figures": [
-        "saint_anselm_wins: 4",
-        "saint_anselm_matches_played: 6",
-        "saint_anselm_gf: 10",
-        "saint_anselm_ga: 11"
+        "southern_connecticut_gf: 8",
+        "southern_connecticut_draws: 4",
+        "southern_connecticut_matches_played: 6"
       ]
     },
     {
@@ -53,7 +52,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Southern New Hampshire have won five matches and drawn two, and are the only programme without a defeat.",
+      "text": "Southern New Hampshire have won six matches and drawn two, and are the only programme without a defeat.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +70,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Saint Michael's have lost four matches, more than any other programme.",
+      "text": "Saint Michael's have lost five matches, more than any other programme.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -80,8 +79,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Guillermo Rios has scored six goals from fifteen shots for Franklin Pierce.",
-      "checker": "player_stat",
+      "text": "Southern Connecticut have drawn four of their six matches and have yet to win.",
+      "checker": "team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,7 +88,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Joe Zweben has made thirty-eight saves, more than any other goalkeeper listed.",
+      "text": "Joe Zweben has made forty-one saves, more than any other goalkeeper listed.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +97,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Cody Holbert — 9 G · 2 A · 39 shots",
+      "text": "Cody Holbert — 9 G · 2 A · 44 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +106,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Inigo Burusco — 7 G · 2 A · 21 shots",
+      "text": "Guillermo Rios — 8 G · 19 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +115,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Guillermo Rios — 6 G · 15 shots",
+      "text": "Inigo Burusco — 7 G · 2 A · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +124,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-20 saint-anselm v pace",
+      "text": "2026-09-23 southern-new-hampshire v saint-anselm",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +133,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-23 southern-new-hampshire v saint-anselm",
+      "text": "2026-09-26 pace v southern-new-hampshire",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +141,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-22T11:41:14.890Z",
-    "generate_ms": 23861,
+    "started_at": "2026-09-24T11:42:50.825Z",
+    "generate_ms": 54047,
     "validate_ms": 1,
-    "wall_ms": 23862,
+    "wall_ms": 54048,
     "concurrency": 4
   }
 }

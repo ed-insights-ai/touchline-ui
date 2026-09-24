@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-09-23T11:41:16.317Z",
-  "data_collected_at": "2026-09-23T11:33:35+00:00",
+  "validated_at": "2026-09-24T11:42:45.190Z",
+  "data_collected_at": "2026-09-24T11:33:40+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Goals have not meant points: West Alabama have scored 22 and conceded sixteen, and have won twice in eight matches.",
+      "text": "Goals have not meant points: West Alabama have scored 26 and conceded sixteen, and have won three of nine matches.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "West Alabama have scored more than any other programme and have yet to take a point in conference play.",
-      "checker": "team_goals+comparative",
+      "text": "Every programme but UAH has now lost at least once.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Hunter Walker has conceded six goals for Trevecca and kept three clean sheets.",
+      "text": "Hunter Walker has conceded nine goals for Trevecca and kept three clean sheets.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "West Alabama's 22 goals have come from eight different scorers.",
+      "text": "West Alabama's 26 goals have come from eight different scorers.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Patrick Schott has made 42 saves for Union and has conceded ten goals.",
+      "text": "Patrick Schott has made 51 saves for Union and has conceded eleven goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "David Nunez — 8 G · 3 A · 25 shots",
+      "text": "David Nunez — 10 G · 4 A · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Karim Gegg — 5 G · 1 A · 29 shots",
+      "text": "Karim Gegg — 5 G · 2 A · 32 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-20 west-alabama v harding",
+      "text": "2026-09-23 trevecca v lee",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-23 montevallo v aum",
+      "text": "2026-09-26 aum v uah",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-23T11:40:46.111Z",
-    "generate_ms": 30204,
+    "started_at": "2026-09-24T11:41:48.292Z",
+    "generate_ms": 56897,
     "validate_ms": 1,
-    "wall_ms": 30205,
+    "wall_ms": 56898,
     "concurrency": 4
   }
 }

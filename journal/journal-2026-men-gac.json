@@ -3,22 +3,25 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-23T11:40:00Z",
-  "data_collected_at": "2026-09-23T11:32:16+00:00",
-  "headline": "Fort Hays State and Southern Nazarene open with two wins",
-  "dek": "Fort Hays State beat Rogers State and Northeastern State at home two days apart, and Southern Nazarene did the same to Harding and Ouachita Baptist. Rogers State ended a run of two defeats by winning at Newman on Saturday. Northeastern State have lost both of their conference matches, each by a single goal.",
+  "generated_at": "2026-09-24T11:40:00Z",
+  "data_collected_at": "2026-09-24T11:32:32+00:00",
+  "headline": "Northeastern State take a first point off Southern Nazarene",
+  "dek": "Northeastern State had lost both of their conference matches by a single goal before Southern Nazarene visited on Wednesday and went home with a draw. Southern Nazarene still lead the table, a point ahead of Fort Hays State, who have played once fewer and won both times.",
   "lede_basis": {
-    "fhsu_conference_wins": 2,
+    "nsu_conference_points": 1,
+    "nsu_conference_losses_before_draw": 2,
+    "nsu_losing_margin_each": 1,
+    "nsu_conference_played": 3,
+    "snu_conference_points": 7,
+    "snu_conference_played": 3,
+    "fhsu_conference_points": 6,
     "fhsu_conference_played": 2,
-    "snu_conference_wins": 2,
-    "snu_conference_played": 2,
-    "days_between_home_wins": 2,
-    "rsu_consecutive_losses_before_win": 2,
-    "nsu_conference_losses": 2,
-    "nsu_conference_played": 2,
-    "nsu_losing_margin_each": 1
+    "fhsu_conference_wins": 2,
+    "points_gap_snu_over_fhsu": 1,
+    "matches_played_difference": 1
   },
-  "lede_updated": "2026-09-20",
+  "lede_updated": "2026-09-24",
+  "displaced_by": "Southern Nazarene held to a draw at Northeastern State on 2026-09-23: Northeastern State's first conference point, and the top of the table is no longer level",
   "pattern": {
     "label": "derived",
     "text": "Rogers State have outscored Newman and Northeastern State put together.",
@@ -26,11 +29,11 @@
       "kind": "goals-for-by-team",
       "values": {
         "rogers-state": 17,
+        "southern-nazarene": 13,
         "fort-hays-state": 12,
         "ouachita-baptist": 10,
-        "southern-nazarene": 10,
+        "northeastern-state": 9,
         "newman": 7,
-        "northeastern-state": 6,
         "harding": 4
       },
       "highlight": "rogers-state"
@@ -44,16 +47,14 @@
     }
   },
   "wire": {
-    "line": "Fort Hays State have lost once all season and conceded five goals; they share the top of the table with Southern Nazarene.",
+    "line": "Southern Nazarene are held at Northeastern State, who had lost every conference match until Wednesday, and still lead the table.",
     "basis": {
-      "programme": "fort-hays-state",
-      "wins": 4,
-      "draws": 2,
-      "losses": 1,
-      "gf": 12,
-      "ga": 5
+      "programme": "southern-nazarene",
+      "wins": 5,
+      "draws": 1,
+      "losses": 2
     },
-    "updated": "2026-09-21"
+    "updated": "2026-09-24"
   },
   "findings": [
     {
@@ -88,11 +89,11 @@
     },
     {
       "label": "derived",
-      "text": "Southern Nazarene have won five times and lost twice, beating Oklahoma Christian, Harding and Ouachita Baptist since their defeat at Midwestern State.",
+      "text": "Southern Nazarene have won five matches, lost two and drawn one, the draw coming at Northeastern State on Wednesday.",
       "basis": {
         "programme": "southern-nazarene",
         "wins": 5,
-        "draws": 0,
+        "draws": 1,
         "losses": 2
       }
     },
@@ -117,32 +118,32 @@
       "line": "4 G · 14 shots"
     },
     {
+      "player": "Carter Adams",
+      "programme": "northeastern-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "3 G · 2 A · 21 shots"
+    },
+    {
       "player": "Juan Linares",
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
       "line": "3 G · 2 A · 9 shots"
-    },
-    {
-      "player": "Gian Filizzola",
-      "programme": "rogers-state",
-      "position": "DEF",
-      "class": "SO",
-      "line": "1 G · 4 A · 8 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-20 west-alabama v harding",
-      "line": "Harding have lost every match they have played, and return to conference play when Fort Hays State visit."
+      "fixture_ref": "2026-09-23 northeastern-state v southern-nazarene",
+      "line": "Southern Nazarene arrived having won every conference match they had played; Northeastern State had lost every one of theirs."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 northeastern-state v southern-nazarene",
-      "line": "Southern Nazarene have won every match since their defeat at Midwestern State; Northeastern State have yet to take a point in the conference."
+      "fixture_ref": "2026-09-24 harding v fort-hays-state",
+      "line": "Fort Hays State have won every conference match so far; Harding have yet to win a match of any kind this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:40:42.915Z"
+    "validated_at": "2026-09-24T11:41:48.217Z"
   }
 }

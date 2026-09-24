@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-23T11:43:50.196Z",
-  "data_collected_at": "2026-09-23T11:35:00+00:00",
+  "validated_at": "2026-09-24T11:44:17.390Z",
+  "data_collected_at": "2026-09-24T11:35:27+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Jessup's defeat by Dominican (Calif.) on Tuesday was their fifth against two wins and one draw; they have scored seven goals and conceded seventeen.",
+      "text": "Westmont's defeat at Vanguard on Wednesday was their fifth against two wins and three draws; they have scored sixteen goals and conceded nineteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Point Loma drew with Westmont on Saturday and have three wins, three draws and two defeats, with fifteen goals scored and eleven conceded.",
-      "checker": "team_goals+team_record",
+      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought two wins, one draw and five defeats.",
+      "checker": "team_record+unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought one win, one draw and five defeats.",
-      "checker": "team_record+unresolved",
+      "text": "Chaminade have been beaten in all six matches they have played, scoring three goals and conceding fifteen; their next match is at Point Loma on Thursday.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Chaminade have been beaten in all six matches they have played, scoring three goals and conceding fifteen; their next match is at Point Loma on Thursday.",
+      "text": "Point Loma drew with Westmont on Saturday and have three wins, three draws and two defeats, with fifteen goals scored and eleven conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-22 jessup v dominican-of-california",
+      "text": "2026-09-23 vanguard v westmont",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-23 vanguard v westmont",
+      "text": "2026-09-24 point-loma v chaminade",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-23T11:41:15.115Z",
-    "generate_ms": 155004,
+    "started_at": "2026-09-24T11:43:02.188Z",
+    "generate_ms": 75200,
     "validate_ms": 1,
-    "wall_ms": 155080,
+    "wall_ms": 75201,
     "concurrency": 4
   }
 }

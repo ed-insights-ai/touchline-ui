@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-23T11:42:36.425Z",
-  "data_collected_at": "2026-09-23T11:36:16+00:00",
+  "validated_at": "2026-09-24T11:45:06.064Z",
+  "data_collected_at": "2026-09-24T11:36:51+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Emory & Henry have two published results, both draws, and both against the conference's unbeaten sides.",
-      "checker": "team_record",
+      "text": "Lenoir-Rhyne are the only side still without a win, and have conceded more goals than any other programme.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Lenoir-Rhyne are still without a win: three draws and four defeats, nine scored and seventeen conceded, the latest a draw at home to Wingate on Sunday.",
+      "text": "Lenoir-Rhyne are still without a win: three draws and five defeats, ten scored and twenty-one conceded, the latest a home defeat to Emory & Henry on Wednesday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Newberry have won their last two after five defeats, and have scored nine and conceded sixteen.",
+      "text": "Emory & Henry's win at Lenoir-Rhyne on Wednesday was their first published result that was not a draw: one win and two draws, six scored and three conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Lincoln Memorial have scored eleven and conceded seven in three wins, a draw and two defeats; the latest defeat came at Newberry on Saturday.",
+      "text": "Newberry's run of two wins ended at Coker on Wednesday; they have two wins and six defeats, ten scored and eighteen conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Wingate's Cole Freeman has made twenty-seven saves and conceded three goals.",
+      "text": "Wingate's Cole Freeman has made twenty-nine saves and conceded five goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Ben Curtis — 4 G · 1 A · 11 shots",
+      "text": "Logan Knight — 5 G · 11 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-22 anderson v north-greenville",
+      "text": "2026-09-23 lenoir-rhyne v emory-henry",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-23 tusculum v lincoln-memorial",
+      "text": "2026-09-26 wingate v anderson",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-23T11:41:44.093Z",
-    "generate_ms": 52331,
+    "started_at": "2026-09-24T11:44:17.466Z",
+    "generate_ms": 48597,
     "validate_ms": 1,
-    "wall_ms": 52331,
+    "wall_ms": 48598,
     "concurrency": 4
   }
 }

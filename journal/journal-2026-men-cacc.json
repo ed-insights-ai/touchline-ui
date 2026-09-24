@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-09-23T11:45:00+00:00",
-  "data_collected_at": "2026-09-23T11:30:01+00:00",
+  "generated_at": "2026-09-24T11:45:00+00:00",
+  "data_collected_at": "2026-09-24T11:30:04+00:00",
   "headline": "Jefferson win at last after six straight defeats",
   "dek": "Jefferson's win over Bryant and Stratton is their first of the season and follows six defeats, more than any other programme has suffered. They have scored ten goals and conceded seventeen.",
   "lede_basis": {
@@ -30,10 +30,9 @@
     "ga": 17
   },
   "lede_updated": "2026-09-23",
-  "displaced_by": "Jefferson's first win of the season, at home to Bryant and Stratton",
   "pattern": {
     "label": "observed",
-    "text": "Only Georgian Court have scored more than they have conceded: nineteen for and eleven against, where every other programme is in deficit.",
+    "text": "Georgian Court's nineteen goals are more than Dominican, Holy Family and Post have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -45,61 +44,49 @@
         "chestnut-hill": 10,
         "jefferson": 10,
         "wilmington": 9,
+        "post": 8,
         "holy-family": 6,
-        "post": 6,
         "dominican": 3
       },
       "highlight": "georgian-court"
     },
     "basis": {
-      "comparative": "greater_than_each",
+      "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "georgian-court",
-      "of": [
-        "bridgeport",
-        "caldwell",
-        "chestnut-hill",
-        "dominican",
-        "felician",
-        "goldey-beacom",
-        "holy-family",
-        "jefferson",
-        "post",
-        "wilmington"
-      ],
+      "of": ["dominican", "holy-family", "post"],
       "gf": 19,
-      "ga": 11
+      "ga": 15
     }
   },
   "wire": {
-    "line": "Georgian Court have scored more than any other side and are the only programme with more wins than defeats.",
+    "line": "Post have won more than they have lost and have conceded seven goals all season.",
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "programme": "georgian-court",
-      "of": [
-        "bridgeport",
-        "caldwell",
-        "chestnut-hill",
-        "dominican",
-        "felician",
-        "goldey-beacom",
-        "holy-family",
-        "jefferson",
-        "post",
-        "wilmington"
-      ],
-      "gf": 19,
-      "wins": 4,
+      "programme": "post",
+      "wins": 3,
       "draws": 2,
-      "losses": 1
+      "losses": 2,
+      "gf": 8,
+      "ga": 7
     },
-    "updated": "2026-09-20"
+    "updated": "2026-09-24"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Georgian Court's four wins are the most in the conference; they have drawn two matches and lost once.",
+      "text": "Post have scored eight and conceded seven; the win at Dominican makes it three wins, two draws and two defeats.",
+      "basis": {
+        "programme": "post",
+        "wins": 3,
+        "draws": 2,
+        "losses": 2,
+        "gf": 8,
+        "ga": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Georgian Court's four wins remain the most in the conference, but the defeat at Millersville is their second and lifts their goals conceded to fifteen.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "wins",
@@ -118,55 +105,44 @@
         ],
         "wins": 4,
         "draws": 2,
-        "losses": 1
+        "losses": 2,
+        "ga": 15
       }
     },
     {
       "label": "observed",
-      "text": "Caldwell have not drawn a match all season: three wins and three defeats, with ten goals scored and twelve conceded.",
-      "basis": {
-        "programme": "caldwell",
-        "wins": 3,
-        "draws": 0,
-        "losses": 3,
-        "gf": 10,
-        "ga": 12
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Dominican have scored three goals in six matches and conceded eleven; their one win came against Jefferson, beside a draw and four defeats.",
+      "text": "Dominican have scored three goals all season and conceded thirteen; the defeat to Post was their fifth, beside one win and one draw.",
       "basis": {
         "programme": "dominican",
         "wins": 1,
         "draws": 1,
-        "losses": 4,
+        "losses": 5,
         "gf": 3,
-        "ga": 11
+        "ga": 13
       }
     },
     {
       "label": "observed",
-      "text": "Gijs van Eif has five goals and five assists for Georgian Court from 34 shots.",
+      "text": "Gijs van Eif has five goals and five assists for Georgian Court from 35 shots.",
       "basis": {
         "source": "stats",
         "player": "Gijs van Eif",
         "programme": "georgian-court",
         "goals": 5,
         "assists": 5,
-        "shots": 34
+        "shots": 35
       }
     },
     {
       "label": "observed",
-      "text": "Max Bond has made 41 saves for Chestnut Hill and conceded ten, a save percentage of .804.",
+      "text": "Max Bond has made 43 saves for Chestnut Hill and conceded twelve, a save percentage of .782.",
       "basis": {
         "source": "stats",
         "player": "Max Bond",
         "programme": "chestnut-hill",
-        "saves": 41,
-        "goals_against": 10,
-        "save_pct": 0.804
+        "saves": 43,
+        "goals_against": 12,
+        "save_pct": 0.782
       }
     }
   ],
@@ -176,14 +152,14 @@
       "programme": "georgian-court",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 5 A · 34 shots"
+      "line": "5 G · 5 A · 35 shots"
     },
     {
       "player": "Dane Bodziak",
       "programme": "chestnut-hill",
       "position": "FWD",
       "class": "5Y",
-      "line": "4 G · 11 shots"
+      "line": "4 G · 12 shots"
     },
     {
       "player": "Bartu Yakkan",
@@ -195,16 +171,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-22 jefferson v bryant-and-stratton",
-      "line": "Jefferson had neither scored nor taken a point at home before this."
+      "fixture_ref": "2026-09-23 millersville v georgian-court",
+      "line": "Georgian Court's heaviest defeat of the season, and the first match in which they have failed to score."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 dominican v post",
-      "line": "Post have conceded fewer goals than any other programme; Dominican have scored fewer than any."
+      "fixture_ref": "2026-09-25 caldwell v holy-family",
+      "line": "Caldwell have not drawn a match all season; Holy Family are the last side yet to play a conference match."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:41:45.356Z"
+    "validated_at": "2026-09-24T11:41:37.514Z"
   }
 }

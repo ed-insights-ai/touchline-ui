@@ -3,40 +3,41 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-23T11:40:00+00:00",
-  "data_collected_at": "2026-09-23T11:32:50+00:00",
-  "headline": "Indianapolis take the first conference points off Drury",
-  "dek": "Drury's draw at home to Indianapolis on Saturday was the first conference match they have failed to win, and it left their season at six wins, one draw and one defeat, with twenty-one goals scored and eight conceded. They still lead the table; Lincoln, who drew at Truman on Sunday, are the only side unbeaten by anyone.",
+  "generated_at": "2026-09-24T11:40:00+00:00",
+  "data_collected_at": "2026-09-24T11:33:05+00:00",
+  "headline": "Quincy go top without a conference defeat",
+  "dek": "Quincy's win over Illinois Springfield on Wednesday lifted them above Maryville and Drury, both of whom have a match in hand. Their season reads five wins, three draws and one defeat, eighteen goals scored and eight conceded; the defeat came in their first match, at Wisconsin-Parkside, and nobody has beaten them since.",
   "lede_basis": {
-    "programme": "drury",
-    "wins": 6,
-    "draws": 1,
+    "programme": "quincy",
+    "wins": 5,
+    "draws": 3,
     "losses": 1,
-    "gf": 21,
+    "gf": 18,
     "ga": 8
   },
-  "lede_updated": "2026-09-21",
+  "lede_updated": "2026-09-24",
+  "displaced_by": "Quincy top the table after beating Illinois Springfield; Drury no longer lead, so the standing dek was untrue.",
   "pattern": {
     "label": "derived",
-    "text": "Southwest Baptist's twenty-eight goals exceed what the five lowest-scoring programmes have managed between them; the shape is no longer one bar and a slope, since Maryville's afternoon against them pulled the second bar close.",
+    "text": "Southwest Baptist's twenty-eight goals exceed what the four lowest-scoring programmes have managed between them, but the bar has not moved since Maryville's afternoon against them: they were held scoreless by Missouri S&T on Wednesday while Maryville scored again at Upper Iowa.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "southwest-baptist": 28,
-        "maryville": 23,
+        "maryville": 26,
         "drury": 21,
-        "missouri-s-t": 16,
-        "quincy": 14,
-        "truman": 13,
+        "missouri-s-t": 19,
+        "quincy": 18,
+        "truman": 14,
+        "lincoln": 13,
+        "indianapolis": 12,
         "rockhurst": 11,
-        "indianapolis": 10,
-        "lincoln": 10,
         "mckendree": 10,
+        "william-jewell": 8,
+        "illinois-springfield": 7,
+        "missouri-st-louis": 7,
         "lewis": 6,
-        "missouri-st-louis": 6,
-        "illinois-springfield": 5,
-        "upper-iowa": 4,
-        "william-jewell": 4
+        "upper-iowa": 5
       },
       "highlight": "southwest-baptist"
     },
@@ -44,7 +45,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "southwest-baptist",
-      "of": ["upper-iowa", "william-jewell", "illinois-springfield", "lewis", "missouri-st-louis"],
+      "of": ["upper-iowa", "lewis", "illinois-springfield", "missouri-st-louis"],
       "gf": 28
     }
   },
@@ -52,7 +53,7 @@
     "line": "Lincoln are the last side in the conference without a defeat, and they got there by beating Southwest Baptist.",
     "basis": {
       "programme": "lincoln",
-      "wins": 3,
+      "wins": 4,
       "draws": 3,
       "losses": 0
     },
@@ -73,46 +74,51 @@
     },
     {
       "label": "derived",
-      "text": "Lincoln are the only programme in the conference yet to lose: three wins and three draws, ten goals scored and six conceded, the latest draw coming at Truman on Sunday.",
+      "text": "Lincoln remain the only programme in the conference yet to lose: four wins and three draws, thirteen goals scored and six conceded, the fourth win coming at Rockhurst on Wednesday.",
       "basis": {
         "programme": "lincoln",
-        "wins": 3,
+        "wins": 4,
         "draws": 3,
         "losses": 0,
-        "gf": 10,
+        "gf": 13,
         "ga": 6
       }
     },
     {
       "label": "derived",
-      "text": "Truman have scored thirteen goals and conceded thirteen, and Jacob Panagos has eight of the ones they have scored.",
+      "text": "Missouri S&T have not drawn a match this season: six wins and two defeats, nineteen goals scored and nine conceded.",
+      "basis": {
+        "programme": "missouri-s-t",
+        "wins": 6,
+        "draws": 0,
+        "losses": 2,
+        "gf": 19,
+        "ga": 9
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Truman have scored fourteen goals and conceded seventeen, and Jacob Panagos has eight of the fourteen from nineteen shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Panagos",
         "programme": "truman",
         "goals": 8,
-        "gf": 13,
-        "ga": 13
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Ten different players have scored for Drury this season, and none of them appears among the conference's scoring leaders.",
-      "basis": {
-        "programme": "drury",
-        "distinct_scorers_min": 10
+        "shots": 19,
+        "gf": 14,
+        "ga": 17
       }
     },
     {
       "label": "observed",
-      "text": "Asgrimur Vidisson has made thirty-three saves for Maryville and conceded eight, a save percentage of .805.",
+      "text": "Asgrimur Vidisson has made thirty-eight saves for Maryville and conceded nine, a save percentage of .809.",
       "basis": {
         "source": "stats",
         "player": "Asgrimur Vidisson",
         "programme": "maryville",
-        "saves": 33,
-        "goals_against": 8,
-        "save_pct": 0.805
+        "saves": 38,
+        "goals_against": 9,
+        "save_pct": 0.809
       }
     }
   ],
@@ -122,35 +128,35 @@
       "programme": "truman",
       "position": "MID",
       "class": "JR",
-      "line": "8 G · 15 shots"
+      "line": "8 G · 19 shots"
     },
     {
       "player": "Leo Cann",
       "programme": "quincy",
       "position": "FWD",
       "class": "JR",
-      "line": "6 G · 1 A · 31 shots"
+      "line": "7 G · 3 A · 36 shots"
     },
     {
-      "player": "Nathaniel Velasquez",
-      "programme": "southwest-baptist",
+      "player": "Jonathan Nemorden",
+      "programme": "lincoln",
       "position": "FWD",
-      "class": "JR",
-      "line": "5 G · 2 A · 20 shots"
+      "class": "FR",
+      "line": "5 G · 23 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-20 truman v lincoln",
-      "line": "Lincoln had not conceded away from home in conference play before it; Truman have drawn both home conference matches since losing there to Drury."
+      "fixture_ref": "2026-09-23 rockhurst v lincoln",
+      "line": "Lincoln have still not lost to anyone this season; Rockhurst have not scored at home in conference play since beating Indianapolis on opening weekend."
     },
     "next_match": {
-      "fixture_ref": "2026-09-23 rockhurst v lincoln",
-      "line": "Lincoln have yet to lose to anyone this season; Rockhurst's only conference defeat came at home, to Truman."
+      "fixture_ref": "2026-09-26 maryville v missouri-s-t",
+      "line": "Maryville have won every home match they have played this season; Missouri S&T's only away defeat came at Quincy, the side now above both of them."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:41:15.038Z"
+    "validated_at": "2026-09-24T11:43:02.112Z"
   }
 }
