@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-24T11:44:17.390Z",
-  "data_collected_at": "2026-09-24T11:35:27+00:00",
+  "validated_at": "2026-09-25T11:43:50.261Z",
+  "data_collected_at": "2026-09-25T11:35:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Concordia Irvine's seventeen goals are more than Jessup, Hawai'i Hilo and Biola have scored together, yet they have conceded fifteen.",
+      "text": "Point Loma's eighteen goals are more than Jessup, Hawai'i Hilo and Biola have scored together, and at twelve conceded they have let in fewer than they have scored.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Concordia Irvine won at Biola and now have more wins than any other programme.",
-      "checker": "team_record+comparative",
+      "text": "Chaminade have lost all seven of their matches, conceding eighteen goals along the way.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Westmont's defeat at Vanguard on Wednesday was their fifth against two wins and three draws; they have scored sixteen goals and conceded nineteen.",
+      "text": "Chaminade's defeat at Point Loma on Thursday was their seventh in seven matches; they have scored four goals and conceded eighteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought two wins, one draw and five defeats.",
-      "checker": "team_record+unresolved",
+      "text": "Point Loma beat Chaminade on Thursday for their fourth win of the season against three draws and two defeats; they and Vanguard are the only sides to have won a conference match.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Chaminade have been beaten in all six matches they have played, scoring three goals and conceding fifteen; their next match is at Point Loma on Thursday.",
-      "checker": "team_goals+team_record",
+      "text": "Twelve matches dated in August still carry no published result, the earliest of them Vanguard's on the season's first day; the Vanguard matches that do have a score have brought two wins, one draw and five defeats.",
+      "checker": "team_record+unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Point Loma drew with Westmont on Saturday and have three wins, three draws and two defeats, with fifteen goals scored and eleven conceded.",
+      "text": "Westmont's defeat at Vanguard on Wednesday was their fifth against two wins and three draws; they have scored sixteen goals and conceded nineteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Evan Youngflesh — 4 G · 2 A · 15 shots",
+      "text": "Evan Youngflesh — 4 G · 3 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 vanguard v westmont",
+      "text": "2026-09-24 point-loma v chaminade",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-24 point-loma v chaminade",
+      "text": "2026-09-26 point-loma v hawaii-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-24T11:43:02.188Z",
-    "generate_ms": 75200,
+    "started_at": "2026-09-25T11:42:42.514Z",
+    "generate_ms": 67745,
     "validate_ms": 1,
-    "wall_ms": 75201,
+    "wall_ms": 67746,
     "concurrency": 4
   }
 }

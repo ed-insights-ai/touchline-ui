@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-24T11:50:00+00:00",
-  "data_collected_at": "2026-09-24T11:39:37+00:00",
+  "generated_at": "2026-09-25T11:50:00+00:00",
+  "data_collected_at": "2026-09-25T11:37:53+00:00",
   "headline": "Rollins avenge home defeat at Embry-Riddle",
   "dek": "Beaten at home by Embry-Riddle before conference play opened, Rollins won the return and ended their hosts' unbeaten season. Rollins have now won four matches, drawn one and lost two, and have not conceded a goal since losing at Tampa.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 12
   },
   "lede_updated": "2026-09-24",
-  "displaced_by": "Rollins won at Embry-Riddle, the last unbeaten side; Florida Southern no longer share the top of the table and have conceded seven, not six",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
@@ -26,14 +25,14 @@
         "florida-southern": 22,
         "embry-riddle": 16,
         "tampa": 15,
-        "palm-beach-atlantic": 14,
         "saint-leo": 14,
         "rollins": 13,
         "florida-tech": 12,
         "barry": 11,
         "lynn": 11,
         "eckerd": 9,
-        "nova-southeastern": 8
+        "nova-southeastern": 8,
+        "palm-beach-atlantic": 1
       },
       "highlight": "florida-southern"
     },
@@ -58,11 +57,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's against Florida Atlantic, Barry and Strive Academy, and Eckerd's at home to Trinity.",
+      "text": "One match has passed its date with no result: Eckerd's at home to Trinity.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 4
+        "past_date_no_result": 1
       }
     },
     {
@@ -77,23 +76,21 @@
     },
     {
       "label": "derived",
-      "text": "Palm Beach Atlantic have conceded six goals across three wins, three draws and two defeats.",
+      "text": "Florida Southern have won seven and lost one, the defeat coming at Saint Leo.",
       "basis": {
-        "programme": "palm-beach-atlantic",
-        "wins": 3,
-        "draws": 3,
-        "losses": 2,
-        "gf": 14,
-        "ga": 6
+        "programme": "florida-southern",
+        "wins": 7,
+        "draws": 0,
+        "losses": 1
       }
     },
     {
       "label": "derived",
-      "text": "Florida Tech have won four, drawn three and lost one, and have not lost since their opening match.",
+      "text": "Lynn have drawn four matches, more than they have won or lost.",
       "basis": {
-        "programme": "florida-tech",
-        "wins": 4,
-        "draws": 3,
+        "programme": "lynn",
+        "wins": 2,
+        "draws": 4,
         "losses": 1
       }
     },
@@ -110,13 +107,6 @@
   ],
   "players_to_watch": [
     {
-      "player": "Kobi Thomas",
-      "programme": "palm-beach-atlantic",
-      "position": "FWD",
-      "class": "SO",
-      "line": "8 G · 3 A · 30 shots"
-    },
-    {
       "player": "Darcy Moffat",
       "programme": "florida-southern",
       "position": "FWD",
@@ -129,6 +119,13 @@
       "position": "FWD",
       "class": "JR",
       "line": "6 G · 2 A · 23 shots"
+    },
+    {
+      "player": "Virgilio Escala",
+      "programme": "saint-leo",
+      "position": "FWD",
+      "class": "JR",
+      "line": "2 G · 7 A · 12 shots"
     }
   ],
   "featured": {
@@ -143,6 +140,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-24T11:46:09.330Z"
+    "validated_at": "2026-09-25T11:44:35.900Z"
   }
 }

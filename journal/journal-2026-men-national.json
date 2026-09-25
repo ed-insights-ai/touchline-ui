@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-24T12:05:00+00:00",
-  "data_collected_at": "2026-09-24T11:32:32+00:00",
-  "headline": "Daemen leave Roberts Wesleyan with a first win",
-  "dek": "Daemen had drawn two matches and lost six before last night, and had not won any. The record now reads one win, two draws and six defeats, and that win, taken away from home, is the only one in it.",
+  "generated_at": "2026-09-25T12:05:00+00:00",
+  "data_collected_at": "2026-09-25T11:37:00+00:00",
+  "headline": "Harding lose an eighth match, still without a win",
+  "dek": "Harding have played eight matches and lost all eight, with no win and no draw to set against them. Fort Hays State were the latest side to beat them, and no programme in the division has lost as often.",
   "basis": {
-    "programme": "daemen",
-    "wins": 1,
-    "draws": 2,
-    "losses": 6
+    "programme": "harding",
+    "wins": 0,
+    "draws": 0,
+    "losses": 8
   },
-  "fixture_ref": "2026-09-23 roberts-wesleyan v daemen",
-  "updated": "2026-09-24",
-  "displaced_by": "results night: Daemen's first win of the season after two draws and six defeats",
+  "fixture_ref": "2026-09-24 harding v fort-hays-state",
+  "updated": "2026-09-25",
+  "displaced_by": "results night: Harding's eighth defeat in eight matches, more than any programme in the division",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-24T11:46:59.425Z"
+    "validated_at": "2026-09-25T11:45:17.974Z"
   }
 }

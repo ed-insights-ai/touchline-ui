@@ -3,25 +3,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-24T11:40:00Z",
-  "data_collected_at": "2026-09-24T11:32:32+00:00",
-  "headline": "Northeastern State take a first point off Southern Nazarene",
-  "dek": "Northeastern State had lost both of their conference matches by a single goal before Southern Nazarene visited on Wednesday and went home with a draw. Southern Nazarene still lead the table, a point ahead of Fort Hays State, who have played once fewer and won both times.",
+  "generated_at": "2026-09-25T11:40:00Z",
+  "data_collected_at": "2026-09-25T11:32:24+00:00",
+  "headline": "Fort Hays State go top after third conference win",
+  "dek": "Fort Hays State won at Harding on Thursday and lead the table by two points from Southern Nazarene, each side having played three conference matches. They have conceded five goals in eight matches this season, and only one of them in conference play.",
   "lede_basis": {
-    "nsu_conference_points": 1,
-    "nsu_conference_losses_before_draw": 2,
-    "nsu_losing_margin_each": 1,
-    "nsu_conference_played": 3,
+    "fhsu_conference_wins": 3,
+    "fhsu_conference_played": 3,
+    "fhsu_conference_points": 9,
     "snu_conference_points": 7,
     "snu_conference_played": 3,
-    "fhsu_conference_points": 6,
-    "fhsu_conference_played": 2,
-    "fhsu_conference_wins": 2,
-    "points_gap_snu_over_fhsu": 1,
-    "matches_played_difference": 1
+    "points_gap_fhsu_over_snu": 2,
+    "fhsu_season_played": 8,
+    "fhsu_season_ga": 5,
+    "fhsu_conference_ga": 1
   },
-  "lede_updated": "2026-09-24",
-  "displaced_by": "Southern Nazarene held to a draw at Northeastern State on 2026-09-23: Northeastern State's first conference point, and the top of the table is no longer level",
+  "lede_updated": "2026-09-25",
+  "displaced_by": "Fort Hays State won at Harding on 2026-09-24 and went top, two points clear of Southern Nazarene with the same matches played",
   "pattern": {
     "label": "derived",
     "text": "Rogers State have outscored Newman and Northeastern State put together.",
@@ -29,9 +27,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "rogers-state": 17,
+        "fort-hays-state": 14,
         "southern-nazarene": 13,
-        "fort-hays-state": 12,
-        "ouachita-baptist": 10,
+        "ouachita-baptist": 11,
         "northeastern-state": 9,
         "newman": 7,
         "harding": 4
@@ -47,14 +45,13 @@
     }
   },
   "wire": {
-    "line": "Southern Nazarene are held at Northeastern State, who had lost every conference match until Wednesday, and still lead the table.",
+    "line": "Ouachita Baptist have conceded four goals all season, fewer than any other side in the conference.",
     "basis": {
-      "programme": "southern-nazarene",
-      "wins": 5,
-      "draws": 1,
-      "losses": 2
+      "programme": "ouachita-baptist",
+      "gf": 11,
+      "ga": 4
     },
-    "updated": "2026-09-24"
+    "updated": "2026-09-25"
   },
   "findings": [
     {
@@ -68,14 +65,14 @@
     },
     {
       "label": "derived",
-      "text": "Harding have conceded 23 goals in losing all seven of their matches.",
+      "text": "Harding have conceded 25 goals in losing all eight of their matches.",
       "basis": {
         "programme": "harding",
         "wins": 0,
         "draws": 0,
-        "losses": 7,
+        "losses": 8,
         "gf": 4,
-        "ga": 23
+        "ga": 25
       }
     },
     {
@@ -88,13 +85,14 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Southern Nazarene have won five matches, lost two and drawn one, the draw coming at Northeastern State on Wednesday.",
+      "label": "observed",
+      "text": "Payton Roehrich has made twenty saves for Fort Hays State and conceded four goals.",
       "basis": {
-        "programme": "southern-nazarene",
-        "wins": 5,
-        "draws": 1,
-        "losses": 2
+        "source": "stats",
+        "player": "Payton Roehrich",
+        "programme": "fort-hays-state",
+        "saves": 20,
+        "goals_against": 4
       }
     },
     {
@@ -129,21 +127,21 @@
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "3 G · 2 A · 9 shots"
+      "line": "3 G · 2 A · 13 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-23 northeastern-state v southern-nazarene",
-      "line": "Southern Nazarene arrived having won every conference match they had played; Northeastern State had lost every one of theirs."
+      "fixture_ref": "2026-09-24 harding v fort-hays-state",
+      "line": "Harding have lost every match they have played this season; Fort Hays State's only defeat came against Regis in August."
     },
     "next_match": {
-      "fixture_ref": "2026-09-24 harding v fort-hays-state",
-      "line": "Fort Hays State have won every conference match so far; Harding have yet to win a match of any kind this season."
+      "fixture_ref": "2026-09-26 ouachita-baptist v fort-hays-state",
+      "line": "Ouachita Baptist have kept a clean sheet in every match they have won this season; Fort Hays State have yet to lose a conference match."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-24T11:41:48.217Z"
+    "validated_at": "2026-09-25T11:43:49.358Z"
   }
 }

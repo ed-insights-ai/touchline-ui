@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-24T11:44:18.238Z",
-  "data_collected_at": "2026-09-24T11:36:24+00:00",
+  "validated_at": "2026-09-25T11:44:19.266Z",
+  "data_collected_at": "2026-09-25T11:37:00+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "UCCS have scored more goals than Regis, Colorado School of Mines and Adams State have together; the scoring is concentrated in two programmes at the top of the chart and thins quickly below them.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The chart is stretched at both ends: South Dakota Mines have scored more goals than Colorado Mesa, Colorado School of Mines and Adams State have together, and UCCS have matched them goal for goal.",
+      "text": "UCCS have scored more goals than Regis, Colorado School of Mines and Adams State have together; the scoring is concentrated in two programmes at the top of the chart and thins quickly below them.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "CSU Pueblo have won every match they have played, six in all, and no other programme has as many wins.",
-      "checker": "team_record+comparative",
+      "text": "CSU Pueblo are the last unbeaten side in the conference after UCCS lost at Colorado Mesa.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Adams State's defeat at South Dakota Mines on Sunday was their fourth, beside one win and one draw, and they have scored one goal against thirteen conceded.",
+      "text": "CSU Pueblo's win at Westminster on Wednesday was their seventh in seven matches, and they have conceded three goals in all of them.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,8 +71,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "South Dakota Mines' win over Adams State on Sunday was their fourth of the season, beside two draws and one defeat, and they have scored twenty-one goals in all.",
-      "checker": "team_goals+team_record",
+      "text": "UCCS's defeat at Colorado Mesa on Wednesday was their first of the season, beside five wins and three draws.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Colorado Mesa's win at Colorado Christian on Sunday was their second of the season, beside four draws and one defeat.",
+      "text": "Colorado Mesa's win over UCCS on Wednesday was their third of the season, beside four draws and one defeat.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,8 +89,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Regis's home defeat to UCCS on Sunday was their second of the season, beside three wins and two draws, and they have conceded five goals in all.",
-      "checker": "team_goals+team_record",
+      "text": "Westminster's home defeat to CSU Pueblo on Wednesday was their fourth of the season, beside two wins and three draws.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Nickolas North — 4 G · 4 A · 19 shots",
+      "text": "Yohann Fila — 5 G · 2 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Simão Agostinho — 5 G · 1 A · 25 shots",
+      "text": "Richie Tabares Ochoa — 5 G · 2 A · 24 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Richie Tabares Ochoa — 5 G · 1 A · 22 shots",
+      "text": "Nickolas North — 4 G · 4 A · 19 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-20 fort-lewis v csu-pueblo",
+      "text": "2026-09-24 colorado-mesa v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-24 colorado-mesa v uccs",
+      "text": "2026-09-25 colorado-christian v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-24T11:43:44.949Z",
-    "generate_ms": 33288,
+    "started_at": "2026-09-25T11:43:20.814Z",
+    "generate_ms": 58450,
     "validate_ms": 1,
-    "wall_ms": 33289,
+    "wall_ms": 58451,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-09-24T11:41:48.217Z",
-  "data_collected_at": "2026-09-24T11:32:32+00:00",
+  "validated_at": "2026-09-25T11:43:49.358Z",
+  "data_collected_at": "2026-09-25T11:32:24+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Southern Nazarene are held at Northeastern State, who had lost every conference match until Wednesday, and still lead the table.",
-      "checker": "team_record",
+      "text": "Ouachita Baptist have conceded four goals all season, fewer than any other side in the conference.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Harding have conceded 23 goals in losing all seven of their matches.",
+      "text": "Harding have conceded 25 goals in losing all eight of their matches.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -73,9 +73,9 @@
     },
     {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "Southern Nazarene have won five matches, lost two and drawn one, the draw coming at Northeastern State on Wednesday.",
-      "checker": "team_record",
+      "label": "observed",
+      "text": "Payton Roehrich has made twenty saves for Fort Hays State and conceded four goals.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Juan Linares — 3 G · 2 A · 9 shots",
+      "text": "Juan Linares — 3 G · 2 A · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 northeastern-state v southern-nazarene",
+      "text": "2026-09-24 harding v fort-hays-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-24 harding v fort-hays-state",
+      "text": "2026-09-26 ouachita-baptist v fort-hays-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-24T11:40:34.362Z",
-    "generate_ms": 73853,
+    "started_at": "2026-09-25T11:41:37.725Z",
+    "generate_ms": 131550,
     "validate_ms": 1,
-    "wall_ms": 73854,
+    "wall_ms": 131631,
     "concurrency": 4
   }
 }

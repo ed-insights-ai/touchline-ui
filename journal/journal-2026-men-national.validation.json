@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-24T11:46:59.425Z",
+  "validated_at": "2026-09-25T11:45:17.974Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Daemen leave Roberts Wesleyan with a first win Daemen had drawn two matches and lost six before last night, and had not won any. The record now reads one win, two draws and six defeats, and that win, taken away from home, is the only one in it.",
+      "text": "Harding lose an eighth match, still without a win Harding have played eight matches and lost all eight, with no win and no draw to set against them. Fort Hays State were the latest side to beat them, and no programme in the division has lost as often.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-24T11:46:12.166Z",
-    "generate_ms": 47256,
-    "validate_ms": 2,
-    "wall_ms": 47259
+    "started_at": "2026-09-25T11:44:37.721Z",
+    "generate_ms": 40251,
+    "validate_ms": 1,
+    "wall_ms": 40253
   }
 }

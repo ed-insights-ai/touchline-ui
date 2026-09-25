@@ -3,54 +3,55 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-23T11:40:00+00:00",
-  "data_collected_at": "2026-09-23T11:31:53+00:00",
-  "headline": "Lake Erie join Tiffin and Thomas More at the top",
-  "dek": "Lake Erie beat Ohio Dominican on Thursday to draw level with Tiffin and Thomas More at the top of the table, none of them beaten in conference play. Cedarville, who had shared the lead with Tiffin, lost at home to Malone. Lake Erie's two defeats both came away from home before conference play opened.",
+  "generated_at": "2026-09-25T11:40:00+00:00",
+  "data_collected_at": "2026-09-25T11:31:58+00:00",
+  "headline": "Thomas More stand alone at the top",
+  "dek": "Thomas More beat Ohio Dominican on Thursday and lead the table on their own, after Lake Erie lost at Findlay. Thomas More have won six matches and lost two, both defeats coming before conference play opened. Tiffin, still unbeaten in conference play, are the only other side yet to lose one.",
   "lede_basis": {
-    "programme": "lake-erie",
-    "wins": 4,
-    "draws": 2,
+    "programme": "thomas-more",
+    "wins": 6,
+    "draws": 1,
     "losses": 2
   },
-  "lede_updated": "2026-09-18",
+  "lede_updated": "2026-09-25",
+  "displaced_by": "Lake Erie lost at Findlay; Thomas More lead the table alone.",
   "pattern": {
     "label": "derived",
-    "text": "The scoring sits with the sides at the top of the table: Lake Erie's seventeen goals are more than Kentucky Wesleyan and Northwood have managed together.",
+    "text": "The goals are going short at the bottom of the table: Lake Erie's eighteen are more than Malone and Walsh have scored between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "lake-erie": 17,
+        "lake-erie": 18,
+        "thomas-more": 16,
         "tiffin": 16,
-        "thomas-more": 15,
-        "findlay": 12,
-        "ashland": 9,
+        "findlay": 14,
+        "ashland": 12,
+        "kentucky-wesleyan": 11,
+        "cedarville": 10,
         "malone": 8,
         "northwood": 8,
         "walsh": 8,
-        "cedarville": 7,
-        "ohio-dominican": 7,
-        "kentucky-wesleyan": 5
+        "ohio-dominican": 7
       },
       "highlight": "lake-erie"
     },
     "basis": {
       "programme": "lake-erie",
-      "gf": 17,
+      "gf": 18,
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "of": ["kentucky-wesleyan", "northwood"]
+      "of": ["malone", "walsh"]
     }
   },
   "wire": {
-    "line": "No perfect conference record survives: Cedarville lost at home to Malone and Tiffin drew, letting Lake Erie and Thomas More draw level.",
+    "line": "Thomas More lead the table alone after Findlay end Lake Erie's unbeaten conference run.",
     "basis": {
-      "programme": "cedarville",
-      "wins": 2,
+      "programme": "thomas-more",
+      "wins": 6,
       "draws": 1,
-      "losses": 5
+      "losses": 2
     },
-    "updated": "2026-09-18"
+    "updated": "2026-09-25"
   },
   "findings": [
     {
@@ -75,51 +76,52 @@
     },
     {
       "label": "observed",
-      "text": "Ohio Dominican have conceded eighteen goals, and have won once, drawn twice and lost four times.",
+      "text": "Findlay have won six matches and lost one, away to Kentucky Wesleyan, and have conceded six goals.",
+      "basis": {
+        "programme": "findlay",
+        "wins": 6,
+        "draws": 1,
+        "losses": 1,
+        "ga": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Ohio Dominican have conceded nineteen goals, and have won once, drawn twice and lost five times.",
       "basis": {
         "programme": "ohio-dominican",
         "wins": 1,
         "draws": 2,
-        "losses": 4,
-        "ga": 18
+        "losses": 5,
+        "ga": 19
       }
     },
     {
       "label": "observed",
-      "text": "Alex Banjac has scored five goals for Lake Erie from fifteen shots.",
+      "text": "Tom Woodward has scored five goals for Ashland from thirty-five shots.",
       "basis": {
         "source": "stats",
-        "player": "Alex Banjac",
-        "programme": "lake-erie",
+        "player": "Tom Woodward",
+        "programme": "ashland",
         "goals": 5,
-        "shots": 15
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Nick Cherry has kept five clean sheets in goal for Tiffin.",
-      "basis": {
-        "source": "stats",
-        "player": "Nick Cherry",
-        "programme": "tiffin",
-        "shutouts": 5
+        "shots": 35
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Tom Woodward",
+      "programme": "ashland",
+      "position": "FWD",
+      "class": "SO",
+      "line": "5 G · 4 A · 35 shots"
+    },
     {
       "player": "Alex Banjac",
       "programme": "lake-erie",
       "position": "FWD",
       "class": "JR",
       "line": "5 G · 1 A · 15 shots"
-    },
-    {
-      "player": "Tom Woodward",
-      "programme": "ashland",
-      "position": "FWD",
-      "class": "SO",
-      "line": "3 G · 3 A · 29 shots"
     },
     {
       "player": "Garbhan Feeney",
@@ -131,16 +133,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-19 walsh v tiffin",
-      "line": "Tiffin have yet to lose a conference match; Walsh have yet to win one."
+      "fixture_ref": "2026-09-24 findlay v lake-erie",
+      "line": "Findlay's only defeat of the season came away to Kentucky Wesleyan; Lake Erie had been unbeaten in conference play until this."
     },
     "next_match": {
-      "fixture_ref": "2026-09-24 findlay v lake-erie",
-      "line": "Lake Erie are unbeaten in conference play; Findlay's only conference defeat came away to Kentucky Wesleyan."
+      "fixture_ref": "2026-09-26 thomas-more v malone",
+      "line": "Thomas More have yet to lose at home this season; Malone's win at Cedarville is their only conference victory."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-23T11:40:43.346Z"
+    "validated_at": "2026-09-25T11:42:14.956Z"
   }
 }

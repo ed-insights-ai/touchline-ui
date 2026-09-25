@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-09-23T11:40:43.346Z",
-  "data_collected_at": "2026-09-23T11:31:53+00:00",
+  "validated_at": "2026-09-25T11:42:14.956Z",
+  "data_collected_at": "2026-09-25T11:31:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The scoring sits with the sides at the top of the table: Lake Erie's seventeen goals are more than Kentucky Wesleyan and Northwood have managed together.",
+      "text": "The goals are going short at the bottom of the table: Lake Erie's eighteen are more than Malone and Walsh have scored between them.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "No perfect conference record survives: Cedarville lost at home to Malone and Tiffin drew, letting Lake Erie and Thomas More draw level.",
+      "text": "Thomas More lead the table alone after Findlay end Lake Erie's unbeaten conference run.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Ohio Dominican have conceded eighteen goals, and have won once, drawn twice and lost four times.",
+      "text": "Findlay have won six matches and lost one, away to Kentucky Wesleyan, and have conceded six goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Alex Banjac has scored five goals for Lake Erie from fifteen shots.",
-      "checker": "player_stat",
+      "text": "Ohio Dominican have conceded nineteen goals, and have won once, drawn twice and lost five times.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Nick Cherry has kept five clean sheets in goal for Tiffin.",
+      "text": "Tom Woodward has scored five goals for Ashland from thirty-five shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Alex Banjac — 5 G · 1 A · 15 shots",
+      "text": "Tom Woodward — 5 G · 4 A · 35 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Tom Woodward — 3 G · 3 A · 29 shots",
+      "text": "Alex Banjac — 5 G · 1 A · 15 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-19 walsh v tiffin",
+      "text": "2026-09-24 findlay v lake-erie",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-24 findlay v lake-erie",
+      "text": "2026-09-26 thomas-more v malone",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-23T11:40:15.184Z",
-    "generate_ms": 28161,
+    "started_at": "2026-09-25T11:41:05.449Z",
+    "generate_ms": 69506,
     "validate_ms": 1,
-    "wall_ms": 28162,
+    "wall_ms": 69507,
     "concurrency": 4
   }
 }
