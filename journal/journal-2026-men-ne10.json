@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-25T11:45:00+00:00",
-  "data_collected_at": "2026-09-25T11:35:14+00:00",
+  "generated_at": "2026-09-26T12:05:00+00:00",
+  "data_collected_at": "2026-09-26T11:50:55+00:00",
   "headline": "Southern New Hampshire and Bentley take maximum points",
   "dek": "Both have won their two conference matches, and no other programme has won more than one. Southern New Hampshire are also the only side yet to lose at all: unbeaten in eight, with twenty-nine goals scored and eight conceded.",
   "lede_basis": {
@@ -29,11 +29,11 @@
       "values": {
         "southern-new-hampshire": 29,
         "assumption": 18,
-        "franklin-pierce": 18,
         "pace": 13,
         "american-international": 12,
         "bentley": 11,
         "adelphi": 10,
+        "franklin-pierce": 10,
         "saint-anselm": 10,
         "saint-michael-s": 10,
         "southern-connecticut": 8
@@ -133,18 +133,18 @@
       "line": "9 G · 2 A · 44 shots"
     },
     {
-      "player": "Guillermo Rios",
-      "programme": "franklin-pierce",
-      "position": "FWD",
-      "class": "SR",
-      "line": "8 G · 19 shots"
-    },
-    {
       "player": "Inigo Burusco",
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
       "line": "7 G · 2 A · 22 shots"
+    },
+    {
+      "player": "Chance Prouty",
+      "programme": "saint-anselm",
+      "position": "MID",
+      "class": "JR",
+      "line": "4 G · 3 A · 34 shots"
     }
   ],
   "featured": {
@@ -159,6 +159,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-25T11:42:52.756Z"
+    "validated_at": "2026-09-26T12:11:07.224Z"
   }
 }

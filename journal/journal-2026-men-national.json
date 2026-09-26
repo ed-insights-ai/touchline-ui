@@ -2,21 +2,38 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-25T12:05:00+00:00",
-  "data_collected_at": "2026-09-25T11:37:00+00:00",
-  "headline": "Harding lose an eighth match, still without a win",
-  "dek": "Harding have played eight matches and lost all eight, with no win and no draw to set against them. Fort Hays State were the latest side to beat them, and no programme in the division has lost as often.",
+  "generated_at": "2026-09-26T12:15:00+00:00",
+  "data_collected_at": "2026-09-26T11:38:40+00:00",
+  "headline": "Roosevelt draw again and remain the division's longest unbeaten side",
+  "dek": "Roosevelt's draw with Northern Michigan leaves their record still clear of a defeat, and no other unbeaten programme in the division has played as many matches. North Georgia, in the Peach Belt, are the next longest to have gone without losing.",
   "basis": {
-    "programme": "harding",
-    "wins": 0,
-    "draws": 0,
-    "losses": 8
+    "comparative": "greater_than_each",
+    "metric": "played",
+    "programme": "roosevelt",
+    "of": [
+      "north-georgia",
+      "midwestern-state",
+      "southern-new-hampshire",
+      "anderson",
+      "lees-mcrae",
+      "cal-state-la",
+      "cal-state-san-bernardino",
+      "uah",
+      "lincoln",
+      "csu-pueblo",
+      "davis-elkins",
+      "catawba",
+      "young-harris",
+      "franklin-pierce",
+      "emory-henry",
+      "holy-family"
+    ]
   },
-  "fixture_ref": "2026-09-24 harding v fort-hays-state",
-  "updated": "2026-09-25",
-  "displaced_by": "results night: Harding's eighth defeat in eight matches, more than any programme in the division",
+  "fixture_ref": "2026-09-25 roosevelt v northern-michigan",
+  "updated": "2026-09-26",
+  "displaced_by": "results night: Roosevelt's draw with Northern Michigan keeps them unbeaten through more matches than any other unbeaten side in the division",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-25T11:45:17.974Z"
+    "validated_at": "2026-09-26T12:13:39.604Z"
   }
 }

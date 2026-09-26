@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-09-25T11:41:43.217Z",
-  "data_collected_at": "2026-09-25T11:31:02+00:00",
+  "validated_at": "2026-09-26T12:09:51.832Z",
+  "data_collected_at": "2026-09-26T11:36:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fresno Pacific's 27 goals are more than Stanislaus State and Cal State San Bernardino have scored together, and ten different players have shared them.",
+      "text": "Fresno Pacific's 27 goals are more than Cal State LA and Chico State have scored between them, and ten different players have shared them; the conference's unbeaten sides are not its top scorers.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Cal State East Bay have their first win of the season, away at Cal Poly Humboldt, after two draws and five defeats.",
-      "checker": "team_record",
+      "text": "Cal State LA have conceded their first goal of the season, in their eighth match, and won the match anyway.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,25 +56,26 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Cal State San Bernardino have won five and drawn two after winning at Cal State San Marcos, and have conceded three goals across them.",
-      "checker": "team_goals+team_record",
+      "text": "Cal State San Bernardino have won six and drawn two after beating Cal Poly Humboldt at home, and have conceded four goals across those eight matches.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "UC Merced lost for the first time this season, at home to Fresno Pacific, after two wins and three draws.",
-      "checker": "team_record",
+      "label": "derived",
+      "text": "Cal State East Bay have conceded 29 goals in nine matches, more than any other programme in the conference.",
+      "checker": "team_goals+team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is cal-poly-humboldt at 18"
     },
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Stanislaus State have drawn four of their eight matches, more draws than any other side in the conference.",
+      "text": "Stanislaus State have drawn four of their nine matches, more draws than any other side in the conference.",
       "checker": "team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +103,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kai Martin — 6 G · 13 shots",
+      "text": "Alexis Cervantes — 6 G · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -111,7 +112,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Alexis Cervantes — 5 G · 21 shots",
+      "text": "Kai Martin — 6 G · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +121,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-20 cal-state-monterey-bay v cal-state-la",
+      "text": "2026-09-25 cal-state-la v stanislaus-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +130,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-25 cal-state-la v stanislaus-state",
+      "text": "2026-09-27 cal-state-san-bernardino v chico-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +138,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-25T11:41:05.446Z",
-    "generate_ms": 37769,
-    "validate_ms": 1,
-    "wall_ms": 37771,
+    "started_at": "2026-09-26T12:08:45.956Z",
+    "generate_ms": 65874,
+    "validate_ms": 2,
+    "wall_ms": 65876,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-25T11:42:52.756Z",
-  "data_collected_at": "2026-09-25T11:35:14+00:00",
+  "validated_at": "2026-09-26T12:11:07.224Z",
+  "data_collected_at": "2026-09-26T11:50:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -106,7 +106,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Guillermo Rios — 8 G · 19 shots",
+      "text": "Inigo Burusco — 7 G · 2 A · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -115,7 +115,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Inigo Burusco — 7 G · 2 A · 22 shots",
+      "text": "Chance Prouty — 4 G · 3 A · 34 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -141,10 +141,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-25T11:42:21.600Z",
-    "generate_ms": 31155,
+    "started_at": "2026-09-26T12:10:29.965Z",
+    "generate_ms": 37259,
     "validate_ms": 1,
-    "wall_ms": 31156,
+    "wall_ms": 37260,
     "concurrency": 4
   }
 }

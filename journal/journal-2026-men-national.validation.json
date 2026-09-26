@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-25T11:45:17.974Z",
+  "validated_at": "2026-09-26T12:13:39.604Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Harding lose an eighth match, still without a win Harding have played eight matches and lost all eight, with no win and no draw to set against them. Fort Hays State were the latest side to beat them, and no programme in the division has lost as often.",
-      "checker": "team_record",
+      "text": "Roosevelt draw again and remain the division's longest unbeaten side Roosevelt's draw with Northern Michigan leaves their record still clear of a defeat, and no other unbeaten programme in the division has played as many matches. North Georgia, in the Peach Belt, are the next longest to have gone without losing.",
+      "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-09-25T11:44:37.721Z",
-    "generate_ms": 40251,
-    "validate_ms": 1,
-    "wall_ms": 40253
+    "started_at": "2026-09-26T12:12:12.846Z",
+    "generate_ms": 86756,
+    "validate_ms": 2,
+    "wall_ms": 86759
   }
 }

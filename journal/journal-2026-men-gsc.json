@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-24T11:40:00+00:00",
-  "data_collected_at": "2026-09-24T11:33:40+00:00",
+  "generated_at": "2026-09-26T11:50:00+00:00",
+  "data_collected_at": "2026-09-26T11:43:29+00:00",
   "headline": "UAH last unbeaten side after Trevecca fall",
   "dek": "Trevecca's defeat at home to Lee on Wednesday leaves UAH the only programme yet to lose a match. They have won six and drawn one, conceding three goals in seven, and go to AUM on Saturday, who are unbeaten in the conference too.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "played": 7
   },
   "lede_updated": "2026-09-24",
-  "displaced_by": "Trevecca's first defeat leaves UAH the only unbeaten programme",
   "pattern": {
     "label": "derived",
     "text": "Goals have not meant points: West Alabama have scored 26 and conceded sixteen, and have won three of nine matches.",
@@ -28,10 +27,10 @@
         "christian-brothers": 15,
         "uah": 15,
         "aum": 14,
-        "mississippi-college": 14,
         "lee": 10,
         "montevallo": 10,
         "union": 8,
+        "mississippi-college": 7,
         "delta-state": 5,
         "spring-hill": 1
       },
@@ -127,11 +126,11 @@
       "line": "7 G · 1 A · 18 shots"
     },
     {
-      "player": "Karim Gegg",
-      "programme": "mississippi-college",
+      "player": "Oli Orzechowski",
+      "programme": "uah",
       "position": "FWD",
-      "class": "SO",
-      "line": "5 G · 2 A · 32 shots"
+      "class": "SR",
+      "line": "4 G · 28 shots"
     }
   ],
   "featured": {
@@ -146,6 +145,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-24T11:42:45.190Z"
+    "validated_at": "2026-09-26T12:10:27.126Z"
   }
 }

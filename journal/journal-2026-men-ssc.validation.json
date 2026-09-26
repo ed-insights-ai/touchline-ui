@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-25T11:44:35.900Z",
-  "data_collected_at": "2026-09-25T11:37:53+00:00",
+  "validated_at": "2026-09-26T12:11:52.570Z",
+  "data_collected_at": "2026-09-26T12:07:50+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "One match has passed its date with no result: Eckerd's at home to Trinity.",
+      "text": "Four matches have passed their date with no result: Palm Beach Atlantic's from August, and Eckerd's at home to Trinity in September.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Lynn have drawn four matches, more than they have won or lost.",
-      "checker": "team_record",
+      "text": "Palm Beach Atlantic have conceded six goals across three wins, three draws and two defeats.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Ricardo Marques has kept four shutouts for Florida Southern.",
+      "text": "Kobi Thomas has eight goals and three assists for Palm Beach Atlantic.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Darcy Moffat — 5 G · 5 A · 15 shots",
+      "text": "Kobi Thomas — 8 G · 3 A · 30 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Finlay Prain — 6 G · 2 A · 23 shots",
+      "text": "Darcy Moffat — 5 G · 5 A · 15 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Virgilio Escala — 2 G · 7 A · 12 shots",
+      "text": "Finlay Prain — 6 G · 2 A · 23 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-25T11:43:49.432Z",
-    "generate_ms": 46467,
+    "started_at": "2026-09-26T12:11:07.298Z",
+    "generate_ms": 45271,
     "validate_ms": 1,
-    "wall_ms": 46467,
+    "wall_ms": 45271,
     "concurrency": 4
   }
 }

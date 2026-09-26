@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-25T11:40:00Z",
-  "data_collected_at": "2026-09-25T11:32:24+00:00",
+  "generated_at": "2026-09-26T11:45:00Z",
+  "data_collected_at": "2026-09-26T11:38:40+00:00",
   "headline": "Fort Hays State go top after third conference win",
   "dek": "Fort Hays State won at Harding on Thursday and lead the table by two points from Southern Nazarene, each side having played three conference matches. They have conceded five goals in eight matches this season, and only one of them in conference play.",
   "lede_basis": {
@@ -19,7 +19,6 @@
     "fhsu_conference_ga": 1
   },
   "lede_updated": "2026-09-25",
-  "displaced_by": "Fort Hays State won at Harding on 2026-09-24 and went top, two points clear of Southern Nazarene with the same matches played",
   "pattern": {
     "label": "derived",
     "text": "Rogers State have outscored Newman and Northeastern State put together.",
@@ -32,7 +31,7 @@
         "ouachita-baptist": 11,
         "northeastern-state": 9,
         "newman": 7,
-        "harding": 4
+        "harding": 1
       },
       "highlight": "rogers-state"
     },
@@ -65,14 +64,14 @@
     },
     {
       "label": "derived",
-      "text": "Harding have conceded 25 goals in losing all eight of their matches.",
+      "text": "Harding have lost both of their matches, scoring once and conceding five goals.",
       "basis": {
         "programme": "harding",
         "wins": 0,
         "draws": 0,
-        "losses": 8,
-        "gf": 4,
-        "ga": 25
+        "losses": 2,
+        "gf": 1,
+        "ga": 5
       }
     },
     {
@@ -142,6 +141,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-25T11:43:49.358Z"
+    "validated_at": "2026-09-26T12:09:52.086Z"
   }
 }
