@@ -3,32 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-09-26T11:45:00+00:00",
-  "data_collected_at": "2026-09-26T11:38:15+00:00",
-  "headline": "Thomas More stand alone at the top",
-  "dek": "Thomas More beat Ohio Dominican on Thursday and lead the table on their own, after Lake Erie lost at Findlay. Thomas More have won six matches and lost two, both defeats coming before conference play opened. Tiffin, still unbeaten in conference play, are the only other side yet to lose one.",
+  "generated_at": "2026-09-27T11:45:00+00:00",
+  "data_collected_at": "2026-09-27T11:34:09+00:00",
+  "headline": "Thomas More's defence holds them clear at the top",
+  "dek": "Thomas More beat Malone on Saturday for their seventh win of the season, and have conceded eight goals in all matches, both of their defeats coming before conference play opened. Tiffin, who beat Northwood the same afternoon, remain the only other side unbeaten in conference play.",
   "lede_basis": {
     "programme": "thomas-more",
-    "wins": 6,
+    "wins": 7,
     "draws": 1,
-    "losses": 2
+    "losses": 2,
+    "gf": 18,
+    "ga": 8
   },
-  "lede_updated": "2026-09-25",
+  "lede_updated": "2026-09-27",
+  "displaced_by": "Thomas More's seventh win, at home to Malone; the standing dek's six-win figure no longer held",
   "pattern": {
     "label": "derived",
-    "text": "The goals are going short at the bottom of the table: Lake Erie's eighteen are more than Malone and Walsh have scored between them.",
+    "text": "The goals are going short at the bottom of the table: Lake Erie's twenty are more than Malone and Walsh have scored between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "lake-erie": 18,
-        "thomas-more": 16,
-        "tiffin": 16,
+        "lake-erie": 20,
+        "thomas-more": 18,
+        "tiffin": 18,
         "findlay": 14,
-        "ashland": 12,
-        "kentucky-wesleyan": 11,
-        "cedarville": 10,
+        "ashland": 13,
+        "cedarville": 12,
+        "kentucky-wesleyan": 12,
+        "northwood": 9,
         "malone": 8,
-        "northwood": 8,
         "walsh": 8,
         "ohio-dominican": 7
       },
@@ -36,7 +39,7 @@
     },
     "basis": {
       "programme": "lake-erie",
-      "gf": 18,
+      "gf": 20,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["malone", "walsh"]
@@ -46,7 +49,7 @@
     "line": "Thomas More lead the table alone after Findlay end Lake Erie's unbeaten conference run.",
     "basis": {
       "programme": "thomas-more",
-      "wins": 6,
+      "wins": 7,
       "draws": 1,
       "losses": 2
     },
@@ -55,55 +58,68 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Five matches have gone past their date with no published result. Kentucky Wesleyan account for most of them, and Walsh's visit to Pitt-Johnstown is the other.",
+      "text": "Four matches have gone past their date with no published result; all but Walsh's visit to Pitt-Johnstown are Kentucky Wesleyan's.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 5
+        "past_date_no_result": 4
       }
     },
     {
       "label": "observed",
-      "text": "Tiffin have conceded five goals all season and have lost only once, at home to Charleston on the opening day; since then they have won four and drawn three.",
+      "text": "Tiffin have conceded six goals all season and have lost only once, at home to Charleston on the opening day; since then they have won five and drawn three.",
       "basis": {
         "programme": "tiffin",
-        "wins": 4,
+        "wins": 5,
         "draws": 3,
-        "losses": 1,
-        "ga": 5
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Findlay have won six matches and lost one, away to Kentucky Wesleyan, and have conceded six goals.",
-      "basis": {
-        "programme": "findlay",
-        "wins": 6,
-        "draws": 1,
         "losses": 1,
         "ga": 6
       }
     },
     {
-      "label": "observed",
-      "text": "Ohio Dominican have conceded nineteen goals, and have won once, drawn twice and lost five times.",
+      "label": "derived",
+      "text": "Walsh have conceded twenty-five goals, more than any other programme in the conference, and have won once, drawn once and lost seven times.",
       "basis": {
-        "programme": "ohio-dominican",
+        "programme": "walsh",
+        "ga": 25,
         "wins": 1,
-        "draws": 2,
-        "losses": 5,
-        "ga": 19
+        "draws": 1,
+        "losses": 7,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "ashland",
+          "cedarville",
+          "findlay",
+          "kentucky-wesleyan",
+          "lake-erie",
+          "malone",
+          "northwood",
+          "ohio-dominican",
+          "thomas-more",
+          "tiffin"
+        ]
       }
     },
     {
       "label": "observed",
-      "text": "Tom Woodward has scored five goals for Ashland from thirty-five shots.",
+      "text": "Nick Cherry has kept five clean sheets for Tiffin.",
+      "basis": {
+        "source": "stats",
+        "player": "Nick Cherry",
+        "programme": "tiffin",
+        "shutouts": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Tom Woodward has scored five goals for Ashland from thirty-eight shots.",
       "basis": {
         "source": "stats",
         "player": "Tom Woodward",
         "programme": "ashland",
         "goals": 5,
-        "shots": 35
+        "shots": 38
       }
     }
   ],
@@ -113,7 +129,7 @@
       "programme": "ashland",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 4 A · 35 shots"
+      "line": "5 G · 4 A · 38 shots"
     },
     {
       "player": "Alex Banjac",
@@ -127,21 +143,21 @@
       "programme": "tiffin",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 5 A · 25 shots"
+      "line": "3 G · 5 A · 26 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-24 findlay v lake-erie",
-      "line": "Findlay's only defeat of the season came away to Kentucky Wesleyan; Lake Erie had been unbeaten in conference play until this."
+      "fixture_ref": "2026-09-26 thomas-more v malone",
+      "line": "Thomas More have still not lost at home this season; Malone's win at Cedarville remains their only conference victory."
     },
     "next_match": {
-      "fixture_ref": "2026-09-26 thomas-more v malone",
-      "line": "Thomas More have yet to lose at home this season; Malone's win at Cedarville is their only conference victory."
+      "fixture_ref": "2026-10-01 lake-erie v cedarville",
+      "line": "Lake Erie's only conference defeat came at Findlay; Cedarville arrive having beaten Northwood and then won at Ashland."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-26T12:09:47.450Z"
+    "validated_at": "2026-09-27T12:20:06.843Z"
   }
 }

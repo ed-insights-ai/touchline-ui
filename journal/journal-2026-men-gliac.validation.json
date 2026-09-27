@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-26T12:10:56.219Z",
-  "data_collected_at": "2026-09-26T11:42:23+00:00",
+  "validated_at": "2026-09-27T12:20:28.278Z",
+  "data_collected_at": "2026-09-27T11:39:47+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:09:47.524Z",
-    "generate_ms": 68694,
+    "started_at": "2026-09-27T12:19:59.540Z",
+    "generate_ms": 28737,
     "validate_ms": 1,
-    "wall_ms": 68695,
+    "wall_ms": 28738,
     "concurrency": 4
   }
 }

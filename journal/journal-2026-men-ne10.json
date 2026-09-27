@@ -3,57 +3,58 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-26T12:05:00+00:00",
-  "data_collected_at": "2026-09-26T11:50:55+00:00",
-  "headline": "Southern New Hampshire and Bentley take maximum points",
-  "dek": "Both have won their two conference matches, and no other programme has won more than one. Southern New Hampshire are also the only side yet to lose at all: unbeaten in eight, with twenty-nine goals scored and eight conceded.",
+  "generated_at": "2026-09-27T12:05:00+00:00",
+  "data_collected_at": "2026-09-27T12:00:57+00:00",
+  "headline": "Southern New Hampshire pull clear at the top",
+  "dek": "Southern New Hampshire have won all three of their conference matches, the latest by seven goals at Pace, while Bentley's home defeat to American International leaves those two programmes level on six points behind them. Nine matches into the season, they remain the only side without a defeat.",
   "lede_basis": {
     "programme": "southern-new-hampshire",
-    "wins": 6,
+    "wins": 7,
     "draws": 2,
     "losses": 0,
-    "gf": 29,
-    "ga": 8,
-    "conference_wins": 2,
-    "conference_matches": 2,
-    "bentley_conference_wins": 2,
-    "other_programmes_max_conference_wins": 1,
-    "matches_unbeaten": 8
+    "conference_wins": 3,
+    "conference_matches": 3,
+    "goals_scored_at_pace": 7,
+    "programmes_on_six_points": 2,
+    "points_of_chasing_pair": 6,
+    "matches_unbeaten": 9
   },
-  "lede_updated": "2026-09-24",
+  "lede_updated": "2026-09-27",
+  "displaced_by": "Bentley lost at home to American International; Southern New Hampshire alone on maximum points after scoring seven at Pace",
   "pattern": {
     "label": "signal",
-    "text": "Southern New Hampshire's twenty-nine goals are spread across at least fifteen scorers, so no single player carries the tallest bar; Southern Connecticut, at the foot of the chart with eight, have drawn four of their six matches, so the shortest bar is not the worst record.",
+    "text": "Southern New Hampshire's thirty-six goals come from at least fifteen different scorers, so the tallest bar is not one player's work; Southern Connecticut, shortest on the chart with nine, have drawn four of their seven matches and lost only two, so the shortest bar is not the worst record.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southern-new-hampshire": 29,
-        "assumption": 18,
+        "southern-new-hampshire": 36,
+        "assumption": 19,
+        "franklin-pierce": 18,
+        "adelphi": 13,
+        "american-international": 13,
         "pace": 13,
-        "american-international": 12,
         "bentley": 11,
-        "adelphi": 10,
-        "franklin-pierce": 10,
+        "saint-michael-s": 11,
         "saint-anselm": 10,
-        "saint-michael-s": 10,
-        "southern-connecticut": 8
+        "southern-connecticut": 9
       },
       "highlight": "southern-new-hampshire"
     },
     "basis": {
       "programme": "southern-new-hampshire",
       "distinct_scorers_min": 15,
-      "gf": 29,
-      "southern_connecticut_gf": 8,
+      "gf": 36,
+      "southern_connecticut_gf": 9,
       "southern_connecticut_draws": 4,
-      "southern_connecticut_matches_played": 6
+      "southern_connecticut_losses": 2,
+      "southern_connecticut_matches_played": 7
     }
   },
   "wire": {
     "line": "Southern New Hampshire are the last programme yet to lose after Saint Anselm ended Pace's unbeaten start.",
     "basis": {
       "programme": "southern-new-hampshire",
-      "wins": 6,
+      "wins": 7,
       "draws": 2,
       "losses": 0
     },
@@ -62,28 +63,28 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Southern New Hampshire have won six matches and drawn two, and are the only programme without a defeat.",
+      "text": "Southern New Hampshire have won seven matches and drawn two, and are the only programme without a defeat.",
       "basis": {
         "programme": "southern-new-hampshire",
-        "wins": 6,
+        "wins": 7,
         "draws": 2,
         "losses": 0
       }
     },
     {
       "label": "derived",
-      "text": "Cody Holbert has scored nine of Assumption's eighteen goals.",
+      "text": "Cody Holbert has scored nine of Assumption's nineteen goals.",
       "basis": {
         "source": "stats",
         "player": "Cody Holbert",
         "programme": "assumption",
         "goals": 9,
-        "gf": 18
+        "gf": 19
       }
     },
     {
       "label": "observed",
-      "text": "Saint Michael's have lost five matches, more than any other programme.",
+      "text": "Saint Michael's have lost six matches, more than any other programme.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "losses",
@@ -99,28 +100,29 @@
           "southern-connecticut",
           "southern-new-hampshire"
         ],
-        "losses": 5
+        "losses": 6
       }
     },
     {
       "label": "observed",
-      "text": "Southern Connecticut have drawn four of their six matches and have yet to win.",
+      "text": "Franklin Pierce have lost one of their seven matches, with four wins and two draws, and have conceded ten goals.",
       "basis": {
-        "programme": "southern-connecticut",
-        "wins": 0,
-        "draws": 4,
-        "losses": 2,
-        "matches_played": 6
+        "programme": "franklin-pierce",
+        "wins": 4,
+        "draws": 2,
+        "losses": 1,
+        "ga": 10,
+        "matches_played": 7
       }
     },
     {
       "label": "observed",
-      "text": "Joe Zweben has made forty-one saves, more than any other goalkeeper listed.",
+      "text": "Joe Zweben has made fifty saves, more than any other goalkeeper listed.",
       "basis": {
         "source": "stats",
         "player": "Joe Zweben",
         "programme": "pace",
-        "saves": 41
+        "saves": 50
       }
     }
   ],
@@ -130,35 +132,35 @@
       "programme": "assumption",
       "position": "FWD",
       "class": "SR",
-      "line": "9 G · 2 A · 44 shots"
+      "line": "9 G · 2 A · 49 shots"
     },
     {
       "player": "Inigo Burusco",
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
-      "line": "7 G · 2 A · 22 shots"
+      "line": "9 G · 2 A · 28 shots"
     },
     {
-      "player": "Chance Prouty",
-      "programme": "saint-anselm",
-      "position": "MID",
-      "class": "JR",
-      "line": "4 G · 3 A · 34 shots"
+      "player": "Guillermo Rios",
+      "programme": "franklin-pierce",
+      "position": "FWD",
+      "class": "SR",
+      "line": "8 G · 19 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-23 southern-new-hampshire v saint-anselm",
-      "line": "Southern New Hampshire remain the only programme yet to lose; Saint Anselm have still not drawn a match this season."
+      "fixture_ref": "2026-09-26 pace v southern-new-hampshire",
+      "line": "Southern New Hampshire remain the only programme yet to lose; Pace have still not won a conference match."
     },
     "next_match": {
-      "fixture_ref": "2026-09-26 pace v southern-new-hampshire",
-      "line": "Pace have lost once all season and their goalkeeper has made more saves than any other listed; Southern New Hampshire have scored more goals than any other programme."
+      "fixture_ref": "2026-09-27 charleston v franklin-pierce",
+      "line": "Franklin Pierce have lost just once this season, and that defeat came before conference play opened; Charleston are a non-conference opponent."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-26T12:11:07.224Z"
+    "validated_at": "2026-09-27T12:22:15.408Z"
   }
 }

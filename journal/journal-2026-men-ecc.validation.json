@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-26T12:09:14.544Z",
-  "data_collected_at": "2026-09-26T11:37:41+00:00",
+  "validated_at": "2026-09-27T12:19:59.462Z",
+  "data_collected_at": "2026-09-27T11:33:39+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,19 +15,13 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "pattern.text",
-      "text": "Queens have scored 22 goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Queens have scored 22 goals, more than any other programme, and nine different players have scored them; the attack is spread across the side rather than carried by one striker.",
-      "checker": "distinct_scorers+team_goals+comparative",
+      "text": "Queens have scored 25 goals, more than any other programme, and conceded nine; only the defeat at Holy Family and the home defeat to Staten Island have cost them.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Queens have conceded eight goals all season, and the home defeat to Staten Island was the first match in which they did not score.",
-      "checker": "team_goals+team_record",
+      "text": "Daemen have conceded 32 goals, more than any other programme; the home defeat to Mercy came in their first match since the win at Roberts Wesleyan.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Molloy have conceded four goals all season against eleven scored, and have not lost since the home defeat to Assumption.",
-      "checker": "team_goals+team_record",
+      "text": "Lorenzo Herrera has made 50 saves for District of Columbia and conceded ten; the home defeat to St. Thomas Aquinas was the side's fourth.",
+      "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -80,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Lorenzo Herrera has made 44 saves for District of Columbia and conceded seven; the defeat at D'Youville was the side's third.",
-      "checker": "player_stat+team_record",
+      "text": "Jacob Darwesh Lund-Iversen has scored ten of Mercy's eighteen goals from 28 shots.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored nine of Mercy's sixteen goals from 23 shots.",
+      "text": "Anthony Martinez has made 24 saves and conceded three goals for Molloy, who have conceded five all season.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 9 G · 3 A · 23 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 10 G · 3 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Keithlend Cesar — 4 G · 3 A · 15 shots",
+      "text": "Keithlend Cesar — 5 G · 3 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Ethan Robinson — 4 G · 29 shots",
+      "text": "Jack Veletanga — 4 G · 3 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 queens v staten-island",
+      "text": "2026-09-26 d-youville v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 d-youville v molloy",
+      "text": "2026-09-29 american-international v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:08:45.957Z",
-    "generate_ms": 28585,
-    "validate_ms": 2,
-    "wall_ms": 28587,
+    "started_at": "2026-09-27T12:18:37.710Z",
+    "generate_ms": 81750,
+    "validate_ms": 1,
+    "wall_ms": 81751,
     "concurrency": 4
   }
 }

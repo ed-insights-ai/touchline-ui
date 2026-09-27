@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-26T12:12:06.333Z",
-  "data_collected_at": "2026-09-26T12:04:41+00:00",
+  "validated_at": "2026-09-27T12:23:16.127Z",
+  "data_collected_at": "2026-09-27T12:08:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Colorado School of Mines's defeat at South Dakota Mines on Thursday was their seventh of the season, beside two draws and no win.",
+      "text": "Colorado School of Mines's defeat at South Dakota Mines on Friday was their seventh of the season, beside two draws and no win.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Fort Lewis's win at Colorado Christian on Thursday was their fourth of the season, beside two draws and two defeats.",
+      "text": "Fort Lewis's win at Colorado Christian on Friday was their fourth of the season, beside two draws and two defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Adams State have scored two goals and conceded sixteen this season, across one win, one draw and five defeats, the fifth of them at MSU Denver on Thursday.",
+      "text": "Adams State have scored two goals and conceded sixteen this season, across one win, one draw and five defeats, the fifth of them at MSU Denver on Friday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:10:56.425Z",
-    "generate_ms": 69907,
+    "started_at": "2026-09-27T12:22:34.448Z",
+    "generate_ms": 41678,
     "validate_ms": 1,
-    "wall_ms": 69908,
+    "wall_ms": 41679,
     "concurrency": 4
   }
 }

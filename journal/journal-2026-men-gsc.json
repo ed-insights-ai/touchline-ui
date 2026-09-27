@@ -3,58 +3,60 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-26T11:50:00+00:00",
-  "data_collected_at": "2026-09-26T11:43:29+00:00",
-  "headline": "UAH last unbeaten side after Trevecca fall",
-  "dek": "Trevecca's defeat at home to Lee on Wednesday leaves UAH the only programme yet to lose a match. They have won six and drawn one, conceding three goals in seven, and go to AUM on Saturday, who are unbeaten in the conference too.",
+  "generated_at": "2026-09-27T11:55:00+00:00",
+  "data_collected_at": "2026-09-27T11:47:38+00:00",
+  "headline": "AUM beat UAH and no unbeaten side remains",
+  "dek": "UAH's first defeat of the season came at AUM on Saturday, and it leaves the conference without an unbeaten programme. AUM have now won eight of nine matches, their one defeat coming at North Georgia before conference play opened, and have conceded six goals along the way.",
   "lede_basis": {
-    "programme": "uah",
-    "wins": 6,
-    "draws": 1,
-    "losses": 0,
-    "ga": 3,
-    "played": 7
+    "programme": "aum",
+    "wins": 8,
+    "draws": 0,
+    "losses": 1,
+    "played": 9,
+    "ga": 6
   },
-  "lede_updated": "2026-09-24",
+  "lede_updated": "2026-09-27",
+  "displaced_by": "UAH lost at AUM on 2026-09-26; no unbeaten programme remains",
   "pattern": {
     "label": "derived",
-    "text": "Goals have not meant points: West Alabama have scored 26 and conceded sixteen, and have won three of nine matches.",
+    "text": "Goals have not meant points: West Alabama have scored 27 and conceded seventeen, and have won three of ten matches.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "west-alabama": 26,
-        "trevecca": 19,
+        "west-alabama": 27,
+        "trevecca": 20,
+        "aum": 15,
         "christian-brothers": 15,
         "uah": 15,
-        "aum": 14,
-        "lee": 10,
-        "montevallo": 10,
+        "lee": 12,
+        "montevallo": 12,
+        "mississippi-college": 8,
         "union": 8,
-        "mississippi-college": 7,
         "delta-state": 5,
-        "spring-hill": 1
+        "spring-hill": 2
       },
       "highlight": "west-alabama"
     },
     "basis": {
       "programme": "west-alabama",
-      "gf": 26,
-      "ga": 16,
+      "gf": 27,
+      "ga": 17,
       "wins": 3,
-      "draws": 1,
+      "draws": 2,
       "losses": 5,
-      "played": 9
+      "played": 10
     }
   },
   "wire": {
-    "line": "Every programme but UAH has now lost at least once.",
+    "line": "Nobody is unbeaten now: UAH fell at AUM, who have won eight of their nine matches.",
     "basis": {
-      "programme": "uah",
-      "wins": 6,
-      "draws": 1,
-      "losses": 0
+      "programme": "aum",
+      "wins": 8,
+      "draws": 0,
+      "losses": 1,
+      "played": 9
     },
-    "updated": "2026-09-24"
+    "updated": "2026-09-27"
   },
   "findings": [
     {
@@ -68,45 +70,46 @@
     },
     {
       "label": "derived",
-      "text": "Spring Hill have scored one goal in five matches and have lost four of them.",
+      "text": "Spring Hill have scored two goals in six matches and have yet to win one.",
       "basis": {
         "programme": "spring-hill",
-        "gf": 1,
+        "gf": 2,
         "wins": 0,
-        "draws": 1,
+        "draws": 2,
         "losses": 4,
-        "played": 5
+        "played": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UAH have conceded four goals in eight matches and have lost only once.",
+      "basis": {
+        "programme": "uah",
+        "wins": 6,
+        "draws": 1,
+        "losses": 1,
+        "ga": 4,
+        "played": 8
       }
     },
     {
       "label": "observed",
-      "text": "Hunter Walker has conceded nine goals for Trevecca and kept three clean sheets.",
+      "text": "Hunter Walker has conceded nine goals for Trevecca and kept four clean sheets.",
       "basis": {
         "source": "stats",
         "player": "Hunter Walker",
         "programme": "trevecca",
-        "shutouts": 3,
+        "shutouts": 4,
         "goals_against": 9
       }
     },
     {
       "label": "derived",
-      "text": "West Alabama's 26 goals have come from eight different scorers.",
+      "text": "West Alabama's 27 goals have come from eight different scorers.",
       "basis": {
         "programme": "west-alabama",
-        "gf": 26,
+        "gf": 27,
         "distinct_scorers_min": 8
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Patrick Schott has made 51 saves for Union and has conceded eleven goals.",
-      "basis": {
-        "source": "stats",
-        "player": "Patrick Schott",
-        "programme": "union",
-        "saves": 51,
-        "goals_against": 11
       }
     }
   ],
@@ -116,7 +119,7 @@
       "programme": "west-alabama",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 4 A · 29 shots"
+      "line": "11 G · 4 A · 31 shots"
     },
     {
       "player": "Chris Douglas",
@@ -130,21 +133,21 @@
       "programme": "uah",
       "position": "FWD",
       "class": "SR",
-      "line": "4 G · 28 shots"
+      "line": "4 G · 30 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-23 trevecca v lee",
-      "line": "Trevecca's first defeat of the season leaves UAH the only programme yet to lose; Lee have alternated wins and defeats since conference play opened."
+      "fixture_ref": "2026-09-26 aum v uah",
+      "line": "UAH's first defeat of the season; AUM have won every conference match they have played and have yet to drop a point in one."
     },
     "next_match": {
-      "fixture_ref": "2026-09-26 aum v uah",
-      "line": "The table's top two meet: AUM have won every conference match they have played, and UAH have yet to lose one anywhere."
+      "fixture_ref": "2026-09-29 lincoln-memorial v montevallo",
+      "line": "Montevallo have lost only once since conference play opened, and step outside it for the first time since then."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-26T12:10:27.126Z"
+    "validated_at": "2026-09-27T12:21:18.790Z"
   }
 }

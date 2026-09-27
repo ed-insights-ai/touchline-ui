@@ -3,68 +3,68 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-09-26T11:50:00+00:00",
-  "data_collected_at": "2026-09-26T11:36:32+00:00",
-  "headline": "Chowan overtake Young Harris as the conference's top scorers",
-  "dek": "Chowan's 22 goals are the most in the conference, and eleven different players have shared them. The goals have not bought a clean record: Chowan have lost two matches and drawn two, and Young Harris, still unbeaten, remain above them in the table.",
+  "generated_at": "2026-09-27T11:45:00+00:00",
+  "data_collected_at": "2026-09-27T11:32:16+00:00",
+  "headline": "Francis Marion win at Emmanuel and have lost just once",
+  "dek": "Francis Marion's win at Emmanuel on Saturday was their eighth of the season against a single defeat, and they have conceded seven goals in all. Only Young Harris and Lees-McRae have yet to lose, and Francis Marion sit level with Young Harris at the top of the conference table.",
   "lede_basis": {
-    "programme": "chowan",
-    "gf": 22,
-    "wins": 3,
-    "draws": 2,
-    "losses": 2,
-    "distinct_scorers_min": 11,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "barton",
-      "belmont-abbey",
-      "converse",
-      "emmanuel",
-      "erskine",
-      "ferrum",
-      "francis-marion",
-      "king",
-      "lees-mcrae",
-      "mount-olive",
-      "north-greenville",
-      "shorter",
-      "southern-wesleyan",
-      "young-harris"
-    ]
+    "programme": "francis-marion",
+    "wins": 8,
+    "draws": 1,
+    "losses": 1,
+    "ga": 7
   },
-  "lede_updated": "2026-09-23",
+  "lede_updated": "2026-09-27",
+  "displaced_by": "Francis Marion's win at Emmanuel: eight wins, one defeat, seven conceded, level at the top",
   "pattern": {
     "label": "derived",
-    "text": "Chowan's 22 goals have come from eleven different scorers and still sit beside two defeats and two draws; goals have not been the shortage.",
+    "text": "Chowan's 24 goals, from twelve different scorers, are the most in the conference and have still come with two defeats; the scoring is spread widely and has not bought a clean record.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "chowan": 22,
-        "francis-marion": 20,
-        "young-harris": 19,
-        "southern-wesleyan": 17,
+        "chowan": 24,
+        "converse": 21,
+        "francis-marion": 21,
+        "young-harris": 21,
+        "southern-wesleyan": 18,
         "emmanuel": 16,
-        "converse": 15,
-        "lees-mcrae": 14,
-        "mount-olive": 13,
-        "ferrum": 12,
-        "north-greenville": 12,
+        "lees-mcrae": 16,
+        "mount-olive": 16,
+        "north-greenville": 16,
+        "ferrum": 15,
+        "belmont-abbey": 11,
         "shorter": 10,
-        "belmont-abbey": 7,
         "erskine": 7,
         "barton": 6,
-        "king": 3
+        "king": 4
       },
       "highlight": "chowan"
     },
     "basis": {
       "programme": "chowan",
-      "gf": 22,
-      "distinct_scorers_min": 11,
-      "wins": 3,
+      "gf": 24,
+      "distinct_scorers_min": 12,
+      "wins": 4,
       "draws": 2,
-      "losses": 2
+      "losses": 2,
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "of": [
+        "barton",
+        "belmont-abbey",
+        "converse",
+        "emmanuel",
+        "erskine",
+        "ferrum",
+        "francis-marion",
+        "king",
+        "lees-mcrae",
+        "mount-olive",
+        "north-greenville",
+        "shorter",
+        "southern-wesleyan",
+        "young-harris"
+      ]
     }
   },
   "wire": {
@@ -73,7 +73,7 @@
       "programme": "king",
       "wins": 0,
       "draws": 0,
-      "losses": 7
+      "losses": 8
     },
     "updated": "2026-09-13"
   },
@@ -89,35 +89,35 @@
     },
     {
       "label": "derived",
-      "text": "King have lost all seven of their matches, scoring three goals and conceding eighteen; only two players have scored for them.",
+      "text": "King have lost all eight of their matches, scoring four goals and conceding twenty; only three players have scored for them.",
       "basis": {
         "programme": "king",
         "wins": 0,
         "draws": 0,
-        "losses": 7,
-        "gf": 3,
-        "ga": 18,
-        "distinct_scorers_min": 2
+        "losses": 8,
+        "gf": 4,
+        "ga": 20,
+        "distinct_scorers_min": 3
       }
     },
     {
       "label": "observed",
-      "text": "Enzo Joly, a freshman, has seven of Emmanuel's sixteen goals, from 26 shots.",
+      "text": "Enzo Joly, a freshman, has seven of Emmanuel's sixteen goals, from 28 shots.",
       "basis": {
         "source": "stats",
         "player": "Enzo Joly",
         "programme": "emmanuel",
         "goals": 7,
-        "shots": 26,
+        "shots": 28,
         "gf": 16
       }
     },
     {
       "label": "derived",
-      "text": "Lees-McRae have won six matches and drawn two and are yet to lose; they have conceded four goals.",
+      "text": "Lees-McRae have won seven matches and drawn two and are yet to lose; they have conceded four goals.",
       "basis": {
         "programme": "lees-mcrae",
-        "wins": 6,
+        "wins": 7,
         "draws": 2,
         "losses": 0,
         "ga": 4
@@ -125,13 +125,13 @@
     },
     {
       "label": "derived",
-      "text": "Young Harris have won five matches and drawn two and are yet to lose; they have conceded five goals.",
+      "text": "Erskine have drawn one match and lost seven without a win, conceding 23 goals; only King are also without a victory.",
       "basis": {
-        "programme": "young-harris",
-        "wins": 5,
-        "draws": 2,
-        "losses": 0,
-        "ga": 5
+        "programme": "erskine",
+        "wins": 0,
+        "draws": 1,
+        "losses": 7,
+        "ga": 23
       }
     }
   ],
@@ -141,35 +141,35 @@
       "programme": "chowan",
       "position": "MID",
       "class": "FR",
-      "line": "4 G · 5 A · 21 shots"
+      "line": "5 G · 5 A · 25 shots"
     },
     {
       "player": "Andrea Marrazzo",
       "programme": "lees-mcrae",
       "position": "MID",
       "class": "FR",
-      "line": "5 G · 2 A · 29 shots"
+      "line": "6 G · 2 A · 31 shots"
     },
     {
       "player": "Jose Coutinho",
       "programme": "francis-marion",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 2 A · 16 shots"
+      "line": "5 G · 2 A · 21 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-23 young-harris v emmanuel",
-      "line": "Young Harris remain unbeaten by anyone this season; Emmanuel have now lost a conference match for the first time."
+      "fixture_ref": "2026-09-26 emmanuel v francis-marion",
+      "line": "Francis Marion have won every conference match they have played; Emmanuel have now lost consecutive conference matches, both to sides above them."
     },
     "next_match": {
-      "fixture_ref": "2026-09-26 emmanuel v francis-marion",
-      "line": "Francis Marion have won every conference match they have played; Emmanuel's only conference defeat came at Young Harris."
+      "fixture_ref": "2026-09-30 ferrum v francis-marion",
+      "line": "Francis Marion have yet to drop a point in conference play; Ferrum have lost both of their most recent conference matches, at home and then away."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-26T12:09:14.405Z"
+    "validated_at": "2026-09-27T12:19:59.342Z"
   }
 }

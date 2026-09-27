@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-09-26T12:10:58.107Z",
-  "data_collected_at": "2026-09-26T11:57:52+00:00",
+  "validated_at": "2026-09-27T12:24:18.901Z",
+  "data_collected_at": "2026-09-27T12:02:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,15 +18,15 @@
   "review": [
     {
       "path": "findings[0].text",
-      "text": "Six matches have passed their date with no published result, among them Clayton State's visit to Oglethorpe and Middle Georgia State's to Columbia on 22 August.",
-      "unbacked": ["22"]
+      "text": "Seven matches have passed their date with no published result, the most recent Clayton State's visit to Lander on 19 September.",
+      "unbacked": ["19"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "North Georgia's 22 goals are more than USC Aiken and Lander have scored between them, and nine different players have shared them.",
+      "text": "North Georgia's 26 goals are more than USC Aiken and Lander have scored between them, and twelve different players have shared them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Flagler's unbeaten run is over; North Georgia, with five wins and five draws, are the last side yet to lose.",
+      "text": "North Georgia are still unbeaten, but a run of draws has let Flagler, beaten once, go top of the table.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -53,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Six matches have passed their date with no published result, among them Clayton State's visit to Oglethorpe and Middle Georgia State's to Columbia on 22 August.",
+      "text": "Seven matches have passed their date with no published result, the most recent Clayton State's visit to Lander on 19 September.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Middle Georgia State have conceded 29 goals, more than any other programme in the conference, while scoring eighteen.",
+      "text": "Middle Georgia State have conceded 33 goals, more than any other programme in the conference, while scoring twenty.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Isaac Calderon has scored eight of North Georgia's 22 goals from 27 shots.",
+      "text": "Javier Gongora Andres has scored nine of Middle Georgia State's twenty goals from 31 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Javier Gongora Andres has scored eight of Middle Georgia State's eighteen goals from 30 shots.",
+      "text": "Isaac Calderon has scored eight of North Georgia's 26 goals from 28 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Isaac Calderon — 8 G · 2 A · 27 shots",
+      "text": "Javier Gongora Andres — 9 G · 1 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Javier Gongora Andres — 8 G · 30 shots",
+      "text": "Isaac Calderon — 8 G · 2 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 middle-georgia-state v lander",
+      "text": "2026-09-26 flagler v lander",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 flagler v lander",
+      "text": "2026-09-30 middle-georgia-state v flagler",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:10:30.725Z",
-    "generate_ms": 27381,
+    "started_at": "2026-09-27T12:22:15.482Z",
+    "generate_ms": 123343,
     "validate_ms": 1,
-    "wall_ms": 27382,
+    "wall_ms": 123418,
     "concurrency": 4
   }
 }

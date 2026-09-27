@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-09-26T12:09:47.450Z",
-  "data_collected_at": "2026-09-26T11:38:15+00:00",
+  "validated_at": "2026-09-27T12:20:06.843Z",
+  "data_collected_at": "2026-09-27T11:34:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are going short at the bottom of the table: Lake Erie's eighteen are more than Malone and Walsh have scored between them.",
+      "text": "The goals are going short at the bottom of the table: Lake Erie's twenty are more than Malone and Walsh have scored between them.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Five matches have gone past their date with no published result. Kentucky Wesleyan account for most of them, and Walsh's visit to Pitt-Johnstown is the other.",
+      "text": "Four matches have gone past their date with no published result; all but Walsh's visit to Pitt-Johnstown are Kentucky Wesleyan's.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Tiffin have conceded five goals all season and have lost only once, at home to Charleston on the opening day; since then they have won four and drawn three.",
+      "text": "Tiffin have conceded six goals all season and have lost only once, at home to Charleston on the opening day; since then they have won five and drawn three.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -64,9 +64,9 @@
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "Findlay have won six matches and lost one, away to Kentucky Wesleyan, and have conceded six goals.",
-      "checker": "team_goals+team_record",
+      "label": "derived",
+      "text": "Walsh have conceded twenty-five goals, more than any other programme in the conference, and have won once, drawn once and lost seven times.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Ohio Dominican have conceded nineteen goals, and have won once, drawn twice and lost five times.",
-      "checker": "team_goals+team_record",
+      "text": "Nick Cherry has kept five clean sheets for Tiffin.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Tom Woodward has scored five goals for Ashland from thirty-five shots.",
+      "text": "Tom Woodward has scored five goals for Ashland from thirty-eight shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Tom Woodward — 5 G · 4 A · 35 shots",
+      "text": "Tom Woodward — 5 G · 4 A · 38 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Garbhan Feeney — 3 G · 5 A · 25 shots",
+      "text": "Garbhan Feeney — 3 G · 5 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-24 findlay v lake-erie",
+      "text": "2026-09-26 thomas-more v malone",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 thomas-more v malone",
+      "text": "2026-10-01 lake-erie v cedarville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:09:14.498Z",
-    "generate_ms": 32951,
+    "started_at": "2026-09-27T12:18:37.712Z",
+    "generate_ms": 89130,
     "validate_ms": 1,
-    "wall_ms": 32952,
+    "wall_ms": 89131,
     "concurrency": 4
   }
 }

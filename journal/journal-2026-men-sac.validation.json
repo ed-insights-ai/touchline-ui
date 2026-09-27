@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-26T12:11:23.711Z",
-  "data_collected_at": "2026-09-26T12:05:07+00:00",
+  "validated_at": "2026-09-27T12:23:51.506Z",
+  "data_collected_at": "2026-09-27T12:09:25+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,7 +15,13 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Anderson were held to a draw at Wingate on Saturday, their third of the season alongside six wins and no defeats, twenty-two scored and ten conceded. Catawba, also unbeaten, have a match in hand on them in the conference table, and the two do not meet until the middle of October.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
@@ -38,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lenoir-Rhyne are the only side still without a win, and have conceded more goals than any other programme.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Every side in the conference has now won at least once; Lenoir-Rhyne's first came at Newberry on Saturday.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Lenoir-Rhyne are still without a win: three draws and five defeats, ten scored and twenty-one conceded, the latest a home defeat to Emory & Henry on Wednesday.",
+      "text": "Lenoir-Rhyne's win at Newberry on Saturday was their first of the season: one win, three draws and five defeats, twelve scored and twenty-one conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Emory & Henry's win at Lenoir-Rhyne on Wednesday was their first published result that was not a draw: one win and two draws, six scored and three conceded.",
+      "text": "Emory & Henry beat Coker at home on Saturday for a second win in succession and lead the conference table with two wins and two draws, nine scored and four conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Newberry's run of two wins ended at Coker on Wednesday; they have two wins and six defeats, ten scored and eighteen conceded.",
+      "text": "Catawba have conceded three goals across five wins and two draws, and have not lost.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Wingate's Cole Freeman has made twenty-nine saves and conceded five goals.",
+      "text": "Wingate's Cole Freeman has made thirty-three saves and conceded seven goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luis Munoz — 3 G · 7 A · 23 shots",
+      "text": "Luis Munoz — 3 G · 7 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Logan Knight — 5 G · 11 shots",
+      "text": "Logan Knight — 5 G · 12 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 lenoir-rhyne v emory-henry",
+      "text": "2026-09-26 newberry v lenoir-rhyne",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 wingate v anderson",
+      "text": "2026-09-27 tusculum v catawba",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:10:58.183Z",
-    "generate_ms": 25527,
+    "started_at": "2026-09-27T12:22:46.940Z",
+    "generate_ms": 64565,
     "validate_ms": 1,
-    "wall_ms": 25528,
+    "wall_ms": 64566,
     "concurrency": 4
   }
 }

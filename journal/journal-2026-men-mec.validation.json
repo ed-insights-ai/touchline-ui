@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-09-26T12:10:56.341Z",
-  "data_collected_at": "2026-09-26T11:50:32+00:00",
+  "validated_at": "2026-09-27T12:22:34.373Z",
+  "data_collected_at": "2026-09-27T12:00:28+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more than Davis & Elkins and Concord, the sides next to them in the table, together, and twelve different players have contributed to their twenty-seven; the scoring is spread, not carried.",
+      "text": "Charleston have scored more goals than Point Park, Salem and West Virginia Wesleyan together, and twelve different players have shared their twenty-seven; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -43,12 +43,12 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "unchecked_figures": ["goals_in_one_match: 10", "west_virginia_wesleyan_gf: 5"]
+      "unchecked_figures": ["goals_in_one_match: 10", "west_virginia_wesleyan_gf: 6"]
     },
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Davis & Elkins have won six of their seven matches and conceded five goals in them.",
+      "text": "Davis & Elkins have won seven of their eight matches and conceded six goals in them.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -66,7 +66,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "West Virginia Wesleyan are without a win after seven matches, with one draw and six defeats, and have conceded twenty-five goals.",
+      "text": "West Virginia Wesleyan are without a win after eight matches, with one draw and seven defeats, and have conceded thirty goals.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -75,7 +75,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Frank Stare has six goals and three assists for Frostburg State from sixteen shots.",
+      "text": "Frank Stare has six goals and three assists for Frostburg State from nineteen shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -93,7 +93,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Frank Stare — 6 G · 3 A · 16 shots",
+      "text": "Frank Stare — 6 G · 3 A · 19 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 shawnee-state v davis-elkins",
+      "text": "2026-09-26 davis-elkins v west-virginia-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 davis-elkins v west-virginia-wesleyan",
+      "text": "2026-09-27 wheeling v concord",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:10:27.202Z",
-    "generate_ms": 29138,
+    "started_at": "2026-09-27T12:21:18.863Z",
+    "generate_ms": 75509,
     "validate_ms": 1,
-    "wall_ms": 29139,
+    "wall_ms": 75510,
     "concurrency": 4
   }
 }

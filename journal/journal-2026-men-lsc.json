@@ -3,60 +3,60 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-26T11:58:00Z",
-  "data_collected_at": "2026-09-26T11:49:56+00:00",
-  "headline": "Conference play opens with three goalless draws",
-  "dek": "Midwestern State won at St. Edward's for a fifth straight win and remain the conference's only unbeaten side after nine matches. St. Mary's were the night's only other winner, beating Lubbock Christian, while UT Dallas, Dallas Baptist and Texas A&M International each drew without a goal being scored.",
+  "generated_at": "2026-09-27T12:02:00Z",
+  "data_collected_at": "2026-09-27T11:54:02+00:00",
+  "headline": "Midwestern State run to six straight wins",
+  "dek": "Midwestern State beat Texas A&M International for a sixth straight win and are the only side still unbeaten after ten matches. St. Mary's kept pace with a win at Sul Ross State, who have yet to score a goal this season.",
   "lede_basis": {
     "programme": "midwestern-state",
-    "wins": 7,
+    "wins": 8,
     "draws": 2,
     "losses": 0,
-    "consecutive_wins": 5,
-    "matches_played": 9,
-    "goalless_draws_on_opening_night": 3
+    "consecutive_wins": 6,
+    "matches_played": 10
   },
-  "lede_updated": "2026-09-24",
+  "lede_updated": "2026-09-27",
+  "displaced_by": "Second round of conference results: Midwestern State's sixth straight win, St. Mary's also two from two",
   "pattern": {
     "label": "derived",
-    "text": "Ten different players have scored Midwestern State's 25 goals, and Jose Ortiz has seven of them.",
+    "text": "Ten different players have scored Midwestern State's 28 goals, and Parker Plaxco has eight of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 25,
-        "saint-marys": 22,
+        "midwestern-state": 28,
+        "saint-marys": 23,
         "ut-dallas": 19,
-        "lubbock-christian": 13,
-        "oklahoma-christian": 13,
-        "dallas-baptist": 10,
+        "lubbock-christian": 15,
+        "oklahoma-christian": 14,
+        "dallas-baptist": 11,
+        "ut-tyler": 10,
         "texas-a-m-international": 9,
-        "ut-tyler": 9,
+        "west-texas-a-m": 9,
         "saint-edwards": 7,
-        "west-texas-a-m": 6,
         "sul-ross-state": 0
       },
       "highlight": "midwestern-state"
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 25,
+      "gf": 28,
       "distinct_scorers_min": 10,
       "source": "stats",
-      "player": "Jose Ortiz",
-      "goals": 7
+      "player": "Parker Plaxco",
+      "goals": 8
     }
   },
   "wire": {
-    "line": "Sul Ross State have lost all six of their matches without scoring a goal.",
+    "line": "Midwestern State have scored 28 goals and conceded seven in an unbeaten season.",
     "basis": {
-      "programme": "sul-ross-state",
-      "wins": 0,
-      "draws": 0,
-      "losses": 6,
-      "gf": 0,
-      "ga": 29
+      "programme": "midwestern-state",
+      "wins": 8,
+      "draws": 2,
+      "losses": 0,
+      "gf": 28,
+      "ga": 7
     },
-    "updated": "2026-09-20"
+    "updated": "2026-09-27"
   },
   "findings": [
     {
@@ -70,14 +70,14 @@
     },
     {
       "label": "derived",
-      "text": "Sul Ross State have lost all six of their matches, conceding 29 goals and scoring none.",
+      "text": "Sul Ross State have lost all five of their matches, conceding 20 goals and scoring none.",
       "basis": {
         "programme": "sul-ross-state",
         "wins": 0,
         "draws": 0,
-        "losses": 6,
+        "losses": 5,
         "gf": 0,
-        "ga": 29
+        "ga": 20
       }
     },
     {
@@ -96,7 +96,7 @@
     },
     {
       "label": "derived",
-      "text": "UT Tyler have drawn four of their seven matches, more draws than any other programme in the conference.",
+      "text": "UT Tyler have drawn four of their eight matches, more draws than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
@@ -115,29 +115,29 @@
         ],
         "wins": 2,
         "draws": 4,
-        "losses": 1,
-        "matches_played": 7
+        "losses": 2,
+        "matches_played": 8
       }
     },
     {
       "label": "observed",
-      "text": "Jake Morris has conceded seven goals for Midwestern State and kept three shutouts.",
+      "text": "Jake Morris has conceded seven goals for Midwestern State and kept four shutouts.",
       "basis": {
         "source": "stats",
         "player": "Jake Morris",
         "programme": "midwestern-state",
         "goals_against": 7,
-        "shutouts": 3
+        "shutouts": 4
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Jose Ortiz",
+      "player": "Parker Plaxco",
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "7 G · 26 shots"
+      "line": "8 G · 29 shots"
     },
     {
       "player": "Eduardo Fernandez",
@@ -156,16 +156,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-23 saint-edwards v midwestern-state",
-      "line": "Midwestern State remain the conference's only unbeaten side; St. Edward's have not won since August."
+      "fixture_ref": "2026-09-26 midwestern-state v texas-a-m-international",
+      "line": "Midwestern State remain the conference's only unbeaten side; Texas A&M International have yet to score in conference play."
     },
     "next_match": {
-      "fixture_ref": "2026-09-26 sul-ross-state v saint-marys",
-      "line": "St. Mary's have already beaten Sul Ross State once this season, and Sul Ross State have still to score a goal."
+      "fixture_ref": "2026-09-30 ut-tyler v midwestern-state",
+      "line": "UT Tyler have drawn more matches than any other programme in the conference; Midwestern State have not lost this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-26T12:10:30.649Z"
+    "validated_at": "2026-09-27T12:22:26.949Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-26T12:09:51.231Z",
-  "data_collected_at": "2026-09-26T11:30:06+00:00",
+  "validated_at": "2026-09-27T12:20:08.015Z",
+  "data_collected_at": "2026-09-27T11:30:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,26 +17,21 @@
   "normalizations": [],
   "review": [
     {
-      "path": "dek",
-      "text": "Holy Family had not played a match this season until the one at Caldwell, and they won it. Two goals scored and one conceded is the whole of their record, and it puts them level on points with four sides who have been playing since August.",
-      "unbacked": ["4"]
-    },
-    {
       "path": "pattern.text",
-      "text": "Georgian Court's nineteen goals are more than Dominican, Holy Family and Post have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
+      "text": "Georgian Court's nineteen goals are more than Dominican and Holy Family have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
       "unbacked": ["1"]
     },
     {
       "path": "findings[4].text",
-      "text": "Max Bond has made 49 saves for Chestnut Hill and conceded fifteen, a save percentage of .766.",
-      "unbacked": ["766"]
+      "text": "Bruno Mestres has made 53 saves for Holy Family and conceded fifteen, a save percentage of .779.",
+      "unbacked": ["779"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Georgian Court's nineteen goals are more than Dominican, Holy Family and Post have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
+      "text": "Georgian Court's nineteen goals are more than Dominican and Holy Family have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -54,8 +49,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Holy Family have played their first match of the season and won it; no other side in the conference is still unbeaten.",
-      "checker": "team_record",
+      "text": "Wilmington have drawn more matches than they have won or lost, and no other side in the conference has drawn as many.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -63,7 +58,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Post have won four, drawn two and lost two; the win over Chestnut Hill lifts their goals scored to eleven, against eight conceded.",
+      "text": "Dominican have scored four goals and conceded fourteen this season; the draw at Wilmington leaves them with one win, two draws and five defeats.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -72,8 +67,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Caldwell have scored eleven and conceded fourteen; the defeat to Holy Family is their fourth, beside three wins and no draws.",
-      "checker": "team_goals+team_record",
+      "text": "Georgian Court's home match against Felician, due yesterday, has passed without a published result, the only match in the conference to have done so; no played match is missing its score.",
+      "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -81,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Chestnut Hill have lost five, won two and drawn two; the defeat at Post takes their goals conceded to eighteen.",
+      "text": "Post have won four, drawn two and lost two, scoring eleven goals and conceding eight.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -99,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Max Bond has made 49 saves for Chestnut Hill and conceded fifteen, a save percentage of .766.",
+      "text": "Bruno Mestres has made 53 saves for Holy Family and conceded fifteen, a save percentage of .779.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-25 caldwell v holy-family",
+      "text": "2026-09-26 wilmington v dominican",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -144,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 georgian-court v felician",
+      "text": "2026-09-29 chestnut-hill v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -152,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:08:45.945Z",
-    "generate_ms": 65285,
+    "started_at": "2026-09-27T12:18:37.699Z",
+    "generate_ms": 90314,
     "validate_ms": 1,
-    "wall_ms": 65286,
+    "wall_ms": 90315,
     "concurrency": 4
   }
 }

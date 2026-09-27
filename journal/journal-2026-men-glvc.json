@@ -3,48 +3,49 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-26T11:50:00+00:00",
-  "data_collected_at": "2026-09-26T11:42:39+00:00",
-  "headline": "Quincy go top without a conference defeat",
-  "dek": "Quincy's win over Illinois Springfield on Wednesday lifted them above Maryville and Drury, both of whom have a match in hand. Their season reads five wins, three draws and one defeat, eighteen goals scored and eight conceded; the defeat came in their first match, at Wisconsin-Parkside, and nobody has beaten them since.",
+  "generated_at": "2026-09-27T11:50:00+00:00",
+  "data_collected_at": "2026-09-27T11:40:31+00:00",
+  "headline": "Maryville and Drury pull level at the top",
+  "dek": "Maryville's win over Missouri S&T on Saturday, and Drury's at Lewis the same afternoon, leave the pair level at the top with neither beaten in conference play; Quincy's goalless draw with William Jewell dropped them below both. Maryville's season reads seven wins, one draw and two defeats, twenty-eight goals scored and twelve conceded.",
   "lede_basis": {
-    "programme": "quincy",
-    "wins": 5,
-    "draws": 3,
-    "losses": 1,
-    "gf": 18,
-    "ga": 8
+    "programme": "maryville",
+    "wins": 7,
+    "draws": 1,
+    "losses": 2,
+    "gf": 28,
+    "ga": 12
   },
-  "lede_updated": "2026-09-24",
+  "lede_updated": "2026-09-27",
+  "displaced_by": "Maryville and Drury both won on Saturday; Quincy drew and dropped to third",
   "pattern": {
     "label": "derived",
-    "text": "Southwest Baptist's twenty-eight goals exceed what the four lowest-scoring programmes have managed between them, but the bar has not moved since Maryville's afternoon against them: they were held scoreless by Missouri S&T on Wednesday while Maryville scored again at Upper Iowa.",
+    "text": "Maryville have drawn level with Southwest Baptist at the top of the chart, having scored again on Saturday while Southwest Baptist did not play, and their twenty-eight goals exceed what Lewis, Upper Iowa and William Jewell have managed between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "maryville": 28,
         "southwest-baptist": 28,
-        "maryville": 26,
-        "drury": 21,
-        "missouri-s-t": 19,
+        "drury": 23,
+        "missouri-s-t": 20,
         "quincy": 18,
-        "truman": 14,
+        "truman": 15,
+        "rockhurst": 14,
         "lincoln": 13,
-        "indianapolis": 12,
-        "rockhurst": 11,
-        "mckendree": 10,
+        "indianapolis": 11,
+        "mckendree": 11,
+        "illinois-springfield": 10,
+        "missouri-st-louis": 9,
+        "upper-iowa": 8,
         "william-jewell": 8,
-        "illinois-springfield": 7,
-        "missouri-st-louis": 7,
-        "lewis": 6,
-        "upper-iowa": 5
+        "lewis": 6
       },
-      "highlight": "southwest-baptist"
+      "highlight": "maryville"
     },
     "basis": {
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "southwest-baptist",
-      "of": ["upper-iowa", "lewis", "illinois-springfield", "missouri-st-louis"],
+      "programme": "maryville",
+      "of": ["lewis", "upper-iowa", "william-jewell"],
       "gf": 28
     }
   },
@@ -85,39 +86,39 @@
     },
     {
       "label": "derived",
-      "text": "Missouri S&T have not drawn a match this season: six wins and two defeats, nineteen goals scored and nine conceded.",
+      "text": "Missouri S&T have still not drawn a match this season: six wins and three defeats, twenty goals scored and eleven conceded, the third defeat coming at Maryville on Saturday.",
       "basis": {
         "programme": "missouri-s-t",
         "wins": 6,
         "draws": 0,
-        "losses": 2,
-        "gf": 19,
-        "ga": 9
+        "losses": 3,
+        "gf": 20,
+        "ga": 11
       }
     },
     {
       "label": "derived",
-      "text": "Truman have scored fourteen goals and conceded seventeen, and Jacob Panagos has eight of the fourteen from nineteen shots.",
+      "text": "Truman have scored fifteen goals and conceded eighteen, and Jacob Panagos has nine of the fifteen from twenty-two shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Panagos",
         "programme": "truman",
-        "goals": 8,
-        "shots": 19,
-        "gf": 14,
-        "ga": 17
+        "goals": 9,
+        "shots": 22,
+        "gf": 15,
+        "ga": 18
       }
     },
     {
       "label": "observed",
-      "text": "Asgrimur Vidisson has made thirty-eight saves for Maryville and conceded nine, a save percentage of .809.",
+      "text": "Asgrimur Vidisson has made forty-two saves for Maryville and conceded ten, a save percentage of .808.",
       "basis": {
         "source": "stats",
         "player": "Asgrimur Vidisson",
         "programme": "maryville",
-        "saves": 38,
-        "goals_against": 9,
-        "save_pct": 0.809
+        "saves": 42,
+        "goals_against": 10,
+        "save_pct": 0.808
       }
     }
   ],
@@ -127,35 +128,35 @@
       "programme": "truman",
       "position": "MID",
       "class": "JR",
-      "line": "8 G · 1 A · 19 shots"
+      "line": "9 G · 1 A · 22 shots"
     },
     {
       "player": "Leo Cann",
       "programme": "quincy",
       "position": "FWD",
       "class": "JR",
-      "line": "7 G · 3 A · 36 shots"
+      "line": "7 G · 3 A · 45 shots"
     },
     {
-      "player": "Jonathan Nemorden",
-      "programme": "lincoln",
+      "player": "Mike Banasik",
+      "programme": "missouri-s-t",
       "position": "FWD",
-      "class": "FR",
-      "line": "5 G · 23 shots"
+      "class": "SR",
+      "line": "6 G · 19 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-23 rockhurst v lincoln",
-      "line": "Lincoln have still not lost to anyone this season; Rockhurst have not scored at home in conference play since beating Indianapolis on opening weekend."
+      "fixture_ref": "2026-09-26 maryville v missouri-s-t",
+      "line": "Maryville have still not lost at home this season; Missouri S&T have yet to draw a match."
     },
     "next_match": {
-      "fixture_ref": "2026-09-26 maryville v missouri-s-t",
-      "line": "Maryville have won every home match they have played this season; Missouri S&T's only away defeat came at Quincy, the side now above both of them."
+      "fixture_ref": "2026-09-27 indianapolis v southwest-baptist",
+      "line": "Indianapolis's only defeat came on opening weekend at Rockhurst; Southwest Baptist have lost every conference match they have played away from home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-26T12:10:29.890Z"
+    "validated_at": "2026-09-27T12:21:02.488Z"
   }
 }

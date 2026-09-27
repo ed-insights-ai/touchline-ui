@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-26T12:11:44.255Z",
-  "data_collected_at": "2026-09-26T11:58:13+00:00",
+  "validated_at": "2026-09-27T12:24:09.954Z",
+  "data_collected_at": "2026-09-27T12:02:27+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,7 +18,7 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Millersville have scored more than West Chester and Pitt-Johnstown together, and the goals have come from six different players rather than a single forward: the spread of scorers, not one name, is what the chart is drawing.",
+      "text": "Millersville have scored more than Lock Haven, Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
       "unbacked": ["1"]
     }
   ],
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Millersville have scored more than West Chester and Pitt-Johnstown together, and the goals have come from six different players rather than a single forward: the spread of scorers, not one name, is what the chart is drawing.",
+      "text": "Millersville have scored more than Lock Haven, Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Millersville have scored 22 goals and conceded five, and still do not lead the table.",
-      "checker": "team_goals",
+      "text": "Gannon have conceded nine goals all season and lost once, at home to Lake Erie on opening night.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning five and drawing one since, and have conceded nine goals all season.",
-      "checker": "team_goals+team_record",
+      "text": "E. Stroudsburg lead the table without a conference defeat, and all three of their losses came before conference play opened; across the season they have won six, drawn two and lost three.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,8 +71,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "West Chester have scored seven goals and conceded seven, and only three players have scored for them.",
-      "checker": "distinct_scorers+team_goals",
+      "text": "Pitt-Johnstown have conceded 26 goals, more than any other programme in the conference, and have won one match, drawn one and lost five.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Rafael Santos has three goals and seven assists from 24 shots for Seton Hill.",
+      "text": "Rafael Santos has four goals and seven assists from 25 shots for Seton Hill.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Aidan Houck has made 39 saves for Shepherd and been beaten eight times.",
+      "text": "Jaden Howard has made 30 saves for West Chester and been beaten five times.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Steven Arias — 5 G · 15 shots",
+      "text": "Rafa Hyde — 7 G · 3 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kaden Reynolds — 4 G · 1 A · 33 shots",
+      "text": "Steven Arias — 6 G · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Roy Parkyn — 5 G · 1 A · 12 shots",
+      "text": "Kaden Reynolds — 4 G · 2 A · 34 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 west-chester v e-stroudsburg",
+      "text": "2026-09-26 gannon v pitt-johnstown",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 e-stroudsburg v shippensburg",
+      "text": "2026-09-27 west-chester v shepherd",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:10:56.295Z",
-    "generate_ms": 47959,
+    "started_at": "2026-09-27T12:22:27.023Z",
+    "generate_ms": 102929,
     "validate_ms": 1,
-    "wall_ms": 47959,
+    "wall_ms": 102930,
     "concurrency": 4
   }
 }

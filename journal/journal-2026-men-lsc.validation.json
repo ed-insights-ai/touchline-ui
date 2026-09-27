@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-26T12:10:30.649Z",
-  "data_collected_at": "2026-09-26T11:49:56+00:00",
+  "validated_at": "2026-09-27T12:22:26.949Z",
+  "data_collected_at": "2026-09-27T11:54:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Ten different players have scored Midwestern State's 25 goals, and Jose Ortiz has seven of them.",
+      "text": "Ten different players have scored Midwestern State's 28 goals, and Parker Plaxco has eight of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Sul Ross State have lost all six of their matches without scoring a goal.",
+      "text": "Midwestern State have scored 28 goals and conceded seven in an unbeaten season.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Sul Ross State have lost all six of their matches, conceding 29 goals and scoring none.",
+      "text": "Sul Ross State have lost all five of their matches, conceding 20 goals and scoring none.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "UT Tyler have drawn four of their seven matches, more draws than any other programme in the conference.",
+      "text": "UT Tyler have drawn four of their eight matches, more draws than any other programme in the conference.",
       "checker": "team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Jake Morris has conceded seven goals for Midwestern State and kept three shutouts.",
+      "text": "Jake Morris has conceded seven goals for Midwestern State and kept four shutouts.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jose Ortiz — 7 G · 26 shots",
+      "text": "Parker Plaxco — 8 G · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-23 saint-edwards v midwestern-state",
+      "text": "2026-09-26 midwestern-state v texas-a-m-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-26 sul-ross-state v saint-marys",
+      "text": "2026-09-30 ut-tyler v midwestern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:09:52.173Z",
-    "generate_ms": 38476,
+    "started_at": "2026-09-27T12:21:02.565Z",
+    "generate_ms": 84383,
     "validate_ms": 1,
-    "wall_ms": 38477,
+    "wall_ms": 84384,
     "concurrency": 4
   }
 }

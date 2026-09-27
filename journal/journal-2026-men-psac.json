@@ -3,37 +3,38 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-26T12:05:00+00:00",
-  "data_collected_at": "2026-09-26T11:58:13+00:00",
-  "headline": "E. Stroudsburg go top after another away win",
-  "dek": "E. Stroudsburg won at Millersville on Saturday and at West Chester on Wednesday, and lead the conference having yet to lose a match that counts towards the table. Across the whole season they have scored fifteen and conceded fifteen, and each of their three defeats came before conference play opened.",
+  "generated_at": "2026-09-27T12:10:00+00:00",
+  "data_collected_at": "2026-09-27T12:02:27+00:00",
+  "headline": "Gannon keep winning and keep the goals out",
+  "dek": "Gannon have won six matches, drawn one and lost one, and have conceded nine goals all season while scoring twenty-four. Both of their conference matches have been won at home, and they are not at home again until Seton Hill visit.",
   "lede_basis": {
-    "programme": "e-stroudsburg",
-    "wins": 5,
-    "draws": 2,
-    "losses": 3,
-    "gf": 15,
-    "ga": 15
+    "programme": "gannon",
+    "wins": 6,
+    "draws": 1,
+    "losses": 1,
+    "gf": 24,
+    "ga": 9
   },
-  "lede_updated": "2026-09-24",
+  "lede_updated": "2026-09-27",
+  "displaced_by": "Gannon's nine-goal home win over Pitt-Johnstown on 2026-09-26; the standing dek's E. Stroudsburg figures (fifteen scored, fifteen conceded) are no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Millersville have scored more than West Chester and Pitt-Johnstown together, and the goals have come from six different players rather than a single forward: the spread of scorers, not one name, is what the chart is drawing.",
+    "text": "Millersville have scored more than Lock Haven, Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "millersville": 22,
-        "bloomsburg": 18,
-        "e-stroudsburg": 15,
-        "gannon": 15,
-        "seton-hill": 14,
-        "slippery-rock": 13,
-        "california-pa": 11,
+        "millersville": 25,
+        "gannon": 24,
+        "e-stroudsburg": 21,
+        "bloomsburg": 20,
+        "seton-hill": 15,
+        "california-pa": 14,
+        "slippery-rock": 14,
+        "shippensburg": 12,
         "shepherd": 11,
-        "shippensburg": 11,
+        "lock-haven": 8,
         "pitt-johnstown": 8,
-        "west-chester": 7,
-        "lock-haven": 6
+        "west-chester": 7
       },
       "highlight": "millersville"
     },
@@ -41,19 +42,21 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "millersville",
-      "of": ["west-chester", "pitt-johnstown"],
-      "gf": 22,
-      "distinct_scorers_min": 6
+      "of": ["lock-haven", "pitt-johnstown", "west-chester"],
+      "gf": 25,
+      "distinct_scorers_min": 7
     }
   },
   "wire": {
-    "line": "Millersville have scored 22 goals and conceded five, and still do not lead the table.",
+    "line": "Gannon have conceded nine goals all season and lost once, at home to Lake Erie on opening night.",
     "basis": {
-      "programme": "millersville",
-      "gf": 22,
-      "ga": 5
+      "programme": "gannon",
+      "wins": 6,
+      "draws": 1,
+      "losses": 1,
+      "ga": 9
     },
-    "updated": "2026-09-24"
+    "updated": "2026-09-27"
   },
   "findings": [
     {
@@ -70,85 +73,99 @@
     },
     {
       "label": "observed",
-      "text": "Gannon have not lost since their opening match at home to Lake Erie, winning five and drawing one since, and have conceded nine goals all season.",
+      "text": "E. Stroudsburg lead the table without a conference defeat, and all three of their losses came before conference play opened; across the season they have won six, drawn two and lost three.",
       "basis": {
-        "programme": "gannon",
-        "wins": 5,
+        "programme": "e-stroudsburg",
+        "wins": 6,
+        "draws": 2,
+        "losses": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pitt-Johnstown have conceded 26 goals, more than any other programme in the conference, and have won one match, drawn one and lost five.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "pitt-johnstown",
+        "of": [
+          "bloomsburg",
+          "california-pa",
+          "e-stroudsburg",
+          "gannon",
+          "lock-haven",
+          "millersville",
+          "seton-hill",
+          "shepherd",
+          "shippensburg",
+          "slippery-rock",
+          "west-chester"
+        ],
+        "ga": 26,
+        "wins": 1,
         "draws": 1,
-        "losses": 1,
-        "gf": 15,
-        "ga": 9
+        "losses": 5
       }
     },
     {
       "label": "observed",
-      "text": "West Chester have scored seven goals and conceded seven, and only three players have scored for them.",
-      "basis": {
-        "programme": "west-chester",
-        "gf": 7,
-        "ga": 7,
-        "distinct_scorers_min": 3
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Rafael Santos has three goals and seven assists from 24 shots for Seton Hill.",
+      "text": "Rafael Santos has four goals and seven assists from 25 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
-        "goals": 3,
+        "goals": 4,
         "assists": 7,
-        "shots": 24
+        "shots": 25
       }
     },
     {
       "label": "observed",
-      "text": "Aidan Houck has made 39 saves for Shepherd and been beaten eight times.",
+      "text": "Jaden Howard has made 30 saves for West Chester and been beaten five times.",
       "basis": {
         "source": "stats",
-        "player": "Aidan Houck",
-        "programme": "shepherd",
-        "saves": 39,
-        "goals_against": 8
+        "player": "Jaden Howard",
+        "programme": "west-chester",
+        "saves": 30,
+        "goals_against": 5
       }
     }
   ],
   "players_to_watch": [
     {
+      "player": "Rafa Hyde",
+      "programme": "gannon",
+      "position": "FWD",
+      "class": "SR",
+      "line": "7 G · 3 A · 26 shots"
+    },
+    {
       "player": "Steven Arias",
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 15 shots"
+      "line": "6 G · 18 shots"
     },
     {
       "player": "Kaden Reynolds",
       "programme": "slippery-rock",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 1 A · 33 shots"
-    },
-    {
-      "player": "Roy Parkyn",
-      "programme": "millersville",
-      "position": "MID",
-      "class": "SR",
-      "line": "5 G · 1 A · 12 shots"
+      "line": "4 G · 2 A · 34 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-23 west-chester v e-stroudsburg",
-      "line": "E. Stroudsburg arrived having won at Millersville on Saturday; West Chester had yet to concede at home."
+      "fixture_ref": "2026-09-26 gannon v pitt-johnstown",
+      "line": "Gannon arrived on a run of three straight wins; Pitt-Johnstown had not won since their opening match at Chestnut Hill."
     },
     "next_match": {
-      "fixture_ref": "2026-09-26 e-stroudsburg v shippensburg",
-      "line": "E. Stroudsburg have yet to lose in conference play; Shippensburg's only conference win came at home to Bloomsburg."
+      "fixture_ref": "2026-09-27 west-chester v shepherd",
+      "line": "Only three players have scored for West Chester this season; Shepherd have not lost since Millersville visited on the opening day of conference play."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-26T12:11:44.255Z"
+    "validated_at": "2026-09-27T12:24:09.954Z"
   }
 }
