@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-27T11:55:00+00:00",
-  "data_collected_at": "2026-09-27T11:47:38+00:00",
+  "generated_at": "2026-09-28T11:55:00+00:00",
+  "data_collected_at": "2026-09-28T11:49:05+00:00",
   "headline": "AUM beat UAH and no unbeaten side remains",
   "dek": "UAH's first defeat of the season came at AUM on Saturday, and it leaves the conference without an unbeaten programme. AUM have now won eight of nine matches, their one defeat coming at North Georgia before conference play opened, and have conceded six goals along the way.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 6
   },
   "lede_updated": "2026-09-27",
-  "displaced_by": "UAH lost at AUM on 2026-09-26; no unbeaten programme remains",
   "pattern": {
     "label": "derived",
     "text": "Goals have not meant points: West Alabama have scored 27 and conceded seventeen, and have won three of ten matches.",
@@ -27,10 +26,10 @@
         "trevecca": 20,
         "aum": 15,
         "christian-brothers": 15,
+        "mississippi-college": 15,
         "uah": 15,
         "lee": 12,
         "montevallo": 12,
-        "mississippi-college": 8,
         "union": 8,
         "delta-state": 5,
         "spring-hill": 2
@@ -148,6 +147,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:21:18.790Z"
+    "validated_at": "2026-09-28T12:03:46.005Z"
   }
 }

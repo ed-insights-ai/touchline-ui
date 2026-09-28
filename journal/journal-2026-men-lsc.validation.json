@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-09-27T12:22:26.949Z",
-  "data_collected_at": "2026-09-27T11:54:02+00:00",
+  "validated_at": "2026-09-28T12:04:11.600Z",
+  "data_collected_at": "2026-09-28T11:49:44+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Sul Ross State have lost all five of their matches, conceding 20 goals and scoring none.",
+      "text": "Sul Ross State have lost all seven of their matches, conceding 30 goals and scoring none.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-27T12:21:02.565Z",
-    "generate_ms": 84383,
+    "started_at": "2026-09-28T12:03:33.622Z",
+    "generate_ms": 37977,
     "validate_ms": 1,
-    "wall_ms": 84384,
+    "wall_ms": 37978,
     "concurrency": 4
   }
 }

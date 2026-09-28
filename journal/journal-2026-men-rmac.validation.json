@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-09-27T12:23:16.127Z",
-  "data_collected_at": "2026-09-27T12:08:56+00:00",
+  "validated_at": "2026-09-28T12:05:44.192Z",
+  "data_collected_at": "2026-09-28T11:54:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Colorado School of Mines's defeat at South Dakota Mines on Friday was their seventh of the season, beside two draws and no win.",
-      "checker": "team_record",
+      "text": "Adams State have scored two goals and conceded 21 this season, across one win, one draw and six defeats, the sixth of them at Colorado Christian in their latest match.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Fort Lewis's win at Colorado Christian on Friday was their fourth of the season, beside two draws and two defeats.",
+      "text": "Fort Lewis's win at MSU Denver was their fifth of the season, beside two draws and two defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Adams State have scored two goals and conceded sixteen this season, across one win, one draw and five defeats, the fifth of them at MSU Denver on Friday.",
-      "checker": "team_goals+team_record",
+      "text": "Colorado School of Mines have yet to win this season, with two draws and seven defeats, and next play MSU Denver at home.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "MSU Denver's Dominic Miller has kept three shutouts this season.",
+      "text": "UCCS's Hugo Sjöberg has made 37 saves this season and conceded nine goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Simão Agostinho — 6 G · 2 A · 29 shots",
+      "text": "Nickolas North — 5 G · 6 A · 21 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Nickolas North — 4 G · 6 A · 20 shots",
+      "text": "Simão Agostinho — 6 G · 2 A · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lucas Miranda — 6 G · 1 A · 13 shots",
+      "text": "Lucas Miranda — 6 G · 1 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-25 colorado-christian v fort-lewis",
+      "text": "2026-09-27 colorado-mesa v csu-pueblo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-27 colorado-mesa v csu-pueblo",
+      "text": "2026-10-01 colorado-school-of-mines v msu-denver",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-27T12:22:34.448Z",
-    "generate_ms": 41678,
+    "started_at": "2026-09-28T12:04:29.161Z",
+    "generate_ms": 75030,
     "validate_ms": 1,
-    "wall_ms": 41679,
+    "wall_ms": 75031,
     "concurrency": 4
   }
 }

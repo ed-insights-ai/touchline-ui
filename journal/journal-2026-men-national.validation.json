@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-27T12:25:54.990Z",
+  "validated_at": "2026-09-28T12:06:24.842Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Southern New Hampshire outscore every programme in the division Southern New Hampshire's win at Pace keeps their season unbeaten, and no programme in the division has scored as many goals. Maryville, Midwestern State and Southwest Baptist are nearest to them, and of those only Midwestern State are also yet to lose.",
-      "checker": "comparative",
+      "text": "CSU Pueblo's perfect start ends at Colorado Mesa CSU Pueblo had won every match they played until Colorado Mesa held them. Seven wins and one draw is still a record without a defeat, and the points dropped are the first of their season.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-09-27T12:25:09.826Z",
-    "generate_ms": 45161,
+    "started_at": "2026-09-28T12:05:53.133Z",
+    "generate_ms": 31707,
     "validate_ms": 2,
-    "wall_ms": 45163
+    "wall_ms": 31709
   }
 }

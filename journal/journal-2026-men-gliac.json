@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-27T11:52:00+00:00",
-  "data_collected_at": "2026-09-27T11:39:47+00:00",
+  "generated_at": "2026-09-28T11:55:00+00:00",
+  "data_collected_at": "2026-09-28T11:44:38+00:00",
   "headline": "Top two draw and Roosevelt stay unbeaten",
   "dek": "The leaders met the side directly beneath them in the table and shared the points at Roosevelt. Roosevelt have now drawn five matches and won six, and remain the only side in the conference without a defeat.",
   "lede_basis": {
@@ -20,11 +20,11 @@
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "northern-michigan": 19,
+        "northern-michigan": 23,
         "roosevelt": 17,
         "saginaw-valley-state": 17,
+        "purdue-northwest": 9,
         "davenport": 8,
-        "purdue-northwest": 8,
         "wisconsin-parkside": 8,
         "st-cloud-state": 7
       },
@@ -32,21 +32,21 @@
     },
     "basis": {
       "programme": "northern-michigan",
-      "gf": 19,
+      "gf": 23,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["purdue-northwest", "st-cloud-state"]
     }
   },
   "wire": {
-    "line": "Wisconsin-Parkside are the only side in the conference yet to draw a match.",
+    "line": "Every side in the conference has now drawn at least once.",
     "basis": {
       "programme": "wisconsin-parkside",
       "wins": 3,
-      "draws": 0,
+      "draws": 1,
       "losses": 4
     },
-    "updated": "2026-09-26"
+    "updated": "2026-09-28"
   },
   "findings": [
     {
@@ -80,33 +80,36 @@
     },
     {
       "label": "observed",
-      "text": "Luca Rosen has scored ten goals from 35 shots for Northern Michigan.",
+      "text": "Luca Rosen has scored eleven goals from 38 shots for Northern Michigan.",
       "basis": {
         "source": "stats",
         "player": "Luca Rosen",
         "programme": "northern-michigan",
-        "goals": 10,
-        "shots": 35
+        "goals": 11,
+        "shots": 38
       }
     },
     {
       "label": "observed",
-      "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from 22 shots.",
+      "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from 25 shots.",
       "basis": {
         "source": "stats",
         "player": "Matty Telfer",
         "programme": "saginaw-valley-state",
         "goals": 7,
-        "shots": 22,
+        "shots": 25,
         "gf": 17
       }
     },
     {
-      "label": "derived",
-      "text": "Nine different players have scored for Saginaw Valley State this season.",
+      "label": "observed",
+      "text": "Cedrik Strupler has conceded two goals all season for Roosevelt and kept five shutouts.",
       "basis": {
-        "programme": "saginaw-valley-state",
-        "distinct_scorers_min": 9
+        "source": "stats",
+        "player": "Cedrik Strupler",
+        "programme": "roosevelt",
+        "goals_against": 2,
+        "shutouts": 5
       }
     }
   ],
@@ -116,14 +119,14 @@
       "programme": "northern-michigan",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 2 A · 35 shots"
+      "line": "11 G · 3 A · 38 shots"
     },
     {
       "player": "Matty Telfer",
       "programme": "saginaw-valley-state",
       "position": "FWD",
       "class": "JR",
-      "line": "7 G · 2 A · 22 shots"
+      "line": "7 G · 2 A · 25 shots"
     },
     {
       "player": "Fynn Mewes",
@@ -135,16 +138,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-25 roosevelt v northern-michigan",
-      "line": "Roosevelt remain unbeaten this season; Northern Michigan have still not lost a conference match."
+      "fixture_ref": "2026-09-27 st-cloud-state v northern-michigan",
+      "line": "Northern Michigan's win took them level on points with Roosevelt; St. Cloud State are still without a conference win."
     },
     "next_match": {
-      "fixture_ref": "2026-09-27 st-cloud-state v northern-michigan",
-      "line": "St. Cloud State are yet to win in conference play; Northern Michigan arrive as the conference's top scorers."
+      "fixture_ref": "2026-09-30 purdue-northwest v wisconsin-parkside",
+      "line": "Purdue Northwest have conceded fewer goals than any side in the conference; Wisconsin-Parkside arrive off a goalless draw with Saginaw Valley State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:20:28.278Z"
+    "validated_at": "2026-09-28T12:03:40.904Z"
   }
 }

@@ -3,20 +3,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-27T12:10:00+00:00",
-  "data_collected_at": "2026-09-27T12:02:27+00:00",
-  "headline": "Gannon keep winning and keep the goals out",
-  "dek": "Gannon have won six matches, drawn one and lost one, and have conceded nine goals all season while scoring twenty-four. Both of their conference matches have been won at home, and they are not at home again until Seton Hill visit.",
+  "generated_at": "2026-09-28T11:58:00+00:00",
+  "data_collected_at": "2026-09-28T11:52:12+00:00",
+  "headline": "West Chester make eight goals go a long way",
+  "dek": "West Chester have scored eight goals all season, more than only Lock Haven, and conceded seven. Sunday's win over Shepherd was their third of the season against two draws and three defeats, and none of their wins has seen them concede.",
   "lede_basis": {
-    "programme": "gannon",
-    "wins": 6,
-    "draws": 1,
-    "losses": 1,
-    "gf": 24,
-    "ga": 9
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "west-chester",
+    "of": ["lock-haven"],
+    "gf": 8,
+    "ga": 7,
+    "wins": 3,
+    "draws": 2,
+    "losses": 3
   },
-  "lede_updated": "2026-09-27",
-  "displaced_by": "Gannon's nine-goal home win over Pitt-Johnstown on 2026-09-26; the standing dek's E. Stroudsburg figures (fifteen scored, fifteen conceded) are no longer true",
+  "lede_updated": "2026-09-28",
+  "displaced_by": "The standing Gannon figures (six wins, twenty-four scored, nine conceded) are not true of today's data, which carries Gannon at two wins, fourteen scored and two conceded; West Chester's win over Shepherd on 2026-09-27 won the slot",
   "pattern": {
     "label": "derived",
     "text": "Millersville have scored more than Lock Haven, Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
@@ -24,17 +27,17 @@
       "kind": "goals-for-by-team",
       "values": {
         "millersville": 25,
-        "gannon": 24,
         "e-stroudsburg": 21,
         "bloomsburg": 20,
         "seton-hill": 15,
         "california-pa": 14,
+        "gannon": 14,
         "slippery-rock": 14,
         "shippensburg": 12,
         "shepherd": 11,
-        "lock-haven": 8,
         "pitt-johnstown": 8,
-        "west-chester": 7
+        "west-chester": 8,
+        "lock-haven": 7
       },
       "highlight": "millersville"
     },
@@ -48,15 +51,15 @@
     }
   },
   "wire": {
-    "line": "Gannon have conceded nine goals all season and lost once, at home to Lake Erie on opening night.",
+    "line": "Three players account for every goal West Chester have scored, and they have still won as often as they have lost.",
     "basis": {
-      "programme": "gannon",
-      "wins": 6,
-      "draws": 1,
-      "losses": 1,
-      "ga": 9
+      "programme": "west-chester",
+      "distinct_scorers_min": 3,
+      "wins": 3,
+      "draws": 2,
+      "losses": 3
     },
-    "updated": "2026-09-27"
+    "updated": "2026-09-28"
   },
   "findings": [
     {
@@ -121,23 +124,23 @@
     },
     {
       "label": "observed",
-      "text": "Jaden Howard has made 30 saves for West Chester and been beaten five times.",
+      "text": "Jaden Howard has made 36 saves for West Chester and been beaten five times.",
       "basis": {
         "source": "stats",
         "player": "Jaden Howard",
         "programme": "west-chester",
-        "saves": 30,
+        "saves": 36,
         "goals_against": 5
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Rafa Hyde",
-      "programme": "gannon",
-      "position": "FWD",
+      "player": "Roy Parkyn",
+      "programme": "millersville",
+      "position": "MID",
       "class": "SR",
-      "line": "7 G · 3 A · 26 shots"
+      "line": "6 G · 1 A · 14 shots"
     },
     {
       "player": "Steven Arias",
@@ -156,16 +159,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 gannon v pitt-johnstown",
-      "line": "Gannon arrived on a run of three straight wins; Pitt-Johnstown had not won since their opening match at Chestnut Hill."
+      "fixture_ref": "2026-09-27 west-chester v shepherd",
+      "line": "Shepherd had not lost since Millersville visited on the opening day of conference play; West Chester have yet to concede in a match they have won."
     },
     "next_match": {
-      "fixture_ref": "2026-09-27 west-chester v shepherd",
-      "line": "Only three players have scored for West Chester this season; Shepherd have not lost since Millersville visited on the opening day of conference play."
+      "fixture_ref": "2026-09-30 california-pa v gannon",
+      "line": "Gannon have yet to lose a conference match and have yet to play one away; California (Pa.) have won every conference match they have played."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:24:09.954Z"
+    "validated_at": "2026-09-28T12:05:47.603Z"
   }
 }

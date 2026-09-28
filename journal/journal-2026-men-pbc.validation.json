@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-09-27T12:24:18.901Z",
-  "data_collected_at": "2026-09-27T12:02:04+00:00",
+  "validated_at": "2026-09-28T12:04:43.217Z",
+  "data_collected_at": "2026-09-28T11:51:47+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[0].text",
-      "text": "Seven matches have passed their date with no published result, the most recent Clayton State's visit to Lander on 19 September.",
-      "unbacked": ["19"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -53,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Seven matches have passed their date with no published result, the most recent Clayton State's visit to Lander on 19 September.",
+      "text": "Seven matches have passed their date with no published result, the most recent of them Clayton State's visit to Lander in September.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-27T12:22:15.482Z",
-    "generate_ms": 123343,
+    "started_at": "2026-09-28T12:04:04.174Z",
+    "generate_ms": 39042,
     "validate_ms": 1,
-    "wall_ms": 123418,
+    "wall_ms": 39043,
     "concurrency": 4
   }
 }

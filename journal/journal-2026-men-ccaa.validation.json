@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-09-26T12:09:51.832Z",
-  "data_collected_at": "2026-09-26T11:36:58+00:00",
+  "validated_at": "2026-09-28T12:03:33.544Z",
+  "data_collected_at": "2026-09-28T11:31:59+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,11 +20,12 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fresno Pacific's 27 goals are more than Cal State LA and Chico State have scored between them, and ten different players have shared them; the conference's unbeaten sides are not its top scorers.",
-      "checker": "distinct_scorers+team_goals+comparative",
+      "text": "Fresno Pacific have scored 29 goals, more than any other programme, shared among ten different scorers, and have still lost four matches; goals alone have not kept them unbeaten.",
+      "checker": "distinct_scorers+team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is cal-state-dominguez-hills at 21"
     },
     {
       "path": "pattern.chart",
@@ -38,7 +39,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Cal State LA have conceded their first goal of the season, in their eighth match, and won the match anyway.",
+      "text": "Cal State LA and Cal State San Bernardino have both won again and are still the only unbeaten sides in the conference.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +57,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Cal State San Bernardino have won six and drawn two after beating Cal Poly Humboldt at home, and have conceded four goals across those eight matches.",
+      "text": "Cal State San Bernardino have won seven and drawn two after beating Chico State at home, and have conceded four goals across those nine matches.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -65,17 +66,17 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Cal State East Bay have conceded 29 goals in nine matches, more than any other programme in the conference.",
+      "text": "Cal State East Bay have conceded 31 goals in ten matches, more than any other programme in the conference.",
       "checker": "team_goals+team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is cal-poly-humboldt at 18"
+      "note": "held against every other programme; the nearest is cal-poly-humboldt at 22"
     },
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Stanislaus State have drawn four of their nine matches, more draws than any other side in the conference.",
+      "text": "Stanislaus State have drawn four of their ten matches, more draws than any other side in the conference.",
       "checker": "team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +86,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Zion Vaughn has scored eight of Fresno Pacific's 27 goals.",
+      "text": "Zion Vaughn has scored eight of Fresno Pacific's 29 goals.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -94,7 +95,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Zion Vaughn — 8 G · 1 A · 17 shots",
+      "text": "Zion Vaughn — 8 G · 1 A · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +104,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Alexis Cervantes — 6 G · 22 shots",
+      "text": "Kai Martin — 7 G · 15 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +113,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kai Martin — 6 G · 13 shots",
+      "text": "Alexis Cervantes — 6 G · 24 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +122,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-25 cal-state-la v stanislaus-state",
+      "text": "2026-09-27 cal-state-la v uc-merced",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +131,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-27 cal-state-san-bernardino v chico-state",
+      "text": "2026-10-01 fresno-pacific v cal-state-dominguez-hills",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -138,10 +139,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-26T12:08:45.956Z",
-    "generate_ms": 65874,
+    "started_at": "2026-09-28T12:02:15.665Z",
+    "generate_ms": 77876,
     "validate_ms": 2,
-    "wall_ms": 65876,
+    "wall_ms": 77879,
     "concurrency": 4
   }
 }

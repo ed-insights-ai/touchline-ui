@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-27T12:23:51.506Z",
-  "data_collected_at": "2026-09-27T12:09:25+00:00",
+  "validated_at": "2026-09-28T12:05:32.688Z",
+  "data_collected_at": "2026-09-28T11:58:45+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "Anderson were held to a draw at Wingate on Saturday, their third of the season alongside six wins and no defeats, twenty-two scored and ten conceded. Catawba, also unbeaten, have a match in hand on them in the conference table, and the two do not meet until the middle of October.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Catawba have scored twenty-two and conceded three, and no one player has more than Alex Payton's four of those goals.",
+      "text": "Catawba have scored twenty-four and conceded three, and no one player has more than Alex Payton's four of those goals.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Lenoir-Rhyne's win at Newberry on Saturday was their first of the season: one win, three draws and five defeats, twelve scored and twenty-one conceded.",
+      "text": "Tusculum's defeat at home to Catawba on Sunday was their fourth of the season, against one win and one draw, and they have scored four goals in all.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Emory & Henry beat Coker at home on Saturday for a second win in succession and lead the conference table with two wins and two draws, nine scored and four conceded.",
+      "text": "Emory & Henry are unbeaten with two wins and two draws, nine scored and four conceded, and go to Mars Hill on Tuesday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Catawba have conceded three goals across five wins and two draws, and have not lost.",
+      "text": "Lenoir-Rhyne's win at Newberry on Saturday was their first of the season: one win, three draws and five defeats, twelve scored and twenty-one conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Alex Payton — 4 G · 20 shots",
+      "text": "Alex Payton — 4 G · 1 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-26 newberry v lenoir-rhyne",
+      "text": "2026-09-27 tusculum v catawba",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-27 tusculum v catawba",
+      "text": "2026-09-29 mars-hill v emory-henry",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-27T12:22:46.940Z",
-    "generate_ms": 64565,
+    "started_at": "2026-09-28T12:04:29.554Z",
+    "generate_ms": 63132,
     "validate_ms": 1,
-    "wall_ms": 64566,
+    "wall_ms": 63133,
     "concurrency": 4
   }
 }

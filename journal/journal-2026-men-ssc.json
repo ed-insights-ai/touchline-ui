@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-27T12:20:00+00:00",
-  "data_collected_at": "2026-09-27T12:12:06+00:00",
+  "generated_at": "2026-09-28T12:05:00+00:00",
+  "data_collected_at": "2026-09-28T11:59:21+00:00",
   "headline": "Away sides sweep the day, Tampa and Florida Tech lead",
   "dek": "Tampa won at Barry and Florida Tech at Eckerd on a day when every match in the conference went to the visiting side, and they now stand level at the top with neither yet beaten in conference play. Tampa have lost once all season, in August, and have conceded eight goals.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 8
   },
   "lede_updated": "2026-09-27",
-  "displaced_by": "All four matches on Sep 26 won by the visiting side; Tampa and Florida Tech level at the top, both unbeaten in conference play",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
@@ -26,14 +25,14 @@
         "florida-southern": 25,
         "embry-riddle": 16,
         "tampa": 16,
+        "palm-beach-atlantic": 15,
         "saint-leo": 14,
         "florida-tech": 13,
         "rollins": 13,
         "barry": 11,
         "lynn": 11,
         "eckerd": 9,
-        "nova-southeastern": 9,
-        "palm-beach-atlantic": 2
+        "nova-southeastern": 9
       },
       "highlight": "florida-southern"
     },
@@ -58,21 +57,23 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Eckerd's home match of September 9 has passed its date with no result, the only match in the conference to have done so.",
+      "text": "Four matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's home match of September 9.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 1
+        "past_date_no_result": 4
       }
     },
     {
       "label": "derived",
-      "text": "Palm Beach Atlantic have scored two goals and conceded one this season, and Kobi Thomas is the only player to have scored for them.",
+      "text": "Kobi Thomas has scored nine of Palm Beach Atlantic's fifteen goals this season, from 34 shots.",
       "basis": {
+        "source": "stats",
+        "player": "Kobi Thomas",
         "programme": "palm-beach-atlantic",
-        "gf": 2,
-        "ga": 1,
-        "distinct_scorers_min": 1
+        "goals": 9,
+        "shots": 34,
+        "gf": 15
       }
     },
     {
@@ -122,18 +123,18 @@
   ],
   "players_to_watch": [
     {
+      "player": "Kobi Thomas",
+      "programme": "palm-beach-atlantic",
+      "position": "FWD",
+      "class": "SO",
+      "line": "9 G · 3 A · 34 shots"
+    },
+    {
       "player": "Darcy Moffat",
       "programme": "florida-southern",
       "position": "FWD",
       "class": "SR",
       "line": "5 G · 6 A · 15 shots"
-    },
-    {
-      "player": "Tim Baierlein",
-      "programme": "florida-southern",
-      "position": "FWD",
-      "class": "JR",
-      "line": "7 G · 21 shots"
     },
     {
       "player": "Virgilio Escala",
@@ -155,6 +156,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:25:05.487Z"
+    "validated_at": "2026-09-28T12:05:33.743Z"
   }
 }

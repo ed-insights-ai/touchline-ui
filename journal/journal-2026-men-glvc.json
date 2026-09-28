@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-27T11:50:00+00:00",
-  "data_collected_at": "2026-09-27T11:40:31+00:00",
+  "generated_at": "2026-09-28T11:52:00+00:00",
+  "data_collected_at": "2026-09-28T11:44:55+00:00",
   "headline": "Maryville and Drury pull level at the top",
   "dek": "Maryville's win over Missouri S&T on Saturday, and Drury's at Lewis the same afternoon, leave the pair level at the top with neither beaten in conference play; Quincy's goalless draw with William Jewell dropped them below both. Maryville's season reads seven wins, one draw and two defeats, twenty-eight goals scored and twelve conceded.",
   "lede_basis": {
@@ -16,27 +16,26 @@
     "ga": 12
   },
   "lede_updated": "2026-09-27",
-  "displaced_by": "Maryville and Drury both won on Saturday; Quincy drew and dropped to third",
   "pattern": {
     "label": "derived",
-    "text": "Maryville have drawn level with Southwest Baptist at the top of the chart, having scored again on Saturday while Southwest Baptist did not play, and their twenty-eight goals exceed what Lewis, Upper Iowa and William Jewell have managed between them.",
+    "text": "Maryville's twenty-eight goals are more than Lewis, Upper Iowa and William Jewell have scored between them, three programmes that share the foot of the chart.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "maryville": 28,
-        "southwest-baptist": 28,
-        "drury": 23,
         "missouri-s-t": 20,
+        "drury": 19,
         "quincy": 18,
         "truman": 15,
         "rockhurst": 14,
+        "indianapolis": 13,
         "lincoln": 13,
-        "indianapolis": 11,
         "mckendree": 11,
         "illinois-springfield": 10,
         "missouri-st-louis": 9,
         "upper-iowa": 8,
         "william-jewell": 8,
+        "southwest-baptist": 7,
         "lewis": 6
       },
       "highlight": "maryville"
@@ -61,20 +60,8 @@
   },
   "findings": [
     {
-      "label": "observed",
-      "text": "Two matches past their date carry no published result, and both are Drury's: at home to Evangel and away at Wash U.",
-      "basis": {
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 2,
-        "set": "past_date_no_result",
-        "all_of": "drury",
-        "count": 2
-      }
-    },
-    {
       "label": "derived",
-      "text": "Lincoln remain the only programme in the conference yet to lose: four wins and three draws, thirteen goals scored and six conceded, the fourth win coming at Rockhurst on Wednesday.",
+      "text": "Lincoln remain the only programme in the conference yet to lose: four wins and three draws, thirteen goals scored and six conceded, the most recent win coming at Rockhurst.",
       "basis": {
         "programme": "lincoln",
         "wins": 4,
@@ -94,6 +81,18 @@
         "losses": 3,
         "gf": 20,
         "ga": 11
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Indianapolis have drawn four matches, as many as they have won, the latest at home to Southwest Baptist on Sunday; they have conceded nine goals all season.",
+      "basis": {
+        "programme": "indianapolis",
+        "wins": 4,
+        "draws": 4,
+        "losses": 2,
+        "gf": 13,
+        "ga": 9
       }
     },
     {
@@ -147,16 +146,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 maryville v missouri-s-t",
-      "line": "Maryville have still not lost at home this season; Missouri S&T have yet to draw a match."
+      "fixture_ref": "2026-09-27 indianapolis v southwest-baptist",
+      "line": "Indianapolis have now drawn as many matches as they have won; Southwest Baptist are still without an away win in conference play."
     },
     "next_match": {
-      "fixture_ref": "2026-09-27 indianapolis v southwest-baptist",
-      "line": "Indianapolis's only defeat came on opening weekend at Rockhurst; Southwest Baptist have lost every conference match they have played away from home."
+      "fixture_ref": "2026-09-30 missouri-s-t v drury",
+      "line": "Drury have yet to lose in conference play; Missouri S&T have not drawn a match all season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:21:02.488Z"
+    "validated_at": "2026-09-28T12:04:04.100Z"
   }
 }

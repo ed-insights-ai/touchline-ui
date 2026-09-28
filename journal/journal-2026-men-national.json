@@ -2,36 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-27T12:20:00+00:00",
-  "data_collected_at": "2026-09-27T11:40:31+00:00",
-  "headline": "Southern New Hampshire outscore every programme in the division",
-  "dek": "Southern New Hampshire's win at Pace keeps their season unbeaten, and no programme in the division has scored as many goals. Maryville, Midwestern State and Southwest Baptist are nearest to them, and of those only Midwestern State are also yet to lose.",
+  "generated_at": "2026-09-28T12:20:00+00:00",
+  "data_collected_at": "2026-09-27T12:01:21+00:00",
+  "headline": "CSU Pueblo's perfect start ends at Colorado Mesa",
+  "dek": "CSU Pueblo had won every match they played until Colorado Mesa held them. Seven wins and one draw is still a record without a defeat, and the points dropped are the first of their season.",
   "basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "southern-new-hampshire",
-    "of": [
-      "maryville",
-      "midwestern-state",
-      "southwest-baptist",
-      "charleston",
-      "fresno-pacific",
-      "west-alabama",
-      "north-georgia",
-      "florida-southern",
-      "millersville",
-      "queens",
-      "chowan",
-      "gannon",
-      "saint-martins",
-      "south-dakota-mines"
-    ]
+    "programme": "csu-pueblo",
+    "wins": 7,
+    "draws": 1,
+    "losses": 0
   },
-  "fixture_ref": "2026-09-26 pace v southern-new-hampshire",
-  "updated": "2026-09-27",
-  "displaced_by": "results night: Southern New Hampshire's win at Pace leaves them with more goals than any other programme in the division",
+  "fixture_ref": "2026-09-27 colorado-mesa v csu-pueblo",
+  "updated": "2026-09-28",
+  "displaced_by": "results night: CSU Pueblo drop their first points of the season in a draw at Colorado Mesa",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:25:54.990Z"
+    "validated_at": "2026-09-28T12:06:24.842Z"
   }
 }

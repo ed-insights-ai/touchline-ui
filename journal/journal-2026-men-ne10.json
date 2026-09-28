@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-27T12:05:00+00:00",
-  "data_collected_at": "2026-09-27T12:00:57+00:00",
+  "generated_at": "2026-09-28T11:56:00+00:00",
+  "data_collected_at": "2026-09-28T11:51:02+00:00",
   "headline": "Southern New Hampshire pull clear at the top",
   "dek": "Southern New Hampshire have won all three of their conference matches, the latest by seven goals at Pace, while Bentley's home defeat to American International leaves those two programmes level on six points behind them. Nine matches into the season, they remain the only side without a defeat.",
   "lede_basis": {
@@ -20,7 +20,6 @@
     "matches_unbeaten": 9
   },
   "lede_updated": "2026-09-27",
-  "displaced_by": "Bentley lost at home to American International; Southern New Hampshire alone on maximum points after scoring seven at Pace",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's thirty-six goals come from at least fifteen different scorers, so the tallest bar is not one player's work; Southern Connecticut, shortest on the chart with nine, have drawn four of their seven matches and lost only two, so the shortest bar is not the worst record.",
@@ -105,14 +104,12 @@
     },
     {
       "label": "observed",
-      "text": "Franklin Pierce have lost one of their seven matches, with four wins and two draws, and have conceded ten goals.",
+      "text": "Franklin Pierce's home defeat to Charleston is their second of the season, and both have come against non-conference opponents; their record stands at four wins, two draws and two losses.",
       "basis": {
         "programme": "franklin-pierce",
         "wins": 4,
         "draws": 2,
-        "losses": 1,
-        "ga": 10,
-        "matches_played": 7
+        "losses": 2
       }
     },
     {
@@ -146,21 +143,21 @@
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 19 shots"
+      "line": "8 G · 20 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 pace v southern-new-hampshire",
-      "line": "Southern New Hampshire remain the only programme yet to lose; Pace have still not won a conference match."
+      "fixture_ref": "2026-09-27 franklin-pierce v charleston",
+      "line": "Franklin Pierce have yet to lose a conference match; both of their defeats have come against non-conference sides."
     },
     "next_match": {
-      "fixture_ref": "2026-09-27 charleston v franklin-pierce",
-      "line": "Franklin Pierce have lost just once this season, and that defeat came before conference play opened; Charleston are a non-conference opponent."
+      "fixture_ref": "2026-09-29 assumption v southern-new-hampshire",
+      "line": "Southern New Hampshire have yet to lose; Assumption arrive off consecutive defeats, at Bentley and at home to Queens."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:22:15.408Z"
+    "validated_at": "2026-09-28T12:04:29.466Z"
   }
 }

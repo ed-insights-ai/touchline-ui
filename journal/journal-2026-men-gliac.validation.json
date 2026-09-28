@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-27T12:20:28.278Z",
-  "data_collected_at": "2026-09-27T11:39:47+00:00",
+  "validated_at": "2026-09-28T12:03:40.904Z",
+  "data_collected_at": "2026-09-28T11:44:38+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -44,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Wisconsin-Parkside are the only side in the conference yet to draw a match.",
+      "text": "Every side in the conference has now drawn at least once.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Luca Rosen has scored ten goals from 35 shots for Northern Michigan.",
+      "text": "Luca Rosen has scored eleven goals from 38 shots for Northern Michigan.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from 22 shots.",
+      "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from 25 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -88,9 +88,9 @@
     },
     {
       "path": "findings[4]",
-      "label": "derived",
-      "text": "Nine different players have scored for Saginaw Valley State this season.",
-      "checker": "distinct_scorers",
+      "label": "observed",
+      "text": "Cedrik Strupler has conceded two goals all season for Roosevelt and kept five shutouts.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luca Rosen — 10 G · 2 A · 35 shots",
+      "text": "Luca Rosen — 11 G · 3 A · 38 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Matty Telfer — 7 G · 2 A · 22 shots",
+      "text": "Matty Telfer — 7 G · 2 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-25 roosevelt v northern-michigan",
+      "text": "2026-09-27 st-cloud-state v northern-michigan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-27 st-cloud-state v northern-michigan",
+      "text": "2026-09-30 purdue-northwest v wisconsin-parkside",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-27T12:19:59.540Z",
-    "generate_ms": 28737,
+    "started_at": "2026-09-28T12:02:50.215Z",
+    "generate_ms": 50688,
     "validate_ms": 1,
-    "wall_ms": 28738,
+    "wall_ms": 50689,
     "concurrency": 4
   }
 }
