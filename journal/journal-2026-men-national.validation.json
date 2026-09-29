@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-28T12:06:24.842Z",
+  "validated_at": "2026-09-29T11:46:18.060Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "CSU Pueblo's perfect start ends at Colorado Mesa CSU Pueblo had won every match they played until Colorado Mesa held them. Seven wins and one draw is still a record without a defeat, and the points dropped are the first of their season.",
+      "text": "Hawai'i Pacific's season squares up at three of each The draw at Biola was Hawai'i Pacific's third of the season, and it now sits beside three wins and three losses. Hawai'i Hilo were held at Vanguard the same afternoon.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-28T12:05:53.133Z",
-    "generate_ms": 31707,
-    "validate_ms": 2,
-    "wall_ms": 31709
+    "started_at": "2026-09-29T11:45:47.504Z",
+    "generate_ms": 30555,
+    "validate_ms": 1,
+    "wall_ms": 30556
   }
 }

@@ -3,41 +3,52 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-28T11:58:00+00:00",
-  "data_collected_at": "2026-09-28T11:52:12+00:00",
-  "headline": "West Chester make eight goals go a long way",
-  "dek": "West Chester have scored eight goals all season, more than only Lock Haven, and conceded seven. Sunday's win over Shepherd was their third of the season against two draws and three defeats, and none of their wins has seen them concede.",
+  "generated_at": "2026-09-29T11:45:00+00:00",
+  "data_collected_at": "2026-09-29T11:37:44+00:00",
+  "headline": "Gannon lose once and outscore all but Millersville",
+  "dek": "Gannon have won six, drawn one and lost one, and the defeat was their opening match at home to Lake Erie. They have scored 24 goals, more than every programme except Millersville, and conceded nine.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "gf",
-    "programme": "west-chester",
-    "of": ["lock-haven"],
-    "gf": 8,
-    "ga": 7,
-    "wins": 3,
-    "draws": 2,
-    "losses": 3
+    "programme": "gannon",
+    "of": [
+      "bloomsburg",
+      "california-pa",
+      "e-stroudsburg",
+      "lock-haven",
+      "pitt-johnstown",
+      "seton-hill",
+      "shepherd",
+      "shippensburg",
+      "slippery-rock",
+      "west-chester"
+    ],
+    "gf": 24,
+    "ga": 9,
+    "wins": 6,
+    "draws": 1,
+    "losses": 1
   },
-  "lede_updated": "2026-09-28",
-  "displaced_by": "The standing Gannon figures (six wins, twenty-four scored, nine conceded) are not true of today's data, which carries Gannon at two wins, fourteen scored and two conceded; West Chester's win over Shepherd on 2026-09-27 won the slot",
+  "lede_updated": "2026-09-29",
+  "displaced_by": "Lock Haven's goals figure now stands at 16, so West Chester's eight are no longer more than theirs and the standing dek is false; Gannon's restored season figures (six wins, 24 scored, nine conceded) won the slot",
   "pattern": {
     "label": "derived",
-    "text": "Millersville have scored more than Lock Haven, Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
+    "text": "Millersville have scored more than Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "millersville": 25,
+        "gannon": 24,
         "e-stroudsburg": 21,
         "bloomsburg": 20,
+        "lock-haven": 16,
         "seton-hill": 15,
         "california-pa": 14,
-        "gannon": 14,
         "slippery-rock": 14,
         "shippensburg": 12,
         "shepherd": 11,
         "pitt-johnstown": 8,
-        "west-chester": 8,
-        "lock-haven": 7
+        "west-chester": 8
       },
       "highlight": "millersville"
     },
@@ -45,7 +56,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "millersville",
-      "of": ["lock-haven", "pitt-johnstown", "west-chester"],
+      "of": ["pitt-johnstown", "west-chester"],
       "gf": 25,
       "distinct_scorers_min": 7
     }
@@ -136,6 +147,13 @@
   ],
   "players_to_watch": [
     {
+      "player": "Rafa Hyde",
+      "programme": "gannon",
+      "position": "FWD",
+      "class": "SR",
+      "line": "7 G · 3 A · 26 shots"
+    },
+    {
       "player": "Roy Parkyn",
       "programme": "millersville",
       "position": "MID",
@@ -148,13 +166,6 @@
       "position": "FWD",
       "class": "JR",
       "line": "6 G · 18 shots"
-    },
-    {
-      "player": "Kaden Reynolds",
-      "programme": "slippery-rock",
-      "position": "FWD",
-      "class": "JR",
-      "line": "4 G · 2 A · 34 shots"
     }
   ],
   "featured": {
@@ -169,6 +180,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-28T12:05:47.603Z"
+    "validated_at": "2026-09-29T11:45:29.732Z"
   }
 }

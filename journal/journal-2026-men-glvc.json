@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-09-28T11:52:00+00:00",
-  "data_collected_at": "2026-09-28T11:44:55+00:00",
+  "generated_at": "2026-09-29T11:41:00+00:00",
+  "data_collected_at": "2026-09-29T11:34:19+00:00",
   "headline": "Maryville and Drury pull level at the top",
   "dek": "Maryville's win over Missouri S&T on Saturday, and Drury's at Lewis the same afternoon, leave the pair level at the top with neither beaten in conference play; Quincy's goalless draw with William Jewell dropped them below both. Maryville's season reads seven wins, one draw and two defeats, twenty-eight goals scored and twelve conceded.",
   "lede_basis": {
@@ -18,13 +18,14 @@
   "lede_updated": "2026-09-27",
   "pattern": {
     "label": "derived",
-    "text": "Maryville's twenty-eight goals are more than Lewis, Upper Iowa and William Jewell have scored between them, three programmes that share the foot of the chart.",
+    "text": "Southwest Baptist's twenty-nine goals are more than Lewis, Upper Iowa and William Jewell have scored between them, and they have conceded nineteen doing it; the goals have not bought a place near the top of the table.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "southwest-baptist": 29,
         "maryville": 28,
+        "drury": 23,
         "missouri-s-t": 20,
-        "drury": 19,
         "quincy": 18,
         "truman": 15,
         "rockhurst": 14,
@@ -35,17 +36,17 @@
         "missouri-st-louis": 9,
         "upper-iowa": 8,
         "william-jewell": 8,
-        "southwest-baptist": 7,
         "lewis": 6
       },
-      "highlight": "maryville"
+      "highlight": "southwest-baptist"
     },
     "basis": {
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "maryville",
+      "programme": "southwest-baptist",
       "of": ["lewis", "upper-iowa", "william-jewell"],
-      "gf": 28
+      "gf": 29,
+      "ga": 19
     }
   },
   "wire": {
@@ -84,15 +85,12 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Indianapolis have drawn four matches, as many as they have won, the latest at home to Southwest Baptist on Sunday; they have conceded nine goals all season.",
+      "label": "observed",
+      "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
       "basis": {
-        "programme": "indianapolis",
-        "wins": 4,
-        "draws": 4,
-        "losses": 2,
-        "gf": 13,
-        "ga": 9
+        "set": "past_date_no_result",
+        "all_of": "drury",
+        "count": 2
       }
     },
     {
@@ -156,6 +154,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-28T12:04:04.100Z"
+    "validated_at": "2026-09-29T11:43:58.320Z"
   }
 }

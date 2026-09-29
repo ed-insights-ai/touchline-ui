@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-09-27T12:20:00+00:00",
-  "data_collected_at": "2026-09-27T12:01:21+00:00",
+  "generated_at": "2026-09-29T11:48:00+00:00",
+  "data_collected_at": "2026-09-29T11:36:50+00:00",
   "headline": "Point Loma lose at home for the first time this season",
   "dek": "Point Loma's defeat by Hawai'i Pacific on Saturday was their first at home this season and their third overall, against four wins and three draws. They have scored nineteen goals, more than any other programme in the conference, and conceded fourteen.",
   "lede_basis": {
@@ -29,44 +29,43 @@
     ]
   },
   "lede_updated": "2026-09-27",
-  "displaced_by": "Point Loma's first home defeat of the season, to Hawai'i Pacific, in the first Saturday round of conference play",
   "pattern": {
     "label": "derived",
-    "text": "Chaminade have conceded twenty-three goals, more than any other programme in the conference, while scoring five; eight matches have brought them no points.",
+    "text": "Vanguard have conceded twenty-four goals, more than any other programme in the conference, and have scored thirteen; two wins and two draws stand against five defeats.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "point-loma": 19,
         "concordia-irvine": 18,
+        "hawaii-pacific": 18,
         "westmont": 18,
-        "hawaii-pacific": 16,
         "dominican-of-california": 15,
-        "vanguard": 11,
-        "biola": 9,
-        "hawaii-hilo": 7,
+        "vanguard": 13,
+        "biola": 11,
+        "hawaii-hilo": 9,
         "jessup": 7,
         "chaminade": 5
       },
-      "highlight": "chaminade"
+      "highlight": "vanguard"
     },
     "basis": {
-      "programme": "chaminade",
-      "wins": 0,
-      "draws": 0,
-      "losses": 8,
-      "gf": 5,
-      "ga": 23,
+      "programme": "vanguard",
+      "wins": 2,
+      "draws": 2,
+      "losses": 5,
+      "gf": 13,
+      "ga": 24,
       "comparative": "greater_than_each",
       "metric": "ga",
       "of": [
         "biola",
+        "chaminade",
         "concordia-irvine",
         "dominican-of-california",
         "hawaii-hilo",
         "hawaii-pacific",
         "jessup",
         "point-loma",
-        "vanguard",
         "westmont"
       ]
     }
@@ -84,26 +83,26 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Chaminade's defeat at Biola on Saturday was their eighth in eight matches; they have scored five goals and conceded twenty-three.",
+      "text": "Hawai'i Hilo's draw at Vanguard on Monday was their first of the season; they have won four and lost three, scoring nine goals and conceding eight.",
       "basis": {
-        "programme": "chaminade",
-        "wins": 0,
-        "draws": 0,
-        "losses": 8,
-        "gf": 5,
-        "ga": 23
+        "programme": "hawaii-hilo",
+        "wins": 4,
+        "draws": 1,
+        "losses": 3,
+        "gf": 9,
+        "ga": 8
       }
     },
     {
       "label": "observed",
-      "text": "Hawai'i Hilo won at Concordia Irvine on Saturday, ending a run of three defeats; they have won four and lost three, scoring seven goals and conceding six.",
+      "text": "Hawai'i Pacific's draw at Biola on Monday left them with three wins, three draws and three defeats, and eighteen goals scored against eighteen conceded.",
       "basis": {
-        "programme": "hawaii-hilo",
-        "wins": 4,
-        "draws": 0,
+        "programme": "hawaii-pacific",
+        "wins": 3,
+        "draws": 3,
         "losses": 3,
-        "gf": 7,
-        "ga": 6
+        "gf": 18,
+        "ga": 18
       }
     },
     {
@@ -117,30 +116,37 @@
     },
     {
       "label": "observed",
-      "text": "Westmont's draw with Dominican (Calif.) on Saturday was their fourth of the season against two wins and five defeats; they have scored eighteen goals and conceded twenty-one.",
+      "text": "Biola's draw with Hawai'i Pacific on Monday was their third of the season; they have one win and five defeats, and have scored eleven goals and conceded fourteen.",
       "basis": {
-        "programme": "westmont",
-        "wins": 2,
-        "draws": 4,
+        "programme": "biola",
+        "wins": 1,
+        "draws": 3,
         "losses": 5,
-        "gf": 18,
-        "ga": 21
+        "gf": 11,
+        "ga": 14
       }
     },
     {
       "label": "observed",
-      "text": "Dominican (Calif.) have drawn four matches, won one and lost three, and have scored exactly as many goals as they have conceded, fifteen.",
+      "text": "Chaminade have lost all eight matches they have played, scoring five goals and conceding twenty-three.",
       "basis": {
-        "programme": "dominican-of-california",
-        "wins": 1,
-        "draws": 4,
-        "losses": 3,
-        "gf": 15,
-        "ga": 15
+        "programme": "chaminade",
+        "wins": 0,
+        "draws": 0,
+        "losses": 8,
+        "gf": 5,
+        "ga": 23
       }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Kyle Denn",
+      "programme": "biola",
+      "position": "MID",
+      "class": "JR",
+      "line": "5 G · 1 A · 20 shots"
+    },
     {
       "player": "Evan Youngflesh",
       "programme": "point-loma",
@@ -154,27 +160,20 @@
       "position": "FWD",
       "class": "SR",
       "line": "4 G · 2 A · 12 shots"
-    },
-    {
-      "player": "Kyle Denn",
-      "programme": "biola",
-      "position": "MID",
-      "class": "JR",
-      "line": "4 G · 1 A · 17 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 point-loma v hawaii-pacific",
-      "line": "Point Loma's first home defeat of the season; Hawai'i Pacific's first win away from home."
+      "fixture_ref": "2026-09-28 vanguard v hawaii-hilo",
+      "line": "Hawai'i Hilo's first draw of the season; Vanguard have now conceded more goals than any other programme in the conference."
     },
     "next_match": {
-      "fixture_ref": "2026-09-28 biola v hawaii-pacific",
-      "line": "Biola's only win of the season came in their conference opener; Hawai'i Pacific arrive on a run of consecutive wins."
+      "fixture_ref": "2026-09-29 concordia-irvine v chaminade",
+      "line": "Chaminade have lost every match they have played; Concordia Irvine have yet to win in conference play."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-27T12:22:46.867Z"
+    "validated_at": "2026-09-29T11:45:09.847Z"
   }
 }

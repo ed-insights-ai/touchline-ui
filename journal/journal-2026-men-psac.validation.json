@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-09-28T12:05:47.603Z",
-  "data_collected_at": "2026-09-28T11:52:12+00:00",
+  "validated_at": "2026-09-29T11:45:29.732Z",
+  "data_collected_at": "2026-09-29T11:37:44+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -18,7 +18,7 @@
   "review": [
     {
       "path": "pattern.text",
-      "text": "Millersville have scored more than Lock Haven, Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
+      "text": "Millersville have scored more than Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
       "unbacked": ["1"]
     }
   ],
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Millersville have scored more than Lock Haven, Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
+      "text": "Millersville have scored more than Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Roy Parkyn — 6 G · 1 A · 14 shots",
+      "text": "Rafa Hyde — 7 G · 3 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Steven Arias — 6 G · 18 shots",
+      "text": "Roy Parkyn — 6 G · 1 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kaden Reynolds — 4 G · 2 A · 34 shots",
+      "text": "Steven Arias — 6 G · 18 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-28T12:04:11.676Z",
-    "generate_ms": 95925,
+    "started_at": "2026-09-29T11:44:26.376Z",
+    "generate_ms": 63355,
     "validate_ms": 1,
-    "wall_ms": 95926,
+    "wall_ms": 63356,
     "concurrency": 4
   }
 }

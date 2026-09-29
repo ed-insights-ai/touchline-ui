@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-28T12:05:32.688Z",
-  "data_collected_at": "2026-09-28T11:58:45+00:00",
+  "validated_at": "2026-09-29T11:45:34.527Z",
+  "data_collected_at": "2026-09-29T11:39:00+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Wingate's Cole Freeman has made thirty-three saves and conceded seven goals.",
+      "text": "Wingate's Cole Freeman has made thirty-six saves and conceded nine goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-28T12:04:29.554Z",
-    "generate_ms": 63132,
+    "started_at": "2026-09-29T11:45:05.607Z",
+    "generate_ms": 28919,
     "validate_ms": 1,
-    "wall_ms": 63133,
+    "wall_ms": 28920,
     "concurrency": 4
   }
 }
