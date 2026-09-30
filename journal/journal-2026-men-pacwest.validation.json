@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-09-29T11:45:09.847Z",
-  "data_collected_at": "2026-09-29T11:36:50+00:00",
+  "validated_at": "2026-09-30T11:43:45.913Z",
+  "data_collected_at": "2026-09-30T11:36:11+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,19 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[4].text",
+      "text": "Tim Teicher has made twenty-nine saves for Hawai'i Hilo and conceded eight goals, a save percentage of .784.",
+      "unbacked": ["784"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Vanguard have conceded twenty-four goals, more than any other programme in the conference, and have scored thirteen; two wins and two draws stand against five defeats.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Concordia Irvine's nineteen goals have been shared among twelve different scorers, and none of the twelve appears among the conference's leading scorers.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Hawai'i Hilo's draw at Vanguard on Monday was their first of the season; they have won four and lost three, scoring nine goals and conceding eight.",
+      "text": "Chaminade have lost all nine matches they have played, scoring five goals and conceding twenty-four.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Hawai'i Pacific's draw at Biola on Monday left them with three wins, three draws and three defeats, and eighteen goals scored against eighteen conceded.",
+      "text": "Hawai'i Hilo have conceded eight goals across four wins, one draw and three defeats, and have scored nine.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Biola's draw with Hawai'i Pacific on Monday was their third of the season; they have one win and five defeats, and have scored eleven goals and conceded fourteen.",
+      "text": "Hawai'i Pacific have won, drawn and lost three matches each, and have scored eighteen goals and conceded eighteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,8 +89,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Chaminade have lost all eight matches they have played, scoring five goals and conceding twenty-three.",
-      "checker": "team_goals+team_record",
+      "text": "Tim Teicher has made twenty-nine saves for Hawai'i Hilo and conceded eight goals, a save percentage of .784.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-28 vanguard v hawaii-hilo",
+      "text": "2026-09-29 concordia-irvine v chaminade",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-29 concordia-irvine v chaminade",
+      "text": "2026-10-01 concordia-irvine v hawaii-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-29T11:44:22.298Z",
-    "generate_ms": 47548,
+    "started_at": "2026-09-30T11:42:42.400Z",
+    "generate_ms": 63512,
     "validate_ms": 1,
-    "wall_ms": 47549,
+    "wall_ms": 63513,
     "concurrency": 4
   }
 }

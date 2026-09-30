@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-29T11:41:00+00:00",
-  "data_collected_at": "2026-09-29T11:35:11+00:00",
+  "generated_at": "2026-09-30T11:40:00+00:00",
+  "data_collected_at": "2026-09-30T11:34:17+00:00",
   "headline": "AUM beat UAH and no unbeaten side remains",
   "dek": "UAH's first defeat of the season came at AUM on Saturday, and it leaves the conference without an unbeaten programme. AUM have now won eight of nine matches, their one defeat coming at North Georgia before conference play opened, and have conceded six goals along the way.",
   "lede_basis": {
@@ -23,13 +23,13 @@
       "kind": "goals-for-by-team",
       "values": {
         "west-alabama": 27,
-        "trevecca": 20,
+        "trevecca": 24,
         "aum": 15,
         "christian-brothers": 15,
         "mississippi-college": 15,
         "uah": 15,
+        "montevallo": 13,
         "lee": 12,
-        "montevallo": 12,
         "union": 8,
         "delta-state": 5,
         "spring-hill": 2
@@ -69,6 +69,18 @@
     },
     {
       "label": "derived",
+      "text": "Trevecca have scored 24 goals in ten matches and have lost only once.",
+      "basis": {
+        "programme": "trevecca",
+        "gf": 24,
+        "wins": 7,
+        "draws": 2,
+        "losses": 1,
+        "played": 10
+      }
+    },
+    {
+      "label": "derived",
       "text": "Spring Hill have scored two goals in six matches and have yet to win one.",
       "basis": {
         "programme": "spring-hill",
@@ -80,26 +92,14 @@
       }
     },
     {
-      "label": "derived",
-      "text": "UAH have conceded four goals in eight matches and have lost only once.",
-      "basis": {
-        "programme": "uah",
-        "wins": 6,
-        "draws": 1,
-        "losses": 1,
-        "ga": 4,
-        "played": 8
-      }
-    },
-    {
       "label": "observed",
-      "text": "Hunter Walker has conceded nine goals for Trevecca and kept four clean sheets.",
+      "text": "Hunter Walker has conceded twelve goals for Trevecca and kept four clean sheets.",
       "basis": {
         "source": "stats",
         "player": "Hunter Walker",
         "programme": "trevecca",
         "shutouts": 4,
-        "goals_against": 9
+        "goals_against": 12
       }
     },
     {
@@ -125,7 +125,7 @@
       "programme": "trevecca",
       "position": "FWD",
       "class": "JR",
-      "line": "7 G · 1 A · 18 shots"
+      "line": "10 G · 1 A · 21 shots"
     },
     {
       "player": "Oli Orzechowski",
@@ -137,16 +137,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 aum v uah",
-      "line": "UAH's first defeat of the season; AUM have won every conference match they have played and have yet to drop a point in one."
+      "fixture_ref": "2026-09-29 freed-hardeman v trevecca",
+      "line": "Trevecca's first match outside the conference since it opened; their only defeat of the season remains the one at home to Lee."
     },
     "next_match": {
-      "fixture_ref": "2026-09-29 lincoln-memorial v montevallo",
-      "line": "Montevallo have lost only once since conference play opened, and step outside it for the first time since then."
+      "fixture_ref": "2026-09-30 carson-newman v uah",
+      "line": "Trevecca have already won at Carson-Newman; UAH have conceded fewer goals than any other side in the conference."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:43:53.785Z"
+    "validated_at": "2026-09-30T11:42:42.320Z"
   }
 }

@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-29T12:10:00+00:00",
-  "data_collected_at": "2026-09-29T11:36:26+00:00",
-  "headline": "Hawai'i Pacific's season squares up at three of each",
-  "dek": "The draw at Biola was Hawai'i Pacific's third of the season, and it now sits beside three wins and three losses. Hawai'i Hilo were held at Vanguard the same afternoon.",
+  "generated_at": "2026-09-30T12:05:00+00:00",
+  "data_collected_at": "2026-09-30T11:32:30+00:00",
+  "headline": "Southern New Hampshire outscore every programme in the division",
+  "dek": "Held at Assumption, Southern New Hampshire still lead the division for goals scored, and no programme in any other conference has put away as many. That standing is the one the draw could not touch.",
   "basis": {
-    "programme": "hawaii-pacific",
-    "wins": 3,
-    "draws": 3,
-    "losses": 3
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "southern-new-hampshire",
+    "of_any": 1
   },
-  "fixture_ref": "2026-09-28 biola v hawaii-pacific",
-  "updated": "2026-09-29",
-  "displaced_by": "results night: Hawai'i Pacific's draw at Biola levels their record at three wins, three draws and three losses",
+  "fixture_ref": "2026-09-29 assumption v southern-new-hampshire",
+  "updated": "2026-09-30",
+  "displaced_by": "results night: Southern New Hampshire held at Assumption and still the division's top scorers across every conference",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:46:18.060Z"
+    "validated_at": "2026-09-30T11:44:48.661Z"
   }
 }

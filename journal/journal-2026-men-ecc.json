@@ -3,19 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-29T11:48:00+00:00",
-  "data_collected_at": "2026-09-29T11:32:11+00:00",
-  "headline": "Molloy and St. Thomas Aquinas top the table unbeaten",
-  "dek": "The pair drew goalless with each other at St. Thomas Aquinas and have won every other conference match they have played, Molloy at D'Youville and St. Thomas Aquinas at District of Columbia on the latest day. Molloy have conceded five goals all season and lost once, at home to Assumption in September.",
+  "generated_at": "2026-09-30T11:45:00+00:00",
+  "data_collected_at": "2026-09-30T11:31:33+00:00",
+  "headline": "Both conference leaders beaten on the same night",
+  "dek": "Molloy went down at American International and St. Thomas Aquinas at Southern Connecticut on the same evening, neither side scoring. Both remain unbeaten in conference play and level at the top, but Molloy have now lost twice this season and conceded seven goals.",
   "lede_basis": {
     "programme": "molloy",
     "wins": 4,
     "draws": 3,
-    "losses": 1,
+    "losses": 2,
     "gf": 13,
-    "ga": 5
+    "ga": 7
   },
-  "lede_updated": "2026-09-27",
+  "lede_updated": "2026-09-30",
+  "displaced_by": "Molloy and St. Thomas Aquinas both lost away without scoring on 2026-09-29; the standing dek's five-conceded, one-defeat line for Molloy is no longer true",
   "pattern": {
     "label": "derived",
     "text": "Queens have scored 25 goals, more than any other programme, and conceded nine; only the defeat at Holy Family and the home defeat to Staten Island have cost them.",
@@ -23,7 +24,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "queens": 25,
-        "mercy": 18,
+        "mercy": 21,
         "staten-island": 14,
         "molloy": 13,
         "roberts-wesleyan": 13,
@@ -56,16 +57,16 @@
     }
   },
   "wire": {
-    "line": "Queens' first home defeat of the season came against Staten Island, the first match in which they have failed to score.",
+    "line": "Molloy and St. Thomas Aquinas, level at the top of the conference, both lost away on the same night without scoring.",
     "basis": {
-      "programme": "queens",
-      "wins": 7,
-      "draws": 1,
+      "programme": "molloy",
+      "wins": 4,
+      "draws": 3,
       "losses": 2,
-      "gf": 25,
-      "ga": 9
+      "gf": 13,
+      "ga": 7
     },
-    "updated": "2026-09-24"
+    "updated": "2026-09-30"
   },
   "findings": [
     {
@@ -103,6 +104,32 @@
     },
     {
       "label": "derived",
+      "text": "Jacob Darwesh Lund-Iversen has scored ten of Mercy's 21 goals from 30 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Jacob Darwesh Lund-Iversen",
+        "programme": "mercy",
+        "goals": 10,
+        "shots": 30,
+        "gf": 21,
+        "ga": 12
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Anthony Martinez has made 28 saves and conceded five goals for Molloy, who have conceded seven all season.",
+      "basis": {
+        "source": "stats",
+        "player": "Anthony Martinez",
+        "programme": "molloy",
+        "saves": 28,
+        "goals_against": 5,
+        "gf": 13,
+        "ga": 7
+      }
+    },
+    {
+      "label": "derived",
       "text": "Lorenzo Herrera has made 50 saves for District of Columbia and conceded ten; the home defeat to St. Thomas Aquinas was the side's fourth.",
       "basis": {
         "source": "stats",
@@ -114,32 +141,6 @@
         "draws": 2,
         "losses": 4
       }
-    },
-    {
-      "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored ten of Mercy's eighteen goals from 28 shots.",
-      "basis": {
-        "source": "stats",
-        "player": "Jacob Darwesh Lund-Iversen",
-        "programme": "mercy",
-        "goals": 10,
-        "shots": 28,
-        "gf": 18,
-        "ga": 10
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Anthony Martinez has made 24 saves and conceded three goals for Molloy, who have conceded five all season.",
-      "basis": {
-        "source": "stats",
-        "player": "Anthony Martinez",
-        "programme": "molloy",
-        "saves": 24,
-        "goals_against": 3,
-        "gf": 13,
-        "ga": 5
-      }
     }
   ],
   "players_to_watch": [
@@ -148,7 +149,7 @@
       "programme": "mercy",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 3 A · 28 shots"
+      "line": "10 G · 3 A · 30 shots"
     },
     {
       "player": "Keithlend Cesar",
@@ -167,16 +168,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 d-youville v molloy",
-      "line": "D'Youville had not lost at home this season before Molloy's visit; their other defeats all came on the road."
+      "fixture_ref": "2026-09-29 american-international v molloy",
+      "line": "Molloy had not lost away from home this season, and had not lost anywhere since Assumption's visit in September."
     },
     "next_match": {
-      "fixture_ref": "2026-09-29 american-international v molloy",
-      "line": "Molloy have not lost away from home this season; American International have already beaten D'Youville and lost at Mercy."
+      "fixture_ref": "2026-09-30 d-youville v roberts-wesleyan",
+      "line": "Roberts Wesleyan have not won away since the opening weekend at Assumption; D'Youville's one conference match on the road ended goalless."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:42:54.033Z"
+    "validated_at": "2026-09-30T11:42:01.697Z"
   }
 }

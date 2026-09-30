@@ -3,46 +3,61 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-09-29T11:45:00+00:00",
-  "data_collected_at": "2026-09-29T11:30:06+00:00",
-  "headline": "Wilmington's draws now outnumber their wins",
-  "dek": "Wilmington's draw with Dominican is their fourth of the season, beside two wins and three defeats. They have scored ten goals and conceded sixteen across those matches, and have not won since early September.",
+  "generated_at": "2026-09-30T11:45:00+00:00",
+  "data_collected_at": "2026-09-30T11:30:06+00:00",
+  "headline": "Georgian Court outscore every rival and still leak goals",
+  "dek": "Georgian Court's win at Chestnut Hill was their fifth of the season, beside two draws and two defeats. Their 22 goals are more than any other programme in the conference has scored; they have also conceded seventeen, so the scoring is carrying a defence that gives goals back.",
   "lede_basis": {
-    "programme": "wilmington",
-    "wins": 2,
-    "draws": 4,
-    "losses": 3,
-    "gf": 10,
-    "ga": 16
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "georgian-court",
+    "of": [
+      "bridgeport",
+      "caldwell",
+      "chestnut-hill",
+      "dominican",
+      "felician",
+      "goldey-beacom",
+      "holy-family",
+      "jefferson",
+      "post",
+      "wilmington"
+    ],
+    "wins": 5,
+    "draws": 2,
+    "losses": 2,
+    "gf": 22,
+    "ga": 17
   },
-  "lede_updated": "2026-09-27",
+  "lede_updated": "2026-09-30",
+  "displaced_by": "Georgian Court's fifth win, at Chestnut Hill, on the conference's top goal tally; the standing Wilmington dek's figures had lapsed after a fifth draw.",
   "pattern": {
     "label": "observed",
-    "text": "Georgian Court's nineteen goals are more than Dominican and Holy Family have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
+    "text": "Dominican have scored five goals and conceded eighteen; the foot of the chart belongs to a side with one win, two draws and six defeats, whose trouble is at both ends of the pitch rather than one.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "georgian-court": 19,
-        "bridgeport": 13,
-        "felician": 13,
-        "goldey-beacom": 12,
+        "georgian-court": 22,
+        "bridgeport": 17,
+        "felician": 15,
+        "post": 15,
+        "goldey-beacom": 14,
+        "jefferson": 14,
+        "chestnut-hill": 13,
         "caldwell": 11,
-        "chestnut-hill": 11,
-        "post": 11,
-        "jefferson": 10,
-        "wilmington": 10,
-        "holy-family": 8,
-        "dominican": 4
+        "wilmington": 11,
+        "holy-family": 9,
+        "dominican": 5
       },
       "highlight": "georgian-court"
     },
     "basis": {
-      "comparative": "greater_than_sum",
-      "metric": "gf",
-      "programme": "georgian-court",
-      "of": ["dominican", "holy-family"],
-      "gf": 19,
-      "ga": 15
+      "programme": "dominican",
+      "wins": 1,
+      "draws": 2,
+      "losses": 6,
+      "gf": 5,
+      "ga": 18
     }
   },
   "wire": {
@@ -64,7 +79,7 @@
         "post"
       ],
       "wins": 2,
-      "draws": 4,
+      "draws": 5,
       "losses": 3
     },
     "updated": "2026-09-27"
@@ -72,71 +87,50 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Dominican have scored four goals and conceded fourteen this season; the draw at Wilmington leaves them with one win, two draws and five defeats.",
-      "basis": {
-        "programme": "dominican",
-        "wins": 1,
-        "draws": 2,
-        "losses": 5,
-        "gf": 4,
-        "ga": 14
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Georgian Court's home match against Felician has passed its date without a published result, the only match in the conference to have done so; no played match is missing its score.",
-      "basis": {
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 1
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Post have won four, drawn two and lost two, scoring eleven goals and conceding eight.",
+      "text": "Post's win at Monroe was their fifth of the season, beside two draws and two defeats; they have scored fifteen goals and conceded nine.",
       "basis": {
         "programme": "post",
-        "wins": 4,
+        "wins": 5,
         "draws": 2,
         "losses": 2,
-        "gf": 11,
-        "ga": 8
+        "gf": 15,
+        "ga": 9
       }
     },
     {
       "label": "observed",
-      "text": "Jefferson's six defeats remain the most in the conference, beside one win and no draws.",
+      "text": "Jefferson have still not drawn a match this season: the win over Goldey-Beacom is their second, beside six defeats, with fourteen goals scored and nineteen conceded.",
       "basis": {
-        "comparative": "greater_than_each",
-        "metric": "losses",
         "programme": "jefferson",
-        "of": [
-          "bridgeport",
-          "caldwell",
-          "chestnut-hill",
-          "dominican",
-          "felician",
-          "georgian-court",
-          "goldey-beacom",
-          "holy-family",
-          "post",
-          "wilmington"
-        ],
-        "wins": 1,
+        "wins": 2,
         "draws": 0,
-        "losses": 6
+        "losses": 6,
+        "gf": 14,
+        "ga": 19
       }
     },
     {
       "label": "observed",
-      "text": "Bruno Mestres has made 53 saves for Holy Family and conceded fifteen, a save percentage of .779.",
+      "text": "Gijs van Eif has scored seven goals for Georgian Court and assisted six more, from 40 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Gijs van Eif",
+        "programme": "georgian-court",
+        "goals": 7,
+        "assists": 6,
+        "shots": 40
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bruno Mestres has made 61 saves for Holy Family and conceded sixteen, a save percentage of .792.",
       "basis": {
         "source": "stats",
         "player": "Bruno Mestres",
         "programme": "holy-family",
-        "saves": 53,
-        "goals_against": 15,
-        "save_pct": 0.779
+        "saves": 61,
+        "goals_against": 16,
+        "save_pct": 0.792
       }
     }
   ],
@@ -146,7 +140,7 @@
       "programme": "georgian-court",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 5 A · 35 shots"
+      "line": "7 G · 6 A · 40 shots"
     },
     {
       "player": "Eliass Elfasoukhi",
@@ -156,25 +150,25 @@
       "line": "4 G · 1 A · 12 shots"
     },
     {
-      "player": "Dane Bodziak",
-      "programme": "chestnut-hill",
+      "player": "Cole McEvoy",
+      "programme": "jefferson",
       "position": "FWD",
-      "class": "5Y",
-      "line": "4 G · 12 shots"
+      "class": "SR",
+      "line": "3 G · 3 A · 27 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 wilmington v dominican",
-      "line": "Wilmington have not won since early September; Dominican's only win of the season came against Jefferson."
+      "fixture_ref": "2026-09-29 chestnut-hill v georgian-court",
+      "line": "Georgian Court have yet to drop a point in conference play; Chestnut Hill have yet to take one."
     },
     "next_match": {
-      "fixture_ref": "2026-09-29 chestnut-hill v georgian-court",
-      "line": "Chestnut Hill have lost both their conference matches; Georgian Court beat Post in their conference opener."
+      "fixture_ref": "2026-10-02 georgian-court v felician",
+      "line": "Felician are unbeaten in conference play after a draw at Wilmington and a win over Caldwell; Georgian Court have won both of theirs."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:42:50.670Z"
+    "validated_at": "2026-09-30T11:42:42.657Z"
   }
 }

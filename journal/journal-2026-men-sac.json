@@ -3,19 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-09-29T11:45:00+00:00",
-  "data_collected_at": "2026-09-29T11:39:00+00:00",
-  "headline": "Catawba go top having conceded three goals all season",
-  "dek": "Catawba's win at Tusculum on Sunday took them past Emory & Henry and Anderson to the top of the conference table. They are unbeaten after six wins and two draws, with twenty-four scored and three conceded. Anderson and Emory & Henry have not lost either, and Catawba do not meet Anderson until the middle of October.",
+  "generated_at": "2026-09-30T11:45:00+00:00",
+  "data_collected_at": "2026-09-30T11:37:57+00:00",
+  "headline": "Emory & Henry top table on three straight wins",
+  "dek": "Emory & Henry's win at Mars Hill on Tuesday was their third of the season and their third in succession, and it took them above Catawba at the top of the conference table. They are unbeaten with three wins and two draws, eleven scored and four conceded. Catawba and Anderson have not lost either.",
   "lede_basis": {
-    "programme": "catawba",
-    "wins": 6,
+    "programme": "emory-henry",
+    "wins": 3,
     "draws": 2,
     "losses": 0,
-    "gf": 24,
-    "ga": 3
+    "gf": 11,
+    "ga": 4
   },
-  "lede_updated": "2026-09-28",
+  "lede_updated": "2026-09-30",
+  "displaced_by": "Emory & Henry went top of the table by winning at Mars Hill on Tuesday",
   "pattern": {
     "label": "observed",
     "text": "Catawba have scored twenty-four and conceded three, and no one player has more than Alex Payton's four of those goals.",
@@ -24,13 +25,13 @@
       "values": {
         "catawba": 24,
         "anderson": 22,
+        "lincoln-memorial": 15,
         "mars-hill": 15,
         "wingate": 15,
         "carson-newman": 13,
         "lenoir-rhyne": 12,
-        "lincoln-memorial": 12,
+        "emory-henry": 11,
         "newberry": 10,
-        "emory-henry": 9,
         "coker": 7,
         "tusculum": 4
       },
@@ -69,6 +70,30 @@
     },
     {
       "label": "observed",
+      "text": "Lincoln Memorial's win over Montevallo on Tuesday was their fourth of the season, against two draws and two defeats, with fifteen scored and nine conceded.",
+      "basis": {
+        "programme": "lincoln-memorial",
+        "wins": 4,
+        "draws": 2,
+        "losses": 2,
+        "gf": 15,
+        "ga": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mars Hill's defeat at home to Emory & Henry on Tuesday was their fourth of the season, against three wins and two draws, and they have scored fifteen and conceded thirteen.",
+      "basis": {
+        "programme": "mars-hill",
+        "wins": 3,
+        "draws": 2,
+        "losses": 4,
+        "gf": 15,
+        "ga": 13
+      }
+    },
+    {
+      "label": "observed",
       "text": "Tusculum's defeat at home to Catawba on Sunday was their fourth of the season, against one win and one draw, and they have scored four goals in all.",
       "basis": {
         "programme": "tusculum",
@@ -77,30 +102,6 @@
         "losses": 4,
         "gf": 4,
         "ga": 11
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Emory & Henry are unbeaten with two wins and two draws, nine scored and four conceded, and go to Mars Hill on Tuesday.",
-      "basis": {
-        "programme": "emory-henry",
-        "wins": 2,
-        "draws": 2,
-        "losses": 0,
-        "gf": 9,
-        "ga": 4
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Lenoir-Rhyne's win at Newberry on Saturday was their first of the season: one win, three draws and five defeats, twelve scored and twenty-one conceded.",
-      "basis": {
-        "programme": "lenoir-rhyne",
-        "wins": 1,
-        "draws": 3,
-        "losses": 5,
-        "gf": 12,
-        "ga": 21
       }
     },
     {
@@ -140,16 +141,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-27 tusculum v catawba",
-      "line": "Catawba go top of the conference table still unbeaten; Tusculum have not won since early September."
+      "fixture_ref": "2026-09-29 mars-hill v emory-henry",
+      "line": "Emory & Henry go top of the table still unbeaten; Mars Hill have not scored since their win at Wingate."
     },
     "next_match": {
-      "fixture_ref": "2026-09-29 mars-hill v emory-henry",
-      "line": "Emory & Henry have yet to lose; Mars Hill were beaten at Carson-Newman on Saturday."
+      "fixture_ref": "2026-09-30 catawba v lee",
+      "line": "Catawba are unbeaten and have not conceded since August; Lee have already beaten Tusculum and won at Newberry."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:45:34.527Z"
+    "validated_at": "2026-09-30T11:43:53.168Z"
   }
 }

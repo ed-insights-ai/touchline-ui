@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-09-29T11:45:34.527Z",
-  "data_collected_at": "2026-09-29T11:39:00+00:00",
+  "validated_at": "2026-09-30T11:43:53.168Z",
+  "data_collected_at": "2026-09-30T11:37:57+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Tusculum's defeat at home to Catawba on Sunday was their fourth of the season, against one win and one draw, and they have scored four goals in all.",
+      "text": "Lincoln Memorial's win over Montevallo on Tuesday was their fourth of the season, against two draws and two defeats, with fifteen scored and nine conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Emory & Henry are unbeaten with two wins and two draws, nine scored and four conceded, and go to Mars Hill on Tuesday.",
+      "text": "Mars Hill's defeat at home to Emory & Henry on Tuesday was their fourth of the season, against three wins and two draws, and they have scored fifteen and conceded thirteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Lenoir-Rhyne's win at Newberry on Saturday was their first of the season: one win, three draws and five defeats, twelve scored and twenty-one conceded.",
+      "text": "Tusculum's defeat at home to Catawba on Sunday was their fourth of the season, against one win and one draw, and they have scored four goals in all.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-27 tusculum v catawba",
+      "text": "2026-09-29 mars-hill v emory-henry",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-29 mars-hill v emory-henry",
+      "text": "2026-09-30 catawba v lee",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-29T11:45:05.607Z",
-    "generate_ms": 28919,
+    "started_at": "2026-09-30T11:42:57.110Z",
+    "generate_ms": 56057,
     "validate_ms": 1,
-    "wall_ms": 28920,
+    "wall_ms": 56058,
     "concurrency": 4
   }
 }

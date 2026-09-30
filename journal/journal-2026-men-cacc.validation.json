@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-09-29T11:42:50.670Z",
-  "data_collected_at": "2026-09-29T11:30:06+00:00",
+  "validated_at": "2026-09-30T11:42:42.657Z",
+  "data_collected_at": "2026-09-30T11:30:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -17,22 +17,17 @@
   "normalizations": [],
   "review": [
     {
-      "path": "pattern.text",
-      "text": "Georgian Court's nineteen goals are more than Dominican and Holy Family have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
-      "unbacked": ["1"]
-    },
-    {
-      "path": "findings[4].text",
-      "text": "Bruno Mestres has made 53 saves for Holy Family and conceded fifteen, a save percentage of .779.",
-      "unbacked": ["779"]
+      "path": "findings[3].text",
+      "text": "Bruno Mestres has made 61 saves for Holy Family and conceded sixteen, a save percentage of .792.",
+      "unbacked": ["792"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Georgian Court's nineteen goals are more than Dominican and Holy Family have scored between them, yet they have conceded fifteen: the conference's scoring is concentrated in one side, and its defending is not.",
-      "checker": "team_goals+comparative",
+      "text": "Dominican have scored five goals and conceded eighteen; the foot of the chart belongs to a side with one win, two draws and six defeats, whose trouble is at both ends of the pitch rather than one.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -58,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Dominican have scored four goals and conceded fourteen this season; the draw at Wilmington leaves them with one win, two draws and five defeats.",
+      "text": "Post's win at Monroe was their fifth of the season, beside two draws and two defeats; they have scored fifteen goals and conceded nine.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,8 +62,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Georgian Court's home match against Felician has passed its date without a published result, the only match in the conference to have done so; no played match is missing its score.",
-      "checker": "unresolved",
+      "text": "Jefferson have still not drawn a match this season: the win over Goldey-Beacom is their second, beside six defeats, with fourteen goals scored and nineteen conceded.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -76,8 +71,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Post have won four, drawn two and lost two, scoring eleven goals and conceding eight.",
-      "checker": "team_goals+team_record",
+      "text": "Gijs van Eif has scored seven goals for Georgian Court and assisted six more, from 40 shots.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -85,16 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Jefferson's six defeats remain the most in the conference, beside one win and no draws.",
-      "checker": "team_record+comparative",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
-      "label": "observed",
-      "text": "Bruno Mestres has made 53 saves for Holy Family and conceded fifteen, a save percentage of .779.",
+      "text": "Bruno Mestres has made 61 saves for Holy Family and conceded sixteen, a save percentage of .792.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +89,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Gijs van Eif — 5 G · 5 A · 35 shots",
+      "text": "Gijs van Eif — 7 G · 6 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +107,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Dane Bodziak — 4 G · 12 shots",
+      "text": "Cole McEvoy — 3 G · 3 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +116,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-26 wilmington v dominican",
+      "text": "2026-09-29 chestnut-hill v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +125,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-29 chestnut-hill v georgian-court",
+      "text": "2026-10-02 georgian-court v felician",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-29T11:42:20.662Z",
-    "generate_ms": 30006,
+    "started_at": "2026-09-30T11:41:01.016Z",
+    "generate_ms": 101640,
     "validate_ms": 1,
-    "wall_ms": 30007,
+    "wall_ms": 101641,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-09-29T11:42:54.033Z",
-  "data_collected_at": "2026-09-29T11:32:11+00:00",
+  "validated_at": "2026-09-30T11:42:01.697Z",
+  "data_collected_at": "2026-09-30T11:31:33+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Queens' first home defeat of the season came against Staten Island, the first match in which they have failed to score.",
+      "text": "Molloy and St. Thomas Aquinas, level at the top of the conference, both lost away on the same night without scoring.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Lorenzo Herrera has made 50 saves for District of Columbia and conceded ten; the home defeat to St. Thomas Aquinas was the side's fourth.",
-      "checker": "player_stat+team_record",
+      "text": "Jacob Darwesh Lund-Iversen has scored ten of Mercy's 21 goals from 30 shots.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored ten of Mercy's eighteen goals from 28 shots.",
+      "text": "Anthony Martinez has made 28 saves and conceded five goals for Molloy, who have conceded seven all season.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -83,8 +83,8 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Anthony Martinez has made 24 saves and conceded three goals for Molloy, who have conceded five all season.",
-      "checker": "player_stat+team_goals",
+      "text": "Lorenzo Herrera has made 50 saves for District of Columbia and conceded ten; the home defeat to St. Thomas Aquinas was the side's fourth.",
+      "checker": "player_stat+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 10 G · 3 A · 28 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 10 G · 3 A · 30 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-26 d-youville v molloy",
+      "text": "2026-09-29 american-international v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-29 american-international v molloy",
+      "text": "2026-09-30 d-youville v roberts-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-29T11:42:20.676Z",
-    "generate_ms": 33356,
+    "started_at": "2026-09-30T11:41:01.027Z",
+    "generate_ms": 60669,
     "validate_ms": 1,
-    "wall_ms": 33357,
+    "wall_ms": 60670,
     "concurrency": 4
   }
 }
