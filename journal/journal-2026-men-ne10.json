@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-09-30T11:40:00+00:00",
-  "data_collected_at": "2026-09-30T11:35:47+00:00",
+  "generated_at": "2026-10-01T11:40:00+00:00",
+  "data_collected_at": "2026-10-01T11:35:26+00:00",
   "headline": "Southern New Hampshire drop first conference points at Assumption",
   "dek": "Three days after scoring seven at Pace, Southern New Hampshire were held to a draw at Assumption, the first conference points they have dropped. Ten matches in they are still unbeaten, and their four-point lead over the three programmes on six is intact.",
   "lede_basis": {
@@ -22,7 +22,6 @@
     "lead_in_points": 4
   },
   "lede_updated": "2026-09-30",
-  "displaced_by": "Southern New Hampshire drew at Assumption, so 'won all three conference matches' and 'nine matches into the season' are no longer true",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's thirty-seven goals come from at least fifteen different scorers, so the tallest bar is not one player's work; the three programmes level at the foot of the chart on eleven have very different records, Bentley with four wins to Saint Michael's one.",
@@ -31,10 +30,10 @@
       "values": {
         "southern-new-hampshire": 37,
         "assumption": 20,
-        "franklin-pierce": 18,
+        "franklin-pierce": 20,
         "adelphi": 16,
+        "american-international": 15,
         "pace": 14,
-        "american-international": 13,
         "saint-anselm": 12,
         "bentley": 11,
         "saint-michael-s": 11,
@@ -109,11 +108,12 @@
     },
     {
       "label": "observed",
-      "text": "American International's home match against Molloy has passed its date with no result published, the only match in the conference's schedule to have done so.",
+      "text": "Franklin Pierce's win at Queens is their fifth of the season against two draws; both of their two defeats have come against non-conference opponents.",
       "basis": {
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 1
+        "programme": "franklin-pierce",
+        "wins": 5,
+        "draws": 2,
+        "losses": 2
       }
     },
     {
@@ -147,21 +147,21 @@
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 20 shots"
+      "line": "8 G · 22 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-29 assumption v southern-new-hampshire",
-      "line": "Southern New Hampshire have yet to lose, though this is the only conference match they have not won; Assumption end a run of consecutive defeats."
+      "fixture_ref": "2026-09-30 queens v franklin-pierce",
+      "line": "Franklin Pierce have still lost only to non-conference opponents; Queens had already won at Assumption this season."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 queens v franklin-pierce",
-      "line": "Franklin Pierce have lost only to non-conference opponents; Queens have already won at Assumption this season."
+      "fixture_ref": "2026-10-03 southern-new-hampshire v bentley",
+      "line": "Southern New Hampshire have yet to lose; Bentley arrive from a home defeat by American International, their first in conference play."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:43:21.716Z"
+    "validated_at": "2026-10-01T11:44:34.544Z"
   }
 }

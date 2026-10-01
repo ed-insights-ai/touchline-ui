@@ -3,35 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-09-30T11:45:00+00:00",
-  "data_collected_at": "2026-09-30T11:31:33+00:00",
-  "headline": "Both conference leaders beaten on the same night",
-  "dek": "Molloy went down at American International and St. Thomas Aquinas at Southern Connecticut on the same evening, neither side scoring. Both remain unbeaten in conference play and level at the top, but Molloy have now lost twice this season and conceded seven goals.",
+  "generated_at": "2026-10-01T11:45:00+00:00",
+  "data_collected_at": "2026-10-01T11:31:27+00:00",
+  "headline": "D'Youville draw level with the conference leaders",
+  "dek": "D'Youville's home win over Roberts Wesleyan lifts them level on points with Molloy and St. Thomas Aquinas, though they are the only one of the leading sides to have lost a conference match. Their season as a whole has been even: four wins against four defeats, and twelve goals scored against twelve conceded.",
   "lede_basis": {
-    "programme": "molloy",
+    "programme": "d-youville",
     "wins": 4,
     "draws": 3,
-    "losses": 2,
-    "gf": 13,
-    "ga": 7
+    "losses": 4,
+    "gf": 12,
+    "ga": 12
   },
-  "lede_updated": "2026-09-30",
-  "displaced_by": "Molloy and St. Thomas Aquinas both lost away without scoring on 2026-09-29; the standing dek's five-conceded, one-defeat line for Molloy is no longer true",
+  "lede_updated": "2026-10-01",
+  "displaced_by": "D'Youville beat Roberts Wesleyan at home on 2026-09-30 and join Molloy and St. Thomas Aquinas on seven points; the standing lines were about the two leaders' defeats on 2026-09-29",
   "pattern": {
     "label": "derived",
-    "text": "Queens have scored 25 goals, more than any other programme, and conceded nine; only the defeat at Holy Family and the home defeat to Staten Island have cost them.",
+    "text": "Queens have scored 26 goals, more than any other programme, and conceded eleven; the home defeat to Franklin Pierce was their third of the season.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "queens": 25,
+        "queens": 26,
         "mercy": 21,
+        "roberts-wesleyan": 14,
         "staten-island": 14,
         "molloy": 13,
-        "roberts-wesleyan": 13,
+        "d-youville": 12,
         "daemen": 11,
         "st-thomas-aquinas": 11,
-        "d-youville": 9,
-        "district-of-columbia": 7
+        "district-of-columbia": 10
       },
       "highlight": "queens"
     },
@@ -51,22 +51,22 @@
       ],
       "wins": 7,
       "draws": 1,
-      "losses": 2,
-      "gf": 25,
-      "ga": 9
+      "losses": 3,
+      "gf": 26,
+      "ga": 11
     }
   },
   "wire": {
-    "line": "Molloy and St. Thomas Aquinas, level at the top of the conference, both lost away on the same night without scoring.",
+    "line": "D'Youville join Molloy and St. Thomas Aquinas at the top of the table, the only one of them beaten in conference play.",
     "basis": {
-      "programme": "molloy",
+      "programme": "d-youville",
       "wins": 4,
       "draws": 3,
-      "losses": 2,
-      "gf": 13,
-      "ga": 7
+      "losses": 4,
+      "gf": 12,
+      "ga": 12
     },
-    "updated": "2026-09-30"
+    "updated": "2026-10-01"
   },
   "findings": [
     {
@@ -80,7 +80,7 @@
     },
     {
       "label": "derived",
-      "text": "Daemen have conceded 32 goals, more than any other programme; the home defeat to Mercy came in their first match since the win at Roberts Wesleyan.",
+      "text": "Daemen have conceded 32 goals, more than any other programme, against eleven scored.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -117,27 +117,24 @@
     },
     {
       "label": "derived",
-      "text": "Anthony Martinez has made 28 saves and conceded five goals for Molloy, who have conceded seven all season.",
+      "text": "D'Youville have scored twelve goals and conceded twelve, and six different players have scored for them.",
       "basis": {
-        "source": "stats",
-        "player": "Anthony Martinez",
-        "programme": "molloy",
-        "saves": 28,
-        "goals_against": 5,
-        "gf": 13,
-        "ga": 7
+        "programme": "d-youville",
+        "gf": 12,
+        "ga": 12,
+        "distinct_scorers_min": 6
       }
     },
     {
       "label": "derived",
-      "text": "Lorenzo Herrera has made 50 saves for District of Columbia and conceded ten; the home defeat to St. Thomas Aquinas was the side's fourth.",
+      "text": "Lorenzo Herrera has made 51 saves for District of Columbia and conceded ten goals; the side have won four matches and lost four.",
       "basis": {
         "source": "stats",
         "player": "Lorenzo Herrera",
         "programme": "district-of-columbia",
-        "saves": 50,
+        "saves": 51,
         "goals_against": 10,
-        "wins": 3,
+        "wins": 4,
         "draws": 2,
         "losses": 4
       }
@@ -156,28 +153,28 @@
       "programme": "queens",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 3 A · 20 shots"
+      "line": "5 G · 3 A · 23 shots"
     },
     {
-      "player": "Jack Veletanga",
-      "programme": "molloy",
-      "position": "MID",
-      "class": "SO",
-      "line": "4 G · 3 A · 16 shots"
+      "player": "Ethan Robinson",
+      "programme": "d-youville",
+      "position": "FWD",
+      "class": "SR",
+      "line": "4 G · 1 A · 31 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-29 american-international v molloy",
-      "line": "Molloy had not lost away from home this season, and had not lost anywhere since Assumption's visit in September."
+      "fixture_ref": "2026-09-30 d-youville v roberts-wesleyan",
+      "line": "D'Youville had lost at home to Molloy in their previous match; Roberts Wesleyan have yet to take a point on the road in conference play."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 d-youville v roberts-wesleyan",
-      "line": "Roberts Wesleyan have not won away since the opening weekend at Assumption; D'Youville's one conference match on the road ended goalless."
+      "fixture_ref": "2026-10-03 st-thomas-aquinas v d-youville",
+      "line": "St. Thomas Aquinas have yet to lose in conference play; D'Youville's only conference defeat came at home to Molloy."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:42:01.697Z"
+    "validated_at": "2026-10-01T11:42:07.601Z"
   }
 }

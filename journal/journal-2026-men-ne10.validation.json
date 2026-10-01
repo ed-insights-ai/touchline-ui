@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-09-30T11:43:21.716Z",
-  "data_collected_at": "2026-09-30T11:35:47+00:00",
+  "validated_at": "2026-10-01T11:44:34.544Z",
+  "data_collected_at": "2026-10-01T11:35:26+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -81,8 +81,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "American International's home match against Molloy has passed its date with no result published, the only match in the conference's schedule to have done so.",
-      "checker": "unresolved",
+      "text": "Franklin Pierce's win at Queens is their fifth of the season against two draws; both of their two defeats have come against non-conference opponents.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -117,7 +117,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Guillermo Rios — 8 G · 20 shots",
+      "text": "Guillermo Rios — 8 G · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-29 assumption v southern-new-hampshire",
+      "text": "2026-09-30 queens v franklin-pierce",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-30 queens v franklin-pierce",
+      "text": "2026-10-03 southern-new-hampshire v bentley",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -143,10 +143,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-30T11:42:34.386Z",
-    "generate_ms": 47329,
+    "started_at": "2026-10-01T11:43:40.586Z",
+    "generate_ms": 53957,
     "validate_ms": 1,
-    "wall_ms": 47330,
+    "wall_ms": 53958,
     "concurrency": 4
   }
 }

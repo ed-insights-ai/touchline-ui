@@ -3,36 +3,51 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-09-29T11:45:00+00:00",
-  "data_collected_at": "2026-09-29T11:39:31+00:00",
-  "headline": "Away sides sweep the day, Tampa and Florida Tech lead",
-  "dek": "Tampa won at Barry and Florida Tech at Eckerd on a day when every match in the conference went to the visiting side, and they now stand level at the top with neither yet beaten in conference play. Tampa have lost once all season, in August, and have conceded eight goals.",
+  "generated_at": "2026-10-01T11:45:00+00:00",
+  "data_collected_at": "2026-10-01T11:40:12+00:00",
+  "headline": "Florida Southern beat Saint Leo and lead alone",
+  "dek": "Saint Leo were the only side to have beaten Florida Southern this season, and Florida Southern have now beaten them back on a night when both of the sides level above them lost. They have won nine times and lost once, and their thirty goals are more than any other programme has scored.",
   "lede_basis": {
-    "programme": "tampa",
-    "wins": 4,
-    "draws": 3,
+    "programme": "florida-southern",
+    "wins": 9,
+    "draws": 0,
     "losses": 1,
-    "gf": 16,
-    "ga": 8
+    "gf": 30,
+    "ga": 11,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "barry",
+      "eckerd",
+      "embry-riddle",
+      "florida-tech",
+      "lynn",
+      "nova-southeastern",
+      "palm-beach-atlantic",
+      "rollins",
+      "saint-leo",
+      "tampa"
+    ]
   },
-  "lede_updated": "2026-09-27",
+  "lede_updated": "2026-10-01",
+  "displaced_by": "Florida Southern beat Saint Leo while Tampa and Florida Tech both lost; the two no longer lead",
   "pattern": {
     "label": "derived",
-    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
+    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and both of those sides sit at the foot of the table.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 25,
-        "embry-riddle": 16,
-        "tampa": 16,
-        "palm-beach-atlantic": 15,
-        "saint-leo": 14,
+        "florida-southern": 30,
+        "embry-riddle": 17,
+        "palm-beach-atlantic": 17,
+        "saint-leo": 17,
+        "tampa": 17,
+        "lynn": 14,
+        "eckerd": 13,
         "florida-tech": 13,
         "rollins": 13,
         "barry": 11,
-        "lynn": 11,
-        "eckerd": 9,
-        "nova-southeastern": 9
+        "nova-southeastern": 11
       },
       "highlight": "florida-southern"
     },
@@ -41,18 +56,18 @@
       "metric": "gf",
       "programme": "florida-southern",
       "of": ["eckerd", "nova-southeastern"],
-      "gf": 25
+      "gf": 30
     }
   },
   "wire": {
-    "line": "Every match on the day went to the side away from home; Tampa and Florida Tech lead the table, neither yet beaten by a conference rival.",
+    "line": "Florida Southern have now beaten the only side that beat them, and are the only programme still winning every conference match.",
     "basis": {
-      "programme": "tampa",
-      "wins": 4,
-      "draws": 3,
+      "programme": "florida-southern",
+      "wins": 9,
+      "draws": 0,
       "losses": 1
     },
-    "updated": "2026-09-27"
+    "updated": "2026-10-01"
   },
   "findings": [
     {
@@ -66,29 +81,29 @@
     },
     {
       "label": "derived",
-      "text": "Kobi Thomas has scored nine of Palm Beach Atlantic's fifteen goals this season, from 34 shots.",
+      "text": "Kobi Thomas has scored nine of Palm Beach Atlantic's seventeen goals this season, from 39 shots.",
       "basis": {
         "source": "stats",
         "player": "Kobi Thomas",
         "programme": "palm-beach-atlantic",
         "goals": 9,
-        "shots": 34,
-        "gf": 15
+        "shots": 39,
+        "gf": 17
       }
     },
     {
       "label": "derived",
-      "text": "Florida Tech have won five, drawn three and lost one, the defeat coming on the opening night at home.",
+      "text": "Embry-Riddle have won six, drawn two and lost one, the defeat coming at home to Rollins on September 23.",
       "basis": {
-        "programme": "florida-tech",
-        "wins": 5,
-        "draws": 3,
+        "programme": "embry-riddle",
+        "wins": 6,
+        "draws": 2,
         "losses": 1
       }
     },
     {
       "label": "derived",
-      "text": "Nova Southeastern have conceded nineteen goals, more than any other programme in the conference.",
+      "text": "Nova Southeastern have conceded 21 goals, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -105,8 +120,8 @@
           "saint-leo",
           "tampa"
         ],
-        "gf": 9,
-        "ga": 19
+        "gf": 11,
+        "ga": 21
       }
     },
     {
@@ -127,35 +142,35 @@
       "programme": "palm-beach-atlantic",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 3 A · 34 shots"
+      "line": "9 G · 4 A · 39 shots"
     },
     {
       "player": "Darcy Moffat",
       "programme": "florida-southern",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 6 A · 15 shots"
+      "line": "5 G · 7 A · 16 shots"
     },
     {
-      "player": "Virgilio Escala",
-      "programme": "saint-leo",
+      "player": "Tim Baierlein",
+      "programme": "florida-southern",
       "position": "FWD",
       "class": "JR",
-      "line": "2 G · 7 A · 12 shots"
+      "line": "8 G · 23 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 barry v tampa",
-      "line": "Tampa are unbeaten since August and now level on points with Florida Tech; Barry have still not won at home."
+      "fixture_ref": "2026-09-30 florida-southern v saint-leo",
+      "line": "Saint Leo were the only side to have beaten Florida Southern; Florida Southern now lead the table alone, and Saint Leo are still without a conference win."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 florida-southern v saint-leo",
-      "line": "Saint Leo are the only side to have beaten Florida Southern this season; Florida Southern have won every match since."
+      "fixture_ref": "2026-10-03 rollins v florida-southern",
+      "line": "Florida Southern have won every match since their only defeat; Rollins come in off a loss at Lynn in which they did not score."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:45:44.249Z"
+    "validated_at": "2026-10-01T11:46:19.210Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-09-30T11:42:00.588Z",
-  "data_collected_at": "2026-09-30T11:33:03+00:00",
+  "validated_at": "2026-10-01T11:43:40.512Z",
+  "data_collected_at": "2026-10-01T11:32:36+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "headline",
-      "text": "Top two draw and Roosevelt stay unbeaten",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -61,15 +55,6 @@
     },
     {
       "path": "findings[1]",
-      "label": "derived",
-      "text": "Roosevelt's six wins are more than any other programme has managed.",
-      "checker": "team_record+comparative",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[2]",
       "label": "observed",
       "text": "Luca Rosen has scored eleven goals from 38 shots for Northern Michigan.",
       "checker": "player_stat",
@@ -78,7 +63,7 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[2]",
       "label": "observed",
       "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from 25 shots.",
       "checker": "player_stat+team_goals",
@@ -87,9 +72,18 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
+      "path": "findings[3]",
       "label": "observed",
       "text": "Cedrik Strupler has conceded two goals all season for Roosevelt and kept five shutouts.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Mateusz Pass has made 40 saves for Wisconsin-Parkside while conceding thirteen goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-27 st-cloud-state v northern-michigan",
+      "text": "2026-09-30 purdue-northwest v wisconsin-parkside",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-30 purdue-northwest v wisconsin-parkside",
+      "text": "2026-10-02 northern-michigan v purdue-northwest",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-30T11:41:36.183Z",
-    "generate_ms": 24403,
+    "started_at": "2026-10-01T11:41:35.611Z",
+    "generate_ms": 124822,
     "validate_ms": 1,
-    "wall_ms": 24404,
+    "wall_ms": 124899,
     "concurrency": 4
   }
 }

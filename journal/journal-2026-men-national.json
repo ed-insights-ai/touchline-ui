@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-09-30T12:05:00+00:00",
-  "data_collected_at": "2026-09-30T11:32:30+00:00",
-  "headline": "Southern New Hampshire outscore every programme in the division",
-  "dek": "Held at Assumption, Southern New Hampshire still lead the division for goals scored, and no programme in any other conference has put away as many. That standing is the one the draw could not touch.",
+  "generated_at": "2026-10-01T12:05:00+00:00",
+  "data_collected_at": "2026-10-01T11:32:24+00:00",
+  "headline": "King's first win ends a run of eight defeats",
+  "dek": "King had lost all eight of their matches before they went to North Greenville. They come back with their first win of the season, and a record that now reads one win and eight defeats.",
   "basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "southern-new-hampshire",
-    "of_any": 1
+    "programme": "king",
+    "wins": 1,
+    "draws": 0,
+    "losses": 8
   },
-  "fixture_ref": "2026-09-29 assumption v southern-new-hampshire",
-  "updated": "2026-09-30",
-  "displaced_by": "results night: Southern New Hampshire held at Assumption and still the division's top scorers across every conference",
+  "fixture_ref": "2026-09-30 north-greenville v king",
+  "updated": "2026-10-01",
+  "displaced_by": "results night: King win at North Greenville for the first time this season after eight defeats",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:44:48.661Z"
+    "validated_at": "2026-10-01T11:47:11.115Z"
   }
 }

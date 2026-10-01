@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-09-30T11:40:00+00:00",
-  "data_collected_at": "2026-09-30T11:34:17+00:00",
+  "generated_at": "2026-10-01T11:40:00+00:00",
+  "data_collected_at": "2026-10-01T11:33:54+00:00",
   "headline": "AUM beat UAH and no unbeaten side remains",
   "dek": "UAH's first defeat of the season came at AUM on Saturday, and it leaves the conference without an unbeaten programme. AUM have now won eight of nine matches, their one defeat coming at North Georgia before conference play opened, and have conceded six goals along the way.",
   "lede_basis": {
@@ -24,13 +24,13 @@
       "values": {
         "west-alabama": 27,
         "trevecca": 24,
+        "uah": 17,
         "aum": 15,
         "christian-brothers": 15,
         "mississippi-college": 15,
-        "uah": 15,
+        "lee": 13,
         "montevallo": 13,
-        "lee": 12,
-        "union": 8,
+        "union": 13,
         "delta-state": 5,
         "spring-hill": 2
       },
@@ -69,6 +69,18 @@
     },
     {
       "label": "derived",
+      "text": "UAH have conceded five goals in nine matches, and their win at Carson-Newman was their seventh of the season.",
+      "basis": {
+        "programme": "uah",
+        "ga": 5,
+        "wins": 7,
+        "draws": 1,
+        "losses": 1,
+        "played": 9
+      }
+    },
+    {
+      "label": "derived",
       "text": "Trevecca have scored 24 goals in ten matches and have lost only once.",
       "basis": {
         "programme": "trevecca",
@@ -101,15 +113,6 @@
         "shutouts": 4,
         "goals_against": 12
       }
-    },
-    {
-      "label": "derived",
-      "text": "West Alabama's 27 goals have come from eight different scorers.",
-      "basis": {
-        "programme": "west-alabama",
-        "gf": 27,
-        "distinct_scorers_min": 8
-      }
     }
   ],
   "players_to_watch": [
@@ -132,21 +135,21 @@
       "programme": "uah",
       "position": "FWD",
       "class": "SR",
-      "line": "4 G · 30 shots"
+      "line": "5 G · 34 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-29 freed-hardeman v trevecca",
-      "line": "Trevecca's first match outside the conference since it opened; their only defeat of the season remains the one at home to Lee."
+      "fixture_ref": "2026-09-30 carson-newman v uah",
+      "line": "Only AUM have beaten UAH this season; Trevecca are the only side to have taken a draw from them."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 carson-newman v uah",
-      "line": "Trevecca have already won at Carson-Newman; UAH have conceded fewer goals than any other side in the conference."
+      "fixture_ref": "2026-10-02 west-alabama v christian-brothers",
+      "line": "West Alabama have scored more than any side in the conference and have still lost half their matches; Christian Brothers have won once since conference play opened."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:42:42.320Z"
+    "validated_at": "2026-10-01T11:42:53.455Z"
   }
 }

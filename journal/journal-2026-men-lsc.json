@@ -3,42 +3,43 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-09-30T11:45:00Z",
-  "data_collected_at": "2026-09-30T11:34:43+00:00",
-  "headline": "Midwestern State run to six straight wins",
-  "dek": "Midwestern State beat Texas A&M International for a sixth straight win and are the only side still unbeaten after ten matches. St. Mary's kept pace with a win at Sul Ross State, who have yet to score a goal this season.",
+  "generated_at": "2026-10-01T11:45:00Z",
+  "data_collected_at": "2026-10-01T11:34:32+00:00",
+  "headline": "Sul Ross State yet to score after eight defeats",
+  "dek": "Sul Ross State have lost all eight of their matches, conceding 35 goals and scoring none, and the latest defeat came at St. Edward's. Midwestern State, at the other end of the table, have yet to lose.",
   "lede_basis": {
-    "programme": "midwestern-state",
-    "wins": 8,
-    "draws": 2,
-    "losses": 0,
-    "consecutive_wins": 6,
-    "matches_played": 10
+    "programme": "sul-ross-state",
+    "wins": 0,
+    "draws": 0,
+    "losses": 8,
+    "gf": 0,
+    "ga": 35
   },
-  "lede_updated": "2026-09-27",
+  "lede_updated": "2026-10-01",
+  "displaced_by": "Standing lines counted six straight wins and ten matches; Midwestern State have now played eleven and won seven in a row. Sul Ross State's eighth goalless defeat takes the lede.",
   "pattern": {
     "label": "derived",
-    "text": "Ten different players have scored Midwestern State's 28 goals, and Parker Plaxco has eight of them.",
+    "text": "Ten different players have scored Midwestern State's 31 goals, and Parker Plaxco has eight of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 28,
+        "midwestern-state": 31,
         "saint-marys": 23,
         "ut-dallas": 19,
-        "lubbock-christian": 15,
-        "oklahoma-christian": 14,
+        "lubbock-christian": 16,
+        "oklahoma-christian": 16,
+        "saint-edwards": 12,
         "dallas-baptist": 11,
+        "texas-a-m-international": 11,
         "ut-tyler": 10,
-        "texas-a-m-international": 9,
         "west-texas-a-m": 9,
-        "saint-edwards": 7,
         "sul-ross-state": 0
       },
       "highlight": "midwestern-state"
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 28,
+      "gf": 31,
       "distinct_scorers_min": 10,
       "source": "stats",
       "player": "Parker Plaxco",
@@ -46,16 +47,15 @@
     }
   },
   "wire": {
-    "line": "Midwestern State have scored 28 goals and conceded seven in an unbeaten season.",
+    "line": "Jake Morris has kept five shutouts for Midwestern State and conceded seven goals all season.",
     "basis": {
+      "source": "stats",
+      "player": "Jake Morris",
       "programme": "midwestern-state",
-      "wins": 8,
-      "draws": 2,
-      "losses": 0,
-      "gf": 28,
-      "ga": 7
+      "shutouts": 5,
+      "goals_against": 7
     },
-    "updated": "2026-09-27"
+    "updated": "2026-10-01"
   },
   "findings": [
     {
@@ -69,64 +69,62 @@
     },
     {
       "label": "derived",
-      "text": "Sul Ross State have lost all seven of their matches, conceding 30 goals and scoring none.",
-      "basis": {
-        "programme": "sul-ross-state",
-        "wins": 0,
-        "draws": 0,
-        "losses": 7,
-        "gf": 0,
-        "ga": 30
-      }
-    },
-    {
-      "label": "derived",
-      "text": "UT Dallas have won six, drawn two and lost one, and their nineteen goals are more than St. Edward's and West Texas A&M have scored together.",
-      "basis": {
-        "comparative": "greater_than_sum",
-        "metric": "gf",
-        "programme": "ut-dallas",
-        "of": ["saint-edwards", "west-texas-a-m"],
-        "wins": 6,
-        "draws": 2,
-        "losses": 1,
-        "gf": 19
-      }
-    },
-    {
-      "label": "derived",
-      "text": "UT Tyler have drawn four of their eight matches, more draws than any other programme in the conference.",
+      "text": "Midwestern State have scored 31 goals, more than any other programme in the conference, and conceded seven in an unbeaten season.",
       "basis": {
         "comparative": "greater_than_each",
-        "metric": "draws",
-        "programme": "ut-tyler",
+        "metric": "gf",
+        "programme": "midwestern-state",
         "of": [
           "dallas-baptist",
           "lubbock-christian",
-          "midwestern-state",
           "oklahoma-christian",
           "saint-edwards",
           "saint-marys",
           "sul-ross-state",
           "texas-a-m-international",
           "ut-dallas",
+          "ut-tyler",
           "west-texas-a-m"
         ],
-        "wins": 2,
-        "draws": 4,
-        "losses": 2,
-        "matches_played": 8
+        "wins": 9,
+        "draws": 2,
+        "losses": 0,
+        "gf": 31,
+        "ga": 7
+      }
+    },
+    {
+      "label": "derived",
+      "text": "St. Mary's have not drawn a match this season: six wins and three defeats in nine.",
+      "basis": {
+        "programme": "saint-marys",
+        "wins": 6,
+        "draws": 0,
+        "losses": 3,
+        "matches_played": 9
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UT Dallas have lost once in ten matches and conceded eight goals.",
+      "basis": {
+        "programme": "ut-dallas",
+        "wins": 6,
+        "draws": 3,
+        "losses": 1,
+        "gf": 19,
+        "ga": 8,
+        "matches_played": 10
       }
     },
     {
       "label": "observed",
-      "text": "Jake Morris has conceded seven goals for Midwestern State and kept four shutouts.",
+      "text": "Fernando Hernandez has made 54 saves for Sul Ross State.",
       "basis": {
         "source": "stats",
-        "player": "Jake Morris",
-        "programme": "midwestern-state",
-        "goals_against": 7,
-        "shutouts": 4
+        "player": "Fernando Hernandez",
+        "programme": "sul-ross-state",
+        "saves": 54
       }
     }
   ],
@@ -136,7 +134,7 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 29 shots"
+      "line": "8 G · 32 shots"
     },
     {
       "player": "Eduardo Fernandez",
@@ -150,21 +148,21 @@
       "programme": "ut-dallas",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 1 A · 10 shots"
+      "line": "5 G · 1 A · 11 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 midwestern-state v texas-a-m-international",
-      "line": "Midwestern State remain the conference's only unbeaten side; Texas A&M International have yet to score in conference play."
+      "fixture_ref": "2026-09-30 ut-tyler v midwestern-state",
+      "line": "Midwestern State remain the conference's only unbeaten side; UT Tyler are still without a conference win."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 ut-tyler v midwestern-state",
-      "line": "UT Tyler have drawn more matches than any other programme in the conference; Midwestern State have not lost this season."
+      "fixture_ref": "2026-10-03 midwestern-state v oklahoma-christian",
+      "line": "Oklahoma Christian have not lost a conference match; Midwestern State have not lost any match."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:42:25.076Z"
+    "validated_at": "2026-10-01T11:44:05.337Z"
   }
 }

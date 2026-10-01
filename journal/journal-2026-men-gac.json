@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-09-30T11:45:00Z",
-  "data_collected_at": "2026-09-30T11:32:30+00:00",
+  "generated_at": "2026-10-01T11:45:00Z",
+  "data_collected_at": "2026-10-01T11:32:24+00:00",
   "headline": "Fort Hays State's defence carries them five points clear",
   "dek": "Fort Hays State have won all four of their conference matches, the latest by a single goal at Ouachita Baptist on Saturday, and have conceded just once in conference play. Southern Nazarene, five points behind with a match in hand, are the only other side yet to lose a conference match.",
   "lede_basis": {
@@ -27,9 +27,9 @@
       "values": {
         "rogers-state": 18,
         "fort-hays-state": 15,
+        "ouachita-baptist": 13,
         "southern-nazarene": 13,
-        "northeastern-state": 11,
-        "ouachita-baptist": 11,
+        "northeastern-state": 12,
         "newman": 9,
         "harding": 4
       },
@@ -67,14 +67,14 @@
     },
     {
       "label": "derived",
-      "text": "Ouachita Baptist have conceded only five goals this season and still lost three matches.",
+      "text": "Ouachita Baptist have conceded only six goals this season and still lost three matches.",
       "basis": {
         "programme": "ouachita-baptist",
-        "wins": 4,
+        "wins": 5,
         "draws": 1,
         "losses": 3,
-        "gf": 11,
-        "ga": 5
+        "gf": 13,
+        "ga": 6
       }
     },
     {
@@ -88,13 +88,13 @@
     },
     {
       "label": "observed",
-      "text": "Payton Roehrich has made twenty saves for Fort Hays State and conceded four goals.",
+      "text": "Guilherme Borges has made thirty-six saves for Newman and conceded fourteen goals.",
       "basis": {
         "source": "stats",
-        "player": "Payton Roehrich",
-        "programme": "fort-hays-state",
-        "saves": 20,
-        "goals_against": 4
+        "player": "Guilherme Borges",
+        "programme": "newman",
+        "saves": 36,
+        "goals_against": 14
       }
     },
     {
@@ -111,6 +111,13 @@
   ],
   "players_to_watch": [
     {
+      "player": "Philip Bölk",
+      "programme": "ouachita-baptist",
+      "position": "MID",
+      "class": "SO",
+      "line": "4 G · 2 A · 13 shots"
+    },
+    {
       "player": "Len Valkema",
       "programme": "fort-hays-state",
       "position": "FWD",
@@ -118,32 +125,25 @@
       "line": "4 G · 14 shots"
     },
     {
-      "player": "Juan Linares",
-      "programme": "fort-hays-state",
-      "position": "MID",
-      "class": "SO",
-      "line": "3 G · 3 A · 13 shots"
-    },
-    {
       "player": "Carter Adams",
       "programme": "northeastern-state",
       "position": "FWD",
       "class": "JR",
-      "line": "3 G · 2 A · 21 shots"
+      "line": "3 G · 2 A · 25 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 rogers-state v northeastern-state",
-      "line": "Northeastern State's first conference win came on the road, against the side with the most goals in the conference."
+      "fixture_ref": "2026-09-30 northeastern-state v ouachita-baptist",
+      "line": "Ouachita Baptist's win on the road lifts them level on points with Newman; Northeastern State have yet to win a conference match at home."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 northeastern-state v ouachita-baptist",
-      "line": "Ouachita Baptist have conceded as few goals as any side in the conference; Northeastern State have found the net in every conference match but one."
+      "fixture_ref": "2026-10-01 southern-nazarene v fort-hays-state",
+      "line": "The conference's only two unbeaten sides meet; Fort Hays State have yet to drop a point in conference play, while Southern Nazarene drew their last."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:41:58.391Z"
+    "validated_at": "2026-10-01T11:42:11.073Z"
   }
 }

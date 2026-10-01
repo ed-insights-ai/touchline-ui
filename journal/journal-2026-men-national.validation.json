@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-09-30T11:44:48.661Z",
+  "validated_at": "2026-10-01T11:47:11.115Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,18 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Southern New Hampshire outscore every programme in the division Held at Assumption, Southern New Hampshire still lead the division for goals scored, and no programme in any other conference has put away as many. That standing is the one the draw could not touch.",
-      "checker": "comparative",
+      "text": "King's first win ends a run of eight defeats King had lost all eight of their matches before they went to North Greenville. They come back with their first win of the season, and a record that now reads one win and eight defeats.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "held against every other programme; the nearest is fresno-pacific at 29"
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-09-30T11:43:57.177Z",
-    "generate_ms": 51474,
-    "validate_ms": 10,
-    "wall_ms": 51484
+    "started_at": "2026-10-01T11:46:24.511Z",
+    "generate_ms": 46600,
+    "validate_ms": 2,
+    "wall_ms": 46603
   }
 }

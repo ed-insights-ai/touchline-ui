@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-09-29T11:45:00+00:00",
-  "data_collected_at": "2026-09-29T11:37:44+00:00",
-  "headline": "Gannon lose once and outscore all but Millersville",
-  "dek": "Gannon have won six, drawn one and lost one, and the defeat was their opening match at home to Lake Erie. They have scored 24 goals, more than every programme except Millersville, and conceded nine.",
+  "generated_at": "2026-10-01T11:45:00+00:00",
+  "data_collected_at": "2026-10-01T11:36:20+00:00",
+  "headline": "Gannon overtake Millersville as the conference's top scorers",
+  "dek": "Gannon have won seven, drawn one and lost once, and the defeat was their opening match at home to Lake Erie. Their 30 goals are more than any other programme has scored, and Millersville, who led that count on Tuesday, have been passed.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "gf",
@@ -16,6 +16,7 @@
       "california-pa",
       "e-stroudsburg",
       "lock-haven",
+      "millersville",
       "pitt-johnstown",
       "seton-hill",
       "shepherd",
@@ -23,54 +24,58 @@
       "slippery-rock",
       "west-chester"
     ],
-    "gf": 24,
-    "ga": 9,
-    "wins": 6,
+    "gf": 30,
+    "ga": 10,
+    "wins": 7,
     "draws": 1,
     "losses": 1
   },
-  "lede_updated": "2026-09-29",
-  "displaced_by": "Lock Haven's goals figure now stands at 16, so West Chester's eight are no longer more than theirs and the standing dek is false; Gannon's restored season figures (six wins, 24 scored, nine conceded) won the slot",
+  "lede_updated": "2026-10-01",
+  "displaced_by": "Gannon's goals figure (30) has passed Millersville's (26), so the standing dek's 'more than every programme except Millersville' and its 24-goal figure are both false",
   "pattern": {
     "label": "derived",
-    "text": "Millersville have scored more than Pitt-Johnstown and West Chester together, and seven different players have scored for them: the spread of scorers, not one name, is what the chart is drawing.",
+    "text": "Gannon have scored more than California (Pa.) and West Chester together, and nine of their goals are Rafa Hyde's: the tallest bar in the chart leans on one forward more than any other does.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "millersville": 25,
-        "gannon": 24,
-        "e-stroudsburg": 21,
-        "bloomsburg": 20,
-        "lock-haven": 16,
-        "seton-hill": 15,
-        "california-pa": 14,
-        "slippery-rock": 14,
+        "gannon": 30,
+        "millersville": 26,
+        "e-stroudsburg": 22,
+        "bloomsburg": 21,
+        "lock-haven": 18,
+        "seton-hill": 16,
+        "slippery-rock": 16,
+        "california-pa": 15,
         "shippensburg": 12,
         "shepherd": 11,
-        "pitt-johnstown": 8,
-        "west-chester": 8
+        "west-chester": 11,
+        "pitt-johnstown": 8
       },
-      "highlight": "millersville"
+      "highlight": "gannon"
     },
     "basis": {
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "programme": "millersville",
-      "of": ["pitt-johnstown", "west-chester"],
-      "gf": 25,
-      "distinct_scorers_min": 7
+      "programme": "gannon",
+      "of": ["california-pa", "west-chester"],
+      "gf": 30,
+      "source": "stats",
+      "player": "Rafa Hyde",
+      "goals": 9
     }
   },
   "wire": {
-    "line": "Three players account for every goal West Chester have scored, and they have still won as often as they have lost.",
+    "line": "Ten different players have scored for E. Stroudsburg, and Steven Arias has seven of their 22 goals.",
     "basis": {
-      "programme": "west-chester",
-      "distinct_scorers_min": 3,
-      "wins": 3,
-      "draws": 2,
-      "losses": 3
+      "programme": "e-stroudsburg",
+      "distinct_scorers_min": 10,
+      "gf": 22,
+      "ga": 17,
+      "source": "stats",
+      "player": "Steven Arias",
+      "goals": 7
     },
-    "updated": "2026-09-28"
+    "updated": "2026-10-01"
   },
   "findings": [
     {
@@ -87,17 +92,7 @@
     },
     {
       "label": "observed",
-      "text": "E. Stroudsburg lead the table without a conference defeat, and all three of their losses came before conference play opened; across the season they have won six, drawn two and lost three.",
-      "basis": {
-        "programme": "e-stroudsburg",
-        "wins": 6,
-        "draws": 2,
-        "losses": 3
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Pitt-Johnstown have conceded 26 goals, more than any other programme in the conference, and have won one match, drawn one and lost five.",
+      "text": "Pitt-Johnstown have conceded 27 goals, more than any other programme in the conference, and have won one match, drawn one and lost six.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -115,33 +110,45 @@
           "slippery-rock",
           "west-chester"
         ],
-        "ga": 26,
+        "ga": 27,
         "wins": 1,
         "draws": 1,
-        "losses": 5
+        "losses": 6
       }
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has four goals and seven assists from 25 shots for Seton Hill.",
+      "text": "Millersville have won eight, drawn one and lost two, and have conceded seven goals across the season while scoring 26.",
+      "basis": {
+        "programme": "millersville",
+        "wins": 8,
+        "draws": 1,
+        "losses": 2,
+        "gf": 26,
+        "ga": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Jaden Howard has made 38 saves for West Chester and been beaten five times.",
+      "basis": {
+        "source": "stats",
+        "player": "Jaden Howard",
+        "programme": "west-chester",
+        "saves": 38,
+        "goals_against": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Rafael Santos has four goals and seven assists from 26 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
         "goals": 4,
         "assists": 7,
-        "shots": 25
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Jaden Howard has made 36 saves for West Chester and been beaten five times.",
-      "basis": {
-        "source": "stats",
-        "player": "Jaden Howard",
-        "programme": "west-chester",
-        "saves": 36,
-        "goals_against": 5
+        "shots": 26
       }
     }
   ],
@@ -151,35 +158,35 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "7 G · 3 A · 26 shots"
-    },
-    {
-      "player": "Roy Parkyn",
-      "programme": "millersville",
-      "position": "MID",
-      "class": "SR",
-      "line": "6 G · 1 A · 14 shots"
+      "line": "9 G · 3 A · 28 shots"
     },
     {
       "player": "Steven Arias",
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "6 G · 18 shots"
+      "line": "7 G · 21 shots"
+    },
+    {
+      "player": "Jaime Marcelo Espinosa",
+      "programme": "california-pa",
+      "position": "MID",
+      "class": "JR",
+      "line": "6 G · 3 A · 35 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-27 west-chester v shepherd",
-      "line": "Shepherd had not lost since Millersville visited on the opening day of conference play; West Chester have yet to concede in a match they have won."
+      "fixture_ref": "2026-09-30 california-pa v gannon",
+      "line": "Gannon's first conference match away from home went the way of their home ones; California (Pa.) had won every conference match until this one."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 california-pa v gannon",
-      "line": "Gannon have yet to lose a conference match and have yet to play one away; California (Pa.) have won every conference match they have played."
+      "fixture_ref": "2026-10-03 west-chester v gannon",
+      "line": "No programme has conceded fewer goals than West Chester, and no programme has scored more than Gannon."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:45:29.732Z"
+    "validated_at": "2026-10-01T11:46:06.129Z"
   }
 }

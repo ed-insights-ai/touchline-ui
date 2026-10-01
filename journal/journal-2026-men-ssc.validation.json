@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-09-29T11:45:44.249Z",
-  "data_collected_at": "2026-09-29T11:39:31+00:00",
+  "validated_at": "2026-10-01T11:46:19.210Z",
+  "data_collected_at": "2026-10-01T11:40:12+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[2].text",
+      "text": "Embry-Riddle have won six, drawn two and lost one, the defeat coming at home to Rollins on September 23.",
+      "unbacked": ["23"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and neither of those sides has yet taken a point in conference play.",
+      "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and both of those sides sit at the foot of the table.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Every match on the day went to the side away from home; Tampa and Florida Tech lead the table, neither yet beaten by a conference rival.",
+      "text": "Florida Southern have now beaten the only side that beat them, and are the only programme still winning every conference match.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Kobi Thomas has scored nine of Palm Beach Atlantic's fifteen goals this season, from 34 shots.",
+      "text": "Kobi Thomas has scored nine of Palm Beach Atlantic's seventeen goals this season, from 39 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Florida Tech have won five, drawn three and lost one, the defeat coming on the opening night at home.",
+      "text": "Embry-Riddle have won six, drawn two and lost one, the defeat coming at home to Rollins on September 23.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Nova Southeastern have conceded nineteen goals, more than any other programme in the conference.",
+      "text": "Nova Southeastern have conceded 21 goals, more than any other programme in the conference.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kobi Thomas — 9 G · 3 A · 34 shots",
+      "text": "Kobi Thomas — 9 G · 4 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Darcy Moffat — 5 G · 6 A · 15 shots",
+      "text": "Darcy Moffat — 5 G · 7 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Virgilio Escala — 2 G · 7 A · 12 shots",
+      "text": "Tim Baierlein — 8 G · 23 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-26 barry v tampa",
+      "text": "2026-09-30 florida-southern v saint-leo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-30 florida-southern v saint-leo",
+      "text": "2026-10-03 rollins v florida-southern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-29T11:45:09.921Z",
-    "generate_ms": 34327,
+    "started_at": "2026-10-01T11:45:09.881Z",
+    "generate_ms": 69327,
     "validate_ms": 1,
-    "wall_ms": 34328,
+    "wall_ms": 69328,
     "concurrency": 4
   }
 }

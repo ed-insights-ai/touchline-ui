@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-09-30T11:52:00+00:00",
-  "data_collected_at": "2026-09-30T11:36:44+00:00",
+  "generated_at": "2026-10-01T11:52:00+00:00",
+  "data_collected_at": "2026-10-01T11:36:07+00:00",
   "headline": "North Georgia stand alone as the last unbeaten side",
-  "dek": "North Georgia are still the only side in the conference without a defeat, six wins and five draws into the season, with 26 goals scored and thirteen conceded. The draws in conference play, though, leave them second to Flagler in the table.",
+  "dek": "North Georgia are still the only side in the conference without a defeat, six wins and five draws into the season, with 26 goals scored and thirteen conceded. The draws in conference play, though, leave them behind Flagler in the table and level with Clayton State.",
   "lede_basis": {
     "programme": "north-georgia",
     "wins": 6,
@@ -15,7 +15,8 @@
     "gf": 26,
     "ga": 13
   },
-  "lede_updated": "2026-09-27",
+  "lede_updated": "2026-10-01",
+  "displaced_by": "Clayton State's win at Georgia Southwestern drew them level with North Georgia on points, so the dek's 'second to Flagler' no longer held; headline unchanged, closing clause corrected",
   "pattern": {
     "label": "derived",
     "text": "North Georgia's 26 goals are more than USC Aiken and Lander have scored between them, and twelve different players have shared them.",
@@ -23,12 +24,12 @@
       "kind": "goals-for-by-team",
       "values": {
         "north-georgia": 26,
-        "clayton-state": 21,
-        "middle-georgia-state": 20,
-        "flagler": 17,
-        "lander": 13,
-        "georgia-southwestern": 10,
-        "usc-aiken": 7
+        "clayton-state": 24,
+        "middle-georgia-state": 21,
+        "flagler": 19,
+        "lander": 14,
+        "georgia-southwestern": 11,
+        "usc-aiken": 9
       },
       "highlight": "north-georgia"
     },
@@ -46,7 +47,7 @@
     "line": "North Georgia are still unbeaten, but a run of draws has let Flagler, beaten once, go top of the table.",
     "basis": {
       "programme": "flagler",
-      "wins": 4,
+      "wins": 5,
       "draws": 4,
       "losses": 1
     },
@@ -64,7 +65,7 @@
     },
     {
       "label": "derived",
-      "text": "Middle Georgia State have conceded 33 goals, more than any other programme in the conference, while scoring twenty.",
+      "text": "Middle Georgia State have conceded 35 goals, more than any other programme in the conference, while scoring 21.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -77,21 +78,21 @@
           "north-georgia",
           "usc-aiken"
         ],
-        "gf": 20,
-        "ga": 33
+        "gf": 21,
+        "ga": 35
       }
     },
     {
       "label": "derived",
-      "text": "Javier Gongora Andres has scored nine of Middle Georgia State's twenty goals from 31 shots.",
+      "text": "Javier Gongora Andres has scored ten of Middle Georgia State's 21 goals from 32 shots.",
       "basis": {
         "source": "stats",
         "player": "Javier Gongora Andres",
         "programme": "middle-georgia-state",
-        "goals": 9,
-        "shots": 31,
-        "gf": 20,
-        "ga": 33
+        "goals": 10,
+        "shots": 32,
+        "gf": 21,
+        "ga": 35
       }
     },
     {
@@ -109,15 +110,15 @@
     },
     {
       "label": "derived",
-      "text": "Theo Hoang has scored seven of Georgia Southwestern's ten goals from thirteen shots.",
+      "text": "Theo Hoang has scored seven of Georgia Southwestern's eleven goals from fifteen shots.",
       "basis": {
         "source": "stats",
         "player": "Theo Hoang",
         "programme": "georgia-southwestern",
         "goals": 7,
-        "shots": 13,
-        "gf": 10,
-        "ga": 12
+        "shots": 15,
+        "gf": 11,
+        "ga": 15
       }
     }
   ],
@@ -127,7 +128,7 @@
       "programme": "middle-georgia-state",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 1 A · 31 shots"
+      "line": "10 G · 1 A · 32 shots"
     },
     {
       "player": "Isaac Calderon",
@@ -141,21 +142,21 @@
       "programme": "georgia-southwestern",
       "position": "FWD",
       "class": "SR",
-      "line": "7 G · 13 shots"
+      "line": "7 G · 15 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 flagler v lander",
-      "line": "Flagler's win keeps them top of the table; it is Lander's first conference defeat of the season."
+      "fixture_ref": "2026-09-30 middle-georgia-state v flagler",
+      "line": "Flagler are still unbeaten in conference play; Middle Georgia State's defeat is the latest in a losing run."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 middle-georgia-state v flagler",
-      "line": "Middle Georgia State come in off back-to-back defeats; Flagler have yet to lose in conference play."
+      "fixture_ref": "2026-10-03 clayton-state v flagler",
+      "line": "Flagler won the first meeting at home in September; Clayton State have not lost since."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:43:08.288Z"
+    "validated_at": "2026-10-01T11:45:09.807Z"
   }
 }

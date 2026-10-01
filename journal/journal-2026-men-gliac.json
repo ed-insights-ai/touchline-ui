@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-09-30T11:45:00+00:00",
-  "data_collected_at": "2026-09-30T11:33:03+00:00",
-  "headline": "Top two draw and Roosevelt stay unbeaten",
-  "dek": "The leaders met the side directly beneath them in the table and shared the points at Roosevelt. Roosevelt have now drawn five matches and won six, and remain the only side in the conference without a defeat.",
+  "generated_at": "2026-10-01T11:45:00+00:00",
+  "data_collected_at": "2026-10-01T11:32:36+00:00",
+  "headline": "Purdue Northwest go top of the conference table",
+  "dek": "A home win over Wisconsin-Parkside lifted Purdue Northwest above Northern Michigan and Roosevelt, who both have a match in hand. Roosevelt remain the only side in the conference without a defeat, six wins and five draws into the season.",
   "lede_basis": {
     "programme": "roosevelt",
     "wins": 6,
     "draws": 5,
     "losses": 0
   },
-  "lede_updated": "2026-09-26",
+  "lede_updated": "2026-10-01",
+  "displaced_by": "Purdue Northwest beat Wisconsin-Parkside and lead the conference table on points",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Purdue Northwest and St. Cloud State together.",
@@ -23,9 +24,9 @@
         "northern-michigan": 23,
         "roosevelt": 17,
         "saginaw-valley-state": 17,
-        "purdue-northwest": 9,
+        "purdue-northwest": 13,
+        "wisconsin-parkside": 10,
         "davenport": 8,
-        "wisconsin-parkside": 8,
         "st-cloud-state": 7
       },
       "highlight": "northern-michigan"
@@ -44,7 +45,7 @@
       "programme": "wisconsin-parkside",
       "wins": 3,
       "draws": 1,
-      "losses": 4
+      "losses": 5
     },
     "updated": "2026-09-28"
   },
@@ -56,26 +57,6 @@
         "source": "fixtures",
         "finals_without_score": 0,
         "past_date_no_result": 9
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Roosevelt's six wins are more than any other programme has managed.",
-      "basis": {
-        "programme": "roosevelt",
-        "wins": 6,
-        "draws": 5,
-        "losses": 0,
-        "comparative": "greater_than_each",
-        "metric": "wins",
-        "of": [
-          "davenport",
-          "northern-michigan",
-          "purdue-northwest",
-          "saginaw-valley-state",
-          "st-cloud-state",
-          "wisconsin-parkside"
-        ]
       }
     },
     {
@@ -111,6 +92,17 @@
         "goals_against": 2,
         "shutouts": 5
       }
+    },
+    {
+      "label": "observed",
+      "text": "Mateusz Pass has made 40 saves for Wisconsin-Parkside while conceding thirteen goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Mateusz Pass",
+        "programme": "wisconsin-parkside",
+        "saves": 40,
+        "goals_against": 13
+      }
     }
   ],
   "players_to_watch": [
@@ -138,16 +130,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-27 st-cloud-state v northern-michigan",
-      "line": "Northern Michigan's win took them level on points with Roosevelt; St. Cloud State are still without a conference win."
+      "fixture_ref": "2026-09-30 purdue-northwest v wisconsin-parkside",
+      "line": "Purdue Northwest's highest-scoring match of the season; Wisconsin-Parkside arrived off a goalless draw with Saginaw Valley State."
     },
     "next_match": {
-      "fixture_ref": "2026-09-30 purdue-northwest v wisconsin-parkside",
-      "line": "Purdue Northwest have conceded fewer goals than any side in the conference; Wisconsin-Parkside arrive off a goalless draw with Saginaw Valley State."
+      "fixture_ref": "2026-10-02 northern-michigan v purdue-northwest",
+      "line": "The new leaders visit the side they displaced; Northern Michigan are unbeaten in conference play and field the conference's leading scorer in Luca Rosen."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-30T11:42:00.588Z"
+    "validated_at": "2026-10-01T11:43:40.512Z"
   }
 }

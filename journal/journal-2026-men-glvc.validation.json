@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-09-29T11:43:58.320Z",
-  "data_collected_at": "2026-09-29T11:34:19+00:00",
+  "validated_at": "2026-10-01T11:44:12.692Z",
+  "data_collected_at": "2026-10-01T11:32:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -17,21 +17,16 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[2].text",
-      "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
-      "unbacked": ["1"]
-    },
-    {
       "path": "findings[4].text",
-      "text": "Asgrimur Vidisson has made forty-two saves for Maryville and conceded ten, a save percentage of .808.",
-      "unbacked": ["808"]
+      "text": "Aidan Smith has made thirty-seven saves for William Jewell and conceded six, a save percentage of .860.",
+      "unbacked": ["860"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southwest Baptist's twenty-nine goals are more than Lewis, Upper Iowa and William Jewell have scored between them, and they have conceded nineteen doing it; the goals have not bought a place near the top of the table.",
+      "text": "Southwest Baptist's thirty-one goals are more than Lewis, Upper Iowa and William Jewell have scored between them, and they have conceded twenty-two doing it; the goals have not bought a place near the top of the table.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -58,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Lincoln remain the only programme in the conference yet to lose: four wins and three draws, thirteen goals scored and six conceded, the most recent win coming at Rockhurst.",
+      "text": "Lincoln remain the only programme in the conference yet to lose: five wins and three draws, sixteen goals scored and six conceded, the latest win coming at home to William Jewell on Wednesday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Missouri S&T have still not drawn a match this season: six wins and three defeats, twenty goals scored and eleven conceded, the third defeat coming at Maryville on Saturday.",
+      "text": "Missouri S&T have still not drawn a match this season: seven wins and three defeats, twenty-one goals scored and eleven conceded, the seventh win coming at home to Drury on Wednesday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Truman have scored fifteen goals and conceded eighteen, and Jacob Panagos has nine of the fifteen from twenty-two shots.",
+      "text": "Truman have scored eighteen goals and conceded twenty, and Jacob Panagos has ten of the eighteen from twenty-five shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -94,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Asgrimur Vidisson has made forty-two saves for Maryville and conceded ten, a save percentage of .808.",
+      "text": "Aidan Smith has made thirty-seven saves for William Jewell and conceded six, a save percentage of .860.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Panagos — 9 G · 1 A · 22 shots",
+      "text": "Jacob Panagos — 10 G · 1 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Leo Cann — 7 G · 3 A · 45 shots",
+      "text": "Joe Wright — 8 G · 2 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Mike Banasik — 6 G · 19 shots",
+      "text": "Leo Cann — 7 G · 3 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-27 indianapolis v southwest-baptist",
+      "text": "2026-09-30 indianapolis v maryville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-09-30 missouri-s-t v drury",
+      "text": "2026-10-02 william-jewell v illinois-springfield",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-09-29T11:42:59.991Z",
-    "generate_ms": 58327,
+    "started_at": "2026-10-01T11:42:05.201Z",
+    "generate_ms": 127411,
     "validate_ms": 1,
-    "wall_ms": 58328,
+    "wall_ms": 127490,
     "concurrency": 4
   }
 }
