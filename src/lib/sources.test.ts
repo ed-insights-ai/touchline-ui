@@ -84,6 +84,10 @@ function duplicates(): Duplicate[] {
     const members = memberSlugs(season);
     const sides = new Map<string, Set<string>>();
     for (const f of season.fixtures.fixtures) {
+      // A match called off is not played that day, and another may take its
+      // date: catawba 2026 cancelled Davis & Elkins on 10/21 when Lincoln
+      // Memorial was moved onto it (tl-0y9u).
+      if (f.status === "cancelled" || f.status === "postponed") continue;
       for (const [slug, other] of [
         [f.home, f.away],
         [f.away, f.home],
