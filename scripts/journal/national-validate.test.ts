@@ -177,10 +177,16 @@ describe("the division's ctx refuses to stand in for one conference", () => {
   });
 
   test("and naming it resolves to that conference's own date", () => {
-    const first = brief.across.openers[0] as { conference: string; opens_on: string };
+    // Not brief.across.openers: that lists only tables not yet live, and once
+    // every conference has kicked off it is empty. The checker reads the
+    // opening date whether or not the table is live, so any column will do.
+    const first = homeColumns(seasons).find((c) => c.opensOn !== null) as {
+      code: string;
+      opensOn: string;
+    };
     const j = journal({
       headline: "The division's first table goes live before the others.",
-      basis: { conference: first.conference, conference_opens: first.opens_on },
+      basis: { conference: first.code, conference_opens: first.opensOn },
     });
     expect(claim(j)?.verdict).toBe("verified");
   });
