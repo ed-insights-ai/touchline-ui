@@ -3,35 +3,36 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-10-01T11:45:00Z",
-  "data_collected_at": "2026-10-01T11:32:24+00:00",
-  "headline": "Fort Hays State's defence carries them five points clear",
-  "dek": "Fort Hays State have won all four of their conference matches, the latest by a single goal at Ouachita Baptist on Saturday, and have conceded just once in conference play. Southern Nazarene, five points behind with a match in hand, are the only other side yet to lose a conference match.",
+  "generated_at": "2026-10-18T22:15:00Z",
+  "data_collected_at": "2026-10-18T22:01:43+00:00",
+  "headline": "Fort Hays State unbeaten through nine conference matches",
+  "dek": "Fort Hays State have dropped points only in a draw at Rogers State, and lead Ouachita Baptist by ten points before the two sides meet next. At the other end, Harding have yet to take a point from eight conference matches.",
   "lede_basis": {
-    "fhsu_conference_wins": 4,
-    "fhsu_conference_played": 4,
-    "fhsu_conference_points": 12,
-    "fhsu_winning_margin_at_obu": 1,
-    "fhsu_conference_ga": 1,
-    "snu_conference_points": 7,
-    "snu_conference_played": 3,
-    "points_gap_fhsu_over_snu": 5,
-    "snu_matches_in_hand": 1
+    "fhsu_conference_played": 9,
+    "fhsu_conference_won": 8,
+    "fhsu_conference_drawn": 1,
+    "fhsu_conference_lost": 0,
+    "fhsu_conference_points": 25,
+    "obu_conference_points": 15,
+    "points_gap_fhsu_over_obu": 10,
+    "harding_conference_played": 8,
+    "harding_conference_points": 0
   },
-  "lede_updated": "2026-09-27",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Fort Hays State's lead is now ten points, not five, and Southern Nazarene have lost four conference matches, so the standing lines are no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Rogers State's eighteen goals are more than Harding and Newman have managed between them.",
+    "text": "Rogers State's 31 goals are more than Harding and Newman have managed between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "rogers-state": 18,
-        "fort-hays-state": 15,
-        "ouachita-baptist": 13,
-        "southern-nazarene": 13,
-        "northeastern-state": 12,
-        "newman": 9,
-        "harding": 4
+        "rogers-state": 31,
+        "fort-hays-state": 30,
+        "southern-nazarene": 24,
+        "ouachita-baptist": 22,
+        "northeastern-state": 20,
+        "newman": 12,
+        "harding": 8
       },
       "highlight": "rogers-state"
     },
@@ -40,20 +41,20 @@
       "metric": "gf",
       "programme": "rogers-state",
       "of": ["harding", "newman"],
-      "gf": 18
+      "gf": 31
     }
   },
   "wire": {
-    "line": "Harding have lost all nine of their matches this season, conceding 27 goals along the way.",
+    "line": "Fort Hays State have conceded seven goals all season and lost only twice.",
     "basis": {
-      "programme": "harding",
-      "wins": 0,
-      "draws": 0,
-      "losses": 9,
-      "gf": 4,
-      "ga": 27
+      "programme": "fort-hays-state",
+      "wins": 10,
+      "draws": 3,
+      "losses": 2,
+      "gf": 30,
+      "ga": 7
     },
-    "updated": "2026-09-27"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
@@ -67,83 +68,69 @@
     },
     {
       "label": "derived",
-      "text": "Ouachita Baptist have conceded only six goals this season and still lost three matches.",
-      "basis": {
-        "programme": "ouachita-baptist",
-        "wins": 5,
-        "draws": 1,
-        "losses": 3,
-        "gf": 13,
-        "ga": 6
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Rogers State's eighteen goals have come from at least twelve different scorers.",
+      "text": "Rogers State have had at least seventeen different scorers this season.",
       "basis": {
         "programme": "rogers-state",
-        "gf": 18,
-        "distinct_scorers_min": 12
+        "distinct_scorers_min": 17
       }
     },
     {
       "label": "observed",
-      "text": "Guilherme Borges has made thirty-six saves for Newman and conceded fourteen goals.",
+      "text": "Tristan Miller has kept five shutouts for Rogers State.",
       "basis": {
         "source": "stats",
-        "player": "Guilherme Borges",
-        "programme": "newman",
-        "saves": 36,
-        "goals_against": 14
+        "player": "Tristan Miller",
+        "programme": "rogers-state",
+        "shutouts": 5
       }
     },
     {
       "label": "observed",
-      "text": "Andrew Wagenblatt has made thirty-seven saves for Harding and conceded fourteen goals.",
+      "text": "Andrew Wagenblatt has made 66 saves for Harding and conceded 30 goals.",
       "basis": {
         "source": "stats",
         "player": "Andrew Wagenblatt",
         "programme": "harding",
-        "saves": 37,
-        "goals_against": 14
+        "saves": 66,
+        "goals_against": 30
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Philip Bölk",
-      "programme": "ouachita-baptist",
+      "player": "Juan Linares",
+      "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "4 G · 2 A · 13 shots"
-    },
-    {
-      "player": "Len Valkema",
-      "programme": "fort-hays-state",
-      "position": "FWD",
-      "class": "JR",
-      "line": "4 G · 14 shots"
+      "line": "6 G · 4 A · 20 shots"
     },
     {
       "player": "Carter Adams",
       "programme": "northeastern-state",
       "position": "FWD",
       "class": "JR",
-      "line": "3 G · 2 A · 25 shots"
+      "line": "5 G · 3 A · 35 shots"
+    },
+    {
+      "player": "Louis Bassett",
+      "programme": "rogers-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "4 G · 4 A · 28 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 northeastern-state v ouachita-baptist",
-      "line": "Ouachita Baptist's win on the road lifts them level on points with Newman; Northeastern State have yet to win a conference match at home."
+      "fixture_ref": "2026-10-17 southern-nazarene v northeastern-state",
+      "line": "Northeastern State have now taken points from both meetings with Southern Nazarene this season."
     },
     "next_match": {
-      "fixture_ref": "2026-10-01 southern-nazarene v fort-hays-state",
-      "line": "The conference's only two unbeaten sides meet; Fort Hays State have yet to drop a point in conference play, while Southern Nazarene drew their last."
+      "fixture_ref": "2026-10-22 fort-hays-state v ouachita-baptist",
+      "line": "Fort Hays State have yet to lose in conference play and have already won at Ouachita Baptist; Ouachita Baptist arrive on a winning run."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:42:11.073Z"
+    "validated_at": "2026-10-18T22:13:53.632Z"
   }
 }

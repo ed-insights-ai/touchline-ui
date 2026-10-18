@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-10-01T11:44:05.337Z",
-  "data_collected_at": "2026-10-01T11:34:32+00:00",
+  "validated_at": "2026-10-18T22:15:05.878Z",
+  "data_collected_at": "2026-10-18T22:04:47+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Ten different players have scored Midwestern State's 31 goals, and Parker Plaxco has eight of them.",
+      "text": "Ten different players have scored Midwestern State's 40 goals, and Parker Plaxco has twelve of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Jake Morris has kept five shutouts for Midwestern State and conceded seven goals all season.",
-      "checker": "player_stat",
+      "text": "Sul Ross State have scored twice in thirteen matches and lost every one of them.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Six matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, UT Dallas's at Ouachita Baptist, and Oklahoma Christian's against Oklahoma Panhandle State.",
+      "text": "Five matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, and Oklahoma Christian's against Oklahoma Panhandle State.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,34 +56,25 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Midwestern State have scored 31 goals, more than any other programme in the conference, and conceded seven in an unbeaten season.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "UT Dallas have lost twice, against eight wins and five draws, and conceded 11 goals.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "St. Mary's have not drawn a match this season: six wins and three defeats in nine.",
-      "checker": "team_record+fixture_counts",
+      "label": "observed",
+      "text": "Fernando Hernandez has made 63 saves for Sul Ross State.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "UT Dallas have lost once in ten matches and conceded eight goals.",
-      "checker": "team_goals+team_record+fixture_counts",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
       "label": "observed",
-      "text": "Fernando Hernandez has made 54 saves for Sul Ross State.",
+      "text": "Jose Ortiz has scored seven goals for Midwestern State.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Parker Plaxco — 8 G · 32 shots",
+      "text": "Parker Plaxco — 12 G · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Eduardo Fernandez — 6 G · 2 A · 12 shots",
+      "text": "Sebastian Poblete — 7 G · 2 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Avery Brazzell — 5 G · 1 A · 11 shots",
+      "text": "Augusto Militao — 5 G · 2 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-30 ut-tyler v midwestern-state",
+      "text": "2026-10-17 oklahoma-christian v saint-marys",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-03 midwestern-state v oklahoma-christian",
+      "text": "2026-10-21 midwestern-state v lubbock-christian",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:42:41.038Z",
-    "generate_ms": 84297,
+    "started_at": "2026-10-18T22:14:08.744Z",
+    "generate_ms": 57134,
     "validate_ms": 1,
-    "wall_ms": 84298,
+    "wall_ms": 57136,
     "concurrency": 4
   }
 }

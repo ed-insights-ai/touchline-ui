@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-10-01T11:45:18.558Z",
-  "data_collected_at": "2026-10-01T11:37:35+00:00",
+  "validated_at": "2026-10-18T22:17:04.615Z",
+  "data_collected_at": "2026-10-18T22:08:15+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,8 +20,8 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Catawba have scored twenty-six and conceded four, and no one player has more than Alex Payton's four of those goals.",
-      "checker": "player_stat+team_goals",
+      "text": "Emory & Henry have scored fifteen and conceded four: they hold second place by keeping goals out, not by scoring them.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Every side in the conference has now won at least once; Lenoir-Rhyne's first came at Newberry on Saturday.",
-      "checker": "team_goals+team_record",
+      "text": "Anderson's Luis Munoz has made nine goals for others this season and scored four himself.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest of them Emory & Henry's, from late August to mid-September.",
+      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Newberry on Saturday.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Catawba's win over Lee on Wednesday was their seventh of the season, against two draws and no defeats, and they have scored twenty-six and conceded four.",
+      "text": "Carson-Newman's home win over Wingate on Sunday was their seventh of the season, against two draws and four defeats, with twenty-four scored and thirteen conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Carson-Newman's defeat at home to UAH on Wednesday was their third of the season, against four wins and two draws, with fourteen scored and nine conceded.",
-      "checker": "team_goals+team_record",
+      "text": "Anderson's home win over Mars Hill on Sunday was their eighth of the season, against four draws and two defeats.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,16 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Tusculum's defeat at Lees-McRae on Wednesday was their fifth of the season, against one win and one draw, and they have scored four goals and conceded twelve.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
-      "label": "observed",
-      "text": "Wingate's Cole Freeman has made thirty-six saves and conceded nine goals.",
+      "text": "Wingate's Cole Freeman has made fifty-nine saves and conceded seventeen goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luis Munoz — 3 G · 7 A · 28 shots",
+      "text": "João Magalhães — 6 G · 4 A · 24 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Logan Knight — 5 G · 12 shots",
+      "text": "Oskar Dahlberg — 5 G · 2 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Alex Payton — 4 G · 1 A · 21 shots",
+      "text": "Logan Knight — 5 G · 12 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-30 catawba v lee",
+      "text": "2026-10-18 carson-newman v wingate",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-02 mars-hill v lincoln-memorial",
+      "text": "2026-10-18 tusculum v lenoir-rhyne",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:44:35.228Z",
-    "generate_ms": 43329,
+    "started_at": "2026-10-18T22:15:58.927Z",
+    "generate_ms": 65656,
     "validate_ms": 1,
-    "wall_ms": 43329,
+    "wall_ms": 65657,
     "concurrency": 4
   }
 }

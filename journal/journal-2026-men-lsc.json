@@ -3,128 +3,106 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-10-01T11:45:00Z",
-  "data_collected_at": "2026-10-01T11:34:32+00:00",
-  "headline": "Sul Ross State yet to score after eight defeats",
-  "dek": "Sul Ross State have lost all eight of their matches, conceding 35 goals and scoring none, and the latest defeat came at St. Edward's. Midwestern State, at the other end of the table, have yet to lose.",
+  "generated_at": "2026-10-18T22:15:00Z",
+  "data_collected_at": "2026-10-18T22:04:47+00:00",
+  "headline": "Midwestern State stand alone without a defeat",
+  "dek": "Midwestern State have won eleven and drawn four without losing, and Saturday's draw at West Texas A&M was their fourth. Jake Morris has kept five clean sheets in goal, and the side have conceded 12 goals all season.",
   "lede_basis": {
-    "programme": "sul-ross-state",
-    "wins": 0,
-    "draws": 0,
-    "losses": 8,
-    "gf": 0,
-    "ga": 35
+    "programme": "midwestern-state",
+    "wins": 11,
+    "draws": 4,
+    "losses": 0,
+    "gf": 40,
+    "ga": 12,
+    "source": "stats",
+    "player": "Jake Morris",
+    "shutouts": 5,
+    "goals_against": 12
   },
-  "lede_updated": "2026-10-01",
-  "displaced_by": "Standing lines counted six straight wins and ten matches; Midwestern State have now played eleven and won seven in a row. Sul Ross State's eighth goalless defeat takes the lede.",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Sul Ross State have now scored, so the standing headline is no longer true; Midwestern State, the only side yet to lose, take the lede.",
   "pattern": {
     "label": "derived",
-    "text": "Ten different players have scored Midwestern State's 31 goals, and Parker Plaxco has eight of them.",
+    "text": "Ten different players have scored Midwestern State's 40 goals, and Parker Plaxco has twelve of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 31,
-        "saint-marys": 23,
-        "ut-dallas": 19,
-        "lubbock-christian": 16,
-        "oklahoma-christian": 16,
-        "saint-edwards": 12,
-        "dallas-baptist": 11,
-        "texas-a-m-international": 11,
-        "ut-tyler": 10,
-        "west-texas-a-m": 9,
-        "sul-ross-state": 0
+        "midwestern-state": 40,
+        "saint-marys": 29,
+        "ut-dallas": 28,
+        "oklahoma-christian": 22,
+        "lubbock-christian": 20,
+        "ut-tyler": 20,
+        "dallas-baptist": 18,
+        "saint-edwards": 18,
+        "texas-a-m-international": 15,
+        "west-texas-a-m": 15,
+        "sul-ross-state": 2
       },
       "highlight": "midwestern-state"
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 31,
+      "gf": 40,
+      "ga": 12,
       "distinct_scorers_min": 10,
       "source": "stats",
       "player": "Parker Plaxco",
-      "goals": 8
+      "goals": 12
     }
   },
   "wire": {
-    "line": "Jake Morris has kept five shutouts for Midwestern State and conceded seven goals all season.",
+    "line": "Sul Ross State have scored twice in thirteen matches and lost every one of them.",
     "basis": {
-      "source": "stats",
-      "player": "Jake Morris",
-      "programme": "midwestern-state",
-      "shutouts": 5,
-      "goals_against": 7
+      "programme": "sul-ross-state",
+      "wins": 0,
+      "draws": 0,
+      "losses": 13,
+      "gf": 2,
+      "ga": 54
     },
-    "updated": "2026-10-01"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Six matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, UT Dallas's at Ouachita Baptist, and Oklahoma Christian's against Oklahoma Panhandle State.",
+      "text": "Five matches are past their date with no result published: Lubbock Christian's against Western Texas, Southwest and Hardin-Simmons, St. Edward's against Southwestern, and Oklahoma Christian's against Oklahoma Panhandle State.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 6
+        "past_date_no_result": 5
       }
     },
     {
       "label": "derived",
-      "text": "Midwestern State have scored 31 goals, more than any other programme in the conference, and conceded seven in an unbeaten season.",
-      "basis": {
-        "comparative": "greater_than_each",
-        "metric": "gf",
-        "programme": "midwestern-state",
-        "of": [
-          "dallas-baptist",
-          "lubbock-christian",
-          "oklahoma-christian",
-          "saint-edwards",
-          "saint-marys",
-          "sul-ross-state",
-          "texas-a-m-international",
-          "ut-dallas",
-          "ut-tyler",
-          "west-texas-a-m"
-        ],
-        "wins": 9,
-        "draws": 2,
-        "losses": 0,
-        "gf": 31,
-        "ga": 7
-      }
-    },
-    {
-      "label": "derived",
-      "text": "St. Mary's have not drawn a match this season: six wins and three defeats in nine.",
-      "basis": {
-        "programme": "saint-marys",
-        "wins": 6,
-        "draws": 0,
-        "losses": 3,
-        "matches_played": 9
-      }
-    },
-    {
-      "label": "derived",
-      "text": "UT Dallas have lost once in ten matches and conceded eight goals.",
+      "text": "UT Dallas have lost twice, against eight wins and five draws, and conceded 11 goals.",
       "basis": {
         "programme": "ut-dallas",
-        "wins": 6,
-        "draws": 3,
-        "losses": 1,
-        "gf": 19,
-        "ga": 8,
-        "matches_played": 10
+        "wins": 8,
+        "draws": 5,
+        "losses": 2,
+        "gf": 28,
+        "ga": 11
       }
     },
     {
       "label": "observed",
-      "text": "Fernando Hernandez has made 54 saves for Sul Ross State.",
+      "text": "Fernando Hernandez has made 63 saves for Sul Ross State.",
       "basis": {
         "source": "stats",
         "player": "Fernando Hernandez",
         "programme": "sul-ross-state",
-        "saves": 54
+        "saves": 63
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Jose Ortiz has scored seven goals for Midwestern State.",
+      "basis": {
+        "source": "stats",
+        "player": "Jose Ortiz",
+        "programme": "midwestern-state",
+        "goals": 7
       }
     }
   ],
@@ -134,35 +112,35 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 32 shots"
+      "line": "12 G · 47 shots"
     },
     {
-      "player": "Eduardo Fernandez",
+      "player": "Sebastian Poblete",
       "programme": "saint-marys",
       "position": "FWD",
       "class": "SO",
-      "line": "6 G · 2 A · 12 shots"
+      "line": "7 G · 2 A · 31 shots"
     },
     {
-      "player": "Avery Brazzell",
-      "programme": "ut-dallas",
-      "position": "FWD",
+      "player": "Augusto Militao",
+      "programme": "lubbock-christian",
+      "position": "MID",
       "class": "SR",
-      "line": "5 G · 1 A · 11 shots"
+      "line": "5 G · 2 A · 28 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 ut-tyler v midwestern-state",
-      "line": "Midwestern State remain the conference's only unbeaten side; UT Tyler are still without a conference win."
+      "fixture_ref": "2026-10-17 oklahoma-christian v saint-marys",
+      "line": "Oklahoma Christian are still unbeaten in conference play; it was St. Mary's first conference defeat."
     },
     "next_match": {
-      "fixture_ref": "2026-10-03 midwestern-state v oklahoma-christian",
-      "line": "Oklahoma Christian have not lost a conference match; Midwestern State have not lost any match."
+      "fixture_ref": "2026-10-21 midwestern-state v lubbock-christian",
+      "line": "Midwestern State have yet to lose this season; only Sul Ross State have lost more matches than Lubbock Christian."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:44:05.337Z"
+    "validated_at": "2026-10-18T22:15:05.878Z"
   }
 }

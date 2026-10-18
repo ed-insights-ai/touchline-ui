@@ -3,60 +3,60 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-10-01T11:45:00+00:00",
-  "data_collected_at": "2026-10-01T11:33:27+00:00",
-  "headline": "Freshman Dhima reaches ten goals for Western Oregon",
-  "dek": "Archie Dhima, a freshman forward, has ten goals and two assists from 35 shots for Western Oregon, and nearly half of everything his side has scored this season. His side's draw with Simon Fraser and win over Western Washington leave them unbeaten in conference play.",
+  "generated_at": "2026-10-18T22:15:00+00:00",
+  "data_collected_at": "2026-10-18T22:03:40+00:00",
+  "headline": "Seattle Pacific pull clear at the top of the conference",
+  "dek": "Seattle Pacific have won twelve matches, drawn one and lost two, and have not been beaten since the opening night of conference play at Northwest Nazarene. Their 36 goals in all matches are more than any other programme has scored.",
   "lede_basis": {
-    "source": "stats",
-    "player": "Archie Dhima",
-    "programme": "western-oregon",
-    "goals": 10,
-    "assists": 2,
-    "shots": 35,
-    "gf": 21,
-    "ga": 13
+    "programme": "seattle-pacific",
+    "wins": 12,
+    "draws": 1,
+    "losses": 2,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "northwest-nazarene",
+      "saint-martins",
+      "simon-fraser",
+      "western-oregon",
+      "western-washington"
+    ],
+    "gf": 36
   },
-  "lede_updated": "2026-09-29",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "The standing lines are no longer true: Dhima has moved past ten goals, his share of Western Oregon's goals has fallen, and Western Oregon have lost at Seattle Pacific, who now lead the table and have not lost since conference play opened.",
   "pattern": {
     "label": "derived",
-    "text": "Saint Martin's 24 goals are more than Northwest Nazarene and Simon Fraser have scored together.",
+    "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: goals in this conference have not bought points.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "saint-martins": 24,
-        "western-oregon": 21,
-        "seattle-pacific": 19,
-        "western-washington": 17,
-        "northwest-nazarene": 14,
-        "simon-fraser": 8
+        "seattle-pacific": 36,
+        "western-oregon": 35,
+        "saint-martins": 32,
+        "simon-fraser": 26,
+        "western-washington": 24,
+        "northwest-nazarene": 22
       },
-      "highlight": "saint-martins"
+      "highlight": "seattle-pacific"
     },
-    "basis": {
-      "comparative": "greater_than_sum",
-      "metric": "gf",
-      "programme": "saint-martins",
-      "of": ["northwest-nazarene", "simon-fraser"],
-      "gf": 24
-    }
-  },
-  "wire": {
-    "line": "Saint Martin's have scored more goals than any side in the conference and lost both their conference matches.",
     "basis": {
       "comparative": "greater_than_each",
       "metric": "gf",
       "programme": "saint-martins",
-      "of": [
-        "northwest-nazarene",
-        "seattle-pacific",
-        "simon-fraser",
-        "western-oregon",
-        "western-washington"
-      ],
-      "gf": 24
+      "of": ["simon-fraser", "western-washington", "northwest-nazarene"],
+      "gf": 32
+    }
+  },
+  "wire": {
+    "line": "Saint Martin's have won seven matches, none of them in conference play.",
+    "basis": {
+      "programme": "saint-martins",
+      "wins": 7,
+      "draws": 2,
+      "losses": 8
     },
-    "updated": "2026-09-27"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
@@ -70,43 +70,44 @@
     },
     {
       "label": "observed",
-      "text": "Elijah Brockl has kept five shutouts for Northwest Nazarene.",
+      "text": "Archie Dhima has 13 goals from 48 shots for Western Oregon.",
+      "basis": {
+        "source": "stats",
+        "player": "Archie Dhima",
+        "programme": "western-oregon",
+        "goals": 13,
+        "shots": 48
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Elijah Brockl has kept six shutouts for Northwest Nazarene.",
       "basis": {
         "source": "stats",
         "player": "Elijah Brockl",
         "programme": "northwest-nazarene",
-        "shutouts": 5
+        "shutouts": 6
       }
     },
     {
       "label": "observed",
-      "text": "Northwest Nazarene have won six matches, drawn three and lost one, the defeat at home to Colorado Mesa.",
-      "basis": {
-        "programme": "northwest-nazarene",
-        "wins": 6,
-        "draws": 3,
-        "losses": 1
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Seattle Pacific are the only programme without a draw: seven wins and two defeats.",
-      "basis": {
-        "programme": "seattle-pacific",
-        "wins": 7,
-        "draws": 0,
-        "losses": 2
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Of the shots on target Quinn Sappington has faced for Western Washington, 31 were saved and seven went in.",
+      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 61 were saved and 18 went in.",
       "basis": {
         "source": "stats",
-        "player": "Quinn Sappington",
-        "programme": "western-washington",
-        "saves": 31,
-        "goals_against": 7
+        "player": "Austin Valdez",
+        "programme": "western-oregon",
+        "saves": 61,
+        "goals_against": 18
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Northwest Nazarene have won eight matches, drawn five and lost three.",
+      "basis": {
+        "programme": "northwest-nazarene",
+        "wins": 8,
+        "draws": 5,
+        "losses": 3
       }
     }
   ],
@@ -116,35 +117,35 @@
       "programme": "western-oregon",
       "position": "FWD",
       "class": "FR",
-      "line": "10 G · 2 A · 35 shots"
+      "line": "13 G · 3 A · 48 shots"
     },
     {
-      "player": "Caleb Putney",
-      "programme": "northwest-nazarene",
-      "position": "FWD",
-      "class": "JR",
-      "line": "6 G · 2 A · 23 shots"
+      "player": "Daniel James Jackson",
+      "programme": "simon-fraser",
+      "position": "MID",
+      "class": "FR",
+      "line": "8 G · 3 A · 20 shots"
     },
     {
       "player": "Landon Schulze",
       "programme": "western-washington",
       "position": "MID",
       "class": "SO",
-      "line": "5 G · 4 A · 21 shots"
+      "line": "6 G · 7 A · 28 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-26 saint-martins v simon-fraser",
-      "line": "Simon Fraser arrived having drawn more matches than they had won and lost together; Saint Martin's had not lost at home until conference play began."
+      "fixture_ref": "2026-10-17 northwest-nazarene v simon-fraser",
+      "line": "Northwest Nazarene answered their defeat at Simon Fraser earlier in the month."
     },
     "next_match": {
-      "fixture_ref": "2026-10-01 saint-martins v western-oregon",
-      "line": "Saint Martin's have lost both their home conference matches; Western Oregon are unbeaten in conference play and bring the conference's leading scorer."
+      "fixture_ref": "2026-10-22 western-oregon v seattle-pacific",
+      "line": "Western Oregon's only conference defeat came at Seattle Pacific earlier in the month."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:42:40.963Z"
+    "validated_at": "2026-10-18T22:14:50.578Z"
   }
 }

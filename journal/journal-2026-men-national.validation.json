@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-10-01T11:47:11.115Z",
+  "validated_at": "2026-10-18T22:17:43.602Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "King's first win ends a run of eight defeats King had lost all eight of their matches before they went to North Greenville. They come back with their first win of the season, and a record that now reads one win and eight defeats.",
-      "checker": "team_record",
+      "text": "Division's top scorers Southern New Hampshire suffer first defeat Southern New Hampshire went to Adelphi without a defeat all season and came away with their first. The goals have not dried up over the season: no other programme in the division has scored as many as they have.",
+      "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is charleston at 43"
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:46:24.511Z",
-    "generate_ms": 46600,
-    "validate_ms": 2,
-    "wall_ms": 46603
+    "started_at": "2026-10-18T22:17:07.067Z",
+    "generate_ms": 36520,
+    "validate_ms": 12,
+    "wall_ms": 36532
   }
 }

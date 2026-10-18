@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-10-01T11:42:07.601Z",
-  "data_collected_at": "2026-10-01T11:31:27+00:00",
+  "validated_at": "2026-10-18T22:13:12.853Z",
+  "data_collected_at": "2026-10-18T21:57:57+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,8 +20,8 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Queens have scored 26 goals, more than any other programme, and conceded eleven; the home defeat to Franklin Pierce was their third of the season.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Goals have not ordered the table: Queens have scored 35, more than any other programme, while the joint leaders, D'Youville and St. Thomas Aquinas, sit in the middle of the chart.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "D'Youville join Molloy and St. Thomas Aquinas at the top of the table, the only one of them beaten in conference play.",
-      "checker": "team_goals+team_record",
+      "text": "Molloy have drawn seven matches, more than any other side in the conference, and lost only twice.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Daemen have conceded 32 goals, more than any other programme, against eleven scored.",
-      "checker": "team_goals+team_record+comparative",
+      "text": "Daemen have conceded 44 goals, more than any other programme, against fourteen scored.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored ten of Mercy's 21 goals from 30 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 33 goals from 44 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -73,18 +73,9 @@
     },
     {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "D'Youville have scored twelve goals and conceded twelve, and six different players have scored for them.",
-      "checker": "distinct_scorers+team_goals",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
-      "label": "derived",
-      "text": "Lorenzo Herrera has made 51 saves for District of Columbia and conceded ten goals; the side have won four matches and lost four.",
-      "checker": "player_stat+team_record",
+      "label": "observed",
+      "text": "Lorenzo Herrera has kept six shutouts for District of Columbia and conceded fifteen goals.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 10 G · 3 A · 30 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 12 G · 6 A · 44 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Keithlend Cesar — 5 G · 3 A · 23 shots",
+      "text": "John Hollis — 4 G · 11 A · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Ethan Robinson — 4 G · 1 A · 31 shots",
+      "text": "Shawn Richardson — 6 G · 32 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-30 d-youville v roberts-wesleyan",
+      "text": "2026-10-17 mercy v d-youville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-03 st-thomas-aquinas v d-youville",
+      "text": "2026-10-19 d-youville v ashland",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:40:49.032Z",
-    "generate_ms": 78567,
-    "validate_ms": 1,
-    "wall_ms": 78568,
+    "started_at": "2026-10-18T22:12:00.370Z",
+    "generate_ms": 72483,
+    "validate_ms": 2,
+    "wall_ms": 72485,
     "concurrency": 4
   }
 }

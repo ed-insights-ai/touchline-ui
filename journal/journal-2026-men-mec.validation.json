@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-10-01T11:45:15.479Z",
-  "data_collected_at": "2026-10-01T11:35:09+00:00",
+  "validated_at": "2026-10-18T22:15:37.413Z",
+  "data_collected_at": "2026-10-18T22:05:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 13,
+    "verified": 12,
     "contradicted": 0,
-    "unverifiable": 0,
-    "dropped": 0
+    "unverifiable": 1,
+    "dropped": 1
   },
   "normalizations": [],
   "review": [],
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more goals than West Liberty and Point Park together, and twelve different players have shared their twenty-eight; the scoring is spread, not carried.",
+      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and fifteen different players have shared their forty-three; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,21 +38,23 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Only Davis & Elkins have avoided defeat; every other side in the conference, Concord included, has now lost at least once.",
-      "checker": "team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false,
+      "text": "Charleston, Davis & Elkins and Concord have one conference defeat each; no other side has fewer than two.",
+      "checker": null,
+      "verdict": "unverifiable",
+      "mismatches": [
+        "no checker recognises this basis (keys: programmes_with_one_conference_loss, conference_losses_each, min_conference_losses_others)"
+      ],
+      "dropped": true,
       "unchecked_figures": [
-        "unbeaten_programmes: 1",
-        "programmes_with_a_loss: 9",
-        "min_losses_each: 1"
+        "programmes_with_one_conference_loss: 3",
+        "conference_losses_each: 1",
+        "min_conference_losses_others: 2"
       ]
     },
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Davis & Elkins have won eight of their nine matches and conceded six goals in them.",
+      "text": "Concord have conceded seven goals in thirteen matches and won nine of them.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -61,27 +63,26 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Charleston have lost twice in ten matches, both times at home, and have conceded seven goals all season.",
-      "checker": "team_goals+team_record+fixture_counts",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["home_losses: 2"]
-    },
-    {
-      "path": "findings[2]",
-      "label": "derived",
-      "text": "Concord have conceded six goals in ten matches, and won seven of them.",
+      "text": "West Virginia Wesleyan are without a win after thirteen matches, with three draws and ten defeats, and have conceded forty-three goals.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Frank Stare has seven goals and four assists for Frostburg State from thirty shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[3]",
-      "label": "derived",
-      "text": "West Virginia Wesleyan are without a win after nine matches, with one draw and eight defeats, and have conceded thirty-one goals.",
-      "checker": "team_goals+team_record+fixture_counts",
+      "label": "observed",
+      "text": "Hugo Fauli has seven assists and three goals for Davis & Elkins.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -89,7 +90,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Frank Stare has six goals and three assists for Frostburg State from twenty-one shots.",
+      "text": "Shai'ya Fitzgerald has made forty-nine saves for West Liberty and conceded thirteen goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +99,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Frank Stare — 6 G · 3 A · 21 shots",
+      "text": "Martin Echarren — 8 G · 3 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +108,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Martin Echarren — 6 G · 2 A · 19 shots",
+      "text": "Frank Stare — 7 G · 4 A · 30 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +117,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Tomas Petrungaro — 4 G · 5 A · 22 shots",
+      "text": "Hugo Fauli — 3 G · 7 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-30 charleston v davis-elkins",
+      "text": "2026-10-18 charleston v shawnee-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-04 davis-elkins v concord",
+      "text": "2026-10-18 concord v salem",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +143,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:42:53.528Z",
-    "generate_ms": 141874,
+    "started_at": "2026-10-18T22:14:35.566Z",
+    "generate_ms": 61848,
     "validate_ms": 1,
-    "wall_ms": 141950,
+    "wall_ms": 61849,
     "concurrency": 4
   }
 }

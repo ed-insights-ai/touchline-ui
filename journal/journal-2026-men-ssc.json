@@ -3,51 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-10-01T11:45:00+00:00",
-  "data_collected_at": "2026-10-01T11:40:12+00:00",
-  "headline": "Florida Southern beat Saint Leo and lead alone",
-  "dek": "Saint Leo were the only side to have beaten Florida Southern this season, and Florida Southern have now beaten them back on a night when both of the sides level above them lost. They have won nine times and lost once, and their thirty goals are more than any other programme has scored.",
+  "generated_at": "2026-10-18T22:16:00+00:00",
+  "data_collected_at": "2026-10-18T22:11:24+00:00",
+  "headline": "Florida Tech overtake Florida Southern at the top",
+  "dek": "Florida Tech's win over Palm Beach Atlantic lifted them above Florida Southern, who hold a match in hand and have lost once all season against ten wins. The two meet at Florida Tech in the last match either side has scheduled.",
   "lede_basis": {
     "programme": "florida-southern",
-    "wins": 9,
-    "draws": 0,
-    "losses": 1,
-    "gf": 30,
-    "ga": 11,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of": [
-      "barry",
-      "eckerd",
-      "embry-riddle",
-      "florida-tech",
-      "lynn",
-      "nova-southeastern",
-      "palm-beach-atlantic",
-      "rollins",
-      "saint-leo",
-      "tampa"
-    ]
+    "wins": 10,
+    "draws": 2,
+    "losses": 1
   },
-  "lede_updated": "2026-10-01",
-  "displaced_by": "Florida Southern beat Saint Leo while Tampa and Florida Tech both lost; the two no longer lead",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Florida Tech beat Palm Beach Atlantic and passed Florida Southern, so Florida Southern no longer lead alone",
   "pattern": {
     "label": "derived",
-    "text": "The goals are pooled at the top of the chart, not spread through it: Florida Southern alone have outscored Eckerd and Nova Southeastern put together, and both of those sides sit at the foot of the table.",
+    "text": "The goals are pooled at one end of the chart: Florida Southern alone have outscored Barry and Nova Southeastern put together, and the side now above them in the table has scored well short of their total.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 30,
-        "embry-riddle": 17,
-        "palm-beach-atlantic": 17,
-        "saint-leo": 17,
-        "tampa": 17,
-        "lynn": 14,
-        "eckerd": 13,
-        "florida-tech": 13,
-        "rollins": 13,
-        "barry": 11,
-        "nova-southeastern": 11
+        "florida-southern": 34,
+        "palm-beach-atlantic": 24,
+        "embry-riddle": 23,
+        "saint-leo": 23,
+        "rollins": 22,
+        "florida-tech": 21,
+        "tampa": 21,
+        "eckerd": 20,
+        "lynn": 17,
+        "nova-southeastern": 17,
+        "barry": 15
       },
       "highlight": "florida-southern"
     },
@@ -55,19 +39,19 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "florida-southern",
-      "of": ["eckerd", "nova-southeastern"],
-      "gf": 30
+      "of": ["barry", "nova-southeastern"],
+      "gf": 34
     }
   },
   "wire": {
-    "line": "Florida Southern have now beaten the only side that beat them, and are the only programme still winning every conference match.",
+    "line": "Florida Southern are the only side in the conference yet to lose a conference match.",
     "basis": {
       "programme": "florida-southern",
-      "wins": 9,
-      "draws": 0,
+      "wins": 10,
+      "draws": 2,
       "losses": 1
     },
-    "updated": "2026-10-01"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
@@ -81,29 +65,40 @@
     },
     {
       "label": "derived",
-      "text": "Kobi Thomas has scored nine of Palm Beach Atlantic's seventeen goals this season, from 39 shots.",
+      "text": "Kobi Thomas has scored fifteen of Palm Beach Atlantic's 24 goals this season, from 51 shots.",
       "basis": {
         "source": "stats",
         "player": "Kobi Thomas",
         "programme": "palm-beach-atlantic",
-        "goals": 9,
-        "shots": 39,
-        "gf": 17
+        "goals": 15,
+        "shots": 51,
+        "gf": 24
       }
     },
     {
       "label": "derived",
-      "text": "Embry-Riddle have won six, drawn two and lost one, the defeat coming at home to Rollins on September 23.",
+      "text": "Finlay Prain has scored twelve of Rollins' 22 goals this season.",
       "basis": {
+        "source": "stats",
+        "player": "Finlay Prain",
+        "programme": "rollins",
+        "goals": 12,
+        "gf": 22
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Marcos da Silva has kept five clean sheets for Embry-Riddle.",
+      "basis": {
+        "source": "stats",
+        "player": "Marcos da Silva",
         "programme": "embry-riddle",
-        "wins": 6,
-        "draws": 2,
-        "losses": 1
+        "shutouts": 5
       }
     },
     {
       "label": "derived",
-      "text": "Nova Southeastern have conceded 21 goals, more than any other programme in the conference.",
+      "text": "Nova Southeastern have conceded 30 goals, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -120,19 +115,7 @@
           "saint-leo",
           "tampa"
         ],
-        "gf": 11,
-        "ga": 21
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Henry Obi has made 42 saves for Barry without yet keeping a clean sheet.",
-      "basis": {
-        "source": "stats",
-        "player": "Henry Obi",
-        "programme": "barry",
-        "saves": 42,
-        "shutouts": 0
+        "ga": 30
       }
     }
   ],
@@ -142,35 +125,35 @@
       "programme": "palm-beach-atlantic",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 4 A · 39 shots"
+      "line": "15 G · 4 A · 51 shots"
     },
     {
-      "player": "Darcy Moffat",
-      "programme": "florida-southern",
+      "player": "Finlay Prain",
+      "programme": "rollins",
       "position": "FWD",
-      "class": "SR",
-      "line": "5 G · 7 A · 16 shots"
+      "class": "JR",
+      "line": "12 G · 2 A · 54 shots"
     },
     {
       "player": "Tim Baierlein",
       "programme": "florida-southern",
       "position": "FWD",
       "class": "JR",
-      "line": "8 G · 23 shots"
+      "line": "10 G · 1 A · 28 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 florida-southern v saint-leo",
-      "line": "Saint Leo were the only side to have beaten Florida Southern; Florida Southern now lead the table alone, and Saint Leo are still without a conference win."
+      "fixture_ref": "2026-10-17 florida-tech v palm-beach-atlantic",
+      "line": "Palm Beach Atlantic have now lost to both of the sides at the top of the table."
     },
     "next_match": {
-      "fixture_ref": "2026-10-03 rollins v florida-southern",
-      "line": "Florida Southern have won every match since their only defeat; Rollins come in off a loss at Lynn in which they did not score."
+      "fixture_ref": "2026-10-21 florida-southern v tampa",
+      "line": "Florida Southern are yet to lose a conference match; Tampa have not won since beating Barry in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:46:19.210Z"
+    "validated_at": "2026-10-18T22:17:03.720Z"
   }
 }

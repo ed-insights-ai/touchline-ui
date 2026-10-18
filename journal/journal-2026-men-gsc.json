@@ -3,59 +3,58 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-10-01T11:40:00+00:00",
-  "data_collected_at": "2026-10-01T11:33:54+00:00",
-  "headline": "AUM beat UAH and no unbeaten side remains",
-  "dek": "UAH's first defeat of the season came at AUM on Saturday, and it leaves the conference without an unbeaten programme. AUM have now won eight of nine matches, their one defeat coming at North Georgia before conference play opened, and have conceded six goals along the way.",
+  "generated_at": "2026-10-18T22:10:00+00:00",
+  "data_collected_at": "2026-10-18T22:04:11+00:00",
+  "headline": "Trevecca beat AUM to join them on top",
+  "dek": "Trevecca won at AUM without conceding and now sit level with them at the head of the table. It was their eleventh win in fourteen matches this season, and the only side to have beaten them is Lee, who won at Trevecca in September.",
   "lede_basis": {
-    "programme": "aum",
-    "wins": 8,
-    "draws": 0,
+    "programme": "trevecca",
+    "wins": 11,
+    "draws": 2,
     "losses": 1,
-    "played": 9,
-    "ga": 6
+    "played": 14
   },
-  "lede_updated": "2026-09-27",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Trevecca beat AUM and drew level on points, and the standing dek's AUM figures no longer hold",
   "pattern": {
     "label": "derived",
-    "text": "Goals have not meant points: West Alabama have scored 27 and conceded seventeen, and have won three of ten matches.",
+    "text": "Goals have not meant points: West Alabama have scored 42 and conceded 24, and have won six of their fifteen matches.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "west-alabama": 27,
-        "trevecca": 24,
-        "uah": 17,
-        "aum": 15,
-        "christian-brothers": 15,
-        "mississippi-college": 15,
-        "lee": 13,
-        "montevallo": 13,
-        "union": 13,
-        "delta-state": 5,
-        "spring-hill": 2
+        "west-alabama": 42,
+        "trevecca": 35,
+        "uah": 28,
+        "montevallo": 26,
+        "christian-brothers": 24,
+        "aum": 20,
+        "mississippi-college": 18,
+        "lee": 17,
+        "union": 17,
+        "delta-state": 8,
+        "spring-hill": 3
       },
       "highlight": "west-alabama"
     },
     "basis": {
       "programme": "west-alabama",
-      "gf": 27,
-      "ga": 17,
-      "wins": 3,
-      "draws": 2,
+      "gf": 42,
+      "ga": 24,
+      "wins": 6,
+      "draws": 4,
       "losses": 5,
-      "played": 10
+      "played": 15
     }
   },
   "wire": {
-    "line": "Nobody is unbeaten now: UAH fell at AUM, who have won eight of their nine matches.",
+    "line": "Trevecca won at AUM and now share top spot; Hunter Walker has kept seven clean sheets behind them.",
     "basis": {
-      "programme": "aum",
-      "wins": 8,
-      "draws": 0,
-      "losses": 1,
-      "played": 9
+      "source": "stats",
+      "player": "Hunter Walker",
+      "programme": "trevecca",
+      "shutouts": 7
     },
-    "updated": "2026-09-27"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
@@ -69,49 +68,47 @@
     },
     {
       "label": "derived",
-      "text": "UAH have conceded five goals in nine matches, and their win at Carson-Newman was their seventh of the season.",
+      "text": "UAH have conceded eleven goals in thirteen matches and have lost only once, at AUM.",
       "basis": {
         "programme": "uah",
-        "ga": 5,
-        "wins": 7,
-        "draws": 1,
+        "ga": 11,
+        "wins": 9,
+        "draws": 3,
         "losses": 1,
-        "played": 9
+        "played": 13
       }
     },
     {
       "label": "derived",
-      "text": "Trevecca have scored 24 goals in ten matches and have lost only once.",
-      "basis": {
-        "programme": "trevecca",
-        "gf": 24,
-        "wins": 7,
-        "draws": 2,
-        "losses": 1,
-        "played": 10
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Spring Hill have scored two goals in six matches and have yet to win one.",
+      "text": "Spring Hill have scored three goals in eleven matches and have yet to win one.",
       "basis": {
         "programme": "spring-hill",
-        "gf": 2,
+        "gf": 3,
         "wins": 0,
-        "draws": 2,
-        "losses": 4,
-        "played": 6
+        "draws": 4,
+        "losses": 7,
+        "played": 11
       }
     },
     {
       "label": "observed",
-      "text": "Hunter Walker has conceded twelve goals for Trevecca and kept four clean sheets.",
+      "text": "Charles Carriglitto has conceded ten goals for Lee and kept five clean sheets.",
       "basis": {
         "source": "stats",
-        "player": "Hunter Walker",
-        "programme": "trevecca",
-        "shutouts": 4,
-        "goals_against": 12
+        "player": "Charles Carriglitto",
+        "programme": "lee",
+        "goals_against": 10,
+        "shutouts": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "David Nunez has scored sixteen goals for West Alabama.",
+      "basis": {
+        "source": "stats",
+        "player": "David Nunez",
+        "programme": "west-alabama",
+        "goals": 16
       }
     }
   ],
@@ -121,35 +118,35 @@
       "programme": "west-alabama",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 4 A · 31 shots"
+      "line": "16 G · 6 A · 53 shots"
     },
     {
       "player": "Chris Douglas",
       "programme": "trevecca",
       "position": "FWD",
       "class": "JR",
-      "line": "10 G · 1 A · 21 shots"
+      "line": "15 G · 5 A · 38 shots"
     },
     {
       "player": "Oli Orzechowski",
       "programme": "uah",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 34 shots"
+      "line": "9 G · 3 A · 50 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 carson-newman v uah",
-      "line": "Only AUM have beaten UAH this season; Trevecca are the only side to have taken a draw from them."
+      "fixture_ref": "2026-10-17 aum v trevecca",
+      "line": "Trevecca have won every conference match since Lee beat them in September; AUM have drawn more than they have won in October."
     },
     "next_match": {
-      "fixture_ref": "2026-10-02 west-alabama v christian-brothers",
-      "line": "West Alabama have scored more than any side in the conference and have still lost half their matches; Christian Brothers have won once since conference play opened."
+      "fixture_ref": "2026-10-20 newberry v montevallo",
+      "line": "Montevallo have lost more than they have won against non-conference opponents, and have scored in every match since October began."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:42:53.455Z"
+    "validated_at": "2026-10-18T22:14:47.119Z"
   }
 }

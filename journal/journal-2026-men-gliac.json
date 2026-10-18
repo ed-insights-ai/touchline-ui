@@ -3,51 +3,53 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-10-01T11:45:00+00:00",
-  "data_collected_at": "2026-10-01T11:32:36+00:00",
-  "headline": "Purdue Northwest go top of the conference table",
-  "dek": "A home win over Wisconsin-Parkside lifted Purdue Northwest above Northern Michigan and Roosevelt, who both have a match in hand. Roosevelt remain the only side in the conference without a defeat, six wins and five draws into the season.",
+  "generated_at": "2026-10-18T22:15:00+00:00",
+  "data_collected_at": "2026-10-18T22:02:21+00:00",
+  "headline": "Saginaw Valley State edge Northern Michigan at the top",
+  "dek": "Saginaw Valley State beat Purdue Northwest to stay above Northern Michigan, who beat Roosevelt on the same day. Northern Michigan have scored 32 goals across all their matches, more than any other programme in the conference, and the two sides meet again at Northern Michigan before the season closes.",
   "lede_basis": {
-    "programme": "roosevelt",
-    "wins": 6,
-    "draws": 5,
-    "losses": 0
+    "programme": "northern-michigan",
+    "gf": 32,
+    "ga": 17,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 6
   },
-  "lede_updated": "2026-10-01",
-  "displaced_by": "Purdue Northwest beat Wisconsin-Parkside and lead the conference table on points",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Saginaw Valley State now lead the table, Purdue Northwest have fallen back and Roosevelt are no longer unbeaten",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Purdue Northwest and St. Cloud State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "northern-michigan": 23,
-        "roosevelt": 17,
-        "saginaw-valley-state": 17,
-        "purdue-northwest": 13,
-        "wisconsin-parkside": 10,
-        "davenport": 8,
-        "st-cloud-state": 7
+        "northern-michigan": 32,
+        "saginaw-valley-state": 29,
+        "roosevelt": 22,
+        "purdue-northwest": 16,
+        "wisconsin-parkside": 16,
+        "st-cloud-state": 14,
+        "davenport": 13
       },
       "highlight": "northern-michigan"
     },
     "basis": {
       "programme": "northern-michigan",
-      "gf": 23,
+      "gf": 32,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["purdue-northwest", "st-cloud-state"]
     }
   },
   "wire": {
-    "line": "Every side in the conference has now drawn at least once.",
+    "line": "Saginaw Valley State have lost once all season, and still have a trip to Northern Michigan to come.",
     "basis": {
-      "programme": "wisconsin-parkside",
-      "wins": 3,
-      "draws": 1,
-      "losses": 5
+      "programme": "saginaw-valley-state",
+      "wins": 8,
+      "draws": 5,
+      "losses": 1
     },
-    "updated": "2026-09-28"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
@@ -61,47 +63,46 @@
     },
     {
       "label": "observed",
-      "text": "Luca Rosen has scored eleven goals from 38 shots for Northern Michigan.",
+      "text": "Luca Rosen has scored fourteen goals from 68 shots for Northern Michigan.",
       "basis": {
         "source": "stats",
         "player": "Luca Rosen",
         "programme": "northern-michigan",
-        "goals": 11,
-        "shots": 38
+        "goals": 14,
+        "shots": 68
       }
     },
     {
       "label": "observed",
-      "text": "Matty Telfer has scored seven of Saginaw Valley State's seventeen goals, from 25 shots.",
+      "text": "Matty Telfer has scored thirteen of Saginaw Valley State's 29 goals, from 46 shots.",
       "basis": {
         "source": "stats",
         "player": "Matty Telfer",
         "programme": "saginaw-valley-state",
-        "goals": 7,
-        "shots": 25,
-        "gf": 17
+        "goals": 13,
+        "shots": 46,
+        "gf": 29
       }
     },
     {
       "label": "observed",
-      "text": "Cedrik Strupler has conceded two goals all season for Roosevelt and kept five shutouts.",
+      "text": "Sergio Cano Castro, a freshman, has ten assists for Northern Michigan.",
       "basis": {
         "source": "stats",
-        "player": "Cedrik Strupler",
-        "programme": "roosevelt",
-        "goals_against": 2,
-        "shutouts": 5
+        "player": "Sergio Cano Castro",
+        "programme": "northern-michigan",
+        "assists": 10
       }
     },
     {
       "label": "observed",
-      "text": "Mateusz Pass has made 40 saves for Wisconsin-Parkside while conceding thirteen goals.",
+      "text": "Mateusz Pass has made 74 saves for Wisconsin-Parkside while conceding sixteen goals.",
       "basis": {
         "source": "stats",
         "player": "Mateusz Pass",
         "programme": "wisconsin-parkside",
-        "saves": 40,
-        "goals_against": 13
+        "saves": 74,
+        "goals_against": 16
       }
     }
   ],
@@ -111,35 +112,35 @@
       "programme": "northern-michigan",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 3 A · 38 shots"
+      "line": "14 G · 5 A · 68 shots"
     },
     {
       "player": "Matty Telfer",
       "programme": "saginaw-valley-state",
       "position": "FWD",
       "class": "JR",
-      "line": "7 G · 2 A · 25 shots"
+      "line": "13 G · 4 A · 46 shots"
     },
     {
       "player": "Fynn Mewes",
       "programme": "roosevelt",
       "position": "FWD",
       "class": "5Y",
-      "line": "6 G · 1 A · 21 shots"
+      "line": "8 G · 4 A · 40 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 purdue-northwest v wisconsin-parkside",
-      "line": "Purdue Northwest's highest-scoring match of the season; Wisconsin-Parkside arrived off a goalless draw with Saginaw Valley State."
+      "fixture_ref": "2026-10-18 saginaw-valley-state v purdue-northwest",
+      "line": "Saginaw Valley State have not lost since Northern Michigan won at their ground in September."
     },
     "next_match": {
-      "fixture_ref": "2026-10-02 northern-michigan v purdue-northwest",
-      "line": "The new leaders visit the side they displaced; Northern Michigan are unbeaten in conference play and field the conference's leading scorer in Luca Rosen."
+      "fixture_ref": "2026-10-21 davenport v saginaw-valley-state",
+      "line": "Saginaw Valley State have not lost since September; Davenport sit level on points with St. Cloud State at the foot of the table."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:43:40.512Z"
+    "validated_at": "2026-10-18T22:14:01.056Z"
   }
 }

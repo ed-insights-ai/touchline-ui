@@ -3,39 +3,39 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-09-29T11:45:00+00:00",
-  "data_collected_at": "2026-09-29T11:31:41+00:00",
-  "headline": "Cal State LA concede twice in nine matches",
-  "dek": "Cal State LA's win over UC Merced was their eighth in nine matches, with one draw and no defeats, and UC Merced's goal was only the second they have conceded all season. Cal State San Bernardino, the conference's other unbeaten side, also won on the day.",
+  "generated_at": "2026-10-18T22:10:00+00:00",
+  "data_collected_at": "2026-10-18T21:57:16+00:00",
+  "headline": "Cal State LA stand alone among the unbeaten",
+  "dek": "Cal State LA have won thirteen of their fourteen matches and drawn the other, conceding four goals in all. Cal State San Bernardino, the only other side that had not lost, have since been beaten by UC Merced and Cal State Monterey Bay.",
   "lede_basis": {
     "programme": "cal-state-la",
-    "wins": 8,
+    "wins": 13,
     "draws": 1,
     "losses": 0,
-    "played": 9,
-    "gf": 17,
-    "ga": 2
+    "played": 14,
+    "ga": 4
   },
-  "lede_updated": "2026-09-28",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Cal State LA have now conceded four, and Cal State San Bernardino have lost twice, so the standing headline and dek are no longer true.",
   "pattern": {
     "label": "derived",
-    "text": "Fresno Pacific have scored 29 goals, more than any other programme, shared among ten different scorers, and have still lost four matches; goals alone have not kept them unbeaten.",
+    "text": "Fresno Pacific have scored 37 goals, more than any other programme, and have still lost eight of their sixteen matches; in this conference, goals scored and results have tracked each other loosely at best.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fresno-pacific": 29,
-        "cal-state-dominguez-hills": 21,
-        "cal-state-monterey-bay": 21,
-        "cal-state-san-bernardino": 20,
-        "cal-state-san-marcos": 20,
-        "cal-state-east-bay": 17,
-        "cal-state-la": 17,
-        "menlo": 14,
-        "stanislaus-state": 14,
-        "cal-poly-humboldt": 13,
-        "chico-state": 13,
-        "cal-poly-pomona": 11,
-        "uc-merced": 10
+        "fresno-pacific": 37,
+        "cal-state-monterey-bay": 33,
+        "cal-state-san-bernardino": 32,
+        "cal-state-san-marcos": 29,
+        "cal-poly-pomona": 28,
+        "cal-state-la": 27,
+        "cal-state-dominguez-hills": 26,
+        "cal-state-east-bay": 23,
+        "menlo": 23,
+        "uc-merced": 23,
+        "stanislaus-state": 20,
+        "chico-state": 17,
+        "cal-poly-humboldt": 16
       },
       "highlight": "fresno-pacific"
     },
@@ -44,24 +44,22 @@
       "metric": "gf",
       "programme": "fresno-pacific",
       "of_any": 12,
-      "gf": 29,
-      "distinct_scorers_min": 10,
-      "wins": 5,
+      "gf": 37,
+      "wins": 7,
       "draws": 1,
-      "losses": 4
+      "losses": 8,
+      "played": 16
     }
   },
   "wire": {
-    "line": "Cal State LA and Cal State San Bernardino have both won again and are still the only unbeaten sides in the conference.",
+    "line": "Cal State LA are the only side yet to lose, and their next trip is to Cal State San Bernardino.",
     "basis": {
       "programme": "cal-state-la",
-      "wins": 8,
+      "wins": 13,
       "draws": 1,
-      "losses": 0,
-      "played": 9,
-      "ga": 2
+      "losses": 0
     },
-    "updated": "2026-09-28"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
@@ -75,56 +73,52 @@
     },
     {
       "label": "derived",
-      "text": "Cal State San Bernardino have won seven and drawn two after beating Chico State at home, and have conceded four goals across those nine matches.",
-      "basis": {
-        "programme": "cal-state-san-bernardino",
-        "wins": 7,
-        "draws": 2,
-        "losses": 0,
-        "played": 9,
-        "gf": 20,
-        "ga": 4
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Cal State East Bay have conceded 31 goals in ten matches, more than any other programme in the conference.",
+      "text": "Cal State East Bay have conceded 44 goals in fifteen matches, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
         "programme": "cal-state-east-bay",
         "of_any": 12,
         "wins": 2,
-        "draws": 2,
-        "losses": 6,
-        "played": 10,
-        "gf": 17,
-        "ga": 31
+        "draws": 4,
+        "losses": 9,
+        "played": 15,
+        "ga": 44
       }
     },
     {
       "label": "derived",
-      "text": "Stanislaus State have drawn four of their ten matches, more draws than any other side in the conference.",
+      "text": "Stanislaus State have drawn six of their fifteen matches, more draws than any other side in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
         "programme": "stanislaus-state",
         "of_any": 12,
-        "wins": 2,
-        "draws": 4,
-        "losses": 4,
-        "played": 10
+        "wins": 3,
+        "draws": 6,
+        "losses": 6,
+        "played": 15
       }
     },
     {
       "label": "observed",
-      "text": "Zion Vaughn has scored eight of Fresno Pacific's 29 goals.",
+      "text": "Zion Vaughn has scored ten of Fresno Pacific's 37 goals.",
       "basis": {
         "source": "stats",
         "player": "Zion Vaughn",
         "programme": "fresno-pacific",
-        "goals": 8,
-        "gf": 29
+        "goals": 10,
+        "gf": 37
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Yoel Vazquez has kept five shutouts in goal for Cal State San Marcos.",
+      "basis": {
+        "source": "stats",
+        "player": "Yoel Vazquez",
+        "programme": "cal-state-san-marcos",
+        "shutouts": 5
       }
     }
   ],
@@ -134,35 +128,35 @@
       "programme": "fresno-pacific",
       "position": "FWD",
       "class": "JR",
-      "line": "8 G · 1 A · 18 shots"
+      "line": "10 G · 2 A · 33 shots"
     },
     {
-      "player": "Kai Martin",
+      "player": "Philip Wolny",
       "programme": "cal-state-monterey-bay",
       "position": "FWD",
-      "class": "JR",
-      "line": "7 G · 15 shots"
+      "class": "SO",
+      "line": "5 G · 8 A · 22 shots"
     },
     {
-      "player": "Alexis Cervantes",
-      "programme": "stanislaus-state",
+      "player": "Jose Mariscal",
+      "programme": "cal-state-la",
       "position": "FWD",
-      "class": "JR",
-      "line": "6 G · 24 shots"
+      "class": "SR",
+      "line": "7 G · 1 A · 43 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-27 cal-state-la v uc-merced",
-      "line": "UC Merced's goal was a rarity: only Stanislaus State had scored against Cal State LA before them. Cal State LA remain unbeaten."
+      "fixture_ref": "2026-10-17 cal-state-san-bernardino v cal-state-monterey-bay",
+      "line": "Cal State Monterey Bay have won every match they have played in October; Cal State San Bernardino had not lost at home all season."
     },
     "next_match": {
-      "fixture_ref": "2026-10-01 fresno-pacific v cal-state-dominguez-hills",
-      "line": "Fresno Pacific are the conference's top scorers but lost at Cal State East Bay last time out; Cal State Dominguez Hills arrive on successive wins."
+      "fixture_ref": "2026-10-18 cal-state-dominguez-hills v cal-state-san-marcos",
+      "line": "Cal State Dominguez Hills have not won since beating Fresno Pacific; Cal State San Marcos kept a clean sheet against Chico State last time out."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:42:50.395Z"
+    "validated_at": "2026-10-18T22:13:01.870Z"
   }
 }

@@ -3,35 +3,33 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-10-01T11:45:00+00:00",
-  "data_collected_at": "2026-10-01T11:31:27+00:00",
-  "headline": "D'Youville draw level with the conference leaders",
-  "dek": "D'Youville's home win over Roberts Wesleyan lifts them level on points with Molloy and St. Thomas Aquinas, though they are the only one of the leading sides to have lost a conference match. Their season as a whole has been even: four wins against four defeats, and twelve goals scored against twelve conceded.",
+  "generated_at": "2026-10-18T22:10:00+00:00",
+  "data_collected_at": "2026-10-18T21:57:57+00:00",
+  "headline": "D'Youville win at Mercy to share the lead",
+  "dek": "D'Youville's win at Mercy lifts them level on points with St. Thomas Aquinas at the top of the table, though St. Thomas Aquinas have a match in hand and, like Molloy, have yet to lose in conference play. D'Youville's season has turned with it: seven wins now stand against four defeats.",
   "lede_basis": {
     "programme": "d-youville",
-    "wins": 4,
-    "draws": 3,
-    "losses": 4,
-    "gf": 12,
-    "ga": 12
+    "wins": 7,
+    "draws": 4,
+    "losses": 4
   },
-  "lede_updated": "2026-10-01",
-  "displaced_by": "D'Youville beat Roberts Wesleyan at home on 2026-09-30 and join Molloy and St. Thomas Aquinas on seven points; the standing lines were about the two leaders' defeats on 2026-09-29",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "D'Youville won at Mercy on 2026-10-17 and now share the top with St. Thomas Aquinas alone; Molloy are no longer level, and the standing dek's season figures for D'Youville are out of date",
   "pattern": {
     "label": "derived",
-    "text": "Queens have scored 26 goals, more than any other programme, and conceded eleven; the home defeat to Franklin Pierce was their third of the season.",
+    "text": "Goals have not ordered the table: Queens have scored 35, more than any other programme, while the joint leaders, D'Youville and St. Thomas Aquinas, sit in the middle of the chart.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "queens": 26,
-        "mercy": 21,
-        "roberts-wesleyan": 14,
-        "staten-island": 14,
-        "molloy": 13,
-        "d-youville": 12,
-        "daemen": 11,
-        "st-thomas-aquinas": 11,
-        "district-of-columbia": 10
+        "queens": 35,
+        "mercy": 33,
+        "d-youville": 23,
+        "staten-island": 21,
+        "roberts-wesleyan": 19,
+        "st-thomas-aquinas": 19,
+        "molloy": 18,
+        "district-of-columbia": 16,
+        "daemen": 14
       },
       "highlight": "queens"
     },
@@ -49,24 +47,31 @@
         "st-thomas-aquinas",
         "staten-island"
       ],
-      "wins": 7,
-      "draws": 1,
-      "losses": 3,
-      "gf": 26,
-      "ga": 11
+      "gf": 35,
+      "ga": 18
     }
   },
   "wire": {
-    "line": "D'Youville join Molloy and St. Thomas Aquinas at the top of the table, the only one of them beaten in conference play.",
+    "line": "Molloy have drawn seven matches, more than any other side in the conference, and lost only twice.",
     "basis": {
-      "programme": "d-youville",
+      "comparative": "greater_than_each",
+      "metric": "draws",
+      "programme": "molloy",
+      "of": [
+        "d-youville",
+        "daemen",
+        "district-of-columbia",
+        "mercy",
+        "queens",
+        "roberts-wesleyan",
+        "st-thomas-aquinas",
+        "staten-island"
+      ],
       "wins": 4,
-      "draws": 3,
-      "losses": 4,
-      "gf": 12,
-      "ga": 12
+      "draws": 7,
+      "losses": 2
     },
-    "updated": "2026-10-01"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
@@ -80,7 +85,7 @@
     },
     {
       "label": "derived",
-      "text": "Daemen have conceded 32 goals, more than any other programme, against eleven scored.",
+      "text": "Daemen have conceded 44 goals, more than any other programme, against fourteen scored.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -95,48 +100,31 @@
           "st-thomas-aquinas",
           "staten-island"
         ],
-        "wins": 1,
-        "draws": 2,
-        "losses": 7,
-        "gf": 11,
-        "ga": 32
+        "gf": 14,
+        "ga": 44
       }
     },
     {
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored ten of Mercy's 21 goals from 30 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 33 goals from 44 shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Darwesh Lund-Iversen",
         "programme": "mercy",
-        "goals": 10,
-        "shots": 30,
-        "gf": 21,
-        "ga": 12
+        "goals": 12,
+        "shots": 44,
+        "gf": 33
       }
     },
     {
-      "label": "derived",
-      "text": "D'Youville have scored twelve goals and conceded twelve, and six different players have scored for them.",
-      "basis": {
-        "programme": "d-youville",
-        "gf": 12,
-        "ga": 12,
-        "distinct_scorers_min": 6
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Lorenzo Herrera has made 51 saves for District of Columbia and conceded ten goals; the side have won four matches and lost four.",
+      "label": "observed",
+      "text": "Lorenzo Herrera has kept six shutouts for District of Columbia and conceded fifteen goals.",
       "basis": {
         "source": "stats",
         "player": "Lorenzo Herrera",
         "programme": "district-of-columbia",
-        "saves": 51,
-        "goals_against": 10,
-        "wins": 4,
-        "draws": 2,
-        "losses": 4
+        "shutouts": 6,
+        "goals_against": 15
       }
     }
   ],
@@ -146,35 +134,35 @@
       "programme": "mercy",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 3 A · 30 shots"
+      "line": "12 G · 6 A · 44 shots"
     },
     {
-      "player": "Keithlend Cesar",
-      "programme": "queens",
-      "position": "FWD",
+      "player": "John Hollis",
+      "programme": "mercy",
+      "position": "MID",
       "class": "SR",
-      "line": "5 G · 3 A · 23 shots"
+      "line": "4 G · 11 A · 29 shots"
     },
     {
-      "player": "Ethan Robinson",
+      "player": "Shawn Richardson",
       "programme": "d-youville",
-      "position": "FWD",
-      "class": "SR",
-      "line": "4 G · 1 A · 31 shots"
+      "position": "MID",
+      "class": "JR",
+      "line": "6 G · 32 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 d-youville v roberts-wesleyan",
-      "line": "D'Youville had lost at home to Molloy in their previous match; Roberts Wesleyan have yet to take a point on the road in conference play."
+      "fixture_ref": "2026-10-17 mercy v d-youville",
+      "line": "Mercy had not lost since St. Thomas Aquinas won there on the day conference play opened; D'Youville have not lost since Molloy beat them at home."
     },
     "next_match": {
-      "fixture_ref": "2026-10-03 st-thomas-aquinas v d-youville",
-      "line": "St. Thomas Aquinas have yet to lose in conference play; D'Youville's only conference defeat came at home to Molloy."
+      "fixture_ref": "2026-10-19 d-youville v ashland",
+      "line": "Ashland are D'Youville's last opponent from outside the conference before they host Queens."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:42:07.601Z"
+    "validated_at": "2026-10-18T22:13:12.853Z"
   }
 }

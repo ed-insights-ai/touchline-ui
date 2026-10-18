@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-10-01T11:45:09.807Z",
-  "data_collected_at": "2026-10-01T11:36:07+00:00",
+  "validated_at": "2026-10-18T22:15:59.742Z",
+  "data_collected_at": "2026-10-18T22:06:33+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "North Georgia's 26 goals are more than USC Aiken and Lander have scored between them, and twelve different players have shared them.",
+      "text": "Flagler's 34 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "North Georgia are still unbeaten, but a run of draws has let Flagler, beaten once, go top of the table.",
+      "text": "Georgia Southwestern are the only side in the conference yet to win a conference match.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Seven matches have passed their date with no published result, the most recent of them Clayton State's visit to Lander in September.",
+      "text": "Six matches have passed their date with no published result, every one of them from August.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Middle Georgia State have conceded 35 goals, more than any other programme in the conference, while scoring 21.",
+      "text": "Middle Georgia State have conceded 43 goals, more than any other programme in the conference, while scoring 26.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Javier Gongora Andres has scored ten of Middle Georgia State's 21 goals from 32 shots.",
+      "text": "Javier Gongora Andres has scored eleven of Middle Georgia State's 26 goals from 47 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Isaac Calderon has scored eight of North Georgia's 26 goals from 28 shots.",
+      "text": "Isaac Calderon has scored nine of North Georgia's 34 goals from 40 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Theo Hoang has scored seven of Georgia Southwestern's eleven goals from fifteen shots.",
+      "text": "Finn Weigelt has scored nine of Flagler's 34 goals from 31 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Javier Gongora Andres — 10 G · 1 A · 32 shots",
+      "text": "Javier Gongora Andres — 11 G · 2 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Isaac Calderon — 8 G · 2 A · 28 shots",
+      "text": "Isaac Calderon — 9 G · 3 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Theo Hoang — 7 G · 15 shots",
+      "text": "Finn Weigelt — 9 G · 1 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-30 middle-georgia-state v flagler",
+      "text": "2026-10-17 flagler v middle-georgia-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-03 clayton-state v flagler",
+      "text": "2026-10-21 middle-georgia-state v north-georgia",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:44:12.767Z",
-    "generate_ms": 57039,
+    "started_at": "2026-10-18T22:15:05.955Z",
+    "generate_ms": 53788,
     "validate_ms": 1,
-    "wall_ms": 57040,
+    "wall_ms": 53789,
     "concurrency": 4
   }
 }

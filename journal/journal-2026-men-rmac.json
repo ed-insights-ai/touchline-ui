@@ -3,35 +3,36 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-09-29T11:45:00+00:00",
-  "data_collected_at": "2026-09-29T11:38:22+00:00",
-  "headline": "CSU Pueblo drop their first points at Colorado Mesa",
-  "dek": "CSU Pueblo's draw at Colorado Mesa was their first match without a win this season, after seven straight victories. They remain the only side in the conference yet to lose, and have conceded four goals all season.",
+  "generated_at": "2026-10-18T22:15:00+00:00",
+  "data_collected_at": "2026-10-18T22:07:39+00:00",
+  "headline": "CSU Pueblo pull clear at the top of the table",
+  "dek": "CSU Pueblo's win at Colorado Christian was their twelfth of the season, beside two draws and no defeats. They have conceded ten goals in that time; Regis, the nearest side to them in the table, have conceded fewer.",
   "lede_basis": {
     "programme": "csu-pueblo",
-    "wins": 7,
-    "draws": 1,
+    "wins": 12,
+    "draws": 2,
     "losses": 0,
-    "ga": 4
+    "ga": 10
   },
-  "lede_updated": "2026-09-28",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "the standing lines are no longer true of the data: CSU Pueblo have now conceded ten, not four, and have won five straight conference matches since drawing with Regis",
   "pattern": {
     "label": "derived",
-    "text": "South Dakota Mines have scored more goals than Regis, Colorado School of Mines and Adams State have together; the scoring is concentrated at the top of the chart and thins quickly below it.",
+    "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 25; scoring is not what separates the top of the table.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "south-dakota-mines": 25,
-        "uccs": 24,
-        "fort-lewis": 20,
-        "csu-pueblo": 16,
-        "msu-denver": 16,
-        "colorado-christian": 15,
-        "colorado-mesa": 15,
-        "westminster": 14,
-        "regis": 11,
-        "colorado-school-of-mines": 7,
-        "adams-state": 2
+        "south-dakota-mines": 38,
+        "csu-pueblo": 36,
+        "uccs": 33,
+        "fort-lewis": 32,
+        "westminster": 27,
+        "msu-denver": 23,
+        "regis": 23,
+        "colorado-mesa": 22,
+        "colorado-christian": 21,
+        "colorado-school-of-mines": 14,
+        "adams-state": 7
       },
       "highlight": "south-dakota-mines"
     },
@@ -39,16 +40,17 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "south-dakota-mines",
-      "of": ["regis", "colorado-school-of-mines", "adams-state"],
-      "gf": 25
+      "of": ["colorado-school-of-mines", "adams-state"],
+      "gf": 38,
+      "ga": 25
     }
   },
   "wire": {
     "line": "CSU Pueblo are the last unbeaten side in the conference after UCCS lost at Colorado Mesa.",
     "basis": {
       "programme": "csu-pueblo",
-      "wins": 7,
-      "draws": 1,
+      "wins": 12,
+      "draws": 2,
       "losses": 0
     },
     "updated": "2026-09-25"
@@ -65,83 +67,84 @@
     },
     {
       "label": "derived",
-      "text": "Adams State have scored two goals and conceded 21 this season, across one win, one draw and six defeats, the sixth of them at Colorado Christian in their latest match.",
+      "text": "Regis have conceded nine goals this season, across eight wins, three draws and three defeats.",
       "basis": {
-        "programme": "adams-state",
-        "gf": 2,
-        "ga": 21,
-        "wins": 1,
-        "draws": 1,
-        "losses": 6
+        "programme": "regis",
+        "ga": 9,
+        "wins": 8,
+        "draws": 3,
+        "losses": 3
       }
     },
     {
       "label": "derived",
-      "text": "Fort Lewis's win at MSU Denver was their fifth of the season, beside two draws and two defeats.",
-      "basis": {
-        "programme": "fort-lewis",
-        "wins": 5,
-        "draws": 2,
-        "losses": 2
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Colorado School of Mines have yet to win this season, with two draws and seven defeats, and next play MSU Denver at home.",
+      "text": "Colorado School of Mines have yet to win this season, with three draws and twelve defeats, the latest at home to Fort Lewis.",
       "basis": {
         "programme": "colorado-school-of-mines",
         "wins": 0,
-        "draws": 2,
-        "losses": 7
+        "draws": 3,
+        "losses": 12
       }
     },
     {
       "label": "observed",
-      "text": "UCCS's Hugo Sjöberg has made 37 saves this season and conceded nine goals.",
+      "text": "CSU Pueblo's Nick Cenek has eleven goals and four assists this season, from 48 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Nick Cenek",
+        "programme": "csu-pueblo",
+        "goals": 11,
+        "assists": 4,
+        "shots": 48
+      }
+    },
+    {
+      "label": "observed",
+      "text": "UCCS's Hugo Sjöberg has made 61 saves this season and conceded 14 goals.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
-        "saves": 37,
-        "goals_against": 9
+        "saves": 61,
+        "goals_against": 14
       }
     }
   ],
   "players_to_watch": [
     {
+      "player": "Richie Tabares Ochoa",
+      "programme": "colorado-mesa",
+      "position": "FWD",
+      "class": "JR",
+      "line": "8 G · 7 A · 45 shots"
+    },
+    {
       "player": "Nickolas North",
       "programme": "south-dakota-mines",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 6 A · 21 shots"
-    },
-    {
-      "player": "Simão Agostinho",
-      "programme": "fort-lewis",
-      "position": "FWD",
-      "class": "SO",
-      "line": "6 G · 2 A · 29 shots"
+      "line": "8 G · 6 A · 39 shots"
     },
     {
       "player": "Lucas Miranda",
       "programme": "south-dakota-mines",
       "position": "FWD",
       "class": "FR",
-      "line": "6 G · 1 A · 14 shots"
+      "line": "10 G · 1 A · 24 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-27 colorado-mesa v csu-pueblo",
-      "line": "CSU Pueblo's first dropped points of the season; Colorado Mesa have not lost since Midwestern State."
+      "fixture_ref": "2026-10-18 colorado-christian v csu-pueblo",
+      "line": "Colorado Christian have not won since beating Colorado School of Mines; CSU Pueblo have won every conference match since drawing with Regis."
     },
     "next_match": {
-      "fixture_ref": "2026-10-01 colorado-school-of-mines v msu-denver",
-      "line": "Colorado School of Mines are still looking for a first win; MSU Denver arrive having lost at home to Fort Lewis."
+      "fixture_ref": "2026-10-22 csu-pueblo v colorado-school-of-mines",
+      "line": "Colorado School of Mines are still looking for a first win; CSU Pueblo are still looking for a first defeat."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-09-29T11:45:10.477Z"
+    "validated_at": "2026-10-18T22:16:54.111Z"
   }
 }

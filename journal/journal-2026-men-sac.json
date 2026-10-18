@@ -3,125 +3,117 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-01T11:45:00+00:00",
-  "data_collected_at": "2026-10-01T11:37:35+00:00",
-  "headline": "Emory & Henry top table on three straight wins",
-  "dek": "Emory & Henry's win at Mars Hill on Tuesday was their third of the season and their third in succession, and it took them above Catawba at the top of the conference table. They are unbeaten with three wins and two draws, eleven scored and four conceded. Catawba and Anderson have not lost either.",
+  "generated_at": "2026-10-18T22:15:00+00:00",
+  "data_collected_at": "2026-10-18T22:08:15+00:00",
+  "headline": "Catawba lead the table without a defeat all season",
+  "dek": "Catawba's win at Anderson on Wednesday was their tenth of the season, and they have now gone twelve matches without defeat while conceding six goals. Emory & Henry, two points behind them in the table, are the only other side yet to lose.",
   "lede_basis": {
-    "programme": "emory-henry",
-    "wins": 3,
+    "programme": "catawba",
+    "wins": 10,
     "draws": 2,
     "losses": 0,
-    "gf": 11,
-    "ga": 4
+    "gf": 33,
+    "ga": 6,
+    "matches_without_defeat": 12,
+    "table_points_behind": 2
   },
-  "lede_updated": "2026-09-30",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Catawba have overtaken Emory & Henry at the top of the table, so the standing headline is no longer true",
   "pattern": {
     "label": "observed",
-    "text": "Catawba have scored twenty-six and conceded four, and no one player has more than Alex Payton's four of those goals.",
+    "text": "Emory & Henry have scored fifteen and conceded four: they hold second place by keeping goals out, not by scoring them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "catawba": 26,
-        "anderson": 22,
-        "lincoln-memorial": 15,
-        "mars-hill": 15,
-        "wingate": 15,
-        "carson-newman": 14,
-        "lenoir-rhyne": 12,
-        "emory-henry": 11,
-        "newberry": 10,
-        "coker": 7,
-        "tusculum": 4
+        "catawba": 33,
+        "anderson": 30,
+        "mars-hill": 27,
+        "carson-newman": 24,
+        "wingate": 21,
+        "lincoln-memorial": 19,
+        "coker": 15,
+        "emory-henry": 15,
+        "lenoir-rhyne": 15,
+        "newberry": 13,
+        "tusculum": 7
       },
-      "highlight": "catawba"
+      "highlight": "emory-henry"
     },
     "basis": {
-      "source": "stats",
-      "player": "Alex Payton",
-      "programme": "catawba",
-      "goals": 4,
-      "gf": 26,
+      "programme": "emory-henry",
+      "gf": 15,
       "ga": 4
     }
   },
   "wire": {
-    "line": "Every side in the conference has now won at least once; Lenoir-Rhyne's first came at Newberry on Saturday.",
+    "line": "Anderson's Luis Munoz has made nine goals for others this season and scored four himself.",
     "basis": {
-      "programme": "lenoir-rhyne",
-      "wins": 1,
-      "draws": 3,
-      "losses": 5,
-      "gf": 12,
-      "ga": 21
+      "source": "stats",
+      "player": "Luis Munoz",
+      "programme": "anderson",
+      "assists": 9,
+      "goals": 4
     },
-    "updated": "2026-09-27"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest of them Emory & Henry's, from late August to mid-September.",
+      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Newberry on Saturday.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 6
+        "past_date_no_result": 7
       }
     },
     {
       "label": "observed",
-      "text": "Catawba's win over Lee on Wednesday was their seventh of the season, against two draws and no defeats, and they have scored twenty-six and conceded four.",
-      "basis": {
-        "programme": "catawba",
-        "wins": 7,
-        "draws": 2,
-        "losses": 0,
-        "gf": 26,
-        "ga": 4
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Carson-Newman's defeat at home to UAH on Wednesday was their third of the season, against four wins and two draws, with fourteen scored and nine conceded.",
+      "text": "Carson-Newman's home win over Wingate on Sunday was their seventh of the season, against two draws and four defeats, with twenty-four scored and thirteen conceded.",
       "basis": {
         "programme": "carson-newman",
-        "wins": 4,
+        "wins": 7,
         "draws": 2,
-        "losses": 3,
-        "gf": 14,
-        "ga": 9
+        "losses": 4,
+        "gf": 24,
+        "ga": 13
       }
     },
     {
       "label": "observed",
-      "text": "Tusculum's defeat at Lees-McRae on Wednesday was their fifth of the season, against one win and one draw, and they have scored four goals and conceded twelve.",
+      "text": "Anderson's home win over Mars Hill on Sunday was their eighth of the season, against four draws and two defeats.",
       "basis": {
-        "programme": "tusculum",
-        "wins": 1,
-        "draws": 1,
-        "losses": 5,
-        "gf": 4,
-        "ga": 12
+        "programme": "anderson",
+        "wins": 8,
+        "draws": 4,
+        "losses": 2
       }
     },
     {
       "label": "observed",
-      "text": "Wingate's Cole Freeman has made thirty-six saves and conceded nine goals.",
+      "text": "Wingate's Cole Freeman has made fifty-nine saves and conceded seventeen goals.",
       "basis": {
         "source": "stats",
         "player": "Cole Freeman",
         "programme": "wingate",
-        "saves": 36,
-        "goals_against": 9
+        "saves": 59,
+        "goals_against": 17
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Luis Munoz",
-      "programme": "anderson",
+      "player": "João Magalhães",
+      "programme": "catawba",
+      "position": "MID",
+      "class": "SR",
+      "line": "6 G · 4 A · 24 shots"
+    },
+    {
+      "player": "Oskar Dahlberg",
+      "programme": "lenoir-rhyne",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 7 A · 28 shots"
+      "line": "5 G · 2 A · 20 shots"
     },
     {
       "player": "Logan Knight",
@@ -129,27 +121,20 @@
       "position": "FWD",
       "class": "JR",
       "line": "5 G · 12 shots"
-    },
-    {
-      "player": "Alex Payton",
-      "programme": "catawba",
-      "position": "MID",
-      "class": "SO",
-      "line": "4 G · 1 A · 21 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 catawba v lee",
-      "line": "Catawba remain unbeaten; Lee are the first side to score against them since August."
+      "fixture_ref": "2026-10-18 carson-newman v wingate",
+      "line": "Carson-Newman's winning run goes on; Wingate have not won away from home since mid-September."
     },
     "next_match": {
-      "fixture_ref": "2026-10-02 mars-hill v lincoln-memorial",
-      "line": "Mars Hill have not scored since their win at Wingate; Lincoln Memorial arrive off a home win over Montevallo."
+      "fixture_ref": "2026-10-18 tusculum v lenoir-rhyne",
+      "line": "Tusculum are still looking for a first conference win; Lenoir-Rhyne won their last match, at home to Anderson."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:45:18.558Z"
+    "validated_at": "2026-10-18T22:17:04.615Z"
   }
 }

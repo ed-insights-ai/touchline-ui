@@ -4,23 +4,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-10-01T11:42:11.073Z",
-  "data_collected_at": "2026-10-01T11:32:24+00:00",
+  "validated_at": "2026-10-18T22:13:53.632Z",
+  "data_collected_at": "2026-10-18T22:01:43+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Fort Hays State have dropped points only in a draw at Rogers State, and lead Ouachita Baptist by ten points before the two sides meet next. At the other end, Harding have yet to take a point from eight conference matches.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Rogers State's eighteen goals are more than Harding and Newman have managed between them.",
+      "text": "Rogers State's 31 goals are more than Harding and Newman have managed between them.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Harding have lost all nine of their matches this season, conceding 27 goals along the way.",
+      "text": "Fort Hays State have conceded seven goals all season and lost only twice.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,17 +62,17 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Ouachita Baptist have conceded only six goals this season and still lost three matches.",
-      "checker": "team_goals+team_record",
+      "text": "Rogers State have had at least seventeen different scorers this season.",
+      "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Rogers State's eighteen goals have come from at least twelve different scorers.",
-      "checker": "distinct_scorers+team_goals",
+      "label": "observed",
+      "text": "Tristan Miller has kept five shutouts for Rogers State.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,16 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Guilherme Borges has made thirty-six saves for Newman and conceded fourteen goals.",
-      "checker": "player_stat",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
-      "label": "observed",
-      "text": "Andrew Wagenblatt has made thirty-seven saves for Harding and conceded fourteen goals.",
+      "text": "Andrew Wagenblatt has made 66 saves for Harding and conceded 30 goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +89,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Philip Bölk — 4 G · 2 A · 13 shots",
+      "text": "Juan Linares — 6 G · 4 A · 20 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +98,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Len Valkema — 4 G · 14 shots",
+      "text": "Carter Adams — 5 G · 3 A · 35 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +107,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Carter Adams — 3 G · 2 A · 25 shots",
+      "text": "Louis Bassett — 4 G · 4 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +116,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-30 northeastern-state v ouachita-baptist",
+      "text": "2026-10-17 southern-nazarene v northeastern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +125,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-01 southern-nazarene v fort-hays-state",
+      "text": "2026-10-22 fort-hays-state v ouachita-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:41:27.894Z",
-    "generate_ms": 43177,
+    "started_at": "2026-10-18T22:13:01.955Z",
+    "generate_ms": 51678,
     "validate_ms": 1,
-    "wall_ms": 43178,
+    "wall_ms": 51678,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-10-01T11:41:35.537Z",
-  "data_collected_at": "2026-10-01T11:31:59+00:00",
+  "validated_at": "2026-10-18T22:14:35.491Z",
+  "data_collected_at": "2026-10-18T22:00:54+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The goals are going short at the bottom of the table: Lake Erie's twenty are more than Malone and Walsh have scored between them.",
+      "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's twenty-eight are more than Northwood and Ohio Dominican have scored together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Thomas More lead the table alone after Findlay end Lake Erie's unbeaten conference run.",
+      "text": "Cedarville and Lake Erie, close at the top, both still have to play Tiffin, beaten twice all season.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -55,18 +55,18 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "Tiffin have conceded six goals all season and have lost only once, at home to Charleston on the opening day; since then they have won five and drawn three.",
-      "checker": "team_goals+team_record",
+      "label": "derived",
+      "text": "Walsh have conceded thirty-three goals, more than any other programme in the conference, and have won three, drawn three and lost nine.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Walsh have conceded twenty-five goals, more than any other programme in the conference, and have won once, drawn once and lost seven times.",
-      "checker": "team_goals+team_record+comparative",
+      "label": "observed",
+      "text": "Nick Cherry has kept eight clean sheets for Tiffin.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Nick Cherry has kept five clean sheets for Tiffin.",
+      "text": "Tom Woodward has scored eight goals for Ashland from fifty-three shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Tom Woodward has scored five goals for Ashland from thirty-eight shots.",
+      "text": "Jersey Lopez has eleven assists for Kentucky Wesleyan.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Tom Woodward — 5 G · 4 A · 38 shots",
+      "text": "Tom Woodward — 8 G · 4 A · 53 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Alex Banjac — 5 G · 1 A · 15 shots",
+      "text": "Jersey Lopez — 3 G · 11 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Garbhan Feeney — 3 G · 5 A · 26 shots",
+      "text": "Garbhan Feeney — 4 G · 7 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-09-26 thomas-more v malone",
+      "text": "2026-10-17 northwood v cedarville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-01 lake-erie v cedarville",
+      "text": "2026-10-19 d-youville v ashland",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-01T11:40:49.034Z",
-    "generate_ms": 46502,
+    "started_at": "2026-10-18T22:12:58.433Z",
+    "generate_ms": 97060,
     "validate_ms": 1,
-    "wall_ms": 46503,
+    "wall_ms": 97062,
     "concurrency": 4
   }
 }

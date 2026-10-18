@@ -3,68 +3,50 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-10-01T11:45:00+00:00",
-  "data_collected_at": "2026-10-01T11:30:38+00:00",
-  "headline": "Lees-McRae unbeaten and conceding almost nothing",
-  "dek": "Lees-McRae have won eight matches and drawn two without defeat, and have conceded four goals all season. Francis Marion, level with Young Harris at the top of the conference table, visit them on Saturday, and neither side has lost a conference match.",
+  "generated_at": "2026-10-18T22:10:00+00:00",
+  "data_collected_at": "2026-10-18T21:56:42+00:00",
+  "headline": "Lees-McRae still unbeaten with Young Harris to come",
+  "dek": "Lees-McRae have won twelve matches and drawn three without defeat, and have conceded seven goals all season. They are the only side yet to lose a conference match, and Young Harris, top of the conference table, visit them on the final day.",
   "lede_basis": {
     "programme": "lees-mcrae",
-    "wins": 8,
-    "draws": 2,
+    "wins": 12,
+    "draws": 3,
     "losses": 0,
-    "ga": 4
+    "ga": 7
   },
-  "lede_updated": "2026-10-01",
-  "displaced_by": "Francis Marion's win at Ferrum left the standing dek's eighth-win figure out of date; Lees-McRae's unbeaten run on four goals conceded, with Francis Marion visiting Saturday, is the story now.",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "The standing dek's eight wins, four goals conceded and Saturday visit by Francis Marion are out of date; Lees-McRae's unbeaten season now closes at home to table-leading Young Harris.",
   "pattern": {
     "label": "derived",
-    "text": "Chowan's 29 goals, from twelve different scorers, are the most in the conference and have still come with two defeats; the scoring is spread widely and has not bought a clean record.",
+    "text": "Chowan's 43 goals have come from at least fifteen different scorers and have still brought four defeats; spreading the scoring has not bought a clean record.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "chowan": 29,
-        "converse": 23,
-        "southern-wesleyan": 23,
-        "young-harris": 23,
-        "francis-marion": 22,
-        "emmanuel": 19,
-        "mount-olive": 18,
-        "lees-mcrae": 17,
-        "north-greenville": 16,
-        "ferrum": 15,
-        "belmont-abbey": 11,
-        "barton": 10,
-        "shorter": 10,
-        "erskine": 7,
-        "king": 6
+        "chowan": 43,
+        "converse": 43,
+        "young-harris": 36,
+        "southern-wesleyan": 27,
+        "francis-marion": 26,
+        "lees-mcrae": 25,
+        "emmanuel": 23,
+        "barton": 22,
+        "mount-olive": 22,
+        "ferrum": 20,
+        "north-greenville": 20,
+        "belmont-abbey": 17,
+        "king": 13,
+        "shorter": 13,
+        "erskine": 9
       },
       "highlight": "chowan"
     },
     "basis": {
       "programme": "chowan",
-      "gf": 29,
-      "distinct_scorers_min": 12,
-      "wins": 5,
+      "gf": 43,
+      "distinct_scorers_min": 15,
+      "wins": 7,
       "draws": 2,
-      "losses": 2,
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "of": [
-        "barton",
-        "belmont-abbey",
-        "converse",
-        "emmanuel",
-        "erskine",
-        "ferrum",
-        "francis-marion",
-        "king",
-        "lees-mcrae",
-        "mount-olive",
-        "north-greenville",
-        "shorter",
-        "southern-wesleyan",
-        "young-harris"
-      ]
+      "losses": 4
     }
   },
   "wire": {
@@ -72,8 +54,8 @@
     "basis": {
       "programme": "erskine",
       "wins": 0,
-      "draws": 1,
-      "losses": 8
+      "draws": 2,
+      "losses": 12
     },
     "updated": "2026-10-01"
   },
@@ -89,50 +71,37 @@
     },
     {
       "label": "derived",
-      "text": "King's win at North Greenville was their first of the season after eight defeats; they have scored six goals and conceded twenty.",
+      "text": "Francis Marion have won eleven matches, drawn two and lost three, and have conceded eleven goals in all.",
       "basis": {
-        "programme": "king",
-        "wins": 1,
-        "draws": 0,
-        "losses": 8,
-        "gf": 6,
-        "ga": 20
+        "programme": "francis-marion",
+        "wins": 11,
+        "draws": 2,
+        "losses": 3,
+        "ga": 11
       }
     },
     {
       "label": "observed",
-      "text": "Andre Camargo, a freshman, has nine of Chowan's 29 goals and five assists, from 29 shots.",
+      "text": "Andre Camargo, a freshman, has scored ten goals and set up five for Chowan, from 32 shots.",
       "basis": {
         "source": "stats",
         "player": "Andre Camargo",
         "programme": "chowan",
-        "goals": 9,
+        "goals": 10,
         "assists": 5,
-        "shots": 29,
-        "gf": 29
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Francis Marion have won nine matches, drawn one and lost one, and have conceded seven goals in all.",
-      "basis": {
-        "programme": "francis-marion",
-        "wins": 9,
-        "draws": 1,
-        "losses": 1,
-        "ga": 7
+        "shots": 32
       }
     },
     {
       "label": "observed",
-      "text": "Michael Arzillo has made 42 saves for Ferrum and conceded eleven goals, a save percentage of .792.",
+      "text": "Edouard Laberge has made 77 saves for Emmanuel and conceded 22 goals, a save percentage of .778.",
       "basis": {
         "source": "stats",
-        "player": "Michael Arzillo",
-        "programme": "ferrum",
-        "saves": 42,
-        "goals_against": 11,
-        "save_pct": 0.792
+        "player": "Edouard Laberge",
+        "programme": "emmanuel",
+        "saves": 77,
+        "goals_against": 22,
+        "save_pct": 0.778
       }
     }
   ],
@@ -142,35 +111,35 @@
       "programme": "chowan",
       "position": "MID",
       "class": "FR",
-      "line": "9 G · 5 A · 29 shots"
+      "line": "10 G · 5 A · 32 shots"
     },
     {
       "player": "Enzo Joly",
       "programme": "emmanuel",
       "position": "MID",
       "class": "FR",
-      "line": "8 G · 3 A · 30 shots"
+      "line": "9 G · 4 A · 41 shots"
     },
     {
       "player": "Andrea Marrazzo",
       "programme": "lees-mcrae",
       "position": "MID",
       "class": "FR",
-      "line": "6 G · 3 A · 33 shots"
+      "line": "7 G · 6 A · 44 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 north-greenville v king",
-      "line": "King's first win of the season; they had lost every match before it, and North Greenville had beaten Ferrum the previous Saturday."
+      "fixture_ref": "2026-10-17 shorter v lees-mcrae",
+      "line": "Lees-McRae remain the only side without a defeat; Shorter have not won since the opening day of conference play."
     },
     "next_match": {
-      "fixture_ref": "2026-10-03 lees-mcrae v francis-marion",
-      "line": "Lees-McRae have not lost a match this season; Francis Marion have won every conference match they have played and lost only once in any competition."
+      "fixture_ref": "2026-10-20 north-greenville v converse",
+      "line": "North Greenville come in on back-to-back wins; Converse have not lost to Lees-McRae, holding them level in both meetings."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:42:05.125Z"
+    "validated_at": "2026-10-18T22:12:58.358Z"
   }
 }

@@ -3,91 +3,72 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-10-01T11:40:00+00:00",
-  "data_collected_at": "2026-10-01T11:35:26+00:00",
-  "headline": "Southern New Hampshire drop first conference points at Assumption",
-  "dek": "Three days after scoring seven at Pace, Southern New Hampshire were held to a draw at Assumption, the first conference points they have dropped. Ten matches in they are still unbeaten, and their four-point lead over the three programmes on six is intact.",
+  "generated_at": "2026-10-18T22:10:00+00:00",
+  "data_collected_at": "2026-10-18T22:05:35+00:00",
+  "headline": "Adelphi end Southern New Hampshire's unbeaten run",
+  "dek": "Adelphi beat Southern New Hampshire at home, the first defeat in fourteen matches for the conference leaders. Southern New Hampshire still sit six points clear of American International, who won at Saint Michael's on the same day.",
   "lede_basis": {
     "programme": "southern-new-hampshire",
-    "wins": 7,
+    "wins": 10,
     "draws": 3,
-    "losses": 0,
-    "goals_scored_at_pace": 7,
-    "days_between_pace_and_assumption": 3,
-    "matches_unbeaten": 10,
-    "conference_matches": 4,
-    "conference_points": 10,
-    "points_of_chasing_programmes": 6,
-    "programmes_on_six_points": 3,
-    "lead_in_points": 4
+    "losses": 1,
+    "matches_played_by_southern_new_hampshire": 14,
+    "southern_new_hampshire_conference_points": 19,
+    "american_international_conference_points": 13,
+    "lead_in_points": 6
   },
-  "lede_updated": "2026-09-30",
+  "lede_updated": "2026-10-18",
+  "displaced_by": "Adelphi's win ended Southern New Hampshire's unbeaten season, so the standing dek's 'still unbeaten' is no longer true",
   "pattern": {
     "label": "signal",
-    "text": "Southern New Hampshire's thirty-seven goals come from at least fifteen different scorers, so the tallest bar is not one player's work; the three programmes level at the foot of the chart on eleven have very different records, Bentley with four wins to Saint Michael's one.",
+    "text": "Southern New Hampshire's fifty goals come from at least fifteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southern-new-hampshire": 37,
-        "assumption": 20,
-        "franklin-pierce": 20,
-        "adelphi": 16,
-        "american-international": 15,
-        "pace": 14,
-        "saint-anselm": 12,
-        "bentley": 11,
-        "saint-michael-s": 11,
-        "southern-connecticut": 11
+        "southern-new-hampshire": 50,
+        "assumption": 28,
+        "franklin-pierce": 28,
+        "american-international": 27,
+        "adelphi": 20,
+        "bentley": 19,
+        "saint-anselm": 18,
+        "pace": 17,
+        "saint-michael-s": 16,
+        "southern-connecticut": 16
       },
       "highlight": "southern-new-hampshire"
     },
     "basis": {
       "programme": "southern-new-hampshire",
       "distinct_scorers_min": 15,
-      "gf": 37,
-      "programmes_on_eleven_goals": 3,
-      "bentley_gf": 11,
-      "saint_michael_s_gf": 11,
-      "southern_connecticut_gf": 11,
-      "bentley_wins": 4,
-      "saint_michael_s_wins": 1
+      "gf": 50
     }
   },
   "wire": {
-    "line": "Southern New Hampshire are the last programme yet to lose after Saint Anselm ended Pace's unbeaten start.",
+    "line": "Every programme has now lost at least once; Southern New Hampshire were the last, beaten at Adelphi.",
     "basis": {
       "programme": "southern-new-hampshire",
-      "wins": 7,
+      "wins": 10,
       "draws": 3,
-      "losses": 0
+      "losses": 1
     },
-    "updated": "2026-09-21"
+    "updated": "2026-10-18"
   },
   "findings": [
     {
-      "label": "observed",
-      "text": "Southern New Hampshire have won seven matches and drawn three, and are the only programme without a defeat.",
-      "basis": {
-        "programme": "southern-new-hampshire",
-        "wins": 7,
-        "draws": 3,
-        "losses": 0
-      }
-    },
-    {
       "label": "derived",
-      "text": "Cody Holbert has scored ten of Assumption's twenty goals.",
+      "text": "Guillermo Rios has scored fourteen of Franklin Pierce's twenty-eight goals.",
       "basis": {
         "source": "stats",
-        "player": "Cody Holbert",
-        "programme": "assumption",
-        "goals": 10,
-        "gf": 20
+        "player": "Guillermo Rios",
+        "programme": "franklin-pierce",
+        "goals": 14,
+        "gf": 28
       }
     },
     {
       "label": "observed",
-      "text": "Saint Michael's have lost six matches, more than any other programme.",
+      "text": "Saint Michael's have lost nine matches, more than any other programme.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "losses",
@@ -103,65 +84,65 @@
           "southern-connecticut",
           "southern-new-hampshire"
         ],
+        "losses": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Saint Anselm have won seven matches and lost six, and remain the only programme yet to draw a match.",
+      "basis": {
+        "programme": "saint-anselm",
+        "wins": 7,
+        "draws": 0,
         "losses": 6
       }
     },
     {
       "label": "observed",
-      "text": "Franklin Pierce's win at Queens is their fifth of the season against two draws; both of their two defeats have come against non-conference opponents.",
+      "text": "Javier Solá Martínez has kept six clean sheets in goal for American International.",
       "basis": {
-        "programme": "franklin-pierce",
-        "wins": 5,
-        "draws": 2,
-        "losses": 2
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Saint Anselm's defeat at Mercy is their fifth of the season against four wins, and they remain the only programme yet to draw a match.",
-      "basis": {
-        "programme": "saint-anselm",
-        "wins": 4,
-        "draws": 0,
-        "losses": 5
+        "source": "stats",
+        "player": "Javier Solá Martínez",
+        "programme": "american-international",
+        "shutouts": 6
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "Cody Holbert",
-      "programme": "assumption",
+      "player": "Guillermo Rios",
+      "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 2 A · 50 shots"
+      "line": "14 G · 33 shots"
     },
     {
       "player": "Inigo Burusco",
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
-      "line": "9 G · 3 A · 36 shots"
+      "line": "12 G · 3 A · 54 shots"
     },
     {
-      "player": "Guillermo Rios",
-      "programme": "franklin-pierce",
+      "player": "Cody Holbert",
+      "programme": "assumption",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 22 shots"
+      "line": "11 G · 4 A · 68 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-09-30 queens v franklin-pierce",
-      "line": "Franklin Pierce have still lost only to non-conference opponents; Queens had already won at Assumption this season."
+      "fixture_ref": "2026-10-17 adelphi v southern-new-hampshire",
+      "line": "Southern New Hampshire's first defeat of the season; Adelphi had not won since beating Saint Anselm."
     },
     "next_match": {
-      "fixture_ref": "2026-10-03 southern-new-hampshire v bentley",
-      "line": "Southern New Hampshire have yet to lose; Bentley arrive from a home defeat by American International, their first in conference play."
+      "fixture_ref": "2026-10-21 saint-anselm v franklin-pierce",
+      "line": "Saint Anselm have won every match since losing at Adelphi; Franklin Pierce's only conference defeat came at American International."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:44:34.544Z"
+    "validated_at": "2026-10-18T22:15:51.527Z"
   }
 }

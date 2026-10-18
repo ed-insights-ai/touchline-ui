@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-10-01T12:05:00+00:00",
-  "data_collected_at": "2026-10-01T11:32:24+00:00",
-  "headline": "King's first win ends a run of eight defeats",
-  "dek": "King had lost all eight of their matches before they went to North Greenville. They come back with their first win of the season, and a record that now reads one win and eight defeats.",
+  "generated_at": "2026-10-18T22:30:00+00:00",
+  "data_collected_at": "2026-10-18T22:02:54+00:00",
+  "headline": "Division's top scorers Southern New Hampshire suffer first defeat",
+  "dek": "Southern New Hampshire went to Adelphi without a defeat all season and came away with their first. The goals have not dried up over the season: no other programme in the division has scored as many as they have.",
   "basis": {
-    "programme": "king",
-    "wins": 1,
-    "draws": 0,
-    "losses": 8
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "southern-new-hampshire",
+    "of_any": 1
   },
-  "fixture_ref": "2026-09-30 north-greenville v king",
-  "updated": "2026-10-01",
-  "displaced_by": "results night: King win at North Greenville for the first time this season after eight defeats",
+  "fixture_ref": "2026-10-17 adelphi v southern-new-hampshire",
+  "updated": "2026-10-18",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-01T11:47:11.115Z"
+    "validated_at": "2026-10-18T22:17:43.602Z"
   }
 }
