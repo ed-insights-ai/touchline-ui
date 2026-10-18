@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-10-18T22:15:37.413Z",
-  "data_collected_at": "2026-10-18T22:05:16+00:00",
+  "validated_at": "2026-10-18T23:17:56.767Z",
+  "data_collected_at": "2026-10-18T23:10:54+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
-    "verified": 12,
+    "verified": 13,
     "contradicted": 0,
-    "unverifiable": 1,
-    "dropped": 1
+    "unverifiable": 0,
+    "dropped": 0
   },
   "normalizations": [],
   "review": [],
@@ -38,23 +38,16 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Charleston, Davis & Elkins and Concord have one conference defeat each; no other side has fewer than two.",
-      "checker": null,
-      "verdict": "unverifiable",
-      "mismatches": [
-        "no checker recognises this basis (keys: programmes_with_one_conference_loss, conference_losses_each, min_conference_losses_others)"
-      ],
-      "dropped": true,
-      "unchecked_figures": [
-        "programmes_with_one_conference_loss: 3",
-        "conference_losses_each: 1",
-        "min_conference_losses_others: 2"
-      ]
+      "text": "The leaders, level on points, have still to play each other, and that meeting is at Concord.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Concord have conceded seven goals in thirteen matches and won nine of them.",
+      "text": "Concord have conceded seven goals in fourteen matches and won ten of them.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -90,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Shai'ya Fitzgerald has made forty-nine saves for West Liberty and conceded thirteen goals.",
+      "text": "Shai'ya Fitzgerald has made fifty-nine saves for West Liberty and conceded thirteen goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -117,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Hugo Fauli — 3 G · 7 A · 25 shots",
+      "text": "Hugo Fauli — 3 G · 7 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-18 charleston v shawnee-state",
+      "text": "2026-10-18 concord v salem",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-18 concord v salem",
+      "text": "2026-10-21 charleston v salem",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -143,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:14:35.566Z",
-    "generate_ms": 61848,
+    "started_at": "2026-10-18T23:17:12.645Z",
+    "generate_ms": 44121,
     "validate_ms": 1,
-    "wall_ms": 61849,
+    "wall_ms": 44122,
     "concurrency": 4
   }
 }

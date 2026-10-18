@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-10-18T22:17:04.615Z",
-  "data_collected_at": "2026-10-18T22:08:15+00:00",
+  "validated_at": "2026-10-18T23:18:11.422Z",
+  "data_collected_at": "2026-10-18T23:13:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -56,6 +56,15 @@
     {
       "path": "findings[1]",
       "label": "observed",
+      "text": "Tusculum's home win over Lenoir-Rhyne on Sunday was their second of the season, against two draws and eight defeats.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
       "text": "Carson-Newman's home win over Wingate on Sunday was their seventh of the season, against two draws and four defeats, with twenty-four scored and thirteen conceded.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
@@ -63,7 +72,7 @@
       "dropped": false
     },
     {
-      "path": "findings[2]",
+      "path": "findings[3]",
       "label": "observed",
       "text": "Anderson's home win over Mars Hill on Sunday was their eighth of the season, against four draws and two defeats.",
       "checker": "team_record",
@@ -72,7 +81,7 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[4]",
       "label": "observed",
       "text": "Wingate's Cole Freeman has made fifty-nine saves and conceded seventeen goals.",
       "checker": "player_stat",
@@ -101,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Logan Knight — 5 G · 12 shots",
+      "text": "Antoine Torrent — 4 G · 3 A · 13 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-18 carson-newman v wingate",
+      "text": "2026-10-18 tusculum v lenoir-rhyne",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-18 tusculum v lenoir-rhyne",
+      "text": "2026-10-20 newberry v montevallo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:15:58.927Z",
-    "generate_ms": 65656,
+    "started_at": "2026-10-18T23:17:31.779Z",
+    "generate_ms": 39641,
     "validate_ms": 1,
-    "wall_ms": 65657,
+    "wall_ms": 39642,
     "concurrency": 4
   }
 }

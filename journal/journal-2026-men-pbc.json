@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-10-18T22:20:00+00:00",
-  "data_collected_at": "2026-10-18T22:06:33+00:00",
+  "generated_at": "2026-10-18T23:20:00+00:00",
+  "data_collected_at": "2026-10-18T23:12:04+00:00",
   "headline": "Flagler remain unbeaten against conference opponents",
   "dek": "Flagler have lost once all season, at Florida Southern in September, and are yet to lose to a conference side. Saturday's win over Middle Georgia State was their widest of the season, and they have conceded 17 goals across all their matches.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 17
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "North Georgia have since lost twice, so 'last unbeaten side' no longer held; Flagler, without a conference defeat, now lead the table",
   "pattern": {
     "label": "derived",
     "text": "Flagler's 34 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
@@ -148,7 +147,7 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-10-17 flagler v middle-georgia-state",
-      "line": "Middle Georgia State's unbeaten conference run ends; Flagler have won every conference match since the draw with North Georgia."
+      "line": "Flagler were also the last side to beat Middle Georgia State, and have won every conference match since their draw with North Georgia."
     },
     "next_match": {
       "fixture_ref": "2026-10-21 middle-georgia-state v north-georgia",
@@ -157,6 +156,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:15:59.742Z"
+    "validated_at": "2026-10-18T23:17:41.021Z"
   }
 }

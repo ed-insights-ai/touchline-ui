@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-18T22:15:00+00:00",
-  "data_collected_at": "2026-10-18T22:08:15+00:00",
+  "generated_at": "2026-10-18T23:20:00+00:00",
+  "data_collected_at": "2026-10-18T23:13:16+00:00",
   "headline": "Catawba lead the table without a defeat all season",
   "dek": "Catawba's win at Anderson on Wednesday was their tenth of the season, and they have now gone twelve matches without defeat while conceding six goals. Emory & Henry, two points behind them in the table, are the only other side yet to lose.",
   "lede_basis": {
@@ -18,7 +18,6 @@
     "table_points_behind": 2
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "Catawba have overtaken Emory & Henry at the top of the table, so the standing headline is no longer true",
   "pattern": {
     "label": "observed",
     "text": "Emory & Henry have scored fifteen and conceded four: they hold second place by keeping goals out, not by scoring them.",
@@ -35,7 +34,7 @@
         "emory-henry": 15,
         "lenoir-rhyne": 15,
         "newberry": 13,
-        "tusculum": 7
+        "tusculum": 9
       },
       "highlight": "emory-henry"
     },
@@ -64,6 +63,16 @@
         "source": "fixtures",
         "finals_without_score": 0,
         "past_date_no_result": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Tusculum's home win over Lenoir-Rhyne on Sunday was their second of the season, against two draws and eight defeats.",
+      "basis": {
+        "programme": "tusculum",
+        "wins": 2,
+        "draws": 2,
+        "losses": 8
       }
     },
     {
@@ -116,25 +125,25 @@
       "line": "5 G · 2 A · 20 shots"
     },
     {
-      "player": "Logan Knight",
-      "programme": "mars-hill",
+      "player": "Antoine Torrent",
+      "programme": "carson-newman",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 12 shots"
+      "line": "4 G · 3 A · 13 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-18 carson-newman v wingate",
-      "line": "Carson-Newman's winning run goes on; Wingate have not won away from home since mid-September."
+      "fixture_ref": "2026-10-18 tusculum v lenoir-rhyne",
+      "line": "Tusculum have their first conference win; Lenoir-Rhyne followed their home win over Anderson with a defeat."
     },
     "next_match": {
-      "fixture_ref": "2026-10-18 tusculum v lenoir-rhyne",
-      "line": "Tusculum are still looking for a first conference win; Lenoir-Rhyne won their last match, at home to Anderson."
+      "fixture_ref": "2026-10-20 newberry v montevallo",
+      "line": "Newberry have not won since beating Lincoln Memorial in September; Montevallo have lost at both Anderson and Lincoln Memorial."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:17:04.615Z"
+    "validated_at": "2026-10-18T23:18:11.422Z"
   }
 }

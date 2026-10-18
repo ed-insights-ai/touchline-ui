@@ -3,26 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-10-18T22:30:00+00:00",
-  "data_collected_at": "2026-10-18T22:05:16+00:00",
-  "headline": "Charleston lead a three-way race at the top",
-  "dek": "Charleston have won four straight since their only conference defeat, at home to Davis & Elkins, and lead the table by two points. Davis & Elkins have since lost at home to Concord, who sit three points off the top with a match in hand and Charleston still to visit them.",
+  "generated_at": "2026-10-18T23:20:00+00:00",
+  "data_collected_at": "2026-10-18T23:10:54+00:00",
+  "headline": "Concord catch Charleston as Davis & Elkins drop points",
+  "dek": "Concord's win over Salem took them to twenty-seven points, level with Charleston, while Davis & Elkins, held at home by West Liberty, sit a point behind. Each of the three has lost once in conference play, and Davis & Elkins have played a match more than either leader.",
   "lede_basis": {
-    "programme": "charleston",
-    "sides_in_race": 3,
-    "charleston_conference_wins_since_defeat": 4,
-    "charleston_conference_losses": 1,
+    "programme": "concord",
+    "concord_points": 27,
     "charleston_points": 27,
-    "davis_elkins_points": 25,
-    "concord_points": 24,
-    "points_gap_to_davis_elkins": 2,
-    "concord_points_gap_to_top": 3,
+    "davis_elkins_points": 26,
+    "davis_elkins_points_behind_leaders": 1,
+    "sides_with_one_conference_loss": 3,
+    "concord_conference_losses": 1,
+    "charleston_conference_losses": 1,
+    "davis_elkins_conference_losses": 1,
+    "concord_played": 10,
     "charleston_played": 10,
-    "concord_played": 9,
-    "concord_matches_in_hand": 1
+    "davis_elkins_played": 11,
+    "davis_elkins_extra_matches_played": 1
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "Davis & Elkins lost at home to Concord, ending their unbeaten run; Charleston now top the table",
+  "displaced_by": "Concord beat Salem to draw level with Charleston on points, and Davis & Elkins drew; Charleston no longer lead by two and Concord no longer trail by three",
   "pattern": {
     "label": "derived",
     "text": "Charleston have scored more goals than West Liberty and Wheeling together, and fifteen different players have shared their forty-three; the scoring is spread, not carried.",
@@ -32,9 +33,9 @@
         "charleston": 43,
         "frostburg-state": 25,
         "davis-elkins": 24,
+        "concord": 21,
         "west-liberty": 21,
         "wheeling": 21,
-        "concord": 20,
         "shawnee-state": 17,
         "point-park": 16,
         "salem": 16,
@@ -51,18 +52,28 @@
       "distinct_scorers_min": 15
     }
   },
+  "wire": {
+    "line": "The leaders, level on points, have still to play each other, and that meeting is at Concord.",
+    "basis": {
+      "programme": "concord",
+      "wins": 10,
+      "draws": 2,
+      "losses": 2
+    },
+    "updated": "2026-10-18"
+  },
   "findings": [
     {
       "label": "derived",
-      "text": "Concord have conceded seven goals in thirteen matches and won nine of them.",
+      "text": "Concord have conceded seven goals in fourteen matches and won ten of them.",
       "basis": {
         "programme": "concord",
-        "wins": 9,
+        "wins": 10,
         "draws": 2,
         "losses": 2,
-        "gf": 20,
+        "gf": 21,
         "ga": 7,
-        "played": 13
+        "played": 14
       }
     },
     {
@@ -103,12 +114,12 @@
     },
     {
       "label": "observed",
-      "text": "Shai'ya Fitzgerald has made forty-nine saves for West Liberty and conceded thirteen goals.",
+      "text": "Shai'ya Fitzgerald has made fifty-nine saves for West Liberty and conceded thirteen goals.",
       "basis": {
         "source": "stats",
         "player": "Shai'ya Fitzgerald",
         "programme": "west-liberty",
-        "saves": 49,
+        "saves": 59,
         "goals_against": 13
       }
     }
@@ -133,21 +144,21 @@
       "programme": "davis-elkins",
       "position": "FWD",
       "class": "SR",
-      "line": "3 G · 7 A · 25 shots"
+      "line": "3 G · 7 A · 31 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-18 charleston v shawnee-state",
-      "line": "Charleston have won every conference match since losing at home to Davis & Elkins; Shawnee State have lost every match they have played in October."
+      "fixture_ref": "2026-10-18 concord v salem",
+      "line": "Concord have now beaten Salem home and away without conceding to them in either meeting."
     },
     "next_match": {
-      "fixture_ref": "2026-10-18 concord v salem",
-      "line": "A win would draw Concord level on points with Charleston; Salem lost the first meeting on their own ground."
+      "fixture_ref": "2026-10-21 charleston v salem",
+      "line": "Charleston won the first meeting on Salem's ground; Salem have yet to take a point from either leader."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:15:37.413Z"
+    "validated_at": "2026-10-18T23:17:56.767Z"
   }
 }

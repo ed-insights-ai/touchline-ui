@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-10-18T22:17:43.602Z",
+  "validated_at": "2026-10-18T23:18:25.479Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -26,9 +26,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:17:07.067Z",
-    "generate_ms": 36520,
+    "started_at": "2026-10-18T23:18:17.315Z",
+    "generate_ms": 8151,
     "validate_ms": 12,
-    "wall_ms": 36532
+    "wall_ms": 8163
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-10-18T22:15:00+00:00",
-  "data_collected_at": "2026-10-18T22:00:54+00:00",
+  "generated_at": "2026-10-18T23:20:00+00:00",
+  "data_collected_at": "2026-10-18T23:07:51+00:00",
   "headline": "Cedarville overtake Thomas More at the top",
   "dek": "Cedarville won at Northwood on Saturday and now lead the table, all nine of their wins this season coming in conference play. They have scored twenty-two goals and conceded twenty in all matches, and Lake Erie, who won at Ohio Dominican the same day, sit close behind.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 20
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "Thomas More no longer lead the table: Cedarville are top, with Lake Erie second and Thomas More third.",
   "pattern": {
     "label": "derived",
     "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's twenty-eight are more than Northwood and Ohio Dominican have scored together.",
@@ -57,15 +56,6 @@
   },
   "findings": [
     {
-      "label": "observed",
-      "text": "Four matches have gone past their date with no published result; all but Walsh's visit to Pitt-Johnstown are Kentucky Wesleyan's.",
-      "basis": {
-        "source": "fixtures",
-        "finals_without_score": 0,
-        "past_date_no_result": 4
-      }
-    },
-    {
       "label": "derived",
       "text": "Walsh have conceded thirty-three goals, more than any other programme in the conference, and have won three, drawn three and lost nine.",
       "basis": {
@@ -87,6 +77,28 @@
           "ohio-dominican",
           "thomas-more",
           "tiffin"
+        ]
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Tiffin have drawn six matches, more than any other programme in the conference.",
+      "basis": {
+        "programme": "tiffin",
+        "draws": 6,
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "of": [
+          "ashland",
+          "cedarville",
+          "findlay",
+          "kentucky-wesleyan",
+          "lake-erie",
+          "malone",
+          "northwood",
+          "ohio-dominican",
+          "thomas-more",
+          "walsh"
         ]
       }
     },
@@ -157,6 +169,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:14:35.491Z"
+    "validated_at": "2026-10-18T23:17:17.322Z"
   }
 }
