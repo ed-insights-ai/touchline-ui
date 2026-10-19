@@ -3,24 +3,22 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-18T23:20:00+00:00",
-  "data_collected_at": "2026-10-18T23:13:16+00:00",
-  "headline": "Catawba lead the table without a defeat all season",
-  "dek": "Catawba's win at Anderson on Wednesday was their tenth of the season, and they have now gone twelve matches without defeat while conceding six goals. Emory & Henry, two points behind them in the table, are the only other side yet to lose.",
+  "generated_at": "2026-10-19T11:45:00+00:00",
+  "data_collected_at": "2026-10-19T11:38:17+00:00",
+  "headline": "Emory & Henry overtake Catawba at the top",
+  "dek": "Emory & Henry's home win over Newberry on Saturday lifted them a point above Catawba, who have a match in hand. The two are the only sides in the conference yet to lose, and they drew with each other at Catawba in September.",
   "lede_basis": {
-    "programme": "catawba",
-    "wins": 10,
-    "draws": 2,
+    "programme": "emory-henry",
     "losses": 0,
-    "gf": 33,
-    "ga": 6,
-    "matches_without_defeat": 12,
-    "table_points_behind": 2
+    "table_points_ahead": 1,
+    "matches_in_hand": 1,
+    "unbeaten_sides": 2
   },
-  "lede_updated": "2026-10-18",
+  "lede_updated": "2026-10-19",
+  "displaced_by": "Emory & Henry's win over Newberry now has a published result, which puts them top of the table, so Catawba no longer lead it.",
   "pattern": {
     "label": "observed",
-    "text": "Emory & Henry have scored fifteen and conceded four: they hold second place by keeping goals out, not by scoring them.",
+    "text": "Emory & Henry have scored nineteen and conceded four: they top the table by keeping goals out, not by scoring them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -29,9 +27,9 @@
         "mars-hill": 27,
         "carson-newman": 24,
         "wingate": 21,
+        "emory-henry": 19,
         "lincoln-memorial": 19,
         "coker": 15,
-        "emory-henry": 15,
         "lenoir-rhyne": 15,
         "newberry": 13,
         "tusculum": 9
@@ -40,29 +38,37 @@
     },
     "basis": {
       "programme": "emory-henry",
-      "gf": 15,
+      "gf": 19,
       "ga": 4
     }
   },
   "wire": {
-    "line": "Anderson's Luis Munoz has made nine goals for others this season and scored four himself.",
+    "line": "Emory & Henry have conceded four goals all season and now sit above unbeaten Catawba.",
     "basis": {
-      "source": "stats",
-      "player": "Luis Munoz",
-      "programme": "anderson",
-      "assists": 9,
-      "goals": 4
+      "programme": "emory-henry",
+      "gf": 19,
+      "ga": 4
     },
-    "updated": "2026-10-18"
+    "updated": "2026-10-19"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Newberry on Saturday.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Palm Beach Atlantic in September.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 7
+        "past_date_no_result": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Emory & Henry's home win over Newberry on Saturday was their sixth of the season, against two draws and no defeats.",
+      "basis": {
+        "programme": "emory-henry",
+        "wins": 6,
+        "draws": 2,
+        "losses": 0
       }
     },
     {
@@ -95,17 +101,6 @@
         "wins": 8,
         "draws": 4,
         "losses": 2
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Wingate's Cole Freeman has made fifty-nine saves and conceded seventeen goals.",
-      "basis": {
-        "source": "stats",
-        "player": "Cole Freeman",
-        "programme": "wingate",
-        "saves": 59,
-        "goals_against": 17
       }
     }
   ],
@@ -144,6 +139,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T23:18:11.422Z"
+    "validated_at": "2026-10-19T11:42:28.633Z"
   }
 }

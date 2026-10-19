@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-10-18T23:18:11.422Z",
-  "data_collected_at": "2026-10-18T23:13:16+00:00",
+  "validated_at": "2026-10-19T11:42:28.633Z",
+  "data_collected_at": "2026-10-19T11:38:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Emory & Henry have scored fifteen and conceded four: they hold second place by keeping goals out, not by scoring them.",
+      "text": "Emory & Henry have scored nineteen and conceded four: they top the table by keeping goals out, not by scoring them.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Anderson's Luis Munoz has made nine goals for others this season and scored four himself.",
-      "checker": "player_stat",
+      "text": "Emory & Henry have conceded four goals all season and now sit above unbeaten Catawba.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Newberry on Saturday.",
+      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Palm Beach Atlantic in September.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Tusculum's home win over Lenoir-Rhyne on Sunday was their second of the season, against two draws and eight defeats.",
+      "text": "Emory & Henry's home win over Newberry on Saturday was their sixth of the season, against two draws and no defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Carson-Newman's home win over Wingate on Sunday was their seventh of the season, against two draws and four defeats, with twenty-four scored and thirteen conceded.",
-      "checker": "team_goals+team_record",
+      "text": "Tusculum's home win over Lenoir-Rhyne on Sunday was their second of the season, against two draws and eight defeats.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Anderson's home win over Mars Hill on Sunday was their eighth of the season, against four draws and two defeats.",
-      "checker": "team_record",
+      "text": "Carson-Newman's home win over Wingate on Sunday was their seventh of the season, against two draws and four defeats, with twenty-four scored and thirteen conceded.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,8 +83,8 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Wingate's Cole Freeman has made fifty-nine saves and conceded seventeen goals.",
-      "checker": "player_stat",
+      "text": "Anderson's home win over Mars Hill on Sunday was their eighth of the season, against four draws and two defeats.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T23:17:31.779Z",
-    "generate_ms": 39641,
+    "started_at": "2026-10-19T11:41:49.192Z",
+    "generate_ms": 39440,
     "validate_ms": 1,
-    "wall_ms": 39642,
+    "wall_ms": 39441,
     "concurrency": 4
   }
 }

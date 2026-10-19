@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-10-18T22:10:00+00:00",
-  "data_collected_at": "2026-10-18T21:57:16+00:00",
+  "generated_at": "2026-10-19T11:40:00+00:00",
+  "data_collected_at": "2026-10-19T11:31:06+00:00",
   "headline": "Cal State LA stand alone among the unbeaten",
   "dek": "Cal State LA have won thirteen of their fourteen matches and drawn the other, conceding four goals in all. Cal State San Bernardino, the only other side that had not lost, have since been beaten by UC Merced and Cal State Monterey Bay.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 4
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "Cal State LA have now conceded four, and Cal State San Bernardino have lost twice, so the standing headline and dek are no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Fresno Pacific have scored 37 goals, more than any other programme, and have still lost eight of their sixteen matches; in this conference, goals scored and results have tracked each other loosely at best.",
@@ -26,10 +25,10 @@
         "fresno-pacific": 37,
         "cal-state-monterey-bay": 33,
         "cal-state-san-bernardino": 32,
-        "cal-state-san-marcos": 29,
+        "cal-state-san-marcos": 31,
+        "cal-state-dominguez-hills": 29,
         "cal-poly-pomona": 28,
         "cal-state-la": 27,
-        "cal-state-dominguez-hills": 26,
         "cal-state-east-bay": 23,
         "menlo": 23,
         "uc-merced": 23,
@@ -147,16 +146,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-17 cal-state-san-bernardino v cal-state-monterey-bay",
-      "line": "Cal State Monterey Bay have won every match they have played in October; Cal State San Bernardino had not lost at home all season."
+      "fixture_ref": "2026-10-18 cal-state-dominguez-hills v cal-state-san-marcos",
+      "line": "Cal State Dominguez Hills had not won since beating Fresno Pacific at the start of October; Cal State San Marcos have not put back-to-back conference wins together since September."
     },
     "next_match": {
-      "fixture_ref": "2026-10-18 cal-state-dominguez-hills v cal-state-san-marcos",
-      "line": "Cal State Dominguez Hills have not won since beating Fresno Pacific; Cal State San Marcos kept a clean sheet against Chico State last time out."
+      "fixture_ref": "2026-10-22 cal-state-east-bay v cal-state-san-marcos",
+      "line": "Cal State East Bay have yet to win in October; Cal State San Marcos are the last side to have beaten Cal State Monterey Bay."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:13:01.870Z"
+    "validated_at": "2026-10-19T11:42:26.995Z"
   }
 }

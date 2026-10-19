@@ -2,20 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-10-18T23:30:00+00:00",
+  "generated_at": "2026-10-19T12:00:00+00:00",
   "data_collected_at": "2026-10-18T22:02:54+00:00",
-  "headline": "Division's top scorers Southern New Hampshire suffer first defeat",
-  "dek": "Southern New Hampshire went to Adelphi without a defeat all season and came away with their first. The goals have not dried up over the season: no other programme in the division has scored as many as they have.",
+  "headline": "CSU Pueblo stay unbeaten with a twelfth win",
+  "dek": "CSU Pueblo went to Colorado Christian and came away with a twelfth win; they have drawn twice and are yet to lose. Their next match is at home to Colorado School of Mines.",
   "basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "southern-new-hampshire",
-    "of_any": 1
+    "programme": "csu-pueblo",
+    "wins": 12,
+    "draws": 2,
+    "losses": 0
   },
-  "fixture_ref": "2026-10-17 adelphi v southern-new-hampshire",
-  "updated": "2026-10-18",
+  "fixture_ref": "2026-10-18 colorado-christian v csu-pueblo",
+  "updated": "2026-10-19",
+  "displaced_by": "results night: CSU Pueblo's win at Colorado Christian keeps their unbeaten season going",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T23:18:25.479Z"
+    "validated_at": "2026-10-19T11:42:54.541Z"
   }
 }
