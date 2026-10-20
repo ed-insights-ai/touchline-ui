@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-10-18T22:15:00+00:00",
-  "data_collected_at": "2026-10-18T22:03:40+00:00",
+  "generated_at": "2026-10-20T11:45:00+00:00",
+  "data_collected_at": "2026-10-20T11:33:55+00:00",
   "headline": "Seattle Pacific pull clear at the top of the conference",
   "dek": "Seattle Pacific have won twelve matches, drawn one and lost two, and have not been beaten since the opening night of conference play at Northwest Nazarene. Their 36 goals in all matches are more than any other programme has scored.",
   "lede_basis": {
@@ -24,7 +24,6 @@
     "gf": 36
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "The standing lines are no longer true: Dhima has moved past ten goals, his share of Western Oregon's goals has fallen, and Western Oregon have lost at Seattle Pacific, who now lead the table and have not lost since conference play opened.",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: goals in this conference have not bought points.",
@@ -146,6 +145,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:14:50.578Z"
+    "validated_at": "2026-10-20T11:43:07.675Z"
   }
 }

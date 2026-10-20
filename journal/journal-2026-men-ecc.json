@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-10-18T23:12:00+00:00",
-  "data_collected_at": "2026-10-18T23:07:20+00:00",
+  "generated_at": "2026-10-20T11:36:00+00:00",
+  "data_collected_at": "2026-10-20T11:31:40+00:00",
   "headline": "D'Youville win at Mercy to share the lead",
-  "dek": "D'Youville's win at Mercy lifts them level on points with St. Thomas Aquinas at the top of the table, though St. Thomas Aquinas have a match in hand and, like Molloy, have yet to lose in conference play. D'Youville's season has turned with it: seven wins now stand against four defeats.",
+  "dek": "D'Youville's win at Mercy lifts them level on points with St. Thomas Aquinas at the top of the table, though St. Thomas Aquinas have a match in hand and, like Molloy, have yet to lose in conference play. Ashland have since beaten them at home, D'Youville's fifth defeat of the season.",
   "lede_basis": {
     "programme": "d-youville",
     "wins": 7,
     "draws": 4,
-    "losses": 4
+    "losses": 5
   },
-  "lede_updated": "2026-10-18",
+  "lede_updated": "2026-10-20",
+  "displaced_by": "truth: Ashland's win at D'Youville makes the dek's 'seven wins against four defeats' false; the headline still holds, so it stands and only the dek's second sentence changes",
   "pattern": {
     "label": "derived",
     "text": "Goals have not ordered the table: Queens have scored 35, more than any other programme, while the joint leaders, D'Youville and St. Thomas Aquinas, sit in the middle of the chart.",
@@ -147,21 +148,21 @@
       "programme": "d-youville",
       "position": "MID",
       "class": "JR",
-      "line": "6 G · 32 shots"
+      "line": "6 G · 35 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-17 mercy v d-youville",
-      "line": "Mercy had not lost since St. Thomas Aquinas won there on the day conference play opened; D'Youville have not lost since Molloy beat them at home."
+      "fixture_ref": "2026-10-19 d-youville v ashland",
+      "line": "It ends D'Youville's unbeaten run since Molloy won there, with Queens the next side to visit."
     },
     "next_match": {
-      "fixture_ref": "2026-10-19 d-youville v ashland",
-      "line": "Ashland are D'Youville's last opponent from outside the conference before they host Queens."
+      "fixture_ref": "2026-10-21 mercy v queens",
+      "line": "The conference's two highest-scoring sides meet; Queens have not lost since St. Thomas Aquinas beat them."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T23:17:12.568Z"
+    "validated_at": "2026-10-20T11:42:32.700Z"
   }
 }

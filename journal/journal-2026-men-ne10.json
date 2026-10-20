@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-10-18T22:10:00+00:00",
-  "data_collected_at": "2026-10-18T22:05:35+00:00",
+  "generated_at": "2026-10-20T11:40:00+00:00",
+  "data_collected_at": "2026-10-20T11:35:56+00:00",
   "headline": "Adelphi end Southern New Hampshire's unbeaten run",
   "dek": "Adelphi beat Southern New Hampshire at home, the first defeat in fourteen matches for the conference leaders. Southern New Hampshire still sit six points clear of American International, who won at Saint Michael's on the same day.",
   "lede_basis": {
@@ -18,7 +18,6 @@
     "lead_in_points": 6
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "Adelphi's win ended Southern New Hampshire's unbeaten season, so the standing dek's 'still unbeaten' is no longer true",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's fifty goals come from at least fifteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
@@ -143,6 +142,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:15:51.527Z"
+    "validated_at": "2026-10-20T11:43:13.550Z"
   }
 }

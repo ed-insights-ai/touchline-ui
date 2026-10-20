@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-10-18T23:17:17.322Z",
-  "data_collected_at": "2026-10-18T23:07:51+00:00",
+  "validated_at": "2026-10-20T11:42:55.987Z",
+  "data_collected_at": "2026-10-20T11:32:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Tom Woodward has scored eight goals for Ashland from fifty-three shots.",
+      "text": "Tom Woodward has scored eight goals for Ashland from fifty-four shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Tom Woodward — 8 G · 4 A · 53 shots",
+      "text": "Tom Woodward — 8 G · 4 A · 54 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-17 northwood v cedarville",
+      "text": "2026-10-19 d-youville v ashland",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-19 d-youville v ashland",
+      "text": "2026-10-22 tiffin v cedarville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T23:16:46.238Z",
-    "generate_ms": 31082,
+    "started_at": "2026-10-20T11:42:24.815Z",
+    "generate_ms": 31171,
     "validate_ms": 1,
-    "wall_ms": 31083,
+    "wall_ms": 31172,
     "concurrency": 4
   }
 }

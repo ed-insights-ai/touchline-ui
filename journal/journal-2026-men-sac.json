@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-19T11:45:00+00:00",
-  "data_collected_at": "2026-10-19T11:38:17+00:00",
+  "generated_at": "2026-10-20T11:45:00+00:00",
+  "data_collected_at": "2026-10-20T11:38:28+00:00",
   "headline": "Emory & Henry overtake Catawba at the top",
   "dek": "Emory & Henry's home win over Newberry on Saturday lifted them a point above Catawba, who have a match in hand. The two are the only sides in the conference yet to lose, and they drew with each other at Catawba in September.",
   "lede_basis": {
@@ -15,7 +15,6 @@
     "unbeaten_sides": 2
   },
   "lede_updated": "2026-10-19",
-  "displaced_by": "Emory & Henry's win over Newberry now has a published result, which puts them top of the table, so Catawba no longer lead it.",
   "pattern": {
     "label": "observed",
     "text": "Emory & Henry have scored nineteen and conceded four: they top the table by keeping goals out, not by scoring them.",
@@ -139,6 +138,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-19T11:42:28.633Z"
+    "validated_at": "2026-10-20T11:43:35.084Z"
   }
 }

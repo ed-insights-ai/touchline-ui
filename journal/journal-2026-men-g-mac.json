@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-10-18T23:20:00+00:00",
-  "data_collected_at": "2026-10-18T23:07:51+00:00",
+  "generated_at": "2026-10-20T11:45:00+00:00",
+  "data_collected_at": "2026-10-20T11:32:09+00:00",
   "headline": "Cedarville overtake Thomas More at the top",
   "dek": "Cedarville won at Northwood on Saturday and now lead the table, all nine of their wins this season coming in conference play. They have scored twenty-two goals and conceded twenty in all matches, and Lake Erie, who won at Ohio Dominican the same day, sit close behind.",
   "lede_basis": {
@@ -24,11 +24,11 @@
       "values": {
         "lake-erie": 28,
         "findlay": 27,
+        "ashland": 24,
         "kentucky-wesleyan": 24,
         "thomas-more": 24,
         "tiffin": 24,
         "cedarville": 22,
-        "ashland": 21,
         "walsh": 19,
         "malone": 12,
         "northwood": 11,
@@ -114,13 +114,13 @@
     },
     {
       "label": "observed",
-      "text": "Tom Woodward has scored eight goals for Ashland from fifty-three shots.",
+      "text": "Tom Woodward has scored eight goals for Ashland from fifty-four shots.",
       "basis": {
         "source": "stats",
         "player": "Tom Woodward",
         "programme": "ashland",
         "goals": 8,
-        "shots": 53
+        "shots": 54
       }
     },
     {
@@ -140,7 +140,7 @@
       "programme": "ashland",
       "position": "FWD",
       "class": "SO",
-      "line": "8 G · 4 A · 53 shots"
+      "line": "8 G · 4 A · 54 shots"
     },
     {
       "player": "Jersey Lopez",
@@ -159,16 +159,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-17 northwood v cedarville",
-      "line": "Cedarville have won every match since losing at home to Kentucky Wesleyan; Northwood have gone without a win since beating Ashland."
+      "fixture_ref": "2026-10-19 d-youville v ashland",
+      "line": "Ashland answer their heavy defeat at Findlay with a clean sheet; the hosts had already lost to Ohio Dominican, whose only win of the season it remains."
     },
     "next_match": {
-      "fixture_ref": "2026-10-19 d-youville v ashland",
-      "line": "The hosts' only meeting with a G-MAC side so far gave Ohio Dominican their only win of the season; Ashland come off a heavy defeat at Findlay."
+      "fixture_ref": "2026-10-22 tiffin v cedarville",
+      "line": "Cedarville handed Tiffin their only conference defeat, and have won every match since losing at home to Kentucky Wesleyan."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T23:17:17.322Z"
+    "validated_at": "2026-10-20T11:42:55.987Z"
   }
 }

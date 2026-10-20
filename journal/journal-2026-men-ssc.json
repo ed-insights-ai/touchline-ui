@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-10-18T22:16:00+00:00",
-  "data_collected_at": "2026-10-18T22:11:24+00:00",
+  "generated_at": "2026-10-20T11:45:00+00:00",
+  "data_collected_at": "2026-10-20T11:39:02+00:00",
   "headline": "Florida Tech overtake Florida Southern at the top",
   "dek": "Florida Tech's win over Palm Beach Atlantic lifted them above Florida Southern, who hold a match in hand and have lost once all season against ten wins. The two meet at Florida Tech in the last match either side has scheduled.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 1
   },
   "lede_updated": "2026-10-18",
-  "displaced_by": "Florida Tech beat Palm Beach Atlantic and passed Florida Southern, so Florida Southern no longer lead alone",
   "pattern": {
     "label": "derived",
     "text": "The goals are pooled at one end of the chart: Florida Southern alone have outscored Barry and Nova Southeastern put together, and the side now above them in the table has scored well short of their total.",
@@ -56,7 +55,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Four matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's home match of September 9.",
+      "text": "Four matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's home match against Trinity.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -154,6 +153,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:17:03.720Z"
+    "validated_at": "2026-10-20T11:43:58.869Z"
   }
 }

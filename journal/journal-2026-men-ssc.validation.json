@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-10-18T22:17:03.720Z",
-  "data_collected_at": "2026-10-18T22:11:24+00:00",
+  "validated_at": "2026-10-20T11:43:58.869Z",
+  "data_collected_at": "2026-10-20T11:39:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -53,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's home match of September 9.",
+      "text": "Four matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's home match against Trinity.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:15:59.817Z",
-    "generate_ms": 63871,
+    "started_at": "2026-10-20T11:43:35.173Z",
+    "generate_ms": 23695,
     "validate_ms": 1,
-    "wall_ms": 63872,
+    "wall_ms": 23696,
     "concurrency": 4
   }
 }

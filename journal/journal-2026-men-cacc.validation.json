@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-10-18T22:13:05.106Z",
-  "data_collected_at": "2026-10-18T21:53:26+00:00",
+  "validated_at": "2026-10-20T11:42:35.212Z",
+  "data_collected_at": "2026-10-20T11:30:10+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Bridgeport have scored 36 goals, more than any other side, and share top spot on points with Wilmington.",
-      "checker": "team_goals+comparative",
+      "text": "Jefferson's win over Bridgeport leaves Wilmington level with them on points at the top of the conference.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Post's win over Jefferson was their sixth of the season, beside four draws and four defeats; they have scored twenty goals and conceded seventeen.",
+      "text": "Jefferson's win over Bridgeport was their fifth of the season, beside two draws and seven defeats; they have scored 22 goals and conceded 23.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-17 bridgeport v goldey-beacom",
+      "text": "2026-10-19 jefferson v bridgeport",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-19 jefferson v bridgeport",
+      "text": "2026-10-21 bridgeport v felician",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:12:00.357Z",
-    "generate_ms": 64749,
-    "validate_ms": 2,
-    "wall_ms": 64751,
+    "started_at": "2026-10-20T11:41:55.670Z",
+    "generate_ms": 39540,
+    "validate_ms": 1,
+    "wall_ms": 39542,
     "concurrency": 4
   }
 }
