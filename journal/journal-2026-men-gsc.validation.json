@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-10-20T11:43:14.077Z",
-  "data_collected_at": "2026-10-20T11:34:25+00:00",
+  "validated_at": "2026-10-21T13:52:04.791Z",
+  "data_collected_at": "2026-10-21T12:35:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-17 aum v trevecca",
+      "text": "2026-10-20 newberry v montevallo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-20 newberry v montevallo",
+      "text": "2026-10-23 trevecca v west-alabama",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-20T11:42:51.507Z",
-    "generate_ms": 22569,
+    "started_at": "2026-10-21T13:51:39.005Z",
+    "generate_ms": 25785,
     "validate_ms": 1,
-    "wall_ms": 22570,
+    "wall_ms": 25786,
     "concurrency": 4
   }
 }

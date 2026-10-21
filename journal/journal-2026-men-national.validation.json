@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-10-20T11:44:25.500Z",
+  "validated_at": "2026-10-21T13:52:24.454Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "D'Youville's winning run ends against a Great Midwest side D'Youville's run of wins ended against Ashland, a Great Midwest side with more defeats than wins this season. They now have seven wins, four draws and five defeats.",
+      "text": "Lees-McRae go thirteen wins and three draws without defeat Lees-McRae won at Belmont Abbey and still have not lost this season. They have thirteen wins and three draws, and Young Harris come next.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-20T11:44:05.074Z",
-    "generate_ms": 20424,
+    "started_at": "2026-10-21T13:52:07.134Z",
+    "generate_ms": 17318,
     "validate_ms": 1,
-    "wall_ms": 20426
+    "wall_ms": 17320
   }
 }
