@@ -3,76 +3,75 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-10-21T11:58:00+00:00",
-  "data_collected_at": "2026-10-21T11:49:58+00:00",
-  "headline": "Cal State LA stand alone among the unbeaten",
-  "dek": "Cal State LA have won thirteen of their fourteen matches and drawn the other, conceding four goals in all. Cal State San Bernardino, the only other side that had not lost, have since been beaten by UC Merced and Cal State Monterey Bay.",
+  "generated_at": "2026-10-24T11:40:00+00:00",
+  "data_collected_at": "2026-10-24T11:31:01+00:00",
+  "headline": "Cal State Monterey Bay close on Cal State LA",
+  "dek": "Cal State Monterey Bay have not lost since September, a run that took them through Cal State San Bernardino, where the leaders Cal State LA were held goalless. Monterey Bay have scored 37 goals and lost twice all season; only Cal State LA, still without a defeat, have lost fewer.",
   "lede_basis": {
-    "programme": "cal-state-la",
-    "wins": 13,
-    "draws": 1,
-    "losses": 0,
-    "played": 14,
-    "ga": 4
+    "programme": "cal-state-monterey-bay",
+    "wins": 10,
+    "draws": 3,
+    "losses": 2,
+    "gf": 37,
+    "ga": 21
   },
-  "lede_updated": "2026-10-18",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "Cal State LA's goalless draw at Cal State San Bernardino made the dek's fourteen-match record untrue; Cal State Monterey Bay's unbeaten run since September replaced it as the story",
   "pattern": {
     "label": "derived",
-    "text": "Fresno Pacific have scored 37 goals, more than any other programme, and have still lost eight of their sixteen matches; in this conference, goals scored and results have tracked each other loosely at best.",
+    "text": "Cal State LA have scored 27 goals, well short of the top of this chart, and have conceded four in fifteen matches without a defeat: the leaders' record is built on what they keep out, not what they put in.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "cal-state-monterey-bay": 37,
         "fresno-pacific": 37,
-        "cal-state-monterey-bay": 33,
+        "cal-state-san-marcos": 34,
         "cal-state-san-bernardino": 32,
-        "cal-state-san-marcos": 31,
         "cal-state-dominguez-hills": 29,
         "cal-poly-pomona": 28,
         "cal-state-la": 27,
-        "cal-state-east-bay": 23,
+        "cal-state-east-bay": 24,
+        "uc-merced": 24,
         "menlo": 23,
-        "uc-merced": 23,
-        "stanislaus-state": 20,
-        "chico-state": 17,
-        "cal-poly-humboldt": 16
+        "stanislaus-state": 22,
+        "chico-state": 19,
+        "cal-poly-humboldt": 18
       },
-      "highlight": "fresno-pacific"
+      "highlight": "cal-state-la"
     },
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "programme": "fresno-pacific",
-      "of_any": 12,
-      "gf": 37,
-      "wins": 7,
-      "draws": 1,
-      "losses": 8,
-      "played": 16
+      "programme": "cal-state-la",
+      "gf": 27,
+      "ga": 4,
+      "wins": 13,
+      "draws": 2,
+      "losses": 0,
+      "played": 15
     }
   },
   "wire": {
-    "line": "Cal State LA are the only side yet to lose, and their next trip is to Cal State San Bernardino.",
+    "line": "Cal State Monterey Bay have won every match they have played in October, the visit to Cal State San Bernardino among them.",
     "basis": {
-      "programme": "cal-state-la",
-      "wins": 13,
-      "draws": 1,
-      "losses": 0
+      "programme": "cal-state-monterey-bay",
+      "wins": 10,
+      "draws": 3,
+      "losses": 2
     },
-    "updated": "2026-10-18"
+    "updated": "2026-10-24"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Nine matches have passed their date with no result recorded, every one of them in August; the latest is Chico State's match with Yuba.",
+      "text": "Ten matches have passed their date with no result recorded; the latest, and the only one between conference sides, is Cal Poly Pomona's home match with Fresno Pacific.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 9
+        "past_date_no_result": 10
       }
     },
     {
       "label": "derived",
-      "text": "Cal State East Bay have conceded 44 goals in fifteen matches, more than any other programme in the conference.",
+      "text": "Cal State East Bay have conceded 47 goals in sixteen matches, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -80,23 +79,23 @@
         "of_any": 12,
         "wins": 2,
         "draws": 4,
-        "losses": 9,
-        "played": 15,
-        "ga": 44
+        "losses": 10,
+        "played": 16,
+        "ga": 47
       }
     },
     {
       "label": "derived",
-      "text": "Stanislaus State have drawn six of their fifteen matches, more draws than any other side in the conference.",
+      "text": "Stanislaus State have drawn seven of their sixteen matches, more draws than any other side in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
         "programme": "stanislaus-state",
         "of_any": 12,
         "wins": 3,
-        "draws": 6,
+        "draws": 7,
         "losses": 6,
-        "played": 15
+        "played": 16
       }
     },
     {
@@ -130,32 +129,32 @@
       "line": "10 G · 2 A · 33 shots"
     },
     {
+      "player": "Cisco Avila",
+      "programme": "cal-state-san-marcos",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 1 A · 37 shots"
+    },
+    {
       "player": "Philip Wolny",
       "programme": "cal-state-monterey-bay",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 8 A · 22 shots"
-    },
-    {
-      "player": "Jose Mariscal",
-      "programme": "cal-state-la",
-      "position": "FWD",
-      "class": "SR",
-      "line": "7 G · 1 A · 43 shots"
+      "line": "5 G · 8 A · 24 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-18 cal-state-dominguez-hills v cal-state-san-marcos",
-      "line": "Cal State Dominguez Hills had not won since beating Fresno Pacific at the start of October; Cal State San Marcos have not put back-to-back conference wins together since September."
+      "fixture_ref": "2026-10-23 cal-state-san-bernardino v cal-state-la",
+      "line": "Cal State LA remain the only side yet to lose; Cal State San Bernardino had lost their previous home match, to Cal State Monterey Bay."
     },
     "next_match": {
-      "fixture_ref": "2026-10-22 cal-state-east-bay v cal-state-san-marcos",
-      "line": "Cal State East Bay have yet to win in October; Cal State San Marcos are the last side to have beaten Cal State Monterey Bay."
+      "fixture_ref": "2026-10-24 uc-merced v cal-state-san-marcos",
+      "line": "UC Merced have won every match since their defeat at Stanislaus State; Cal State San Marcos are the last side to have beaten Cal State Monterey Bay."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-21T13:51:42.404Z"
+    "validated_at": "2026-10-24T11:41:38.751Z"
   }
 }

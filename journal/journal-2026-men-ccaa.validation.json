@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-10-21T13:51:42.404Z",
-  "data_collected_at": "2026-10-21T11:49:58+00:00",
+  "validated_at": "2026-10-24T11:41:38.751Z",
+  "data_collected_at": "2026-10-24T11:31:01+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,17 +15,22 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "findings[0].text",
+      "text": "Ten matches have passed their date with no result recorded; the latest, and the only one between conference sides, is Cal Poly Pomona's home match with Fresno Pacific.",
+      "unbacked": ["1"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fresno Pacific have scored 37 goals, more than any other programme, and have still lost eight of their sixteen matches; in this conference, goals scored and results have tracked each other loosely at best.",
-      "checker": "team_goals+team_record+fixture_counts+comparative",
+      "text": "Cal State LA have scored 27 goals, well short of the top of this chart, and have conceded four in fifteen matches without a defeat: the leaders' record is built on what they keep out, not what they put in.",
+      "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "held against every other programme; the nearest is cal-state-monterey-bay at 33"
+      "dropped": false
     },
     {
       "path": "pattern.chart",
@@ -39,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Cal State LA are the only side yet to lose, and their next trip is to Cal State San Bernardino.",
+      "text": "Cal State Monterey Bay have won every match they have played in October, the visit to Cal State San Bernardino among them.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -48,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Nine matches have passed their date with no result recorded, every one of them in August; the latest is Chico State's match with Yuba.",
+      "text": "Ten matches have passed their date with no result recorded; the latest, and the only one between conference sides, is Cal Poly Pomona's home match with Fresno Pacific.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -57,17 +62,17 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Cal State East Bay have conceded 44 goals in fifteen matches, more than any other programme in the conference.",
+      "text": "Cal State East Bay have conceded 47 goals in sixteen matches, more than any other programme in the conference.",
       "checker": "team_goals+team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is cal-poly-humboldt at 35"
+      "note": "held against every other programme; the nearest is cal-poly-humboldt at 39"
     },
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Stanislaus State have drawn six of their fifteen matches, more draws than any other side in the conference.",
+      "text": "Stanislaus State have drawn seven of their sixteen matches, more draws than any other side in the conference.",
       "checker": "team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -104,7 +109,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Philip Wolny — 5 G · 8 A · 22 shots",
+      "text": "Cisco Avila — 10 G · 1 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -113,7 +118,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Jose Mariscal — 7 G · 1 A · 43 shots",
+      "text": "Philip Wolny — 5 G · 8 A · 24 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -122,7 +127,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-18 cal-state-dominguez-hills v cal-state-san-marcos",
+      "text": "2026-10-23 cal-state-san-bernardino v cal-state-la",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -131,7 +136,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-22 cal-state-east-bay v cal-state-san-marcos",
+      "text": "2026-10-24 uc-merced v cal-state-san-marcos",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,10 +144,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-21T13:51:14.857Z",
-    "generate_ms": 27544,
-    "validate_ms": 3,
-    "wall_ms": 27547,
+    "started_at": "2026-10-24T11:39:59.382Z",
+    "generate_ms": 99367,
+    "validate_ms": 2,
+    "wall_ms": 99369,
     "concurrency": 4
   }
 }

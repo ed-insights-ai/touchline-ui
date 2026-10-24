@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-10-20T11:43:35.453Z",
-  "data_collected_at": "2026-10-20T11:36:15+00:00",
+  "validated_at": "2026-10-24T11:45:12.083Z",
+  "data_collected_at": "2026-10-24T11:35:47+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -16,11 +16,6 @@
   },
   "normalizations": [],
   "review": [
-    {
-      "path": "dek",
-      "text": "Chaminade have lost eleven matches and drawn one, a goalless draw at Hawai'i Hilo, scoring five goals and conceding twenty-six. In goal, Jonah Valmonte has made thirty-four saves at a save percentage of .723.",
-      "unbacked": ["723"]
-    },
     {
       "path": "findings[4].text",
       "text": "Tim Teicher has made thirty-four saves for Hawai'i Hilo and conceded thirteen goals, a save percentage of .723.",
@@ -49,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Point Loma's first home defeat of the season came in conference play, to Hawai'i Pacific.",
+      "text": "Jessup are yet to take a point in conference play, and Chaminade are yet to win a match all season.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Point Loma have won eight matches, more than any other programme in the conference, against three draws and three defeats.",
+      "text": "Point Loma have won eight matches, more than any other programme in the conference, against three draws and four defeats.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jessup have conceded forty-one goals, more than any other programme in the conference.",
+      "text": "Jessup have conceded forty-four goals, more than any other programme in the conference.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Hawai'i Hilo have conceded sixteen goals and scored twelve, across four wins, three draws and six defeats.",
+      "text": "Chaminade have lost twelve matches and drawn one, scoring six goals and conceding thirty.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kyle Denn — 13 G · 1 A · 46 shots",
+      "text": "Kyle Denn — 13 G · 1 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jack Merrill — 7 G · 1 A · 14 shots",
+      "text": "Jake Kazlauskas — 7 G · 3 A · 16 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Jake Kazlauskas — 6 G · 2 A · 14 shots",
+      "text": "Jack Merrill — 7 G · 1 A · 14 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-17 biola v point-loma",
+      "text": "2026-10-23 hawaii-pacific v dominican-of-california",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 point-loma v vanguard",
+      "text": "2026-10-24 point-loma v concordia-irvine",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-20T11:43:07.762Z",
-    "generate_ms": 27690,
+    "started_at": "2026-10-24T11:44:00.224Z",
+    "generate_ms": 71857,
     "validate_ms": 1,
-    "wall_ms": 27692,
+    "wall_ms": 71859,
     "concurrency": 4
   }
 }

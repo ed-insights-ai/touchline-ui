@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-10-18T22:15:05.878Z",
-  "data_collected_at": "2026-10-18T22:04:47+00:00",
+  "validated_at": "2026-10-24T11:44:01.681Z",
+  "data_collected_at": "2026-10-24T11:34:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Ten different players have scored Midwestern State's 40 goals, and Parker Plaxco has twelve of them.",
+      "text": "Eleven different players have scored Midwestern State's 44 goals, and Parker Plaxco has thirteen of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Sul Ross State have scored twice in thirteen matches and lost every one of them.",
-      "checker": "team_goals+team_record",
+      "text": "Midwestern State and Oklahoma Christian have yet to lose a conference match, and they drew with each other.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "UT Dallas have lost twice, against eight wins and five draws, and conceded 11 goals.",
+      "text": "UT Dallas have lost twice, against nine wins and five draws, and conceded eleven goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -64,15 +64,24 @@
     },
     {
       "path": "findings[2]",
-      "label": "observed",
-      "text": "Fernando Hernandez has made 63 saves for Sul Ross State.",
-      "checker": "player_stat",
+      "label": "derived",
+      "text": "Sul Ross State have lost all fourteen of their matches and scored twice.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Fernando Hernandez has made 67 saves for Sul Ross State.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Jose Ortiz has scored seven goals for Midwestern State.",
       "checker": "player_stat",
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Parker Plaxco — 12 G · 47 shots",
+      "text": "Parker Plaxco — 13 G · 51 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Sebastian Poblete — 7 G · 2 A · 31 shots",
+      "text": "Sebastian Poblete — 8 G · 2 A · 34 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Augusto Militao — 5 G · 2 A · 28 shots",
+      "text": "Avery Brazzell — 8 G · 2 A · 22 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-17 oklahoma-christian v saint-marys",
+      "text": "2026-10-21 dallas-baptist v saint-marys",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 midwestern-state v lubbock-christian",
+      "text": "2026-10-24 ut-tyler v oklahoma-christian",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:14:08.744Z",
-    "generate_ms": 57134,
+    "started_at": "2026-10-24T11:42:52.622Z",
+    "generate_ms": 69058,
     "validate_ms": 1,
-    "wall_ms": 57136,
+    "wall_ms": 69058,
     "concurrency": 4
   }
 }

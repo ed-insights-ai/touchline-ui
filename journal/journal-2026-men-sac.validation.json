@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-10-20T11:43:35.084Z",
-  "data_collected_at": "2026-10-20T11:38:28+00:00",
+  "validated_at": "2026-10-24T11:46:33.423Z",
+  "data_collected_at": "2026-10-24T11:36:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,8 +20,8 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Emory & Henry have scored nineteen and conceded four: they top the table by keeping goals out, not by scoring them.",
-      "checker": "team_goals",
+      "text": "Mars Hill have scored 33 and conceded nineteen, yet have lost six times: a side that scores freely and still sits in the bottom half of the table.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Emory & Henry have conceded four goals all season and now sit above unbeaten Catawba.",
-      "checker": "team_goals",
+      "text": "Neither Catawba nor Emory & Henry has lost all season, and both are in action on Saturday.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Emory & Henry's home win over Newberry on Saturday was their sixth of the season, against two draws and no defeats.",
-      "checker": "team_record",
+      "text": "Catawba's win at Lincoln Memorial on Wednesday was their eleventh of the season, against two draws and no defeats, with 35 scored and seven conceded.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Tusculum's home win over Lenoir-Rhyne on Sunday was their second of the season, against two draws and eight defeats.",
+      "text": "Tusculum's defeat at Mars Hill on Wednesday was their ninth of the season, against two wins and two draws.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Carson-Newman's home win over Wingate on Sunday was their seventh of the season, against two draws and four defeats, with twenty-four scored and thirteen conceded.",
-      "checker": "team_goals+team_record",
+      "text": "Coker's home win over Mount Olive on Thursday was their sixth of the season, against five defeats and no draws.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Anderson's home win over Mars Hill on Sunday was their eighth of the season, against four draws and two defeats.",
+      "text": "Newberry's home defeat to Montevallo on Tuesday was their tenth of the season, against two wins and two draws.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "João Magalhães — 6 G · 4 A · 24 shots",
+      "text": "Alex Payton — 7 G · 2 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Oskar Dahlberg — 5 G · 2 A · 20 shots",
+      "text": "Luis Munoz — 4 G · 9 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Antoine Torrent — 4 G · 3 A · 13 shots",
+      "text": "Edward Saia — 5 G · 1 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-18 tusculum v lenoir-rhyne",
+      "text": "2026-10-22 coker v mount-olive",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-20 newberry v montevallo",
+      "text": "2026-10-24 catawba v carson-newman",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-20T11:43:14.173Z",
-    "generate_ms": 20910,
+    "started_at": "2026-10-24T11:45:11.899Z",
+    "generate_ms": 81523,
     "validate_ms": 1,
-    "wall_ms": 20911,
+    "wall_ms": 81523,
     "concurrency": 4
   }
 }

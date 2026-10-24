@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-10-20T11:43:36.195Z",
-  "data_collected_at": "2026-10-20T11:37:52+00:00",
+  "validated_at": "2026-10-24T11:46:15.028Z",
+  "data_collected_at": "2026-10-24T11:36:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 25; scoring is not what separates the top of the table.",
+      "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 28; scoring is not what separates the top of the table.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Regis have conceded nine goals this season, across eight wins, three draws and three defeats.",
-      "checker": "team_goals+team_record",
+      "text": "Colorado School of Mines have yet to win this season, with three draws and thirteen defeats, the latest at CSU Pueblo.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Colorado School of Mines have yet to win this season, with three draws and twelve defeats, the latest at home to Fort Lewis.",
-      "checker": "team_record",
+      "text": "Adams State have scored eight goals this season and conceded 46.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "CSU Pueblo's Nick Cenek has eleven goals and four assists this season, from 48 shots.",
+      "text": "CSU Pueblo's Nick Cenek has eleven goals and four assists this season, from 53 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Nickolas North — 8 G · 6 A · 39 shots",
+      "text": "Nickolas North — 9 G · 6 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lucas Miranda — 10 G · 1 A · 24 shots",
+      "text": "Lucas Miranda — 10 G · 1 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-18 colorado-christian v csu-pueblo",
+      "text": "2026-10-23 westminster v msu-denver",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-22 csu-pueblo v colorado-school-of-mines",
+      "text": "2026-10-25 fort-lewis v regis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-20T11:43:13.636Z",
-    "generate_ms": 22558,
+    "started_at": "2026-10-24T11:44:41.606Z",
+    "generate_ms": 93420,
     "validate_ms": 1,
-    "wall_ms": 22559,
+    "wall_ms": 93421,
     "concurrency": 4
   }
 }

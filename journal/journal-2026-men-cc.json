@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-10-21T11:55:00+00:00",
-  "data_collected_at": "2026-10-21T11:49:43+00:00",
+  "generated_at": "2026-10-24T11:36:00+00:00",
+  "data_collected_at": "2026-10-24T11:30:44+00:00",
   "headline": "Lees-McRae still unbeaten with Young Harris to come",
   "dek": "Lees-McRae have won thirteen and drawn three without a defeat, conceding seven goals in all. They are the only side yet to lose a conference match, and their last one is at home to Young Harris, who lead the conference table.",
   "lede_basis": {
@@ -15,7 +15,6 @@
     "ga": 7
   },
   "lede_updated": "2026-10-21",
-  "displaced_by": "Lees-McRae's win at Belmont Abbey made the standing dek's twelve wins untrue",
   "pattern": {
     "label": "derived",
     "text": "Chowan's 47 goals have come from at least fifteen different scorers and have still brought four defeats; spreading the scoring has not bought a clean record.",
@@ -28,8 +27,8 @@
         "southern-wesleyan": 27,
         "francis-marion": 26,
         "lees-mcrae": 26,
-        "emmanuel": 23,
-        "barton": 22,
+        "emmanuel": 24,
+        "barton": 23,
         "ferrum": 22,
         "mount-olive": 22,
         "north-greenville": 21,
@@ -71,18 +70,18 @@
     },
     {
       "label": "derived",
-      "text": "Francis Marion have won eleven matches, drawn two and lost three, and have conceded eleven goals in all.",
+      "text": "Francis Marion have won eleven matches, drawn two and lost four, and have conceded twelve goals in all.",
       "basis": {
         "programme": "francis-marion",
         "wins": 11,
         "draws": 2,
-        "losses": 3,
-        "ga": 11
+        "losses": 4,
+        "ga": 12
       }
     },
     {
       "label": "derived",
-      "text": "Young Harris have won eleven matches, drawn three and lost three, scoring 43 goals and conceding 20.",
+      "text": "Young Harris have won eleven matches, drawn three and lost three, scoring 43 goals and conceding twenty.",
       "basis": {
         "programme": "young-harris",
         "wins": 11,
@@ -106,14 +105,14 @@
     },
     {
       "label": "observed",
-      "text": "Edouard Laberge has made 77 saves for Emmanuel and conceded 22 goals, a save percentage of .778.",
+      "text": "Edouard Laberge has made 81 saves for Emmanuel and conceded 22 goals, a save percentage of .786.",
       "basis": {
         "source": "stats",
         "player": "Edouard Laberge",
         "programme": "emmanuel",
-        "saves": 77,
+        "saves": 81,
         "goals_against": 22,
-        "save_pct": 0.778
+        "save_pct": 0.786
       }
     }
   ],
@@ -130,28 +129,28 @@
       "programme": "emmanuel",
       "position": "MID",
       "class": "FR",
-      "line": "9 G · 4 A · 41 shots"
+      "line": "10 G · 4 A · 44 shots"
     },
     {
       "player": "Andrea Marrazzo",
       "programme": "lees-mcrae",
       "position": "MID",
       "class": "FR",
-      "line": "7 G · 6 A · 45 shots"
+      "line": "7 G · 7 A · 45 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-20 belmont-abbey v lees-mcrae",
-      "line": "Lees-McRae have beaten Belmont Abbey in both meetings and remain the only side without a defeat."
+      "fixture_ref": "2026-10-21 barton v francis-marion",
+      "line": "Barton have not lost since Francis Marion beat them in September, and have now returned the result."
     },
     "next_match": {
-      "fixture_ref": "2026-10-21 barton v francis-marion",
-      "line": "Barton have not lost since Francis Marion beat them in September."
+      "fixture_ref": "2026-10-24 lees-mcrae v young-harris",
+      "line": "Lees-McRae have yet to lose; both of Young Harris's conference defeats came at Converse."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-21T13:52:04.969Z"
+    "validated_at": "2026-10-24T11:40:53.585Z"
   }
 }

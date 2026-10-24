@@ -3,39 +3,37 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-10-18T22:15:00+00:00",
-  "data_collected_at": "2026-10-18T22:02:21+00:00",
-  "headline": "Saginaw Valley State edge Northern Michigan at the top",
-  "dek": "Saginaw Valley State beat Purdue Northwest to stay above Northern Michigan, who beat Roosevelt on the same day. Northern Michigan have scored 32 goals across all their matches, more than any other programme in the conference, and the two sides meet again at Northern Michigan before the season closes.",
+  "generated_at": "2026-10-24T11:45:00+00:00",
+  "data_collected_at": "2026-10-24T11:33:33+00:00",
+  "headline": "Northern Michigan go top before Saginaw Valley State's visit",
+  "dek": "Northern Michigan have won every match since losing at Wisconsin-Parkside and Purdue Northwest in consecutive outings, and Saginaw Valley State's midweek draw at Davenport let them through. Saginaw Valley State travel to Northern Michigan next.",
   "lede_basis": {
     "programme": "northern-michigan",
-    "gf": 32,
-    "ga": 17,
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "of_any": 6
+    "wins": 10,
+    "draws": 2,
+    "losses": 4
   },
-  "lede_updated": "2026-10-18",
-  "displaced_by": "Saginaw Valley State now lead the table, Purdue Northwest have fallen back and Roosevelt are no longer unbeaten",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "Northern Michigan have overtaken Saginaw Valley State at the top of the table",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Purdue Northwest and St. Cloud State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "northern-michigan": 32,
-        "saginaw-valley-state": 29,
-        "roosevelt": 22,
-        "purdue-northwest": 16,
-        "wisconsin-parkside": 16,
-        "st-cloud-state": 14,
-        "davenport": 13
+        "northern-michigan": 35,
+        "saginaw-valley-state": 31,
+        "roosevelt": 23,
+        "purdue-northwest": 19,
+        "davenport": 17,
+        "wisconsin-parkside": 17,
+        "st-cloud-state": 15
       },
       "highlight": "northern-michigan"
     },
     "basis": {
       "programme": "northern-michigan",
-      "gf": 32,
+      "gf": 35,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["purdue-northwest", "st-cloud-state"]
@@ -46,7 +44,7 @@
     "basis": {
       "programme": "saginaw-valley-state",
       "wins": 8,
-      "draws": 5,
+      "draws": 6,
       "losses": 1
     },
     "updated": "2026-10-18"
@@ -63,25 +61,25 @@
     },
     {
       "label": "observed",
-      "text": "Luca Rosen has scored fourteen goals from 68 shots for Northern Michigan.",
+      "text": "Luca Rosen has scored sixteen goals from 74 shots for Northern Michigan.",
       "basis": {
         "source": "stats",
         "player": "Luca Rosen",
         "programme": "northern-michigan",
-        "goals": 14,
-        "shots": 68
+        "goals": 16,
+        "shots": 74
       }
     },
     {
       "label": "observed",
-      "text": "Matty Telfer has scored thirteen of Saginaw Valley State's 29 goals, from 46 shots.",
+      "text": "Matty Telfer has scored thirteen of Saginaw Valley State's 31 goals, from 49 shots.",
       "basis": {
         "source": "stats",
         "player": "Matty Telfer",
         "programme": "saginaw-valley-state",
         "goals": 13,
-        "shots": 46,
-        "gf": 29
+        "shots": 49,
+        "gf": 31
       }
     },
     {
@@ -96,13 +94,13 @@
     },
     {
       "label": "observed",
-      "text": "Mateusz Pass has made 74 saves for Wisconsin-Parkside while conceding sixteen goals.",
+      "text": "Mateusz Pass has made 78 saves for Wisconsin-Parkside while conceding seventeen goals.",
       "basis": {
         "source": "stats",
         "player": "Mateusz Pass",
         "programme": "wisconsin-parkside",
-        "saves": 74,
-        "goals_against": 16
+        "saves": 78,
+        "goals_against": 17
       }
     }
   ],
@@ -112,35 +110,35 @@
       "programme": "northern-michigan",
       "position": "FWD",
       "class": "SR",
-      "line": "14 G · 5 A · 68 shots"
+      "line": "16 G · 6 A · 74 shots"
     },
     {
       "player": "Matty Telfer",
       "programme": "saginaw-valley-state",
       "position": "FWD",
       "class": "JR",
-      "line": "13 G · 4 A · 46 shots"
+      "line": "13 G · 4 A · 49 shots"
     },
     {
       "player": "Fynn Mewes",
       "programme": "roosevelt",
       "position": "FWD",
       "class": "5Y",
-      "line": "8 G · 4 A · 40 shots"
+      "line": "8 G · 4 A · 43 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-18 saginaw-valley-state v purdue-northwest",
-      "line": "Saginaw Valley State have not lost since Northern Michigan won at their ground in September."
+      "fixture_ref": "2026-10-23 northern-michigan v davenport",
+      "line": "Davenport have not won since they beat Purdue Northwest at home the week before."
     },
     "next_match": {
-      "fixture_ref": "2026-10-21 davenport v saginaw-valley-state",
-      "line": "Saginaw Valley State have not lost since September; Davenport sit level on points with St. Cloud State at the foot of the table."
+      "fixture_ref": "2026-10-25 northern-michigan v saginaw-valley-state",
+      "line": "Each side has already beaten the other at Saginaw Valley State this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:14:01.056Z"
+    "validated_at": "2026-10-24T11:42:51.359Z"
   }
 }

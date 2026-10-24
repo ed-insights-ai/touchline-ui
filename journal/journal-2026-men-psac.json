@@ -3,38 +3,36 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-10-18T22:15:00+00:00",
-  "data_collected_at": "2026-10-18T22:06:59+00:00",
-  "headline": "Gannon have not lost since their opening match",
-  "dek": "Lake Erie beat Gannon at home in their opening match, and nobody has beaten them since: they have won ten and drawn three. West Chester and Seton Hill are the conference sides who have held them level.",
+  "generated_at": "2026-10-24T11:45:00+00:00",
+  "data_collected_at": "2026-10-24T11:36:08+00:00",
+  "headline": "Slippery Rock end Gannon's unbeaten run",
+  "dek": "Slippery Rock won at Gannon, the first side to beat them since Lake Erie did on the same ground in the opening match. Slippery Rock had lost the earlier meeting between the two at home. The defeat is Gannon's second of the season, against ten wins and three draws.",
   "lede_basis": {
     "programme": "gannon",
     "wins": 10,
     "draws": 3,
-    "losses": 1,
-    "gf": 41,
-    "ga": 15
+    "losses": 2
   },
-  "lede_updated": "2026-10-18",
-  "displaced_by": "Gannon are now 10-3-1 with 41 goals, so the standing dek's seven wins and 30 goals are false; their unbeaten run since the opening defeat is now the story",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "Slippery Rock beat Gannon at home, so the standing headline that Gannon have not lost since their opening match is no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Gannon have scored more than California (Pa.) and West Chester together, and conceded 15: the tallest bar belongs to a side that keeps goals out as well as putting them in, not one trading them.",
+    "text": "Gannon have scored more than California (Pa.) and West Chester together and conceded 18, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "gannon": 41,
+        "gannon": 42,
         "millersville": 32,
         "e-stroudsburg": 26,
+        "seton-hill": 26,
         "shepherd": 25,
-        "seton-hill": 24,
-        "bloomsburg": 23,
-        "slippery-rock": 22,
-        "lock-haven": 21,
-        "west-chester": 19,
-        "california-pa": 17,
-        "shippensburg": 13,
-        "pitt-johnstown": 12
+        "slippery-rock": 25,
+        "bloomsburg": 24,
+        "lock-haven": 23,
+        "west-chester": 20,
+        "california-pa": 18,
+        "shippensburg": 15,
+        "pitt-johnstown": 13
       },
       "highlight": "gannon"
     },
@@ -43,8 +41,8 @@
       "metric": "gf",
       "programme": "gannon",
       "of": ["california-pa", "west-chester"],
-      "gf": 41,
-      "ga": 15
+      "gf": 42,
+      "ga": 18
     }
   },
   "wire": {
@@ -72,7 +70,7 @@
     },
     {
       "label": "observed",
-      "text": "Pitt-Johnstown have conceded 38 goals, more than any other programme in the conference, and have won one match, drawn two and lost ten.",
+      "text": "Pitt-Johnstown have conceded 40 goals, more than any other programme in the conference, and have won one match, drawn two and lost eleven.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -90,19 +88,19 @@
           "slippery-rock",
           "west-chester"
         ],
-        "ga": 38,
+        "ga": 40,
         "wins": 1,
         "draws": 2,
-        "losses": 10
+        "losses": 11
       }
     },
     {
       "label": "observed",
-      "text": "Millersville have won ten, drawn one and lost four, and have conceded 14 goals across the season while scoring 32.",
+      "text": "Millersville have won ten, drawn two and lost four, and have conceded 14 goals across the season while scoring 32.",
       "basis": {
         "programme": "millersville",
         "wins": 10,
-        "draws": 1,
+        "draws": 2,
         "losses": 4,
         "gf": 32,
         "ga": 14
@@ -121,14 +119,14 @@
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has five goals and eight assists from 38 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 42 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
-        "goals": 5,
+        "goals": 6,
         "assists": 8,
-        "shots": 38
+        "shots": 42
       }
     }
   ],
@@ -138,35 +136,35 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "12 G · 4 A · 44 shots"
-    },
-    {
-      "player": "Steven Arias",
-      "programme": "e-stroudsburg",
-      "position": "FWD",
-      "class": "JR",
-      "line": "8 G · 1 A · 30 shots"
+      "line": "12 G · 4 A · 48 shots"
     },
     {
       "player": "Kaden Reynolds",
       "programme": "slippery-rock",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 4 A · 51 shots"
+      "line": "6 G · 5 A · 53 shots"
+    },
+    {
+      "player": "Steven Arias",
+      "programme": "e-stroudsburg",
+      "position": "FWD",
+      "class": "JR",
+      "line": "8 G · 1 A · 32 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-17 bloomsburg v millersville",
-      "line": "Millersville have now lost back to back, after Shepherd won at their ground on Wednesday."
+      "fixture_ref": "2026-10-21 e-stroudsburg v millersville",
+      "line": "E. Stroudsburg have come through both meetings without losing; Millersville have not won since Shepherd beat them on their own ground."
     },
     "next_match": {
-      "fixture_ref": "2026-10-21 e-stroudsburg v millersville",
-      "line": "E. Stroudsburg won the first meeting at Millersville, and have lost at home to West Chester since."
+      "fixture_ref": "2026-10-24 seton-hill v gannon",
+      "line": "Seton Hill held Gannon level at Gannon's ground in the first meeting, and Lock Haven are the only conference side to have beaten them."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-18T22:16:52.619Z"
+    "validated_at": "2026-10-24T11:45:49.429Z"
   }
 }

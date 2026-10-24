@@ -3,34 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-10-20T11:40:00Z",
-  "data_collected_at": "2026-10-20T11:32:37+00:00",
-  "headline": "Fort Hays State unbeaten through nine conference matches",
-  "dek": "Fort Hays State have dropped points only in a draw at Rogers State, and lead Ouachita Baptist by ten points before the two sides meet next. At the other end, Harding have yet to take a point from eight conference matches.",
+  "generated_at": "2026-10-24T11:40:00Z",
+  "data_collected_at": "2026-10-24T11:33:20+00:00",
+  "headline": "Fort Hays State put first place beyond reach",
+  "dek": "Fort Hays State beat Ouachita Baptist and now hold 28 points, more than any other side can still reach. Their only dropped points came in the draw at Rogers State. At the other end, Harding have lost all nine of their conference matches.",
   "lede_basis": {
-    "fhsu_conference_played": 9,
-    "fhsu_conference_won": 8,
+    "fhsu_conference_played": 10,
+    "fhsu_conference_won": 9,
     "fhsu_conference_drawn": 1,
     "fhsu_conference_lost": 0,
-    "fhsu_conference_points": 25,
-    "obu_conference_points": 15,
-    "points_gap_fhsu_over_obu": 10,
-    "harding_conference_played": 8,
+    "fhsu_conference_points": 28,
+    "highest_points_reachable_by_another_side": 24,
+    "harding_conference_played": 9,
+    "harding_conference_lost": 9,
     "harding_conference_points": 0
   },
-  "lede_updated": "2026-10-18",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "Fort Hays State beat Ouachita Baptist, so the standing dek's 'before the two sides meet next' is no longer true; their 28 points are now more than any other side can reach.",
   "pattern": {
     "label": "derived",
     "text": "Rogers State's 31 goals are more than Harding and Newman have managed between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "fort-hays-state": 33,
         "rogers-state": 31,
-        "fort-hays-state": 30,
-        "southern-nazarene": 24,
+        "southern-nazarene": 25,
         "ouachita-baptist": 22,
         "northeastern-state": 20,
-        "newman": 12,
+        "newman": 14,
         "harding": 8
       },
       "highlight": "rogers-state"
@@ -47,10 +48,10 @@
     "line": "Fort Hays State have conceded seven goals all season and lost only twice.",
     "basis": {
       "programme": "fort-hays-state",
-      "wins": 10,
+      "wins": 11,
       "draws": 3,
       "losses": 2,
-      "gf": 30,
+      "gf": 33,
       "ga": 7
     },
     "updated": "2026-10-18"
@@ -63,6 +64,17 @@
         "source": "fixtures",
         "finals_without_score": 0,
         "past_date_no_result": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Payton Roehrich has conceded six goals for Fort Hays State and made 38 saves.",
+      "basis": {
+        "source": "stats",
+        "player": "Payton Roehrich",
+        "programme": "fort-hays-state",
+        "goals_against": 6,
+        "saves": 38
       }
     },
     {
@@ -101,7 +113,7 @@
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "6 G · 4 A · 20 shots"
+      "line": "6 G · 6 A · 23 shots"
     },
     {
       "player": "Carter Adams",
@@ -115,21 +127,21 @@
       "programme": "rogers-state",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 4 A · 28 shots"
+      "line": "4 G · 4 A · 29 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-17 southern-nazarene v northeastern-state",
-      "line": "Northeastern State have now taken points from both meetings with Southern Nazarene this season."
+      "fixture_ref": "2026-10-22 fort-hays-state v ouachita-baptist",
+      "line": "Fort Hays State have now beaten Ouachita Baptist home and away."
     },
     "next_match": {
-      "fixture_ref": "2026-10-22 fort-hays-state v ouachita-baptist",
-      "line": "Fort Hays State have yet to lose in conference play and have already won at Ouachita Baptist; Ouachita Baptist arrive on a winning run."
+      "fixture_ref": "2026-10-24 northeastern-state v rogers-state",
+      "line": "Northeastern State have already won at Rogers State this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-20T11:42:51.421Z"
+    "validated_at": "2026-10-24T11:42:52.444Z"
   }
 }

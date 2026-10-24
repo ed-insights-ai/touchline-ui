@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-10-21T13:51:38.656Z",
-  "data_collected_at": "2026-10-21T12:35:15+00:00",
+  "validated_at": "2026-10-24T11:43:36.622Z",
+  "data_collected_at": "2026-10-24T11:33:47+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -17,27 +17,22 @@
   "normalizations": [],
   "review": [
     {
-      "path": "dek",
-      "text": "Lincoln's win over Quincy on Sunday drew them level with Drury at the head of the table, with a match in hand. They are still the only side in the conference without a defeat, nine wins and four draws in all, and the two leaders meet at Drury on Saturday.",
-      "unbacked": ["2"]
-    },
-    {
-      "path": "findings[1].text",
+      "path": "findings[0].text",
       "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
       "unbacked": ["1"]
     },
     {
-      "path": "findings[3].text",
-      "text": "Noah Nymark-Pedersen has made sixty-nine saves for Upper Iowa and conceded thirty, a save percentage of .697.",
-      "unbacked": ["697"]
+      "path": "findings[4].text",
+      "text": "Noah Nymark-Pedersen has made seventy-three saves for Upper Iowa and conceded thirty-three, a save percentage of .689.",
+      "unbacked": ["689"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southwest Baptist's forty-two goals are more than Lewis, Upper Iowa and William Jewell have scored between them, and they have conceded thirty doing it; the goals have not bought a place near the top of the table.",
-      "checker": "team_goals+comparative",
+      "text": "Southwest Baptist have scored forty-two goals, more than either Drury or Lincoln at the top, but they have conceded thirty-two and lost six times; the leaders have built their place at the other end of the pitch.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -54,7 +49,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Every side but Lincoln has now lost, and Lincoln still have Missouri S&T, Drury and McKendree to play.",
+      "text": "Whichever of Drury and Lincoln wins at Drury goes clear at the top of the table; a draw leaves them level.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -62,15 +57,6 @@
     },
     {
       "path": "findings[0]",
-      "label": "derived",
-      "text": "Lincoln remain the only programme in the conference yet to lose: nine wins and four draws, twenty-five goals scored and nine conceded, the latest win coming at home to Quincy on Sunday.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[1]",
       "label": "observed",
       "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
       "checker": "set_members",
@@ -79,9 +65,18 @@
       "dropped": false
     },
     {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Drury have conceded eleven goals and lost twice, at home to Oklahoma Christian in August and away at Missouri S&T in September.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Truman have scored twenty-two goals and conceded twenty-four, and Jacob Panagos has thirteen of the twenty-two from forty-four shots.",
+      "text": "Jonathan Nemorden, a freshman, has eleven of Lincoln's twenty-nine goals, from fifty-five shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -89,8 +84,17 @@
     },
     {
       "path": "findings[3]",
+      "label": "derived",
+      "text": "Truman have scored twenty-three goals and conceded twenty-four, and Jacob Panagos has thirteen of the twenty-three from forty-six shots.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
-      "text": "Noah Nymark-Pedersen has made sixty-nine saves for Upper Iowa and conceded thirty, a save percentage of .697.",
+      "text": "Noah Nymark-Pedersen has made seventy-three saves for Upper Iowa and conceded thirty-three, a save percentage of .689.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -99,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Panagos — 13 G · 1 A · 44 shots",
+      "text": "Jacob Panagos — 13 G · 1 A · 46 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -108,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jonathan Nemorden — 11 G · 2 A · 54 shots",
+      "text": "Jonathan Nemorden — 11 G · 2 A · 55 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -117,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Leo Cann — 10 G · 3 A · 69 shots",
+      "text": "Leo Cann — 10 G · 3 A · 72 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-18 lincoln v quincy",
+      "text": "2026-10-21 lincoln v missouri-s-t",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 lincoln v missouri-s-t",
+      "text": "2026-10-24 drury v lincoln",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -143,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-21T13:51:14.863Z",
-    "generate_ms": 23790,
-    "validate_ms": 3,
-    "wall_ms": 23793,
+    "started_at": "2026-10-24T11:41:38.925Z",
+    "generate_ms": 117696,
+    "validate_ms": 1,
+    "wall_ms": 117697,
     "concurrency": 4
   }
 }

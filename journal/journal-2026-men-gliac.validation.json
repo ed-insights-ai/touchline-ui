@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-10-18T22:14:01.056Z",
-  "data_collected_at": "2026-10-18T22:02:21+00:00",
+  "validated_at": "2026-10-24T11:42:51.359Z",
+  "data_collected_at": "2026-10-24T11:33:33+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "Saginaw Valley State beat Purdue Northwest to stay above Northern Michigan, who beat Roosevelt on the same day. Northern Michigan have scored 32 goals across all their matches, more than any other programme in the conference, and the two sides meet again at Northern Michigan before the season closes.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Luca Rosen has scored fourteen goals from 68 shots for Northern Michigan.",
+      "text": "Luca Rosen has scored sixteen goals from 74 shots for Northern Michigan.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Matty Telfer has scored thirteen of Saginaw Valley State's 29 goals, from 46 shots.",
+      "text": "Matty Telfer has scored thirteen of Saginaw Valley State's 31 goals, from 49 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Mateusz Pass has made 74 saves for Wisconsin-Parkside while conceding sixteen goals.",
+      "text": "Mateusz Pass has made 78 saves for Wisconsin-Parkside while conceding seventeen goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luca Rosen — 14 G · 5 A · 68 shots",
+      "text": "Luca Rosen — 16 G · 6 A · 74 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Matty Telfer — 13 G · 4 A · 46 shots",
+      "text": "Matty Telfer — 13 G · 4 A · 49 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Fynn Mewes — 8 G · 4 A · 40 shots",
+      "text": "Fynn Mewes — 8 G · 4 A · 43 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-18 saginaw-valley-state v purdue-northwest",
+      "text": "2026-10-23 northern-michigan v davenport",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 davenport v saginaw-valley-state",
+      "text": "2026-10-25 northern-michigan v saginaw-valley-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:13:05.184Z",
-    "generate_ms": 55873,
+    "started_at": "2026-10-24T11:41:32.246Z",
+    "generate_ms": 79112,
     "validate_ms": 1,
-    "wall_ms": 55873,
+    "wall_ms": 79113,
     "concurrency": 4
   }
 }

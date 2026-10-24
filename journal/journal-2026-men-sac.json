@@ -3,52 +3,56 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-20T11:45:00+00:00",
-  "data_collected_at": "2026-10-20T11:38:28+00:00",
-  "headline": "Emory & Henry overtake Catawba at the top",
-  "dek": "Emory & Henry's home win over Newberry on Saturday lifted them a point above Catawba, who have a match in hand. The two are the only sides in the conference yet to lose, and they drew with each other at Catawba in September.",
+  "generated_at": "2026-10-24T11:45:00+00:00",
+  "data_collected_at": "2026-10-24T11:36:56+00:00",
+  "headline": "Catawba win at Lincoln Memorial and reclaim first place",
+  "dek": "Wednesday's win at Lincoln Memorial put Catawba two points above Emory & Henry, with the same number of matches played. Neither side has lost all season, and both are out on Saturday: Catawba at home to Carson-Newman, Emory & Henry away to Wingate.",
   "lede_basis": {
-    "programme": "emory-henry",
+    "programme": "catawba",
     "losses": 0,
-    "table_points_ahead": 1,
-    "matches_in_hand": 1,
-    "unbeaten_sides": 2
+    "table_points_ahead": 2,
+    "matches_in_hand": 0
   },
-  "lede_updated": "2026-10-19",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "Catawba's win at Lincoln Memorial on 2026-10-21 put them back above Emory & Henry, so the standing headline is no longer true.",
   "pattern": {
     "label": "observed",
-    "text": "Emory & Henry have scored nineteen and conceded four: they top the table by keeping goals out, not by scoring them.",
+    "text": "Mars Hill have scored 33 and conceded nineteen, yet have lost six times: a side that scores freely and still sits in the bottom half of the table.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "catawba": 33,
+        "catawba": 35,
+        "mars-hill": 33,
         "anderson": 30,
-        "mars-hill": 27,
         "carson-newman": 24,
         "wingate": 21,
+        "lincoln-memorial": 20,
+        "coker": 19,
         "emory-henry": 19,
-        "lincoln-memorial": 19,
-        "coker": 15,
         "lenoir-rhyne": 15,
         "newberry": 13,
         "tusculum": 9
       },
-      "highlight": "emory-henry"
+      "highlight": "mars-hill"
     },
     "basis": {
-      "programme": "emory-henry",
-      "gf": 19,
-      "ga": 4
+      "programme": "mars-hill",
+      "gf": 33,
+      "ga": 19,
+      "wins": 7,
+      "draws": 2,
+      "losses": 6
     }
   },
   "wire": {
-    "line": "Emory & Henry have conceded four goals all season and now sit above unbeaten Catawba.",
+    "line": "Neither Catawba nor Emory & Henry has lost all season, and both are in action on Saturday.",
     "basis": {
-      "programme": "emory-henry",
-      "gf": 19,
-      "ga": 4
+      "programme": "catawba",
+      "wins": 11,
+      "draws": 2,
+      "losses": 0
     },
-    "updated": "2026-10-19"
+    "updated": "2026-10-24"
   },
   "findings": [
     {
@@ -62,82 +66,82 @@
     },
     {
       "label": "observed",
-      "text": "Emory & Henry's home win over Newberry on Saturday was their sixth of the season, against two draws and no defeats.",
+      "text": "Catawba's win at Lincoln Memorial on Wednesday was their eleventh of the season, against two draws and no defeats, with 35 scored and seven conceded.",
       "basis": {
-        "programme": "emory-henry",
-        "wins": 6,
+        "programme": "catawba",
+        "wins": 11,
         "draws": 2,
-        "losses": 0
+        "losses": 0,
+        "gf": 35,
+        "ga": 7
       }
     },
     {
       "label": "observed",
-      "text": "Tusculum's home win over Lenoir-Rhyne on Sunday was their second of the season, against two draws and eight defeats.",
+      "text": "Tusculum's defeat at Mars Hill on Wednesday was their ninth of the season, against two wins and two draws.",
       "basis": {
         "programme": "tusculum",
         "wins": 2,
         "draws": 2,
-        "losses": 8
+        "losses": 9
       }
     },
     {
       "label": "observed",
-      "text": "Carson-Newman's home win over Wingate on Sunday was their seventh of the season, against two draws and four defeats, with twenty-four scored and thirteen conceded.",
+      "text": "Coker's home win over Mount Olive on Thursday was their sixth of the season, against five defeats and no draws.",
       "basis": {
-        "programme": "carson-newman",
-        "wins": 7,
+        "programme": "coker",
+        "wins": 6,
+        "draws": 0,
+        "losses": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Newberry's home defeat to Montevallo on Tuesday was their tenth of the season, against two wins and two draws.",
+      "basis": {
+        "programme": "newberry",
+        "wins": 2,
         "draws": 2,
-        "losses": 4,
-        "gf": 24,
-        "ga": 13
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Anderson's home win over Mars Hill on Sunday was their eighth of the season, against four draws and two defeats.",
-      "basis": {
-        "programme": "anderson",
-        "wins": 8,
-        "draws": 4,
-        "losses": 2
+        "losses": 10
       }
     }
   ],
   "players_to_watch": [
     {
-      "player": "João Magalhães",
+      "player": "Alex Payton",
       "programme": "catawba",
       "position": "MID",
-      "class": "SR",
-      "line": "6 G · 4 A · 24 shots"
+      "class": "SO",
+      "line": "7 G · 2 A · 31 shots"
     },
     {
-      "player": "Oskar Dahlberg",
-      "programme": "lenoir-rhyne",
+      "player": "Luis Munoz",
+      "programme": "anderson",
       "position": "FWD",
       "class": "SR",
-      "line": "5 G · 2 A · 20 shots"
+      "line": "4 G · 9 A · 41 shots"
     },
     {
-      "player": "Antoine Torrent",
-      "programme": "carson-newman",
+      "player": "Edward Saia",
+      "programme": "mars-hill",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 3 A · 13 shots"
+      "line": "5 G · 1 A · 26 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-18 tusculum v lenoir-rhyne",
-      "line": "Tusculum have their first conference win; Lenoir-Rhyne followed their home win over Anderson with a defeat."
+      "fixture_ref": "2026-10-22 coker v mount-olive",
+      "line": "Coker have not drawn a match all season; Mount Olive have also lost to Mars Hill, Anderson and Wingate."
     },
     "next_match": {
-      "fixture_ref": "2026-10-20 newberry v montevallo",
-      "line": "Newberry have not won since beating Lincoln Memorial in September; Montevallo have lost at both Anderson and Lincoln Memorial."
+      "fixture_ref": "2026-10-24 catawba v carson-newman",
+      "line": "Carson-Newman have won every match since losing at Emory & Henry; Catawba have yet to lose at all."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-20T11:43:35.084Z"
+    "validated_at": "2026-10-24T11:46:33.423Z"
   }
 }

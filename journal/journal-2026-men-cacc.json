@@ -3,19 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-10-20T11:42:00+00:00",
-  "data_collected_at": "2026-10-20T11:30:10+00:00",
+  "generated_at": "2026-10-24T11:42:00+00:00",
+  "data_collected_at": "2026-10-24T11:30:10+00:00",
   "headline": "Wilmington and Felician yet to lose in conference play",
-  "dek": "Wilmington and Felician have both come through conference play so far without a defeat. Wilmington's three losses all came before it opened, and they have not lost since; their season now stands at seven wins and five draws, with 24 goals scored and 20 conceded.",
+  "dek": "Neither Wilmington nor Felician has lost since conference play opened, and both won their last outing, Felician at Bridgeport and Wilmington at Chestnut Hill. Wilmington's three defeats all came before it opened, in a season that now stands at eight wins and five draws.",
   "lede_basis": {
     "programme": "wilmington",
-    "wins": 7,
+    "wins": 8,
     "draws": 5,
-    "losses": 3,
-    "gf": 24,
-    "ga": 20
+    "losses": 3
   },
-  "lede_updated": "2026-10-18",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "truth: the standing dek's Wilmington figures (seven wins, 24 goals) no longer hold after the win at Chestnut Hill; the headline still holds and stands",
   "pattern": {
     "label": "observed",
     "text": "Dominican have scored nine goals and conceded 23. The foot of the chart is still a side with two wins, four draws and eight defeats, whose trouble is at both ends of the pitch rather than one.",
@@ -24,14 +23,14 @@
       "values": {
         "bridgeport": 37,
         "georgian-court": 29,
-        "felician": 24,
-        "wilmington": 24,
-        "jefferson": 22,
+        "felician": 28,
+        "wilmington": 27,
+        "jefferson": 25,
+        "caldwell": 20,
         "goldey-beacom": 20,
         "post": 20,
         "chestnut-hill": 19,
-        "caldwell": 18,
-        "holy-family": 13,
+        "holy-family": 15,
         "dominican": 9
       },
       "highlight": "bridgeport"
@@ -46,16 +45,15 @@
     }
   },
   "wire": {
-    "line": "Jefferson's win over Bridgeport leaves Wilmington level with them on points at the top of the conference.",
+    "line": "Felician's Mathias Kristoffersen has kept seven shutouts and conceded ten goals all season.",
     "basis": {
-      "programme": "wilmington",
-      "wins": 7,
-      "draws": 5,
-      "losses": 3,
-      "gf": 24,
-      "ga": 20
+      "source": "stats",
+      "player": "Mathias Kristoffersen",
+      "programme": "felician",
+      "shutouts": 7,
+      "goals_against": 10
     },
-    "updated": "2026-10-20"
+    "updated": "2026-10-24"
   },
   "findings": [
     {
@@ -72,30 +70,19 @@
     },
     {
       "label": "observed",
-      "text": "Mathias Kristoffersen has kept six shutouts for Felician and conceded ten goals in all.",
-      "basis": {
-        "source": "stats",
-        "player": "Mathias Kristoffersen",
-        "programme": "felician",
-        "shutouts": 6,
-        "goals_against": 10
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Jefferson's win over Bridgeport was their fifth of the season, beside two draws and seven defeats; they have scored 22 goals and conceded 23.",
+      "text": "Jefferson's win over Georgian Court was their sixth of the season, beside two draws and seven defeats; they have scored 25 goals and conceded 23.",
       "basis": {
         "programme": "jefferson",
-        "wins": 5,
+        "wins": 6,
         "draws": 2,
         "losses": 7,
-        "gf": 22,
+        "gf": 25,
         "ga": 23
       }
     },
     {
       "label": "observed",
-      "text": "Goldey-Beacom have conceded 47 goals, more than any other programme in the conference, in a season of one win, three draws and eleven defeats.",
+      "text": "Goldey-Beacom have conceded 49 goals, more than any other programme in the conference, in a season of one win, three draws and twelve defeats.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -114,20 +101,31 @@
         ],
         "wins": 1,
         "draws": 3,
-        "losses": 11,
-        "ga": 47
+        "losses": 12,
+        "ga": 49
       }
     },
     {
       "label": "observed",
-      "text": "Eliass Elfasoukhi has scored seven of Post's goals from 33 shots, with three assists beside them.",
+      "text": "Bruno Mestres has made 92 saves for Holy Family and conceded 20 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Bruno Mestres",
+        "programme": "holy-family",
+        "saves": 92,
+        "goals_against": 20
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Eliass Elfasoukhi has scored seven of Post's goals from 29 shots, with three assists beside them.",
       "basis": {
         "source": "stats",
         "player": "Eliass Elfasoukhi",
         "programme": "post",
         "goals": 7,
         "assists": 3,
-        "shots": 33
+        "shots": 29
       }
     }
   ],
@@ -144,28 +142,28 @@
       "programme": "post",
       "position": "MID",
       "class": "JR",
-      "line": "7 G · 3 A · 33 shots"
+      "line": "7 G · 3 A · 29 shots"
     },
     {
       "player": "Samuel Macy",
       "programme": "wilmington",
       "position": "MID",
       "class": "SR",
-      "line": "5 G · 2 A · 25 shots"
+      "line": "5 G · 3 A · 25 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-19 jefferson v bridgeport",
-      "line": "Bridgeport have now lost twice in conference play; Jefferson answered their defeat at Post two days earlier."
+      "fixture_ref": "2026-10-21 chestnut-hill v wilmington",
+      "line": "Wilmington have won every match they have played in October, at home and away."
     },
     "next_match": {
-      "fixture_ref": "2026-10-21 bridgeport v felician",
-      "line": "Felician have yet to lose in conference play; Bridgeport come in off their defeat at Jefferson."
+      "fixture_ref": "2026-10-24 wilmington v post",
+      "line": "Post's last win came against Jefferson, the side Wilmington meet in their final match."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-20T11:42:35.212Z"
+    "validated_at": "2026-10-24T11:41:32.069Z"
   }
 }

@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-10-21T13:51:38.909Z",
-  "data_collected_at": "2026-10-21T11:50:14+00:00",
+  "validated_at": "2026-10-24T11:41:22.076Z",
+  "data_collected_at": "2026-10-24T11:31:25+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Goals have not ordered the table: Queens have scored 35, more than any other programme, while the joint leaders, D'Youville and St. Thomas Aquinas, sit in the middle of the chart.",
+      "text": "Goals have not ordered the table: Mercy and Queens are level on 35, clear of every other programme, while the leaders, St. Thomas Aquinas, sit in the middle of the chart.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Molloy have drawn seven matches, more than any other side in the conference, and lost only twice.",
-      "checker": "team_record+comparative",
+      "text": "Lorenzo Herrera has kept seven shutouts in District of Columbia's goal this season.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Daemen have conceded 44 goals, more than any other programme, against fourteen scored.",
+      "text": "Daemen have conceded 47 goals, more than any other programme, against fourteen scored.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,16 +65,25 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 33 goals from 44 shots.",
-      "checker": "player_stat+team_goals",
+      "text": "Molloy have drawn seven matches, more than any other programme.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "derived",
+      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 35 goals from 45 shots.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
-      "text": "Lorenzo Herrera has kept six shutouts for District of Columbia and conceded fifteen goals.",
+      "text": "John Hollis has twelve assists for Mercy.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 12 G · 6 A · 44 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 12 G · 7 A · 45 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "John Hollis — 4 G · 11 A · 29 shots",
+      "text": "John Hollis — 4 G · 12 A · 30 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-19 d-youville v ashland",
+      "text": "2026-10-21 staten-island v st-thomas-aquinas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 mercy v queens",
+      "text": "2026-10-24 molloy v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-21T13:51:14.859Z",
-    "generate_ms": 24047,
+    "started_at": "2026-10-24T11:39:59.384Z",
+    "generate_ms": 82690,
     "validate_ms": 2,
-    "wall_ms": 24049,
+    "wall_ms": 82692,
     "concurrency": 4
   }
 }

@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-10-21T13:52:01.671Z",
-  "data_collected_at": "2026-10-21T12:52:35+00:00",
+  "validated_at": "2026-10-24T11:44:41.434Z",
+  "data_collected_at": "2026-10-24T11:35:33+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Southern New Hampshire's fifty goals come from at least fifteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
+      "text": "Southern New Hampshire's fifty-two goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Guillermo Rios has scored fourteen of Franklin Pierce's twenty-eight goals.",
+      "text": "Guillermo Rios has scored fifteen of Franklin Pierce's twenty-nine goals.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Saint Michael's have lost nine matches, more than any other programme.",
+      "text": "Saint Michael's have lost ten matches, more than any other programme.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,14 +65,23 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Saint Anselm have won seven matches and lost six, and remain the only programme yet to draw a match.",
-      "checker": "team_record",
+      "text": "Southern Connecticut have drawn seven matches, more than any other programme.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Saint Anselm have won eight matches and lost six, and remain the only programme yet to draw a match.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Javier Solá Martínez has kept six clean sheets in goal for American International.",
       "checker": "player_stat",
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Guillermo Rios — 14 G · 33 shots",
+      "text": "Guillermo Rios — 15 G · 36 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Inigo Burusco — 12 G · 3 A · 54 shots",
+      "text": "Inigo Burusco — 12 G · 5 A · 57 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-17 adelphi v southern-new-hampshire",
+      "text": "2026-10-21 saint-anselm v franklin-pierce",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 saint-anselm v franklin-pierce",
+      "text": "2026-10-24 american-international v saint-anselm",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-21T13:51:42.488Z",
-    "generate_ms": 19182,
+    "started_at": "2026-10-24T11:43:36.794Z",
+    "generate_ms": 64639,
     "validate_ms": 1,
-    "wall_ms": 19183,
+    "wall_ms": 64640,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-10-20T11:42:55.987Z",
-  "data_collected_at": "2026-10-20T11:32:09+00:00",
+  "validated_at": "2026-10-24T11:42:25.810Z",
+  "data_collected_at": "2026-10-24T11:32:52+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's twenty-eight are more than Northwood and Ohio Dominican have scored together.",
+      "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's thirty-two are more than Northwood and Ohio Dominican have scored together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Cedarville and Lake Erie, close at the top, both still have to play Tiffin, beaten twice all season.",
+      "text": "Lake Erie's last match is at home to Tiffin, one of the sides who can still overtake them.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Nick Cherry has kept eight clean sheets for Tiffin.",
+      "text": "Joey Jones has kept ten clean sheets for Thomas More.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Tom Woodward has scored eight goals for Ashland from fifty-four shots.",
+      "text": "Tom Woodward has scored eight goals for Ashland from fifty-eight shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Tom Woodward — 8 G · 4 A · 54 shots",
+      "text": "Tom Woodward — 8 G · 4 A · 58 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jersey Lopez — 3 G · 11 A · 27 shots",
+      "text": "Jersey Lopez — 3 G · 11 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Garbhan Feeney — 4 G · 7 A · 41 shots",
+      "text": "Veljko Radovanovic — 4 G · 6 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-19 d-youville v ashland",
+      "text": "2026-10-22 tiffin v cedarville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-22 tiffin v cedarville",
+      "text": "2026-10-24 findlay v tiffin",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-20T11:42:24.815Z",
-    "generate_ms": 31171,
+    "started_at": "2026-10-24T11:40:53.772Z",
+    "generate_ms": 92036,
     "validate_ms": 1,
-    "wall_ms": 31172,
+    "wall_ms": 92037,
     "concurrency": 4
   }
 }

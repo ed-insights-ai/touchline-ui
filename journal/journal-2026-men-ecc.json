@@ -3,74 +3,62 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-10-21T11:55:00+00:00",
-  "data_collected_at": "2026-10-21T11:50:14+00:00",
-  "headline": "D'Youville win at Mercy to share the lead",
-  "dek": "D'Youville's win at Mercy lifts them level on points with St. Thomas Aquinas at the top of the table, though St. Thomas Aquinas have a match in hand and, like Molloy, have yet to lose in conference play. Ashland have since beaten them at home, D'Youville's fifth defeat of the season.",
+  "generated_at": "2026-10-24T11:40:00+00:00",
+  "data_collected_at": "2026-10-24T11:31:25+00:00",
+  "headline": "St. Thomas Aquinas pull clear as the last unbeaten side",
+  "dek": "St. Thomas Aquinas's narrow win at Staten Island takes them clear of D'Youville at the top, and Roberts Wesleyan's win over Molloy leaves St. Thomas Aquinas the only side yet to lose in conference play. Mercy's win over Queens keeps them third, behind D'Youville.",
   "lede_basis": {
-    "programme": "d-youville",
-    "wins": 7,
+    "programme": "st-thomas-aquinas",
+    "wins": 6,
     "draws": 4,
-    "losses": 5
+    "losses": 4
   },
-  "lede_updated": "2026-10-20",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "St. Thomas Aquinas beat Staten Island and now lead alone, and Molloy lost to Roberts Wesleyan, so neither the shared lead nor Molloy's unbeaten conference record holds.",
   "pattern": {
     "label": "derived",
-    "text": "Goals have not ordered the table: Queens have scored 35, more than any other programme, while the joint leaders, D'Youville and St. Thomas Aquinas, sit in the middle of the chart.",
+    "text": "Goals have not ordered the table: Mercy and Queens are level on 35, clear of every other programme, while the leaders, St. Thomas Aquinas, sit in the middle of the chart.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "mercy": 35,
         "queens": 35,
-        "mercy": 33,
         "d-youville": 23,
         "staten-island": 21,
-        "roberts-wesleyan": 19,
-        "st-thomas-aquinas": 19,
+        "roberts-wesleyan": 20,
+        "st-thomas-aquinas": 20,
+        "district-of-columbia": 19,
         "molloy": 18,
-        "district-of-columbia": 16,
         "daemen": 14
       },
-      "highlight": "queens"
+      "highlight": "mercy"
     },
     "basis": {
       "comparative": "greater_than_each",
       "metric": "gf",
-      "programme": "queens",
+      "programme": "mercy",
       "of": [
         "d-youville",
         "daemen",
         "district-of-columbia",
-        "mercy",
         "molloy",
         "roberts-wesleyan",
         "st-thomas-aquinas",
         "staten-island"
       ],
       "gf": 35,
-      "ga": 18
+      "ga": 16
     }
   },
   "wire": {
-    "line": "Molloy have drawn seven matches, more than any other side in the conference, and lost only twice.",
+    "line": "Lorenzo Herrera has kept seven shutouts in District of Columbia's goal this season.",
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "draws",
-      "programme": "molloy",
-      "of": [
-        "d-youville",
-        "daemen",
-        "district-of-columbia",
-        "mercy",
-        "queens",
-        "roberts-wesleyan",
-        "st-thomas-aquinas",
-        "staten-island"
-      ],
-      "wins": 4,
-      "draws": 7,
-      "losses": 2
+      "source": "stats",
+      "player": "Lorenzo Herrera",
+      "programme": "district-of-columbia",
+      "shutouts": 7
     },
-    "updated": "2026-10-18"
+    "updated": "2026-10-24"
   },
   "findings": [
     {
@@ -84,7 +72,7 @@
     },
     {
       "label": "derived",
-      "text": "Daemen have conceded 44 goals, more than any other programme, against fourteen scored.",
+      "text": "Daemen have conceded 47 goals, more than any other programme, against fourteen scored.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -100,30 +88,51 @@
           "staten-island"
         ],
         "gf": 14,
-        "ga": 44
+        "ga": 47
       }
     },
     {
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 33 goals from 44 shots.",
+      "text": "Molloy have drawn seven matches, more than any other programme.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "molloy",
+        "of": [
+          "d-youville",
+          "daemen",
+          "district-of-columbia",
+          "mercy",
+          "queens",
+          "roberts-wesleyan",
+          "st-thomas-aquinas",
+          "staten-island"
+        ],
+        "wins": 4,
+        "draws": 7,
+        "losses": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 35 goals from 45 shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Darwesh Lund-Iversen",
         "programme": "mercy",
         "goals": 12,
-        "shots": 44,
-        "gf": 33
+        "shots": 45,
+        "gf": 35
       }
     },
     {
       "label": "observed",
-      "text": "Lorenzo Herrera has kept six shutouts for District of Columbia and conceded fifteen goals.",
+      "text": "John Hollis has twelve assists for Mercy.",
       "basis": {
         "source": "stats",
-        "player": "Lorenzo Herrera",
-        "programme": "district-of-columbia",
-        "shutouts": 6,
-        "goals_against": 15
+        "player": "John Hollis",
+        "programme": "mercy",
+        "assists": 12
       }
     }
   ],
@@ -133,14 +142,14 @@
       "programme": "mercy",
       "position": "FWD",
       "class": "SR",
-      "line": "12 G · 6 A · 44 shots"
+      "line": "12 G · 7 A · 45 shots"
     },
     {
       "player": "John Hollis",
       "programme": "mercy",
       "position": "MID",
       "class": "SR",
-      "line": "4 G · 11 A · 29 shots"
+      "line": "4 G · 12 A · 30 shots"
     },
     {
       "player": "Shawn Richardson",
@@ -152,16 +161,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-19 d-youville v ashland",
-      "line": "It ends D'Youville's unbeaten run since Molloy won there, with Queens the next side to visit."
+      "fixture_ref": "2026-10-21 staten-island v st-thomas-aquinas",
+      "line": "Staten Island have not scored since Mercy won there."
     },
     "next_match": {
-      "fixture_ref": "2026-10-21 mercy v queens",
-      "line": "The conference's two highest-scoring sides meet; Queens have not lost since St. Thomas Aquinas beat them."
+      "fixture_ref": "2026-10-24 molloy v mercy",
+      "line": "Molloy have not won since their win at D'Youville; Mercy come in having beaten Queens."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-21T13:51:38.909Z"
+    "validated_at": "2026-10-24T11:41:22.076Z"
   }
 }

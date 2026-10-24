@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "validated_at": "2026-10-21T13:52:04.969Z",
-  "data_collected_at": "2026-10-21T11:49:43+00:00",
+  "validated_at": "2026-10-24T11:40:53.585Z",
+  "data_collected_at": "2026-10-24T11:30:44+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -23,8 +23,8 @@
     },
     {
       "path": "findings[4].text",
-      "text": "Edouard Laberge has made 77 saves for Emmanuel and conceded 22 goals, a save percentage of .778.",
-      "unbacked": ["778"]
+      "text": "Edouard Laberge has made 81 saves for Emmanuel and conceded 22 goals, a save percentage of .786.",
+      "unbacked": ["786"]
     }
   ],
   "claims": [
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Francis Marion have won eleven matches, drawn two and lost three, and have conceded eleven goals in all.",
+      "text": "Francis Marion have won eleven matches, drawn two and lost four, and have conceded twelve goals in all.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Young Harris have won eleven matches, drawn three and lost three, scoring 43 goals and conceding 20.",
+      "text": "Young Harris have won eleven matches, drawn three and lost three, scoring 43 goals and conceding twenty.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -94,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Edouard Laberge has made 77 saves for Emmanuel and conceded 22 goals, a save percentage of .778.",
+      "text": "Edouard Laberge has made 81 saves for Emmanuel and conceded 22 goals, a save percentage of .786.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Enzo Joly — 9 G · 4 A · 41 shots",
+      "text": "Enzo Joly — 10 G · 4 A · 44 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Andrea Marrazzo — 7 G · 6 A · 45 shots",
+      "text": "Andrea Marrazzo — 7 G · 7 A · 45 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-20 belmont-abbey v lees-mcrae",
+      "text": "2026-10-21 barton v francis-marion",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 barton v francis-marion",
+      "text": "2026-10-24 lees-mcrae v young-harris",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-21T13:51:14.849Z",
-    "generate_ms": 50118,
-    "validate_ms": 1,
-    "wall_ms": 50119,
+    "started_at": "2026-10-24T11:39:59.379Z",
+    "generate_ms": 54200,
+    "validate_ms": 5,
+    "wall_ms": 54205,
     "concurrency": 4
   }
 }

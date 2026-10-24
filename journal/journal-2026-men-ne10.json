@@ -3,51 +3,52 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-10-21T12:58:00+00:00",
-  "data_collected_at": "2026-10-21T12:52:35+00:00",
-  "headline": "Adelphi end Southern New Hampshire's unbeaten run",
-  "dek": "Adelphi beat Southern New Hampshire at home, the first defeat in fourteen matches for the conference leaders. Southern New Hampshire still sit six points clear of American International, who won at Saint Michael's on the same day.",
+  "generated_at": "2026-10-24T11:41:00+00:00",
+  "data_collected_at": "2026-10-24T11:35:33+00:00",
+  "headline": "Saint Anselm rise to second on four straight wins",
+  "dek": "Saint Anselm have won all four matches since their defeat at Adelphi, the latest against Franklin Pierce, and now sit second, four points behind Southern New Hampshire. American International, a point further back, drew with Southern Connecticut on the same day.",
   "lede_basis": {
-    "programme": "southern-new-hampshire",
-    "wins": 10,
-    "draws": 3,
-    "losses": 1,
-    "matches_played_by_southern_new_hampshire": 14,
+    "programme": "saint-anselm",
+    "consecutive_wins_since_defeat_at_adelphi": 4,
+    "saint_anselm_table_position": 2,
+    "saint_anselm_conference_points": 15,
     "southern_new_hampshire_conference_points": 19,
-    "american_international_conference_points": 13,
-    "lead_in_points": 6
+    "saint_anselm_points_behind_leaders": 4,
+    "american_international_conference_points": 14,
+    "american_international_points_behind_saint_anselm": 1
   },
-  "lede_updated": "2026-10-18",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "Saint Anselm's fourth straight win lifts them to second, and the six-point lead over American International in the standing dek no longer holds",
   "pattern": {
     "label": "signal",
-    "text": "Southern New Hampshire's fifty goals come from at least fifteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
+    "text": "Southern New Hampshire's fifty-two goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southern-new-hampshire": 50,
+        "southern-new-hampshire": 52,
+        "american-international": 29,
+        "franklin-pierce": 29,
         "assumption": 28,
-        "franklin-pierce": 28,
-        "american-international": 27,
+        "bentley": 21,
         "adelphi": 20,
-        "bentley": 19,
-        "saint-anselm": 18,
+        "saint-anselm": 20,
+        "southern-connecticut": 18,
         "pace": 17,
-        "saint-michael-s": 16,
-        "southern-connecticut": 16
+        "saint-michael-s": 17
       },
       "highlight": "southern-new-hampshire"
     },
     "basis": {
       "programme": "southern-new-hampshire",
-      "distinct_scorers_min": 15,
-      "gf": 50
+      "distinct_scorers_min": 16,
+      "gf": 52
     }
   },
   "wire": {
     "line": "Every programme has now lost at least once; Southern New Hampshire were the last, beaten at Adelphi.",
     "basis": {
       "programme": "southern-new-hampshire",
-      "wins": 10,
+      "wins": 11,
       "draws": 3,
       "losses": 1
     },
@@ -56,18 +57,18 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Guillermo Rios has scored fourteen of Franklin Pierce's twenty-eight goals.",
+      "text": "Guillermo Rios has scored fifteen of Franklin Pierce's twenty-nine goals.",
       "basis": {
         "source": "stats",
         "player": "Guillermo Rios",
         "programme": "franklin-pierce",
-        "goals": 14,
-        "gf": 28
+        "goals": 15,
+        "gf": 29
       }
     },
     {
       "label": "observed",
-      "text": "Saint Michael's have lost nine matches, more than any other programme.",
+      "text": "Saint Michael's have lost ten matches, more than any other programme.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "losses",
@@ -83,15 +84,36 @@
           "southern-connecticut",
           "southern-new-hampshire"
         ],
-        "losses": 9
+        "losses": 10
       }
     },
     {
       "label": "observed",
-      "text": "Saint Anselm have won seven matches and lost six, and remain the only programme yet to draw a match.",
+      "text": "Southern Connecticut have drawn seven matches, more than any other programme.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "southern-connecticut",
+        "of": [
+          "adelphi",
+          "american-international",
+          "assumption",
+          "bentley",
+          "franklin-pierce",
+          "pace",
+          "saint-anselm",
+          "saint-michael-s",
+          "southern-new-hampshire"
+        ],
+        "draws": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Saint Anselm have won eight matches and lost six, and remain the only programme yet to draw a match.",
       "basis": {
         "programme": "saint-anselm",
-        "wins": 7,
+        "wins": 8,
         "draws": 0,
         "losses": 6
       }
@@ -113,14 +135,14 @@
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SR",
-      "line": "14 G · 33 shots"
+      "line": "15 G · 36 shots"
     },
     {
       "player": "Inigo Burusco",
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
-      "line": "12 G · 3 A · 54 shots"
+      "line": "12 G · 5 A · 57 shots"
     },
     {
       "player": "Cody Holbert",
@@ -132,16 +154,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-17 adelphi v southern-new-hampshire",
-      "line": "Southern New Hampshire's first defeat of the season; Adelphi had not won since beating Saint Anselm."
+      "fixture_ref": "2026-10-21 saint-anselm v franklin-pierce",
+      "line": "Saint Anselm have won every match since losing at Adelphi, and the run has lifted them to second."
     },
     "next_match": {
-      "fixture_ref": "2026-10-21 saint-anselm v franklin-pierce",
-      "line": "Saint Anselm have won every match since losing at Adelphi; Franklin Pierce's only conference defeat came at American International."
+      "fixture_ref": "2026-10-24 american-international v saint-anselm",
+      "line": "American International have yet to lose at home this season, and a win would lift them above their visitors."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-21T13:52:01.671Z"
+    "validated_at": "2026-10-24T11:44:41.434Z"
   }
 }

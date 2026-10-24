@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-10-21T13:00:00+00:00",
-  "data_collected_at": "2026-10-18T22:02:21+00:00",
-  "headline": "Lees-McRae go thirteen wins and three draws without defeat",
-  "dek": "Lees-McRae won at Belmont Abbey and still have not lost this season. They have thirteen wins and three draws, and Young Harris come next.",
+  "generated_at": "2026-10-24T13:00:00+00:00",
+  "data_collected_at": "2026-10-24T11:33:20+00:00",
+  "headline": "Cal State LA and CSU Pueblo now share an unbeaten record",
+  "dek": "Cal State LA were held at Cal State San Bernardino, and the draw leaves them on thirteen wins and two draws. That is exactly the record CSU Pueblo carry in the Rocky Mountain Athletic Conference, and neither side has lost a match this season.",
   "basis": {
-    "programme": "lees-mcrae",
+    "programme": "cal-state-la",
     "wins": 13,
-    "draws": 3,
+    "draws": 2,
     "losses": 0
   },
-  "fixture_ref": "2026-10-20 belmont-abbey v lees-mcrae",
-  "updated": "2026-10-21",
-  "displaced_by": "results night: Lees-McRae's win at Belmont Abbey keeps them unbeaten through sixteen matches",
+  "fixture_ref": "2026-10-23 cal-state-san-bernardino v cal-state-la",
+  "updated": "2026-10-24",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-21T13:52:24.454Z"
+    "validated_at": "2026-10-24T11:47:09.775Z"
   }
 }

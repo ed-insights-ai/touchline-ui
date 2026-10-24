@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-10-18T22:16:52.619Z",
-  "data_collected_at": "2026-10-18T22:06:59+00:00",
+  "validated_at": "2026-10-24T11:45:49.429Z",
+  "data_collected_at": "2026-10-24T11:36:08+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "pattern.text",
-      "text": "Gannon have scored more than California (Pa.) and West Chester together, and conceded 15: the tallest bar belongs to a side that keeps goals out as well as putting them in, not one trading them.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Gannon have scored more than California (Pa.) and West Chester together, and conceded 15: the tallest bar belongs to a side that keeps goals out as well as putting them in, not one trading them.",
+      "text": "Gannon have scored more than California (Pa.) and West Chester together and conceded 18, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Pitt-Johnstown have conceded 38 goals, more than any other programme in the conference, and have won one match, drawn two and lost ten.",
+      "text": "Pitt-Johnstown have conceded 40 goals, more than any other programme in the conference, and have won one match, drawn two and lost eleven.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Millersville have won ten, drawn one and lost four, and have conceded 14 goals across the season while scoring 32.",
+      "text": "Millersville have won ten, drawn two and lost four, and have conceded 14 goals across the season while scoring 32.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Rafael Santos has five goals and eight assists from 38 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 42 shots for Seton Hill.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Rafa Hyde — 12 G · 4 A · 44 shots",
+      "text": "Rafa Hyde — 12 G · 4 A · 48 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Steven Arias — 8 G · 1 A · 30 shots",
+      "text": "Kaden Reynolds — 6 G · 5 A · 53 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kaden Reynolds — 5 G · 4 A · 51 shots",
+      "text": "Steven Arias — 8 G · 1 A · 32 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-17 bloomsburg v millersville",
+      "text": "2026-10-21 e-stroudsburg v millersville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-21 e-stroudsburg v millersville",
+      "text": "2026-10-24 seton-hill v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-18T22:15:37.489Z",
-    "generate_ms": 75104,
+    "started_at": "2026-10-24T11:44:30.182Z",
+    "generate_ms": 79246,
     "validate_ms": 1,
-    "wall_ms": 75105,
+    "wall_ms": 79247,
     "concurrency": 4
   }
 }

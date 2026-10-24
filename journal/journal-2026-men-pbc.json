@@ -3,32 +3,31 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-10-20T11:45:00+00:00",
-  "data_collected_at": "2026-10-20T11:36:52+00:00",
-  "headline": "Flagler remain unbeaten against conference opponents",
-  "dek": "Flagler have lost once all season, at Florida Southern in September, and are yet to lose to a conference side. Saturday's win over Middle Georgia State was their widest of the season, and they have conceded 17 goals across all their matches.",
+  "generated_at": "2026-10-24T11:45:00+00:00",
+  "data_collected_at": "2026-10-24T11:35:57+00:00",
+  "headline": "Flagler put the top of the table beyond reach",
+  "dek": "North Georgia have played out their conference schedule, and no side left can reach Flagler's points total, so Flagler head to Lander today already sure of finishing top. They have lost once all season, at Florida Southern in September, and no conference side has beaten them.",
   "lede_basis": {
     "programme": "flagler",
-    "wins": 9,
+    "wins": 10,
     "draws": 4,
-    "losses": 1,
-    "gf": 34,
-    "ga": 17
+    "losses": 1
   },
-  "lede_updated": "2026-10-18",
+  "lede_updated": "2026-10-24",
+  "displaced_by": "North Georgia finished their conference schedule below Flagler's points total, so the top of the table is settled; the old dek's 17 conceded is now 18, and its Saturday win is no longer the latest.",
   "pattern": {
     "label": "derived",
-    "text": "Flagler's 34 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
+    "text": "Flagler's 36 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "flagler": 34,
-        "north-georgia": 34,
-        "clayton-state": 27,
-        "middle-georgia-state": 26,
-        "lander": 21,
-        "georgia-southwestern": 17,
-        "usc-aiken": 14
+        "flagler": 36,
+        "north-georgia": 36,
+        "clayton-state": 28,
+        "middle-georgia-state": 27,
+        "lander": 22,
+        "georgia-southwestern": 18,
+        "usc-aiken": 16
       },
       "highlight": "flagler"
     },
@@ -37,20 +36,20 @@
       "metric": "gf",
       "programme": "flagler",
       "of": ["usc-aiken", "georgia-southwestern"],
-      "gf": 34,
-      "ga": 17,
+      "gf": 36,
+      "ga": 18,
       "distinct_scorers_min": 12
     }
   },
   "wire": {
-    "line": "Georgia Southwestern are the only side in the conference yet to win a conference match.",
+    "line": "The top of the table is settled: no one left can catch Flagler, who have yet to lose to a conference side.",
     "basis": {
-      "programme": "georgia-southwestern",
-      "wins": 3,
+      "programme": "flagler",
+      "wins": 10,
       "draws": 4,
-      "losses": 7
+      "losses": 1
     },
-    "updated": "2026-10-18"
+    "updated": "2026-10-24"
   },
   "findings": [
     {
@@ -64,7 +63,7 @@
     },
     {
       "label": "derived",
-      "text": "Middle Georgia State have conceded 43 goals, more than any other programme in the conference, while scoring 26.",
+      "text": "Middle Georgia State have conceded 45 goals, more than any other programme in the conference, while scoring 27.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -77,47 +76,47 @@
           "north-georgia",
           "usc-aiken"
         ],
-        "gf": 26,
-        "ga": 43
+        "gf": 27,
+        "ga": 45
       }
     },
     {
       "label": "derived",
-      "text": "Javier Gongora Andres has scored eleven of Middle Georgia State's 26 goals from 47 shots.",
+      "text": "Javier Gongora Andres has scored eleven of Middle Georgia State's 27 goals from 48 shots.",
       "basis": {
         "source": "stats",
         "player": "Javier Gongora Andres",
         "programme": "middle-georgia-state",
         "goals": 11,
-        "shots": 47,
-        "gf": 26,
-        "ga": 43
+        "shots": 48,
+        "gf": 27,
+        "ga": 45
       }
     },
     {
       "label": "derived",
-      "text": "Isaac Calderon has scored nine of North Georgia's 34 goals from 40 shots.",
+      "text": "Isaac Calderon has scored nine of North Georgia's 36 goals from 44 shots.",
       "basis": {
         "source": "stats",
         "player": "Isaac Calderon",
         "programme": "north-georgia",
         "goals": 9,
-        "shots": 40,
-        "gf": 34,
-        "ga": 20
+        "shots": 44,
+        "gf": 36,
+        "ga": 21
       }
     },
     {
       "label": "derived",
-      "text": "Finn Weigelt has scored nine of Flagler's 34 goals from 31 shots.",
+      "text": "Finn Weigelt has scored ten of Flagler's 36 goals from 34 shots.",
       "basis": {
         "source": "stats",
         "player": "Finn Weigelt",
         "programme": "flagler",
-        "goals": 9,
-        "shots": 31,
-        "gf": 34,
-        "ga": 17
+        "goals": 10,
+        "shots": 34,
+        "gf": 36,
+        "ga": 18
       }
     }
   ],
@@ -127,35 +126,35 @@
       "programme": "middle-georgia-state",
       "position": "FWD",
       "class": "SO",
-      "line": "11 G · 2 A · 47 shots"
+      "line": "11 G · 2 A · 48 shots"
     },
     {
       "player": "Isaac Calderon",
       "programme": "north-georgia",
       "position": "MID",
       "class": "SR",
-      "line": "9 G · 3 A · 40 shots"
+      "line": "9 G · 4 A · 44 shots"
     },
     {
       "player": "Finn Weigelt",
       "programme": "flagler",
       "position": "FWD",
       "class": "SR",
-      "line": "9 G · 1 A · 31 shots"
+      "line": "10 G · 1 A · 34 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-17 flagler v middle-georgia-state",
-      "line": "Flagler were also the last side to beat Middle Georgia State, and have won every conference match since their draw with North Georgia."
+      "fixture_ref": "2026-10-21 middle-georgia-state v north-georgia",
+      "line": "North Georgia have beaten Middle Georgia State home and away, and have won every match since losing to Flagler."
     },
     "next_match": {
-      "fixture_ref": "2026-10-21 middle-georgia-state v north-georgia",
-      "line": "North Georgia won the September meeting at home; Middle Georgia State have conceded more goals than any side in the conference."
+      "fixture_ref": "2026-10-24 lander v flagler",
+      "line": "Flagler won the September meeting at home; Lander come in off back-to-back conference defeats."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-20T11:43:35.615Z"
+    "validated_at": "2026-10-24T11:45:11.719Z"
   }
 }
