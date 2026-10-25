@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "validated_at": "2026-10-24T11:43:31.124Z",
-  "data_collected_at": "2026-10-24T11:34:06+00:00",
+  "validated_at": "2026-10-25T11:43:20.457Z",
+  "data_collected_at": "2026-10-25T11:33:59+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "Western Oregon's win was Seattle Pacific's first defeat since the opening night of conference play, at Northwest Nazarene. It also drew the two level as the conference's highest scorers: Western Oregon's 37 goals in all matches are more than any programme bar Seattle Pacific has scored.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: goals in this conference have not bought points.",
+      "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: most of their goals have come against sides outside the conference, not in the matches the table counts.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Seattle Pacific have won twelve matches, more than any other programme in the conference.",
+      "text": "Seattle Pacific have won thirteen matches, more than any other programme in the conference.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Archie Dhima has 15 goals from 51 shots for Western Oregon.",
+      "text": "Archie Dhima has 16 goals from 52 shots for Western Oregon.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 68 were saved and 19 went in.",
+      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 76 were saved and 21 went in.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Archie Dhima — 15 G · 3 A · 51 shots",
+      "text": "Archie Dhima — 16 G · 3 A · 52 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Landon Schulze — 6 G · 7 A · 28 shots",
+      "text": "Landon Schulze — 7 G · 7 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-22 saint-martins v northwest-nazarene",
+      "text": "2026-10-24 western-oregon v northwest-nazarene",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 western-oregon v northwest-nazarene",
+      "text": "2026-10-29 simon-fraser v western-oregon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:42:25.983Z",
-    "generate_ms": 65140,
+    "started_at": "2026-10-25T11:41:48.799Z",
+    "generate_ms": 91657,
     "validate_ms": 1,
-    "wall_ms": 65141,
+    "wall_ms": 91658,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-10-24T11:40:00+00:00",
-  "data_collected_at": "2026-10-24T11:35:13+00:00",
+  "generated_at": "2026-10-25T11:40:00+00:00",
+  "data_collected_at": "2026-10-25T11:35:08+00:00",
   "headline": "Charleston and Concord meet level at the top",
   "dek": "Charleston beat Salem and Concord won at West Virginia Wesleyan, leaving the two level on thirty points with a conference defeat apiece. Davis & Elkins, idle since their goalless draw with West Liberty, sit four points back. Charleston won the first meeting between the leaders, in September.",
   "lede_basis": {
@@ -18,7 +18,6 @@
     "davis_elkins_points_behind_leaders": 4
   },
   "lede_updated": "2026-10-24",
-  "displaced_by": "Charleston and Concord both won to stand level on thirty points with Davis & Elkins four back, so the standing dek's figures no longer hold; the leaders meet next",
   "pattern": {
     "label": "derived",
     "text": "Charleston have scored more goals than West Liberty and Wheeling together, and fifteen different players have shared their forty-eight; the scoring is spread, not carried.",
@@ -31,8 +30,8 @@
         "wheeling": 23,
         "west-liberty": 22,
         "davis-elkins": 21,
+        "salem": 19,
         "point-park": 18,
-        "salem": 17,
         "shawnee-state": 17,
         "west-virginia-wesleyan": 7
       },
@@ -144,16 +143,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-21 charleston v salem",
-      "line": "Charleston have now beaten Salem home and away; Salem have yet to take a point from either leader."
+      "fixture_ref": "2026-10-24 salem v virginia-state",
+      "line": "Outside the conference, Salem's only defeat came against Millersville."
     },
     "next_match": {
-      "fixture_ref": "2026-10-24 salem v virginia-state",
-      "line": "Virginia State have yet to score against this conference, held by Frostburg State and beaten by Concord."
+      "fixture_ref": "2026-10-25 concord v charleston",
+      "line": "Concord have won every match at home this season, and Charleston every match away."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-24T11:44:30.007Z"
+    "validated_at": "2026-10-25T11:43:12.180Z"
   }
 }

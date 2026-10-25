@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-10-24T11:40:00+00:00",
-  "data_collected_at": "2026-10-24T11:34:26+00:00",
+  "generated_at": "2026-10-25T11:40:00+00:00",
+  "data_collected_at": "2026-10-25T11:34:17+00:00",
   "headline": "Trevecca win every match since their only defeat",
   "dek": "Trevecca beat West Alabama at home and have won every match since Lee won at Trevecca in September, their only defeat in fifteen this season. AUM won at Union and stay level with them at the head of the table.",
   "lede_basis": {
@@ -15,7 +15,6 @@
     "played": 15
   },
   "lede_updated": "2026-10-24",
-  "displaced_by": "Trevecca beat West Alabama: their record moved to twelve wins in fifteen, so the standing dek's eleven-in-fourteen no longer holds, and they have won every match since Lee beat them.",
   "pattern": {
     "label": "derived",
     "text": "Goals have not meant points: West Alabama have scored 43 and conceded 26, and have won six of their sixteen matches.",
@@ -147,6 +146,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-24T11:44:00.051Z"
+    "validated_at": "2026-10-25T11:42:38.714Z"
   }
 }

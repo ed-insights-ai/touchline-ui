@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-10-24T11:44:30.007Z",
-  "data_collected_at": "2026-10-24T11:35:13+00:00",
+  "validated_at": "2026-10-25T11:43:12.180Z",
+  "data_collected_at": "2026-10-25T11:35:08+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-21 charleston v salem",
+      "text": "2026-10-24 salem v virginia-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 salem v virginia-state",
+      "text": "2026-10-25 concord v charleston",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:43:31.297Z",
-    "generate_ms": 58709,
+    "started_at": "2026-10-25T11:42:30.968Z",
+    "generate_ms": 41211,
     "validate_ms": 1,
-    "wall_ms": 58710,
+    "wall_ms": 41212,
     "concurrency": 4
   }
 }

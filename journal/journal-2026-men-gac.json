@@ -3,36 +3,36 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-10-24T11:40:00Z",
-  "data_collected_at": "2026-10-24T11:33:20+00:00",
+  "generated_at": "2026-10-25T11:40:00Z",
+  "data_collected_at": "2026-10-25T11:33:12+00:00",
   "headline": "Fort Hays State put first place beyond reach",
-  "dek": "Fort Hays State beat Ouachita Baptist and now hold 28 points, more than any other side can still reach. Their only dropped points came in the draw at Rogers State. At the other end, Harding have lost all nine of their conference matches.",
+  "dek": "Fort Hays State beat Harding to move to 31 points, more than any other side can still reach, and their only dropped points remain the draw at Rogers State. Harding, at the other end, have lost all ten of their conference matches.",
   "lede_basis": {
-    "fhsu_conference_played": 10,
-    "fhsu_conference_won": 9,
+    "fhsu_conference_played": 11,
+    "fhsu_conference_won": 10,
     "fhsu_conference_drawn": 1,
     "fhsu_conference_lost": 0,
-    "fhsu_conference_points": 28,
-    "highest_points_reachable_by_another_side": 24,
-    "harding_conference_played": 9,
-    "harding_conference_lost": 9,
+    "fhsu_conference_points": 31,
+    "highest_points_reachable_by_another_side": 23,
+    "harding_conference_played": 10,
+    "harding_conference_lost": 10,
     "harding_conference_points": 0
   },
-  "lede_updated": "2026-10-24",
-  "displaced_by": "Fort Hays State beat Ouachita Baptist, so the standing dek's 'before the two sides meet next' is no longer true; their 28 points are now more than any other side can reach.",
+  "lede_updated": "2026-10-25",
+  "displaced_by": "Fort Hays State beat Harding, so the standing dek's 28 points and Harding's nine conference defeats are no longer true; the headline's story still holds and the headline stands.",
   "pattern": {
     "label": "derived",
-    "text": "Rogers State's 31 goals are more than Harding and Newman have managed between them.",
+    "text": "Rogers State's 32 goals are more than Harding and Newman have managed between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fort-hays-state": 33,
-        "rogers-state": 31,
+        "fort-hays-state": 36,
+        "rogers-state": 32,
         "southern-nazarene": 25,
-        "ouachita-baptist": 22,
+        "ouachita-baptist": 23,
         "northeastern-state": 20,
-        "newman": 14,
-        "harding": 8
+        "newman": 16,
+        "harding": 9
       },
       "highlight": "rogers-state"
     },
@@ -41,20 +41,18 @@
       "metric": "gf",
       "programme": "rogers-state",
       "of": ["harding", "newman"],
-      "gf": 31
+      "gf": 32
     }
   },
   "wire": {
-    "line": "Fort Hays State have conceded seven goals all season and lost only twice.",
+    "line": "Harding have lost all sixteen matches they have played this season.",
     "basis": {
-      "programme": "fort-hays-state",
-      "wins": 11,
-      "draws": 3,
-      "losses": 2,
-      "gf": 33,
-      "ga": 7
+      "programme": "harding",
+      "wins": 0,
+      "draws": 0,
+      "losses": 16
     },
-    "updated": "2026-10-18"
+    "updated": "2026-10-25"
   },
   "findings": [
     {
@@ -68,13 +66,13 @@
     },
     {
       "label": "observed",
-      "text": "Payton Roehrich has conceded six goals for Fort Hays State and made 38 saves.",
+      "text": "Payton Roehrich has made 39 saves for Fort Hays State and conceded seven goals.",
       "basis": {
         "source": "stats",
         "player": "Payton Roehrich",
         "programme": "fort-hays-state",
-        "goals_against": 6,
-        "saves": 38
+        "saves": 39,
+        "goals_against": 7
       }
     },
     {
@@ -87,12 +85,12 @@
     },
     {
       "label": "observed",
-      "text": "Tristan Miller has kept five shutouts for Rogers State.",
+      "text": "Tristan Miller has kept six shutouts for Rogers State.",
       "basis": {
         "source": "stats",
         "player": "Tristan Miller",
         "programme": "rogers-state",
-        "shutouts": 5
+        "shutouts": 6
       }
     },
     {
@@ -113,35 +111,35 @@
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "6 G · 6 A · 23 shots"
+      "line": "8 G · 6 A · 27 shots"
     },
     {
       "player": "Carter Adams",
       "programme": "northeastern-state",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 3 A · 35 shots"
+      "line": "5 G · 3 A · 39 shots"
     },
     {
       "player": "Louis Bassett",
       "programme": "rogers-state",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 4 A · 29 shots"
+      "line": "4 G · 4 A · 30 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-22 fort-hays-state v ouachita-baptist",
-      "line": "Fort Hays State have now beaten Ouachita Baptist home and away."
+      "fixture_ref": "2026-10-24 northeastern-state v rogers-state",
+      "line": "Rogers State have now beaten Northeastern State away after losing to them at home."
     },
     "next_match": {
-      "fixture_ref": "2026-10-24 northeastern-state v rogers-state",
-      "line": "Northeastern State have already won at Rogers State this season."
+      "fixture_ref": "2026-10-28 fort-hays-state v southern-nazarene",
+      "line": "Fort Hays State have already won at Southern Nazarene without conceding."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-24T11:42:52.444Z"
+    "validated_at": "2026-10-25T11:42:09.673Z"
   }
 }

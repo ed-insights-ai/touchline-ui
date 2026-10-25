@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-10-24T11:41:32.069Z",
-  "data_collected_at": "2026-10-24T11:30:10+00:00",
+  "validated_at": "2026-10-25T11:41:04.866Z",
+  "data_collected_at": "2026-10-25T11:30:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "pattern.text",
-      "text": "Dominican have scored nine goals and conceded 23. The foot of the chart is still a side with two wins, four draws and eight defeats, whose trouble is at both ends of the pitch rather than one.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Dominican have scored nine goals and conceded 23. The foot of the chart is still a side with two wins, four draws and eight defeats, whose trouble is at both ends of the pitch rather than one.",
+      "text": "Goals have not decided the table: Bridgeport have scored 38 and conceded 35, in a season of six wins, three draws and seven defeats.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -62,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Jefferson's win over Georgian Court was their sixth of the season, beside two draws and seven defeats; they have scored 25 goals and conceded 23.",
-      "checker": "team_goals+team_record",
+      "text": "Dane Bodziak has scored eight goals for Chestnut Hill from 16 shots.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -80,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Bruno Mestres has made 92 saves for Holy Family and conceded 20 goals.",
+      "text": "Bruno Mestres has made 96 saves for Holy Family and conceded 21 goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Eliass Elfasoukhi has scored seven of Post's goals from 29 shots, with three assists beside them.",
+      "text": "Eliass Elfasoukhi has scored seven of Post's goals from 30 shots, with three assists beside them.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Eliass Elfasoukhi — 7 G · 3 A · 29 shots",
+      "text": "Eliass Elfasoukhi — 7 G · 3 A · 30 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Samuel Macy — 5 G · 3 A · 25 shots",
+      "text": "Samuel Macy — 5 G · 3 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-21 chestnut-hill v wilmington",
+      "text": "2026-10-24 wilmington v post",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 wilmington v post",
+      "text": "2026-10-25 felician v goldey-beacom",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:39:59.364Z",
-    "generate_ms": 92703,
+    "started_at": "2026-10-25T11:40:09.497Z",
+    "generate_ms": 55368,
     "validate_ms": 1,
-    "wall_ms": 92704,
+    "wall_ms": 55369,
     "concurrency": 4
   }
 }

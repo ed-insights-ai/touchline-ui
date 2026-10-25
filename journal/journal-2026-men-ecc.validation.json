@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-10-24T11:41:22.076Z",
-  "data_collected_at": "2026-10-24T11:31:25+00:00",
+  "validated_at": "2026-10-25T11:41:48.626Z",
+  "data_collected_at": "2026-10-25T11:31:19+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "St. Thomas Aquinas have now met every other member and lost to none of them, and Daemen were the last to try. Molloy's win over Mercy pulls the two level on points behind D'Youville, while District of Columbia, winless in conference play before they beat Staten Island, have not dropped a point since.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Goals have not ordered the table: Mercy and Queens are level on 35, clear of every other programme, while the leaders, St. Thomas Aquinas, sit in the middle of the chart.",
+      "text": "Goals have not ordered the table: Mercy and Queens stand well clear of every other programme on the chart, while the leaders, St. Thomas Aquinas, sit in the middle of it.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lorenzo Herrera has kept seven shutouts in District of Columbia's goal this season.",
-      "checker": "player_stat",
+      "text": "Mercy have scored 36 goals, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Daemen have conceded 47 goals, more than any other programme, against fourteen scored.",
+      "text": "Daemen have conceded 50 goals, more than any other programme, against sixteen scored.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 35 goals from 45 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 36 goals from 45 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "John Hollis has twelve assists for Mercy.",
+      "text": "Lorenzo Herrera has kept eight shutouts in District of Columbia's goal.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "John Hollis — 4 G · 12 A · 30 shots",
+      "text": "Jalen Moni — 7 G · 23 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Shawn Richardson — 6 G · 35 shots",
+      "text": "Tommy Gunn — 7 G · 3 A · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-21 staten-island v st-thomas-aquinas",
+      "text": "2026-10-24 d-youville v queens",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 molloy v mercy",
+      "text": "2026-10-26 pace v st-thomas-aquinas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:39:59.384Z",
-    "generate_ms": 82690,
+    "started_at": "2026-10-25T11:40:09.513Z",
+    "generate_ms": 99110,
     "validate_ms": 2,
-    "wall_ms": 82692,
+    "wall_ms": 99112,
     "concurrency": 4
   }
 }

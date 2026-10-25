@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-10-24T11:46:33.423Z",
-  "data_collected_at": "2026-10-24T11:36:56+00:00",
+  "validated_at": "2026-10-25T11:45:22.439Z",
+  "data_collected_at": "2026-10-25T11:37:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,8 +20,8 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Mars Hill have scored 33 and conceded nineteen, yet have lost six times: a side that scores freely and still sits in the bottom half of the table.",
-      "checker": "team_goals+team_record",
+      "text": "Emory & Henry have scored 21 and conceded four: the side chasing Catawba has got there by keeping goals out, not by scoring them.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Neither Catawba nor Emory & Henry has lost all season, and both are in action on Saturday.",
-      "checker": "team_record",
+      "text": "Catawba have yet to lose and have conceded seven goals all season.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Catawba's win at Lincoln Memorial on Wednesday was their eleventh of the season, against two draws and no defeats, with 35 scored and seven conceded.",
-      "checker": "team_goals+team_record",
+      "text": "Emory & Henry's win at Wingate on Saturday was their seventh of the season, against two draws and no defeats.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Tusculum's defeat at Mars Hill on Wednesday was their ninth of the season, against two wins and two draws.",
+      "text": "Anderson's win at Lincoln Memorial on Saturday was their ninth of the season, against four draws and two defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Coker's home win over Mount Olive on Thursday was their sixth of the season, against five defeats and no draws.",
+      "text": "Coker's draw at Mars Hill on Saturday was their first of the season, beside six wins and five defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Newberry's home defeat to Montevallo on Tuesday was their tenth of the season, against two wins and two draws.",
+      "text": "Newberry's win at Tusculum on Saturday was their third of the season, against two draws and ten defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Alex Payton — 7 G · 2 A · 31 shots",
+      "text": "Alex Payton — 9 G · 2 A · 34 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Luis Munoz — 4 G · 9 A · 41 shots",
+      "text": "Luis Munoz — 6 G · 9 A · 45 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-22 coker v mount-olive",
+      "text": "2026-10-24 wingate v emory-henry",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 catawba v carson-newman",
+      "text": "2026-10-28 catawba v coker",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:45:11.899Z",
-    "generate_ms": 81523,
+    "started_at": "2026-10-25T11:44:03.030Z",
+    "generate_ms": 79408,
     "validate_ms": 1,
-    "wall_ms": 81523,
+    "wall_ms": 79409,
     "concurrency": 4
   }
 }

@@ -3,35 +3,35 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-10-24T11:45:00+00:00",
-  "data_collected_at": "2026-10-24T11:36:08+00:00",
-  "headline": "Slippery Rock end Gannon's unbeaten run",
-  "dek": "Slippery Rock won at Gannon, the first side to beat them since Lake Erie did on the same ground in the opening match. Slippery Rock had lost the earlier meeting between the two at home. The defeat is Gannon's second of the season, against ten wins and three draws.",
+  "generated_at": "2026-10-25T11:45:00+00:00",
+  "data_collected_at": "2026-10-25T11:36:27+00:00",
+  "headline": "Gannon win at Seton Hill and stretch their lead",
+  "dek": "Gannon won at Seton Hill, the side nearest them in the table, in their first match since Slippery Rock beat them on their own ground. Seton Hill had held them level when the two met at Gannon. Gannon have now won eleven, drawn three and lost two.",
   "lede_basis": {
     "programme": "gannon",
-    "wins": 10,
+    "wins": 11,
     "draws": 3,
     "losses": 2
   },
-  "lede_updated": "2026-10-24",
-  "displaced_by": "Slippery Rock beat Gannon at home, so the standing headline that Gannon have not lost since their opening match is no longer true",
+  "lede_updated": "2026-10-25",
+  "displaced_by": "Gannon won at Seton Hill, so the dek's count of ten wins is no longer true and the Slippery Rock defeat is no longer their latest result",
   "pattern": {
     "label": "derived",
     "text": "Gannon have scored more than California (Pa.) and West Chester together and conceded 18, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "gannon": 42,
-        "millersville": 32,
+        "gannon": 44,
+        "millersville": 35,
+        "lock-haven": 29,
+        "slippery-rock": 29,
+        "shepherd": 27,
         "e-stroudsburg": 26,
         "seton-hill": 26,
-        "shepherd": 25,
-        "slippery-rock": 25,
-        "bloomsburg": 24,
-        "lock-haven": 23,
-        "west-chester": 20,
+        "bloomsburg": 25,
+        "west-chester": 21,
         "california-pa": 18,
-        "shippensburg": 15,
+        "shippensburg": 16,
         "pitt-johnstown": 13
       },
       "highlight": "gannon"
@@ -41,7 +41,7 @@
       "metric": "gf",
       "programme": "gannon",
       "of": ["california-pa", "west-chester"],
-      "gf": 42,
+      "gf": 44,
       "ga": 18
     }
   },
@@ -70,7 +70,7 @@
     },
     {
       "label": "observed",
-      "text": "Pitt-Johnstown have conceded 40 goals, more than any other programme in the conference, and have won one match, drawn two and lost eleven.",
+      "text": "Pitt-Johnstown have conceded 44 goals, more than any other programme in the conference, and have won one match, drawn two and lost twelve.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -88,45 +88,45 @@
           "slippery-rock",
           "west-chester"
         ],
-        "ga": 40,
+        "ga": 44,
         "wins": 1,
         "draws": 2,
-        "losses": 11
+        "losses": 12
       }
     },
     {
       "label": "observed",
-      "text": "Millersville have won ten, drawn two and lost four, and have conceded 14 goals across the season while scoring 32.",
+      "text": "Millersville have won eleven, drawn two and lost four, and have conceded 14 goals across the season while scoring 35.",
       "basis": {
         "programme": "millersville",
-        "wins": 10,
+        "wins": 11,
         "draws": 2,
         "losses": 4,
-        "gf": 32,
+        "gf": 35,
         "ga": 14
       }
     },
     {
       "label": "observed",
-      "text": "Aidan Houck has made 61 saves for Shepherd and been beaten 14 times.",
+      "text": "Aidan Houck has made 65 saves for Shepherd and been beaten 15 times.",
       "basis": {
         "source": "stats",
         "player": "Aidan Houck",
         "programme": "shepherd",
-        "saves": 61,
-        "goals_against": 14
+        "saves": 65,
+        "goals_against": 15
       }
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has six goals and eight assists from 42 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 45 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
         "goals": 6,
         "assists": 8,
-        "shots": 42
+        "shots": 45
       }
     }
   ],
@@ -136,7 +136,7 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "12 G · 4 A · 48 shots"
+      "line": "13 G · 4 A · 49 shots"
     },
     {
       "player": "Kaden Reynolds",
@@ -150,21 +150,21 @@
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "8 G · 1 A · 32 shots"
+      "line": "8 G · 1 A · 35 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-21 e-stroudsburg v millersville",
-      "line": "E. Stroudsburg have come through both meetings without losing; Millersville have not won since Shepherd beat them on their own ground."
+      "fixture_ref": "2026-10-24 seton-hill v gannon",
+      "line": "Gannon are the first side to beat Seton Hill on their own ground this season."
     },
     "next_match": {
-      "fixture_ref": "2026-10-24 seton-hill v gannon",
-      "line": "Seton Hill held Gannon level at Gannon's ground in the first meeting, and Lock Haven are the only conference side to have beaten them."
+      "fixture_ref": "2026-10-29 lock-haven v gannon",
+      "line": "Lock Haven have not lost since Gannon beat them on Gannon's ground in the first meeting."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-24T11:45:49.429Z"
+    "validated_at": "2026-10-25T11:44:24.037Z"
   }
 }

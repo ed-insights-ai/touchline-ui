@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-10-24T11:41:38.751Z",
-  "data_collected_at": "2026-10-24T11:31:01+00:00",
+  "validated_at": "2026-10-25T11:41:01.942Z",
+  "data_collected_at": "2026-10-25T11:31:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -67,12 +67,12 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is cal-poly-humboldt at 39"
+      "note": "held against every other programme; the nearest is cal-poly-humboldt at 43"
     },
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Stanislaus State have drawn seven of their sixteen matches, more draws than any other side in the conference.",
+      "text": "Stanislaus State have drawn seven of their seventeen matches, more draws than any other side in the conference.",
       "checker": "team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -82,7 +82,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Zion Vaughn has scored ten of Fresno Pacific's 37 goals.",
+      "text": "Cisco Avila has scored eleven of the 37 goals Cal State San Marcos have scored.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -100,7 +100,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Zion Vaughn — 10 G · 2 A · 33 shots",
+      "text": "Cisco Avila — 11 G · 1 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,7 +109,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Cisco Avila — 10 G · 1 A · 37 shots",
+      "text": "Zion Vaughn — 10 G · 2 A · 33 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +127,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-23 cal-state-san-bernardino v cal-state-la",
+      "text": "2026-10-24 uc-merced v cal-state-san-marcos",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,7 +136,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 uc-merced v cal-state-san-marcos",
+      "text": "2026-10-25 cal-state-la v fresno-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -144,10 +144,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:39:59.382Z",
-    "generate_ms": 99367,
-    "validate_ms": 2,
-    "wall_ms": 99369,
+    "started_at": "2026-10-25T11:40:09.511Z",
+    "generate_ms": 52427,
+    "validate_ms": 4,
+    "wall_ms": 52431,
     "concurrency": 4
   }
 }

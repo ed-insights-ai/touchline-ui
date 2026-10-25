@@ -3,56 +3,55 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-24T11:45:00+00:00",
-  "data_collected_at": "2026-10-24T11:36:56+00:00",
-  "headline": "Catawba win at Lincoln Memorial and reclaim first place",
-  "dek": "Wednesday's win at Lincoln Memorial put Catawba two points above Emory & Henry, with the same number of matches played. Neither side has lost all season, and both are out on Saturday: Catawba at home to Carson-Newman, Emory & Henry away to Wingate.",
+  "generated_at": "2026-10-25T11:45:00+00:00",
+  "data_collected_at": "2026-10-25T11:37:05+00:00",
+  "headline": "Catawba carry the lead into the final round",
+  "dek": "Catawba beat Carson-Newman and Emory & Henry won at Wingate on Saturday, so the two points between them stand going into the last round of conference matches. Neither side has lost all season; on Wednesday Catawba are at home to Coker and Emory & Henry to Tusculum.",
   "lede_basis": {
     "programme": "catawba",
     "losses": 0,
     "table_points_ahead": 2,
     "matches_in_hand": 0
   },
-  "lede_updated": "2026-10-24",
-  "displaced_by": "Catawba's win at Lincoln Memorial on 2026-10-21 put them back above Emory & Henry, so the standing headline is no longer true.",
+  "lede_updated": "2026-10-25",
+  "displaced_by": "Saturday's matches have been played: both leaders won, so the standing dek's 'both are out on Saturday' is past and the race now goes to the last round.",
   "pattern": {
     "label": "observed",
-    "text": "Mars Hill have scored 33 and conceded nineteen, yet have lost six times: a side that scores freely and still sits in the bottom half of the table.",
+    "text": "Emory & Henry have scored 21 and conceded four: the side chasing Catawba has got there by keeping goals out, not by scoring them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "catawba": 35,
-        "mars-hill": 33,
-        "anderson": 30,
+        "catawba": 38,
+        "mars-hill": 37,
+        "anderson": 33,
         "carson-newman": 24,
+        "coker": 23,
+        "lincoln-memorial": 22,
+        "emory-henry": 21,
         "wingate": 21,
-        "lincoln-memorial": 20,
-        "coker": 19,
-        "emory-henry": 19,
         "lenoir-rhyne": 15,
-        "newberry": 13,
+        "newberry": 14,
         "tusculum": 9
       },
-      "highlight": "mars-hill"
+      "highlight": "emory-henry"
     },
     "basis": {
-      "programme": "mars-hill",
-      "gf": 33,
-      "ga": 19,
-      "wins": 7,
-      "draws": 2,
-      "losses": 6
+      "programme": "emory-henry",
+      "gf": 21,
+      "ga": 4
     }
   },
   "wire": {
-    "line": "Neither Catawba nor Emory & Henry has lost all season, and both are in action on Saturday.",
+    "line": "Catawba have yet to lose and have conceded seven goals all season.",
     "basis": {
       "programme": "catawba",
-      "wins": 11,
+      "wins": 12,
       "draws": 2,
-      "losses": 0
+      "losses": 0,
+      "gf": 38,
+      "ga": 7
     },
-    "updated": "2026-10-24"
+    "updated": "2026-10-25"
   },
   "findings": [
     {
@@ -66,42 +65,40 @@
     },
     {
       "label": "observed",
-      "text": "Catawba's win at Lincoln Memorial on Wednesday was their eleventh of the season, against two draws and no defeats, with 35 scored and seven conceded.",
+      "text": "Emory & Henry's win at Wingate on Saturday was their seventh of the season, against two draws and no defeats.",
       "basis": {
-        "programme": "catawba",
-        "wins": 11,
+        "programme": "emory-henry",
+        "wins": 7,
         "draws": 2,
-        "losses": 0,
-        "gf": 35,
-        "ga": 7
+        "losses": 0
       }
     },
     {
       "label": "observed",
-      "text": "Tusculum's defeat at Mars Hill on Wednesday was their ninth of the season, against two wins and two draws.",
+      "text": "Anderson's win at Lincoln Memorial on Saturday was their ninth of the season, against four draws and two defeats.",
       "basis": {
-        "programme": "tusculum",
-        "wins": 2,
-        "draws": 2,
-        "losses": 9
+        "programme": "anderson",
+        "wins": 9,
+        "draws": 4,
+        "losses": 2
       }
     },
     {
       "label": "observed",
-      "text": "Coker's home win over Mount Olive on Thursday was their sixth of the season, against five defeats and no draws.",
+      "text": "Coker's draw at Mars Hill on Saturday was their first of the season, beside six wins and five defeats.",
       "basis": {
         "programme": "coker",
         "wins": 6,
-        "draws": 0,
+        "draws": 1,
         "losses": 5
       }
     },
     {
       "label": "observed",
-      "text": "Newberry's home defeat to Montevallo on Tuesday was their tenth of the season, against two wins and two draws.",
+      "text": "Newberry's win at Tusculum on Saturday was their third of the season, against two draws and ten defeats.",
       "basis": {
         "programme": "newberry",
-        "wins": 2,
+        "wins": 3,
         "draws": 2,
         "losses": 10
       }
@@ -113,14 +110,14 @@
       "programme": "catawba",
       "position": "MID",
       "class": "SO",
-      "line": "7 G · 2 A · 31 shots"
+      "line": "9 G · 2 A · 34 shots"
     },
     {
       "player": "Luis Munoz",
       "programme": "anderson",
       "position": "FWD",
       "class": "SR",
-      "line": "4 G · 9 A · 41 shots"
+      "line": "6 G · 9 A · 45 shots"
     },
     {
       "player": "Edward Saia",
@@ -132,16 +129,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-22 coker v mount-olive",
-      "line": "Coker have not drawn a match all season; Mount Olive have also lost to Mars Hill, Anderson and Wingate."
+      "fixture_ref": "2026-10-24 wingate v emory-henry",
+      "line": "Emory & Henry have yet to lose; Wingate have lost both conference matches since beating Tusculum."
     },
     "next_match": {
-      "fixture_ref": "2026-10-24 catawba v carson-newman",
-      "line": "Carson-Newman have won every match since losing at Emory & Henry; Catawba have yet to lose at all."
+      "fixture_ref": "2026-10-28 catawba v coker",
+      "line": "Catawba have dropped points only in their home draw with Emory & Henry, and a win keeps them top whatever happens elsewhere."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-24T11:46:33.423Z"
+    "validated_at": "2026-10-25T11:45:22.439Z"
   }
 }

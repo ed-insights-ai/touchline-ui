@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-10-24T11:43:36.622Z",
-  "data_collected_at": "2026-10-24T11:33:47+00:00",
+  "validated_at": "2026-10-25T11:42:30.795Z",
+  "data_collected_at": "2026-10-25T11:33:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -23,15 +23,15 @@
     },
     {
       "path": "findings[4].text",
-      "text": "Noah Nymark-Pedersen has made seventy-three saves for Upper Iowa and conceded thirty-three, a save percentage of .689.",
-      "unbacked": ["689"]
+      "text": "Noah Nymark-Pedersen has made seventy-nine saves for Upper Iowa and conceded thirty-five, a save percentage of .693.",
+      "unbacked": ["693"]
     }
   ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southwest Baptist have scored forty-two goals, more than either Drury or Lincoln at the top, but they have conceded thirty-two and lost six times; the leaders have built their place at the other end of the pitch.",
+      "text": "Southwest Baptist have scored forty-two goals, more than either Lincoln or Drury near the top, but they have conceded thirty-five and lost seven times; the leaders have built their place at the other end of the pitch.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -49,7 +49,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Whichever of Drury and Lincoln wins at Drury goes clear at the top of the table; a draw leaves them level.",
+      "text": "Lincoln have the top of the table settled with a match still to play, and have not lost all season.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Drury have conceded eleven goals and lost twice, at home to Oklahoma Christian in August and away at Missouri S&T in September.",
+      "text": "Drury have conceded fourteen goals and lost three times: at home to Oklahoma Christian in August, away at Missouri S&T in September, and at home to Lincoln on Saturday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has eleven of Lincoln's twenty-nine goals, from fifty-five shots.",
+      "text": "Jonathan Nemorden, a freshman, has eleven of Lincoln's thirty-two goals, from fifty-five shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Truman have scored twenty-three goals and conceded twenty-four, and Jacob Panagos has thirteen of the twenty-three from forty-six shots.",
+      "text": "Truman have scored twenty-five goals and conceded twenty-seven, and Jacob Panagos has fourteen of the twenty-five from forty-nine shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -94,7 +94,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Noah Nymark-Pedersen has made seventy-three saves for Upper Iowa and conceded thirty-three, a save percentage of .689.",
+      "text": "Noah Nymark-Pedersen has made seventy-nine saves for Upper Iowa and conceded thirty-five, a save percentage of .693.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Panagos — 13 G · 1 A · 46 shots",
+      "text": "Jacob Panagos — 14 G · 1 A · 49 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Leo Cann — 10 G · 3 A · 72 shots",
+      "text": "Fredrik Thulin — 11 G · 5 A · 44 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-21 lincoln v missouri-s-t",
+      "text": "2026-10-24 drury v lincoln",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 drury v lincoln",
+      "text": "2026-10-25 missouri-s-t v missouri-st-louis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:41:38.925Z",
-    "generate_ms": 117696,
+    "started_at": "2026-10-25T11:41:20.307Z",
+    "generate_ms": 70486,
     "validate_ms": 1,
-    "wall_ms": 117697,
+    "wall_ms": 70488,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-10-24T11:44:41.434Z",
-  "data_collected_at": "2026-10-24T11:35:33+00:00",
+  "validated_at": "2026-10-25T11:43:32.495Z",
+  "data_collected_at": "2026-10-25T11:35:26+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Every programme has now lost at least once; Southern New Hampshire were the last, beaten at Adelphi.",
+      "text": "Southern New Hampshire can no longer be caught at the top of the conference table.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Saint Anselm have won eight matches and lost six, and remain the only programme yet to draw a match.",
+      "text": "Saint Anselm have won eight matches and lost seven, and remain the only programme yet to draw a match.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Javier Solá Martínez has kept six clean sheets in goal for American International.",
+      "text": "Javier Solá Martínez has kept seven clean sheets in goal for American International.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Guillermo Rios — 15 G · 36 shots",
+      "text": "Guillermo Rios — 15 G · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Inigo Burusco — 12 G · 5 A · 57 shots",
+      "text": "Inigo Burusco — 12 G · 5 A · 61 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Cody Holbert — 11 G · 4 A · 68 shots",
+      "text": "Cody Holbert — 11 G · 4 A · 73 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-21 saint-anselm v franklin-pierce",
+      "text": "2026-10-24 american-international v saint-anselm",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-24 american-international v saint-anselm",
+      "text": "2026-10-26 pace v st-thomas-aquinas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-24T11:43:36.794Z",
-    "generate_ms": 64639,
+    "started_at": "2026-10-25T11:42:38.887Z",
+    "generate_ms": 53607,
     "validate_ms": 1,
-    "wall_ms": 64640,
+    "wall_ms": 53608,
     "concurrency": 4
   }
 }
