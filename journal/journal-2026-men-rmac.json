@@ -3,35 +3,34 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-10-25T11:45:00+00:00",
-  "data_collected_at": "2026-10-25T11:36:53+00:00",
-  "headline": "Regis keep pace with unbeaten CSU Pueblo",
-  "dek": "Regis won at Adams State for their ninth win of the season, and have now conceded ten goals, as many as CSU Pueblo, the one side above them in the table. Regis travel to Fort Lewis next, and CSU Pueblo to UCCS.",
+  "generated_at": "2026-10-26T11:45:00+00:00",
+  "data_collected_at": "2026-10-26T11:36:35+00:00",
+  "headline": "CSU Pueblo and Regis open a gap at the top",
+  "dek": "Regis won at Fort Lewis, third in the table, for their tenth win of the season, and have not lost since UCCS beat them early in October. CSU Pueblo, the one side above them, remain unbeaten and go to UCCS next.",
   "lede_basis": {
     "programme": "regis",
-    "wins": 9,
+    "wins": 10,
     "draws": 3,
-    "losses": 3,
-    "gf": 29,
-    "ga": 10
+    "losses": 3
   },
-  "lede_updated": "2026-10-24",
+  "lede_updated": "2026-10-26",
+  "displaced_by": "Regis won at Fort Lewis; the standing dek's ninth win, level goals conceded with CSU Pueblo and trip to Fort Lewis are no longer true.",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 28; scoring is not what separates the top of the table.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "south-dakota-mines": 41,
         "csu-pueblo": 39,
-        "south-dakota-mines": 39,
-        "fort-lewis": 35,
-        "uccs": 33,
-        "regis": 29,
-        "westminster": 28,
-        "colorado-mesa": 23,
-        "msu-denver": 23,
-        "colorado-christian": 22,
-        "colorado-school-of-mines": 14,
+        "uccs": 37,
+        "fort-lewis": 36,
+        "regis": 32,
+        "westminster": 29,
+        "colorado-christian": 24,
+        "colorado-mesa": 24,
+        "msu-denver": 24,
+        "colorado-school-of-mines": 15,
         "adams-state": 8
       },
       "highlight": "south-dakota-mines"
@@ -41,7 +40,7 @@
       "metric": "gf",
       "programme": "south-dakota-mines",
       "of": ["colorado-school-of-mines", "adams-state"],
-      "gf": 39,
+      "gf": 41,
       "ga": 28
     }
   },
@@ -67,21 +66,21 @@
     },
     {
       "label": "derived",
-      "text": "Colorado School of Mines have yet to win this season, with three draws and thirteen defeats, the latest at CSU Pueblo.",
+      "text": "Colorado School of Mines have yet to win this season, with three draws and fourteen defeats, the latest at UCCS.",
       "basis": {
         "programme": "colorado-school-of-mines",
         "wins": 0,
         "draws": 3,
-        "losses": 13
+        "losses": 14
       }
     },
     {
       "label": "derived",
-      "text": "Adams State have scored eight goals this season and conceded 46.",
+      "text": "Adams State have scored eight goals this season and conceded 48.",
       "basis": {
         "programme": "adams-state",
         "gf": 8,
-        "ga": 46
+        "ga": 48
       }
     },
     {
@@ -98,13 +97,13 @@
     },
     {
       "label": "observed",
-      "text": "UCCS's Hugo Sjöberg has made 61 saves this season and conceded 14 goals.",
+      "text": "UCCS's Hugo Sjöberg has made 63 saves this season and conceded 15 goals.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
-        "saves": 61,
-        "goals_against": 14
+        "saves": 63,
+        "goals_against": 15
       }
     }
   ],
@@ -114,35 +113,35 @@
       "programme": "colorado-mesa",
       "position": "FWD",
       "class": "JR",
-      "line": "8 G · 7 A · 45 shots"
+      "line": "9 G · 7 A · 48 shots"
     },
     {
       "player": "Nickolas North",
       "programme": "south-dakota-mines",
       "position": "FWD",
       "class": "JR",
-      "line": "9 G · 6 A · 40 shots"
+      "line": "9 G · 6 A · 44 shots"
     },
     {
       "player": "Lucas Miranda",
       "programme": "south-dakota-mines",
       "position": "FWD",
       "class": "FR",
-      "line": "10 G · 1 A · 25 shots"
+      "line": "10 G · 1 A · 28 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-23 westminster v msu-denver",
-      "line": "Since conference play opened, Westminster have lost only to CSU Pueblo, Regis and Fort Lewis; MSU Denver have yet to draw in that time."
+      "fixture_ref": "2026-10-25 fort-lewis v regis",
+      "line": "Since conference play opened, Fort Lewis have lost only to CSU Pueblo, UCCS and Regis; Regis have not lost since UCCS beat them."
     },
     "next_match": {
-      "fixture_ref": "2026-10-25 fort-lewis v regis",
-      "line": "Since conference play opened, Fort Lewis have lost only to UCCS and CSU Pueblo; Regis have not lost since UCCS beat them."
+      "fixture_ref": "2026-10-28 uccs v csu-pueblo",
+      "line": "CSU Pueblo have yet to lose this season; UCCS are the last side to have beaten Regis."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-25T11:44:02.860Z"
+    "validated_at": "2026-10-26T11:43:26.377Z"
   }
 }

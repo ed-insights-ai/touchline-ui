@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-10-25T11:41:01.942Z",
-  "data_collected_at": "2026-10-25T11:31:04+00:00",
+  "validated_at": "2026-10-26T11:41:59.644Z",
+  "data_collected_at": "2026-10-26T11:31:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Cal State LA have scored 27 goals, well short of the top of this chart, and have conceded four in fifteen matches without a defeat: the leaders' record is built on what they keep out, not what they put in.",
+      "text": "Cal State LA have scored 29 goals, well short of the top of this chart, and have conceded four in sixteen matches without a defeat: the leaders' record is built on what they keep out, not what they put in.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Cal State East Bay have conceded 47 goals in sixteen matches, more than any other programme in the conference.",
+      "text": "Cal State East Bay have conceded 50 goals in seventeen matches, more than any other programme in the conference.",
       "checker": "team_goals+team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -100,7 +100,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Cisco Avila — 11 G · 1 A · 39 shots",
+      "text": "Marvin Gamez — 11 G · 2 A · 52 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,7 +109,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Zion Vaughn — 10 G · 2 A · 33 shots",
+      "text": "Cisco Avila — 11 G · 1 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +118,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Philip Wolny — 5 G · 8 A · 24 shots",
+      "text": "Philip Wolny — 5 G · 8 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +127,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 uc-merced v cal-state-san-marcos",
+      "text": "2026-10-25 cal-state-la v fresno-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,7 +136,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-25 cal-state-la v fresno-pacific",
+      "text": "2026-10-29 cal-state-dominguez-hills v cal-state-la",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -144,10 +144,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-25T11:40:09.511Z",
-    "generate_ms": 52427,
-    "validate_ms": 4,
-    "wall_ms": 52431,
+    "started_at": "2026-10-26T11:40:13.461Z",
+    "generate_ms": 106181,
+    "validate_ms": 2,
+    "wall_ms": 106183,
     "concurrency": 4
   }
 }

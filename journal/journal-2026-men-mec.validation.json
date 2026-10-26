@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-10-25T11:43:12.180Z",
-  "data_collected_at": "2026-10-25T11:35:08+00:00",
+  "validated_at": "2026-10-26T11:43:00.001Z",
+  "data_collected_at": "2026-10-26T11:34:33+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and fifteen different players have shared their forty-eight; the scoring is spread, not carried.",
+      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Charleston beat Concord, Concord beat Davis & Elkins, and Davis & Elkins beat Charleston: the top of the table is a circle.",
+      "text": "Charleston go into the final round with only Concord able to draw level and no side able to pass them.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Concord have conceded seven goals in fifteen matches and won eleven of them.",
+      "text": "Concord have conceded nine goals in sixteen matches and won eleven of them.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "West Virginia Wesleyan are without a win after fourteen matches, with three draws and eleven defeats, and have conceded forty-seven goals.",
+      "text": "West Virginia Wesleyan's first win came in their fifteenth match, at Shawnee State, after three draws and eleven defeats.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Frank Stare has seven goals and five assists for Frostburg State from thirty-two shots.",
+      "text": "Martin Echarren has ten goals and three assists for Charleston from thirty-two shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Hugo Fauli has eight assists and four goals for Davis & Elkins.",
+      "text": "Frank Stare has seven goals and five assists for Frostburg State from thirty-two shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Martin Echarren — 9 G · 3 A · 31 shots",
+      "text": "Martin Echarren — 10 G · 3 A · 32 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Hugo Fauli — 4 G · 8 A · 34 shots",
+      "text": "Hugo Fauli — 4 G · 8 A · 36 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 salem v virginia-state",
+      "text": "2026-10-25 concord v charleston",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-25 concord v charleston",
+      "text": "2026-10-28 frostburg-state v charleston",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-25T11:42:30.968Z",
-    "generate_ms": 41211,
+    "started_at": "2026-10-26T11:41:59.363Z",
+    "generate_ms": 60637,
     "validate_ms": 1,
-    "wall_ms": 41212,
+    "wall_ms": 60638,
     "concurrency": 4
   }
 }

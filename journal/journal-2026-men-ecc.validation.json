@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-10-25T11:41:48.626Z",
-  "data_collected_at": "2026-10-25T11:31:19+00:00",
+  "validated_at": "2026-10-26T11:40:53.868Z",
+  "data_collected_at": "2026-10-26T11:31:30+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored twelve of Mercy's 36 goals from 45 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 36 goals from 47 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 12 G · 7 A · 45 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 13 G · 7 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-25T11:40:09.513Z",
-    "generate_ms": 99110,
+    "started_at": "2026-10-26T11:40:13.469Z",
+    "generate_ms": 40397,
     "validate_ms": 2,
-    "wall_ms": 99112,
+    "wall_ms": 40399,
     "concurrency": 4
   }
 }

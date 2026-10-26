@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-10-25T11:45:41.667Z",
-  "data_collected_at": "2026-10-25T11:39:40+00:00",
+  "validated_at": "2026-10-26T11:43:13.733Z",
+  "data_collected_at": "2026-10-26T11:37:26+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,12 +20,12 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack, and Saint Leo, close behind Florida Southern in goals, sit near the foot of it.",
+      "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is saint-leo at 32"
+      "note": "held against every other programme; the nearest is palm-beach-atlantic at 27"
     },
     {
       "path": "pattern.chart",
@@ -48,7 +48,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's home match against Trinity.",
+      "text": "Five matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's and Saint Leo's home matches against Trinity.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-25T11:44:20.201Z",
-    "generate_ms": 81464,
+    "started_at": "2026-10-26T11:42:30.365Z",
+    "generate_ms": 43367,
     "validate_ms": 1,
-    "wall_ms": 81465,
+    "wall_ms": 43369,
     "concurrency": 4
   }
 }
