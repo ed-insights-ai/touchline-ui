@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "validated_at": "2026-10-25T11:44:58.941Z",
-  "data_collected_at": "2026-10-25T11:35:43+00:00",
+  "validated_at": "2026-10-27T11:42:41.414Z",
+  "data_collected_at": "2026-10-27T11:35:33+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -44,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Point Loma have lost consecutive home matches, to Vanguard and then Concordia Irvine, and no longer lead the table.",
+      "text": "Hawai'i Pacific have drawn level on points with Vanguard at the top of the table.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jessup have conceded forty-five goals, more than any other programme in the conference.",
+      "text": "Jessup have conceded forty-eight goals, more than any other programme in the conference.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 chaminade v jessup",
+      "text": "2026-10-26 hawaii-pacific v jessup",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-26 hawaii-hilo v dominican-of-california",
+      "text": "2026-10-28 vanguard v biola",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-25T11:43:12.354Z",
-    "generate_ms": 106585,
+    "started_at": "2026-10-27T11:41:44.183Z",
+    "generate_ms": 57229,
     "validate_ms": 1,
-    "wall_ms": 106586,
+    "wall_ms": 57230,
     "concurrency": 4
   }
 }

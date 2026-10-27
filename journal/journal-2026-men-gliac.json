@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-10-26T11:45:00+00:00",
-  "data_collected_at": "2026-10-26T11:32:38+00:00",
+  "generated_at": "2026-10-27T11:45:00+00:00",
+  "data_collected_at": "2026-10-27T11:33:28+00:00",
   "headline": "Saginaw Valley State win at Northern Michigan to finish top",
   "dek": "The one defeat of Saginaw Valley State's season came at home to Northern Michigan in September; in their final conference match they won the return. They have conceded eleven goals in all, and Northern Michigan, top of the table on Saturday, end behind them.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 11
   },
   "lede_updated": "2026-10-26",
-  "displaced_by": "Saginaw Valley State won at Northern Michigan and retook the top of the table",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Davenport and St. Cloud State together.",
@@ -132,7 +131,7 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-10-25 northern-michigan v saginaw-valley-state",
-      "line": "Saginaw Valley State's only defeat of the season was at home to Northern Michigan in September."
+      "line": "It ended the hosts' winning run: they had beaten St. Cloud State, Roosevelt and Davenport in turn."
     },
     "next_match": {
       "fixture_ref": "2026-10-31 wisconsin-parkside v roosevelt",
@@ -141,6 +140,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-26T11:42:27.671Z"
+    "validated_at": "2026-10-27T11:42:06.643Z"
   }
 }

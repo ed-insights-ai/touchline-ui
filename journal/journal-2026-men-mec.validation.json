@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-10-26T11:43:00.001Z",
-  "data_collected_at": "2026-10-26T11:34:33+00:00",
+  "validated_at": "2026-10-27T11:41:49.735Z",
+  "data_collected_at": "2026-10-27T11:35:00+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Martin Echarren has ten goals and three assists for Charleston from thirty-two shots.",
+      "text": "Martin Echarren has nine goals and three assists for Charleston from thirty-one shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Martin Echarren — 10 G · 3 A · 32 shots",
+      "text": "Martin Echarren — 9 G · 3 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-26T11:41:59.363Z",
-    "generate_ms": 60637,
+    "started_at": "2026-10-27T11:41:23.164Z",
+    "generate_ms": 26569,
     "validate_ms": 1,
-    "wall_ms": 60638,
+    "wall_ms": 26570,
     "concurrency": 4
   }
 }

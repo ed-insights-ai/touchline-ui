@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-10-26T11:43:49.355Z",
+  "validated_at": "2026-10-27T11:44:10.501Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "West Virginia Wesleyan win for the first time this season West Virginia Wesleyan won at Shawnee State in the fifteenth match of their season, and it is the first they have won. Before it they had drawn three matches and lost eleven.",
+      "text": "Hawai'i Hilo have as many wins as defeats again Hawai'i Hilo beat Dominican (CA) at home and now have six wins, three draws and six defeats. They went into the match with more defeats than wins, and Dominican (CA), level before it, now have more.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-26T11:43:29.704Z",
-    "generate_ms": 19649,
+    "started_at": "2026-10-27T11:43:27.341Z",
+    "generate_ms": 43158,
     "validate_ms": 1,
-    "wall_ms": 19651
+    "wall_ms": 43159
   }
 }

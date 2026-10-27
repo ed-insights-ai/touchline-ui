@@ -3,28 +3,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-10-26T11:45:00+00:00",
-  "data_collected_at": "2026-10-26T11:35:29+00:00",
-  "headline": "Flagler stand a match from an unbeaten conference season",
-  "dek": "Flagler won at Lander on Saturday and go into their last conference match without a defeat; Georgia Southwestern, still without a conference win, visit on Monday. Their only loss all season came outside the conference, at Florida Southern in September.",
+  "generated_at": "2026-10-27T11:45:00+00:00",
+  "data_collected_at": "2026-10-27T11:35:54+00:00",
+  "headline": "Flagler complete an unbeaten conference season",
+  "dek": "Flagler beat Georgia Southwestern on Monday to close their conference schedule without a defeat, North Georgia the only side to take a point from them. Their one loss all season came outside the conference, at Florida Southern in September.",
   "lede_basis": {
     "programme": "flagler",
-    "wins": 11,
+    "wins": 12,
     "draws": 4,
     "losses": 1
   },
-  "lede_updated": "2026-10-25",
+  "lede_updated": "2026-10-27",
+  "displaced_by": "Flagler beat Georgia Southwestern to finish the conference schedule unbeaten; the standing headline still had them a match short of it.",
   "pattern": {
     "label": "derived",
-    "text": "Flagler's 38 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
+    "text": "Flagler's 39 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "flagler": 39,
         "north-georgia": 39,
-        "flagler": 38,
-        "clayton-state": 31,
+        "clayton-state": 32,
         "middle-georgia-state": 29,
-        "lander": 23,
+        "lander": 24,
         "georgia-southwestern": 18,
         "usc-aiken": 18
       },
@@ -35,20 +36,20 @@
       "metric": "gf",
       "programme": "flagler",
       "of": ["usc-aiken", "georgia-southwestern"],
-      "gf": 38,
+      "gf": 39,
       "ga": 19,
       "distinct_scorers_min": 12
     }
   },
   "wire": {
-    "line": "The top of the table is settled: no one left can catch Flagler, who have yet to lose to a conference side.",
+    "line": "Flagler went through the conference unbeaten, and North Georgia were the only side to take a point off them.",
     "basis": {
       "programme": "flagler",
-      "wins": 11,
+      "wins": 12,
       "draws": 4,
       "losses": 1
     },
-    "updated": "2026-10-24"
+    "updated": "2026-10-27"
   },
   "findings": [
     {
@@ -94,14 +95,14 @@
     },
     {
       "label": "derived",
-      "text": "Finn Weigelt has scored eleven of Flagler's 38 goals from 36 shots.",
+      "text": "Finn Weigelt has scored eleven of Flagler's 39 goals from 37 shots.",
       "basis": {
         "source": "stats",
         "player": "Finn Weigelt",
         "programme": "flagler",
         "goals": 11,
-        "shots": 36,
-        "gf": 38,
+        "shots": 37,
+        "gf": 39,
         "ga": 19
       }
     },
@@ -132,7 +133,7 @@
       "programme": "flagler",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 1 A · 36 shots"
+      "line": "11 G · 1 A · 37 shots"
     },
     {
       "player": "Isaac Calderon",
@@ -144,16 +145,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-24 lander v flagler",
-      "line": "Flagler have beaten Lander home and away, and have won every conference match since the September draw with North Georgia."
+      "fixture_ref": "2026-10-26 flagler v georgia-southwestern",
+      "line": "Georgia Southwestern go through the conference schedule without a win, and have lost both matches since the draw at Clayton State."
     },
     "next_match": {
-      "fixture_ref": "2026-10-26 lander v clayton-state",
-      "line": "The meeting at Clayton State earlier this month was drawn, and Lander have lost every match since."
+      "fixture_ref": "2026-10-31 usc-aiken v lander",
+      "line": "USC Aiken have beaten Lander home and away this season, and the winner here meets Flagler."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-26T11:42:30.193Z"
+    "validated_at": "2026-10-27T11:42:44.639Z"
   }
 }

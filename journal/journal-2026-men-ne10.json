@@ -3,26 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-10-25T11:41:00+00:00",
-  "data_collected_at": "2026-10-25T11:35:26+00:00",
-  "headline": "Southern New Hampshire secure first place in the table",
-  "dek": "Southern New Hampshire's goalless draw with Franklin Pierce took them to twenty points with their nine conference matches played, and the one match left between members, Franklin Pierce against Assumption, cannot carry either past them. American International beat Saint Anselm to move second on seventeen, a point ahead of Bentley.",
+  "generated_at": "2026-10-27T11:42:00+00:00",
+  "data_collected_at": "2026-10-27T11:35:16+00:00",
+  "headline": "Southern New Hampshire lead with their conference schedule complete",
+  "dek": "Southern New Hampshire have played all nine of their conference matches and stand on twenty points, three clear of American International. Two matches between members remain: Franklin Pierce against Assumption, and American International at home to Adelphi.",
   "lede_basis": {
     "programme": "southern-new-hampshire",
-    "southern_new_hampshire_conference_points": 20,
     "southern_new_hampshire_conference_played": 9,
-    "conference_matches_remaining_between_members": 1,
-    "assumption_conference_points": 14,
-    "assumption_max_conference_points": 17,
-    "franklin_pierce_conference_points": 12,
-    "franklin_pierce_max_conference_points": 15,
-    "american_international_table_position": 2,
+    "southern_new_hampshire_conference_points": 20,
     "american_international_conference_points": 17,
-    "bentley_conference_points": 16,
-    "american_international_points_ahead_of_bentley": 1
+    "southern_new_hampshire_points_clear_of_american_international": 3,
+    "conference_matches_remaining_between_members": 2
   },
-  "lede_updated": "2026-10-25",
-  "displaced_by": "Southern New Hampshire can no longer be caught, and American International's win over Saint Anselm ends the run the standing headline was about",
+  "lede_updated": "2026-10-27",
+  "displaced_by": "The standing dek named one match left between members; today's list carries two, with American International against Adelphi as well, so the lead can no longer be called secure on the data alone",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's fifty-two goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
@@ -49,14 +43,13 @@
     }
   },
   "wire": {
-    "line": "Southern New Hampshire can no longer be caught at the top of the conference table.",
+    "line": "Southern New Hampshire have scored fifty-two goals and conceded ten this season.",
     "basis": {
       "programme": "southern-new-hampshire",
-      "wins": 11,
-      "draws": 4,
-      "losses": 1
+      "gf": 52,
+      "ga": 10
     },
-    "updated": "2026-10-25"
+    "updated": "2026-10-27"
   },
   "findings": [
     {
@@ -158,16 +151,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-24 american-international v saint-anselm",
-      "line": "American International remain unbeaten at home this season, and the win ends Saint Anselm's winning run."
+      "fixture_ref": "2026-10-26 pace v st-thomas-aquinas",
+      "line": "Pace have lost every match they have played since beating American International."
     },
     "next_match": {
-      "fixture_ref": "2026-10-26 pace v st-thomas-aquinas",
-      "line": "Pace have lost every match since beating American International."
+      "fixture_ref": "2026-10-27 adelphi v st-thomas-aquinas",
+      "line": "Adelphi are the only side to have beaten Southern New Hampshire this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-25T11:43:32.495Z"
+    "validated_at": "2026-10-27T11:43:07.071Z"
   }
 }

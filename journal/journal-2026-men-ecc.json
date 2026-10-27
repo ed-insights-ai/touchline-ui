@@ -3,28 +3,28 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-10-26T11:40:00+00:00",
-  "data_collected_at": "2026-10-26T11:31:30+00:00",
+  "generated_at": "2026-10-27T11:40:00+00:00",
+  "data_collected_at": "2026-10-27T11:31:19+00:00",
   "headline": "St. Thomas Aquinas pull clear as the last unbeaten side",
   "dek": "St. Thomas Aquinas have now met every other member and lost to none of them, and Daemen were the last to try. Molloy's win over Mercy pulls the two level on points behind D'Youville, while District of Columbia, winless in conference play before they beat Staten Island, have not dropped a point since.",
   "lede_basis": {
     "programme": "st-thomas-aquinas",
-    "wins": 7,
+    "wins": 8,
     "draws": 4,
     "losses": 4
   },
   "lede_updated": "2026-10-25",
   "pattern": {
     "label": "derived",
-    "text": "Goals have not ordered the table: Mercy and Queens stand well clear of every other programme on the chart, while the leaders, St. Thomas Aquinas, sit in the middle of it.",
+    "text": "Goals have not ordered the table: Mercy and Queens stand well clear of every other programme on the chart, while the leaders, St. Thomas Aquinas, have scored no more than District of Columbia.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "mercy": 36,
         "queens": 35,
         "district-of-columbia": 25,
+        "st-thomas-aquinas": 25,
         "d-youville": 23,
-        "st-thomas-aquinas": 23,
         "staten-island": 22,
         "molloy": 21,
         "roberts-wesleyan": 20,
@@ -171,16 +171,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-24 d-youville v queens",
-      "line": "Neither side had scored in its previous match either."
+      "fixture_ref": "2026-10-26 pace v st-thomas-aquinas",
+      "line": "St. Thomas Aquinas have won every match since their defeat at Millersville; Pace had already lost at home to Mercy."
     },
     "next_match": {
-      "fixture_ref": "2026-10-26 pace v st-thomas-aquinas",
-      "line": "St. Thomas Aquinas have not lost since their trip to Millersville; Pace have already lost at home to Mercy."
+      "fixture_ref": "2026-10-27 adelphi v st-thomas-aquinas",
+      "line": "Adelphi's only defeat by an ECC side came at Queens; they drew with Mercy and Molloy."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-26T11:40:53.868Z"
+    "validated_at": "2026-10-27T11:41:07.563Z"
   }
 }

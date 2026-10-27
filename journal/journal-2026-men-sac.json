@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-25T11:45:00+00:00",
-  "data_collected_at": "2026-10-25T11:37:05+00:00",
+  "generated_at": "2026-10-27T11:45:00+00:00",
+  "data_collected_at": "2026-10-27T11:36:58+00:00",
   "headline": "Catawba carry the lead into the final round",
   "dek": "Catawba beat Carson-Newman and Emory & Henry won at Wingate on Saturday, so the two points between them stand going into the last round of conference matches. Neither side has lost all season; on Wednesday Catawba are at home to Coker and Emory & Henry to Tusculum.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "matches_in_hand": 0
   },
   "lede_updated": "2026-10-25",
-  "displaced_by": "Saturday's matches have been played: both leaders won, so the standing dek's 'both are out on Saturday' is past and the race now goes to the last round.",
   "pattern": {
     "label": "observed",
     "text": "Emory & Henry have scored 21 and conceded four: the side chasing Catawba has got there by keeping goals out, not by scoring them.",
@@ -139,6 +138,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-25T11:45:22.439Z"
+    "validated_at": "2026-10-27T11:43:11.703Z"
   }
 }

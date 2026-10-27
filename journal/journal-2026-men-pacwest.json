@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-10-25T11:45:00+00:00",
-  "data_collected_at": "2026-10-25T11:35:43+00:00",
+  "generated_at": "2026-10-27T11:45:00+00:00",
+  "data_collected_at": "2026-10-27T11:35:33+00:00",
   "headline": "Vanguard lead the conference with a losing record",
   "dek": "Vanguard top the conference table though they have lost seven matches across the season and won six. Westmont, whose only conference defeat came at Vanguard on the day conference play opened, have a match in hand on them.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 7
   },
   "lede_updated": "2026-10-25",
-  "displaced_by": "The standing dek had Point Loma hosting Concordia Irvine next. That match has been played, so the dek was no longer true. The headline still holds.",
   "pattern": {
     "label": "derived",
     "text": "Kyle Denn has scored thirteen of Biola's twenty-five goals, more than half of everything his side has scored.",
@@ -22,14 +21,14 @@
       "kind": "goals-for-by-team",
       "values": {
         "westmont": 32,
-        "dominican-of-california": 30,
+        "dominican-of-california": 31,
+        "hawaii-pacific": 31,
         "concordia-irvine": 29,
         "point-loma": 29,
-        "hawaii-pacific": 28,
         "vanguard": 28,
         "biola": 25,
-        "hawaii-hilo": 15,
-        "jessup": 14,
+        "hawaii-hilo": 17,
+        "jessup": 15,
         "chaminade": 7
       },
       "highlight": "biola"
@@ -43,14 +42,14 @@
     }
   },
   "wire": {
-    "line": "Point Loma have lost consecutive home matches, to Vanguard and then Concordia Irvine, and no longer lead the table.",
+    "line": "Hawai'i Pacific have drawn level on points with Vanguard at the top of the table.",
     "basis": {
-      "programme": "point-loma",
-      "wins": 8,
+      "programme": "hawaii-pacific",
+      "wins": 7,
       "draws": 3,
       "losses": 5
     },
-    "updated": "2026-10-25"
+    "updated": "2026-10-27"
   },
   "findings": [
     {
@@ -84,10 +83,10 @@
     },
     {
       "label": "derived",
-      "text": "Jessup have conceded forty-five goals, more than any other programme in the conference.",
+      "text": "Jessup have conceded forty-eight goals, more than any other programme in the conference.",
       "basis": {
         "programme": "jessup",
-        "ga": 45,
+        "ga": 48,
         "comparative": "greater_than_each",
         "metric": "ga",
         "of": [
@@ -153,16 +152,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-24 chaminade v jessup",
-      "line": "Jessup's first point of conference play; Chaminade are still the only side in the conference without a win all season."
+      "fixture_ref": "2026-10-26 hawaii-pacific v jessup",
+      "line": "Hawai'i Pacific have not lost since Westmont won on their ground; Jessup are still without a conference win."
     },
     "next_match": {
-      "fixture_ref": "2026-10-26 hawaii-hilo v dominican-of-california",
-      "line": "Dominican (Calif.) stay on the islands after losing at Hawai'i Pacific, where Hawai'i Hilo also lost."
+      "fixture_ref": "2026-10-28 vanguard v biola",
+      "line": "Biola have lost back-to-back home matches; a Vanguard win would take them clear of Hawai'i Pacific at the top."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-25T11:44:58.941Z"
+    "validated_at": "2026-10-27T11:42:41.414Z"
   }
 }

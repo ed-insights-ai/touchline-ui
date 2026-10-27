@@ -2,22 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-10-26T11:52:00+00:00",
-  "data_collected_at": "2026-10-26T11:35:29+00:00",
-  "headline": "West Virginia Wesleyan win for the first time this season",
-  "dek": "West Virginia Wesleyan won at Shawnee State in the fifteenth match of their season, and it is the first they have won. Before it they had drawn three matches and lost eleven.",
+  "generated_at": "2026-10-27T11:52:00+00:00",
+  "data_collected_at": "2026-10-27T11:33:48+00:00",
+  "headline": "Hawai'i Hilo have as many wins as defeats again",
+  "dek": "Hawai'i Hilo beat Dominican (CA) at home and now have six wins, three draws and six defeats. They went into the match with more defeats than wins, and Dominican (CA), level before it, now have more.",
   "basis": {
-    "programme": "west-virginia-wesleyan",
-    "wins": 1,
+    "programme": "hawaii-hilo",
+    "wins": 6,
     "draws": 3,
-    "losses": 11,
-    "matches_played": 15
+    "losses": 6
   },
-  "fixture_ref": "2026-10-25 shawnee-state v west-virginia-wesleyan",
-  "updated": "2026-10-26",
-  "displaced_by": "results night: West Virginia Wesleyan's first win of the season outranks the standing unbeaten line",
+  "fixture_ref": "2026-10-26 hawaii-hilo v dominican-of-california",
+  "updated": "2026-10-27",
+  "displaced_by": "results night: Hawai'i Hilo's win took them from a losing record to level and put Dominican (CA) below level; the other results' meanings (Hawai'i Pacific level at the top, Flagler's unbeaten conference season) are already printed on their cards",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-26T11:43:49.355Z"
+    "validated_at": "2026-10-27T11:44:10.501Z"
   }
 }

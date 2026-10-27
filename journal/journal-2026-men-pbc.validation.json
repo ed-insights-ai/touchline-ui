@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-10-26T11:42:30.193Z",
-  "data_collected_at": "2026-10-26T11:35:29+00:00",
+  "validated_at": "2026-10-27T11:42:44.639Z",
+  "data_collected_at": "2026-10-27T11:35:54+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Flagler's 38 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
+      "text": "Flagler's 39 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "The top of the table is settled: no one left can catch Flagler, who have yet to lose to a conference side.",
+      "text": "Flagler went through the conference unbeaten, and North Georgia were the only side to take a point off them.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Finn Weigelt has scored eleven of Flagler's 38 goals from 36 shots.",
+      "text": "Finn Weigelt has scored eleven of Flagler's 39 goals from 37 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Finn Weigelt — 11 G · 1 A · 36 shots",
+      "text": "Finn Weigelt — 11 G · 1 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 lander v flagler",
+      "text": "2026-10-26 flagler v georgia-southwestern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-26 lander v clayton-state",
+      "text": "2026-10-31 usc-aiken v lander",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-26T11:41:59.834Z",
-    "generate_ms": 30358,
+    "started_at": "2026-10-27T11:41:49.908Z",
+    "generate_ms": 54729,
     "validate_ms": 1,
-    "wall_ms": 30359,
+    "wall_ms": 54730,
     "concurrency": 4
   }
 }
