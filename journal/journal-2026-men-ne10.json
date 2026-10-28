@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-10-27T11:42:00+00:00",
-  "data_collected_at": "2026-10-27T11:35:16+00:00",
+  "generated_at": "2026-10-28T13:25:00+00:00",
+  "data_collected_at": "2026-10-28T13:17:55+00:00",
   "headline": "Southern New Hampshire lead with their conference schedule complete",
   "dek": "Southern New Hampshire have played all nine of their conference matches and stand on twenty points, three clear of American International. Two matches between members remain: Franklin Pierce against Assumption, and American International at home to Adelphi.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "conference_matches_remaining_between_members": 2
   },
   "lede_updated": "2026-10-27",
-  "displaced_by": "The standing dek named one match left between members; today's list carries two, with American International against Adelphi as well, so the lead can no longer be called secure on the data alone",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's fifty-two goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
@@ -28,7 +27,7 @@
         "assumption": 29,
         "franklin-pierce": 29,
         "bentley": 25,
-        "adelphi": 20,
+        "adelphi": 21,
         "saint-anselm": 20,
         "saint-michael-s": 18,
         "southern-connecticut": 18,
@@ -151,16 +150,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-26 pace v st-thomas-aquinas",
-      "line": "Pace have lost every match they have played since beating American International."
+      "fixture_ref": "2026-10-27 adelphi v st-thomas-aquinas",
+      "line": "Adelphi have lost both matches since handing Southern New Hampshire their only defeat."
     },
     "next_match": {
-      "fixture_ref": "2026-10-27 adelphi v st-thomas-aquinas",
-      "line": "Adelphi are the only side to have beaten Southern New Hampshire this season."
+      "fixture_ref": "2026-10-28 franklin-pierce v assumption",
+      "line": "Assumption arrive on consecutive wins; Franklin Pierce held Southern New Hampshire scoreless last time out."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-27T11:43:07.071Z"
+    "validated_at": "2026-10-28T14:21:06.604Z"
   }
 }

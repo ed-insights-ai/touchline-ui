@@ -3,26 +3,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-10-27T11:40:00+00:00",
-  "data_collected_at": "2026-10-27T11:33:48+00:00",
-  "headline": "Unbeaten Lincoln win at Drury and cannot be caught",
-  "dek": "Drury and Maryville have finished their conference matches level behind Lincoln, who host McKendree on Tuesday still without a defeat: eleven wins and four draws in all. Drury had not lost at home in conference play before Saturday.",
+  "generated_at": "2026-10-28T12:40:00+00:00",
+  "data_collected_at": "2026-10-28T12:32:51+00:00",
+  "headline": "Lincoln finish conference play without a defeat",
+  "dek": "Lincoln closed their conference schedule by beating McKendree on Tuesday and are still without a defeat, with twelve wins and four draws in all and eleven goals conceded. Drury and Maryville, level in second, have both lost to them.",
   "lede_basis": {
     "programme": "lincoln",
-    "wins": 11,
+    "wins": 12,
     "draws": 4,
-    "losses": 0
+    "losses": 0,
+    "gf": 36,
+    "ga": 11
   },
-  "lede_updated": "2026-10-25",
+  "lede_updated": "2026-10-28",
+  "displaced_by": "Lincoln beat McKendree to complete their conference schedule unbeaten; the standing dek's 'host McKendree on Tuesday' and eleven-win record are no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Southwest Baptist have scored forty-two goals, more than either Lincoln or Drury near the top, but they have conceded thirty-five and lost seven times; the leaders have built their place at the other end of the pitch.",
+    "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southwest-baptist": 42,
+        "southwest-baptist": 45,
         "maryville": 40,
-        "lincoln": 32,
+        "lincoln": 36,
         "drury": 31,
         "mckendree": 30,
         "missouri-s-t": 30,
@@ -30,8 +33,8 @@
         "truman": 25,
         "quincy": 23,
         "illinois-springfield": 21,
+        "rockhurst": 20,
         "lewis": 19,
-        "rockhurst": 19,
         "upper-iowa": 17,
         "missouri-st-louis": 16,
         "william-jewell": 13
@@ -43,22 +46,22 @@
       "metric": "gf",
       "programme": "southwest-baptist",
       "of": ["lincoln", "drury"],
-      "gf": 42,
-      "ga": 35,
-      "wins": 7,
+      "gf": 45,
+      "ga": 36,
+      "wins": 8,
       "draws": 2,
       "losses": 7
     }
   },
   "wire": {
-    "line": "Lincoln have the top of the table settled with a match still to play, and have not lost all season.",
+    "line": "Lincoln are the only programme in the conference still without a defeat this season.",
     "basis": {
       "programme": "lincoln",
-      "wins": 11,
+      "wins": 12,
       "draws": 4,
       "losses": 0
     },
-    "updated": "2026-10-25"
+    "updated": "2026-10-28"
   },
   "findings": [
     {
@@ -84,14 +87,14 @@
     },
     {
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has eleven of Lincoln's thirty-two goals, from fifty-five shots.",
+      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's thirty-six goals, from fifty-eight shots.",
       "basis": {
         "source": "stats",
         "player": "Jonathan Nemorden",
         "programme": "lincoln",
-        "goals": 11,
-        "shots": 55,
-        "gf": 32
+        "goals": 12,
+        "shots": 58,
+        "gf": 36
       }
     },
     {
@@ -133,7 +136,7 @@
       "programme": "lincoln",
       "position": "FWD",
       "class": "FR",
-      "line": "11 G · 2 A · 55 shots"
+      "line": "12 G · 2 A · 58 shots"
     },
     {
       "player": "Fredrik Thulin",
@@ -145,16 +148,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-25 missouri-s-t v missouri-st-louis",
-      "line": "The win takes Missouri-St. Louis level on points with Quincy; Missouri S&T have not won since beating McKendree earlier this month."
+      "fixture_ref": "2026-10-27 lincoln v mckendree",
+      "line": "Lincoln end their conference schedule without a defeat; McKendree had kept a clean sheet in every match since William Jewell scored against them earlier this month."
     },
     "next_match": {
-      "fixture_ref": "2026-10-27 lincoln v mckendree",
-      "line": "McKendree have not lost since Missouri S&T beat them earlier this month; Lincoln have dropped points only at Indianapolis in October."
+      "fixture_ref": "2026-10-31 drury v missouri-st-louis",
+      "line": "Drury won the September meeting away from home; Missouri-St. Louis come in off a win at Missouri S&T, Drury off their home defeat by Lincoln."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-27T11:41:22.991Z"
+    "validated_at": "2026-10-28T14:21:06.345Z"
   }
 }

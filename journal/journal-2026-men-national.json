@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-10-27T11:52:00+00:00",
-  "data_collected_at": "2026-10-27T11:33:48+00:00",
-  "headline": "Hawai'i Hilo have as many wins as defeats again",
-  "dek": "Hawai'i Hilo beat Dominican (CA) at home and now have six wins, three draws and six defeats. They went into the match with more defeats than wins, and Dominican (CA), level before it, now have more.",
+  "generated_at": "2026-10-28T13:30:00+00:00",
+  "data_collected_at": "2026-10-27T11:30:09+00:00",
+  "headline": "Lincoln go through the conference season unbeaten",
+  "dek": "Lincoln closed their conference schedule by beating McKendree. They have twelve wins and four draws this season, and the defeat column is still empty.",
   "basis": {
-    "programme": "hawaii-hilo",
-    "wins": 6,
-    "draws": 3,
-    "losses": 6
+    "programme": "lincoln",
+    "wins": 12,
+    "draws": 4,
+    "losses": 0
   },
-  "fixture_ref": "2026-10-26 hawaii-hilo v dominican-of-california",
-  "updated": "2026-10-27",
-  "displaced_by": "results night: Hawai'i Hilo's win took them from a losing record to level and put Dominican (CA) below level; the other results' meanings (Hawai'i Pacific level at the top, Flagler's unbeaten conference season) are already printed on their cards",
+  "fixture_ref": "2026-10-27 lincoln v mckendree",
+  "updated": "2026-10-28",
+  "displaced_by": "results night: Lincoln's win over McKendree completed an unbeaten conference schedule; Lake Erie's win over Tiffin was the other result that settled a title, and the G-MAC card already prints that no one can catch them",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-27T11:44:10.501Z"
+    "validated_at": "2026-10-28T14:21:48.246Z"
   }
 }

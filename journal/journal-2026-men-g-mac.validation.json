@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-10-25T11:42:23.813Z",
-  "data_collected_at": "2026-10-25T11:32:46+00:00",
+  "validated_at": "2026-10-28T14:21:10.233Z",
+  "data_collected_at": "2026-10-28T12:16:15+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's thirty-two are more than Northwood and Ohio Dominican have scored together.",
+      "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's 36 are more than Northwood and Ohio Dominican have scored together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lake Erie's last match is at home to Tiffin, one of the sides who can still overtake them.",
+      "text": "Lake Erie have won every conference match since their draw at Tiffin, and no one can now catch them.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Ohio Dominican have won one match all season, drawn five and lost ten.",
+      "text": "Ohio Dominican have won one match all season, drawn five and lost eleven.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Tom Woodward has scored eight goals for Ashland from fifty-nine shots.",
+      "text": "Tom Woodward has scored twelve goals for Ashland from 70 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Jersey Lopez has eleven assists for Kentucky Wesleyan.",
+      "text": "Jersey Lopez has twelve assists for Kentucky Wesleyan.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Tom Woodward — 8 G · 4 A · 59 shots",
+      "text": "Tom Woodward — 12 G · 4 A · 70 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jersey Lopez — 3 G · 11 A · 28 shots",
+      "text": "Jersey Lopez — 3 G · 12 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Veljko Radovanovic — 4 G · 6 A · 37 shots",
+      "text": "Carson Oberski — 6 G · 5 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 findlay v tiffin",
+      "text": "2026-10-27 lake-erie v tiffin",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-27 lake-erie v tiffin",
+      "text": "2026-10-31 thomas-more v findlay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-25T11:41:02.117Z",
-    "generate_ms": 81694,
+    "started_at": "2026-10-28T14:04:07.785Z",
+    "generate_ms": 107832,
     "validate_ms": 1,
-    "wall_ms": 81695,
+    "wall_ms": 107833,
     "concurrency": 4
   }
 }
