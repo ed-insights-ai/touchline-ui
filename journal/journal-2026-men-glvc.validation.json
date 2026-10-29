@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-10-28T14:21:06.345Z",
-  "data_collected_at": "2026-10-28T12:32:51+00:00",
+  "validated_at": "2026-10-29T15:21:07.584Z",
+  "data_collected_at": "2026-10-29T12:17:18+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -121,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Fredrik Thulin — 11 G · 5 A · 44 shots",
+      "text": "Fredrik Thulin — 11 G · 5 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-28T14:04:07.788Z",
-    "generate_ms": 103940,
+    "started_at": "2026-10-29T15:20:26.307Z",
+    "generate_ms": 41275,
     "validate_ms": 1,
-    "wall_ms": 103941,
+    "wall_ms": 41276,
     "concurrency": 4
   }
 }

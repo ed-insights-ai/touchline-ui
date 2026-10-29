@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-10-27T11:43:20.758Z",
-  "data_collected_at": "2026-10-27T11:37:29+00:00",
+  "validated_at": "2026-10-29T15:54:11.736Z",
+  "data_collected_at": "2026-10-29T14:20:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -25,7 +25,7 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is palm-beach-atlantic at 27"
+      "note": "held against every other programme; the nearest is eckerd at 34"
     },
     {
       "path": "pattern.chart",
@@ -39,7 +39,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Every side in the conference has now lost a conference match.",
+      "text": "Florida Tech have finished their schedule top of the table, and no side with a match left can reach them.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -48,7 +48,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Five matches have passed their date with no result; Palm Beach Atlantic are party to all of them but Eckerd's and Saint Leo's home matches against Trinity.",
+      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, and Eckerd's home match against Trinity in September, have all passed their date with no result.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -57,7 +57,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Kobi Thomas has scored seventeen of Palm Beach Atlantic's 27 goals this season, from 60 shots.",
+      "text": "Kobi Thomas has scored seventeen of Palm Beach Atlantic's 28 goals this season, from 61 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -93,7 +93,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kobi Thomas — 17 G · 4 A · 60 shots",
+      "text": "Kobi Thomas — 17 G · 4 A · 61 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 barry v florida-southern",
+      "text": "2026-10-28 florida-tech v florida-southern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-28 florida-tech v florida-southern",
+      "text": "2026-10-29 rollins v saint-leo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-27T11:42:44.811Z",
-    "generate_ms": 35946,
+    "started_at": "2026-10-29T15:21:05.034Z",
+    "generate_ms": 141749,
     "validate_ms": 2,
-    "wall_ms": 35948,
+    "wall_ms": 141751,
     "concurrency": 4
   }
 }

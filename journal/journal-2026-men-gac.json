@@ -3,29 +3,30 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-10-28T12:20:00Z",
-  "data_collected_at": "2026-10-28T12:16:43+00:00",
-  "headline": "Fort Hays State put first place beyond reach",
-  "dek": "Fort Hays State beat Harding to move to 31 points, more than any other side can still reach, and their only dropped points remain the draw at Rogers State. Harding, at the other end, have lost all ten of their conference matches.",
+  "generated_at": "2026-10-29T12:20:00Z",
+  "data_collected_at": "2026-10-29T12:16:38+00:00",
+  "headline": "Fort Hays State complete an unbeaten conference season",
+  "dek": "Fort Hays State beat Southern Nazarene to close their conference schedule with eleven wins and a draw from twelve matches for 34 points, the draw at Rogers State the only points they dropped. Harding, at the other end, have lost all ten of their conference matches with two still to play.",
   "lede_basis": {
-    "fhsu_conference_played": 11,
-    "fhsu_conference_won": 10,
+    "fhsu_conference_played": 12,
+    "fhsu_conference_won": 11,
     "fhsu_conference_drawn": 1,
     "fhsu_conference_lost": 0,
-    "fhsu_conference_points": 31,
-    "highest_points_reachable_by_another_side": 23,
+    "fhsu_conference_points": 34,
     "harding_conference_played": 10,
     "harding_conference_lost": 10,
-    "harding_conference_points": 0
+    "harding_conference_points": 0,
+    "harding_conference_remaining": 2
   },
-  "lede_updated": "2026-10-25",
+  "lede_updated": "2026-10-29",
+  "displaced_by": "Fort Hays State's win over Southern Nazarene completed their twelve-match conference schedule unbeaten, and the standing dek's 31 points is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Rogers State's 32 goals are more than Harding and Newman have managed between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fort-hays-state": 36,
+        "fort-hays-state": 40,
         "rogers-state": 32,
         "southern-nazarene": 25,
         "ouachita-baptist": 23,
@@ -110,7 +111,7 @@
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "8 G · 6 A · 27 shots"
+      "line": "9 G · 6 A · 29 shots"
     },
     {
       "player": "Carter Adams",
@@ -129,16 +130,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-24 northeastern-state v rogers-state",
-      "line": "Rogers State have now beaten Northeastern State away after losing to them at home."
+      "fixture_ref": "2026-10-28 fort-hays-state v southern-nazarene",
+      "line": "Fort Hays State have now beaten Southern Nazarene home and away without conceding."
     },
     "next_match": {
-      "fixture_ref": "2026-10-28 fort-hays-state v southern-nazarene",
-      "line": "Fort Hays State have already won at Southern Nazarene without conceding."
+      "fixture_ref": "2026-10-29 ouachita-baptist v northeastern-state",
+      "line": "Ouachita Baptist have already won at Northeastern State, and both sides come in off a defeat."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-28T14:04:34.013Z"
+    "validated_at": "2026-10-29T15:20:34.566Z"
   }
 }

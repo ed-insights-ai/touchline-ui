@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-10-28T14:21:48.246Z",
+  "validated_at": "2026-10-29T16:21:30.723Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Lincoln go through the conference season unbeaten Lincoln closed their conference schedule by beating McKendree. They have twelve wins and four draws this season, and the defeat column is still empty.",
-      "checker": "team_record",
+      "text": "Charleston have won more matches than any other programme Charleston won at Frostburg State and moved past Cal State LA, who had matched them in wins before the night. Cal State LA have yet to lose; Charleston have lost, and have still won more.",
+      "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is cal-state-la at 14"
     }
   ],
   "timing": {
-    "started_at": "2026-10-28T14:21:16.653Z",
-    "generate_ms": 31591,
-    "validate_ms": 1,
-    "wall_ms": 31592
+    "started_at": "2026-10-29T15:54:15.091Z",
+    "generate_ms": 87670,
+    "validate_ms": 4,
+    "wall_ms": 87674
   }
 }

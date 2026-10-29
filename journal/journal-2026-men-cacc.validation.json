@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-10-27T11:40:53.074Z",
-  "data_collected_at": "2026-10-27T11:30:09+00:00",
+  "validated_at": "2026-10-29T15:21:04.372Z",
+  "data_collected_at": "2026-10-29T11:33:19+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Goals have not decided the table: Bridgeport have scored 38 and conceded 35, in a season of six wins, three draws and seven defeats.",
+      "text": "Goals have not decided the table: Bridgeport have scored 41 and conceded 35, in a season of seven wins, three draws and seven defeats.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -36,9 +36,18 @@
       "dropped": false
     },
     {
+      "path": "wire",
+      "label": "observed",
+      "text": "Goldey-Beacom are still without a conference win, and Felician are still without a conference defeat.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Gijs van Eif has scored eight goals for Georgian Court and assisted eight more, from 60 shots.",
+      "text": "Gijs van Eif has scored nine goals for Georgian Court and assisted eight more, from 67 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Mathias Kristoffersen has kept eight shutouts for Felician and conceded ten goals all season.",
+      "text": "Mathias Kristoffersen has kept nine shutouts for Felician and conceded ten goals all season.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Goldey-Beacom have conceded 56 goals, more than any other programme in the conference, in a season of one win, three draws and thirteen defeats.",
+      "text": "Goldey-Beacom have conceded 58 goals, more than any other programme in the conference, in a season of one win, three draws and fourteen defeats.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Dane Bodziak has scored eight goals for Chestnut Hill from 16 shots.",
+      "text": "Dane Bodziak has scored eight goals for Chestnut Hill from 18 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Bruno Mestres has made 96 saves for Holy Family and conceded 21 goals.",
+      "text": "Bruno Mestres has made 97 saves for Holy Family and conceded 22 goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Gijs van Eif — 8 G · 8 A · 60 shots",
+      "text": "Gijs van Eif — 9 G · 8 A · 67 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Samuel Macy — 5 G · 3 A · 28 shots",
+      "text": "Samuel Macy — 5 G · 3 A · 32 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-25 felician v goldey-beacom",
+      "text": "2026-10-28 holy-family v chestnut-hill",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-27 wilmington v jefferson",
+      "text": "2026-10-31 holy-family v bridgeport",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-27T11:40:16.243Z",
-    "generate_ms": 36829,
+    "started_at": "2026-10-29T14:21:20.324Z",
+    "generate_ms": 173844,
     "validate_ms": 1,
-    "wall_ms": 36831,
+    "wall_ms": 173845,
     "concurrency": 4
   }
 }

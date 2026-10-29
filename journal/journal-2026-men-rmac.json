@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-10-27T11:45:00+00:00",
-  "data_collected_at": "2026-10-27T11:36:39+00:00",
-  "headline": "CSU Pueblo and Regis open a gap at the top",
-  "dek": "Regis won at Fort Lewis, third in the table, for their tenth win of the season, and have not lost since UCCS beat them early in October. CSU Pueblo, the one side above them, remain unbeaten and go to UCCS next.",
+  "generated_at": "2026-10-29T14:12:00+00:00",
+  "data_collected_at": "2026-10-29T14:04:08+00:00",
+  "headline": "Regis overtake unbeaten CSU Pueblo at the top",
+  "dek": "Regis won at Colorado School of Mines for their eleventh win of the season, while CSU Pueblo were held at UCCS. Regis have not lost since UCCS beat them early in October; CSU Pueblo have not lost at all.",
   "lede_basis": {
     "programme": "regis",
-    "wins": 10,
+    "wins": 11,
     "draws": 3,
     "losses": 3
   },
-  "lede_updated": "2026-10-26",
+  "lede_updated": "2026-10-29",
+  "displaced_by": "Regis now lead the table after CSU Pueblo's draw at UCCS; the standing dek named CSU Pueblo as the side above Regis and had them still to play UCCS.",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 28; scoring is not what separates the top of the table.",
@@ -22,14 +23,14 @@
       "values": {
         "south-dakota-mines": 41,
         "csu-pueblo": 39,
+        "fort-lewis": 38,
+        "regis": 37,
         "uccs": 37,
-        "fort-lewis": 36,
-        "regis": 32,
-        "westminster": 29,
+        "westminster": 32,
+        "colorado-mesa": 26,
+        "msu-denver": 25,
         "colorado-christian": 24,
-        "colorado-mesa": 24,
-        "msu-denver": 24,
-        "colorado-school-of-mines": 15,
+        "colorado-school-of-mines": 16,
         "adams-state": 8
       },
       "highlight": "south-dakota-mines"
@@ -44,14 +45,14 @@
     }
   },
   "wire": {
-    "line": "CSU Pueblo are the last unbeaten side in the conference after UCCS lost at Colorado Mesa.",
+    "line": "Regis have won every match since UCCS beat them and now lead an unbeaten CSU Pueblo.",
     "basis": {
       "programme": "csu-pueblo",
       "wins": 13,
-      "draws": 2,
+      "draws": 3,
       "losses": 0
     },
-    "updated": "2026-09-25"
+    "updated": "2026-10-29"
   },
   "findings": [
     {
@@ -65,43 +66,43 @@
     },
     {
       "label": "derived",
-      "text": "Colorado School of Mines have yet to win this season, with three draws and fourteen defeats, the latest at UCCS.",
+      "text": "Colorado School of Mines have yet to win this season, with three draws and fifteen defeats, the latest at home to Regis.",
       "basis": {
         "programme": "colorado-school-of-mines",
         "wins": 0,
         "draws": 3,
-        "losses": 14
+        "losses": 15
       }
     },
     {
       "label": "derived",
-      "text": "Adams State have scored eight goals this season and conceded 48.",
+      "text": "Adams State have scored eight goals this season and conceded 50.",
       "basis": {
         "programme": "adams-state",
         "gf": 8,
-        "ga": 48
+        "ga": 50
       }
     },
     {
       "label": "observed",
-      "text": "CSU Pueblo's Nick Cenek has eleven goals and four assists this season, from 53 shots.",
+      "text": "CSU Pueblo's Nick Cenek has eleven goals and four assists this season, from 57 shots.",
       "basis": {
         "source": "stats",
         "player": "Nick Cenek",
         "programme": "csu-pueblo",
         "goals": 11,
         "assists": 4,
-        "shots": 53
+        "shots": 57
       }
     },
     {
       "label": "observed",
-      "text": "UCCS's Hugo Sjöberg has made 63 saves this season and conceded 15 goals.",
+      "text": "UCCS's Hugo Sjöberg has made 66 saves this season and conceded fifteen goals.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
-        "saves": 63,
+        "saves": 66,
         "goals_against": 15
       }
     }
@@ -112,7 +113,7 @@
       "programme": "colorado-mesa",
       "position": "FWD",
       "class": "JR",
-      "line": "9 G · 7 A · 48 shots"
+      "line": "10 G · 8 A · 50 shots"
     },
     {
       "player": "Nickolas North",
@@ -131,16 +132,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-25 fort-lewis v regis",
-      "line": "Since conference play opened, Fort Lewis have lost only to CSU Pueblo, UCCS and Regis; Regis have not lost since UCCS beat them."
+      "fixture_ref": "2026-10-28 uccs v csu-pueblo",
+      "line": "CSU Pueblo have still to lose this season; UCCS have beaten Regis home and away."
     },
     "next_match": {
-      "fixture_ref": "2026-10-28 uccs v csu-pueblo",
-      "line": "CSU Pueblo have yet to lose this season; UCCS are the last side to have beaten Regis."
+      "fixture_ref": "2026-11-01 fort-lewis v south-dakota-mines",
+      "line": "Fort Lewis have already beaten South Dakota Mines at home this season; only CSU Pueblo, UCCS and Regis have beaten them since conference play opened."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-27T11:43:09.258Z"
+    "validated_at": "2026-10-29T15:53:54.489Z"
   }
 }

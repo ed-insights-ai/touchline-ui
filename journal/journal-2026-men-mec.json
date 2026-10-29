@@ -3,37 +3,38 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-10-28T13:22:00+00:00",
-  "data_collected_at": "2026-10-28T13:17:36+00:00",
-  "headline": "Charleston win at Concord and go three points clear",
-  "dek": "Charleston's win at Concord leaves them on thirty-three points with one match each to play. Concord, three points back, can draw level but cannot pass them, and Davis & Elkins, who beat Frostburg State to sit four back, can no longer catch them.",
+  "generated_at": "2026-10-29T13:22:00+00:00",
+  "data_collected_at": "2026-10-29T13:17:18+00:00",
+  "headline": "Charleston close out the conference schedule on top",
+  "dek": "Charleston's win at Frostburg State, their seventh in a row, leaves them on thirty-six points with no match left to play. Concord and Davis & Elkins also won on the night and sit three and four points back; Davis & Elkins handed Charleston their only conference defeat.",
   "lede_basis": {
     "programme": "charleston",
-    "charleston_points": 33,
-    "concord_points": 30,
+    "charleston_points": 36,
+    "charleston_consecutive_wins": 7,
+    "charleston_matches_left": 0,
+    "charleston_conference_losses": 1,
+    "concord_points": 33,
     "concord_points_behind_leaders": 3,
-    "davis_elkins_points": 29,
-    "davis_elkins_points_behind_leaders": 4,
-    "matches_left_each": 1,
-    "concord_max_points": 33,
-    "davis_elkins_max_points": 32
+    "davis_elkins_points": 32,
+    "davis_elkins_points_behind_leaders": 4
   },
-  "lede_updated": "2026-10-26",
+  "lede_updated": "2026-10-29",
+  "displaced_by": "Charleston beat Frostburg State and completed their schedule on thirty-six points, so the standing dek's 'one match each to play' no longer holds.",
   "pattern": {
     "label": "derived",
-    "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty; the scoring is spread, not carried.",
+    "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty-one; the scoring is spread, not carried.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "charleston": 50,
+        "charleston": 51,
+        "concord": 28,
+        "davis-elkins": 27,
         "frostburg-state": 27,
-        "concord": 26,
-        "wheeling": 25,
-        "davis-elkins": 24,
-        "west-liberty": 22,
-        "salem": 19,
+        "wheeling": 26,
+        "west-liberty": 23,
+        "salem": 20,
         "point-park": 18,
-        "shawnee-state": 17,
+        "shawnee-state": 18,
         "west-virginia-wesleyan": 8
       },
       "highlight": "charleston"
@@ -43,57 +44,44 @@
       "metric": "gf",
       "programme": "charleston",
       "of": ["west-liberty", "wheeling"],
-      "gf": 50,
+      "gf": 51,
       "distinct_scorers_min": 16
     }
   },
   "wire": {
-    "line": "Charleston go into the final round with only Concord able to draw level and no side able to pass them.",
+    "line": "Davis & Elkins have lost only once all season, and no other conference side has beaten Charleston.",
     "basis": {
-      "programme": "charleston",
-      "wins": 14,
-      "draws": 0,
-      "losses": 2
+      "programme": "davis-elkins",
+      "wins": 11,
+      "draws": 2,
+      "losses": 1
     },
-    "updated": "2026-10-26"
+    "updated": "2026-10-29"
   },
   "findings": [
     {
       "label": "derived",
-      "text": "Concord have conceded nine goals in sixteen matches and won eleven of them.",
+      "text": "Concord have conceded ten goals in seventeen matches and won twelve of them.",
       "basis": {
         "programme": "concord",
-        "wins": 11,
+        "wins": 12,
         "draws": 2,
         "losses": 3,
-        "gf": 26,
-        "ga": 9,
-        "played": 16
-      }
-    },
-    {
-      "label": "derived",
-      "text": "West Virginia Wesleyan's first win came in their fifteenth match, at Shawnee State, after three draws and eleven defeats.",
-      "basis": {
-        "programme": "west-virginia-wesleyan",
-        "wins": 1,
-        "draws": 3,
-        "losses": 11,
-        "gf": 8,
-        "ga": 47,
-        "played": 15
+        "gf": 28,
+        "ga": 10,
+        "played": 17
       }
     },
     {
       "label": "observed",
-      "text": "Martin Echarren has nine goals and three assists for Charleston from thirty-one shots.",
+      "text": "Martin Echarren has ten goals and three assists for Charleston from thirty-five shots.",
       "basis": {
         "source": "stats",
         "player": "Martin Echarren",
         "programme": "charleston",
-        "goals": 9,
+        "goals": 10,
         "assists": 3,
-        "shots": 31
+        "shots": 35
       }
     },
     {
@@ -110,13 +98,13 @@
     },
     {
       "label": "observed",
-      "text": "Shai'ya Fitzgerald has made sixty-two saves for West Liberty and conceded fifteen goals.",
+      "text": "Shai'ya Fitzgerald has made sixty-four saves for West Liberty and conceded sixteen goals.",
       "basis": {
         "source": "stats",
         "player": "Shai'ya Fitzgerald",
         "programme": "west-liberty",
-        "saves": 62,
-        "goals_against": 15
+        "saves": 64,
+        "goals_against": 16
       }
     }
   ],
@@ -126,7 +114,7 @@
       "programme": "charleston",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 3 A · 31 shots"
+      "line": "10 G · 3 A · 35 shots"
     },
     {
       "player": "Frank Stare",
@@ -145,16 +133,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-25 concord v charleston",
-      "line": "Charleston have now beaten Concord twice, and handed them their first home defeat of the season."
+      "fixture_ref": "2026-10-28 frostburg-state v charleston",
+      "line": "Charleston have won every match away from home, and handed Frostburg State their first home defeat of the season."
     },
     "next_match": {
-      "fixture_ref": "2026-10-28 frostburg-state v charleston",
-      "line": "Frostburg State are unbeaten at home; Charleston have won every match away from home."
+      "fixture_ref": "2026-11-01 concord v point-park",
+      "line": "Concord have lost at home only to Charleston, and Point Park have already been beaten there this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-28T14:20:30.848Z"
+    "validated_at": "2026-10-29T15:53:51.763Z"
   }
 }

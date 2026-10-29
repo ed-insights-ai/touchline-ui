@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-10-28T14:04:34.013Z",
-  "data_collected_at": "2026-10-28T12:16:43+00:00",
+  "validated_at": "2026-10-29T15:20:34.566Z",
+  "data_collected_at": "2026-10-29T12:16:38+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Juan Linares — 8 G · 6 A · 27 shots",
+      "text": "Juan Linares — 9 G · 6 A · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 northeastern-state v rogers-state",
+      "text": "2026-10-28 fort-hays-state v southern-nazarene",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-28 fort-hays-state v southern-nazarene",
+      "text": "2026-10-29 ouachita-baptist v northeastern-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-28T14:04:07.787Z",
-    "generate_ms": 26224,
-    "validate_ms": 2,
-    "wall_ms": 26227,
+    "started_at": "2026-10-29T14:21:20.338Z",
+    "generate_ms": 144025,
+    "validate_ms": 1,
+    "wall_ms": 144026,
     "concurrency": 4
   }
 }
