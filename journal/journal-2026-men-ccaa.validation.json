@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-10-29T14:37:53.673Z",
-  "data_collected_at": "2026-10-29T11:55:19+00:00",
+  "validated_at": "2026-10-30T17:16:13.953Z",
+  "data_collected_at": "2026-10-30T17:12:41+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Cal State LA have scored 29 goals, well short of the top of this chart, and have conceded four in sixteen matches without a defeat: the leaders' record is built on what they keep out, not what they put in.",
+      "text": "Fresno Pacific have scored 37 goals and conceded only 27, yet have lost ten of their eighteen matches: a goal difference this healthy has bought them fewer wins than defeats.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Cal State Monterey Bay have won every match they have played in October, the visit to Cal State San Bernardino among them.",
-      "checker": "team_record",
+      "text": "Cal State LA have let in five goals all season and are still to lose a match.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,17 +62,17 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Cal State East Bay have conceded 50 goals in seventeen matches, more than any other programme in the conference.",
+      "text": "Cal State East Bay have conceded 52 goals in eighteen matches, more than any other programme in the conference.",
       "checker": "team_goals+team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is cal-poly-humboldt at 43"
+      "note": "held against every other programme; the nearest is cal-poly-humboldt at 47"
     },
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Stanislaus State have drawn seven of their seventeen matches, more draws than any other side in the conference.",
+      "text": "Stanislaus State have drawn seven of their eighteen matches, more draws than any other side in the conference.",
       "checker": "team_record+fixture_counts+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -82,7 +82,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Cisco Avila has scored eleven of the 37 goals Cal State San Marcos have scored.",
+      "text": "Cisco Avila has scored eleven of the 39 goals Cal State San Marcos have scored.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -100,7 +100,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Marvin Gamez — 11 G · 2 A · 52 shots",
+      "text": "Marvin Gamez — 11 G · 2 A · 54 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,7 +109,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Cisco Avila — 11 G · 1 A · 39 shots",
+      "text": "Cisco Avila — 11 G · 1 A · 43 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +118,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Philip Wolny — 5 G · 8 A · 26 shots",
+      "text": "Philip Wolny — 5 G · 8 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +127,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-25 cal-state-la v fresno-pacific",
+      "text": "2026-10-29 cal-state-dominguez-hills v cal-state-la",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,7 +136,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-29 cal-state-dominguez-hills v cal-state-la",
+      "text": "2026-11-01 cal-state-monterey-bay v menlo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -144,10 +144,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-29T14:21:20.330Z",
-    "generate_ms": 55709,
-    "validate_ms": 4,
-    "wall_ms": 55714,
+    "started_at": "2026-10-30T17:14:28.597Z",
+    "generate_ms": 105353,
+    "validate_ms": 2,
+    "wall_ms": 105355,
     "concurrency": 4
   }
 }

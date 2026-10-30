@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-10-30T12:35:00+00:00",
-  "data_collected_at": "2026-10-30T12:26:32+00:00",
+  "generated_at": "2026-10-30T17:20:00+00:00",
+  "data_collected_at": "2026-10-30T17:13:54+00:00",
   "headline": "Flagler complete an unbeaten conference season",
   "dek": "Flagler beat Georgia Southwestern on Monday to close their conference schedule without a defeat, North Georgia the only side to take a point from them. Their one loss all season came outside the conference, at Florida Southern in September.",
   "lede_basis": {
@@ -149,11 +149,11 @@
     },
     "next_match": {
       "fixture_ref": "2026-10-31 usc-aiken v lander",
-      "line": "USC Aiken have beaten Lander home and away this season, and the winner here meets Flagler."
+      "line": "USC Aiken have beaten Lander home and away this season, and Lander have not won since they beat North Georgia."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T12:33:05.920Z"
+    "validated_at": "2026-10-30T17:15:41.678Z"
   }
 }

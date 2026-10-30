@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-10-29T11:45:00+00:00",
-  "data_collected_at": "2026-10-29T11:33:19+00:00",
+  "generated_at": "2026-10-30T17:25:00+00:00",
+  "data_collected_at": "2026-10-30T17:12:07+00:00",
   "headline": "Felician stand alone unbeaten in conference play",
   "dek": "Jefferson's win at Wilmington ended the leaders' unbeaten run in conference play, and Felician are now the only side without a conference defeat. All four of Felician's losses came against non-conference opponents, in a season that also holds six wins and eight draws.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 4
   },
   "lede_updated": "2026-10-29",
-  "displaced_by": "Jefferson beat Wilmington, leaving Felician the only side unbeaten in conference play",
   "pattern": {
     "label": "observed",
     "text": "Goals have not decided the table: Bridgeport have scored 41 and conceded 35, in a season of seven wins, three draws and seven defeats.",
@@ -105,7 +104,7 @@
     },
     {
       "label": "observed",
-      "text": "Dane Bodziak has scored eight goals for Chestnut Hill from 18 shots.",
+      "text": "Dane Bodziak has scored eight goals for Chestnut Hill from eighteen shots.",
       "basis": {
         "source": "stats",
         "player": "Dane Bodziak",
@@ -161,6 +160,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-29T15:21:04.372Z"
+    "validated_at": "2026-10-30T17:15:04.270Z"
   }
 }
