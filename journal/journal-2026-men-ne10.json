@@ -3,19 +3,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-10-28T13:25:00+00:00",
-  "data_collected_at": "2026-10-28T13:17:55+00:00",
-  "headline": "Southern New Hampshire lead with their conference schedule complete",
-  "dek": "Southern New Hampshire have played all nine of their conference matches and stand on twenty points, three clear of American International. Two matches between members remain: Franklin Pierce against Assumption, and American International at home to Adelphi.",
+  "generated_at": "2026-10-30T12:35:00+00:00",
+  "data_collected_at": "2026-10-30T12:26:01+00:00",
+  "headline": "Southern New Hampshire finish top of the conference table",
+  "dek": "Southern New Hampshire finished the conference schedule on twenty points, three clear of American International and four clear of Bentley. Franklin Pierce's win over Assumption closed the round with every member on nine matches; Saint Michael's and Pace share the foot of the table on four points.",
   "lede_basis": {
     "programme": "southern-new-hampshire",
-    "southern_new_hampshire_conference_played": 9,
     "southern_new_hampshire_conference_points": 20,
     "american_international_conference_points": 17,
+    "bentley_conference_points": 16,
     "southern_new_hampshire_points_clear_of_american_international": 3,
-    "conference_matches_remaining_between_members": 2
+    "southern_new_hampshire_points_clear_of_bentley": 4,
+    "conference_matches_played_per_member": 9,
+    "saint_michael_s_conference_points": 4,
+    "pace_conference_points": 4
   },
-  "lede_updated": "2026-10-27",
+  "lede_updated": "2026-10-30",
+  "displaced_by": "Franklin Pierce v Assumption was played, so every member has now played all nine of its conference matches and the standing dek's 'two matches between members remain' is no longer true",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's fifty-two goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
@@ -23,9 +27,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "southern-new-hampshire": 52,
-        "american-international": 30,
-        "assumption": 29,
-        "franklin-pierce": 29,
+        "franklin-pierce": 32,
+        "american-international": 31,
+        "assumption": 30,
         "bentley": 25,
         "adelphi": 21,
         "saint-anselm": 20,
@@ -53,13 +57,13 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Guillermo Rios has scored fifteen of Franklin Pierce's twenty-nine goals.",
+      "text": "Guillermo Rios has scored sixteen of Franklin Pierce's thirty-two goals.",
       "basis": {
         "source": "stats",
         "player": "Guillermo Rios",
         "programme": "franklin-pierce",
-        "goals": 15,
-        "gf": 29
+        "goals": 16,
+        "gf": 32
       }
     },
     {
@@ -131,7 +135,7 @@
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SR",
-      "line": "15 G · 37 shots"
+      "line": "16 G · 40 shots"
     },
     {
       "player": "Inigo Burusco",
@@ -145,21 +149,21 @@
       "programme": "assumption",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 4 A · 73 shots"
+      "line": "11 G · 4 A · 74 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-27 adelphi v st-thomas-aquinas",
-      "line": "Adelphi have lost both matches since handing Southern New Hampshire their only defeat."
+      "fixture_ref": "2026-10-28 franklin-pierce v assumption",
+      "line": "Franklin Pierce's win, the last match the table counts, draws them level on points with Saint Anselm."
     },
     "next_match": {
-      "fixture_ref": "2026-10-28 franklin-pierce v assumption",
-      "line": "Assumption arrive on consecutive wins; Franklin Pierce held Southern New Hampshire scoreless last time out."
+      "fixture_ref": "2026-10-31 bentley v assumption",
+      "line": "Bentley won the conference meeting between the two in September; Assumption arrive off defeat at Franklin Pierce."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-28T14:21:06.604Z"
+    "validated_at": "2026-10-30T12:33:07.640Z"
   }
 }

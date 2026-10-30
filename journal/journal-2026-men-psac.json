@@ -3,35 +3,36 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-10-29T14:12:00+00:00",
-  "data_collected_at": "2026-10-29T14:03:45+00:00",
-  "headline": "Gannon win at Seton Hill and stretch their lead",
-  "dek": "Gannon won at Seton Hill, the side nearest them in the table, in their first match since Slippery Rock beat them on their own ground. Seton Hill had held them level when the two met at Gannon. Gannon have now won eleven, drawn three and lost two.",
+  "generated_at": "2026-10-30T12:40:00+00:00",
+  "data_collected_at": "2026-10-30T12:26:57+00:00",
+  "headline": "Lock Haven beat Gannon and close in at the top",
+  "dek": "Lock Haven beat Gannon on Lock Haven's ground, turning round the first meeting between the sides, and Gannon go into the final day with Lock Haven, West Chester and Millersville close behind. Gannon have won eleven, drawn three and lost three, with Slippery Rock and now Lock Haven both beating them this month.",
   "lede_basis": {
     "programme": "gannon",
     "wins": 11,
     "draws": 3,
-    "losses": 2
+    "losses": 3
   },
-  "lede_updated": "2026-10-25",
+  "lede_updated": "2026-10-30",
+  "displaced_by": "Lock Haven beat Gannon; the standing dek's record of two defeats is no longer true.",
   "pattern": {
     "label": "derived",
-    "text": "Gannon have scored more than California (Pa.) and West Chester together and conceded 18, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+    "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 22, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "gannon": 44,
-        "millersville": 35,
-        "lock-haven": 29,
+        "gannon": 45,
+        "millersville": 38,
+        "lock-haven": 33,
         "slippery-rock": 29,
+        "bloomsburg": 28,
+        "e-stroudsburg": 28,
         "shepherd": 27,
-        "e-stroudsburg": 26,
         "seton-hill": 26,
-        "bloomsburg": 25,
-        "west-chester": 21,
-        "california-pa": 18,
+        "west-chester": 24,
+        "california-pa": 22,
         "shippensburg": 16,
-        "pitt-johnstown": 13
+        "pitt-johnstown": 14
       },
       "highlight": "gannon"
     },
@@ -39,20 +40,20 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "gannon",
-      "of": ["california-pa", "west-chester"],
-      "gf": 44,
-      "ga": 18
+      "of": ["california-pa", "shippensburg"],
+      "gf": 45,
+      "ga": 22
     }
   },
   "wire": {
-    "line": "Jaden Howard has kept seven shutouts in goal for West Chester.",
+    "line": "Lock Haven, West Chester and Millersville can each still finish level with Gannon at the top.",
     "basis": {
-      "source": "stats",
-      "player": "Jaden Howard",
-      "programme": "west-chester",
-      "shutouts": 7
+      "programme": "gannon",
+      "wins": 11,
+      "draws": 3,
+      "losses": 3
     },
-    "updated": "2026-10-18"
+    "updated": "2026-10-30"
   },
   "findings": [
     {
@@ -69,7 +70,7 @@
     },
     {
       "label": "observed",
-      "text": "Pitt-Johnstown have conceded 44 goals, more than any other programme in the conference, and have won one match, drawn two and lost twelve.",
+      "text": "Pitt-Johnstown have conceded 48 goals, more than any other programme in the conference, and have won one match, drawn two and lost thirteen.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -87,45 +88,44 @@
           "slippery-rock",
           "west-chester"
         ],
-        "ga": 44,
+        "ga": 48,
         "wins": 1,
         "draws": 2,
-        "losses": 12
+        "losses": 13
       }
     },
     {
       "label": "observed",
-      "text": "Millersville have won eleven, drawn two and lost four, and have conceded 14 goals across the season while scoring 35.",
+      "text": "Millersville have won twelve, drawn two and lost four, and have conceded 14 goals across the season while scoring 38.",
       "basis": {
         "programme": "millersville",
-        "wins": 11,
+        "wins": 12,
         "draws": 2,
         "losses": 4,
-        "gf": 35,
+        "gf": 38,
         "ga": 14
       }
     },
     {
       "label": "observed",
-      "text": "Aidan Houck has made 65 saves for Shepherd and been beaten 15 times.",
+      "text": "Jaden Howard has kept eight shutouts in goal for West Chester.",
       "basis": {
         "source": "stats",
-        "player": "Aidan Houck",
-        "programme": "shepherd",
-        "saves": 65,
-        "goals_against": 15
+        "player": "Jaden Howard",
+        "programme": "west-chester",
+        "shutouts": 8
       }
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has six goals and eight assists from 45 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 48 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
         "goals": 6,
         "assists": 8,
-        "shots": 45
+        "shots": 48
       }
     }
   ],
@@ -135,14 +135,14 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "13 G · 4 A · 49 shots"
+      "line": "14 G · 4 A · 50 shots"
     },
     {
-      "player": "Kaden Reynolds",
-      "programme": "slippery-rock",
-      "position": "FWD",
-      "class": "JR",
-      "line": "6 G · 5 A · 53 shots"
+      "player": "Roy Parkyn",
+      "programme": "millersville",
+      "position": "MID",
+      "class": "SR",
+      "line": "9 G · 3 A · 24 shots"
     },
     {
       "player": "Steven Arias",
@@ -154,16 +154,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-24 seton-hill v gannon",
-      "line": "Gannon are the first side to beat Seton Hill on their own ground this season."
+      "fixture_ref": "2026-10-29 lock-haven v gannon",
+      "line": "Gannon won the first meeting between the sides on their own ground; Lock Haven have now answered it."
     },
     "next_match": {
-      "fixture_ref": "2026-10-29 lock-haven v gannon",
-      "line": "Lock Haven have not lost since Gannon beat them on Gannon's ground in the first meeting."
+      "fixture_ref": "2026-11-01 gannon v shepherd",
+      "line": "Both sides come in off a defeat, and the two have yet to meet this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-29T15:21:04.844Z"
+    "validated_at": "2026-10-30T12:34:05.753Z"
   }
 }

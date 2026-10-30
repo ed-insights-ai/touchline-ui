@@ -3,23 +3,25 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-10-29T12:20:00Z",
-  "data_collected_at": "2026-10-29T12:16:38+00:00",
+  "generated_at": "2026-10-30T12:10:00Z",
+  "data_collected_at": "2026-10-30T12:03:40+00:00",
   "headline": "Fort Hays State complete an unbeaten conference season",
-  "dek": "Fort Hays State beat Southern Nazarene to close their conference schedule with eleven wins and a draw from twelve matches for 34 points, the draw at Rogers State the only points they dropped. Harding, at the other end, have lost all ten of their conference matches with two still to play.",
+  "dek": "Fort Hays State beat Southern Nazarene to close their conference schedule with eleven wins and a draw from twelve matches for 34 points, the draw at Rogers State the only points they dropped. Rogers State, second on 18 points with one match left, can finish no closer than thirteen points behind them.",
   "lede_basis": {
     "fhsu_conference_played": 12,
     "fhsu_conference_won": 11,
     "fhsu_conference_drawn": 1,
     "fhsu_conference_lost": 0,
     "fhsu_conference_points": 34,
-    "harding_conference_played": 10,
-    "harding_conference_lost": 10,
-    "harding_conference_points": 0,
-    "harding_conference_remaining": 2
+    "rsu_table_position": 2,
+    "rsu_conference_played": 11,
+    "rsu_conference_points": 18,
+    "rsu_conference_remaining": 1,
+    "rsu_max_conference_points": 21,
+    "rsu_min_gap_to_fhsu": 13
   },
-  "lede_updated": "2026-10-29",
-  "displaced_by": "Fort Hays State's win over Southern Nazarene completed their twelve-match conference schedule unbeaten, and the standing dek's 31 points is no longer true.",
+  "lede_updated": "2026-10-30",
+  "displaced_by": "Harding's draw with Rogers State means they have no longer lost all their conference matches, so the standing dek's second sentence is untrue; the headline's story stands and is kept.",
   "pattern": {
     "label": "derived",
     "text": "Rogers State's 32 goals are more than Harding and Newman have managed between them.",
@@ -29,8 +31,8 @@
         "fort-hays-state": 40,
         "rogers-state": 32,
         "southern-nazarene": 25,
-        "ouachita-baptist": 23,
-        "northeastern-state": 20,
+        "ouachita-baptist": 24,
+        "northeastern-state": 22,
         "newman": 16,
         "harding": 9
       },
@@ -45,14 +47,14 @@
     }
   },
   "wire": {
-    "line": "Harding have lost all sixteen matches they have played this season.",
+    "line": "Harding have held Rogers State to a draw, the first match this season they have not lost.",
     "basis": {
       "programme": "harding",
       "wins": 0,
-      "draws": 0,
+      "draws": 1,
       "losses": 16
     },
-    "updated": "2026-10-25"
+    "updated": "2026-10-30"
   },
   "findings": [
     {
@@ -65,14 +67,22 @@
       }
     },
     {
+      "label": "derived",
+      "text": "Fort Hays State have conceded eight goals this season.",
+      "basis": {
+        "programme": "fort-hays-state",
+        "gf": 40,
+        "ga": 8
+      }
+    },
+    {
       "label": "observed",
-      "text": "Payton Roehrich has made 39 saves for Fort Hays State and conceded seven goals.",
+      "text": "Tristan Miller has kept seven shutouts for Rogers State.",
       "basis": {
         "source": "stats",
-        "player": "Payton Roehrich",
-        "programme": "fort-hays-state",
-        "saves": 39,
-        "goals_against": 7
+        "player": "Tristan Miller",
+        "programme": "rogers-state",
+        "shutouts": 7
       }
     },
     {
@@ -81,16 +91,6 @@
       "basis": {
         "programme": "rogers-state",
         "distinct_scorers_min": 17
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Tristan Miller has kept six shutouts for Rogers State.",
-      "basis": {
-        "source": "stats",
-        "player": "Tristan Miller",
-        "programme": "rogers-state",
-        "shutouts": 6
       }
     },
     {
@@ -130,16 +130,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-28 fort-hays-state v southern-nazarene",
-      "line": "Fort Hays State have now beaten Southern Nazarene home and away without conceding."
+      "fixture_ref": "2026-10-29 harding v rogers-state",
+      "line": "Harding had lost every match they had played this season before this one."
     },
     "next_match": {
-      "fixture_ref": "2026-10-29 ouachita-baptist v northeastern-state",
-      "line": "Ouachita Baptist have already won at Northeastern State, and both sides come in off a defeat."
+      "fixture_ref": "2026-10-31 rogers-state v ouachita-baptist",
+      "line": "Rogers State won the earlier meeting at Ouachita Baptist without conceding."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-29T15:20:34.566Z"
+    "validated_at": "2026-10-30T12:31:45.821Z"
   }
 }

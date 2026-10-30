@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-10-29T13:22:00+00:00",
-  "data_collected_at": "2026-10-29T13:17:18+00:00",
+  "generated_at": "2026-10-30T12:40:00+00:00",
+  "data_collected_at": "2026-10-30T12:25:41+00:00",
   "headline": "Charleston close out the conference schedule on top",
   "dek": "Charleston's win at Frostburg State, their seventh in a row, leaves them on thirty-six points with no match left to play. Concord and Davis & Elkins also won on the night and sit three and four points back; Davis & Elkins handed Charleston their only conference defeat.",
   "lede_basis": {
@@ -19,7 +19,6 @@
     "davis_elkins_points_behind_leaders": 4
   },
   "lede_updated": "2026-10-29",
-  "displaced_by": "Charleston beat Frostburg State and completed their schedule on thirty-six points, so the standing dek's 'one match each to play' no longer holds.",
   "pattern": {
     "label": "derived",
     "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty-one; the scoring is spread, not carried.",
@@ -143,6 +142,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-29T15:53:51.763Z"
+    "validated_at": "2026-10-30T12:32:34.677Z"
   }
 }

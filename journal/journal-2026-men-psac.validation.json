@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-10-29T15:21:04.844Z",
-  "data_collected_at": "2026-10-29T14:03:45+00:00",
+  "validated_at": "2026-10-30T12:34:05.753Z",
+  "data_collected_at": "2026-10-30T12:26:57+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Gannon have scored more than California (Pa.) and West Chester together and conceded 18, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+      "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 22, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Jaden Howard has kept seven shutouts in goal for West Chester.",
-      "checker": "player_stat",
+      "text": "Lock Haven, West Chester and Millersville can each still finish level with Gannon at the top.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Pitt-Johnstown have conceded 44 goals, more than any other programme in the conference, and have won one match, drawn two and lost twelve.",
+      "text": "Pitt-Johnstown have conceded 48 goals, more than any other programme in the conference, and have won one match, drawn two and lost thirteen.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Millersville have won eleven, drawn two and lost four, and have conceded 14 goals across the season while scoring 35.",
+      "text": "Millersville have won twelve, drawn two and lost four, and have conceded 14 goals across the season while scoring 38.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Aidan Houck has made 65 saves for Shepherd and been beaten 15 times.",
+      "text": "Jaden Howard has kept eight shutouts in goal for West Chester.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Rafael Santos has six goals and eight assists from 45 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 48 shots for Seton Hill.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Rafa Hyde — 13 G · 4 A · 49 shots",
+      "text": "Rafa Hyde — 14 G · 4 A · 50 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Kaden Reynolds — 6 G · 5 A · 53 shots",
+      "text": "Roy Parkyn — 9 G · 3 A · 24 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-24 seton-hill v gannon",
+      "text": "2026-10-29 lock-haven v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-29 lock-haven v gannon",
+      "text": "2026-11-01 gannon v shepherd",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-29T15:20:34.739Z",
-    "generate_ms": 30103,
+    "started_at": "2026-10-30T12:32:49.705Z",
+    "generate_ms": 76046,
     "validate_ms": 1,
-    "wall_ms": 30105,
+    "wall_ms": 76047,
     "concurrency": 4
   }
 }

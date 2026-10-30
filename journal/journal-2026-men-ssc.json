@@ -3,20 +3,21 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-10-29T14:30:00+00:00",
-  "data_collected_at": "2026-10-29T14:20:49+00:00",
+  "generated_at": "2026-10-30T12:40:00+00:00",
+  "data_collected_at": "2026-10-30T12:30:17+00:00",
   "headline": "Florida Tech clinch first place",
-  "dek": "Florida Tech beat Florida Southern on Wednesday in the last match either side has scheduled, and stand four points clear of Embry-Riddle, who were held at Palm Beach Atlantic the same night. Embry-Riddle's one remaining match, against Tampa, cannot close that gap.",
+  "dek": "Florida Tech finished their ten conference matches four points clear of Embry-Riddle, and Rollins' win over Saint Leo on Thursday leaves every side on ten. Florida Tech still have one match to come, against Rollins, and Embry-Riddle theirs against Tampa.",
   "lede_basis": {
     "programme": "florida-tech",
     "points": 23,
     "embry_riddle_points": 19,
     "points_lead": 4,
-    "embry_riddle_matches_remaining": 1,
-    "points_available_to_embry_riddle": 3
+    "conference_matches_played_each": 10,
+    "florida_tech_matches_remaining": 1,
+    "embry_riddle_matches_remaining": 1
   },
-  "lede_updated": "2026-10-29",
-  "displaced_by": "Florida Tech beat Florida Southern on 2026-10-28, so the standing dek no longer holds: it was not Florida Southern's second defeat, they are no longer level with Embry-Riddle, and the Wednesday match has been played",
+  "lede_updated": "2026-10-30",
+  "displaced_by": "The standing dek called Florida Tech's win over Florida Southern the last match either side had scheduled, but both play again on 2026-11-02. Rollins v Saint Leo has also now been played. The headline still holds and stands.",
   "pattern": {
     "label": "derived",
     "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack.",
@@ -26,10 +27,10 @@
         "florida-southern": 35,
         "eckerd": 34,
         "saint-leo": 32,
+        "rollins": 30,
         "palm-beach-atlantic": 28,
         "florida-tech": 27,
         "embry-riddle": 26,
-        "rollins": 25,
         "tampa": 25,
         "lynn": 23,
         "barry": 21,
@@ -46,14 +47,13 @@
     }
   },
   "wire": {
-    "line": "Florida Tech have finished their schedule top of the table, and no side with a match left can reach them.",
+    "line": "Saint Leo, Eckerd and Nova Southeastern have no match left; every other side in the conference still has one.",
     "basis": {
-      "programme": "florida-tech",
-      "wins": 9,
-      "draws": 4,
-      "losses": 3
+      "source": "fixtures",
+      "played": 112,
+      "total": 122
     },
-    "updated": "2026-10-29"
+    "updated": "2026-10-30"
   },
   "findings": [
     {
@@ -79,14 +79,14 @@
     },
     {
       "label": "derived",
-      "text": "Finlay Prain has scored fifteen of Rollins' 25 goals this season, from 61 shots.",
+      "text": "Finlay Prain has scored sixteen of Rollins' 30 goals this season, from 71 shots.",
       "basis": {
         "source": "stats",
         "player": "Finlay Prain",
         "programme": "rollins",
-        "goals": 15,
-        "shots": 61,
-        "gf": 25
+        "goals": 16,
+        "shots": 71,
+        "gf": 30
       }
     },
     {
@@ -135,7 +135,7 @@
       "programme": "rollins",
       "position": "FWD",
       "class": "JR",
-      "line": "15 G · 2 A · 61 shots"
+      "line": "16 G · 2 A · 71 shots"
     },
     {
       "player": "Tim Baierlein",
@@ -147,16 +147,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-28 florida-tech v florida-southern",
-      "line": "Florida Tech have lost only at Embry-Riddle in conference play; Florida Southern have now lost back-to-back."
+      "fixture_ref": "2026-10-29 rollins v saint-leo",
+      "line": "Rollins now sit level on points with Palm Beach Atlantic and Tampa; Saint Leo end their schedule on a defeat."
     },
     "next_match": {
-      "fixture_ref": "2026-10-29 rollins v saint-leo",
-      "line": "Saint Leo arrive on a winning run; Rollins have not won since beating Nova Southeastern."
+      "fixture_ref": "2026-11-02 florida-tech v rollins",
+      "line": "These sides drew when they met at Rollins; Rollins arrive on the back of a win."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-29T15:54:11.736Z"
+    "validated_at": "2026-10-30T12:34:53.150Z"
   }
 }

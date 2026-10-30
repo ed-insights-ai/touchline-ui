@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-10-29T15:54:11.736Z",
-  "data_collected_at": "2026-10-29T14:20:49+00:00",
+  "validated_at": "2026-10-30T12:34:53.150Z",
+  "data_collected_at": "2026-10-30T12:30:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,7 +15,13 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "wire",
+      "text": "Saint Leo, Eckerd and Nova Southeastern have no match left; every other side in the conference still has one.",
+      "unbacked": ["1"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
@@ -39,8 +45,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Florida Tech have finished their schedule top of the table, and no side with a match left can reach them.",
-      "checker": "team_record",
+      "text": "Saint Leo, Eckerd and Nova Southeastern have no match left; every other side in the conference still has one.",
+      "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -66,7 +72,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Finlay Prain has scored fifteen of Rollins' 25 goals this season, from 61 shots.",
+      "text": "Finlay Prain has scored sixteen of Rollins' 30 goals this season, from 71 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +108,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Finlay Prain — 15 G · 2 A · 61 shots",
+      "text": "Finlay Prain — 16 G · 2 A · 71 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-28 florida-tech v florida-southern",
+      "text": "2026-10-29 rollins v saint-leo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-29 rollins v saint-leo",
+      "text": "2026-11-02 florida-tech v rollins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +143,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-29T15:21:05.034Z",
-    "generate_ms": 141749,
+    "started_at": "2026-10-30T12:33:32.083Z",
+    "generate_ms": 81065,
     "validate_ms": 2,
-    "wall_ms": 141751,
+    "wall_ms": 81067,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-10-29T15:21:07.584Z",
-  "data_collected_at": "2026-10-29T12:17:18+00:00",
+  "validated_at": "2026-10-30T12:31:54.762Z",
+  "data_collected_at": "2026-10-30T12:19:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Drury have conceded fourteen goals and lost three times: at home to Oklahoma Christian in August, away at Missouri S&T in September, and at home to Lincoln on Saturday.",
+      "text": "Drury have conceded fourteen goals and lost three times: at home to Oklahoma Christian in August, away at Missouri S&T in September, and at home to Lincoln last Saturday.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-29T15:20:26.307Z",
-    "generate_ms": 41275,
+    "started_at": "2026-10-30T12:31:18.936Z",
+    "generate_ms": 35825,
     "validate_ms": 1,
-    "wall_ms": 41276,
+    "wall_ms": 35826,
     "concurrency": 4
   }
 }

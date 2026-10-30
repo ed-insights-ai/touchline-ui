@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-10-27T11:36:00+00:00",
-  "data_collected_at": "2026-10-27T11:30:39+00:00",
+  "generated_at": "2026-10-30T11:54:00+00:00",
+  "data_collected_at": "2026-10-30T11:48:31+00:00",
   "headline": "Young Harris end Lees-McRae's unbeaten season",
   "dek": "Lees-McRae had won thirteen and drawn three before Young Harris beat them at home, the first defeat of their season. Young Harris stay top of the conference table, and Converse move above Lees-McRae into second.",
   "lede_basis": {
@@ -23,15 +23,15 @@
         "chowan": 49,
         "converse": 49,
         "young-harris": 45,
-        "barton": 30,
-        "southern-wesleyan": 29,
-        "francis-marion": 28,
+        "barton": 32,
+        "francis-marion": 31,
+        "southern-wesleyan": 30,
+        "emmanuel": 27,
         "lees-mcrae": 27,
-        "emmanuel": 25,
-        "north-greenville": 24,
+        "north-greenville": 26,
         "ferrum": 22,
         "mount-olive": 22,
-        "belmont-abbey": 17,
+        "belmont-abbey": 19,
         "king": 15,
         "shorter": 14,
         "erskine": 9
@@ -69,10 +69,10 @@
     },
     {
       "label": "derived",
-      "text": "Francis Marion have won twelve matches, drawn two and lost four, and have conceded twelve goals in all.",
+      "text": "Francis Marion have won thirteen matches, drawn two and lost four, and have conceded twelve goals in all.",
       "basis": {
         "programme": "francis-marion",
-        "wins": 12,
+        "wins": 13,
         "draws": 2,
         "losses": 4,
         "ga": 12
@@ -104,14 +104,14 @@
     },
     {
       "label": "observed",
-      "text": "Edouard Laberge has made 82 saves for Emmanuel and conceded 22 goals, a save percentage of .788.",
+      "text": "Edouard Laberge has made 91 saves for Emmanuel and conceded 24 goals, a save percentage of .791.",
       "basis": {
         "source": "stats",
         "player": "Edouard Laberge",
         "programme": "emmanuel",
-        "saves": 82,
-        "goals_against": 22,
-        "save_pct": 0.788
+        "saves": 91,
+        "goals_against": 24,
+        "save_pct": 0.791
       }
     }
   ],
@@ -140,16 +140,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-24 lees-mcrae v young-harris",
-      "line": "It was Lees-McRae's first defeat of the season, and it came against the side that leads the conference table."
+      "fixture_ref": "2026-10-28 barton v ferrum",
+      "line": "Barton have still not lost since September, and have now beaten Ferrum home and away since losing to them on the conference's opening day."
     },
     "next_match": {
-      "fixture_ref": "2026-10-28 barton v ferrum",
-      "line": "Barton have not lost since September; each side has already beaten the other once this season."
+      "fixture_ref": "2026-10-31 chowan v francis-marion",
+      "line": "Each side has already won on the other's ground this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-27T11:40:49.138Z"
+    "validated_at": "2026-10-30T12:31:36.016Z"
   }
 }

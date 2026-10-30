@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-10-27T11:41:07.563Z",
-  "data_collected_at": "2026-10-27T11:31:19+00:00",
+  "validated_at": "2026-10-30T12:32:08.758Z",
+  "data_collected_at": "2026-10-30T12:02:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "St. Thomas Aquinas have now met every other member and lost to none of them, and Daemen were the last to try. Molloy's win over Mercy pulls the two level on points behind D'Youville, while District of Columbia, winless in conference play before they beat Staten Island, have not dropped a point since.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Goals have not ordered the table: Mercy and Queens stand well clear of every other programme on the chart, while the leaders, St. Thomas Aquinas, have scored no more than District of Columbia.",
+      "text": "Goals have not ordered the table: Mercy and Queens have each outscored every other programme on the chart, and that includes the leaders, St. Thomas Aquinas.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Mercy have scored 36 goals, more than any other programme in the conference.",
-      "checker": "team_goals+comparative",
+      "text": "No conference member has beaten St. Thomas Aquinas; Mercy, who opened conference play against them, get another try.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Molloy have drawn seven matches, more than any other programme.",
+      "text": "Molloy have drawn eight matches, more than any other programme.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 36 goals from 47 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 37 goals from 52 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Darwesh Lund-Iversen — 13 G · 7 A · 47 shots",
+      "text": "Jacob Darwesh Lund-Iversen — 13 G · 7 A · 52 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-26 pace v st-thomas-aquinas",
+      "text": "2026-10-29 mercy v queens",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-27 adelphi v st-thomas-aquinas",
+      "text": "2026-11-01 st-thomas-aquinas v mercy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-27T11:40:16.258Z",
-    "generate_ms": 51303,
-    "validate_ms": 2,
-    "wall_ms": 51305,
+    "started_at": "2026-10-30T12:30:44.894Z",
+    "generate_ms": 83862,
+    "validate_ms": 1,
+    "wall_ms": 83863,
     "concurrency": 4
   }
 }
