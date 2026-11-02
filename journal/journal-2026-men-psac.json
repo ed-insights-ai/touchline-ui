@@ -3,33 +3,33 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-10-30T12:40:00+00:00",
-  "data_collected_at": "2026-10-30T12:26:57+00:00",
-  "headline": "Lock Haven beat Gannon and close in at the top",
-  "dek": "Lock Haven beat Gannon on Lock Haven's ground, turning round the first meeting between the sides, and Gannon go into the final day with Lock Haven, West Chester and Millersville close behind. Gannon have won eleven, drawn three and lost three, with Slippery Rock and now Lock Haven both beating them this month.",
+  "generated_at": "2026-11-02T13:45:00+00:00",
+  "data_collected_at": "2026-11-02T13:36:55+00:00",
+  "headline": "Gannon stay top as Lock Haven lose at home",
+  "dek": "Gannon beat Shepherd while Lock Haven, who had beaten Gannon in their previous match, lost at home to E. Stroudsburg. That leaves Lock Haven level on points with West Chester and Millersville behind the leaders, and Gannon with twelve wins, three draws and three defeats across the season.",
   "lede_basis": {
     "programme": "gannon",
-    "wins": 11,
+    "wins": 12,
     "draws": 3,
     "losses": 3
   },
-  "lede_updated": "2026-10-30",
-  "displaced_by": "Lock Haven beat Gannon; the standing dek's record of two defeats is no longer true.",
+  "lede_updated": "2026-11-02",
+  "displaced_by": "Gannon beat Shepherd and Lock Haven lost to E. Stroudsburg; the standing dek's eleven Gannon wins is no longer true.",
   "pattern": {
     "label": "derived",
-    "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 22, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+    "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 23, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "gannon": 45,
-        "millersville": 38,
+        "gannon": 47,
+        "millersville": 40,
         "lock-haven": 33,
+        "e-stroudsburg": 29,
         "slippery-rock": 29,
         "bloomsburg": 28,
-        "e-stroudsburg": 28,
-        "shepherd": 27,
-        "seton-hill": 26,
-        "west-chester": 24,
+        "seton-hill": 28,
+        "shepherd": 28,
+        "west-chester": 26,
         "california-pa": 22,
         "shippensburg": 16,
         "pitt-johnstown": 14
@@ -41,19 +41,21 @@
       "metric": "gf",
       "programme": "gannon",
       "of": ["california-pa", "shippensburg"],
-      "gf": 45,
-      "ga": 22
+      "gf": 47,
+      "ga": 23
     }
   },
   "wire": {
-    "line": "Lock Haven, West Chester and Millersville can each still finish level with Gannon at the top.",
+    "line": "Millersville have won thirteen matches and conceded 14 goals, yet sit behind Gannon in the table.",
     "basis": {
-      "programme": "gannon",
-      "wins": 11,
-      "draws": 3,
-      "losses": 3
+      "programme": "millersville",
+      "wins": 13,
+      "draws": 2,
+      "losses": 4,
+      "gf": 40,
+      "ga": 14
     },
-    "updated": "2026-10-30"
+    "updated": "2026-11-02"
   },
   "findings": [
     {
@@ -96,14 +98,27 @@
     },
     {
       "label": "observed",
-      "text": "Millersville have won twelve, drawn two and lost four, and have conceded 14 goals across the season while scoring 38.",
+      "text": "Lock Haven have drawn nine matches, more than any other programme in the conference, against six wins and four defeats.",
       "basis": {
-        "programme": "millersville",
-        "wins": 12,
-        "draws": 2,
-        "losses": 4,
-        "gf": 38,
-        "ga": 14
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "lock-haven",
+        "of": [
+          "bloomsburg",
+          "california-pa",
+          "e-stroudsburg",
+          "gannon",
+          "millersville",
+          "pitt-johnstown",
+          "seton-hill",
+          "shepherd",
+          "shippensburg",
+          "slippery-rock",
+          "west-chester"
+        ],
+        "wins": 6,
+        "draws": 9,
+        "losses": 4
       }
     },
     {
@@ -118,14 +133,14 @@
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has six goals and eight assists from 48 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 54 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
         "goals": 6,
         "assists": 8,
-        "shots": 48
+        "shots": 54
       }
     }
   ],
@@ -135,7 +150,7 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "14 G · 4 A · 50 shots"
+      "line": "15 G · 4 A · 56 shots"
     },
     {
       "player": "Roy Parkyn",
@@ -149,21 +164,21 @@
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "8 G · 1 A · 35 shots"
+      "line": "8 G · 1 A · 39 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-29 lock-haven v gannon",
-      "line": "Gannon won the first meeting between the sides on their own ground; Lock Haven have now answered it."
+      "fixture_ref": "2026-11-01 lock-haven v e-stroudsburg",
+      "line": "E. Stroudsburg ended a run without a win that went back to their victory at Shepherd."
     },
     "next_match": {
-      "fixture_ref": "2026-11-01 gannon v shepherd",
-      "line": "Both sides come in off a defeat, and the two have yet to meet this season."
+      "fixture_ref": "2026-11-04 gannon v seton-hill",
+      "line": "Seton Hill have yet to beat Gannon this season: a draw at Gannon, then a Gannon win at Seton Hill."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T12:34:05.753Z"
+    "validated_at": "2026-11-02T13:47:08.752Z"
   }
 }

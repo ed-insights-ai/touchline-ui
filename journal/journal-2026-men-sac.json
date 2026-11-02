@@ -3,34 +3,33 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-10-30T12:35:00+00:00",
-  "data_collected_at": "2026-10-30T12:27:40+00:00",
+  "generated_at": "2026-11-02T13:45:00+00:00",
+  "data_collected_at": "2026-11-02T13:38:02+00:00",
   "headline": "Emory & Henry overtake Catawba at the top",
   "dek": "Coker ended Catawba's unbeaten season with a win at Catawba on Wednesday, while Emory & Henry beat Tusculum to go a point clear. They are now the only side in the conference without a defeat.",
   "lede_basis": {
     "programme": "emory-henry",
     "wins": 8,
-    "draws": 2,
+    "draws": 3,
     "losses": 0,
     "table_points_ahead": 1
   },
   "lede_updated": "2026-10-30",
-  "displaced_by": "Coker beat Catawba and Emory & Henry went top: the standing lede's leader, its two-point margin and 'neither side has lost' are no longer true.",
   "pattern": {
     "label": "observed",
-    "text": "Emory & Henry have scored 23 and conceded four: the side now top of the table has got there by keeping goals out, not by scoring them.",
+    "text": "Emory & Henry have scored 24 and conceded five: the side now top of the table has got there by keeping goals out, not by scoring them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "mars-hill": 41,
-        "catawba": 39,
-        "anderson": 33,
-        "coker": 26,
-        "carson-newman": 25,
+        "catawba": 42,
+        "mars-hill": 42,
+        "anderson": 36,
+        "coker": 27,
+        "carson-newman": 26,
+        "emory-henry": 24,
         "wingate": 24,
-        "emory-henry": 23,
         "lincoln-memorial": 23,
-        "lenoir-rhyne": 15,
+        "lenoir-rhyne": 16,
         "newberry": 15,
         "tusculum": 9
       },
@@ -38,15 +37,15 @@
     },
     "basis": {
       "programme": "emory-henry",
-      "gf": 23,
-      "ga": 4
+      "gf": 24,
+      "ga": 5
     }
   },
   "wire": {
     "line": "Catawba's first defeat, at home to Coker, has handed Emory & Henry the top of the table.",
     "basis": {
       "programme": "catawba",
-      "wins": 12,
+      "wins": 13,
       "draws": 2,
       "losses": 1
     },
@@ -64,41 +63,41 @@
     },
     {
       "label": "observed",
-      "text": "Coker's win at Catawba on Wednesday was their seventh of the season, against one draw and five defeats.",
+      "text": "Emory & Henry's home draw with Lenoir-Rhyne on Saturday was their third of the season; they have won eight and lost none.",
+      "basis": {
+        "programme": "emory-henry",
+        "wins": 8,
+        "draws": 3,
+        "losses": 0
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Catawba's win over Mars Hill on Saturday was their thirteenth of the season, against two draws and one defeat.",
+      "basis": {
+        "programme": "catawba",
+        "wins": 13,
+        "draws": 2,
+        "losses": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Anderson's win over Lincoln Memorial on Saturday was their tenth of the season, against four draws and two defeats.",
+      "basis": {
+        "programme": "anderson",
+        "wins": 10,
+        "draws": 4,
+        "losses": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Coker's draw at Carson-Newman on Saturday was their second of the season, beside seven wins and five defeats.",
       "basis": {
         "programme": "coker",
         "wins": 7,
-        "draws": 1,
-        "losses": 5
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Mars Hill's win over Lenoir-Rhyne on Wednesday was their eighth of the season, against three draws and six defeats.",
-      "basis": {
-        "programme": "mars-hill",
-        "wins": 8,
-        "draws": 3,
-        "losses": 6
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Wingate's win over Newberry on Wednesday was their sixth of the season, against two draws and seven defeats.",
-      "basis": {
-        "programme": "wingate",
-        "wins": 6,
         "draws": 2,
-        "losses": 7
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Carson-Newman's home draw with Lincoln Memorial on Wednesday was their third of the season, beside seven wins and five defeats.",
-      "basis": {
-        "programme": "carson-newman",
-        "wins": 7,
-        "draws": 3,
         "losses": 5
       }
     }
@@ -109,35 +108,35 @@
       "programme": "catawba",
       "position": "MID",
       "class": "SO",
-      "line": "9 G · 2 A · 35 shots"
+      "line": "10 G · 3 A · 36 shots"
     },
     {
       "player": "Luis Munoz",
       "programme": "anderson",
       "position": "FWD",
       "class": "SR",
-      "line": "6 G · 9 A · 45 shots"
+      "line": "6 G · 10 A · 46 shots"
     },
     {
       "player": "Alexis Abalam",
       "programme": "coker",
       "position": "FWD",
       "class": "SO",
-      "line": "7 G · 1 A · 20 shots"
+      "line": "7 G · 1 A · 22 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-28 catawba v coker",
-      "line": "Catawba had not lost all season until this; Emory & Henry are now the conference's only unbeaten side."
+      "fixture_ref": "2026-10-31 emory-henry v lenoir-rhyne",
+      "line": "Emory & Henry have yet to lose this season; Lenoir-Rhyne are the first side to take a draw from them since September."
     },
     "next_match": {
-      "fixture_ref": "2026-10-31 catawba v mars-hill",
-      "line": "Catawba beat Mars Hill on the same ground in September; Mars Hill have outscored every other side in the conference."
+      "fixture_ref": "2026-11-06 catawba v anderson",
+      "line": "Catawba won at Anderson in October; Anderson have won each of their last three."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T12:34:48.916Z"
+    "validated_at": "2026-11-02T13:47:48.112Z"
   }
 }

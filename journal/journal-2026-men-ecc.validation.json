@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-10-30T12:32:08.758Z",
-  "data_collected_at": "2026-10-30T12:02:42+00:00",
+  "validated_at": "2026-11-02T13:42:44.296Z",
+  "data_collected_at": "2026-11-02T13:32:10+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "No conference member has beaten St. Thomas Aquinas; Mercy, who opened conference play against them, get another try.",
-      "checker": "team_record",
+      "text": "Mercy have outscored every other side in the conference and still have not beaten St. Thomas Aquinas.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 37 goals from 52 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 38 goals from 52 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jalen Moni — 7 G · 23 shots",
+      "text": "Jalen Moni — 9 G · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-29 mercy v queens",
+      "text": "2026-11-01 d-youville v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-01 st-thomas-aquinas v mercy",
+      "text": "2026-11-08 st-thomas-aquinas v d-youville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-30T12:30:44.894Z",
-    "generate_ms": 83862,
-    "validate_ms": 1,
-    "wall_ms": 83863,
+    "started_at": "2026-11-02T13:41:19.650Z",
+    "generate_ms": 84644,
+    "validate_ms": 2,
+    "wall_ms": 84646,
     "concurrency": 4
   }
 }

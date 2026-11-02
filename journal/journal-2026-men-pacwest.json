@@ -3,31 +3,31 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-10-30T12:35:00+00:00",
-  "data_collected_at": "2026-10-30T12:26:13+00:00",
-  "headline": "Vanguard finish their schedule on top of the table",
-  "dek": "Vanguard closed their conference schedule with a home win over Biola and have no match on the final day. Only Hawai'i Pacific can still draw level with them on points, and across the whole season Vanguard have won seven matches and lost seven.",
+  "generated_at": "2026-11-02T13:45:00+00:00",
+  "data_collected_at": "2026-11-02T13:36:12+00:00",
+  "headline": "Hawai'i Pacific catch Vanguard at the top of the table",
+  "dek": "Hawai'i Pacific won at Chaminade on the last day of conference play to finish level on points with Vanguard, having won every conference match since Westmont beat them in October. Across the whole season they have won eight matches and lost five; Vanguard and Westmont alone still have a match to play.",
   "lede_basis": {
-    "programme": "vanguard",
-    "wins": 7,
-    "draws": 2,
-    "losses": 7
+    "programme": "hawaii-pacific",
+    "wins": 8,
+    "draws": 3,
+    "losses": 5
   },
-  "lede_updated": "2026-10-30",
-  "displaced_by": "Vanguard's season record is now level at seven wins and seven losses, so the losing-record headline no longer holds, and Westmont have a second conference defeat; Vanguard have finished their conference matches.",
+  "lede_updated": "2026-11-02",
+  "displaced_by": "Hawai'i Pacific beat Chaminade to finish level on points with Vanguard, and Vanguard now have a match against Westmont to play, so neither 'on top' nor 'finish their schedule' still holds.",
   "pattern": {
     "label": "derived",
-    "text": "Kyle Denn has scored thirteen of Biola's twenty-five goals, more than half of everything his side has scored.",
+    "text": "Kyle Denn has scored fourteen of Biola's twenty-eight goals, exactly half of everything his side has scored.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "westmont": 33,
-        "concordia-irvine": 32,
-        "dominican-of-california": 31,
-        "hawaii-pacific": 31,
-        "point-loma": 29,
+        "westmont": 37,
+        "dominican-of-california": 34,
+        "concordia-irvine": 33,
+        "hawaii-pacific": 33,
+        "point-loma": 30,
         "vanguard": 29,
-        "biola": 25,
+        "biola": 28,
         "hawaii-hilo": 17,
         "jessup": 15,
         "chaminade": 7
@@ -38,19 +38,19 @@
       "source": "stats",
       "player": "Kyle Denn",
       "programme": "biola",
-      "goals": 13,
-      "gf": 25
+      "goals": 14,
+      "gf": 28
     }
   },
   "wire": {
-    "line": "Hawai'i Pacific must beat Chaminade, winless all season, to draw level on points with Vanguard at the top.",
+    "line": "Vanguard and Hawai'i Pacific finish conference play level at the top, and Hawai'i Pacific won the meeting between them.",
     "basis": {
-      "programme": "chaminade",
-      "wins": 0,
-      "draws": 2,
-      "losses": 12
+      "programme": "hawaii-pacific",
+      "wins": 8,
+      "draws": 3,
+      "losses": 5
     },
-    "updated": "2026-10-30"
+    "updated": "2026-11-02"
   },
   "findings": [
     {
@@ -85,10 +85,10 @@
     },
     {
       "label": "derived",
-      "text": "Jessup have conceded forty-eight goals, more than any other programme in the conference.",
+      "text": "Jessup have conceded fifty-one goals, more than any other programme in the conference.",
       "basis": {
         "programme": "jessup",
-        "ga": 48,
+        "ga": 51,
         "comparative": "greater_than_each",
         "metric": "ga",
         "of": [
@@ -106,25 +106,25 @@
     },
     {
       "label": "observed",
-      "text": "Chaminade have lost twelve matches and drawn two, scoring seven goals and conceding thirty-one.",
+      "text": "Chaminade have lost thirteen matches and drawn two, scoring seven goals and conceding thirty-three.",
       "basis": {
         "programme": "chaminade",
         "wins": 0,
         "draws": 2,
-        "losses": 12,
+        "losses": 13,
         "gf": 7,
-        "ga": 31
+        "ga": 33
       }
     },
     {
       "label": "observed",
-      "text": "Aidan Strickler has made fifty-three saves for Westmont and conceded twenty-seven goals, a save percentage of .663.",
+      "text": "Aidan Strickler has made fifty-five saves for Westmont and conceded twenty-eight goals, a save percentage of .663.",
       "basis": {
         "source": "stats",
         "player": "Aidan Strickler",
         "programme": "westmont",
-        "saves": 53,
-        "goals_against": 27,
+        "saves": 55,
+        "goals_against": 28,
         "save_pct": 0.663
       }
     }
@@ -135,35 +135,35 @@
       "programme": "biola",
       "position": "MID",
       "class": "JR",
-      "line": "13 G · 1 A · 47 shots"
+      "line": "14 G · 1 A · 48 shots"
+    },
+    {
+      "player": "Kelly Takara",
+      "programme": "hawaii-pacific",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 4 A · 28 shots"
     },
     {
       "player": "Jack Merrill",
       "programme": "point-loma",
       "position": "MID",
       "class": "FR",
-      "line": "8 G · 1 A · 16 shots"
-    },
-    {
-      "player": "Jake Kazlauskas",
-      "programme": "dominican-of-california",
-      "position": "MID",
-      "class": "JR",
-      "line": "7 G · 3 A · 17 shots"
+      "line": "9 G · 1 A · 18 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-28 westmont v concordia-irvine",
-      "line": "Concordia Irvine have not lost since Dominican (Calif.) beat them; Westmont had not lost a conference match at home until now."
+      "fixture_ref": "2026-10-31 chaminade v hawaii-pacific",
+      "line": "Hawai'i Pacific have beaten Chaminade every time the two have met this season; Chaminade end conference play without a win."
     },
     "next_match": {
-      "fixture_ref": "2026-10-31 chaminade v hawaii-pacific",
-      "line": "Hawai'i Pacific have already beaten Chaminade on their own ground this season; Chaminade are still looking for a first win."
+      "fixture_ref": "2026-11-05 vanguard v westmont",
+      "line": "Vanguard won the sides' first meeting on the day conference play opened; Westmont arrive off a home win over Point Loma."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T12:33:43.216Z"
+    "validated_at": "2026-11-02T13:46:31.882Z"
   }
 }

@@ -2,20 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-10-30T17:30:00+00:00",
-  "data_collected_at": "2026-10-30T12:03:40+00:00",
-  "headline": "Sul Ross State are the last side without a point",
-  "dek": "Harding's draw with Rogers State leaves Sul Ross State the only programme in the division without a win or a draw. They have lost all sixteen matches they have played.",
+  "generated_at": "2026-11-02T14:05:00+00:00",
+  "data_collected_at": "2026-11-02T13:33:09+00:00",
+  "headline": "St. Thomas Aquinas have lost only outside their conference",
+  "dek": "St. Thomas Aquinas beat Mercy again and have won every match since Millersville beat them. All four of their defeats came against Millersville and Northeast-10 sides, and no East Coast Conference rival has taken more than a draw from them.",
   "basis": {
-    "programme": "sul-ross-state",
-    "wins": 0,
-    "draws": 0,
-    "losses": 16
+    "programme": "st-thomas-aquinas",
+    "wins": 10,
+    "draws": 4,
+    "losses": 4
   },
-  "fixture_ref": "2026-10-29 harding v rogers-state",
-  "updated": "2026-10-30",
+  "fixture_ref": "2026-11-01 st-thomas-aquinas v mercy",
+  "updated": "2026-11-02",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T17:16:29.491Z"
+    "validated_at": "2026-11-02T13:49:51.211Z"
   }
 }

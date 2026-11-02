@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-10-30T17:15:07.513Z",
-  "data_collected_at": "2026-10-30T17:13:26+00:00",
+  "validated_at": "2026-11-02T13:45:18.123Z",
+  "data_collected_at": "2026-11-02T13:35:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "UT Dallas have lost twice, against ten wins and six draws, and conceded fifteen goals.",
+      "text": "UT Dallas have lost twice, against eleven wins and six draws, and conceded fifteen goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Sebastian Poblete — 8 G · 3 A · 34 shots",
+      "text": "Avery Brazzell — 10 G · 3 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Avery Brazzell — 8 G · 2 A · 23 shots",
+      "text": "Sebastian Poblete — 8 G · 3 A · 36 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-28 midwestern-state v saint-marys",
+      "text": "2026-11-01 saint-marys v dallas-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-31 saint-marys v dallas-baptist",
+      "text": "2026-11-04 midwestern-state v ut-dallas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-30T17:14:28.602Z",
-    "generate_ms": 38910,
+    "started_at": "2026-11-02T13:44:23.605Z",
+    "generate_ms": 54517,
     "validate_ms": 1,
-    "wall_ms": 38911,
+    "wall_ms": 54518,
     "concurrency": 4
   }
 }

@@ -3,29 +3,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-10-30T12:26:00+00:00",
-  "data_collected_at": "2026-10-30T12:19:26+00:00",
-  "headline": "Seattle Pacific finish their conference season and wait",
-  "dek": "Seattle Pacific closed their conference schedule by beating Northwest Nazarene and sit top of the table. Western Oregon, who won at Simon Fraser the same day, go to Western Washington on Saturday needing a win, because a draw would not be enough.",
+  "generated_at": "2026-11-02T13:42:00+00:00",
+  "data_collected_at": "2026-11-02T13:34:11+00:00",
+  "headline": "Western Oregon overtake Seattle Pacific to finish top",
+  "dek": "Western Oregon won at Western Washington on Saturday and finish the conference season above Seattle Pacific, whose own schedule had already ended with a win over Northwest Nazarene. Western Oregon's only defeat by a member came at Seattle Pacific in October.",
   "lede_basis": {
     "programme": "western-oregon",
-    "wins": 10,
+    "wins": 11,
     "draws": 5,
     "losses": 3
   },
-  "lede_updated": "2026-10-30",
-  "displaced_by": "Seattle Pacific have played their last conference match and Western Oregon won at Simon Fraser, so the standing dek's remaining-matches sentence is no longer true.",
+  "lede_updated": "2026-11-02",
+  "displaced_by": "Western Oregon won at Western Washington and finish above Seattle Pacific, so the standing lines about Seattle Pacific waiting on Saturday's result are no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: most of their goals have come against sides outside the conference, not in the matches the table counts.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "seattle-pacific": 44,
-        "western-oregon": 44,
+        "seattle-pacific": 48,
+        "western-oregon": 47,
         "saint-martins": 32,
-        "western-washington": 29,
-        "simon-fraser": 27,
+        "simon-fraser": 31,
+        "western-washington": 30,
         "northwest-nazarene": 24
       },
       "highlight": "seattle-pacific"
@@ -39,14 +39,14 @@
     }
   },
   "wire": {
-    "line": "Western Oregon must win at Western Washington to overtake Seattle Pacific for the title.",
+    "line": "Western Oregon finish top, having won every match since their goalless draw at Northwest Nazarene.",
     "basis": {
       "programme": "western-oregon",
-      "wins": 10,
+      "wins": 11,
       "draws": 5,
       "losses": 3
     },
-    "updated": "2026-10-30"
+    "updated": "2026-11-02"
   },
   "findings": [
     {
@@ -60,7 +60,7 @@
     },
     {
       "label": "derived",
-      "text": "Seattle Pacific have won fourteen matches, more than any other programme in the conference.",
+      "text": "Seattle Pacific have won fifteen matches, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "wins",
@@ -72,7 +72,7 @@
           "western-oregon",
           "western-washington"
         ],
-        "wins": 14
+        "wins": 15
       }
     },
     {
@@ -98,13 +98,13 @@
     },
     {
       "label": "observed",
-      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 78 were saved and 21 went in.",
+      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 83 were saved and 22 went in.",
       "basis": {
         "source": "stats",
         "player": "Austin Valdez",
         "programme": "western-oregon",
-        "saves": 78,
-        "goals_against": 21
+        "saves": 83,
+        "goals_against": 22
       }
     }
   ],
@@ -121,7 +121,7 @@
       "programme": "western-washington",
       "position": "MID",
       "class": "SO",
-      "line": "8 G · 7 A · 36 shots"
+      "line": "8 G · 7 A · 41 shots"
     },
     {
       "player": "Daniel James Jackson",
@@ -133,16 +133,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-29 simon-fraser v western-oregon",
-      "line": "Western Oregon have won every match since their goalless draw at Northwest Nazarene."
+      "fixture_ref": "2026-10-31 western-washington v western-oregon",
+      "line": "Western Washington have now lost to Western Oregon home and away."
     },
     "next_match": {
-      "fixture_ref": "2026-10-31 western-washington v western-oregon",
-      "line": "Western Oregon won the September meeting between the two at home."
+      "fixture_ref": "2026-11-05 seattle-pacific v simon-fraser",
+      "line": "Simon Fraser have not beaten Seattle Pacific in either meeting this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T12:32:34.405Z"
+    "validated_at": "2026-11-02T13:45:11.135Z"
   }
 }

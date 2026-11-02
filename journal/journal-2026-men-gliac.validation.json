@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-10-30T17:15:07.255Z",
-  "data_collected_at": "2026-10-30T17:13:10+00:00",
+  "validated_at": "2026-11-02T13:43:59.928Z",
+  "data_collected_at": "2026-11-02T13:33:28+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Mateusz Pass has made 82 saves for Wisconsin-Parkside while conceding seventeen goals.",
+      "text": "Mateusz Pass has made 83 saves for Wisconsin-Parkside while conceding nineteen goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Fynn Mewes — 8 G · 4 A · 45 shots",
+      "text": "Fynn Mewes — 9 G · 5 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-25 northern-michigan v saginaw-valley-state",
+      "text": "2026-10-31 wisconsin-parkside v roosevelt",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-31 wisconsin-parkside v roosevelt",
+      "text": "2026-11-06 saginaw-valley-state v roosevelt",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-30T17:14:28.600Z",
-    "generate_ms": 38653,
+    "started_at": "2026-11-02T13:42:57.422Z",
+    "generate_ms": 62504,
     "validate_ms": 1,
-    "wall_ms": 38655,
+    "wall_ms": 62505,
     "concurrency": 4
   }
 }

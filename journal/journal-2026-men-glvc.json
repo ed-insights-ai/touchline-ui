@@ -3,19 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-10-30T12:26:00+00:00",
-  "data_collected_at": "2026-10-30T12:19:04+00:00",
+  "generated_at": "2026-11-02T13:45:00+00:00",
+  "data_collected_at": "2026-11-02T13:33:43+00:00",
   "headline": "Lincoln finish conference play without a defeat",
-  "dek": "Lincoln closed their conference schedule by beating McKendree on Tuesday and are still without a defeat, with twelve wins and four draws in all and eleven goals conceded. Drury and Maryville, level in second, have both lost to them.",
+  "dek": "Lincoln closed their conference schedule by beating Rockhurst on Saturday and are unbeaten in all matches, with thirteen wins, four draws and eleven goals conceded. Drury and Maryville, level in second, have both lost to them.",
   "lede_basis": {
     "programme": "lincoln",
-    "wins": 12,
+    "wins": 13,
     "draws": 4,
     "losses": 0,
-    "gf": 36,
+    "gf": 37,
     "ga": 11
   },
-  "lede_updated": "2026-10-28",
+  "lede_updated": "2026-11-02",
+  "displaced_by": "dek no longer true: Lincoln's last conference match was Rockhurst, not McKendree, and their record is now thirteen wins",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
@@ -23,19 +24,19 @@
       "kind": "goals-for-by-team",
       "values": {
         "southwest-baptist": 45,
-        "maryville": 40,
-        "lincoln": 36,
+        "maryville": 41,
+        "lincoln": 37,
         "drury": 31,
         "mckendree": 30,
         "missouri-s-t": 30,
-        "indianapolis": 25,
-        "truman": 25,
-        "quincy": 23,
+        "indianapolis": 27,
+        "truman": 26,
+        "quincy": 24,
         "illinois-springfield": 21,
         "rockhurst": 20,
         "lewis": 19,
+        "missouri-st-louis": 17,
         "upper-iowa": 17,
-        "missouri-st-louis": 16,
         "william-jewell": 13
       },
       "highlight": "southwest-baptist"
@@ -56,7 +57,7 @@
     "line": "Lincoln are the only programme in the conference still without a defeat this season.",
     "basis": {
       "programme": "lincoln",
-      "wins": 12,
+      "wins": 13,
       "draws": 4,
       "losses": 0
     },
@@ -74,39 +75,36 @@
     },
     {
       "label": "derived",
-      "text": "Drury have conceded fourteen goals and lost three times: at home to Oklahoma Christian in August, away at Missouri S&T in September, and at home to Lincoln last Saturday.",
+      "text": "Drury have lost four times this season: at home to Oklahoma Christian in August, away at Missouri S&T in September, and at home to Lincoln and to Missouri-St. Louis in October.",
       "basis": {
         "programme": "drury",
         "wins": 11,
         "draws": 3,
-        "losses": 3,
-        "gf": 31,
-        "ga": 14
+        "losses": 4
       }
     },
     {
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's thirty-six goals, from fifty-eight shots.",
+      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's thirty-seven goals, from sixty shots.",
       "basis": {
         "source": "stats",
         "player": "Jonathan Nemorden",
         "programme": "lincoln",
         "goals": 12,
-        "shots": 58,
-        "gf": 36
+        "shots": 60,
+        "gf": 37
       }
     },
     {
       "label": "derived",
-      "text": "Truman have scored twenty-five goals and conceded twenty-seven, and Jacob Panagos has fourteen of the twenty-five from forty-nine shots.",
+      "text": "Jacob Panagos, a midfielder, has fourteen of Truman's twenty-six goals, from fifty shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Panagos",
         "programme": "truman",
         "goals": 14,
-        "shots": 49,
-        "gf": 25,
-        "ga": 27
+        "shots": 50,
+        "gf": 26
       }
     },
     {
@@ -128,14 +126,14 @@
       "programme": "truman",
       "position": "MID",
       "class": "JR",
-      "line": "14 G · 1 A · 49 shots"
+      "line": "14 G · 1 A · 50 shots"
     },
     {
       "player": "Jonathan Nemorden",
       "programme": "lincoln",
       "position": "FWD",
       "class": "FR",
-      "line": "12 G · 2 A · 58 shots"
+      "line": "12 G · 2 A · 60 shots"
     },
     {
       "player": "Fredrik Thulin",
@@ -147,16 +145,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-27 lincoln v mckendree",
-      "line": "Lincoln end their conference schedule without a defeat; McKendree had kept a clean sheet in every match since William Jewell scored against them earlier this month."
+      "fixture_ref": "2026-11-01 indianapolis v quincy",
+      "line": "Quincy end the conference schedule on a losing run that began at Lincoln; Indianapolis have not lost at home since Maryville beat them in September."
     },
     "next_match": {
-      "fixture_ref": "2026-10-31 drury v missouri-st-louis",
-      "line": "Drury won the September meeting away from home; Missouri-St. Louis come in off a win at Missouri S&T, Drury off their home defeat by Lincoln."
+      "fixture_ref": "2026-11-06 lincoln v indianapolis",
+      "line": "Lincoln have won every match they have played at home; Indianapolis held them to a draw in the October meeting."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T12:31:54.762Z"
+    "validated_at": "2026-11-02T13:44:28.144Z"
   }
 }

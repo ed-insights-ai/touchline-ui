@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-10-30T17:15:41.678Z",
-  "data_collected_at": "2026-10-30T17:13:54+00:00",
+  "validated_at": "2026-11-02T13:47:09.082Z",
+  "data_collected_at": "2026-11-02T13:36:36+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,19 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "Fourteen different players have scored North Georgia's 41 goals, so their attack is spread across the squad rather than leaning on one scorer.",
+      "unbacked": ["1"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Flagler's 39 goals are more than USC Aiken and Georgia Southwestern have scored between them, and twelve different players have shared them.",
-      "checker": "distinct_scorers+team_goals+comparative",
+      "text": "Fourteen different players have scored North Georgia's 41 goals, so their attack is spread across the squad rather than leaning on one scorer.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Middle Georgia State have conceded 48 goals, more than any other programme in the conference, while scoring 29.",
+      "text": "Middle Georgia State have conceded 54 goals, more than any other programme in the conference, while scoring 29.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Javier Gongora Andres has scored eleven of Middle Georgia State's 29 goals from 52 shots.",
+      "text": "Javier Gongora Andres has scored eleven of Middle Georgia State's 29 goals from 55 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Isaac Calderon has scored nine of North Georgia's 39 goals from 44 shots.",
+      "text": "Isaac Calderon has scored nine of North Georgia's 41 goals from 47 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Javier Gongora Andres — 11 G · 3 A · 52 shots",
+      "text": "Finn Weigelt — 11 G · 1 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Finn Weigelt — 11 G · 1 A · 37 shots",
+      "text": "Isaac Calderon — 9 G · 4 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Isaac Calderon — 9 G · 4 A · 44 shots",
+      "text": "Arttu Leivonen — 9 G · 4 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-26 flagler v georgia-southwestern",
+      "text": "2026-10-31 clayton-state v middle-georgia-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-31 usc-aiken v lander",
+      "text": "2026-11-04 flagler v usc-aiken",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-30T17:15:04.445Z",
-    "generate_ms": 37231,
+    "started_at": "2026-11-02T13:45:32.713Z",
+    "generate_ms": 96367,
     "validate_ms": 1,
-    "wall_ms": 37232,
+    "wall_ms": 96369,
     "concurrency": 4
   }
 }

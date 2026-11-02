@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-10-30T12:31:54.762Z",
-  "data_collected_at": "2026-10-30T12:19:04+00:00",
+  "validated_at": "2026-11-02T13:44:28.144Z",
+  "data_collected_at": "2026-11-02T13:33:43+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -67,8 +67,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Drury have conceded fourteen goals and lost three times: at home to Oklahoma Christian in August, away at Missouri S&T in September, and at home to Lincoln last Saturday.",
-      "checker": "team_goals+team_record",
+      "text": "Drury have lost four times this season: at home to Oklahoma Christian in August, away at Missouri S&T in September, and at home to Lincoln and to Missouri-St. Louis in October.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's thirty-six goals, from fifty-eight shots.",
+      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's thirty-seven goals, from sixty shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Truman have scored twenty-five goals and conceded twenty-seven, and Jacob Panagos has fourteen of the twenty-five from forty-nine shots.",
+      "text": "Jacob Panagos, a midfielder, has fourteen of Truman's twenty-six goals, from fifty shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Panagos — 14 G · 1 A · 49 shots",
+      "text": "Jacob Panagos — 14 G · 1 A · 50 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jonathan Nemorden — 12 G · 2 A · 58 shots",
+      "text": "Jonathan Nemorden — 12 G · 2 A · 60 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-27 lincoln v mckendree",
+      "text": "2026-11-01 indianapolis v quincy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-31 drury v missouri-st-louis",
+      "text": "2026-11-06 lincoln v indianapolis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-30T12:31:18.936Z",
-    "generate_ms": 35825,
+    "started_at": "2026-11-02T13:43:15.006Z",
+    "generate_ms": 73136,
     "validate_ms": 1,
-    "wall_ms": 35826,
+    "wall_ms": 73137,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-10-30T12:31:18.746Z",
-  "data_collected_at": "2026-10-30T12:03:12+00:00",
+  "validated_at": "2026-11-02T13:44:23.421Z",
+  "data_collected_at": "2026-11-02T13:32:39+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Jersey Lopez has twelve assists for Kentucky Wesleyan.",
+      "text": "Jersey Lopez has fourteen assists for Kentucky Wesleyan.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jersey Lopez — 3 G · 12 A · 31 shots",
+      "text": "Jersey Lopez — 3 G · 14 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Carson Oberski — 6 G · 5 A · 39 shots",
+      "text": "Carson Oberski — 8 G · 5 A · 43 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-27 lake-erie v tiffin",
+      "text": "2026-10-31 cedarville v kentucky-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-10-31 thomas-more v findlay",
+      "text": "2026-11-05 lake-erie v kentucky-wesleyan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-30T12:30:44.896Z",
-    "generate_ms": 33846,
-    "validate_ms": 3,
-    "wall_ms": 33849,
+    "started_at": "2026-11-02T13:42:31.147Z",
+    "generate_ms": 112272,
+    "validate_ms": 1,
+    "wall_ms": 112273,
     "concurrency": 4
   }
 }

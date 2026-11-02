@@ -3,78 +3,79 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-10-30T17:25:00+00:00",
-  "data_collected_at": "2026-10-30T17:12:07+00:00",
-  "headline": "Felician stand alone unbeaten in conference play",
-  "dek": "Jefferson's win at Wilmington ended the leaders' unbeaten run in conference play, and Felician are now the only side without a conference defeat. All four of Felician's losses came against non-conference opponents, in a season that also holds six wins and eight draws.",
+  "generated_at": "2026-11-02T13:45:00+00:00",
+  "data_collected_at": "2026-11-02T13:30:40+00:00",
+  "headline": "Georgian Court end Felician's unbeaten run against conference sides",
+  "dek": "No conference side had beaten Felician until Georgian Court won there on the last day of October. Every other Felician defeat came against a non-conference opponent, and their season now stands at six wins, eight draws and five losses.",
   "lede_basis": {
     "programme": "felician",
     "wins": 6,
     "draws": 8,
-    "losses": 4
+    "losses": 5
   },
-  "lede_updated": "2026-10-29",
+  "lede_updated": "2026-11-02",
+  "displaced_by": "Georgian Court won at Felician; the standing dek's four losses, all non-conference, are now five, one of them to a conference side",
   "pattern": {
     "label": "observed",
-    "text": "Goals have not decided the table: Bridgeport have scored 41 and conceded 35, in a season of seven wins, three draws and seven defeats.",
+    "text": "Goals have not decided the table: Bridgeport have scored 44 and conceded 37, in a season of eight wins, three draws and seven defeats.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "bridgeport": 41,
-        "felician": 35,
-        "georgian-court": 34,
-        "wilmington": 28,
-        "jefferson": 27,
-        "caldwell": 24,
+        "bridgeport": 44,
+        "felician": 36,
+        "georgian-court": 36,
+        "wilmington": 31,
+        "jefferson": 29,
+        "caldwell": 25,
+        "holy-family": 23,
         "chestnut-hill": 22,
-        "holy-family": 21,
+        "post": 22,
         "goldey-beacom": 20,
-        "post": 20,
         "dominican": 9
       },
       "highlight": "bridgeport"
     },
     "basis": {
       "programme": "bridgeport",
-      "wins": 7,
+      "wins": 8,
       "draws": 3,
       "losses": 7,
-      "gf": 41,
-      "ga": 35
+      "gf": 44,
+      "ga": 37
     }
   },
   "wire": {
-    "line": "Goldey-Beacom are still without a conference win, and Felician are still without a conference defeat.",
+    "line": "Wilmington top the table despite draws with Felician, Holy Family and Dominican and a defeat by Jefferson.",
     "basis": {
-      "programme": "felician",
-      "wins": 6,
-      "draws": 8,
+      "programme": "wilmington",
+      "wins": 10,
+      "draws": 5,
       "losses": 4
     },
-    "updated": "2026-10-29"
+    "updated": "2026-11-02"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Gijs van Eif has scored nine goals for Georgian Court and assisted eight more, from 67 shots.",
+      "text": "Gijs van Eif has scored nine goals for Georgian Court from 71 shots, and has eight assists.",
       "basis": {
         "source": "stats",
         "player": "Gijs van Eif",
         "programme": "georgian-court",
         "goals": 9,
         "assists": 8,
-        "shots": 67
+        "shots": 71
       }
     },
     {
       "label": "observed",
-      "text": "Mathias Kristoffersen has kept nine shutouts for Felician and conceded ten goals all season.",
+      "text": "Mathias Kristoffersen has kept nine shutouts for Felician and conceded twelve goals all season.",
       "basis": {
         "source": "stats",
         "player": "Mathias Kristoffersen",
         "programme": "felician",
         "shutouts": 9,
-        "goals_against": 10
+        "goals_against": 12
       }
     },
     {
@@ -115,13 +116,13 @@
     },
     {
       "label": "observed",
-      "text": "Bruno Mestres has made 97 saves for Holy Family and conceded 22 goals.",
+      "text": "Bruno Mestres has made 103 saves for Holy Family and conceded 25 goals.",
       "basis": {
         "source": "stats",
         "player": "Bruno Mestres",
         "programme": "holy-family",
-        "saves": 97,
-        "goals_against": 22
+        "saves": 103,
+        "goals_against": 25
       }
     }
   ],
@@ -131,35 +132,35 @@
       "programme": "georgian-court",
       "position": "FWD",
       "class": "SR",
-      "line": "9 G · 8 A · 67 shots"
+      "line": "9 G · 8 A · 71 shots"
     },
     {
       "player": "Eliass Elfasoukhi",
       "programme": "post",
       "position": "MID",
       "class": "JR",
-      "line": "7 G · 3 A · 30 shots"
+      "line": "7 G · 3 A · 31 shots"
     },
     {
-      "player": "Samuel Macy",
+      "player": "Vaughn Clement",
       "programme": "wilmington",
-      "position": "MID",
-      "class": "SR",
-      "line": "5 G · 3 A · 32 shots"
+      "position": "FWD",
+      "class": "FR",
+      "line": "8 G · 54 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-28 holy-family v chestnut-hill",
-      "line": "Holy Family have not lost since their defeat at Jefferson; Chestnut Hill have lost every match since beating Dominican."
+      "fixture_ref": "2026-10-31 felician v georgian-court",
+      "line": "The sides' earlier meeting, at Georgian Court, ended goalless; Georgian Court have won at Dominican and at Felician since losing at Jefferson."
     },
     "next_match": {
-      "fixture_ref": "2026-10-31 holy-family v bridgeport",
-      "line": "Holy Family won the sides' conference meeting on this ground; Bridgeport have scored more goals than any other side in the conference."
+      "fixture_ref": "2026-11-03 wilmington v bridgeport",
+      "line": "Wilmington won the sides' earlier meeting, at Bridgeport; Bridgeport come from a win at Holy Family, who had beaten them there in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-10-30T17:15:04.270Z"
+    "validated_at": "2026-11-02T13:43:14.812Z"
   }
 }

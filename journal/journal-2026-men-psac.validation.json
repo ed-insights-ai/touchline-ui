@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-10-30T12:34:05.753Z",
-  "data_collected_at": "2026-10-30T12:26:57+00:00",
+  "validated_at": "2026-11-02T13:47:08.752Z",
+  "data_collected_at": "2026-11-02T13:36:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 22, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+      "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 23, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lock Haven, West Chester and Millersville can each still finish level with Gannon at the top.",
-      "checker": "team_record",
+      "text": "Millersville have won thirteen matches and conceded 14 goals, yet sit behind Gannon in the table.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Millersville have won twelve, drawn two and lost four, and have conceded 14 goals across the season while scoring 38.",
-      "checker": "team_goals+team_record",
+      "text": "Lock Haven have drawn nine matches, more than any other programme in the conference, against six wins and four defeats.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Rafael Santos has six goals and eight assists from 48 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 54 shots for Seton Hill.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Rafa Hyde — 14 G · 4 A · 50 shots",
+      "text": "Rafa Hyde — 15 G · 4 A · 56 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Steven Arias — 8 G · 1 A · 35 shots",
+      "text": "Steven Arias — 8 G · 1 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-29 lock-haven v gannon",
+      "text": "2026-11-01 lock-haven v e-stroudsburg",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-01 gannon v shepherd",
+      "text": "2026-11-04 gannon v seton-hill",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-10-30T12:32:49.705Z",
-    "generate_ms": 76046,
+    "started_at": "2026-11-02T13:45:47.345Z",
+    "generate_ms": 81405,
     "validate_ms": 1,
-    "wall_ms": 76047,
+    "wall_ms": 81407,
     "concurrency": 4
   }
 }
