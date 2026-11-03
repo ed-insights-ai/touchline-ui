@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-11-02T13:40:00+00:00",
-  "data_collected_at": "2026-11-02T13:31:16+00:00",
+  "generated_at": "2026-11-03T12:40:00+00:00",
+  "data_collected_at": "2026-11-03T12:30:36+00:00",
   "headline": "Barton win at leaders Young Harris",
   "dek": "Barton have not lost since September. All six of their defeats this season came before October, and they have won or drawn every match since. Francis Marion, the last side to beat them, visit on Friday.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 6
   },
   "lede_updated": "2026-11-02",
-  "displaced_by": "Barton won at the leaders Young Harris on Oct 31. The standing dek's Lees-McRae record of thirteen wins is out of date: they have fourteen now.",
   "pattern": {
     "label": "derived",
     "text": "Chowan's 50 goals have come from at least fifteen different scorers and have still brought five defeats; spreading the scoring has not bought a clean record.",
@@ -61,11 +60,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Fourteen matches dated before today carry no result at all; every one of them is from August except Converse's home match against Belmont Abbey on Saturday.",
+      "text": "Thirteen matches dated before today carry no result at all, and every one of them is from August.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 14
+        "past_date_no_result": 13
       }
     },
     {
@@ -144,12 +143,12 @@
       "line": "North Greenville have not scored against Lees-McRae this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-06 converse v lees-mcrae",
+      "fixture_ref": "2026-11-06 lees-mcrae v converse",
       "line": "Neither side has yet beaten the other this season; Converse have won every match since losing to Coker."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:42:57.243Z"
+    "validated_at": "2026-11-03T12:41:40.489Z"
   }
 }

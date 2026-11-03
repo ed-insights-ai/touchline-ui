@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-11-02T13:45:32.533Z",
-  "data_collected_at": "2026-11-02T13:34:27+00:00",
+  "validated_at": "2026-11-03T12:42:55.229Z",
+  "data_collected_at": "2026-11-03T12:34:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -17,7 +17,7 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[2].text",
+      "path": "findings[1].text",
       "text": "Spring Hill have scored three goals in thirteen matches and have yet to win one.",
       "unbacked": ["1"]
     }
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Trevecca won at AUM and now share top spot; Hunter Walker has kept seven clean sheets behind them.",
-      "checker": "player_stat",
+      "text": "Trevecca have lost once this season, at home to Lee, and go to Lee next.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,15 +62,6 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "UAH have lost twice in fifteen matches, at AUM and at home to West Alabama.",
-      "checker": "team_record+fixture_counts",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[2]",
-      "label": "derived",
       "text": "Spring Hill have scored three goals in thirteen matches and have yet to win one.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
@@ -78,7 +69,7 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[2]",
       "label": "observed",
       "text": "Charles Carriglitto has conceded ten goals for Lee and kept seven clean sheets.",
       "checker": "player_stat",
@@ -87,7 +78,7 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
+      "path": "findings[3]",
       "label": "observed",
       "text": "Patrick Schott has made 97 saves for Union and conceded 25 goals.",
       "checker": "player_stat",
@@ -142,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-02T13:44:16.838Z",
-    "generate_ms": 75693,
+    "started_at": "2026-11-03T12:41:31.525Z",
+    "generate_ms": 83702,
     "validate_ms": 1,
-    "wall_ms": 75694,
+    "wall_ms": 83703,
     "concurrency": 4
   }
 }

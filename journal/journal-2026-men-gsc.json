@@ -3,19 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-11-02T13:40:00+00:00",
-  "data_collected_at": "2026-11-02T13:34:27+00:00",
-  "headline": "Trevecca take their winning run to Lee",
-  "dek": "Trevecca have not lost since Lee beat them at Trevecca in September, the only defeat in their sixteen matches this season. They go to Lee level on points with AUM at the head of the table, in the only match left on the schedule.",
+  "generated_at": "2026-11-03T12:40:00+00:00",
+  "data_collected_at": "2026-11-03T12:34:34+00:00",
+  "headline": "West Alabama win at UAH and head for AUM",
+  "dek": "West Alabama go to AUM straight from their win at UAH. AUM have conceded thirteen goals in sixteen matches and lost twice, neither time to West Alabama, who drew with them in October.",
   "lede_basis": {
-    "programme": "trevecca",
-    "wins": 13,
-    "draws": 2,
-    "losses": 1,
+    "programme": "aum",
+    "ga": 13,
+    "wins": 11,
+    "draws": 3,
+    "losses": 2,
     "played": 16
   },
-  "lede_updated": "2026-11-02",
-  "displaced_by": "The standing dek's 'fifteen' no longer holds at sixteen matches, and Trevecca's next match is at Lee, the only side to beat them, with AUM level on points.",
+  "lede_updated": "2026-11-03",
+  "displaced_by": "The standing dek no longer holds: AUM are now above Trevecca instead of level with them, and two matches remain instead of one. West Alabama's win at UAH sends them to AUM.",
   "pattern": {
     "label": "derived",
     "text": "West Alabama's goals have not bought points: they have conceded 29 and won seven of their seventeen matches.",
@@ -47,14 +48,14 @@
     }
   },
   "wire": {
-    "line": "Trevecca won at AUM and now share top spot; Hunter Walker has kept seven clean sheets behind them.",
+    "line": "Trevecca have lost once this season, at home to Lee, and go to Lee next.",
     "basis": {
-      "source": "stats",
-      "player": "Hunter Walker",
       "programme": "trevecca",
-      "shutouts": 7
+      "wins": 13,
+      "draws": 2,
+      "losses": 1
     },
-    "updated": "2026-10-18"
+    "updated": "2026-11-03"
   },
   "findings": [
     {
@@ -64,17 +65,6 @@
         "set": "past_date_no_result",
         "all_of": "christian-brothers",
         "count": 3
-      }
-    },
-    {
-      "label": "derived",
-      "text": "UAH have lost twice in fifteen matches, at AUM and at home to West Alabama.",
-      "basis": {
-        "programme": "uah",
-        "wins": 10,
-        "draws": 3,
-        "losses": 2,
-        "played": 15
       }
     },
     {
@@ -138,7 +128,7 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-10-31 uah v west-alabama",
-      "line": "UAH had not lost at home all season, and West Alabama had lost at home to them in September."
+      "line": "It was the first match UAH have lost at home this season."
     },
     "next_match": {
       "fixture_ref": "2026-11-05 lee v trevecca",
@@ -147,6 +137,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:45:32.533Z"
+    "validated_at": "2026-11-03T12:42:55.229Z"
   }
 }

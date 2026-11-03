@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-11-02T13:47:47.818Z",
-  "data_collected_at": "2026-11-02T13:40:47+00:00",
+  "validated_at": "2026-11-03T12:44:42.274Z",
+  "data_collected_at": "2026-11-03T12:38:08+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,13 +15,7 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "wire",
-      "text": "Saint Leo, Eckerd and Nova Southeastern have no match left; every other side in the conference still has one.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
@@ -45,7 +39,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Saint Leo, Eckerd and Nova Southeastern have no match left; every other side in the conference still has one.",
+      "text": "Embry-Riddle, behind only Florida Tech in the table, have lost at home to Tampa.",
       "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -54,7 +48,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, and Eckerd's home match against Trinity in September, have all passed their date with no result.",
+      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, Eckerd's home match against Trinity in September, and Barry's home match against Lynn on Monday have all passed their date with no result.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-29 rollins v saint-leo",
+      "text": "2026-11-02 embry-riddle v tampa",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-02 florida-tech v rollins",
+      "text": "2026-11-03 florida-tech v rollins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -143,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-02T13:47:08.941Z",
-    "generate_ms": 38875,
+    "started_at": "2026-11-03T12:43:13.667Z",
+    "generate_ms": 88605,
     "validate_ms": 2,
-    "wall_ms": 38877,
+    "wall_ms": 88607,
     "concurrency": 4
   }
 }

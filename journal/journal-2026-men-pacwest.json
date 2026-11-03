@@ -3,18 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-11-02T13:45:00+00:00",
-  "data_collected_at": "2026-11-02T13:36:12+00:00",
+  "generated_at": "2026-11-03T12:45:00+00:00",
+  "data_collected_at": "2026-11-03T12:35:50+00:00",
   "headline": "Hawai'i Pacific catch Vanguard at the top of the table",
-  "dek": "Hawai'i Pacific won at Chaminade on the last day of conference play to finish level on points with Vanguard, having won every conference match since Westmont beat them in October. Across the whole season they have won eight matches and lost five; Vanguard and Westmont alone still have a match to play.",
+  "dek": "Hawai'i Pacific won at Chaminade to draw level on points with Vanguard, having won every conference match since Westmont beat them in October. Neither has finished: Vanguard are at home to Westmont and Hawai'i Pacific meet Dominican (Calif.), the sides directly beneath them in the table.",
   "lede_basis": {
     "programme": "hawaii-pacific",
     "wins": 8,
     "draws": 3,
     "losses": 5
   },
-  "lede_updated": "2026-11-02",
-  "displaced_by": "Hawai'i Pacific beat Chaminade to finish level on points with Vanguard, and Vanguard now have a match against Westmont to play, so neither 'on top' nor 'finish their schedule' still holds.",
+  "lede_updated": "2026-11-03",
+  "displaced_by": "Hawai'i Pacific now also have a match to play, against Dominican (Calif.), so the dek's 'finish level' and 'Vanguard and Westmont alone still have a match to play' no longer hold; the headline is still true and stands.",
   "pattern": {
     "label": "derived",
     "text": "Kyle Denn has scored fourteen of Biola's twenty-eight goals, exactly half of everything his side has scored.",
@@ -43,14 +43,14 @@
     }
   },
   "wire": {
-    "line": "Vanguard and Hawai'i Pacific finish conference play level at the top, and Hawai'i Pacific won the meeting between them.",
+    "line": "Hawai'i Pacific and Vanguard are level at the top, and both now face the sides directly beneath them in the table.",
     "basis": {
       "programme": "hawaii-pacific",
       "wins": 8,
       "draws": 3,
       "losses": 5
     },
-    "updated": "2026-11-02"
+    "updated": "2026-11-03"
   },
   "findings": [
     {
@@ -164,6 +164,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:46:31.882Z"
+    "validated_at": "2026-11-03T12:43:13.472Z"
   }
 }

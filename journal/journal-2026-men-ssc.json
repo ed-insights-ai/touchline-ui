@@ -3,20 +3,22 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-11-02T13:50:00+00:00",
-  "data_collected_at": "2026-11-02T13:40:47+00:00",
-  "headline": "Florida Tech clinch first place",
-  "dek": "Florida Tech finished their ten conference matches four points clear of Embry-Riddle, and Rollins' win over Saint Leo on Thursday leaves every side on ten. Florida Tech still have one match to come, against Rollins, and Embry-Riddle theirs against Tampa.",
+  "generated_at": "2026-11-03T12:50:00+00:00",
+  "data_collected_at": "2026-11-03T12:38:08+00:00",
+  "headline": "Tampa win at Embry-Riddle",
+  "dek": "Tampa won at Embry-Riddle on Monday, only the third defeat Embry-Riddle have suffered all season. Tampa had finished their ten conference matches five points below them, level with Palm Beach Atlantic and Rollins.",
   "lede_basis": {
-    "programme": "florida-tech",
-    "points": 23,
+    "programme": "embry-riddle",
+    "wins": 9,
+    "draws": 5,
+    "losses": 3,
     "embry_riddle_points": 19,
-    "points_lead": 4,
-    "conference_matches_played_each": 10,
-    "florida_tech_matches_remaining": 1,
-    "embry_riddle_matches_remaining": 1
+    "tampa_points": 14,
+    "points_gap": 5,
+    "conference_matches_played_each": 10
   },
-  "lede_updated": "2026-10-30",
+  "lede_updated": "2026-11-03",
+  "displaced_by": "Embry-Riddle v Tampa, which the standing dek listed as still to come, has been played, and Tampa won it.",
   "pattern": {
     "label": "derived",
     "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack.",
@@ -28,9 +30,9 @@
         "saint-leo": 32,
         "rollins": 30,
         "palm-beach-atlantic": 28,
+        "embry-riddle": 27,
         "florida-tech": 27,
-        "embry-riddle": 26,
-        "tampa": 25,
+        "tampa": 27,
         "lynn": 23,
         "barry": 21,
         "nova-southeastern": 19
@@ -46,22 +48,22 @@
     }
   },
   "wire": {
-    "line": "Saint Leo, Eckerd and Nova Southeastern have no match left; every other side in the conference still has one.",
+    "line": "Embry-Riddle, behind only Florida Tech in the table, have lost at home to Tampa.",
     "basis": {
       "source": "fixtures",
-      "played": 112,
-      "total": 122
+      "played": 113,
+      "total": 123
     },
-    "updated": "2026-10-30"
+    "updated": "2026-11-03"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, and Eckerd's home match against Trinity in September, have all passed their date with no result.",
+      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, Eckerd's home match against Trinity in September, and Barry's home match against Lynn on Monday have all passed their date with no result.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 4
+        "past_date_no_result": 5
       }
     },
     {
@@ -146,16 +148,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-29 rollins v saint-leo",
-      "line": "Rollins now sit level on points with Palm Beach Atlantic and Tampa; Saint Leo end their schedule on a defeat."
+      "fixture_ref": "2026-11-02 embry-riddle v tampa",
+      "line": "Each side has now won on the other's ground this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-02 florida-tech v rollins",
+      "fixture_ref": "2026-11-03 florida-tech v rollins",
       "line": "These sides drew when they met at Rollins; Rollins arrive on the back of a win."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:47:47.818Z"
+    "validated_at": "2026-11-03T12:44:42.274Z"
   }
 }

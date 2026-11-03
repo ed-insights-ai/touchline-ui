@@ -3,20 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-11-02T13:45:00+00:00",
-  "data_collected_at": "2026-11-02T13:33:43+00:00",
-  "headline": "Lincoln finish conference play without a defeat",
-  "dek": "Lincoln closed their conference schedule by beating Rockhurst on Saturday and are unbeaten in all matches, with thirteen wins, four draws and eleven goals conceded. Drury and Maryville, level in second, have both lost to them.",
+  "generated_at": "2026-11-03T12:45:00+00:00",
+  "data_collected_at": "2026-11-03T12:33:52+00:00",
+  "headline": "Lincoln host the last side to hold them",
+  "dek": "Since Indianapolis drew with them in October, Lincoln have won six matches in a row and are thirteen wins and four draws into a season without defeat. All four draws came away from home; Drury and Maryville, level in second, have both lost to them.",
   "lede_basis": {
     "programme": "lincoln",
     "wins": 13,
     "draws": 4,
     "losses": 0,
-    "gf": 37,
-    "ga": 11
+    "consecutive_wins_since_last_draw": 6,
+    "away_draws": 4
   },
-  "lede_updated": "2026-11-02",
-  "displaced_by": "dek no longer true: Lincoln's last conference match was Rockhurst, not McKendree, and their record is now thirteen wins",
+  "lede_updated": "2026-11-03",
+  "displaced_by": "headline and dek no longer true: Lincoln have not finished conference play. They still play Indianapolis, a member, on 2026-11-06, and their fourteenth table match was McKendree, not Rockhurst",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
@@ -150,11 +150,11 @@
     },
     "next_match": {
       "fixture_ref": "2026-11-06 lincoln v indianapolis",
-      "line": "Lincoln have won every match they have played at home; Indianapolis held them to a draw in the October meeting."
+      "line": "Lincoln have won every match they have played at home; Indianapolis have won their last two."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:44:28.144Z"
+    "validated_at": "2026-11-03T12:42:51.137Z"
   }
 }

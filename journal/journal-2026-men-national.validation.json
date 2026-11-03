@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-02T13:49:51.211Z",
+  "validated_at": "2026-11-03T12:45:21.808Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "St. Thomas Aquinas have lost only outside their conference St. Thomas Aquinas beat Mercy again and have won every match since Millersville beat them. All four of their defeats came against Millersville and Northeast-10 sides, and no East Coast Conference rival has taken more than a draw from them.",
+      "text": "Tampa have now won as often as they have lost Tampa's win at Embry-Riddle brings them to six wins and six defeats, with four draws besides. Embry-Riddle, who won at Tampa earlier in the season, have not won since they beat Saint Leo.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-02T13:47:51.336Z",
-    "generate_ms": 119872,
-    "validate_ms": 2,
-    "wall_ms": 119874
+    "started_at": "2026-11-03T12:44:45.144Z",
+    "generate_ms": 36662,
+    "validate_ms": 1,
+    "wall_ms": 36664
   }
 }

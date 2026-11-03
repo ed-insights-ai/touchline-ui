@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-11-02T13:47:25.651Z",
-  "data_collected_at": "2026-11-02T13:37:24+00:00",
+  "validated_at": "2026-11-03T12:43:29.893Z",
+  "data_collected_at": "2026-11-03T12:36:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 28; scoring is not what separates the top of the table.",
+      "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 30; scoring is not what separates the top of the table.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lucas Miranda — 10 G · 1 A · 28 shots",
+      "text": "Lucas Miranda — 10 G · 1 A · 29 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-01 uccs v westminster",
+      "text": "2026-11-02 fort-lewis v south-dakota-mines",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-02 fort-lewis v south-dakota-mines",
+      "text": "2026-11-04 csu-pueblo v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-02T13:46:19.642Z",
-    "generate_ms": 66008,
+    "started_at": "2026-11-03T12:42:51.324Z",
+    "generate_ms": 38568,
     "validate_ms": 1,
-    "wall_ms": 66009,
+    "wall_ms": 38569,
     "concurrency": 4
   }
 }

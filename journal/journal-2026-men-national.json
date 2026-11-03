@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-11-02T14:05:00+00:00",
+  "generated_at": "2026-11-03T13:05:00+00:00",
   "data_collected_at": "2026-11-02T13:33:09+00:00",
-  "headline": "St. Thomas Aquinas have lost only outside their conference",
-  "dek": "St. Thomas Aquinas beat Mercy again and have won every match since Millersville beat them. All four of their defeats came against Millersville and Northeast-10 sides, and no East Coast Conference rival has taken more than a draw from them.",
+  "headline": "Tampa have now won as often as they have lost",
+  "dek": "Tampa's win at Embry-Riddle brings them to six wins and six defeats, with four draws besides. Embry-Riddle, who won at Tampa earlier in the season, have not won since they beat Saint Leo.",
   "basis": {
-    "programme": "st-thomas-aquinas",
-    "wins": 10,
+    "programme": "tampa",
+    "wins": 6,
     "draws": 4,
-    "losses": 4
+    "losses": 6
   },
-  "fixture_ref": "2026-11-01 st-thomas-aquinas v mercy",
-  "updated": "2026-11-02",
-  "displaced_by": "age",
+  "fixture_ref": "2026-11-02 embry-riddle v tampa",
+  "updated": "2026-11-03",
+  "displaced_by": "results night: Tampa's win at Embry-Riddle levels their record",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:49:51.211Z"
+    "validated_at": "2026-11-03T12:45:21.808Z"
   }
 }
