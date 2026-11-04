@@ -3,37 +3,40 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-11-03T12:50:00+00:00",
-  "data_collected_at": "2026-11-03T12:38:08+00:00",
-  "headline": "Tampa win at Embry-Riddle",
-  "dek": "Tampa won at Embry-Riddle on Monday, only the third defeat Embry-Riddle have suffered all season. Tampa had finished their ten conference matches five points below them, level with Palm Beach Atlantic and Rollins.",
+  "generated_at": "2026-11-04T13:05:00+00:00",
+  "data_collected_at": "2026-11-04T12:52:09+00:00",
+  "headline": "Mid-table sides topple the top two",
+  "dek": "Rollins beat Florida Tech on Tuesday, a day after Tampa won at Embry-Riddle. Both winners finished their ten conference matches on fourteen points, nine behind Florida Tech and five behind Embry-Riddle, each of whom lost once in conference play.",
   "lede_basis": {
-    "programme": "embry-riddle",
-    "wins": 9,
-    "draws": 5,
-    "losses": 3,
-    "embry_riddle_points": 19,
+    "top_two": 2,
+    "days_between": 1,
+    "conference_matches_played_each": 10,
+    "rollins_points": 14,
     "tampa_points": 14,
-    "points_gap": 5,
-    "conference_matches_played_each": 10
+    "florida_tech_points": 23,
+    "embry_riddle_points": 19,
+    "points_gap_florida_tech": 9,
+    "points_gap_embry_riddle": 5,
+    "florida_tech_conference_losses": 1,
+    "embry_riddle_conference_losses": 1
   },
-  "lede_updated": "2026-11-03",
-  "displaced_by": "Embry-Riddle v Tampa, which the standing dek listed as still to come, has been played, and Tampa won it.",
+  "lede_updated": "2026-11-04",
+  "displaced_by": "Rollins beat table leaders Florida Tech a day after Tampa won at Embry-Riddle, so both of the table's top two have now been beaten.",
   "pattern": {
     "label": "derived",
     "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 35,
+        "florida-southern": 38,
         "eckerd": 34,
+        "rollins": 32,
         "saint-leo": 32,
-        "rollins": 30,
-        "palm-beach-atlantic": 28,
+        "palm-beach-atlantic": 30,
+        "florida-tech": 28,
         "embry-riddle": 27,
-        "florida-tech": 27,
         "tampa": 27,
-        "lynn": 23,
+        "lynn": 25,
         "barry": 21,
         "nova-southeastern": 19
       },
@@ -44,50 +47,50 @@
       "metric": "gf",
       "programme": "florida-southern",
       "of_any": 10,
-      "gf": 35
+      "gf": 38
     }
   },
   "wire": {
-    "line": "Embry-Riddle, behind only Florida Tech in the table, have lost at home to Tampa.",
+    "line": "Rollins, mid-table in the conference, have beaten leaders Florida Tech and go to Lynn next.",
     "basis": {
       "source": "fixtures",
-      "played": 113,
-      "total": 123
+      "played": 116,
+      "total": 125
     },
-    "updated": "2026-11-03"
+    "updated": "2026-11-04"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, Eckerd's home match against Trinity in September, and Barry's home match against Lynn on Monday have all passed their date with no result.",
+      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, and Eckerd's home match against Trinity in September, have all passed their date with no result.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 5
+        "past_date_no_result": 4
       }
     },
     {
       "label": "derived",
-      "text": "Kobi Thomas has scored seventeen of Palm Beach Atlantic's 28 goals this season, from 61 shots.",
+      "text": "Kobi Thomas has scored eighteen of Palm Beach Atlantic's 30 goals this season, from 64 shots.",
       "basis": {
         "source": "stats",
         "player": "Kobi Thomas",
         "programme": "palm-beach-atlantic",
-        "goals": 17,
-        "shots": 61,
-        "gf": 28
+        "goals": 18,
+        "shots": 64,
+        "gf": 30
       }
     },
     {
       "label": "derived",
-      "text": "Finlay Prain has scored sixteen of Rollins' 30 goals this season, from 71 shots.",
+      "text": "Finlay Prain has scored sixteen of Rollins' 32 goals this season, from 73 shots.",
       "basis": {
         "source": "stats",
         "player": "Finlay Prain",
         "programme": "rollins",
         "goals": 16,
-        "shots": 71,
-        "gf": 30
+        "shots": 73,
+        "gf": 32
       }
     },
     {
@@ -129,35 +132,35 @@
       "programme": "palm-beach-atlantic",
       "position": "FWD",
       "class": "SO",
-      "line": "17 G · 4 A · 61 shots"
+      "line": "18 G · 4 A · 64 shots"
     },
     {
       "player": "Finlay Prain",
       "programme": "rollins",
       "position": "FWD",
       "class": "JR",
-      "line": "16 G · 2 A · 71 shots"
+      "line": "16 G · 2 A · 73 shots"
     },
     {
       "player": "Tim Baierlein",
       "programme": "florida-southern",
       "position": "FWD",
       "class": "JR",
-      "line": "10 G · 1 A · 31 shots"
+      "line": "11 G · 2 A · 35 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-02 embry-riddle v tampa",
-      "line": "Each side has now won on the other's ground this season."
+      "fixture_ref": "2026-11-03 rollins v florida-tech",
+      "line": "The sides drew on this ground in October; Rollins go to Lynn next."
     },
     "next_match": {
-      "fixture_ref": "2026-11-03 florida-tech v rollins",
-      "line": "These sides drew when they met at Rollins; Rollins arrive on the back of a win."
+      "fixture_ref": "2026-11-05 florida-southern v tampa",
+      "line": "These sides drew at Florida Southern in October; Tampa arrive having won at Embry-Riddle."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-03T12:44:42.274Z"
+    "validated_at": "2026-11-04T12:57:44.920Z"
   }
 }

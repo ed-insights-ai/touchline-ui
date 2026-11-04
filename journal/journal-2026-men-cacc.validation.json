@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-11-03T12:41:43.820Z",
-  "data_collected_at": "2026-11-03T12:30:07+00:00",
+  "validated_at": "2026-11-04T12:56:07.164Z",
+  "data_collected_at": "2026-11-04T12:45:24+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Goals have not decided the table: Bridgeport have scored 44 and conceded 37, in a season of eight wins, three draws and seven defeats.",
+      "text": "Goals have not decided the table: Bridgeport have scored 48 and conceded 39, in a season of nine wins, three draws and seven defeats.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Wilmington top the table despite draws with Felician, Holy Family and Dominican and a defeat by Jefferson.",
-      "checker": "team_record",
+      "text": "Bridgeport, the conference's highest scorers, have won at the leaders Wilmington and host Georgian Court next.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Gijs van Eif has scored nine goals for Georgian Court from 71 shots, and has eight assists.",
+      "text": "Gijs van Eif has scored ten goals for Georgian Court from 75 shots, and has eight assists.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Gijs van Eif — 9 G · 8 A · 71 shots",
+      "text": "Gijs van Eif — 10 G · 8 A · 75 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Eliass Elfasoukhi — 7 G · 3 A · 31 shots",
+      "text": "Eliass Elfasoukhi — 8 G · 3 A · 33 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Vaughn Clement — 8 G · 54 shots",
+      "text": "Vaughn Clement — 8 G · 57 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-31 felician v georgian-court",
+      "text": "2026-11-03 wilmington v bridgeport",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-03 wilmington v bridgeport",
+      "text": "2026-11-07 bridgeport v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-03T12:40:58.398Z",
-    "generate_ms": 45420,
-    "validate_ms": 1,
-    "wall_ms": 45422,
+    "started_at": "2026-11-04T12:54:57.843Z",
+    "generate_ms": 69318,
+    "validate_ms": 2,
+    "wall_ms": 69320,
     "concurrency": 4
   }
 }

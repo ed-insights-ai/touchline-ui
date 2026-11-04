@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-11-03T12:40:00+00:00",
-  "data_collected_at": "2026-11-03T12:34:34+00:00",
+  "generated_at": "2026-11-04T12:55:00+00:00",
+  "data_collected_at": "2026-11-04T12:48:49+00:00",
   "headline": "West Alabama win at UAH and head for AUM",
   "dek": "West Alabama go to AUM straight from their win at UAH. AUM have conceded thirteen goals in sixteen matches and lost twice, neither time to West Alabama, who drew with them in October.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "played": 16
   },
   "lede_updated": "2026-11-03",
-  "displaced_by": "The standing dek no longer holds: AUM are now above Trevecca instead of level with them, and two matches remain instead of one. West Alabama's win at UAH sends them to AUM.",
   "pattern": {
     "label": "derived",
     "text": "West Alabama's goals have not bought points: they have conceded 29 and won seven of their seventeen matches.",
@@ -137,6 +136,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-03T12:42:55.229Z"
+    "validated_at": "2026-11-04T12:56:03.837Z"
   }
 }

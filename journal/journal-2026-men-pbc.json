@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-11-02T13:42:00+00:00",
-  "data_collected_at": "2026-11-02T13:36:36+00:00",
+  "generated_at": "2026-11-04T12:55:00+00:00",
+  "data_collected_at": "2026-11-04T12:50:28+00:00",
   "headline": "Flagler complete an unbeaten conference season",
   "dek": "Flagler closed their conference schedule by beating Georgia Southwestern, without a defeat and with North Georgia the only side to take a point from them. Their one loss all season came outside the conference, at Florida Southern in September.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 1
   },
   "lede_updated": "2026-11-02",
-  "displaced_by": "truth: the standing dek's 'on Monday' now reads as today (2026-11-02), but the Georgia Southwestern win was on 2026-10-26. The headline story still holds, so only the dek's time reference is rewritten.",
   "pattern": {
     "label": "derived",
     "text": "Fourteen different players have scored North Georgia's 41 goals, so their attack is spread across the squad rather than leaning on one scorer.",
@@ -152,6 +151,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:47:09.082Z"
+    "validated_at": "2026-11-04T12:56:34.602Z"
   }
 }
