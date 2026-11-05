@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-11-04T13:05:00+00:00",
-  "data_collected_at": "2026-11-04T12:47:31+00:00",
-  "headline": "Leaders fall in the Sunshine State and the Central Atlantic",
-  "dek": "Wilmington's home defeat to Bridgeport is their fifth of the season. Florida Tech, who led the Sunshine State going into the day, were beaten at Rollins on the same day.",
+  "generated_at": "2026-11-05T13:05:00+00:00",
+  "data_collected_at": "2026-11-05T12:48:12+00:00",
+  "headline": "Fort Lewis thin the division's unbeaten ranks at CSU Pueblo",
+  "dek": "Midwestern State, Lincoln, Emory & Henry and Cal State LA are now the only programmes in the division yet to lose. Midwestern State kept their place among them with a draw at home to UT Dallas.",
   "basis": {
-    "programme": "wilmington",
-    "wins": 10,
-    "draws": 5,
-    "losses": 5
+    "programme": "csu-pueblo",
+    "wins": 13,
+    "draws": 3,
+    "losses": 1
   },
-  "fixture_ref": "2026-11-03 wilmington v bridgeport",
-  "updated": "2026-11-04",
-  "displaced_by": "results night: conference leaders Wilmington and Florida Tech both lost",
+  "fixture_ref": "2026-11-04 csu-pueblo v fort-lewis",
+  "updated": "2026-11-05",
+  "displaced_by": "results night: CSU Pueblo's unbeaten start ended, leaving Midwestern State, Lincoln, Emory & Henry and Cal State LA as the division's only unbeaten programmes",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:58:16.771Z"
+    "validated_at": "2026-11-05T12:59:28.104Z"
   }
 }

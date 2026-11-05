@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-11-03T12:45:00+00:00",
-  "data_collected_at": "2026-11-03T12:37:36+00:00",
+  "generated_at": "2026-11-05T13:00:00+00:00",
+  "data_collected_at": "2026-11-05T12:52:20+00:00",
   "headline": "Emory & Henry overtake Catawba at the top",
-  "dek": "Coker ended Catawba's unbeaten season with a win at Catawba on Wednesday, while Emory & Henry beat Tusculum to go a point clear. They are now the only side in the conference without a defeat.",
+  "dek": "Coker ended Catawba's unbeaten season with a win at Catawba, while Emory & Henry beat Tusculum on the same day to go a point clear. They are now the only side in the conference without a defeat.",
   "lede_basis": {
     "programme": "emory-henry",
     "wins": 8,
@@ -14,7 +14,8 @@
     "losses": 0,
     "table_points_ahead": 1
   },
-  "lede_updated": "2026-10-30",
+  "lede_updated": "2026-11-05",
+  "displaced_by": "truth: the dek's 'on Wednesday' now reads as yesterday from a Thursday page; the same story stands with the weekday removed",
   "pattern": {
     "label": "observed",
     "text": "Emory & Henry have scored 24 and conceded five: the side now top of the table has got there by keeping goals out, not by scoring them.",
@@ -137,6 +138,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-03T12:43:22.803Z"
+    "validated_at": "2026-11-05T12:58:31.741Z"
   }
 }

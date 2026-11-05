@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-11-04T12:56:11.462Z",
-  "data_collected_at": "2026-11-04T12:49:12+00:00",
+  "validated_at": "2026-11-05T12:57:28.036Z",
+  "data_collected_at": "2026-11-05T12:50:03+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Thirteen different players have scored Midwestern State's 49 goals, and Parker Plaxco has fifteen of them.",
+      "text": "Fourteen different players have scored Midwestern State's 50 goals, and Parker Plaxco has fifteen of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Midwestern State and Oklahoma Christian have yet to lose a conference match, and they drew with each other.",
+      "text": "Every side but Midwestern State has now lost at least once.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Oklahoma Christian have lost three times, and none of the three came in conference play.",
+      "text": "Oklahoma Christian have lost four times, and St. Mary's are the only conference side to have beaten them.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "UT Dallas have lost twice, against eleven wins and six draws, and conceded fifteen goals.",
+      "text": "UT Dallas have lost twice, against eleven wins and seven draws, and conceded sixteen goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Parker Plaxco — 15 G · 58 shots",
+      "text": "Parker Plaxco — 15 G · 63 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Avery Brazzell — 10 G · 3 A · 26 shots",
+      "text": "Sebastian Poblete — 8 G · 3 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Sebastian Poblete — 8 G · 3 A · 36 shots",
+      "text": "Avery Brazzell — 11 G · 3 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-01 saint-marys v dallas-baptist",
+      "text": "2026-11-04 oklahoma-christian v saint-marys",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-04 midwestern-state v ut-dallas",
+      "text": "2026-11-07 midwestern-state v saint-marys",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-04T12:55:38.005Z",
-    "generate_ms": 33455,
+    "started_at": "2026-11-05T12:56:03.473Z",
+    "generate_ms": 84561,
     "validate_ms": 1,
-    "wall_ms": 33456,
+    "wall_ms": 84562,
     "concurrency": 4
   }
 }

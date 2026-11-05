@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-11-03T12:42:45.759Z",
-  "data_collected_at": "2026-11-03T12:35:34+00:00",
+  "validated_at": "2026-11-05T12:57:09.632Z",
+  "data_collected_at": "2026-11-05T12:50:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Southern New Hampshire beat Franklin Pierce and American International beat Bentley on Wednesday, each by a single goal. The two meet at Southern New Hampshire on Saturday; the hosts won September's meeting there and sit three points above American International in the conference table.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Southern New Hampshire's fifty-two goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
+      "text": "Southern New Hampshire's fifty-five goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Southern New Hampshire have scored fifty-two goals and conceded ten this season.",
-      "checker": "team_goals",
+      "text": "Southern New Hampshire have lost one match all season; American International are next to visit.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Guillermo Rios has scored sixteen of Franklin Pierce's thirty-three goals.",
+      "text": "Guillermo Rios has scored seventeen of Franklin Pierce's thirty-five goals.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +98,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Guillermo Rios — 16 G · 42 shots",
+      "text": "Guillermo Rios — 17 G · 43 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Inigo Burusco — 12 G · 5 A · 61 shots",
+      "text": "Inigo Burusco — 13 G · 5 A · 65 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-31 american-international v adelphi",
+      "text": "2026-11-04 american-international v bentley",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-04 southern-new-hampshire v franklin-pierce",
+      "text": "2026-11-07 southern-new-hampshire v american-international",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-03T12:42:10.151Z",
-    "generate_ms": 35606,
+    "started_at": "2026-11-05T12:56:05.165Z",
+    "generate_ms": 64466,
     "validate_ms": 1,
-    "wall_ms": 35608,
+    "wall_ms": 64467,
     "concurrency": 4
   }
 }

@@ -3,30 +3,31 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-11-04T13:00:00+00:00",
-  "data_collected_at": "2026-11-04T12:50:48+00:00",
-  "headline": "Gannon stay top as Lock Haven lose at home",
-  "dek": "Gannon beat Shepherd while Lock Haven, who had beaten Gannon in their previous match, lost at home to E. Stroudsburg. That leaves Lock Haven level on points with West Chester and Millersville behind the leaders, and Gannon with twelve wins, three draws and three defeats across the season.",
+  "generated_at": "2026-11-05T13:00:00+00:00",
+  "data_collected_at": "2026-11-05T12:51:35+00:00",
+  "headline": "E. Stroudsburg win at Millersville and now host Gannon",
+  "dek": "E. Stroudsburg have won away at Lock Haven and then at Millersville without conceding in either, and on Sunday the leaders come to them. Gannon arrive having beaten Seton Hill, with thirteen wins, three draws and three defeats across the season.",
   "lede_basis": {
     "programme": "gannon",
-    "wins": 12,
+    "wins": 13,
     "draws": 3,
     "losses": 3
   },
-  "lede_updated": "2026-11-02",
+  "lede_updated": "2026-11-05",
+  "displaced_by": "Gannon's win over Seton Hill took them to thirteen wins, so the standing dek was no longer true; E. Stroudsburg's away win at Millersville sets up their home match with the leaders.",
   "pattern": {
     "label": "derived",
-    "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 23, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+    "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 24, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "gannon": 47,
+        "gannon": 49,
         "millersville": 40,
         "lock-haven": 33,
-        "e-stroudsburg": 29,
+        "e-stroudsburg": 30,
+        "seton-hill": 29,
         "slippery-rock": 29,
         "bloomsburg": 28,
-        "seton-hill": 28,
         "shepherd": 28,
         "west-chester": 26,
         "california-pa": 22,
@@ -40,21 +41,13 @@
       "metric": "gf",
       "programme": "gannon",
       "of": ["california-pa", "shippensburg"],
-      "gf": 47,
-      "ga": 23
+      "gf": 49,
+      "ga": 24
     }
   },
   "wire": {
-    "line": "Millersville have won thirteen matches and conceded 14 goals, yet sit behind Gannon in the table.",
-    "basis": {
-      "programme": "millersville",
-      "wins": 13,
-      "draws": 2,
-      "losses": 4,
-      "gf": 40,
-      "ga": 14
-    },
-    "updated": "2026-11-02"
+    "line": "Millersville have met E. Stroudsburg at home and away this season and have yet to score against them.",
+    "updated": "2026-11-05"
   },
   "findings": [
     {
@@ -132,14 +125,14 @@
     },
     {
       "label": "observed",
-      "text": "Rafael Santos has six goals and eight assists from 54 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 56 shots for Seton Hill.",
       "basis": {
         "source": "stats",
         "player": "Rafael Santos",
         "programme": "seton-hill",
         "goals": 6,
         "assists": 8,
-        "shots": 54
+        "shots": 56
       }
     }
   ],
@@ -149,7 +142,7 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "15 G · 4 A · 56 shots"
+      "line": "15 G · 5 A · 58 shots"
     },
     {
       "player": "Roy Parkyn",
@@ -163,21 +156,21 @@
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "8 G · 1 A · 39 shots"
+      "line": "8 G · 1 A · 41 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-01 lock-haven v e-stroudsburg",
-      "line": "E. Stroudsburg ended a run without a win that went back to their victory at Shepherd."
+      "fixture_ref": "2026-11-04 gannon v seton-hill",
+      "line": "Seton Hill drew their first meeting with Gannon this season and have lost both since."
     },
     "next_match": {
-      "fixture_ref": "2026-11-04 gannon v seton-hill",
-      "line": "Seton Hill have yet to beat Gannon this season: a draw at Gannon, then a Gannon win at Seton Hill."
+      "fixture_ref": "2026-11-08 e-stroudsburg v gannon",
+      "line": "Gannon won the sides' only previous meeting this season, in August at Gannon."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:56:37.336Z"
+    "validated_at": "2026-11-05T12:58:41.048Z"
   }
 }

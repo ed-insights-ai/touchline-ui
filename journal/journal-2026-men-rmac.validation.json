@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-11-04T12:56:40.371Z",
-  "data_collected_at": "2026-11-04T12:51:15+00:00",
+  "validated_at": "2026-11-05T12:58:25.393Z",
+  "data_collected_at": "2026-11-05T12:51:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Regis have won every match since UCCS beat them and now lead an unbeaten CSU Pueblo.",
+      "text": "Fort Lewis won at CSU Pueblo, and no side in the conference is unbeaten any longer.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Richie Tabares Ochoa — 10 G · 8 A · 50 shots",
+      "text": "William Bretvik — 11 G · 2 A · 46 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Nickolas North — 9 G · 6 A · 44 shots",
+      "text": "Jacobo Betancourt-Tovar — 11 G · 1 A · 60 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lucas Miranda — 10 G · 1 A · 29 shots",
+      "text": "Richie Tabares Ochoa — 10 G · 8 A · 50 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-02 fort-lewis v south-dakota-mines",
+      "text": "2026-11-04 csu-pueblo v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-04 csu-pueblo v fort-lewis",
+      "text": "2026-11-07 regis v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-04T12:56:11.643Z",
-    "generate_ms": 28727,
+    "started_at": "2026-11-05T12:57:15.830Z",
+    "generate_ms": 69561,
     "validate_ms": 1,
-    "wall_ms": 28728,
+    "wall_ms": 69562,
     "concurrency": 4
   }
 }

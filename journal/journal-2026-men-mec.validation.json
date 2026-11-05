@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-11-04T12:56:29.364Z",
-  "data_collected_at": "2026-11-04T12:49:36+00:00",
+  "validated_at": "2026-11-05T12:57:44.153Z",
+  "data_collected_at": "2026-11-05T12:50:28+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty-one; the scoring is spread, not carried.",
+      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty-two; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Martin Echarren has ten goals and three assists for Charleston from thirty-five shots.",
+      "text": "Martin Echarren has eleven goals and three assists for Charleston from thirty-seven shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Frank Stare has nine goals and five assists for Frostburg State from thirty-eight shots.",
+      "text": "Frank Stare has nine goals and five assists for Frostburg State from thirty-nine shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -73,6 +73,15 @@
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Hugo Fauli has nine assists and four goals for Davis & Elkins from thirty-seven shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Shai'ya Fitzgerald has made sixty-four saves for West Liberty and conceded sixteen goals.",
       "checker": "player_stat",
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Martin Echarren — 10 G · 3 A · 35 shots",
+      "text": "Martin Echarren — 11 G · 3 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Frank Stare — 9 G · 5 A · 38 shots",
+      "text": "Frank Stare — 9 G · 5 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Francisco Lopez Kreik — 5 G · 4 A · 38 shots",
+      "text": "Francisco Lopez Kreik — 7 G · 5 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-01 concord v point-park",
+      "text": "2026-11-04 charleston v frostburg-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-04 charleston v frostburg-state",
+      "text": "2026-11-12 bryant-and-stratton v salem",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-04T12:55:47.188Z",
-    "generate_ms": 42175,
+    "started_at": "2026-11-05T12:56:04.706Z",
+    "generate_ms": 99445,
     "validate_ms": 1,
-    "wall_ms": 42176,
+    "wall_ms": 99446,
     "concurrency": 4
   }
 }

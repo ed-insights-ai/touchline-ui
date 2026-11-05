@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-04T12:58:16.771Z",
+  "validated_at": "2026-11-05T12:59:28.104Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Leaders fall in the Sunshine State and the Central Atlantic Wilmington's home defeat to Bridgeport is their fifth of the season. Florida Tech, who led the Sunshine State going into the day, were beaten at Rollins on the same day.",
+      "text": "Fort Lewis thin the division's unbeaten ranks at CSU Pueblo Midwestern State, Lincoln, Emory & Henry and Cal State LA are now the only programmes in the division yet to lose. Midwestern State kept their place among them with a draw at home to UT Dallas.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-04T12:57:47.910Z",
-    "generate_ms": 28859,
+    "started_at": "2026-11-05T12:58:43.536Z",
+    "generate_ms": 44566,
     "validate_ms": 1,
-    "wall_ms": 28861
+    "wall_ms": 44568
   }
 }

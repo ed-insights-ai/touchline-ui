@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-11-04T13:00:00+00:00",
-  "data_collected_at": "2026-11-04T12:51:15+00:00",
-  "headline": "Regis overtake unbeaten CSU Pueblo at the top",
-  "dek": "Regis won at Colorado School of Mines for their eleventh win of the season, while CSU Pueblo were held at UCCS. Regis have not lost since UCCS beat them early in October; CSU Pueblo have not lost at all.",
+  "generated_at": "2026-11-05T13:00:00+00:00",
+  "data_collected_at": "2026-11-05T12:51:58+00:00",
+  "headline": "Fort Lewis end CSU Pueblo's unbeaten season",
+  "dek": "CSU Pueblo had won thirteen and drawn three without defeat, and had beaten Fort Lewis in both earlier meetings, before losing to them at home. Regis, held goalless by Westminster the same night, meet Fort Lewis next.",
   "lede_basis": {
-    "programme": "regis",
-    "wins": 11,
+    "programme": "csu-pueblo",
+    "wins": 13,
     "draws": 3,
-    "losses": 3
+    "losses": 1
   },
-  "lede_updated": "2026-10-29",
+  "lede_updated": "2026-11-05",
+  "displaced_by": "CSU Pueblo lost at home to Fort Lewis, and Regis drew with Westminster; the standing lines called CSU Pueblo unbeaten and Regis winning every match.",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 30; scoring is not what separates the top of the table.",
@@ -21,8 +22,8 @@
       "kind": "goals-for-by-team",
       "values": {
         "south-dakota-mines": 43,
-        "fort-lewis": 40,
-        "csu-pueblo": 39,
+        "fort-lewis": 42,
+        "csu-pueblo": 40,
         "uccs": 38,
         "regis": 37,
         "westminster": 36,
@@ -44,14 +45,14 @@
     }
   },
   "wire": {
-    "line": "Regis have won every match since UCCS beat them and now lead an unbeaten CSU Pueblo.",
+    "line": "Fort Lewis won at CSU Pueblo, and no side in the conference is unbeaten any longer.",
     "basis": {
       "programme": "csu-pueblo",
       "wins": 13,
       "draws": 3,
-      "losses": 0
+      "losses": 1
     },
-    "updated": "2026-10-29"
+    "updated": "2026-11-05"
   },
   "findings": [
     {
@@ -108,39 +109,39 @@
   ],
   "players_to_watch": [
     {
+      "player": "William Bretvik",
+      "programme": "fort-lewis",
+      "position": "MID",
+      "class": "JR",
+      "line": "11 G · 2 A · 46 shots"
+    },
+    {
+      "player": "Jacobo Betancourt-Tovar",
+      "programme": "regis",
+      "position": "MID",
+      "class": "SR",
+      "line": "11 G · 1 A · 60 shots"
+    },
+    {
       "player": "Richie Tabares Ochoa",
       "programme": "colorado-mesa",
       "position": "FWD",
       "class": "JR",
       "line": "10 G · 8 A · 50 shots"
-    },
-    {
-      "player": "Nickolas North",
-      "programme": "south-dakota-mines",
-      "position": "FWD",
-      "class": "JR",
-      "line": "9 G · 6 A · 44 shots"
-    },
-    {
-      "player": "Lucas Miranda",
-      "programme": "south-dakota-mines",
-      "position": "FWD",
-      "class": "FR",
-      "line": "10 G · 1 A · 29 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-02 fort-lewis v south-dakota-mines",
-      "line": "South Dakota Mines left Fort Lewis with a point, having lost on the same ground in October."
+      "fixture_ref": "2026-11-04 csu-pueblo v fort-lewis",
+      "line": "CSU Pueblo had won both earlier meetings this season and had lost to nobody until this one."
     },
     "next_match": {
-      "fixture_ref": "2026-11-04 csu-pueblo v fort-lewis",
-      "line": "CSU Pueblo have beaten Fort Lewis home and away this season and have yet to lose to anyone."
+      "fixture_ref": "2026-11-07 regis v fort-lewis",
+      "line": "Regis won at Fort Lewis in October; Fort Lewis arrive having handed CSU Pueblo their only defeat."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:56:40.371Z"
+    "validated_at": "2026-11-05T12:58:25.393Z"
   }
 }

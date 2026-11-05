@@ -3,29 +3,28 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-11-04T12:55:00Z",
-  "data_collected_at": "2026-11-04T12:49:12+00:00",
-  "headline": "Midwestern State finish top of the table unbeaten",
-  "dek": "Midwestern State closed their conference season by beating St. Mary's on Wednesday, and finish it ahead of Oklahoma Christian, the only other side without a conference defeat. In all their matches they have won fourteen and drawn four without a loss, conceding thirteen goals.",
+  "generated_at": "2026-11-05T12:56:00Z",
+  "data_collected_at": "2026-11-05T12:50:03+00:00",
+  "headline": "St. Mary's beat Oklahoma Christian, face unbeaten Midwestern State next",
+  "dek": "Oklahoma Christian had not lost since conference play opened until St. Mary's won at their ground on Wednesday. Midwestern State, who host St. Mary's on Saturday, drew with UT Dallas the same night and have now won fourteen and drawn five this season without a loss.",
   "lede_basis": {
     "programme": "midwestern-state",
     "wins": 14,
-    "draws": 4,
-    "losses": 0,
-    "gf": 49,
-    "ga": 13
+    "draws": 5,
+    "losses": 0
   },
-  "lede_updated": "2026-10-30",
+  "lede_updated": "2026-11-05",
+  "displaced_by": "The standing dek no longer held: Midwestern State's draw with UT Dallas makes five draws and fourteen conceded, and St. Mary's beat Oklahoma Christian to set up a meeting with Midwestern State.",
   "pattern": {
     "label": "derived",
-    "text": "Thirteen different players have scored Midwestern State's 49 goals, and Parker Plaxco has fifteen of them.",
+    "text": "Fourteen different players have scored Midwestern State's 50 goals, and Parker Plaxco has fifteen of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 49,
-        "ut-dallas": 41,
-        "saint-marys": 34,
-        "oklahoma-christian": 26,
+        "midwestern-state": 50,
+        "ut-dallas": 42,
+        "saint-marys": 37,
+        "oklahoma-christian": 28,
         "saint-edwards": 26,
         "dallas-baptist": 23,
         "ut-tyler": 23,
@@ -38,23 +37,23 @@
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 49,
-      "ga": 13,
-      "distinct_scorers_min": 13,
+      "gf": 50,
+      "ga": 14,
+      "distinct_scorers_min": 14,
       "source": "stats",
       "player": "Parker Plaxco",
       "goals": 15
     }
   },
   "wire": {
-    "line": "Midwestern State and Oklahoma Christian have yet to lose a conference match, and they drew with each other.",
+    "line": "Every side but Midwestern State has now lost at least once.",
     "basis": {
       "programme": "midwestern-state",
       "wins": 14,
-      "draws": 4,
+      "draws": 5,
       "losses": 0
     },
-    "updated": "2026-10-24"
+    "updated": "2026-11-05"
   },
   "findings": [
     {
@@ -68,24 +67,24 @@
     },
     {
       "label": "derived",
-      "text": "Oklahoma Christian have lost three times, and none of the three came in conference play.",
+      "text": "Oklahoma Christian have lost four times, and St. Mary's are the only conference side to have beaten them.",
       "basis": {
         "programme": "oklahoma-christian",
         "wins": 10,
         "draws": 4,
-        "losses": 3
+        "losses": 4
       }
     },
     {
       "label": "derived",
-      "text": "UT Dallas have lost twice, against eleven wins and six draws, and conceded fifteen goals.",
+      "text": "UT Dallas have lost twice, against eleven wins and seven draws, and conceded sixteen goals.",
       "basis": {
         "programme": "ut-dallas",
         "wins": 11,
-        "draws": 6,
+        "draws": 7,
         "losses": 2,
-        "gf": 41,
-        "ga": 15
+        "gf": 42,
+        "ga": 16
       }
     },
     {
@@ -117,35 +116,35 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "15 G · 58 shots"
-    },
-    {
-      "player": "Avery Brazzell",
-      "programme": "ut-dallas",
-      "position": "FWD",
-      "class": "SR",
-      "line": "10 G · 3 A · 26 shots"
+      "line": "15 G · 63 shots"
     },
     {
       "player": "Sebastian Poblete",
       "programme": "saint-marys",
       "position": "FWD",
       "class": "SO",
-      "line": "8 G · 3 A · 36 shots"
+      "line": "8 G · 3 A · 37 shots"
+    },
+    {
+      "player": "Avery Brazzell",
+      "programme": "ut-dallas",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 3 A · 28 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-01 saint-marys v dallas-baptist",
-      "line": "The two had drawn at Dallas Baptist in conference play; St. Mary's took the second meeting, and go to Oklahoma Christian next."
+      "fixture_ref": "2026-11-04 oklahoma-christian v saint-marys",
+      "line": "Oklahoma Christian had beaten St. Mary's in conference play; St. Mary's took the second meeting, and go to Midwestern State next."
     },
     "next_match": {
-      "fixture_ref": "2026-11-04 midwestern-state v ut-dallas",
-      "line": "UT Dallas have not lost since Midwestern State beat them in conference play; Midwestern State have not lost at all."
+      "fixture_ref": "2026-11-07 midwestern-state v saint-marys",
+      "line": "St. Mary's lost on their last visit to Midwestern State, in conference play."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:56:11.462Z"
+    "validated_at": "2026-11-05T12:57:28.036Z"
   }
 }

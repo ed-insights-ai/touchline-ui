@@ -3,26 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-11-04T12:55:00+00:00",
-  "data_collected_at": "2026-11-04T12:50:28+00:00",
+  "generated_at": "2026-11-05T13:00:00+00:00",
+  "data_collected_at": "2026-11-05T12:51:25+00:00",
   "headline": "Flagler complete an unbeaten conference season",
   "dek": "Flagler closed their conference schedule by beating Georgia Southwestern, without a defeat and with North Georgia the only side to take a point from them. Their one loss all season came outside the conference, at Florida Southern in September.",
   "lede_basis": {
     "programme": "flagler",
-    "wins": 12,
+    "wins": 13,
     "draws": 4,
     "losses": 1
   },
   "lede_updated": "2026-11-02",
   "pattern": {
     "label": "derived",
-    "text": "Fourteen different players have scored North Georgia's 41 goals, so their attack is spread across the squad rather than leaning on one scorer.",
+    "text": "Fourteen different players have scored North Georgia's 44 goals, so their attack is spread across the squad rather than leaning on one scorer.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "north-georgia": 41,
-        "flagler": 39,
-        "clayton-state": 38,
+        "north-georgia": 44,
+        "flagler": 41,
+        "clayton-state": 40,
         "middle-georgia-state": 29,
         "lander": 26,
         "usc-aiken": 22,
@@ -32,8 +32,8 @@
     },
     "basis": {
       "programme": "north-georgia",
-      "gf": 41,
-      "ga": 22,
+      "gf": 44,
+      "ga": 24,
       "distinct_scorers_min": 14
     }
   },
@@ -41,7 +41,7 @@
     "line": "Flagler went through the conference unbeaten, and North Georgia were the only side to take a point off them.",
     "basis": {
       "programme": "flagler",
-      "wins": 12,
+      "wins": 13,
       "draws": 4,
       "losses": 1
     },
@@ -91,28 +91,28 @@
     },
     {
       "label": "derived",
-      "text": "Finn Weigelt has scored eleven of Flagler's 39 goals from 37 shots.",
+      "text": "Finn Weigelt has scored eleven of Flagler's 41 goals from 38 shots.",
       "basis": {
         "source": "stats",
         "player": "Finn Weigelt",
         "programme": "flagler",
         "goals": 11,
-        "shots": 37,
-        "gf": 39,
+        "shots": 38,
+        "gf": 41,
         "ga": 19
       }
     },
     {
       "label": "derived",
-      "text": "Isaac Calderon has scored nine of North Georgia's 41 goals from 47 shots.",
+      "text": "Isaac Calderon has scored ten of North Georgia's 44 goals from 51 shots.",
       "basis": {
         "source": "stats",
         "player": "Isaac Calderon",
         "programme": "north-georgia",
-        "goals": 9,
-        "shots": 47,
-        "gf": 41,
-        "ga": 22
+        "goals": 10,
+        "shots": 51,
+        "gf": 44,
+        "ga": 24
       }
     }
   ],
@@ -122,35 +122,35 @@
       "programme": "flagler",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 1 A · 37 shots"
+      "line": "11 G · 1 A · 38 shots"
     },
     {
       "player": "Isaac Calderon",
       "programme": "north-georgia",
       "position": "MID",
       "class": "SR",
-      "line": "9 G · 4 A · 47 shots"
+      "line": "10 G · 4 A · 51 shots"
     },
     {
       "player": "Arttu Leivonen",
       "programme": "clayton-state",
       "position": "FWD",
       "class": "FR",
-      "line": "9 G · 4 A · 31 shots"
+      "line": "9 G · 5 A · 32 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-31 clayton-state v middle-georgia-state",
-      "line": "Clayton State have beaten Middle Georgia State every time the two have met this season, and go to North Georgia next."
+      "fixture_ref": "2026-11-04 north-georgia v clayton-state",
+      "line": "Clayton State have not beaten North Georgia in any meeting this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-04 flagler v usc-aiken",
-      "line": "USC Aiken arrive on a winning run, and Flagler have already beaten them home and away."
+      "fixture_ref": "2026-11-07 flagler v north-georgia",
+      "line": "North Georgia have not lost since Flagler won at their ground in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:56:34.602Z"
+    "validated_at": "2026-11-05T12:57:15.646Z"
   }
 }

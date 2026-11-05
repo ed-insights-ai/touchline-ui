@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-11-04T12:56:37.336Z",
-  "data_collected_at": "2026-11-04T12:50:48+00:00",
+  "validated_at": "2026-11-05T12:58:41.048Z",
+  "data_collected_at": "2026-11-05T12:51:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 23, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+      "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 24, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -31,15 +31,6 @@
       "label": "derived",
       "text": "goals-for-by-team",
       "checker": "goals_for_chart",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "wire",
-      "label": "observed",
-      "text": "Millersville have won thirteen matches and conceded 14 goals, yet sit behind Gannon in the table.",
-      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +74,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Rafael Santos has six goals and eight assists from 54 shots for Seton Hill.",
+      "text": "Rafael Santos has six goals and eight assists from 56 shots for Seton Hill.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Rafa Hyde — 15 G · 4 A · 56 shots",
+      "text": "Rafa Hyde — 15 G · 5 A · 58 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Steven Arias — 8 G · 1 A · 39 shots",
+      "text": "Steven Arias — 8 G · 1 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-01 lock-haven v e-stroudsburg",
+      "text": "2026-11-04 gannon v seton-hill",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-04 gannon v seton-hill",
+      "text": "2026-11-08 e-stroudsburg v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-04T12:56:07.338Z",
-    "generate_ms": 29996,
+    "started_at": "2026-11-05T12:57:09.812Z",
+    "generate_ms": 91234,
     "validate_ms": 1,
-    "wall_ms": 29998,
+    "wall_ms": 91236,
     "concurrency": 4
   }
 }
