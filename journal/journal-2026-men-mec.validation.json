@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-11-05T12:57:44.153Z",
-  "data_collected_at": "2026-11-05T12:50:28+00:00",
+  "validated_at": "2026-11-06T12:58:01.250Z",
+  "data_collected_at": "2026-11-06T12:49:44+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Hugo Fauli has nine assists and four goals for Davis & Elkins from thirty-seven shots.",
+      "text": "Hugo Fauli has ten assists and three goals for Davis & Elkins from thirty-six shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Francisco Lopez Kreik — 7 G · 5 A · 41 shots",
+      "text": "Francisco Lopez Kreik — 7 G · 7 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-12 bryant-and-stratton v salem",
+      "text": "2026-11-08 davis-elkins v charleston",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-05T12:56:04.706Z",
-    "generate_ms": 99445,
+    "started_at": "2026-11-06T12:57:21.641Z",
+    "generate_ms": 39608,
     "validate_ms": 1,
-    "wall_ms": 99446,
+    "wall_ms": 39609,
     "concurrency": 4
   }
 }

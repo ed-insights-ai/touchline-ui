@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "validated_at": "2026-11-05T12:56:11.651Z",
-  "data_collected_at": "2026-11-05T12:49:29+00:00",
+  "validated_at": "2026-11-06T12:57:21.464Z",
+  "data_collected_at": "2026-11-06T12:48:43+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Seattle Pacific have won fifteen matches, more than any other programme in the conference.",
+      "text": "Seattle Pacific have won sixteen matches, more than any other programme in the conference.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Daniel James Jackson — 8 G · 4 A · 27 shots",
+      "text": "Daniel Jackson — 8 G · 4 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-31 western-washington v western-oregon",
+      "text": "2026-11-05 seattle-pacific v simon-fraser",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-05 seattle-pacific v simon-fraser",
+      "text": "2026-11-07 seattle-pacific v western-oregon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-05T12:55:22.532Z",
-    "generate_ms": 49118,
+    "started_at": "2026-11-06T12:56:20.170Z",
+    "generate_ms": 61293,
     "validate_ms": 1,
-    "wall_ms": 49119,
+    "wall_ms": 61294,
     "concurrency": 4
   }
 }

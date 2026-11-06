@@ -3,40 +3,34 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-11-04T13:05:00+00:00",
-  "data_collected_at": "2026-11-04T12:52:09+00:00",
-  "headline": "Mid-table sides topple the top two",
-  "dek": "Rollins beat Florida Tech on Tuesday, a day after Tampa won at Embry-Riddle. Both winners finished their ten conference matches on fourteen points, nine behind Florida Tech and five behind Embry-Riddle, each of whom lost once in conference play.",
+  "generated_at": "2026-11-06T13:05:00+00:00",
+  "data_collected_at": "2026-11-06T12:52:49+00:00",
+  "headline": "Florida Southern and Lynn beat the giant-killers",
+  "dek": "Florida Southern beat Tampa and Lynn beat Rollins on Thursday, days after Tampa and Rollins had beaten the table's top two. The winners, third and fifth on the table with eighteen and fifteen points, meet on Sunday.",
   "lede_basis": {
     "top_two": 2,
-    "days_between": 1,
-    "conference_matches_played_each": 10,
-    "rollins_points": 14,
-    "tampa_points": 14,
-    "florida_tech_points": 23,
-    "embry_riddle_points": 19,
-    "points_gap_florida_tech": 9,
-    "points_gap_embry_riddle": 5,
-    "florida_tech_conference_losses": 1,
-    "embry_riddle_conference_losses": 1
+    "florida_southern_table_position": 3,
+    "lynn_table_position": 5,
+    "florida_southern_points": 18,
+    "lynn_points": 15
   },
-  "lede_updated": "2026-11-04",
-  "displaced_by": "Rollins beat table leaders Florida Tech a day after Tampa won at Embry-Riddle, so both of the table's top two have now been beaten.",
+  "lede_updated": "2026-11-06",
+  "displaced_by": "Florida Southern beat Tampa and Lynn beat Rollins on Thursday, so the two sides that had toppled the top two have both now lost, and the winners meet on Sunday.",
   "pattern": {
     "label": "derived",
     "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-southern": 38,
+        "florida-southern": 40,
+        "rollins": 35,
         "eckerd": 34,
-        "rollins": 32,
         "saint-leo": 32,
         "palm-beach-atlantic": 30,
+        "lynn": 29,
         "florida-tech": 28,
+        "tampa": 28,
         "embry-riddle": 27,
-        "tampa": 27,
-        "lynn": 25,
         "barry": 21,
         "nova-southeastern": 19
       },
@@ -47,17 +41,17 @@
       "metric": "gf",
       "programme": "florida-southern",
       "of_any": 10,
-      "gf": 38
+      "gf": 40
     }
   },
   "wire": {
-    "line": "Rollins, mid-table in the conference, have beaten leaders Florida Tech and go to Lynn next.",
+    "line": "Tampa and Rollins, fresh from beating Embry-Riddle and Florida Tech, have both lost; Florida Southern and Lynn now meet.",
     "basis": {
       "source": "fixtures",
-      "played": 116,
-      "total": 125
+      "played": 118,
+      "total": 126
     },
-    "updated": "2026-11-04"
+    "updated": "2026-11-06"
   },
   "findings": [
     {
@@ -83,14 +77,14 @@
     },
     {
       "label": "derived",
-      "text": "Finlay Prain has scored sixteen of Rollins' 32 goals this season, from 73 shots.",
+      "text": "Finlay Prain has scored seventeen of Rollins' 35 goals this season, from 77 shots.",
       "basis": {
         "source": "stats",
         "player": "Finlay Prain",
         "programme": "rollins",
-        "goals": 16,
-        "shots": 73,
-        "gf": 32
+        "goals": 17,
+        "shots": 77,
+        "gf": 35
       }
     },
     {
@@ -105,11 +99,11 @@
     },
     {
       "label": "derived",
-      "text": "Nova Southeastern have conceded 34 goals, more than any other programme in the conference.",
+      "text": "Rollins have conceded 36 goals, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
-        "programme": "nova-southeastern",
+        "programme": "rollins",
         "of": [
           "barry",
           "eckerd",
@@ -117,12 +111,12 @@
           "florida-southern",
           "florida-tech",
           "lynn",
+          "nova-southeastern",
           "palm-beach-atlantic",
-          "rollins",
           "saint-leo",
           "tampa"
         ],
-        "ga": 34
+        "ga": 36
       }
     }
   ],
@@ -139,28 +133,28 @@
       "programme": "rollins",
       "position": "FWD",
       "class": "JR",
-      "line": "16 G · 2 A · 73 shots"
+      "line": "17 G · 2 A · 77 shots"
     },
     {
       "player": "Tim Baierlein",
       "programme": "florida-southern",
       "position": "FWD",
       "class": "JR",
-      "line": "11 G · 2 A · 35 shots"
+      "line": "12 G · 2 A · 38 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-03 rollins v florida-tech",
-      "line": "The sides drew on this ground in October; Rollins go to Lynn next."
+      "fixture_ref": "2026-11-05 lynn v rollins",
+      "line": "Lynn had beaten Rollins on this ground in September too; Rollins came in having beaten Florida Tech on Tuesday."
     },
     "next_match": {
-      "fixture_ref": "2026-11-05 florida-southern v tampa",
-      "line": "These sides drew at Florida Southern in October; Tampa arrive having won at Embry-Riddle."
+      "fixture_ref": "2026-11-08 florida-southern v lynn",
+      "line": "Florida Southern beat Lynn on this ground in September; both sides won on Tuesday and again on Thursday."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:57:44.920Z"
+    "validated_at": "2026-11-06T12:59:17.887Z"
   }
 }

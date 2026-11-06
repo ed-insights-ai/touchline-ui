@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-11-04T12:57:44.920Z",
-  "data_collected_at": "2026-11-04T12:52:09+00:00",
+  "validated_at": "2026-11-06T12:59:17.887Z",
+  "data_collected_at": "2026-11-06T12:52:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -25,7 +25,7 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is eckerd at 34"
+      "note": "held against every other programme; the nearest is rollins at 35"
     },
     {
       "path": "pattern.chart",
@@ -39,7 +39,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Rollins, mid-table in the conference, have beaten leaders Florida Tech and go to Lynn next.",
+      "text": "Tampa and Rollins, fresh from beating Embry-Riddle and Florida Tech, have both lost; Florida Southern and Lynn now meet.",
       "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -66,7 +66,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Finlay Prain has scored sixteen of Rollins' 32 goals this season, from 73 shots.",
+      "text": "Finlay Prain has scored seventeen of Rollins' 35 goals this season, from 77 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -84,7 +84,7 @@
     {
       "path": "findings[4]",
       "label": "derived",
-      "text": "Nova Southeastern have conceded 34 goals, more than any other programme in the conference.",
+      "text": "Rollins have conceded 36 goals, more than any other programme in the conference.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +102,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Finlay Prain — 16 G · 2 A · 73 shots",
+      "text": "Finlay Prain — 17 G · 2 A · 77 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -111,7 +111,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Tim Baierlein — 11 G · 2 A · 35 shots",
+      "text": "Tim Baierlein — 12 G · 2 A · 38 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-03 rollins v florida-tech",
+      "text": "2026-11-05 lynn v rollins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-05 florida-southern v tampa",
+      "text": "2026-11-08 florida-southern v lynn",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-04T12:56:29.575Z",
-    "generate_ms": 75342,
+    "started_at": "2026-11-06T12:58:07.932Z",
+    "generate_ms": 69953,
     "validate_ms": 2,
-    "wall_ms": 75344,
+    "wall_ms": 69955,
     "concurrency": 4
   }
 }

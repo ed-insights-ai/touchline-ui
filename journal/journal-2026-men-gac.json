@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-11-05T13:00:00Z",
-  "data_collected_at": "2026-11-05T12:48:12+00:00",
+  "generated_at": "2026-11-06T13:00:00Z",
+  "data_collected_at": "2026-11-06T12:47:26+00:00",
   "headline": "Fort Hays State complete an unbeaten conference season",
   "dek": "Fort Hays State won eleven and drew one of their twelve conference matches for 34 points, the draw at Rogers State the only points they dropped. Rogers State and Northeastern State finished level on 19 points, fifteen behind them.",
   "lede_basis": {
@@ -26,11 +26,11 @@
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fort-hays-state": 40,
+        "fort-hays-state": 44,
         "rogers-state": 32,
-        "southern-nazarene": 25,
+        "northeastern-state": 26,
+        "southern-nazarene": 26,
         "ouachita-baptist": 24,
-        "northeastern-state": 20,
         "newman": 16,
         "harding": 9
       },
@@ -45,8 +45,8 @@
     }
   },
   "wire": {
-    "line": "Rogers State and Northeastern State finished level for second, and meet again this week.",
-    "updated": "2026-11-02"
+    "line": "Northeastern State beat Rogers State, the side level with them on points, and face Fort Hays State next.",
+    "updated": "2026-11-06"
   },
   "findings": [
     {
@@ -60,11 +60,21 @@
     },
     {
       "label": "derived",
-      "text": "Fort Hays State have conceded eight goals this season.",
+      "text": "Fort Hays State have conceded nine goals this season.",
       "basis": {
         "programme": "fort-hays-state",
-        "gf": 40,
-        "ga": 8
+        "gf": 44,
+        "ga": 9
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Harding have drawn one and lost seventeen, and have yet to win a match this season.",
+      "basis": {
+        "programme": "harding",
+        "wins": 0,
+        "draws": 1,
+        "losses": 17
       }
     },
     {
@@ -84,54 +94,43 @@
         "programme": "rogers-state",
         "distinct_scorers_min": 17
       }
-    },
-    {
-      "label": "observed",
-      "text": "Andrew Wagenblatt has made 66 saves for Harding and conceded 30 goals.",
-      "basis": {
-        "source": "stats",
-        "player": "Andrew Wagenblatt",
-        "programme": "harding",
-        "saves": 66,
-        "goals_against": 30
-      }
     }
   ],
   "players_to_watch": [
+    {
+      "player": "Len Valkema",
+      "programme": "fort-hays-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 4 A · 36 shots"
+    },
     {
       "player": "Juan Linares",
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "9 G · 6 A · 29 shots"
+      "line": "9 G · 7 A · 32 shots"
     },
     {
-      "player": "Wesley Rodriguez",
-      "programme": "southern-nazarene",
-      "position": "FWD",
-      "class": "FR",
-      "line": "6 G · 25 shots"
-    },
-    {
-      "player": "Louis Bassett",
-      "programme": "rogers-state",
+      "player": "Carter Adams",
+      "programme": "northeastern-state",
       "position": "FWD",
       "class": "JR",
-      "line": "4 G · 4 A · 32 shots"
+      "line": "5 G · 3 A · 43 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-31 harding v northeastern-state",
-      "line": "Harding end their conference schedule without a win; Northeastern State won both meetings."
+      "fixture_ref": "2026-11-05 northeastern-state v rogers-state",
+      "line": "Northeastern State have now beaten Rogers State home and away."
     },
     "next_match": {
-      "fixture_ref": "2026-11-05 rogers-state v northeastern-state",
-      "line": "Each side has already won on the other's ground this season."
+      "fixture_ref": "2026-11-07 fort-hays-state v northeastern-state",
+      "line": "Northeastern State are yet to take a point from Fort Hays State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-05T12:56:03.298Z"
+    "validated_at": "2026-11-06T12:57:24.004Z"
   }
 }

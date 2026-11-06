@@ -3,25 +3,25 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-11-05T12:56:00+00:00",
-  "data_collected_at": "2026-11-05T12:49:29+00:00",
+  "generated_at": "2026-11-06T12:55:00+00:00",
+  "data_collected_at": "2026-11-06T12:48:43+00:00",
   "headline": "Western Oregon overtake Seattle Pacific to finish top",
-  "dek": "Western Oregon won at Western Washington on Saturday and finish the table above Seattle Pacific, who meet Simon Fraser again on Thursday. Western Oregon's only defeat by a member came at Seattle Pacific in October.",
+  "dek": "Seattle Pacific beat Simon Fraser on Thursday and host Western Oregon on Saturday. Western Oregon's only defeat by a member came at Seattle Pacific in October, and they have not lost since.",
   "lede_basis": {
     "programme": "western-oregon",
     "wins": 11,
     "draws": 5,
     "losses": 3
   },
-  "lede_updated": "2026-11-05",
-  "displaced_by": "The previous dek said Seattle Pacific's schedule had already ended, but they still play Simon Fraser on Thursday. Only the dek is rewritten; the headline is still true and stands.",
+  "lede_updated": "2026-11-06",
+  "displaced_by": "Seattle Pacific beat Simon Fraser on Thursday, so the old dek's line that the two 'meet again on Thursday' is now in the past, and Seattle Pacific host Western Oregon on Saturday. Only the dek is rewritten. The headline is still true and stands.",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: most of their goals have come against sides outside the conference, not in the matches the table counts.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "seattle-pacific": 48,
+        "seattle-pacific": 50,
         "western-oregon": 47,
         "saint-martins": 32,
         "simon-fraser": 31,
@@ -60,7 +60,7 @@
     },
     {
       "label": "derived",
-      "text": "Seattle Pacific have won fifteen matches, more than any other programme in the conference.",
+      "text": "Seattle Pacific have won sixteen matches, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "wins",
@@ -72,7 +72,7 @@
           "western-oregon",
           "western-washington"
         ],
-        "wins": 15
+        "wins": 16
       }
     },
     {
@@ -124,25 +124,25 @@
       "line": "8 G · 7 A · 41 shots"
     },
     {
-      "player": "Daniel James Jackson",
+      "player": "Daniel Jackson",
       "programme": "simon-fraser",
       "position": "MID",
       "class": "FR",
-      "line": "8 G · 4 A · 27 shots"
+      "line": "8 G · 4 A · 28 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-31 western-washington v western-oregon",
-      "line": "Western Washington have now lost to Western Oregon home and away."
+      "fixture_ref": "2026-11-05 seattle-pacific v simon-fraser",
+      "line": "Simon Fraser have still not beaten Seattle Pacific this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-05 seattle-pacific v simon-fraser",
-      "line": "Simon Fraser have not beaten Seattle Pacific in either meeting this season."
+      "fixture_ref": "2026-11-07 seattle-pacific v western-oregon",
+      "line": "Seattle Pacific have won every match they have played at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-05T12:56:11.651Z"
+    "validated_at": "2026-11-06T12:57:21.464Z"
   }
 }

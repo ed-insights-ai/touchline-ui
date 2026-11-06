@@ -3,29 +3,44 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-11-04T12:55:00+00:00",
-  "data_collected_at": "2026-11-04T12:47:05+00:00",
-  "headline": "Findlay and Kentucky Wesleyan win on the road",
-  "dek": "Findlay won at Thomas More and Kentucky Wesleyan at Cedarville on Saturday, each beating a side that had finished above them in the table. Both travel again on Thursday, Findlay to Tiffin and Kentucky Wesleyan to Lake Erie, and neither host has played since the table's last round.",
+  "generated_at": "2026-11-06T12:55:00+00:00",
+  "data_collected_at": "2026-11-06T12:46:58+00:00",
+  "headline": "Findlay reverse their home defeat by Tiffin",
+  "dek": "Findlay's win over Tiffin on Thursday was their twelfth of the season, more than any other programme has managed, and it came on the ground where Tiffin had beaten them in October. They host Kentucky Wesleyan on Saturday in the only match left on the calendar.",
   "lede_basis": {
     "programme": "findlay",
-    "wins": 11,
+    "wins": 12,
     "draws": 2,
-    "losses": 5
+    "losses": 5,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": [
+      "ashland",
+      "cedarville",
+      "kentucky-wesleyan",
+      "lake-erie",
+      "malone",
+      "northwood",
+      "ohio-dominican",
+      "thomas-more",
+      "tiffin",
+      "walsh"
+    ]
   },
-  "lede_updated": "2026-11-02",
+  "lede_updated": "2026-11-06",
+  "displaced_by": "Thursday's matches were played; the standing dek still described them as to come.",
   "pattern": {
     "label": "derived",
-    "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's 36 are more than Northwood and Ohio Dominican have scored together.",
+    "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's 37 are more than Northwood and Ohio Dominican have scored together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "lake-erie": 36,
-        "findlay": 32,
-        "kentucky-wesleyan": 32,
+        "lake-erie": 37,
+        "findlay": 34,
+        "kentucky-wesleyan": 33,
         "ashland": 29,
+        "tiffin": 28,
         "thomas-more": 27,
-        "tiffin": 27,
         "cedarville": 24,
         "walsh": 24,
         "northwood": 15,
@@ -36,21 +51,21 @@
     },
     "basis": {
       "programme": "lake-erie",
-      "gf": 36,
+      "gf": 37,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["northwood", "ohio-dominican"]
     }
   },
   "wire": {
-    "line": "Lake Erie have won every conference match since their draw at Tiffin, and no one can now catch them.",
+    "line": "Lake Erie top the table, yet the only match left is Findlay against Kentucky Wesleyan.",
     "basis": {
       "programme": "lake-erie",
       "wins": 11,
-      "draws": 3,
+      "draws": 4,
       "losses": 4
     },
-    "updated": "2026-10-28"
+    "updated": "2026-11-06"
   },
   "findings": [
     {
@@ -119,11 +134,11 @@
   ],
   "players_to_watch": [
     {
-      "player": "Tom Woodward",
-      "programme": "ashland",
+      "player": "Carson Oberski",
+      "programme": "findlay",
       "position": "FWD",
-      "class": "SO",
-      "line": "12 G · 4 A · 70 shots"
+      "class": "SR",
+      "line": "9 G · 5 A · 48 shots"
     },
     {
       "player": "Jersey Lopez",
@@ -133,25 +148,25 @@
       "line": "3 G · 14 A · 31 shots"
     },
     {
-      "player": "Carson Oberski",
-      "programme": "findlay",
+      "player": "Tom Woodward",
+      "programme": "ashland",
       "position": "FWD",
-      "class": "SR",
-      "line": "8 G · 5 A · 43 shots"
+      "class": "SO",
+      "line": "12 G · 4 A · 70 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-31 cedarville v kentucky-wesleyan",
-      "line": "Kentucky Wesleyan have won both their visits to Cedarville this season."
+      "fixture_ref": "2026-11-05 lake-erie v kentucky-wesleyan",
+      "line": "Lake Erie have not lost since Cedarville won there in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-05 lake-erie v kentucky-wesleyan",
-      "line": "Lake Erie won at Kentucky Wesleyan in September, the only time the sides have met this season."
+      "fixture_ref": "2026-11-07 findlay v kentucky-wesleyan",
+      "line": "Each side has beaten the other at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:55:25.327Z"
+    "validated_at": "2026-11-06T12:56:53.008Z"
   }
 }

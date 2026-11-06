@@ -3,30 +3,30 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-11-03T12:45:00+00:00",
-  "data_collected_at": "2026-11-03T12:35:50+00:00",
-  "headline": "Hawai'i Pacific catch Vanguard at the top of the table",
-  "dek": "Hawai'i Pacific won at Chaminade to draw level on points with Vanguard, having won every conference match since Westmont beat them in October. Neither has finished: Vanguard are at home to Westmont and Hawai'i Pacific meet Dominican (Calif.), the sides directly beneath them in the table.",
+  "generated_at": "2026-11-06T13:00:00+00:00",
+  "data_collected_at": "2026-11-06T12:50:23+00:00",
+  "headline": "Westmont win at Vanguard and host Hawai'i Pacific next",
+  "dek": "Hawai'i Pacific won at Dominican (Calif.) the same day and have not lost since Westmont beat them on their own ground in October. Vanguard, level with Hawai'i Pacific on points at the top of the table, were beaten at home.",
   "lede_basis": {
     "programme": "hawaii-pacific",
-    "wins": 8,
+    "wins": 9,
     "draws": 3,
     "losses": 5
   },
-  "lede_updated": "2026-11-03",
-  "displaced_by": "Hawai'i Pacific now also have a match to play, against Dominican (Calif.), so the dek's 'finish level' and 'Vanguard and Westmont alone still have a match to play' no longer hold; the headline is still true and stands.",
+  "lede_updated": "2026-11-06",
+  "displaced_by": "Both of the matches the old dek said were still to come have now been played: Westmont won at Vanguard and Hawai'i Pacific won at Dominican (Calif.), which sets up Westmont v Hawai'i Pacific.",
   "pattern": {
     "label": "derived",
     "text": "Kyle Denn has scored fourteen of Biola's twenty-eight goals, exactly half of everything his side has scored.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "westmont": 37,
+        "westmont": 41,
+        "hawaii-pacific": 35,
         "dominican-of-california": 34,
         "concordia-irvine": 33,
-        "hawaii-pacific": 33,
+        "vanguard": 31,
         "point-loma": 30,
-        "vanguard": 29,
         "biola": 28,
         "hawaii-hilo": 17,
         "jessup": 15,
@@ -43,14 +43,14 @@
     }
   },
   "wire": {
-    "line": "Hawai'i Pacific and Vanguard are level at the top, and both now face the sides directly beneath them in the table.",
+    "line": "Westmont have now beaten both sides level at the top of the table, and Hawai'i Pacific are next.",
     "basis": {
-      "programme": "hawaii-pacific",
-      "wins": 8,
-      "draws": 3,
-      "losses": 5
+      "programme": "westmont",
+      "wins": 9,
+      "draws": 5,
+      "losses": 7
     },
-    "updated": "2026-11-03"
+    "updated": "2026-11-06"
   },
   "findings": [
     {
@@ -64,22 +64,22 @@
     },
     {
       "label": "derived",
-      "text": "Concordia Irvine have won nine matches, more than any other programme in the conference.",
+      "text": "Westmont have drawn five matches, more than any other programme in the conference.",
       "basis": {
-        "programme": "concordia-irvine",
-        "wins": 9,
+        "programme": "westmont",
+        "draws": 5,
         "comparative": "greater_than_each",
-        "metric": "wins",
+        "metric": "draws",
         "of": [
           "biola",
           "chaminade",
+          "concordia-irvine",
           "dominican-of-california",
           "hawaii-hilo",
           "hawaii-pacific",
           "jessup",
           "point-loma",
-          "vanguard",
-          "westmont"
+          "vanguard"
         ]
       }
     },
@@ -118,13 +118,13 @@
     },
     {
       "label": "observed",
-      "text": "Aidan Strickler has made fifty-five saves for Westmont and conceded twenty-eight goals, a save percentage of .663.",
+      "text": "Aidan Strickler has made fifty-nine saves for Westmont and conceded thirty goals, a save percentage of .663.",
       "basis": {
         "source": "stats",
         "player": "Aidan Strickler",
         "programme": "westmont",
-        "saves": 55,
-        "goals_against": 28,
+        "saves": 59,
+        "goals_against": 30,
         "save_pct": 0.663
       }
     }
@@ -142,7 +142,7 @@
       "programme": "hawaii-pacific",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 4 A · 28 shots"
+      "line": "11 G · 4 A · 29 shots"
     },
     {
       "player": "Jack Merrill",
@@ -154,16 +154,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-31 chaminade v hawaii-pacific",
-      "line": "Hawai'i Pacific have beaten Chaminade every time the two have met this season; Chaminade end conference play without a win."
+      "fixture_ref": "2026-11-05 vanguard v westmont",
+      "line": "Vanguard had beaten Westmont on this same ground on the day conference play opened."
     },
     "next_match": {
-      "fixture_ref": "2026-11-05 vanguard v westmont",
-      "line": "Vanguard won the sides' first meeting on the day conference play opened; Westmont arrive off a home win over Point Loma."
+      "fixture_ref": "2026-11-07 westmont v hawaii-pacific",
+      "line": "Westmont are the only conference side to have kept Hawai'i Pacific from scoring this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-03T12:43:13.472Z"
+    "validated_at": "2026-11-06T12:59:40.980Z"
   }
 }

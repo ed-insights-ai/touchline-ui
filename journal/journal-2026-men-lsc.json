@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-11-05T12:56:00Z",
-  "data_collected_at": "2026-11-05T12:50:03+00:00",
+  "generated_at": "2026-11-06T12:55:00Z",
+  "data_collected_at": "2026-11-06T12:49:21+00:00",
   "headline": "St. Mary's beat Oklahoma Christian, face unbeaten Midwestern State next",
   "dek": "Oklahoma Christian had not lost since conference play opened until St. Mary's won at their ground on Wednesday. Midwestern State, who host St. Mary's on Saturday, drew with UT Dallas the same night and have now won fourteen and drawn five this season without a loss.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 0
   },
   "lede_updated": "2026-11-05",
-  "displaced_by": "The standing dek no longer held: Midwestern State's draw with UT Dallas makes five draws and fourteen conceded, and St. Mary's beat Oklahoma Christian to set up a meeting with Midwestern State.",
   "pattern": {
     "label": "derived",
     "text": "Fourteen different players have scored Midwestern State's 50 goals, and Parker Plaxco has fifteen of them.",
@@ -145,6 +144,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-05T12:57:28.036Z"
+    "validated_at": "2026-11-06T12:57:39.902Z"
   }
 }

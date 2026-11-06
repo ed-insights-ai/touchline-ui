@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-05T12:59:28.104Z",
+  "validated_at": "2026-11-06T13:00:22.827Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Fort Lewis thin the division's unbeaten ranks at CSU Pueblo Midwestern State, Lincoln, Emory & Henry and Cal State LA are now the only programmes in the division yet to lose. Midwestern State kept their place among them with a draw at home to UT Dallas.",
+      "text": "Seattle Pacific match Charleston for the division's most wins Seattle Pacific's home win over Simon Fraser was their sixteenth of the season, level with Charleston for the most of any programme in the division. They have drawn once and lost three times, and Western Oregon visit next.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +25,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-05T12:58:43.536Z",
-    "generate_ms": 44566,
+    "started_at": "2026-11-06T12:59:43.683Z",
+    "generate_ms": 39142,
     "validate_ms": 1,
-    "wall_ms": 44568
+    "wall_ms": 39143
   }
 }
