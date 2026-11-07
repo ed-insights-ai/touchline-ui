@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "generated_at": "2026-11-06T12:55:00+00:00",
-  "data_collected_at": "2026-11-06T12:46:58+00:00",
+  "generated_at": "2026-11-07T12:55:00+00:00",
+  "data_collected_at": "2026-11-07T12:47:50+00:00",
   "headline": "Findlay reverse their home defeat by Tiffin",
-  "dek": "Findlay's win over Tiffin on Thursday was their twelfth of the season, more than any other programme has managed, and it came on the ground where Tiffin had beaten them in October. They host Kentucky Wesleyan on Saturday in the only match left on the calendar.",
+  "dek": "Thursday's win was Findlay's twelfth of the season, more than any other programme has managed, and it levelled a season series Tiffin had led since October. Findlay close the calendar away to Kentucky Wesleyan today, in the only match left.",
   "lede_basis": {
     "programme": "findlay",
     "wins": 12,
@@ -27,8 +27,8 @@
       "walsh"
     ]
   },
-  "lede_updated": "2026-11-06",
-  "displaced_by": "Thursday's matches were played; the standing dek still described them as to come.",
+  "lede_updated": "2026-11-07",
+  "displaced_by": "Today's match is at Kentucky Wesleyan; the standing dek had Findlay hosting it.",
   "pattern": {
     "label": "derived",
     "text": "Scoring is level across the upper half and falls away at the foot: Lake Erie's 37 are more than Northwood and Ohio Dominican have scored together.",
@@ -123,12 +123,12 @@
     },
     {
       "label": "observed",
-      "text": "Jersey Lopez has fourteen assists for Kentucky Wesleyan.",
+      "text": "Jersey Lopez has fifteen assists for Kentucky Wesleyan.",
       "basis": {
         "source": "stats",
         "player": "Jersey Lopez",
         "programme": "kentucky-wesleyan",
-        "assists": 14
+        "assists": 15
       }
     }
   ],
@@ -145,7 +145,7 @@
       "programme": "kentucky-wesleyan",
       "position": "MID",
       "class": "JR",
-      "line": "3 G · 14 A · 31 shots"
+      "line": "3 G · 15 A · 31 shots"
     },
     {
       "player": "Tom Woodward",
@@ -161,12 +161,12 @@
       "line": "Lake Erie have not lost since Cedarville won there in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-07 findlay v kentucky-wesleyan",
+      "fixture_ref": "2026-11-07 kentucky-wesleyan v findlay",
       "line": "Each side has beaten the other at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:56:53.008Z"
+    "validated_at": "2026-11-07T12:56:34.476Z"
   }
 }

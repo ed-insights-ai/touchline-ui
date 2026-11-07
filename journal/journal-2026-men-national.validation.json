@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-06T13:00:22.827Z",
+  "validated_at": "2026-11-07T12:59:57.934Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Seattle Pacific match Charleston for the division's most wins Seattle Pacific's home win over Simon Fraser was their sixteenth of the season, level with Charleston for the most of any programme in the division. They have drawn once and lost three times, and Western Oregon visit next.",
-      "checker": "team_record",
+      "text": "Cal State LA lead the division's unbeaten sides on wins Cal State LA beat Menlo and are still without a defeat, and no other unbeaten programme in the division has won as many matches. Lincoln and Emory & Henry also won and stay unbeaten; Midwestern State are the only other programme yet to lose.",
+      "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-06T12:59:43.683Z",
-    "generate_ms": 39142,
-    "validate_ms": 1,
-    "wall_ms": 39143
+    "started_at": "2026-11-07T12:59:13.371Z",
+    "generate_ms": 44560,
+    "validate_ms": 2,
+    "wall_ms": 44562
   }
 }

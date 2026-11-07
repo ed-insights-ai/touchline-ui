@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "validated_at": "2026-11-06T12:57:21.464Z",
-  "data_collected_at": "2026-11-06T12:48:43+00:00",
+  "validated_at": "2026-11-07T12:58:04.259Z",
+  "data_collected_at": "2026-11-07T12:49:08+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-07 seattle-pacific v western-oregon",
+      "text": "2026-11-07 western-oregon v seattle-pacific",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-06T12:56:20.170Z",
-    "generate_ms": 61293,
+    "started_at": "2026-11-07T12:57:16.056Z",
+    "generate_ms": 48202,
     "validate_ms": 1,
-    "wall_ms": 61294,
+    "wall_ms": 48203,
     "concurrency": 4
   }
 }

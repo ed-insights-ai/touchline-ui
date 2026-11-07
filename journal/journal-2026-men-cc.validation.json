@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "validated_at": "2026-11-04T12:55:37.830Z",
-  "data_collected_at": "2026-11-04T12:45:57+00:00",
+  "validated_at": "2026-11-07T12:57:22.025Z",
+  "data_collected_at": "2026-11-07T12:45:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -17,7 +17,7 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[4].text",
+      "path": "findings[3].text",
       "text": "Edouard Laberge has made 99 saves for Emmanuel and conceded 25 goals, a save percentage of .798.",
       "unbacked": ["798"]
     }
@@ -44,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "No side in the conference is unbeaten any longer: Young Harris have won at Lees-McRae.",
+      "text": "Lees-McRae, beaten once all season, host Francis Marion in the last match on the schedule.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Lees-McRae have won fourteen matches, drawn three and lost one, and have conceded nine goals in all.",
+      "text": "Francis Marion have won fifteen matches, drawn two and lost four, and have conceded thirteen goals in all.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -70,24 +70,15 @@
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Francis Marion have won fourteen matches, drawn two and lost four, and have conceded thirteen goals in all.",
-      "checker": "team_goals+team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[3]",
       "label": "observed",
-      "text": "Andre Camargo, a freshman, has scored ten goals and set up five for Chowan, from 32 shots.",
+      "text": "Conor O'Gorman has scored eleven goals and set up four for Lees-McRae, from 66 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
-      "path": "findings[4]",
+      "path": "findings[3]",
       "label": "observed",
       "text": "Edouard Laberge has made 99 saves for Emmanuel and conceded 25 goals, a save percentage of .798.",
       "checker": "player_stat",
@@ -116,7 +107,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Andrea Marrazzo — 7 G · 7 A · 53 shots",
+      "text": "Andrea Marrazzo — 8 G · 7 A · 56 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +116,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-31 lees-mcrae v north-greenville",
+      "text": "2026-11-06 converse v lees-mcrae",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +125,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-06 lees-mcrae v converse",
+      "text": "2026-11-08 lees-mcrae v francis-marion",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-04T12:54:57.852Z",
-    "generate_ms": 39976,
+    "started_at": "2026-11-07T12:55:47.080Z",
+    "generate_ms": 94944,
     "validate_ms": 1,
-    "wall_ms": 39978,
+    "wall_ms": 94945,
     "concurrency": 4
   }
 }

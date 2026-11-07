@@ -2,21 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-11-06T13:05:00+00:00",
-  "data_collected_at": "2026-11-06T12:47:26+00:00",
-  "headline": "Seattle Pacific match Charleston for the division's most wins",
-  "dek": "Seattle Pacific's home win over Simon Fraser was their sixteenth of the season, level with Charleston for the most of any programme in the division. They have drawn once and lost three times, and Western Oregon visit next.",
+  "generated_at": "2026-11-07T13:05:00+00:00",
+  "data_collected_at": "2026-11-07T12:48:14+00:00",
+  "headline": "Cal State LA lead the division's unbeaten sides on wins",
+  "dek": "Cal State LA beat Menlo and are still without a defeat, and no other unbeaten programme in the division has won as many matches. Lincoln and Emory & Henry also won and stay unbeaten; Midwestern State are the only other programme yet to lose.",
   "basis": {
-    "programme": "seattle-pacific",
-    "wins": 16,
-    "draws": 1,
-    "losses": 3
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "programme": "cal-state-la",
+    "of": ["lincoln", "midwestern-state", "emory-henry"]
   },
-  "fixture_ref": "2026-11-05 seattle-pacific v simon-fraser",
-  "updated": "2026-11-06",
-  "displaced_by": "results night: Seattle Pacific's sixteenth win drew them level with Charleston for the most wins in the division",
+  "fixture_ref": "2026-11-06 cal-state-la v menlo",
+  "updated": "2026-11-07",
+  "displaced_by": "results night: Cal State LA's win over Menlo kept them unbeaten with more wins than any other unbeaten programme in the division",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T13:00:22.827Z"
+    "validated_at": "2026-11-07T12:59:57.934Z"
   }
 }

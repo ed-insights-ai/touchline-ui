@@ -3,19 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-11-06T13:01:00+00:00",
-  "data_collected_at": "2026-11-06T12:48:17+00:00",
-  "headline": "Lincoln host the last side to hold them",
-  "dek": "Since Indianapolis drew with them in October, Lincoln have won six matches in a row and are thirteen wins and four draws into a season without defeat. All four draws came away from home; Drury and Maryville, level in second, have both lost to them.",
+  "generated_at": "2026-11-07T13:01:00+00:00",
+  "data_collected_at": "2026-11-07T12:48:46+00:00",
+  "headline": "Unbeaten Lincoln meet Truman, who have already held them",
+  "dek": "Lincoln won at Indianapolis, the last side to draw with them, and are fourteen wins and four draws into the season without defeat. All four of those draws came away from home, one of them at Truman, who won at Missouri-St. Louis the same day and now travel to Lincoln.",
   "lede_basis": {
     "programme": "lincoln",
-    "wins": 13,
+    "wins": 14,
     "draws": 4,
-    "losses": 0,
-    "consecutive_wins_since_last_draw": 6,
-    "away_draws": 4
+    "losses": 0
   },
-  "lede_updated": "2026-11-03",
+  "lede_updated": "2026-11-07",
+  "displaced_by": "Lincoln won at Indianapolis, so the match the old headline previewed is now played and the dek's win total and run are out of date",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
@@ -24,17 +23,17 @@
       "values": {
         "southwest-baptist": 45,
         "maryville": 41,
-        "lincoln": 37,
+        "lincoln": 40,
         "drury": 31,
         "mckendree": 30,
         "missouri-s-t": 30,
-        "indianapolis": 27,
-        "truman": 26,
+        "indianapolis": 28,
+        "truman": 28,
         "quincy": 24,
         "illinois-springfield": 21,
         "rockhurst": 20,
         "lewis": 19,
-        "missouri-st-louis": 17,
+        "missouri-st-louis": 18,
         "upper-iowa": 17,
         "william-jewell": 13
       },
@@ -56,7 +55,7 @@
     "line": "Lincoln are the only programme in the conference still without a defeat this season.",
     "basis": {
       "programme": "lincoln",
-      "wins": 13,
+      "wins": 14,
       "draws": 4,
       "losses": 0
     },
@@ -84,26 +83,26 @@
     },
     {
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's thirty-seven goals, from sixty shots.",
+      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's forty goals, from sixty-five shots.",
       "basis": {
         "source": "stats",
         "player": "Jonathan Nemorden",
         "programme": "lincoln",
         "goals": 12,
-        "shots": 60,
-        "gf": 37
+        "shots": 65,
+        "gf": 40
       }
     },
     {
       "label": "derived",
-      "text": "Jacob Panagos, a midfielder, has fourteen of Truman's twenty-six goals, from fifty shots.",
+      "text": "Jacob Panagos, a midfielder, has fifteen of Truman's twenty-eight goals, from fifty-five shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Panagos",
         "programme": "truman",
-        "goals": 14,
-        "shots": 50,
-        "gf": 26
+        "goals": 15,
+        "shots": 55,
+        "gf": 28
       }
     },
     {
@@ -125,14 +124,14 @@
       "programme": "truman",
       "position": "MID",
       "class": "JR",
-      "line": "14 G · 1 A · 50 shots"
+      "line": "15 G · 1 A · 55 shots"
     },
     {
       "player": "Jonathan Nemorden",
       "programme": "lincoln",
       "position": "FWD",
       "class": "FR",
-      "line": "12 G · 2 A · 60 shots"
+      "line": "12 G · 2 A · 65 shots"
     },
     {
       "player": "Fredrik Thulin",
@@ -144,16 +143,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-01 indianapolis v quincy",
-      "line": "Quincy end the conference schedule on a losing run that began at Lincoln; Indianapolis have not lost at home since Maryville beat them in September."
+      "fixture_ref": "2026-11-06 indianapolis v lincoln",
+      "line": "Indianapolis had not lost at home since Maryville won there in September."
     },
     "next_match": {
-      "fixture_ref": "2026-11-06 lincoln v indianapolis",
-      "line": "Lincoln have won every match they have played at home; Indianapolis have won their last two."
+      "fixture_ref": "2026-11-08 lincoln v truman",
+      "line": "Lincoln have won every match they have played at home; Truman held them to a draw in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:57:01.310Z"
+    "validated_at": "2026-11-07T12:57:49.197Z"
   }
 }

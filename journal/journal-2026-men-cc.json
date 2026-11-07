@@ -3,17 +3,19 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-11-04T12:55:00+00:00",
-  "data_collected_at": "2026-11-04T12:45:57+00:00",
-  "headline": "Barton win at leaders Young Harris",
-  "dek": "Barton have not lost since September. All six of their defeats this season came before October, and they have won or drawn every match since. Francis Marion, the last side to beat them, visit on Friday.",
+  "generated_at": "2026-11-07T12:55:00+00:00",
+  "data_collected_at": "2026-11-07T12:45:49+00:00",
+  "headline": "Lees-McRae and Francis Marion win on the road",
+  "dek": "Francis Marion's win at Barton ended a run that had kept Barton unbeaten since September, and Lees-McRae won at Converse without conceding. Lees-McRae have won fifteen, lost once and let in nine goals all season; they host Francis Marion on Sunday.",
   "lede_basis": {
-    "programme": "barton",
-    "wins": 9,
+    "programme": "lees-mcrae",
+    "wins": 15,
     "draws": 3,
-    "losses": 6
+    "losses": 1,
+    "ga": 9
   },
-  "lede_updated": "2026-11-02",
+  "lede_updated": "2026-11-07",
+  "displaced_by": "Francis Marion beat Barton on 2026-11-06, so the standing dek's 'have not lost since September' no longer holds; Lees-McRae won at Converse the same night.",
   "pattern": {
     "label": "derived",
     "text": "Chowan's 50 goals have come from at least fifteen different scorers and have still brought five defeats; spreading the scoring has not bought a clean record.",
@@ -24,9 +26,9 @@
         "converse": 50,
         "young-harris": 46,
         "barton": 34,
-        "francis-marion": 33,
+        "francis-marion": 34,
+        "lees-mcrae": 31,
         "southern-wesleyan": 30,
-        "lees-mcrae": 28,
         "emmanuel": 27,
         "north-greenville": 26,
         "ferrum": 22,
@@ -48,14 +50,14 @@
     }
   },
   "wire": {
-    "line": "No side in the conference is unbeaten any longer: Young Harris have won at Lees-McRae.",
+    "line": "Lees-McRae, beaten once all season, host Francis Marion in the last match on the schedule.",
     "basis": {
       "programme": "lees-mcrae",
-      "wins": 14,
+      "wins": 15,
       "draws": 3,
       "losses": 1
     },
-    "updated": "2026-10-25"
+    "updated": "2026-11-07"
   },
   "findings": [
     {
@@ -69,21 +71,10 @@
     },
     {
       "label": "derived",
-      "text": "Lees-McRae have won fourteen matches, drawn three and lost one, and have conceded nine goals in all.",
-      "basis": {
-        "programme": "lees-mcrae",
-        "wins": 14,
-        "draws": 3,
-        "losses": 1,
-        "ga": 9
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Francis Marion have won fourteen matches, drawn two and lost four, and have conceded thirteen goals in all.",
+      "text": "Francis Marion have won fifteen matches, drawn two and lost four, and have conceded thirteen goals in all.",
       "basis": {
         "programme": "francis-marion",
-        "wins": 14,
+        "wins": 15,
         "draws": 2,
         "losses": 4,
         "ga": 13
@@ -91,14 +82,14 @@
     },
     {
       "label": "observed",
-      "text": "Andre Camargo, a freshman, has scored ten goals and set up five for Chowan, from 32 shots.",
+      "text": "Conor O'Gorman has scored eleven goals and set up four for Lees-McRae, from 66 shots.",
       "basis": {
         "source": "stats",
-        "player": "Andre Camargo",
-        "programme": "chowan",
-        "goals": 10,
-        "assists": 5,
-        "shots": 32
+        "player": "Conor O'Gorman",
+        "programme": "lees-mcrae",
+        "goals": 11,
+        "assists": 4,
+        "shots": 66
       }
     },
     {
@@ -134,21 +125,21 @@
       "programme": "lees-mcrae",
       "position": "MID",
       "class": "FR",
-      "line": "7 G · 7 A · 53 shots"
+      "line": "8 G · 7 A · 56 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-31 lees-mcrae v north-greenville",
-      "line": "North Greenville have not scored against Lees-McRae this season."
+      "fixture_ref": "2026-11-06 converse v lees-mcrae",
+      "line": "Lees-McRae's first win over Converse this season, after the sides had drawn both earlier meetings."
     },
     "next_match": {
-      "fixture_ref": "2026-11-06 lees-mcrae v converse",
-      "line": "Neither side has yet beaten the other this season; Converse have won every match since losing to Coker."
+      "fixture_ref": "2026-11-08 lees-mcrae v francis-marion",
+      "line": "Lees-McRae won October's meeting on this ground; Francis Marion have won every match since their October defeat at Barton."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-04T12:55:37.830Z"
+    "validated_at": "2026-11-07T12:57:22.025Z"
   }
 }

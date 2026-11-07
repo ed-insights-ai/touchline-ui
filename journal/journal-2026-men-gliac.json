@@ -3,20 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-11-02T13:50:00+00:00",
-  "data_collected_at": "2026-11-02T13:33:28+00:00",
-  "headline": "Saginaw Valley State win at Northern Michigan to finish top",
-  "dek": "The one defeat of Saginaw Valley State's season came at home to Northern Michigan in September; in their final conference match they won the return. They have conceded eleven goals in all, and Northern Michigan, who led the table going into that match, end behind them.",
+  "generated_at": "2026-11-07T13:05:00+00:00",
+  "data_collected_at": "2026-11-07T12:48:27+00:00",
+  "headline": "Purdue Northwest win at Northern Michigan to extend their run",
+  "dek": "Purdue Northwest won at Northern Michigan, where they had lost in October, and have won every match since their defeat at Saginaw Valley State. Saginaw Valley State, beaten once all season, were held at home by Roosevelt, who host Purdue Northwest next.",
   "lede_basis": {
     "programme": "saginaw-valley-state",
     "wins": 9,
-    "draws": 6,
-    "losses": 1,
-    "gf": 33,
-    "ga": 11
+    "draws": 7,
+    "losses": 1
   },
-  "lede_updated": "2026-11-02",
-  "displaced_by": "The dek's 'top of the table on Saturday' now reads as 31 October, when Saginaw Valley State already led. The dek is rewritten without the relative day, and the headline stands.",
+  "lede_updated": "2026-11-07",
+  "displaced_by": "The standing dek stopped being true. Saginaw Valley State's latest match against a member was a home draw with Roosevelt, not the win at Northern Michigan, and they have now conceded twelve, not eleven. Purdue Northwest's away win at Northern Michigan, which extends their run, is the new story.",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Davenport and St. Cloud State together.",
@@ -24,9 +22,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "northern-michigan": 35,
-        "saginaw-valley-state": 33,
-        "roosevelt": 25,
-        "purdue-northwest": 23,
+        "saginaw-valley-state": 34,
+        "roosevelt": 26,
+        "purdue-northwest": 24,
         "wisconsin-parkside": 19,
         "davenport": 18,
         "st-cloud-state": 15
@@ -42,14 +40,14 @@
     }
   },
   "wire": {
-    "line": "Saginaw Valley State finish top, having won away at the only side to beat them this season.",
+    "line": "Neither of the table's top sides won their latest match; Purdue Northwest, who beat Northern Michigan away, meet Roosevelt next.",
     "basis": {
-      "programme": "saginaw-valley-state",
-      "wins": 9,
-      "draws": 6,
-      "losses": 1
+      "programme": "purdue-northwest",
+      "wins": 11,
+      "draws": 2,
+      "losses": 5
     },
-    "updated": "2026-10-26"
+    "updated": "2026-11-07"
   },
   "findings": [
     {
@@ -74,14 +72,14 @@
     },
     {
       "label": "observed",
-      "text": "Matty Telfer has scored thirteen of Saginaw Valley State's 33 goals, from 55 shots.",
+      "text": "Matty Telfer has scored thirteen of Saginaw Valley State's 34 goals, from 55 shots.",
       "basis": {
         "source": "stats",
         "player": "Matty Telfer",
         "programme": "saginaw-valley-state",
         "goals": 13,
         "shots": 55,
-        "gf": 33
+        "gf": 34
       }
     },
     {
@@ -115,32 +113,32 @@
       "line": "16 G · 6 A · 76 shots"
     },
     {
-      "player": "Matty Telfer",
-      "programme": "saginaw-valley-state",
-      "position": "FWD",
-      "class": "JR",
-      "line": "13 G · 4 A · 55 shots"
-    },
-    {
       "player": "Fynn Mewes",
       "programme": "roosevelt",
       "position": "FWD",
       "class": "5Y",
       "line": "9 G · 5 A · 47 shots"
+    },
+    {
+      "player": "Landon Potts",
+      "programme": "purdue-northwest",
+      "position": "FWD",
+      "class": "SO",
+      "line": "6 G · 7 A · 59 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-10-31 wisconsin-parkside v roosevelt",
-      "line": "It was Roosevelt's first win since they beat Davenport at home, and they had drawn on the same ground on their last visit."
+      "fixture_ref": "2026-11-06 northern-michigan v purdue-northwest",
+      "line": "Purdue Northwest have won both meetings since losing on this ground in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-06 saginaw-valley-state v roosevelt",
-      "line": "Roosevelt have not beaten Saginaw Valley State this season: they lost at Saginaw Valley State and drew the return at home."
+      "fixture_ref": "2026-11-08 roosevelt v purdue-northwest",
+      "line": "Each side has won this season's meeting on its own ground."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-02T13:43:59.928Z"
+    "validated_at": "2026-11-07T12:57:50.677Z"
   }
 }

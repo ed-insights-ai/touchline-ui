@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-11-06T12:57:01.310Z",
-  "data_collected_at": "2026-11-06T12:48:17+00:00",
+  "validated_at": "2026-11-07T12:57:49.197Z",
+  "data_collected_at": "2026-11-07T12:48:46+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's thirty-seven goals, from sixty shots.",
+      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's forty goals, from sixty-five shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jacob Panagos, a midfielder, has fourteen of Truman's twenty-six goals, from fifty shots.",
+      "text": "Jacob Panagos, a midfielder, has fifteen of Truman's twenty-eight goals, from fifty-five shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacob Panagos — 14 G · 1 A · 50 shots",
+      "text": "Jacob Panagos — 15 G · 1 A · 55 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jonathan Nemorden — 12 G · 2 A · 60 shots",
+      "text": "Jonathan Nemorden — 12 G · 2 A · 65 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-01 indianapolis v quincy",
+      "text": "2026-11-06 indianapolis v lincoln",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-06 lincoln v indianapolis",
+      "text": "2026-11-08 lincoln v truman",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-06T12:56:19.864Z",
-    "generate_ms": 41444,
+    "started_at": "2026-11-07T12:56:34.657Z",
+    "generate_ms": 74538,
     "validate_ms": 1,
-    "wall_ms": 41446,
+    "wall_ms": 74539,
     "concurrency": 4
   }
 }

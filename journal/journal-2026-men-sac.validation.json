@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-11-05T12:58:31.741Z",
-  "data_collected_at": "2026-11-05T12:52:20+00:00",
+  "validated_at": "2026-11-07T12:59:07.512Z",
+  "data_collected_at": "2026-11-07T12:52:26+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Emory & Henry have scored 24 and conceded five: the side now top of the table has got there by keeping goals out, not by scoring them.",
+      "text": "Emory & Henry have scored 26 and conceded six: the side top of the table has got there by keeping goals out, not by scoring them.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Catawba's first defeat, at home to Coker, has handed Emory & Henry the top of the table.",
+      "text": "Emory & Henry go into Sunday's meeting with Catawba as the conference's only unbeaten side.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Emory & Henry's home draw with Lenoir-Rhyne on Saturday was their third of the season; they have won eight and lost none.",
+      "text": "Emory & Henry's win over Coker on Friday was their ninth of the season; they have drawn three and lost none.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Catawba's win over Mars Hill on Saturday was their thirteenth of the season, against two draws and one defeat.",
+      "text": "Catawba's win over Anderson on Friday was their fourteenth of the season, against two draws and one defeat.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Anderson's win over Lincoln Memorial on Saturday was their tenth of the season, against four draws and two defeats.",
+      "text": "Anderson's defeat by Catawba on Friday was their third of the season, against ten wins and four draws.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Coker's draw at Carson-Newman on Saturday was their second of the season, beside seven wins and five defeats.",
+      "text": "Coker's defeat by Emory & Henry on Friday was their sixth of the season, beside seven wins and two draws.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Alex Payton — 10 G · 3 A · 36 shots",
+      "text": "Alex Payton — 10 G · 3 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Luis Munoz — 6 G · 10 A · 46 shots",
+      "text": "Luis Munoz — 7 G · 10 A · 50 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Alexis Abalam — 7 G · 1 A · 22 shots",
+      "text": "Alexis Abalam — 8 G · 1 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-10-31 emory-henry v lenoir-rhyne",
+      "text": "2026-11-06 coker v emory-henry",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-06 catawba v anderson",
+      "text": "2026-11-08 emory-henry v catawba",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-05T12:57:28.232Z",
-    "generate_ms": 63508,
+    "started_at": "2026-11-07T12:57:50.868Z",
+    "generate_ms": 76644,
     "validate_ms": 1,
-    "wall_ms": 63508,
+    "wall_ms": 76644,
     "concurrency": 4
   }
 }
