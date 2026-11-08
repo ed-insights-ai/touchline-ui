@@ -85,6 +85,9 @@ const CHIPS = [
                 {r.card && <i class={`key key-${r.card === "red" ? "red" : "card"}`}></i>}
                 {r.text}
                 {!r.clock && <span class="row-nostamp"> · no clock published</span>}
+                {r.uncounted && (
+                  <span class="row-nostamp"> · not counted: no entry in the box score's scoring summary</span>
+                )}
               </>
             )}
           </span>

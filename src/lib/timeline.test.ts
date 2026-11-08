@@ -225,6 +225,37 @@ describe("the clock the band is drawn against", () => {
   });
 });
 
+describe("the strip is held to the box score's record (tui-hsl)", () => {
+  test("a goal line the record does not count is named under the strip, never drawn", () => {
+    // Final 1–0, scoring summary lists only 83:33; the log adds 89:22.
+    const detail = detailOf(
+      [
+        play("goal", "83:33", 0, "GOAL by HOM Doe, John.", { period: "2", score: [1, 0] }),
+        play("goal", "89:22", 0, "GOAL by HOM Roe, Rick.", { period: "2", score: [2, 0] }),
+      ],
+      {
+        teams: [
+          { name: "Home FC", abbr: "HOM", periods: [0, 1], score: 1 },
+          { name: "Away FC", abbr: "AWY", periods: [0, 0], score: 0 },
+        ],
+        scoring: [{ time: "83:33", team: 0, scorer: "John Doe" }],
+      },
+    );
+    const strip = matchStrip(detail, 0);
+    expect(stripCounts(strip)).toEqual({ goal: 1 });
+    expect(strip.notes).toEqual([
+      { kind: "goal", count: 1, reason: "no entry in the box score's scoring summary" },
+    ]);
+  });
+
+  test("an awarded penalty draws nothing, even with a score stamped on it", () => {
+    const awarded = play("penalty", "64:46", 0, "HOM by TEAM PENALTY KICK AWARDED.", {
+      score: [1, 0],
+    });
+    expect(markKindOf(awarded)).toBeNull();
+  });
+});
+
 describe("the fallback for a box score without a play-by-play", () => {
   const detail = detailOf([], {
     plays: [],

@@ -150,6 +150,150 @@ describe("a goal is a play carrying a score array", () => {
   });
 });
 
+describe("the play-by-play is held to the box score's record (tui-hsl)", () => {
+  // The record — the box score's final and its scoring summary — agrees with
+  // the schedule; the stat crew's running log sometimes does not.
+  const scored = (time: string, team: number, scorer: string) => ({ time, team, scorer });
+
+  test("an AWARDED penalty is not a goal, whatever score rides on its row", () => {
+    // sidearm:menlo:8137, a 0–0 match: "MC by TEAM PENALTY KICK AWARDED." [0,1]
+    const d = detail({ teams: detail().teams.map((t) => ({ ...t, score: 0, periods: [0, 0] })) });
+    const rows = ledgerRows(
+      {
+        ...d,
+        plays: [
+          {
+            period: "2",
+            clock: "64:46",
+            team: 1,
+            type: "penalty",
+            text: "FHSU by TEAM PENALTY KICK AWARDED.",
+            score: [0, 1],
+          },
+          { period: "2", clock: "90:00", type: "period", text: "End of period [90:00]." },
+        ],
+      },
+      d.home_index,
+    );
+    const [row, divider] = rows;
+    expect(row?.kind === "play" && row.goalLabel).toBeNull();
+    expect(row?.kind === "play" && row.text).toBe("Penalty awarded");
+    expect(row?.kind === "play" && row.running).toBeNull();
+    // the stamped score is off the record, so nothing after it prints one
+    expect(divider?.kind === "divider" && divider.score).toBeNull();
+  });
+
+  test("a goal line the scoring summary has no entry for is set aside when that lands on the final", () => {
+    // sidearm:westmont:15905: the log carries a Westmont goal at 79:54 and
+    // runs to 2–5; the box score, its scoring summary and both schedules say 1–5.
+    const d = detail({
+      teams: [
+        { ...detail().teams[0], score: 0, periods: [0, 0] },
+        { ...detail().teams[1], score: 1, periods: [1, 0] },
+      ] as MatchDetail["teams"],
+      scoring: [scored("11:06", 1, "Filippo Moncada")],
+    });
+    const rows = ledgerRows(
+      {
+        ...d,
+        plays: [
+          {
+            period: "1",
+            clock: "07:47",
+            team: 1,
+            type: "goal",
+            text: "GOAL by FHSU Linares, Juan.",
+            score: [0, 1],
+          },
+          {
+            period: "1",
+            clock: "11:06",
+            team: 1,
+            type: "goal",
+            text: "GOAL by FHSU Moncada, Filippo.",
+            score: [0, 2],
+          },
+          { period: "1", clock: "45:00", type: "period", text: "End of period [45:00]." },
+        ],
+      },
+      d.home_index,
+    );
+    const plays = rows.filter((r): r is PlayRow => r.kind === "play");
+    // the unlisted line stays, as published, never as a goal
+    expect(plays[0]?.goalLabel).toBeNull();
+    expect(plays[0]?.uncounted).toBe(true);
+    expect(plays[0]?.text).toBe("GOAL by FHSU Linares, Juan");
+    expect(plays[0]?.filters).not.toContain("goals");
+    // the listed goal counts, but the log's 0–2 beside it is off the record
+    expect(plays[1]?.goalLabel).toBe("GOAL");
+    expect(plays[1]?.uncounted).toBe(false);
+    expect(plays[1]?.running).toBeNull();
+    expect(rows.find((r) => r.kind === "divider")?.score ?? null).toBeNull();
+  });
+
+  test("a log that cannot be reconciled keeps every goal and prints no running score", () => {
+    // Two unlisted goals where setting one aside would land on the final:
+    // there is no single reading, so nothing is set aside.
+    const d = detail({
+      teams: [
+        { ...detail().teams[0], score: 0, periods: [0, 0] },
+        { ...detail().teams[1], score: 1, periods: [1, 0] },
+      ] as MatchDetail["teams"],
+      scoring: [scored("30:00", 1, "Filippo Moncada")],
+    });
+    const plays = rowsOf(
+      [
+        {
+          period: "1",
+          clock: "07:47",
+          team: 1,
+          type: "goal",
+          text: "GOAL by FHSU Linares, Juan.",
+          score: [0, 1],
+        },
+        {
+          period: "1",
+          clock: "11:06",
+          team: 1,
+          type: "goal",
+          text: "GOAL by FHSU Moncada, Filippo.",
+          score: [0, 2],
+        },
+      ],
+      d,
+    );
+    expect(plays.map((p) => p.goalLabel)).toEqual(["GOAL", "GOAL"]);
+    expect(plays.map((p) => p.uncounted)).toEqual([false, false]);
+    expect(plays.map((p) => p.running)).toEqual([null, null]);
+  });
+
+  test("a log that agrees with the record is untouched", () => {
+    const d = detail({
+      teams: [
+        { ...detail().teams[0], score: 0, periods: [0, 0] },
+        { ...detail().teams[1], score: 1, periods: [1, 0] },
+      ] as MatchDetail["teams"],
+      scoring: [scored("07:47", 1, "Juan Linares")],
+    });
+    const [row] = rowsOf(
+      [
+        {
+          period: "1",
+          clock: "07:47",
+          team: 1,
+          type: "goal",
+          text: "GOAL by FHSU Linares, Juan.",
+          score: [0, 1],
+        },
+      ],
+      d,
+    );
+    expect(row?.goalLabel).toBe("GOAL");
+    expect(row?.running).toBe("1–0");
+    expect(row?.uncounted).toBe(false);
+  });
+});
+
 describe("names are cut at connectives, never the first comma", () => {
   test("an unrostered scorer does not swallow the assist clause", () => {
     // Neither name is on the teamsheet, so both fall back to a comma flip —

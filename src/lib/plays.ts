@@ -58,6 +58,9 @@ export interface PlayRow {
   raw: string;
   /** Running score after this play, home side first. */
   running: string | null;
+  /** A goal line the box score's record does not count (goalRecord): it
+   *  prints as published, with a note, never as a goal. */
+  uncounted: boolean;
   /** Shots read brighter than the routine run of play. */
   loud: boolean;
   filters: PlayFilter[];
@@ -256,17 +259,82 @@ function goalParts(body: string, index: NameIndex): { scorer: string; assists: s
 /** What a penalty play's own published words say became of the kick:
  *  "PENALTY KICK GOAL", "PENALTY KICK MISS…" / "… MISSED", or null when the
  *  sentence says neither. Read off the text, never off a missing score. */
-export function penaltyOutcome(play: MatchPlay): "goal" | "miss" | null {
+export function penaltyOutcome(play: MatchPlay): "goal" | "miss" | "awarded" | null {
   if (play.type !== "penalty") return null;
   if (/\bPENALTY KICK GOAL\b/i.test(play.text)) return "goal";
+  if (/\bPENALTY KICK AWARDED\b/i.test(play.text)) return "awarded";
   if (/\bPENALTY KICK MISS|\bMISSED\b/i.test(play.text)) return "miss";
   return null;
 }
 
 /** A goal: a play carrying a published score, or a penalty whose published
- *  words say it was scored (rule 1 above). */
-export const isGoalPlay = (play: MatchPlay): boolean =>
-  play.score !== undefined || penaltyOutcome(play) === "goal";
+ *  words say it was scored (rule 1 above). A penalty whose words say it was
+ *  missed or only awarded is never a goal, whatever score rides on its row:
+ *  some stat software stamps a running score on "MC by TEAM PENALTY KICK
+ *  AWARDED." (sidearm:menlo:8137, a 0–0 match). */
+export function isGoalPlay(play: MatchPlay): boolean {
+  const said = penaltyOutcome(play);
+  if (said === "miss" || said === "awarded") return false;
+  return play.score !== undefined || said === "goal";
+}
+
+/**
+ * Which of the play-by-play's goals the box score's own record counts.
+ *
+ * The record is the box score's final (its teams' scores) and its scoring
+ * summary, which agree with each other and with the schedule. The
+ * play-by-play is the stat crew's running log, and in a handful of 2026
+ * matches it logs a goal the record does not: sidearm:westmont:15905 carries
+ * "GOAL by WMT Carnicer, Alvaro" at 79:54 and runs to 2–5 in a match the box
+ * score, its scoring summary and both schedules call 1–5.
+ *
+ * Only when the log's goals outnumber the final is anything set aside, and
+ * only the goals the scoring summary has no entry for, and only when setting
+ * them aside lands exactly on the final. Those lines stay in the ledger as
+ * published, never as goals. From the first such line, or the first score
+ * stamped on a row whose words say no goal, the log's running score is off
+ * the record, so none prints from there on. A log that cannot be reconciled
+ * that way keeps every goal as published and prints no running score at all.
+ */
+export interface GoalRecord {
+  /** Goal plays the page counts: labelled GOAL, drawn as goals. */
+  counted: ReadonlySet<MatchPlay>;
+  /** Goal lines the record does not count (no scoring-summary entry). */
+  uncounted: ReadonlySet<MatchPlay>;
+  /** The play from which no running score prints, or null. */
+  runningBreaksAt: MatchPlay | null;
+}
+
+export function goalRecord(detail: MatchDetail): GoalRecord {
+  const plays = detail.plays ?? [];
+  const goals = plays.filter(isGoalPlay);
+  const [first, second] = detail.teams;
+  const final =
+    detail.teams.length === 2 &&
+    typeof first?.score === "number" &&
+    typeof second?.score === "number"
+      ? first.score + second.score
+      : null;
+  if (final === null || goals.length === final) {
+    const stamped = plays.find((p) => p.score !== undefined && !isGoalPlay(p)) ?? null;
+    return { counted: new Set(goals), uncounted: new Set(), runningBreaksAt: stamped };
+  }
+  const listed = new Set(
+    (detail.scoring ?? []).map((g) => g.time?.trim() ?? "").filter((t) => t !== ""),
+  );
+  const unlisted = listed.size > 0 ? goals.filter((g) => !listed.has(g.clock?.trim() ?? "")) : [];
+  if (unlisted.length === 0 || goals.length - unlisted.length !== final) {
+    return { counted: new Set(goals), uncounted: new Set(), runningBreaksAt: plays[0] ?? null };
+  }
+  const uncounted = new Set(unlisted);
+  const breaks =
+    plays.find((p) => uncounted.has(p) || (p.score !== undefined && !isGoalPlay(p))) ?? null;
+  return {
+    counted: new Set(goals.filter((g) => !uncounted.has(g))),
+    uncounted,
+    runningBreaksAt: breaks,
+  };
+}
 
 function penaltyParts(body: string, index: NameIndex): { name: string; keeper: string | null } {
   const at = body.toUpperCase().indexOf("PENALTY KICK");
@@ -348,8 +416,17 @@ function displayText(play: MatchPlay, team: MatchTeam | undefined, index: NameIn
     case "penalty": {
       // Only the words say "missed": a kick the sentence does not call a miss
       // is a penalty kick, no more (a scored one never reaches here).
+      const said = penaltyOutcome(play);
+      if (said === "awarded") {
+        // "MC by TEAM PENALTY KICK AWARDED." names a side, not a taker.
+        const head = body.slice(0, Math.max(0, body.toUpperCase().indexOf("PENALTY KICK")));
+        const who = head.replace(/^by\s+/i, "").trim();
+        return /^(team)?$/i.test(who)
+          ? "Penalty awarded"
+          : `Penalty awarded ${EM} ${person(who, index)}`;
+      }
       const { name, keeper } = penaltyParts(body, index);
-      const label = penaltyOutcome(play) === "miss" ? "Penalty missed" : "Penalty kick";
+      const label = said === "miss" ? "Penalty missed" : "Penalty kick";
       return `${label} ${EM} ${name}${keeper ? ` ${EM} saved by ${keeper}` : ""}`;
     }
     default:
@@ -376,18 +453,23 @@ export function ledgerRows(detail: MatchDetail, homeIndex: number | undefined): 
   const lastEnding = endings.at(-1);
 
   const rows: LedgerRow[] = [];
+  const record = goalRecord(detail);
   let running: [number, number] = [0, 0];
   // False after a goal the source printed no score for, until a published
   // score resets the count: the dividers then print no score rather than one
   // this page would have had to add up itself.
   let runningKnown = true;
+  // True from the play where the log's running score leaves the box score's
+  // record (goalRecord): no published running score after it can be trusted.
+  let offRecord = false;
 
   for (const play of plays) {
     const team = play.team === undefined ? undefined : detail.teams[play.team];
-    if (play.score) {
+    if (play === record.runningBreaksAt) offRecord = true;
+    if (play.score && !offRecord) {
       running = [play.score[0], play.score[1]];
       runningKnown = true;
-    } else if (isGoalPlay(play)) {
+    } else if (record.counted.has(play)) {
       runningKnown = false;
     }
 
@@ -403,14 +485,14 @@ export function ledgerRows(detail: MatchDetail, homeIndex: number | undefined): 
               ? "FULL TIME"
               : `END OF PERIOD ${play.period}`,
         score:
-          home && away && homeIndex !== undefined && runningKnown
+          home && away && homeIndex !== undefined && runningKnown && !offRecord
             ? `${abbrOf(home)} ${running[homeIndex]} ${EN} ${running[1 - homeIndex]} ${abbrOf(away)}`
             : null,
       });
       continue;
     }
 
-    const scored = isGoalPlay(play);
+    const scored = record.counted.has(play);
     let goalLabel: string | null = null;
     let scorer: string | null = null;
     let assists: string | null = null;
@@ -439,9 +521,10 @@ export function ledgerRows(detail: MatchDetail, homeIndex: number | undefined): 
       text: scored ? "" : displayText(play, team, index),
       raw: play.text,
       running:
-        play.score !== undefined && homeIndex !== undefined
+        scored && play.score !== undefined && !offRecord && homeIndex !== undefined
           ? `${running[homeIndex]}${EN}${running[1 - homeIndex]}`
           : null,
+      uncounted: record.uncounted.has(play),
       loud: play.type === "shot",
       filters: scored
         ? play.type === "penalty"

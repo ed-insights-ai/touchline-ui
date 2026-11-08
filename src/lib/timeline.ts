@@ -30,7 +30,14 @@
 
 import { matchMinute } from "./format.ts";
 import type { MatchDetail, MatchPlay } from "./model.ts";
-import { goalScorer, isGoalPlay, type NameIndex, playerIndex } from "./plays.ts";
+import {
+  goalRecord,
+  goalScorer,
+  isGoalPlay,
+  type NameIndex,
+  penaltyOutcome,
+  playerIndex,
+} from "./plays.ts";
 
 const EN = "–";
 const MID = "·";
@@ -93,7 +100,10 @@ export interface GoalLabel {
 export interface StripNote {
   kind: MarkKind;
   count: number;
-  reason: "no published clock" | "no attributed side";
+  reason:
+    | "no published clock"
+    | "no attributed side"
+    | "no entry in the box score's scoring summary";
 }
 
 export interface LanePair {
@@ -124,13 +134,16 @@ export interface MatchStrip {
 /** Which mark a play draws as, or null for the plays that are structure
  *  (period boundaries) or prose the collector did not type. A play carrying
  *  a score array is a goal whatever its type says, and so is a penalty whose
- *  published words say PENALTY KICK GOAL (isGoalPlay); any other penalty is
- *  a shot — a miss is a shot. */
+ *  published words say PENALTY KICK GOAL (isGoalPlay); a penalty that was
+ *  only awarded is no kick at all, and any other penalty is a shot — a miss
+ *  is a shot. Whether the box score's record COUNTS a goal is the strip's
+ *  question (goalRecord), not this one's. */
 export function markKindOf(play: MatchPlay): MarkKind | null {
   if (isGoalPlay(play)) return "goal";
   switch (play.type) {
-    case "shot":
     case "penalty":
+      return penaltyOutcome(play) === "awarded" ? null : "shot";
+    case "shot":
       return "shot";
     case "corner":
       return "corner";
@@ -248,15 +261,26 @@ export function matchStrip(detail: MatchDetail, homeIndex: number): MatchStrip {
   let clockCeiling = 90;
   let running: [number, number] = [0, 0];
   const runningAt = new Map<MatchPlay, string>();
+  // The box score's record decides which goals count and where the log's
+  // running score stops being printable (lib/plays.ts goalRecord).
+  const record = goalRecord(detail);
+  let offRecord = false;
 
   for (const play of plays) {
-    if (play.score) {
+    if (play === record.runningBreaksAt) offRecord = true;
+    if (play.score && !offRecord && record.counted.has(play)) {
       running = [play.score[0], play.score[1]];
       runningAt.set(play, `${running[homeIndex]}${EN}${running[1 - homeIndex]}`);
     }
     const minute = matchMinute(play.clock?.trim() || undefined);
     if (play.type === "period") {
       if (minute !== null) clockCeiling = Math.max(clockCeiling, minute);
+      continue;
+    }
+    // A goal line the record does not count is named under the strip, not
+    // drawn: the box score's final and scoring summary have no such goal.
+    if (record.uncounted.has(play)) {
+      note("goal", "no entry in the box score's scoring summary");
       continue;
     }
     const kind = markKindOf(play);
