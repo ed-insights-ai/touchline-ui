@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-11-08T13:00:00+00:00",
-  "data_collected_at": "2026-11-08T12:50:49+00:00",
+  "generated_at": "2026-11-08T23:58:00+00:00",
+  "data_collected_at": "2026-11-08T23:53:13+00:00",
   "headline": "Regis stop Fort Lewis where CSU Pueblo could not",
   "dek": "Fort Lewis arrived having ended CSU Pueblo's unbeaten season and left beaten, as they had been when Regis visited them in October. Regis have twelve wins and three defeats in all, and no further match is listed for any side in the conference.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 3
   },
   "lede_updated": "2026-11-08",
-  "displaced_by": "Regis beat Fort Lewis at home; the standing dek's 'meet Fort Lewis next' is no longer true",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 30; scoring is not what separates the top of the table.",
@@ -137,6 +136,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T12:58:24.620Z"
+    "validated_at": "2026-11-08T23:54:01.664Z"
   }
 }
