@@ -30,7 +30,7 @@
 
 import { matchMinute } from "./format.ts";
 import type { MatchDetail, MatchPlay } from "./model.ts";
-import { goalScorer, type NameIndex, playerIndex } from "./plays.ts";
+import { goalScorer, isGoalPlay, type NameIndex, playerIndex } from "./plays.ts";
 
 const EN = "–";
 const MID = "·";
@@ -123,10 +123,11 @@ export interface MatchStrip {
 
 /** Which mark a play draws as, or null for the plays that are structure
  *  (period boundaries) or prose the collector did not type. A play carrying
- *  a score array is a goal whatever its type says — two of the four penalty
- *  plays in the 2026 data are misses, and a miss is a shot. */
+ *  a score array is a goal whatever its type says, and so is a penalty whose
+ *  published words say PENALTY KICK GOAL (isGoalPlay); any other penalty is
+ *  a shot — a miss is a shot. */
 export function markKindOf(play: MatchPlay): MarkKind | null {
-  if (play.score) return "goal";
+  if (isGoalPlay(play)) return "goal";
   switch (play.type) {
     case "shot":
     case "penalty":

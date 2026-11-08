@@ -82,6 +82,72 @@ describe("a goal is a play carrying a score array", () => {
     expect(row?.scorer).toBe("Juan Linares");
     expect(row?.running).toBe("1–0");
   });
+
+  test("a penalty the source calls a GOAL with no score on its row is a goal, not a miss", () => {
+    // presto:bridgeport:rfewqtmomyyhqw8t — Bridgeport's 69:30 winner. The
+    // Presto page prints "BPT Ata Akgun PENALTY KICK GOAL." with no running
+    // score beside it; read by the score alone it was published as
+    // "Penalty missed". It is a goal, and its row prints no running score,
+    // because the source printed none.
+    const [row] = rowsOf([
+      {
+        period: "2",
+        clock: "69:30",
+        team: 1,
+        type: "penalty",
+        text: "FHSU Juan Linares PENALTY KICK GOAL.",
+      },
+    ]);
+    expect(row?.goalLabel).toBe("GOAL · PENALTY");
+    expect(row?.scorer).toBe("Juan Linares");
+    expect(row?.running).toBeNull();
+    expect(row?.filters).toEqual(["goals", "set"]);
+  });
+
+  test("after an unscored goal the dividers print no score until a published one returns", () => {
+    const d = detail();
+    const rows = ledgerRows(
+      {
+        ...d,
+        plays: [
+          {
+            period: "1",
+            clock: "10:00",
+            team: 1,
+            type: "goal",
+            text: "GOAL by FHSU Linares, Juan.",
+            score: [0, 1],
+          },
+          { period: "1", clock: "45:00", type: "period", text: "End of period [45:00]." },
+          {
+            period: "2",
+            clock: "69:30",
+            team: 1,
+            type: "penalty",
+            text: "FHSU Juan Linares PENALTY KICK GOAL.",
+          },
+          { period: "2", clock: "90:00", type: "period", text: "End of period [90:00]." },
+        ],
+      },
+      d.home_index,
+    );
+    const dividers = rows.filter((r) => r.kind === "divider");
+    expect(dividers.map((r) => r.score)).toEqual(["FHSU 1 – 0 RU", null]);
+  });
+
+  test("a penalty whose words say neither GOAL nor MISS is a penalty kick, not a miss", () => {
+    const [row] = rowsOf([
+      {
+        period: "2",
+        clock: "61:33",
+        team: 1,
+        type: "penalty",
+        text: "FHSU Juan Linares PENALTY KICK.",
+      },
+    ]);
+    expect(row?.goalLabel).toBeNull();
+    expect(shown(row as PlayRow)).toBe("Penalty kick — Juan Linares");
+  });
 });
 
 describe("names are cut at connectives, never the first comma", () => {

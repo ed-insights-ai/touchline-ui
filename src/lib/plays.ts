@@ -10,9 +10,15 @@
  * Three rules the data insists on:
  *
  *   1. A goal is a play carrying a `score` array — never a play whose `type`
- *      is "goal" or "penalty". Two of the four penalty plays in the 2026 data
- *      are MISSES; typing them as goals would put goals on the page that were
- *      never scored.
+ *      is "goal" or "penalty". Penalty plays are goals and misses alike;
+ *      typing them all as goals would put goals on the page that were never
+ *      scored. The one exception is the published words of a penalty itself:
+ *      some stat crews (Presto) print "BPT Ata Akgun PENALTY KICK GOAL." with
+ *      no running score on the row, so a penalty whose text says PENALTY
+ *      KICK GOAL is a goal (isGoalPlay), and one is called missed only when
+ *      its text says MISS — never because a score is absent. Such a goal
+ *      prints no running score (the source printed none), and the dividers
+ *      after it print none until a published score brings the count back.
  *   2. Document order is the record. A play with no clock keeps its place and
  *      says its clock is missing. Nothing here sorts by time.
  *   3. Names are cut at the sentence's own connectives — "Assist by", " for ",
@@ -247,6 +253,21 @@ function goalParts(body: string, index: NameIndex): { scorer: string; assists: s
 }
 
 /** "FHSU Juan Linares PENALTY KICK GOAL." — first-name-first already, here. */
+/** What a penalty play's own published words say became of the kick:
+ *  "PENALTY KICK GOAL", "PENALTY KICK MISS…" / "… MISSED", or null when the
+ *  sentence says neither. Read off the text, never off a missing score. */
+export function penaltyOutcome(play: MatchPlay): "goal" | "miss" | null {
+  if (play.type !== "penalty") return null;
+  if (/\bPENALTY KICK GOAL\b/i.test(play.text)) return "goal";
+  if (/\bPENALTY KICK MISS|\bMISSED\b/i.test(play.text)) return "miss";
+  return null;
+}
+
+/** A goal: a play carrying a published score, or a penalty whose published
+ *  words say it was scored (rule 1 above). */
+export const isGoalPlay = (play: MatchPlay): boolean =>
+  play.score !== undefined || penaltyOutcome(play) === "goal";
+
 function penaltyParts(body: string, index: NameIndex): { name: string; keeper: string | null } {
   const at = body.toUpperCase().indexOf("PENALTY KICK");
   const head = at > 0 ? body.slice(0, at) : body;
@@ -325,8 +346,11 @@ function displayText(play: MatchPlay, team: MatchTeam | undefined, index: NameIn
     case "lineup":
       return lineupText(raw, play.period);
     case "penalty": {
+      // Only the words say "missed": a kick the sentence does not call a miss
+      // is a penalty kick, no more (a scored one never reaches here).
       const { name, keeper } = penaltyParts(body, index);
-      return `Penalty missed ${EM} ${name}${keeper ? ` ${EM} saved by ${keeper}` : ""}`;
+      const label = penaltyOutcome(play) === "miss" ? "Penalty missed" : "Penalty kick";
+      return `${label} ${EM} ${name}${keeper ? ` ${EM} saved by ${keeper}` : ""}`;
     }
     default:
       return trimStop(raw);
@@ -353,10 +377,19 @@ export function ledgerRows(detail: MatchDetail, homeIndex: number | undefined): 
 
   const rows: LedgerRow[] = [];
   let running: [number, number] = [0, 0];
+  // False after a goal the source printed no score for, until a published
+  // score resets the count: the dividers then print no score rather than one
+  // this page would have had to add up itself.
+  let runningKnown = true;
 
   for (const play of plays) {
     const team = play.team === undefined ? undefined : detail.teams[play.team];
-    if (play.score) running = [play.score[0], play.score[1]];
+    if (play.score) {
+      running = [play.score[0], play.score[1]];
+      runningKnown = true;
+    } else if (isGoalPlay(play)) {
+      runningKnown = false;
+    }
 
     if (play.type === "period") {
       // "Start of 2nd period" marks the same boundary its "End of" twin does.
@@ -370,14 +403,14 @@ export function ledgerRows(detail: MatchDetail, homeIndex: number | undefined): 
               ? "FULL TIME"
               : `END OF PERIOD ${play.period}`,
         score:
-          home && away && homeIndex !== undefined
+          home && away && homeIndex !== undefined && runningKnown
             ? `${abbrOf(home)} ${running[homeIndex]} ${EN} ${running[1 - homeIndex]} ${abbrOf(away)}`
             : null,
       });
       continue;
     }
 
-    const scored = play.score !== undefined;
+    const scored = isGoalPlay(play);
     let goalLabel: string | null = null;
     let scorer: string | null = null;
     let assists: string | null = null;
@@ -406,7 +439,7 @@ export function ledgerRows(detail: MatchDetail, homeIndex: number | undefined): 
       text: scored ? "" : displayText(play, team, index),
       raw: play.text,
       running:
-        scored && homeIndex !== undefined
+        play.score !== undefined && homeIndex !== undefined
           ? `${running[homeIndex]}${EN}${running[1 - homeIndex]}`
           : null,
       loud: play.type === "shot",
