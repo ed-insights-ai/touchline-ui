@@ -4,29 +4,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-11-06T12:57:50.476Z",
-  "data_collected_at": "2026-11-06T12:50:02+00:00",
+  "validated_at": "2026-11-08T12:57:18.585Z",
+  "data_collected_at": "2026-11-08T12:49:30+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "dek",
-      "text": "Southern New Hampshire beat Franklin Pierce and American International beat Bentley on Wednesday, each by a single goal. The two meet at Southern New Hampshire on Saturday; the hosts won September's meeting there and sit three points above American International in the conference table.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Southern New Hampshire's fifty-five goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
+      "text": "Southern New Hampshire's fifty-eight goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -44,11 +38,12 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Southern New Hampshire have lost one match all season; American International are next to visit.",
-      "checker": "team_record",
+      "text": "Southern New Hampshire have conceded twelve goals in eighteen matches.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "unchecked_figures": ["matches: 18"]
     },
     {
       "path": "findings[0]",
@@ -107,7 +102,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Inigo Burusco — 13 G · 5 A · 65 shots",
+      "text": "Inigo Burusco — 13 G · 5 A · 70 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,15 +120,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-04 american-international v bentley",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-07 southern-new-hampshire v american-international",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -142,10 +128,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-06T12:57:24.180Z",
-    "generate_ms": 26294,
+    "started_at": "2026-11-08T12:55:56.802Z",
+    "generate_ms": 81781,
     "validate_ms": 1,
-    "wall_ms": 26296,
+    "wall_ms": 81782,
     "concurrency": 4
   }
 }

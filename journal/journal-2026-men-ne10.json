@@ -3,26 +3,28 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-11-06T13:00:00+00:00",
-  "data_collected_at": "2026-11-06T12:50:02+00:00",
-  "headline": "Southern New Hampshire and American International set up rematch",
-  "dek": "Southern New Hampshire beat Franklin Pierce and American International beat Bentley on Wednesday, each by a single goal. The two meet at Southern New Hampshire on Saturday; the hosts won September's meeting there and sit three points above American International in the conference table.",
+  "generated_at": "2026-11-08T13:00:00+00:00",
+  "data_collected_at": "2026-11-08T12:49:30+00:00",
+  "headline": "Southern New Hampshire see off American International again",
+  "dek": "Southern New Hampshire beat American International by three clear goals at home on Saturday, a wider margin than the single goal that settled their meeting there in September. Their one defeat in eighteen matches came at Adelphi in October.",
   "lede_basis": {
     "programme": "southern-new-hampshire",
-    "southern_new_hampshire_winning_margin_v_franklin_pierce": 1,
-    "american_international_winning_margin_v_bentley": 1,
-    "southern_new_hampshire_conference_points": 20,
-    "american_international_conference_points": 17,
-    "points_gap_southern_new_hampshire_over_american_international": 3
+    "wins": 13,
+    "draws": 4,
+    "losses": 1,
+    "matches": 18,
+    "winning_margin_v_american_international_2026_11_07": 3,
+    "winning_margin_v_american_international_2026_09_19": 1
   },
-  "lede_updated": "2026-11-05",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "The rematch the standing lines previewed was played: Southern New Hampshire beat American International on Saturday.",
   "pattern": {
     "label": "signal",
-    "text": "Southern New Hampshire's fifty-five goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
+    "text": "Southern New Hampshire's fifty-eight goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southern-new-hampshire": 55,
+        "southern-new-hampshire": 58,
         "american-international": 35,
         "franklin-pierce": 35,
         "assumption": 31,
@@ -38,18 +40,21 @@
     "basis": {
       "programme": "southern-new-hampshire",
       "distinct_scorers_min": 16,
-      "gf": 55
+      "gf": 58
     }
   },
   "wire": {
-    "line": "Southern New Hampshire have lost one match all season; American International are next to visit.",
+    "line": "Southern New Hampshire have conceded twelve goals in eighteen matches.",
     "basis": {
       "programme": "southern-new-hampshire",
-      "wins": 12,
+      "gf": 58,
+      "ga": 12,
+      "wins": 13,
       "draws": 4,
-      "losses": 1
+      "losses": 1,
+      "matches": 18
     },
-    "updated": "2026-11-05"
+    "updated": "2026-11-08"
   },
   "findings": [
     {
@@ -140,7 +145,7 @@
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
-      "line": "13 G · 5 A · 65 shots"
+      "line": "13 G · 5 A · 70 shots"
     },
     {
       "player": "Cody Holbert",
@@ -152,16 +157,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-04 american-international v bentley",
-      "line": "American International have now beaten Bentley home and away this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-07 southern-new-hampshire v american-international",
-      "line": "Southern New Hampshire's only defeat came at Adelphi in October; American International have won their last two."
+      "line": "Southern New Hampshire have now won both of this season's meetings with American International."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:57:50.476Z"
+    "validated_at": "2026-11-08T12:57:18.585Z"
   }
 }

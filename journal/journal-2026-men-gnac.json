@@ -3,26 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-11-07T12:55:00+00:00",
-  "data_collected_at": "2026-11-07T12:49:08+00:00",
-  "headline": "Western Oregon overtake Seattle Pacific to finish top",
-  "dek": "Seattle Pacific beat Simon Fraser on Thursday and travel to Western Oregon on Saturday. Western Oregon's only defeat by a member came at Seattle Pacific in October, and they have not lost since.",
+  "generated_at": "2026-11-08T12:55:00+00:00",
+  "data_collected_at": "2026-11-08T12:48:01+00:00",
+  "headline": "Seattle Pacific beat Western Oregon again",
+  "dek": "Western Oregon still top the table, but both of their defeats by a member this season have come at Seattle Pacific, the latest on Saturday. They have lost four matches all season, the rest to sides outside the conference.",
   "lede_basis": {
     "programme": "western-oregon",
     "wins": 11,
     "draws": 5,
-    "losses": 3
+    "losses": 4
   },
-  "lede_updated": "2026-11-07",
-  "displaced_by": "Today's brief has Western Oregon at home in Saturday's match, so the old dek's line that Seattle Pacific 'host Western Oregon' is no longer true. Only the dek's first sentence changes. The headline is still true and stands.",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "Seattle Pacific beat Western Oregon on Saturday, so the old dek's 'travel to Western Oregon on Saturday' and 'have not lost since' are no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: most of their goals have come against sides outside the conference, not in the matches the table counts.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "seattle-pacific": 50,
-        "western-oregon": 47,
+        "seattle-pacific": 53,
+        "western-oregon": 48,
         "saint-martins": 32,
         "simon-fraser": 31,
         "western-washington": 30,
@@ -39,14 +39,21 @@
     }
   },
   "wire": {
-    "line": "Western Oregon finish top, having won every match since their goalless draw at Northwest Nazarene.",
+    "line": "Seattle Pacific have won seventeen matches, more than any other programme, yet sit behind Western Oregon in the table.",
     "basis": {
-      "programme": "western-oregon",
-      "wins": 11,
-      "draws": 5,
-      "losses": 3
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "programme": "seattle-pacific",
+      "of": [
+        "northwest-nazarene",
+        "saint-martins",
+        "simon-fraser",
+        "western-oregon",
+        "western-washington"
+      ],
+      "wins": 17
     },
-    "updated": "2026-11-02"
+    "updated": "2026-11-08"
   },
   "findings": [
     {
@@ -59,31 +66,24 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Seattle Pacific have won sixteen matches, more than any other programme in the conference.",
-      "basis": {
-        "comparative": "greater_than_each",
-        "metric": "wins",
-        "programme": "seattle-pacific",
-        "of": [
-          "northwest-nazarene",
-          "saint-martins",
-          "simon-fraser",
-          "western-oregon",
-          "western-washington"
-        ],
-        "wins": 16
-      }
-    },
-    {
       "label": "observed",
-      "text": "Archie Dhima has 16 goals from 53 shots for Western Oregon.",
+      "text": "Archie Dhima has sixteen goals from 57 shots for Western Oregon.",
       "basis": {
         "source": "stats",
         "player": "Archie Dhima",
         "programme": "western-oregon",
         "goals": 16,
-        "shots": 53
+        "shots": 57
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Juan Diaz has nine assists for Saint Martin's.",
+      "basis": {
+        "source": "stats",
+        "player": "Juan Diaz",
+        "programme": "saint-martins",
+        "assists": 9
       }
     },
     {
@@ -98,13 +98,13 @@
     },
     {
       "label": "observed",
-      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 83 were saved and 22 went in.",
+      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 89 were saved and 25 went in.",
       "basis": {
         "source": "stats",
         "player": "Austin Valdez",
         "programme": "western-oregon",
-        "saves": 83,
-        "goals_against": 22
+        "saves": 89,
+        "goals_against": 25
       }
     }
   ],
@@ -114,7 +114,7 @@
       "programme": "western-oregon",
       "position": "FWD",
       "class": "FR",
-      "line": "16 G · 4 A · 53 shots"
+      "line": "16 G · 4 A · 57 shots"
     },
     {
       "player": "Landon Schulze",
@@ -133,16 +133,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-05 seattle-pacific v simon-fraser",
-      "line": "Simon Fraser have still not beaten Seattle Pacific this season."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-07 western-oregon v seattle-pacific",
-      "line": "Each side has already beaten the other at home this season."
+      "fixture_ref": "2026-11-07 seattle-pacific v western-oregon",
+      "line": "Seattle Pacific have won every match since losing at Western Oregon in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-07T12:58:04.259Z"
+    "validated_at": "2026-11-08T12:56:45.992Z"
   }
 }

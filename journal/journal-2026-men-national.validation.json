@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-07T12:59:57.934Z",
+  "validated_at": "2026-11-08T12:59:04.741Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -12,12 +12,18 @@
     "unverifiable": 0,
     "dropped": 0
   },
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Seattle Pacific beat Western Oregon and moved clear of Cal State LA and Charleston, the two programmes they had been level with on wins. No other side in the division has now won as many matches.",
+      "unbacked": ["2"]
+    }
+  ],
   "claims": [
     {
       "path": "headline",
       "label": "observed",
-      "text": "Cal State LA lead the division's unbeaten sides on wins Cal State LA beat Menlo and are still without a defeat, and no other unbeaten programme in the division has won as many matches. Lincoln and Emory & Henry also won and stay unbeaten; Midwestern State are the only other programme yet to lose.",
+      "text": "Seattle Pacific now have the most wins in the division Seattle Pacific beat Western Oregon and moved clear of Cal State LA and Charleston, the two programmes they had been level with on wins. No other side in the division has now won as many matches.",
       "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -25,9 +31,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-07T12:59:13.371Z",
-    "generate_ms": 44560,
+    "started_at": "2026-11-08T12:58:31.019Z",
+    "generate_ms": 33720,
     "validate_ms": 2,
-    "wall_ms": 44562
+    "wall_ms": 33722
   }
 }

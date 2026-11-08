@@ -3,26 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-11-06T13:00:00+00:00",
-  "data_collected_at": "2026-11-06T12:50:23+00:00",
-  "headline": "Westmont win at Vanguard and host Hawai'i Pacific next",
-  "dek": "Hawai'i Pacific won at Dominican (Calif.) the same day and have not lost since Westmont beat them on their own ground in October. Vanguard, level with Hawai'i Pacific on points at the top of the table, were beaten at home.",
+  "generated_at": "2026-11-08T13:00:00+00:00",
+  "data_collected_at": "2026-11-08T12:49:51+00:00",
+  "headline": "Westmont beat both table leaders on their own grounds",
+  "dek": "Hawai'i Pacific had won every match since Westmont last beat them on the same ground in October. Days earlier, Westmont had won at Vanguard, the other side level on points at the top of the table, and no other conference side has beaten both this season.",
   "lede_basis": {
     "programme": "hawaii-pacific",
     "wins": 9,
     "draws": 3,
-    "losses": 5
+    "losses": 6
   },
-  "lede_updated": "2026-11-06",
-  "displaced_by": "Both of the matches the old dek said were still to come have now been played: Westmont won at Vanguard and Hawai'i Pacific won at Dominican (Calif.), which sets up Westmont v Hawai'i Pacific.",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "Hawai'i Pacific lost at home to Westmont: the match the old headline said was next has been played, and the run the old dek described has ended.",
   "pattern": {
     "label": "derived",
     "text": "Kyle Denn has scored fourteen of Biola's twenty-eight goals, exactly half of everything his side has scored.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "westmont": 41,
-        "hawaii-pacific": 35,
+        "westmont": 44,
+        "hawaii-pacific": 37,
         "dominican-of-california": 34,
         "concordia-irvine": 33,
         "vanguard": 31,
@@ -43,14 +43,27 @@
     }
   },
   "wire": {
-    "line": "Westmont have now beaten both sides level at the top of the table, and Hawai'i Pacific are next.",
+    "line": "Westmont have won ten matches, more than any other programme in the conference.",
     "basis": {
       "programme": "westmont",
-      "wins": 9,
+      "wins": 10,
       "draws": 5,
-      "losses": 7
+      "losses": 7,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of": [
+        "biola",
+        "chaminade",
+        "concordia-irvine",
+        "dominican-of-california",
+        "hawaii-hilo",
+        "hawaii-pacific",
+        "jessup",
+        "point-loma",
+        "vanguard"
+      ]
     },
-    "updated": "2026-11-06"
+    "updated": "2026-11-08"
   },
   "findings": [
     {
@@ -118,14 +131,14 @@
     },
     {
       "label": "observed",
-      "text": "Aidan Strickler has made fifty-nine saves for Westmont and conceded thirty goals, a save percentage of .663.",
+      "text": "Aidan Strickler has made sixty saves for Westmont and conceded thirty-two goals, a save percentage of .652.",
       "basis": {
         "source": "stats",
         "player": "Aidan Strickler",
         "programme": "westmont",
-        "saves": 59,
-        "goals_against": 30,
-        "save_pct": 0.663
+        "saves": 60,
+        "goals_against": 32,
+        "save_pct": 0.652
       }
     }
   ],
@@ -142,7 +155,7 @@
       "programme": "hawaii-pacific",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 4 A · 29 shots"
+      "line": "13 G · 4 A · 33 shots"
     },
     {
       "player": "Jack Merrill",
@@ -154,16 +167,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-05 vanguard v westmont",
-      "line": "Vanguard had beaten Westmont on this same ground on the day conference play opened."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-07 westmont v hawaii-pacific",
-      "line": "Westmont are the only conference side to have kept Hawai'i Pacific from scoring this season."
+      "fixture_ref": "2026-11-07 hawaii-pacific v westmont",
+      "line": "Westmont are the only conference side to have won on this ground this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:59:40.980Z"
+    "validated_at": "2026-11-08T12:58:15.654Z"
   }
 }

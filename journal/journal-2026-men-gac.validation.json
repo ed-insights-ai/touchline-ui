@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-11-07T12:56:21.950Z",
-  "data_collected_at": "2026-11-07T12:48:14+00:00",
+  "validated_at": "2026-11-08T12:55:28.903Z",
+  "data_collected_at": "2026-11-08T12:47:01+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 11,
+    "verified": 11,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -36,6 +36,15 @@
       "dropped": false
     },
     {
+      "path": "wire",
+      "label": "observed",
+      "text": "Fort Hays State conceded ten goals all season and lost twice.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "findings[0]",
       "label": "observed",
       "text": "Ouachita Baptist's home match against UT Dallas is past its date with no result published, the only such match in the conference.",
@@ -47,23 +56,14 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Fort Hays State have conceded nine goals this season.",
-      "checker": "team_goals",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[2]",
-      "label": "derived",
-      "text": "Harding have drawn one and lost seventeen, and have yet to win a match this season.",
+      "text": "Harding drew one and lost seventeen, and finished the season without a win.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
-      "path": "findings[3]",
+      "path": "findings[2]",
       "label": "observed",
       "text": "Guilherme Borges has kept four shutouts for Newman.",
       "checker": "player_stat",
@@ -72,7 +72,7 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
+      "path": "findings[3]",
       "label": "derived",
       "text": "Rogers State have had at least seventeen different scorers this season.",
       "checker": "distinct_scorers",
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Len Valkema — 11 G · 4 A · 36 shots",
+      "text": "Len Valkema — 11 G · 4 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Juan Linares — 9 G · 7 A · 32 shots",
+      "text": "Juan Linares — 9 G · 8 A · 34 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Carter Adams — 5 G · 3 A · 43 shots",
+      "text": "Carter Adams — 5 G · 3 A · 45 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,15 +109,6 @@
     },
     {
       "path": "featured.last_match",
-      "label": "observed",
-      "text": "2026-11-05 northeastern-state v rogers-state",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
       "label": "observed",
       "text": "2026-11-07 fort-hays-state v northeastern-state",
       "checker": "fixture_ref",
@@ -127,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-07T12:55:47.093Z",
-    "generate_ms": 34854,
-    "validate_ms": 2,
-    "wall_ms": 34857,
+    "started_at": "2026-11-08T12:54:34.001Z",
+    "generate_ms": 54901,
+    "validate_ms": 1,
+    "wall_ms": 54902,
     "concurrency": 4
   }
 }

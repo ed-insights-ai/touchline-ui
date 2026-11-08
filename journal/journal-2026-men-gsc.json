@@ -3,27 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-11-06T12:58:00+00:00",
-  "data_collected_at": "2026-11-06T12:48:54+00:00",
-  "headline": "Trevecca and West Alabama win away to meet again",
-  "dek": "Trevecca won at Lee, the only side to have beaten them this season, and West Alabama won at AUM, where they had drawn in October. Trevecca have lost once in seventeen matches.",
+  "generated_at": "2026-11-08T12:58:00+00:00",
+  "data_collected_at": "2026-11-08T12:48:11+00:00",
+  "headline": "West Alabama win away at every side above them",
+  "dek": "West Alabama's win at Trevecca, who had beaten them on the same ground in October, followed wins at UAH and at AUM. Trevecca have lost twice in eighteen matches, both at home.",
   "lede_basis": {
     "programme": "trevecca",
     "wins": 14,
     "draws": 2,
-    "losses": 1,
-    "played": 17
+    "losses": 2,
+    "played": 18
   },
-  "lede_updated": "2026-11-06",
-  "displaced_by": "West Alabama won at AUM and Trevecca won at Lee; the standing dek's AUM figures (thirteen conceded, two defeats, neither to West Alabama) no longer hold.",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "West Alabama won at Trevecca: the meeting the standing headline anticipated has been played, and 'lost once in seventeen' no longer holds.",
   "pattern": {
     "label": "derived",
-    "text": "West Alabama's goals have not bought a matching record: they have conceded 29 and won eight of their eighteen matches.",
+    "text": "West Alabama's goals have not bought a matching record: they have conceded 31, more than any other programme, and won nine of their nineteen matches.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "west-alabama": 49,
-        "trevecca": 41,
+        "west-alabama": 52,
+        "trevecca": 43,
         "uah": 33,
         "montevallo": 29,
         "christian-brothers": 25,
@@ -37,22 +37,9 @@
       "highlight": "west-alabama"
     },
     "basis": {
-      "programme": "west-alabama",
-      "gf": 49,
-      "ga": 29,
-      "wins": 8,
-      "draws": 4,
-      "losses": 6,
-      "played": 18
-    }
-  },
-  "wire": {
-    "line": "West Alabama and Trevecca, the conference's highest-scoring sides, meet next after both won away.",
-    "basis": {
       "comparative": "greater_than_each",
-      "metric": "gf",
-      "programme": "trevecca",
-      "gf": 41,
+      "metric": "ga",
+      "programme": "west-alabama",
       "of": [
         "aum",
         "christian-brothers",
@@ -61,11 +48,28 @@
         "mississippi-college",
         "montevallo",
         "spring-hill",
+        "trevecca",
         "uah",
         "union"
-      ]
+      ],
+      "gf": 52,
+      "ga": 31,
+      "wins": 9,
+      "draws": 4,
+      "losses": 6,
+      "played": 19
+    }
+  },
+  "wire": {
+    "line": "Spring Hill have scored three goals all season and are still without a win.",
+    "basis": {
+      "programme": "spring-hill",
+      "gf": 3,
+      "wins": 0,
+      "draws": 4,
+      "losses": 9
     },
-    "updated": "2026-11-06"
+    "updated": "2026-11-08"
   },
   "findings": [
     {
@@ -78,15 +82,13 @@
       }
     },
     {
-      "label": "derived",
-      "text": "Spring Hill have scored three goals in thirteen matches and have yet to win one.",
+      "label": "observed",
+      "text": "Hunter Walker has kept eight clean sheets for Trevecca.",
       "basis": {
-        "programme": "spring-hill",
-        "gf": 3,
-        "wins": 0,
-        "draws": 4,
-        "losses": 9,
-        "played": 13
+        "source": "stats",
+        "player": "Hunter Walker",
+        "programme": "trevecca",
+        "shutouts": 8
       }
     },
     {
@@ -118,35 +120,31 @@
       "programme": "west-alabama",
       "position": "FWD",
       "class": "SR",
-      "line": "18 G · 8 A · 64 shots"
+      "line": "20 G · 8 A · 66 shots"
     },
     {
       "player": "Chris Douglas",
       "programme": "trevecca",
       "position": "FWD",
       "class": "JR",
-      "line": "19 G · 5 A · 50 shots"
+      "line": "20 G · 5 A · 54 shots"
     },
     {
       "player": "Florian Laot",
       "programme": "west-alabama",
       "position": "MID",
       "class": "FR",
-      "line": "8 G · 6 A · 21 shots"
+      "line": "8 G · 6 A · 23 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-05 aum v west-alabama",
-      "line": "AUM had lost at home only to Trevecca before this."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-07 trevecca v west-alabama",
-      "line": "Trevecca won when West Alabama last came here, in October."
+      "line": "Trevecca had not lost since Lee won here in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:58:07.744Z"
+    "validated_at": "2026-11-08T12:57:09.598Z"
   }
 }

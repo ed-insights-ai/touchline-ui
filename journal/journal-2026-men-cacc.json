@@ -3,25 +3,40 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-11-06T13:00:00+00:00",
-  "data_collected_at": "2026-11-06T12:45:17+00:00",
-  "headline": "Georgian Court end Felician's unbeaten run against conference sides",
-  "dek": "No conference side had beaten Felician until Georgian Court won there on the last day of October. Every other Felician defeat came against a non-conference opponent, and their season now stands at six wins, eight draws and five losses.",
+  "generated_at": "2026-11-08T13:00:00+00:00",
+  "data_collected_at": "2026-11-08T12:44:48+00:00",
+  "headline": "Georgian Court finish the season with the most wins",
+  "dek": "Georgian Court closed the season by winning at Bridgeport, who had beaten them on their own ground in October. Their twelve wins, against three draws and six defeats, belong to a side that finished mid-table, where only meetings between members count.",
   "lede_basis": {
-    "programme": "felician",
-    "wins": 6,
-    "draws": 8,
-    "losses": 5
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "programme": "georgian-court",
+    "of": [
+      "bridgeport",
+      "caldwell",
+      "chestnut-hill",
+      "dominican",
+      "felician",
+      "goldey-beacom",
+      "holy-family",
+      "jefferson",
+      "post",
+      "wilmington"
+    ],
+    "wins": 12,
+    "draws": 3,
+    "losses": 6
   },
-  "lede_updated": "2026-11-02",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "The season closed: Georgian Court won at Bridgeport on the final day and finish with more wins than any other programme.",
   "pattern": {
     "label": "observed",
-    "text": "Goals have not decided the table: Bridgeport have scored 48 and conceded 39, in a season of nine wins, three draws and seven defeats.",
+    "text": "Goals have not decided the table: Bridgeport have scored 49 and conceded 41, in a season of nine wins, three draws and eight defeats.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "bridgeport": 48,
-        "georgian-court": 38,
+        "bridgeport": 49,
+        "georgian-court": 40,
         "felician": 36,
         "wilmington": 33,
         "jefferson": 29,
@@ -38,44 +53,32 @@
       "programme": "bridgeport",
       "wins": 9,
       "draws": 3,
-      "losses": 7,
-      "gf": 48,
-      "ga": 39
+      "losses": 8,
+      "gf": 49,
+      "ga": 41
     }
   },
   "wire": {
-    "line": "Bridgeport, the conference's highest scorers, have won at the leaders Wilmington and host Georgian Court next.",
+    "line": "Goldey-Beacom finish with one win all season, and it came against a non-conference side.",
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "programme": "bridgeport",
-      "of": [
-        "caldwell",
-        "chestnut-hill",
-        "dominican",
-        "felician",
-        "georgian-court",
-        "goldey-beacom",
-        "holy-family",
-        "jefferson",
-        "post",
-        "wilmington"
-      ],
-      "gf": 48
+      "programme": "goldey-beacom",
+      "wins": 1,
+      "draws": 3,
+      "losses": 14
     },
-    "updated": "2026-11-04"
+    "updated": "2026-11-08"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Gijs van Eif has scored ten goals for Georgian Court from 75 shots, and has eight assists.",
+      "text": "Gijs van Eif has scored eleven goals for Georgian Court from 81 shots, and has eight assists.",
       "basis": {
         "source": "stats",
         "player": "Gijs van Eif",
         "programme": "georgian-court",
-        "goals": 10,
+        "goals": 11,
         "assists": 8,
-        "shots": 75
+        "shots": 81
       }
     },
     {
@@ -91,7 +94,7 @@
     },
     {
       "label": "observed",
-      "text": "Goldey-Beacom have conceded 58 goals, more than any other programme in the conference, in a season of one win, three draws and fourteen defeats.",
+      "text": "Goldey-Beacom have conceded 58 goals, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -108,9 +111,6 @@
           "post",
           "wilmington"
         ],
-        "wins": 1,
-        "draws": 3,
-        "losses": 14,
         "ga": 58
       }
     },
@@ -143,7 +143,7 @@
       "programme": "georgian-court",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 8 A · 75 shots"
+      "line": "11 G · 8 A · 81 shots"
     },
     {
       "player": "Eliass Elfasoukhi",
@@ -162,16 +162,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-03 wilmington v bridgeport",
-      "line": "Each side has now won on the other's ground; Bridgeport have not lost since Holy Family beat them in October."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-07 bridgeport v georgian-court",
-      "line": "Bridgeport won the sides' earlier meeting, at Georgian Court; Georgian Court have not lost since Jefferson beat them in October."
+      "line": "Georgian Court have not lost since Jefferson beat them in October; Bridgeport had won at Holy Family and at Wilmington on the way in."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:56:14.072Z"
+    "validated_at": "2026-11-08T12:55:56.613Z"
   }
 }

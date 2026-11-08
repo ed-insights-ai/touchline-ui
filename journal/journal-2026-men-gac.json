@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-11-07T13:00:00Z",
-  "data_collected_at": "2026-11-07T12:48:14+00:00",
+  "generated_at": "2026-11-08T13:00:00Z",
+  "data_collected_at": "2026-11-08T12:47:01+00:00",
   "headline": "Fort Hays State complete an unbeaten conference season",
   "dek": "Fort Hays State won eleven and drew one of their twelve conference matches for 34 points, the draw at Rogers State the only points they dropped. Rogers State and Northeastern State finished level on 19 points, fifteen behind them.",
   "lede_basis": {
@@ -26,9 +26,9 @@
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fort-hays-state": 44,
+        "fort-hays-state": 46,
         "rogers-state": 32,
-        "northeastern-state": 26,
+        "northeastern-state": 27,
         "southern-nazarene": 26,
         "ouachita-baptist": 24,
         "newman": 16,
@@ -45,8 +45,16 @@
     }
   },
   "wire": {
-    "line": "Northeastern State beat Rogers State, the side level with them on points, and face Fort Hays State next.",
-    "updated": "2026-11-06"
+    "line": "Fort Hays State conceded ten goals all season and lost twice.",
+    "basis": {
+      "programme": "fort-hays-state",
+      "wins": 15,
+      "draws": 3,
+      "losses": 2,
+      "gf": 46,
+      "ga": 10
+    },
+    "updated": "2026-11-08"
   },
   "findings": [
     {
@@ -60,16 +68,7 @@
     },
     {
       "label": "derived",
-      "text": "Fort Hays State have conceded nine goals this season.",
-      "basis": {
-        "programme": "fort-hays-state",
-        "gf": 44,
-        "ga": 9
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Harding have drawn one and lost seventeen, and have yet to win a match this season.",
+      "text": "Harding drew one and lost seventeen, and finished the season without a win.",
       "basis": {
         "programme": "harding",
         "wins": 0,
@@ -102,35 +101,31 @@
       "programme": "fort-hays-state",
       "position": "FWD",
       "class": "JR",
-      "line": "11 G · 4 A · 36 shots"
+      "line": "11 G · 4 A · 39 shots"
     },
     {
       "player": "Juan Linares",
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "9 G · 7 A · 32 shots"
+      "line": "9 G · 8 A · 34 shots"
     },
     {
       "player": "Carter Adams",
       "programme": "northeastern-state",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 3 A · 43 shots"
+      "line": "5 G · 3 A · 45 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-05 northeastern-state v rogers-state",
-      "line": "Northeastern State have now beaten Rogers State home and away."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-07 fort-hays-state v northeastern-state",
-      "line": "Northeastern State are yet to take a point from Fort Hays State."
+      "line": "Fort Hays State have beaten Northeastern State in every meeting this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-07T12:56:21.950Z"
+    "validated_at": "2026-11-08T12:55:28.903Z"
   }
 }

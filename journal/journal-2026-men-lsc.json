@@ -3,26 +3,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-11-06T12:55:00Z",
-  "data_collected_at": "2026-11-06T12:49:21+00:00",
-  "headline": "St. Mary's beat Oklahoma Christian, face unbeaten Midwestern State next",
-  "dek": "Oklahoma Christian had not lost since conference play opened until St. Mary's won at their ground on Wednesday. Midwestern State, who host St. Mary's on Saturday, drew with UT Dallas the same night and have now won fourteen and drawn five this season without a loss.",
+  "generated_at": "2026-11-08T12:55:00Z",
+  "data_collected_at": "2026-11-08T12:48:35+00:00",
+  "headline": "Midwestern State beat St. Mary's again and stay unbeaten",
+  "dek": "Midwestern State beat St. Mary's at home on Saturday, as they had on the same ground in conference play. They have won fifteen and drawn five this season without a loss, conceding fifteen goals, and remain the only side in the conference yet to be beaten.",
   "lede_basis": {
     "programme": "midwestern-state",
-    "wins": 14,
+    "wins": 15,
     "draws": 5,
-    "losses": 0
+    "losses": 0,
+    "gf": 53,
+    "ga": 15
   },
-  "lede_updated": "2026-11-05",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "The match the standing headline looked ahead to was played: Midwestern State beat St. Mary's on Saturday.",
   "pattern": {
     "label": "derived",
-    "text": "Fourteen different players have scored Midwestern State's 50 goals, and Parker Plaxco has fifteen of them.",
+    "text": "Fourteen different players have scored Midwestern State's 53 goals, and Parker Plaxco has seventeen of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 50,
+        "midwestern-state": 53,
         "ut-dallas": 42,
-        "saint-marys": 37,
+        "saint-marys": 38,
         "oklahoma-christian": 28,
         "saint-edwards": 26,
         "dallas-baptist": 23,
@@ -36,19 +39,19 @@
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 50,
-      "ga": 14,
+      "gf": 53,
+      "ga": 15,
       "distinct_scorers_min": 14,
       "source": "stats",
       "player": "Parker Plaxco",
-      "goals": 15
+      "goals": 17
     }
   },
   "wire": {
     "line": "Every side but Midwestern State has now lost at least once.",
     "basis": {
       "programme": "midwestern-state",
-      "wins": 14,
+      "wins": 15,
       "draws": 5,
       "losses": 0
     },
@@ -115,14 +118,7 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "15 G · 63 shots"
-    },
-    {
-      "player": "Sebastian Poblete",
-      "programme": "saint-marys",
-      "position": "FWD",
-      "class": "SO",
-      "line": "8 G · 3 A · 37 shots"
+      "line": "17 G · 67 shots"
     },
     {
       "player": "Avery Brazzell",
@@ -130,20 +126,23 @@
       "position": "FWD",
       "class": "SR",
       "line": "11 G · 3 A · 28 shots"
+    },
+    {
+      "player": "Sebastian Poblete",
+      "programme": "saint-marys",
+      "position": "FWD",
+      "class": "SO",
+      "line": "8 G · 3 A · 39 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-04 oklahoma-christian v saint-marys",
-      "line": "Oklahoma Christian had beaten St. Mary's in conference play; St. Mary's took the second meeting, and go to Midwestern State next."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-07 midwestern-state v saint-marys",
-      "line": "St. Mary's lost on their last visit to Midwestern State, in conference play."
+      "line": "Midwestern State have now beaten St. Mary's twice on this ground, and have yet to lose this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:57:39.902Z"
+    "validated_at": "2026-11-08T12:56:51.438Z"
   }
 }

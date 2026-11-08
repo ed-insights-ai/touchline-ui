@@ -2,21 +2,28 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-11-07T13:05:00+00:00",
-  "data_collected_at": "2026-11-07T12:48:14+00:00",
-  "headline": "Cal State LA lead the division's unbeaten sides on wins",
-  "dek": "Cal State LA beat Menlo and are still without a defeat, and no other unbeaten programme in the division has won as many matches. Lincoln and Emory & Henry also won and stay unbeaten; Midwestern State are the only other programme yet to lose.",
+  "generated_at": "2026-11-08T13:05:00+00:00",
+  "data_collected_at": "2026-11-08T12:47:01+00:00",
+  "headline": "Seattle Pacific now have the most wins in the division",
+  "dek": "Seattle Pacific beat Western Oregon and moved clear of Cal State LA and Charleston, the two programmes they had been level with on wins. No other side in the division has now won as many matches.",
   "basis": {
     "comparative": "greater_than_each",
     "metric": "wins",
-    "programme": "cal-state-la",
-    "of": ["lincoln", "midwestern-state", "emory-henry"]
+    "programme": "seattle-pacific",
+    "of": [
+      "cal-state-la",
+      "charleston",
+      "midwestern-state",
+      "fort-hays-state",
+      "lees-mcrae",
+      "francis-marion"
+    ]
   },
-  "fixture_ref": "2026-11-06 cal-state-la v menlo",
-  "updated": "2026-11-07",
-  "displaced_by": "results night: Cal State LA's win over Menlo kept them unbeaten with more wins than any other unbeaten programme in the division",
+  "fixture_ref": "2026-11-07 seattle-pacific v western-oregon",
+  "updated": "2026-11-08",
+  "displaced_by": "results night: Seattle Pacific's win over Western Oregon took them clear of Cal State LA and Charleston as the division's outright leaders on wins",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-07T12:59:57.934Z"
+    "validated_at": "2026-11-08T12:59:04.741Z"
   }
 }

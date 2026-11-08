@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-11-06T12:58:27.429Z",
-  "data_collected_at": "2026-11-06T12:51:50+00:00",
+  "validated_at": "2026-11-08T12:58:24.620Z",
+  "data_collected_at": "2026-11-08T12:50:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Fort Lewis won at CSU Pueblo, and no side in the conference is unbeaten any longer.",
+      "text": "Regis have beaten Fort Lewis home and away, and have lost three times all season.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "CSU Pueblo's Nick Cenek has eleven goals and four assists this season, from 58 shots.",
+      "text": "Regis's Jacobo Betancourt-Tovar has scored twelve goals this season from 65 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "William Bretvik — 11 G · 2 A · 48 shots",
+      "text": "Jacobo Betancourt-Tovar — 12 G · 1 A · 65 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jacobo Betancourt-Tovar — 11 G · 1 A · 60 shots",
+      "text": "William Bretvik — 11 G · 2 A · 48 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,15 +119,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-04 csu-pueblo v fort-lewis",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-07 regis v fort-lewis",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-06T12:58:01.422Z",
-    "generate_ms": 26006,
+    "started_at": "2026-11-08T12:57:09.787Z",
+    "generate_ms": 74832,
     "validate_ms": 1,
-    "wall_ms": 26007,
+    "wall_ms": 74833,
     "concurrency": 4
   }
 }
