@@ -526,6 +526,17 @@ describe("the footer says when the site last looked", () => {
     expect(collectionLine([])).toBe("");
   });
 
+  test("a conference's today is the day it was last looked at, not the day its board last moved", () => {
+    // The dateline, the countdowns and next-match all read asOf. A quiet
+    // conference re-collected this morning is confirmed as of this morning;
+    // its journal, if older, carries its own UPDATED date. Holds with or
+    // without the cadence's report in the environment.
+    for (const { season } of seasons) {
+      expect(season.asOf).toBe(site.asOf ?? lastLooked(season).slice(0, 10));
+      expect(season.asOf >= season.collectedAt.slice(0, 10) || site.asOf !== undefined).toBe(true);
+    }
+  });
+
   // The cadence rolls a quiet conference's fresh stamp back (no commit on a
   // day nothing changed) and reports it instead; these hold the footer to
   // that report without letting it overreach.

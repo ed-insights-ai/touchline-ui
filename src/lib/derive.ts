@@ -50,7 +50,11 @@ export interface Season {
   matches: MatchesFile | null;
   coverage: CoverageFile | null;
   names: NameBook;
-  /** The date the site treats as today: the day the data was collected. */
+  /** The date the site treats as today: the day a collect last LOOKED at the
+   *  conference (lastLooked), not the day its board last changed. A quiet
+   *  conference was confirmed unchanged that day, so "today", the dateline and
+   *  every countdown move with it; a journal written earlier says so through
+   *  its own updated date. TOUCHLINE_AS_OF overrides both. */
   asOf: string;
   /** The board file's own stamp: the collect that last CHANGED the board.
    *  The journal is held to this one, because it is what the data says. */
@@ -77,6 +81,7 @@ export function loadSeason(key: string): Season {
   // Every page and script becomes a Season here, so a member with no identity
   // fails once, by name, at build time — never as a blank line on a page.
   assertProgrammesFor(fixtures.programmes, seasonKey(site.season, site.gender, key));
+  const lookedAt = laterLook(fixtures.collected_at, recollectedStamps(site.recollected)[key]);
   const season: Season = {
     key,
     fixtures,
@@ -85,9 +90,9 @@ export function loadSeason(key: string): Season {
     matches: loadMatches(site.season, site.gender, key),
     coverage: loadCoverage(),
     names: nameBookFor(fixtures),
-    asOf: site.asOf ?? fixtures.collected_at.slice(0, 10),
+    asOf: site.asOf ?? (lookedAt ?? fixtures.collected_at).slice(0, 10),
     collectedAt: fixtures.collected_at,
-    lookedAt: laterLook(fixtures.collected_at, recollectedStamps(site.recollected)[key]),
+    lookedAt,
     disputed: disputedAcross(site.season, site.gender),
   };
   seasons.set(key, season);

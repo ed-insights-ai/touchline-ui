@@ -34,8 +34,10 @@ export interface SiteConfig {
    *  the ledger is still the thesis, so it keeps its place and its first rows
    *  — but not the whole night (tl-tav2). Applied at every width. */
   homeLedgerCap: number;
-  /** Build-time "today". Undefined means: use the date the data was collected,
-   *  which is the only date the site can honestly claim to know about. */
+  /** Build-time "today". Undefined means: use the date a collect last looked
+   *  at the conference (its file's stamp, or the cadence's recollected report
+   *  when that is later), which is the only date the site can honestly claim
+   *  to know about. */
   asOf?: string;
   /** The collect cadence's report of conferences it collected this run that
    *  came back unchanged, as "<key>=<collected_at> ...". Their board files keep
