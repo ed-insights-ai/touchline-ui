@@ -51,14 +51,15 @@ async function body(url: string): Promise<string> {
 
 const abs = (u: string): string => (u.startsWith("http") ? u : new URL(u, root).href);
 
-// The pages a reader actually arrives at, one of each kind.
-const PAGES = [
-  "/",
-  "/gac/",
-  "/about/",
-  "/gac/team/harding/",
-  "/gac/match/sidearm-fort-hays-state-14053/",
-];
+// The pages a reader actually arrives at, one of each kind. A build whose
+// pages differ (the women's, at /women: its match ids are its own) names its
+// own sample as a comma-separated fourth argument.
+const PAGES = process.argv[4]
+  ? process.argv[4]
+      .split(",")
+      .map((p) => p.trim())
+      .filter(Boolean)
+  : ["/", "/gac/", "/about/", "/gac/team/harding/", "/gac/match/sidearm-fort-hays-state-14053/"];
 
 // A static host takes a little while to serve what was just pushed, so the
 // check waits for the deploy to appear rather than racing it. It waits for a
