@@ -57,7 +57,7 @@ interface Props {
   conferenceOf: (slug: string) => string | null;
   /** The headline conference and programme, resolved by the page, or null. */
   headline: { key: string; code: string; programme: string } | null;
-  divisionConferences: number;
+  divisionConferences: number | undefined;
 }
 const {
   cards,

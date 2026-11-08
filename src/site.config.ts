@@ -66,7 +66,7 @@ export interface SiteConfig {
    *  collected figure — nothing in the data home produces it, so it is never
    *  counted against the data and never sourced to the collect. It exists so
    *  the national map can say what share of the division this site follows. */
-  divisionConferences: number;
+  divisionConferences: number | undefined;
   /** Regions, in navigation order. A region groups conferences on the
    *  footprint map, the home page past its column cap, and the masthead menu.
    *  Config, never code: a later division adds rows here and nowhere else. */
@@ -77,31 +77,97 @@ export interface SiteConfig {
   conferenceRegions: Readonly<Record<string, string>>;
 }
 
+/** What differs between the men's and the women's division: which
+ *  conferences this site follows, where it opens, and what the division is
+ *  called. Everything else (regions, names, cadence) is shared, because a
+ *  conference sits in the same region whichever gender it fields. */
+type DivisionProfile = Pick<
+  SiteConfig,
+  "conferences" | "home" | "division" | "divisionConferences"
+>;
+
+export const divisions: Readonly<Record<Gender, DivisionProfile>> = {
+  men: {
+    conferences: [
+      "gac",
+      "lsc",
+      "gsc",
+      "glvc",
+      "rmac",
+      "ssc",
+      "ne10",
+      "cacc",
+      "ecc",
+      "psac",
+      "mec",
+      "g-mac",
+      "gliac",
+      "sac",
+      "cc",
+      "pbc",
+      "ccaa",
+      "pacwest",
+      "gnac",
+    ],
+    home: "gac",
+    division: "NCAA Division II men's soccer",
+    divisionConferences: 19,
+  },
+  // The women's pilot: the GAC is the only conference the rib has authored
+  // women's membership for. Add a key here only once its women's season files
+  // exist; a listed conference without a fixtures file fails the build.
+  women: {
+    conferences: ["gac"],
+    home: "gac",
+    division: "NCAA Division II women's soccer",
+    // Unset until it is sourced: the map prints no "OF n" rather than a guess.
+    divisionConferences: undefined,
+  },
+};
+
+/** Where each gender's build is served, under the deploy's root base. The
+ *  men's site keeps the root it has always had, so no published URL moves;
+ *  the women's site is a second build served beside it. The justfile builds
+ *  into these same paths, so the two must agree. */
+export const genderPath: Readonly<Record<Gender, string>> = { men: "", women: "/women" };
+
+/** The order the switch prints the genders in. */
+export const genderOrder: readonly Gender[] = ["men", "women"];
+
+export function genderFromEnv(raw: string | undefined): Gender {
+  const g = raw?.trim() || "men";
+  if (g !== "men" && g !== "women") {
+    throw new Error(`Touchline: TOUCHLINE_GENDER must be "men" or "women", not "${g}"`);
+  }
+  return g;
+}
+
+/** The genders this deploy publishes, from TOUCHLINE_GENDERS ("men,women").
+ *  Unset means this build's gender alone, and a site that publishes one
+ *  gender offers no switch: a link to a build that was never published would
+ *  404. Always includes the build's own gender. */
+export function publishedFromEnv(raw: string | undefined, own: Gender): Gender[] {
+  const listed = (raw ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((s) => genderFromEnv(s));
+  const set = new Set<Gender>([own, ...listed]);
+  return genderOrder.filter((g) => set.has(g));
+}
+
+const gender = genderFromEnv(process.env.TOUCHLINE_GENDER);
+
+/** The genders published beside this build, in switch order. */
+export const publishedGenders: readonly Gender[] = publishedFromEnv(
+  process.env.TOUCHLINE_GENDERS,
+  gender,
+);
+
 export const site: SiteConfig = {
   season: Number(process.env.TOUCHLINE_SEASON ?? 2026),
-  gender: (process.env.TOUCHLINE_GENDER ?? "men") as Gender,
-  conferences: [
-    "gac",
-    "lsc",
-    "gsc",
-    "glvc",
-    "rmac",
-    "ssc",
-    "ne10",
-    "cacc",
-    "ecc",
-    "psac",
-    "mec",
-    "g-mac",
-    "gliac",
-    "sac",
-    "cc",
-    "pbc",
-    "ccaa",
-    "pacwest",
-    "gnac",
-  ],
-  home: "gac",
+  gender,
+  ...divisions[gender],
   homeColumnCap: 6,
   homeLedgerCap: 8,
   asOf: process.env.TOUCHLINE_AS_OF?.trim() || undefined,
@@ -127,11 +193,9 @@ export const site: SiteConfig = {
     pacwest: "Pacific West Conference",
     gnac: "Great Northwest Athletic Conference",
   },
-  division: "NCAA Division II men's soccer",
   governingBody: "NCAA",
   publisher: "EDInsights.AI",
   cadence: "once a day",
-  divisionConferences: 19,
   regions: [
     { key: "northeast", name: "Northeast", label: { dx: -70, dy: -50 } },
     { key: "mid-atlantic", name: "Mid-Atlantic", label: { dx: -4, dy: 62 } },

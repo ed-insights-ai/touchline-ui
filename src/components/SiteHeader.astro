@@ -5,8 +5,9 @@
 // and a quiet view nav (Overview, Matches) for the pages of that conference.
 // A match page and the matches page wear it too, where a Season/Matches pair
 // used to stand in for it.
-import { site } from "../site.config.ts";
+import { publishedGenders, site } from "../site.config.ts";
 import { homeHref, matchesHref, seasonHref, teamHref } from "../lib/derive.ts";
+import { genderHref } from "../lib/gender.ts";
 import type { Season } from "../lib/derive.ts";
 import { homeSeasons } from "../lib/home.ts";
 import { menuColumns } from "../lib/menu.ts";
@@ -52,6 +53,19 @@ const confName = season ? (site.conferenceNames[season.key] ?? season.fixtures.c
 // carries the deploy base in the URL already, the same base the hrefs carry.
 const here = Astro.url.pathname.replace(/\/?$/, "/");
 const isView = (href: string): boolean => here === href.replace(/\/?$/, "/");
+
+// The Men / Women switch: offered only when this deploy publishes both builds
+// (lib/gender.ts). Each entry links to the matching page of that build, so it
+// is a pair of plain links, not a control that needs scripting.
+const genderLabel = { men: "Men", women: "Women" } as const;
+const genders = publishedGenders.length > 1
+  ? publishedGenders.map((g) => ({
+      key: g,
+      label: genderLabel[g],
+      href: genderHref(g, Astro.url.pathname),
+      current: g === site.gender,
+    }))
+  : [];
 ---
 <header class="site-header">
   {/* The wordmark is the way back to the top of the site, so it points at the
@@ -144,6 +158,17 @@ const isView = (href: string): boolean => here === href.replace(/\/?$/, "/");
     </nav>
   )}
   <div class="grow"></div>
+  {/* Which division's season this is. It sits at the far end, away from the
+      menus that move within a season, and speaks in the view nav's register:
+      current is weight and ink, never the accent, because purple in this
+      header already means "the conference you are in". */}
+  {genders.length > 0 && (
+    <nav class="gendernav" aria-label="Division">
+      {genders.map((g) => (
+        <a href={g.href} aria-current={g.current ? "page" : undefined}>{g.label}</a>
+      ))}
+    </nav>
+  )}
 </header>
 
 <script>
@@ -230,6 +255,17 @@ const isView = (href: string): boolean => here === href.replace(/\/?$/, "/");
   .season-conf { color: inherit; }
   .season-conf:hover { color: var(--ink); }
   .viewnav { gap: 16px; }
+  /* Two links, one hairline apart; each a 44px hit target (design system) in
+     a 58px header. */
+  .gendernav { display: flex; align-items: center; }
+  .gendernav a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px;
+    font-size: 12.5px; color: var(--secondary);
+  }
+  .gendernav a + a { border-left: 1px solid var(--hairline); }
+  .gendernav a:hover { color: var(--ink); }
+  .gendernav a[aria-current="page"] { font-weight: 600; color: var(--ink); }
+  .gendernav a:focus-visible { outline: 1px solid var(--accent); outline-offset: -4px; }
   @media (max-width: 1180px) {
     .site-header { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 14px; }
   }
