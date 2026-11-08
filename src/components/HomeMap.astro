@@ -43,7 +43,7 @@ interface Props {
   view: MapView;
   conferences: number;
   /** How many conferences play this sport at all — context, not a collected figure. */
-  divisionConferences: number;
+  divisionConferences: number | undefined;
 }
 const { view, conferences, divisionConferences } = Astro.props as Props;
 const { dots, labels, placed, states, provinces, unplaced, selecting } = view;
@@ -92,7 +92,7 @@ const absent = unplacedLines(unplaced);
   </svg>
   <div class="mapfoot num">
     <span>{view.footer}</span>
-    <span class="chip chip-context">{conferences} OF {divisionConferences} CONFERENCES</span>
+    <span class="chip chip-context">{divisionConferences === undefined ? `${conferences} CONFERENCES` : `${conferences} OF ${divisionConferences} CONFERENCES`}</span>
   </div>
   {absent.map((line) => (
     <p class="unplaced">{line}</p>

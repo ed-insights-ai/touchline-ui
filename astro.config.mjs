@@ -69,20 +69,36 @@ function sitemap() {
         // "allow all" is the usual default: this site publishes what
         // programmes published, and whether it wants to be found is a question
         // about the site rather than about robots.txt.
-        await writeFile(
-          new URL("robots.txt", dir),
-          `User-agent: *\nAllow: /\n\nSitemap: ${origin}${prefix}/sitemap.xml\n`,
-          "utf8",
-        );
+        //
+        // A crawler reads robots.txt only at the root, so the women's build
+        // (served at /women, written into dist/women by the justfile) writes
+        // none; the root build names both sitemaps when the deploy carries both.
+        if (gender === "men") {
+          const sitemaps = [`${origin}${prefix}/sitemap.xml`];
+          if (genders.includes("women")) sitemaps.push(`${origin}${prefix}/women/sitemap.xml`);
+          await writeFile(
+            new URL("robots.txt", dir),
+            `User-agent: *\nAllow: /\n\n${sitemaps.map((s) => `Sitemap: ${s}`).join("\n")}\n`,
+            "utf8",
+          );
+        }
         logger.info(`sitemap.xml — ${urls.length} routes under ${prefix || "/"}, robots.txt`);
       },
     },
   };
 }
 
+// Where this build writes. The men's build is dist/ as always; the justfile
+// writes the women's build into dist/women/, the same /women segment it is
+// served under (src/site.config.ts genderPath), so one dist/ is one deploy.
+const outDir = process.env.TOUCHLINE_OUT_DIR?.trim() || undefined;
+const gender = process.env.TOUCHLINE_GENDER?.trim() || "men";
+const genders = (process.env.TOUCHLINE_GENDERS ?? "").split(",").map((s) => s.trim());
+
 export default defineConfig({
   ...(site ? { site } : {}),
   ...(base ? { base } : {}),
+  ...(outDir ? { outDir } : {}),
   output: "static",
   integrations: [sitemap()],
   trailingSlash: "always",

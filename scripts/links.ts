@@ -18,7 +18,7 @@
  */
 
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, sep } from "node:path";
 
 const [dist = "dist", rawBase = ""] = process.argv.slice(2);
 const base = rawBase.replace(/\/+$/, "");
@@ -103,11 +103,21 @@ for (const page of pages) {
 // wrong are the two this file exists for: an entry that does not resolve, and
 // an entry that skips the deploy base. A third is its own — a page the site
 // built and the sitemap never mentions, which is a page nobody will find.
+//
+// A deploy that publishes the women's division carries a second build at
+// dist/women/ with its own sitemap (the justfile and src/site.config.ts
+// genderPath). Every sitemap.xml in dist/ is read, so a page is listed if ANY
+// build's sitemap lists it, and robots.txt must name every one.
 let sitemapNote = "no sitemap.xml";
 const sitemapFile = join(dist, "sitemap.xml");
 if (existsSync(sitemapFile)) {
-  const xml = readFileSync(sitemapFile, "utf8");
-  const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => (m[1] ?? "").trim());
+  const sitemapFiles = files.filter((f) => f.endsWith(`${sep}sitemap.xml`));
+  const sitemapPaths = sitemapFiles.map(
+    (f) => `${base}/${relative(dist, f).split("\\").join("/")}`,
+  );
+  const locs = sitemapFiles.flatMap((f) =>
+    [...readFileSync(f, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => (m[1] ?? "").trim()),
+  );
   const listed = new Set<string>();
   for (const loc of locs) {
     checked++;
@@ -132,16 +142,26 @@ if (existsSync(sitemapFile)) {
   sitemapNote = `sitemap ${locs.length} routes`;
 
   // robots.txt points a crawler at the sitemap by absolute URL, and a crawler
-  // that follows it somewhere else finds nothing. It is one line, and it is
-  // the one line nobody would ever open the file to read.
+  // that follows it somewhere else finds nothing. It is one line per build,
+  // and they are the lines nobody would ever open the file to read.
   const robotsFile = join(dist, "robots.txt");
   if (existsSync(robotsFile)) {
-    const named = /^\s*Sitemap:\s*(\S+)/im.exec(readFileSync(robotsFile, "utf8"))?.[1];
+    const named = [...readFileSync(robotsFile, "utf8").matchAll(/^\s*Sitemap:\s*(\S+)/gim)].map(
+      (m) => m[1] ?? "",
+    );
+    const origin = new URL(locs[0] ?? "http://x/").origin;
+    const expected = sitemapPaths.map((p) => `${origin}${p}`);
     checked++;
-    if (!named) {
+    if (named.length === 0) {
       broken.push({ page: "robots.txt", url: "(none)", kind: "robots names no sitemap" });
-    } else if (named !== `${new URL(locs[0] ?? "http://x/").origin}${base}/sitemap.xml`) {
-      broken.push({ page: "robots.txt", url: named, kind: "robots sitemap URL wrong" });
+    }
+    for (const url of named) {
+      if (!expected.includes(url))
+        broken.push({ page: "robots.txt", url, kind: "robots sitemap URL wrong" });
+    }
+    for (const url of expected) {
+      if (named.length && !named.includes(url))
+        broken.push({ page: "robots.txt", url, kind: "robots misses a sitemap" });
     }
   } else {
     broken.push({ page: "robots.txt", url: "(missing)", kind: "sitemap written, robots not" });

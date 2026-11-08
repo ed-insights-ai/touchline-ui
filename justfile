@@ -29,6 +29,14 @@ branch := env_var_or_default("PUBLISH_BRANCH", "gh-pages")
 site_base := env_var_or_default("SITE_BASE", "/touchline-ui")
 site_url := env_var_or_default("SITE_URL", "https://ed-insights-ai.github.io")
 
+# The divisions this deploy publishes, comma-separated. The men's site is
+# always built, at site_base as it always was; "women" adds a second build
+# served beside it at {{site_base}}/women (src/site.config.ts genderPath), and
+# with both listed every page's header carries the Men / Women switch. Unset,
+# the deploy is the men's site alone, exactly as before.
+genders := env_var_or_default("TOUCHLINE_GENDERS", "men")
+with_women := if genders =~ '(^|,)\s*women\s*(,|$)' { "1" } else { "" }
+
 default: all
 
 # The whole loop, in the order the pipeline runs it.
@@ -63,6 +71,11 @@ journal:
     @echo "→ journal"
     bun run journal run --all --write
     bun run journal run --national --write
+    if [ -n "{{with_women}}" ]; then \
+      echo "→ journal (women)"; \
+      TOUCHLINE_GENDER=women bun run journal run --all --write && \
+      TOUCHLINE_GENDER=women bun run journal run --national --write; \
+    fi
 
 # Vendor the flag artwork the origin table places, and only that.
 #
@@ -74,10 +87,16 @@ flags:
     @echo "→ flags"
     bun scripts/flags.ts
 
-# Render the static site from the data home.
+# Render the static site from the data home. The men's build goes first because
+# Astro empties its outDir, and dist/ is the men's; the women's build then
+# writes dist/women/, so one dist/ holds the whole deploy.
 build:
-    @echo "→ build  (base {{site_base}})"
-    TOUCHLINE_STRICT_BASE=1 SITE_BASE="{{site_base}}" SITE_URL="{{site_url}}" bun run build
+    @echo "→ build  (base {{site_base}}, divisions {{genders}})"
+    TOUCHLINE_STRICT_BASE=1 TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" SITE_BASE="{{site_base}}" SITE_URL="{{site_url}}" bun run build
+    if [ -n "{{with_women}}" ]; then \
+      echo "→ build  (base {{site_base}}/women)"; \
+      TOUCHLINE_STRICT_BASE=1 TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_OUT_DIR=dist/women SITE_BASE="{{site_base}}/women" SITE_URL="{{site_url}}" bun run build; \
+    fi
 
 # Types, lint, a clean build, then the tests — the gate before publishing.
 # The build comes BEFORE the tests because home.test reads dist/index.html
@@ -87,7 +106,7 @@ build:
 verify:
     bunx tsc --noEmit -p tsconfig.json
     bun run check
-    TOUCHLINE_STRICT_BASE=1 SITE_BASE="{{site_base}}" SITE_URL="{{site_url}}" bun run build
+    just build
     bun test
     bun scripts/links.ts dist "{{site_base}}"
 
@@ -158,6 +177,10 @@ publish: _require-git build gate
     # one. If the artefact somehow lacks the meta tag, fall back to the base
     # path, which still catches a base-less build.
     stamp="$(sed -n 's/.*name="touchline-build" content="\([^"]*\)".*/\1/p' dist/index.html | head -n1)"; just deployed "${stamp:-{{site_base}}/}"
+    if [ -n "{{with_women}}" ]; then \
+      stamp="$(sed -n 's/.*name="touchline-build" content="\([^"]*\)".*/\1/p' dist/women/index.html | head -n1)"; \
+      bun scripts/deployed.ts "{{site_url}}{{site_base}}/women/" "${stamp:-{{site_base}}/women/}"; \
+    fi
 
 # Publishing needs somewhere to publish to; say so rather than half-doing it.
 _require-git:
