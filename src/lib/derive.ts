@@ -52,7 +52,15 @@ export interface Season {
   names: NameBook;
   /** The date the site treats as today: the day the data was collected. */
   asOf: string;
+  /** The board file's own stamp: the collect that last CHANGED the board.
+   *  The journal is held to this one, because it is what the data says. */
   collectedAt: string;
+  /** When a collect last LOOKED, if later than collectedAt: a collect that
+   *  came back unchanged has its stamp rolled back by the cadence, and reports
+   *  it through site.recollected instead. Every printed freshness stamp reads
+   *  this through lastLooked; nothing that checks data against the journal
+   *  does. Absent means the file's stamp is the last look. */
+  lookedAt?: string;
   /** The identities (matchIdentity) of matches whose two records, across the
    *  configured conferences' files, print different final scores. Filled at
    *  load from every configured file; a hand-built season names its own or
@@ -79,6 +87,7 @@ export function loadSeason(key: string): Season {
     names: nameBookFor(fixtures),
     asOf: site.asOf ?? fixtures.collected_at.slice(0, 10),
     collectedAt: fixtures.collected_at,
+    lookedAt: laterLook(fixtures.collected_at, recollectedStamps(site.recollected)[key]),
     disputed: disputedAcross(site.season, site.gender),
   };
   seasons.set(key, season);
@@ -646,6 +655,45 @@ export function seasonWindow(s: Season): SeasonWindow {
 // ── Provenance ───────────────────────────────────────────────────────────────
 
 /**
+ * The cadence's TOUCHLINE_RECOLLECTED, "<key>=<collected_at> ...", as a map.
+ * A pair that does not parse is dropped, never guessed at: the file's own
+ * stamp then stands, which is the older and therefore the safer claim.
+ */
+// (An index signature, not Record<…>: this module exports its own Record, the
+// won/drawn/lost line, which shadows the utility type.)
+export function recollectedStamps(raw: string | undefined): { readonly [key: string]: string } {
+  const out: { [key: string]: string } = {};
+  for (const pair of (raw ?? "").split(/\s+/)) {
+    const eq = pair.indexOf("=");
+    if (eq <= 0) continue;
+    const at = pair.slice(eq + 1);
+    if (Number.isNaN(Date.parse(at))) continue;
+    out[pair.slice(0, eq).toLowerCase()] = at;
+  }
+  return out;
+}
+
+/**
+ * The recollect stamp when it is LATER than the file's own, else undefined.
+ * An earlier or unreadable one is ignored, so a report can only ever move a
+ * conference's freshness forward to a look that actually happened after the
+ * board's last change — never backward past what the file itself says.
+ */
+export function laterLook(
+  collectedAt: string,
+  recollectedAt: string | undefined,
+): string | undefined {
+  if (!recollectedAt) return undefined;
+  const seen = Date.parse(recollectedAt);
+  const own = Date.parse(collectedAt);
+  if (Number.isNaN(seen)) return undefined;
+  return Number.isNaN(own) || seen > own ? recollectedAt : undefined;
+}
+
+/** When the site last looked at this conference: the stamp every page prints. */
+export const lastLooked = (s: Season): string => s.lookedAt ?? s.collectedAt;
+
+/**
  * When the site last looked — one stamp, on every page.
  *
  * On a page speaking for several conferences it is the OLDEST collect, not the
@@ -662,7 +710,7 @@ export function seasonWindow(s: Season): SeasonWindow {
  * is meant to take more of them.
  */
 export function collectionLine(seasons: readonly Season[]): string {
-  const stamps = seasons.map((s) => s.collectedAt).filter(Boolean);
+  const stamps = seasons.map(lastLooked).filter(Boolean);
   if (stamps.length === 0) return "";
   const at = (iso: string): number => {
     const t = Date.parse(iso);

@@ -6,6 +6,7 @@ import {
   hasScore,
   isDisputed,
   isForfeit,
+  lastLooked,
   loadSeason,
   markOf,
   matchDetailOf,
@@ -168,7 +169,8 @@ const awayAbbr = names.abbr(fixture.away);
 
 
 // "Aug 30, 21:07 UTC" — the collect's own moment, not an ISO string.
-const collectedStamp = `${monShort(season.collectedAt.slice(0, 10))} ${dayOfMonth(season.collectedAt.slice(0, 10))}, ${season.collectedAt.slice(11, 16)} UTC`;
+const looked = lastLooked(season);
+const collectedStamp = `${monShort(looked.slice(0, 10))} ${dayOfMonth(looked.slice(0, 10))}, ${looked.slice(11, 16)} UTC`;
 
 const gaps = boxScoreGaps(season);
 const gapReason = gaps.find((g) => g.fixtureId === fixture.id)?.reason;

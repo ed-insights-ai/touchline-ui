@@ -37,6 +37,13 @@ export interface SiteConfig {
   /** Build-time "today". Undefined means: use the date the data was collected,
    *  which is the only date the site can honestly claim to know about. */
   asOf?: string;
+  /** The collect cadence's report of conferences it collected this run that
+   *  came back unchanged, as "<key>=<collected_at> ...". Their board files keep
+   *  the stamp of the collect that last changed them (the cadence rolls the
+   *  fresh one back so a quiet day leaves no commit), so without this the
+   *  freshness line reads a quiet conference as a stale one. Undefined for a
+   *  hand-run build: the files' own stamps then stand alone. */
+  recollected?: string;
   /** Slug → display name, for opponents no collected file ever names. Used
    *  only after the published sources are exhausted (see lib/names.ts). */
   nameOverrides: Readonly<Record<string, string>>;
@@ -96,6 +103,7 @@ export const site: SiteConfig = {
   homeColumnCap: 6,
   homeLedgerCap: 8,
   asOf: process.env.TOUCHLINE_AS_OF?.trim() || undefined,
+  recollected: process.env.TOUCHLINE_RECOLLECTED?.trim() || undefined,
   conferenceNames: {
     gac: "Great American Conference",
     lsc: "Lone Star Conference",

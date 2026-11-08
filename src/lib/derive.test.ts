@@ -27,6 +27,8 @@ import {
   isCounted,
   isExhibition,
   isScored,
+  lastLooked,
+  laterLook,
   loadSeason,
   markOf,
   matchDetailOf,
@@ -39,6 +41,7 @@ import {
   overallTable,
   playedCount,
   programmeCounts,
+  recollectedStamps,
   recordOf,
   resultFor,
   resultsOf,
@@ -512,13 +515,62 @@ describe("the footer says when the site last looked", () => {
     const line = collectionLine(seasons.map((s) => s.season));
     expect(line).toStartWith("Data collected ");
     const oldest = seasons
-      .map(({ season }) => season.collectedAt)
+      // lastLooked, not collectedAt: the publish gate runs under the
+      // cadence's TOUCHLINE_RECOLLECTED, which moves quiet conferences on.
+      .map(({ season }) => lastLooked(season))
       .sort((a, b) => Date.parse(a) - Date.parse(b))[0] as string;
     expect(line).toContain(oldest.slice(11, 16));
   });
 
   test("nothing collected says nothing", () => {
     expect(collectionLine([])).toBe("");
+  });
+
+  // The cadence rolls a quiet conference's fresh stamp back (no commit on a
+  // day nothing changed) and reports it instead; these hold the footer to
+  // that report without letting it overreach.
+  const looked = (code: string, collectedAt: string, lookedAt: string | undefined): Season =>
+    ({ collectedAt, lookedAt, fixtures: { conference: code } }) as unknown as Season;
+
+  test("a conference re-collected unchanged today no longer drags the stamp back", () => {
+    // The live case: PSAC's board last changed Nov 5, but this morning's
+    // collect looked at it and found nothing new.
+    expect(
+      collectionLine([
+        looked("PSAC", "2026-11-05T12:51:35+00:00", "2026-11-08T12:50:12+00:00"),
+        looked("GAC", "2026-11-08T12:46:02+00:00", undefined),
+      ]),
+    ).toBe("Data collected Nov 8, 2026, 12:46 UTC");
+  });
+
+  test("a conference that was NOT looked at still drags it back", () => {
+    // A failed collect reports nothing, so its own stamp stands: the signal
+    // the oldest-stamp rule exists for is untouched.
+    expect(
+      collectionLine([
+        looked("PSAC", "2026-11-05T12:51:35+00:00", undefined),
+        looked("GAC", "2026-11-08T12:46:02+00:00", undefined),
+      ]),
+    ).toBe("Data collected Nov 5, 2026, 12:51 UTC");
+  });
+
+  test("the cadence's report parses pair by pair, and drops what it cannot read", () => {
+    expect(
+      recollectedStamps(
+        "psac=2026-11-08T12:50:12+00:00  SAC=2026-11-08T12:52:01+00:00 junk =x ecc=never",
+      ),
+    ).toEqual({ psac: "2026-11-08T12:50:12+00:00", sac: "2026-11-08T12:52:01+00:00" });
+    expect(recollectedStamps(undefined)).toEqual({});
+    expect(recollectedStamps("")).toEqual({});
+  });
+
+  test("a report only ever moves a conference forward", () => {
+    const own = "2026-11-05T12:51:35+00:00";
+    expect(laterLook(own, "2026-11-08T12:50:12+00:00")).toBe("2026-11-08T12:50:12+00:00");
+    // earlier than the board's own change, or the same moment: the file stands
+    expect(laterLook(own, "2026-11-04T12:00:00+00:00")).toBeUndefined();
+    expect(laterLook(own, own)).toBeUndefined();
+    expect(laterLook(own, undefined)).toBeUndefined();
   });
 });
 

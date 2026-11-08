@@ -6,7 +6,7 @@
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import Page from "../layouts/Page.astro";
-import { loadSeason } from "../lib/derive.ts";
+import { lastLooked, loadSeason } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 import { dayOfMonth, monShort } from "../lib/format.ts";
 import { footprintOf } from "../lib/geo.ts";
@@ -175,7 +175,7 @@ const stamp = (iso: string): string =>
         {seasons.map((s) => (
           <div class="stamp-row">
             <span class="stamp-conf">{site.conferenceNames[s.key] ?? s.fixtures.conference}</span>
-            <span class="stamp-when">last collected {stamp(s.collectedAt)}</span>
+            <span class="stamp-when">last collected {stamp(lastLooked(s))}</span>
           </div>
         ))}
       </div>
