@@ -6,12 +6,14 @@
 // A match page and the matches page wear it too, where a Season/Matches pair
 // used to stand in for it.
 import { publishedGenders, site } from "../site.config.ts";
-import { homeHref, matchesHref, seasonHref, teamHref } from "../lib/derive.ts";
+import { championshipHref, homeHref, matchesHref, seasonHref, teamHref } from "../lib/derive.ts";
 import { genderHref } from "../lib/gender.ts";
 import type { Season } from "../lib/derive.ts";
 import { homeSeasons } from "../lib/home.ts";
 import { menuColumns } from "../lib/menu.ts";
 import { conferenceEntries } from "../lib/nav.ts";
+import { divisionPostseason } from "../lib/postseason-division.ts";
+import { hasPostseason } from "../lib/postseason.ts";
 import { displayNameOf } from "../lib/programmes.ts";
 import ConferenceMenu from "./ConferenceMenu.astro";
 
@@ -58,6 +60,10 @@ const isView = (href: string): boolean => here === href.replace(/\/?$/, "/");
 // (lib/gender.ts). Each entry links to the matching page of that build, so it
 // is a pair of plain links, not a control that needs scripting.
 const genderLabel = { men: "Men", women: "Women" } as const;
+
+// The championship tab appears once the season has a postseason match: the
+// page exists from the first collected conference tournament tie.
+const championship = hasPostseason(divisionPostseason()) ? championshipHref() : null;
 const genders = publishedGenders.length > 1
   ? publishedGenders.map((g) => ({
       key: g,
@@ -138,6 +144,13 @@ const genders = publishedGenders.length > 1
           </div>
         </div>
       </details>
+    )}
+    {championship && (
+      <a
+        class:list={["htab", "htab-champ", { "htab-here": isView(championship) }]}
+        href={championship}
+        aria-current={isView(championship) ? "page" : undefined}
+      ><span class="htab-label">Championship</span></a>
     )}
   </nav>
   {/* The views WITHIN the conference the reader is already in, so they take

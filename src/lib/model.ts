@@ -72,6 +72,36 @@ export const programmeSchema = z
   .strict();
 export type Programme = z.infer<typeof programmeSchema>;
 
+/** touchline.fixtures/2 (contract changelog 2026-11-08): where in the season
+ *  a match sits, as its schedule page groups it. `regular` is stamped only on
+ *  a page that marks a postseason block, before its first postseason date. A
+ *  postseason stage names its competition and `source`, the block header as
+ *  printed; `round_published` is the row's own round label, verbatim. A
+ *  fixture with no stage said nothing about phase: it is unknown, never
+ *  regular, and the site never upgrades it. */
+export const fixtureStageSchema = z
+  .object({
+    phase: z.enum(["regular", "postseason", "unknown"]),
+    competition: z.enum(["conference", "ncaa"]).optional(),
+    source: z.string().min(1).optional(),
+    round_published: z.string().min(1).optional(),
+  })
+  .strict();
+export type FixtureStage = z.infer<typeof fixtureStageSchema>;
+
+/** touchline.fixtures/2 (contract changelog 2026-11-08): a shootout the
+ *  result cell decided by a letter or a side's name, never by digit order.
+ *  `winner` is a slug; the counts follow the fixture's home and away. The
+ *  scores stay the drawn ones: a shootout is a draw in every record. */
+export const shootoutSchema = z
+  .object({
+    winner: z.string().min(1),
+    home: z.number().int().nonnegative(),
+    away: z.number().int().nonnegative(),
+  })
+  .strict();
+export type Shootout = z.infer<typeof shootoutSchema>;
+
 export const fixtureSchema = z
   .object({
     id: z.string().min(1),
@@ -113,6 +143,11 @@ export const fixtureSchema = z
      *  "Win by forfeit"), else 1-0 to the awarded side; the award decides the
      *  result whatever the score says. Absent on every other row. */
     forfeit: z.enum(["home", "away"]).optional(),
+    stage: fixtureStageSchema.optional(),
+    /** The result cell verbatim, only on a level score that prints a
+     *  shootout ("W, 1-1 (SO, 4-3)", "T, 0-0 , 2-3 Penalty Kicks"). */
+    result_published: z.string().min(1).optional(),
+    shootout: shootoutSchema.optional(),
   })
   .strict();
 export type Fixture = z.infer<typeof fixtureSchema>;
@@ -471,6 +506,11 @@ export function computeTable(file: FixturesFile): TableRow[] {
     // between two members would otherwise take conference points.
     if (f.match_type === "exhibition") continue;
     if (f.conference_game === false) continue;
+    // A conference tournament match is not a table result, whatever its
+    // conference flag says: two members meeting in the tournament carry
+    // conference_game true on some pages (2025: six such finals across the
+    // CC, GLIAC and GLVC files). The table is the regular season's.
+    if (f.stage?.phase === "postseason") continue;
     // Both sides must be members even when the flag is absent — an unflagged
     // fixture against a non-member is not a conference result.
     if (!members.has(f.home) || !members.has(f.away)) continue;

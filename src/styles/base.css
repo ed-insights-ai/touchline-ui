@@ -154,6 +154,9 @@ main { display: block; margin: 0; }
   white-space: nowrap;
   display: inline-block;
 }
+/* OBSERVED and DERIVED, from the tokens the evidence grammar already names. */
+.chip-observed { background: var(--chip-observed-bg); color: var(--chip-observed-fg); }
+.chip-derived  { background: var(--chip-derived-bg); color: var(--chip-derived-fg); }
 .chip-context   {
   background: none;
   color: var(--quiet);

@@ -14,6 +14,8 @@
 // gets one of these per division, headed by the division's printed name, and
 // then the conference-wide table beneath them (lib/standings.ts); the head is
 // the page's call too, and defaults to the one table most conferences print.
+import { divisionPostseason } from "../lib/postseason-division.ts";
+import { participantsOf } from "../lib/postseason.ts";
 import FormBadges from "./FormBadges.astro";
 import {
   formOf,
@@ -33,6 +35,20 @@ interface Props {
   title?: string;
 }
 const { season, rows, live, title = "THE TABLE" } = Astro.props;
+
+// Once the conference tournament has begun, the table is final: it is the
+// regular season's, and the tournament's games are not in it (model.ts
+// computeTable). The tournament champion is marked on its row, and an ink
+// rule falls under the last row that played in the tournament when those
+// rows are the table's top block, the line the tournament was cut at.
+const tournament = divisionPostseason().conference.find((t) =>
+  t.codes.includes(season.fixtures.conference),
+);
+const frozen = live && tournament !== undefined;
+const champion = tournament?.champion?.slug ?? null;
+const entered = tournament ? participantsOf(tournament) : new Set<string>();
+const lastIn = rows.findLastIndex((r) => entered.has(r.slug));
+const cutAt = lastIn >= 0 && rows.slice(0, lastIn + 1).every((r) => entered.has(r.slug)) ? lastIn : -1;
 const form = (slug: string): Result[] => formOf(season, slug);
 const record = (r: TableRow): string => `${r.won}–${r.drawn}–${r.lost}`;
 // The all-matches record that sits beneath each conference row.
@@ -46,15 +62,16 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
 <div class="thead">
   <h2 class="ttitle">{title}</h2>
   {!live && <span class="tscope num">ALL MATCHES</span>}
+  {frozen && <span class="tscope num">FINAL · REGULAR SEASON</span>}
 </div>
 <div class="table num">
   {rows.map((r, i) => {
     const f = form(r.slug);
     const o = overall?.get(r.slug);
     return live ? (
-      <a class="trow trow-live hoverable" href={teamHref(season.key, r.slug)}>
+      <a class:list={["trow", "trow-live", "hoverable", { "trow-cut": frozen && i === cutAt }]} href={teamHref(season.key, r.slug)}>
         <span class="tpos">{i + 1}</span>
-        <span class="tname">{r.name}</span>
+        <span class="tname">{r.name}{frozen && r.slug === champion && <span class="tchamp">TOURNAMENT CHAMPION</span>}</span>
         <span class="trec">{record(r)}</span>
         <span class="tpts">{r.points}</span>
         <span class="tdim">
@@ -87,6 +104,8 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
   .trow-early { grid-template-columns: 20px 1fr 76px 44px; }
   /* Four short cells on the loud line, so a phone keeps the names whole. */
   .trow-live { grid-template-columns: 20px 1fr 52px 36px; }
+  .trow-cut { border-bottom-color: var(--ink); }
+  .tchamp { font-size: 9px; letter-spacing: 0.12em; font-weight: 600; color: var(--ink); margin-left: 8px; white-space: nowrap; }
   .trow:hover { border-left-color: var(--accent); }
   .tpos { font-size: 11.5px; color: var(--quiet); }
   .tname { font-size: 13.5px; }

@@ -137,11 +137,18 @@ describe("the season page's middle, by the numbers", () => {
   });
 
   test("once conference play opens, the loud line is conference record and points, the dim line all matches", () => {
-    expect(table).toContain('class="trow trow-live hoverable"');
+    expect(table).toContain(
+      'class:list={["trow", "trow-live", "hoverable", { "trow-cut": frozen && i === cutAt }]}',
+    );
     expect(table).toContain('class="tdim"');
     expect(table).toContain("all matches {record(o)}");
     // The dim line carries the form, so the loud line holds four short cells.
     expect(table).toMatch(/\.trow-live \{ grid-template-columns: 20px 1fr \d+px \d+px; \}/);
+  });
+
+  test("once the conference tournament begins, the table is final and says whose it is", () => {
+    expect(table).toContain('{frozen && <span class="tscope num">FINAL · REGULAR SEASON</span>}');
+    expect(table).toContain("TOURNAMENT CHAMPION");
   });
 
   test("the table ranks all matches until conference play opens, and says so", () => {

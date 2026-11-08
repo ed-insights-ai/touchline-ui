@@ -294,6 +294,8 @@ describe("the table counts conference football and nothing else", () => {
       for (const f of season.fixtures.fixtures) {
         if (!isScored(f) || !hasScore(f)) continue;
         if (f.conference_game === false) continue;
+        // A conference tournament's matches are not the table's.
+        if (f.stage?.phase === "postseason") continue;
         if (!members.has(f.home) || !members.has(f.away)) continue;
         counted.set(f.home, (counted.get(f.home) ?? 0) + 1);
         counted.set(f.away, (counted.get(f.away) ?? 0) + 1);

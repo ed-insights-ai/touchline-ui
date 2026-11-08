@@ -1,0 +1,177 @@
+---
+// The tie sheet: one postseason tie, over the page, like the player sheet.
+//
+// It opens on :target (#tie-…), so it is deep-linkable, survives a reload,
+// closes with the back button and needs no script. Inside, two separate 44px
+// links: trace a side's path (#path-…, which also closes the sheet, since
+// only one fragment is the target), and the Match Centre.
+//
+// Every claim says how it is known. The score and a collected shootout are
+// OBSERVED; a side known to have gone through only because it plays the next
+// round is DERIVED; the round placement is DERIVED from the bracket's shape;
+// the published round text prints verbatim, in italic, as published. A
+// disputed tie prints each record's version and claims nothing.
+import { hasScore, matchHref } from "../lib/derive.ts";
+import { dayOfMonth, monShort } from "../lib/format.ts";
+import { type Tie, tieAnchor, type Tournament } from "../lib/postseason.ts";
+
+interface Props {
+  tie: Tie;
+  tournament: Tournament;
+  conferenceOf: ReadonlyMap<string, string>;
+  /** Where closing returns to. */
+  back: string;
+}
+const { tie, tournament, conferenceOf, back } = Astro.props;
+const f = tie.fixture;
+const names = tie.match.season.names;
+const ROUND: Record<string, string> = {
+  R1: "First round",
+  R2: "Second round",
+  R3: "Third round",
+  QF: "Quarterfinal",
+  SF: "Semifinal",
+  FINAL: "Final",
+};
+const competition = tie.competition === "ncaa" ? "NCAA" : `${tournament.codes.join("/")} tournament`;
+const round = tie.label ? (ROUND[tie.label] ?? `Round ${tie.label.slice(1)}`) : "Round not placed";
+const when = `${["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][new Date(`${f.date}T12:00:00Z`).getUTCDay()]} ${monShort(f.date)} ${dayOfMonth(f.date)}`;
+const scored = hasScore(f) && f.status === "final";
+const sides = (["home", "away"] as const).map((side) => {
+  const slug = side === "home" ? f.home : f.away;
+  return {
+    slug,
+    name: names.name(slug),
+    code: conferenceOf.get(slug) ?? "",
+    goals: scored && !tie.disputed ? (side === "home" ? f.home_score : f.away_score) : null,
+    pens: tie.shootout ? (side === "home" ? tie.shootout.home : tie.shootout.away) : null,
+    state: tie.through ? (tie.through.slug === slug ? "w" : "l") : "",
+  };
+});
+const nameOf = (slug: string): string => names.name(slug);
+const throughLine = (() => {
+  const t = tie.through;
+  if (!t) return null;
+  const who = nameOf(t.slug);
+  if (t.by === "shootout" && tie.shootout) {
+    const won = t.slug === f.home ? tie.shootout.home : tie.shootout.away;
+    const lost = t.slug === f.home ? tie.shootout.away : tie.shootout.home;
+    return { chip: "OBSERVED", text: `${who} won the shootout ${won}–${lost}, from the published result. The match is a draw in every record.` };
+  }
+  if (t.by === "score") return { chip: "OBSERVED", text: `${who} went through, from the published score.` };
+  return {
+    chip: "DERIVED",
+    text: `${who} went through: no record of this tie names a winner, and ${who} plays the next round.`,
+  };
+})();
+const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
+  (x): x is string => typeof x === "string",
+);
+---
+
+<div class="sheet" id={tieAnchor(tie)}>
+  <a class="sheet-scrim" href={back} aria-label="Close the tie"></a>
+  <div class="sheet-panel" role="dialog" aria-label={`${sides[0]?.name} v ${sides[1]?.name}`}>
+    <div class="sh-lab">
+      <span>{competition} · {round}</span>
+      <span>{when}{f.venue ? ` · ${f.venue}` : ""}</span>
+      <a class="sheet-close" href={back} aria-label="Close">&times;</a>
+    </div>
+
+    {sides.map((s) => (
+      <div class:list={["sh-side", s.state]}>
+        <span class="n serif">{s.name}{s.code && <small>{s.code}</small>}</span>
+        <span class="g serif num">
+          {s.goals ?? ""}
+          {s.pens !== null && <span class="pk">({s.pens})</span>}
+        </span>
+      </div>
+    ))}
+
+    {!scored && !tie.disputed && <p class="sh-note">Not yet played.</p>}
+
+    {tie.disputed ? (
+      <div class="sh-note">
+        <span class="chip chip-context">Disputed</span>
+        <span>Its records disagree, so this tie counts nowhere and no side is inferred to have gone through.</span>
+        <ul class="versions">
+          {tie.versions.map((v) => (
+            <li>
+              <b>{v.code}</b> · {v.phase}{v.competition ? ` (${v.competition})` : ""}
+              {v.shootout ? ` · shootout to ${nameOf(v.shootout.winner)}` : ""}
+              {v.published ? ` · "${v.published}"` : ""}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      throughLine && (
+        <p class="sh-note">
+          <span class:list={["chip", throughLine.chip === "OBSERVED" ? "chip-observed" : "chip-derived"]}>
+            {throughLine.chip === "OBSERVED" ? "OBSERVED ●●●" : "DERIVED ●●○"}
+          </span>
+          <span>{throughLine.text}</span>
+        </p>
+      )
+    )}
+
+    {tie.label && (
+      <p class="sh-note">
+        <span class="chip chip-derived">DERIVED ●●○</span>
+        <span>The round comes from the bracket's shape: each tie is one round before the next tie either side played.</span>
+      </p>
+    )}
+
+    {published.length > 0 && (
+      <p class="sh-pub">As published: {published.map((p, i) => (
+        <>{i > 0 && " · "}"{p}"</>
+      ))}</p>
+    )}
+
+    <div class="sh-actions">
+      {sides.map((s) => (
+        <a class="btn" href={`#path-${s.slug}`}>Trace {s.name}'s path</a>
+      ))}
+      <a class="btn primary" href={matchHref(tie.match.key, f.id)}>Match Centre →</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sheet { position: fixed; inset: 0; z-index: 40; display: none; }
+  .sheet:target { display: block; }
+  .sheet-scrim { position: absolute; inset: 0; background: rgba(26, 28, 34, 0.32); }
+  .sheet-panel {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); z-index: 41;
+    width: min(520px, 100vw); box-sizing: border-box; max-height: 90vh; overflow-y: auto;
+    background: var(--paper); border-top: 2px solid var(--ink); border-radius: 12px 12px 0 0;
+    padding: 18px max(16px, env(safe-area-inset-left, 0px)) calc(18px + env(safe-area-inset-bottom, 0px));
+    display: grid; gap: 12px; color: var(--ink);
+  }
+  .sh-lab {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 10px;
+    font-size: 10.5px; letter-spacing: 0.16em; font-weight: 600; color: var(--quiet); text-transform: uppercase;
+  }
+  .sheet-close {
+    font-size: 16px; color: var(--quiet); line-height: 1; min-width: 44px; min-height: 44px;
+    display: flex; align-items: center; justify-content: flex-end; margin: -12px -8px -12px auto;
+  }
+  .sh-side { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px; }
+  .sh-side .n { font-size: 20px; }
+  .sh-side .n small { font-family: var(--sans); font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); margin-left: 6px; font-weight: 500; }
+  .sh-side .g { font-size: 28px; }
+  .sh-side.l .n, .sh-side.l .g { color: var(--secondary); font-weight: 400; }
+  .pk { font-size: 0.6em; color: var(--quiet); margin-left: 3px; font-family: var(--sans); }
+  .sh-note { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--secondary); display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .versions { margin: 0; padding-left: 18px; width: 100%; }
+  .sh-pub { margin: 0; font-family: var(--serif); font-style: italic; font-size: 12.5px; color: var(--quiet); }
+  .sh-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+  .btn {
+    min-height: 44px; display: flex; align-items: center; justify-content: center; text-align: center;
+    border: 1px solid var(--outline); border-radius: 6px; padding: 0 10px;
+    font-size: 12.5px; color: var(--ink); background: var(--card);
+  }
+  .btn:hover { border-color: var(--ink); }
+  .btn.primary { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .btn.primary:hover { background: var(--accent-wash); }
+</style>

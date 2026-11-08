@@ -28,10 +28,13 @@ import { outcome } from "./model.ts";
 
 /**
  * A row whose home or away slug names an NCAA round rather than a programme.
- * The collect publishes these as placeholders before the bracket is drawn.
+ * The collect published these as placeholders before the bracket was drawn;
+ * the rib now skips them (a bare "NCAA" too, since contract changelog
+ * 2026-11-08), but files collected before that still carry `ncaa` itself:
+ * Findlay's 2026 page printed "Away at Ncaa, Friday, November 13".
  */
 export const isPlaceholder = (f: Fixture): boolean =>
-  /^ncaa-/.test(f.home) || /^ncaa-/.test(f.away);
+  /^ncaa(-|$)/.test(f.home) || /^ncaa(-|$)/.test(f.away);
 
 /** Every match the schedule surfaces show, in kickoff order. */
 export function matchesOf(s: Season): Fixture[] {

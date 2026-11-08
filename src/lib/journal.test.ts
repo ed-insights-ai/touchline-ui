@@ -36,7 +36,9 @@ import {
   journalFileSchema,
   loadJournal,
   PHASE_BEFORE,
+  PHASE_DECIDED,
   PHASE_LIVE,
+  PHASE_TOURNAMENT,
   seasonStrip,
 } from "./journal.ts";
 
@@ -44,6 +46,14 @@ const seasons = site.conferences.map((k) => loadSeason(k));
 const anySeason = seasons[0] as Season;
 /** A real journal, to lay over a season with fields changed. */
 const anyJournal = seasons.map((s) => loadJournal(s)).find((j) => j !== null) as JournalFile;
+
+/** A season copied with every fixture's stage removed. */
+function withoutStages(s: Season): Season {
+  return {
+    ...s,
+    fixtures: { ...s.fixtures, fixtures: s.fixtures.fixtures.map(({ stage: _stage, ...f }) => f) },
+  };
+}
 
 /** A season with one member-vs-member final counted as a conference match,
  *  which is the only difference between the two table phases.
@@ -54,7 +64,10 @@ const anyJournal = seasons.map((s) => loadJournal(s)).find((j) => j !== null) as
  *  both scores present — because a fixture failing any of them would leave the
  *  table empty and the test asserting the live phrase against a dead season. */
 function madeLive(): Season {
-  for (const s of seasons) {
+  for (const raw of seasons) {
+    // The regular season alone: a collected tournament would put the kicker
+    // in a later phase, which the tournament tests below hold separately.
+    const s = withoutStages(raw);
     if (tableIsLive(s)) return s;
     const members = new Set(s.fixtures.programmes.map((p) => p.slug));
     const target = s.fixtures.fixtures.find(
@@ -98,6 +111,34 @@ describe("the kicker is the page's own, in one vocabulary", () => {
     expect(tableIsLive(live)).toBe(true);
     expect(defaultKicker(live)).toContain(PHASE_LIVE);
     expect(defaultKicker(live)).not.toContain(PHASE_BEFORE);
+  });
+
+  test("once its tournament is collected, it names the tournament, and its final decides it", () => {
+    const live = madeLive();
+    const members = live.fixtures.programmes.map((p) => p.slug);
+    const [a, b] = members;
+    if (!a || !b) throw new Error("a conference with two members");
+    const stage = {
+      phase: "postseason",
+      competition: "conference",
+      source: "Championship",
+    } as const;
+    const tie = (id: string, status: "final" | "scheduled") => ({
+      id,
+      date: "2099-11-08",
+      home: a,
+      away: b,
+      status,
+      ...(status === "final" ? { home_score: 2, away_score: 1 } : {}),
+      conference_game: true,
+      stage,
+    });
+    const at = (f: ReturnType<typeof tie>): Season => ({
+      ...live,
+      fixtures: { ...live.fixtures, fixtures: [...live.fixtures.fixtures, f] },
+    });
+    expect(defaultKicker(at(tie("t:1", "scheduled")))).toContain(PHASE_TOURNAMENT);
+    expect(defaultKicker(at(tie("t:2", "final")))).toContain(PHASE_DECIDED);
   });
 
   test("a journal's own kicker is parsed and ignored", () => {

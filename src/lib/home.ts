@@ -84,6 +84,7 @@ export function nextLeagueKickoff(s: Season): string | null {
       (f) =>
         isCountable(f) &&
         f.conference_game !== false &&
+        f.stage?.phase !== "postseason" &&
         members.has(f.home) &&
         members.has(f.away) &&
         f.status !== "cancelled" &&

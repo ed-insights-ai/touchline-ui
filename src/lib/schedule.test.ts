@@ -31,7 +31,8 @@ const gac = loadSeason(site.conferences[0] as string);
 /** An independent recount, written the long way on purpose. */
 function recount(raw: readonly Fixture[], asOf: string) {
   const kept = raw.filter(
-    (f) => f.match_type !== "exhibition" && !/^ncaa-/.test(f.home) && !/^ncaa-/.test(f.away),
+    (f) =>
+      f.match_type !== "exhibition" && !/^ncaa(-|$)/.test(f.home) && !/^ncaa(-|$)/.test(f.away),
   );
   const dates = new Set<string>();
   let gone = 0;
@@ -99,6 +100,13 @@ describe("what counts as a match", () => {
     expect(isPlaceholder(f)).toBe(true);
     expect(isPlaceholder(g)).toBe(true);
     expect(isPlaceholder(h)).toBe(false);
+  });
+
+  test("a bare NCAA opponent is a placeholder, and a programme whose slug starts ncaa is not", () => {
+    const bare = { home: "flagler", away: "ncaa" } as unknown as Fixture;
+    const named = { home: "ncaaville", away: "harding" } as unknown as Fixture;
+    expect(isPlaceholder(bare)).toBe(true);
+    expect(isPlaceholder(named)).toBe(false);
   });
 });
 
