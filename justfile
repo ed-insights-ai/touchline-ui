@@ -177,9 +177,14 @@ publish: _require-git build gate
     # one. If the artefact somehow lacks the meta tag, fall back to the base
     # path, which still catches a base-less build.
     stamp="$(sed -n 's/.*name="touchline-build" content="\([^"]*\)".*/\1/p' dist/index.html | head -n1)"; just deployed "${stamp:-{{site_base}}/}"
+    # The women's build is held to the same check over its own sample: the
+    # default sample names a men's match id, which the women's build never has.
+    # Its match page is the first one this very build wrote.
     if [ -n "{{with_women}}" ]; then \
       stamp="$(sed -n 's/.*name="touchline-build" content="\([^"]*\)".*/\1/p' dist/women/index.html | head -n1)"; \
-      bun scripts/deployed.ts "{{site_url}}{{site_base}}/women/" "${stamp:-{{site_base}}/women/}"; \
+      match="$(find dist/women/gac/match -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | head -n1 | sed 's#.*/##')"; \
+      pages="/,/gac/,/about/,/gac/team/harding/${match:+,/gac/match/$match/}"; \
+      bun scripts/deployed.ts "{{site_url}}{{site_base}}/women/" "${stamp:-{{site_base}}/women/}" "$pages"; \
     fi
 
 # Publishing needs somewhere to publish to; say so rather than half-doing it.
