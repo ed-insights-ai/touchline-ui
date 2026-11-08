@@ -1,4 +1,6 @@
 ---
+import { divisionPostseason } from "../../../lib/postseason-division.ts";
+import { splitOf } from "../../../lib/postseason.ts";
 import { site } from "../../../site.config.ts";
 import Page from "../../../layouts/Page.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
@@ -160,12 +162,43 @@ const openerPanel = (() => {
       note: `${verb} ${where} ${names.name(first.opponent)}${first.forfeit ? " by forfeit" : ""}.`,
     };
   }
+  // Once the season has a postseason, the record splits by phase:
+  // "13–3–2 regular season · 2–0 GAC tournament". A match no page placed in
+  // a phase counts in the record above and in neither split, and is named.
+  const split = splitOf(results);
+  const wdl = (r: { won: number; drawn: number; lost: number }): string =>
+    `${r.won}–${r.drawn}–${r.lost}`;
+  const n = (r: { won: number; drawn: number; lost: number }): number => r.won + r.drawn + r.lost;
+  const parts =
+    n(split.conference) + n(split.ncaa) > 0
+      ? [
+          n(split.regular) > 0 ? `${wdl(split.regular)} regular season` : null,
+          n(split.conference) > 0 ? `${wdl(split.conference)} ${season.fixtures.conference} tournament` : null,
+          n(split.ncaa) > 0 ? `${wdl(split.ncaa)} NCAA` : null,
+          split.unknown > 0
+            ? `${split.unknown} ${split.unknown === 1 ? "match" : "matches"} no page placed in a phase`
+            : null,
+        ].filter((x): x is string => x !== null)
+      : [];
   return {
     label: "RECORD",
     figure: `${record.won}–${record.drawn}–${record.lost}`,
-    note: `${record.goalsFor} scored · ${record.goalsAgainst} conceded`,
+    note:
+      parts.length > 0
+        ? `${parts.join(" · ")}. ${record.goalsFor} scored · ${record.goalsAgainst} conceded`
+        : `${record.goalsFor} scored · ${record.goalsAgainst} conceded`,
   };
 })();
+
+// Honours the season has already decided: a conference tournament won, the
+// national championship won. Each is a tournament's decided final.
+const postseason = divisionPostseason();
+const honours = [
+  ...postseason.conference
+    .filter((t) => t.champion?.slug === slug)
+    .map((t) => `${t.codes.join("/")} TOURNAMENT CHAMPIONS`),
+  ...(postseason.ncaa.champion?.slug === slug ? ["NATIONAL CHAMPIONS"] : []),
+];
 
 const keeperNote = keeper
   ? `${keeper.name}: ${keeper.saves ?? 0} ${keeper.saves === 1 ? "save" : "saves"}, ${keeper.goals_against ?? 0} conceded, ${keeper.minutes ?? 0} minutes.`
@@ -283,6 +316,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
               ? `${counts.silentFinals} SCORE ${counts.silentFinals === 1 ? "GAP" : "GAPS"}`
               : null,
             grid.size > 0 ? `SQUAD ${grid.size}` : null,
+            ...honours,
             opener && opener.status !== "final"
               ? `CONFERENCE OPENS ${monShort(opener.date).toUpperCase()} ${dayOfMonth(opener.date)}`
               : null,

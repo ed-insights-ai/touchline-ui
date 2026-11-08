@@ -1,0 +1,200 @@
+---
+// The NCAA bracket, drawn from the results alone (no bracket document yet).
+//
+// Once results join a whole quarterfinal subtree, that subtree is a region,
+// headed by the ground that hosted its quarterfinal (a fact from the
+// fixtures) and ordered by the semifinal pairings. Connectors are drawn only
+// between ties the results join. Until a region exists, every tie is listed
+// under its round in date order, with no lines: the page never draws a
+// pairing it has not seen.
+//
+// Two densities from one markup. Wide, names and conference codes; at a
+// phone's width the region keeps its shape in four ~77px columns of
+// abbreviations, which never ellipsise.
+import { dayOfMonth, monShort } from "../lib/format.ts";
+import { layoutRegion, regionsOf, type Tie, type Tournament } from "../lib/postseason.ts";
+import TieBox from "./TieBox.astro";
+
+interface Props {
+  tournament: Tournament;
+  conferenceOf: ReadonlyMap<string, string>;
+}
+const { tournament, conferenceOf } = Astro.props;
+
+const ROUND_NAME: Record<string, string> = {
+  R1: "First round",
+  R2: "Second round",
+  R3: "Third round",
+  QF: "Quarterfinal",
+  SF: "Semifinal",
+  FINAL: "Final",
+};
+const roundName = (label: string): string => ROUND_NAME[label] ?? `Round ${label.slice(1)}`;
+const day = (iso: string): string => `${monShort(iso)} ${dayOfMonth(iso)}`;
+const span = (ties: readonly Tie[]): string => {
+  const dates = [...new Set(ties.map((t) => t.fixture.date))].sort();
+  const a = dates[0];
+  const b = dates.at(-1);
+  if (!a || !b) return "";
+  return a === b ? day(a) : `${day(a)}–${a.slice(5, 7) === b.slice(5, 7) ? dayOfMonth(b) : day(b)}`;
+};
+
+const regions = regionsOf(tournament);
+const laid = regions.map((r) => {
+  const layout = layoutRegion(r);
+  const labels = [...new Set([...r.ties].sort((a, b) => a.round - b.round).map((t) => t.label))];
+  const programmes = new Set(r.ties.flatMap((t) => [t.fixture.home, t.fixture.away])).size;
+  const ground = r.quarterfinal.fixture.venue ?? r.quarterfinal.match.season.names.name(r.quarterfinal.fixture.home);
+  return { region: r, layout, labels, programmes, ground };
+});
+const inRegions = new Set(regions.flatMap((r) => r.ties));
+// Ties no region holds, before the semifinals: listed by round, by date.
+const loose = tournament.ties.filter(
+  (t) => !inRegions.has(t) && t.label !== "SF" && t.label !== "FINAL",
+);
+const byRound = [...new Set(loose.map((t) => t.label || "—"))].map((label) => ({
+  label,
+  ties: loose.filter((t) => (t.label || "—") === label),
+}));
+const regionTabs = laid.map((l, i) => ({ id: `region-${i + 1}`, ground: l.ground }));
+---
+
+<div class="bracket">
+  {laid.length > 0 && (
+    <nav class="region-tabs" aria-label="Regions">
+      {regionTabs.map((t) => <a href={`#${t.id}`}>{t.ground}</a>)}
+    </nav>
+  )}
+  <div class="regions">
+    {laid.map((l, i) => (
+      <section class="region" id={`region-${i + 1}`}>
+        <div class="region-head">
+          <b>Quarterfinal at {l.ground}</b>
+          <span class="num">{l.programmes} programmes</span>
+        </div>
+        <div class="grid" style={`--cols:${l.layout.cols};--rows:${l.layout.rows}`}>
+          {l.labels.map((label, c) => (
+            <span class="rhead" style={`grid-column:${c + 1};grid-row:1`}>
+              <span class="rl">{roundName(label)}</span><span class="rs">{label}</span>
+              <small>{span(l.region.ties.filter((t) => t.label === label))}</small>
+            </span>
+          ))}
+          {l.layout.cells.map((cell) => (
+            <div
+              class:list={["slot", { feeds: cell.feeds, direct: cell.feeds && cell.direct, joins: cell.joins !== null }]}
+              style={`grid-column:${cell.col};grid-row:${cell.row + 1} / span ${cell.span}${cell.joins ? `;--jt:${(cell.joins.top * 100).toFixed(2)}%;--jb:${(100 - cell.joins.bottom * 100).toFixed(2)}%` : ""}`}
+            >
+              <TieBox tie={cell.tie} conferenceOf={conferenceOf} />
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+  {byRound.length > 0 && (
+    <div class="loose">
+      {laid.length > 0 && (
+        <p class="loose-note">Ties the results do not yet join to a region, by round and date.</p>
+      )}
+      {byRound.map((g) => (
+        <section class="bydate">
+          <div class="region-head">
+            <b>{g.label === "—" ? "Round not placed" : roundName(g.label)}</b>
+            <span>{span(g.ties)}</span>
+          </div>
+          <div class="list">
+            {g.ties.map((t) => (
+              <div class="item">
+                <TieBox tie={t} conferenceOf={conferenceOf} />
+                {t.roundPublished && <span class="pub">"{t.roundPublished}"</span>}
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .bracket { --g: 32px; --fs: 12.5px; display: grid; gap: 28px; }
+  .regions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .region { display: grid; gap: 10px; min-width: 0; scroll-margin-top: 16px; }
+  .region-head {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+    gap: 4px 10px; border-bottom: 1px solid var(--ink); padding-bottom: 6px;
+  }
+  .region-head b { font-size: 11px; letter-spacing: 0.2em; font-weight: 600; text-transform: uppercase; }
+  .region-head span { font-size: 11px; color: var(--quiet); letter-spacing: 0.06em; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    grid-auto-rows: minmax(60px, auto);
+    grid-template-rows: auto;
+    column-gap: var(--g);
+  }
+  .rhead {
+    font-size: 10px; letter-spacing: 0.14em; color: var(--quiet); font-weight: 600;
+    text-transform: uppercase; align-self: end; padding-bottom: 6px;
+  }
+  .rhead small { display: block; letter-spacing: 0.06em; font-weight: 500; text-transform: none; font-size: 10.5px; }
+  .rhead .rs { display: none; }
+  .slot { position: relative; display: flex; align-items: center; min-width: 0; padding-block: 4px; }
+  /* A line out to the right, half a gap; the tie it feeds draws the rest. */
+  .slot.feeds::after {
+    content: ""; position: absolute; right: calc(var(--g) / -2); top: 50%;
+    width: calc(var(--g) / 2); border-top: 1px solid var(--outline-quiet);
+  }
+  .slot.direct::after { right: calc(var(--g) * -1); width: var(--g); }
+  /* Where two ties feed one: a rule between their centres, then a stub in. */
+  .slot.joins::before {
+    content: ""; position: absolute; left: calc(var(--g) / -2);
+    top: var(--jt, 25%); bottom: var(--jb, 25%); border-left: 1px solid var(--outline-quiet);
+  }
+  .slot.joins > :global(.tie)::before {
+    content: ""; position: absolute; left: calc(var(--g) / -2); top: 50%;
+    width: calc(var(--g) / 2); border-top: 1px solid var(--outline-quiet);
+  }
+  .region-tabs { display: none; }
+  .loose { display: grid; gap: 22px; }
+  .loose-note { margin: 0; font-size: 12.5px; color: var(--secondary); }
+  .bydate { display: grid; gap: 10px; }
+  .bydate .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px 24px; }
+  .bydate .item { display: grid; gap: 4px; }
+  .pub { font-family: var(--serif); font-style: italic; font-size: 12px; color: var(--quiet); }
+
+  /* A phone: the region keeps its shape, at compact density, and the four
+     regions become tabs that jump to each. */
+  @media (max-width: 720px) {
+    .bracket { --g: 12px; --fs: 11.5px; }
+    .grid { grid-auto-rows: minmax(56px, auto); }
+    .rhead .rl, .rhead small { display: none; }
+    .rhead .rs { display: inline; }
+    .region-tabs {
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+      font-size: 10.5px; letter-spacing: 0.08em; font-weight: 600;
+    }
+    .region-tabs a {
+      min-height: 44px; display: flex; align-items: center; justify-content: center;
+      text-align: center; color: var(--secondary); border-bottom: 2px solid var(--hairline);
+      overflow-wrap: anywhere; padding: 0 2px;
+    }
+    .region-tabs a:hover { color: var(--ink); }
+    .regions :global(.tie) { --fs: 11.5px; }
+  }
+</style>
+
+<script>
+  // The compact density is a class, so that a region's abbreviations swap in
+  // at the width a name stops fitting rather than at a guessed breakpoint.
+  // Without script the media query above still gives the phone its layout;
+  // the names then ellipsise instead of becoming abbreviations.
+  const apply = (): void => {
+    for (const grid of Array.from(document.querySelectorAll<HTMLElement>(".bracket .grid"))) {
+      const cols = Number(getComputedStyle(grid).getPropertyValue("--cols")) || 4;
+      grid.classList.toggle("compact", grid.clientWidth / cols < 150);
+    }
+  };
+  apply();
+  addEventListener("resize", apply);
+</script>

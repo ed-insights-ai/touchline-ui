@@ -1,0 +1,311 @@
+---
+// The championship: the NCAA Division II bracket and the conference
+// tournaments that feed it. A light page, because it explains time.
+//
+// Everything here is read from the fixtures' published stage (contract
+// changelog 2026-11-08) and folded across the configured conferences' files
+// by lib/postseason.ts. The final's result is OBSERVED; the route through the
+// bracket (which round a tie was, who went through where no record names a
+// winner) is DERIVED from the results, and the masthead says which is which.
+// No bracket document is collected yet, so there are no seeds, no published
+// region names and no "winner of" slots: regions are headed by the ground
+// that hosted their quarterfinal, and nothing is drawn that the results have
+// not joined.
+import Bracket from "../components/Bracket.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import TieBox from "../components/TieBox.astro";
+import TieSheet from "../components/TieSheet.astro";
+import Page from "../layouts/Page.astro";
+import { hasScore, matchHref } from "../lib/derive.ts";
+import { dayOfMonth, dowShort, monShort, spell } from "../lib/format.ts";
+import { homeSeasons } from "../lib/home.ts";
+import type { Tie } from "../lib/postseason.ts";
+import { divisionPostseason } from "../lib/postseason-division.ts";
+import { site } from "../site.config.ts";
+
+const p = divisionPostseason();
+const ncaa = p.ncaa;
+const seasons = homeSeasons();
+const configured = site.conferences.length;
+const day = (iso: string): string => `${dowShort(iso)} ${monShort(iso)} ${dayOfMonth(iso)}`;
+const name = (t: Tie, slug: string): string => t.match.season.names.name(slug);
+
+const final = ncaa.final;
+const decided = final !== null && ncaa.champion !== null && final.fixture.status === "final";
+const champion = decided && final && ncaa.champion ? ncaa.champion.slug : null;
+const field = new Set(ncaa.ties.flatMap((t) => [t.fixture.home, t.fixture.away]));
+const conferencesIn = new Set([...field].map((slug) => p.conferenceOf.get(slug)).filter(Boolean));
+const played = ncaa.ties.filter((t) => t.fixture.status === "final" && hasScore(t.fixture)).length;
+const pens = ncaa.ties.filter((t) => t.shootout !== null).length;
+
+// The champion's route: every tie they played, in order.
+const route = champion ? ncaa.ties.filter((t) => t.fixture.home === champion || t.fixture.away === champion) : [];
+const goals = route.reduce(
+  (acc, t) => {
+    if (!hasScore(t.fixture) || !champion) return acc;
+    const home = t.fixture.home === champion;
+    acc.for += home ? t.fixture.home_score : t.fixture.away_score;
+    acc.against += home ? t.fixture.away_score : t.fixture.home_score;
+    return acc;
+  },
+  { for: 0, against: 0 },
+);
+const ROUND_WORD: Record<string, string> = {
+  R1: "the first round",
+  R2: "the second round",
+  R3: "the third round",
+  QF: "the quarterfinals",
+};
+
+const headline = (() => {
+  if (champion && final) return `${name(final, champion)} are national champions`;
+  if (ncaa.ties.length === 0) return "The NCAA field is not yet collected";
+  return "The NCAA championship is under way";
+})();
+const dek = (() => {
+  if (champion && final) {
+    const other = final.fixture.home === champion ? final.fixture.away : final.fixture.home;
+    const cs = final.fixture.home === champion ? final.fixture.home_score : final.fixture.away_score;
+    const os = final.fixture.home === champion ? final.fixture.away_score : final.fixture.home_score;
+    const at = final.fixture.venue ? ` at ${final.fixture.venue}` : "";
+    const entered = route[0]?.label ? ROUND_WORD[route[0].label] : null;
+    const wins = route.filter((t) => t.through?.slug === champion).length;
+    const record = `${spell(wins)} ${wins === 1 ? "win" : "wins"} from ${spell(route.length)} ${route.length === 1 ? "match" : "matches"}`;
+    return `They beat ${name(final, other)} ${cs}–${os}${at} on ${day(final.fixture.date)}: ${record}${entered ? `, having entered in ${entered}` : ""}. They scored ${spell(goals.for)} and conceded ${spell(goals.against)} on the way.`;
+  }
+  if (ncaa.ties.length === 0) {
+    return "No collected schedule lists an NCAA tie with an opponent yet. The conference tournaments that decide most of the field are below, as their results come in.";
+  }
+  return `${played} of ${ncaa.ties.length} collected ties played. The bracket below is drawn from those results alone.`;
+})();
+
+const sfs = ncaa.ties.filter((t) => t.label === "SF");
+const finalsCards = [
+  ...(sfs[0] ? [{ tie: sfs[0], cls: "sf1", lab: "Semifinal" }] : []),
+  ...(sfs[1] ? [{ tie: sfs[1], cls: "sf2", lab: "Semifinal" }] : []),
+  ...(final ? [{ tie: final, cls: "final", lab: "Final" }] : []),
+];
+
+// Conference tournaments, in configuration order of their first code.
+const order = new Map(seasons.map((s, i) => [s.fixtures.conference, i]));
+const conferences = [...p.conference].sort(
+  (a, b) => (order.get(a.codes[0] ?? "") ?? 99) - (order.get(b.codes[0] ?? "") ?? 99),
+);
+
+// Every programme with a tie, for the path tracer: one empty anchor each, and
+// one generated rule each, so #path-x lights x's rows and nothing else dims.
+const traced = [...new Set([...p.byIdentity.values()].flatMap((t) => [t.fixture.home, t.fixture.away]))].sort();
+const pathCss = traced
+  .map(
+    (slug) =>
+      `.champ:has(#path-${slug}:target) .p-${slug}{border-left-color:var(--accent);background:var(--accent-wash)}` +
+      `.champ:has(#path-${slug}:target) .p-${slug} .n,.champ:has(#path-${slug}:target) .p-${slug} .g{color:var(--ink)}`,
+  )
+  .join("\n");
+const allTies = [...p.byIdentity.values()];
+---
+
+<Page
+  title="Touchline — The championship"
+  description="The NCAA Division II men's soccer championship and the conference tournaments, drawn from the published results."
+>
+  <div class="tl-page champ" id="top">
+    <SiteHeader />
+    <div class="path-anchors" aria-hidden="true">
+      {traced.map((slug) => <span id={`path-${slug}`}></span>)}
+    </div>
+
+    <section class="mast">
+      <div class="eyebrow">
+        <span class="l">
+          NCAA DIVISION II CHAMPIONSHIP{champion && final ? ` · DECIDED · ${monShort(final.fixture.date).toUpperCase()} ${dayOfMonth(final.fixture.date)}` : ""}
+        </span>
+        <span class="r num">{site.season} · {site.gender.toUpperCase()}{ncaa.ties.length > 0 ? ` · ${played} PLAYED` : ""}</span>
+      </div>
+      <h1 class="serif">{headline}</h1>
+      <p class="dek">{dek}</p>
+      {ncaa.ties.length > 0 && (
+        <div class="ev">
+          {champion && <span class="chip chip-observed">OBSERVED ●●●</span>}
+          {champion && final && <span class="prov">The final, from its published score, {day(final.fixture.date)}.</span>}
+          <span class="chip chip-derived">DERIVED ●●○</span>
+          <span class="prov">The route and the rounds, recomputed from {ncaa.ties.length} results.</span>
+        </div>
+      )}
+      {ncaa.ties.length > 0 && (
+        <div class="facts num">
+          <span>{field.size} programmes</span>
+          <span>{conferencesIn.size} of {configured} conferences in the field</span>
+          <span>{pens} {pens === 1 ? "tie" : "ties"} settled on penalties</span>
+        </div>
+      )}
+    </section>
+
+    {finalsCards.length > 0 && (
+      <section class="block">
+        <h2 class="sechead">THE FINALS</h2>
+        <div class="finals">
+          {finalsCards.map(({ tie, cls, lab }) => {
+            const f = tie.fixture;
+            const sides = [f.home, f.away].map((slug) => ({
+              slug,
+              goals: hasScore(f) ? (slug === f.home ? f.home_score : f.away_score) : null,
+              pens: tie.shootout ? (slug === f.home ? tie.shootout.home : tie.shootout.away) : null,
+              state: tie.through ? (tie.through.slug === slug ? "w" : "l") : "",
+            }));
+            return (
+              <a class:list={["mcard", cls]} href={matchHref(tie.match.key, f.id)}>
+                <span class="lab"><span>{lab}</span><span>{day(f.date)}</span></span>
+                {sides.map((s) => (
+                  <span class:list={["side", s.state]}>
+                    <span class="n">{name(tie, s.slug)}<small>{p.conferenceOf.get(s.slug) ?? ""}</small></span>
+                    <span class="g num">{s.goals ?? ""}{s.pens !== null && <span class="pk">({s.pens})</span>}</span>
+                  </span>
+                ))}
+                <span class="foot"><span>{f.venue ?? ""}</span><b>Match Centre →</b></span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    {ncaa.ties.length > 0 && (
+      <section class="block" id="bracket">
+        <h2 class="sechead">THE BRACKET</h2>
+        <div class="legend">
+          <span class="sw"><b class="num">2</b>&nbsp;went through</span>
+          <span class="sw"><span class="faint">1</span>&nbsp;went out</span>
+          <span class="sw"><span class="num">1<span class="pk">(4)</span></span>&nbsp;penalties, as published; the match is a draw</span>
+          <span class="sw"><span class="adv">ADV</span>&nbsp;went through, known only from the next round</span>
+          <span class="sw"><span class="bar"></span>&nbsp;traced path</span>
+        </div>
+        <Bracket tournament={ncaa} conferenceOf={p.conferenceOf} />
+        <p class="provenance">
+          Regions are headed by the ground that hosted their quarterfinal, a fact from the fixtures. No bracket
+          document is collected, so there are no seeds or published region names. Select any tie.
+        </p>
+      </section>
+    )}
+
+    <section class="block" id="conference-tournaments">
+      <h2 class="sechead">THE CONFERENCE TOURNAMENTS</h2>
+      {conferences.length === 0 ? (
+        <p class="empty">No conference tournament match is collected yet.</p>
+      ) : (
+        <div class="tourneys">
+          {conferences.map((t) => {
+            const champ = t.champion;
+            const latest = [...t.ties].sort((a, b) => b.round - a.round || b.fixture.date.localeCompare(a.fixture.date));
+            const shown = t.final ? [t.final] : latest.slice(0, 2);
+            return (
+              <div class="tourney">
+                <div class="thead">
+                  <b>{t.codes.join("/")}</b>
+                  <span>
+                    {champ && t.final
+                      ? `Champions: ${name(t.final, champ.slug)}`
+                      : t.final
+                        ? "Final to play"
+                        : `${t.ties.length} ${t.ties.length === 1 ? "match" : "matches"} collected`}
+                  </span>
+                </div>
+                {shown.map((tie) => <TieBox tie={tie} conferenceOf={p.conferenceOf} />)}
+              </div>
+            );
+          })}
+        </div>
+      )}
+      <p class="provenance">
+        A tournament's rounds are counted back from its latest match: each tie is one round before the next tie
+        either side played. A tournament whose results do not join up is listed without a final.
+      </p>
+    </section>
+
+    {allTies.map((tie) => {
+      const tournament = p.tournamentOf.get(tie.identity);
+      return tournament ? (
+        <TieSheet
+          tie={tie}
+          tournament={tournament}
+          conferenceOf={p.conferenceOf}
+          back={tie.competition === "ncaa" ? "#bracket" : "#conference-tournaments"}
+        />
+      ) : null;
+    })}
+
+    <SiteFooter seasons={seasons} />
+  </div>
+</Page>
+
+<style is:inline set:html={pathCss}></style>
+
+<style>
+  .champ { display: grid; gap: 30px; }
+  /* Fragment targets for the path tracer: present, positioned at the
+     bracket so a trace scrolls there, and taking no room in the grid. */
+  .path-anchors { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .path-anchors span { display: block; }
+  .mast { padding-block: 22px 22px; border-bottom: 1px solid var(--hairline); display: grid; gap: 12px; }
+  .eyebrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
+  .eyebrow .l { color: var(--accent); }
+  .eyebrow .r { color: var(--quiet); letter-spacing: 0.1em; font-weight: 500; }
+  .mast h1 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.08; margin: 0; text-wrap: balance; font-weight: 500; }
+  .dek { font-family: var(--serif); font-size: 17px; line-height: 1.5; color: var(--secondary); max-width: 70ch; margin: 0; }
+  .ev { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+  .prov { font-size: 12px; color: var(--secondary); }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 11.5px; letter-spacing: 0.1em; color: var(--secondary); text-transform: uppercase; }
+  .facts span + span::before { content: "·"; margin-right: 18px; color: var(--quiet); }
+  .block { display: grid; gap: 16px; min-width: 0; }
+
+  .finals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+  .finals .sf1 { grid-column: 1; grid-row: 1; }
+  .finals .sf2 { grid-column: 3; grid-row: 1; }
+  .finals .final { grid-column: 2; grid-row: 1; }
+  .mcard {
+    background: var(--card); border: 1px solid var(--hairline); border-radius: 8px; padding: 14px 16px;
+    display: grid; gap: 8px; min-width: 0; color: inherit;
+  }
+  .mcard:hover { border-color: var(--accent); }
+  .mcard .lab { font-size: 10.5px; letter-spacing: 0.16em; font-weight: 600; color: var(--quiet); text-transform: uppercase; display: flex; justify-content: space-between; gap: 8px; }
+  .mcard .side { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px; }
+  .mcard .side .n { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .mcard .side .n small { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); margin-left: 6px; }
+  .mcard .side .g { font-family: var(--serif); font-size: 26px; line-height: 1; }
+  .mcard .side.w .n { font-weight: 600; }
+  .mcard .side.l .n, .mcard .side.l .g { color: var(--secondary); }
+  .mcard .foot { font-size: 11.5px; color: var(--quiet); display: flex; justify-content: space-between; gap: 8px; }
+  .mcard .foot b { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .mcard.final { border-color: var(--ink); padding: 18px 20px; }
+  .mcard.final .side .g { font-size: 38px; }
+  .mcard.final .side .n { font-family: var(--serif); font-size: 21px; font-weight: 500; }
+  .mcard.final .side.l .n { font-weight: 400; }
+  .pk { font-size: 0.55em; color: var(--quiet); margin-left: 3px; font-family: var(--sans); font-weight: 500; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 11.5px; color: var(--secondary); align-items: center; }
+  .legend .sw { display: inline-flex; align-items: center; }
+  .legend .pk { font-size: 0.78em; }
+  .legend .faint { color: var(--quiet); }
+  .legend .adv { font-size: 9px; letter-spacing: 0.1em; color: var(--chip-derived-fg); font-weight: 600; }
+  .legend .bar { width: 3px; height: 14px; background: var(--accent); display: inline-block; }
+
+  .tourneys { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px 28px; }
+  .tourney { display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .thead { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-bottom: 1px solid var(--ink); padding-bottom: 5px; }
+  .thead b { font-size: 11px; letter-spacing: 0.16em; font-weight: 600; }
+  .thead span { font-size: 11.5px; color: var(--secondary); text-align: right; }
+  .empty { margin: 0; font-size: 13px; color: var(--secondary); }
+
+  @media (max-width: 860px) {
+    .finals { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .finals .sf1 { grid-column: 1; grid-row: 1; }
+    .finals .sf2 { grid-column: 2; grid-row: 1; }
+    .finals .final { grid-column: 1 / -1; grid-row: 2; }
+  }
+  @media (max-width: 560px) {
+    .finals { grid-template-columns: minmax(0, 1fr); }
+    .finals .sf1, .finals .sf2, .finals .final { grid-column: 1; grid-row: auto; }
+    .legend .sw:nth-child(4) { display: none; }
+  }
+</style>

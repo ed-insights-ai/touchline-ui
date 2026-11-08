@@ -1,0 +1,96 @@
+---
+// One postseason tie as a bracket target: two 26px rows, one 52px link.
+//
+// The link opens the tie sheet (#tie-…), so a tie is one target and every
+// finer action (trace a path, open the Match Centre) lives inside the sheet
+// as its own 44px link. Each row carries the side's slug as a class so the
+// page's generated :has(#path-x:target) rule can trace a programme's path
+// without script.
+//
+// Who went through is the tie's `through`: the winner at weight 600, the
+// side that went out faint. A side known to have gone through only because
+// it appears in the next round wears ADV (a dot at compact density), in the
+// derived colour: it is DERIVED, and the sheet says so in words.
+import { hasScore } from "../lib/derive.ts";
+import { type Tie, tieAnchor } from "../lib/postseason.ts";
+
+interface Props {
+  tie: Tie;
+  conferenceOf: ReadonlyMap<string, string>;
+}
+const { tie, conferenceOf } = Astro.props;
+const f = tie.fixture;
+const names = tie.match.season.names;
+const scored = hasScore(f) && f.status === "final" && !tie.disputed;
+const rows = (["home", "away"] as const).map((side) => {
+  const slug = side === "home" ? f.home : f.away;
+  const through = tie.through?.slug;
+  return {
+    slug,
+    name: names.name(slug),
+    abbr: names.abbr(slug),
+    code: conferenceOf.get(slug) ?? "",
+    goals: scored ? (side === "home" ? f.home_score : f.away_score) : null,
+    pens: tie.shootout ? (side === "home" ? tie.shootout.home : tie.shootout.away) : null,
+    state: through === undefined ? "" : through === slug ? "w" : "l",
+    derived: tie.through?.slug === slug && tie.through.evidence === "DERIVED",
+  };
+});
+const label = `${rows[0]?.name} v ${rows[1]?.name}`;
+---
+
+<a class:list={["tie", { "tie-disputed": tie.disputed }]} href={`#${tieAnchor(tie)}`} aria-label={`${label}: open the tie`}>
+  {rows.map((r) => (
+    <span class:list={["row", r.state, `p-${r.slug}`]}>
+      <span class="n">
+        {r.derived && <span class="adv">ADV</span>}
+        {r.derived && <span class="advdot" aria-hidden="true"></span>}
+        <span class="full">{r.name}</span><span class="ab">{r.abbr}</span>
+        {r.code && <small>{r.code}</small>}
+      </span>
+      <span class="g num">
+        {r.goals ?? ""}
+        {r.pens !== null && <span class="pk">({r.pens})</span>}
+      </span>
+    </span>
+  ))}
+</a>
+
+<style>
+  .tie {
+    position: relative; display: grid; width: 100%; min-width: 0;
+    border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+    color: inherit; text-decoration: none; background: none;
+  }
+  .tie:hover { background: var(--accent-wash-soft); }
+  .tie:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+  .tie-disputed { border-style: dashed; }
+  .row {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
+    gap: 6px; padding: 5px 4px 5px 6px; min-height: 26px; box-sizing: border-box;
+    border-left: 3px solid transparent; transition: background 0.12s;
+  }
+  .row + .row { border-top: 1px solid var(--hairline-soft); }
+  .n { font-size: var(--fs, 12.5px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .n .ab { display: none; }
+  .n small { font-size: 9.5px; letter-spacing: 0.08em; color: var(--quiet); margin-left: 5px; }
+  .g { font-size: var(--fs, 12.5px); font-weight: 600; text-align: right; min-width: 1ch; }
+  .w .n { font-weight: 600; }
+  .l .n, .l .g { color: var(--quiet); font-weight: 400; }
+  .pk { font-size: 0.78em; font-weight: 500; color: var(--quiet); margin-left: 2px; }
+  .adv { font-size: 9px; letter-spacing: 0.1em; color: var(--chip-derived-fg); font-weight: 600; margin-right: 4px; }
+  .advdot {
+    display: none; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--chip-derived-fg); margin-right: 4px; vertical-align: 1px;
+  }
+
+  /* Compact density (a phone's region, four columns of ~77px): names become
+     the abbreviations the files carry, which are identifiers and so never
+     ellipsise; ADV becomes the dot. */
+  :global(.compact) .row { padding: 5px 2px 5px 3px; gap: 5px; grid-template-columns: max-content auto; justify-content: space-between; }
+  :global(.compact) .n { overflow: visible; text-overflow: clip; }
+  :global(.compact) .n .full, :global(.compact) .n small, :global(.compact) .adv { display: none; }
+  :global(.compact) .n .ab { display: inline; }
+  :global(.compact) .advdot { display: inline-block; }
+  :global(.compact) .pk { font-size: 0.72em; margin-left: 1px; }
+</style>

@@ -22,6 +22,7 @@ import {
   unresolved,
 } from "./derive.ts";
 import { dayOfMonth, daysBetween, dowShort, monShort, spell } from "./format.ts";
+import { postseasonOf } from "./postseason.ts";
 
 export const JOURNAL_SCHEMA = "touchline.journal/1";
 
@@ -418,6 +419,34 @@ export function editorial(s: Season, journal: JournalFile | null): Editorial {
  *  single state on one morning. */
 export const PHASE_LIVE = "CONFERENCE PLAY UNDER WAY";
 export const PHASE_BEFORE = "BEFORE THE TABLE";
+/** The conference tournament has a collected match and no decided final. */
+export const PHASE_TOURNAMENT = "CONFERENCE TOURNAMENT UNDER WAY";
+/** The conference tournament's final is decided. */
+export const PHASE_DECIDED = "TOURNAMENT DECIDED";
+
+/** The phase a conference's season is in. The tournament is read from the
+ *  conference's own file alone: two members meeting in their tournament are
+ *  both in it, so no other file can add or take away a tie. */
+export function seasonPhase(s: Season): string {
+  // Keyed on the fixtures file: loadSeason caches it, so every page and card
+  // that asks the phase of one conference shares a single fold, and a copy
+  // made with its fixtures changed is folded afresh.
+  const known = phaseByFile.get(s.fixtures);
+  if (known !== undefined) return known;
+  const tournament = postseasonOf([s]).conference.find((t) =>
+    t.codes.includes(s.fixtures.conference),
+  );
+  const phase = tournament
+    ? tournament.champion
+      ? PHASE_DECIDED
+      : PHASE_TOURNAMENT
+    : tableIsLive(s)
+      ? PHASE_LIVE
+      : PHASE_BEFORE;
+  phaseByFile.set(s.fixtures, phase);
+  return phase;
+}
+const phaseByFile = new WeakMap<object, string>();
 
 /** The conference's code, the phase the table is in, and the collect date.
  *
@@ -432,7 +461,7 @@ export const PHASE_BEFORE = "BEFORE THE TABLE";
  *  it in the same words, so a reader crossing from one surface to the other
  *  meets one vocabulary rather than two. */
 export function defaultKicker(s: Season): string {
-  const phase = tableIsLive(s) ? PHASE_LIVE : PHASE_BEFORE;
+  const phase = seasonPhase(s);
   // The dateline: day of the week and date, in the national kicker's exact
   // vocabulary ("TUE SEP 1"), and the only date the masthead prints on the
   // day the lede changed.

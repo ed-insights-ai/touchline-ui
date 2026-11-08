@@ -274,6 +274,10 @@ describe("a programme has one name", () => {
     expect(fold(trim("Queens's"))).not.toBe(fold("Queens"));
   });
 
+  // Every phrase of up to six words on every page, every match and every
+  // player card of every conference: a scan that grows with the season, and
+  // already takes about four seconds by November. Its own limit, so that a
+  // longer season cannot fail the publish gate on bun's five-second default.
   test("no composed sentence names a programme a way the site does not", () => {
     const offenders: string[] = [];
     for (const s of seasons) {
@@ -304,7 +308,7 @@ describe("a programme has one name", () => {
       }
     }
     expect([...new Set(offenders)]).toEqual([]);
-  });
+  }, 20_000);
 });
 
 describe("a sentence earns its place", () => {

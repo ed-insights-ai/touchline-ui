@@ -9,6 +9,8 @@ import { DISPUTED_MARK, FORFEIT_MARK, hasScore, isForfeit, matchHref } from "../
 import type { Fixture } from "../lib/derive.ts";
 import type { DivisionMatch } from "../lib/division.ts";
 import { outcome } from "../lib/model.ts";
+import { divisionPostseason } from "../lib/postseason-division.ts";
+import { stageTag } from "../lib/postseason.ts";
 
 interface Props {
   r: DivisionMatch;
@@ -59,12 +61,32 @@ const sides = (): { left: LedgerSide; right: LedgerSide } => {
   };
 };
 const { left, right } = sides();
+
+// A postseason tie wears its stage in the code cell ("GAC FINAL", "NCAA R2"):
+// the codes say who collected it, which matters less on the night than which
+// round it was. A conference tournament's tag is outlined; the NCAA's is
+// solid ink. A shootout prints its count beside the drawn score, small, and
+// the score stays the draw.
+const tag = stageTag(divisionPostseason(), r.identity);
+const tie = divisionPostseason().byIdentity.get(r.identity);
+const shootout = tie?.shootout ?? null;
+const pens =
+  shootout && hasScore(r.fixture)
+    ? r.neutral
+      ? [left.slug, right.slug].map((slug) => (slug === r.fixture.home ? shootout.home : shootout.away))
+      : [shootout.away, shootout.home]
+    : null;
 ---
 <a class="lrow hoverable" href={matchHref(r.key, r.fixture.id)}>
-  <span class="lconf">{r.codes.join(" · ")}</span>
+  {tag ? (
+    <span class:list={["lconf", "lstage", `lstage-${tag.competition}`]} title={r.codes.join(" · ")}>{tag.text}</span>
+  ) : (
+    <span class="lconf">{r.codes.join(" · ")}</span>
+  )}
   <span class={left.cls}>{r.season.names.name(left.slug)}</span>
   <span class="lscore">
     {hasScore(r.fixture) ? `${left.score}–${right.score}` : "—"}
+    {pens && <span class="lpens"> ({pens[0]}–{pens[1]} pens)</span>}
     {r.neutral && <span class="lneutral"> v</span>}
     {mark && <span class="lmark"> {mark}</span>}
   </span>
@@ -102,6 +124,14 @@ const { left, right } = sides();
   .lneutral { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; }
   /* "by forfeit" or "disputed": the same register, beside the score. */
   .lmark { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; font-weight: 400; white-space: nowrap; }
+  /* The stage tag takes the code cell: outlined for a conference
+     tournament, solid ink for the NCAA. Ink, never purple. */
+  .lstage {
+    justify-self: start; padding: 1px 5px; border: 1px solid var(--ink);
+    border-radius: 3px; color: var(--ink); font-size: 9.5px; letter-spacing: 0.1em;
+  }
+  .lstage-ncaa { background: var(--ink); color: var(--paper); }
+  .lpens { color: var(--quiet); font-size: 10px; font-weight: 400; white-space: nowrap; }
   .lwin { font-weight: 600; }
   .lquiet { color: var(--secondary); }
   .lscore { font-weight: 600; }

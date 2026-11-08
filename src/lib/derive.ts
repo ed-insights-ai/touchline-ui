@@ -412,7 +412,13 @@ export const tableIsLive = (s: Season): boolean => table(s).some((r) => r.played
 export function conferenceOpensOn(s: Season): string | null {
   const members = memberSlugs(s);
   const dates = s.fixtures.fixtures
-    .filter((f) => f.conference_game !== false && members.has(f.home) && members.has(f.away))
+    .filter(
+      (f) =>
+        f.conference_game !== false &&
+        f.stage?.phase !== "postseason" &&
+        members.has(f.home) &&
+        members.has(f.away),
+    )
     .map((f) => f.date)
     .sort();
   return dates[0] ?? null;
@@ -752,6 +758,8 @@ export const homeHref = (): string => withBase("/");
 
 /** The About & method page, which every footer links to. */
 export const aboutHref = (): string => withBase("/about/");
+/** The division's postseason: the NCAA bracket and the conference finals. */
+export const championshipHref = (): string => withBase("/championship/");
 
 /** A vendored flag, by the asset key its nation carries in the origin table.
  *  Served from this site, never a CDN — see scripts/flags.ts. */
@@ -919,7 +927,11 @@ export function conferenceOpenerOf(s: Season, slug: string): Fixture | null {
   const members = memberSlugs(s);
   return (
     fixturesOf(s, slug).find(
-      (f) => f.conference_game !== false && members.has(f.home) && members.has(f.away),
+      (f) =>
+        f.conference_game !== false &&
+        f.stage?.phase !== "postseason" &&
+        members.has(f.home) &&
+        members.has(f.away),
     ) ?? null
   );
 }
