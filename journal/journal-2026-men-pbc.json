@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-11-08T13:00:00+00:00",
-  "data_collected_at": "2026-11-08T12:50:07+00:00",
-  "headline": "Flagler beat North Georgia and alone play on",
-  "dek": "Saturday's win over North Georgia, the only side to take a point from Flagler in conference play, was Flagler's fourteenth of the season, more than any other programme has managed. Theirs are now the only matches left on the calendar.",
+  "generated_at": "2026-11-08T23:30:00+00:00",
+  "data_collected_at": "2026-11-08T23:17:06+00:00",
+  "headline": "Flagler finish the calendar with one defeat",
+  "dek": "Flagler's only defeat came at Florida Southern in September, set against fourteen wins and four draws, and no other programme in the conference won as many. Saturday's win over North Georgia was the last match on the calendar.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "wins",
@@ -24,7 +24,7 @@
     "losses": 1
   },
   "lede_updated": "2026-11-08",
-  "displaced_by": "Flagler beat North Georgia on Saturday and are the only programme with matches left; the standing lines closed on the regular season.",
+  "displaced_by": "No matches remain on the calendar, so the standing lines' claim that Flagler alone still had matches to play is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Fourteen different players have scored North Georgia's 44 goals, so their attack is spread across the squad rather than leaning on one scorer.",
@@ -49,7 +49,7 @@
     }
   },
   "wire": {
-    "line": "Flagler, beaten once all season, are the only side in the conference with matches still to play.",
+    "line": "Flagler have won every match since Florida Southern beat them in September.",
     "basis": {
       "programme": "flagler",
       "wins": 14,
@@ -153,15 +153,11 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-11-07 flagler v north-georgia",
-      "line": "North Georgia have not beaten Flagler in any meeting this season."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-13 flagler v ncaa",
-      "line": "Flagler have won every match since Florida Southern beat them in September."
+      "line": "Lander are the only side besides Flagler to have beaten North Georgia this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T12:58:10.197Z"
+    "validated_at": "2026-11-08T23:29:12.892Z"
   }
 }

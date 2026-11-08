@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "validated_at": "2026-11-06T12:56:19.682Z",
-  "data_collected_at": "2026-11-06T12:46:32+00:00",
+  "validated_at": "2026-11-08T23:25:14.733Z",
+  "data_collected_at": "2026-11-08T23:10:46+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jalen Moni — 9 G · 29 shots",
+      "text": "Jalen Moni — 10 G · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,15 +119,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-01 d-youville v molloy",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-08 st-thomas-aquinas v d-youville",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-06T12:55:36.821Z",
-    "generate_ms": 42859,
+    "started_at": "2026-11-08T23:24:04.243Z",
+    "generate_ms": 70488,
     "validate_ms": 2,
-    "wall_ms": 42861,
+    "wall_ms": 70490,
     "concurrency": 4
   }
 }

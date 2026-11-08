@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-11-05T12:58:41.048Z",
-  "data_collected_at": "2026-11-05T12:51:35+00:00",
+  "validated_at": "2026-11-08T23:27:58.323Z",
+  "data_collected_at": "2026-11-08T23:17:32+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 11,
+    "verified": 11,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 24, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+      "text": "Gannon have scored more than California (Pa.) and Shippensburg together but conceded 24, so theirs is a lead in goals scored, not in goals kept out.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Rafa Hyde — 15 G · 5 A · 58 shots",
+      "text": "Rafa Hyde — 15 G · 5 A · 62 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Steven Arias — 8 G · 1 A · 41 shots",
+      "text": "Steven Arias — 8 G · 1 A · 43 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,15 +109,6 @@
     },
     {
       "path": "featured.last_match",
-      "label": "observed",
-      "text": "2026-11-04 gannon v seton-hill",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
       "label": "observed",
       "text": "2026-11-08 e-stroudsburg v gannon",
       "checker": "fixture_ref",
@@ -127,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-05T12:57:09.812Z",
-    "generate_ms": 91234,
+    "started_at": "2026-11-08T23:26:57.114Z",
+    "generate_ms": 61207,
     "validate_ms": 1,
-    "wall_ms": 91236,
+    "wall_ms": 61209,
     "concurrency": 4
   }
 }

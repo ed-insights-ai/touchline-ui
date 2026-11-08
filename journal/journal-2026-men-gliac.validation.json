@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-11-07T12:57:50.677Z",
-  "data_collected_at": "2026-11-07T12:48:27+00:00",
+  "validated_at": "2026-11-08T23:26:25.051Z",
+  "data_collected_at": "2026-11-08T23:12:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Neither of the table's top sides won their latest match; Purdue Northwest, who beat Northern Michigan away, meet Roosevelt next.",
+      "text": "Saginaw Valley State take the table beaten only once, and that at home by Northern Michigan.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Fynn Mewes — 9 G · 5 A · 47 shots",
+      "text": "Matty Telfer — 13 G · 4 A · 55 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Landon Potts — 6 G · 7 A · 59 shots",
+      "text": "Landon Potts — 7 G · 7 A · 61 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,16 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-06 northern-michigan v purdue-northwest",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
-      "text": "2026-11-08 roosevelt v purdue-northwest",
+      "text": "2026-11-08 purdue-northwest v roosevelt",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-07T12:56:22.148Z",
-    "generate_ms": 88527,
+    "started_at": "2026-11-08T23:25:02.155Z",
+    "generate_ms": 82895,
     "validate_ms": 1,
-    "wall_ms": 88528,
+    "wall_ms": 82896,
     "concurrency": 4
   }
 }

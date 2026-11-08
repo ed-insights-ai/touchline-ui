@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-11-06T12:55:00+00:00",
-  "data_collected_at": "2026-11-06T12:46:32+00:00",
-  "headline": "St. Thomas Aquinas pull clear as the last unbeaten side",
-  "dek": "St. Thomas Aquinas met every other member without losing to any of them, and have now beaten Mercy again. D'Youville, who beat Molloy on the same day, come next, and they and Molloy are the only members to have taken a point off them.",
+  "generated_at": "2026-11-08T23:20:00+00:00",
+  "data_collected_at": "2026-11-08T23:10:46+00:00",
+  "headline": "St. Thomas Aquinas end the season unbeaten by any member",
+  "dek": "St. Thomas Aquinas closed the season by beating D'Youville, the side that had held them to a draw in October. Their four defeats all came against programmes from outside the conference, and only D'Youville and Molloy took a point off them.",
   "lede_basis": {
     "programme": "st-thomas-aquinas",
-    "wins": 10,
+    "wins": 11,
     "draws": 4,
     "losses": 4
   },
-  "lede_updated": "2026-11-02",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "St. Thomas Aquinas beat D'Youville in the season's last match, so the standing dek's 'D'Youville come next' is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Goals have not ordered the table: Mercy and Queens have each outscored every other programme on the chart, and that includes the leaders, St. Thomas Aquinas.",
@@ -22,9 +23,9 @@
       "values": {
         "mercy": 38,
         "queens": 35,
-        "st-thomas-aquinas": 30,
+        "st-thomas-aquinas": 32,
         "district-of-columbia": 27,
-        "d-youville": 25,
+        "d-youville": 26,
         "molloy": 23,
         "staten-island": 22,
         "roberts-wesleyan": 20,
@@ -159,7 +160,7 @@
       "programme": "st-thomas-aquinas",
       "position": "FWD",
       "class": "SR",
-      "line": "9 G · 29 shots"
+      "line": "10 G · 31 shots"
     },
     {
       "player": "Tommy Gunn",
@@ -171,16 +172,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-01 d-youville v molloy",
-      "line": "Molloy had been the only member to beat D'Youville in conference play."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-08 st-thomas-aquinas v d-youville",
-      "line": "St. Thomas Aquinas have won every match since their defeat at Millersville; D'Youville have lost once since September, at home to Ashland."
+      "line": "St. Thomas Aquinas have now beaten Mercy and D'Youville in successive matches."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-06T12:56:19.682Z"
+    "validated_at": "2026-11-08T23:25:14.733Z"
   }
 }

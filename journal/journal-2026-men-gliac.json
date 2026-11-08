@@ -3,18 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-11-07T13:05:00+00:00",
-  "data_collected_at": "2026-11-07T12:48:27+00:00",
-  "headline": "Purdue Northwest win at Northern Michigan to extend their run",
-  "dek": "Purdue Northwest won at Northern Michigan, where they had lost in October, and have won every match since their defeat at Saginaw Valley State. Saginaw Valley State, beaten once all season, were held at home by Roosevelt, who host Purdue Northwest next.",
+  "generated_at": "2026-11-08T23:30:00+00:00",
+  "data_collected_at": "2026-11-08T23:12:53+00:00",
+  "headline": "Saginaw Valley State finish top of the table",
+  "dek": "Saginaw Valley State's one defeat on the record came at home to Northern Michigan in September, and they did not lose again. On the last day Roosevelt won at Purdue Northwest, ending a run of wins the home side had carried since losing at Saginaw Valley State.",
   "lede_basis": {
     "programme": "saginaw-valley-state",
     "wins": 9,
     "draws": 7,
     "losses": 1
   },
-  "lede_updated": "2026-11-07",
-  "displaced_by": "The standing dek stopped being true. Saginaw Valley State's latest match against a member was a home draw with Roosevelt, not the win at Northern Michigan, and they have now conceded twelve, not eleven. Purdue Northwest's away win at Northern Michigan, which extends their run, is the new story.",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "The standing lines stopped being true: Roosevelt won at Purdue Northwest on the final day and ended Purdue Northwest's run. Every side has now played its full conference schedule, so the table is complete with Saginaw Valley State top.",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Davenport and St. Cloud State together.",
@@ -23,8 +23,8 @@
       "values": {
         "northern-michigan": 35,
         "saginaw-valley-state": 34,
-        "roosevelt": 26,
-        "purdue-northwest": 24,
+        "roosevelt": 29,
+        "purdue-northwest": 26,
         "wisconsin-parkside": 19,
         "davenport": 18,
         "st-cloud-state": 15
@@ -40,14 +40,14 @@
     }
   },
   "wire": {
-    "line": "Neither of the table's top sides won their latest match; Purdue Northwest, who beat Northern Michigan away, meet Roosevelt next.",
+    "line": "Saginaw Valley State take the table beaten only once, and that at home by Northern Michigan.",
     "basis": {
-      "programme": "purdue-northwest",
-      "wins": 11,
-      "draws": 2,
-      "losses": 5
+      "programme": "saginaw-valley-state",
+      "wins": 9,
+      "draws": 7,
+      "losses": 1
     },
-    "updated": "2026-11-07"
+    "updated": "2026-11-08"
   },
   "findings": [
     {
@@ -113,32 +113,28 @@
       "line": "16 G · 6 A · 76 shots"
     },
     {
-      "player": "Fynn Mewes",
-      "programme": "roosevelt",
+      "player": "Matty Telfer",
+      "programme": "saginaw-valley-state",
       "position": "FWD",
-      "class": "5Y",
-      "line": "9 G · 5 A · 47 shots"
+      "class": "JR",
+      "line": "13 G · 4 A · 55 shots"
     },
     {
       "player": "Landon Potts",
       "programme": "purdue-northwest",
       "position": "FWD",
       "class": "SO",
-      "line": "6 G · 7 A · 59 shots"
+      "line": "7 G · 7 A · 61 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-06 northern-michigan v purdue-northwest",
-      "line": "Purdue Northwest have won both meetings since losing on this ground in October."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-08 roosevelt v purdue-northwest",
-      "line": "Each side has won this season's meeting on its own ground."
+      "fixture_ref": "2026-11-08 purdue-northwest v roosevelt",
+      "line": "Roosevelt end Purdue Northwest's winning run and have now won on both grounds this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-07T12:57:50.677Z"
+    "validated_at": "2026-11-08T23:26:25.051Z"
   }
 }

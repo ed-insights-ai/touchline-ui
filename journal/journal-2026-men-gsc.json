@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-11-08T12:58:00+00:00",
-  "data_collected_at": "2026-11-08T12:48:11+00:00",
-  "headline": "West Alabama win away at every side above them",
-  "dek": "West Alabama's win at Trevecca, who had beaten them on the same ground in October, followed wins at UAH and at AUM. Trevecca have lost twice in eighteen matches, both at home.",
+  "generated_at": "2026-11-08T23:25:00+00:00",
+  "data_collected_at": "2026-11-08T23:14:32+00:00",
+  "headline": "West Alabama take the season's last word at Trevecca",
+  "dek": "West Alabama, beaten at Trevecca in October, won there in the season's final match, having already won at UAH and at AUM in the days before it. Trevecca have lost twice in eighteen matches, both at home.",
   "lede_basis": {
     "programme": "trevecca",
     "wins": 14,
@@ -15,7 +15,7 @@
     "played": 18
   },
   "lede_updated": "2026-11-08",
-  "displaced_by": "West Alabama won at Trevecca: the meeting the standing headline anticipated has been played, and 'lost once in seventeen' no longer holds.",
+  "displaced_by": "The standing headline no longer holds: West Alabama lost at Lee and played Montevallo at home, so they have not won away at every side above them in the table.",
   "pattern": {
     "label": "derived",
     "text": "West Alabama's goals have not bought a matching record: they have conceded 31, more than any other programme, and won nine of their nineteen matches.",
@@ -145,6 +145,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T12:57:09.598Z"
+    "validated_at": "2026-11-08T23:26:51.080Z"
   }
 }

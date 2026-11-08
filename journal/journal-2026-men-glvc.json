@@ -3,18 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-11-07T13:01:00+00:00",
-  "data_collected_at": "2026-11-07T12:48:46+00:00",
-  "headline": "Unbeaten Lincoln meet Truman, who have already held them",
-  "dek": "Lincoln won at Indianapolis, the last side to draw with them, and are fourteen wins and four draws into the season without defeat. All four of those draws came away from home, one of them at Truman, who won at Missouri-St. Louis the same day and now travel to Lincoln.",
+  "generated_at": "2026-11-08T23:25:00+00:00",
+  "data_collected_at": "2026-11-08T23:13:24+00:00",
+  "headline": "Lincoln finish the season unbeaten",
+  "dek": "Lincoln beat Truman, the side that had held them to a draw in September, on the season's last day, and finish with fifteen wins, four draws and no defeat. Across all their matches they conceded twelve goals.",
   "lede_basis": {
     "programme": "lincoln",
-    "wins": 14,
+    "wins": 15,
     "draws": 4,
-    "losses": 0
+    "losses": 0,
+    "gf": 42,
+    "ga": 12
   },
-  "lede_updated": "2026-11-07",
-  "displaced_by": "Lincoln won at Indianapolis, so the match the old headline previewed is now played and the dek's win total and run are out of date",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "Lincoln beat Truman, so the match the old headline previewed has been played and the season has closed with Lincoln unbeaten",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
@@ -22,8 +24,8 @@
       "kind": "goals-for-by-team",
       "values": {
         "southwest-baptist": 45,
+        "lincoln": 42,
         "maryville": 41,
-        "lincoln": 40,
         "drury": 31,
         "mckendree": 30,
         "missouri-s-t": 30,
@@ -55,7 +57,7 @@
     "line": "Lincoln are the only programme in the conference still without a defeat this season.",
     "basis": {
       "programme": "lincoln",
-      "wins": 14,
+      "wins": 15,
       "draws": 4,
       "losses": 0
     },
@@ -83,25 +85,25 @@
     },
     {
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's forty goals, from sixty-five shots.",
+      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's forty-two goals, from sixty-nine shots.",
       "basis": {
         "source": "stats",
         "player": "Jonathan Nemorden",
         "programme": "lincoln",
         "goals": 12,
-        "shots": 65,
-        "gf": 40
+        "shots": 69,
+        "gf": 42
       }
     },
     {
       "label": "derived",
-      "text": "Jacob Panagos, a midfielder, has fifteen of Truman's twenty-eight goals, from fifty-five shots.",
+      "text": "Jacob Panagos, a midfielder, has fifteen of Truman's twenty-eight goals, from fifty-seven shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Panagos",
         "programme": "truman",
         "goals": 15,
-        "shots": 55,
+        "shots": 57,
         "gf": 28
       }
     },
@@ -124,14 +126,14 @@
       "programme": "truman",
       "position": "MID",
       "class": "JR",
-      "line": "15 G · 1 A · 55 shots"
+      "line": "15 G · 1 A · 57 shots"
     },
     {
       "player": "Jonathan Nemorden",
       "programme": "lincoln",
       "position": "FWD",
       "class": "FR",
-      "line": "12 G · 2 A · 65 shots"
+      "line": "12 G · 2 A · 69 shots"
     },
     {
       "player": "Fredrik Thulin",
@@ -143,16 +145,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-06 indianapolis v lincoln",
-      "line": "Indianapolis had not lost at home since Maryville won there in September."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-08 lincoln v truman",
-      "line": "Lincoln have won every match they have played at home; Truman held them to a draw in September."
+      "line": "Lincoln have now won every match they played at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-07T12:57:49.197Z"
+    "validated_at": "2026-11-08T23:26:26.160Z"
   }
 }

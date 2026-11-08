@@ -3,25 +3,25 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-11-05T13:00:00+00:00",
-  "data_collected_at": "2026-11-05T12:51:35+00:00",
-  "headline": "E. Stroudsburg win at Millersville and now host Gannon",
-  "dek": "E. Stroudsburg have won away at Lock Haven and then at Millersville without conceding in either, and on Sunday the leaders come to them. Gannon arrive having beaten Seton Hill, with thirteen wins, three draws and three defeats across the season.",
+  "generated_at": "2026-11-08T23:25:00+00:00",
+  "data_collected_at": "2026-11-08T23:17:32+00:00",
+  "headline": "Gannon finish the regular season top of the table",
+  "dek": "Gannon won at E. Stroudsburg on Sunday and finished the regular season top of the table, with fourteen wins, three draws and three defeats across all their matches. E. Stroudsburg had arrived from clean-sheet wins at Lock Haven and Millersville, and could not find a way past the leaders.",
   "lede_basis": {
     "programme": "gannon",
-    "wins": 13,
+    "wins": 14,
     "draws": 3,
     "losses": 3
   },
-  "lede_updated": "2026-11-05",
-  "displaced_by": "Gannon's win over Seton Hill took them to thirteen wins, so the standing dek was no longer true; E. Stroudsburg's away win at Millersville sets up their home match with the leaders.",
+  "lede_updated": "2026-11-08",
+  "displaced_by": "The E. Stroudsburg v Gannon match the standing headline looked ahead to has been played, and Gannon's win there settled the top of the regular-season table.",
   "pattern": {
     "label": "derived",
-    "text": "Gannon have scored more than California (Pa.) and Shippensburg together and conceded 24, so the tallest bar stands on attack: theirs is a lead in goals scored, not in goals kept out.",
+    "text": "Gannon have scored more than California (Pa.) and Shippensburg together but conceded 24, so theirs is a lead in goals scored, not in goals kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "gannon": 49,
+        "gannon": 50,
         "millersville": 40,
         "lock-haven": 33,
         "e-stroudsburg": 30,
@@ -41,13 +41,13 @@
       "metric": "gf",
       "programme": "gannon",
       "of": ["california-pa", "shippensburg"],
-      "gf": 49,
+      "gf": 50,
       "ga": 24
     }
   },
   "wire": {
-    "line": "Millersville have met E. Stroudsburg at home and away this season and have yet to score against them.",
-    "updated": "2026-11-05"
+    "line": "Lock Haven, West Chester and Millersville finish level on points behind Gannon at the top.",
+    "updated": "2026-11-08"
   },
   "findings": [
     {
@@ -142,7 +142,7 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "15 G · 5 A · 58 shots"
+      "line": "15 G · 5 A · 62 shots"
     },
     {
       "player": "Roy Parkyn",
@@ -156,21 +156,17 @@
       "programme": "e-stroudsburg",
       "position": "FWD",
       "class": "JR",
-      "line": "8 G · 1 A · 41 shots"
+      "line": "8 G · 1 A · 43 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-04 gannon v seton-hill",
-      "line": "Seton Hill drew their first meeting with Gannon this season and have lost both since."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-08 e-stroudsburg v gannon",
-      "line": "Gannon won the sides' only previous meeting this season, in August at Gannon."
+      "line": "Gannon have now beaten E. Stroudsburg at home and away this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-05T12:58:41.048Z"
+    "validated_at": "2026-11-08T23:27:58.323Z"
   }
 }

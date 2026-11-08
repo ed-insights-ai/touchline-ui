@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-11-07T12:59:07.512Z",
-  "data_collected_at": "2026-11-07T12:52:26+00:00",
+  "validated_at": "2026-11-08T23:28:20.100Z",
+  "data_collected_at": "2026-11-08T23:20:14+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 11,
+    "verified": 11,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Emory & Henry have scored 26 and conceded six: the side top of the table has got there by keeping goals out, not by scoring them.",
+      "text": "Emory & Henry have scored 30 and conceded nine: the side top of the table got there by keeping goals out, not by scoring them.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Emory & Henry go into Sunday's meeting with Catawba as the conference's only unbeaten side.",
-      "checker": "team_record",
+      "text": "Catawba outscored every other side in the conference and still finished behind Emory & Henry in the table.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Emory & Henry's win over Coker on Friday was their ninth of the season; they have drawn three and lost none.",
+      "text": "Emory & Henry's win over Catawba on Sunday was their tenth of the season; they have drawn three and lost none.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Catawba's win over Anderson on Friday was their fourteenth of the season, against two draws and one defeat.",
+      "text": "Catawba's defeat at Emory & Henry on Sunday was their second of the season, against fourteen wins and two draws.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,17 +74,8 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Anderson's defeat by Catawba on Friday was their third of the season, against ten wins and four draws.",
-      "checker": "team_record",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[4]",
-      "label": "observed",
-      "text": "Coker's defeat by Emory & Henry on Friday was their sixth of the season, beside seven wins and two draws.",
-      "checker": "team_record",
+      "text": "Mars Hill have scored 42 goals, more than every other side but Catawba, and conceded 26.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Alex Payton — 10 G · 3 A · 40 shots",
+      "text": "Alex Payton — 10 G · 3 A · 42 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,15 +110,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-06 coker v emory-henry",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-08 emory-henry v catawba",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-07T12:57:50.868Z",
-    "generate_ms": 76644,
+    "started_at": "2026-11-08T23:26:58.468Z",
+    "generate_ms": 81629,
     "validate_ms": 1,
-    "wall_ms": 76644,
+    "wall_ms": 81631,
     "concurrency": 4
   }
 }
