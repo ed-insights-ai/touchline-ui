@@ -117,7 +117,7 @@ export const divisions: Readonly<Record<Gender, DivisionProfile>> = {
   // women's membership for. Add a key here only once its women's season files
   // exist; a listed conference without a fixtures file fails the build.
   women: {
-    conferences: ["gac"],
+    conferences: ["gac", "glvc", "miaa", "psac"],
     home: "gac",
     division: "NCAA Division II women's soccer",
     // Unset until it is sourced: the map prints no "OF n" rather than a guess.
@@ -183,6 +183,8 @@ export const site: SiteConfig = {
     cacc: "Central Atlantic Collegiate Conference",
     ecc: "East Coast Conference",
     psac: "Pennsylvania State Athletic Conference",
+    // Women only: the MIAA sponsors women's soccer and not men's.
+    miaa: "Mid-America Intercollegiate Athletics Association",
     mec: "Mountain East Conference",
     "g-mac": "Great Midwest Athletic Conference",
     gliac: "Great Lakes Intercollegiate Athletic Conference",
@@ -215,6 +217,7 @@ export const site: SiteConfig = {
     cacc: "northeast",
     ecc: "northeast",
     psac: "mid-atlantic",
+    miaa: "midwest",
     mec: "mid-atlantic",
     "g-mac": "midwest",
     gliac: "midwest",
