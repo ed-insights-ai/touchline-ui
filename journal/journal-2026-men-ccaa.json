@@ -3,20 +3,21 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-11-08T23:22:00+00:00",
-  "data_collected_at": "2026-11-08T23:10:17+00:00",
-  "headline": "Cal State LA go through the conference without a defeat",
-  "dek": "Cal State LA finished their conference round without a defeat, then beat Menlo to stretch the run to eighteen matches. They have conceded six goals in all of them, and the two sides to take a point from them did it without scoring.",
+  "generated_at": "2026-11-09T12:44:00+00:00",
+  "data_collected_at": "2026-11-09T12:31:42+00:00",
+  "headline": "Cal State LA win where they were last held",
+  "dek": "Cal State LA won at Cal State San Bernardino, the ground where they drew in October, and are now nineteen matches without a defeat. Seventeen of those were wins, and neither of the two sides to take a point from them managed to score.",
   "lede_basis": {
     "programme": "cal-state-la",
-    "wins": 16,
+    "wins": 17,
     "draws": 2,
     "losses": 0,
-    "played": 18,
-    "gf": 35,
+    "played": 19,
+    "gf": 38,
     "ga": 6
   },
-  "lede_updated": "2026-11-07",
+  "lede_updated": "2026-11-09",
+  "displaced_by": "Cal State LA's win at Cal State San Bernardino extends the unbeaten run to nineteen; the standing dek's eighteen is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Fresno Pacific have scored 37 goals and conceded only 27, yet have lost ten of their eighteen matches: a goal difference this healthy has bought them fewer wins than defeats.",
@@ -26,9 +27,9 @@
         "cal-state-monterey-bay": 41,
         "cal-state-san-bernardino": 41,
         "cal-state-san-marcos": 40,
+        "cal-state-la": 38,
         "fresno-pacific": 37,
         "cal-poly-pomona": 36,
-        "cal-state-la": 35,
         "cal-state-dominguez-hills": 31,
         "menlo": 30,
         "stanislaus-state": 27,
@@ -50,14 +51,16 @@
     }
   },
   "wire": {
-    "line": "Cal State San Bernardino have lost three times all season and meet unbeaten Cal State LA next.",
+    "line": "Cal State LA have lost none of nineteen matches and conceded only six goals in them.",
     "basis": {
-      "programme": "cal-state-san-bernardino",
-      "wins": 14,
-      "draws": 3,
-      "losses": 3
+      "programme": "cal-state-la",
+      "wins": 17,
+      "draws": 2,
+      "losses": 0,
+      "played": 19,
+      "ga": 6
     },
-    "updated": "2026-11-07"
+    "updated": "2026-11-09"
   },
   "findings": [
     {
@@ -133,28 +136,24 @@
       "programme": "cal-state-la",
       "position": "FWD",
       "class": "SO",
-      "line": "5 G · 9 A · 21 shots"
+      "line": "5 G · 10 A · 24 shots"
     },
     {
       "player": "Rafa Fonseca",
       "programme": "cal-state-san-bernardino",
       "position": "FWD",
       "class": "SR",
-      "line": "9 G · 1 A · 39 shots"
+      "line": "9 G · 1 A · 40 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-06 cal-poly-pomona v cal-state-san-bernardino",
-      "line": "Cal State San Bernardino lost on this ground in October and have won every match since."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-08 cal-state-san-bernardino v cal-state-la",
-      "line": "Cal State San Bernardino are the last side to stop Cal State LA winning, here on this ground in October."
+      "line": "Cal State San Bernardino came in having won every match since their October defeat at Cal Poly Pomona."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:24:37.532Z"
+    "validated_at": "2026-11-09T12:43:23.345Z"
   }
 }

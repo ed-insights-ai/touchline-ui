@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-11-08T23:26:59.456Z",
-  "data_collected_at": "2026-11-08T23:15:43+00:00",
+  "validated_at": "2026-11-09T12:43:52.797Z",
+  "data_collected_at": "2026-11-09T12:36:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty-two; the scoring is spread, not carried.",
+      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty-three; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Martin Echarren has eleven goals and three assists for Charleston from thirty-seven shots.",
+      "text": "Martin Echarren has twelve goals and three assists for Charleston from forty shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Hugo Fauli has ten assists and three goals for Davis & Elkins from thirty-six shots.",
+      "text": "Hugo Fauli has ten assists and three goals for Davis & Elkins from thirty-seven shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Martin Echarren — 11 G · 3 A · 37 shots",
+      "text": "Martin Echarren — 12 G · 3 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-04 charleston v frostburg-state",
+      "text": "2026-11-08 davis-elkins v charleston",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-08 davis-elkins v charleston",
+      "text": "2026-11-12 bryant-and-stratton v salem",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-08T23:26:25.223Z",
-    "generate_ms": 34232,
+    "started_at": "2026-11-09T12:42:49.342Z",
+    "generate_ms": 63453,
     "validate_ms": 1,
-    "wall_ms": 34233,
+    "wall_ms": 63454,
     "concurrency": 4
   }
 }
