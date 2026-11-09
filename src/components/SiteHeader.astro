@@ -56,9 +56,10 @@ const confName = season ? (site.conferenceNames[season.key] ?? season.fixtures.c
 const here = Astro.url.pathname.replace(/\/?$/, "/");
 const isView = (href: string): boolean => here === href.replace(/\/?$/, "/");
 
-// The Men / Women switch: offered only when this deploy publishes both builds
-// (lib/gender.ts). Each entry links to the matching page of that build, so it
-// is a pair of plain links, not a control that needs scripting.
+// The division menu: the "2026 · MEN" tag itself opens it, offered only when
+// this deploy publishes both builds (lib/gender.ts). Each row links to the
+// matching page of that division's build, so with scripting off it is still a
+// <details> of plain links.
 const genderLabel = { men: "Men", women: "Women" } as const;
 
 // The championship tab appears once the season has a postseason match: the
@@ -87,10 +88,35 @@ const genders = publishedGenders.length > 1
       is for going somewhere else. With no conference in scope the tag is the
       season alone. */}
   <div class="season-tag num">
-    {season && confName ? (
-      <>
-        <a class="season-conf" href={seasonHref(season.key)}>{confName}</a> · {seasonLabel}
-      </>
+    {season && confName && (
+      <><a class="season-conf" href={seasonHref(season.key)}>{confName}</a> · </>
+    )}
+    {/* The season and division, in the tag's own words. With both divisions
+        published the same words open a menu of the two: a third disclosure in
+        the header's one grammar (same panel, rows and keys as Conference and
+        Teams), so "where am I" and "the other division" are one control. */}
+    {genders.length > 0 ? (
+      <details class="hmenu hmenu-division">
+        <summary class="division-trigger" aria-label={`Division: ${seasonLabel}`}>
+          <span>{seasonLabel}</span>
+          <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
+        </summary>
+        <div class="hmenu-panel">
+          <div class="hmenu-head">
+            <span class="hmenu-tag num">{site.season} · Division</span>
+            <button type="button" class="hmenu-close">Close</button>
+          </div>
+          <div class="hmenu-grid">
+            {genders.map((g) => (
+              <a
+                class="mrow"
+                href={g.href}
+                aria-current={g.current ? "page" : undefined}
+              ><span class="mabbr">{site.season}</span><span class="mname">{g.label}</span></a>
+            ))}
+          </div>
+        </div>
+      </details>
     ) : (
       seasonLabel
     )}
@@ -171,17 +197,6 @@ const genders = publishedGenders.length > 1
     </nav>
   )}
   <div class="grow"></div>
-  {/* Which division's season this is. It sits at the far end, away from the
-      menus that move within a season, and speaks in the view nav's register:
-      current is weight and ink, never the accent, because purple in this
-      header already means "the conference you are in". */}
-  {genders.length > 0 && (
-    <nav class="gendernav" aria-label="Division">
-      {genders.map((g) => (
-        <a href={g.href} aria-current={g.current ? "page" : undefined}>{g.label}</a>
-      ))}
-    </nav>
-  )}
 </header>
 
 <script>
@@ -192,7 +207,9 @@ const genders = publishedGenders.length > 1
   // one menu open at a time, arrow keys along the rows, Escape, a click
   // outside, and the keyboard handed back to the trigger that opened it.
 
-  const menus = Array.from(document.querySelectorAll<HTMLDetailsElement>(".hnav .hmenu"));
+  // Every header disclosure: Conference and Teams in the nav, and the division
+  // menu in the season tag.
+  const menus = Array.from(document.querySelectorAll<HTMLDetailsElement>(".site-header .hmenu"));
   if (menus.length) {
     const summaryOf = (m: HTMLDetailsElement) => m.querySelector<HTMLElement>(":scope > summary");
     const rowsOf = (m: HTMLDetailsElement) => Array.from(m.querySelectorAll<HTMLElement>("a.mrow"));
@@ -268,17 +285,30 @@ const genders = publishedGenders.length > 1
   .season-conf { color: inherit; }
   .season-conf:hover { color: var(--ink); }
   .viewnav { gap: 16px; }
-  /* Two links, one hairline apart; each a 44px hit target (design system) in
-     a 58px header. */
-  .gendernav { display: flex; align-items: center; }
-  .gendernav a {
-    display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px;
-    font-size: 12.5px; color: var(--secondary);
+  /* The division menu lives inside the tag's line of text, so it stays inline
+     and keeps the tag's type: the trigger is the same small caps, answering
+     with ink on hover like the conference name beside it, plus the menus'
+     chevron. The padding and equal negative margin give it a 44px hit target
+     (design system) without growing the line it sits in. Its panel is the
+     header's: .hmenu stays position: static, so the panel anchors to
+     .site-header and drops flush left like Conference and Teams. */
+  .hmenu-division { display: inline-flex; vertical-align: baseline; }
+  .division-trigger {
+    list-style: none; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 14px 0; margin: -14px 0;
+    color: inherit; white-space: nowrap;
   }
-  .gendernav a + a { border-left: 1px solid var(--hairline); }
-  .gendernav a:hover { color: var(--ink); }
-  .gendernav a[aria-current="page"] { font-weight: 600; color: var(--ink); }
-  .gendernav a:focus-visible { outline: 1px solid var(--accent); outline-offset: -4px; }
+  .division-trigger::-webkit-details-marker { display: none; }
+  .division-trigger:hover { color: var(--ink); }
+  .division-trigger:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .division-trigger .chevron {
+    width: 9px; height: 9px; flex: none;
+    stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .hmenu-division[open] .chevron { transform: rotate(180deg); }
+  /* The panel's rows are sentence case, not the tag's spaced capitals. */
+  .hmenu-division .hmenu-panel { letter-spacing: normal; }
   @media (max-width: 1180px) {
     .site-header { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 14px; }
   }
