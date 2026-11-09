@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-11-08T23:28:20.100Z",
-  "data_collected_at": "2026-11-08T23:20:14+00:00",
+  "validated_at": "2026-11-09T01:51:53.221Z",
+  "data_collected_at": "2026-11-09T01:48:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Alex Payton — 10 G · 3 A · 42 shots",
+      "text": "Alex Payton — 11 G · 3 A · 43 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-08T23:26:58.468Z",
-    "generate_ms": 81629,
-    "validate_ms": 1,
-    "wall_ms": 81631,
-    "concurrency": 4
+    "started_at": "2026-11-09T01:51:28.585Z",
+    "generate_ms": 24633,
+    "validate_ms": 3,
+    "wall_ms": 24636,
+    "concurrency": 1
   }
 }

@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-08T23:54:22.602Z",
+  "validated_at": "2026-11-09T01:52:32.293Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -12,28 +12,22 @@
     "unverifiable": 0,
     "dropped": 0
   },
-  "review": [
-    {
-      "path": "dek",
-      "text": "Seattle Pacific beat Western Oregon and moved clear of Cal State LA and Charleston, the two programmes they had been level with on wins. No other side in the division has now won as many matches.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "headline",
       "label": "observed",
-      "text": "Seattle Pacific now have the most wins in the division Seattle Pacific beat Western Oregon and moved clear of Cal State LA and Charleston, the two programmes they had been level with on wins. No other side in the division has now won as many matches.",
-      "checker": "comparative",
+      "text": "Emory & Henry beat Catawba and stay unbeaten Emory & Henry beat Catawba, the South Atlantic Conference's highest scorers, and have now gone ten wins and three draws without a defeat. Lincoln also kept their unbeaten record, against Truman.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-08T23:54:04.471Z",
-    "generate_ms": 18129,
+    "started_at": "2026-11-09T01:51:59.460Z",
+    "generate_ms": 32832,
     "validate_ms": 1,
-    "wall_ms": 18131
+    "wall_ms": 32833
   }
 }

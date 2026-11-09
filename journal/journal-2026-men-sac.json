@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-11-08T23:30:00+00:00",
-  "data_collected_at": "2026-11-08T23:20:14+00:00",
+  "generated_at": "2026-11-09T01:55:00+00:00",
+  "data_collected_at": "2026-11-09T01:48:55+00:00",
   "headline": "Emory & Henry beat Catawba to top the table unbeaten",
   "dek": "Emory & Henry beat Catawba on Sunday and finished the conference season a point above them, the only side in the table without a defeat. The sides' first meeting, at Catawba in September, had ended goalless.",
   "lede_basis": {
@@ -12,7 +12,6 @@
     "table_points_ahead": 1
   },
   "lede_updated": "2026-11-08",
-  "displaced_by": "news: Emory & Henry won the rematch with Catawba and finished top of the table without a defeat",
   "pattern": {
     "label": "observed",
     "text": "Emory & Henry have scored 30 and conceded nine: the side top of the table got there by keeping goals out, not by scoring them.",
@@ -120,7 +119,7 @@
       "programme": "catawba",
       "position": "MID",
       "class": "SO",
-      "line": "10 G · 3 A · 42 shots"
+      "line": "11 G · 3 A · 43 shots"
     },
     {
       "player": "Luis Munoz",
@@ -145,6 +144,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:28:20.100Z"
+    "validated_at": "2026-11-09T01:51:53.221Z"
   }
 }
