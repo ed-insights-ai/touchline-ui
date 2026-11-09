@@ -32,9 +32,15 @@ site_url := env_var_or_default("SITE_URL", "https://ed-insights-ai.github.io")
 # The divisions this deploy publishes, comma-separated. The men's site is
 # always built, at site_base as it always was; "women" adds a second build
 # served beside it at {{site_base}}/women (src/site.config.ts genderPath), and
-# with both listed every page's header carries the Men / Women switch. Unset,
-# the deploy is the men's site alone, exactly as before.
-genders := env_var_or_default("TOUCHLINE_GENDERS", "men")
+# with both listed every page's header carries the Men / Women switch.
+#
+# A publish replaces the whole branch, so a publish that leaves a division out
+# takes it off the live site. The list is therefore a property of the
+# deployment, not of whoever runs `just publish`: TOUCHLINE_GENDERS when set,
+# else the rib config's "genders" (the same list the daily cadence follows),
+# else the men's site alone. A cadence run pinned to one gender
+# (TOUCHLINE_GENDER=men) still publishes every division.
+genders := env_var_or_default("TOUCHLINE_GENDERS", `jq -r '(.genders // ["men"]) | join(",")' "$HOME/.keelson/rib-touchline/config.json" 2>/dev/null || echo men`)
 with_women := if genders =~ '(^|,)\s*women\s*(,|$)' { "1" } else { "" }
 
 default: all
@@ -49,9 +55,14 @@ all: collect journal build publish
 # A regeneration that fails the copy properties stops the loop and the site
 # keeps serving yesterday's build, which is the correct failure —
 # correctness over freshness, by the owner's ruling (tui-9ue).
+#
+# The tests describe the men's configuration (19 conferences, the men's
+# journals), so they always run under it: the women's cadence run calls
+# `just publish` with TOUCHLINE_GENDER=women in its environment, and the gate
+# must hold the same tree to the same tests whichever division's run calls it.
 gate:
     @echo "→ gate"
-    bun test
+    TOUCHLINE_GENDER=men bun test
 
 # Ask the sources for today's record. Costs network and time; nothing else does.
 # Collect only: the journal and the publish are the recipes below, not the
@@ -107,7 +118,7 @@ verify:
     bunx tsc --noEmit -p tsconfig.json
     bun run check
     just build
-    bun test
+    TOUCHLINE_GENDER=men bun test
     bun scripts/links.ts dist "{{site_base}}"
 
 # Pixel-diff the built site against a saved baseline, at desktop and phone
