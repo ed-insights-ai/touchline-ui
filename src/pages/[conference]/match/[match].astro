@@ -35,6 +35,8 @@ import {
   unpostedSides,
 } from "../../../lib/division.ts";
 import { homeSeasons } from "../../../lib/home.ts";
+import { divisionPostseason } from "../../../lib/postseason-division.ts";
+import { stageTag } from "../../../lib/postseason.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
@@ -263,6 +265,27 @@ const AwaySide = awayLink ? "a" : "div";
 const homeIdentity = identityLine(fixture.home);
 const awayIdentity = identityLine(fixture.away);
 const homeName = names.name(fixture.home);
+
+// A postseason match names its round beside the badge, and a shootout is
+// said in words under the score, which stays the draw. The tie is the fold
+// of every record of this match, so a shootout another programme's page
+// published still reaches this one; its counts are read by side, since the
+// tie may be told from the other record's orientation. A tie whose records
+// disagree claims nothing. Where a page printed a shootout and named no
+// winner, the text prints as published and nobody is said to have won.
+const postseason = divisionPostseason();
+const tie = postseason.byIdentity.get(matchIdentity(fixture));
+const stage = stageTag(postseason, matchIdentity(fixture));
+const shootout = tie && !tie.disputed ? tie.shootout : null;
+const pensOf = (slug: string): number | null =>
+  shootout && tie ? (slug === tie.fixture.home ? shootout.home : shootout.away) : null;
+const shootoutLine = (() => {
+  if (!shootout) return null;
+  const loser = shootout.winner === fixture.home ? fixture.away : fixture.home;
+  return `${names.name(shootout.winner)} won ${pensOf(shootout.winner)}–${pensOf(loser)} on penalties`;
+})();
+const publishedShootout =
+  !shootout && !tie?.disputed ? (tie?.resultPublished ?? fixture.result_published ?? null) : null;
 const awayName = names.name(fixture.away);
 ---
 <Page
@@ -290,6 +313,9 @@ const awayName = names.name(fixture.away);
         {homeName} v {awayName}, {longDate(fixture.date)} — {badge.text}
       </h1>
       <div class={`badge badge-${badge.tone}`}>{badge.text}</div>
+      {stage && (
+        <div class:list={["stage", `stage-${stage.competition}`]}>{stage.text.trim()}</div>
+      )}
       <div class="scoreline">
         <HomeSide class="side side-home" href={homeLink}>
           <span class="side-name">{homeName.toUpperCase()}</span>
@@ -362,6 +388,13 @@ const awayName = names.name(fixture.away);
         </div>
       ) : (
         explain[state] && <p class="hero-explain serif-italic">{explain[state]}</p>
+      )}
+      {shootoutLine && <p class="shootout num">{shootoutLine.toUpperCase()}</p>}
+      {publishedShootout && (
+        <p class="hero-explain serif-italic">
+          Decided on penalties. As published: "{publishedShootout}". The page names no winner, so
+          Touchline does not say who went through.
+        </p>
       )}
       {resultNote && <p class="hero-explain serif-italic">{resultNote}</p>}
       {oneSource && <p class="hero-explain serif-italic">{oneSource}</p>}
@@ -532,6 +565,14 @@ const awayName = names.name(fixture.away);
   }
   .badge-accent { color: var(--accent); border-color: var(--accent-border); }
   .badge-alert { color: var(--loss); border-color: var(--alert-border); }
+  /* The round, as the ledger tags it: outlined for a conference
+     tournament, solid ink for the NCAA. */
+  .stage {
+    font-size: 10.5px; letter-spacing: 0.2em; font-weight: 600; color: var(--ink);
+    padding: 3px 10px; border: 1px solid var(--ink); border-radius: 3px;
+  }
+  .stage-ncaa { background: var(--ink); color: var(--paper); }
+  .shootout { margin: 0; font-size: 12px; letter-spacing: 0.12em; font-weight: 600; color: var(--ink); text-align: center; }
 
   .scoreline { display: flex; align-items: center; gap: 48px; }
   .side { display: flex; flex-direction: column; gap: 6px; width: 380px; color: inherit; }
