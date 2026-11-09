@@ -83,6 +83,11 @@ export const journalFindingSchema = z
   .strict();
 export type JournalFinding = z.infer<typeof journalFindingSchema>;
 
+const featuredMatchSchema = z.preprocess(
+  (v) => (v === null ? undefined : v),
+  z.object({ fixture_ref: z.string(), line: z.string().optional() }).strict().optional(),
+);
+
 export const journalFileSchema = z
   .object({
     schema: z.literal(JOURNAL_SCHEMA),
@@ -182,16 +187,14 @@ export const journalFileSchema = z
           .strict(),
       )
       .default([]),
+    // A conference whose calendar is played out has no next match, and the
+    // writer says so with null rather than by leaving the key out. Both mean
+    // "no featured match": null is read as absent and never stored, so the
+    // page falls back to its computed card exactly as it does for a missing key.
     featured: z
       .object({
-        last_match: z
-          .object({ fixture_ref: z.string(), line: z.string().optional() })
-          .strict()
-          .optional(),
-        next_match: z
-          .object({ fixture_ref: z.string(), line: z.string().optional() })
-          .strict()
-          .optional(),
+        last_match: featuredMatchSchema,
+        next_match: featuredMatchSchema,
       })
       .strict()
       .optional(),

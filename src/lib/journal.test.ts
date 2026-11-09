@@ -148,6 +148,29 @@ describe("the kicker is the page's own, in one vocabulary", () => {
   });
 });
 
+describe("a played-out calendar has no next match", () => {
+  // The 2026 women's LSC, G-MAC, CC and PACWEST replies were rejected whole
+  // for writing next_match: null once nothing was left to play.
+  test("a null featured match parses as absent, and is never stored as null", () => {
+    const last = { fixture_ref: "2026-11-08 harding v southwestern-oklahoma" };
+    const parsed = journalFileSchema.parse({
+      ...anyJournal,
+      featured: { last_match: last, next_match: null },
+    });
+    expect(parsed.featured?.last_match).toEqual(last);
+    expect(parsed.featured?.next_match).toBeUndefined();
+    expect("next_match" in (parsed.featured ?? {}) && parsed.featured?.next_match === null).toBe(
+      false,
+    );
+  });
+
+  test("a featured match that is there still has to be a whole one", () => {
+    expect(() =>
+      journalFileSchema.parse({ ...anyJournal, featured: { next_match: { line: "x" } } }),
+    ).toThrow();
+  });
+});
+
 describe("the chart's caption is the page's own", () => {
   test("it carries no date, because the chip above it does", () => {
     expect(CHART_CAPTION).not.toMatch(/\d/);
