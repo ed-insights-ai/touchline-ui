@@ -1,0 +1,129 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-psac.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PSAC",
+  "validated_at": "2026-11-09T04:22:13.396Z",
+  "data_collected_at": "2026-11-09T01:03:02+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "The goals gather at the top end: Kutztown alone have scored more than California (Pa.), Pitt-Johnstown and Mansfield, the sides at the foot of the table, put together.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "West Chester have conceded seven goals in all their matches this season.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "derived",
+      "text": "Aubrey Strohecker has scored 23 of Millersville's 46 goals, exactly half.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Seton Hill have drawn six matches in all, more than any other programme in the conference.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is california-pa at 5"
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Mansfield have conceded 58 goals in all matches, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is pitt-johnstown at 39"
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Angel Gulé has made 169 saves in goal for Mansfield.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Aubrey Strohecker — 23 G · 3 A · 81 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Carly Louey — 15 G · 6 A · 77 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Brooklyn Respecki — 13 G · 9 A · 106 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-08 slippery-rock v gannon",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T04:20:13.660Z",
+    "generate_ms": 119733,
+    "validate_ms": 3,
+    "wall_ms": 119736,
+    "concurrency": 4
+  }
+}

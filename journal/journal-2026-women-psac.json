@@ -1,0 +1,140 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PSAC",
+  "generated_at": "2026-11-09T01:20:00+00:00",
+  "data_collected_at": "2026-11-09T01:03:02+00:00",
+  "headline": "Gannon win at Kutztown and Slippery Rock",
+  "dek": "Gannon have not lost since the first week of September. Across all their matches they have been beaten twice and conceded thirteen goals.",
+  "lede_basis": {
+    "programme": "gannon",
+    "wins": 16,
+    "draws": 3,
+    "losses": 2,
+    "gf": 44,
+    "ga": 13
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "The goals gather at the top end: Kutztown alone have scored more than California (Pa.), Pitt-Johnstown and Mansfield, the sides at the foot of the table, put together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "kutztown": 56,
+        "slippery-rock": 48,
+        "millersville": 46,
+        "west-chester": 45,
+        "gannon": 44,
+        "shepherd": 38,
+        "bloomsburg": 35,
+        "shippensburg": 28,
+        "edinboro": 26,
+        "e-stroudsburg": 22,
+        "lock-haven": 22,
+        "clarion": 21,
+        "iup": 19,
+        "seton-hill": 19,
+        "pitt-johnstown": 17,
+        "california-pa": 11,
+        "mansfield": 9
+      },
+      "highlight": "kutztown"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "kutztown",
+      "of": ["california-pa", "pitt-johnstown", "mansfield"],
+      "gf": 56
+    }
+  },
+  "wire": {
+    "line": "West Chester have conceded seven goals in all their matches this season.",
+    "basis": {
+      "programme": "west-chester",
+      "gf": 45,
+      "ga": 7
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Aubrey Strohecker has scored 23 of Millersville's 46 goals, exactly half.",
+      "basis": {
+        "source": "stats",
+        "player": "Aubrey Strohecker",
+        "programme": "millersville",
+        "goals": 23,
+        "gf": 46
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Seton Hill have drawn six matches in all, more than any other programme in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "seton-hill",
+        "of_any": 16,
+        "draws": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Mansfield have conceded 58 goals in all matches, more than any other programme in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "mansfield",
+        "of_any": 16,
+        "ga": 58
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Angel Gulé has made 169 saves in goal for Mansfield.",
+      "basis": {
+        "source": "stats",
+        "player": "Angel Gulé",
+        "programme": "mansfield",
+        "saves": 169
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Aubrey Strohecker",
+      "programme": "millersville",
+      "position": "FWD",
+      "class": "SR",
+      "line": "23 G · 3 A · 81 shots"
+    },
+    {
+      "player": "Carly Louey",
+      "programme": "kutztown",
+      "position": "FWD",
+      "class": "FR",
+      "line": "15 G · 6 A · 77 shots"
+    },
+    {
+      "player": "Brooklyn Respecki",
+      "programme": "gannon",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 9 A · 106 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 slippery-rock v gannon",
+      "line": "Slippery Rock had not lost at home all season before this."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T04:22:13.396Z"
+  }
+}
