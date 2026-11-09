@@ -396,19 +396,18 @@ export function editorial(s: Season, journal: JournalFile | null): Editorial {
   const played = playedCount(s);
   const total = fixtureCount(s);
   const opens = conferenceOpensOn(s);
-  const silent = unresolved(s);
   const opensLine =
     opens && !tableIsLive(s)
       ? `The table stays empty until ${monShort(opens)} ${dayOfMonth(opens)}.`
       : null;
-  const silentLine =
-    silent.total > 0
-      ? `${sentenceCase(spell(silent.total))} ${silent.total === 1 ? "match sits" : "matches sit"} unresolved — the sources' silence, named rather than dropped.`
-      : null;
+  // The unresolved matches are NOT stated here. fallbackFindings() names
+  // them on this same page, with the breakdown, so a dek carrying them too
+  // printed one sentence twice, nine content words in ten (copy.test, first
+  // seen on the women's GAC and MIAA pages, which had no journal).
   return {
     kicker: defaultKicker(s),
     headline: `${played} of ${total} matches played`,
-    dek: [opensLine, silentLine].filter(Boolean).join(" ") || null,
+    dek: opensLine,
     stamp: null,
     fromJournal: false,
   };
