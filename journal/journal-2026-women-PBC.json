@@ -1,0 +1,129 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PBC",
+  "generated_at": "2026-11-09T03:20:00+00:00",
+  "data_collected_at": "2026-11-09T03:05:45+00:00",
+  "headline": "Columbus State go unbeaten in conference play",
+  "dek": "Columbus State came through conference play without a defeat, the only side in the table to do so. North Georgia, the one side to score more goals, lost to them in September and again in November.",
+  "lede_basis": {
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "north-georgia",
+    "gf": 60,
+    "of": [
+      "columbus-state",
+      "georgia-college",
+      "clayton-state",
+      "usc-beaufort",
+      "flagler",
+      "lander",
+      "usc-aiken",
+      "middle-georgia-state",
+      "georgia-southwestern"
+    ]
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring has split the conference in two: North Georgia alone have more goals than Georgia College and Clayton State together, and the two biggest attacks belong to the two sides at the top of the table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "north-georgia": 60,
+        "columbus-state": 56,
+        "georgia-college": 30,
+        "clayton-state": 26,
+        "usc-beaufort": 25,
+        "flagler": 23,
+        "lander": 23,
+        "usc-aiken": 17,
+        "middle-georgia-state": 16,
+        "georgia-southwestern": 15
+      },
+      "highlight": "north-georgia"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "north-georgia",
+      "gf": 60,
+      "of": ["georgia-college", "clayton-state"]
+    }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Seven matches are past their dates with no result published, and every one of them is dated in August.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Eighteen different players have scored for Columbus State.",
+      "basis": {
+        "programme": "columbus-state",
+        "distinct_scorers_min": 18
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Grace McGill has set up as many goals as she has scored for North Georgia, eleven of each.",
+      "basis": {
+        "source": "stats",
+        "player": "Grace McGill",
+        "programme": "north-georgia",
+        "goals": 11,
+        "assists": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hollie Keefe has made 121 saves for Middle Georgia State, and 41 shots have still beaten her.",
+      "basis": {
+        "source": "stats",
+        "player": "Hollie Keefe",
+        "programme": "middle-georgia-state",
+        "saves": 121,
+        "goals_against": 41
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Grace McGill",
+      "programme": "north-georgia",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 11 A · 62 shots"
+    },
+    {
+      "player": "Nina Lopez",
+      "programme": "north-georgia",
+      "position": "MID",
+      "class": "JR",
+      "line": "12 G · 6 A · 62 shots"
+    },
+    {
+      "player": "Shania Wegesend",
+      "programme": "columbus-state",
+      "position": "FWD",
+      "class": "SR",
+      "line": "9 G · 2 A · 38 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 columbus-state v north-georgia",
+      "line": "Flagler are the only other conference side to have beaten North Georgia."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:34:31.060Z"
+  }
+}

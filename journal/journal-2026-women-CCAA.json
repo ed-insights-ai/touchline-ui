@@ -1,0 +1,149 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CCAA",
+  "generated_at": "2026-11-09T03:05:00+00:00",
+  "data_collected_at": "2026-11-09T02:52:40+00:00",
+  "headline": "Cal Poly Pomona top the table on six goals conceded",
+  "dek": "Cal Poly Pomona have lost only twice all season, most recently to UC Merced. Cal State LA then beat UC Merced at home to close the calendar, having already beaten Cal State San Bernardino there.",
+  "lede_basis": {
+    "programme": "cal-poly-pomona",
+    "gf": 25,
+    "ga": 6,
+    "wins": 11,
+    "draws": 6,
+    "losses": 2
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring is top-heavy: Cal State LA's 36 goals are more than Fresno Pacific, San Francisco State and Cal State Dominguez Hills have scored between them.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "cal-state-la": 36,
+        "uc-merced": 33,
+        "cal-state-san-bernardino": 29,
+        "cal-state-monterey-bay": 28,
+        "cal-poly-pomona": 25,
+        "cal-state-san-marcos": 25,
+        "stanislaus-state": 24,
+        "chico-state": 20,
+        "cal-state-east-bay": 18,
+        "menlo": 18,
+        "cal-poly-humboldt": 16,
+        "fresno-pacific": 13,
+        "san-francisco-state": 11,
+        "cal-state-dominguez-hills": 10
+      },
+      "highlight": "cal-state-la"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "cal-state-la",
+      "of": ["fresno-pacific", "san-francisco-state", "cal-state-dominguez-hills"],
+      "gf": 36
+    }
+  },
+  "wire": {
+    "line": "UC Merced keeper Alicia Lepe has eleven shutouts this season.",
+    "basis": {
+      "source": "stats",
+      "player": "Alicia Lepe",
+      "programme": "uc-merced",
+      "shutouts": 11
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Cal Poly Humboldt's season opener against Simpson has no published result, one of eleven matches past their date without one.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Andrea Alvarenga Torres has fourteen assists for UC Merced from midfield.",
+      "basis": {
+        "source": "stats",
+        "player": "Andrea Alvarenga Torres",
+        "programme": "uc-merced",
+        "assists": 14
+      }
+    },
+    {
+      "label": "derived",
+      "text": "San Francisco State have lost thirteen matches, more than any other programme in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "losses",
+        "programme": "san-francisco-state",
+        "of": [
+          "cal-poly-humboldt",
+          "cal-poly-pomona",
+          "cal-state-dominguez-hills",
+          "cal-state-east-bay",
+          "cal-state-la",
+          "cal-state-monterey-bay",
+          "cal-state-san-bernardino",
+          "cal-state-san-marcos",
+          "chico-state",
+          "fresno-pacific",
+          "menlo",
+          "stanislaus-state",
+          "uc-merced"
+        ],
+        "wins": 3,
+        "draws": 1,
+        "losses": 13
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Fifteen different players have scored for Cal State San Marcos.",
+      "basis": {
+        "programme": "cal-state-san-marcos",
+        "distinct_scorers_min": 15
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jocelin Roa",
+      "programme": "uc-merced",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 3 A · 60 shots"
+    },
+    {
+      "player": "Juliana Dow",
+      "programme": "cal-state-monterey-bay",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 4 A · 62 shots"
+    },
+    {
+      "player": "Briana Chagolla",
+      "programme": "cal-state-la",
+      "position": "FWD",
+      "class": "FR",
+      "line": "10 G · 3 A · 49 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 cal-state-la v uc-merced",
+      "line": "The sides had drawn on this ground in September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:34:51.151Z"
+  }
+}

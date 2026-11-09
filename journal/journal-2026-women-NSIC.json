@@ -1,0 +1,144 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NSIC",
+  "generated_at": "2026-11-09T03:30:00+00:00",
+  "data_collected_at": "2026-11-09T03:04:19+00:00",
+  "headline": "Minnesota State hold opponents to eleven goals",
+  "dek": "Lauren McAlpine has kept sixteen shutouts for Minnesota State, whose only defeat of the season came at Minnesota Duluth in October. UMary, beaten by them in September, sit level with them on points at the top of the table.",
+  "lede_basis": {
+    "source": "stats",
+    "player": "Lauren McAlpine",
+    "programme": "minnesota-state",
+    "shutouts": 16,
+    "goals_against": 11,
+    "gf": 69,
+    "ga": 11,
+    "wins": 19,
+    "draws": 3,
+    "losses": 1
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "One attack has pulled clear of the conference: Minnesota State's 69 goals are more than Augustana and Concordia-St. Paul have scored together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "minnesota-state": 69,
+        "umary": 38,
+        "augustana": 35,
+        "concordia-saint-paul": 33,
+        "minnesota-duluth": 32,
+        "st-cloud-state": 30,
+        "northern-state": 29,
+        "bemidji-state": 25,
+        "wayne-state-nebraska": 21,
+        "minot-state": 18,
+        "jamestown": 17,
+        "sioux-falls": 17,
+        "winona-state": 13,
+        "msu-moorhead": 9,
+        "southwest-minnesota-state": 7,
+        "minnesota-crookston": 6
+      },
+      "highlight": "minnesota-state"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "minnesota-state",
+      "of": ["augustana", "concordia-saint-paul"],
+      "gf": 69
+    }
+  },
+  "wire": {
+    "line": "UMary's Dina Polanco has scored twenty goals from 102 shots this season.",
+    "basis": {
+      "source": "stats",
+      "player": "Dina Polanco",
+      "programme": "umary",
+      "goals": 20,
+      "shots": 102
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Nine matches are past their date with no result published, every one of them against a non-conference opponent.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 9
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Sophia Haase has scored nineteen of Concordia-St. Paul's 33 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Sophia Haase",
+        "programme": "concordia-saint-paul",
+        "goals": 19,
+        "gf": 33
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Nineteen different players have scored for Minnesota State this season.",
+      "basis": {
+        "programme": "minnesota-state",
+        "distinct_scorers_min": 19
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Minnesota Crookston have drawn six and lost twelve, and are yet to win a match this season.",
+      "basis": {
+        "programme": "minnesota-crookston",
+        "wins": 0,
+        "draws": 6,
+        "losses": 12
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Dina Polanco",
+      "programme": "umary",
+      "position": "MID",
+      "class": "SO",
+      "line": "20 G · 2 A · 102 shots"
+    },
+    {
+      "player": "Sophia Haase",
+      "programme": "concordia-saint-paul",
+      "position": "MID",
+      "class": "SR",
+      "line": "19 G · 1 A · 74 shots"
+    },
+    {
+      "player": "Amara Smith",
+      "programme": "minnesota-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "16 G · 6 A · 61 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 minnesota-state v bemidji-state",
+      "line": "Bemidji State have not scored against Minnesota State in either meeting this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 ncaa-elite-eight v minnesota-state",
+      "line": "Minnesota State have not lost a match since the first week of October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:28:50.957Z"
+  }
+}

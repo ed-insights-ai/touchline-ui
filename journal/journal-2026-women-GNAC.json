@@ -1,0 +1,150 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "GNAC",
+  "generated_at": "2026-11-09T03:20:00+00:00",
+  "data_collected_at": "2026-11-09T03:00:21+00:00",
+  "headline": "Western Washington finish top on six goals conceded",
+  "dek": "Western Washington have lost twice in twenty-one matches and conceded six goals across all of them, closing the season with a sixteenth win, at Seattle Pacific. Their only conference defeat came at Simon Fraser, the side that finished second.",
+  "lede_basis": {
+    "programme": "western-washington",
+    "wins": 16,
+    "draws": 3,
+    "losses": 2,
+    "gf": 30,
+    "ga": 6,
+    "played": 21
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Simon Fraser scored more than any other programme and still finished below Western Washington: in this conference the goals did not decide the table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "simon-fraser": 47,
+        "seattle-pacific": 32,
+        "western-washington": 30,
+        "central-washington": 22,
+        "northwest-nazarene": 16,
+        "western-oregon": 16,
+        "saint-martins": 14,
+        "montana-state-billings": 10
+      },
+      "highlight": "simon-fraser"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "simon-fraser",
+      "gf": 47,
+      "of": [
+        "seattle-pacific",
+        "western-washington",
+        "central-washington",
+        "northwest-nazarene",
+        "western-oregon",
+        "saint-martins",
+        "montana-state-billings"
+      ]
+    }
+  },
+  "wire": {
+    "line": "Tenley Leffler made 107 saves for Montana State Billings, a side that won twice all season.",
+    "basis": {
+      "source": "stats",
+      "player": "Tenley Leffler",
+      "programme": "montana-state-billings",
+      "saves": 107,
+      "wins": 2
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Six matches are past their date with no result, every one of them scheduled before conference play opened.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Saint Martin's conceded thirty-seven goals, more than any other programme.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "saint-martins",
+        "gf": 14,
+        "ga": 37,
+        "of": [
+          "central-washington",
+          "montana-state-billings",
+          "northwest-nazarene",
+          "seattle-pacific",
+          "simon-fraser",
+          "western-oregon",
+          "western-washington"
+        ]
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Montana State Billings scored ten goals across twenty matches.",
+      "basis": {
+        "programme": "montana-state-billings",
+        "gf": 10,
+        "ga": 27,
+        "wins": 2,
+        "draws": 6,
+        "losses": 12,
+        "played": 20
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Seattle Pacific scored thirty-two goals, none of them against Simon Fraser.",
+      "basis": {
+        "programme": "seattle-pacific",
+        "gf": 32,
+        "ga": 27
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Kiera Scott",
+      "programme": "simon-fraser",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 12 A · 66 shots"
+    },
+    {
+      "player": "Madeline Mays",
+      "programme": "western-washington",
+      "position": "FWD",
+      "class": "FR",
+      "line": "7 G · 3 A · 43 shots"
+    },
+    {
+      "player": "Logann Dukes",
+      "programme": "seattle-pacific",
+      "position": "DEF",
+      "class": "SR",
+      "line": "6 G · 1 A · 17 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 seattle-pacific v western-washington",
+      "line": "Seattle Pacific did not score in any of their meetings with Western Washington this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:36:05.468Z"
+  }
+}

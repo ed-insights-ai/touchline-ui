@@ -1,0 +1,132 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "GLIAC",
+  "generated_at": "2026-11-09T03:10:00+00:00",
+  "data_collected_at": "2026-11-09T02:56:05+00:00",
+  "headline": "Bottom-half Ferris State beats the table's leaders",
+  "dek": "Ferris State drew at Wayne State and then went back and won there, handing the leaders only their second defeat of the season. A win at Wisconsin-Parkside and a draw with Saginaw Valley State followed, from a side that sits in the table's bottom half.",
+  "lede_basis": {
+    "programme": "wayne-state",
+    "wins": 12,
+    "draws": 5,
+    "losses": 2
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Roosevelt and Michigan Tech sit apart at the foot: Purdue Northwest's twenty-five goals, the next-lowest figure, are more than the pair have scored together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "saginaw-valley-state": 40,
+        "grand-valley-state": 37,
+        "wayne-state": 37,
+        "davenport": 33,
+        "northern-michigan": 33,
+        "wisconsin-parkside": 29,
+        "ferris-state": 28,
+        "purdue-northwest": 25,
+        "roosevelt": 10,
+        "michigan-tech": 7
+      },
+      "highlight": "saginaw-valley-state"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "purdue-northwest",
+      "of": ["roosevelt", "michigan-tech"],
+      "gf": 25
+    }
+  },
+  "wire": {
+    "line": "Wayne State freshman Sienna Mroue has eleven goals and nine assists.",
+    "basis": {
+      "source": "stats",
+      "player": "Sienna Mroue",
+      "programme": "wayne-state",
+      "goals": 11,
+      "assists": 9
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Five matches dated in August are past their date with no published result, each involving Northern Michigan or Roosevelt.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Wayne State have conceded fourteen goals all season while scoring thirty-seven.",
+      "basis": {
+        "programme": "wayne-state",
+        "gf": 37,
+        "ga": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Emily Kolodin has fourteen assists for Saginaw Valley State.",
+      "basis": {
+        "source": "stats",
+        "player": "Emily Kolodin",
+        "programme": "saginaw-valley-state",
+        "assists": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Kaylee Sarnicola has made 159 saves in Roosevelt's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Kaylee Sarnicola",
+        "programme": "roosevelt",
+        "saves": 159
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Sienna Mroue",
+      "programme": "wayne-state",
+      "position": "FWD",
+      "class": "FR",
+      "line": "11 G · 9 A · 75 shots"
+    },
+    {
+      "player": "Abby Ellis",
+      "programme": "saginaw-valley-state",
+      "position": "FWD",
+      "class": "SO",
+      "line": "9 G · 5 A · 48 shots"
+    },
+    {
+      "player": "Mia Davis",
+      "programme": "purdue-northwest",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 3 A · 45 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 ferris-state v saginaw-valley-state",
+      "line": "Saginaw Valley State's winning run ends; Ferris State are unbeaten since losing to Grand Valley State."
+    },
+    "next_match": {
+      "fixture_ref": "2026-12-03 grand-valley-state v semifnals",
+      "line": "Grand Valley State come into it off a home defeat by Saginaw Valley State."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:33:00.683Z"
+  }
+}

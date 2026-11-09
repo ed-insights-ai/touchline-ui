@@ -1,0 +1,33 @@
+{
+  "schema": "touchline.national-validation/1",
+  "journal": "journal-2026-women-national.json",
+  "season": 2026,
+  "gender": "women",
+  "validated_at": "2026-11-09T03:36:27.744Z",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 1,
+    "verified": 1,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "review": [],
+  "claims": [
+    {
+      "path": "headline",
+      "label": "observed",
+      "text": "Washburn end Pittsburg State's unbeaten start Pittsburg State had won fifteen and drawn five before last night. Their first defeat leaves Dallas Baptist and Nova Southeastern as the only programmes in the division still without a loss.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T03:36:05.675Z",
+    "generate_ms": 22066,
+    "validate_ms": 1,
+    "wall_ms": 22068
+  }
+}

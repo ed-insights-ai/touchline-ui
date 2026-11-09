@@ -1,0 +1,130 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SAC",
+  "generated_at": "2026-11-09T03:30:00+00:00",
+  "data_collected_at": "2026-11-09T03:07:15+00:00",
+  "headline": "Catawba top the table and outscore the conference",
+  "dek": "Catawba won 13 times and conceded 23 goals across all their matches. Their season still ended in a home defeat, to Lenoir-Rhyne, the side second behind them in the table.",
+  "lede_basis": {
+    "programme": "catawba",
+    "wins": 13,
+    "draws": 2,
+    "losses": 5,
+    "gf": 50,
+    "ga": 23,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 10
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Catawba's 50 goals in all their matches are more than Anderson, Tusculum and Emory & Henry scored together, and the attack that leads the chart belongs to the side that leads the table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "catawba": 50,
+        "lenoir-rhyne": 35,
+        "coker": 29,
+        "mars-hill": 27,
+        "wingate": 27,
+        "carson-newman": 24,
+        "lincoln-memorial": 20,
+        "newberry": 18,
+        "anderson": 17,
+        "tusculum": 12,
+        "emory-henry": 10
+      },
+      "highlight": "catawba"
+    },
+    "basis": {
+      "programme": "catawba",
+      "gf": 50,
+      "ga": 23,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["anderson", "tusculum", "emory-henry"]
+    }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Fourteen matches are past their date with no result; the latest is Emory & Henry's home match with Regent.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 14
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Carson-Newman drew seven of their matches, more than any other programme.",
+      "basis": {
+        "programme": "carson-newman",
+        "wins": 8,
+        "draws": 7,
+        "losses": 4,
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "of_any": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Tusculum lost 12 of their matches, conceding 45 goals and scoring 12.",
+      "basis": {
+        "programme": "tusculum",
+        "wins": 2,
+        "draws": 1,
+        "losses": 12,
+        "gf": 12,
+        "ga": 45
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lauren Zitt has seven shutouts in goal for Catawba.",
+      "basis": {
+        "source": "stats",
+        "player": "Lauren Zitt",
+        "programme": "catawba",
+        "shutouts": 7
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Leah Krugh",
+      "programme": "mars-hill",
+      "position": "FWD",
+      "class": "SO",
+      "line": "11 G · 7 A · 83 shots"
+    },
+    {
+      "player": "Cadence Setzer",
+      "programme": "catawba",
+      "position": "FWD",
+      "class": "SO",
+      "line": "7 G · 12 A · 41 shots"
+    },
+    {
+      "player": "Kalyssa Carter",
+      "programme": "emory-henry",
+      "position": "FWD",
+      "class": "FR",
+      "line": "11 G · 3 A · 37 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 catawba v lenoir-rhyne",
+      "line": "Carson-Newman are the only other conference side to have won at Catawba."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:33:30.836Z"
+  }
+}

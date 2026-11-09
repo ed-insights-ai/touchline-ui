@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-NSIC.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NSIC",
+  "validated_at": "2026-11-09T03:28:50.957Z",
+  "data_collected_at": "2026-11-09T03:04:19+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "One attack has pulled clear of the conference: Minnesota State's 69 goals are more than Augustana and Concordia-St. Paul have scored together.",
+      "unbacked": ["1"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "One attack has pulled clear of the conference: Minnesota State's 69 goals are more than Augustana and Concordia-St. Paul have scored together.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "UMary's Dina Polanco has scored twenty goals from 102 shots this season.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Nine matches are past their date with no result published, every one of them against a non-conference opponent.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Sophia Haase has scored nineteen of Concordia-St. Paul's 33 goals.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Nineteen different players have scored for Minnesota State this season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Minnesota Crookston have drawn six and lost twelve, and are yet to win a match this season.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Dina Polanco — 20 G · 2 A · 102 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Sophia Haase — 19 G · 1 A · 74 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Amara Smith — 16 G · 6 A · 61 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-08 minnesota-state v bemidji-state",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-22 ncaa-elite-eight v minnesota-state",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T03:27:02.278Z",
+    "generate_ms": 108677,
+    "validate_ms": 1,
+    "wall_ms": 108678,
+    "concurrency": 4
+  }
+}

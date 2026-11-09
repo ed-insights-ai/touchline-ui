@@ -1,0 +1,133 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-PBC.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PBC",
+  "validated_at": "2026-11-09T03:34:31.060Z",
+  "data_collected_at": "2026-11-09T03:05:45+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 10,
+    "contradicted": 0,
+    "unverifiable": 1,
+    "dropped": 1
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "Scoring has split the conference in two: North Georgia alone have more goals than Georgia College and Clayton State together, and the two biggest attacks belong to the two sides at the top of the table.",
+      "unbacked": ["2"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring has split the conference in two: North Georgia alone have more goals than Georgia College and Clayton State together, and the two biggest attacks belong to the two sides at the top of the table.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Georgia Southwestern and Middle Georgia State both went through conference play without a win.",
+      "checker": null,
+      "verdict": "unverifiable",
+      "mismatches": ["the claim carries no basis"],
+      "dropped": true
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Seven matches are past their dates with no result published, and every one of them is dated in August.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Eighteen different players have scored for Columbus State.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Grace McGill has set up as many goals as she has scored for North Georgia, eleven of each.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Hollie Keefe has made 121 saves for Middle Georgia State, and 41 shots have still beaten her.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Grace McGill — 11 G · 11 A · 62 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Nina Lopez — 12 G · 6 A · 62 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Shania Wegesend — 9 G · 2 A · 38 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-07 columbus-state v north-georgia",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T03:32:13.750Z",
+    "generate_ms": 137308,
+    "validate_ms": 1,
+    "wall_ms": 137309,
+    "concurrency": 4
+  }
+}

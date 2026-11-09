@@ -1,0 +1,154 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SSC",
+  "generated_at": "2026-11-09T03:25:00+00:00",
+  "data_collected_at": "2026-11-09T03:19:36+00:00",
+  "headline": "Nova Southeastern and Eckerd go through the conference unbeaten",
+  "dek": "Nova Southeastern have won eleven and drawn six without losing a match all season. Eckerd, who drew with them in their latest meeting, have been beaten only by sides from outside the conference, and every other programme has lost to a conference rival at least once.",
+  "lede_basis": {
+    "programme": "nova-southeastern",
+    "wins": 11,
+    "draws": 6,
+    "losses": 0
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring and standing agree: the sides at the head of the table, Eckerd, Nova Southeastern and Florida Tech, are its highest scorers, and every other programme has scored fewer than Eckerd's 36.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "florida-tech": 44,
+        "nova-southeastern": 40,
+        "eckerd": 36,
+        "barry": 32,
+        "palm-beach-atlantic": 32,
+        "saint-leo": 27,
+        "embry-riddle": 24,
+        "tampa": 22,
+        "florida-southern": 21,
+        "rollins": 20,
+        "lynn": 17
+      },
+      "highlight": "florida-tech"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "eckerd",
+      "of": [
+        "barry",
+        "palm-beach-atlantic",
+        "saint-leo",
+        "embry-riddle",
+        "tampa",
+        "florida-southern",
+        "rollins",
+        "lynn"
+      ],
+      "gf": 36
+    }
+  },
+  "wire": {
+    "line": "Nova Southeastern have not lost a match all season, the only side in the conference without a defeat.",
+    "basis": {
+      "programme": "nova-southeastern",
+      "wins": 11,
+      "draws": 6,
+      "losses": 0
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Florida Tech have won 13 matches, more than any other programme in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "programme": "florida-tech",
+        "of": [
+          "barry",
+          "eckerd",
+          "embry-riddle",
+          "florida-southern",
+          "lynn",
+          "nova-southeastern",
+          "palm-beach-atlantic",
+          "rollins",
+          "saint-leo",
+          "tampa"
+        ],
+        "wins": 13,
+        "draws": 5,
+        "losses": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Genesis Hernandez has scored 16 goals and added five assists for Nova Southeastern, from 85 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Genesis Hernandez",
+        "programme": "nova-southeastern",
+        "goals": 16,
+        "assists": 5,
+        "shots": 85
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Madi Winn has kept 10 shutouts in goal for Eckerd.",
+      "basis": {
+        "source": "stats",
+        "player": "Madi Winn",
+        "programme": "eckerd",
+        "shutouts": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Six matches have passed their date with no result published, and Florida Tech's home match with Tampa is among them.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Genesis Hernandez",
+      "programme": "nova-southeastern",
+      "position": "FWD",
+      "class": "JR",
+      "line": "16 G · 5 A · 85 shots"
+    },
+    {
+      "player": "Eboni Bradshaw",
+      "programme": "florida-tech",
+      "position": "FWD",
+      "class": "SO",
+      "line": "8 G · 7 A · 58 shots"
+    },
+    {
+      "player": "Nell Doe",
+      "programme": "eckerd",
+      "position": "FWD",
+      "class": "FR",
+      "line": "8 G · 3 A · 39 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 eckerd v nova-southeastern",
+      "line": "Eckerd arrived on a winning run; Nova Southeastern leave with their unbeaten season intact."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:30:31.091Z"
+  }
+}

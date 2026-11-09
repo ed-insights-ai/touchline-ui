@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-SAC.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SAC",
+  "validated_at": "2026-11-09T03:33:30.836Z",
+  "data_collected_at": "2026-11-09T03:07:15+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 10,
+    "contradicted": 0,
+    "unverifiable": 1,
+    "dropped": 1
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Catawba's 50 goals in all their matches are more than Anderson, Tusculum and Emory & Henry scored together, and the attack that leads the chart belongs to the side that leads the table.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Lenoir-Rhyne, unbeaten since Catawba beat them in October, won the return at Catawba on the season's final day.",
+      "checker": null,
+      "verdict": "unverifiable",
+      "mismatches": ["the claim carries no basis"],
+      "dropped": true
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Fourteen matches are past their date with no result; the latest is Emory & Henry's home match with Regent.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Carson-Newman drew seven of their matches, more than any other programme.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is lincoln-memorial at 6"
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Tusculum lost 12 of their matches, conceding 45 goals and scoring 12.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Lauren Zitt has seven shutouts in goal for Catawba.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Leah Krugh — 11 G · 7 A · 83 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Cadence Setzer — 7 G · 12 A · 41 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Kalyssa Carter — 11 G · 3 A · 37 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-08 catawba v lenoir-rhyne",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T03:31:08.310Z",
+    "generate_ms": 142524,
+    "validate_ms": 1,
+    "wall_ms": 142525,
+    "concurrency": 4
+  }
+}

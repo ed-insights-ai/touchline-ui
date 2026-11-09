@@ -1,0 +1,135 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "RMAC",
+  "generated_at": "2026-11-09T03:20:00+00:00",
+  "data_collected_at": "2026-11-09T03:06:21+00:00",
+  "headline": "Colorado Mesa end Regis's unbeaten run",
+  "dek": "Regis had gone through the conference table without a defeat when Colorado Mesa, who had already held them to a draw, beat them on their own field. It is one of three defeats in Regis's season and the only one at a member's hands; Rollins and Dallas Baptist took the others before conference play opened.",
+  "lede_basis": {
+    "programme": "regis",
+    "wins": 15,
+    "draws": 1,
+    "losses": 3
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "The chart does not set the order of the table: Colorado School of Mines have scored more than Regis and UCCS, and sit behind both of them.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "colorado-school-of-mines": 59,
+        "uccs": 56,
+        "regis": 42,
+        "black-hills-state": 36,
+        "colorado-mesa": 30,
+        "westminster": 28,
+        "western-colorado": 24,
+        "fort-lewis": 21,
+        "adams-state": 16,
+        "colorado-christian": 16,
+        "csu-pueblo": 16,
+        "msu-denver": 15,
+        "new-mexico-highlands": 8
+      },
+      "highlight": "colorado-school-of-mines"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "colorado-school-of-mines",
+      "of": ["regis", "uccs"],
+      "gf": 59
+    }
+  },
+  "wire": {
+    "line": "New Mexico Highlands have conceded 74 goals and are still looking for their first win of the season.",
+    "basis": {
+      "programme": "new-mexico-highlands",
+      "gf": 8,
+      "ga": 74,
+      "wins": 0,
+      "draws": 1,
+      "losses": 16
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Bella Campos has scored 28 goals from 131 shots for Colorado School of Mines.",
+      "basis": {
+        "source": "stats",
+        "player": "Bella Campos",
+        "programme": "colorado-school-of-mines",
+        "goals": 28,
+        "shots": 131
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Maggie Payne has made 87 saves for Regis and been beaten nine times.",
+      "basis": {
+        "source": "stats",
+        "player": "Maggie Payne",
+        "programme": "regis",
+        "saves": 87,
+        "goals_against": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Trinity Lujan has kept nine shutouts in goal for Fort Lewis.",
+      "basis": {
+        "source": "stats",
+        "player": "Trinity Lujan",
+        "programme": "fort-lewis",
+        "shutouts": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Nine matches dated in August have passed with no published result, among them CSU Pueblo v Western Colorado and Fort Lewis v Western Colorado.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 9
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Bella Campos",
+      "programme": "colorado-school-of-mines",
+      "position": "FWD",
+      "class": "SR",
+      "line": "28 G · 9 A · 131 shots"
+    },
+    {
+      "player": "Fernanda Rodriguez",
+      "programme": "regis",
+      "position": "FWD",
+      "class": "JR",
+      "line": "18 G · 3 A · 57 shots"
+    },
+    {
+      "player": "Ivy Agee",
+      "programme": "black-hills-state",
+      "position": "MID",
+      "class": "FR",
+      "line": "14 G · 4 A · 84 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 colorado-mesa v colorado-school-of-mines",
+      "line": "Colorado Mesa arrived having just beaten Regis, and Colorado School of Mines having just won at UCCS."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:28:45.080Z"
+  }
+}

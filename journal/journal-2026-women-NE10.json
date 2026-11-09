@@ -1,0 +1,168 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NE10",
+  "generated_at": "2026-11-09T03:30:00+00:00",
+  "data_collected_at": "2026-11-09T03:03:41+00:00",
+  "headline": "Bentley beat the only side to have beaten them",
+  "dek": "Bentley won at Franklin Pierce, who had gone through the conference table without a defeat, on the ground where Bentley lost in October. That remains the only loss beside fifteen wins and three draws, and Bentley have conceded fifteen goals all season.",
+  "lede_basis": {
+    "programme": "bentley",
+    "wins": 15,
+    "draws": 3,
+    "losses": 1,
+    "gf": 50,
+    "ga": 15
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring alone has not settled the table: Pace have scored 33 goals, but conceded 37, more than any other programme.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "bentley": 50,
+        "franklin-pierce": 43,
+        "pace": 33,
+        "saint-michael-s": 30,
+        "assumption": 29,
+        "saint-anselm": 28,
+        "southern-connecticut": 26,
+        "southern-new-hampshire": 23,
+        "adelphi": 21,
+        "american-international": 21
+      },
+      "highlight": "bentley"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "ga",
+      "programme": "pace",
+      "of": [
+        "adelphi",
+        "american-international",
+        "assumption",
+        "bentley",
+        "franklin-pierce",
+        "saint-anselm",
+        "saint-michael-s",
+        "southern-connecticut",
+        "southern-new-hampshire"
+      ],
+      "gf": 33,
+      "ga": 37
+    }
+  },
+  "wire": {
+    "line": "Kayleigh Goodrich has scored 16 of Adelphi's 21 goals.",
+    "basis": {
+      "source": "stats",
+      "player": "Kayleigh Goodrich",
+      "programme": "adelphi",
+      "goals": 16,
+      "gf": 21,
+      "ga": 22
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Southern Connecticut have drawn seven matches, more than any other programme.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "southern-connecticut",
+        "of": [
+          "adelphi",
+          "american-international",
+          "assumption",
+          "bentley",
+          "franklin-pierce",
+          "pace",
+          "saint-anselm",
+          "saint-michael-s",
+          "southern-new-hampshire"
+        ],
+        "wins": 7,
+        "draws": 7,
+        "losses": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Southern New Hampshire have lost 12 matches, more than any other programme.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "losses",
+        "programme": "southern-new-hampshire",
+        "of": [
+          "adelphi",
+          "american-international",
+          "assumption",
+          "bentley",
+          "franklin-pierce",
+          "pace",
+          "saint-anselm",
+          "saint-michael-s",
+          "southern-connecticut"
+        ],
+        "wins": 3,
+        "draws": 2,
+        "losses": 12
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Fourteen different players have scored for Bentley.",
+      "basis": {
+        "programme": "bentley",
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hedda Haukland has made 119 saves for American International.",
+      "basis": {
+        "source": "stats",
+        "player": "Hedda Haukland",
+        "programme": "american-international",
+        "saves": 119
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Abi Hennessey",
+      "programme": "bentley",
+      "position": "MID",
+      "class": "SR",
+      "line": "13 G · 7 A · 76 shots"
+    },
+    {
+      "player": "Kayleigh Goodrich",
+      "programme": "adelphi",
+      "position": "FWD",
+      "class": "SR",
+      "line": "16 G · 99 shots"
+    },
+    {
+      "player": "McKenna Maguire",
+      "programme": "franklin-pierce",
+      "position": "FWD",
+      "class": "SO",
+      "line": "9 G · 8 A · 68 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 franklin-pierce v bentley",
+      "line": "Franklin Pierce had not lost to a conference side until this match."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:30:54.917Z"
+  }
+}

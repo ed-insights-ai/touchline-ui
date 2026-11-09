@@ -1,0 +1,156 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "ECC",
+  "generated_at": "2026-11-09T03:05:00+00:00",
+  "data_collected_at": "2026-11-09T02:53:45+00:00",
+  "headline": "Mercy score their way to the top of the table",
+  "dek": "Mercy have scored 42 goals this season, more than any other programme, and conceded seventeen while losing only three times. Twelve different players have put their names on the scoresheet.",
+  "lede_basis": {
+    "programme": "mercy",
+    "gf": 42,
+    "ga": 17,
+    "wins": 11,
+    "draws": 5,
+    "losses": 3,
+    "distinct_scorers_min": 12,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "molloy",
+      "queens",
+      "roberts-wesleyan",
+      "d-youville",
+      "daemen",
+      "staten-island",
+      "st-thomas-aquinas"
+    ]
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "signal",
+    "text": "Goals and standing run in step here: the order of the chart is, near enough, the order of the table, with Queens and Molloy the only neighbours to swap places.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "mercy": 42,
+        "molloy": 29,
+        "queens": 27,
+        "roberts-wesleyan": 19,
+        "d-youville": 18,
+        "daemen": 18,
+        "staten-island": 9,
+        "st-thomas-aquinas": 1
+      },
+      "highlight": "mercy"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "molloy",
+      "gf": 29,
+      "of": [
+        "queens",
+        "roberts-wesleyan",
+        "d-youville",
+        "daemen",
+        "staten-island",
+        "st-thomas-aquinas"
+      ]
+    }
+  },
+  "wire": {
+    "line": "St. Thomas Aquinas have scored once all season and are still without a point.",
+    "basis": {
+      "programme": "st-thomas-aquinas",
+      "gf": 1,
+      "ga": 22,
+      "wins": 0,
+      "draws": 0,
+      "losses": 7
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Molloy's visit to St. Thomas Aquinas has passed its date with no result published, as has D'Youville's match on the season's opening day: two matches the record cannot yet count.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Three of St. Thomas Aquinas's seven defeats came by forfeit, to Staten Island, Roberts Wesleyan and Daemen.",
+      "basis": {
+        "set": "box_score_gaps",
+        "all_of": "st-thomas-aquinas",
+        "count": 3,
+        "programme": "st-thomas-aquinas",
+        "wins": 0,
+        "draws": 0,
+        "losses": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Astrid Borglund has scored twelve goals from 37 shots as a freshman, and set up three more.",
+      "basis": {
+        "source": "stats",
+        "player": "Astrid Borglund",
+        "programme": "mercy",
+        "goals": 12,
+        "assists": 3,
+        "shots": 37
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Roberts Wesleyan have won nine matches on nineteen goals, a record that rests on conceding fifteen.",
+      "basis": {
+        "programme": "roberts-wesleyan",
+        "wins": 9,
+        "draws": 6,
+        "losses": 4,
+        "gf": 19,
+        "ga": 15
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Astrid Borglund",
+      "programme": "mercy",
+      "position": "FWD",
+      "class": "FR",
+      "line": "12 G · 3 A · 37 shots"
+    },
+    {
+      "player": "Ashley Kieblesz",
+      "programme": "queens",
+      "position": "MID",
+      "class": "SR",
+      "line": "11 G · 2 A · 65 shots"
+    },
+    {
+      "player": "Bella Juliano",
+      "programme": "molloy",
+      "position": "FWD",
+      "class": "JR",
+      "line": "5 G · 6 A · 34 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 mercy v molloy",
+      "line": "Molloy are the only conference side Mercy have not beaten this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:31:08.138Z"
+  }
+}
