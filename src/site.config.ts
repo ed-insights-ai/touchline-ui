@@ -113,15 +113,39 @@ export const divisions: Readonly<Record<Gender, DivisionProfile>> = {
     division: "NCAA Division II men's soccer",
     divisionConferences: 19,
   },
-  // The women's pilot: the GAC is the only conference the rib has authored
-  // women's membership for. Add a key here only once its women's season files
-  // exist; a listed conference without a fixtures file fails the build.
+  // Every conference the rib has authored women's membership for: all
+  // twenty-one Division II women's soccer conferences, 2026. Add a key here
+  // only once its women's season files exist; a listed conference without a
+  // fixtures file fails the build.
   women: {
-    conferences: ["gac", "glvc", "miaa", "psac"],
+    conferences: [
+      "gac",
+      "lsc",
+      "gsc",
+      "glvc",
+      "miaa",
+      "nsic",
+      "rmac",
+      "ssc",
+      "ne10",
+      "cacc",
+      "ecc",
+      "psac",
+      "mec",
+      "g-mac",
+      "gliac",
+      "sac",
+      "cc",
+      "pbc",
+      "ccaa",
+      "pacwest",
+      "gnac",
+    ],
     home: "gac",
     division: "NCAA Division II women's soccer",
-    // Unset until it is sourced: the map prints no "OF n" rather than a guess.
-    divisionConferences: undefined,
+    // NCAA, 2026 DII Women's Soccer Pre-Championship Manual, section 2.3:
+    // "Twenty-one conferences have been granted Automatic Qualification".
+    divisionConferences: 21,
   },
 };
 
@@ -183,8 +207,9 @@ export const site: SiteConfig = {
     cacc: "Central Atlantic Collegiate Conference",
     ecc: "East Coast Conference",
     psac: "Pennsylvania State Athletic Conference",
-    // Women only: the MIAA sponsors women's soccer and not men's.
+    // Women only: the MIAA and the NSIC sponsor women's soccer and not men's.
     miaa: "Mid-America Intercollegiate Athletics Association",
+    nsic: "Northern Sun Intercollegiate Conference",
     mec: "Mountain East Conference",
     "g-mac": "Great Midwest Athletic Conference",
     gliac: "Great Lakes Intercollegiate Athletic Conference",
@@ -218,6 +243,7 @@ export const site: SiteConfig = {
     ecc: "northeast",
     psac: "mid-atlantic",
     miaa: "midwest",
+    nsic: "midwest",
     mec: "mid-atlantic",
     "g-mac": "midwest",
     gliac: "midwest",

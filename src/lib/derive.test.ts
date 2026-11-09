@@ -255,7 +255,7 @@ describe("opponents link only where a page exists", () => {
       for (const f of season.fixtures.fixtures) {
         for (const side of [f.home, f.away]) {
           const href = teamPageHref(season, side);
-          if (href !== null) expect(href).toMatch(/^\/?[a-z/-]*\/team\/[a-z0-9-]+\/$/);
+          if (href !== null) expect(href).toMatch(/^\/?[a-z0-9/-]*\/team\/[a-z0-9-]+\/$/);
         }
       }
     }
