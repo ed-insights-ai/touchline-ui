@@ -58,7 +58,7 @@ import {
 } from "./derive.ts";
 import { dayNumber, daysBetween, dowIndex, friendlies, monShort, toISO } from "./format.ts";
 import type { Fixture, FixturesFile } from "./model.ts";
-import { computeTable, isPlayed } from "./model.ts";
+import { computeTable, isForfeit, isPlayed } from "./model.ts";
 import { nameBookFor } from "./names.ts";
 import { playerCard } from "./player.ts";
 
@@ -589,10 +589,14 @@ describe("the footer says when the site last looked", () => {
 
 describe("the goals chart draws one population, and it is the season's", () => {
   /** Every countable scored match, recomputed from the fixtures rather than
-   *  read back from the function under test. */
+   *  read back from the function under test. A forfeit's printed goals are
+   *  nobody's (the award is a result, not a score), so they count toward no
+   *  bar: the women's 2026 LSC holds one, ENMU's forfeit to UT Tyler on Sep 9,
+   *  printed 0-1, which this recount added and the chart rightly did not. */
   const ownGoals = (season: Season, slug: string): number =>
     season.fixtures.fixtures
       .filter(isScored)
+      .filter((f) => !isForfeit(f))
       .filter((f) => f.home === slug || f.away === slug)
       .reduce((sum, f) => sum + ((f.home === slug ? f.home_score : f.away_score) ?? 0), 0);
 

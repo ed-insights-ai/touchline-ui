@@ -1,0 +1,149 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "GLVC",
+  "generated_at": "2026-11-09T01:10:00+00:00",
+  "data_collected_at": "2026-11-09T00:59:28+00:00",
+  "headline": "Maryville beats Missouri-St. Louis, then holds McKendree",
+  "dek": "Missouri-St. Louis conceded thirteen goals all season and lost to no conference side until Maryville beat them. Maryville then kept McKendree off the scoresheet as well.",
+  "lede_basis": {
+    "programme": "missouri-st-louis",
+    "gf": 49,
+    "ga": 13
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Lincoln, Indianapolis, Upper Iowa and William Jewell scored fewer goals between them than McKendree did alone.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "mckendree": 51,
+        "missouri-st-louis": 49,
+        "missouri-s-t": 39,
+        "maryville": 38,
+        "quincy": 38,
+        "southwest-baptist": 29,
+        "illinois-springfield": 27,
+        "rockhurst": 27,
+        "drury": 25,
+        "lewis": 23,
+        "truman": 21,
+        "lincoln": 10,
+        "indianapolis": 9,
+        "upper-iowa": 8,
+        "william-jewell": 4
+      },
+      "highlight": "mckendree"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "mckendree",
+      "of": ["lincoln", "indianapolis", "upper-iowa", "william-jewell"],
+      "gf": 51
+    }
+  },
+  "wire": {
+    "line": "McKendree won sixteen matches, more than any other side in the conference.",
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "programme": "mckendree",
+      "of_any": 14,
+      "wins": 16,
+      "draws": 3,
+      "losses": 2
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Missouri-St. Louis lost twice all season, to Pittsburg State and to Maryville.",
+      "basis": {
+        "programme": "missouri-st-louis",
+        "wins": 14,
+        "draws": 3,
+        "losses": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Maddie Mauch scored nineteen goals for McKendree from 121 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Maddie Mauch",
+        "programme": "mckendree",
+        "goals": 19,
+        "shots": 121
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Jessie Newton, a midfielder, made seventeen assists for Quincy.",
+      "basis": {
+        "source": "stats",
+        "player": "Jessie Newton",
+        "programme": "quincy",
+        "assists": 17
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mikayla Thomas kept six clean sheets for Truman.",
+      "basis": {
+        "source": "stats",
+        "player": "Mikayla Thomas",
+        "programme": "truman",
+        "shutouts": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "William Jewell finished without a win and scored four goals across the season.",
+      "basis": {
+        "programme": "william-jewell",
+        "wins": 0,
+        "draws": 2,
+        "losses": 15,
+        "gf": 4,
+        "ga": 49
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Maddie Mauch",
+      "programme": "mckendree",
+      "position": "FWD",
+      "class": "JR",
+      "line": "19 G · 6 A · 121 shots"
+    },
+    {
+      "player": "Rebecca Rheinheimer",
+      "programme": "quincy",
+      "position": "FWD",
+      "class": "SR",
+      "line": "16 G · 2 A · 78 shots"
+    },
+    {
+      "player": "Jessie Newton",
+      "programme": "quincy",
+      "position": "MID",
+      "class": "SR",
+      "line": "4 G · 17 A · 59 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 maryville v mckendree",
+      "line": "Maryville came into it off a win over Missouri-St. Louis; McKendree off a win at Missouri S&T."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T04:21:35.658Z"
+  }
+}

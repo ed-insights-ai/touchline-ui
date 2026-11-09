@@ -251,19 +251,24 @@ describe("the records agree, which is what makes folding safe", () => {
     }
   });
 
-  test("the two Rogers State tournament matches are the neutral cases this was measured on", () => {
-    // 2026-08-27 Maryville v Southern Nazarene and 2026-08-29 McKendree v
-    // Southern Nazarene, Claremore, Okla.: the GAC file (from SNU's site) says
-    // SNU home; the GLVC file says the GLVC side home; scores agree.
-    const expected = [
-      "2026-08-27 maryville v southern-nazarene",
-      "2026-08-29 mckendree v southern-nazarene",
-    ];
-    const neutral = folded.filter((m) => m.neutral).map((m) => m.identity);
-    for (const id of expected) expect(neutral, id).toContain(id);
-    // Neither is printed twice: one folded match each.
-    for (const id of expected) expect(folded.filter((m) => m.identity === id)).toHaveLength(1);
-  });
+  // Men's fixtures: the Rogers State tournament is the men's GAC and GLVC
+  // collect. The rule above holds every neutral match of either division.
+  test.skipIf(site.gender !== "men")(
+    "the two Rogers State tournament matches are the neutral cases this was measured on",
+    () => {
+      // 2026-08-27 Maryville v Southern Nazarene and 2026-08-29 McKendree v
+      // Southern Nazarene, Claremore, Okla.: the GAC file (from SNU's site) says
+      // SNU home; the GLVC file says the GLVC side home; scores agree.
+      const expected = [
+        "2026-08-27 maryville v southern-nazarene",
+        "2026-08-29 mckendree v southern-nazarene",
+      ];
+      const neutral = folded.filter((m) => m.neutral).map((m) => m.identity);
+      for (const id of expected) expect(neutral, id).toContain(id);
+      // Neither is printed twice: one folded match each.
+      for (const id of expected) expect(folded.filter((m) => m.identity === id)).toHaveLength(1);
+    },
+  );
 
   test("a disagreement on the score itself is a dispute, never a neutral site", () => {
     const pair = shared.find((m) => m.neutral) ?? shared[0];

@@ -1,0 +1,127 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "GAC",
+  "generated_at": "2026-11-09T02:05:00+00:00",
+  "data_collected_at": "2026-11-09T01:43:51+00:00",
+  "headline": "Harding holds on to finish top of the table",
+  "dek": "A goalless draw with Southwestern Oklahoma State on the final day was enough for Harding to stay ahead. Ouachita Baptist, the nearest side in the table, had lost their own last match to the same opponents.",
+  "lede_basis": {
+    "programme": "harding",
+    "wins": 10,
+    "draws": 4,
+    "losses": 5
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Goals and the table part company here: Southwestern Oklahoma State scored more than any other programme but drew eight times, and finished behind Harding.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "southwestern-oklahoma-state": 34,
+        "ouachita-baptist": 24,
+        "harding": 21,
+        "southern-nazarene": 19,
+        "northwestern-oklahoma-state": 18,
+        "oklahoma-baptist": 15,
+        "east-central": 10
+      },
+      "highlight": "southwestern-oklahoma-state"
+    },
+    "basis": {
+      "programme": "southwestern-oklahoma-state",
+      "gf": 34,
+      "ga": 15,
+      "wins": 9,
+      "draws": 8,
+      "losses": 3,
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "of_any": 6
+    }
+  },
+  "wire": {
+    "line": "Northwestern Oklahoma State's Taylor Annen ends the season with nine shutouts.",
+    "basis": {
+      "source": "stats",
+      "player": "Taylor Annen",
+      "programme": "northwestern-oklahoma-state",
+      "shutouts": 9
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three Northwestern Oklahoma State matches from August are past their date with no result published.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "northwestern-oklahoma-state",
+        "count": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "East Central close the season with one win and seventeen defeats.",
+      "basis": {
+        "programme": "east-central",
+        "wins": 1,
+        "draws": 0,
+        "losses": 17
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Thirteen different players have scored for Harding.",
+      "basis": {
+        "programme": "harding",
+        "distinct_scorers_min": 13
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Madaline Bailey has made 94 saves for Southern Nazarene.",
+      "basis": {
+        "source": "stats",
+        "player": "Madaline Bailey",
+        "programme": "southern-nazarene",
+        "saves": 94
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Braelee Epp",
+      "programme": "southwestern-oklahoma-state",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 4 A · 46 shots"
+    },
+    {
+      "player": "Kinsey Geasland",
+      "programme": "southwestern-oklahoma-state",
+      "position": "FWD",
+      "class": "FR",
+      "line": "9 G · 4 A · 81 shots"
+    },
+    {
+      "player": "Mykala Ulrich",
+      "programme": "harding",
+      "position": "FWD",
+      "class": "SO",
+      "line": "5 G · 2 A · 28 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 harding v southwestern-oklahoma-state",
+      "line": "Southwestern Oklahoma State did not score against Harding in any of their meetings this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T04:23:38.627Z"
+  }
+}

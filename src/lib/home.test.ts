@@ -1038,7 +1038,9 @@ describe("the reconciliation the page stopped printing", () => {
    *  for both. */
   function descriptionDisagreements(text: string, played: number, total: number): string[] {
     const out: string[] = [];
-    const m = /(\d+) of (\d+) matches played across ([a-z]+) (conference|conferences)\./.exec(text);
+    const m = /(\d+) of (\d+) matches played across ([a-z]+|\d+) (conference|conferences)\./.exec(
+      text,
+    );
     if (!m) {
       out.push("the description does not state played of total at all");
       return out;

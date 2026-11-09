@@ -9,7 +9,7 @@
 import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { site } from "../../site.config.ts";
+import { divisions, site } from "../../site.config.ts";
 import { BASEMAP_VIEWBOX } from "../basemap.ts";
 import { regionLabels } from "../geo.ts";
 import { bandMeta, homeBands, homeLayout, mapView, openBandIndex } from "../home.ts";
@@ -293,12 +293,19 @@ describe("against the live config", () => {
 
   test("every live key carries the region site.conferenceRegions gives it", () => {
     // Against the nineteen: the twelve is a synthetic design size, and the
-    // live site outgrew it in batch 3.
+    // live site outgrew it in batch 3. The nineteen are the MEN'S live list,
+    // whichever division this run builds: the women's follows other
+    // conferences (MIAA, NSIC) the fixture never modelled. Regions are shared
+    // between the divisions, so every fixture key is held to the live table.
     const cfg = densityConfig(19);
-    for (const key of site.conferences) {
+    const live = divisions.men.conferences;
+    for (const key of live) {
       expect(cfg.conferenceRegions[key], key).toBe(site.conferenceRegions[key] ?? "");
     }
-    expect(site.conferences.every((key) => cfg.conferences.includes(key))).toBe(true);
+    for (const key of cfg.conferences) {
+      expect(cfg.conferenceRegions[key], key).toBe(site.conferenceRegions[key] ?? "");
+    }
+    expect(live.every((key) => cfg.conferences.includes(key))).toBe(true);
   });
 
   test("nothing in src/ outside a test imports the fixture", () => {
