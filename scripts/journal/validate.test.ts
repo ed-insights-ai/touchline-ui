@@ -17,6 +17,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
   boxScoreGaps,
+  conferenceOpensOn,
   fixtureCount,
   goalsForByProgramme,
   loadSeason,
@@ -27,8 +28,10 @@ import {
   scoredCount,
   unresolved,
 } from "../../src/lib/derive.ts";
+import { dayOfMonth, monLong } from "../../src/lib/format.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
 import { WIRE_MAX_CHARS } from "../../src/lib/prose.ts";
+import { site } from "../../src/site.config.ts";
 import { coverageSubject, restatementDrops, validateJournal } from "./validate.ts";
 
 // The season's dateline is pinned. pageFacts() vouches for the date parts of
@@ -106,7 +109,11 @@ describe("numbers a reader will believe", () => {
   test("the season's own dateline is not a claim", () => {
     // The kicker's date and the day conference play opens vary with no
     // author's involvement; flagging them would bury the numerals that matter.
-    const opens = "September 17";
+    // The active division's own opening day: "September 17" for the men's
+    // GAC, another date for the women's.
+    const opensOn = conferenceOpensOn(season);
+    expect(opensOn, "the GAC has no conference opening day").not.toBeNull();
+    const opens = `${monLong(opensOn as string)} ${dayOfMonth(opensOn as string)}`;
     const j = journal({ headline: `Conference play opens on ${opens}.` });
     expect(paths(j)).not.toContain("headline");
   });
@@ -678,30 +685,37 @@ describe("a finding is about the football, not the collection", () => {
     expect(coverageSubject(`${football[0]} ${boxScores}`)).toBeNull();
   });
 
-  test("a coverage finding is dropped as a claim the CLI can ask about, and the football stands", () => {
-    const j = journal({
-      findings: [
-        {
-          label: "observed",
-          text: noScoreGap,
-          basis: { source: "fixtures", finals_without_score: 0, past_date_no_result: 0 },
-        },
-        { label: "observed", text: boxScores, basis: { source: "matches", box_score_gaps: 0 } },
-        ...football.map((text) => ({ label: "context" as const, text, basis: {} })),
-      ],
-    });
-    const { journal: out, report } = validateJournal(j, season, "test");
-    expect(out.findings.map((f) => f.text)).toEqual(football);
-    const dropped = report.claims.filter((c) => c.checker === "coverage_subject");
-    expect(dropped.map((c) => c.path)).toEqual(["findings[0]", "findings[1]"]);
-    expect(dropped.every((c) => c.dropped && c.verdict === "contradicted")).toBe(true);
-    expect(dropped[0]?.mismatches[0]).toContain("belongs in the coverage disclosure");
-    // The writer is asked once more, as for a restatement.
-    expect(restatementDrops(report.claims).map((d) => d.path)).toEqual([
-      "findings[0]",
-      "findings[1]",
-    ]);
-  });
+  // The football lines above are the men's GAC journal, and the coverage
+  // lines are true of the men's collect only: under the women's division
+  // the "no score gap" figure is false, so a numbers check drops it before
+  // the coverage rule is ever reached.
+  test.skipIf(site.gender !== "men")(
+    "a coverage finding is dropped as a claim the CLI can ask about, and the football stands",
+    () => {
+      const j = journal({
+        findings: [
+          {
+            label: "observed",
+            text: noScoreGap,
+            basis: { source: "fixtures", finals_without_score: 0, past_date_no_result: 0 },
+          },
+          { label: "observed", text: boxScores, basis: { source: "matches", box_score_gaps: 0 } },
+          ...football.map((text) => ({ label: "context" as const, text, basis: {} })),
+        ],
+      });
+      const { journal: out, report } = validateJournal(j, season, "test");
+      expect(out.findings.map((f) => f.text)).toEqual(football);
+      const dropped = report.claims.filter((c) => c.checker === "coverage_subject");
+      expect(dropped.map((c) => c.path)).toEqual(["findings[0]", "findings[1]"]);
+      expect(dropped.every((c) => c.dropped && c.verdict === "contradicted")).toBe(true);
+      expect(dropped[0]?.mismatches[0]).toContain("belongs in the coverage disclosure");
+      // The writer is asked once more, as for a restatement.
+      expect(restatementDrops(report.claims).map((d) => d.path)).toEqual([
+        "findings[0]",
+        "findings[1]",
+      ]);
+    },
+  );
 
   test("the live GAC journal leaves the validator with no coverage finding", () => {
     // Read-only: the file on disk is never regenerated or written by a test.

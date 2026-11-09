@@ -193,8 +193,13 @@ describe("against the rosters this site actually collects", () => {
         placed += c.placed;
       }
     }
+    // The floor is the division's: D2 men's rosters run about a third
+    // international, the women's about a tenth (measured 2026-11-08: 656 of
+    // 7,105 placed, with 166 unplaced, so not a reading failure). A floor
+    // set from the men's would call the women's honest figure a catastrophe.
+    const floor = site.gender === "men" ? 0.15 : 0.04;
     expect(placed).toBeGreaterThan(500);
-    expect(abroad / placed).toBeGreaterThan(0.15);
+    expect(abroad / placed).toBeGreaterThan(floor);
     expect(abroad / placed).toBeLessThan(0.65);
   });
 });

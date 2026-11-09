@@ -11,9 +11,11 @@
  */
 
 import { describe, expect, test } from "bun:test";
+import { site } from "../site.config.ts";
 import { loadSeason, matchDetailOf } from "./derive.ts";
 import { matchMinute } from "./format.ts";
 import type { MatchDetail, MatchPlay } from "./model.ts";
+import { goalRecord } from "./plays.ts";
 import {
   cardPlayer,
   type MarkKind,
@@ -348,11 +350,22 @@ const realMatches: RealMatch[] = seasons.flatMap(({ key, season }) =>
   }),
 );
 
-/** The test's own reading of a play list: what should be drawn, what noted. */
+/** The test's own reading of a play list: what should be drawn, what noted.
+ *  A goal line the box score's record does not count (lib/plays.ts
+ *  goalRecord: the log outnumbers the final and the scoring summary has no
+ *  entry at that clock) is noted, never drawn. Measured on the women's
+ *  2026 GAC: sidearm:oklahoma-baptist:11850 logs six Midwestern State goals
+ *  in a match the box score, its summary and the schedule all call 0-5, and
+ *  the 56:31 line is the one the summary lacks. */
 function recount(detail: MatchDetail) {
   const drawn: Partial<Record<MarkKind, number>> = {};
   const noted: Partial<Record<MarkKind, number>> = {};
+  const { uncounted } = goalRecord(detail);
   for (const p of detail.plays ?? []) {
+    if (uncounted.has(p)) {
+      noted.goal = (noted.goal ?? 0) + 1;
+      continue;
+    }
     const kind = markKindOf(p);
     if (kind === null) continue;
     const placeable = matchMinute(p.clock?.trim() || undefined) !== null && p.team !== undefined;
@@ -422,6 +435,9 @@ describe("the collected placeholder cautions (tui-mvc)", () => {
     expect(allCards.length).toBeGreaterThan(0);
     expect(placeholders.length).toBeGreaterThan(0);
     // Both of the ruling's decisive box scores, recomputed rather than pinned.
+    // They are men's matches; the women's collect is held to the two counts
+    // above alone.
+    if (site.gender !== "men") return;
     const forMatch = (id: string) => placeholders.filter((p) => p.id === id).length;
     expect(forMatch("sidearm:uah:13290")).toBe(2);
     expect(forMatch("sidearm:saint-edwards:8618")).toBe(2);
@@ -454,7 +470,10 @@ describe("the collected placeholder cautions (tui-mvc)", () => {
   });
 });
 
-describe("the contract's reference arithmetic (tui-641)", () => {
+// The contract's reference records are men's matches (the men's GAC and
+// MIAA collect), so they are read only when the run builds the men's
+// division.
+describe.skipIf(site.gender !== "men")("the contract's reference arithmetic (tui-641)", () => {
   // Deliberately pinned: these are the binding contract's own figures for the
   // NSU–Lincoln record of Aug 30, recomputed from the live play list before
   // this shipped and equal on that day. If a recollect ever moves this
