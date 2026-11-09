@@ -395,7 +395,13 @@ describe("up to the column cap the page is columns; past it, region bands", () =
         : null;
     };
 
-    const dist = `${process.cwd()}/dist/index.html`;
+    // The page this division's build wrote: TOUCHLINE_OUT_DIR when the build
+    // was pointed somewhere, else where `just build` puts it — dist/ for the
+    // men, dist/women/ for the women. A women's run reading dist/ would hold
+    // the men's page to the women's journals.
+    const outDir =
+      process.env.TOUCHLINE_OUT_DIR?.trim() || (site.gender === "women" ? "dist/women" : "dist");
+    const dist = `${process.cwd()}/${outDir}/index.html`;
     const stale = builtPageIsStale(dist, `${process.cwd()}/src`);
     if (stale) console.warn(`skipping "the built home page": ${stale}`);
     test.skipIf(stale !== null)("exactly one band is open, and it is the chosen one", () => {

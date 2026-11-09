@@ -56,13 +56,18 @@ all: collect journal build publish
 # keeps serving yesterday's build, which is the correct failure —
 # correctness over freshness, by the owner's ruling (tui-9ue).
 #
-# The tests describe the men's configuration (19 conferences, the men's
-# journals), so they always run under it: the women's cadence run calls
-# `just publish` with TOUCHLINE_GENDER=women in its environment, and the gate
-# must hold the same tree to the same tests whichever division's run calls it.
+# The suite runs once per division the deployment publishes, each pinned
+# explicitly: the women's cadence run calls `just publish` with
+# TOUCHLINE_GENDER=women in its environment, and the gate must hold the same
+# tree to the same tests whichever division's run calls it. The women's run
+# reads the women's build at dist/women (home.test).
 gate:
-    @echo "→ gate"
-    TOUCHLINE_GENDER=men bun test
+    @echo "→ gate  (men)"
+    TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" bun test
+    if [ -n "{{with_women}}" ]; then \
+      echo "→ gate  (women)"; \
+      TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" bun test; \
+    fi
 
 # Ask the sources for today's record. Costs network and time; nothing else does.
 # Collect only: the journal and the publish are the recipes below, not the
@@ -118,7 +123,7 @@ verify:
     bunx tsc --noEmit -p tsconfig.json
     bun run check
     just build
-    TOUCHLINE_GENDER=men bun test
+    just gate
     bun scripts/links.ts dist "{{site_base}}"
 
 # Pixel-diff the built site against a saved baseline, at desktop and phone
