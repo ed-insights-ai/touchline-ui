@@ -1,0 +1,138 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-LSC.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "LSC",
+  "validated_at": "2026-11-09T03:57:01.336Z",
+  "data_collected_at": "2026-11-09T03:02:11+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "One programme scores at a different rate from the rest: Dallas Baptist have more goals than Angelo State, UT Permian Basin, Texas A&M International, Sul Ross State and Eastern New Mexico together.",
+      "unbacked": ["1"]
+    },
+    {
+      "path": "findings[3].text",
+      "text": "Kat Graves has made 105 saves for Sul Ross State, a save percentage of .808.",
+      "unbacked": ["808"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "One programme scores at a different rate from the rest: Dallas Baptist have more goals than Angelo State, UT Permian Basin, Texas A&M International, Sul Ross State and Eastern New Mexico together.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Texas Woman's have conceded three goals in all their matches this season.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Seven matches dated in August still carry no published result.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Sixteen different players have scored for Dallas Baptist.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Helen Lazaro has scored 14 goals for St. Mary's as a freshman.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Kat Graves has made 105 saves for Sul Ross State, a save percentage of .808.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Ashley Washburn — 13 G · 16 A · 79 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Helen Lazaro — 14 G · 4 A · 67 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Lauren Wade — 11 G · 2 A · 55 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-08 dallas-baptist v ut-dallas",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T03:55:52.025Z",
+    "generate_ms": 69308,
+    "validate_ms": 3,
+    "wall_ms": 69311,
+    "concurrency": 4
+  }
+}

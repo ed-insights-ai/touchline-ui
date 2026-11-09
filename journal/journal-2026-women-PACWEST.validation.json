@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-PACWEST.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PACWEST",
+  "validated_at": "2026-11-09T03:57:13.658Z",
+  "data_collected_at": "2026-11-09T03:05:07+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Hawai'i Hilo sit mid-chart on 21 goals yet conceded eleven in all matches: their place near the top of the table was built at the back, not in front of goal.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Hawai'i Pacific have no win among their published results: three draws and thirteen defeats.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Concordia Irvine have lost two matches in all, both of them to Point Loma, against eleven wins and five draws.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Lydia Keller has kept nine shutouts in goal for Hawai'i Hilo.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Jessup conceded 50 goals in all matches, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is hawaii-pacific at 48"
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Sydney Bakritzes has made 80 saves in goal for Chaminade.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Twelve matches dated in August have passed with no result published.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Briley Phelps — 12 G · 6 A · 95 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Ashley Grubert — 12 G · 4 A · 33 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Maddy Saruwatari — 8 G · 4 A · 59 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-07 concordia-irvine v biola",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T03:55:52.035Z",
+    "generate_ms": 81621,
+    "validate_ms": 1,
+    "wall_ms": 81622,
+    "concurrency": 4
+  }
+}

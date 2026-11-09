@@ -1,0 +1,127 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-CC.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CC",
+  "validated_at": "2026-11-09T03:58:06.138Z",
+  "data_collected_at": "2026-11-09T02:51:57+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "The table and the scoring agree at the top: Young Harris, Francis Marion and UNC Pembroke lead both, and the lowest of their totals is still above every other programme's.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "UNC Pembroke went unbeaten in conference play and still sit behind Young Harris.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Fifteen matches past their date have no published result, all of them dated in August, before conference play opened.",
+      "checker": "unresolved+conference_opens",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Breanna Herlihy has scored 13 of Ferrum's 17 goals.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Shorter have scored seven goals and conceded 59.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Tehya Dave' has provided 15 assists for Francis Marion.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Matea Bradfield — 14 G · 9 A · 53 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Willow Price — 12 G · 3 A · 70 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Faith Niebrugge — 10 G · 4 A · 60 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-07 francis-marion v unc-pembroke",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-09T03:55:52.033Z",
+    "generate_ms": 134103,
+    "validate_ms": 1,
+    "wall_ms": 134104,
+    "concurrency": 4
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PACWEST",
+  "generated_at": "2026-11-09T03:20:00+00:00",
+  "data_collected_at": "2026-11-09T03:05:07+00:00",
+  "headline": "Point Loma top the table without a conference defeat",
+  "dek": "Point Loma close the conference schedule without a defeat in it, and Hawai'i Hilo are the only other side who can say the same. Point Loma's 40 goals in all matches are more than any of the other nine programmes scored, set against nineteen conceded.",
+  "lede_basis": {
+    "programme": "point-loma",
+    "gf": 40,
+    "ga": 19,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 9
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Hawai'i Hilo sit mid-chart on 21 goals yet conceded eleven in all matches: their place near the top of the table was built at the back, not in front of goal.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "point-loma": 40,
+        "concordia-irvine": 36,
+        "biola": 31,
+        "dominican-of-california": 25,
+        "hawaii-hilo": 21,
+        "vanguard": 21,
+        "chaminade": 13,
+        "jessup": 13,
+        "westmont": 13,
+        "hawaii-pacific": 9
+      },
+      "highlight": "hawaii-hilo"
+    },
+    "basis": {
+      "programme": "hawaii-hilo",
+      "gf": 21,
+      "ga": 11
+    }
+  },
+  "wire": {
+    "line": "Hawai'i Pacific have no win among their published results: three draws and thirteen defeats.",
+    "basis": {
+      "programme": "hawaii-pacific",
+      "wins": 0,
+      "draws": 3,
+      "losses": 13
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Concordia Irvine have lost two matches in all, both of them to Point Loma, against eleven wins and five draws.",
+      "basis": {
+        "programme": "concordia-irvine",
+        "wins": 11,
+        "draws": 5,
+        "losses": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lydia Keller has kept nine shutouts in goal for Hawai'i Hilo.",
+      "basis": {
+        "source": "stats",
+        "player": "Lydia Keller",
+        "programme": "hawaii-hilo",
+        "shutouts": 9
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Jessup conceded 50 goals in all matches, more than any other programme in the conference.",
+      "basis": {
+        "programme": "jessup",
+        "gf": 13,
+        "ga": 50,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Sydney Bakritzes has made 80 saves in goal for Chaminade.",
+      "basis": {
+        "source": "stats",
+        "player": "Sydney Bakritzes",
+        "programme": "chaminade",
+        "saves": 80
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Twelve matches dated in August have passed with no result published.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 12
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Briley Phelps",
+      "programme": "biola",
+      "position": "MID",
+      "class": "SR",
+      "line": "12 G · 6 A · 95 shots"
+    },
+    {
+      "player": "Ashley Grubert",
+      "programme": "concordia-irvine",
+      "position": "MID",
+      "class": "SR",
+      "line": "12 G · 4 A · 33 shots"
+    },
+    {
+      "player": "Maddy Saruwatari",
+      "programme": "point-loma",
+      "position": "FWD",
+      "class": "SO",
+      "line": "8 G · 4 A · 59 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 concordia-irvine v biola",
+      "line": "Biola came in off a win over Point Loma, Concordia Irvine off a win over Hawai'i Hilo."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:57:13.658Z"
+  }
+}

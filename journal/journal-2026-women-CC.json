@@ -1,0 +1,151 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CC",
+  "generated_at": "2026-11-09T03:10:00+00:00",
+  "data_collected_at": "2026-11-09T02:51:57+00:00",
+  "headline": "Francis Marion end UNC Pembroke's unbeaten run",
+  "dek": "UNC Pembroke had not lost since August and came through conference play without a defeat. Francis Marion ended the run in the last match on the calendar, adding to the 58 goals that no other programme in the conference has matched.",
+  "lede_basis": {
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "francis-marion",
+    "of_any": 15,
+    "gf": 58
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "The table and the scoring agree at the top: Young Harris, Francis Marion and UNC Pembroke lead both, and the lowest of their totals is still above every other programme's.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "francis-marion": 58,
+        "unc-pembroke": 45,
+        "young-harris": 43,
+        "belmont-abbey": 35,
+        "southern-wesleyan": 33,
+        "barton": 30,
+        "emmanuel": 28,
+        "chowan": 27,
+        "converse": 26,
+        "lees-mcrae": 26,
+        "mount-olive": 22,
+        "ferrum": 17,
+        "king": 16,
+        "north-greenville": 15,
+        "erskine": 12,
+        "shorter": 7
+      },
+      "highlight": "francis-marion"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "young-harris",
+      "of": [
+        "belmont-abbey",
+        "southern-wesleyan",
+        "barton",
+        "emmanuel",
+        "chowan",
+        "converse",
+        "lees-mcrae",
+        "mount-olive",
+        "ferrum",
+        "king",
+        "north-greenville",
+        "erskine",
+        "shorter"
+      ],
+      "gf": 43
+    }
+  },
+  "wire": {
+    "line": "UNC Pembroke went unbeaten in conference play and still sit behind Young Harris.",
+    "basis": {
+      "programme": "unc-pembroke",
+      "wins": 12,
+      "draws": 5,
+      "losses": 2
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Fifteen matches past their date have no published result, all of them dated in August, before conference play opened.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 15,
+        "conference_opens": "2026-09-05"
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Breanna Herlihy has scored 13 of Ferrum's 17 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Breanna Herlihy",
+        "programme": "ferrum",
+        "goals": 13,
+        "gf": 17,
+        "ga": 55
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Shorter have scored seven goals and conceded 59.",
+      "basis": {
+        "programme": "shorter",
+        "gf": 7,
+        "ga": 59
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Tehya Dave' has provided 15 assists for Francis Marion.",
+      "basis": {
+        "source": "stats",
+        "player": "Tehya Dave'",
+        "programme": "francis-marion",
+        "assists": 15
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Matea Bradfield",
+      "programme": "francis-marion",
+      "position": "FWD",
+      "class": "SO",
+      "line": "14 G · 9 A · 53 shots"
+    },
+    {
+      "player": "Willow Price",
+      "programme": "unc-pembroke",
+      "position": "FWD",
+      "class": "FR",
+      "line": "12 G · 3 A · 70 shots"
+    },
+    {
+      "player": "Faith Niebrugge",
+      "programme": "young-harris",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 4 A · 60 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 francis-marion v unc-pembroke",
+      "line": "Francis Marion had lost both earlier meetings between the two this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:58:06.138Z"
+  }
+}

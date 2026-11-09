@@ -1,0 +1,152 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "G-MAC",
+  "generated_at": "2026-11-09T03:10:00+00:00",
+  "data_collected_at": "2026-11-09T02:54:29+00:00",
+  "headline": "Ashland hand Cedarville their first defeat by a conference rival",
+  "dek": "Eleven days after losing on the same ground, Ashland went back to Cedarville and won, with the only goal they have scored against them in three meetings this season. It was one of four goals Cedarville have conceded in twenty matches.",
+  "lede_basis": {
+    "programme": "cedarville",
+    "wins": 14,
+    "draws": 4,
+    "losses": 2,
+    "gf": 32,
+    "ga": 4,
+    "matches": 20,
+    "days_between_meetings": 11,
+    "meetings": 3,
+    "ashland_goals_in_meetings": 1
+  },
+  "lede_updated": "2026-11-09",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring and standing run together: the five programmes with 30 goals or more are the five at the top of the table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "ashland": 41,
+        "findlay": 36,
+        "thomas-more": 36,
+        "cedarville": 32,
+        "northwood": 30,
+        "tiffin": 26,
+        "walsh": 26,
+        "lake-erie": 17,
+        "malone": 15,
+        "ursuline": 14,
+        "ohio-dominican": 11,
+        "kentucky-wesleyan": 10
+      },
+      "highlight": "ashland"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "northwood",
+      "of": [
+        "tiffin",
+        "walsh",
+        "lake-erie",
+        "malone",
+        "ursuline",
+        "ohio-dominican",
+        "kentucky-wesleyan"
+      ],
+      "gf": 30,
+      "count_at_30_or_more": 5
+    }
+  },
+  "wire": {
+    "line": "Kentucky Wesleyan have yet to win a match this season and have conceded 53 goals.",
+    "basis": {
+      "programme": "kentucky-wesleyan",
+      "wins": 0,
+      "draws": 3,
+      "losses": 15,
+      "gf": 10,
+      "ga": 53
+    },
+    "updated": "2026-11-09"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Ashland have scored 41 goals, more than Malone, Ursuline and Kentucky Wesleyan together.",
+      "basis": {
+        "comparative": "greater_than_sum",
+        "metric": "gf",
+        "programme": "ashland",
+        "of": ["malone", "ursuline", "kentucky-wesleyan"],
+        "gf": 41
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Emma Yeager has made 71 saves for Thomas More against nine goals conceded, a save percentage of .888.",
+      "basis": {
+        "source": "stats",
+        "player": "Emma Yeager",
+        "programme": "thomas-more",
+        "saves": 71,
+        "goals_against": 9,
+        "save_pct": 0.888
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Madelyn Boyd, a Northwood freshman, has ten goals from 31 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Madelyn Boyd",
+        "programme": "northwood",
+        "goals": 10,
+        "shots": 31
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lindsay Jacob has kept six shutouts in goal for Northwood.",
+      "basis": {
+        "source": "stats",
+        "player": "Lindsay Jacob",
+        "programme": "northwood",
+        "shutouts": 6
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Josie Gruber",
+      "programme": "thomas-more",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 3 A · 47 shots"
+    },
+    {
+      "player": "Addison Williams",
+      "programme": "findlay",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 2 A · 61 shots"
+    },
+    {
+      "player": "Tessa Blain",
+      "programme": "ashland",
+      "position": "FWD",
+      "class": "SO",
+      "line": "6 G · 3 A · 40 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 cedarville v ashland",
+      "line": "Ashland have now beaten every other conference side but Findlay."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-09T03:58:59.406Z"
+  }
+}
