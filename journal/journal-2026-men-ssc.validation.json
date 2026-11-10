@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-11-08T23:28:15.092Z",
-  "data_collected_at": "2026-11-08T23:23:30+00:00",
+  "validated_at": "2026-11-10T12:45:30.760Z",
+  "data_collected_at": "2026-11-10T12:38:21+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -39,7 +39,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lynn have won at Barry, beaten Rollins and won at Florida Southern, all since Tuesday.",
+      "text": "Florida Tech finish the conference season top of the table, Embry-Riddle second.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -125,13 +125,22 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-13 aum v lynn",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-08T23:26:59.645Z",
-    "generate_ms": 75445,
-    "validate_ms": 1,
-    "wall_ms": 75447,
+    "started_at": "2026-11-10T12:44:18.477Z",
+    "generate_ms": 72280,
+    "validate_ms": 2,
+    "wall_ms": 72282,
     "concurrency": 4
   }
 }

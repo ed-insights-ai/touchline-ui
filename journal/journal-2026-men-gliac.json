@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-11-08T23:30:00+00:00",
-  "data_collected_at": "2026-11-08T23:12:53+00:00",
+  "generated_at": "2026-11-10T12:50:00+00:00",
+  "data_collected_at": "2026-11-10T12:33:32+00:00",
   "headline": "Saginaw Valley State finish top of the table",
   "dek": "Saginaw Valley State's one defeat on the record came at home to Northern Michigan in September, and they did not lose again. On the last day Roosevelt won at Purdue Northwest, ending a run of wins the home side had carried since losing at Saginaw Valley State.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 1
   },
   "lede_updated": "2026-11-08",
-  "displaced_by": "The standing lines stopped being true: Roosevelt won at Purdue Northwest on the final day and ended Purdue Northwest's run. Every side has now played its full conference schedule, so the table is complete with Saginaw Valley State top.",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Davenport and St. Cloud State together.",
@@ -131,10 +130,14 @@
     "last_match": {
       "fixture_ref": "2026-11-08 purdue-northwest v roosevelt",
       "line": "Roosevelt end Purdue Northwest's winning run and have now won on both grounds this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 roosevelt v purdue-northwest",
+      "line": "Purdue Northwest have yet to win at Roosevelt this season, and lost on this ground in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:26:25.051Z"
+    "validated_at": "2026-11-10T12:43:01.890Z"
   }
 }

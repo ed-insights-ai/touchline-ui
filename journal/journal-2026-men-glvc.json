@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-11-08T23:25:00+00:00",
-  "data_collected_at": "2026-11-08T23:13:24+00:00",
+  "generated_at": "2026-11-10T12:45:00+00:00",
+  "data_collected_at": "2026-11-10T12:33:53+00:00",
   "headline": "Lincoln finish the season unbeaten",
-  "dek": "Lincoln beat Truman, the side that had held them to a draw in September, on the season's last day, and finish with fifteen wins, four draws and no defeat. Across all their matches they conceded twelve goals.",
+  "dek": "Lincoln beat Truman, the side that had held them to a draw in September, in their last match of the season, and close their schedule with fifteen wins, four draws and no defeat. Across all their matches they conceded twelve goals.",
   "lede_basis": {
     "programme": "lincoln",
     "wins": 15,
@@ -15,8 +15,8 @@
     "gf": 42,
     "ga": 12
   },
-  "lede_updated": "2026-11-08",
-  "displaced_by": "Lincoln beat Truman, so the match the old headline previewed has been played and the season has closed with Lincoln unbeaten",
+  "lede_updated": "2026-11-10",
+  "displaced_by": "The old dek said Lincoln won on the season's last day, which is no longer true because Maryville v Drury is still to be played. The headline stands and the dek is corrected to say it was Lincoln's last match.",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
@@ -147,10 +147,14 @@
     "last_match": {
       "fixture_ref": "2026-11-08 lincoln v truman",
       "line": "Lincoln have now won every match they played at home this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 maryville v drury",
+      "line": "The two sides are level in the table behind Lincoln, and drew when they met in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:26:26.160Z"
+    "validated_at": "2026-11-10T12:43:15.016Z"
   }
 }

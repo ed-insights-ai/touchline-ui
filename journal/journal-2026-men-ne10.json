@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-11-08T23:25:00+00:00",
-  "data_collected_at": "2026-11-08T23:16:09+00:00",
+  "generated_at": "2026-11-10T12:45:00+00:00",
+  "data_collected_at": "2026-11-10T12:35:47+00:00",
   "headline": "Southern New Hampshire see off American International again",
   "dek": "Southern New Hampshire beat American International by three clear goals at home on Saturday, a wider margin than the single goal that settled their meeting there in September. Their one defeat in eighteen matches came at Adelphi in October.",
   "lede_basis": {
@@ -158,10 +158,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 southern-new-hampshire v american-international",
       "line": "Southern New Hampshire have now won both of this season's meetings with American International."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 mercy v franklin-pierce",
+      "line": "Mercy have yet to lose to an NE10 side this season; Franklin Pierce come in from a defeat at Southern New Hampshire."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:26:56.942Z"
+    "validated_at": "2026-11-10T12:43:48.021Z"
   }
 }

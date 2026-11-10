@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-11-09T01:55:00+00:00",
-  "data_collected_at": "2026-11-09T01:48:55+00:00",
+  "generated_at": "2026-11-10T12:45:00+00:00",
+  "data_collected_at": "2026-11-10T12:37:41+00:00",
   "headline": "Emory & Henry beat Catawba to top the table unbeaten",
   "dek": "Emory & Henry beat Catawba on Sunday and finished the conference season a point above them, the only side in the table without a defeat. The sides' first meeting, at Catawba in September, had ended goalless.",
   "lede_basis": {
@@ -140,10 +140,14 @@
     "last_match": {
       "fixture_ref": "2026-11-08 emory-henry v catawba",
       "line": "Catawba had lost only once before, at home to Coker in October; Emory & Henry remain unbeaten."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-15 emory-henry v lees-mcrae",
+      "line": "Emory & Henry have yet to lose this season; their opponents beat Lenoir-Rhyne and Tusculum in September, both at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T01:51:53.221Z"
+    "validated_at": "2026-11-10T12:44:26.600Z"
   }
 }

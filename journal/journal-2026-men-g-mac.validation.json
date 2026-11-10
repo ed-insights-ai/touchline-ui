@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-11-09T12:42:49.147Z",
-  "data_collected_at": "2026-11-09T12:32:40+00:00",
+  "validated_at": "2026-11-10T12:42:30.466Z",
+  "data_collected_at": "2026-11-10T12:32:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -124,13 +124,22 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-15 findlay v northern-michigan",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-09T12:42:19.987Z",
-    "generate_ms": 29158,
+    "started_at": "2026-11-10T12:41:54.960Z",
+    "generate_ms": 35504,
     "validate_ms": 1,
-    "wall_ms": 29160,
+    "wall_ms": 35505,
     "concurrency": 4
   }
 }

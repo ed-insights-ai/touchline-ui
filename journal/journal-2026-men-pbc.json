@@ -3,28 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-11-08T23:30:00+00:00",
-  "data_collected_at": "2026-11-08T23:17:06+00:00",
-  "headline": "Flagler finish the calendar with one defeat",
-  "dek": "Flagler's only defeat came at Florida Southern in September, set against fourteen wins and four draws, and no other programme in the conference won as many. Saturday's win over North Georgia was the last match on the calendar.",
+  "generated_at": "2026-11-10T12:50:00+00:00",
+  "data_collected_at": "2026-11-10T12:36:31+00:00",
+  "headline": "North Georgia alone have matches left to play",
+  "dek": "North Georgia travel to West Alabama on Friday and to Catawba on Sunday, the only matches left on any programme's calendar. They go with thirteen wins, five draws and three defeats, and have not played since Saturday's defeat at Flagler.",
   "lede_basis": {
-    "comparative": "greater_than_each",
-    "metric": "wins",
-    "programme": "flagler",
-    "of": [
-      "clayton-state",
-      "georgia-southwestern",
-      "lander",
-      "middle-georgia-state",
-      "north-georgia",
-      "usc-aiken"
-    ],
-    "wins": 14,
-    "draws": 4,
-    "losses": 1
+    "programme": "north-georgia",
+    "wins": 13,
+    "draws": 5,
+    "losses": 3
   },
-  "lede_updated": "2026-11-08",
-  "displaced_by": "No matches remain on the calendar, so the standing lines' claim that Flagler alone still had matches to play is no longer true.",
+  "lede_updated": "2026-11-10",
+  "displaced_by": "Two North Georgia matches are now on the calendar, so the standing dek's claim that Saturday's match was the last one is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Fourteen different players have scored North Georgia's 44 goals, so their attack is spread across the squad rather than leaning on one scorer.",
@@ -154,10 +144,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 flagler v north-georgia",
       "line": "Lander are the only side besides Flagler to have beaten North Georgia this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 west-alabama v north-georgia",
+      "line": "West Alabama lost on both of their September visits to this conference, at Middle Georgia State and Georgia Southwestern."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:29:12.892Z"
+    "validated_at": "2026-11-10T12:44:18.295Z"
   }
 }

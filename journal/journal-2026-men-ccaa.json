@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "generated_at": "2026-11-09T12:44:00+00:00",
-  "data_collected_at": "2026-11-09T12:31:42+00:00",
+  "generated_at": "2026-11-10T12:45:00+00:00",
+  "data_collected_at": "2026-11-10T12:31:31+00:00",
   "headline": "Cal State LA win where they were last held",
   "dek": "Cal State LA won at Cal State San Bernardino, the ground where they drew in October, and are now nineteen matches without a defeat. Seventeen of those were wins, and neither of the two sides to take a point from them managed to score.",
   "lede_basis": {
@@ -17,7 +17,6 @@
     "ga": 6
   },
   "lede_updated": "2026-11-09",
-  "displaced_by": "Cal State LA's win at Cal State San Bernardino extends the unbeaten run to nineteen; the standing dek's eighteen is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Fresno Pacific have scored 37 goals and conceded only 27, yet have lost ten of their eighteen matches: a goal difference this healthy has bought them fewer wins than defeats.",
@@ -150,10 +149,14 @@
     "last_match": {
       "fixture_ref": "2026-11-08 cal-state-san-bernardino v cal-state-la",
       "line": "Cal State San Bernardino came in having won every match since their October defeat at Cal Poly Pomona."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-15 csu-pueblo v cal-state-san-bernardino",
+      "line": "Cal State San Bernardino have not lost back-to-back matches all season, and come off a home defeat by Cal State LA."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T12:43:23.345Z"
+    "validated_at": "2026-11-10T12:41:54.776Z"
   }
 }

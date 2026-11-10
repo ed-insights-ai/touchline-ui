@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-11-08T23:58:00+00:00",
-  "data_collected_at": "2026-11-08T23:53:13+00:00",
-  "headline": "Regis stop Fort Lewis where CSU Pueblo could not",
-  "dek": "Fort Lewis arrived having ended CSU Pueblo's unbeaten season and left beaten, as they had been when Regis visited them in October. Regis have twelve wins and three defeats in all, and no further match is listed for any side in the conference.",
+  "generated_at": "2026-11-10T12:41:00+00:00",
+  "data_collected_at": "2026-11-10T12:37:17+00:00",
+  "headline": "Only the table's top sides have matches left",
+  "dek": "Regis, CSU Pueblo, Fort Lewis and UCCS each have a match listed against a non-conference side this week; nobody else in the conference has one. CSU Pueblo carry thirteen wins and one defeat into theirs, and that defeat came at home to Fort Lewis.",
   "lede_basis": {
-    "programme": "regis",
-    "wins": 12,
-    "draws": 4,
-    "losses": 3
+    "programme": "csu-pueblo",
+    "wins": 13,
+    "draws": 3,
+    "losses": 1
   },
-  "lede_updated": "2026-11-08",
+  "lede_updated": "2026-11-10",
+  "displaced_by": "The standing dek said no further match was listed for any side; Regis, CSU Pueblo, Fort Lewis and UCCS now each have one.",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 30; scoring is not what separates the top of the table.",
@@ -132,10 +133,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 regis v fort-lewis",
       "line": "Regis had already won at Fort Lewis in October; Fort Lewis came in having handed CSU Pueblo their only defeat."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 western-oregon v fort-lewis",
+      "line": "Western Oregon won at MSU Denver and drew at Westminster in August; Fort Lewis travel from a defeat at Regis."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:54:01.664Z"
+    "validated_at": "2026-11-10T12:44:57.009Z"
   }
 }

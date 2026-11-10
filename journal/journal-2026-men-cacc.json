@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-11-09T12:45:00+00:00",
-  "data_collected_at": "2026-11-09T12:30:15+00:00",
-  "headline": "Georgian Court finish the season with the most wins",
-  "dek": "Georgian Court closed the season by winning at Bridgeport, who had beaten them on their own ground in October. Their twelve wins, against three draws and six defeats, belong to a side that finished mid-table, where only meetings between members count.",
+  "generated_at": "2026-11-10T12:45:00+00:00",
+  "data_collected_at": "2026-11-10T12:30:15+00:00",
+  "headline": "Georgian Court play on beyond the conference",
+  "dek": "Georgian Court go to Millersville with twelve wins, more than any other programme in the conference. They have not lost since Jefferson beat them in October, and their last win came at Bridgeport, who had beaten them on their own ground earlier that month.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "wins",
@@ -23,11 +23,10 @@
       "post",
       "wilmington"
     ],
-    "wins": 12,
-    "draws": 3,
-    "losses": 6
+    "wins": 12
   },
-  "lede_updated": "2026-11-08",
+  "lede_updated": "2026-11-10",
+  "displaced_by": "Georgian Court now have a match scheduled at Millersville, so the standing headline's 'finish the season' and the dek's 'closed the season' are no longer true",
   "pattern": {
     "label": "observed",
     "text": "Goals have not decided the table: Bridgeport have scored 49 and conceded 41, in a season of nine wins, three draws and eight defeats.",
@@ -58,14 +57,14 @@
     }
   },
   "wire": {
-    "line": "Goldey-Beacom finish with one win all season, and it came against a non-conference side.",
+    "line": "Georgian Court still have a match to play, at Millersville, and have not lost since Jefferson beat them in October.",
     "basis": {
-      "programme": "goldey-beacom",
-      "wins": 1,
+      "programme": "georgian-court",
+      "wins": 12,
       "draws": 3,
-      "losses": 14
+      "losses": 6
     },
-    "updated": "2026-11-08"
+    "updated": "2026-11-10"
   },
   "findings": [
     {
@@ -162,11 +161,15 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-11-07 bridgeport v georgian-court",
-      "line": "Georgian Court have not lost since Jefferson beat them in October; Bridgeport had won at Holy Family and at Wilmington on the way in."
+      "line": "Bridgeport had won at Holy Family and at Wilmington on the way in."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 millersville v georgian-court",
+      "line": "Millersville beat Georgian Court without reply in September, and did the same to Holy Family on the opening day."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T12:42:48.883Z"
+    "validated_at": "2026-11-10T12:42:36.563Z"
   }
 }

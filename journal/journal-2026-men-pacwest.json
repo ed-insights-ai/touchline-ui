@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-11-08T23:30:00+00:00",
-  "data_collected_at": "2026-11-08T23:16:32+00:00",
+  "generated_at": "2026-11-10T12:50:00+00:00",
+  "data_collected_at": "2026-11-10T12:36:09+00:00",
   "headline": "Westmont beat both table leaders on their own grounds",
   "dek": "Hawai'i Pacific had won every match since Westmont last beat them on the same ground in October. Days earlier, Westmont had won at Vanguard, the other side level on points at the top of the table, and no other conference side has beaten both this season.",
   "lede_basis": {
@@ -168,10 +168,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 hawaii-pacific v westmont",
       "line": "Westmont are the only conference side to have won on this ground this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 westmont v uccs",
+      "line": "UCCS have already beaten Hawai'i Hilo this season; Westmont are unbeaten since their home defeat to Concordia Irvine."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-08T23:26:58.290Z"
+    "validated_at": "2026-11-10T12:43:54.493Z"
   }
 }
