@@ -6,6 +6,7 @@ import Page from "../../../layouts/Page.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
 import FormBadges from "../../../components/FormBadges.astro";
 import {
+  cleanSheetsOf,
   conferenceOpenerOf,
   fixturesOf,
   programmeCounts,
@@ -74,6 +75,7 @@ const programme = season.fixtures.programmes.find((p) => p.slug === slug);
 const all = fixturesOf(season, slug);
 const results = resultsOf(season, slug);
 const record = recordOf(season, slug);
+const cleanSheets = cleanSheetsOf(season, slug);
 const keeper = leadKeeper(season, slug);
 const opener = conferenceOpenerOf(season, slug);
 const upcoming = upcomingOf(season, slug);
@@ -180,13 +182,15 @@ const openerPanel = (() => {
             : null,
         ].filter((x): x is string => x !== null)
       : [];
+  // Clean sheets sit with the goals because they are the same ledger read
+  // match by match: "13 conceded" says how many, this says how often none.
+  const goals = `${record.goalsFor} scored · ${record.goalsAgainst} conceded · ${cleanSheets} ${
+    cleanSheets === 1 ? "clean sheet" : "clean sheets"
+  }`;
   return {
     label: "RECORD",
     figure: `${record.won}–${record.drawn}–${record.lost}`,
-    note:
-      parts.length > 0
-        ? `${parts.join(" · ")}. ${record.goalsFor} scored · ${record.goalsAgainst} conceded`
-        : `${record.goalsFor} scored · ${record.goalsAgainst} conceded`,
+    note: parts.length > 0 ? `${parts.join(" · ")}. ${goals}` : goals,
   };
 })();
 

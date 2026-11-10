@@ -25,9 +25,17 @@
 
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
-import { loadSeason, squadOf } from "./derive.ts";
+import { cleanSheetsOf, type Fixture, loadSeason, resultsOf, squadOf } from "./derive.ts";
 import { classAbbr } from "./format.ts";
-import { keeperSentence, playerCard, strikeSentence } from "./player.ts";
+import type { MatchesFile } from "./model.ts";
+import {
+  cleanSheetFigure,
+  countCleanSheets,
+  keeperSentence,
+  playerCard,
+  strikeSentence,
+  sumColumn,
+} from "./player.ts";
 
 const ARCHIVE_NEW = "First season in this programme's archive";
 
@@ -185,5 +193,157 @@ describe("the match log carries the box score's minutes", () => {
     const starters = withBox.filter((r) => r.sub === false);
     expect(subs.length).toBeGreaterThan(0);
     expect(starters.length).toBeGreaterThan(0);
+  });
+});
+
+/**
+ * Clean sheets, counted where the programme printed none.
+ *
+ * Two programmes in five publish the column as "SHO/CBO" ("10/2"), which the
+ * collector does not read, so the card counts them from the box scores. The
+ * rule that has to hold is the publisher's: a shutout is a keeper's alone only
+ * when nobody else kept goal in that match. The predicate to audit is "which
+ * match does this throw away", and the answers are named below: a forfeit, a
+ * disputed score, and a keeper named on the bench who never came on.
+ */
+describe("clean sheets are counted the way the publisher credits them", () => {
+  const fx = (
+    id: string,
+    home: string,
+    away: string,
+    hs: number,
+    as: number,
+    extra = {},
+  ): Fixture =>
+    ({
+      id,
+      date: `2026-09-${id.padStart(2, "0")}`,
+      home,
+      away,
+      status: "final",
+      source_url: "x",
+      conference_game: false,
+      home_score: hs,
+      away_score: as,
+      ...extra,
+    }) as Fixture;
+  const keeper = (name: string, minutes: number) => ({ name, minutes });
+  const box = (keepers: { name: string; minutes: number }[]) => ({
+    home_index: 0,
+    teams: [
+      { name: "Us", players: [], keepers },
+      { name: "Them", players: [], keepers: [keeper("Other", 90)] },
+    ],
+  });
+  const fixtures = [
+    fx("1", "us", "a", 1, 0), // alone, 90'
+    fx("2", "us", "b", 2, 0), // shared: replaced at 80'
+    fx("3", "us", "c", 0, 0), // alone, with the backup named at 0'
+    fx("4", "us", "d", 1, 0), // no box score: unseen
+    fx("5", "us", "e", 1, 0, { forfeit: "awarded" }), // a forfeit is no clean sheet
+    fx("6", "us", "f", 3, 1), // conceded
+    fx("7", "us", "g", 1, 0, { match_type: "exhibition" }), // a friendly counts toward nothing
+    fx("8", "us", "h", 2, 0), // disputed
+  ];
+  const matches = {
+    matches: {
+      "1": box([keeper("Maysa Willis", 90)]),
+      "2": box([keeper("Maysa Willis", 80), keeper("Backup Keeper", 10)]),
+      "3": box([keeper("Maysa Willis", 90), keeper("Backup Keeper", 0)]),
+      "5": box([keeper("Maysa Willis", 90)]),
+      "6": box([keeper("Maysa Willis", 90)]),
+      "7": box([keeper("Maysa Willis", 90)]),
+      "8": box([keeper("Maysa Willis", 90)]),
+    },
+  } as unknown as MatchesFile;
+  const disputed = new Set(["2026-09-08 h v us"]);
+
+  test("alone, shared and unseen are each the match they name, and nothing else", () => {
+    expect(countCleanSheets(fixtures, matches, disputed, "us", null, "maysa willis")).toEqual({
+      alone: 2,
+      shared: 1,
+      unseen: 1,
+    });
+  });
+
+  test("the keeper who finished the shared match shares it too", () => {
+    expect(countCleanSheets(fixtures, matches, disputed, "us", null, "backup keeper")).toEqual({
+      alone: 0,
+      shared: 1,
+      unseen: 1,
+    });
+  });
+
+  test("a published figure is printed as published; a count with gaps is a floor", () => {
+    const counted = { alone: 2, shared: 1, unseen: 1 };
+    expect(cleanSheetFigure(7, counted)).toEqual({ n: 7, atLeast: false });
+    expect(cleanSheetFigure(undefined, counted)).toEqual({ n: 2, atLeast: true });
+    expect(cleanSheetFigure(undefined, { ...counted, unseen: 0 })).toEqual({
+      n: 2,
+      atLeast: false,
+    });
+    // "0+" says nothing a dash does not.
+    expect(cleanSheetFigure(undefined, { alone: 0, shared: 1, unseen: 2 })).toBeNull();
+  });
+
+  test("a career total adds what is printed, skips a dash, and carries a floor", () => {
+    const n = (v: number, atLeast = false) => ({ n: v, atLeast });
+    expect(sumColumn([n(9), n(18), null, n(7)])).toEqual(n(34));
+    expect(sumColumn([n(9), n(2, true)])).toEqual(n(11, true));
+    expect(sumColumn([null, null])).toBeNull();
+  });
+});
+
+describe("every card's clean sheets and career agree with the season", () => {
+  const keepers = everyCard.filter((c) => c.card.keeper);
+
+  test("a keeper's clean sheets are never more than the matches the side kept one", () => {
+    expect(keepers.length).toBeGreaterThan(0);
+    for (const { key, slug, card } of keepers) {
+      const value = card.triad.find((f) => f.label === "CLEAN SHEETS")?.value ?? "—";
+      if (value === "—") continue;
+      const team = cleanSheetsOf(loadSeason(key), slug);
+      expect(Number.parseInt(value, 10), `${key}/${slug} ${card.name}`).toBeLessThanOrEqual(
+        // A published figure can run a match ahead of a collect.
+        team + 1,
+      );
+    }
+  });
+
+  test("counting fills the clean sheets the statistics did not print", () => {
+    // Before the count, every SHO/CBO programme's keepers printed a dash.
+    const shown = keepers.filter(
+      (c) => c.card.triad.find((f) => f.label === "CLEAN SHEETS")?.value !== "—",
+    ).length;
+    expect(shown / keepers.length).toBeGreaterThan(0.9);
+  });
+
+  test("a team's clean sheets are its results with nothing conceded, forfeits aside", () => {
+    for (const key of site.conferences) {
+      const s = loadSeason(key);
+      for (const p of s.fixtures.programmes) {
+        const results = resultsOf(s, p.slug);
+        const cs = cleanSheetsOf(s, p.slug);
+        expect(cs).toBeLessThanOrEqual(results.length);
+        expect(cs).toBe(results.filter((r) => r.goalsAgainst === 0 && !r.forfeit).length);
+      }
+    }
+  });
+
+  test("the career total is the column above it, added", () => {
+    const withTotal = everyCard.filter((c) => c.card.career.total);
+    expect(withTotal.length).toBeGreaterThan(0);
+    for (const { card } of withTotal) {
+      const total = card.career.total;
+      if (!total) continue;
+      expect(card.career.rows.length).toBeGreaterThan(1);
+      card.career.columns.forEach((col, i) => {
+        const cells = card.career.rows.map((r) => r.values[i] ?? "—").filter((v) => v !== "—");
+        const sum = cells.reduce((t, v) => t + Number.parseInt(v, 10), 0);
+        const printed = total.values[i] ?? "—";
+        if (cells.length === 0) expect(printed, `${card.name} ${col}`).toBe("—");
+        else expect(Number.parseInt(printed, 10), `${card.name} ${col}`).toBe(sum);
+      });
+    }
   });
 });

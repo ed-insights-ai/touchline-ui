@@ -13,8 +13,9 @@
  */
 
 import { site } from "../site.config.ts";
-import { loadRosters, loadStats } from "./data.ts";
+import { loadFixtures, loadMatches, loadRosters, loadStats } from "./data.ts";
 import {
+  disputedAcross,
   type Fixture,
   hasScore,
   isCountable,
@@ -24,6 +25,7 @@ import {
   isScored,
   markOf,
   matchDetailOf,
+  matchIdentity,
   resultFor,
   type Season,
 } from "./derive.ts";
@@ -39,7 +41,7 @@ import {
   rate3,
   spell,
 } from "./format.ts";
-import type { KeeperStats, MatchPlayerLine, Player, PlayerStats } from "./model.ts";
+import type { KeeperStats, MatchesFile, MatchPlayerLine, Player, PlayerStats } from "./model.ts";
 
 /** Regulation length. Countable minutes available are counted against it. */
 const FULL_TIME = 90;
@@ -112,6 +114,29 @@ export interface CareerRow {
   values: string[];
 }
 
+/**
+ * A figure the card can print, or null when nothing says what it is.
+ *
+ * `atLeast` marks a floor: a count that could only be higher, because some
+ * match that might have added to it has no box score to read. It prints with
+ * a trailing "+", so "8+" is never mistaken for a published 8.
+ */
+export interface Count {
+  n: number;
+  atLeast: boolean;
+}
+
+/** A keeper's clean sheets, read off the season's box scores. */
+export interface CleanSheets {
+  /** The side conceded none and this keeper was the only one to play. */
+  alone: number;
+  /** The side conceded none and another keeper played too: the publisher's
+   *  combined shutout (the CBO of "SHO/CBO"). */
+  shared: number;
+  /** The side conceded none and no box score says who was in goal. */
+  unseen: number;
+}
+
 export interface LogRow {
   date: string;
   opponent: string;
@@ -148,7 +173,13 @@ export interface PlayerCard {
   triad: Figure[];
   minutes: { played: number; available: number; pct: number; note: string } | null;
   block: { label: string; rows: DetailRow[] } | null;
-  career: { columns: string[]; rows: CareerRow[]; note: string | null };
+  career: {
+    columns: string[];
+    rows: CareerRow[];
+    /** The sum of each column above, once there are two seasons to add. */
+    total: { label: string; values: string[] } | null;
+    note: string | null;
+  };
   log: LogRow[];
   exhibitions: string | null;
   finding: { label: "observed" | "derived" | "context"; text: string } | null;
@@ -159,6 +190,95 @@ export interface PlayerCard {
 const dash = "—";
 
 const stat = (n: number | undefined): string => (n === undefined ? dash : String(n));
+
+const known = (n: number | undefined): Count | null =>
+  n === undefined ? null : { n, atLeast: false };
+
+const shown = (c: Count | null): string => (c === null ? dash : `${c.n}${c.atLeast ? "+" : ""}`);
+
+/**
+ * One column's career total: the sum of the figures printed above it.
+ *
+ * A dash adds nothing, because a figure the programme never published is
+ * not a zero. The total is honest to the column rather than to the player:
+ * a reader can see the dash it skipped one line up. A floor anywhere makes
+ * the total a floor. A column of nothing but dashes totals to a dash.
+ */
+export function sumColumn(cells: readonly (Count | null)[]): Count | null {
+  const present = cells.filter((c): c is Count => c !== null);
+  if (present.length === 0) return null;
+  return {
+    n: present.reduce((t, c) => t + c.n, 0),
+    atLeast: present.some((c) => c.atLeast),
+  };
+}
+
+/**
+ * Clean sheets counted from box scores, for the seasons a programme's
+ * statistics page printed no shutout column the parser reads.
+ *
+ * Roughly two programmes in five publish the column as "SHO/CBO" (solo and
+ * combined, "10/2"), which the collector does not read, so the season
+ * statistics carry no shutouts for them at all. Every one of those matches is
+ * in the box scores, though: the side conceded none, and the keeper lines say
+ * who was in goal and for how long.
+ *
+ * A clean sheet is the keeper's ALONE only when they are the one keeper with
+ * minutes. The NCAA's own convention, and the publisher's: a keeper replaced
+ * at 80' shares the shutout with whoever finished it. Read against 2,050
+ * keeper seasons whose page printed "SHO/CBO", the solo count here agrees
+ * with the publisher's in 96.4% (2026-11-09). Where the two differ, this
+ * count says what the box scores say, which is why the card labels it.
+ *
+ * The same results the record rests on: a disputed match, a forfeit and a
+ * friendly are none of them a clean sheet.
+ */
+export function countCleanSheets(
+  fixtures: readonly Fixture[],
+  matches: MatchesFile | null,
+  disputed: ReadonlySet<string> | undefined,
+  slug: string,
+  id: string | null,
+  folded: string,
+): CleanSheets {
+  const out: CleanSheets = { alone: 0, shared: 0, unseen: 0 };
+  for (const f of fixtures) {
+    if (f.home !== slug && f.away !== slug) continue;
+    if (!isScored(f) || !hasScore(f) || isForfeit(f)) continue;
+    if (disputed?.has(matchIdentity(f))) continue;
+    const home = f.home === slug;
+    if ((home ? f.away_score : f.home_score) !== 0) continue;
+    const detail = matches?.matches[f.id];
+    const side = detail ? sideIndexOf(f, detail.home_index, slug) : null;
+    const keepers = side === null ? undefined : detail?.teams[side]?.keepers;
+    if (!keepers || keepers.length === 0) {
+      out.unseen++;
+      continue;
+    }
+    // A keeper line with no minutes column still kept goal; one that prints
+    // 0 is the named substitute who never came on.
+    const inGoal = keepers.filter((k) => (k.minutes ?? 1) > 0);
+    if (!lineFor(inGoal, id, folded)) continue;
+    if (inGoal.length === 1) out.alone++;
+    else out.shared++;
+  }
+  return out;
+}
+
+/**
+ * The figure a card prints for clean sheets: the programme's own where it
+ * published one, else the solo count from the box scores. A count with
+ * unseen matches is a floor, and a floor of nothing ("0+") says nothing, so
+ * that prints as a dash.
+ */
+export function cleanSheetFigure(
+  published: number | undefined,
+  counted: CleanSheets,
+): Count | null {
+  if (published !== undefined) return { n: published, atLeast: false };
+  if (counted.unseen > 0 && counted.alone === 0) return null;
+  return { n: counted.alone, atLeast: counted.unseen > 0 };
+}
 
 const cap = (w: string): string => `${w.charAt(0).toUpperCase()}${w.slice(1)}`;
 
@@ -187,12 +307,48 @@ function lineFor(
   return byId ?? lines?.find((l) => foldName(l.name) === folded);
 }
 
+/** One career row before it is printed: its cells kept as counts so the
+ *  total can add them. */
+interface CareerCells {
+  season: number;
+  cells: (Count | null)[];
+}
+
+/** A keeper's clean sheets in a season of the archive, wherever it was
+ *  collected: published if the line has them, else counted from that
+ *  season's own box scores. */
+function priorCleanSheets(
+  year: number,
+  gender: string,
+  key: string,
+  slug: string,
+  k: KeeperStats,
+): Count | null {
+  if (k.shutouts !== undefined) return known(k.shutouts);
+  let fixtures: Fixture[];
+  try {
+    fixtures = loadFixtures(year, gender, key).fixtures;
+  } catch {
+    return null;
+  }
+  const counted = countCleanSheets(
+    fixtures,
+    loadMatches(year, gender, key),
+    disputedAcross(year, gender),
+    slug,
+    k.player_id ?? null,
+    foldName(k.name),
+  );
+  return cleanSheetFigure(undefined, counted);
+}
+
 /** Prior seasons of this programme, newest first, wherever they were collected. */
-function priorSeasons(s: Season, slug: string, folded: string, keeper: boolean): CareerRow[] {
-  const rows: CareerRow[] = [];
+function priorSeasons(s: Season, slug: string, folded: string, keeper: boolean): CareerCells[] {
+  const rows: CareerCells[] = [];
+  const gender = s.fixtures.gender;
   for (let year = s.fixtures.season - 1; year >= s.fixtures.season - 10; year--) {
     for (const key of site.conferences) {
-      const file = loadStats(year, s.fixtures.gender, key);
+      const file = loadStats(year, gender, key);
       const team = file?.teams[slug];
       if (!team) continue;
       const p = team.players?.find((x) => foldName(x.name) === folded);
@@ -200,14 +356,15 @@ function priorSeasons(s: Season, slug: string, folded: string, keeper: boolean):
       if (!p && !k) continue;
       rows.push({
         season: year,
-        values: keeper
+        cells: keeper
           ? [
-              stat(k?.gp ?? p?.gp),
-              stat(k?.minutes ?? p?.minutes),
-              stat(k?.saves),
-              stat(k?.goals_against),
+              known(k?.gp ?? p?.gp),
+              known(k?.minutes ?? p?.minutes),
+              known(k?.saves),
+              known(k?.goals_against),
+              k ? priorCleanSheets(year, gender, key, slug, k) : null,
             ]
-          : [stat(p?.gp), stat(p?.minutes), stat(p?.goals), stat(p?.assists)],
+          : [known(p?.gp), known(p?.minutes), known(p?.goals), known(p?.assists)],
       });
       break;
     }
@@ -296,11 +453,17 @@ export function playerCard(
         : `On the roster since ${firstYear}`;
 
   // ── The season's own figures ──────────────────────────────────────────────
+  // Counted for every keeper, published figure or not: the shared clean
+  // sheets are only ever in the box scores.
+  const counted = keeper
+    ? countCleanSheets(s.fixtures.fixtures, s.matches, s.disputed, slug, id, folded)
+    : null;
+  const cleanSheets = counted ? cleanSheetFigure(keeperStats?.shutouts, counted) : null;
   const triad: Figure[] = keeper
     ? [
         { value: stat(keeperStats?.saves), label: "SAVES" },
         { value: stat(keeperStats?.goals_against), label: "GOALS AGAINST" },
-        { value: stat(keeperStats?.shutouts), label: "CLEAN SHEETS" },
+        { value: shown(cleanSheets), label: "CLEAN SHEETS" },
       ]
     : [
         { value: stat(stats?.goals), label: "GOALS" },
@@ -352,6 +515,17 @@ export function playerCard(
             value: keeperStats?.gaa === undefined ? dash : keeperStats.gaa.toFixed(2),
           },
           { label: "Shots faced", value: stat(keeperStats?.shots_faced) },
+          // Where the programme published none, the figure above was counted
+          // here, and this row says so, with the half the publisher would
+          // have printed after the slash.
+          ...(keeperStats?.shutouts === undefined && counted && cleanSheets
+            ? [
+                {
+                  label: "Clean sheets, by box score",
+                  value: `${shown(cleanSheets)} alone · ${counted.shared} shared`,
+                },
+              ]
+            : []),
           {
             label: "Record",
             value:
@@ -384,27 +558,47 @@ export function playerCard(
       : null;
 
   // ── Career ────────────────────────────────────────────────────────────────
-  const thisSeason: CareerRow | null =
+  const thisSeason: CareerCells | null =
     stats || keeperStats
       ? {
           season: s.fixtures.season,
-          values: keeper
+          cells: keeper
             ? [
-                stat(keeperStats?.gp),
-                stat(keeperStats?.minutes),
-                stat(keeperStats?.saves),
-                stat(keeperStats?.goals_against),
+                known(keeperStats?.gp),
+                known(keeperStats?.minutes),
+                known(keeperStats?.saves),
+                known(keeperStats?.goals_against),
+                cleanSheets,
               ]
-            : [stat(stats?.gp), stat(stats?.minutes), stat(stats?.goals), stat(stats?.assists)],
+            : [known(stats?.gp), known(stats?.minutes), known(stats?.goals), known(stats?.assists)],
         }
       : null;
   const prior = priorSeasons(s, slug, folded, keeper);
+  const seasons = [...(thisSeason ? [thisSeason] : []), ...prior];
+  const columns = keeper ? ["GP", "MIN", "SV", "GA", "CS"] : ["GP", "MIN", "G", "A"];
+  // A total of one season is that season again; it appears from the second.
+  const total =
+    seasons.length > 1
+      ? {
+          label: "Total",
+          values: columns.map((_, i) => shown(sumColumn(seasons.map((r) => r.cells[i] ?? null)))),
+        }
+      : null;
+  const rows = seasons.map((r) => ({ season: r.season, values: r.cells.map(shown) }));
+  const floors = [...rows.flatMap((r) => r.values), ...(total?.values ?? [])].some((v) =>
+    v.endsWith("+"),
+  );
   const career = {
-    columns: keeper ? ["GP", "MIN", "SV", "GA"] : ["GP", "MIN", "G", "A"],
-    rows: [...(thisSeason ? [thisSeason] : []), ...prior],
+    columns,
+    rows,
+    total,
     note:
       prior.length > 0
-        ? null
+        ? // The archive's seasons at this programme, not the player's career:
+          // a transfer's earlier programme is not in the sum.
+          `${seasons.length} seasons at ${s.names.name(slug)} in the archive.${
+            floors ? " A + is a floor: a clean sheet without a box score to say who kept it." : ""
+          }`
         : archiveNew
           ? "No earlier season in this programme's archive carries this player."
           : "No earlier season of this programme carries a line for this name.",

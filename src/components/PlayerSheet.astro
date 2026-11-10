@@ -87,7 +87,7 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
     <div class="sheet-block">
       <h3 class="block-label">CAREER</h3>
-      <div class="career num">
+      <div class="career num" style={`--career-cols: ${card.career.columns.length}`}>
         {card.career.rows.length > 0 && (
           <div class="career-row career-head">
             <div></div>
@@ -100,6 +100,12 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
             {r.values.map((v) => <div>{v}</div>)}
           </div>
         ))}
+        {card.career.total && (
+          <div class="career-row career-total">
+            <div>{card.career.total.label}</div>
+            {card.career.total.values.map((v) => <div>{v}</div>)}
+          </div>
+        )}
         {card.career.note && <div class="career-note">{card.career.note}</div>}
       </div>
     </div>
@@ -366,9 +372,11 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
   .career { display: flex; flex-direction: column; gap: 5px; }
   .career-row {
-    display: grid; grid-template-columns: 44px repeat(4, 1fr); gap: 6px;
+    display: grid; grid-template-columns: 44px repeat(var(--career-cols, 4), 1fr); gap: 6px;
     font-size: 12px; font-weight: 600;
   }
+  /* The sum sits under a rule, as a column of figures is added on paper. */
+  .career-total { border-top: 1px solid var(--hairline); padding-top: 5px; }
   .career-row > div:not(:first-child) { text-align: right; }
   .career-head { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); font-weight: 400; }
   .career-note { font-size: 13.5px; color: var(--quiet); }
