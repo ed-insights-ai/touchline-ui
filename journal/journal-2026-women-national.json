@@ -2,10 +2,10 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "women",
-  "generated_at": "2026-11-09T03:30:00+00:00",
-  "data_collected_at": "2026-11-09T01:43:51+00:00",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-09T12:51:35+00:00",
   "headline": "Washburn end Pittsburg State's unbeaten start",
-  "dek": "Pittsburg State had won fifteen and drawn five before last night. Their first defeat leaves Dallas Baptist and Nova Southeastern as the only programmes in the division still without a loss.",
+  "dek": "Pittsburg State had won fifteen and drawn five before meeting Washburn. That first defeat leaves Dallas Baptist and Nova Southeastern as the only programmes in the division still without a loss.",
   "basis": {
     "programme": "pittsburg-state",
     "wins": 15,
@@ -13,9 +13,10 @@
     "losses": 1
   },
   "fixture_ref": "2026-11-08 washburn v pittsburg-state",
-  "updated": "2026-11-09",
+  "updated": "2026-11-10",
+  "displaced_by": "headline stands on a quiet day; dek's 'before last night' no longer names the 2026-11-08 match, so only that phrase is reworded",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:36:27.744Z"
+    "validated_at": "2026-11-10T13:03:34.974Z"
   }
 }

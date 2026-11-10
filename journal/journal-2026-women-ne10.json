@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NE10",
-  "generated_at": "2026-11-09T03:30:00+00:00",
-  "data_collected_at": "2026-11-09T03:03:41+00:00",
+  "generated_at": "2026-11-10T13:20:00+00:00",
+  "data_collected_at": "2026-11-10T12:54:14+00:00",
   "headline": "Bentley beat the only side to have beaten them",
   "dek": "Bentley won at Franklin Pierce, who had gone through the conference table without a defeat, on the ground where Bentley lost in October. That remains the only loss beside fifteen wins and three draws, and Bentley have conceded fifteen goals all season.",
   "lede_basis": {
@@ -92,7 +92,7 @@
     },
     {
       "label": "derived",
-      "text": "Southern New Hampshire have lost 12 matches, more than any other programme.",
+      "text": "Southern New Hampshire have lost twelve matches, more than any other programme.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "losses",
@@ -159,10 +159,14 @@
     "last_match": {
       "fixture_ref": "2026-11-08 franklin-pierce v bentley",
       "line": "Franklin Pierce had not lost to a conference side until this match."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 molloy v franklin-pierce",
+      "line": "Franklin Pierce beat Molloy at home in September without conceding."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:30:54.917Z"
+    "validated_at": "2026-11-10T13:02:20.579Z"
   }
 }

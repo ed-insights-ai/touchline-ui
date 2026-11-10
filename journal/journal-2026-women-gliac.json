@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GLIAC",
-  "generated_at": "2026-11-09T03:10:00+00:00",
-  "data_collected_at": "2026-11-09T02:56:05+00:00",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-10T12:52:00+00:00",
   "headline": "Bottom-half Ferris State beats the table's leaders",
   "dek": "Ferris State drew at Wayne State and then went back and won there, handing the leaders only their second defeat of the season. A win at Wisconsin-Parkside and a draw with Saginaw Valley State followed, from a side that sits in the table's bottom half.",
   "lede_basis": {
@@ -121,12 +121,12 @@
       "line": "Saginaw Valley State's winning run ends; Ferris State are unbeaten since losing to Grand Valley State."
     },
     "next_match": {
-      "fixture_ref": "2026-12-03 grand-valley-state v semifnals",
-      "line": "Grand Valley State come into it off a home defeat by Saginaw Valley State."
+      "fixture_ref": "2026-11-13 mckendree v wayne-state",
+      "line": "Wayne State have lost only to Davenport and Ferris State all season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:33:00.683Z"
+    "validated_at": "2026-11-10T13:01:44.941Z"
   }
 }

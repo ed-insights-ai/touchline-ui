@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GLVC",
-  "generated_at": "2026-11-09T01:10:00+00:00",
-  "data_collected_at": "2026-11-09T00:59:28+00:00",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-10T12:47:53+00:00",
   "headline": "Maryville beats Missouri-St. Louis, then holds McKendree",
   "dek": "Missouri-St. Louis conceded thirteen goals all season and lost to no conference side until Maryville beat them. Maryville then kept McKendree off the scoresheet as well.",
   "lede_basis": {
@@ -140,10 +140,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 maryville v mckendree",
       "line": "Maryville came into it off a win over Missouri-St. Louis; McKendree off a win at Missouri S&T."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-12 missouri-st-louis v saginaw-valley-state",
+      "line": "Missouri-St. Louis have not lost at home this season; both defeats came away, at Pittsburg State and Maryville."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T04:21:35.658Z"
+    "validated_at": "2026-11-10T13:00:26.091Z"
   }
 }

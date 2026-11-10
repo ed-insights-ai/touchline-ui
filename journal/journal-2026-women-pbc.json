@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "PBC",
-  "generated_at": "2026-11-09T03:20:00+00:00",
-  "data_collected_at": "2026-11-09T03:05:45+00:00",
+  "generated_at": "2026-11-10T13:10:00+00:00",
+  "data_collected_at": "2026-11-10T12:55:31+00:00",
   "headline": "Columbus State go unbeaten in conference play",
   "dek": "Columbus State came through conference play without a defeat, the only side in the table to do so. North Georgia, the one side to score more goals, lost to them in September and again in November.",
   "lede_basis": {
@@ -51,6 +51,27 @@
       "gf": 60,
       "of": ["georgia-college", "clayton-state"]
     }
+  },
+  "wire": {
+    "line": "North Georgia have outscored every other side in the conference and still could not beat Columbus State.",
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "north-georgia",
+      "gf": 60,
+      "of": [
+        "columbus-state",
+        "georgia-college",
+        "clayton-state",
+        "usc-beaufort",
+        "flagler",
+        "lander",
+        "usc-aiken",
+        "middle-georgia-state",
+        "georgia-southwestern"
+      ]
+    },
+    "updated": "2026-11-10"
   },
   "findings": [
     {
@@ -120,10 +141,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 columbus-state v north-georgia",
       "line": "Flagler are the only other conference side to have beaten North Georgia."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 columbus-state v flagler",
+      "line": "Columbus State have not lost to a conference side; Flagler held them to a draw in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:34:31.060Z"
+    "validated_at": "2026-11-10T13:02:47.970Z"
   }
 }

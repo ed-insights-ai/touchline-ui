@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "ECC",
-  "generated_at": "2026-11-09T03:05:00+00:00",
-  "data_collected_at": "2026-11-09T02:53:45+00:00",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-10T12:50:48+00:00",
   "headline": "Mercy score their way to the top of the table",
   "dek": "Mercy have scored 42 goals this season, more than any other programme, and conceded seventeen while losing only three times. Twelve different players have put their names on the scoresheet.",
   "lede_basis": {
@@ -147,10 +147,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 mercy v molloy",
       "line": "Molloy are the only conference side Mercy have not beaten this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 franklin-pierce v molloy",
+      "line": "Franklin Pierce have already beaten Molloy at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:31:08.138Z"
+    "validated_at": "2026-11-10T13:01:10.189Z"
   }
 }

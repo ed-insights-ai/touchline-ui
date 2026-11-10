@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GNAC",
-  "generated_at": "2026-11-09T03:20:00+00:00",
-  "data_collected_at": "2026-11-09T03:00:21+00:00",
+  "generated_at": "2026-11-10T13:10:00+00:00",
+  "data_collected_at": "2026-11-10T12:52:37+00:00",
   "headline": "Western Washington finish top on six goals conceded",
   "dek": "Western Washington have lost twice in twenty-one matches and conceded six goals across all of them, closing the season with a sixteenth win, at Seattle Pacific. Their only conference defeat came at Simon Fraser, the side that finished second.",
   "lede_basis": {
@@ -141,10 +141,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 seattle-pacific v western-washington",
       "line": "Seattle Pacific did not score in any of their meetings with Western Washington this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 cal-poly-pomona v simon-fraser",
+      "line": "Simon Fraser lost on this ground in September and are unbeaten since their defeat at Western Washington."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:36:05.468Z"
+    "validated_at": "2026-11-10T13:01:43.817Z"
   }
 }

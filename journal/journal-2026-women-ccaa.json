@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "women",
   "conference": "CCAA",
-  "generated_at": "2026-11-09T03:05:00+00:00",
-  "data_collected_at": "2026-11-09T02:52:40+00:00",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-10T12:50:21+00:00",
   "headline": "Cal Poly Pomona top the table on six goals conceded",
-  "dek": "Cal Poly Pomona have lost only twice all season, most recently to UC Merced. Cal State LA then beat UC Merced at home to close the calendar, having already beaten Cal State San Bernardino there.",
+  "dek": "Cal Poly Pomona have lost only twice all season, most recently at home to UC Merced. Cal State LA have beaten UC Merced and Cal State San Bernardino at home this month, and meet UC Merced again on Friday.",
   "lede_basis": {
     "programme": "cal-poly-pomona",
     "gf": 25,
@@ -15,7 +15,8 @@
     "draws": 6,
     "losses": 2
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-10",
+  "displaced_by": "Cal State LA v UC Merced on 2026-11-13 is now scheduled, so the standing dek's claim that the 11-07 win closed the calendar is no longer true; the headline stands",
   "pattern": {
     "label": "derived",
     "text": "Scoring is top-heavy: Cal State LA's 36 goals are more than Fresno Pacific, San Francisco State and Cal State Dominguez Hills have scored between them.",
@@ -140,10 +141,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 cal-state-la v uc-merced",
       "line": "The sides had drawn on this ground in September."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 cal-state-la v uc-merced",
+      "line": "Cal State LA have not lost at home since Stanislaus State won here in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:34:51.151Z"
+    "validated_at": "2026-11-10T13:01:13.103Z"
   }
 }

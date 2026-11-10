@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SAC",
-  "generated_at": "2026-11-09T03:30:00+00:00",
-  "data_collected_at": "2026-11-09T03:07:15+00:00",
+  "generated_at": "2026-11-10T13:20:00+00:00",
+  "data_collected_at": "2026-11-10T12:56:21+00:00",
   "headline": "Catawba top the table and outscore the conference",
   "dek": "Catawba won 13 times and conceded 23 goals across all their matches. Their season still ended in a home defeat, to Lenoir-Rhyne, the side second behind them in the table.",
   "lede_basis": {
@@ -47,6 +47,16 @@
       "metric": "gf",
       "of": ["anderson", "tusculum", "emory-henry"]
     }
+  },
+  "wire": {
+    "line": "Lenoir-Rhyne won at Catawba and are the only side in the conference with a match still to play.",
+    "basis": {
+      "programme": "lenoir-rhyne",
+      "wins": 13,
+      "draws": 1,
+      "losses": 6
+    },
+    "updated": "2026-11-10"
   },
   "findings": [
     {
@@ -121,10 +131,14 @@
     "last_match": {
       "fixture_ref": "2026-11-08 catawba v lenoir-rhyne",
       "line": "Carson-Newman are the only other conference side to have won at Catawba."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 lenoir-rhyne v francis-marion",
+      "line": "Lenoir-Rhyne won the reverse match in September, and have not lost since their defeat at Coker."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:33:30.836Z"
+    "validated_at": "2026-11-10T13:02:59.934Z"
   }
 }

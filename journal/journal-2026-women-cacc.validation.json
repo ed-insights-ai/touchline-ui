@@ -1,15 +1,15 @@
 {
   "schema": "touchline.journal-validation/1",
-  "journal": "journal-2026-women-CACC.json",
+  "journal": "journal-2026-women-cacc.json",
   "season": 2026,
   "gender": "women",
   "conference": "CACC",
-  "validated_at": "2026-11-09T03:30:28.226Z",
-  "data_collected_at": "2026-11-09T02:43:33+00:00",
+  "validated_at": "2026-11-10T13:00:33.747Z",
+  "data_collected_at": "2026-11-10T12:49:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 11,
-    "verified": 11,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -123,13 +123,22 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-13 bridgeport v saint-michael-s",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-09T03:28:45.251Z",
-    "generate_ms": 102973,
+    "started_at": "2026-11-10T12:59:55.145Z",
+    "generate_ms": 38600,
     "validate_ms": 2,
-    "wall_ms": 102975,
+    "wall_ms": 38602,
     "concurrency": 4
   }
 }

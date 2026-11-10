@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "CACC",
-  "generated_at": "2026-11-08T21:00:00+00:00",
-  "data_collected_at": "2026-11-09T02:43:33+00:00",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-10T12:49:09+00:00",
   "headline": "Jefferson go through conference play without dropping a point",
   "dek": "Jefferson's only defeat this season came against a non-conference side in September, and they have won every match since. Across all their matches they have scored 49 goals and conceded 11; only Bridgeport, whom they beat in October, have let in fewer.",
   "lede_basis": {
@@ -131,10 +131,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 jefferson v georgian-court",
       "line": "Georgian Court had already lost at Jefferson once, in October."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 bridgeport v saint-michael-s",
+      "line": "Bridgeport have not lost at home all season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:30:28.226Z"
+    "validated_at": "2026-11-10T13:00:33.747Z"
   }
 }

@@ -1,15 +1,15 @@
 {
   "schema": "touchline.journal-validation/1",
-  "journal": "journal-2026-women-ECC.json",
+  "journal": "journal-2026-women-ecc.json",
   "season": 2026,
   "gender": "women",
   "conference": "ECC",
-  "validated_at": "2026-11-09T03:31:08.138Z",
-  "data_collected_at": "2026-11-09T02:53:45+00:00",
+  "validated_at": "2026-11-10T13:01:10.189Z",
+  "data_collected_at": "2026-11-10T12:50:48+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 11,
-    "verified": 11,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -115,13 +115,22 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-13 franklin-pierce v molloy",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-09T03:28:51.129Z",
-    "generate_ms": 137007,
+    "started_at": "2026-11-10T13:00:33.328Z",
+    "generate_ms": 36860,
     "validate_ms": 1,
-    "wall_ms": 137008,
+    "wall_ms": 36862,
     "concurrency": 4
   }
 }

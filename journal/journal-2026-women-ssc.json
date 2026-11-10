@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SSC",
-  "generated_at": "2026-11-09T03:25:00+00:00",
-  "data_collected_at": "2026-11-09T03:19:36+00:00",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-10T12:57:00+00:00",
   "headline": "Nova Southeastern and Eckerd go through the conference unbeaten",
   "dek": "Nova Southeastern have won eleven and drawn six without losing a match all season. Eckerd, who drew with them in their latest meeting, have been beaten only by sides from outside the conference, and every other programme has lost to a conference rival at least once.",
   "lede_basis": {
@@ -64,7 +64,7 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Florida Tech have won 13 matches, more than any other programme in the conference.",
+      "text": "Florida Tech have won thirteen matches, more than any other programme in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "wins",
@@ -88,7 +88,7 @@
     },
     {
       "label": "observed",
-      "text": "Genesis Hernandez has scored 16 goals and added five assists for Nova Southeastern, from 85 shots.",
+      "text": "Genesis Hernandez has scored sixteen goals and added five assists for Nova Southeastern, from 85 shots.",
       "basis": {
         "source": "stats",
         "player": "Genesis Hernandez",
@@ -100,7 +100,7 @@
     },
     {
       "label": "observed",
-      "text": "Madi Winn has kept 10 shutouts in goal for Eckerd.",
+      "text": "Madi Winn has kept ten shutouts in goal for Eckerd.",
       "basis": {
         "source": "stats",
         "player": "Madi Winn",
@@ -145,10 +145,14 @@
     "last_match": {
       "fixture_ref": "2026-11-08 eckerd v nova-southeastern",
       "line": "Eckerd arrived on a winning run; Nova Southeastern leave with their unbeaten season intact."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 florida-southern v florida-tech",
+      "line": "Florida Southern have already beaten Florida Tech on their own ground this season; Florida Tech arrive from a defeat at Nova Southeastern."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:30:31.091Z"
+    "validated_at": "2026-11-10T13:03:05.929Z"
   }
 }

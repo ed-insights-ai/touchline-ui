@@ -1,15 +1,15 @@
 {
   "schema": "touchline.journal-validation/1",
-  "journal": "journal-2026-women-SSC.json",
+  "journal": "journal-2026-women-ssc.json",
   "season": 2026,
   "gender": "women",
   "conference": "SSC",
-  "validated_at": "2026-11-09T03:30:31.091Z",
-  "data_collected_at": "2026-11-09T03:19:36+00:00",
+  "validated_at": "2026-11-10T13:03:05.929Z",
+  "data_collected_at": "2026-11-10T12:57:00+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 11,
-    "verified": 11,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Florida Tech have won 13 matches, more than any other programme in the conference.",
+      "text": "Florida Tech have won thirteen matches, more than any other programme in the conference.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Genesis Hernandez has scored 16 goals and added five assists for Nova Southeastern, from 85 shots.",
+      "text": "Genesis Hernandez has scored sixteen goals and added five assists for Nova Southeastern, from 85 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Madi Winn has kept 10 shutouts in goal for Eckerd.",
+      "text": "Madi Winn has kept ten shutouts in goal for Eckerd.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -115,13 +115,22 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-13 florida-southern v florida-tech",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-09T03:28:30.255Z",
-    "generate_ms": 120834,
+    "started_at": "2026-11-10T13:02:30.784Z",
+    "generate_ms": 35144,
     "validate_ms": 1,
-    "wall_ms": 120836,
+    "wall_ms": 35145,
     "concurrency": 4
   }
 }

@@ -3,18 +3,18 @@
   "season": 2026,
   "gender": "women",
   "conference": "CC",
-  "generated_at": "2026-11-09T03:10:00+00:00",
-  "data_collected_at": "2026-11-09T02:51:57+00:00",
-  "headline": "Francis Marion end UNC Pembroke's unbeaten run",
-  "dek": "UNC Pembroke had not lost since August and came through conference play without a defeat. Francis Marion ended the run in the last match on the calendar, adding to the 58 goals that no other programme in the conference has matched.",
+  "generated_at": "2026-11-10T13:05:00+00:00",
+  "data_collected_at": "2026-11-10T12:49:53+00:00",
+  "headline": "Francis Marion and Lees-McRae meet the sides that beat them",
+  "dek": "Lees-McRae have lost three matches all season, the first of them at home to North Georgia in August. Francis Marion's first defeat came against Lenoir-Rhyne. On Friday both meet those opponents again, the only programmes in the conference with a match still to play.",
   "lede_basis": {
-    "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "francis-marion",
-    "of_any": 15,
-    "gf": 58
+    "programme": "lees-mcrae",
+    "wins": 10,
+    "draws": 5,
+    "losses": 3
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-10",
+  "displaced_by": "The calendar is no longer over: Francis Marion and Lees-McRae each have a match on 2026-11-13, both against sides that beat them earlier in the season.",
   "pattern": {
     "label": "derived",
     "text": "The table and the scoring agree at the top: Young Harris, Francis Marion and UNC Pembroke lead both, and the lowest of their totals is still above every other programme's.",
@@ -142,10 +142,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 francis-marion v unc-pembroke",
       "line": "Francis Marion had lost both earlier meetings between the two this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 lenoir-rhyne v francis-marion",
+      "line": "Francis Marion have not lost since their second defeat by UNC Pembroke, in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:58:06.138Z"
+    "validated_at": "2026-11-10T13:01:27.908Z"
   }
 }

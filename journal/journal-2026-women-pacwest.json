@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "PACWEST",
-  "generated_at": "2026-11-09T03:20:00+00:00",
-  "data_collected_at": "2026-11-09T03:05:07+00:00",
+  "generated_at": "2026-11-10T13:10:00+00:00",
+  "data_collected_at": "2026-11-10T12:55:07+00:00",
   "headline": "Point Loma top the table without a conference defeat",
   "dek": "Point Loma close the conference schedule without a defeat in it, and Hawai'i Hilo are the only other side who can say the same. Point Loma's 40 goals in all matches are more than any of the other nine programmes scored, set against nineteen conceded.",
   "lede_basis": {
@@ -131,10 +131,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 concordia-irvine v biola",
       "line": "Biola came in off a win over Point Loma, Concordia Irvine off a win over Hawai'i Hilo."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-13 concordia-irvine v biola",
+      "line": "Biola have yet to beat Concordia Irvine this season; their last meeting finished goalless."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T03:57:13.658Z"
+    "validated_at": "2026-11-10T13:02:30.584Z"
   }
 }
