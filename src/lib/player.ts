@@ -178,6 +178,8 @@ export interface PlayerCard {
     rows: CareerRow[];
     /** The sum of each column above, once there are two seasons to add. */
     total: { label: string; values: string[] } | null;
+    /** Career rates, pooled from the same seasons the total adds. */
+    rates: DetailRow[] | null;
     note: string | null;
   };
   log: LogRow[];
@@ -307,11 +309,140 @@ function lineFor(
   return byId ?? lines?.find((l) => foldName(l.name) === folded);
 }
 
+// ── Career rates ────────────────────────────────────────────────────────────
+
+/** A season's raw figures, as far as the programme published them. */
+type Part =
+  | "minutes"
+  | "saves"
+  | "goalsAgainst"
+  | "wins"
+  | "losses"
+  | "ties"
+  | "shots"
+  | "sog"
+  | "goals"
+  | "assists";
+export type SeasonParts = Partial<Record<Part, number>>;
+
+/** Below these a rate is a true number telling a false story: one goal from
+ *  one shot is not a 100% finisher, and a keeper's first half is not a GAA. */
+export const RATE_MIN_SHOTS = 10;
+export const RATE_MIN_MINUTES = 270;
+
+/**
+ * The seasons a rate may be read from, and their sums.
+ *
+ * A rate pools the seasons that published EVERY figure it divides, so its
+ * numerator and denominator always come from the same matches. A season with
+ * goals and no minutes column is out of goals per 90 entirely; adding its
+ * goals to everyone else's minutes would inflate the rate with nothing on
+ * the page to say so. Never an average of season rates either: that would
+ * weigh a three-match season the same as a twenty-match one.
+ */
+export function pooled(seasons: readonly SeasonParts[], need: readonly Part[]) {
+  const used = seasons.filter((p) => need.every((k) => p[k] !== undefined));
+  return {
+    used: used.length,
+    of: seasons.length,
+    sum: (k: Part): number => used.reduce((t, p) => t + (p[k] ?? 0), 0),
+  };
+}
+
+/** "· 3 of 4 seasons" when a rate could not read every season, else "". */
+const coverage = (used: number, of: number): string =>
+  used < of ? ` · ${used} of ${of} seasons` : "";
+
+/**
+ * The career's rates, each pooled from the seasons that carry its parts.
+ *
+ * Under the sample floor a rate gives way to the counts it would have been
+ * made of ("1 of 1", "1 in 120′"), which say the same thing without the
+ * authority a percentage lends them.
+ */
+export function careerRates(keeper: boolean, seasons: readonly SeasonParts[]): DetailRow[] {
+  const per90 = (n: number, min: number): string => ((n * 90) / min).toFixed(2);
+  if (keeper) {
+    const gk = pooled(seasons, ["saves", "goalsAgainst", "minutes"]);
+    const sv = gk.sum("saves");
+    const ga = gk.sum("goalsAgainst");
+    const min = gk.sum("minutes");
+    const faced = sv + ga;
+    const enough = min >= RATE_MIN_MINUTES;
+    const rec = pooled(seasons, ["wins"]);
+    return [
+      {
+        label: "Save percentage",
+        value:
+          gk.used === 0 || faced === 0
+            ? dash
+            : `${enough ? (rate3(sv / faced) ?? dash) : `${sv} of ${faced}`}${coverage(gk.used, gk.of)}`,
+      },
+      {
+        label: "Goals against average",
+        value:
+          gk.used === 0 || min === 0
+            ? dash
+            : `${enough ? per90(ga, min) : `${ga} in ${min}′`}${coverage(gk.used, gk.of)}`,
+      },
+      {
+        label: "Record",
+        value:
+          rec.used === 0
+            ? dash
+            : `${rec.sum("wins")}–${rec.sum("ties")}–${rec.sum("losses")}${coverage(rec.used, rec.of)}`,
+      },
+    ];
+  }
+  const ofShots = (part: "goals" | "sog"): string => {
+    const r = pooled(seasons, [part, "shots"]);
+    const n = r.sum(part);
+    const shots = r.sum("shots");
+    if (r.used === 0 || shots === 0) return dash;
+    const v = shots >= RATE_MIN_SHOTS ? (pct1(n / shots) ?? dash) : `${n} of ${shots}`;
+    return `${v}${coverage(r.used, r.of)}`;
+  };
+  const perNinety = (parts: readonly ("goals" | "assists")[]): string => {
+    const r = pooled(seasons, [...parts, "minutes"]);
+    const n = parts.reduce((t, k) => t + r.sum(k), 0);
+    const min = r.sum("minutes");
+    if (r.used === 0 || min === 0) return dash;
+    const v = min >= RATE_MIN_MINUTES ? per90(n, min) : `${n} in ${min}′`;
+    return `${v}${coverage(r.used, r.of)}`;
+  };
+  return [
+    { label: "Conversion", value: ofShots("goals") },
+    { label: "On target", value: ofShots("sog") },
+    { label: "Goals per 90", value: perNinety(["goals"]) },
+    { label: "Goals + assists per 90", value: perNinety(["goals", "assists"]) },
+  ];
+}
+
+const keeperParts = (k: KeeperStats | undefined): SeasonParts => ({
+  minutes: k?.minutes,
+  saves: k?.saves,
+  goalsAgainst: k?.goals_against,
+  wins: k?.wins,
+  losses: k?.losses,
+  ties: k?.ties,
+});
+
+const fieldParts = (p: PlayerStats | undefined): SeasonParts => ({
+  minutes: p?.minutes,
+  shots: p?.shots,
+  sog: p?.sog,
+  goals: p?.goals,
+  assists: p?.assists,
+});
+
 /** One career row before it is printed: its cells kept as counts so the
  *  total can add them. */
 interface CareerCells {
   season: number;
   cells: (Count | null)[];
+  /** The raw figures the career rates pool. A keeper's are read off the
+   *  keeper line only: their outfield minutes are not minutes in goal. */
+  parts: SeasonParts;
 }
 
 /** A keeper's clean sheets in a season of the archive, wherever it was
@@ -365,6 +496,7 @@ function priorSeasons(s: Season, slug: string, folded: string, keeper: boolean):
               k ? priorCleanSheets(year, gender, key, slug, k) : null,
             ]
           : [known(p?.gp), known(p?.minutes), known(p?.goals), known(p?.assists)],
+        parts: keeper ? keeperParts(k) : fieldParts(p),
       });
       break;
     }
@@ -571,6 +703,7 @@ export function playerCard(
                 cleanSheets,
               ]
             : [known(stats?.gp), known(stats?.minutes), known(stats?.goals), known(stats?.assists)],
+          parts: keeper ? keeperParts(keeperStats) : fieldParts(stats),
         }
       : null;
   const prior = priorSeasons(s, slug, folded, keeper);
@@ -592,6 +725,13 @@ export function playerCard(
     columns,
     rows,
     total,
+    // Only alongside a total: one season's rates are the block above, again.
+    rates: total
+      ? careerRates(
+          keeper,
+          seasons.map((r) => r.parts),
+        )
+      : null,
     note:
       prior.length > 0
         ? // The archive's seasons at this programme, not the player's career:

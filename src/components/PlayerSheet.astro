@@ -108,6 +108,16 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
         )}
         {card.career.note && <div class="career-note">{card.career.note}</div>}
       </div>
+      {card.career.rates && (
+        <div class="block-rows num career-rates">
+          {card.career.rates.map((r) => (
+            <div class="block-row">
+              <span class="block-key">{r.label}</span>
+              <span class="block-value">{r.value}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
 
     <div class="sheet-block">
@@ -380,6 +390,8 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   .career-row > div:not(:first-child) { text-align: right; }
   .career-head { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); font-weight: 400; }
   .career-note { font-size: 13.5px; color: var(--quiet); }
+  /* The career's rates read as the season's do above, one rule below the sum. */
+  .career-rates { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--hairline-soft); }
 
   .log { display: flex; flex-direction: column; }
   .log-row {

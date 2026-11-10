@@ -29,10 +29,12 @@ import { cleanSheetsOf, type Fixture, loadSeason, resultsOf, squadOf } from "./d
 import { classAbbr } from "./format.ts";
 import type { MatchesFile } from "./model.ts";
 import {
+  careerRates,
   cleanSheetFigure,
   countCleanSheets,
   keeperSentence,
   playerCard,
+  pooled,
   strikeSentence,
   sumColumn,
 } from "./player.ts";
@@ -344,6 +346,70 @@ describe("every card's clean sheets and career agree with the season", () => {
         if (cells.length === 0) expect(printed, `${card.name} ${col}`).toBe("—");
         else expect(Number.parseInt(printed, 10), `${card.name} ${col}`).toBe(sum);
       });
+    }
+  });
+});
+
+/**
+ * Career rates. The predicate to audit is which seasons a rate reads: a season
+ * that published goals but no minutes must leave goals per 90 entirely, or
+ * its goals are divided by everyone else's minutes and the rate inflates.
+ */
+describe("career rates pool the seasons that carry every part they divide", () => {
+  const rate = (rows: ReturnType<typeof careerRates>, label: string) =>
+    rows.find((r) => r.label === label)?.value;
+
+  test("a season missing the denominator leaves the rate, numerator and all", () => {
+    const seasons = [
+      { goals: 5, assists: 2, shots: 28, sog: 13, minutes: 1066 },
+      { goals: 5, assists: 1, shots: 29, sog: 13 }, // no minutes column
+    ];
+    expect(pooled(seasons, ["goals", "minutes"]).sum("goals")).toBe(5);
+    const rows = careerRates(false, seasons);
+    expect(rate(rows, "Goals per 90")).toBe("0.42 · 1 of 2 seasons");
+    expect(rate(rows, "Conversion")).toBe("17.5%");
+  });
+
+  test("a rate is pooled, never an average of season rates", () => {
+    // .900 over 10 faced and .800 over 100: the average says .850, the career .809.
+    const rows = careerRates(true, [
+      { saves: 9, goalsAgainst: 1, minutes: 270, wins: 2, ties: 1, losses: 0 },
+      { saves: 80, goalsAgainst: 20, minutes: 1500, wins: 8, ties: 2, losses: 5 },
+    ]);
+    expect(rate(rows, "Save percentage")).toBe(".809");
+    expect(rate(rows, "Goals against average")).toBe("1.07");
+    expect(rate(rows, "Record")).toBe("10–3–5");
+  });
+
+  test("under the sample floor a rate gives way to its counts", () => {
+    const field = careerRates(false, [
+      { goals: 1, shots: 1, sog: 1, minutes: 60, assists: 0 },
+      { goals: 0, shots: 2, sog: 0, minutes: 30, assists: 0 },
+    ]);
+    expect(rate(field, "Conversion")).toBe("1 of 3");
+    expect(rate(field, "Goals per 90")).toBe("1 in 90′");
+    const keeper = careerRates(true, [{ saves: 3, goalsAgainst: 1, minutes: 45 }]);
+    expect(rate(keeper, "Save percentage")).toBe("3 of 4");
+  });
+
+  test("nothing to divide is a dash, not a zero", () => {
+    const rows = careerRates(false, [{ goals: 0, shots: 0, minutes: 0 }, {}]);
+    expect(rate(rows, "Conversion")).toBe("—");
+    expect(rate(rows, "Goals per 90")).toBe("—");
+  });
+
+  test("every card with a career total carries rates, and every rate is well formed", () => {
+    const withTotal = everyCard.filter((c) => c.card.career.total);
+    expect(withTotal.length).toBeGreaterThan(0);
+    const shape =
+      /^(—|\.\d{3}|1\.000|\d+\.\d{2}|\d+\.\d%|\d+ of \d+|\d+ in \d+′|\d+–\d+–\d+)( · \d+ of \d+ seasons)?$/;
+    for (const { card } of withTotal) {
+      expect(card.career.rates, card.name).not.toBeNull();
+      for (const r of card.career.rates ?? [])
+        expect(r.value, `${card.name} ${r.label}`).toMatch(shape);
+    }
+    for (const { card } of everyCard.filter((c) => !c.card.career.total)) {
+      expect(card.career.rates).toBeNull();
     }
   });
 });
