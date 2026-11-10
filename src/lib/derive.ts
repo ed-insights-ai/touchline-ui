@@ -211,7 +211,7 @@ const disputedCache = new Map<string, Set<string>>();
 /** The disputed identities across every configured conference's file, read
  *  once per season and gender. A conference the data home has not collected
  *  contributes no records, as it contributes no members. */
-function disputedAcross(season: number, gender: string): Set<string> {
+export function disputedAcross(season: number, gender: string): Set<string> {
   const cacheKey = `${season}-${gender}`;
   const cached = disputedCache.get(cacheKey);
   if (cached) return cached;
@@ -325,6 +325,17 @@ export function recordOf(s: Season, slug: string): Record {
   }
   return rec;
 }
+
+/**
+ * Matches this programme finished without conceding: the team's clean sheets.
+ *
+ * Read off the same results the record rests on, so a disputed match is in
+ * neither. A forfeit is out too: its printed 1-0 is an award, not ninety
+ * minutes in which nobody scored, and calling it a clean sheet would credit
+ * a defence with a match it never played.
+ */
+export const cleanSheetsOf = (s: Season, slug: string): number =>
+  resultsOf(s, slug).filter((r) => !r.forfeit && r.goalsAgainst === 0).length;
 
 /** The conference's aggregate record against everyone who is not in it —
  *  every scored fixture with exactly one member side. */
