@@ -1,0 +1,180 @@
+---
+// The NCAA field at a glance: how far it has shrunk, and where every
+// programme in it stands.
+//
+// The funnel is the knockout's shape (lib/postseason.ts shapeOf), counted from
+// the largest full round collected, so it says how many sides each round
+// holds, never who meets whom. Each programme stands once, read from its
+// latest tie (fieldOf), and each chip is the path tracer's link: selecting
+// one lights that programme's ties in the bracket below.
+import { type FieldEntry, fieldOf, labelAt, roundNameOf, shapeOf, type Tournament } from "../lib/postseason.ts";
+
+interface Props {
+  tournament: Tournament;
+  conferenceOf: ReadonlyMap<string, string>;
+}
+const { tournament, conferenceOf } = Astro.props;
+
+const entries = fieldOf(tournament);
+const shape = shapeOf(tournament);
+
+// The round a label names, as a phrase: "the second round", "the final".
+const PHRASE: Record<string, string> = {
+  R1: "the first round",
+  R2: "the second round",
+  R3: "the third round",
+  QF: "the quarterfinals",
+  SF: "the semifinals",
+  FINAL: "the final",
+};
+const phrase = (label: string): string => PHRASE[label] ?? `round ${label.slice(1)}`;
+const labelOf = (round: number): string => {
+  if (shape && round >= shape.from && round <= shape.rounds) return labelAt(round, shape.rounds);
+  return tournament.ties.find((t) => t.round === round)?.label || `R${round}`;
+};
+
+// The round being played now: the earliest with a collected tie still to
+// play; else the earliest the shape says is not yet complete.
+const unplayed = tournament.ties.filter((t) => t.round > 0 && t.fixture.status !== "final").map((t) => t.round);
+const incomplete = shape
+  ? Array.from({ length: shape.rounds - shape.from + 1 }, (_, i) => shape.from + i).filter(
+      (r) => tournament.ties.filter((t) => t.round === r).length < shape.size(r),
+    )
+  : [];
+const now = unplayed.length > 0 ? Math.min(...unplayed) : incomplete.length > 0 ? Math.min(...incomplete) : null;
+
+interface Stage {
+  name: string;
+  /** The phone's form: the round's short label. */
+  short: string;
+  sides: number;
+  state: "done" | "now" | "";
+}
+const stages: Stage[] = [];
+if (shape) {
+  const entered = entries.length;
+  const firstSides = 2 * shape.size(shape.from);
+  if (entered > firstSides) {
+    stages.push({ name: "The field", short: "Field", sides: entered, state: "done" });
+  }
+  for (let r = shape.from; r <= shape.rounds; r++) {
+    stages.push({
+      name: roundNameOf(labelAt(r, shape.rounds)),
+      short: labelAt(r, shape.rounds) === "FINAL" ? "Final" : labelAt(r, shape.rounds),
+      sides: 2 * shape.size(r),
+      state: now === null || r < now ? "done" : r === now ? "now" : "",
+    });
+  }
+  stages.push({ name: "Champion", short: "Champ", sides: 1, state: tournament.champion ? "now" : "" });
+}
+const widest = Math.max(1, ...stages.map((s) => s.sides));
+
+// The groups, in reading order: who is still in, then who is out, the
+// latest round first.
+interface Group {
+  key: string;
+  head: string;
+  cls: string;
+  entries: FieldEntry[];
+}
+const groups = new Map<string, Group>();
+const add = (key: string, head: string, cls: string, e: FieldEntry, rank: number): void => {
+  const g = groups.get(key) ?? { key: `${rank}`.padStart(4, "0") + key, head, cls, entries: [] };
+  g.entries.push(e);
+  groups.set(key, g);
+};
+for (const e of entries) {
+  const round = e.tie.round;
+  if (e.standing === "champion") add("champion", "Champions", "champ", e, 0);
+  else if (e.standing === "through") add(`through-${round}`, `Through to ${phrase(labelOf(round + 1))}`, "thru", e, 100 - round);
+  else if (e.standing === "to-play") add(`to-play-${round}`, `To play in ${phrase(e.tie.label)}`, "live", e, 200 - round);
+  else if (e.standing === "unsettled") add("unsettled", "Played, no one through on the record", "uns", e, 300);
+  else add(`out-${round}`, `Out in ${phrase(e.tie.label)}`, "out", e, 400 - round);
+}
+const name = (e: FieldEntry): string => e.tie.match.season.names.name(e.slug);
+const ordered = [...groups.values()]
+  .sort((a, b) => a.key.localeCompare(b.key))
+  .map((g) => ({ ...g, entries: [...g.entries].sort((a, b) => name(a).localeCompare(name(b))) }));
+---
+
+<div class="field">
+  {stages.length > 0 && (
+    <ol class="funnel" aria-label="Sides left in each round">
+      {stages.map((s) => (
+        <li class:list={["stage", s.state]}>
+          <span class="bar num" style={`--h:${(0.3 + 0.7 * (s.sides / widest)).toFixed(3)}`}>{s.sides}</span>
+          <span class="nm">
+            <span class="nl">{s.name}{s.state === "now" && s.name !== "Champion" ? " · now" : ""}</span>
+            <span class="ns">{s.short}</span>
+          </span>
+        </li>
+      ))}
+    </ol>
+  )}
+  <div class="groups">
+    {ordered.map((g) => (
+      <div class:list={["grp", g.cls]}>
+        <h3>{g.head} <span class="num">{g.entries.length}</span></h3>
+        <div class="chips">
+          {g.entries.map((e) => (
+            <a
+              class:list={["entrant", `p-${e.slug}`]}
+              href={`#path-${e.slug}`}
+              title={`${name(e)}${conferenceOf.get(e.slug) ? ` · ${conferenceOf.get(e.slug)}` : ""}: trace the path`}
+            >
+              {name(e)}
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+  {shape && (
+    <p class="provenance">
+      Sides per round are counted from a full {roundNameOf(labelAt(shape.from, shape.rounds)).toLowerCase()} of{" "}
+      {shape.size(shape.from)} ties, halving to the final. Select a programme to trace its path through the bracket.
+    </p>
+  )}
+</div>
+
+<style>
+  .field { display: grid; gap: 14px; }
+  .funnel { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; align-items: end; }
+  .stage { display: grid; gap: 5px; justify-items: stretch; text-align: center; min-width: 0; }
+  .stage .bar {
+    height: calc(var(--h) * 64px); min-height: 22px; display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; font-weight: 600; font-size: 15px;
+    background: var(--accent-wash); border: 1px solid var(--hairline); color: var(--ink);
+  }
+  .stage.done .bar { color: var(--secondary); }
+  .stage.now .bar { background: var(--accent); border-color: var(--accent); color: var(--card); }
+  .stage .nm { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--quiet); }
+  .stage .ns { display: none; }
+  .stage.now .nm { color: var(--ink); font-weight: 600; }
+
+  .groups { display: grid; gap: 0; }
+  .grp { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 6px 14px; align-items: start; border-top: 1px solid var(--hairline); padding-block: 8px; }
+  .grp h3 { margin: 4px 0 0; font-size: 10.5px; letter-spacing: 0.12em; font-weight: 600; text-transform: uppercase; color: var(--secondary); }
+  .grp h3 .num { color: var(--quiet); margin-left: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .entrant {
+    display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 999px;
+    border: 1px solid var(--hairline); font-size: 12px; color: var(--ink); white-space: nowrap; background: var(--card);
+  }
+  .entrant:hover { border-color: var(--accent); }
+  .champ .entrant, .thru .entrant { font-weight: 600; border-color: var(--ink); }
+  .out .entrant { color: var(--quiet); background: transparent; }
+  .champ .entrant { background: var(--accent); border-color: var(--accent); color: var(--card); }
+  .provenance { margin: 0; }
+
+  @media (max-width: 720px) {
+    .grp { grid-template-columns: minmax(0, 1fr); }
+    .stage .nm { font-size: 9px; letter-spacing: 0.06em; }
+    .stage .nl { display: none; }
+    .stage .ns { display: inline; }
+    .stage .bar { font-size: 13px; }
+  }
+  @media (pointer: coarse) {
+    .entrant { min-height: 44px; }
+  }
+</style>

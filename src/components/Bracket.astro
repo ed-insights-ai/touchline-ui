@@ -4,15 +4,28 @@
 // Once results join a whole quarterfinal subtree, that subtree is a region,
 // headed by the ground that hosted its quarterfinal (a fact from the
 // fixtures) and ordered by the semifinal pairings. Connectors are drawn only
-// between ties the results join. Until a region exists, every tie is listed
-// under its round in date order, with no lines: the page never draws a
-// pairing it has not seen.
+// between ties the results join.
+//
+// Until a region exists, the placed ties are one tree read left to right:
+// each tie joined to the next tie its winner played, a tie whose sides both
+// enter in a later round shown as such, and the trees the results have not
+// yet joined stacked rather than paired. The rounds still to come are counts
+// beside it, never lines: the page never draws a pairing it has not seen.
 //
 // Two densities from one markup. Wide, names and conference codes; at a
 // phone's width the region keeps its shape in four ~77px columns of
 // abbreviations, which never ellipsise.
 import { dayOfMonth, monShort } from "../lib/format.ts";
-import { layoutRegion, regionsOf, type Tie, type Tournament } from "../lib/postseason.ts";
+import {
+  aheadOf,
+  layoutRegion,
+  layoutTree,
+  regionsOf,
+  roundNameOf,
+  type Tie,
+  type Tournament,
+  treesOf,
+} from "../lib/postseason.ts";
 import TieBox from "./TieBox.astro";
 
 interface Props {
@@ -21,15 +34,7 @@ interface Props {
 }
 const { tournament, conferenceOf } = Astro.props;
 
-const ROUND_NAME: Record<string, string> = {
-  R1: "First round",
-  R2: "Second round",
-  R3: "Third round",
-  QF: "Quarterfinal",
-  SF: "Semifinal",
-  FINAL: "Final",
-};
-const roundName = (label: string): string => ROUND_NAME[label] ?? `Round ${label.slice(1)}`;
+const roundName = roundNameOf;
 const day = (iso: string): string => `${monShort(iso)} ${dayOfMonth(iso)}`;
 const span = (ties: readonly Tie[]): string => {
   const dates = [...new Set(ties.map((t) => t.fixture.date))].sort();
@@ -52,11 +57,47 @@ const inRegions = new Set(regions.flatMap((r) => r.ties));
 const loose = tournament.ties.filter(
   (t) => !inRegions.has(t) && t.label !== "SF" && t.label !== "FINAL",
 );
-const byRound = [...new Set(loose.map((t) => t.label || "—"))].map((label) => ({
+
+// No region yet: the placed ties as trees, stacked on one grid whose columns
+// are rounds, so a lone second-round tie sits beside the joined ones.
+const placedLoose = laid.length === 0 ? loose.filter((t) => t.round > 0) : [];
+const trees = treesOf(placedLoose);
+const firstRound = placedLoose.length > 0 ? Math.min(...placedLoose.map((t) => t.round)) : 0;
+const treeCols = trees.length > 0 ? Math.max(...trees.map((t) => t.root.round)) - firstRound + 1 : 0;
+const treeCells: ReturnType<typeof layoutTree>["cells"] = [];
+const enters: { col: number; row: number }[] = [];
+let treeRows = 0;
+for (const tree of trees) {
+  const l = layoutTree(tree, firstRound);
+  for (const c of l.cells) treeCells.push({ ...c, row: c.row + treeRows });
+  // A tie with no tie behind it, past the first column: both sides start here.
+  if (tree.ties.length === 1 && tree.root.round > firstRound) {
+    enters.push({ col: tree.root.round - firstRound, row: treeRows + 1 });
+  }
+  treeRows += l.rows;
+}
+const treeHeads = Array.from({ length: treeCols }, (_, i) => {
+  const ties = placedLoose.filter((t) => t.round === firstRound + i);
+  return { label: ties[0]?.label ?? `R${firstRound + i}`, ties };
+});
+
+// Listed by round: with regions, the ties no region holds; without, only the
+// ties the graph could not place.
+const listed = laid.length > 0 ? loose : loose.filter((t) => t.round === 0);
+const byRound = [...new Set(listed.map((t) => t.label || "—"))].map((label) => ({
   label,
-  ties: loose.filter((t) => (t.label || "—") === label),
+  ties: listed.filter((t) => (t.label || "—") === label),
 }));
 const regionTabs = laid.map((l, i) => ({ id: `region-${i + 1}`, ground: l.ground }));
+
+// The rounds still to come, as counts.
+const ahead = aheadOf(tournament);
+const aheadName = (label: string, n: number): string => {
+  if (label === "QF") return n === 1 ? "quarterfinal" : "quarterfinals";
+  if (label === "SF") return n === 1 ? "semifinal" : "semifinals";
+  if (label === "FINAL") return "final";
+  return `${roundName(label).toLowerCase().replace(" ", "-")} ${n === 1 ? "tie" : "ties"}`;
+};
 ---
 
 <div class="bracket">
@@ -91,6 +132,43 @@ const regionTabs = laid.map((l, i) => ({ id: `region-${i + 1}`, ground: l.ground
       </section>
     ))}
   </div>
+  {(trees.length > 0 || ahead.length > 0) && (
+    <div class:list={["treewrap", { below: laid.length > 0 }]}>
+      {trees.length > 0 && (
+        <div class="grid tree" style={`--cols:${treeCols};--rows:${treeRows}`}>
+          {treeHeads.map((h, c) => (
+            <span class="rhead" style={`grid-column:${c + 1};grid-row:1`}>
+              <span class="rl">{roundName(h.label)}</span><span class="rs">{h.label}</span>
+              <small>{span(h.ties)}</small>
+            </span>
+          ))}
+          {treeCells.map((cell) => (
+            <div
+              class:list={["slot", { feeds: cell.feeds, direct: cell.feeds && cell.direct, joins: cell.joins !== null }]}
+              style={`grid-column:${cell.col};grid-row:${cell.row + 1} / span ${cell.span}${cell.joins ? `;--jt:${(cell.joins.top * 100).toFixed(2)}%;--jb:${(100 - cell.joins.bottom * 100).toFixed(2)}%` : ""}`}
+            >
+              <TieBox tie={cell.tie} conferenceOf={conferenceOf} />
+            </div>
+          ))}
+          {enters.map((e) => (
+            <span class="enter" style={`grid-column:${e.col};grid-row:${e.row + 1}`}>Both enter here</span>
+          ))}
+        </div>
+      )}
+      {ahead.length > 0 && (
+        <aside class="ahead" aria-label="Still to play">
+          <span class="ah-head">Still to play</span>
+          {ahead.map((a) => (
+            <div class="ghost">
+              <span><b class="num">{a.ties}</b> {aheadName(a.label, a.ties)}</span>
+              <span class="pips" aria-hidden="true">{Array.from({ length: a.ties }, () => <i></i>)}</span>
+            </div>
+          ))}
+          <p class="ah-note">Counts only: the pairings appear as the results do.</p>
+        </aside>
+      )}
+    </div>
+  )}
   {byRound.length > 0 && (
     <div class="loose">
       {laid.length > 0 && (
@@ -156,6 +234,35 @@ const regionTabs = laid.map((l, i) => ({ id: `region-${i + 1}`, ground: l.ground
     width: calc(var(--g) / 2); border-top: 1px solid var(--outline-quiet);
   }
   .region-tabs { display: none; }
+
+  /* Before regions: the tree, and the rounds still to come beside it. */
+  .treewrap { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 22px 32px; }
+  .treewrap .tree { flex: 1 1 440px; min-width: 0; max-width: calc(var(--cols) * 300px); }
+  .enter {
+    display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--quiet);
+    position: relative;
+  }
+  .enter::after {
+    content: ""; position: absolute; right: calc(var(--g) * -1); top: 50%;
+    width: var(--g); border-top: 1px dashed var(--hairline);
+  }
+  .ahead {
+    flex: 0 1 220px; display: grid; gap: 10px; position: sticky; top: 16px;
+    border-left: 1px dashed var(--outline-quiet); padding-left: 18px;
+  }
+  .treewrap.below .ahead { flex-basis: 100%; border-left: 0; padding-left: 0; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); position: static; }
+  .ah-head { font-size: 10px; letter-spacing: 0.14em; color: var(--quiet); font-weight: 600; text-transform: uppercase; padding-bottom: 6px; border-bottom: 1px solid var(--hairline); }
+  .treewrap.below .ah-head, .treewrap.below .ah-note { grid-column: 1 / -1; }
+  .ghost {
+    display: grid; gap: 6px; border: 1px dashed var(--outline-quiet); border-radius: 6px;
+    padding: 9px 11px; font-size: 12.5px; color: var(--secondary);
+  }
+  .ghost b { font-size: 16px; color: var(--ink); font-weight: 600; margin-right: 2px; }
+  .pips { display: flex; gap: 3px; }
+  .pips i { flex: 1; height: 7px; border: 1px dashed var(--outline-quiet); border-radius: 2px; }
+  .ah-note { margin: 0; font-size: 11.5px; color: var(--quiet); font-style: italic; }
+
   .loose { display: grid; gap: 22px; }
   .loose-note { margin: 0; font-size: 12.5px; color: var(--secondary); }
   .bydate { display: grid; gap: 10px; }
@@ -180,7 +287,13 @@ const regionTabs = laid.map((l, i) => ({ id: `region-${i + 1}`, ground: l.ground
       overflow-wrap: anywhere; padding: 0 2px;
     }
     .region-tabs a:hover { color: var(--ink); }
-    .regions :global(.tie) { --fs: 11.5px; }
+    .regions :global(.tie), .tree :global(.tie) { --fs: 11.5px; }
+    .ahead {
+      flex-basis: 100%; border-left: 0; padding-left: 0; position: static;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ah-head, .ah-note { grid-column: 1 / -1; }
+    .enter { font-size: 8.5px; letter-spacing: 0.06em; padding-right: 4px; text-align: right; }
   }
 </style>
 

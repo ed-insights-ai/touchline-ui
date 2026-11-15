@@ -12,7 +12,18 @@ import { describe, expect, test } from "bun:test";
 import type { Season } from "./derive.ts";
 import { computeTable, type Fixture, type FixtureStage, type FixturesFile } from "./model.ts";
 import { nameBookFor } from "./names.ts";
-import { layoutRegion, postseasonOf, regionsOf, splitOf, stageTag } from "./postseason.ts";
+import {
+  aheadOf,
+  fieldOf,
+  layoutRegion,
+  layoutTree,
+  postseasonOf,
+  regionsOf,
+  shapeOf,
+  splitOf,
+  stageTag,
+  treesOf,
+} from "./postseason.ts";
 
 const NCAA: FixtureStage = { phase: "postseason", competition: "ncaa", source: "NCAA Tournament" };
 const CONF: FixtureStage = {
@@ -219,5 +230,151 @@ describe("a region is laid out from the ties behind its quarterfinal", () => {
     expect(ac?.direct).toBe(false);
     const ab = cells.find((c) => c.tie.fixture.away === "b");
     expect(ab?.direct).toBe(true);
+  });
+});
+
+describe("before a region exists, the bracket is the trees the results join", () => {
+  // The 2026 shape in miniature: a first round of play-in ties, smaller than
+  // the full second round the byes join, and two second-round ties between
+  // byes that nothing yet joins to anything.
+  const ties = [
+    fx("2026-11-13", "a", 2, 0, "b", { stage: NCAA }),
+    fx("2026-11-13", "c", 1, 1, "d", {
+      stage: NCAA,
+      result_published: "T, 1-1 (W, 3-1 PK)",
+      shootout: { winner: "c", home: 3, away: 1 },
+    }),
+    fx("2026-11-15", "e", null, null, "a", { stage: NCAA }),
+    fx("2026-11-15", "f", null, null, "c", { stage: NCAA }),
+    fx("2026-11-14", "g", 2, 1, "h", { stage: NCAA }),
+    fx("2026-11-15", "i", null, null, "j", { stage: NCAA }),
+  ];
+  const slugs = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+  const p = postseasonOf([seasonOf("x", fileOf("X", slugs, ties))]);
+  const trees = treesOf(p.ncaa.ties);
+
+  test("a first-round winner joins its next tie, and lone ties stay alone", () => {
+    expect(trees.map((t) => t.ties.map((x) => `${x.fixture.home}${x.fixture.away}`))).toEqual([
+      ["ab", "ea"],
+      ["cd", "fc"],
+      ["gh"],
+      ["ij"],
+    ]);
+  });
+
+  test("trees stacked on one grid keep each round in its own column", () => {
+    const joined = layoutTree(trees[0] as never, 1);
+    expect(
+      joined.cells.map((c) => [`${c.tie.fixture.home}${c.tie.fixture.away}`, c.col, c.direct]),
+    ).toEqual([
+      ["ea", 2, false],
+      ["ab", 1, true],
+    ]);
+    const lone = layoutTree(trees[3] as never, 1);
+    expect(lone.cells).toHaveLength(1);
+    expect(lone.cells[0]?.col).toBe(2);
+    expect(lone.cells[0]?.feeds).toBe(false);
+  });
+
+  test("the rounds still to come are counted from the full round, never paired", () => {
+    expect(shapeOf(p.ncaa)?.from).toBe(2);
+    expect(shapeOf(p.ncaa)?.rounds).toBe(4);
+    expect(aheadOf(p.ncaa)).toEqual([
+      { round: 3, label: "SF", ties: 2 },
+      { round: 4, label: "FINAL", ties: 1 },
+    ]);
+  });
+
+  test("every programme in the field stands once, read from its latest tie", () => {
+    const standing = Object.fromEntries(fieldOf(p.ncaa).map((e) => [e.slug, e.standing]));
+    expect(Object.keys(standing).sort()).toEqual(slugs);
+    expect(standing).toEqual({
+      a: "to-play",
+      b: "out",
+      c: "to-play",
+      d: "out",
+      e: "to-play",
+      f: "to-play",
+      g: "through",
+      h: "out",
+      i: "to-play",
+      j: "to-play",
+    });
+  });
+});
+
+describe("what the field strip and the count may not claim", () => {
+  test("a decided final leaves nothing ahead and crowns only its winner", () => {
+    const ties = [
+      fx("2025-11-20", "a", 1, 0, "b", { stage: NCAA }),
+      fx("2025-11-20", "c", 2, 1, "d", { stage: NCAA }),
+      fx("2025-11-30", "a", 0, 1, "c", { stage: NCAA }),
+    ];
+    const p = postseasonOf([seasonOf("x", fileOf("X", ["a", "b", "c", "d"], ties))]);
+    expect(aheadOf(p.ncaa)).toEqual([]);
+    const standing = Object.fromEntries(fieldOf(p.ncaa).map((e) => [e.slug, e.standing]));
+    expect(standing).toEqual({ a: "out", b: "out", c: "champion", d: "out" });
+  });
+
+  test("a level score with no shootout collected is unsettled, not a result", () => {
+    const ties = [
+      fx("2025-11-20", "a", 1, 1, "b", { stage: NCAA }),
+      fx("2025-11-20", "c", 2, 0, "d", { stage: NCAA }),
+    ];
+    const p = postseasonOf([seasonOf("x", fileOf("X", ["a", "b", "c", "d"], ties))]);
+    const standing = Object.fromEntries(fieldOf(p.ncaa).map((e) => [e.slug, e.standing]));
+    expect(standing.a).toBe("unsettled");
+    expect(standing.b).toBe("unsettled");
+  });
+
+  test("a later round the halving cannot hold means no shape, so nothing is counted", () => {
+    const ties = [
+      fx("2025-11-20", "a", 1, 0, "b", { stage: NCAA }),
+      fx("2025-11-20", "c", 1, 0, "d", { stage: NCAA }),
+      fx("2025-11-23", "a", null, null, "e", { stage: NCAA }),
+      fx("2025-11-23", "c", null, null, "f", { stage: NCAA }),
+      fx("2025-11-23", "g", null, null, "h", { stage: NCAA }),
+    ];
+    const p = postseasonOf([
+      seasonOf("x", fileOf("X", ["a", "b", "c", "d", "e", "f", "g", "h"], ties)),
+    ]);
+    expect(shapeOf(p.ncaa)).toBeNull();
+    expect(aheadOf(p.ncaa)).toEqual([]);
+  });
+});
+
+describe("a round is named from the confirmed shape before the final is collected", () => {
+  // Four quarterfinals played and both semifinals scheduled: the halving is
+  // confirmed by the semifinals' sides, so the rounds carry their names even
+  // though no final exists yet to count back from.
+  const qf = [
+    fx("2026-11-27", "a", 2, 0, "b", { stage: NCAA }),
+    fx("2026-11-27", "c", 1, 0, "d", { stage: NCAA }),
+    fx("2026-11-27", "e", 3, 1, "f", { stage: NCAA }),
+    fx("2026-11-27", "g", 0, 1, "h", { stage: NCAA }),
+  ];
+  const sf = [
+    fx("2026-12-04", "a", null, null, "c", { stage: NCAA }),
+    fx("2026-12-04", "e", null, null, "h", { stage: NCAA }),
+  ];
+  const slugs = ["a", "b", "c", "d", "e", "f", "g", "h"];
+  const labels = (fixtures: Fixture[]): string[] =>
+    postseasonOf([seasonOf("x", fileOf("X", slugs, fixtures))]).ncaa.ties.map(
+      (t) => `${t.fixture.home}${t.fixture.away}:${t.label}`,
+    );
+
+  test("quarterfinals and semifinals are named while the final is still to come", () => {
+    expect(labels([...qf, ...sf]).sort()).toEqual([
+      "ab:QF",
+      "ac:SF",
+      "cd:QF",
+      "ef:QF",
+      "eh:SF",
+      "gh:QF",
+    ]);
+  });
+
+  test("an unconfirmed shape keeps the names the chain alone supports", () => {
+    expect(labels(qf).some((l) => l.endsWith(":QF"))).toBe(false);
   });
 });

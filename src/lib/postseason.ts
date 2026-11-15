@@ -17,7 +17,9 @@
 // - Round placement is DERIVED from the match graph, counted back from the
 //   latest round collected: each tie is one round before the next tie either
 //   side plays. Labels count back from the end (FINAL, SF, QF) only when the
-//   round sizes say so; otherwise R1, R2, ...
+//   round sizes say so, or when a confirmed shape does (a full round the
+//   results have closed, halving to the final; see shapeOf); otherwise R1,
+//   R2, ...
 // - Who went through: the score's winner (outcome, so a forfeit follows the
 //   award); level, the collected shootout (OBSERVED); otherwise the one side
 //   that appears in the next round (DERIVED); otherwise undetermined.
@@ -249,8 +251,15 @@ function place(
   });
   const sizes = new Map<number, number>();
   for (const t of rounded) if (t.round > 0) sizes.set(t.round, (sizes.get(t.round) ?? 0) + 1);
+  // A confirmed shape names a round before the final is collected: the
+  // quarterfinals are QF the week they are played, not "R4" until the final
+  // joins them. Otherwise rounds are named from the end only when the sizes
+  // already collected say so.
+  const shape = shapeFrom(rounded);
+  const labelOf = (round: number): string =>
+    shape?.confirmed ? labelAt(round, shape.rounds) : labelFor(round, rounds, sizes);
   const ties: Tie[] = rounded.map((t) => {
-    const withLabel = { ...t, label: t.round > 0 ? labelFor(t.round, rounds, sizes) : "" };
+    const withLabel = { ...t, label: t.round > 0 ? labelOf(t.round) : "" };
     const next = successor.get(t.identity);
     const onward = new Set(next ? sides(next) : []);
     return { ...withLabel, through: advanceOf(withLabel, onward) };
@@ -402,23 +411,32 @@ export interface BracketRegion {
   ties: Tie[];
 }
 
-export function regionsOf(t: Tournament): BracketRegion[] {
-  const qfs = t.ties.filter((x) => x.label === "QF");
-  if (qfs.length === 0) return [];
+/** A tie and every tie behind it among `pool`: each side's latest tie in the
+ *  round before, and so on back, by date. An unplaced tie (round 0) is never
+ *  behind anything: its round is unknown, so no line may reach it. */
+function subtreeOf(pool: readonly Tie[], root: Tie): Tie[] {
   const latestBefore = (slug: string, round: number): Tie | null =>
-    t.ties
-      .filter((x) => x.round === round - 1 && sides(x).includes(slug))
-      .sort(byDate)
-      .at(-1) ?? null;
-  const subtree = (tie: Tie, into: Tie[]): Tie[] => {
+    round <= 1
+      ? null
+      : (pool
+          .filter((x) => x.round === round - 1 && sides(x).includes(slug))
+          .sort(byDate)
+          .at(-1) ?? null);
+  const walk = (tie: Tie, into: Tie[]): Tie[] => {
     into.push(tie);
     for (const slug of sides(tie)) {
       const prev = latestBefore(slug, tie.round);
-      if (prev && !into.includes(prev)) subtree(prev, into);
+      if (prev && !into.includes(prev)) walk(prev, into);
     }
     return into;
   };
-  const regions = qfs.map((qf) => ({ quarterfinal: qf, ties: subtree(qf, []).sort(byDate) }));
+  return walk(root, []).sort(byDate);
+}
+
+export function regionsOf(t: Tournament): BracketRegion[] {
+  const qfs = t.ties.filter((x) => x.label === "QF");
+  if (qfs.length === 0) return [];
+  const regions = qfs.map((qf) => ({ quarterfinal: qf, ties: subtreeOf(t.ties, qf) }));
   const sfs = t.ties.filter((x) => x.label === "SF").sort(byDate);
   const order: BracketRegion[] = [];
   for (const sf of sfs) {
@@ -429,6 +447,154 @@ export function regionsOf(t: Tournament): BracketRegion[] {
   }
   for (const r of regions) if (!order.includes(r)) order.push(r);
   return order;
+}
+
+/** A bracket fragment the results have joined: a tie and every tie behind
+ *  it. A region is one whose root is a quarterfinal. */
+export interface BracketTree {
+  root: Tie;
+  ties: Tie[];
+}
+
+/** The placed ties of `pool` as trees, before any region exists: each rooted
+ *  at a tie that feeds no later tie in the pool, with every tie behind it.
+ *  Latest round first, then the trees the results have joined most, then by
+ *  date, so a joined tree leads and a lone tie follows. Nothing is joined that
+ *  the results do not join: two lone ties stay two trees. */
+export function treesOf(pool: readonly Tie[]): BracketTree[] {
+  const placed = pool.filter((x) => x.round > 0);
+  const feedsLater = (x: Tie): boolean =>
+    placed.some((y) => y.round === x.round + 1 && sides(y).some((slug) => sides(x).includes(slug)));
+  return placed
+    .filter((x) => !feedsLater(x))
+    .map((root) => ({ root, ties: subtreeOf(placed, root) }))
+    .sort(
+      (a, b) =>
+        b.root.round - a.root.round ||
+        b.ties.length - a.ties.length ||
+        byDate(a.root, b.root) ||
+        tieAnchor(a.root).localeCompare(tieAnchor(b.root)),
+    );
+}
+
+/** The knockout's shape, where the collected rounds say it. The largest round
+ *  whose size is a power of two is taken as full (a first round of play-in
+ *  ties is smaller than the round the byes join), and each round after it
+ *  halves to a final of one. Null when no round says so, or when a later round
+ *  already holds more ties than the halving allows: then the shape is not what
+ *  it seems, and nothing is counted from it. */
+export interface Shape {
+  /** The full round the shape is counted from. */
+  from: number;
+  /** The final's round. */
+  rounds: number;
+  /** The ties a round holds when complete; 0 outside the shape. */
+  size: (round: number) => number;
+  /** The results have closed the full round: the round after it is collected
+   *  and every side in it came through the round before, so no later entrant
+   *  can still join. Until then the full round may be a part-collected one
+   *  (a host's opponent is unknown until its play-in is played), so a shape
+   *  may count what is ahead but may not name a round. */
+  confirmed: boolean;
+}
+
+export function shapeOf(t: Tournament): Shape | null {
+  return shapeFrom(t.ties);
+}
+
+function shapeFrom(ties: readonly { round: number; fixture: Fixture }[]): Shape | null {
+  const sizes = new Map<number, number>();
+  for (const x of ties) if (x.round > 0) sizes.set(x.round, (sizes.get(x.round) ?? 0) + 1);
+  let from = 0;
+  let full = 0;
+  for (const [round, n] of sizes) {
+    const power = n >= 2 && (n & (n - 1)) === 0;
+    if (power && (n > full || (n === full && round < from))) {
+      from = round;
+      full = n;
+    }
+  }
+  if (full === 0) return null;
+  const rounds = from + Math.log2(full);
+  const size = (round: number): number =>
+    round < from || round > rounds ? 0 : full / 2 ** (round - from);
+  for (const [round, n] of sizes) if (round > from && n > size(round)) return null;
+  const sidesIn = (round: number): Set<string> =>
+    new Set(ties.filter((x) => x.round === round).flatMap((x) => [x.fixture.home, x.fixture.away]));
+  let confirmed = (sizes.get(from + 1) ?? 0) > 0;
+  for (let round = from + 1; confirmed && round <= rounds && sizes.has(round); round++) {
+    const before = sidesIn(round - 1);
+    confirmed = [...sidesIn(round)].every((slug) => before.has(slug));
+  }
+  return { from, rounds, size, confirmed };
+}
+
+/** A round's short label, counted back from the final of a known shape. */
+export const labelAt = (round: number, rounds: number): string =>
+  (["FINAL", "SF", "QF"] as const)[rounds - round] ?? `R${round}`;
+
+const ROUND_NAME: Record<string, string> = {
+  R1: "First round",
+  R2: "Second round",
+  R3: "Third round",
+  QF: "Quarterfinal",
+  SF: "Semifinal",
+  FINAL: "Final",
+};
+
+/** A round's name for a heading: "Second round", "Quarterfinal". */
+export const roundNameOf = (label: string): string =>
+  ROUND_NAME[label] ?? `Round ${label.slice(1)}`;
+
+/** The ties still to come in one round, as a count: no pairing is drawn. */
+export interface Ahead {
+  round: number;
+  label: string;
+  ties: number;
+}
+
+/** Every round still to come, from the latest round collected to the final,
+ *  with the ties each still lacks. Empty once a champion is decided, or when
+ *  the collected rounds give no shape to count from. */
+export function aheadOf(t: Tournament): Ahead[] {
+  if (t.champion) return [];
+  const shape = shapeOf(t);
+  if (!shape) return [];
+  const latest = Math.max(...t.ties.map((x) => x.round));
+  const out: Ahead[] = [];
+  for (let round = Math.max(shape.from, latest); round <= shape.rounds; round++) {
+    const missing = shape.size(round) - t.ties.filter((x) => x.round === round).length;
+    if (missing > 0) out.push({ round, label: labelAt(round, shape.rounds), ties: missing });
+  }
+  return out;
+}
+
+/** Where one programme in the field stands, from its latest tie. */
+export type Standing = "champion" | "through" | "to-play" | "unsettled" | "out";
+
+export interface FieldEntry {
+  slug: string;
+  standing: Standing;
+  /** The programme's latest tie: the one its standing is read from. */
+  tie: Tie;
+}
+
+/** Every programme with a tie, once, by its latest tie: through when it won
+ *  it, out when the other side did, to play while it is unplayed, and
+ *  unsettled when it was played but the record names no one through (a
+ *  disputed tie, or a level score with no shootout collected). */
+export function fieldOf(t: Tournament): FieldEntry[] {
+  const latest = new Map<string, Tie>();
+  const ordered = [...t.ties].sort((a, b) => a.round - b.round || byDate(a, b));
+  for (const x of ordered) for (const slug of sides(x)) latest.set(slug, x);
+  return [...latest].map(([slug, tie]) => {
+    const through = tie.through;
+    let standing: Standing;
+    if (through === null) standing = tie.fixture.status === "final" ? "unsettled" : "to-play";
+    else if (through.slug !== slug) standing = "out";
+    else standing = t.final === tie && t.champion?.slug === slug ? "champion" : "through";
+    return { slug, standing, tie };
+  });
 }
 
 /** Every slug that has a tie in the tournament. */
@@ -456,6 +622,17 @@ export interface Cell {
  *  centred on the ties that fed it. Byes leave a side with no tie behind it,
  *  so subtrees are measured, never assumed to be two of everything. */
 export function layoutRegion(region: BracketRegion): { cells: Cell[]; cols: number; rows: number } {
+  return layoutTree({ root: region.quarterfinal, ties: region.ties });
+}
+
+/** Lay any bracket tree out the same way, its root on the right. `first` is
+ *  the round drawn as column 1 (default: the tree's own earliest), so trees of
+ *  different depths stacked on one grid keep their rounds in the same column. */
+export function layoutTree(
+  tree: BracketTree,
+  first?: number,
+): { cells: Cell[]; cols: number; rows: number } {
+  const region = { quarterfinal: tree.root, ties: tree.ties };
   const inRegion = new Set(region.ties);
   const feeders = (t: Tie): Tie[] =>
     sides(t).flatMap((slug) => {
@@ -474,7 +651,7 @@ export function layoutRegion(region: BracketRegion): { cells: Cell[]; cols: numb
     leaves.set(t.identity, n);
     return n;
   };
-  const first = Math.min(...region.ties.map((t) => t.round));
+  const earliest = first ?? Math.min(...region.ties.map((t) => t.round));
   const cells: Cell[] = [];
   const place = (t: Tie, row: number, parentFeeders: number): void => {
     const span = leavesOf(t);
@@ -487,7 +664,7 @@ export function layoutRegion(region: BracketRegion): { cells: Cell[]; cols: numb
     }
     cells.push({
       tie: t,
-      col: t.round - first + 1,
+      col: t.round - earliest + 1,
       row,
       span,
       feeds: t !== region.quarterfinal,
@@ -503,7 +680,7 @@ export function layoutRegion(region: BracketRegion): { cells: Cell[]; cols: numb
   place(region.quarterfinal, 1, 0);
   return {
     cells,
-    cols: region.quarterfinal.round - first + 1,
+    cols: region.quarterfinal.round - earliest + 1,
     rows: leavesOf(region.quarterfinal),
   };
 }
