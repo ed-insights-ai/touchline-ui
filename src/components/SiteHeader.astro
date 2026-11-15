@@ -126,13 +126,13 @@ const genders = publishedGenders.length > 1
       trigger toggles on Enter and Space by the browser's own rules. The island
       below adds what a <details> cannot promise on its own: aria-expanded that
       says the truth, arrow keys along the rows, Escape, and the keyboard
-      handed back to the trigger it left. The 2px accent rule stays on the
-      conference trigger — it is still the answer to "which conference is
-      this" — and nothing else in the header is purple but the current row. */}
+      handed back to the trigger it left. The 2px accent rule marks where the
+      reader is: the conference trigger inside a conference, the Championship
+      tab on the championship page, and no tab at all on the home or About. */}
   <nav class="hnav" aria-label={season ? "Conferences and teams" : "Conferences"}>
     <details class="hmenu hmenu-conf">
       <summary
-        class="htab htab-conf"
+        class:list={["htab", "htab-conf", { "htab-current": !!season }]}
         aria-label={season ? `Conference: ${season.fixtures.conference}` : "Conferences"}
       >
         <span class="htab-label">{season ? season.fixtures.conference : "Conferences"}</span>
@@ -173,7 +173,7 @@ const genders = publishedGenders.length > 1
     )}
     {championship && (
       <a
-        class:list={["htab", "htab-champ", { "htab-here": isView(championship) }]}
+        class:list={["htab", "htab-champ", { "htab-current": isView(championship) }]}
         href={championship}
         aria-current={isView(championship) ? "page" : undefined}
       ><span class="htab-label">Championship</span></a>
