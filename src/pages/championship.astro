@@ -12,6 +12,7 @@
 // that hosted their quarterfinal, and nothing is drawn that the results have
 // not joined.
 import Bracket from "../components/Bracket.astro";
+import FieldStrip from "../components/FieldStrip.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import TieBox from "../components/TieBox.astro";
@@ -20,7 +21,7 @@ import Page from "../layouts/Page.astro";
 import { hasScore, matchHref } from "../lib/derive.ts";
 import { dayOfMonth, dowShort, monShort, spell } from "../lib/format.ts";
 import { homeSeasons } from "../lib/home.ts";
-import type { Tie } from "../lib/postseason.ts";
+import { regionsOf, type Tie } from "../lib/postseason.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { site } from "../site.config.ts";
 
@@ -104,6 +105,7 @@ const pathCss = traced
   )
   .join("\n");
 const allTies = [...p.byIdentity.values()];
+const hasRegions = regionsOf(ncaa).length > 0;
 ---
 
 <Page
@@ -142,6 +144,13 @@ const allTies = [...p.byIdentity.values()];
       )}
     </section>
 
+    {ncaa.ties.length > 0 && (
+      <section class="block" id="field">
+        <h2 class="sechead">THE FIELD</h2>
+        <FieldStrip tournament={ncaa} conferenceOf={p.conferenceOf} />
+      </section>
+    )}
+
     {finalsCards.length > 0 && (
       <section class="block">
         <h2 class="sechead">THE FINALS</h2>
@@ -167,6 +176,12 @@ const allTies = [...p.byIdentity.values()];
               </a>
             );
           })}
+          {sfs.length === 2 && !final && (
+            <div class="mcard final pending">
+              <span class="lab"><span>Final</span><span>To be played</span></span>
+              <span class="meet">The two semifinal winners meet.</span>
+            </div>
+          )}
         </div>
       </section>
     )}
@@ -183,8 +198,10 @@ const allTies = [...p.byIdentity.values()];
         </div>
         <Bracket tournament={ncaa} conferenceOf={p.conferenceOf} />
         <p class="provenance">
-          Regions are headed by the ground that hosted their quarterfinal, a fact from the fixtures. No bracket
-          document is collected, so there are no seeds or published region names. Select any tie.
+          {hasRegions
+            ? "Regions are headed by the ground that hosted their quarterfinal, a fact from the fixtures."
+            : "Each tie is joined to the next tie its winner played; ties the results have not yet joined are stacked, not paired."}{" "}
+          No bracket document is collected, so there are no seeds or published region names. Select any tie.
         </p>
       </section>
     )}
@@ -281,6 +298,10 @@ const allTies = [...p.byIdentity.values()];
   .mcard.final .side .g { font-size: 38px; }
   .mcard.final .side .n { font-family: var(--serif); font-size: 21px; font-weight: 500; }
   .mcard.final .side.l .n { font-weight: 400; }
+  /* The final before its fixture is collected: both semifinals are, so who
+     meets is a fact of the knockout; when and where is not yet. */
+  .mcard.final.pending { border: 1px dashed var(--outline-quiet); background: transparent; align-content: center; min-height: 128px; }
+  .mcard.pending .meet { font-family: var(--serif); font-size: 18px; color: var(--secondary); }
   .pk { font-size: 0.55em; color: var(--quiet); margin-left: 3px; font-family: var(--sans); font-weight: 500; }
 
   .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 11.5px; color: var(--secondary); align-items: center; }
