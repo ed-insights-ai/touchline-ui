@@ -1035,7 +1035,7 @@ export function verdictLine(
   const published = v.final.resultPublished;
   return published
     ? {
-        head: `Final drawn ${score} · shootout winner not collected`,
+        head: `Final drawn ${score} · shootout published, winner not matched to a side`,
         note: `Published as “${published}”, quoted as published. It names no programme Touchline can match to a side, so no champion is named.`,
       }
     : {

@@ -397,7 +397,7 @@ describe("a match the schedule page marked neutral", () => {
   test("reads v between the sides, never at", () => {
     expect(meetWord({ neutral: true } as unknown as Fixture)).toBe("v");
     expect(meetWord({} as unknown as Fixture)).toBe("at");
-    expect(NEUTRAL_GROUND).toBe("At a neutral ground");
+    expect(NEUTRAL_GROUND).toBe("Listed as a neutral site");
   });
 });
 

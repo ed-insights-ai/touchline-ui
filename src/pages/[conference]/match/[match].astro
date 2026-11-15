@@ -40,7 +40,7 @@ import {
 } from "../../../lib/division.ts";
 import { homeSeasons } from "../../../lib/home.ts";
 import { divisionPostseason } from "../../../lib/postseason-division.ts";
-import { stageTag, tieAnchor } from "../../../lib/postseason.ts";
+import { canonicalFixture, knownProgrammes, stageTag, tieAnchor } from "../../../lib/postseason.ts";
 import {
   boxScoreHost,
   boxScorePublisher,
@@ -85,7 +85,12 @@ const { conference } = Astro.params;
 const { fixtureId } = Astro.props;
 const season = loadSeason(conference as string);
 const names = season.names;
-const fixture = season.fixtures.fixtures.find((f) => f.id === fixtureId) as Fixture;
+// A schedule that prefixes an opponent with its national ranking
+// ("15-ashland") names a programme the site follows; read it as that
+// programme, the way the bracket does (postseason.ts canonicalSlug), so this
+// page never calls a collected side uncollected. The data stays as published.
+const rawFixture = season.fixtures.fixtures.find((f) => f.id === fixtureId) as Fixture;
+const fixture = canonicalFixture(rawFixture, knownProgrammes(homeSeasons()));
 const detail: MatchDetail | null = matchDetailOf(season, fixture.id);
 const scored = hasScore(fixture);
 
@@ -209,7 +214,7 @@ const gapReason = gaps.find((g) => g.fixtureId === fixture.id)?.reason;
 // page says, in the same quiet register as the gap notes, that it stands on
 // one source — on both pages, because a reader on the unposted side is owed
 // the fact that the score exists.
-const twin = oneSidedFinals(homeSeasons()).find((m) => m.identity === matchIdentity(fixture));
+const twin = oneSidedFinals(homeSeasons()).find((m) => m.identity === matchIdentity(rawFixture));
 const oneSource = twin
   ? oneSourceNote(twin.key === season.key && twin.fixture.id === fixture.id ? "posted" : "unposted", {
       posted: postedSide(twin).name,
@@ -383,7 +388,9 @@ const previewSides =
         return {
           slug,
           name: names.name(slug),
-          where: slug === fixture.home ? "HOME" : "AWAY",
+          // A neutral site names no home side, so the tag doesn't either;
+          // the published order stays in the column order.
+          where: fixture.neutral ? "NEUTRAL SITE" : slug === fixture.home ? "HOME" : "AWAY",
           href: teamPageHref(season, slug),
           summary: ms ? sideSummary(ms, slug) : null,
           route: routeOf(postseason, slug, fixture).map((r) => ({
@@ -446,7 +453,7 @@ const meetings =
       <div class="scoreline">
         <HomeSide class="side side-home" href={homeLink}>
           <span class="side-name">{homeName.toUpperCase()}</span>
-          <span class="side-sub">{homeIdentity ?? `${names.abbr(fixture.home)} · HOME`}</span>
+          <span class="side-sub">{homeIdentity ?? `${names.abbr(fixture.home)}${fixture.neutral ? "" : " · HOME"}`}</span>
         </HomeSide>
         {state === "preview" ? (
           <div class="kickoff num">
@@ -465,7 +472,7 @@ const meetings =
         )}
         <AwaySide class="side side-away" href={awayLink}>
           <span class="side-name">{awayName.toUpperCase()}</span>
-          <span class="side-sub">{awayIdentity ?? `${names.abbr(fixture.away)} · AWAY`}</span>
+          <span class="side-sub">{awayIdentity ?? `${names.abbr(fixture.away)}${fixture.neutral ? "" : " · AWAY"}`}</span>
         </AwaySide>
       </div>
 

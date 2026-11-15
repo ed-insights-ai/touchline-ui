@@ -272,7 +272,10 @@ export const meetWord = (f: Fixture): "at" | "v" => (f.neutral ? "v" : "at");
 
 /** What the neutral "v" means, said once for every surface that prints it:
  *  its title, its screen-reader text, the matches key and the About page. */
-export const NEUTRAL_GROUND = "At a neutral ground";
+/** What the "v" says, and no more than the data does: `Fixture.neutral`
+ *  means the published schedule lists a neutral site. Home and away stay as
+ *  published, so the mark never claims nobody was at home. */
+export const NEUTRAL_GROUND = "Listed as a neutral site";
 
 /** One record's kickoff: whose schedule page printed it, and what it says. */
 export interface KickoffRecord {

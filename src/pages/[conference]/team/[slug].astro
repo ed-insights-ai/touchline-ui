@@ -350,7 +350,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
     <SiteHeader season={season} currentTeam={slug} />
 
     <section class="crest">
-      <div class="crest-mark">{names.abbr(slug)}</div>
+      <div class="crest-mark" style={`--mark-len: ${names.abbr(slug).length}`}>{names.abbr(slug)}</div>
       <div class="crest-id">
         <h1 class="crest-name serif">{title}</h1>
         {identity && <div class="crest-meta num">{identity}</div>}
@@ -666,9 +666,12 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
     border-radius: 10px;
     background: var(--accent-wash);
     display: flex; align-items: center; justify-content: center;
-    font-size: 24px; font-weight: 600; color: var(--accent);
+    /* Sized to the code: four letters keep 24px, a five-letter code like
+       SWOSU steps down so it stays inside the tile on every width. */
+    font-size: calc(24px - max(0, var(--mark-len, 4) - 4) * 6px);
+    font-weight: 600; color: var(--accent);
     letter-spacing: 0.02em;
-    flex: none;
+    flex: none; overflow: hidden;
   }
   .crest-id { display: flex; flex-direction: column; gap: 5px; }
   .crest-name { margin: 0; font-size: 40px; line-height: 1; }
