@@ -151,7 +151,10 @@ describe("the reader's word for one is friendly", () => {
       }
     }
     expect(checked).toBeGreaterThan(20);
-  });
+    // Builds every player card in every conference, so its cost grows with the
+    // season: it crossed bun's 5s default by mid-November and blocked the
+    // publish gate. Same budget as the other whole-corpus scan (copy.test.ts).
+  }, 20_000);
 
   test("the count the word describes is still the collector's exhibitions", () => {
     // Renaming the noun must not have moved what it counts.
