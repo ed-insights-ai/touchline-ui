@@ -875,8 +875,27 @@ export interface SquadMember {
   /** Not on this programme's roster the season before. Absent previous data
    *  means nobody is marked new — an unknown is not a claim. */
   isNew: boolean;
-  /** Shots for an outfielder, saves for a keeper: what the line lists them by. */
+  /** Shots for an outfielder, saves for a keeper. */
   contribution: number;
+  /** The figure the squad row prints beside the name, from the published
+   *  season line: "44 SV" for a keeper; "9 G · 8 A" for an outfielder who
+   *  has a goal or an assist; "17 SH" for one who has only shots; null when
+   *  the line says nothing (or there is no line) — an absence, not a zero. */
+  headline: string | null;
+}
+
+/** The squad row's figure (SquadMember.headline). Goals and assists lead
+ *  where the line has either: a shot count as the headline ranked a player
+ *  by attempts over a teammate with more goals. */
+export function squadHeadline(
+  stats: PlayerStats | undefined,
+  keeper: KeeperStats | undefined,
+): string | null {
+  if (keeper) return (keeper.saves ?? 0) > 0 ? `${keeper.saves} SV` : null;
+  const g = stats?.goals ?? 0;
+  const a = stats?.assists ?? 0;
+  if (g + a > 0) return `${g} G · ${a} A`;
+  return (stats?.shots ?? 0) > 0 ? `${stats?.shots} SH` : null;
 }
 
 /** Names on this programme's roster the season before, or null when that
@@ -904,12 +923,14 @@ export function squadOf(s: Season, slug: string): SquadMember[] {
       keeper,
       isNew: before ? !before.has(player.name) : false,
       contribution: keeper ? (keeper.saves ?? 0) : (stats?.shots ?? 0),
+      headline: squadHeadline(stats, keeper),
     };
   });
 }
 
-/** The line the design colours, ordered by what the line is listed by, then by
- *  the order the programme printed its roster in. */
+/** The line the design colours, ordered by what the row headlines — saves for
+ *  a keeper; points, then goals, then shots for an outfielder — then by the
+ *  order the programme printed its roster in. */
 export function squadByLine(
   s: Season,
   slug: string,
@@ -919,17 +940,36 @@ export function squadByLine(
   return squad
     .map((m, i) => ({ m, i }))
     .filter(({ m }) => m.line === line)
-    .sort((a, b) => b.m.contribution - a.m.contribution || a.i - b.i)
+    .sort((a, b) => {
+      const pts = (m: SquadMember) => (m.keeper ? 0 : (m.stats?.points ?? 0));
+      const gls = (m: SquadMember) => (m.keeper ? 0 : (m.stats?.goals ?? 0));
+      return (
+        pts(b.m) - pts(a.m) ||
+        gls(b.m) - gls(a.m) ||
+        b.m.contribution - a.m.contribution ||
+        a.i - b.i
+      );
+    })
     .map(({ m }) => m);
 }
 
-/** The keeper with the season's best published save percentage — the only
- *  keeper line the page can honestly call the goalkeeping story. */
+/** The keeper who kept goal: the most minutes among the keepers whose line
+ *  publishes a save percentage, the better percentage breaking a tie.
+ *
+ *  It was the best save percentage outright, which crowned a reserve's one
+ *  save in thirteen minutes (1.000) over the starter's 1,679 minutes at .863
+ *  (Fort Hays State, 2026). A rate over a handful of shots is the smallest
+ *  sample on the sheet, not the goalkeeping story. A keeper with no published
+ *  percentage gives way to one with it, since the figure this line exists to
+ *  print would otherwise be a blank; where no line publishes one, the most
+ *  minutes still names the keeper and the page prints the blank as a blank. */
 export function leadKeeper(s: Season, slug: string): KeeperStats | null {
-  const keepers = (s.stats?.teams[slug]?.keepers ?? []).filter((k) => (k.minutes ?? 0) > 0);
+  const played = (s.stats?.teams[slug]?.keepers ?? []).filter((k) => (k.minutes ?? 0) > 0);
+  const rated = played.filter((k) => typeof k.save_pct === "number");
+  const keepers = rated.length > 0 ? rated : played;
   if (keepers.length === 0) return null;
   return [...keepers].sort(
-    (a, b) => (b.save_pct ?? 0) - (a.save_pct ?? 0) || (b.minutes ?? 0) - (a.minutes ?? 0),
+    (a, b) => (b.minutes ?? 0) - (a.minutes ?? 0) || (b.save_pct ?? 0) - (a.save_pct ?? 0),
   )[0] as KeeperStats;
 }
 

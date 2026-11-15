@@ -1,0 +1,24 @@
+---
+// The neutral-ground "v": printed where a home sense would have been, for a
+// match no side hosted (the collector's own `neutral` flag, or two records
+// each calling itself home: division.ts). A single letter beside a figure is
+// easy to misread, so it carries its meaning on hover and to a screen reader,
+// and the matches key and the About glossary say it once in words.
+import { NEUTRAL_GROUND } from "../lib/schedule.ts";
+
+interface Props {
+  /** "mark": a small quiet mark beside a score or a kickoff (the default).
+   *  "word": the word between two names, in place of "at". */
+  as?: "mark" | "word";
+}
+const { as = "mark" } = Astro.props;
+---
+<span class:list={["neutral", `neutral-${as}`]} title={NEUTRAL_GROUND}>
+  <span aria-hidden="true">{as === "word" ? " v " : " v"}</span><span class="vh">{as === "word" ? ` versus, ${NEUTRAL_GROUND.toLowerCase()}, ` : `, ${NEUTRAL_GROUND.toLowerCase()}`}</span>
+</span>
+
+<style>
+  .neutral { color: var(--quiet); font-weight: 400; }
+  .neutral-mark { font-size: 10px; letter-spacing: 0.08em; white-space: nowrap; }
+  .neutral-word { white-space: pre; }
+</style>

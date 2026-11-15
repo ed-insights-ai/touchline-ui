@@ -22,7 +22,7 @@ import Page from "../layouts/Page.astro";
 import { hasScore, matchHref } from "../lib/derive.ts";
 import { dayOfMonth, dowShort, monShort, spell } from "../lib/format.ts";
 import { homeSeasons } from "../lib/home.ts";
-import { regionsOf, type Tie } from "../lib/postseason.ts";
+import { regionsOf, sameDayNote, type Tie, tieAnchor, verdictLine, verdictOf } from "../lib/postseason.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { currentDivision, site } from "../site.config.ts";
 
@@ -34,8 +34,12 @@ const day = (iso: string): string => `${dowShort(iso)} ${monShort(iso)} ${dayOfM
 const name = (t: Tie, slug: string): string => t.match.season.names.name(slug);
 
 const final = ncaa.final;
-const decided = final !== null && ncaa.champion !== null && final.fixture.status === "final";
-const champion = decided && final && ncaa.champion ? ncaa.champion.slug : null;
+// Decided is the final played with a published score; a champion is named
+// only where a record says who won it (the score, or a collected shootout).
+// A final drawn with no shootout collected is decided and names no one.
+const verdict = verdictOf(ncaa);
+const decided = ncaa.decided;
+const champion = verdict.kind === "won" ? verdict.champion.slug : null;
 const field = new Set(ncaa.ties.flatMap((t) => [t.fixture.home, t.fixture.away]));
 const conferencesIn = new Set([...field].map((slug) => p.conferenceOf.get(slug)).filter(Boolean));
 const played = ncaa.ties.filter((t) => t.fixture.status === "final" && hasScore(t.fixture)).length;
@@ -62,6 +66,7 @@ const ROUND_WORD: Record<string, string> = {
 
 const headline = (() => {
   if (champion && final) return `${name(final, champion)} are national champions`;
+  if (decided && final) return "The NCAA final is played";
   if (ncaa.ties.length === 0) return "The NCAA field is not yet collected";
   return "The NCAA championship is under way";
 })();
@@ -74,7 +79,19 @@ const dek = (() => {
     const entered = route[0]?.label ? ROUND_WORD[route[0].label] : null;
     const wins = route.filter((t) => t.through?.slug === champion).length;
     const record = `${spell(wins)} ${wins === 1 ? "win" : "wins"} from ${spell(route.length)} ${route.length === 1 ? "match" : "matches"}`;
-    return `They beat ${name(final, other)} ${cs}–${os}${at} on ${day(final.fixture.date)}: ${record}${entered ? `, having entered in ${entered}` : ""}. They scored ${spell(goals.for)} and conceded ${spell(goals.against)} on the way.`;
+    // A final won on penalties is a draw: the dek says so, and gives the
+    // shootout as published.
+    const so = final.shootout;
+    const how =
+      verdict.kind === "won" && verdict.champion.by === "shootout" && so
+        ? `They drew ${cs}–${os} with ${name(final, other)}${at} on ${day(final.fixture.date)} and won on penalties, ${final.fixture.home === champion ? so.home : so.away}–${final.fixture.home === champion ? so.away : so.home}, as published`
+        : `They beat ${name(final, other)} ${cs}–${os}${at} on ${day(final.fixture.date)}`;
+    return `${how}: ${record}${entered ? `, having entered in ${entered}` : ""}. They scored ${spell(goals.for)} and conceded ${spell(goals.against)} on the way.`;
+  }
+  if (decided && final) {
+    const f = final.fixture;
+    const line = verdictLine(ncaa, (slug) => name(final, slug));
+    return `${name(final, f.home)} and ${name(final, f.away)} played the final on ${day(f.date)}, ${f.home_score}–${f.away_score}. ${line.note ?? ""}`.trim();
   }
   if (ncaa.ties.length === 0) {
     return "No collected schedule lists an NCAA tie with an opponent yet. The conference tournaments that decide most of the field are below, as their results come in.";
@@ -106,12 +123,39 @@ const pathCss = traced
   )
   .join("\n");
 const allTies = [...p.byIdentity.values()];
+
+// The page's sections, in order, for the jump row under the masthead: only
+// the ones this build draws.
+const jumps = [
+  ...(ncaa.ties.length > 0 ? [{ href: "#field", label: "The field" }] : []),
+  ...(finalsCards.length > 0 ? [{ href: "#finals", label: "The finals" }] : []),
+  ...(ncaa.ties.length > 0 ? [{ href: "#bracket", label: "The bracket" }] : []),
+  { href: "#conference-tournaments", label: "Conference tournaments" },
+];
 const hasRegions = regionsOf(ncaa).length > 0;
+
+// Ties set apart: records that give one side two ties on one day and that no
+// record settles (lib/postseason.ts sameDayGroups). They count nowhere above;
+// each is named here so the count's silence about it is said, not hidden.
+const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) => {
+  const ties = ncaa.apart.filter((t) => t.sameDay === sd);
+  const first = ties[0];
+  if (!sd || !first) return [];
+  return [
+    {
+      links: ties.map((t) => ({
+        href: `#${tieAnchor(t)}`,
+        label: `${day(t.fixture.date)} · ${name(t, t.fixture.home)} v ${name(t, t.fixture.away)}`,
+      })),
+      note: sameDayNote(sd, (slug) => name(first, slug)),
+    },
+  ];
+});
 ---
 
 <Page
   title="Touchline — The championship"
-  description="The NCAA Division II men's soccer championship and the conference tournaments, drawn from the published results."
+  description={`The NCAA ${currentDivision.name} ${site.gender === "women" ? "women's" : "men's"} soccer championship and the conference tournaments, drawn from the published results.`}
 >
   <div class="tl-page champ" id="top">
     {/* The header and the masthead sit flush, as on every page; the page's
@@ -123,7 +167,7 @@ const hasRegions = regionsOf(ncaa).length > 0;
     </div>
 
     <Masthead
-      kicker={`NCAA ${currentDivision.name.toUpperCase()} CHAMPIONSHIP${champion && final ? ` · DECIDED · ${monShort(final.fixture.date).toUpperCase()} ${dayOfMonth(final.fixture.date)}` : ""}`}
+      kicker={`NCAA ${currentDivision.name.toUpperCase()} CHAMPIONSHIP${decided && final ? ` · DECIDED · ${monShort(final.fixture.date).toUpperCase()} ${dayOfMonth(final.fixture.date)}` : ""}`}
       headline={headline}
       title={headline}
       dek={dek}
@@ -138,11 +182,18 @@ const hasRegions = regionsOf(ncaa).length > 0;
     >
       {ncaa.ties.length > 0 && (
         <div class="ev">
-          {champion && <span class="chip chip-observed">OBSERVED ●●●</span>}
-          {champion && final && <span class="prov">The final, from its published score, {day(final.fixture.date)}.</span>}
+          {decided && <span class="chip chip-observed">OBSERVED ●●●</span>}
+          {decided && final && <span class="prov">The final, from its published score, {day(final.fixture.date)}.</span>}
           <span class="chip chip-derived">DERIVED ●●○</span>
-          <span class="prov">The route and the rounds, recomputed from {ncaa.ties.length} results.</span>
+          <span class="prov">
+            The route and the rounds, recomputed from the {ncaa.ties.length} {ncaa.ties.length === 1 ? "tie" : "ties"} collected, {played} of them played.
+          </span>
         </div>
+      )}
+      {jumps.length > 1 && (
+        <nav class="jumps" slot="after" aria-label="On this page">
+          {jumps.map((j) => <a href={j.href}>{j.label}</a>)}
+        </nav>
       )}
     </Masthead>
     </div>
@@ -151,11 +202,22 @@ const hasRegions = regionsOf(ncaa).length > 0;
       <section class="block" id="field">
         <h2 class="sechead">THE FIELD</h2>
         <FieldStrip tournament={ncaa} conferenceOf={p.conferenceOf} />
+        {apartGroups.map((g) => (
+          <p class="apart">
+            <span class="chip chip-context">Set apart</span>
+            <span>
+              Not counted above:{" "}
+              {g.links.map((a, i) => (
+                <>{i > 0 && " and "}<a href={a.href}>{a.label}</a></>
+              ))}. {g.note}
+            </span>
+          </p>
+        ))}
       </section>
     )}
 
     {finalsCards.length > 0 && (
-      <section class="block">
+      <section class="block" id="finals">
         <h2 class="sechead">THE FINALS</h2>
         <div class="finals">
           {finalsCards.map(({ tie, cls, lab }) => {
@@ -216,22 +278,19 @@ const hasRegions = regionsOf(ncaa).length > 0;
       ) : (
         <div class="tourneys">
           {conferences.map((t) => {
-            const champ = t.champion;
             const latest = [...t.ties].sort((a, b) => b.round - a.round || b.fixture.date.localeCompare(a.fixture.date));
             const shown = t.final ? [t.final] : latest.slice(0, 2);
+            // Decided is the final played; a champion is named only where a
+            // record says who won (lib/postseason.ts verdictLine).
+            const line = verdictLine(t, (slug) => (t.final ?? (t.ties[0] as Tie)).match.season.names.name(slug));
             return (
               <div class="tourney">
                 <div class="thead">
                   <b>{t.codes.join("/")}</b>
-                  <span>
-                    {champ && t.final
-                      ? `Champions: ${name(t.final, champ.slug)}`
-                      : t.final
-                        ? "Final to play"
-                        : `${t.ties.length} ${t.ties.length === 1 ? "match" : "matches"} collected`}
-                  </span>
+                  <span>{line.head}</span>
                 </div>
                 {shown.map((tie) => <TieBox tie={tie} conferenceOf={p.conferenceOf} />)}
+                {line.note && <p class="tnote">{line.note}</p>}
               </div>
             );
           })}
@@ -250,6 +309,7 @@ const hasRegions = regionsOf(ncaa).length > 0;
           tie={tie}
           tournament={tournament}
           conferenceOf={p.conferenceOf}
+          seasonOf={p.seasonOf}
           back={tie.competition === "ncaa" ? "#bracket" : "#conference-tournaments"}
         />
       ) : null;
@@ -269,7 +329,17 @@ const hasRegions = regionsOf(ncaa).length > 0;
   .path-anchors span { display: block; }
   .ev { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
   .prov { font-size: 12px; color: var(--secondary); }
-  .block { display: grid; gap: 16px; min-width: 0; }
+  .block { display: grid; gap: 16px; min-width: 0; scroll-margin-top: 16px; }
+  /* The jump row: the page's sections in the masthead's quiet register,
+     each underlined by a hairline, so it reads as a way round the page and
+     not as a second header nav. */
+  .jumps { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 2px; font-size: 12.5px; }
+  .jumps a { color: var(--secondary); border-bottom: 1px solid var(--hairline); padding-bottom: 1px; }
+  .jumps a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  @media (pointer: coarse) {
+    .jumps { gap: 0 20px; }
+    .jumps a { display: inline-flex; align-items: center; min-height: 44px; padding-bottom: 0; border-bottom: 0; text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: 4px; }
+  }
 
   .finals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: center; }
   .finals .sf1 { grid-column: 1; grid-row: 1; }
@@ -312,6 +382,9 @@ const hasRegions = regionsOf(ncaa).length > 0;
   .thead b { font-size: 11px; letter-spacing: 0.16em; font-weight: 600; }
   .thead span { font-size: 11.5px; color: var(--secondary); text-align: right; }
   .empty { margin: 0; font-size: 13px; color: var(--secondary); }
+  .tnote { margin: 0; font-size: 11.5px; line-height: 1.4; color: var(--secondary); }
+  .apart { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--secondary); display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .apart a { color: var(--ink); border-bottom: 1px solid var(--hairline); }
 
   @media (max-width: 860px) {
     .finals { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }

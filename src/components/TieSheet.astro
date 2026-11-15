@@ -11,18 +11,42 @@
 // round is DERIVED; the round placement is DERIVED from the bracket's shape;
 // the published round text prints verbatim, in italic, as published. A
 // disputed tie prints each record's version and claims nothing.
-import { hasScore, matchHref } from "../lib/derive.ts";
-import { dayOfMonth, monShort } from "../lib/format.ts";
-import { type Tie, tieAnchor, type Tournament } from "../lib/postseason.ts";
+//
+// A tie still to play says what the records say of it: the kickoff and the
+// ground as one page printed them, the host's where there is a host, with
+// every other page named beside it rather than merged (two schedules can
+// print one match in two local times). Each side's season record and last
+// five, read from the file it is a member of, and each side's route here:
+// its earlier ties in this tournament, each one a link to its own sheet.
+import { clockTime, dayOfMonth, monShort } from "../lib/format.ts";
+import { formOf, hasScore, matchHref, recordOf, resultFor } from "../lib/derive.ts";
+import {
+  type KickoffVersion,
+  kickoffOf,
+  roundNameOf,
+  routeOf,
+  sameDayNote,
+  sideSeasonOf,
+  type Tie,
+  tieAnchor,
+  type Tournament,
+} from "../lib/postseason.ts";
+import type { Season } from "../lib/derive.ts";
+import FormBadges from "./FormBadges.astro";
 
 interface Props {
   tie: Tie;
   tournament: Tournament;
+  /** Every programme any loaded file lists, with its conference code: the
+   *  division-wide registry an absence claim is checked against. */
   conferenceOf: ReadonlyMap<string, string>;
+  /** Each listed programme's season, for a side none of this tie's records
+   *  holds as a member. */
+  seasonOf?: ReadonlyMap<string, Season>;
   /** Where closing returns to. */
   back: string;
 }
-const { tie, tournament, conferenceOf, back } = Astro.props;
+const { tie, tournament, conferenceOf, seasonOf, back } = Astro.props;
 const f = tie.fixture;
 const names = tie.match.season.names;
 const ROUND: Record<string, string> = {
@@ -64,17 +88,97 @@ const throughLine = (() => {
     text: `${who} went through: no record of this tie names a winner, and ${who} plays the next round.`,
   };
 })();
+// Played level with no shootout collected: the match is over and no record
+// says who went through. Said in words, so a scored tie never reads as one
+// still to play; the result cell, where one was printed, is quoted below.
+const levelUnsettled =
+  scored && !tie.disputed && !tie.through && f.home_score === f.away_score
+    ? tie.resultPublished
+      ? `Drawn ${f.home_score}–${f.away_score}, from the published score. The result is quoted below as published; it names no programme Touchline can match to a side, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
+      : `Drawn ${f.home_score}–${f.away_score}, from the published score. No record publishes a shootout, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
+    : null;
+// One side, two records, one day: each file's name for the opponent, quoted.
+const sameDay = tie.sameDay ? { kind: tie.sameDay.kind, text: sameDayNote(tie.sameDay, nameOf) } : null;
 const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
   (x): x is string => typeof x === "string",
 );
+
+// The kickoff, for a tie still to play. One record printed, every other
+// named: the time is never averaged or picked between silently.
+const kickoff = (() => {
+  if (scored || tie.disputed || f.status === "final") return null;
+  const k = kickoffOf(tie);
+  const who = (v: KickoffVersion): string => (v.by ? nameOf(v.by) : (v.source ?? "another schedule"));
+  const p = k.primary;
+  const venueFrom = p.venue ? null : ([...k.agree, ...k.differ].find((v) => v.venue) ?? null);
+  const venue = p.venue ?? venueFrom?.venue ?? null;
+  const time = clockTime(p.time ?? undefined);
+  const lead = p.by
+    ? `As published by ${nameOf(p.by)}${k.hosted ? ", the host" : ""}`
+    : p.source
+      ? `As published on ${p.source}`
+      : "As published";
+  const also = k.agree.length > 0 ? `, and by ${k.agree.map(who).join(" and ")}` : "";
+  const notes = [
+    `${lead}${also}.`,
+    ...k.differ.map((v) => {
+      const t = clockTime(v.time ?? undefined);
+      return `${who(v)}'s schedule ${t ? `lists ${t}` : "lists no time"}.`;
+    }),
+    ...(venueFrom ? [`The ground is from ${who(venueFrom)}'s schedule.`] : []),
+  ];
+  return { time, venue, note: notes.join(" ") };
+})();
+
+// Each side's season and route, from the records the site holds.
+const unplayed = kickoff !== null;
+const columns = sides.map((s) => {
+  // The side's own file among this tie's records, else whichever loaded file
+  // lists it: a side is "not followed" only when no loaded file does.
+  const season = sideSeasonOf(tie, s.slug) ?? seasonOf?.get(s.slug) ?? null;
+  const record = season ? recordOf(season, s.slug) : null;
+  const route = routeOf(tournament, tie, s.slug).map((x) => {
+    const xf = x.fixture;
+    const home = xf.home === s.slug;
+    const opponent = home ? xf.away : xf.home;
+    const counted = hasScore(xf) && xf.status === "final" && !x.disputed;
+    const pens = x.shootout
+      ? home
+        ? `${x.shootout.home}–${x.shootout.away}`
+        : `${x.shootout.away}–${x.shootout.home}`
+      : null;
+    return {
+      href: `#${tieAnchor(x)}`,
+      round: x.label || "—",
+      roundName: x.label ? roundNameOf(x.label) : "Round not placed",
+      opponent: x.match.season.names.name(opponent),
+      result: counted ? resultFor(xf, home ? "home" : "away") : null,
+      score: counted ? `${home ? xf.home_score : xf.away_score}–${home ? xf.away_score : xf.home_score}` : null,
+      pens,
+      through: x.through?.slug === s.slug,
+      disputed: x.disputed,
+    };
+  });
+  return {
+    ...s,
+    record: record && record.played > 0 ? record : null,
+    form: season && record && record.played > 0 ? formOf(season, s.slug) : [],
+    followed: season !== null || conferenceOf.has(s.slug),
+    route,
+  };
+});
+const showCols = unplayed || columns.some((c) => c.route.length > 0);
+const tournamentName = tie.competition === "ncaa" ? "NCAA tournament" : `${tournament.codes.join("/")} tournament`;
 ---
 
-<div class="sheet" id={tieAnchor(tie)}>
+<div class="sheet tie-sheet" id={tieAnchor(tie)}>
   <a class="sheet-scrim" href={back} aria-label="Close the tie"></a>
   <div class="sheet-panel" role="dialog" aria-label={`${sides[0]?.name} v ${sides[1]?.name}`}>
     <div class="sh-lab">
-      <span>{competition} · {round}</span>
-      <span>{when}{f.venue ? ` · ${f.venue}` : ""}</span>
+      <span class="sh-labt">
+        <span>{competition} · {round}</span>
+        <span>{when}{!unplayed && f.venue ? ` · ${f.venue}` : ""}</span>
+      </span>
       <a class="sheet-close" href={back} aria-label="Close">&times;</a>
     </div>
 
@@ -88,7 +192,16 @@ const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
       </div>
     ))}
 
-    {!scored && !tie.disputed && <p class="sh-note">Not yet played.</p>}
+    {kickoff && (
+      <div class="sh-kick">
+        <span class="sh-kl">Not yet played · kickoff</span>
+        <span class="sh-kv serif num">
+          {kickoff.time ?? "No kickoff time published"}{kickoff.venue && <span class="sh-kvenue"> · {kickoff.venue}</span>}
+        </span>
+        <span class="sh-kp">{kickoff.note}</span>
+      </div>
+    )}
+    {!scored && !tie.disputed && !kickoff && <p class="sh-note">Not yet played.</p>}
 
     {tie.disputed ? (
       <div class="sh-note">
@@ -104,6 +217,11 @@ const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
           ))}
         </ul>
       </div>
+    ) : levelUnsettled ? (
+      <p class="sh-note">
+        <span class="chip chip-observed">OBSERVED ●●●</span>
+        <span>{levelUnsettled}</span>
+      </p>
     ) : (
       throughLine && (
         <p class="sh-note">
@@ -113,6 +231,64 @@ const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
           <span>{throughLine.text}</span>
         </p>
       )
+    )}
+
+    {!showCols && (
+      <p class="sh-note">Both sides' first tie in the {tournamentName} on the record.</p>
+    )}
+    {showCols && <div class="sh-cols">
+      {columns.map((c) => (
+        <div class="sh-col">
+          <span class="sh-h">{c.name}</span>
+          {unplayed && (
+            c.record ? (
+              <div class="sh-rec">
+                <span class="sh-fig num">{c.record.won}–{c.record.drawn}–{c.record.lost}</span>
+                <span class="sh-cap">W–D–L</span>
+                <span class="sh-form"><FormBadges form={c.form} /></span>
+              </div>
+            ) : (
+              <span class="sh-none">
+                {c.followed ? "No result collected this season." : "Not a programme this site follows: no season record."}
+              </span>
+            )
+          )}
+          <span class="sh-cap sh-rcap">Before this tie</span>
+          {c.route.length === 0 ? (
+            <span class="sh-none">First tie in the {tournamentName} on the record.</span>
+          ) : (
+            <ol class="sh-route">
+              {c.route.map((r) => (
+                <li>
+                  <a href={r.href} aria-label={`${r.roundName} against ${r.opponent}: open the tie`}>
+                    <span class="rr">{r.round}</span>
+                    {r.result ? <span class={`wdl wdl-${r.result}`}>{r.result}</span> : <span class="wdl wdl-none" aria-hidden="true"></span>}
+                    <span class="rs num">
+                      {r.disputed ? "disputed" : (r.score ?? (r.through ? "through" : "—"))}
+                      {r.pens && <span class="pk">({r.pens})</span>}
+                    </span>
+                    <span class="ro">v {r.opponent}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      ))}
+    </div>}
+    {unplayed && columns.some((c) => c.record) && (
+      <p class="sh-pub">Season records and last five from each programme's published results; a shootout is a draw.</p>
+    )}
+
+    {sameDay && (
+      <p class="sh-note">
+        {sameDay.kind === "folded" ? (
+          <span class="chip chip-observed">OBSERVED ●●●</span>
+        ) : (
+          <span class="chip chip-context">Set apart</span>
+        )}
+        <span>{sameDay.text}</span>
+      </p>
     )}
 
     {tie.label && (
@@ -137,6 +313,99 @@ const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
   </div>
 </div>
 
+<script>
+  // The player sheet's island, on the same terms (PlayerSheet.astro): the
+  // sheet opens on :target and closes by leaving it, and with scripting off
+  // that is the whole feature. This adds what a CSS overlay cannot do: focus
+  // the panel on open, Escape to close (by the close link's own href, so it
+  // leaves the history a click would), the keyboard held inside while the
+  // panel is over the page, and handed back to the tie that opened it.
+  //
+  // aria-modal is claimed here, beside the trap that makes it true, and never
+  // in the markup, where scripting off would make it a promise not kept.
+
+  const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  const targeted = (): HTMLElement | null => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return null;
+    const el = document.getElementById(id);
+    return el?.classList.contains("tie-sheet") ? el : null;
+  };
+  const panelOf = (sheet: HTMLElement): HTMLElement | null => sheet.querySelector(".sheet-panel");
+
+  /** The tie on the page that opened the sheet. A route link inside one sheet
+   *  opens another without changing it, so the keyboard goes back to the
+   *  bracket, not into a sheet that has closed. */
+  let opener: HTMLElement | null = null;
+  let live: HTMLElement | null = null;
+
+  function enter(sheet: HTMLElement): void {
+    const panel = panelOf(sheet);
+    if (!panel) return;
+    live = sheet;
+    panel.setAttribute("aria-modal", "true");
+    panel.setAttribute("tabindex", "-1");
+    panel.focus();
+  }
+
+  function leave(restore: boolean): void {
+    const panel = live && panelOf(live);
+    live = null;
+    if (panel) {
+      panel.removeAttribute("aria-modal");
+      panel.removeAttribute("tabindex");
+    }
+    if (!restore) return;
+    if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+    opener = null;
+  }
+
+  function sync(): void {
+    const next = targeted();
+    if (next === live) return;
+    if (live) leave(next === null);
+    if (next) enter(next);
+  }
+
+  document.addEventListener("click", (e) => {
+    const link = (e.target as Element | null)?.closest?.('a[href^="#tie-"]');
+    if (link && !link.closest(".tie-sheet")) opener = link as HTMLElement;
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!live) return;
+    if (e.key === "Escape") {
+      const close = live.querySelector<HTMLAnchorElement>(".sheet-close");
+      location.hash = close?.getAttribute("href")?.slice(1) ?? "";
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const panel = panelOf(live);
+    if (!panel) return;
+    const items = Array.from(panel.querySelectorAll(FOCUSABLE)) as HTMLElement[];
+    const first = items[0];
+    const last = items[items.length - 1];
+    const active = document.activeElement;
+    if (!first || !last) {
+      e.preventDefault();
+      panel.focus();
+    } else if (!panel.contains(active)) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+    } else if (e.shiftKey && (active === first || active === panel)) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
+  window.addEventListener("hashchange", sync);
+  sync();
+</script>
+
 <style>
   .sheet { position: fixed; inset: 0; z-index: 40; display: none; }
   .sheet:target { display: block; }
@@ -159,8 +428,43 @@ const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
       box-shadow: 0 18px 48px rgba(26, 28, 34, 0.18);
     }
   }
+  .sheet-panel:focus { outline: none; }
+  .sh-kick { display: grid; gap: 3px; border-top: 1px solid var(--hairline); padding-top: 10px; }
+  .sh-kl, .sh-h, .sh-cap {
+    font-size: 10px; letter-spacing: 0.16em; font-weight: 600; color: var(--quiet); text-transform: uppercase;
+  }
+  .sh-kv { font-size: 20px; line-height: 1.25; }
+  .sh-kvenue { font-size: 16px; color: var(--secondary); }
+  .sh-kp { font-family: var(--serif); font-style: italic; font-size: 13px; line-height: 1.45; color: var(--quiet); }
+  .sh-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 18px; border-top: 1px solid var(--hairline); padding-top: 10px; }
+  .sh-col { display: grid; gap: 6px; align-content: start; min-width: 0; }
+  .sh-h { color: var(--ink); letter-spacing: 0.1em; overflow-wrap: anywhere; }
+  .sh-rec { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .sh-fig { font-family: var(--serif); font-size: 22px; line-height: 1; font-weight: 500; }
+  .sh-form { margin-left: auto; }
+  .sh-rcap { margin-top: 4px; }
+  .sh-none { font-size: 12px; line-height: 1.45; color: var(--secondary); }
+  .sh-route { list-style: none; margin: 0; padding: 0; display: grid; }
+  .sh-route a {
+    display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); align-items: center; gap: 6px;
+    min-height: 30px; border-top: 1px solid var(--hairline-soft); color: var(--ink); font-size: 12.5px;
+  }
+  .sh-route li:last-child a { border-bottom: 1px solid var(--hairline-soft); }
+  .sh-route a:hover { background: var(--accent-wash-soft); }
+  .sh-route a:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+  .sh-route .rr { font-size: 9.5px; letter-spacing: 0.08em; font-weight: 600; color: var(--quiet); min-width: 2.4em; }
+  .sh-route .ro { line-height: 1.25; padding-block: 4px; overflow-wrap: break-word; min-width: 0; }
+  .sh-route .rs { font-weight: 600; white-space: nowrap; }
+  .wdl-none { background: none; border: 1px dashed var(--outline-quiet); }
+  @media (pointer: coarse) {
+    .sh-route a { min-height: 44px; }
+  }
+  @media (max-width: 380px) {
+    .sh-cols { grid-template-columns: minmax(0, 1fr); }
+  }
+  .sh-labt { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 10px; flex: 1; min-width: 0; }
   .sh-lab {
-    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 10px;
+    display: flex; justify-content: space-between; align-items: center; gap: 4px 10px;
     font-size: 10.5px; letter-spacing: 0.16em; font-weight: 600; color: var(--quiet); text-transform: uppercase;
   }
   .sheet-close {

@@ -25,6 +25,7 @@ import {
   isScored,
   markOf,
   matchDetailOf,
+  matchHref,
   matchIdentity,
   resultFor,
   type Season,
@@ -138,6 +139,9 @@ export interface CleanSheets {
 }
 
 export interface LogRow {
+  /** This row's own Match Centre, minted from the fixture it was read off,
+   *  so a link never depends on a date and a name agreeing. */
+  href: string;
   date: string;
   opponent: string;
   home: boolean;
@@ -147,6 +151,10 @@ export interface LogRow {
   mark: string | null;
   /** "5 sv · 0 ga" or "2 sh · 1 sog", or null when no box score was collected. */
   line: string | null;
+  /** Goals and assists off the same box-score line, or null when there is no
+   *  line or the box printed no such column. A printed 0 is 0. */
+  goals: number | null;
+  assists: number | null;
   /** Minutes this player was on the pitch, off the box score's own line, or
    *  null when the box printed no minutes column or the player is not on it.
    *  A box that prints 0 is a listed player who never came on: 0, not null. */
@@ -386,7 +394,7 @@ export function careerRates(keeper: boolean, seasons: readonly SeasonParts[]): D
             : `${enough ? per90(ga, min) : `${ga} in ${min}′`}${coverage(gk.used, gk.of)}`,
       },
       {
-        label: "Record",
+        label: "Record (W–D–L)",
         value:
           rec.used === 0
             ? dash
@@ -659,7 +667,7 @@ export function playerCard(
               ]
             : []),
           {
-            label: "Record",
+            label: "Record (W–D–L)",
             value:
               keeperStats?.wins === undefined
                 ? dash
@@ -768,6 +776,7 @@ export function playerCard(
     // forfeit's result is the award. A forfeit has no box score to be
     // absent from, and says so rather than naming a gap.
     log.push({
+      href: matchHref(s.key, f.id),
       date: shortDate(f.date),
       opponent: s.names.name(home ? f.away : f.home),
       home,
@@ -775,6 +784,8 @@ export function playerCard(
       score: gf === null || ga === null ? null : `${gf}–${ga}`,
       mark: markOf(s, f),
       line: played,
+      goals: played ? (own?.goals ?? null) : null,
+      assists: played ? (own?.assists ?? null) : null,
       minutes: appeared?.minutes ?? null,
       sub: appeared?.started === undefined ? null : !appeared.started,
       absent: played

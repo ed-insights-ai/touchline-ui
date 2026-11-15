@@ -76,6 +76,19 @@ for (const tree of trees) {
   }
   treeRows += l.rows;
 }
+// Said once per run, not once per row: consecutive rows of one column whose
+// ties both sides enter later share one note, and each row keeps only its
+// dashed lead-in to the tie beside it.
+const enterRuns: { col: number; row: number; span: number; label: string }[] = [];
+for (const e of [...enters].sort((a, b) => a.col - b.col || a.row - b.row)) {
+  const run = enterRuns.at(-1);
+  if (run && run.col === e.col && run.row + run.span === e.row) run.span++;
+  else enterRuns.push({ col: e.col, row: e.row, span: 1, label: "" });
+}
+for (const run of enterRuns) {
+  const label = placedLoose.find((t) => t.round === firstRound + run.col)?.label ?? `R${firstRound + run.col}`;
+  run.label = roundName(label).toLowerCase();
+}
 const treeHeads = Array.from({ length: treeCols }, (_, i) => {
   const ties = placedLoose.filter((t) => t.round === firstRound + i);
   return { label: ties[0]?.label ?? `R${firstRound + i}`, ties };
@@ -151,7 +164,17 @@ const aheadName = (label: string, n: number): string => {
             </div>
           ))}
           {enters.map((e) => (
-            <span class="enter" style={`grid-column:${e.col};grid-row:${e.row + 1}`}>Both enter here</span>
+            <span class="enter-lead" style={`grid-column:${e.col};grid-row:${e.row + 1}`} aria-hidden="true"></span>
+          ))}
+          {enterRuns.map((r) => (
+            <span class="enter" style={`grid-column:${r.col};grid-row:${r.row + 1} / span ${r.span}`}>
+              <b>Both sides enter here</b>
+              <small>
+                {r.span === 1
+                  ? `The tie beside: both sides enter in the ${r.label}.`
+                  : `The ${r.span} ties beside: both sides of each enter in the ${r.label}.`}
+              </small>
+            </span>
           ))}
         </div>
       )}
@@ -238,14 +261,21 @@ const aheadName = (label: string, n: number): string => {
   /* Before regions: the tree, and the rounds still to come beside it. */
   .treewrap { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 22px 32px; }
   .treewrap .tree { flex: 1 1 440px; min-width: 0; max-width: calc(var(--cols) * 300px); }
+  /* A run of ties whose sides both start in a later column: one note for
+     the run, set against a dashed bracket down the run's rows, and a dashed
+     lead-in from the bracket to each tie. */
   .enter {
-    display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
-    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--quiet);
-    position: relative;
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 4px;
+    padding: 0 14px 0 0; margin-block: 30px; text-align: right;
+    border-right: 1px dashed var(--outline-quiet);
+    color: var(--quiet); position: relative;
   }
-  .enter::after {
+  .enter b { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  .enter small { font-size: 11.5px; line-height: 1.4; max-width: 22ch; }
+  .enter-lead { position: relative; }
+  .enter-lead::after {
     content: ""; position: absolute; right: calc(var(--g) * -1); top: 50%;
-    width: var(--g); border-top: 1px dashed var(--hairline);
+    width: var(--g); border-top: 1px dashed var(--outline-quiet);
   }
   .ahead {
     flex: 0 1 220px; display: grid; gap: 10px; position: sticky; top: 16px;
@@ -293,7 +323,9 @@ const aheadName = (label: string, n: number): string => {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .ah-head, .ah-note { grid-column: 1 / -1; }
-    .enter { font-size: 8.5px; letter-spacing: 0.06em; padding-right: 4px; text-align: right; }
+    .enter { padding-right: 8px; }
+    .enter b { font-size: 9px; letter-spacing: 0.08em; }
+    .enter small { font-size: 10.5px; }
   }
 </style>
 

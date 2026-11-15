@@ -29,6 +29,7 @@ import {
   isScored,
   lastLooked,
   laterLook,
+  leadKeeper,
   loadSeason,
   markOf,
   matchDetailOf,
@@ -49,6 +50,7 @@ import {
   seasonCounts,
   seasonHref,
   seasonWindow,
+  squadHeadline,
   squadOf,
   table,
   tableIsLive,
@@ -57,8 +59,8 @@ import {
   unresolved,
 } from "./derive.ts";
 import { dayNumber, daysBetween, dowIndex, friendlies, monShort, toISO } from "./format.ts";
-import type { Fixture, FixturesFile } from "./model.ts";
-import { computeTable, isForfeit, isPlayed } from "./model.ts";
+import type { Fixture, FixturesFile, KeeperStats } from "./model.ts";
+import { computeTable, isForfeit, isPlayed, STATS_SCHEMA } from "./model.ts";
 import { nameBookFor } from "./names.ts";
 import { playerCard } from "./player.ts";
 
@@ -839,5 +841,87 @@ describe("a forfeit is the award, and a disputed score is nobody's fact", () => 
       goalsAgainst: 0,
       played: 1,
     });
+  });
+});
+
+describe("the goalkeeping line is the keeper who kept goal", () => {
+  // Fort Hays State 2026, as published: a reserve's one save in thirteen
+  // minutes (1.000) beside the starter's 1,679 minutes at .863. Ranked by
+  // the rate, the reserve headlined the team page.
+  const base = loadSeason("gac");
+  const withKeepers = (keepers: KeeperStats[]): Season => ({
+    ...base,
+    stats: {
+      schema: STATS_SCHEMA,
+      season: base.fixtures.season,
+      gender: base.fixtures.gender,
+      collected_at: base.collectedAt,
+      teams: { alpha: { programme: "alpha", players: [], keepers } },
+    },
+  });
+  const reserve: KeeperStats = {
+    name: "Reserve",
+    minutes: 13,
+    saves: 1,
+    goals_against: 0,
+    save_pct: 1,
+  };
+  const starter: KeeperStats = {
+    name: "Starter",
+    minutes: 1679,
+    saves: 44,
+    goals_against: 7,
+    save_pct: 0.863,
+  };
+  const backup: KeeperStats = {
+    name: "Backup",
+    minutes: 106,
+    saves: 4,
+    goals_against: 3,
+    save_pct: 0.571,
+  };
+
+  test("most minutes wins, not the best rate over a handful of shots", () => {
+    expect(leadKeeper(withKeepers([reserve, starter, backup]), "alpha")?.name).toBe("Starter");
+  });
+
+  test("a keeper with no published percentage gives way to one with it", () => {
+    const unrated: KeeperStats = { name: "Unrated", minutes: 1800, saves: 50 };
+    expect(leadKeeper(withKeepers([unrated, backup]), "alpha")?.name).toBe("Backup");
+    // Where nobody's line prints one, the most minutes still names the keeper.
+    expect(
+      leadKeeper(withKeepers([unrated, { ...backup, save_pct: undefined }]), "alpha")?.name,
+    ).toBe("Unrated");
+  });
+
+  test("level on minutes, the better percentage; no minutes, no keeper", () => {
+    const level: KeeperStats = { ...starter, name: "Level", save_pct: 0.9 };
+    expect(leadKeeper(withKeepers([starter, level]), "alpha")?.name).toBe("Level");
+    expect(leadKeeper(withKeepers([{ ...starter, minutes: 0 }]), "alpha")).toBeNull();
+    expect(leadKeeper(withKeepers([]), "alpha")).toBeNull();
+  });
+
+  test("the real Fort Hays State line names Payton Roehrich", () => {
+    const k = leadKeeper(base, "fort-hays-state");
+    if (base.stats?.teams["fort-hays-state"]?.keepers.some((x) => x.name === "Payton Roehrich")) {
+      expect(k?.name).toBe("Payton Roehrich");
+    }
+  });
+});
+
+describe("a squad row headlines goals and assists before shots", () => {
+  test("G·A where the line has either, shots where it has only shots, nothing where it has neither", () => {
+    expect(squadHeadline({ name: "F", goals: 9, assists: 8, shots: 34 }, undefined)).toBe(
+      "9 G · 8 A",
+    );
+    expect(squadHeadline({ name: "D", goals: 0, assists: 1, shots: 17 }, undefined)).toBe(
+      "0 G · 1 A",
+    );
+    expect(squadHeadline({ name: "D", goals: 0, assists: 0, shots: 17 }, undefined)).toBe("17 SH");
+    expect(squadHeadline({ name: "D", goals: 0, assists: 0, shots: 0 }, undefined)).toBeNull();
+    // No line at all is an absence, never a printed zero.
+    expect(squadHeadline(undefined, undefined)).toBeNull();
+    expect(squadHeadline({ name: "K" }, { name: "K", saves: 44 })).toBe("44 SV");
+    expect(squadHeadline(undefined, { name: "K", saves: 0 })).toBeNull();
   });
 });

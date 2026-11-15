@@ -9,8 +9,12 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import ConferenceTable from "../../components/ConferenceTable.astro";
 import BasisPanel from "../../components/BasisPanel.astro";
 import FormBadges from "../../components/FormBadges.astro";
+import NeutralMark from "../../components/NeutralMark.astro";
+import StageChip from "../../components/StageChip.astro";
+import { stageChipOf } from "../../lib/stage.ts";
 import {
   boxScoreGaps,
+  byKickoff,
   conferenceLeaders,
   conferenceOpensOn,
   formOf,
@@ -20,6 +24,7 @@ import {
   loadSeason,
   markOf,
   matchHref,
+  matchIdentity,
   matchesHref,
   playerClassOf,
   nextFixture,
@@ -46,7 +51,6 @@ import {
 } from "../../lib/journal.ts";
 import {
   clockTime,
-  clockTimeBare,
   dayNumber,
   dowShort,
   initialLast,
@@ -111,6 +115,39 @@ const otherUpcoming = upcomingFixtures(season, afterNext);
 const RESULTS_SHOWN = 4;
 const UPCOMING_SHOWN = 2;
 
+// The postseason a member still has to play, beyond the featured match and
+// the day already listed: once the regular season is over, these are the
+// fixtures around the conference, and a section that only looked one day
+// ahead printed an empty heading over them (design council, 2026-11-15). A
+// match two members both published is one row.
+const listedIds = new Set(
+  [featuredNext, ...otherUpcoming.slice(0, UPCOMING_SHOWN)].flatMap((f) => (f ? [matchIdentity(f)] : [])),
+);
+const postseasonAhead = [
+  ...new Map(
+    season.fixtures.fixtures
+      .filter((f) => f.status === "scheduled" && f.date >= season.asOf && stageChipOf(f) !== null)
+      .filter((f) => !listedIds.has(matchIdentity(f)))
+      .sort(byKickoff)
+      .map((f) => [matchIdentity(f), f] as const),
+  ).values(),
+];
+const aroundEmpty = otherResults.length === 0 && otherUpcoming.length === 0 && postseasonAhead.length === 0;
+// Nothing around the conference is said as what the two lists found, in their
+// own terms, never as an empty heading: no other result on the latest results
+// day, and nothing on a member's schedule after the featured match.
+const aroundAbsence = aroundEmpty
+  ? [
+      lastScored ? `No other result on ${dowShort(lastScored.date)} ${shortDate(lastScored.date)}` : null,
+      featuredNext
+        ? `nothing on a member's schedule after ${dowShort(featuredNext.date)} ${shortDate(featuredNext.date)}`
+        : "nothing left on a member's schedule",
+    ]
+      .filter((x): x is string => x !== null)
+      .join(", and ")
+      .replace(/^n/, "N") + "."
+  : null;
+
 // With no journal, the section still has something true to show: the same
 // chart, computed from the same fixtures, and the silences named.
 const pattern = journal?.pattern ?? fallbackPattern(season);
@@ -142,6 +179,9 @@ const emphasis = (f: Fixture): "home" | "away" =>
     : names.isMember(f.home)
       ? "home"
       : "away";
+
+const lastStage = featuredLast ? stageChipOf(featuredLast) : null;
+const nextStage = featuredNext ? stageChipOf(featuredNext) : null;
 
 const daysUntil = (iso: string): number => dayNumber(iso) - dayNumber(season.asOf);
 const nextLabel = (f: Fixture): string => {
@@ -181,16 +221,31 @@ const nextLabel = (f: Fixture): string => {
     <section class="featured">
       {featuredLast && (
         <a class="card" href={matchHref(season.key, featuredLast.id)}>
-          <div class="label">LAST MATCH · {stampDate(featuredLast.date)}</div>
-          <div class="card-score num">
-            <span class={emphasis(featuredLast) === "home" ? "side-lead" : "side-quiet"}>
+          <div class="label card-label">
+            <span>LAST MATCH · {stampDate(featuredLast.date)}</span>
+            {lastStage && <StageChip chip={lastStage} />}
+          </div>
+          {/* One markup, two settings: a line at desk width ("Fort Hays State
+              2 – 1 Northeastern State") and a stacked scoreboard on a phone,
+              each name on its own row beside its own figure, so the line
+              never breaks between a score and the name it belongs to. */}
+          <div class:list={["card-score", "num", { "card-board": hasScore(featuredLast) }]}>
+            <span class:list={["b-home", emphasis(featuredLast) === "home" ? "side-lead" : "side-quiet"]}>
               {names.name(featuredLast.home)}
             </span>
-            <span class="score serif">{scorelineWide(featuredLast)}</span>
+            {hasScore(featuredLast) ? (
+              <span class="score serif">
+                <span class="b-hs">{featuredLast.home_score}</span>
+                <span class="b-dash">{"\u2009–\u2009"}</span>
+                <span class="b-as">{featuredLast.away_score}</span>
+              </span>
+            ) : (
+              <span class="score serif">{scorelineWide(featuredLast)}</span>
+            )}
             {markOf(season, featuredLast) && (
               <span class="card-mark">{markOf(season, featuredLast)}</span>
             )}
-            <span class={emphasis(featuredLast) === "away" ? "side-lead" : "side-quiet"}>
+            <span class:list={["b-away", emphasis(featuredLast) === "away" ? "side-lead" : "side-quiet"]}>
               {names.name(featuredLast.away)}
             </span>
           </div>
@@ -206,7 +261,10 @@ const nextLabel = (f: Fixture): string => {
       )}
       {featuredNext && (
         <a class="card" href={matchHref(season.key, featuredNext.id)}>
-          <div class="label">NEXT MATCH · {nextLabel(featuredNext)}</div>
+          <div class="label card-label">
+            <span>NEXT MATCH · {nextLabel(featuredNext)}</span>
+            {nextStage && <StageChip chip={nextStage} />}
+          </div>
           <div class="card-fixture num">
             <span class={emphasis(featuredNext) === "away" ? "side-lead" : "side-quiet"}>
               {names.name(featuredNext.away)}
@@ -370,31 +428,62 @@ const nextLabel = (f: Fixture): string => {
 
       <div class="col">
         <h2 class="sechead">AROUND THE CONFERENCE</h2>
+        {aroundAbsence ? (
+          <p class="empty">{aroundAbsence}</p>
+        ) : (
         <div class="around num">
-          {otherResults.slice(0, RESULTS_SHOWN).map((f) => (
-            <a class="arow hoverable" href={matchHref(season.key, f.id)}>
-              <span class="astamp">FT</span>
-              <span class="atext">
-                {names.name(f.home)} {scoreline(f)} {names.name(f.away)}
-                {markOf(season, f) && <span class="amark"> {markOf(season, f)}</span>}
-              </span>
-            </a>
-          ))}
+          {otherResults.slice(0, RESULTS_SHOWN).map((f) => {
+            const chip = stageChipOf(f);
+            return (
+              <a class="arow hoverable" href={matchHref(season.key, f.id)}>
+                <span class="astamp">FT</span>
+                <span class="atext">
+                  {chip && <StageChip chip={chip} size="sm" />}
+                  {names.name(f.home)} {scoreline(f)} {names.name(f.away)}
+                  {markOf(season, f) && <span class="amark"> {markOf(season, f)}</span>}
+                </span>
+              </a>
+            );
+          })}
           {otherResults.length > RESULTS_SHOWN && (
             <div class="arow"><span class="astamp"></span><span class="atext quiet">
               + {otherResults.length - RESULTS_SHOWN} more on {stampDate(otherResults[0]!.date)}
             </span></div>
           )}
-          {otherUpcoming.slice(0, UPCOMING_SHOWN).map((f) => (
-            <a class="arow hoverable" href={matchHref(season.key, f.id)}>
-              <span class="astamp">{dowShort(f.date).toUpperCase()}</span>
-              <span class="atext quiet">
-                {names.name(f.away)} at {names.name(f.home)}
-                {f.time ? ` · ${clockTimeBare(f.time)}` : ""}
-              </span>
-            </a>
-          ))}
+          {otherUpcoming.slice(0, UPCOMING_SHOWN).map((f) => {
+            const chip = stageChipOf(f);
+            return (
+              <a class="arow hoverable" href={matchHref(season.key, f.id)}>
+                <span class="astamp">{dowShort(f.date).toUpperCase()}</span>
+                <span class="atext quiet">
+                  {chip && <StageChip chip={chip} size="sm" />}
+                  {names.name(f.away)}
+                  {f.neutral ? <NeutralMark as="word" /> : " at "}
+                  {names.name(f.home)}
+                  {f.time ? ` · ${clockTime(f.time)}` : ""}
+                </span>
+              </a>
+            );
+          })}
+          {postseasonAhead.map((f) => {
+            const chip = stageChipOf(f);
+            return (
+              <a class="arow hoverable" href={matchHref(season.key, f.id)}>
+                <span class="astamp">
+                  {(daysUntil(f.date) < 7 ? dowShort(f.date) : shortDate(f.date)).toUpperCase()}
+                </span>
+                <span class="atext quiet">
+                  {chip && <StageChip chip={chip} size="sm" />}
+                  {names.name(f.away)}
+                  {f.neutral ? <NeutralMark as="word" /> : " at "}
+                  {names.name(f.home)}
+                  {f.time ? ` · ${clockTime(f.time)}` : ""}
+                </span>
+              </a>
+            );
+          })}
         </div>
+        )}
       </div>
     </section>
 
@@ -489,6 +578,7 @@ const nextLabel = (f: Fixture): string => {
     padding: 24px 0;
     border-bottom: 1px solid var(--hairline);
   }
+  .card-label { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .card-score { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .card-score .side-quiet { font-size: 17px; color: var(--secondary); }
   .card-score .side-lead { font-size: 17px; font-weight: 600; }
@@ -531,10 +621,36 @@ const nextLabel = (f: Fixture): string => {
     color: inherit;
   }
   .arow:last-child { border-bottom: none; }
-  .astamp { font-size: 10.5px; font-weight: 600; color: var(--quiet); width: 30px; flex: none; }
+  .astamp { font-size: 10.5px; font-weight: 600; color: var(--quiet); width: 44px; flex: none; white-space: nowrap; }
   .atext { font-size: 13px; flex: 1; }
+  .atext :global(.stage-chip) { margin-right: 7px; vertical-align: 1px; }
   .atext.quiet { color: var(--secondary); }
   .empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
+
+  @media (max-width: 560px) {
+    /* Players to watch: the name and its position chip on one line, the
+       programme and class beneath, and the season line under both. */
+    .wrow { grid-template-columns: minmax(0, 1fr) 18px; gap: 4px 12px; }
+    .wname { flex-wrap: wrap; gap: 2px 8px; }
+    .wplayer { white-space: nowrap; }
+    .wmeta { flex-basis: 100%; }
+    .wline { grid-column: 1; grid-row: 2; }
+    .chev { grid-column: 2; grid-row: 1 / span 2; }
+    /* The last match as a scoreboard: each side on its own row beside its
+       own figure. */
+    .card-board {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 16px; row-gap: 2px; align-items: baseline;
+    }
+    .card-board .score { display: contents; }
+    .card-board .b-home { grid-row: 1; grid-column: 1; }
+    .card-board .b-hs { grid-row: 1; grid-column: 2; }
+    .card-board .b-away { grid-row: 2; grid-column: 1; }
+    .card-board .b-as { grid-row: 2; grid-column: 2; }
+    .card-board .b-dash { display: none; }
+    .card-board .b-hs, .card-board .b-as { font-size: 26px; line-height: 1.1; text-align: right; }
+    .card-board .card-mark { grid-row: 3; grid-column: 1 / -1; }
+  }
 
   @media (max-width: 720px) {
     .chart-plot, .chart-axis { min-width: 34px; }

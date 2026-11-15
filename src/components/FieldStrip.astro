@@ -7,7 +7,15 @@
 // holds, never who meets whom. Each programme stands once, read from its
 // latest tie (fieldOf), and each chip is the path tracer's link: selecting
 // one lights that programme's ties in the bracket below.
-import { type FieldEntry, fieldOf, labelAt, roundNameOf, shapeOf, type Tournament } from "../lib/postseason.ts";
+import {
+  type FieldEntry,
+  fieldOf,
+  labelAt,
+  noShapeLine,
+  roundNameOf,
+  shapeOf,
+  type Tournament,
+} from "../lib/postseason.ts";
 
 interface Props {
   tournament: Tournament;
@@ -17,6 +25,9 @@ const { tournament, conferenceOf } = Astro.props;
 
 const entries = fieldOf(tournament);
 const shape = shapeOf(tournament);
+// No shape, no funnel: said in one quiet line, so the missing bars read as a
+// decision and not as a page that failed to draw.
+const noShape = noShapeLine(tournament);
 
 // The round a label names, as a phrase: "the second round", "the final".
 const PHRASE: Record<string, string> = {
@@ -92,12 +103,19 @@ for (const e of entries) {
   else add(`out-${round}`, `Out in ${phrase(e.tie.label)}`, "out", e, 400 - round);
 }
 const name = (e: FieldEntry): string => e.tie.match.season.names.name(e.slug);
+// A long group folds: past this many names a wall of chips buries the groups
+// after it. The champion and the sides still through always show, whatever
+// their number; a folded group keeps its heading and count, and opens to the
+// same chips (a <details>, so it works with scripting off).
+const FOLD_AT = 12;
+const folds = (g: Group): boolean => g.entries.length > FOLD_AT && g.cls !== "champ" && g.cls !== "thru";
 const ordered = [...groups.values()]
   .sort((a, b) => a.key.localeCompare(b.key))
   .map((g) => ({ ...g, entries: [...g.entries].sort((a, b) => name(a).localeCompare(name(b))) }));
 ---
 
 <div class="field">
+  {noShape && <p class="provenance no-shape">{noShape}</p>}
   {stages.length > 0 && (
     <ol class="funnel" aria-label="Sides left in each round">
       {stages.map((s) => (
@@ -115,17 +133,37 @@ const ordered = [...groups.values()]
     {ordered.map((g) => (
       <div class:list={["grp", g.cls]}>
         <h3>{g.head} <span class="num">{g.entries.length}</span></h3>
-        <div class="chips">
-          {g.entries.map((e) => (
-            <a
-              class:list={["entrant", `p-${e.slug}`]}
-              href={`#path-${e.slug}`}
-              title={`${name(e)}${conferenceOf.get(e.slug) ? ` · ${conferenceOf.get(e.slug)}` : ""}: trace the path`}
-            >
-              {name(e)}
-            </a>
-          ))}
-        </div>
+        {folds(g) ? (
+          <details class="fold">
+            <summary>
+              <span class="show">Show all {g.entries.length}</span><span class="hide">Hide the {g.entries.length}</span>
+              <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
+            </summary>
+            <div class="chips">
+              {g.entries.map((e) => (
+                <a
+                  class:list={["entrant", `p-${e.slug}`]}
+                  href={`#path-${e.slug}`}
+                  title={`${name(e)}${conferenceOf.get(e.slug) ? ` · ${conferenceOf.get(e.slug)}` : ""}: trace the path`}
+                >
+                  {name(e)}
+                </a>
+              ))}
+            </div>
+          </details>
+        ) : (
+          <div class="chips">
+            {g.entries.map((e) => (
+              <a
+                class:list={["entrant", `p-${e.slug}`]}
+                href={`#path-${e.slug}`}
+                title={`${name(e)}${conferenceOf.get(e.slug) ? ` · ${conferenceOf.get(e.slug)}` : ""}: trace the path`}
+              >
+                {name(e)}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     ))}
   </div>
@@ -166,6 +204,18 @@ const ordered = [...groups.values()]
   .out .entrant { color: var(--quiet); background: transparent; }
   .champ .entrant { background: var(--accent); border-color: var(--accent); color: var(--card); }
   .provenance { margin: 0; }
+  .fold { min-width: 0; }
+  .fold > summary {
+    list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    min-height: 28px; font-size: 12px; color: var(--accent); font-weight: 600;
+  }
+  .fold > summary::-webkit-details-marker { display: none; }
+  .fold > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .fold .chevron { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .fold[open] .chevron { transform: rotate(180deg); }
+  .fold .hide, .fold[open] .show { display: none; }
+  .fold[open] .hide { display: inline; }
+  .fold[open] > summary { margin-bottom: 6px; }
 
   @media (max-width: 720px) {
     .grp { grid-template-columns: minmax(0, 1fr); }
@@ -175,6 +225,6 @@ const ordered = [...groups.values()]
     .stage .bar { font-size: 13px; }
   }
   @media (pointer: coarse) {
-    .entrant { min-height: 44px; }
+    .entrant, .fold > summary { min-height: 44px; }
   }
 </style>

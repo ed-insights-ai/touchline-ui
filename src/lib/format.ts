@@ -85,7 +85,9 @@ export const longDate = (iso: string): string =>
 /** "9/17" — the compact form the season strip uses. */
 export const numericDate = (iso: string): string => `${parseISO(iso).m}/${dayOfMonth(iso)}`;
 
-/** "19:00" → "7:00 PM". Absent time means the source published none. */
+/** "19:00" → "7:00 PM". Absent time means the source published none. The
+ *  site's one clock form: a kickoff never prints without its AM or PM, since
+ *  "3:00" beside a match reads as either. */
 export function clockTime(hhmm: string | undefined): string | null {
   if (!hhmm) return null;
   const m = /^(\d{2}):(\d{2})$/.exec(hhmm);
@@ -93,12 +95,6 @@ export function clockTime(hhmm: string | undefined): string | null {
   const h24 = Number(m[1]);
   const h = h24 % 12 === 0 ? 12 : h24 % 12;
   return `${h}:${m[2]} ${h24 < 12 ? "AM" : "PM"}`;
-}
-
-/** "15:30" → "3:30" — the meridiem dropped where the column is too tight. */
-export function clockTimeBare(hhmm: string | undefined): string | null {
-  const full = clockTime(hhmm);
-  return full ? full.replace(/ [AP]M$/, "") : null;
 }
 
 /** A box score's "17:40" is 18 minutes played. Round up: the minute a thing

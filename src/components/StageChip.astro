@@ -1,0 +1,40 @@
+---
+// The round a postseason match belongs to, in the ledger's own register:
+// outlined for a conference tournament, solid ink for the NCAA (LedgerRow's
+// .lstage, the Match Centre's .stage). One chip, so the team page, the player
+// sheet and the conference cards cannot each grow a dialect of it.
+import type { StageChip } from "../lib/stage.ts";
+
+interface Props {
+  chip: StageChip;
+  /** "sm" for a strip cell or a log row; the default sits beside a label. */
+  size?: "sm" | "md";
+}
+const { chip, size = "md" } = Astro.props;
+---
+{/* The owner and the round are two spans of the one tag, so a surface too
+    narrow for the whole of it (a season-strip cell on a phone) can drop the
+    owner and keep the round: the outline or the fill still says whose round
+    it is, and the key beside the strip prints the tag whole. Everywhere else
+    the two read as the one text, "GAC SF". */}
+<span class:list={["stage-chip", `stage-chip-${chip.competition}`, `stage-chip-${size}`]} title={chip.phrase}
+  >{chip.label ? <><span class="stage-owner">{chip.owner} </span><span class="stage-round">{chip.label}</span></> : chip.text}</span
+>
+
+<style>
+  .stage-chip {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    color: var(--ink);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.35;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .stage-chip-sm { font-size: 8.5px; letter-spacing: 0.03em; padding: 0 2px; }
+  .stage-chip-ncaa { background: var(--ink); color: var(--paper); }
+</style>

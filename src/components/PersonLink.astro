@@ -1,0 +1,23 @@
+---
+// A player's name, linked to their sheet on the team page when that sheet
+// exists in the build, and plain text when it does not: no affordance
+// promising a page that is not there. Quiet by design — the name keeps the
+// ink it sits in, with a hairline underline that turns accent on hover.
+interface Props {
+  href: string | null | undefined;
+  class?: string;
+}
+const { href, class: extra } = Astro.props;
+---
+{href ? <a class:list={["person", extra]} href={href}><slot /></a> : <span class={extra}><slot /></span>}
+
+<style>
+  .person {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--hairline);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .person:hover { color: var(--accent); text-decoration-color: currentColor; }
+</style>

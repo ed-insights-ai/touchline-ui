@@ -351,7 +351,7 @@ export interface Editorial {
   kicker: string;
   headline: string;
   dek: string | null;
-  /** When the headline and dek last changed — "UPDATED SEP 1" — or null when
+  /** When the headline and dek last changed — "HEADLINE WRITTEN SEP 1" — or null when
    *  nothing on disk knows. The lede stands until something more newsworthy
    *  displaces it or it stops being true, never because the cadence came round
    *  again, so a reader meeting a sentence that did not move today is owed the
@@ -372,6 +372,15 @@ export function headlineForm(text: string): string {
   return text.trim().replace(/\.$/, "");
 }
 
+/** The stamp under a lede that did not move today: "HEADLINE WRITTEN NOV 2".
+ *  It said "UPDATED NOV 2", which beside a Nov 15 dateline read as a page
+ *  nobody had touched in a fortnight, when the figures under it were collected
+ *  that morning (design council, 2026-11-15). What is old is the sentence, and
+ *  the stamp now says so: the day the headline was written, not the day the
+ *  page was. */
+export const headlineWrittenStamp = (iso: string): string =>
+  `HEADLINE WRITTEN ${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}`;
+
 export function editorial(s: Season, journal: JournalFile | null): Editorial {
   if (journal) {
     return {
@@ -385,7 +394,7 @@ export function editorial(s: Season, journal: JournalFile | null): Editorial {
       // tells a reader the sentence did not move today.
       stamp:
         journal.lede_updated && journal.lede_updated !== s.asOf
-          ? `UPDATED ${monShort(journal.lede_updated).toUpperCase()} ${dayOfMonth(journal.lede_updated)}`
+          ? headlineWrittenStamp(journal.lede_updated)
           : null,
       fromJournal: true,
     };
@@ -423,7 +432,8 @@ export const PHASE_LIVE = "CONFERENCE PLAY UNDER WAY";
 export const PHASE_BEFORE = "BEFORE THE TABLE";
 /** The conference tournament has a collected match and no decided final. */
 export const PHASE_TOURNAMENT = "CONFERENCE TOURNAMENT UNDER WAY";
-/** The conference tournament's final is decided. */
+/** The conference tournament's final is played (Tournament.decided), whether
+ *  or not a record names who won it. */
 export const PHASE_DECIDED = "TOURNAMENT DECIDED";
 
 /** The phase a conference's season is in. The tournament is read from the
@@ -438,8 +448,10 @@ export function seasonPhase(s: Season): string {
   const tournament = postseasonOf([s]).conference.find((t) =>
     t.codes.includes(s.fixtures.conference),
   );
+  // Decided means the final is played, not that a champion is named: a
+  // final drawn with no shootout collected (2026 men's MEC, 1–1) is over.
   const phase = tournament
-    ? tournament.champion
+    ? tournament.decided
       ? PHASE_DECIDED
       : PHASE_TOURNAMENT
     : tableIsLive(s)

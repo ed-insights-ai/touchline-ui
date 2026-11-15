@@ -334,6 +334,15 @@ const genders = publishedGenders.length > 1
   .mrow-soon { cursor: default; }
   .mrow-soon:hover { background: none; }
   .mrow-soon .mabbr, .mrow-soon .mname { color: var(--quiet); }
+  /* Under a finger the small links in the header line get the 44px the
+     design system asks of a target, as padding the line never sees: inline
+     padding grows the hit area and not the line box, and the wordmark's is
+     given back by an equal negative margin. */
+  @media (pointer: coarse) {
+    .site-header .wordmark { padding: 10px 0; margin: -10px 0; }
+    .season-conf { padding: 15px 0; }
+    .division-trigger { padding: 16px 0; margin: -16px 0; }
+  }
   .msoon { margin-left: auto; padding-left: 14px; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--quiet); }
   @media (max-width: 1180px) {
     .site-header { height: auto; padding: 12px 0; flex-wrap: wrap; gap: 14px; }

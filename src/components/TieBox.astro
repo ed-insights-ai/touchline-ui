@@ -11,8 +11,12 @@
 // side that went out faint. A side known to have gone through only because
 // it appears in the next round wears ADV (a dot at compact density), in the
 // derived colour: it is DERIVED, and the sheet says so in words.
+//
+// A tie still to play carries its kickoff where the score will go, as the
+// host's page printed it (kickoffOf); the sheet names whose page that is.
 import { hasScore } from "../lib/derive.ts";
-import { type Tie, tieAnchor } from "../lib/postseason.ts";
+import { kickoffOf, type Tie, tieAnchor } from "../lib/postseason.ts";
+import { clockTime } from "../lib/format.ts";
 
 interface Props {
   tie: Tie;
@@ -36,12 +40,14 @@ const rows = (["home", "away"] as const).map((side) => {
     derived: tie.through?.slug === slug && tie.through.evidence === "DERIVED",
   };
 });
-const label = `${rows[0]?.name} v ${rows[1]?.name}`;
+const unplayed = f.status !== "final" && !tie.disputed;
+const ko = unplayed ? clockTime(kickoffOf(tie).primary.time ?? undefined) : null;
+const label = `${rows[0]?.name} v ${rows[1]?.name}${ko ? `, kickoff ${ko}` : ""}`;
 ---
 
-<a class:list={["tie", { "tie-disputed": tie.disputed }]} href={`#${tieAnchor(tie)}`} aria-label={`${label}: open the tie`}>
+<a class:list={["tie", { "tie-disputed": tie.disputed, "has-ko": ko !== null }]} href={`#${tieAnchor(tie)}`} aria-label={`${label}: open the tie`}>
   {rows.map((r) => (
-    <span class:list={["row", r.state, `p-${r.slug}`]}>
+    <span class:list={["row", r.state, `p-${r.slug}`]} title={r.name}>
       <span class="n">
         {r.derived && <span class="adv">ADV</span>}
         {r.derived && <span class="advdot" aria-hidden="true"></span>}
@@ -54,6 +60,7 @@ const label = `${rows[0]?.name} v ${rows[1]?.name}`;
       </span>
     </span>
   ))}
+  {ko && <span class="ko num" aria-hidden="true">{ko}</span>}
 </a>
 
 <style>
@@ -78,10 +85,27 @@ const label = `${rows[0]?.name} v ${rows[1]?.name}`;
   .w .n { font-weight: 600; }
   .l .n, .l .g { color: var(--quiet); font-weight: 400; }
   .pk { font-size: 0.78em; font-weight: 500; color: var(--quiet); margin-left: 2px; }
+  /* The kickoff sits where the score will, centred across both rows. */
+  .ko {
+    position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+    font-size: 10.5px; color: var(--quiet); letter-spacing: 0.02em; white-space: nowrap;
+  }
+  .has-ko .row { padding-right: 56px; }
   .adv { font-size: 9px; letter-spacing: 0.1em; color: var(--chip-derived-fg); font-weight: 600; margin-right: 4px; }
   .advdot {
     display: none; width: 6px; height: 6px; border-radius: 50%;
     background: var(--chip-derived-fg); margin-right: 4px; vertical-align: 1px;
+  }
+
+  /* A phone's bracket: two columns of ~170px, where a full name ellipsised
+     says less than the abbreviation the files carry, which is an identifier
+     and never cut. The full name stays in the row's title and the link's
+     label. A tie standing alone (a conference tournament's) has the width
+     for its names and keeps them. */
+  @media (max-width: 420px) {
+    :global(.bracket) .n { text-overflow: clip; }
+    :global(.bracket) .n .full { display: none; }
+    :global(.bracket) .n .ab { display: inline; }
   }
 
   /* Compact density (a phone's region, four columns of ~77px): names become
@@ -93,4 +117,7 @@ const label = `${rows[0]?.name} v ${rows[1]?.name}`;
   :global(.compact) .n .ab { display: inline; }
   :global(.compact) .advdot { display: inline-block; }
   :global(.compact) .pk { font-size: 0.72em; margin-left: 1px; }
+  /* Four columns of ~77px have no room for it; the sheet carries it. */
+  :global(.compact) .ko { display: none; }
+  :global(.compact) .has-ko .row { padding-right: 2px; }
 </style>

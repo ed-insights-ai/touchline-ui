@@ -6,6 +6,15 @@
 // Each cell states its opponent and date through a title attribute alone.
 // That is the hover-only-facts problem, and the disclosure that fixes it
 // belongs on this component.
+//
+// The one purple cell is the conference opener (derive.ts conferenceOpenerOf:
+// the first fixture that counts in the conference table), and a postseason
+// cell wears its round in the ledger's tag. Both are keyed under the strip,
+// each only where a cell wears it: a colour nobody explains is decoration,
+// and purple on this site is never decoration.
+import type { StageChip as Chip } from "../lib/stage.ts";
+import StageChip from "./StageChip.astro";
+
 interface Cell {
   href: string;
   /** "vs Delta State · Saturday, August 27" */
@@ -18,11 +27,21 @@ interface Cell {
   result: "W" | "D" | "L" | null;
   isOpener: boolean;
   silent: boolean;
+  /** The postseason round ("GAC SF", "NCAA R2"), or null. */
+  stage?: Chip | null;
+  /** Scheduled: the cell carries a date, on a dashed rule. */
+  ahead?: boolean;
 }
 interface Props {
   cells: Cell[];
 }
 const { cells } = Astro.props;
+const anyOpener = cells.some((c) => c.isOpener);
+const anyAhead = cells.some((c) => c.ahead);
+// One real chip per competition the strip wears, so the key is drawn by the
+// chip it explains and names no conference of its own.
+const keyChips = [...new Map(cells.flatMap((c) => (c.stage ? [[c.stage.competition, c.stage]] : []))).values()]
+  .sort((a, b) => (a.competition === b.competition ? 0 : a.competition === "conference" ? -1 : 1));
 ---
 
 <h2 class="sechead">SEASON</h2>
@@ -42,10 +61,35 @@ const { cells } = Astro.props;
       <span class="cell-opp">{c.opponent}</span>
       <span class="cell-line">{c.line}</span>
       {c.mark && <span class="cell-mark">{c.mark}</span>}
-      <span class="cell-detail">{c.detail}</span>
+      {c.stage && <span class="cell-stage"><StageChip chip={c.stage} size="sm" /></span>}
+      <span class="cell-detail">{c.detail}{c.stage ? ` · ${c.stage.phrase}` : ""}{c.isOpener ? " · conference opener" : ""}</span>
     </a>
   ))}
 </div>
+{(anyOpener || keyChips.length > 0 || anyAhead) && (
+  <div class="strip-key">
+    {anyOpener && (
+      <span class="key-item">
+        <span class="key-swatch key-opener" aria-hidden="true"></span>
+        <span class="label">Conference opener</span>
+      </span>
+    )}
+    {keyChips.map((chip) => (
+      <span class="key-item">
+        <span class="key-chips" aria-hidden="true"><StageChip chip={chip} size="sm" /></span>
+        <span class="label">
+          {chip.competition === "ncaa" ? "NCAA tournament round" : "Conference tournament round"}
+        </span>
+      </span>
+    ))}
+    {anyAhead && (
+      <span class="key-item">
+        <span class="key-swatch key-ahead" aria-hidden="true"></span>
+        <span class="label">Still to play, by date</span>
+      </span>
+    )}
+  </div>
+)}
 
 <style>
   /* The detail is positioned against the STRIP, not the cell it belongs to.
@@ -100,6 +144,28 @@ const { cells } = Astro.props;
     border-radius: 5px 5px 0 0;
   }
   .cell-opener .cell-opp, .cell-opener .cell-line { color: var(--accent); font-weight: 600; }
+  /* A cell is ~48px wide on a phone and about that at desk width with a full
+     season, and "GAC FINAL" or "NCAA R3" is wider: broken over two lines it
+     read as two chips. So the chip stays on one line, and a cell too narrow
+     for the whole tag prints the round alone ("FINAL", "R3"). Outlined is the
+     conference's tournament and filled the NCAA's, the key below prints each
+     tag whole, and the cell's detail names the round in words. Measured
+     against the cell itself, so a short season's wide cells keep the owner. */
+  .cell { container-type: inline-size; }
+  .cell-stage { display: flex; justify-content: center; max-width: 100%; padding: 0 2px; }
+  .cell-stage :global(.stage-chip) { max-width: 100%; overflow: hidden; text-overflow: clip; }
+  @container (max-width: 64px) {
+    .cell-stage :global(.stage-owner) { display: none; }
+  }
+
+  /* The key, in the squad shape legend's register: a swatch drawn like the
+     cell it explains, then a caps label. */
+  .strip-key { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 10px; }
+  .key-item { display: inline-flex; align-items: center; gap: 8px; }
+  .key-swatch { width: 16px; height: 12px; border-radius: 3px 3px 0 0; border-bottom: 2px solid; }
+  .key-opener { background: var(--accent-wash-soft); border-bottom-color: var(--accent); }
+  .key-ahead { border-bottom: 2px dashed var(--outline-quiet); border-radius: 0; }
+  .key-chips { display: inline-flex; }
 
   @media (max-width: 1180px) {
     .strip { flex-wrap: wrap; }

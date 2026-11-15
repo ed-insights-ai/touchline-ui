@@ -15,6 +15,7 @@ import {
   byKickoff,
   conferenceOpensOn,
   exhibitionsOf,
+  hasScore,
   isCountable,
   isScored,
   loadSeason,
@@ -41,7 +42,16 @@ import {
   toISO,
 } from "./format.ts";
 import { type ConferenceFootprint, regionLabels, type UnplacedProgramme } from "./geo.ts";
-import { headlineForm, type NationalJournalFile, PHASE_LIVE } from "./journal.ts";
+import {
+  headlineForm,
+  headlineWrittenStamp,
+  type NationalJournalFile,
+  PHASE_BEFORE,
+  PHASE_DECIDED,
+  PHASE_LIVE,
+  PHASE_TOURNAMENT,
+  seasonPhase,
+} from "./journal.ts";
 import type { Fixture } from "./model.ts";
 import { byRegion, type Region, type RegionConfig } from "./regions.ts";
 
@@ -115,6 +125,10 @@ export interface HomeColumn {
   /** The ordering key: the next league kickoff on or after the collect. */
   kickoff: string | null;
   live: boolean;
+  /** The phase the conference's season is in, from the function the season
+   *  page's kicker reads (journal.ts seasonPhase), so the card and the page it
+   *  links to cannot name two different phases. */
+  phase: string;
 }
 
 /** One column per collected conference, ordered by next league kickoff, most
@@ -133,6 +147,7 @@ export function homeColumns(seasons: readonly Season[]): HomeColumn[] {
       opensOn: conferenceOpensOn(season),
       kickoff: nextLeagueKickoff(season),
       live: tableIsLive(season),
+      phase: seasonPhase(season),
     }))
     .sort(
       (a, b) =>
@@ -174,7 +189,7 @@ export interface CardView {
   total: number;
   /** The wire, or the headline it falls back to. */
   line: string | null;
-  /** "UPDATED SEP 1" when the line is older than the data it sits on. */
+  /** "WRITTEN SEP 1" when the line is older than the data it sits on. */
   stamp: string | null;
   href: string;
 }
@@ -185,21 +200,30 @@ export interface BandColumn {
   live: boolean;
   opensOn: string | null;
   kickoff: string | null;
+  /** The season phase (journal.ts PHASE_*). Absent on a synthetic view, which
+   *  then reads as live or not yet open from `live` alone. */
+  phase?: string;
 }
+
+/** A column's phase: its own when it carries one, else what `live` alone can
+ *  say. A conference whose tournament has a match is past "in conference
+ *  play", and saying otherwise contradicted the season page's own kicker. */
+export const phaseOfColumn = (c: { live: boolean; phase?: string }): string =>
+  c.phase ?? (c.live ? PHASE_LIVE : PHASE_BEFORE);
 
 /** A date as the cards and the band heads print it: "SEP 12". */
 export const opensStamp = (iso: string): string =>
   `${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}`;
 
-/** The card's opens line: the phase word while the table is live, the opener
- *  once one is published, the plain absence otherwise. The band heads reuse
- *  the same words (bandMeta), so the two surfaces cannot drift. */
-export function opensLine(c: { live: boolean; opensOn: string | null }): string {
-  return c.live
-    ? PHASE_LIVE
-    : c.opensOn
-      ? `OPENS ${opensStamp(c.opensOn)}`
-      : "NO CONFERENCE DATE PUBLISHED";
+/** The card's opens line: the season page's own phase words once the table
+ *  is live ("CONFERENCE PLAY UNDER WAY", "CONFERENCE TOURNAMENT UNDER WAY",
+ *  "TOURNAMENT DECIDED"), the opener before then, the plain absence when none
+ *  is published. The band heads count the same phases (bandMeta), so the two
+ *  surfaces cannot drift. */
+export function opensLine(c: { live: boolean; opensOn: string | null; phase?: string }): string {
+  const phase = phaseOfColumn(c);
+  if (phase !== PHASE_BEFORE) return phase;
+  return c.opensOn ? `OPENS ${opensStamp(c.opensOn)}` : "NO CONFERENCE DATE PUBLISHED";
 }
 
 export type HomeLayout = "columns" | "bands";
@@ -215,8 +239,13 @@ export interface HomeBand<T> {
   region: Region;
   /** The band's cards, in the order they were given (kickoff order). */
   columns: T[];
-  /** How many of them are under way. */
+  /** How many of them are under way (the table is live, in any phase). */
   live: number;
+  /** Of those, how many are in conference play, in their tournament, and
+   *  past their tournament's final: the phases the band head counts. */
+  league: number;
+  tournament: number;
+  decided: number;
   /** The earliest published opener among those not yet under way. */
   nextOpens: string | null;
   /** The band whose card wears the one purple; at most one band, none once
@@ -238,6 +267,9 @@ export function homeBands<T extends BandColumn>(
     region,
     columns: items,
     live: items.filter((c) => c.live).length,
+    league: items.filter((c) => phaseOfColumn(c) === PHASE_LIVE).length,
+    tournament: items.filter((c) => phaseOfColumn(c) === PHASE_TOURNAMENT).length,
+    decided: items.filter((c) => phaseOfColumn(c) === PHASE_DECIDED).length,
     nextOpens:
       items
         .filter((c) => !c.live && c.opensOn !== null)
@@ -386,10 +418,15 @@ function bandLead<T extends CardView & BandColumn>(band: HomeBand<T>): T | null 
   );
 }
 
-/** What a conference is doing, in one clause: "the GLVC opens Friday,
- *  September 4", "the GAC is in conference play", or the absence. */
+/** What a conference is doing, in one clause, in its phase: "the GLVC opens
+ *  Friday, September 4", "the GAC is in conference play", "the GAC
+ *  tournament is under way", "the GAC tournament is decided", or the
+ *  absence. The same phase the card and the season page's kicker print. */
 function doingClause(c: CardView & BandColumn): string {
-  if (c.live) return `the ${c.code} is in conference play`;
+  const phase = phaseOfColumn(c);
+  if (phase === PHASE_DECIDED) return `the ${c.code} tournament is decided`;
+  if (phase === PHASE_TOURNAMENT) return `the ${c.code} tournament is under way`;
+  if (phase === PHASE_LIVE) return `the ${c.code} is in conference play`;
   if (c.opensOn) return `the ${c.code} opens ${longDate(c.opensOn)}`;
   return `the ${c.code} has published no conference date`;
 }
@@ -590,11 +627,19 @@ export function mapView(
   };
 }
 
-/** The head's meta, one wording for the band head and the tests:
- *  "2 LIVE · NEXT OPENS SEP 19", "OPENS SEP 5", or the absence. */
+/** The head's meta, one wording for the band head and the tests: each phase
+ *  under way counted, latest phase first — "4 DECIDED", "2 DECIDED · 1 IN
+ *  TOURNAMENT", "2 LIVE · NEXT OPENS SEP 19" — then "OPENS SEP 5", or the
+ *  absence. LIVE is conference play: a conference whose tournament has begun
+ *  is counted in its tournament phase, as its card and its page say. */
 export function bandMeta(band: HomeBand<BandColumn>): string {
-  if (band.live > 0) {
-    return `${band.live} LIVE${band.nextOpens ? ` · NEXT OPENS ${opensStamp(band.nextOpens)}` : ""}`;
+  const under = [
+    band.decided > 0 ? `${band.decided} DECIDED` : null,
+    band.tournament > 0 ? `${band.tournament} IN TOURNAMENT` : null,
+    band.league > 0 ? `${band.league} LIVE` : null,
+  ].filter((cell): cell is string => cell !== null);
+  if (under.length > 0) {
+    return `${under.join(" · ")}${band.nextOpens ? ` · NEXT OPENS ${opensStamp(band.nextOpens)}` : ""}`;
   }
   return band.nextOpens ? `OPENS ${opensStamp(band.nextOpens)}` : "NO CONFERENCE DATE PUBLISHED";
 }
@@ -603,6 +648,65 @@ export function bandMeta(band: HomeBand<BandColumn>): string {
 export function bandHead(band: HomeBand<BandColumn>): string {
   const n = band.columns.length;
   return `${n} ${n === 1 ? "CONFERENCE" : "CONFERENCES"} · ${bandMeta(band)}`;
+}
+
+/** The NCAA championship's one line under LAST NIGHT, once the collect holds a
+ *  tie: "NCAA championship · 10 of 24 ties played". Played is the
+ *  championship page's own count — a tie marked final with a published score
+ *  — over every collected tie, so the line and the page it links to say the
+ *  same number. Null before the field is collected: no tie, no line. */
+export function championshipLine(
+  ncaa: { ties: readonly { fixture: Fixture }[] },
+  governingBody: string = site.governingBody,
+): string | null {
+  if (ncaa.ties.length === 0) return null;
+  const played = ncaa.ties.filter(
+    (t) => t.fixture.status === "final" && hasScore(t.fixture),
+  ).length;
+  const n = ncaa.ties.length;
+  return `${governingBody} championship · ${played} of ${n} ${n === 1 ? "tie" : "ties"} played`;
+}
+
+/** One playing day of the NCAA tournament, as the home lists it. */
+export interface NcaaDay {
+  date: string;
+  /** The day is the national asOf itself. */
+  isToday: boolean;
+  matches: DivisionMatch[];
+}
+
+/** The NCAA's next playing day, from the national asOf on: the date of the
+ *  earliest tie still listed as scheduled, and every tie on that date in
+ *  kickoff order — a tie already final that day keeps its place and its
+ *  score, because it is the same night. The fixtures are the championship
+ *  page's own (the division fold's NCAA ties), so nothing here is a new list.
+ *  A called-off tie is answered, not upcoming, and stays off. Null when no
+ *  tie on or after asOf is still to be played: before the field is collected,
+ *  and after the final. */
+export function ncaaNextDay(
+  ncaa: { ties: readonly { fixture: Fixture; match: DivisionMatch }[] },
+  asOf: string,
+): NcaaDay | null {
+  const ahead = (f: Fixture): boolean => f.status === "scheduled" && !hasScore(f);
+  const dates = ncaa.ties
+    .filter((t) => t.fixture.date >= asOf && ahead(t.fixture))
+    .map((t) => t.fixture.date)
+    .sort();
+  const date = dates[0];
+  if (date === undefined) return null;
+  const matches = ncaa.ties
+    .filter(
+      (t) =>
+        t.fixture.date === date &&
+        t.fixture.status !== "cancelled" &&
+        t.fixture.status !== "postponed",
+    )
+    .map((t) => t.match)
+    .sort(
+      (a, b) =>
+        byKickoff(a.fixture, b.fixture) || a.codes.join(" ").localeCompare(b.codes.join(" ")),
+    );
+  return { date, isToday: date === asOf, matches };
 }
 
 /** Last night, literally: the calendar day before the national asOf. */
@@ -708,7 +812,8 @@ export interface NationalLede {
    *  survives where it is content — each season page, and the description
    *  this page publishes to surfaces that get no cards at all. */
   strip: string[];
-  /** When the headline last changed — "UPDATED SEP 1". A standing line is
+  /** When the headline last changed — "HEADLINE WRITTEN SEP 1", the season
+   *  masthead's words (journal.ts headlineWrittenStamp). A standing line is
    *  displaced by something more newsworthy or by no longer being true, never
    *  by the cadence coming round again, so a reader meeting a sentence that
    *  did not move today is owed the day it last did. Null with no headline:
@@ -760,9 +865,7 @@ export function nationalMasthead(
     // Only when the headline is older than the dateline above it; on the day
     // it changed the kicker already says so.
     stamp:
-      journal.updated && journal.updated !== asOf
-        ? `UPDATED ${monShort(journal.updated).toUpperCase()} ${dayOfMonth(journal.updated)}`
-        : null,
+      journal.updated && journal.updated !== asOf ? headlineWrittenStamp(journal.updated) : null,
   };
 }
 

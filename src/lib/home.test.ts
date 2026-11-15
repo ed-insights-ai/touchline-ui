@@ -21,7 +21,7 @@ import {
   memberSlugs,
   seasonCounts,
 } from "./derive.ts";
-import { allSightings, divisionCounts, foldToMatches } from "./division.ts";
+import { allSightings, type DivisionMatch, divisionCounts, foldToMatches } from "./division.ts";
 import { densityCards, densityConfig } from "./fixtures/density.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import { footprintOf } from "./geo.ts";
@@ -33,6 +33,7 @@ import {
   bandMeta,
   bandOpenFlags,
   type CardView,
+  championshipLine,
   conferenceOfProgramme,
   GLYPHS,
   glyphAt,
@@ -56,6 +57,7 @@ import {
   nationalDescription,
   nationalLede,
   nationalMasthead,
+  ncaaNextDay,
   nextLeagueKickoff,
   openBandIndex,
   opensLine,
@@ -63,9 +65,19 @@ import {
   regionChips,
   unplacedLines,
 } from "./home.ts";
-import { loadNationalJournal, type NationalJournalFile } from "./journal.ts";
+import {
+  defaultKicker,
+  loadNationalJournal,
+  type NationalJournalFile,
+  PHASE_BEFORE,
+  PHASE_DECIDED,
+  PHASE_LIVE,
+  PHASE_TOURNAMENT,
+  seasonPhase,
+} from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
 import { conferenceEntries, ledgerSummary, splitLedger } from "./nav.ts";
+import { divisionPostseason } from "./postseason-division.ts";
 import { type RegionConfig, regionsInUse } from "./regions.ts";
 
 const seasons = homeSeasons();
@@ -305,6 +317,68 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     });
   });
 
+  describe("the phase a card, a band head and a lead line state", () => {
+    const at = (key: string, phase: string, live = true): BandColumn => ({
+      key,
+      live,
+      opensOn: null,
+      kickoff: null,
+      phase,
+    });
+    const cfgP: RegionConfig = {
+      regions: [{ key: "w", name: "West" }],
+      conferenceRegions: { a: "w", b: "w", c: "w", d: "w" },
+    };
+
+    test("every card's phase is the season page's own, read from one function", () => {
+      for (const c of columns) {
+        expect(c.phase).toBe(seasonPhase(c.season));
+        // The card prints the phase word the season page's kicker carries.
+        if (c.phase !== PHASE_BEFORE) {
+          expect(opensLine(c)).toBe(c.phase);
+          expect(defaultKicker(c.season)).toContain(` · ${opensLine(c)} · `);
+        }
+      }
+    });
+
+    test("a decided or running tournament is never called conference play", () => {
+      expect(opensLine({ live: true, opensOn: null, phase: PHASE_DECIDED })).toBe(PHASE_DECIDED);
+      expect(opensLine({ live: true, opensOn: null, phase: PHASE_TOURNAMENT })).toBe(
+        PHASE_TOURNAMENT,
+      );
+      expect(opensLine({ live: true, opensOn: null, phase: PHASE_LIVE })).toBe(PHASE_LIVE);
+      // A view with no phase reads from `live` alone, as it always did.
+      expect(opensLine({ live: true, opensOn: null })).toBe(PHASE_LIVE);
+      expect(opensLine({ live: false, opensOn: "2026-09-04" })).toBe("OPENS SEP 4");
+    });
+
+    test("the band head counts each phase, latest first", () => {
+      const all = homeBands(
+        ["a", "b", "c", "d"].map((k) => at(k, PHASE_DECIDED)),
+        cfgP,
+      )[0] as HomeBand<BandColumn>;
+      expect(bandHead(all)).toBe("4 CONFERENCES · 4 DECIDED");
+      const mixed = homeBands(
+        [
+          at("a", PHASE_LIVE),
+          at("b", PHASE_DECIDED),
+          at("c", PHASE_TOURNAMENT),
+          at("d", PHASE_DECIDED),
+        ],
+        cfgP,
+      )[0] as HomeBand<BandColumn>;
+      expect(bandMeta(mixed)).toBe("2 DECIDED · 1 IN TOURNAMENT · 1 LIVE");
+    });
+
+    test("the live site's band heads never say LIVE of a decided conference", () => {
+      for (const b of homeBands(columns)) {
+        const league = b.columns.filter((c) => c.phase === PHASE_LIVE).length;
+        expect(b.league).toBe(league);
+        if (league === 0) expect(bandMeta(b)).not.toContain("LIVE");
+      }
+    });
+  });
+
   describe("the lead line", () => {
     const view = (
       key: string,
@@ -346,6 +420,16 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     test("a band under way speaks for the live conference", () => {
       const band = only([view("g", "GLVC", { live: true })]);
       expect(leadLine(band, null)).toBe("Midwest: the GLVC is in conference play.");
+    });
+
+    test("and in its phase once the tournament has begun", () => {
+      const decided = only([{ ...view("g", "GLVC", { live: true }), phase: PHASE_DECIDED }]);
+      expect(leadLine(decided, null)).toBe("Midwest: the GLVC tournament is decided.");
+      expect(leadLine(decided, { programme: "Lewis", code: "GLVC" })).toBe(
+        "Open for the headline: Lewis, of the GLVC. The GLVC tournament is decided.",
+      );
+      const running = only([{ ...view("g", "GLVC", { live: true }), phase: PHASE_TOURNAMENT }]);
+      expect(leadLine(running, null)).toBe("Midwest: the GLVC tournament is under way.");
     });
 
     test("the headline case says why the band is open", () => {
@@ -520,9 +604,12 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       () => {
         const html = readFileSync(dist, "utf8");
         const ledger = lastNightLedger(seasons, lastNightOf(nationalAsOf(seasons)));
-        const section =
+        const whole =
           /<section class="lastnight[^"]*"[^>]*>([\s\S]*?)<\/section>/.exec(html)?.[1] ?? "";
-        expect(section).not.toBe("");
+        expect(whole).not.toBe("");
+        // The NCAA day ahead shares the section but is not the night's ledger.
+        const day = whole.indexOf('<div class="ln-day');
+        const section = day === -1 ? whole : whole.slice(0, day);
         const rowsIn = (s: string): number => [...s.matchAll(/<a class="lrow[ "]/g)].length;
         expect(rowsIn(section)).toBe(ledger.length);
         const at = section.indexOf('<details class="ledger-more');
@@ -615,7 +702,15 @@ describe("up to the column cap the page is columns; past it, region bands", () =
         `${b.columns.length} ${b.columns.length === 1 ? "CONFERENCE" : "CONFERENCES"} · ${meta}`,
       );
       if (b.live > 0) {
-        expect(meta.startsWith(`${b.live} LIVE`)).toBe(true);
+        // Each phase under way is counted, latest first, and the counts add
+        // up to the conferences under way: a decided conference is not LIVE.
+        const cells = [
+          b.decided > 0 ? `${b.decided} DECIDED` : null,
+          b.tournament > 0 ? `${b.tournament} IN TOURNAMENT` : null,
+          b.league > 0 ? `${b.league} LIVE` : null,
+        ].filter(Boolean);
+        expect(meta.startsWith(cells.join(" · "))).toBe(true);
+        expect(b.decided + b.tournament + b.league).toBe(b.live);
         if (b.nextOpens)
           expect(meta).toContain(`NEXT OPENS ${shortDate(b.nextOpens).toUpperCase()}`);
       } else if (b.nextOpens) {
@@ -868,7 +963,9 @@ describe("the masthead is derived, deterministically, from counts and opener dat
     const fresh = { headline: "Fresh today", updated: asOf } as NationalJournalFile;
     expect(nationalMasthead(columns, asOf, national, fresh).stamp).toBe(null);
     const standing = { headline: "Standing", updated: "2026-08-27" } as NationalJournalFile;
-    expect(nationalMasthead(columns, asOf, national, standing).stamp).toBe("UPDATED AUG 27");
+    expect(nationalMasthead(columns, asOf, national, standing).stamp).toBe(
+      "HEADLINE WRITTEN AUG 27",
+    );
   });
 
   test("no headline is manufactured — the floor writes none", () => {
@@ -1228,4 +1325,146 @@ describe("the map's places and its members with no dot", () => {
     if (view.provinces.length > 0) expect(view.footer).toMatch(/ AND (ONE|TWO|\w+) PROVINCES?$/);
     for (const u of view.unplaced) expect(["off-frame", "no-point"]).toContain(u.reason);
   });
+});
+
+describe("the championship line under LAST NIGHT", () => {
+  const tie = (status: string, scored: boolean): { fixture: Fixture } => ({
+    fixture: {
+      status,
+      ...(scored ? { home_score: 1, away_score: 0 } : {}),
+    } as unknown as Fixture,
+  });
+
+  test("no tie collected, no line", () => {
+    expect(championshipLine({ ties: [] })).toBeNull();
+  });
+
+  test("played is a final with a published score, over every collected tie", () => {
+    const ties = [tie("final", true), tie("final", false), tie("scheduled", false)];
+    expect(championshipLine({ ties }, "NCAA")).toBe("NCAA championship · 1 of 3 ties played");
+    expect(championshipLine({ ties: [tie("scheduled", false)] }, "NCAA")).toBe(
+      "NCAA championship · 0 of 1 tie played",
+    );
+  });
+
+  test("on the live data it says what the championship page's dek says", () => {
+    const ncaa = divisionPostseason().ncaa;
+    const line = championshipLine(ncaa);
+    if (ncaa.ties.length === 0) {
+      expect(line).toBeNull();
+      return;
+    }
+    const played = ncaa.ties.filter((t) => t.fixture.status === "final" && hasScore(t.fixture));
+    expect(line).toBe(
+      `${site.governingBody} championship · ${played.length} of ${ncaa.ties.length} ${
+        ncaa.ties.length === 1 ? "tie" : "ties"
+      } played`,
+    );
+  });
+});
+
+describe("the NCAA's next playing day under LAST NIGHT", () => {
+  // A tie as the fold hands it over: the match and its fixture, one object.
+  const tie = (
+    id: string,
+    date: string,
+    status: string,
+    time?: string,
+    scored = false,
+  ): { fixture: Fixture; match: DivisionMatch } => {
+    const fixture = {
+      id,
+      date,
+      status,
+      ...(time ? { time } : {}),
+      ...(scored ? { home_score: 2, away_score: 1 } : {}),
+    } as unknown as Fixture;
+    return { fixture, match: { fixture, codes: ["GAC"] } as unknown as DivisionMatch };
+  };
+
+  test("no tie still to play, no list", () => {
+    expect(ncaaNextDay({ ties: [] }, "2026-11-15")).toBeNull();
+    expect(
+      ncaaNextDay({ ties: [tie("a", "2026-11-15", "final", "13:00", true)] }, "2026-11-15"),
+    ).toBeNull();
+    // A tie left scheduled on a date gone by is not the next playing day.
+    expect(ncaaNextDay({ ties: [tie("a", "2026-11-14", "scheduled")] }, "2026-11-15")).toBeNull();
+  });
+
+  test("today when a tie is still to play today, in kickoff order, finals of the day kept", () => {
+    const day = ncaaNextDay(
+      {
+        ties: [
+          tie("late", "2026-11-15", "scheduled", "15:00"),
+          tie("done", "2026-11-15", "final", "12:00", true),
+          tie("early", "2026-11-15", "scheduled", "13:00"),
+          tie("off", "2026-11-15", "cancelled", "13:00"),
+          tie("next", "2026-11-16", "scheduled", "12:00"),
+        ],
+      },
+      "2026-11-15",
+    );
+    expect(day?.date).toBe("2026-11-15");
+    expect(day?.isToday).toBe(true);
+    expect(day?.matches.map((m) => m.fixture.id)).toEqual(["done", "early", "late"]);
+  });
+
+  test("the next date with a tie to play when today has none", () => {
+    const day = ncaaNextDay(
+      {
+        ties: [
+          tie("done", "2026-11-15", "final", "12:00", true),
+          tie("sat", "2026-11-21", "scheduled", "13:00"),
+          tie("sun", "2026-11-22", "scheduled", "13:00"),
+        ],
+      },
+      "2026-11-15",
+    );
+    expect(day?.date).toBe("2026-11-21");
+    expect(day?.isToday).toBe(false);
+    expect(day?.matches.map((m) => m.fixture.id)).toEqual(["sat"]);
+  });
+
+  test("on the live data every row is an NCAA tie on the one date, none called off", () => {
+    const ncaa = divisionPostseason().ncaa;
+    const asOf = nationalAsOf(homeSeasons());
+    const day = ncaaNextDay(ncaa, asOf);
+    if (day === null) return;
+    expect(day.date >= asOf).toBe(true);
+    const ids = new Set(ncaa.ties.map((t) => t.identity));
+    for (const m of day.matches) {
+      expect(ids.has(m.identity)).toBe(true);
+      expect(m.fixture.date).toBe(day.date);
+      expect(["cancelled", "postponed"]).not.toContain(m.fixture.status);
+    }
+    expect(day.matches.some((m) => m.fixture.status === "scheduled" && !hasScore(m.fixture))).toBe(
+      true,
+    );
+  });
+
+  test("on the live data no side is listed twice on the day: the folded ties are counted", () => {
+    // Two records of one tie, one naming the opponent by another slug, are
+    // one row (lib/postseason.ts sameDayGroups), never two.
+    const ncaa = divisionPostseason().ncaa;
+    for (const date of new Set(ncaa.ties.map((t) => t.fixture.date))) {
+      const day = ncaaNextDay(ncaa, date);
+      if (day === null || day.date !== date) continue;
+      const sides = day.matches.flatMap((m) => [m.fixture.home, m.fixture.away]);
+      expect(sides.length).toBe(new Set(sides).size);
+    }
+  });
+
+  test.skipIf(site.gender !== "women")(
+    "women's Nov 15: Cal State LA v Concordia Irvine is one row, read from both files",
+    () => {
+      const day = ncaaNextDay(divisionPostseason().ncaa, "2026-11-15");
+      if (day === null || day.date !== "2026-11-15") return;
+      const csula = day.matches.filter((m) =>
+        [m.fixture.home, m.fixture.away].includes("cal-state-la"),
+      );
+      expect(csula).toHaveLength(1);
+      expect(csula[0]?.identity).toBe("2026-11-15 cal-state-la v concordia-irvine");
+      expect([...(csula[0]?.codes ?? [])].sort()).toEqual(["CCAA", "PACWEST"]);
+    },
+  );
 });

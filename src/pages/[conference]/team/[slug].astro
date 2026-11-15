@@ -31,6 +31,7 @@ import { displayNameOf, identityLine } from "../../../lib/programmes.ts";
 import { countOrigins, originOf } from "../../../lib/origin.ts";
 import { returnedShare, tenureGrid } from "../../../lib/tenure.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
+import { stageChipOf } from "../../../lib/stage.ts";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import { playerCard } from "../../../lib/player.ts";
@@ -45,6 +46,7 @@ import {
   monShort,
   numericDate,
   rate3,
+  shortDate,
   spell,
   LINE_LABEL,
   LINE_ORDER,
@@ -138,6 +140,8 @@ const strip = all.map((f) => {
     mark: markOf(season, f),
     isOpener: opener?.id === f.id,
     silent: f.status === "final" && !scored,
+    // A postseason match names its round in the cell, in the ledger's tag.
+    stage: stageChipOf(f),
   };
 });
 
@@ -188,7 +192,10 @@ const openerPanel = (() => {
     cleanSheets === 1 ? "clean sheet" : "clean sheets"
   }`;
   return {
-    label: "RECORD",
+    // Three bare numbers read as a score to anyone who does not know the
+    // house order, so the label names it, as the player sheet's does
+    // ("Record (W–D–L)"); the splits beneath read in the same order.
+    label: "RECORD (W–D–L)",
     figure: `${record.won}–${record.drawn}–${record.lost}`,
     note: parts.length > 0 ? `${parts.join(" · ")}. ${goals}` : goals,
   };
@@ -204,22 +211,43 @@ const honours = [
   ...(postseason.ncaa.champion?.slug === slug ? ["NATIONAL CHAMPIONS"] : []),
 ];
 
+// The keeper is the one who kept goal (leadKeeper: most minutes), and the
+// note carries the sample the rate is over, so a reader can weigh it.
+const thousands = (n: number): string => n.toLocaleString("en-US");
 const keeperNote = keeper
-  ? `${keeper.name}: ${keeper.saves ?? 0} ${keeper.saves === 1 ? "save" : "saves"}, ${keeper.goals_against ?? 0} conceded, ${keeper.minutes ?? 0} minutes.`
+  ? `${keeper.name}: ${thousands(keeper.saves ?? 0)} ${keeper.saves === 1 ? "save" : "saves"}, ${thousands(keeper.goals_against ?? 0)} conceded in ${thousands(keeper.minutes ?? 0)} minutes.`
   : "No goalkeeping line has been published.";
 
-// The figure is the next opponent, and the note says where and when, then who
-// follows. It was a count of the fortnight's matches — "4" — a figure nobody
-// came to the page for (UI review, 2026-09-06). The note still accounts for
-// every match in the fortnight: a list that outruns what the page shows for
-// it is the reader's first reason to stop trusting the other counts.
+// The figure is the next opponent by name, the line beneath it the stage and
+// the kickoff as published, and the note where it is played, then who
+// follows. It was the opponent's abbreviation — "LEC" — which in the serif
+// display size read as a word nobody knew (design council, 2026-11-15); before
+// that a count of the fortnight's matches. The note still accounts for every
+// match in the fortnight: a list that outruns what the page shows for it is
+// the reader's first reason to stop trusting the other counts.
 const NEXT_SHOWN = 3;
 const nextMatch = upcoming[0];
 const opponentOf = (f: Fixture): string => (f.home === slug ? f.away : f.home);
-const nextFigure = nextMatch ? names.abbr(opponentOf(nextMatch)) : "—";
+const nextStage = nextMatch ? stageChipOf(nextMatch) : null;
+const nextWhen = nextMatch
+  ? [
+      nextStage?.phrase ?? null,
+      // Non-breaking: "Sun Nov 15" is one item and should not break across lines.
+      `${dowShort(nextMatch.date)} ${shortDate(nextMatch.date)}`.replace(/ /g, "\u00a0"),
+      clockTime(nextMatch.time),
+    ]
+      .filter(Boolean)
+      .join(" · ")
+  : null;
+const nextWhere = (f: Fixture): string => {
+  const place = f.neutral ? "At a neutral site" : f.home === slug ? "At home" : "Away";
+  // "Hays, Kan." already ends on its own stop; the sentence does not add one.
+  const venue = f.venue?.trim();
+  return venue ? `${place}, ${venue}${venue.endsWith(".") ? "" : "."}` : `${place}.`;
+};
 const nextNote = nextMatch
   ? [
-      `${nextMatch.home === slug ? "At home to" : "Away at"} ${names.name(opponentOf(nextMatch))}, ${longDate(nextMatch.date)}${clockTime(nextMatch.time) ? ` · ${clockTime(nextMatch.time)}` : ""}.`,
+      nextWhere(nextMatch),
       upcoming.length > 1
         ? `Then ${[
             upcoming
@@ -235,6 +263,21 @@ const nextNote = nextMatch
       .filter(Boolean)
       .join(" ")
   : "No match inside the fortnight.";
+
+// The player sheet's MATCH BY MATCH runs over this programme's scored
+// fixtures in the fixtures file's order (player.ts, the log); each row's
+// Match Centre link and postseason tag are found here, where the season is in
+// hand. Every fixture in the file has a Match Centre page. The sheet uses an
+// entry only where its date and opponent agree with the row, so a drift
+// between the two lists costs a link, never a wrong one.
+const logExtras = season.fixtures.fixtures
+  .filter((f) => (f.home === slug || f.away === slug) && isScored(f))
+  .map((f) => ({
+    date: shortDate(f.date),
+    opponent: names.name(opponentOf(f)),
+    href: matchHref(season.key, f.id),
+    stage: stageChipOf(f),
+  }));
 
 // ── The squad's shape, as tenure ───────────────────────────────────────────
 // A number said how many came back; it could not say who. The grid draws one
@@ -314,19 +357,21 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
         {/* The page's figures in the masthead's strip. The record and the goals
             live in TEAM PROFILE beneath and are not said twice up here. */}
         <div class="crest-strip num">
-          {[
-            `${counts.played} OF ${counts.total} PLAYED`,
-            counts.silentFinals > 0
-              ? `${counts.silentFinals} SCORE ${counts.silentFinals === 1 ? "GAP" : "GAPS"}`
-              : null,
-            grid.size > 0 ? `SQUAD ${grid.size}` : null,
-            ...honours,
-            opener && opener.status !== "final"
-              ? `CONFERENCE OPENS ${monShort(opener.date).toUpperCase()} ${dayOfMonth(opener.date)}`
-              : null,
-          ]
-            .filter((c): c is string => c !== null)
-            .map((c) => <span class="cell">{c}</span>)}
+          <div class="crest-strip-in">
+            {[
+              `${counts.played} OF ${counts.total} PLAYED`,
+              counts.silentFinals > 0
+                ? `${counts.silentFinals} SCORE ${counts.silentFinals === 1 ? "GAP" : "GAPS"}`
+                : null,
+              grid.size > 0 ? `SQUAD ${grid.size}` : null,
+              ...honours,
+              opener && opener.status !== "final"
+                ? `CONFERENCE OPENS ${monShort(opener.date).toUpperCase()} ${dayOfMonth(opener.date)}`
+                : null,
+            ]
+              .filter((c): c is string => c !== null)
+              .map((c) => <span class="cell">{c}</span>)}
+          </div>
         </div>
       </div>
       <div class="grow"></div>
@@ -351,6 +396,8 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
           result: c.result as "W" | "D" | "L" | null,
           isOpener: c.isOpener,
           silent: c.silent,
+          stage: c.stage,
+          ahead: c.fixture.status === "scheduled",
         }))}
       />
     </section>
@@ -375,7 +422,16 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
         </div>
         <div class="stat">
           <div class="label">NEXT UP</div>
-          <div class="stat-figure stat-figure-sm serif num">{nextFigure}</div>
+          {nextMatch ? (
+            <a class="stat-figure stat-figure-sm stat-figure-name serif" href={matchHref(season.key, nextMatch.id)}>
+              {names.name(opponentOf(nextMatch))}
+            </a>
+          ) : (
+            <div class="stat-figure stat-figure-sm serif num">—</div>
+          )}
+          {nextWhen && (
+            <div class="stat-when num">{nextWhen}</div>
+          )}
           <div class="stat-note">{nextNote}</div>
         </div>
       </div>
@@ -531,7 +587,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
                       <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
                         <span class={`squad-tick${m.isNew ? " is-new" : ""}`} aria-hidden="true"></span>
                         <span
-                          class={`squad-name${m === lead && m.contribution > 0 ? " is-lead" : ""}`}
+                          class={`squad-name${m === lead && m.headline ? " is-lead" : ""}`}
                         >
                           {initialLast(m.player.name)}
                         </span>
@@ -542,11 +598,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
                           </span>
                         )}
                         {m.isNew && <span class="vh">new to the roster</span>}
-                        {m.contribution > 0 && (
-                          <span class="squad-stat num">
-                            {m.contribution} {m.keeper ? "SV" : "SH"}
-                          </span>
-                        )}
+                        {m.headline && <span class="squad-stat num">{m.headline}</span>}
                       </a>
                     );
                   })}
@@ -574,11 +626,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
                               </span>
                             )}
                             {m.isNew && <span class="vh">new to the roster</span>}
-                            {m.contribution > 0 && (
-                              <span class="squad-stat num">
-                                {m.contribution} {m.keeper ? "SV" : "SH"}
-                              </span>
-                            )}
+                            {m.headline && <span class="squad-stat num">{m.headline}</span>}
                           </a>
                         );
                       })}
@@ -592,7 +640,13 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
       )}
     </section>
 
-    {cards.map(({ card }) => <PlayerSheet card={card} />)}
+    {cards.map(({ member, card }) => (
+      <PlayerSheet
+        card={card}
+        logExtras={logExtras}
+        minutesPublished={{ player: member.stats?.minutes, keeper: member.keeper?.minutes }}
+      />
+    ))}
 
     <SiteFooter seasons={[season]} />
   </div>
@@ -619,16 +673,20 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
   .crest-id { display: flex; flex-direction: column; gap: 5px; }
   .crest-name { margin: 0; font-size: 40px; line-height: 1; }
   .crest-meta { font-size: 13px; color: var(--secondary); }
+  /* The masthead strip's technique: the middot sits in the gap BEFORE each
+     cell and the row is pulled left by one gap inside a box that clips, so
+     the dot before whichever cell starts a line falls outside the box. A
+     wrapped strip never opens a line on a separator, nor ends one on one. */
   .crest-strip {
-    display: flex;
-    flex-wrap: wrap;
     margin-top: 8px;
+    overflow: hidden;
     font-size: 11.5px;
     letter-spacing: 0.1em;
     color: var(--secondary);
   }
-  .cell { white-space: nowrap; }
-  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
+  .crest-strip-in { display: flex; flex-wrap: wrap; row-gap: 4px; margin-left: -23px; }
+  .cell { position: relative; margin-left: 23px; white-space: nowrap; }
+  .cell::before { content: "·"; position: absolute; left: -15px; color: var(--outline-quiet); }
   @media (max-width: 480px) { .cell { white-space: normal; } }
   .crest-form { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
   .crest-form-row { display: flex; gap: 10px; align-items: center; }
@@ -650,6 +708,15 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
   .stat { display: flex; flex-direction: column; gap: 6px; }
   .stat-figure { font-size: 40px; line-height: 1; }
   .stat-figure-sm { font-size: 32px; }
+  /* The next opponent by name, at the display size, and a link to its Match
+     Centre: a long name ("Southwestern Oklahoma State") takes two lines
+     rather than an abbreviation nobody can read. */
+  .stat-figure-name { color: inherit; line-height: 1.08; text-wrap: balance; }
+  .stat-figure-name:hover { color: var(--accent); }
+  .stat-when {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px;
+    font-size: 12.5px; font-weight: 600; color: var(--ink-soft);
+  }
   .stat-note { font-size: 14px; color: var(--secondary); line-height: 1.5; }
   .stat-wide .stat-note { max-width: 340px; }
 
@@ -786,7 +853,13 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
     align-self: center;
   }
   .squad-tick.is-new { background: var(--tenure-rule); }
-  .squad-stat { font-size: 11.5px; color: var(--quiet); }
+  .squad-stat { font-size: 11.5px; color: var(--quiet); white-space: nowrap; }
+  /* On a phone a column is ~170px and "J. Espinosa 3 G · 1 A" wraps on some
+     rows and not others, the figure landing under the tick. Every row puts it
+     on its own line instead, set in under the name. */
+  @media (max-width: 480px) {
+    .squad-stat { flex-basis: 100%; padding-left: 9px; margin-top: -4px; }
+  }
   /* The origin marker is the country's own flag, sitting in the slot the
      trigram used to occupy — 22px wide, so a row that carries a flag puts NEW
      and the stat exactly where a row that carried a trigram put them and the

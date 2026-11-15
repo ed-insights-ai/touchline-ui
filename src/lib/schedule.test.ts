@@ -8,14 +8,21 @@
 
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
-import { type Fixture, hasScore, loadSeason } from "./derive.ts";
-import { dayNumber, dowIndex, toISO } from "./format.ts";
+import { type Fixture, hasScore, loadSeason, type Season } from "./derive.ts";
+import { allSightings, foldToMatches } from "./division.ts";
+import { clockTime, dayNumber, dowIndex, toISO } from "./format.ts";
+import type { FixturesFile } from "./model.ts";
+import { nameBookFor } from "./names.ts";
 import {
   byDay,
   isPlaceholder,
   isSilentFinal,
   kickoff,
+  kickoffCall,
+  kickoffNote,
   matchesOf,
+  meetWord,
+  NEUTRAL_GROUND,
   placeholdersOf,
   scheduleCounts,
   spineOf,
@@ -340,10 +347,10 @@ describe("how a row is weighted", () => {
 
 describe("kickoff times", () => {
   test("render as the home programme's clock, lower case", () => {
-    expect(kickoff("15:30")).toBe("3:30 pm");
-    expect(kickoff("00:05")).toBe("12:05 am");
-    expect(kickoff("12:00")).toBe("12:00 pm");
-    expect(kickoff("09:00")).toBe("9:00 am");
+    expect(kickoff("15:30")).toBe("3:30 PM");
+    expect(kickoff("00:05")).toBe("12:05 AM");
+    expect(kickoff("12:00")).toBe("12:00 PM");
+    expect(kickoff("09:00")).toBe("9:00 AM");
     expect(kickoff(undefined)).toBeNull();
     expect(kickoff("nonsense")).toBeNull();
   });
@@ -366,5 +373,121 @@ describe("how a forfeit and a disputed score are weighted", () => {
     expect(weightOf(f, "home", true)).toBe("even");
     expect(weightOf(f, "away", true)).toBe("even");
     expect(weightOf(f, "home")).toBe("strong");
+  });
+});
+
+describe("the site's one clock form", () => {
+  test("a kickoff never prints without its AM or PM", () => {
+    for (let h = 0; h < 24; h++) {
+      const hh = String(h).padStart(2, "0");
+      expect(clockTime(`${hh}:00`)).toMatch(/^(1[0-2]|[1-9]):00 [AP]M$/);
+    }
+  });
+
+  test("the conference page prints no bare clock beside a match", async () => {
+    // "Concord at Gannon · 3:00" (council, round 3): the bare form is gone.
+    const src = await Bun.file(
+      new URL("../pages/[conference]/index.astro", import.meta.url),
+    ).text();
+    expect(src).not.toContain("clockTimeBare");
+  });
+});
+
+describe("a match the schedule page marked neutral", () => {
+  test("reads v between the sides, never at", () => {
+    expect(meetWord({ neutral: true } as unknown as Fixture)).toBe("v");
+    expect(meetWord({} as unknown as Fixture)).toBe("at");
+    expect(NEUTRAL_GROUND).toBe("At a neutral ground");
+  });
+});
+
+describe("a kickoff two schedule pages print differently", () => {
+  // Women's NCAA R2, 2026: Dallas Baptist's page says 12:00, UCCS's 11:00.
+  let n = 0;
+  const fx = (home: string, away: string, extra: Partial<Fixture>): Fixture => ({
+    id: `sidearm:${home}:${++n}`,
+    date: "2026-11-16",
+    home,
+    away,
+    status: "scheduled",
+    conference_game: false,
+    ...extra,
+  });
+  const fileOf = (code: string, members: string[], fixtures: Fixture[]): FixturesFile => ({
+    schema: "touchline.fixtures/2",
+    season: 2026,
+    gender: "women",
+    conference: code,
+    collected_at: "2026-11-15T06:00:00+00:00",
+    programmes: members.map((slug) => ({ slug, name: slug.toUpperCase(), conference: code })),
+    fixtures,
+  });
+  const seasonOf = (key: string, file: FixturesFile): Season => ({
+    key,
+    fixtures: file,
+    rosters: null,
+    stats: null,
+    matches: null,
+    coverage: null,
+    names: nameBookFor(file),
+    asOf: file.collected_at.slice(0, 10),
+    collectedAt: file.collected_at,
+  });
+  const fold = (records: { key: string; members: string[]; f: Fixture }[]) =>
+    foldToMatches(
+      allSightings(
+        records.map((r) => seasonOf(r.key, fileOf(r.key.toUpperCase(), r.members, [r.f]))),
+      ),
+    )[0];
+  const host = (extra: Partial<Fixture> = {}) =>
+    fx("dbu", "uccs", { time: "12:00", source_url: "https://dbupatriots.com/s", ...extra });
+  const visitor = (extra: Partial<Fixture> = {}) =>
+    fx("dbu", "uccs", { time: "11:00", source_url: "https://gomountainlions.com/s", ...extra });
+  const name = (slug: string) => slug.toUpperCase();
+
+  test("prints the host's time and names the other, whichever file comes first", () => {
+    // The visitor's file first in config order: the host's record must still win.
+    const m = fold([
+      { key: "rmac", members: ["uccs"], f: visitor() },
+      { key: "lsc", members: ["dbu"], f: host() },
+    ]);
+    const call = m && kickoffCall(m);
+    expect(call?.hosted).toBe(true);
+    expect(call?.printed).toMatchObject({ by: "dbu", time: "12:00" });
+    expect(call?.differ.map((r) => [r.by, r.time])).toEqual([["uccs", "11:00"]]);
+    expect(call && kickoffNote(call, name)).toBe(
+      "As published by DBU, the host; UCCS lists 11:00 AM.",
+    );
+  });
+
+  test("records that agree, or a match in one file only, need no call", () => {
+    const agree = fold([
+      { key: "rmac", members: ["uccs"], f: visitor({ time: "12:00" }) },
+      { key: "lsc", members: ["dbu"], f: host() },
+    ]);
+    expect(agree && kickoffCall(agree)).toBeNull();
+    const alone = fold([{ key: "lsc", members: ["dbu"], f: host() }]);
+    expect(alone && kickoffCall(alone)).toBeNull();
+  });
+
+  test("a neutral ground has no host: the first record is printed and none is called the host's", () => {
+    const m = fold([
+      { key: "rmac", members: ["uccs"], f: visitor({ neutral: true }) },
+      { key: "lsc", members: ["dbu"], f: host({ neutral: true }) },
+    ]);
+    const call = m && kickoffCall(m);
+    expect(call?.hosted).toBe(false);
+    expect(call && kickoffNote(call, name)).not.toContain("the host");
+  });
+
+  test("a page that prints no time is said to, not skipped", () => {
+    const m = fold([
+      { key: "rmac", members: ["uccs"], f: visitor({ time: undefined }) },
+      { key: "lsc", members: ["dbu"], f: host() },
+    ]);
+    const call = m && kickoffCall(m);
+    expect(call && kickoffNote(call, name)).toBe(
+      "As published by DBU, the host; UCCS lists no time.",
+    );
   });
 });

@@ -1,0 +1,127 @@
+---
+// The lineups: each side's player lines off the box score, starters then
+// substitutes, each group in the order the page printed it. A line the page
+// printed with no starter flag is listed as published, never guessed into a
+// group. A name links to its player sheet only where the team page draws one.
+import PersonLink from "./PersonLink.astro";
+import type { Lineup } from "../lib/preview.ts";
+import type { MatchPlayerLine } from "../lib/model.ts";
+
+export interface LineupSide {
+  abbr: string;
+  name: string;
+  home: boolean;
+  lineup: Lineup;
+  /** The sheet for a line, or null: no sheet, plain text. */
+  sheetHref: (line: MatchPlayerLine) => string | null;
+}
+
+interface Props {
+  sides: LineupSide[];
+}
+const { sides } = Astro.props;
+
+const groupsOf = (l: Lineup) =>
+  [
+    { label: "STARTERS", lines: l.starters },
+    { label: "SUBSTITUTES", lines: l.substitutes },
+    { label: "AS PUBLISHED", lines: l.unmarked },
+  ].filter((g) => g.lines.length > 0);
+const cell = (n: number | undefined) => (n === undefined ? "—" : String(n));
+---
+
+<div class="lineups">
+  <h2 class="sechead">LINEUPS</h2>
+  <div class="lu-grid">
+    {sides.map((side) => {
+      const groups = groupsOf(side.lineup);
+      return (
+        <div class:list={["lu-side", { "lu-away": !side.home }]}>
+          <div class="lu-team">
+            <span class="lu-abbr">{side.abbr}</span>
+            <span class="lu-name">{side.name}</span>
+          </div>
+          {groups.length === 0 ? (
+            <p class="lu-none">No player lines in the published box score.</p>
+          ) : (
+            <table class="lu-table num">
+              <caption class="vh">{side.name} player lines, from the box score</caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="c-no"><abbr title="Shirt number">#</abbr></th>
+                  <th scope="col" class="c-name">PLAYER</th>
+                  <th scope="col" class="c-n"><abbr title="Minutes">MIN</abbr></th>
+                  <th scope="col" class="c-n"><abbr title="Goals">G</abbr></th>
+                  <th scope="col" class="c-n"><abbr title="Assists">A</abbr></th>
+                  <th scope="col" class="c-n"><abbr title="Shots">SH</abbr></th>
+                </tr>
+              </thead>
+              {groups.map((g) => (
+                <tbody>
+                  <tr class="lu-group">
+                    <th scope="rowgroup" colspan="6">{g.label} · {g.lines.length}</th>
+                  </tr>
+                  {g.lines.map((l) => (
+                    <tr>
+                      <td class="c-no">{l.number ?? ""}</td>
+                      <td class="c-name">
+                        <PersonLink href={side.sheetHref(l)}>{l.name}</PersonLink>
+                        {l.position === "GK" && <span class="lu-gk"> GK</span>}
+                      </td>
+                      <td class="c-n">{cell(l.minutes)}</td>
+                      <td class:list={["c-n", l.goals ? "hit" : "zero"]}>{cell(l.goals)}</td>
+                      <td class:list={["c-n", l.assists ? "hit" : "zero"]}>{cell(l.assists)}</td>
+                      <td class:list={["c-n", l.shots ? "hit" : "zero"]}>{cell(l.shots)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              ))}
+            </table>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .lineups { display: flex; flex-direction: column; gap: 12px; }
+  .lu-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  .lu-side { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .lu-team { display: flex; align-items: baseline; gap: 8px; padding: 2px 0 4px; }
+  .lu-abbr { font-size: 11px; letter-spacing: 0.14em; font-weight: 600; }
+  .lu-name { font-family: var(--serif); font-size: 15px; color: var(--secondary); }
+  .lu-away .lu-abbr { color: var(--muted-side); }
+  .lu-none { margin: 0; font-size: 13px; color: var(--quiet); }
+
+  .lu-table { width: 100%; border-collapse: collapse; font-size: 12.5px; table-layout: fixed; }
+  .lu-table th, .lu-table td { padding: 0; text-align: left; font-weight: 400; }
+  .lu-table thead th {
+    font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); font-weight: 600;
+    padding-bottom: 6px; border-bottom: 1px solid var(--hairline);
+  }
+  .lu-table abbr { text-decoration: none; }
+  .lu-table td { height: 25px; border-top: 1px solid var(--hairline-soft); vertical-align: middle; }
+  .lu-group th {
+    font-size: 10px; letter-spacing: 0.14em; color: var(--quiet); font-weight: 600;
+    padding: 12px 0 5px;
+  }
+  .c-no { width: 28px; color: var(--quiet); }
+  .c-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lu-table .c-n { width: 34px; text-align: right; }
+  .lu-table thead .c-n { text-align: right; }
+  .lu-table th.c-n:nth-child(3), .lu-table td.c-n:nth-child(3) { width: 40px; }
+  /* A nought is a fact too, so it keeps the quiet ink; a figure that is not
+     nought takes the weight, so a goal reads down the column. */
+  .zero { color: var(--quiet); }
+  .lu-table td.c-n.hit { font-weight: 600; }
+  .lu-gk { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); }
+  .lu-away td.c-name { color: var(--muted-side); }
+
+  @media (pointer: coarse) {
+    .lu-table td { height: 44px; }
+  }
+  @media (max-width: 720px) {
+    .lu-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  }
+</style>

@@ -39,7 +39,7 @@ const hasMeta = Astro.slots.has("meta");
   {stamp && <div class="mast-stamp num">{stamp}</div>}
   {strip.length > 0 && (
     <div class="strip num">
-      {strip.map((cell) => <span class="cell">{cell}</span>)}
+      <div class="strip-in">{strip.map((cell) => <span class="cell">{cell}</span>)}</div>
     </div>
   )}
   <slot name="after" />
@@ -70,9 +70,14 @@ const hasMeta = Astro.slots.has("meta");
   .dek { margin: 0; font-size: 18px; line-height: 1.45; color: var(--ink-soft); text-wrap: pretty; }
   .dek.plain { font-size: 16.5px; line-height: 1.5; color: var(--secondary); max-width: 72ch; }
   .mast-stamp { font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
-  .strip { display: flex; flex-wrap: wrap; margin-top: 2px; font-size: 11.5px; letter-spacing: 0.1em; color: var(--secondary); text-transform: uppercase; }
-  .cell { white-space: nowrap; }
-  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
+  /* The middot sits in the gap BEFORE each cell, and the row is pulled left
+     by one gap inside a box that clips: so the dot before whichever cell
+     starts a line, the first included, falls outside the box. A wrapped strip
+     never opens a line on a separator, and never ends one on a dangling one. */
+  .strip { margin-top: 2px; overflow: hidden; font-size: 11.5px; letter-spacing: 0.1em; color: var(--secondary); text-transform: uppercase; }
+  .strip-in { display: flex; flex-wrap: wrap; row-gap: 4px; margin-left: -23px; }
+  .cell { position: relative; margin-left: 23px; white-space: nowrap; }
+  .cell::before { content: "·"; position: absolute; left: -15px; color: var(--outline-quiet); }
   @media (max-width: 1180px) {
     .headline { font-size: 34px; }
   }
