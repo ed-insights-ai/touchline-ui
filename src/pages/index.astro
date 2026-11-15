@@ -16,6 +16,7 @@
 import HomeConferences from "../components/HomeConferences.astro";
 import LedgerRow from "../components/LedgerRow.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import Masthead from "../components/Masthead.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import Page from "../layouts/Page.astro";
 import { seasonHref } from "../lib/derive.ts";
@@ -202,45 +203,32 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
 ---
 <Page title="Touchline — The Season Scorebook" description={description}>
   <div class="tl-page">
-    {/* The shared header without its wordmark: the masthead beneath it is the
-        wordmark here, and two stacked would read as a mistake. */}
-    <SiteHeader wordmark={false} />
-    <header class="nat-masthead">
-      {/* The root is the top of the site; its own wordmark points nowhere. */}
-      <h1 class="wordmark nat-wordmark">
-        <span class="wordmark-square"></span>
-        <span class="wordmark-name">Touchline</span>
-      </h1>
-      <div class="nat-book">THE SEASON SCOREBOOK</div>
-    </header>
-
-    {/* One line of codes, directly under the masthead, so a reader who came
-        for one conference can leave for it before the ledger: the ledger is
-        the thesis, and it kept the conferences three screens down at 390
-        (tl-tav2). Wraps on a phone; the names ride on the title. */}
-    <nav class="conf-strip num" aria-label="Find your conference">
-      {strip.map((c) => (
-        <a class="conf-chip" href={seasonHref(c.key)} title={c.name}>{c.abbr}</a>
-      ))}
-    </nav>
-
-    {/* Four altitudes, each answerable to a different surface: the scope and
-        the date, the division's story, the figures that stand it up, and the
-        counts. With no national journal the headline altitude stays empty —
-        the floor manufactures no story out of numbers the cards already
-        print — and the page reads as it did before one was written. */}
-    <section class="nat-lede">
-      <div class="nat-kicker num">{lede.kicker}</div>
-      {lede.headline && <h2 class="nat-headline serif">{lede.headline}</h2>}
-      {/* A journal's dek is the story's opening paragraph and reads in serif;
-          the floor's is the openers in order, which is information, and
-          stays in sans. Only a journal writes a headline, so that is the tell. */}
-      {lede.dek && <p class={lede.headline ? "nat-dek nat-lede serif" : "nat-dek"}>{lede.dek}</p>}
-      {lede.stamp && <div class="nat-stamp num">{lede.stamp}</div>}
-      <div class="nat-strip num">
-        {lede.strip.map((cell) => <span class="nat-cell">{cell}</span>)}
-      </div>
-    </section>
+    <SiteHeader />
+    {/* The site's one masthead, the same four altitudes every story page
+        opens on. The home's own additions: the book's name opposite the
+        dateline, and the conference codes beneath the figures, so a reader
+        who came for one conference can leave for it before the ledger (the
+        ledger is the thesis, and it kept the conferences three screens down
+        at 390, tl-tav2). With no national journal the headline altitude stays
+        empty; the floor manufactures no story out of numbers the cards
+        already print. A journal's dek is a story and reads in serif; the
+        floor's is the openers in order, which is information, in sans. */}
+    <Masthead
+      kicker={lede.kicker}
+      headline={lede.headline}
+      title="The Season Scorebook"
+      dek={lede.dek}
+      dekSerif={!!lede.headline}
+      stamp={lede.stamp}
+      strip={lede.strip}
+    >
+      <span slot="meta">THE SEASON SCOREBOOK</span>
+      <nav slot="after" class="conf-strip num" aria-label="Find your conference">
+        {strip.map((c) => (
+          <a class="conf-chip" href={seasonHref(c.key)} title={c.name}>{c.abbr}</a>
+        ))}
+      </nav>
+    </Masthead>
 
     <section class="lastnight">
       <div class="ln-head">
@@ -287,89 +275,18 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
 </Page>
 
 <style>
-  /* ── Masthead identity ──────────────────────────────────────────────────── */
-  .nat-masthead {
-    padding: 44px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
-  }
-  .nat-wordmark { margin: 0; color: var(--ink); }
-  .nat-wordmark .wordmark-name { font-size: 34px; }
-  .nat-book {
-    font-size: 11px;
-    letter-spacing: 0.34em;
-    font-weight: 600;
-    color: var(--ink-soft);
-  }
   /* ── Find your conference ───────────────────────────────────────────────── */
-  /* One quiet line of codes in the counts strip's type, centred under the
-     book title and wrapping as a phone needs. A code is a link and reads as
-     one on hover only; the line is a way out, not a headline. */
-  .conf-strip {
-    margin: 14px auto 0;
-    max-width: 900px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px 6px;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    font-weight: 600;
-  }
+  /* One quiet line of codes under the figures, wrapping as a phone needs. A
+     code is a link and reads as one on hover only; the line is a way out,
+     not a headline. */
+  .conf-strip { display: flex; flex-wrap: wrap; gap: 4px 4px; margin: 4px 0 0 -8px; font-size: 11px; letter-spacing: 0.14em; font-weight: 600; }
   .conf-chip { padding: 2px 8px; color: var(--secondary); white-space: nowrap; }
   .conf-chip:hover { color: var(--ink); }
   .conf-chip:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
-  /* ── The masthead's four altitudes ──────────────────────────────────────── */
-  .nat-lede {
-    margin: 28px auto 32px;
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    text-align: center;
-  }
-  /* Accent, like the season page's kicker: the same element doing the same
-     job — scope and date over a story — and the one line of ink that separates
-     the dateline from the identity above it. */
-  .nat-kicker { font-size: 11px; letter-spacing: 0.2em; font-weight: 600; color: var(--accent); }
-  .nat-headline {
-    margin: 0;
-    font-size: 38px;
-    line-height: 1.1;
-    letter-spacing: -0.005em;
-    /* Balanced rather than pretty: this line is short enough that the last
-       word alone on a second line is the failure mode, not a ragged edge. */
-    text-wrap: balance;
-  }
-  /* Sans, not serif: the house rule is serif means story and sans means
-     information, and until a journal writes a story this is the openers in
-     order — information. */
-  .nat-dek {
-    margin: 0;
-    max-width: 720px;
-    font-size: 16.5px;
-    line-height: 1.5;
-    color: var(--secondary);
-    text-wrap: pretty;
-  }
-  /* When the headline last changed. It stands until something more newsworthy
-     displaces it or it stops being true, so a reader meeting a sentence that
-     did not move today is owed the day it last did. */
-  .nat-lede { max-width: none; font-size: 18px; line-height: 1.45; color: var(--ink-soft); text-wrap: balance; }
-  .nat-stamp { font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
-  .nat-strip { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); }
-  /* Punctuation standing in for the gap between two figures — nothing a
-     reader has to read, which is the only type this rung of the ladder sets. */
-  .nat-cell + .nat-cell::before { content: "·"; margin: 0 9px; color: var(--outline-quiet); }
 
   /* ── Last night ─────────────────────────────────────────────────────────── */
   .lastnight {
     padding: 18px 0 22px;
-    border-top: 1px solid var(--hairline);
     border-bottom: 1px solid var(--hairline);
     display: flex;
     flex-direction: column;
@@ -423,9 +340,5 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
   /* ── Narrow ─────────────────────────────────────────────────────────────── */
   @media (max-width: 720px) {
     .ledger { grid-template-columns: minmax(0, 1fr); }
-    .conf-strip { margin-top: 12px; }
-    .nat-masthead { padding-top: 28px; }
-    .nat-headline { font-size: 28px; }
-    .nat-dek { font-size: 15.5px; }
   }
 </style>

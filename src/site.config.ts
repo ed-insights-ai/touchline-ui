@@ -155,6 +155,28 @@ export const divisions: Readonly<Record<Gender, DivisionProfile>> = {
  *  into these same paths, so the two must agree. */
 export const genderPath: Readonly<Record<Gender, string>> = { men: "", women: "/women" };
 
+/** The NCAA divisions the header's switch names, in order. Touchline covers
+ *  Division II; the others are listed so the switch is already the place they
+ *  will arrive, and each becomes a link the day its build publishes. Until
+ *  then it is a row that says so, never a link to a page that does not exist. */
+export interface NcaaDivision {
+  key: "d1" | "d2" | "d3";
+  abbr: string;
+  name: string;
+  published: boolean;
+}
+export const ncaaDivisions: readonly NcaaDivision[] = [
+  { key: "d1", abbr: "D-I", name: "Division I", published: false },
+  { key: "d2", abbr: "D-II", name: "Division II", published: true },
+  { key: "d3", abbr: "D-III", name: "Division III", published: false },
+];
+
+/** The division this build covers. */
+export const ncaaDivision: NcaaDivision["key"] = "d2";
+export const currentDivision: NcaaDivision = ncaaDivisions.find(
+  (d) => d.key === ncaaDivision,
+) as NcaaDivision;
+
 /** The order the switch prints the genders in. */
 export const genderOrder: readonly Gender[] = ["men", "women"];
 

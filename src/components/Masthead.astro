@@ -1,0 +1,87 @@
+---
+// The one masthead, for every page that opens on a story: the home, a
+// conference, the championship. Four altitudes, in one type on every page:
+//
+//   the dateline (kicker), with one quiet figure opposite it (the meta slot);
+//   the headline;
+//   the dek, the story's opening paragraph;
+//   the figures strip, cells and middots.
+//
+// Anything a page adds beneath the dek (the championship's evidence chips)
+// goes in the default slot, and anything after the strip (the home's
+// conference codes) in the "after" slot. A page with no headline still gets
+// an h1, visually hidden, so every page has one.
+interface Props {
+  kicker: string;
+  headline?: string | null;
+  /** The h1 when the page has no headline of its own. */
+  title: string;
+  dek?: string | null;
+  /** Serif means story. A dek composed from the record rather than written
+   *  is information, and stays in sans. */
+  dekSerif?: boolean;
+  /** When the headline and dek last changed: "UPDATED NOV 2". */
+  stamp?: string | null;
+  strip?: readonly string[];
+}
+const { kicker, headline = null, title, dek = null, dekSerif = true, stamp = null, strip = [] } = Astro.props;
+const hasMeta = Astro.slots.has("meta");
+---
+
+<section class="masthead">
+  <div class="masthead-top">
+    <div class="kicker num">{kicker}</div>
+    {hasMeta && <div class="meta num"><slot name="meta" /></div>}
+  </div>
+  {headline ? <h1 class="headline serif">{headline}</h1> : <h1 class="vh">{title}</h1>}
+  {dek && <p class:list={["dek", { serif: dekSerif, plain: !dekSerif }]}>{dek}</p>}
+  <slot />
+  {stamp && <div class="mast-stamp num">{stamp}</div>}
+  {strip.length > 0 && (
+    <div class="strip num">
+      {strip.map((cell) => <span class="cell">{cell}</span>)}
+    </div>
+  )}
+  <slot name="after" />
+</section>
+
+<style>
+  .masthead {
+    padding: 30px 0 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .masthead-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; }
+  .kicker { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; text-wrap: balance; }
+  .meta { font-size: 11px; letter-spacing: 0.1em; color: var(--quiet); white-space: nowrap; }
+  /* The headline takes the full measure and balances when it wraps: two even
+     lines rather than a long one and an orphan. */
+  .headline {
+    margin: 0;
+    font-size: 46px;
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+  /* Filled the way a paragraph fills: the first line runs the full measure.
+     Pretty only refuses a one-word last line. */
+  .dek { margin: 0; font-size: 18px; line-height: 1.45; color: var(--ink-soft); text-wrap: pretty; }
+  .dek.plain { font-size: 16.5px; line-height: 1.5; color: var(--secondary); max-width: 72ch; }
+  .mast-stamp { font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); }
+  .strip { display: flex; flex-wrap: wrap; margin-top: 2px; font-size: 11.5px; letter-spacing: 0.1em; color: var(--secondary); text-transform: uppercase; }
+  .cell { white-space: nowrap; }
+  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
+  @media (max-width: 1180px) {
+    .headline { font-size: 34px; }
+  }
+  @media (max-width: 720px) {
+    .meta { white-space: normal; }
+  }
+  @media (max-width: 480px) {
+    .masthead { padding-top: 22px; }
+    .headline { font-size: 30px; }
+    .cell { white-space: normal; }
+  }
+</style>
