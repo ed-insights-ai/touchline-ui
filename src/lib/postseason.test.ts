@@ -854,9 +854,17 @@ describe("one side, two records, one day: one tie where a record corroborates it
       expect(new Set(mine[0]?.match.sightings.map((s) => s.code))).toEqual(
         new Set(["CCAA", "PACWEST"]),
       );
-      expect(mine[0]?.sameDay?.kind).toBe("folded");
-      // The CCAA record's own identity still reaches it.
-      expect(real.byIdentity.get("2026-11-15 cal-state-la v concordia")).toBe(mine[0]);
+      // The collector now mints concordia-irvine on this tie (tl-0n3,
+      // keelson-rib-touchline #136), so the two records share one identity
+      // and nothing is left to fold. A file collected before that fix still
+      // folds, and its identity still reaches the tie.
+      const stale = mine[0]?.match.sightings.some((s) => s.fixture.home === "concordia");
+      if (stale) {
+        expect(mine[0]?.sameDay?.kind).toBe("folded");
+        expect(real.byIdentity.get("2026-11-15 cal-state-la v concordia")).toBe(mine[0]);
+      } else {
+        expect(mine[0]?.sameDay ?? null).toBeNull();
+      }
       expect(participantsOf(real.ncaa).has("concordia")).toBe(false);
       // No side holds two ties on one day anywhere in the field.
       const days = real.ncaa.ties.flatMap((t) =>

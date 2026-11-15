@@ -246,8 +246,11 @@ describe("the records agree, which is what makes folding safe", () => {
       // order: stable, and not a claim about home. Where they agree on a
       // printed home and a flag makes the match neutral, the canonical
       // record is chosen exactly as for a match with a home side (the test
-      // above holds it to that rule), so the flag moves no link.
-      if (homes.size > 1) expect(m.key, m.identity).toBe((m.sightings[0] as Sighting).key);
+      // above holds it to that rule), so the flag moves no link. A one-sided
+      // match keeps the posted-record-first rule: measured 2026-11-15, women's
+      // Ashland v Wayne State, the GLIAC file posted the final while the
+      // G-MAC file still read scheduled, each printing itself home.
+      if (homes.size > 1) expect(m.key, m.identity).toBe((spoken[0] as Sighting).key);
     }
   });
 
