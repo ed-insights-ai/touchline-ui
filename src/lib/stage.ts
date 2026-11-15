@@ -16,6 +16,12 @@ export interface StageChip {
   /** "GAC SF", "NCAA R2"; just the owner ("NCAA") when the round is unplaced. */
   text: string;
   competition: Competition;
+  /** Who runs the tournament ("GAC", "NCAA"): the text before the round. */
+  owner: string;
+  /** The round's short label ("SF", "R2", "FINAL"); empty when unplaced, and
+   *  then the text is the owner alone. A cell too narrow for the whole tag
+   *  prints this, the fill or outline still saying whose round it is. */
+  label: string;
   /** For a sentence: "NCAA second round", "GAC final", "NCAA tournament". */
   phrase: string;
 }
@@ -34,7 +40,13 @@ export function chipFrom(p: Postseason, identity: string): StageChip | null {
   if (!tag || !tie) return null;
   const text = tag.text.trim();
   const owner = tie.label ? text.slice(0, -tie.label.length).trim() : text;
-  return { text, competition: tag.competition, phrase: stagePhrase(owner, tie.label) };
+  return {
+    text,
+    competition: tag.competition,
+    owner,
+    label: tie.label,
+    phrase: stagePhrase(owner, tie.label),
+  };
 }
 
 /** The fixture's chip in the division's postseason, or null. */

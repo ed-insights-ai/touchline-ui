@@ -340,10 +340,10 @@ describe("how a row is weighted", () => {
 
 describe("kickoff times", () => {
   test("render as the home programme's clock, lower case", () => {
-    expect(kickoff("15:30")).toBe("3:30 pm");
-    expect(kickoff("00:05")).toBe("12:05 am");
-    expect(kickoff("12:00")).toBe("12:00 pm");
-    expect(kickoff("09:00")).toBe("9:00 am");
+    expect(kickoff("15:30")).toBe("3:30 PM");
+    expect(kickoff("00:05")).toBe("12:05 AM");
+    expect(kickoff("12:00")).toBe("12:00 PM");
+    expect(kickoff("09:00")).toBe("9:00 AM");
     expect(kickoff(undefined)).toBeNull();
     expect(kickoff("nonsense")).toBeNull();
   });

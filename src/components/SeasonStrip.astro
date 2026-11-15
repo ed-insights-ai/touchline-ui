@@ -144,10 +144,19 @@ const keyChips = [...new Map(cells.flatMap((c) => (c.stage ? [[c.stage.competiti
     border-radius: 5px 5px 0 0;
   }
   .cell-opener .cell-opp, .cell-opener .cell-line { color: var(--accent); font-weight: 600; }
-  /* A cell is ~48px at desk width, and "GAC FINAL" is wider: the tag may
-     break between its owner and its round rather than spill into the gutter. */
+  /* A cell is ~48px wide on a phone and about that at desk width with a full
+     season, and "GAC FINAL" or "NCAA R3" is wider: broken over two lines it
+     read as two chips. So the chip stays on one line, and a cell too narrow
+     for the whole tag prints the round alone ("FINAL", "R3"). Outlined is the
+     conference's tournament and filled the NCAA's, the key below prints each
+     tag whole, and the cell's detail names the round in words. Measured
+     against the cell itself, so a short season's wide cells keep the owner. */
+  .cell { container-type: inline-size; }
   .cell-stage { display: flex; justify-content: center; max-width: 100%; padding: 0 2px; }
-  .cell-stage :global(.stage-chip) { white-space: normal; text-align: center; max-width: 100%; }
+  .cell-stage :global(.stage-chip) { max-width: 100%; overflow: hidden; text-overflow: clip; }
+  @container (max-width: 64px) {
+    .cell-stage :global(.stage-owner) { display: none; }
+  }
 
   /* The key, in the squad shape legend's register: a swatch drawn like the
      cell it explains, then a caps label. */

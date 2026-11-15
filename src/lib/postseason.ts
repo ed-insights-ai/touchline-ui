@@ -115,9 +115,15 @@ export interface Tournament {
   codes: string[];
   ties: Tie[];
   rounds: number;
-  /** The final, once the tournament has one with a decided side. */
+  /** The final's winner, named only where a record says who won: the score,
+   *  or a collected shootout. A final drawn with no shootout collected, or a
+   *  disputed one, is decided and still names no champion. */
   champion: Advance | null;
   final: Tie | null;
+  /** The final is played: marked final with a published score. The
+   *  tournament is over whether or not any record names who won it, so this,
+   *  never `champion`, is what "decided" means on every surface. */
+  decided: boolean;
 }
 
 function versionOf(sightingCode: string, f: Fixture): TieVersion {
@@ -219,9 +225,20 @@ function place(
   // collected. Counting rounds back from that end is what places a second
   // round tie between two first-round byes: counted forward from the first
   // round it would read as a first-round tie (2025: eight such ties).
+  //
+  // A successor is on a LATER day: no side plays two rounds in one day, so
+  // two ties a side has on one date are two records of one match the fold
+  // could not join (one schedule naming the opponent differently: 2026
+  // women's CCAA "concordia" beside PacWest's "concordia-irvine"), never one
+  // round and the next. Chained, they would push every round behind them one
+  // round higher.
   const successor = new Map<string, (typeof sorted)[number]>();
   sorted.forEach((t, i) => {
-    const later = sorted.slice(i + 1).find((x) => sides(x).some((slug) => sides(t).includes(slug)));
+    const later = sorted
+      .slice(i + 1)
+      .find(
+        (x) => x.fixture.date > t.fixture.date && sides(x).some((slug) => sides(t).includes(slug)),
+      );
     if (later) successor.set(t.identity, later);
   });
   // A tie with no successor ends a chain. It is the tournament's frontier
@@ -273,6 +290,7 @@ function place(
     rounds,
     final,
     champion: final?.through ?? null,
+    decided: final !== null && isPlayed(final.fixture) && hasScore(final.fixture),
   };
 }
 
@@ -300,6 +318,37 @@ function components<T extends { fixture: Fixture }>(ties: readonly T[]): T[][] {
   return [...groups.values()];
 }
 
+/** A slug as the postseason knows it. A few schedules print an opponent with
+ *  its national ranking in front ("#21 McKendree"), and the collector slugs
+ *  that as "21-mckendree" (2026 women's GLIAC: Wayne State's NCAA ties). Read
+ *  raw, that is a programme no other record names: a phantom in the field, a
+ *  match counted twice, and every round behind it labelled one too high. The
+ *  ranking is stripped only where it is unambiguous: the slug is not itself a
+ *  known programme and what follows the number is. Anything else stays as
+ *  published ("402-development-academy" is an opponent's own name). */
+export function canonicalSlug(slug: string, known: ReadonlySet<string>): string {
+  if (known.has(slug)) return slug;
+  const rest = /^\d+-(.+)$/.exec(slug)?.[1];
+  return rest !== undefined && known.has(rest) ? rest : slug;
+}
+
+/** A record with its sides (and its shootout's winner) as canonicalSlug reads
+ *  them; the record itself when nothing changes. The data home is never
+ *  touched: this is a reading, made where the postseason folds. */
+export function canonicalFixture(f: Fixture, known: ReadonlySet<string>): Fixture {
+  const home = canonicalSlug(f.home, known);
+  const away = canonicalSlug(f.away, known);
+  if (home === f.home && away === f.away) return f;
+  const shootout = f.shootout
+    ? { ...f.shootout, winner: canonicalSlug(f.shootout.winner, known) }
+    : f.shootout;
+  return { ...f, home, away, ...(shootout ? { shootout } : {}) };
+}
+
+/** Every programme the given seasons' files name as a member. */
+export const knownProgrammes = (seasons: readonly Season[]): Set<string> =>
+  new Set(seasons.flatMap((s) => s.fixtures.programmes.map((p) => p.slug)));
+
 export interface Postseason {
   ncaa: Tournament;
   conference: Tournament[];
@@ -311,10 +360,41 @@ export interface Postseason {
   conferenceOf: Map<string, string>;
 }
 
+/** A map that also answers to a record's raw identity where canonicalSlug
+ *  changed it ("2026-11-13 21-mckendree v wayne-state" finds the tie of
+ *  "2026-11-13 mckendree v wayne-state"). Lookups resolve the alias;
+ *  iteration and size see each tie once. */
+class AliasedMap<V> extends Map<string, V> {
+  private readonly aliases: ReadonlyMap<string, string>;
+  constructor(entries: Map<string, V>, aliases: ReadonlyMap<string, string>) {
+    super(entries);
+    this.aliases = aliases;
+  }
+  override get(key: string): V | undefined {
+    return super.get(key) ?? super.get(this.aliases.get(key) ?? key);
+  }
+  override has(key: string): boolean {
+    return super.has(key) || super.has(this.aliases.get(key) ?? key);
+  }
+}
+
 /** The whole postseason across the given seasons (every configured
  *  conference's file), folded. */
 export function postseasonOf(seasons: readonly Season[]): Postseason {
-  const folded = foldToMatches(allSightings(seasons))
+  const known = knownProgrammes(seasons);
+  // Every record read with canonical sides before it is folded, so a ranked
+  // opponent's record joins the opponent's own record of the same match. The
+  // raw identity is kept to alias the tie below: a page that looks a tie up
+  // from the record it holds still finds it.
+  const raw = allSightings(seasons);
+  const aliases = new Map<string, string>();
+  const sightings = raw.map((s) => {
+    const fixture = canonicalFixture(s.fixture, known);
+    if (fixture === s.fixture) return s;
+    aliases.set(matchIdentity(s.fixture), matchIdentity(fixture));
+    return { ...s, fixture };
+  });
+  const folded = foldToMatches(sightings)
     .map(tieOf)
     .filter((t): t is NonNullable<ReturnType<typeof tieOf>> => t !== null);
   const ncaa = place(
@@ -353,7 +433,13 @@ export function postseasonOf(seasons: readonly Season[]): Postseason {
       tournamentOf.set(t.identity, tournament);
     }
   }
-  return { ncaa, conference, byIdentity, tournamentOf, conferenceOf };
+  return {
+    ncaa,
+    conference,
+    byIdentity: new AliasedMap(byIdentity, aliases),
+    tournamentOf: new AliasedMap(tournamentOf, aliases),
+    conferenceOf,
+  };
 }
 
 /** The tag a ledger row wears in its conference-code cell: "GAC FINAL",
@@ -554,10 +640,11 @@ export interface Ahead {
 }
 
 /** Every round still to come, from the latest round collected to the final,
- *  with the ties each still lacks. Empty once a champion is decided, or when
- *  the collected rounds give no shape to count from. */
+ *  with the ties each still lacks. Empty once the final is played (whether or
+ *  not a champion is named), or when the collected rounds give no shape to
+ *  count from. */
 export function aheadOf(t: Tournament): Ahead[] {
-  if (t.champion) return [];
+  if (t.decided || t.champion) return [];
   const shape = shapeOf(t);
   if (!shape) return [];
   const latest = Math.max(...t.ties.map((x) => x.round));
@@ -567,6 +654,70 @@ export function aheadOf(t: Tournament): Ahead[] {
     if (missing > 0) out.push({ round, label: labelAt(round, shape.rounds), ties: missing });
   }
   return out;
+}
+
+/** How a tournament's final stands. `won` names a champion, from the score or
+ *  a collected shootout; `drawn` is a final played level with no shootout
+ *  collected, and `disputed` one whose records disagree: both are decided,
+ *  and neither names anyone. */
+export type Verdict =
+  | { kind: "none" }
+  | { kind: "to-play"; final: Tie }
+  | { kind: "won"; final: Tie; champion: Advance }
+  | { kind: "drawn"; final: Tie }
+  | { kind: "disputed"; final: Tie };
+
+export function verdictOf(t: Tournament): Verdict {
+  const final = t.final;
+  if (!final) return { kind: "none" };
+  if (!t.decided) return { kind: "to-play", final };
+  if (t.champion) return { kind: "won", final, champion: t.champion };
+  if (final.disputed) return { kind: "disputed", final };
+  return { kind: "drawn", final };
+}
+
+/** A tournament's state in words: a short head for its card, and a note that
+ *  says why no champion is named, where none is. Nothing is read from the
+ *  published result text: a shootout counts only when a record collects it,
+ *  and otherwise the text is quoted as printed. */
+export function verdictLine(
+  t: Tournament,
+  name: (slug: string) => string,
+): { head: string; note: string | null } {
+  const v = verdictOf(t);
+  if (v.kind === "none") {
+    const n = t.ties.length;
+    return { head: `${n} ${n === 1 ? "match" : "matches"} collected`, note: null };
+  }
+  if (v.kind === "to-play") return { head: "Final to play", note: null };
+  const f = v.final.fixture;
+  if (v.kind === "won") {
+    const who = name(v.champion.slug);
+    const s = v.final.shootout;
+    if (v.champion.by === "shootout" && s) {
+      const won = v.champion.slug === f.home ? s.home : s.away;
+      const lost = v.champion.slug === f.home ? s.away : s.home;
+      return { head: `Champions: ${who}, on penalties, ${won}–${lost}, as published`, note: null };
+    }
+    return { head: `Champions: ${who}`, note: null };
+  }
+  if (v.kind === "disputed") {
+    return {
+      head: "Final played · records disagree",
+      note: "Its records disagree, so no champion is named.",
+    };
+  }
+  const score = `${f.home_score}–${f.away_score}`;
+  const published = v.final.resultPublished;
+  return published
+    ? {
+        head: `Final drawn ${score} · shootout winner not collected`,
+        note: `Published as “${published}”. No record collects the shootout's winner, so no champion is named.`,
+      }
+    : {
+        head: `Final drawn ${score} · shootout not published`,
+        note: "No record publishes a shootout, so no champion is named.",
+      };
 }
 
 /** Where one programme in the field stands, from its latest tie. */

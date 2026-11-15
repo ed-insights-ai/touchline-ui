@@ -44,6 +44,7 @@ import { stageTag, tieAnchor } from "../../../lib/postseason.ts";
 import {
   boxScoreHost,
   boxScorePublisher,
+  entryOf,
   lineByName,
   lineupOf,
   meetingsOf,
@@ -128,10 +129,17 @@ const scoring = (detail?.scoring ?? []).map((g) => ({ ...g, minute: matchMinute(
 // `name` is null where the source published no identity for the caution: the
 // card stands, the person does not. It stays in `cards`, so the panel's count
 // and the "+ n more" disclosure still carry it.
+//
+// A sending-off leads the panel, ahead of the cautions, so the one card that
+// changed the match is never folded behind "+ n more" (council, round 2). The
+// box score types a card yellow or red and nothing finer: a second yellow is
+// not told apart from a first, so the panel does not try.
+const isRed = (c: { type: string }): boolean => c.type === "red";
 const cards = (detail?.cards ?? [])
   .map((c) => ({ ...c, minute: matchMinute(c.time), name: cardPlayer(c.player) }))
-  .sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
-const CARDS_SHOWN = 4;
+  .sort((a, b) => Number(isRed(b)) - Number(isRed(a)) || (a.minute ?? 0) - (b.minute ?? 0));
+const reds = cards.filter(isRed);
+const CARDS_SHOWN = Math.max(4, reds.length);
 
 // The match in one line: built from the play-by-play where one was published,
 // from the scoring and cautions summaries where not. Everything about which
@@ -362,6 +370,7 @@ const previewSides =
             opponentName: r.tie.match.season.names.name(r.opponent),
           })),
           sheet: rosterSheet(slug),
+          entry: entryOf(postseason, ms, slug, fixture),
         };
       })
     : [];
@@ -439,7 +448,7 @@ const meetings =
         </AwaySide>
       </div>
 
-      {state === "played" && scoring.length > 0 && (
+      {state === "played" && (scoring.length > 0 || reds.length > 0) && (
         <div class="scorers num">
           <div class="scorers-home">
             {scoring
@@ -452,6 +461,22 @@ const meetings =
                       {" "}(<PersonLink href={scorerHref(g.assist, g.team)}>{surname(g.assist)}</PersonLink>)
                     </span>
                   )}
+                </div>
+              ))}
+            {reds
+              .filter((c) => c.team !== undefined && c.team === sides?.homeIndex)
+              .map((c) => (
+                <div class="sent-off">
+                  <i class="key key-red" aria-hidden="true"></i>
+                  <span>
+                    {c.minute}′{" "}
+                    {c.name ? (
+                      <PersonLink href={scorerHref(c.name, c.team)}>{surname(c.name)}</PersonLink>
+                    ) : (
+                      <span class="card-unnamed">no name published</span>
+                    )}
+                    <span class="sent-off-word"> · sent off</span>
+                  </span>
                 </div>
               ))}
           </div>
@@ -467,6 +492,22 @@ const meetings =
                       {" "}(<PersonLink href={scorerHref(g.assist, g.team)}>{surname(g.assist)}</PersonLink>)
                     </span>
                   )}
+                </div>
+              ))}
+            {reds
+              .filter((c) => c.team !== undefined && c.team !== sides?.homeIndex)
+              .map((c) => (
+                <div class="sent-off">
+                  <i class="key key-red" aria-hidden="true"></i>
+                  <span>
+                    {c.minute}′{" "}
+                    {c.name ? (
+                      <PersonLink href={scorerHref(c.name, c.team)}>{surname(c.name)}</PersonLink>
+                    ) : (
+                      <span class="card-unnamed">no name published</span>
+                    )}
+                    <span class="sent-off-word"> · sent off</span>
+                  </span>
                 </div>
               ))}
           </div>
@@ -630,7 +671,7 @@ const meetings =
 
             {cards.length > 0 && (
               <div class="panel num">
-                <h2 class="sechead">CAUTIONS</h2>
+                <h2 class="sechead">CARDS</h2>
                 <div class="lines">
                   {cards.slice(0, CARDS_SHOWN).map((c) => (
                     <div class={`line line-card${c.team === sides?.homeIndex ? "" : " quiet"}`}>
@@ -785,6 +826,11 @@ const meetings =
   .scorers-gap { width: 148px; }
   .scorers-away { display: flex; flex-direction: column; gap: 4px; width: 380px; font-size: 13px; color: var(--quiet); }
   .assist { color: var(--quiet); }
+  /* A sending-off sits with its side's goals: the pip the cards panel and the
+     timeline use, the minute, the name, and the words for it. */
+  .sent-off { display: flex; align-items: center; gap: 6px; }
+  .sent-off .key { flex: none; }
+  .sent-off-word { color: var(--loss); }
   .hero-foot { font-size: 12px; letter-spacing: 0.08em; color: var(--quiet); }
   .hero-explain {
     font-size: 15px; color: var(--secondary); max-width: 640px;

@@ -5,6 +5,7 @@
 // last clause of each is where the honesty lives.
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import StageChip from "../components/StageChip.astro";
 import Page from "../layouts/Page.astro";
 import { lastLooked, loadSeason } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
@@ -12,6 +13,14 @@ import { dayOfMonth, monShort, spell } from "../lib/format.ts";
 import { laggingOf, newestLook } from "../lib/freshness.ts";
 import { footprintOf } from "../lib/geo.ts";
 import { unplacedLines } from "../lib/home.ts";
+import {
+  PHASE_BEFORE,
+  PHASE_DECIDED,
+  PHASE_LIVE,
+  PHASE_TOURNAMENT,
+} from "../lib/journal.ts";
+import { divisionPostseason } from "../lib/postseason-division.ts";
+import { chipFrom, type StageChip as Chip } from "../lib/stage.ts";
 import { site } from "../site.config.ts";
 
 // Only conferences the data home actually carries are described — a
@@ -49,6 +58,20 @@ const newest = newestLook(seasons);
 const lagDays = new Map(laggingOf(seasons, nameOf).map((l) => [l.key, l.days]));
 const behind = (days: number): string =>
   days === 0 ? "more than a day behind" : `${days} ${days === 1 ? "day" : "days"} behind`;
+
+// The round chips, keyed by real ones: the first placed tie of each kind the
+// season holds, so the example is a chip some page prints, never an invented
+// one. Before any postseason there is nothing to key, and the entry says so in
+// words alone.
+const postseason = divisionPostseason();
+const sampleChips: Chip[] = [
+  ...new Map(
+    [...postseason.byIdentity.keys()]
+      .map((id) => chipFrom(postseason, id))
+      .filter((c): c is Chip => c !== null && c.label !== "")
+      .map((c) => [c.competition, c] as const),
+  ).values(),
+].sort((a, b) => (a.competition === b.competition ? 0 : a.competition === "conference" ? -1 : 1));
 
 // The page's own index: the sections, in order, each an anchor below.
 const sections = [
@@ -98,6 +121,59 @@ const stamp = (iso: string): string =>
             A match marked final whose score was published. Touchline counts nothing it
             cannot show.
           </p>
+        </div>
+        <div class="term">
+          <div class="term-name">A RECORD, W–D–L</div>
+          <p class="term-text">
+            Wins, draws and losses, always in that order: <span class="nw">15–3–2</span> is fifteen wins, three
+            draws and two losses. A conference table adds points, three for a win and one
+            for a draw, and counts only matches between its own members.
+          </p>
+        </div>
+        <div class="term">
+          <div class="term-name">SETTLED ON PENALTIES</div>
+          <p class="term-text">
+            A match level at the end of play and decided by a shootout counts as a draw in
+            every record and table. The score stays the drawn one, the shootout is printed
+            beside it — <span class="nw">1–1 (4–3 pens)</span> — and it decides only who goes through.
+          </p>
+        </div>
+        <div class="term">
+          <div class="term-name">ROUND CHIPS</div>
+          <p class="term-text">
+            {sampleChips.length > 0 && (
+              <span class="term-chips">{sampleChips.map((c) => <StageChip chip={c} />)}</span>
+            )}
+            A postseason match wears its tournament and round: outlined for a conference
+            tournament, filled for the NCAA's. R1, R2 and so on number the rounds from the
+            first; QF, SF and FINAL are the quarterfinal, semifinal and final. A tie
+            whose round the published results cannot place wears its tournament alone. In
+            a season-strip cell too narrow for the whole chip, the round stands alone.
+          </p>
+        </div>
+        <div class="term">
+          <div class="term-name">WHERE A SEASON STANDS</div>
+          <dl class="phases">
+            <div class="phase">
+              <dt class="num">{PHASE_BEFORE}</dt>
+              <dd>No conference result yet. The table ranks every match played, against anyone, and says so.</dd>
+            </div>
+            <div class="phase">
+              <dt class="num">{PHASE_LIVE}</dt>
+              <dd>The conference has a league result, and the table is the conference table.</dd>
+            </div>
+            <div class="phase">
+              <dt class="num">{PHASE_TOURNAMENT}</dt>
+              <dd>The conference tournament has a collected match and its final is still to come. The regular-season table is final.</dd>
+            </div>
+            <div class="phase">
+              <dt class="num">{PHASE_DECIDED}</dt>
+              <dd>
+                The tournament's final has been played. It says the tournament is over, not
+                who won it: where no published result names a winner, Touchline names none.
+              </dd>
+            </div>
+          </dl>
         </div>
         <div class="term">
           <div class="term-name">SCORE GAP</div>
@@ -278,6 +354,18 @@ const stamp = (iso: string): string =>
   }
   .term-text {
     margin: 0; font-family: var(--serif); font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft); text-wrap: pretty;
+  }
+
+  .nw { white-space: nowrap; }
+  /* The round chips, the site's own, ahead of the sentence that keys them. */
+  .term-chips { display: inline-flex; gap: 6px; margin-right: 8px; vertical-align: 2px; }
+  /* The phase words, printed as the kickers and the home's rows print them,
+     each over its meaning. */
+  .phases { display: flex; flex-direction: column; gap: 10px; margin: 2px 0 0; }
+  .phase dt { font-size: 10.5px; letter-spacing: 0.12em; font-weight: 600; color: var(--secondary); }
+  .phase dd {
+    margin: 2px 0 0; font-family: var(--serif); font-size: 15.5px; line-height: 1.55;
     color: var(--ink-soft); text-wrap: pretty;
   }
 

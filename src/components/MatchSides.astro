@@ -9,7 +9,7 @@
 import FormBadges from "./FormBadges.astro";
 import PersonLink from "./PersonLink.astro";
 import { dayOfMonth, monShort, rate3 } from "../lib/format.ts";
-import type { Named, RouteStep, SideSummary } from "../lib/preview.ts";
+import type { Entry, Named, RouteStep, SideSummary } from "../lib/preview.ts";
 import type { Fixture } from "../lib/model.ts";
 
 export interface SideColumn {
@@ -23,6 +23,9 @@ export interface SideColumn {
   route: (RouteStep & { opponentName: string })[];
   /** The anchor of a player's sheet on the team page, or null: no sheet, no link. */
   sheet: ((who: Named) => string | null) | null;
+  /** The round this side joins the tournament in, where the record proves a
+   *  bye (lib/preview.ts entryOf); null otherwise, and then nothing is said. */
+  entry: Entry | null;
 }
 
 interface Props {
@@ -160,7 +163,7 @@ const sheetHref = (side: SideColumn, who: Named): string | null => {
             </div>
           )}
 
-          {side.route.length > 0 && (
+          {(side.route.length > 0 || side.entry) && (
             <div class="route">
               <div class="label route-label">POSTSEASON SO FAR</div>
               {side.route.map((r) => (
@@ -178,6 +181,16 @@ const sheetHref = (side: SideColumn, who: Named): string | null => {
                   </span>
                 </a>
               ))}
+              {side.entry && (
+                <div class="route-row route-entry num">
+                  <span class="route-when">
+                    <span class="route-date"></span>
+                    <span class="route-tag">{side.entry.owner}</span>
+                  </span>
+                  <span class="route-opp quiet">{side.entry.text}</span>
+                  <span></span>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -185,10 +198,12 @@ const sheetHref = (side: SideColumn, who: Named): string | null => {
     })}
   </div>
 
-  {meetings.length > 0 && (
-    <div class="met">
-      <h3 class="sechead">MET THIS SEASON</h3>
-      {meetings.map((m) => (
+  <div class="met">
+    <h3 class="sechead">MET THIS SEASON</h3>
+    {meetings.length === 0 ? (
+      <p class="met-none">No earlier meeting this season on the record.</p>
+    ) : (
+      meetings.map((m) => (
         <a class="met-row num" href={m.href}>
           <span class="route-date">{shortDay(m.fixture.date)}</span>
           <span class="met-line">
@@ -197,9 +212,9 @@ const sheetHref = (side: SideColumn, who: Named): string | null => {
           </span>
           <span class="met-go" aria-hidden="true">→</span>
         </a>
-      ))}
-    </div>
-  )}
+      ))
+    )}
+  </div>
 </section>
 
 <style>
@@ -259,6 +274,10 @@ const sheetHref = (side: SideColumn, who: Named): string | null => {
   .met-row { grid-template-columns: 52px minmax(0, 1fr) auto; }
   .met-line b { font-weight: 600; padding: 0 2px; }
   .met-go { color: var(--quiet); }
+  .met-none { margin: 0; font-size: 13px; color: var(--quiet); }
+  /* The bye is a fact about the route, not a match: no link, no score. */
+  .route-entry { color: var(--quiet); }
+  .route-row.route-entry:hover .route-opp { color: var(--quiet); }
 
   @media (pointer: coarse) {
     .route-row, .met-row { min-height: 44px; }

@@ -432,7 +432,8 @@ export const PHASE_LIVE = "CONFERENCE PLAY UNDER WAY";
 export const PHASE_BEFORE = "BEFORE THE TABLE";
 /** The conference tournament has a collected match and no decided final. */
 export const PHASE_TOURNAMENT = "CONFERENCE TOURNAMENT UNDER WAY";
-/** The conference tournament's final is decided. */
+/** The conference tournament's final is played (Tournament.decided), whether
+ *  or not a record names who won it. */
 export const PHASE_DECIDED = "TOURNAMENT DECIDED";
 
 /** The phase a conference's season is in. The tournament is read from the
@@ -447,8 +448,10 @@ export function seasonPhase(s: Season): string {
   const tournament = postseasonOf([s]).conference.find((t) =>
     t.codes.includes(s.fixtures.conference),
   );
+  // Decided means the final is played, not that a champion is named: a
+  // final drawn with no shootout collected (2026 men's MEC, 1–1) is over.
   const phase = tournament
-    ? tournament.champion
+    ? tournament.decided
       ? PHASE_DECIDED
       : PHASE_TOURNAMENT
     : tableIsLive(s)

@@ -9,13 +9,19 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import type { Season } from "./derive.ts";
+import { divisions, site } from "../site.config.ts";
+import { loadFixtures } from "./data.ts";
+import { matchIdentity, type Season } from "./derive.ts";
+import { PHASE_DECIDED, PHASE_TOURNAMENT, seasonPhase } from "./journal.ts";
 import { computeTable, type Fixture, type FixtureStage, type FixturesFile } from "./model.ts";
 import { nameBookFor } from "./names.ts";
 import {
   aheadOf,
+  canonicalFixture,
+  canonicalSlug,
   fieldOf,
   kickoffOf,
+  knownProgrammes,
   layoutRegion,
   layoutTree,
   postseasonOf,
@@ -27,7 +33,10 @@ import {
   splitOf,
   stageTag,
   treesOf,
+  verdictLine,
+  verdictOf,
 } from "./postseason.ts";
+import { divisionPostseason } from "./postseason-division.ts";
 
 const NCAA: FixtureStage = { phase: "postseason", competition: "ncaa", source: "NCAA Tournament" };
 const CONF: FixtureStage = {
@@ -446,4 +455,275 @@ describe("an unplayed tie's kickoff is printed as one page published it", () => 
       publisherOf({ key: "c", code: "C", season, fixture: { ...a, source_url: undefined } }),
     ).toBeNull();
   });
+});
+
+describe("a final played level is decided, and names a champion only from a shootout", () => {
+  // A four-side conference tournament: two semifinals, then the final.
+  const semis = [
+    fx("2026-11-04", "a", 1, 0, "b", { stage: CONF }),
+    fx("2026-11-04", "c", 2, 1, "d", { stage: CONF }),
+  ];
+  const tournamentWith = (final: Fixture) => {
+    const season = seasonOf("x", fileOf("X", ["a", "b", "c", "d"], [...semis, final]));
+    const t = postseasonOf([season]).conference[0];
+    if (!t) throw new Error("no tournament");
+    return { season, t };
+  };
+  const name = (slug: string): string => slug.toUpperCase();
+
+  test("drawn with no shootout published: decided, no champion, said so", () => {
+    const { season, t } = tournamentWith(fx("2026-11-08", "a", 1, 1, "c", { stage: CONF }));
+    expect(t.final?.label).toBe("FINAL");
+    expect(t.decided).toBe(true);
+    expect(t.champion).toBeNull();
+    expect(verdictOf(t).kind).toBe("drawn");
+    expect(verdictLine(t, name)).toEqual({
+      head: "Final drawn 1–1 · shootout not published",
+      note: "No record publishes a shootout, so no champion is named.",
+    });
+    expect(aheadOf(t)).toEqual([]);
+    expect(seasonPhase(season)).toBe(PHASE_DECIDED);
+  });
+
+  test("drawn with a result cell but no collected shootout: the cell is quoted, no one is named", () => {
+    const { t } = tournamentWith(
+      fx("2026-11-08", "a", 0, 0, "c", { stage: CONF, result_published: "T, 0-0 3-2 PKs" }),
+    );
+    expect(t.decided).toBe(true);
+    expect(t.champion).toBeNull();
+    const line = verdictLine(t, name);
+    expect(line.head).toBe("Final drawn 0–0 · shootout winner not collected");
+    expect(line.note).toContain("“T, 0-0 3-2 PKs”");
+    expect(line.head).not.toContain("to play");
+  });
+
+  test("a collected shootout names the champion, on penalties, as published", () => {
+    const { season, t } = tournamentWith(
+      fx("2026-11-08", "a", 1, 1, "c", {
+        stage: CONF,
+        result_published: "T, 1-1 (L, 2-3 PK)",
+        shootout: { winner: "c", home: 2, away: 3 },
+      }),
+    );
+    expect(t.champion).toEqual({ slug: "c", evidence: "OBSERVED", by: "shootout" });
+    expect(verdictLine(t, name).head).toBe("Champions: C, on penalties, 3–2, as published");
+    expect(seasonPhase(season)).toBe(PHASE_DECIDED);
+  });
+
+  test("a final won on the score names its winner", () => {
+    const { t } = tournamentWith(fx("2026-11-08", "a", 2, 1, "c", { stage: CONF }));
+    expect(verdictLine(t, name)).toEqual({ head: "Champions: A", note: null });
+  });
+
+  test("only an unplayed final is still to play", () => {
+    const { season, t } = tournamentWith(fx("2026-11-08", "a", null, null, "c", { stage: CONF }));
+    expect(t.decided).toBe(false);
+    expect(verdictLine(t, name).head).toBe("Final to play");
+    expect(seasonPhase(season)).toBe(PHASE_TOURNAMENT);
+  });
+
+  test("an NCAA final drawn with no shootout is decided too", () => {
+    const ties = [
+      fx("2025-11-20", "a", 1, 0, "b", { stage: NCAA }),
+      fx("2025-11-20", "c", 2, 1, "d", { stage: NCAA }),
+      fx("2025-11-30", "a", 2, 2, "c", { stage: NCAA }),
+    ];
+    const p = postseasonOf([seasonOf("x", fileOf("X", ["a", "b", "c", "d"], ties))]);
+    expect(p.ncaa.decided).toBe(true);
+    expect(p.ncaa.champion).toBeNull();
+    expect(aheadOf(p.ncaa)).toEqual([]);
+  });
+
+  // The real finals the council found printing "Final to play".
+  const realFinal = (code: string) =>
+    divisionPostseason().conference.find((t) => t.codes.includes(code));
+
+  test.skipIf(site.gender !== "men")(
+    "men's MEC: the 1–1 final is decided, no champion named",
+    () => {
+      const t = realFinal("MEC");
+      expect(t?.final?.fixture.date).toBe("2026-11-08");
+      expect(t?.decided).toBe(true);
+      expect(t?.champion).toBeNull();
+      expect(t && verdictLine(t, (s) => s).head).toBe("Final drawn 1–1 · shootout not published");
+    },
+  );
+
+  test.skipIf(site.gender !== "women")(
+    "women's GLVC and GLIAC: drawn finals are decided, no champion named",
+    () => {
+      for (const code of ["GLVC", "GLIAC"]) {
+        const t = realFinal(code);
+        expect(t?.decided).toBe(true);
+        expect(t?.champion).toBeNull();
+        expect(t && verdictLine(t, (s) => s).head).toContain("Final drawn");
+      }
+    },
+  );
+});
+
+describe("a ranking printed in front of an opponent's slug is read past", () => {
+  const known = new Set(["mckendree", "wayne-state", "ashland", "21-club"]);
+
+  test("the ranking is stripped only when the rest is a known programme and the whole is not", () => {
+    expect(canonicalSlug("21-mckendree", known)).toBe("mckendree");
+    expect(canonicalSlug("15-ashland", known)).toBe("ashland");
+    expect(canonicalSlug("mckendree", known)).toBe("mckendree");
+    // A known slug that happens to start with a number is a programme.
+    expect(canonicalSlug("21-club", known)).toBe("21-club");
+    // The rest is no programme anyone follows: the slug stands as published.
+    expect(canonicalSlug("402-development-academy", known)).toBe("402-development-academy");
+    expect(canonicalSlug("7-", known)).toBe("7-");
+  });
+
+  test("a record is rewritten only where a side changes; the shootout's winner follows", () => {
+    const plain = fx("2026-11-13", "wayne-state", 2, 1, "mckendree");
+    expect(canonicalFixture(plain, known)).toBe(plain);
+    const ranked = fx("2026-11-13", "wayne-state", 1, 1, "21-mckendree", {
+      shootout: { winner: "21-mckendree", home: 3, away: 4 },
+    });
+    const read = canonicalFixture(ranked, known);
+    expect([read.home, read.away, read.shootout?.winner]).toEqual([
+      "wayne-state",
+      "mckendree",
+      "mckendree",
+    ]);
+    expect(ranked.away).toBe("21-mckendree");
+  });
+
+  // 2026 women's GLIAC: Wayne State's schedule ranks its NCAA opponents.
+  const glvc = fileOf(
+    "GLVC",
+    ["mckendree", "drury"],
+    [
+      fx("2026-11-12", "mckendree", 2, 0, "drury", { stage: NCAA }),
+      fx("2026-11-13", "mckendree", 1, 2, "wayne-state", { stage: NCAA }),
+    ],
+  );
+  const gliac = fileOf(
+    "GLIAC",
+    ["wayne-state", "ferris-state"],
+    [
+      fx("2026-11-12", "wayne-state", 3, 0, "ferris-state", { stage: NCAA }),
+      fx("2026-11-13", "wayne-state", 2, 1, "21-mckendree", { stage: NCAA }),
+      fx("2026-11-15", "15-ashland", null, null, "wayne-state", { stage: NCAA }),
+    ],
+  );
+  const gmac = fileOf(
+    "G-MAC",
+    ["ashland", "lake-erie"],
+    [
+      fx("2026-11-12", "ashland", 1, 0, "lake-erie", { stage: NCAA }),
+      fx("2026-11-15", "ashland", null, null, "wayne-state", { stage: NCAA }),
+    ],
+  );
+  const p = postseasonOf([
+    seasonOf("glvc", glvc),
+    seasonOf("gliac", gliac),
+    seasonOf("gmac", gmac),
+  ]);
+  const field = new Set(p.ncaa.ties.flatMap((t) => [t.fixture.home, t.fixture.away]));
+
+  test("no phantom programme joins the field", () => {
+    expect([...field].sort()).toEqual([
+      "ashland",
+      "drury",
+      "ferris-state",
+      "lake-erie",
+      "mckendree",
+      "wayne-state",
+    ]);
+    expect(p.ncaa.ties).toHaveLength(5);
+  });
+
+  test("one match is one tie, and the rounds are counted from it", () => {
+    // Read raw, the ranked records made Wayne State's Nov 13 tie two ties in
+    // successive rounds and every round behind them one too high.
+    expect(p.ncaa.rounds).toBe(3);
+    const round = (date: string, side: string): number | undefined =>
+      p.ncaa.ties.find(
+        (t) => t.fixture.date === date && [t.fixture.home, t.fixture.away].includes(side),
+      )?.round;
+    expect([
+      round("2026-11-12", "wayne-state"),
+      round("2026-11-13", "wayne-state"),
+      round("2026-11-15", "wayne-state"),
+    ]).toEqual([1, 2, 3]);
+    const out = fieldOf(p.ncaa).find((e) => e.slug === "mckendree");
+    expect(out?.standing).toBe("out");
+    expect(
+      p.ncaa.ties.filter((t) => [t.fixture.home, t.fixture.away].includes("mckendree")),
+    ).toHaveLength(2);
+    const last = p.ncaa.ties.at(-1);
+    if (!last) throw new Error("no tie");
+    expect(routeOf(p.ncaa, last, "wayne-state").map((t) => t.fixture.date)).toEqual([
+      "2026-11-12",
+      "2026-11-13",
+    ]);
+  });
+
+  test("the ranked record's own identity still finds its tie", () => {
+    const raw = gliac.fixtures[1] as Fixture;
+    const tie = p.byIdentity.get(matchIdentity(raw));
+    expect(tie?.identity).toBe("2026-11-13 mckendree v wayne-state");
+    expect(p.tournamentOf.get(matchIdentity(raw))).toBe(p.ncaa);
+    // Iteration sees each tie once.
+    expect([...p.byIdentity.values()]).toHaveLength(p.ncaa.ties.length);
+  });
+});
+
+describe("no side plays two rounds in one day", () => {
+  test("two ties one side has on one date are not successive rounds", () => {
+    // One schedule names the opponent differently ("concordia" beside
+    // "concordia-irvine"): the fold cannot join them, and the chain must not
+    // read them as one round and the next.
+    const ties = [
+      fx("2026-11-13", "a", 1, 0, "b", { stage: NCAA }),
+      fx("2026-11-13", "c", 1, 0, "d", { stage: NCAA }),
+      fx("2026-11-15", "x", null, null, "a", { stage: NCAA }),
+      fx("2026-11-15", "x-irvine", null, null, "a", { stage: NCAA }),
+      fx("2026-11-15", "c", null, null, "e", { stage: NCAA }),
+    ];
+    const p = postseasonOf([
+      seasonOf("x", fileOf("X", ["a", "b", "c", "d", "e", "x-irvine"], ties)),
+    ]);
+    expect(p.ncaa.rounds).toBe(2);
+    expect(p.ncaa.ties.map((t) => `${t.fixture.date}:${t.label}`)).toEqual([
+      "2026-11-13:R1",
+      "2026-11-13:R1",
+      "2026-11-15:R2",
+      "2026-11-15:R2",
+      "2026-11-15:R2",
+    ]);
+  });
+});
+
+describe("every side of every NCAA tie is a programme the data home knows", () => {
+  // Read straight from each gender's files, whichever gender this build is.
+  // A side that resolves to no known programme is a phantom in the field.
+  //
+  // One known exception, named so it cannot grow quietly: the 2026 women's
+  // CCAA file slugs Concordia Irvine as "concordia", a slug the NSIC file uses
+  // for a different school. It carries no ranking, so canonicalSlug rightly
+  // leaves it; the collector has to name it. The test fails once the data no
+  // longer holds it, so the exception is removed with the fault.
+  const EXPECTED_UNRESOLVED: Record<string, string[]> = { women: ["concordia"] };
+  for (const gender of ["men", "women"] as const) {
+    const files = divisions[gender].conferences.flatMap((key) => {
+      try {
+        return [{ key, file: loadFixtures(site.season, gender, key) }];
+      } catch {
+        return [];
+      }
+    });
+    test.skipIf(files.length === 0)(`${gender}: every NCAA side resolves`, () => {
+      const seasons = files.map(({ key, file }) => seasonOf(key, file));
+      const known = knownProgrammes(seasons);
+      const ncaa = postseasonOf(seasons).ncaa;
+      const sides = new Set(ncaa.ties.flatMap((t) => [t.fixture.home, t.fixture.away]));
+      const unresolved = [...sides].filter((slug) => !known.has(slug)).sort();
+      expect(unresolved.filter((slug) => /^\d+-/.test(slug))).toEqual([]);
+      expect(unresolved).toEqual(EXPECTED_UNRESOLVED[gender] ?? []);
+    });
+  }
 });

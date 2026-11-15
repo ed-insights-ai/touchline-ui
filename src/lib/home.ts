@@ -667,6 +667,48 @@ export function championshipLine(
   return `${governingBody} championship · ${played} of ${n} ${n === 1 ? "tie" : "ties"} played`;
 }
 
+/** One playing day of the NCAA tournament, as the home lists it. */
+export interface NcaaDay {
+  date: string;
+  /** The day is the national asOf itself. */
+  isToday: boolean;
+  matches: DivisionMatch[];
+}
+
+/** The NCAA's next playing day, from the national asOf on: the date of the
+ *  earliest tie still listed as scheduled, and every tie on that date in
+ *  kickoff order — a tie already final that day keeps its place and its
+ *  score, because it is the same night. The fixtures are the championship
+ *  page's own (the division fold's NCAA ties), so nothing here is a new list.
+ *  A called-off tie is answered, not upcoming, and stays off. Null when no
+ *  tie on or after asOf is still to be played: before the field is collected,
+ *  and after the final. */
+export function ncaaNextDay(
+  ncaa: { ties: readonly { fixture: Fixture; match: DivisionMatch }[] },
+  asOf: string,
+): NcaaDay | null {
+  const ahead = (f: Fixture): boolean => f.status === "scheduled" && !hasScore(f);
+  const dates = ncaa.ties
+    .filter((t) => t.fixture.date >= asOf && ahead(t.fixture))
+    .map((t) => t.fixture.date)
+    .sort();
+  const date = dates[0];
+  if (date === undefined) return null;
+  const matches = ncaa.ties
+    .filter(
+      (t) =>
+        t.fixture.date === date &&
+        t.fixture.status !== "cancelled" &&
+        t.fixture.status !== "postponed",
+    )
+    .map((t) => t.match)
+    .sort(
+      (a, b) =>
+        byKickoff(a.fixture, b.fixture) || a.codes.join(" ").localeCompare(b.codes.join(" ")),
+    );
+  return { date, isToday: date === asOf, matches };
+}
+
 /** Last night, literally: the calendar day before the national asOf. */
 export const lastNightOf = (asOf: string): string => toISO(dayNumber(asOf) - 1);
 

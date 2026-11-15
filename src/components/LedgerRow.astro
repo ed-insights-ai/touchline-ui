@@ -6,6 +6,7 @@
 // the row is written once and the page places it twice. The rules are the
 // ones the page carried, word for word.
 import { DISPUTED_MARK, FORFEIT_MARK, hasScore, isForfeit, matchHref } from "../lib/derive.ts";
+import { clockTime } from "../lib/format.ts";
 import type { Fixture } from "../lib/derive.ts";
 import type { DivisionMatch } from "../lib/division.ts";
 import { outcome } from "../lib/model.ts";
@@ -70,6 +71,12 @@ const { left, right } = sides();
 const tag = stageTag(divisionPostseason(), r.identity);
 const tie = divisionPostseason().byIdentity.get(r.identity);
 const shootout = tie?.shootout ?? null;
+// A row still to be played (the home's NCAA day, beneath LAST NIGHT) carries
+// its kickoff where the score will go, as the matches page does: one row,
+// read at two times. The time is the one the home programme published, in
+// the site's one clock form; none published is said, not left blank.
+const ahead = r.fixture.status === "scheduled" && !hasScore(r.fixture);
+const kick = ahead ? clockTime(r.fixture.time) : null;
 const pens =
   shootout && hasScore(r.fixture)
     ? r.neutral
@@ -84,8 +91,12 @@ const pens =
     <span class="lconf">{r.codes.join(" · ")}</span>
   )}
   <span class={left.cls}>{r.season.names.name(left.slug)}</span>
-  <span class="lscore">
-    {hasScore(r.fixture) ? `${left.score}–${right.score}` : "—"}
+  <span class:list={["lscore", { "lkick": ahead }]}>
+    {hasScore(r.fixture)
+      ? `${left.score}–${right.score}`
+      : ahead
+        ? kick ?? <span title="No kickoff time published">—<span class="vh"> no kickoff time published</span></span>
+        : "—"}
     {pens && <span class="lpens"> ({pens[0]}–{pens[1]} pens)</span>}
     {r.neutral && <span class="lneutral"> v</span>}
     {mark && <span class="lmark"> {mark}</span>}
@@ -135,6 +146,9 @@ const pens =
   .lwin { font-weight: 600; }
   .lquiet { color: var(--secondary); }
   .lscore { font-weight: 600; }
+  /* A kickoff is information about a match, not its result: no weight, the
+     secondary ink, and it keeps its meridiem on one line. */
+  .lscore.lkick { font-weight: 400; font-size: 12.5px; color: var(--secondary); white-space: nowrap; }
   /* The code column takes what the widest pair needs; the gaps give back
      enough that a long name still fits beside it at 320. */
   @media (max-width: 720px) {

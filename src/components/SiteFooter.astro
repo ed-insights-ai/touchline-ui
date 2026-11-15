@@ -47,9 +47,10 @@ const published = new Date().getUTCFullYear();
 
 <footer class="site-footer">
   <span class="sf-cell sf-left">
-    Touchline is independent and not affiliated with the {site.governingBody}
-    <span class="sf-sep" aria-hidden="true">·</span>
-    <a class="sf-link" href={aboutHref()}>About &amp; method</a>
+    <span class="sf-left-in">
+      <span class="sf-say">Touchline is independent and not affiliated with the {site.governingBody}</span>
+      <span class="sf-about"><a class="sf-link" href={aboutHref()}>About &amp; method</a></span>
+    </span>
   </span>
   <span class="sf-cell sf-mid num">
     <span class="sf-when">{collected.line}</span>
@@ -78,8 +79,18 @@ const published = new Date().getUTCFullYear();
     line-height: 1.6;
     color: var(--quiet);
   }
-  .sf-left { justify-self: start; }
-  .sf-sep { margin: 0 6px; color: var(--outline-quiet); }
+  .sf-left { justify-self: start; min-width: 0; max-width: 100%; }
+  /* The sentence and the link are two items with a middot between them, set
+     the way the masthead's strip sets its cells: the dot hangs in the gap
+     before the link and the row is pulled left by one gap inside a box that
+     clips sideways, so when a phone puts the link on a line of its own the
+     dot falls outside the box. A line never opens on "· About & method".
+     Clipped on x alone: the link's padding is its hit area and must stay. */
+  .sf-left { overflow-x: clip; }
+  .sf-left-in { display: flex; flex-wrap: wrap; align-items: baseline; margin-left: -19px; }
+  .sf-say, .sf-about { margin-left: 19px; min-width: 0; }
+  .sf-about { position: relative; white-space: nowrap; }
+  .sf-about::before { content: "·"; position: absolute; left: -12px; color: var(--outline-quiet); }
   .sf-mid { justify-self: center; text-align: center; }
   /* A conference that lags, named under the day the rest were collected: its
      own line, in the footer's register, linking to every stamp on About. */

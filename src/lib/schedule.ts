@@ -23,7 +23,7 @@ import {
   isExhibition,
   type Season,
 } from "./derive.ts";
-import { dayNumber, dowIndex, toISO } from "./format.ts";
+import { clockTime, dayNumber, dowIndex, toISO } from "./format.ts";
 import { outcome } from "./model.ts";
 
 /**
@@ -257,14 +257,10 @@ export function scheduleCounts(s: Season): ScheduleCounts {
   };
 }
 
-/** "15:30" → "3:30 pm", the form the schedule surfaces print. */
+/** "15:30" → "3:30 PM": the one clock form the site prints (format.ts
+ *  clockTime), so a schedule and a match page never disagree on casing. */
 export function kickoff(hhmm: string | undefined): string | null {
-  if (!hhmm) return null;
-  const m = /^(\d{2}):(\d{2})$/.exec(hhmm);
-  if (!m) return null;
-  const h24 = Number(m[1]);
-  const h = h24 % 12 === 0 ? 12 : h24 % 12;
-  return `${h}:${m[2]} ${h24 < 12 ? "am" : "pm"}`;
+  return clockTime(hhmm);
 }
 
 /** Which side, if either, the reader's eye should rest on. A forfeit's

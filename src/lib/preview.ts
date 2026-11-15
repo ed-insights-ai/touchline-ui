@@ -165,6 +165,70 @@ export function routeOf(p: Postseason, slug: string, current: Fixture): RouteSte
     });
 }
 
+// ── Where a side joins the knockout ────────────────────────────────────────
+
+const ORDINAL = ["first", "second", "third", "fourth", "fifth", "sixth"];
+const STAGE_WORD: Record<string, string> = {
+  QF: "the quarterfinals",
+  SF: "the semifinals",
+  FINAL: "the final",
+};
+
+export interface Entry {
+  /** The round of the page's own tie, which is the side's first. */
+  round: number;
+  /** "Enters in the second round". */
+  text: string;
+  /** "NCAA" or the conference tournament's codes, for the line's tag. */
+  owner: string;
+}
+
+/** The round a side joins this tournament in, when the page's tie is later
+ *  than the first round and the record shows the side played no earlier one:
+ *  a first-round bye, said as what it is, never as a word the source did not
+ *  print. Every condition is one the archive can prove or the claim is not
+ *  made — the tie is placed and undisputed, the first round is collected,
+ *  the side's own schedule is collected (a side outside every conference has
+ *  no file whose silence would mean anything), and that schedule holds no
+ *  match since the first round that no record calls a tie. */
+export function entryOf(
+  p: Postseason,
+  member: Season | null,
+  slug: string,
+  current: Fixture,
+): Entry | null {
+  const here = matchIdentity(current);
+  const tie = p.byIdentity.get(here);
+  const tournament = p.tournamentOf.get(here);
+  if (!tie || !tournament || tie.disputed || tie.round <= 1 || !member) return null;
+  if (!p.conferenceOf.has(slug)) return null;
+  const firstRound = tournament.ties.filter((t) => t.round === 1);
+  if (firstRound.length === 0) return null;
+  const mine = tournament.ties.filter(
+    (t) => t.identity !== here && (t.fixture.home === slug || t.fixture.away === slug),
+  );
+  // An unplaced tie of this side might be the earlier round; say nothing.
+  if (mine.some((t) => t.round === 0 || t.round < tie.round)) return null;
+  const opened = firstRound.map((t) => t.fixture.date).sort()[0] ?? current.date;
+  // A match in the window that no record calls a tie could be the earlier
+  // round, published without its stage; the claim waits for it.
+  const unstaged = member.fixtures.fixtures.some(
+    (f) =>
+      (f.home === slug || f.away === slug) &&
+      f.date >= opened &&
+      f.date < current.date &&
+      !p.byIdentity.has(matchIdentity(f)),
+  );
+  if (unstaged) return null;
+  // The tie's own label where it names a stage ("SF"), else the round count.
+  const word =
+    STAGE_WORD[tie.label] ??
+    (ORDINAL[tie.round - 1] ? `the ${ORDINAL[tie.round - 1]} round` : null);
+  if (!word) return null;
+  const owner = tie.competition === "ncaa" ? "NCAA" : tournament.codes.join("/") || "CONF";
+  return { round: tie.round, text: `Enters in ${word}`, owner };
+}
+
 // ── Met this season ─────────────────────────────────────────────────────────
 
 export interface Meeting {

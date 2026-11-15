@@ -194,7 +194,12 @@ const stackLabel = (stack: LaneStack): string =>
       politely, this row is the timeline's spoken summary: one mark at a time,
       the clock, the side and the programme's own sentence. */}
   <div class="tl-detail num" aria-live="polite">
-    <div class="tl-hint">HOVER OR SELECT A MARK FOR ITS PUBLISHED LINE</div>
+    {/* Each mark is the label of a radio, so a tap selects it exactly as a
+        click does; the hint says so in the words of the device in hand. */}
+    <div class="tl-hint">
+      <span class="hint-fine">HOVER OR SELECT A MARK FOR ITS PUBLISHED LINE</span>
+      <span class="hint-touch">TAP A MARK FOR ITS PUBLISHED LINE</span>
+    </div>
     {lanes.map(({ stack }, i) => (
       <div class={`tld tld-${i}`}>
         {stack.marks.map((m) => (
@@ -376,6 +381,14 @@ const stackLabel = (stack: LaneStack): string =>
 
   .tl-detail { display: flex; flex-direction: column; min-height: 18px; }
   .tl-hint { font-size: 10.5px; letter-spacing: 0.1em; color: var(--quiet); }
+  .hint-touch { display: none; }
+  @media (pointer: coarse) {
+    .hint-fine { display: none; }
+    .hint-touch { display: inline; }
+    /* A tap is not a hover: the floating panel would linger over the strip
+       after the finger lifts, repeating the row the tap prints below. */
+    .stack:hover + .mark-detail { opacity: 0; }
+  }
   .tld { display: none; flex-direction: column; gap: 3px; }
   .tld-row { display: flex; gap: 12px; font-size: 13px; align-items: baseline; }
   .tld-row-sub { display: none; }

@@ -9,9 +9,9 @@ import type { PlayerCard } from "../lib/player.ts";
 import type { StageChip as Chip } from "../lib/stage.ts";
 import StageChip from "./StageChip.astro";
 
-/** What the page knows about a log row that the card does not: its Match
- *  Centre and its postseason tag. Parallel to card.log, and used for a row
- *  only where its date and opponent agree. */
+/** What the page knows about a log row that the card does not: its
+ *  postseason tag. Joined to a row by the Match Centre both mint from the
+ *  same fixture id, so a tag can never land on the wrong match. */
 interface LogExtra {
   date: string;
   opponent: string;
@@ -29,11 +29,13 @@ const { card, logExtras = [], minutesPublished = {} } = Astro.props;
 const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
 const thousands = (n: number): string => n.toLocaleString("en-US");
-const extraFor = (i: number): LogExtra | null => {
-  const e = logExtras[i];
-  const l = card.log[i];
-  return e && l && e.date === l.date && e.opponent === l.opponent ? e : null;
-};
+const extraByHref = new Map(logExtras.map((e) => [e.href, e]));
+const extraFor = (href: string): LogExtra | null => extraByHref.get(href) ?? null;
+/** "1 G · 1 A" ahead of the box line: only what the line printed and only
+ *  when it is not nothing, so a quiet match stays a quiet row. */
+const contribution = (l: { goals: number | null; assists: number | null }): string | null =>
+  [l.goals ? `${l.goals} G` : null, l.assists ? `${l.assists} A` : null].filter(Boolean).join(" · ") ||
+  null;
 
 // The minutes figure, with thousands marked. The note is the card's own
 // ("1683 / 1800 · 20 appearances, 20 starts"); only its leading pair is
@@ -62,7 +64,7 @@ const minutesSource = (() => {
 })();
 ---
 
-<div class="sheet" id={card.anchor}>
+<div class="sheet" id={card.anchor} data-player-sheet>
   <a class="sheet-scrim" href="#squad" aria-label="Close player card"></a>
   <div class="sheet-panel" role="dialog" aria-label={`${card.name}, player card`}>
     <div class="sheet-head">
@@ -180,11 +182,11 @@ const minutesSource = (() => {
             {card.programme} has not played a match that counts yet.
           </p>
         ) : (
-          card.log.map((l, i) => {
-            const extra = extraFor(i);
-            const Row = extra ? "a" : "div";
+          card.log.map((l) => {
+            const extra = extraFor(l.href);
+            const ga = contribution(l);
             return (
-            <Row class:list={["log-row", { "log-link": extra }]} href={extra?.href}>
+            <a class="log-row log-link" href={l.href}>
               <span class="log-date">{l.date}</span>
               {extra?.stage ? (
                 <span class="log-opp log-opp-staged">
@@ -207,9 +209,11 @@ const minutesSource = (() => {
                 )}
               </span>
               <span class={`log-line${l.line ? "" : " log-line-absent"}`}>
+                {ga && <b class="log-ga">{ga}</b>}
+                {ga && " · "}
                 {l.line ?? l.absent}
               </span>
-            </Row>
+            </a>
             );
           })
         )}
@@ -350,6 +354,13 @@ const minutesSource = (() => {
      scroll to. */
   .sheet { position: fixed; inset: 0; z-index: 40; display: none; }
   .sheet:target { display: block; }
+  /* While a sheet is open the page behind it holds still: a scroll that
+     reaches the panel's end does not carry on into the squad underneath.
+     Pure CSS, so it holds with scripting off; a browser without :has() keeps
+     the old behaviour and loses nothing else. The gutter stays reserved so
+     the page does not shift sideways when its scrollbar goes. */
+  :global(html:has(.sheet[data-player-sheet]:target)) { overflow: hidden; scrollbar-gutter: stable; }
+  .sheet-panel { overscroll-behavior: contain; }
 
   .sheet-scrim {
     position: absolute; inset: 0;
@@ -465,7 +476,7 @@ const minutesSource = (() => {
 
   .log { display: flex; flex-direction: column; }
   .log-row {
-    display: grid; grid-template-columns: 46px 1fr 62px 44px 82px; gap: 8px;
+    display: grid; grid-template-columns: 46px minmax(0, 1fr) 62px 44px minmax(82px, auto); gap: 8px;
     padding: 5px 0; font-size: 12px; align-items: baseline;
   }
   .log-row + .log-row { border-top: 1px solid var(--hairline-soft); }
@@ -499,6 +510,9 @@ const minutesSource = (() => {
   .log-sub { margin-left: 4px; font-size: 10px; letter-spacing: 0.04em; color: var(--quiet); }
   .log-line { color: var(--secondary); text-align: right; }
   .log-line-absent { font-style: italic; color: var(--quiet); }
+  .log-line { white-space: nowrap; }
+  /* The goal or assist is the row's news: ink, not the box line's grey. */
+  .log-ga { font-weight: 600; color: var(--ink); }
   .log-note { font-size: 12px; color: var(--quiet); padding-top: 6px; }
 
   .sheet-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
@@ -511,6 +525,6 @@ const minutesSource = (() => {
   @media (max-width: 560px) {
     .sheet-panel { padding: 18px 18px 28px; }
     .log-row { grid-template-columns: 44px 1fr 56px 44px; }
-    .log-line { grid-column: 2 / -1; text-align: left; }
+    .log-line { grid-column: 2 / -1; text-align: left; white-space: normal; }
   }
 </style>

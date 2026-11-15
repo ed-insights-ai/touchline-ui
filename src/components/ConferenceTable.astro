@@ -94,7 +94,7 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
         <span class="tpts">{r.points}</span>
         <span class="tdim">
           <FormBadges form={f} />
-          {o && <span class={f.length > 0 ? "tall tall-after" : "tall"}>all matches {record(o)}</span>}
+          {o && <span class={f.length > 0 ? "tall tall-after" : "tall"}>all matches {record(o)} <span class="tcap">W–D–L</span></span>}
         </span>
       </a>
     ) : (
@@ -155,6 +155,8 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
   }
   .tdim :global(.wdl) { opacity: 0.6; }
   .tall { white-space: nowrap; }
+  /* The dim line's record names its order, in the column heads' caps. */
+  .tcap { margin-left: 2px; font-size: 9.5px; letter-spacing: 0.12em; font-weight: 600; }
   .tall-after::before { content: "·"; margin: 0 8px; color: var(--outline-quiet); }
   .thead {
     display: flex;

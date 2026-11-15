@@ -347,6 +347,15 @@ a.card:hover { border-color: var(--accent); color: inherit; }
    the columns and the groups stack into one list, region heads and all. */
 @media (max-width: 480px) {
   .htab { height: 44px; }
+  /* A team page's trigger carries the team's name, and the longest ones
+     ("Southwestern Oklahoma State") put Conference, Team and Championship
+     47px past a 390 viewport, clipping the last tab. Here the triggers wrap
+     onto a second row instead of running off the page, and a name too long
+     for a row on its own ends in an ellipsis rather than pushing the page
+     sideways; the menu it opens names the team in full. */
+  .hnav { flex-wrap: wrap; min-width: 0; max-width: 100%; }
+  .htab { min-width: 0; max-width: 100%; }
+  .htab-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .hmenu-panel {
     position: fixed; inset: 0; z-index: 30; margin: 0; border: 0; border-radius: 0;
     width: auto; max-width: none;

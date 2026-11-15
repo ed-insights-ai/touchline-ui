@@ -18,11 +18,10 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import StageChip from "../../components/StageChip.astro";
 import Page from "../../layouts/Page.astro";
 import { hasScore, isDisputed, markOf, matchHref, loadSeason, type Fixture } from "../../lib/derive.ts";
-import { dayOfMonth, dowLong, monLong, monShort } from "../../lib/format.ts";
+import { clockTime, dayOfMonth, dowLong, monLong, monShort } from "../../lib/format.ts";
 import {
   byDay,
   isSilentFinal,
-  kickoff,
   matchesOf,
   scheduleCounts,
   weightOf,
@@ -90,10 +89,20 @@ const anchorFor = (date: string): string | undefined => {
 const latestResult = [...past].reverse().find((d) => d.matches.some(isResult))?.date ?? null;
 // A postseason fixture wears its round in the row, the chip the Match Centre
 // and the home ledger wear ("GAC SF", "NCAA R2": lib/stage.ts), so a
-// tournament night is not mistaken for the league's. The key below names the
-// first one the page prints as its example, never an invented one.
+// tournament night is not mistaken for the league's. The chip sits in the
+// row's middle column — under the score, or before the kickoff — and never
+// beside a name, where it read as that side's own (council, round 2). The key
+// draws one real chip per competition the page prints, outlined for a
+// conference tournament and filled for the NCAA, never an invented one.
 const chipOf = new Map(matches.map((f) => [f.id, stageChipOf(f)]));
-const sampleChip = [...chipOf.values()].find((chip) => chip !== null) ?? null;
+const keyChips = [
+  ...new Map(
+    [...chipOf.values()].flatMap((chip) => (chip ? [[chip.competition, chip] as const] : [])),
+  ).values(),
+].sort((a, b) => (a.competition === b.competition ? 0 : a.competition === "conference" ? -1 : 1));
+// Kickoffs in the site's one clock form, "1:00 PM" (format.ts clockTime), the
+// form the team page, the Match Centre and the tie sheets print.
+const timeOf = (f: Fixture): string => clockTime(f.time) ?? "—";
 const hasLeague = matches.some((f) => f.conference_game);
 const todayLabel = `TODAY \u00b7 ${dayLabel(today)}${todayGroup ? "" : " \u2014 NO MATCHES"}`;
 
@@ -111,7 +120,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
       <h1 class="mx-h1 serif">Matches</h1>
       <p class="mx-dek serif-italic">{dek}</p>
       <div class="mx-strip num">
-        {strip.map((cell) => <span class="cell">{cell}</span>)}
+        <div class="mx-strip-in">{strip.map((cell) => <span class="cell">{cell}</span>)}</div>
       </div>
     </div>
 
@@ -123,14 +132,17 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
           )}
           <a class="mx-jump-link" href="#today">Today <span aria-hidden="true">↓</span></a>
         </nav>
-        {(hasLeague || sampleChip) && (
+        {(hasLeague || keyChips.length > 0) && (
           <ul class="mx-key" aria-label="Key">
             {hasLeague && (
               <li class="mx-key-item"><span class="mx-key-league" aria-hidden="true"></span>League match</li>
             )}
-            {sampleChip && (
-              <li class="mx-key-item"><StageChip chip={sampleChip} />Postseason round</li>
-            )}
+            {keyChips.map((chip) => (
+              <li class="mx-key-item">
+                <StageChip chip={chip} />
+                {chip.competition === "ncaa" ? "NCAA tournament round" : "Conference tournament round"}
+              </li>
+            ))}
           </ul>
         )}
       </div>
@@ -159,11 +171,13 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                           {f.conference_game && <span class="vh">League match. </span>}
                           {names.name(f.away)}
                         </span>
-                        <span class="mx-score num">{f.away_score}–{f.home_score}</span>
+                        <span class="mx-score num">
+                          {f.away_score}–{f.home_score}
+                          {chipOf.get(f.id) && <span class="mx-stage"><StageChip chip={chipOf.get(f.id)!} size="sm" /></span>}
+                        </span>
                         <span class={`mx-home mx-${weightOf(f, "home", isDisputed(season, f))}`}>
                           {names.name(f.home)}
                           {markOf(season, f) && <span class="mx-mark-note"> {markOf(season, f)}</span>}
-                          {chipOf.get(f.id) && <> <StageChip chip={chipOf.get(f.id)!} /></>}
                         </span>
                       </>
                     ) : isSilentFinal(f) ? (
@@ -172,10 +186,12 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                           {f.conference_game && <span class="vh">League match. </span>}
                           {names.name(f.away)}
                         </span>
-                        <span class="mx-score mx-silent num">—</span>
+                        <span class="mx-score mx-silent num">
+                          —
+                          {chipOf.get(f.id) && <span class="mx-stage"><StageChip chip={chipOf.get(f.id)!} size="sm" /></span>}
+                        </span>
                         <span class="mx-home mx-even">
                           {names.name(f.home)}
-                          {chipOf.get(f.id) && <> <StageChip chip={chipOf.get(f.id)!} /></>}
                           <span class="mx-silent-note"> final — no score published</span>
                         </span>
                       </>
@@ -185,10 +201,12 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                           {f.conference_game && <span class="vh">League match. </span>}
                           {names.name(f.away)}
                         </span>
-                        <span class="mx-score mx-waiting num">—</span>
+                        <span class="mx-score mx-waiting num">
+                          —
+                          {chipOf.get(f.id) && <span class="mx-stage"><StageChip chip={chipOf.get(f.id)!} size="sm" /></span>}
+                        </span>
                         <span class="mx-home mx-even">
                           {names.name(f.home)}
-                          {chipOf.get(f.id) && <> <StageChip chip={chipOf.get(f.id)!} /></>}
                           <span class="mx-waiting-note"> still listed as scheduled</span>
                         </span>
                       </>
@@ -217,10 +235,12 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                       <span class="mx-side">{names.name(f.away)}</span>
                       <span class="mx-at"> at </span>
                       <span class="mx-side mx-strong">{names.name(f.home)}</span>
-                      {chipOf.get(f.id) && <> <StageChip chip={chipOf.get(f.id)!} /></>}
                       {f.venue && <span class="mx-venue"> · {f.venue}</span>}
                     </span>
-                    <span class="mx-time num">{kickoff(f.time) ?? "—"}</span>
+                    <span class="mx-time num">
+                      {chipOf.get(f.id) && <StageChip chip={chipOf.get(f.id)!} />}
+                      {timeOf(f)}
+                    </span>
                   </a>
                 ))}
               </section>
@@ -239,10 +259,12 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                       <span class="mx-side">{names.name(f.away)}</span>
                       <span class="mx-at"> at </span>
                       <span class="mx-side mx-strong">{names.name(f.home)}</span>
-                      {chipOf.get(f.id) && <> <StageChip chip={chipOf.get(f.id)!} /></>}
                       {f.venue && <span class="mx-venue"> · {f.venue}</span>}
                     </span>
-                    <span class="mx-time num">{kickoff(f.time) ?? "—"}</span>
+                    <span class="mx-time num">
+                      {chipOf.get(f.id) && <StageChip chip={chipOf.get(f.id)!} />}
+                      {timeOf(f)}
+                    </span>
                   </a>
                 ))}
               </section>
@@ -282,17 +304,21 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   .mx-lede { padding: 28px 0 20px; border-bottom: 1px solid var(--hairline); }
   .mx-h1 { margin: 0; font-size: 38px; line-height: 1.1; }
   .mx-dek { margin: 10px 0 0; font-size: 14.5px; line-height: 1.5; color: var(--quiet); max-width: 720px; }
-  /* The season masthead's strip, in the same type. */
+  /* The masthead's strip (Masthead.astro), in the same type and by the same
+     rule: the middot sits in the gap BEFORE each cell and the row is pulled
+     left by one gap inside a box that clips, so the dot before whichever cell
+     starts a line falls outside the box. A wrapped strip never opens a line on
+     a separator, and never ends one on a dangling one. */
   .mx-strip {
-    display: flex;
-    flex-wrap: wrap;
     margin-top: 12px;
+    overflow: hidden;
     font-size: 11.5px;
     letter-spacing: 0.1em;
     color: var(--secondary);
   }
-  .cell { white-space: nowrap; }
-  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
+  .mx-strip-in { display: flex; flex-wrap: wrap; row-gap: 4px; margin-left: -23px; }
+  .cell { position: relative; margin-left: 23px; white-space: nowrap; }
+  .cell::before { content: "·"; position: absolute; left: -15px; color: var(--outline-quiet); }
   /* At phone widths a long cell wraps rather than pushing the page sideways. */
   @media (max-width: 480px) { .cell { white-space: normal; } }
 
@@ -380,6 +406,10 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   .mx-away { text-align: right; }
   .mx-home { text-align: left; }
   .mx-score { text-align: center; font-weight: 600; }
+  /* A postseason round, under the score in the row's middle column: it is
+     the match's, not either side's, so it sits between them. */
+  .mx-stage { display: block; margin-top: 3px; line-height: 1; }
+  .mx-time :global(.stage-chip) { margin-right: 6px; vertical-align: 1px; }
   .mx-strong { font-weight: 600; color: var(--ink); }
   .mx-even { color: var(--ink); }
   /* The losing side's name. It is the only thing on the row that says which
@@ -404,7 +434,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   .mx-side.mx-strong { color: var(--ink); }
   .mx-at { color: var(--quiet); }
   .mx-venue { color: var(--quiet); font-size: 12px; }
-  .mx-time { color: var(--quiet); font-size: 13px; }
+  .mx-time { color: var(--quiet); font-size: 13px; white-space: nowrap; }
 
   .mx-today { display: flex; align-items: center; gap: 12px; padding: 24px 0 4px; scroll-margin-top: 16px; }
   .mx-today-rule { flex: 1; height: 1px; background: var(--ink); }
@@ -457,6 +487,8 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   @media (pointer: coarse) {
     .mx-row { min-height: 44px; box-sizing: border-box; align-items: center; }
     .mx-index-row, .mx-jump-link { display: inline-flex; align-items: center; min-height: 44px; box-sizing: border-box; }
+    /* A flex box drops the space between the words and the arrow; give it back. */
+    .mx-jump-link { gap: 0.35em; }
     .mx-index-row { display: flex; }
   }
   @media (max-width: 720px) {

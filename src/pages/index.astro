@@ -44,6 +44,7 @@ import {
   lastNightOpen,
   mostImminentKey,
   nationalAsOf,
+  ncaaNextDay,
   nationalDescription,
   nationalMasthead,
   opensLine,
@@ -94,6 +95,19 @@ const { open: ledgerOpen, folded: ledgerFolded } = splitLedger(ledger, site.home
 // field is collected there is no line, and nothing says why: the header's
 // championship tab is absent then too.
 const champLine = championshipLine(divisionPostseason().ncaa);
+
+// Under the night's results, the NCAA's day ahead: today's ties when any is
+// still to play today, else the next date that has one (lib/home.ts
+// ncaaNextDay). The rows are the ledger's own row, carrying the round in the
+// code cell and the published kickoff where the score will go, each linking to
+// its Match Centre. Capped at the ledger's own cap; the rest are on the
+// championship page, and the line says how many, so nothing is hidden behind
+// a count the reader cannot follow.
+const ncaaDay = ncaaNextDay(divisionPostseason().ncaa, asOf);
+const dayRows = ncaaDay ? ncaaDay.matches.slice(0, site.homeLedgerCap) : [];
+const dayMore = ncaaDay ? ncaaDay.matches.length - dayRows.length : 0;
+const dayLabel = (iso: string): string =>
+  `${dowLong(iso).toUpperCase()} ${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}`;
 
 // The find-your-conference strip under the masthead: every collected
 // conference in navigation order, the abbreviation printed and the full name
@@ -269,6 +283,25 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
         </p>
       )}
       {openLine && <p class="ln-open">{openLine}</p>}
+      {ncaaDay && dayRows.length > 0 && (
+        <div class="ln-day">
+          <div class="ln-head">
+            <h3 class="sechead-plain">{ncaaDay.isToday ? "TODAY" : "NEXT PLAYING DAY"}</h3>
+            <div class="grow"></div>
+            <div class="ln-date num">
+              {dayLabel(ncaaDay.date)} · {ncaaDay.matches.length} NCAA {ncaaDay.matches.length === 1 ? "TIE" : "TIES"}
+            </div>
+          </div>
+          <div class="ledger num" style={`--lconf-ch: ${lconfChars}`}>
+            {dayRows.map((r) => <LedgerRow r={r} />)}
+          </div>
+          {dayMore > 0 && (
+            <a class="ln-more" href={championshipHref()}>
+              and {dayMore} more on the championship page&nbsp;<span aria-hidden="true">→</span>
+            </a>
+          )}
+        </div>
+      )}
       {champLine && (
         <a class="ln-champ num" href={championshipHref()}>{champLine}&nbsp;<span aria-hidden="true">→</span></a>
       )}
@@ -347,6 +380,19 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
     color: var(--secondary);
   }
   .ln-open { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
+  /* The NCAA's day ahead: the section head's register again, one step in,
+     over the ledger's own rows. Air above it so it reads as the next thing,
+     not the night's overflow. */
+  .ln-day { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .ln-day h3 { color: var(--ink); }
+  .ln-more {
+    align-self: flex-start;
+    padding: 2px 4px;
+    font-size: 13px;
+    color: var(--secondary);
+  }
+  .ln-more:hover { color: var(--accent-hover); }
+  .ln-more:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
   /* The championship's pointer: one quiet line in the ledger's sans, the
      section head's tracking, secondary until hovered. A way on, not a story. */
   .ln-champ {
@@ -361,7 +407,7 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
   .ln-champ:hover { color: var(--accent-hover); }
   .ln-champ:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
   @media (pointer: coarse) {
-    .ln-champ { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+    .ln-champ, .ln-more { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
   }
 
   /* The conferences — the columns under the cap, the map-led section past

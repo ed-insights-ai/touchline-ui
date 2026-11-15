@@ -22,6 +22,7 @@ import { playerCard } from "./player.ts";
 import { divisionPostseason } from "./postseason-division.ts";
 import {
   boxScorePublisher,
+  entryOf,
   lineByName,
   lineupOf,
   meetingsOf,
@@ -199,6 +200,48 @@ describe("routeOf", () => {
     const won = routeOf(p, "fort-hays-state", f).find((r) => r.tie.fixture.id === PLAYED);
     expect(won?.line).toBe("2–1");
     expect(won?.result).toBe("W");
+  });
+});
+
+describe("entryOf", () => {
+  const p = divisionPostseason();
+  const f = fixtureById(gac, PREVIEW);
+  menOnly("a followed side with no first-round tie enters in the second round", () => {
+    if (!f) throw new Error("preview fixture missing");
+    expect(entryOf(p, memberSeasonOf(seasons, f.home), f.home, f)?.text).toBe(
+      "Enters in the second round",
+    );
+  });
+  menOnly("a side with no collected schedule is never said to have had a bye", () => {
+    if (!f) throw new Error("preview fixture missing");
+    // Its silence before this round is not evidence of anything.
+    expect(entryOf(p, null, f.away, f)).toBeNull();
+  });
+  test("nobody enters a tournament later than its first round in the first round", () => {
+    for (const tie of p.byIdentity.values()) {
+      if (tie.round > 1) continue;
+      for (const slug of [tie.fixture.home, tie.fixture.away]) {
+        expect(entryOf(p, memberSeasonOf(seasons, slug), slug, tie.fixture)).toBeNull();
+      }
+    }
+  });
+  test("no side that played an earlier round of the tournament is said to enter later", () => {
+    for (const [identity, tie] of p.byIdentity) {
+      const tournament = p.tournamentOf.get(identity);
+      for (const slug of [tie.fixture.home, tie.fixture.away]) {
+        const entry = entryOf(p, memberSeasonOf(seasons, slug), slug, tie.fixture);
+        if (!entry) continue;
+        expect(tie.round).toBeGreaterThan(1);
+        expect(entry.round).toBe(tie.round);
+        const earlier = (tournament?.ties ?? []).filter(
+          (t) =>
+            t.identity !== identity &&
+            (t.fixture.home === slug || t.fixture.away === slug) &&
+            t.round < tie.round,
+        );
+        expect(earlier).toEqual([]);
+      }
+    }
   });
 });
 

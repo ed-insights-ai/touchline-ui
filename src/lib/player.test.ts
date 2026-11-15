@@ -190,6 +190,21 @@ describe("the match log carries the box score's minutes", () => {
     expect(printed / withBox.length).toBeGreaterThan(0.9);
   });
 
+  test("goals and assists come off the same line, and only where there is one", () => {
+    for (const r of rows.filter((r) => r.line === null)) {
+      expect(r.goals).toBeNull();
+      expect(r.assists).toBeNull();
+    }
+    // The collect has scorers on its boxes; a sweep that finds none would
+    // mean the log stopped reading the column, not that nobody scored.
+    expect(withBox.some((r) => (r.goals ?? 0) > 0)).toBe(true);
+    expect(withBox.some((r) => (r.assists ?? 0) > 0)).toBe(true);
+  });
+
+  test("every row links its own Match Centre, minted from the fixture id", () => {
+    for (const r of rows) expect(r.href).toMatch(/\/match\/[^/]+\/$/);
+  });
+
   test("a substitute is marked only when the box says they did not start", () => {
     const subs = withBox.filter((r) => r.sub === true);
     const starters = withBox.filter((r) => r.sub === false);
@@ -378,7 +393,7 @@ describe("career rates pool the seasons that carry every part they divide", () =
     ]);
     expect(rate(rows, "Save percentage")).toBe(".809");
     expect(rate(rows, "Goals against average")).toBe("1.07");
-    expect(rate(rows, "Record")).toBe("10–3–5");
+    expect(rate(rows, "Record (W–D–L)")).toBe("10–3–5");
   });
 
   test("under the sample floor a rate gives way to its counts", () => {

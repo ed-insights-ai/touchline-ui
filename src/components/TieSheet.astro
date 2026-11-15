@@ -81,6 +81,15 @@ const throughLine = (() => {
     text: `${who} went through: no record of this tie names a winner, and ${who} plays the next round.`,
   };
 })();
+// Played level with no shootout collected: the match is over and no record
+// says who went through. Said in words, so a scored tie never reads as one
+// still to play; the result cell, where one was printed, is quoted below.
+const levelUnsettled =
+  scored && !tie.disputed && !tie.through && f.home_score === f.away_score
+    ? tie.resultPublished
+      ? `Drawn ${f.home_score}–${f.away_score}, from the published score. No record collects the shootout's winner, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
+      : `Drawn ${f.home_score}–${f.away_score}, from the published score. No record publishes a shootout, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
+    : null;
 const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
   (x): x is string => typeof x === "string",
 );
@@ -197,6 +206,11 @@ const tournamentName = tie.competition === "ncaa" ? "NCAA tournament" : `${tourn
           ))}
         </ul>
       </div>
+    ) : levelUnsettled ? (
+      <p class="sh-note">
+        <span class="chip chip-observed">OBSERVED ●●●</span>
+        <span>{levelUnsettled}</span>
+      </p>
     ) : (
       throughLine && (
         <p class="sh-note">

@@ -21,7 +21,7 @@ import {
   memberSlugs,
   seasonCounts,
 } from "./derive.ts";
-import { allSightings, divisionCounts, foldToMatches } from "./division.ts";
+import { allSightings, type DivisionMatch, divisionCounts, foldToMatches } from "./division.ts";
 import { densityCards, densityConfig } from "./fixtures/density.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import { footprintOf } from "./geo.ts";
@@ -57,6 +57,7 @@ import {
   nationalDescription,
   nationalLede,
   nationalMasthead,
+  ncaaNextDay,
   nextLeagueKickoff,
   openBandIndex,
   opensLine,
@@ -603,9 +604,12 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       () => {
         const html = readFileSync(dist, "utf8");
         const ledger = lastNightLedger(seasons, lastNightOf(nationalAsOf(seasons)));
-        const section =
+        const whole =
           /<section class="lastnight[^"]*"[^>]*>([\s\S]*?)<\/section>/.exec(html)?.[1] ?? "";
-        expect(section).not.toBe("");
+        expect(whole).not.toBe("");
+        // The NCAA day ahead shares the section but is not the night's ledger.
+        const day = whole.indexOf('<div class="ln-day');
+        const section = day === -1 ? whole : whole.slice(0, day);
         const rowsIn = (s: string): number => [...s.matchAll(/<a class="lrow[ "]/g)].length;
         expect(rowsIn(section)).toBe(ledger.length);
         const at = section.indexOf('<details class="ledger-more');
@@ -1355,6 +1359,86 @@ describe("the championship line under LAST NIGHT", () => {
       `${site.governingBody} championship · ${played.length} of ${ncaa.ties.length} ${
         ncaa.ties.length === 1 ? "tie" : "ties"
       } played`,
+    );
+  });
+});
+
+describe("the NCAA's next playing day under LAST NIGHT", () => {
+  // A tie as the fold hands it over: the match and its fixture, one object.
+  const tie = (
+    id: string,
+    date: string,
+    status: string,
+    time?: string,
+    scored = false,
+  ): { fixture: Fixture; match: DivisionMatch } => {
+    const fixture = {
+      id,
+      date,
+      status,
+      ...(time ? { time } : {}),
+      ...(scored ? { home_score: 2, away_score: 1 } : {}),
+    } as unknown as Fixture;
+    return { fixture, match: { fixture, codes: ["GAC"] } as unknown as DivisionMatch };
+  };
+
+  test("no tie still to play, no list", () => {
+    expect(ncaaNextDay({ ties: [] }, "2026-11-15")).toBeNull();
+    expect(
+      ncaaNextDay({ ties: [tie("a", "2026-11-15", "final", "13:00", true)] }, "2026-11-15"),
+    ).toBeNull();
+    // A tie left scheduled on a date gone by is not the next playing day.
+    expect(ncaaNextDay({ ties: [tie("a", "2026-11-14", "scheduled")] }, "2026-11-15")).toBeNull();
+  });
+
+  test("today when a tie is still to play today, in kickoff order, finals of the day kept", () => {
+    const day = ncaaNextDay(
+      {
+        ties: [
+          tie("late", "2026-11-15", "scheduled", "15:00"),
+          tie("done", "2026-11-15", "final", "12:00", true),
+          tie("early", "2026-11-15", "scheduled", "13:00"),
+          tie("off", "2026-11-15", "cancelled", "13:00"),
+          tie("next", "2026-11-16", "scheduled", "12:00"),
+        ],
+      },
+      "2026-11-15",
+    );
+    expect(day?.date).toBe("2026-11-15");
+    expect(day?.isToday).toBe(true);
+    expect(day?.matches.map((m) => m.fixture.id)).toEqual(["done", "early", "late"]);
+  });
+
+  test("the next date with a tie to play when today has none", () => {
+    const day = ncaaNextDay(
+      {
+        ties: [
+          tie("done", "2026-11-15", "final", "12:00", true),
+          tie("sat", "2026-11-21", "scheduled", "13:00"),
+          tie("sun", "2026-11-22", "scheduled", "13:00"),
+        ],
+      },
+      "2026-11-15",
+    );
+    expect(day?.date).toBe("2026-11-21");
+    expect(day?.isToday).toBe(false);
+    expect(day?.matches.map((m) => m.fixture.id)).toEqual(["sat"]);
+  });
+
+  test("on the live data every row is an NCAA tie on the one date, none called off", () => {
+    const ncaa = divisionPostseason().ncaa;
+    const asOf = nationalAsOf(homeSeasons());
+    const day = ncaaNextDay(ncaa, asOf);
+    if (day === null) return;
+    expect(day.date >= asOf).toBe(true);
+    const ids = new Set(ncaa.ties.map((t) => t.identity));
+    for (const m of day.matches) {
+      expect(ids.has(m.identity)).toBe(true);
+      expect(m.fixture.date).toBe(day.date);
+      expect(["cancelled", "postponed"]).not.toContain(m.fixture.status);
+    }
+    expect(day.matches.some((m) => m.fixture.status === "scheduled" && !hasScore(m.fixture))).toBe(
+      true,
     );
   });
 });

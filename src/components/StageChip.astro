@@ -12,7 +12,14 @@ interface Props {
 }
 const { chip, size = "md" } = Astro.props;
 ---
-<span class:list={["stage-chip", `stage-chip-${chip.competition}`, `stage-chip-${size}`]} title={chip.phrase}>{chip.text}</span>
+{/* The owner and the round are two spans of the one tag, so a surface too
+    narrow for the whole of it (a season-strip cell on a phone) can drop the
+    owner and keep the round: the outline or the fill still says whose round
+    it is, and the key beside the strip prints the tag whole. Everywhere else
+    the two read as the one text, "GAC SF". */}
+<span class:list={["stage-chip", `stage-chip-${chip.competition}`, `stage-chip-${size}`]} title={chip.phrase}
+  >{chip.label ? <><span class="stage-owner">{chip.owner} </span><span class="stage-round">{chip.label}</span></> : chip.text}</span
+>
 
 <style>
   .stage-chip {

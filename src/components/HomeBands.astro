@@ -231,7 +231,7 @@ const codeChars = Math.max(4, ...bands.flatMap((b) => b.columns.map((c) => c.cod
     /* 17px for the mark and its margin; 1.25ch per character covers the
        widest capitals at the code's 15px and weight 600, measured. */
     --code-w: calc(17px + var(--code-ch, 5) * 1.25ch);
-    grid-template-columns: var(--code-w) max-content max-content minmax(0, 1fr);
+    grid-template-columns: var(--code-w) minmax(0, max-content) max-content 1fr;
     grid-template-areas: "code opens played go" "line line line line";
     column-gap: 14px;
     row-gap: 4px;
@@ -255,7 +255,15 @@ const codeChars = Math.max(4, ...bands.flatMap((b) => b.columns.map((c) => c.cod
   .row.hue-4 .mark { color: var(--hue-4); }
   .row.hue-5 .mark { color: var(--hue-5); }
   .row.hue-6 .mark { color: var(--hue-6); }
-  .opens { grid-area: opens; font-size: 10px; letter-spacing: 0.12em; color: var(--quiet); white-space: nowrap; }
+  /* The opens line is the one cell whose length the data sets ("CONFERENCE
+     TOURNAMENT UNDER WAY" beside "OPENS SEP 12"), so it is the one that
+     gives: its column is at most its own width and at least nothing, and when
+     the row runs short it wraps inside that column. The figures and the link
+     beside it keep their width, so a long phase never overprints "161 of 161
+     played" or the OPEN link (women's GLVC and GLIAC rows at 1280, council
+     round 2). The link's column is 1fr with an auto floor: it is never
+     narrower than OPEN →. */
+  .opens { grid-area: opens; min-width: 0; font-size: 10px; letter-spacing: 0.12em; line-height: 1.35; color: var(--quiet); text-wrap: balance; }
   .opens.is-imminent { color: var(--accent); font-weight: 600; }
   .played { grid-area: played; font-size: 12px; white-space: nowrap; }
   .played b { font-weight: 600; }
@@ -285,7 +293,7 @@ const codeChars = Math.max(4, ...bands.flatMap((b) => b.columns.map((c) => c.cod
   /* Wide enough for the stamp on the first line. */
   @container bands (min-width: 560px) {
     .row {
-      grid-template-columns: var(--code-w) max-content max-content max-content minmax(0, 1fr);
+      grid-template-columns: var(--code-w) minmax(0, max-content) max-content max-content 1fr;
       grid-template-areas: "code opens played stamp go" "line line line line line";
     }
     .stamp { display: inline; grid-area: stamp; }
@@ -293,9 +301,6 @@ const codeChars = Math.max(4, ...bands.flatMap((b) => b.columns.map((c) => c.cod
   @container bands (max-width: 420px) {
     .row { grid-template-columns: var(--code-w) minmax(0, 1fr) auto; grid-template-areas: "code opens played" "line line line"; }
     .go { display: none; }
-    /* The opens line may wrap here: at phone width the longest one does not
-       fit beside the code and the count on one line. */
-    .opens { white-space: normal; }
     .line { font-size: 15px; }
   }
 

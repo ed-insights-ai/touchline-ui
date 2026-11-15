@@ -192,7 +192,10 @@ const openerPanel = (() => {
     cleanSheets === 1 ? "clean sheet" : "clean sheets"
   }`;
   return {
-    label: "RECORD",
+    // Three bare numbers read as a score to anyone who does not know the
+    // house order, so the label names it, as the player sheet's does
+    // ("Record (W–D–L)"); the splits beneath read in the same order.
+    label: "RECORD (W–D–L)",
     figure: `${record.won}–${record.drawn}–${record.lost}`,
     note: parts.length > 0 ? `${parts.join(" · ")}. ${goals}` : goals,
   };
