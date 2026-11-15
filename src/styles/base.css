@@ -245,8 +245,10 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 .htab:focus-visible { outline: 1px solid var(--accent); outline-offset: -4px; }
 .htab .chevron { width: 10px; height: 10px; stroke: var(--secondary); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .hmenu[open] > .htab .chevron { transform: rotate(180deg); }
-/* The conference trigger is still the conference indicator. */
-.htab-conf { font-weight: 600; color: var(--ink); border-bottom-color: var(--accent); }
+/* The accent rule marks the one place the reader is: the conference trigger
+   inside a conference, the Championship tab on its own page. Off both — the
+   home, About — no tab is current, and none carries the rule. */
+.htab-current { font-weight: 600; color: var(--ink); border-bottom-color: var(--accent); }
 /* The team trigger names the team in ink on a team page and offers "Teams"
    in the secondary colour everywhere else. */
 .htab-here { font-weight: 600; color: var(--ink); }
