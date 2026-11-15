@@ -253,12 +253,18 @@ describe("the season page's order and keys", () => {
   });
 
   test("the dek is the story's opening paragraph, and reads in serif on both surfaces", () => {
+    // Both surfaces draw the one Masthead, whose dek is serif unless told
+    // otherwise; the season page never tells it otherwise.
+    const shared = readFileSync(join(import.meta.dir, "../components/Masthead.astro"), "utf8");
+    expect(shared).toContain("dekSerif = true");
+    expect(shared).toMatch(/class:list=\{\["dek", \{ serif: dekSerif/);
     const mast = readFileSync(join(import.meta.dir, "../components/SeasonMasthead.astro"), "utf8");
-    expect(mast).toContain('class="dek serif"');
+    expect(mast).toContain("<Masthead");
+    expect(mast).not.toContain("dekSerif");
     const home = readFileSync(join(import.meta.dir, "../pages/index.astro"), "utf8");
     // Only a journal writes a headline, so a headline is the tell that the
     // dek beneath it is story rather than the floor's openers.
-    expect(home).toMatch(/lede\.headline \? "nat-dek nat-lede serif" : "nat-dek"/);
+    expect(home).toContain("dekSerif={!!lede.headline}");
   });
 
   test("the season line keys its marks with the legend and prints no caption", () => {
@@ -298,7 +304,10 @@ describe("the figures strip is the page's own", () => {
     // The coverage line no longer prints the count; the gaps panel's own
     // heading still says "matches played", which is a different sentence.
     expect(mast).not.toContain("{counts.played} OF {counts.total}");
-    expect(mast).toContain('class="strip num"');
+    // The strip is the shared masthead's, fed the season's own cells.
+    expect(mast).toContain("strip={");
+    const shared = readFileSync(join(import.meta.dir, "../components/Masthead.astro"), "utf8");
+    expect(shared).toContain('class="strip num"');
     const spine = readFileSync(join(import.meta.dir, "../components/SeasonSpine.astro"), "utf8");
     expect(spine).toContain("score gap");
     expect(spine).toContain("past dates");

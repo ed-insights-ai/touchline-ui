@@ -12,6 +12,7 @@
 // that hosted their quarterfinal, and nothing is drawn that the results have
 // not joined.
 import Bracket from "../components/Bracket.astro";
+import Masthead from "../components/Masthead.astro";
 import FieldStrip from "../components/FieldStrip.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
@@ -23,7 +24,7 @@ import { dayOfMonth, dowShort, monShort, spell } from "../lib/format.ts";
 import { homeSeasons } from "../lib/home.ts";
 import { regionsOf, type Tie } from "../lib/postseason.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
-import { site } from "../site.config.ts";
+import { currentDivision, site } from "../site.config.ts";
 
 const p = divisionPostseason();
 const ncaa = p.ncaa;
@@ -113,20 +114,28 @@ const hasRegions = regionsOf(ncaa).length > 0;
   description="The NCAA Division II men's soccer championship and the conference tournaments, drawn from the published results."
 >
   <div class="tl-page champ" id="top">
+    {/* The header and the masthead sit flush, as on every page; the page's
+        30px rhythm starts beneath them. */}
+    <div>
     <SiteHeader />
     <div class="path-anchors" aria-hidden="true">
       {traced.map((slug) => <span id={`path-${slug}`}></span>)}
     </div>
 
-    <section class="mast">
-      <div class="eyebrow">
-        <span class="l">
-          NCAA DIVISION II CHAMPIONSHIP{champion && final ? ` · DECIDED · ${monShort(final.fixture.date).toUpperCase()} ${dayOfMonth(final.fixture.date)}` : ""}
-        </span>
-        <span class="r num">{site.season} · {site.gender.toUpperCase()}{ncaa.ties.length > 0 ? ` · ${played} PLAYED` : ""}</span>
-      </div>
-      <h1 class="serif">{headline}</h1>
-      <p class="dek">{dek}</p>
+    <Masthead
+      kicker={`NCAA ${currentDivision.name.toUpperCase()} CHAMPIONSHIP${champion && final ? ` · DECIDED · ${monShort(final.fixture.date).toUpperCase()} ${dayOfMonth(final.fixture.date)}` : ""}`}
+      headline={headline}
+      title={headline}
+      dek={dek}
+      strip={ncaa.ties.length > 0
+        ? [
+            `${played} played`,
+            `${field.size} programmes`,
+            `${conferencesIn.size} of ${configured} conferences in the field`,
+            `${pens} ${pens === 1 ? "tie" : "ties"} settled on penalties`,
+          ]
+        : []}
+    >
       {ncaa.ties.length > 0 && (
         <div class="ev">
           {champion && <span class="chip chip-observed">OBSERVED ●●●</span>}
@@ -135,14 +144,8 @@ const hasRegions = regionsOf(ncaa).length > 0;
           <span class="prov">The route and the rounds, recomputed from {ncaa.ties.length} results.</span>
         </div>
       )}
-      {ncaa.ties.length > 0 && (
-        <div class="facts num">
-          <span>{field.size} programmes</span>
-          <span>{conferencesIn.size} of {configured} conferences in the field</span>
-          <span>{pens} {pens === 1 ? "tie" : "ties"} settled on penalties</span>
-        </div>
-      )}
-    </section>
+    </Masthead>
+    </div>
 
     {ncaa.ties.length > 0 && (
       <section class="block" id="field">
@@ -264,16 +267,8 @@ const hasRegions = regionsOf(ncaa).length > 0;
      bracket so a trace scrolls there, and taking no room in the grid. */
   .path-anchors { position: absolute; width: 0; height: 0; overflow: hidden; }
   .path-anchors span { display: block; }
-  .mast { padding-block: 22px 22px; border-bottom: 1px solid var(--hairline); display: grid; gap: 12px; }
-  .eyebrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 11px; letter-spacing: 0.2em; font-weight: 600; }
-  .eyebrow .l { color: var(--accent); }
-  .eyebrow .r { color: var(--quiet); letter-spacing: 0.1em; font-weight: 500; }
-  .mast h1 { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.08; margin: 0; text-wrap: balance; font-weight: 500; }
-  .dek { font-family: var(--serif); font-size: 17px; line-height: 1.5; color: var(--secondary); max-width: 70ch; margin: 0; }
   .ev { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
   .prov { font-size: 12px; color: var(--secondary); }
-  .facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 11.5px; letter-spacing: 0.1em; color: var(--secondary); text-transform: uppercase; }
-  .facts span + span::before { content: "·"; margin-right: 18px; color: var(--quiet); }
   .block { display: grid; gap: 16px; min-width: 0; }
 
   .finals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: center; }
