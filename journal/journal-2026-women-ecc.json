@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "ECC",
-  "generated_at": "2026-11-10T13:05:00+00:00",
-  "data_collected_at": "2026-11-10T12:50:48+00:00",
+  "generated_at": "2026-11-15T19:55:00+00:00",
+  "data_collected_at": "2026-11-15T19:42:38+00:00",
   "headline": "Mercy score their way to the top of the table",
   "dek": "Mercy have scored 42 goals this season, more than any other programme, and conceded seventeen while losing only three times. Twelve different players have put their names on the scoresheet.",
   "lede_basis": {
@@ -35,7 +35,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "mercy": 42,
-        "molloy": 29,
+        "molloy": 30,
         "queens": 27,
         "roberts-wesleyan": 19,
         "d-youville": 18,
@@ -49,7 +49,7 @@
       "comparative": "greater_than_each",
       "metric": "gf",
       "programme": "molloy",
-      "gf": 29,
+      "gf": 30,
       "of": [
         "queens",
         "roberts-wesleyan",
@@ -140,21 +140,17 @@
       "programme": "molloy",
       "position": "FWD",
       "class": "JR",
-      "line": "5 G · 6 A · 34 shots"
+      "line": "5 G · 7 A · 36 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 mercy v molloy",
-      "line": "Molloy are the only conference side Mercy have not beaten this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-13 franklin-pierce v molloy",
-      "line": "Franklin Pierce have already beaten Molloy at home this season."
+      "line": "Molloy have now lost both of their visits to Franklin Pierce this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:01:10.189Z"
+    "validated_at": "2026-11-15T19:53:21.681Z"
   }
 }

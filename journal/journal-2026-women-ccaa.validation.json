@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "CCAA",
-  "validated_at": "2026-11-10T13:01:13.103Z",
-  "data_collected_at": "2026-11-10T12:50:21+00:00",
+  "validated_at": "2026-11-15T19:53:18.227Z",
+  "data_collected_at": "2026-11-15T19:42:19+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring is top-heavy: Cal State LA's 36 goals are more than Fresno Pacific, San Francisco State and Cal State Dominguez Hills have scored between them.",
+      "text": "Scoring is top-heavy: Cal State LA's 37 goals are more than Fresno Pacific, San Francisco State and Cal State Dominguez Hills have scored between them.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +89,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jocelin Roa — 13 G · 3 A · 60 shots",
+      "text": "Jocelin Roa — 13 G · 3 A · 63 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +107,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Briana Chagolla — 10 G · 3 A · 49 shots",
+      "text": "Briana Chagolla — 10 G · 4 A · 51 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +116,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 cal-state-la v uc-merced",
+      "text": "2026-11-13 cal-poly-pomona v simon-fraser",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 cal-state-la v uc-merced",
+      "text": "2026-11-15 concordia v cal-state-la",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:00:29.006Z",
-    "generate_ms": 44096,
+    "started_at": "2026-11-15T19:52:28.692Z",
+    "generate_ms": 49534,
     "validate_ms": 1,
-    "wall_ms": 44097,
+    "wall_ms": 49535,
     "concurrency": 4
   }
 }

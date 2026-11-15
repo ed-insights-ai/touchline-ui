@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NE10",
-  "generated_at": "2026-11-10T13:20:00+00:00",
-  "data_collected_at": "2026-11-10T12:54:14+00:00",
+  "generated_at": "2026-11-15T20:10:00+00:00",
+  "data_collected_at": "2026-11-15T19:46:19+00:00",
   "headline": "Bentley beat the only side to have beaten them",
   "dek": "Bentley won at Franklin Pierce, who had gone through the conference table without a defeat, on the ground where Bentley lost in October. That remains the only loss beside fifteen wins and three draws, and Bentley have conceded fifteen goals all season.",
   "lede_basis": {
@@ -23,9 +23,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "bentley": 50,
-        "franklin-pierce": 43,
+        "franklin-pierce": 47,
         "pace": 33,
-        "saint-michael-s": 30,
+        "saint-michael-s": 31,
         "assumption": 29,
         "saint-anselm": 28,
         "southern-connecticut": 26,
@@ -152,21 +152,21 @@
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 8 A · 68 shots"
+      "line": "9 G · 10 A · 71 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 franklin-pierce v bentley",
-      "line": "Franklin Pierce had not lost to a conference side until this match."
+      "fixture_ref": "2026-11-13 franklin-pierce v molloy",
+      "line": "Franklin Pierce had already beaten Molloy at home in September without conceding."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 molloy v franklin-pierce",
-      "line": "Franklin Pierce beat Molloy at home in September without conceding."
+      "fixture_ref": "2026-11-15 bentley v saint-michael-s",
+      "line": "Saint Michael's have lost both meetings with Bentley this season, each by a single goal."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:02:20.579Z"
+    "validated_at": "2026-11-15T19:55:15.851Z"
   }
 }

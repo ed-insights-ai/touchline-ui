@@ -3,15 +3,15 @@
   "season": 2026,
   "gender": "women",
   "conference": "PBC",
-  "generated_at": "2026-11-10T13:10:00+00:00",
-  "data_collected_at": "2026-11-10T12:55:31+00:00",
+  "generated_at": "2026-11-15T19:55:00+00:00",
+  "data_collected_at": "2026-11-15T19:47:11+00:00",
   "headline": "Columbus State go unbeaten in conference play",
   "dek": "Columbus State came through conference play without a defeat, the only side in the table to do so. North Georgia, the one side to score more goals, lost to them in September and again in November.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "gf",
     "programme": "north-georgia",
-    "gf": 60,
+    "gf": 64,
     "of": [
       "columbus-state",
       "georgia-college",
@@ -27,12 +27,12 @@
   "lede_updated": "2026-11-09",
   "pattern": {
     "label": "derived",
-    "text": "Scoring has split the conference in two: North Georgia alone have more goals than Georgia College and Clayton State together, and the two biggest attacks belong to the two sides at the top of the table.",
+    "text": "Scoring has split the conference: North Georgia alone have more goals than Georgia College and Clayton State together, and only Columbus State come near them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "north-georgia": 60,
-        "columbus-state": 56,
+        "north-georgia": 64,
+        "columbus-state": 57,
         "georgia-college": 30,
         "clayton-state": 26,
         "usc-beaufort": 25,
@@ -48,7 +48,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "north-georgia",
-      "gf": 60,
+      "gf": 64,
       "of": ["georgia-college", "clayton-state"]
     }
   },
@@ -58,7 +58,7 @@
       "comparative": "greater_than_each",
       "metric": "gf",
       "programme": "north-georgia",
-      "gf": 60,
+      "gf": 64,
       "of": [
         "columbus-state",
         "georgia-college",
@@ -93,13 +93,13 @@
     },
     {
       "label": "observed",
-      "text": "Grace McGill has set up as many goals as she has scored for North Georgia, eleven of each.",
+      "text": "Grace McGill has now set up more goals for North Georgia than she has scored: twelve assists to eleven goals.",
       "basis": {
         "source": "stats",
         "player": "Grace McGill",
         "programme": "north-georgia",
         "goals": 11,
-        "assists": 11
+        "assists": 12
       }
     },
     {
@@ -120,35 +120,35 @@
       "programme": "north-georgia",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 11 A · 62 shots"
+      "line": "11 G · 12 A · 64 shots"
     },
     {
       "player": "Nina Lopez",
       "programme": "north-georgia",
       "position": "MID",
       "class": "JR",
-      "line": "12 G · 6 A · 62 shots"
+      "line": "12 G · 6 A · 65 shots"
     },
     {
       "player": "Shania Wegesend",
       "programme": "columbus-state",
       "position": "FWD",
       "class": "SR",
-      "line": "9 G · 2 A · 38 shots"
+      "line": "10 G · 2 A · 40 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 columbus-state v north-georgia",
-      "line": "Flagler are the only other conference side to have beaten North Georgia."
+      "fixture_ref": "2026-11-13 columbus-state v flagler",
+      "line": "Flagler have now lost to both sides above them in the table, one after the other."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 columbus-state v flagler",
-      "line": "Columbus State have not lost to a conference side; Flagler held them to a draw in September."
+      "fixture_ref": "2026-11-15 columbus-state v unc-pembroke",
+      "line": "Columbus State have won every match since their defeat at Montevallo."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:02:47.970Z"
+    "validated_at": "2026-11-15T19:55:54.373Z"
   }
 }

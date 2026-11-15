@@ -3,17 +3,18 @@
   "season": 2026,
   "gender": "women",
   "conference": "GLIAC",
-  "generated_at": "2026-11-10T13:05:00+00:00",
-  "data_collected_at": "2026-11-10T12:52:00+00:00",
-  "headline": "Bottom-half Ferris State beats the table's leaders",
-  "dek": "Ferris State drew at Wayne State and then went back and won there, handing the leaders only their second defeat of the season. A win at Wisconsin-Parkside and a draw with Saginaw Valley State followed, from a side that sits in the table's bottom half.",
+  "generated_at": "2026-11-15T19:52:00+00:00",
+  "data_collected_at": "2026-11-15T19:44:37+00:00",
+  "headline": "Wayne State win as Grand Valley State lose",
+  "dek": "Wayne State won their non-conference match and have lost only twice all season, to Davenport and Ferris State. Grand Valley State and Saginaw Valley State both lost theirs.",
   "lede_basis": {
     "programme": "wayne-state",
-    "wins": 12,
+    "wins": 13,
     "draws": 5,
     "losses": 2
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Wayne State beat their non-conference opponent while Grand Valley State and Saginaw Valley State both lost theirs",
   "pattern": {
     "label": "derived",
     "text": "Roosevelt and Michigan Tech sit apart at the foot: Purdue Northwest's twenty-five goals, the next-lowest figure, are more than the pair have scored together.",
@@ -21,8 +22,8 @@
       "kind": "goals-for-by-team",
       "values": {
         "saginaw-valley-state": 40,
+        "wayne-state": 39,
         "grand-valley-state": 37,
-        "wayne-state": 37,
         "davenport": 33,
         "northern-michigan": 33,
         "wisconsin-parkside": 29,
@@ -41,17 +42,6 @@
       "gf": 25
     }
   },
-  "wire": {
-    "line": "Wayne State freshman Sienna Mroue has eleven goals and nine assists.",
-    "basis": {
-      "source": "stats",
-      "player": "Sienna Mroue",
-      "programme": "wayne-state",
-      "goals": 11,
-      "assists": 9
-    },
-    "updated": "2026-11-09"
-  },
   "findings": [
     {
       "label": "observed",
@@ -64,11 +54,22 @@
     },
     {
       "label": "derived",
-      "text": "Wayne State have conceded fourteen goals all season while scoring thirty-seven.",
+      "text": "Wayne State have conceded fifteen goals all season while scoring thirty-nine.",
       "basis": {
         "programme": "wayne-state",
-        "gf": 37,
-        "ga": 14
+        "gf": 39,
+        "ga": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Sienna Mroue has thirteen goals and nine assists for Wayne State.",
+      "basis": {
+        "source": "stats",
+        "player": "Sienna Mroue",
+        "programme": "wayne-state",
+        "goals": 13,
+        "assists": 9
       }
     },
     {
@@ -98,14 +99,14 @@
       "programme": "wayne-state",
       "position": "FWD",
       "class": "FR",
-      "line": "11 G · 9 A · 75 shots"
+      "line": "13 G · 9 A · 82 shots"
     },
     {
       "player": "Abby Ellis",
       "programme": "saginaw-valley-state",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 5 A · 48 shots"
+      "line": "9 G · 5 A · 49 shots"
     },
     {
       "player": "Mia Davis",
@@ -117,16 +118,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 ferris-state v saginaw-valley-state",
-      "line": "Saginaw Valley State's winning run ends; Ferris State are unbeaten since losing to Grand Valley State."
+      "fixture_ref": "2026-11-13 ashland v grand-valley-state",
+      "line": "Grand Valley State have now lost back to back, after Saginaw Valley State beat them."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 mckendree v wayne-state",
-      "line": "Wayne State have lost only to Davenport and Ferris State all season."
+      "fixture_ref": "2026-11-15 15-ashland v wayne-state",
+      "line": "The hosts have beaten Grand Valley State, whom Wayne State beat home and away."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:01:44.941Z"
+    "validated_at": "2026-11-15T19:54:40.524Z"
   }
 }

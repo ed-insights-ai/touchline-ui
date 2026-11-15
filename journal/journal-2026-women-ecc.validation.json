@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "ECC",
-  "validated_at": "2026-11-10T13:01:10.189Z",
-  "data_collected_at": "2026-11-10T12:50:48+00:00",
+  "validated_at": "2026-11-15T19:53:21.681Z",
+  "data_collected_at": "2026-11-15T19:42:38+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 11,
+    "verified": 11,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Bella Juliano — 5 G · 6 A · 34 shots",
+      "text": "Bella Juliano — 5 G · 7 A · 36 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -109,15 +109,6 @@
     },
     {
       "path": "featured.last_match",
-      "label": "observed",
-      "text": "2026-11-07 mercy v molloy",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
       "label": "observed",
       "text": "2026-11-13 franklin-pierce v molloy",
       "checker": "fixture_ref",
@@ -127,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:00:33.328Z",
-    "generate_ms": 36860,
+    "started_at": "2026-11-15T19:52:32.674Z",
+    "generate_ms": 49006,
     "validate_ms": 1,
-    "wall_ms": 36862,
+    "wall_ms": 49007,
     "concurrency": 4
   }
 }

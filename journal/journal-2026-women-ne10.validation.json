@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NE10",
-  "validated_at": "2026-11-10T13:02:20.579Z",
-  "data_collected_at": "2026-11-10T12:54:14+00:00",
+  "validated_at": "2026-11-15T19:55:15.851Z",
+  "data_collected_at": "2026-11-15T19:46:19+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "McKenna Maguire — 9 G · 8 A · 68 shots",
+      "text": "McKenna Maguire — 9 G · 10 A · 71 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-08 franklin-pierce v bentley",
+      "text": "2026-11-13 franklin-pierce v molloy",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 molloy v franklin-pierce",
+      "text": "2026-11-15 bentley v saint-michael-s",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:01:44.014Z",
-    "generate_ms": 36563,
+    "started_at": "2026-11-15T19:54:37.764Z",
+    "generate_ms": 38085,
     "validate_ms": 1,
-    "wall_ms": 36564,
+    "wall_ms": 38087,
     "concurrency": 4
   }
 }

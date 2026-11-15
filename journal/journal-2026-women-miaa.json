@@ -3,33 +3,50 @@
   "season": 2026,
   "gender": "women",
   "conference": "MIAA",
-  "generated_at": "2026-11-10T13:05:00Z",
-  "data_collected_at": "2026-11-10T12:48:22+00:00",
-  "headline": "Washburn hands Pittsburg State its first defeat",
-  "dek": "Washburn have beaten Pittsburg State, the first defeat for a side that had gone the season unbeaten. Pittsburg State have conceded four goals in 21 matches, and still hold 15 wins against that single loss.",
+  "generated_at": "2026-11-15T19:55:00Z",
+  "data_collected_at": "2026-11-15T19:40:45+00:00",
+  "headline": "Washburn win again and lead the conference in victories",
+  "dek": "Washburn have won 17 of their 21 matches, the latest over Southwestern Oklahoma State, and no other programme in the conference has won as many. Their one defeat came at Pittsburg State in September, and they have conceded seven goals; Central Missouri are next.",
   "lede_basis": {
-    "programme": "pittsburg-state",
-    "wins": 15,
-    "draws": 5,
+    "programme": "washburn",
+    "wins": 17,
+    "draws": 3,
     "losses": 1,
-    "gf": 40,
-    "ga": 4,
-    "played": 21
+    "gf": 53,
+    "ga": 7,
+    "played": 21,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": [
+      "central-missouri",
+      "central-oklahoma",
+      "emporia-state",
+      "fort-hays-state",
+      "missouri-southern",
+      "missouri-western",
+      "nebraska-kearney",
+      "newman",
+      "northeastern-state",
+      "northwest-missouri-state",
+      "pittsburg-state",
+      "rogers-state"
+    ]
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Standing dek no longer true (Pittsburg State now 16 wins in 22); Washburn now hold the most wins in the conference.",
   "pattern": {
     "label": "derived",
     "text": "The drop from the top is steep rather than gradual: Washburn have more goals than Newman, Missouri Southern and Fort Hays State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "washburn": 49,
-        "central-missouri": 44,
-        "pittsburg-state": 40,
+        "washburn": 53,
+        "central-missouri": 49,
+        "pittsburg-state": 41,
         "emporia-state": 36,
         "central-oklahoma": 24,
+        "missouri-western": 23,
         "rogers-state": 22,
-        "missouri-western": 21,
         "northeastern-state": 20,
         "northwest-missouri-state": 19,
         "fort-hays-state": 15,
@@ -43,18 +60,21 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "washburn",
-      "gf": 49,
+      "gf": 53,
       "of": ["newman", "missouri-southern", "fort-hays-state"]
     }
   },
   "wire": {
-    "line": "Washburn have scored 49 goals and conceded six, and are the only side to have beaten Pittsburg State.",
+    "line": "Pittsburg State have conceded four goals all season and lost once, to Washburn.",
     "basis": {
-      "programme": "washburn",
-      "gf": 49,
-      "ga": 6
+      "programme": "pittsburg-state",
+      "wins": 16,
+      "draws": 5,
+      "losses": 1,
+      "gf": 41,
+      "ga": 4
     },
-    "updated": "2026-11-09"
+    "updated": "2026-11-15"
   },
   "findings": [
     {
@@ -68,15 +88,15 @@
     },
     {
       "label": "derived",
-      "text": "Central Missouri have conceded seven goals in 20 matches while scoring 44.",
+      "text": "Central Missouri have conceded seven goals in 21 matches while scoring 49.",
       "basis": {
         "programme": "central-missouri",
-        "wins": 14,
+        "wins": 15,
         "draws": 4,
         "losses": 2,
-        "gf": 44,
+        "gf": 49,
         "ga": 7,
-        "played": 20
+        "played": 21
       }
     },
     {
@@ -89,13 +109,13 @@
     },
     {
       "label": "observed",
-      "text": "Coryn Jespersen has 13 assists for Central Missouri, to go with four goals.",
+      "text": "Coryn Jespersen has 17 assists for Central Missouri, to go with four goals.",
       "basis": {
         "source": "stats",
         "player": "Coryn Jespersen",
         "programme": "central-missouri",
         "goals": 4,
-        "assists": 13
+        "assists": 17
       }
     },
     {
@@ -116,7 +136,14 @@
       "programme": "washburn",
       "position": "FWD",
       "class": "FR",
-      "line": "12 G · 2 A · 51 shots"
+      "line": "12 G · 3 A · 51 shots"
+    },
+    {
+      "player": "Mikayla Ernst",
+      "programme": "central-missouri",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 57 shots"
     },
     {
       "player": "Ella Favot",
@@ -124,27 +151,20 @@
       "position": "FWD",
       "class": "SO",
       "line": "9 G · 6 A · 50 shots"
-    },
-    {
-      "player": "Kendall Knisley",
-      "programme": "missouri-western",
-      "position": "FWD",
-      "class": "SR",
-      "line": "9 G · 1 A · 43 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 washburn v pittsburg-state",
-      "line": "Pittsburg State had lost nothing all season; Washburn's only defeat had come against them."
+      "fixture_ref": "2026-11-13 northern-state v pittsburg-state",
+      "line": "Pittsburg State won away in their first match since losing at Washburn."
     },
     "next_match": {
-      "fixture_ref": "2026-11-12 northern-state v pittsburg-state",
-      "line": "Pittsburg State travel straight from their first defeat of the season, at Washburn."
+      "fixture_ref": "2026-11-15 washburn v central-missouri",
+      "line": "Their October meeting ended goalless; Washburn have won every match since."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:00:28.812Z"
+    "validated_at": "2026-11-15T19:52:32.469Z"
   }
 }

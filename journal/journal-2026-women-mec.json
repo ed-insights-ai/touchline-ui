@@ -3,29 +3,30 @@
   "season": 2026,
   "gender": "women",
   "conference": "MEC",
-  "generated_at": "2026-11-10T13:10:00Z",
-  "data_collected_at": "2026-11-10T12:53:51+00:00",
+  "generated_at": "2026-11-15T19:55:00Z",
+  "data_collected_at": "2026-11-15T19:46:00+00:00",
   "headline": "Frostburg State concede seven goals all season",
-  "dek": "Frostburg State have won 16 matches and drawn three, scoring more goals than any other programme in the conference while conceding seven. They have been beaten twice all season, and not since Point Park beat them in September.",
+  "dek": "Frostburg State have won 17 matches and drawn three, scoring more goals than any other programme in the conference. They have been beaten twice, not since Point Park in September, and on Friday they beat Slippery Rock, the side that handed them the first of those defeats.",
   "lede_basis": {
     "programme": "frostburg-state",
-    "wins": 16,
+    "wins": 17,
     "draws": 3,
     "losses": 2,
-    "gf": 46,
+    "gf": 47,
     "ga": 7,
     "comparative": "greater_than_each",
     "metric": "gf",
     "of_any": 11
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Frostburg State's win over Slippery Rock took their wins from 16 to 17, so the standing dek was no longer true. The headline still holds and stands.",
   "pattern": {
     "label": "observed",
-    "text": "Goals scored do not order this conference: Point Park have won 13 matches on 18 goals, conceding nine.",
+    "text": "Goals scored do not order this conference: Point Park have won 13 matches on 18 goals, conceding 11.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "frostburg-state": 46,
+        "frostburg-state": 47,
         "fairmont-state": 40,
         "west-virginia-state": 39,
         "concord": 30,
@@ -44,21 +45,20 @@
       "programme": "point-park",
       "wins": 13,
       "draws": 1,
-      "losses": 6,
+      "losses": 7,
       "gf": 18,
-      "ga": 9
+      "ga": 11
     }
   },
   "wire": {
-    "line": "Point Park's Nicole Kuchinski has kept 13 shutouts and let in seven goals all season.",
+    "line": "Frostburg State have now beaten Slippery Rock, one of only two sides to beat them all season.",
     "basis": {
-      "source": "stats",
-      "player": "Nicole Kuchinski",
-      "programme": "point-park",
-      "shutouts": 13,
-      "goals_against": 7
+      "programme": "frostburg-state",
+      "wins": 17,
+      "draws": 3,
+      "losses": 2
     },
-    "updated": "2026-11-09"
+    "updated": "2026-11-15"
   },
   "findings": [
     {
@@ -68,6 +68,17 @@
         "source": "fixtures",
         "finals_without_score": 0,
         "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Nicole Kuchinski has kept 13 shutouts in goal for Point Park and conceded nine goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Nicole Kuchinski",
+        "programme": "point-park",
+        "shutouts": 13,
+        "goals_against": 9
       }
     },
     {
@@ -83,12 +94,12 @@
     },
     {
       "label": "observed",
-      "text": "Cassidy Paige has 11 assists for Frostburg State to go with her seven goals.",
+      "text": "Cassidy Paige has 12 assists for Frostburg State, to go with seven goals.",
       "basis": {
         "source": "stats",
         "player": "Cassidy Paige",
         "programme": "frostburg-state",
-        "assists": 11,
+        "assists": 12,
         "goals": 7
       }
     },
@@ -107,7 +118,7 @@
       "programme": "frostburg-state",
       "position": "FWD",
       "class": "JR",
-      "line": "9 G · 2 A · 62 shots"
+      "line": "9 G · 2 A · 65 shots"
     },
     {
       "player": "Leila Karam",
@@ -126,16 +137,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 frostburg-state v fairmont-state",
-      "line": "Both of Fairmont State's defeats this season have come against Frostburg State."
+      "fixture_ref": "2026-11-13 west-chester v fairmont-state",
+      "line": "West Chester are the first side other than Frostburg State to beat Fairmont State this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 frostburg-state v slippery-rock",
-      "line": "Slippery Rock handed Frostburg State their first defeat of the season, in September."
+      "fixture_ref": "2026-11-15 gannon v frostburg-state",
+      "line": "No opponent has scored more than once against Frostburg State this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:02:09.806Z"
+    "validated_at": "2026-11-15T19:55:32.025Z"
   }
 }

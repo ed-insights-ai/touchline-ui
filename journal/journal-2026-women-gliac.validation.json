@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "women",
   "conference": "GLIAC",
-  "validated_at": "2026-11-10T13:01:44.941Z",
-  "data_collected_at": "2026-11-10T12:52:00+00:00",
+  "validated_at": "2026-11-15T19:54:40.524Z",
+  "data_collected_at": "2026-11-15T19:44:37+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
+    "checked": 13,
     "verified": 12,
     "contradicted": 0,
-    "unverifiable": 0,
-    "dropped": 0
+    "unverifiable": 1,
+    "dropped": 1
   },
   "normalizations": [],
   "review": [],
@@ -38,11 +38,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Wayne State freshman Sienna Mroue has eleven goals and nine assists.",
-      "checker": "player_stat",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
+      "text": "Wayne State are the only side in the conference with a match still to play.",
+      "checker": null,
+      "verdict": "unverifiable",
+      "mismatches": ["the claim carries no basis"],
+      "dropped": true
     },
     {
       "path": "findings[0]",
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Wayne State have conceded fourteen goals all season while scoring thirty-seven.",
+      "text": "Wayne State have conceded fifteen goals all season while scoring thirty-nine.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Emily Kolodin has fourteen assists for Saginaw Valley State.",
+      "text": "Sienna Mroue has thirteen goals and nine assists for Wayne State.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -73,6 +73,15 @@
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Emily Kolodin has fourteen assists for Saginaw Valley State.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Kaylee Sarnicola has made 159 saves in Roosevelt's goal.",
       "checker": "player_stat",
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Sienna Mroue — 11 G · 9 A · 75 shots",
+      "text": "Sienna Mroue — 13 G · 9 A · 82 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Abby Ellis — 9 G · 5 A · 48 shots",
+      "text": "Abby Ellis — 9 G · 5 A · 49 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-08 ferris-state v saginaw-valley-state",
+      "text": "2026-11-13 ashland v grand-valley-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 mckendree v wayne-state",
+      "text": "2026-11-15 15-ashland v wayne-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:01:10.387Z",
-    "generate_ms": 34553,
+    "started_at": "2026-11-15T19:53:18.436Z",
+    "generate_ms": 82086,
     "validate_ms": 1,
-    "wall_ms": 34554,
+    "wall_ms": 82087,
     "concurrency": 4
   }
 }

@@ -3,7 +3,7 @@
   "journal": "journal-2026-women-national.json",
   "season": 2026,
   "gender": "women",
-  "validated_at": "2026-11-10T13:03:34.974Z",
+  "validated_at": "2026-11-15T19:57:34.293Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Washburn end Pittsburg State's unbeaten start Pittsburg State had won fifteen and drawn five before meeting Washburn. That first defeat leaves Dallas Baptist and Nova Southeastern as the only programmes in the division still without a loss.",
-      "checker": "team_record",
+      "text": "Minnesota State win more often than any other programme Minnesota State have won nineteen, drawn three and lost two. No programme in any other conference has reached that many wins, and none in the Northern Sun has either.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is dallas-baptist at 17"
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:03:11.042Z",
-    "generate_ms": 23929,
-    "validate_ms": 1,
-    "wall_ms": 23931
+    "started_at": "2026-11-15T19:56:38.670Z",
+    "generate_ms": 55616,
+    "validate_ms": 6,
+    "wall_ms": 55622
   }
 }

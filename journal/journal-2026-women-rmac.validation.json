@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "RMAC",
-  "validated_at": "2026-11-10T13:02:55.335Z",
-  "data_collected_at": "2026-11-10T12:55:55+00:00",
+  "validated_at": "2026-11-15T19:56:25.889Z",
+  "data_collected_at": "2026-11-15T19:47:28+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Bella Campos has scored 28 goals from 131 shots for Colorado School of Mines.",
+      "text": "Bella Campos has scored 29 goals from 135 shots for Colorado School of Mines.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Maggie Payne has made 87 saves for Regis and been beaten nine times.",
+      "text": "Fernanda Rodriguez has scored nineteen goals from 60 shots for Regis.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Trinity Lujan has kept nine shutouts in goal for Fort Lewis.",
+      "text": "Maggie Payne has made 93 saves for Regis and been beaten eleven times.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -73,6 +73,15 @@
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Trinity Lujan has kept nine shutouts in goal for Fort Lewis.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Nine matches dated in August have passed with no published result, among them CSU Pueblo v Western Colorado and Fort Lewis v Western Colorado.",
       "checker": "unresolved",
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Bella Campos — 28 G · 9 A · 131 shots",
+      "text": "Bella Campos — 29 G · 9 A · 135 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Fernanda Rodriguez — 18 G · 3 A · 57 shots",
+      "text": "Fernanda Rodriguez — 19 G · 3 A · 60 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 colorado-mesa v colorado-school-of-mines",
+      "text": "2026-11-13 midwestern-state v colorado-school-of-mines",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 regis v uccs",
+      "text": "2026-11-15 texas-womans v colorado-school-of-mines",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:02:18.272Z",
-    "generate_ms": 37062,
+    "started_at": "2026-11-15T19:55:31.376Z",
+    "generate_ms": 54513,
     "validate_ms": 1,
-    "wall_ms": 37063,
+    "wall_ms": 54514,
     "concurrency": 4
   }
 }

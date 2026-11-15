@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "CC",
-  "validated_at": "2026-11-10T13:01:27.908Z",
-  "data_collected_at": "2026-11-10T12:49:53+00:00",
+  "validated_at": "2026-11-15T19:54:04.639Z",
+  "data_collected_at": "2026-11-15T19:42:00+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Matea Bradfield — 14 G · 9 A · 53 shots",
+      "text": "Matea Bradfield — 14 G · 11 A · 54 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Willow Price — 12 G · 3 A · 70 shots",
+      "text": "Willow Price — 12 G · 4 A · 72 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 francis-marion v unc-pembroke",
+      "text": "2026-11-13 francis-marion v lenoir-rhyne",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 lenoir-rhyne v francis-marion",
+      "text": "2026-11-15 north-georgia v francis-marion",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:00:26.275Z",
-    "generate_ms": 61631,
-    "validate_ms": 2,
-    "wall_ms": 61633,
+    "started_at": "2026-11-15T19:52:13.384Z",
+    "generate_ms": 111252,
+    "validate_ms": 1,
+    "wall_ms": 111254,
     "concurrency": 4
   }
 }

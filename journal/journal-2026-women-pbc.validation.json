@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "PBC",
-  "validated_at": "2026-11-10T13:02:47.970Z",
-  "data_collected_at": "2026-11-10T12:55:31+00:00",
+  "validated_at": "2026-11-15T19:55:54.373Z",
+  "data_collected_at": "2026-11-15T19:47:11+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "pattern.text",
-      "text": "Scoring has split the conference in two: North Georgia alone have more goals than Georgia College and Clayton State together, and the two biggest attacks belong to the two sides at the top of the table.",
-      "unbacked": ["2"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring has split the conference in two: North Georgia alone have more goals than Georgia College and Clayton State together, and the two biggest attacks belong to the two sides at the top of the table.",
+      "text": "Scoring has split the conference: North Georgia alone have more goals than Georgia College and Clayton State together, and only Columbus State come near them.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -71,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Grace McGill has set up as many goals as she has scored for North Georgia, eleven of each.",
+      "text": "Grace McGill has now set up more goals for North Georgia than she has scored: twelve assists to eleven goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Grace McGill — 11 G · 11 A · 62 shots",
+      "text": "Grace McGill — 11 G · 12 A · 64 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Nina Lopez — 12 G · 6 A · 62 shots",
+      "text": "Nina Lopez — 12 G · 6 A · 65 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Shania Wegesend — 9 G · 2 A · 38 shots",
+      "text": "Shania Wegesend — 10 G · 2 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 columbus-state v north-georgia",
+      "text": "2026-11-13 columbus-state v flagler",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 columbus-state v flagler",
+      "text": "2026-11-15 columbus-state v unc-pembroke",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:02:09.986Z",
-    "generate_ms": 37983,
+    "started_at": "2026-11-15T19:55:16.042Z",
+    "generate_ms": 38330,
     "validate_ms": 1,
-    "wall_ms": 37984,
+    "wall_ms": 38331,
     "concurrency": 4
   }
 }

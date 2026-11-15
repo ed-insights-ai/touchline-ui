@@ -3,26 +3,27 @@
   "season": 2026,
   "gender": "women",
   "conference": "RMAC",
-  "generated_at": "2026-11-10T13:10:00+00:00",
-  "data_collected_at": "2026-11-10T12:55:55+00:00",
-  "headline": "Colorado Mesa end Regis's unbeaten run",
-  "dek": "Regis had gone through the conference table without a defeat when Colorado Mesa, who had already held them to a draw, beat them on their own field. It is one of three defeats in Regis's season and the only one at a member's hands; Rollins and Dallas Baptist took the others before conference play opened.",
+  "generated_at": "2026-11-15T20:05:00+00:00",
+  "data_collected_at": "2026-11-15T19:47:28+00:00",
+  "headline": "UCCS turn the tables on Regis",
+  "dek": "Regis had beaten UCCS on their own field in October, and UCCS have now won the return there, after Colorado Mesa did the same. The side that went through the conference table unbeaten has four defeats on the season; Rollins and Dallas Baptist took the others before conference play opened.",
   "lede_basis": {
     "programme": "regis",
     "wins": 15,
     "draws": 1,
-    "losses": 3
+    "losses": 4
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "UCCS won at Regis on 2026-11-13, so the standing dek's claim of three defeats, only one of them to a member, is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "The chart does not set the order of the table: Colorado School of Mines have scored more than Regis and UCCS, and sit behind both of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "colorado-school-of-mines": 59,
-        "uccs": 56,
-        "regis": 42,
+        "colorado-school-of-mines": 60,
+        "uccs": 58,
+        "regis": 43,
         "black-hills-state": 36,
         "colorado-mesa": 30,
         "westminster": 28,
@@ -41,7 +42,7 @@
       "metric": "gf",
       "programme": "colorado-school-of-mines",
       "of": ["regis", "uccs"],
-      "gf": 59
+      "gf": 60
     }
   },
   "wire": {
@@ -59,24 +60,35 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Bella Campos has scored 28 goals from 131 shots for Colorado School of Mines.",
+      "text": "Bella Campos has scored 29 goals from 135 shots for Colorado School of Mines.",
       "basis": {
         "source": "stats",
         "player": "Bella Campos",
         "programme": "colorado-school-of-mines",
-        "goals": 28,
-        "shots": 131
+        "goals": 29,
+        "shots": 135
       }
     },
     {
       "label": "observed",
-      "text": "Maggie Payne has made 87 saves for Regis and been beaten nine times.",
+      "text": "Fernanda Rodriguez has scored nineteen goals from 60 shots for Regis.",
+      "basis": {
+        "source": "stats",
+        "player": "Fernanda Rodriguez",
+        "programme": "regis",
+        "goals": 19,
+        "shots": 60
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Maggie Payne has made 93 saves for Regis and been beaten eleven times.",
       "basis": {
         "source": "stats",
         "player": "Maggie Payne",
         "programme": "regis",
-        "saves": 87,
-        "goals_against": 9
+        "saves": 93,
+        "goals_against": 11
       }
     },
     {
@@ -105,14 +117,14 @@
       "programme": "colorado-school-of-mines",
       "position": "FWD",
       "class": "SR",
-      "line": "28 G · 9 A · 131 shots"
+      "line": "29 G · 9 A · 135 shots"
     },
     {
       "player": "Fernanda Rodriguez",
       "programme": "regis",
       "position": "FWD",
       "class": "JR",
-      "line": "18 G · 3 A · 57 shots"
+      "line": "19 G · 3 A · 60 shots"
     },
     {
       "player": "Ivy Agee",
@@ -124,16 +136,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 colorado-mesa v colorado-school-of-mines",
-      "line": "Colorado Mesa arrived having just beaten Regis, and Colorado School of Mines having just won at UCCS."
+      "fixture_ref": "2026-11-13 midwestern-state v colorado-school-of-mines",
+      "line": "Colorado School of Mines have not lost since Colorado Mesa beat them in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 regis v uccs",
-      "line": "Regis won the sides' only previous meeting this season, also at home."
+      "fixture_ref": "2026-11-15 texas-womans v colorado-school-of-mines",
+      "line": "Texas Woman's have already beaten Colorado Mesa at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:02:55.335Z"
+    "validated_at": "2026-11-15T19:56:25.889Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SSC",
-  "validated_at": "2026-11-10T13:03:05.929Z",
-  "data_collected_at": "2026-11-10T12:57:00+00:00",
+  "validated_at": "2026-11-15T19:56:33.267Z",
+  "data_collected_at": "2026-11-15T19:48:18+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Florida Tech have won thirteen matches, more than any other programme in the conference.",
+      "text": "Florida Tech have won fourteen matches, more than any other programme in the conference.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Eboni Bradshaw — 8 G · 7 A · 58 shots",
+      "text": "Eboni Bradshaw — 9 G · 7 A · 60 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Nell Doe — 8 G · 3 A · 39 shots",
+      "text": "Nell Doe — 8 G · 3 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-08 eckerd v nova-southeastern",
+      "text": "2026-11-13 florida-tech v florida-southern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 florida-southern v florida-tech",
+      "text": "2026-11-15 nova-southeastern v lee",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:02:30.784Z",
-    "generate_ms": 35144,
+    "started_at": "2026-11-15T19:55:54.570Z",
+    "generate_ms": 38695,
     "validate_ms": 1,
-    "wall_ms": 35145,
+    "wall_ms": 38696,
     "concurrency": 4
   }
 }

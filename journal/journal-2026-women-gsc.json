@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GSC",
-  "generated_at": "2026-11-10T13:05:00+00:00",
-  "data_collected_at": "2026-11-10T12:52:58+00:00",
+  "generated_at": "2026-11-15T20:00:00+00:00",
+  "data_collected_at": "2026-11-15T19:45:25+00:00",
   "headline": "Montevallo unbeaten since Lee beat them in September",
   "dek": "Since that defeat Montevallo have won every match bar a draw at Delta State, and they closed the week with clean sheets against Delta State and UAH. Across all their matches they have scored 70 goals and conceded 17.",
   "lede_basis": {
@@ -20,7 +20,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "montevallo": 70,
-        "lee": 48,
+        "lee": 49,
         "trevecca": 30,
         "union": 28,
         "valdosta-state": 27,
@@ -46,9 +46,9 @@
     "line": "Lee have conceded eight goals all season and lost only twice, to Trevecca and UAH.",
     "basis": {
       "programme": "lee",
-      "gf": 48,
+      "gf": 49,
       "ga": 8,
-      "wins": 12,
+      "wins": 13,
       "draws": 3,
       "losses": 2
     },
@@ -88,10 +88,10 @@
     },
     {
       "label": "derived",
-      "text": "At least sixteen different players have scored for Lee this season.",
+      "text": "At least seventeen different players have scored for Lee this season.",
       "basis": {
         "programme": "lee",
-        "distinct_scorers_min": 16
+        "distinct_scorers_min": 17
       }
     },
     {
@@ -129,16 +129,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 montevallo v uah",
-      "line": "UAH came in off a win over Lee; Montevallo have not lost since September."
+      "fixture_ref": "2026-11-13 lee v eckerd",
+      "line": "Lee came in off a home defeat by UAH; Eckerd had already held Delta State scoreless."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 lee v eckerd",
-      "line": "Eckerd have already held Delta State scoreless and beaten Valdosta State."
+      "fixture_ref": "2026-11-15 montevallo v florida-tech",
+      "line": "Montevallo have not conceded since Union scored against them in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:01:40.578Z"
+    "validated_at": "2026-11-15T19:54:41.774Z"
   }
 }

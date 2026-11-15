@@ -2,21 +2,23 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "women",
-  "generated_at": "2026-11-10T13:05:00+00:00",
-  "data_collected_at": "2026-11-09T12:51:35+00:00",
-  "headline": "Washburn end Pittsburg State's unbeaten start",
-  "dek": "Pittsburg State had won fifteen and drawn five before meeting Washburn. That first defeat leaves Dallas Baptist and Nova Southeastern as the only programmes in the division still without a loss.",
+  "generated_at": "2026-11-15T20:05:00+00:00",
+  "data_collected_at": "2026-11-15T19:40:09+00:00",
+  "headline": "Minnesota State win more often than any other programme",
+  "dek": "Minnesota State have won nineteen, drawn three and lost two. No programme in any other conference has reached that many wins, and none in the Northern Sun has either.",
   "basis": {
-    "programme": "pittsburg-state",
-    "wins": 15,
-    "draws": 5,
-    "losses": 1
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "programme": "minnesota-state",
+    "of_any": 1,
+    "wins": 19,
+    "draws": 3,
+    "losses": 2
   },
-  "fixture_ref": "2026-11-08 washburn v pittsburg-state",
-  "updated": "2026-11-10",
-  "displaced_by": "headline stands on a quiet day; dek's 'before last night' no longer names the 2026-11-08 match, so only that phrase is reworded",
+  "updated": "2026-11-15",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:03:34.974Z"
+    "validated_at": "2026-11-15T19:57:34.293Z"
   }
 }

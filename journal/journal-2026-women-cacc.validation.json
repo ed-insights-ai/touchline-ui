@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "CACC",
-  "validated_at": "2026-11-10T13:00:33.747Z",
-  "data_collected_at": "2026-11-10T12:49:09+00:00",
+  "validated_at": "2026-11-15T19:52:39.554Z",
+  "data_collected_at": "2026-11-15T19:41:22+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -45,8 +45,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Against outside opponents, the conference's sides won nine matches and lost 46.",
-      "checker": "outside_record",
+      "text": "Jefferson have lost once all season and won every match since.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -54,7 +54,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Bridgeport have lost twice all season but drawn six times, more draws than any other programme.",
+      "text": "Bridgeport have lost three times all season but drawn six times, more draws than any other programme.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +118,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 jefferson v georgian-court",
+      "text": "2026-11-13 bridgeport v saint-michael-s",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +127,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 bridgeport v saint-michael-s",
+      "text": "2026-11-15 jefferson v franklin-pierce",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -135,10 +135,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T12:59:55.145Z",
-    "generate_ms": 38600,
+    "started_at": "2026-11-15T19:51:40.987Z",
+    "generate_ms": 58564,
     "validate_ms": 2,
-    "wall_ms": 38602,
+    "wall_ms": 58566,
     "concurrency": 4
   }
 }

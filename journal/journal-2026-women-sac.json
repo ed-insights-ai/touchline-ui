@@ -3,22 +3,23 @@
   "season": 2026,
   "gender": "women",
   "conference": "SAC",
-  "generated_at": "2026-11-10T13:20:00+00:00",
-  "data_collected_at": "2026-11-10T12:56:21+00:00",
+  "generated_at": "2026-11-15T20:05:00+00:00",
+  "data_collected_at": "2026-11-15T19:47:46+00:00",
   "headline": "Catawba top the table and outscore the conference",
-  "dek": "Catawba won 13 times and conceded 23 goals across all their matches. Their season still ended in a home defeat, to Lenoir-Rhyne, the side second behind them in the table.",
+  "dek": "Catawba scored 50 goals across all their matches and won thirteen of them. The next best attack belongs to Lenoir-Rhyne, second behind them in the table, who conceded fewer goals than Catawba across the season.",
   "lede_basis": {
     "programme": "catawba",
     "wins": 13,
     "draws": 2,
-    "losses": 5,
+    "losses": 6,
     "gf": 50,
-    "ga": 23,
+    "ga": 24,
     "comparative": "greater_than_each",
     "metric": "gf",
     "of_any": 10
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "dek no longer true: Catawba have now conceded 24, and their season ended in a home defeat to UNC Pembroke, not to Lenoir-Rhyne",
   "pattern": {
     "label": "derived",
     "text": "Catawba's 50 goals in all their matches are more than Anderson, Tusculum and Emory & Henry scored together, and the attack that leads the chart belongs to the side that leads the table.",
@@ -26,7 +27,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "catawba": 50,
-        "lenoir-rhyne": 35,
+        "lenoir-rhyne": 36,
         "coker": 29,
         "mars-hill": 27,
         "wingate": 27,
@@ -42,21 +43,21 @@
     "basis": {
       "programme": "catawba",
       "gf": 50,
-      "ga": 23,
+      "ga": 24,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["anderson", "tusculum", "emory-henry"]
     }
   },
   "wire": {
-    "line": "Lenoir-Rhyne won at Catawba and are the only side in the conference with a match still to play.",
+    "line": "The conference's top two both lost their last match at home, each to a side from outside the conference.",
     "basis": {
-      "programme": "lenoir-rhyne",
+      "programme": "catawba",
       "wins": 13,
-      "draws": 1,
+      "draws": 2,
       "losses": 6
     },
-    "updated": "2026-11-10"
+    "updated": "2026-11-15"
   },
   "findings": [
     {
@@ -117,7 +118,7 @@
       "programme": "catawba",
       "position": "FWD",
       "class": "SO",
-      "line": "7 G · 12 A · 41 shots"
+      "line": "7 G · 12 A · 47 shots"
     },
     {
       "player": "Kalyssa Carter",
@@ -129,16 +130,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 catawba v lenoir-rhyne",
-      "line": "Carson-Newman are the only other conference side to have won at Catawba."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-13 lenoir-rhyne v francis-marion",
-      "line": "Lenoir-Rhyne won the reverse match in September, and have not lost since their defeat at Coker."
+      "fixture_ref": "2026-11-13 catawba v unc-pembroke",
+      "line": "Catawba had also lost the match before this one at home, to Lenoir-Rhyne."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:02:59.934Z"
+    "validated_at": "2026-11-15T19:56:35.930Z"
   }
 }

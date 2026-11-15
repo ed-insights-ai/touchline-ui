@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GNAC",
-  "validated_at": "2026-11-10T13:01:43.817Z",
-  "data_collected_at": "2026-11-10T12:52:37+00:00",
+  "validated_at": "2026-11-15T19:54:24.755Z",
+  "data_collected_at": "2026-11-15T19:45:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kiera Scott — 11 G · 12 A · 66 shots",
+      "text": "Kiera Scott — 11 G · 12 A · 68 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 seattle-pacific v western-washington",
+      "text": "2026-11-13 cal-poly-pomona v simon-fraser",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 cal-poly-pomona v simon-fraser",
+      "text": "2026-11-15 western-washington v cal-poly-pomona",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:01:13.301Z",
-    "generate_ms": 30514,
+    "started_at": "2026-11-15T19:53:21.888Z",
+    "generate_ms": 62866,
     "validate_ms": 1,
-    "wall_ms": 30516,
+    "wall_ms": 62867,
     "concurrency": 4
   }
 }

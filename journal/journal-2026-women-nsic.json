@@ -3,30 +3,25 @@
   "season": 2026,
   "gender": "women",
   "conference": "NSIC",
-  "generated_at": "2026-11-10T13:20:00+00:00",
-  "data_collected_at": "2026-11-10T12:54:37+00:00",
-  "headline": "Minnesota State hold opponents to eleven goals",
-  "dek": "Lauren McAlpine has kept sixteen shutouts for Minnesota State, whose only defeat of the season came at Minnesota Duluth in October. UMary, beaten by them in September, sit level with them on points at the top of the table.",
+  "generated_at": "2026-11-15T20:05:00+00:00",
+  "data_collected_at": "2026-11-15T19:46:36+00:00",
+  "headline": "Minnesota State and UMary both lose at home",
+  "dek": "Central Missouri won at UMary and Missouri Western at Minnesota State on the season's last day, with the two sides level on points at the top of the table. It was Minnesota State's second defeat of the season, against nineteen wins, and Northern State lost at Pittsburg State the same day.",
   "lede_basis": {
-    "source": "stats",
-    "player": "Lauren McAlpine",
     "programme": "minnesota-state",
-    "shutouts": 16,
-    "goals_against": 11,
-    "gf": 69,
-    "ga": 11,
     "wins": 19,
     "draws": 3,
-    "losses": 1
+    "losses": 2
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Missouri Western won at Minnesota State, so the standing lines are no longer true: Minnesota State have now lost twice and conceded thirteen, not eleven",
   "pattern": {
     "label": "derived",
-    "text": "One attack has pulled clear of the conference: Minnesota State's 69 goals are more than Augustana and Concordia-St. Paul have scored together.",
+    "text": "One attack has pulled clear of the conference: Minnesota State's 70 goals are more than Augustana and Concordia-St. Paul have scored together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "minnesota-state": 69,
+        "minnesota-state": 70,
         "umary": 38,
         "augustana": 35,
         "concordia-saint-paul": 33,
@@ -50,19 +45,20 @@
       "metric": "gf",
       "programme": "minnesota-state",
       "of": ["augustana", "concordia-saint-paul"],
-      "gf": 69
+      "gf": 70
     }
   },
   "wire": {
-    "line": "UMary's Dina Polanco has scored twenty goals from 102 shots this season.",
+    "line": "Lauren McAlpine has kept sixteen shutouts for Minnesota State, who have conceded thirteen goals all season.",
     "basis": {
       "source": "stats",
-      "player": "Dina Polanco",
-      "programme": "umary",
-      "goals": 20,
-      "shots": 102
+      "player": "Lauren McAlpine",
+      "programme": "minnesota-state",
+      "shutouts": 16,
+      "goals_against": 13,
+      "ga": 13
     },
-    "updated": "2026-11-09"
+    "updated": "2026-11-15"
   },
   "findings": [
     {
@@ -102,6 +98,17 @@
         "draws": 6,
         "losses": 12
       }
+    },
+    {
+      "label": "derived",
+      "text": "Southwest Minnesota State have conceded 47 goals, more than any other programme in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "southwest-minnesota-state",
+        "of_any": 15,
+        "ga": 47
+      }
     }
   ],
   "players_to_watch": [
@@ -110,7 +117,7 @@
       "programme": "umary",
       "position": "MID",
       "class": "SO",
-      "line": "20 G · 2 A · 102 shots"
+      "line": "20 G · 2 A · 107 shots"
     },
     {
       "player": "Sophia Haase",
@@ -124,21 +131,17 @@
       "programme": "minnesota-state",
       "position": "FWD",
       "class": "JR",
-      "line": "16 G · 6 A · 61 shots"
+      "line": "17 G · 6 A · 64 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 minnesota-state v bemidji-state",
-      "line": "Bemidji State have not scored against Minnesota State in either meeting this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-13 minnesota-state v missouri-western",
-      "line": "Missouri Western have already beaten Northern State and Wayne State College this season, and drew at Bemidji State."
+      "line": "It was Minnesota State's first defeat at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:02:18.081Z"
+    "validated_at": "2026-11-15T19:55:54.676Z"
   }
 }

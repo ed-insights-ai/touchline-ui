@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GAC",
-  "generated_at": "2026-11-09T02:05:00+00:00",
-  "data_collected_at": "2026-11-09T01:43:51+00:00",
+  "generated_at": "2026-11-15T20:05:00+00:00",
+  "data_collected_at": "2026-11-15T19:40:09+00:00",
   "headline": "Harding holds on to finish top of the table",
   "dek": "A goalless draw with Southwestern Oklahoma State on the final day was enough for Harding to stay ahead. Ouachita Baptist, the nearest side in the table, had lost their own last match to the same opponents.",
   "lede_basis": {
@@ -20,7 +20,7 @@
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southwestern-oklahoma-state": 34,
+        "southwestern-oklahoma-state": 35,
         "ouachita-baptist": 24,
         "harding": 21,
         "southern-nazarene": 19,
@@ -32,11 +32,11 @@
     },
     "basis": {
       "programme": "southwestern-oklahoma-state",
-      "gf": 34,
-      "ga": 15,
+      "gf": 35,
+      "ga": 19,
       "wins": 9,
       "draws": 8,
-      "losses": 3,
+      "losses": 4,
       "comparative": "greater_than_each",
       "metric": "gf",
       "of_any": 6
@@ -116,12 +116,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 harding v southwestern-oklahoma-state",
-      "line": "Southwestern Oklahoma State did not score against Harding in any of their meetings this season."
+      "fixture_ref": "2026-11-13 washburn v southwestern-oklahoma-state",
+      "line": "It was Southwestern Oklahoma State's first defeat since Harding beat them in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T04:23:38.627Z"
+    "validated_at": "2026-11-15T19:51:40.776Z"
   }
 }

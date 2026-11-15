@@ -3,30 +3,31 @@
   "season": 2026,
   "gender": "women",
   "conference": "PSAC",
-  "generated_at": "2026-11-10T13:05:00+00:00",
-  "data_collected_at": "2026-11-10T12:48:49+00:00",
-  "headline": "Gannon win at Kutztown and Slippery Rock",
-  "dek": "Gannon have not lost since the first week of September. Across all their matches they have been beaten twice and conceded thirteen goals.",
+  "generated_at": "2026-11-15T19:55:00+00:00",
+  "data_collected_at": "2026-11-15T19:41:02+00:00",
+  "headline": "Gannon beat the side that beat Slippery Rock",
+  "dek": "Frostburg State came to Gannon having won at Slippery Rock, and left beaten, extending a Gannon run without defeat that reaches back to the first week of September. Across all their matches they have won seventeen times and been beaten twice, conceding fourteen goals.",
   "lede_basis": {
     "programme": "gannon",
-    "wins": 16,
+    "wins": 17,
     "draws": 3,
     "losses": 2,
-    "gf": 44,
-    "ga": 13
+    "gf": 46,
+    "ga": 14
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "The standing dek's goals-conceded figure for Gannon is no longer true after the Frostburg State match. Gannon beating the side that beat Slippery Rock is now the story.",
   "pattern": {
     "label": "derived",
     "text": "The goals gather at the top end: Kutztown alone have scored more than California (Pa.), Pitt-Johnstown and Mansfield, the sides at the foot of the table, put together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "kutztown": 56,
+        "kutztown": 58,
         "slippery-rock": 48,
+        "gannon": 46,
         "millersville": 46,
-        "west-chester": 45,
-        "gannon": 44,
+        "west-chester": 46,
         "shepherd": 38,
         "bloomsburg": 33,
         "shippensburg": 28,
@@ -47,14 +48,14 @@
       "metric": "gf",
       "programme": "kutztown",
       "of": ["california-pa", "pitt-johnstown", "mansfield"],
-      "gf": 56
+      "gf": 58
     }
   },
   "wire": {
     "line": "West Chester have conceded seven goals in all their matches this season.",
     "basis": {
       "programme": "west-chester",
-      "gf": 45,
+      "gf": 46,
       "ga": 7
     },
     "updated": "2026-11-09"
@@ -117,28 +118,28 @@
       "programme": "kutztown",
       "position": "FWD",
       "class": "FR",
-      "line": "15 G · 6 A · 77 shots"
+      "line": "15 G · 6 A · 78 shots"
     },
     {
       "player": "Brooklyn Respecki",
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "13 G · 9 A · 106 shots"
+      "line": "14 G · 10 A · 114 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 slippery-rock v gannon",
-      "line": "Slippery Rock had not lost at home all season before this."
+      "fixture_ref": "2026-11-15 gannon v frostburg-state",
+      "line": "Gannon have won every match they have played in November."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 fairmont-state v west-chester",
-      "line": "West Chester have lost only to Kutztown; Fairmont State beat Slippery Rock in August."
+      "fixture_ref": "2026-11-15 kutztown v west-chester",
+      "line": "Both of West Chester's defeats this season have come against Kutztown."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T13:00:33.131Z"
+    "validated_at": "2026-11-15T19:52:13.174Z"
   }
 }

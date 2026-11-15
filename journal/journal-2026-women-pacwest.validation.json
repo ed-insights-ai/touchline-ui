@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "PACWEST",
-  "validated_at": "2026-11-10T13:02:30.584Z",
-  "data_collected_at": "2026-11-10T12:55:07+00:00",
+  "validated_at": "2026-11-15T19:55:31.169Z",
+  "data_collected_at": "2026-11-15T19:46:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Concordia Irvine have lost two matches in all, both of them to Point Loma, against eleven wins and five draws.",
+      "text": "Concordia Irvine have lost two matches in all, both of them to Point Loma, against twelve wins and five draws.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -93,7 +93,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Briley Phelps — 12 G · 6 A · 95 shots",
+      "text": "Briley Phelps — 13 G · 7 A · 98 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -102,7 +102,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Ashley Grubert — 12 G · 4 A · 33 shots",
+      "text": "Ashley Grubert — 13 G · 4 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +120,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 concordia-irvine v biola",
+      "text": "2026-11-13 concordia-irvine v biola",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +129,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 concordia-irvine v biola",
+      "text": "2026-11-15 concordia-irvine v cal-state-la",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +137,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T13:01:55.749Z",
-    "generate_ms": 34832,
+    "started_at": "2026-11-15T19:54:41.987Z",
+    "generate_ms": 49181,
     "validate_ms": 1,
-    "wall_ms": 34834,
+    "wall_ms": 49182,
     "concurrency": 4
   }
 }
