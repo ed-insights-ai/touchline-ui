@@ -284,7 +284,7 @@ describe("the figures strip is the page's own", () => {
       const between = scoredCount(s) - out.played;
       if (out.played > 0) {
         expect(cells).toContain(
-          `${out.won}–${out.drawn}–${out.lost} AGAINST NON-CONFERENCE OPPONENTS`,
+          `${out.won}–${out.drawn}–${out.lost} W–D–L AGAINST NON-CONFERENCE OPPONENTS`,
         );
         expect(cells).toContain(`${out.goalsFor} SCORED, ${out.goalsAgainst} CONCEDED`);
       }

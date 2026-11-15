@@ -673,7 +673,7 @@ export function playerCard(
                 ? dash
                 : `${keeperStats.wins}–${keeperStats.ties ?? 0}–${keeperStats.losses ?? 0}`,
           },
-          { label: "Discipline", value: discipline, cautions },
+          { label: "Cards", value: discipline, cautions },
         ],
       }
     : stats
@@ -692,7 +692,7 @@ export function playerCard(
               label: "Conversion",
               value: stats.shots ? (pct1((stats.goals ?? 0) / stats.shots) ?? dash) : dash,
             },
-            { label: "Discipline", value: discipline, cautions },
+            { label: "Cards", value: discipline, cautions },
           ],
         }
       : null;

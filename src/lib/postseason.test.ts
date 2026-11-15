@@ -496,7 +496,7 @@ describe("a final played level is decided, and names a champion only from a shoo
     expect(t.decided).toBe(true);
     expect(t.champion).toBeNull();
     const line = verdictLine(t, name);
-    expect(line.head).toBe("Final drawn 0–0 · shootout winner not collected");
+    expect(line.head).toBe("Final drawn 0–0 · shootout published, winner not matched to a side");
     expect(line.note).toContain("“T, 0-0 3-2 PKs”");
     // The quote names a winner in its own words; the note must not read as
     // contradicting it, only say why no programme is named from it.

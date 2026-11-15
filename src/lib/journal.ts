@@ -502,7 +502,7 @@ export function seasonStrip(s: Season): string[] {
   if (played === 0) return cells;
   const out = outsideRecord(s);
   if (out.played > 0) {
-    cells.push(`${out.won}–${out.drawn}–${out.lost} AGAINST NON-CONFERENCE OPPONENTS`);
+    cells.push(`${out.won}–${out.drawn}–${out.lost} W–D–L AGAINST NON-CONFERENCE OPPONENTS`);
     cells.push(`${out.goalsFor} SCORED, ${out.goalsAgainst} CONCEDED`);
   }
   const between = played - out.played;
