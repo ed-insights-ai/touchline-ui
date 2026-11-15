@@ -3,20 +3,21 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-11-10T12:50:00+00:00",
-  "data_collected_at": "2026-11-10T12:38:21+00:00",
-  "headline": "Lynn extend winning run at Florida Southern",
-  "dek": "Lynn's win at Florida Southern was their fourth in a row, after victories at Barry and over Rollins earlier in the week. Fifth on the table, eight points behind Florida Tech, they have lost none of their last six matches.",
+  "generated_at": "2026-11-15T19:40:00+00:00",
+  "data_collected_at": "2026-11-15T19:28:46+00:00",
+  "headline": "Lynn take a seven-match unbeaten run to Flagler",
+  "dek": "Lynn's win over AUM was their fifth in a row, and two of the five came against Barry and Florida Southern, both of whom had beaten them earlier in the season. They sit fifth on the conference table, eight points behind Florida Tech, who have not played since losing at Rollins.",
   "lede_basis": {
-    "lynn_consecutive_wins": 4,
+    "lynn_unbeaten_run": 7,
+    "lynn_consecutive_wins": 5,
+    "wins_in_run_over_sides_that_had_beaten_lynn": 2,
     "lynn_table_position": 5,
     "lynn_points": 15,
     "florida_tech_points": 23,
-    "points_behind_florida_tech": 8,
-    "lynn_unbeaten_run": 6
+    "points_behind_florida_tech": 8
   },
-  "lede_updated": "2026-11-10",
-  "displaced_by": "The dek named its days by weekday, and those days have gone out of date: read on Tuesday 10 November, 'at Barry on Tuesday' now points at the wrong Tuesday. The story is the same and the headline stands. Only the dek changed, and it now places each win by ground instead of by day.",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Lynn beat AUM for a fifth straight win, so the run the standing headline placed at Florida Southern has moved on and the dek's 'last six' undercounts it; the new lines are about the unbeaten stretch Lynn take to Flagler, not the win that extended it.",
   "pattern": {
     "label": "derived",
     "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack.",
@@ -24,9 +25,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "florida-southern": 42,
+        "lynn": 35,
         "rollins": 35,
         "eckerd": 34,
-        "lynn": 32,
         "saint-leo": 32,
         "palm-beach-atlantic": 30,
         "florida-tech": 28,
@@ -147,16 +148,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 florida-southern v lynn",
-      "line": "Florida Southern had beaten Lynn on this ground in September, and beaten Tampa here on Thursday."
+      "fixture_ref": "2026-11-13 lynn v aum",
+      "line": "AUM came in having beaten both Saint Leo and Tampa at home in August."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 aum v lynn",
-      "line": "AUM have already beaten both Saint Leo and Tampa on this ground, in August."
+      "fixture_ref": "2026-11-15 flagler v lynn",
+      "line": "Flagler have won at Embry-Riddle and held Barry to a draw on this ground."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:45:30.760Z"
+    "validated_at": "2026-11-15T19:36:48.777Z"
   }
 }

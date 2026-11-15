@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-11-10T12:44:57.009Z",
-  "data_collected_at": "2026-11-10T12:37:17+00:00",
+  "validated_at": "2026-11-15T19:36:08.191Z",
+  "data_collected_at": "2026-11-15T19:27:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Regis's Jacobo Betancourt-Tovar has scored twelve goals this season from 65 shots.",
+      "text": "Regis's Jacobo Betancourt-Tovar has scored twelve goals this season from 67 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "UCCS's Hugo Sjöberg has made 68 saves this season and conceded nineteen goals.",
+      "text": "UCCS's Hugo Sjöberg has made 68 saves this season and conceded twenty goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jacobo Betancourt-Tovar — 12 G · 1 A · 65 shots",
+      "text": "Jacobo Betancourt-Tovar — 12 G · 2 A · 67 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "William Bretvik — 11 G · 2 A · 48 shots",
+      "text": "William Bretvik — 11 G · 2 A · 52 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 regis v fort-lewis",
+      "text": "2026-11-14 seattle-pacific v regis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 western-oregon v fort-lewis",
+      "text": "2026-11-15 csu-pueblo v cal-state-san-bernardino",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T12:43:54.691Z",
-    "generate_ms": 62316,
+    "started_at": "2026-11-15T19:34:42.338Z",
+    "generate_ms": 85853,
     "validate_ms": 1,
-    "wall_ms": 62317,
+    "wall_ms": 85854,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PACWEST",
-  "generated_at": "2026-11-10T12:50:00+00:00",
-  "data_collected_at": "2026-11-10T12:36:09+00:00",
+  "generated_at": "2026-11-15T19:40:00+00:00",
+  "data_collected_at": "2026-11-15T19:27:04+00:00",
   "headline": "Westmont beat both table leaders on their own grounds",
   "dek": "Hawai'i Pacific had won every match since Westmont last beat them on the same ground in October. Days earlier, Westmont had won at Vanguard, the other side level on points at the top of the table, and no other conference side has beaten both this season.",
   "lede_basis": {
@@ -20,7 +20,7 @@
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "westmont": 44,
+        "westmont": 45,
         "hawaii-pacific": 37,
         "dominican-of-california": 34,
         "concordia-irvine": 33,
@@ -46,7 +46,7 @@
     "basis": {
       "programme": "westmont",
       "wins": 10,
-      "draws": 5,
+      "draws": 6,
       "losses": 7,
       "comparative": "greater_than_each",
       "metric": "wins",
@@ -76,10 +76,10 @@
     },
     {
       "label": "derived",
-      "text": "Westmont have drawn five matches, more than any other programme in the conference.",
+      "text": "Westmont have drawn six matches, more than any other programme in the conference.",
       "basis": {
         "programme": "westmont",
-        "draws": 5,
+        "draws": 6,
         "comparative": "greater_than_each",
         "metric": "draws",
         "of": [
@@ -130,14 +130,14 @@
     },
     {
       "label": "observed",
-      "text": "Aidan Strickler has made sixty saves for Westmont and conceded thirty-two goals, a save percentage of .652.",
+      "text": "Aidan Strickler has made sixty-three saves for Westmont and conceded thirty-three goals, a save percentage of .656.",
       "basis": {
         "source": "stats",
         "player": "Aidan Strickler",
         "programme": "westmont",
-        "saves": 60,
-        "goals_against": 32,
-        "save_pct": 0.652
+        "saves": 63,
+        "goals_against": 33,
+        "save_pct": 0.656
       }
     }
   ],
@@ -166,16 +166,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 hawaii-pacific v westmont",
-      "line": "Westmont are the only conference side to have won on this ground this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-13 westmont v uccs",
-      "line": "UCCS have already beaten Hawai'i Hilo this season; Westmont are unbeaten since their home defeat to Concordia Irvine."
+      "line": "Westmont end the season unbeaten since their home defeat to Concordia Irvine."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:43:54.493Z"
+    "validated_at": "2026-11-15T19:34:42.144Z"
   }
 }

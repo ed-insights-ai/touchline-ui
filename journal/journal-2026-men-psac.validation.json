@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-11-10T12:44:18.581Z",
-  "data_collected_at": "2026-11-10T12:36:49+00:00",
+  "validated_at": "2026-11-15T19:35:12.778Z",
+  "data_collected_at": "2026-11-15T19:27:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Roy Parkyn — 9 G · 3 A · 24 shots",
+      "text": "Roy Parkyn — 9 G · 3 A · 25 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-08 e-stroudsburg v gannon",
+      "text": "2026-11-13 millersville v georgian-court",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 millersville v georgian-court",
+      "text": "2026-11-15 gannon v concord",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T12:43:48.204Z",
-    "generate_ms": 30375,
+    "started_at": "2026-11-15T19:34:25.883Z",
+    "generate_ms": 46893,
     "validate_ms": 1,
-    "wall_ms": 30377,
+    "wall_ms": 46895,
     "concurrency": 4
   }
 }

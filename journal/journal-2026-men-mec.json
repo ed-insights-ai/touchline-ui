@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-11-09T12:45:00+00:00",
-  "data_collected_at": "2026-11-09T12:36:02+00:00",
+  "generated_at": "2026-11-15T19:35:00+00:00",
+  "data_collected_at": "2026-11-15T19:26:27+00:00",
   "headline": "Davis & Elkins stop Charleston's winning run",
   "dek": "Davis & Elkins held Charleston to a draw at home, ending a run of eight straight Charleston wins that began after Davis & Elkins won at Charleston. Charleston have not beaten them in two meetings, and Davis & Elkins have conceded nine goals in seventeen matches all season.",
   "lede_basis": {
@@ -20,7 +20,6 @@
     "charleston_wins_v_davis_elkins": 0
   },
   "lede_updated": "2026-11-09",
-  "displaced_by": "Davis & Elkins' home draw with Charleston ended Charleston's eight-match winning run, and the old dek's eight conceded in sixteen matches is now nine in seventeen.",
   "pattern": {
     "label": "derived",
     "text": "Charleston have scored more goals than West Liberty and Wheeling together, and sixteen different players have shared their fifty-three; the scoring is spread, not carried.",
@@ -32,8 +31,8 @@
         "frostburg-state": 30,
         "concord": 29,
         "wheeling": 26,
+        "salem": 23,
         "west-liberty": 23,
-        "salem": 21,
         "point-park": 20,
         "shawnee-state": 18,
         "west-virginia-wesleyan": 8
@@ -146,16 +145,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 davis-elkins v charleston",
-      "line": "Davis & Elkins have lost only to Concord, and Charleston to no other conference side."
+      "fixture_ref": "2026-11-13 trinity v salem",
+      "line": "Salem's only defeat outside the conference is still the home loss to Millersville."
     },
     "next_match": {
-      "fixture_ref": "2026-11-12 bryant-and-stratton v salem",
-      "line": "Salem's only defeat outside the conference came at home, to Millersville."
+      "fixture_ref": "2026-11-15 charleston v mercy",
+      "line": "Both of Charleston's defeats this season came on their own ground."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-09T12:43:52.797Z"
+    "validated_at": "2026-11-15T19:34:25.675Z"
   }
 }

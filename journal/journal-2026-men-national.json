@@ -2,20 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-11-10T13:05:00+00:00",
-  "data_collected_at": "2026-11-10T12:33:12+00:00",
-  "headline": "Emory & Henry beat Catawba and stay unbeaten",
-  "dek": "Emory & Henry beat Catawba, the South Atlantic Conference's highest scorers, and have now gone ten wins and three draws without a defeat. Lincoln also kept their unbeaten record, against Truman.",
+  "generated_at": "2026-11-15T19:40:00+00:00",
+  "data_collected_at": "2026-11-15T19:24:46+00:00",
+  "headline": "Regis end Seattle Pacific's winning run",
+  "dek": "Seattle Pacific lose on their own ground to a Rocky Mountain Athletic Conference side and now stand at seventeen wins, one draw and four defeats. Regis had already beaten them at home earlier in the season.",
   "basis": {
-    "programme": "emory-henry",
-    "wins": 10,
-    "draws": 3,
-    "losses": 0
+    "programme": "seattle-pacific",
+    "wins": 17,
+    "draws": 1,
+    "losses": 4
   },
-  "fixture_ref": "2026-11-08 emory-henry v catawba",
-  "updated": "2026-11-09",
+  "fixture_ref": "2026-11-14 seattle-pacific v regis",
+  "updated": "2026-11-15",
+  "displaced_by": "results night: Regis win at Seattle Pacific and end their winning run",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:45:46.786Z"
+    "validated_at": "2026-11-15T19:37:21.293Z"
   }
 }

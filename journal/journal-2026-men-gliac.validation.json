@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-11-10T12:43:01.890Z",
-  "data_collected_at": "2026-11-10T12:33:32+00:00",
+  "validated_at": "2026-11-15T19:33:22.252Z",
+  "data_collected_at": "2026-11-15T19:25:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Luca Rosen has scored sixteen goals from 76 shots for Northern Michigan.",
+      "text": "Luca Rosen has scored sixteen goals from 78 shots for Northern Michigan.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Luca Rosen — 16 G · 6 A · 76 shots",
+      "text": "Luca Rosen — 16 G · 6 A · 78 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Landon Potts — 7 G · 7 A · 61 shots",
+      "text": "Landon Potts — 7 G · 7 A · 64 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-08 purdue-northwest v roosevelt",
+      "text": "2026-11-15 findlay v northern-michigan",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-13 roosevelt v purdue-northwest",
+      "text": "2026-11-15 lincoln v roosevelt",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T12:42:27.457Z",
-    "generate_ms": 34431,
+    "started_at": "2026-11-15T19:32:16.399Z",
+    "generate_ms": 65852,
     "validate_ms": 1,
-    "wall_ms": 34433,
+    "wall_ms": 65853,
     "concurrency": 4
   }
 }

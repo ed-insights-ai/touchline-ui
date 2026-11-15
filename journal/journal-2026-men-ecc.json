@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-11-10T12:40:00+00:00",
-  "data_collected_at": "2026-11-10T12:31:59+00:00",
+  "generated_at": "2026-11-15T19:30:00+00:00",
+  "data_collected_at": "2026-11-15T19:23:45+00:00",
   "headline": "St. Thomas Aquinas end the season unbeaten by any member",
   "dek": "St. Thomas Aquinas closed conference play by beating D'Youville, the side that had held them to a draw in October. Their four defeats all came against programmes from outside the conference, and among members only D'Youville and Molloy took a point off them.",
   "lede_basis": {
@@ -14,14 +14,13 @@
     "losses": 4
   },
   "lede_updated": "2026-11-10",
-  "displaced_by": "The standing dek said St. Thomas Aquinas 'closed the season', but they still play Southern New Hampshire on 2026-11-15. The dek is now limited to conference play, and the headline stands.",
   "pattern": {
     "label": "derived",
     "text": "Goals have not ordered the table: Mercy and Queens have each outscored every other programme on the chart, and that includes the leaders, St. Thomas Aquinas.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "mercy": 38,
+        "mercy": 40,
         "queens": 35,
         "st-thomas-aquinas": 32,
         "district-of-columbia": 27,
@@ -66,8 +65,8 @@
         "st-thomas-aquinas",
         "staten-island"
       ],
-      "gf": 38,
-      "ga": 21
+      "gf": 40,
+      "ga": 22
     },
     "updated": "2026-11-02"
   },
@@ -126,14 +125,14 @@
     },
     {
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 38 goals from 55 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 40 goals from 55 shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Darwesh Lund-Iversen",
         "programme": "mercy",
         "goals": 13,
         "shots": 55,
-        "gf": 38
+        "gf": 40
       }
     },
     {
@@ -172,16 +171,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 st-thomas-aquinas v d-youville",
-      "line": "St. Thomas Aquinas have now beaten Mercy and D'Youville in successive matches."
+      "fixture_ref": "2026-11-13 mercy v franklin-pierce",
+      "line": "Franklin Pierce arrived having beaten St. Thomas Aquinas and Queens; Mercy are the first member to stop them."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 mercy v franklin-pierce",
-      "line": "Franklin Pierce have already beaten both St. Thomas Aquinas and Queens this season."
+      "fixture_ref": "2026-11-15 southern-new-hampshire v st-thomas-aquinas",
+      "line": "Southern New Hampshire won at St. Thomas Aquinas on opening day, and have also taken a draw at Queens."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:42:02.307Z"
+    "validated_at": "2026-11-15T19:32:16.195Z"
   }
 }

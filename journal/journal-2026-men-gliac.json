@@ -3,26 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-11-10T12:50:00+00:00",
-  "data_collected_at": "2026-11-10T12:33:32+00:00",
+  "generated_at": "2026-11-15T19:40:00+00:00",
+  "data_collected_at": "2026-11-15T19:25:04+00:00",
   "headline": "Saginaw Valley State finish top of the table",
-  "dek": "Saginaw Valley State's one defeat on the record came at home to Northern Michigan in September, and they did not lose again. On the last day Roosevelt won at Purdue Northwest, ending a run of wins the home side had carried since losing at Saginaw Valley State.",
+  "dek": "Saginaw Valley State's one defeat on the record came at home to Northern Michigan in September, and they have not lost since. Roosevelt ended Purdue Northwest's run of wins on their own ground, then went back to the same ground and won there again.",
   "lede_basis": {
     "programme": "saginaw-valley-state",
     "wins": 9,
     "draws": 7,
     "losses": 1
   },
-  "lede_updated": "2026-11-08",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Roosevelt won at Purdue Northwest again on 2026-11-13, so the standing dek's 'on the last day' no longer holds",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Davenport and St. Cloud State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "northern-michigan": 35,
+        "northern-michigan": 36,
         "saginaw-valley-state": 34,
-        "roosevelt": 29,
+        "roosevelt": 31,
         "purdue-northwest": 26,
         "wisconsin-parkside": 19,
         "davenport": 18,
@@ -32,7 +33,7 @@
     },
     "basis": {
       "programme": "northern-michigan",
-      "gf": 35,
+      "gf": 36,
       "comparative": "greater_than_sum",
       "metric": "gf",
       "of": ["davenport", "st-cloud-state"]
@@ -60,13 +61,13 @@
     },
     {
       "label": "observed",
-      "text": "Luca Rosen has scored sixteen goals from 76 shots for Northern Michigan.",
+      "text": "Luca Rosen has scored sixteen goals from 78 shots for Northern Michigan.",
       "basis": {
         "source": "stats",
         "player": "Luca Rosen",
         "programme": "northern-michigan",
         "goals": 16,
-        "shots": 76
+        "shots": 78
       }
     },
     {
@@ -109,7 +110,7 @@
       "programme": "northern-michigan",
       "position": "FWD",
       "class": "SR",
-      "line": "16 G · 6 A · 76 shots"
+      "line": "16 G · 6 A · 78 shots"
     },
     {
       "player": "Matty Telfer",
@@ -123,21 +124,21 @@
       "programme": "purdue-northwest",
       "position": "FWD",
       "class": "SO",
-      "line": "7 G · 7 A · 61 shots"
+      "line": "7 G · 7 A · 64 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 purdue-northwest v roosevelt",
-      "line": "Roosevelt end Purdue Northwest's winning run and have now won on both grounds this season."
+      "fixture_ref": "2026-11-15 findlay v northern-michigan",
+      "line": "Northern Michigan have not won since beating Davenport in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 roosevelt v purdue-northwest",
-      "line": "Purdue Northwest have yet to win at Roosevelt this season, and lost on this ground in September."
+      "fixture_ref": "2026-11-15 lincoln v roosevelt",
+      "line": "Roosevelt have not lost since October; Lincoln held Saginaw Valley State to a draw in August."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:43:01.890Z"
+    "validated_at": "2026-11-15T19:33:22.252Z"
   }
 }

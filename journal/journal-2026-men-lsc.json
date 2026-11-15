@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-11-10T12:40:00Z",
-  "data_collected_at": "2026-11-10T12:35:01+00:00",
+  "generated_at": "2026-11-15T19:31:00Z",
+  "data_collected_at": "2026-11-15T19:26:10+00:00",
   "headline": "Midwestern State beat St. Mary's again and stay unbeaten",
-  "dek": "Midwestern State beat St. Mary's at home on Saturday, as they had on the same ground in conference play. They have won fifteen and drawn five this season without a loss, conceding fifteen goals, and remain the only side in the conference yet to be beaten.",
+  "dek": "Midwestern State beat St. Mary's on their own ground in their last match, as they had there in conference play. They have won fifteen and drawn five this season without a loss, conceding fifteen goals, and remain the only side in the conference yet to be beaten.",
   "lede_basis": {
     "programme": "midwestern-state",
     "wins": 15,
@@ -15,7 +15,8 @@
     "gf": 53,
     "ga": 15
   },
-  "lede_updated": "2026-11-08",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "truth: the standing dek's 'on Saturday' now reads as Nov 14, but the match it names was played Nov 7; the story stands and the relative day is removed",
   "pattern": {
     "label": "derived",
     "text": "Fourteen different players have scored Midwestern State's 53 goals, and Parker Plaxco has seventeen of them.",
@@ -138,10 +139,14 @@
     "last_match": {
       "fixture_ref": "2026-11-07 midwestern-state v saint-marys",
       "line": "Midwestern State have now beaten St. Mary's twice on this ground, and have yet to lose this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-15 midwestern-state v uccs",
+      "line": "Midwestern State drew at UCCS in September; every other conference side UCCS have played, they have beaten."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:43:29.718Z"
+    "validated_at": "2026-11-15T19:34:06.962Z"
   }
 }

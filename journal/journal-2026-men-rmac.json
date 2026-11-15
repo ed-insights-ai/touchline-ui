@@ -3,29 +3,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-11-10T12:41:00+00:00",
-  "data_collected_at": "2026-11-10T12:37:17+00:00",
-  "headline": "Only the table's top sides have matches left",
-  "dek": "Regis, CSU Pueblo, Fort Lewis and UCCS each have a match listed against a non-conference side this week; nobody else in the conference has one. CSU Pueblo carry thirteen wins and one defeat into theirs, and that defeat came at home to Fort Lewis.",
+  "generated_at": "2026-11-15T19:35:00+00:00",
+  "data_collected_at": "2026-11-15T19:27:53+00:00",
+  "headline": "Regis beat Seattle Pacific again, this time away",
+  "dek": "Regis won the day after Fort Lewis lost at Western Oregon, and UCCS and CSU Pueblo are now the only sides in the conference with a match still listed. CSU Pueblo take thirteen wins and one defeat into theirs, and that defeat came at home to Fort Lewis.",
   "lede_basis": {
     "programme": "csu-pueblo",
     "wins": 13,
     "draws": 3,
     "losses": 1
   },
-  "lede_updated": "2026-11-10",
-  "displaced_by": "The standing dek said no further match was listed for any side; Regis, CSU Pueblo, Fort Lewis and UCCS now each have one.",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Regis and Fort Lewis have played the matches the standing dek listed; only UCCS and CSU Pueblo still have one, so the standing lines no longer hold.",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 30; scoring is not what separates the top of the table.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fort-lewis": 43,
+        "fort-lewis": 45,
+        "regis": 43,
         "south-dakota-mines": 43,
-        "regis": 41,
         "csu-pueblo": 40,
-        "uccs": 38,
+        "uccs": 39,
         "westminster": 36,
         "colorado-mesa": 26,
         "msu-denver": 25,
@@ -48,7 +48,7 @@
     "line": "Regis have beaten Fort Lewis home and away, and have lost three times all season.",
     "basis": {
       "programme": "regis",
-      "wins": 12,
+      "wins": 13,
       "draws": 4,
       "losses": 3
     },
@@ -85,24 +85,24 @@
     },
     {
       "label": "observed",
-      "text": "Regis's Jacobo Betancourt-Tovar has scored twelve goals this season from 65 shots.",
+      "text": "Regis's Jacobo Betancourt-Tovar has scored twelve goals this season from 67 shots.",
       "basis": {
         "source": "stats",
         "player": "Jacobo Betancourt-Tovar",
         "programme": "regis",
         "goals": 12,
-        "shots": 65
+        "shots": 67
       }
     },
     {
       "label": "observed",
-      "text": "UCCS's Hugo Sjöberg has made 68 saves this season and conceded nineteen goals.",
+      "text": "UCCS's Hugo Sjöberg has made 68 saves this season and conceded twenty goals.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
         "saves": 68,
-        "goals_against": 19
+        "goals_against": 20
       }
     }
   ],
@@ -112,14 +112,14 @@
       "programme": "regis",
       "position": "MID",
       "class": "SR",
-      "line": "12 G · 1 A · 65 shots"
+      "line": "12 G · 2 A · 67 shots"
     },
     {
       "player": "William Bretvik",
       "programme": "fort-lewis",
       "position": "MID",
       "class": "JR",
-      "line": "11 G · 2 A · 48 shots"
+      "line": "11 G · 2 A · 52 shots"
     },
     {
       "player": "Richie Tabares Ochoa",
@@ -131,16 +131,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 regis v fort-lewis",
-      "line": "Regis had already won at Fort Lewis in October; Fort Lewis came in having handed CSU Pueblo their only defeat."
+      "fixture_ref": "2026-11-14 seattle-pacific v regis",
+      "line": "Regis had already beaten Seattle Pacific at home in September, and had not lost since their defeat at UCCS in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 western-oregon v fort-lewis",
-      "line": "Western Oregon won at MSU Denver and drew at Westminster in August; Fort Lewis travel from a defeat at Regis."
+      "fixture_ref": "2026-11-15 csu-pueblo v cal-state-san-bernardino",
+      "line": "Cal State San Bernardino held Regis to a goalless draw in September; CSU Pueblo have won every home match against a non-conference side."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:44:57.009Z"
+    "validated_at": "2026-11-15T19:36:08.191Z"
   }
 }

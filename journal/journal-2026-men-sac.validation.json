@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-11-10T12:44:26.600Z",
-  "data_collected_at": "2026-11-10T12:37:41+00:00",
+  "validated_at": "2026-11-15T19:36:01.926Z",
+  "data_collected_at": "2026-11-15T19:28:09+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Emory & Henry's win over Catawba on Sunday was their tenth of the season; they have drawn three and lost none.",
+      "text": "Emory & Henry's home win over Catawba was their tenth of the season; they have drawn three and lost none.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Catawba's defeat at Emory & Henry on Sunday was their second of the season, against fourteen wins and two draws.",
+      "text": "Catawba's defeat at Emory & Henry was their second of the season, against fourteen wins and two draws.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-10T12:43:56.352Z",
-    "generate_ms": 30246,
+    "started_at": "2026-11-15T19:35:00.555Z",
+    "generate_ms": 61371,
     "validate_ms": 1,
-    "wall_ms": 30248,
+    "wall_ms": 61373,
     "concurrency": 4
   }
 }

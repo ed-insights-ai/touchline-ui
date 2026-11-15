@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-11-10T12:45:00+00:00",
-  "data_collected_at": "2026-11-10T12:30:15+00:00",
-  "headline": "Georgian Court play on beyond the conference",
-  "dek": "Georgian Court go to Millersville with twelve wins, more than any other programme in the conference. They have not lost since Jefferson beat them in October, and their last win came at Bridgeport, who had beaten them on their own ground earlier that month.",
+  "generated_at": "2026-11-15T19:40:00+00:00",
+  "data_collected_at": "2026-11-15T19:22:30+00:00",
+  "headline": "Georgian Court turn the tables at Millersville",
+  "dek": "Georgian Court won at Millersville, where they had lost without reply in September. The win was their thirteenth, more than any other programme in the conference has managed this season.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "wins",
@@ -23,10 +23,10 @@
       "post",
       "wilmington"
     ],
-    "wins": 12
+    "wins": 13
   },
-  "lede_updated": "2026-11-10",
-  "displaced_by": "Georgian Court now have a match scheduled at Millersville, so the standing headline's 'finish the season' and the dek's 'closed the season' are no longer true",
+  "lede_updated": "2026-11-15",
+  "displaced_by": "Georgian Court have now played and won at Millersville, so the standing dek's 'go to Millersville with twelve wins' is no longer true",
   "pattern": {
     "label": "observed",
     "text": "Goals have not decided the table: Bridgeport have scored 49 and conceded 41, in a season of nine wins, three draws and eight defeats.",
@@ -34,7 +34,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "bridgeport": 49,
-        "georgian-court": 40,
+        "georgian-court": 42,
         "felician": 36,
         "wilmington": 33,
         "jefferson": 29,
@@ -57,28 +57,17 @@
     }
   },
   "wire": {
-    "line": "Georgian Court still have a match to play, at Millersville, and have not lost since Jefferson beat them in October.",
+    "line": "Gijs van Eif has set up nine goals for Georgian Court and scored eleven himself.",
     "basis": {
+      "source": "stats",
+      "player": "Gijs van Eif",
       "programme": "georgian-court",
-      "wins": 12,
-      "draws": 3,
-      "losses": 6
+      "goals": 11,
+      "assists": 9
     },
-    "updated": "2026-11-10"
+    "updated": "2026-11-15"
   },
   "findings": [
-    {
-      "label": "observed",
-      "text": "Gijs van Eif has scored eleven goals for Georgian Court from 81 shots, and has eight assists.",
-      "basis": {
-        "source": "stats",
-        "player": "Gijs van Eif",
-        "programme": "georgian-court",
-        "goals": 11,
-        "assists": 8,
-        "shots": 81
-      }
-    },
     {
       "label": "observed",
       "text": "Mathias Kristoffersen has kept nine shutouts for Felician and conceded twelve goals all season.",
@@ -114,6 +103,14 @@
     },
     {
       "label": "observed",
+      "text": "Sixteen different players have scored for Georgian Court.",
+      "basis": {
+        "programme": "georgian-court",
+        "distinct_scorers_min": 16
+      }
+    },
+    {
+      "label": "observed",
       "text": "Dane Bodziak has scored eight goals for Chestnut Hill from eighteen shots.",
       "basis": {
         "source": "stats",
@@ -141,7 +138,7 @@
       "programme": "georgian-court",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 8 A · 81 shots"
+      "line": "11 G · 9 A · 85 shots"
     },
     {
       "player": "Eliass Elfasoukhi",
@@ -160,16 +157,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 bridgeport v georgian-court",
-      "line": "Bridgeport had won at Holy Family and at Wilmington on the way in."
+      "fixture_ref": "2026-11-13 millersville v georgian-court",
+      "line": "Georgian Court have won every match since Jefferson beat them in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-13 millersville v georgian-court",
-      "line": "Millersville beat Georgian Court without reply in September, and did the same to Holy Family on the opening day."
+      "fixture_ref": "2026-11-15 davis-elkins v georgian-court",
+      "line": "Georgian Court are the only programme in the conference with a match still to play."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-10T12:42:36.563Z"
+    "validated_at": "2026-11-15T19:33:08.858Z"
   }
 }
