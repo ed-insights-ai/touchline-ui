@@ -11,6 +11,8 @@
 import { dayOfMonth, dowLong, monLong } from "../lib/format.ts";
 import { matchHref, type Season } from "../lib/derive.ts";
 import { kickoff, weekOf } from "../lib/schedule.ts";
+import { stageChipOf } from "../lib/stage.ts";
+import StageChip from "./StageChip.astro";
 
 interface Props {
   season: Season;
@@ -72,13 +74,14 @@ const emptyNote =
               {day.matches.length === 0 ? (
                 <p class="wk-none serif-italic">No matches.</p>
               ) : (
-                day.matches.map((f) => (
+                day.matches.map((f) => { const chip = stageChipOf(f); return (
                   <a
                     class={f.conference_game ? "wk-row wk-league hoverable" : "wk-row hoverable"}
                     href={matchHref(season.key, f.id)}
                   >
                     <span class="wk-line">
                       {f.conference_game && <span class="vh">League match. </span>}
+                      {chip && <StageChip chip={chip} size="sm" />}
                       <span class={members.has(f.away) ? "wk-side wk-mine" : "wk-side"}>
                         {names.name(f.away)}
                       </span>
@@ -90,7 +93,7 @@ const emptyNote =
                     </span>
                     <span class="wk-time num">{kickoff(f.time) ?? "—"}</span>
                   </a>
-                ))
+                ); })
               )}
             </div>
           ))}
@@ -206,6 +209,8 @@ const emptyNote =
     background: var(--accent);
   }
   .wk-line { flex: 1; min-width: 0; }
+  /* A postseason match names its round first, in the ledger's tag. */
+  .wk-line :global(.stage-chip) { margin-right: 8px; vertical-align: 1px; }
   .wk-side { color: var(--quiet); }
   .wk-mine { color: var(--ink); font-weight: 600; }
   .wk-at { color: var(--quiet); }

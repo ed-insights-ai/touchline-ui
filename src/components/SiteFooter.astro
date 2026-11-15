@@ -16,16 +16,19 @@
 // About page names scope and season in full. The link wears an underline
 // rather than trusting a reader to hover a sentence to find out it was one.
 //
-// Freshness is one stamp, and on a page speaking for several conferences it is
-// the OLDEST of them. It is the only single claim true of every figure on the
-// page, and a conference that fails to collect drags it backwards, which is
-// the signal a reader is owed. This line used to print each conference's own
-// time side by side; that is honest and it does not scale — a token per
-// conference, on a site meant to take more of them.
+// Freshness, on a page speaking for one conference, is that conference's own
+// stamp. On a page speaking for several it was the OLDEST of them, which is
+// true of every figure but read as a stale site: "Data collected Nov 10" under
+// a Nov 15 dateline because one conference of nineteen had not collected
+// since. It is now the day the rest were collected, and beneath it, by name,
+// each conference more than a day behind — so a failed collect is still the
+// signal a reader is owed, attributed to the conference it belongs to, and
+// the name links to the About page's list of every stamp (lib/freshness.ts).
 //
 // No logo and no bold name. The line opens with the word Touchline, which is
 // the identity, and everything after it is one quiet hairline register.
-import { aboutHref, collectionLine, type Season } from "../lib/derive.ts";
+import { aboutHref, type Season } from "../lib/derive.ts";
+import { freshness } from "../lib/freshness.ts";
 import { site } from "../site.config.ts";
 
 interface Props {
@@ -33,7 +36,10 @@ interface Props {
   seasons: readonly Season[];
 }
 const { seasons } = Astro.props;
-const collected = collectionLine(seasons);
+const collected = freshness(
+  seasons,
+  (s) => site.conferenceNames[s.key] ?? s.fixtures.conference,
+);
 // The copyright's year is this build's, not the season's: it says when the
 // work was published, which is a different fact from which season it covers.
 const published = new Date().getUTCFullYear();
@@ -45,7 +51,12 @@ const published = new Date().getUTCFullYear();
     <span class="sf-sep" aria-hidden="true">·</span>
     <a class="sf-link" href={aboutHref()}>About &amp; method</a>
   </span>
-  <span class="sf-cell sf-mid num">{collected}</span>
+  <span class="sf-cell sf-mid num">
+    <span class="sf-when">{collected.line}</span>
+    {collected.lagLine && (
+      <a class="sf-lag" href={`${aboutHref()}#collection`}>{collected.lagLine}</a>
+    )}
+  </span>
   <span class="sf-cell sf-right num">© {published} {site.publisher}</span>
 </footer>
 
@@ -69,7 +80,13 @@ const published = new Date().getUTCFullYear();
   }
   .sf-left { justify-self: start; }
   .sf-sep { margin: 0 6px; color: var(--outline-quiet); }
-  .sf-mid { justify-self: center; }
+  .sf-mid { justify-self: center; text-align: center; }
+  /* A conference that lags, named under the day the rest were collected: its
+     own line, in the footer's register, linking to every stamp on About. */
+  .sf-when, .sf-lag { display: block; }
+  .sf-lag { color: var(--quiet); }
+  .sf-lag:hover { color: var(--accent-hover); }
+  .sf-lag:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
   .sf-right { justify-self: end; }
   /* The zones separate the cells; the middots that did it when this was one
      running line would be debris floating in the gaps. */
@@ -109,5 +126,6 @@ const published = new Date().getUTCFullYear();
       line-height: 1.7;
     }
     .sf-left, .sf-mid, .sf-right { justify-self: start; }
+    .sf-mid { text-align: left; }
   }
 </style>

@@ -216,15 +216,32 @@ describe("the season page's middle, by the numbers", () => {
   });
 
   test("no reader surface prints an evidence chip any more", () => {
-    for (const rel of [
-      "pages/about.astro",
-      "pages/[conference]/team/[slug].astro",
-      "components/PlayerSheet.astro",
-    ]) {
+    for (const rel of ["pages/[conference]/team/[slug].astro", "components/PlayerSheet.astro"]) {
       const src = readFileSync(join(root, rel), "utf8");
       expect(src, rel).not.toContain("EvidenceChip");
       expect(src, rel).not.toContain("chip-observed");
     }
+  });
+
+  // The championship page and its tie sheets print OBSERVED and DERIVED
+  // chips (2026-11), and a reader meeting them is owed a key. About keys
+  // exactly the grades some reader page prints and no others: the retired
+  // glossary of five, most of them marks nobody met, does not come back.
+  test("About keys only the evidence chips another page prints", () => {
+    const about = readFileSync(join(root, "pages/about.astro"), "utf8");
+    expect(about).not.toContain("EvidenceChip");
+    const printed = new Set(
+      ["pages/championship.astro", "components/TieSheet.astro", "components/TieBox.astro"].flatMap(
+        (rel) =>
+          [
+            ...readFileSync(join(root, rel), "utf8").matchAll(
+              /chip-(observed|derived|signal|projected)/g,
+            ),
+          ].map((m) => m[1]),
+      ),
+    );
+    const keyed = [...about.matchAll(/chip-(observed|derived|signal|projected)/g)].map((m) => m[1]);
+    for (const grade of keyed) expect(printed.has(grade), grade).toBe(true);
   });
 });
 

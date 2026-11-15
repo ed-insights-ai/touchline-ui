@@ -19,7 +19,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 import Masthead from "../components/Masthead.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import Page from "../layouts/Page.astro";
-import { seasonHref } from "../lib/derive.ts";
+import { championshipHref, seasonHref } from "../lib/derive.ts";
 import { divisionCounts } from "../lib/division.ts";
 import {
   dayOfMonth,
@@ -32,6 +32,7 @@ import { type ConferenceFootprint, footprintOf } from "../lib/geo.ts";
 import {
   type BandColumn,
   type CardView,
+  championshipLine,
   conferenceOfProgramme,
   headlineProgrammeOf,
   homeBands,
@@ -49,6 +50,7 @@ import {
 } from "../lib/home.ts";
 import { editorial, loadJournal, loadNationalJournal } from "../lib/journal.ts";
 import { conferenceEntries, ledgerSummary, splitLedger } from "../lib/nav.ts";
+import { divisionPostseason } from "../lib/postseason-division.ts";
 import { site } from "../site.config.ts";
 
 const seasons = homeSeasons();
@@ -86,6 +88,12 @@ const leftOpen = lastNightOpen(seasons, lastNight);
 // is config (site.homeLedgerCap) and the count is the folded set's length,
 // so the summary can never claim a result the ledger does not hold.
 const { open: ledgerOpen, folded: ledgerFolded } = splitLedger(ledger, site.homeLedgerCap);
+// Once the collect holds an NCAA tie, one quiet line under the night points
+// at the championship, with the page's own played count (lib/home.ts
+// championshipLine counts it the way championship.astro does). Before the
+// field is collected there is no line, and nothing says why: the header's
+// championship tab is absent then too.
+const champLine = championshipLine(divisionPostseason().ncaa);
 
 // The find-your-conference strip under the masthead: every collected
 // conference in navigation order, the abbreviation printed and the full name
@@ -123,7 +131,10 @@ const cards = new Map(
 );
 const cardStamp = (key: string): string | null => {
   const iso = cards.get(key)?.updated;
-  return iso ? `UPDATED ${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}` : null;
+  // "WRITTEN", not "UPDATED": what is old is the sentence, not the figures
+  // beside it, which were collected today — the season masthead's own
+  // correction (journal.ts headlineWrittenStamp), in the card's fewer words.
+  return iso ? `WRITTEN ${monShort(iso).toUpperCase()} ${dayOfMonth(iso)}` : null;
 };
 
 const night = dowLong(lastNight);
@@ -163,6 +174,7 @@ const views: (CardView & BandColumn)[] = columns.map((c) => ({
   live: c.live,
   opensOn: c.opensOn,
   kickoff: c.kickoff,
+  phase: c.phase,
 }));
 // N columns from config — the count is the conference list's, never a literal.
 // Up to the configured cap that is one column each; past it the same cards
@@ -257,6 +269,9 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
         </p>
       )}
       {openLine && <p class="ln-open">{openLine}</p>}
+      {champLine && (
+        <a class="ln-champ num" href={championshipHref()}>{champLine}&nbsp;<span aria-hidden="true">→</span></a>
+      )}
     </section>
 
     <HomeConferences
@@ -332,6 +347,22 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
     color: var(--secondary);
   }
   .ln-open { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
+  /* The championship's pointer: one quiet line in the ledger's sans, the
+     section head's tracking, secondary until hovered. A way on, not a story. */
+  .ln-champ {
+    align-self: flex-start;
+    padding: 2px 4px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--secondary);
+  }
+  .ln-champ:hover { color: var(--accent-hover); }
+  .ln-champ:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  @media (pointer: coarse) {
+    .ln-champ { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+  }
 
   /* The conferences — the columns under the cap, the map-led section past
      it: ConferenceCard.astro, HomeConferences.astro, HomeMap.astro,

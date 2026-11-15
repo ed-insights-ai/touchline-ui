@@ -65,6 +65,24 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
   {frozen && <span class="tscope num">FINAL · REGULAR SEASON</span>}
 </div>
 <div class="table num">
+  {/* The columns, named. A record and a points figure read as two unlabelled
+      numbers to anyone who does not already know the house order (design
+      council, 2026-11-15). The dim line under each name labels itself. */}
+  {rows.length > 0 && (live ? (
+    <div class="trow trow-live trow-head">
+      <span class="tpos">#</span>
+      <span>Team</span>
+      <span class="trec">W–D–L</span>
+      <span class="tpts">Pts</span>
+    </div>
+  ) : (
+    <div class="trow trow-early trow-head">
+      <span class="tpos">#</span>
+      <span>Team</span>
+      <span class="tform">Form</span>
+      <span class="trec">W–D–L</span>
+    </div>
+  ))}
   {rows.map((r, i) => {
     const f = form(r.slug);
     const o = overall?.get(r.slug);
@@ -105,6 +123,16 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
   /* Four short cells on the loud line, so a phone keeps the names whole. */
   .trow-live { grid-template-columns: 20px 1fr 52px 36px; }
   .trow-cut { border-bottom-color: var(--ink); }
+  /* The column heads, in the caps-label register, on the row grid itself so
+     each label sits over its own figures. */
+  .trow.trow-head {
+    padding-top: 7px; padding-bottom: 6px;
+    font-size: 10px; letter-spacing: 0.12em; font-weight: 600; text-transform: uppercase;
+    color: var(--quiet);
+  }
+  .trow.trow-head:hover { border-left-color: transparent; }
+  .trow.trow-head .trec, .trow.trow-head .tpts, .trow.trow-head .tpos { font-size: 10px; color: var(--quiet); font-weight: 600; }
+  .trow-head .tform { text-align: right; }
   .tchamp { font-size: 9px; letter-spacing: 0.12em; font-weight: 600; color: var(--ink); margin-left: 8px; white-space: nowrap; }
   .trow:hover { border-left-color: var(--accent); }
   .tpos { font-size: 11.5px; color: var(--quiet); }

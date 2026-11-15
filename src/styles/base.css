@@ -223,6 +223,18 @@ a.card:hover { border-color: var(--accent); color: inherit; }
 .viewnav a { font-size: 12.5px; color: var(--secondary); }
 .viewnav a:hover { color: var(--ink); }
 .viewnav a[aria-current="page"] { font-weight: 600; color: var(--ink); }
+/* Under a finger the views are 44px tall without the header growing: the
+   padding takes the hit area and the equal negative margin gives the line
+   back, so nothing on the page moves. */
+@media (pointer: coarse) {
+  .viewnav a { display: inline-block; padding: 15px 4px; margin: -15px -4px; }
+}
+/* On a phone the header wraps and the views take a line of their own, where
+   the hairline that set them apart from the triggers would open the line
+   with a separator; there it goes. */
+@media (max-width: 480px) {
+  .viewnav::before { display: none; }
+}
 
 /* The two disclosures beside the wordmark: Conference, then Team. Each
    trigger is a 58px tab so the 2px accent rule under the conference trigger
@@ -343,6 +355,10 @@ a.card:hover { border-color: var(--accent); color: inherit; }
   }
   .hmenu-head { padding: 10px 4px 6px; }
   .hmenu-close { display: inline; }
+  /* The Close is 10px type; under a finger its padding makes it a target. */
+  @media (pointer: coarse) {
+    .hmenu-close { display: inline-block; padding: 15px 6px; margin: -15px -6px; }
+  }
   .hmenu-cols, .hmenu-col, .hmenu-group { display: flex; flex-direction: column; gap: 0; }
   .hmenu-group > .mrow + .mrow { margin-top: 0; }
   .hmenu-region, .hmenu-col > .hmenu-group:first-child > .hmenu-region { padding: 14px 4px 4px; }

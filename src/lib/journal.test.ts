@@ -191,7 +191,7 @@ describe("the chart's caption is the page's own", () => {
 describe("the lede's stamp is a fact about the sentence", () => {
   test("a journal with a stamp renders the day the lede last changed", () => {
     expect(editorial(anySeason, { ...anyJournal, lede_updated: "2026-08-27" }).stamp).toBe(
-      "UPDATED AUG 27",
+      "HEADLINE WRITTEN AUG 27",
     );
   });
 

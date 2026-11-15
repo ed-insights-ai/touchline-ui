@@ -6,12 +6,60 @@
 // as the play-by-play filters. A script-driven island can replace the opening
 // mechanism later without touching a figure on the card.
 import type { PlayerCard } from "../lib/player.ts";
+import type { StageChip as Chip } from "../lib/stage.ts";
+import StageChip from "./StageChip.astro";
 
+/** What the page knows about a log row that the card does not: its Match
+ *  Centre and its postseason tag. Parallel to card.log, and used for a row
+ *  only where its date and opponent agree. */
+interface LogExtra {
+  date: string;
+  opponent: string;
+  href: string;
+  stage: Chip | null;
+}
 interface Props {
   card: PlayerCard;
+  logExtras?: readonly LogExtra[];
+  /** The minutes each of the stats page's two tables prints for this player,
+   *  when a keeper appears in both. */
+  minutesPublished?: { player?: number | undefined; keeper?: number | undefined };
 }
-const { card } = Astro.props;
+const { card, logExtras = [], minutesPublished = {} } = Astro.props;
 const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
+
+const thousands = (n: number): string => n.toLocaleString("en-US");
+const extraFor = (i: number): LogExtra | null => {
+  const e = logExtras[i];
+  const l = card.log[i];
+  return e && l && e.date === l.date && e.opponent === l.opponent ? e : null;
+};
+
+// The minutes figure, with thousands marked. The note is the card's own
+// ("1683 / 1800 · 20 appearances, 20 starts"); only its leading pair is
+// re-set, and a note in any other shape prints untouched.
+const minutesLine = (() => {
+  const m = card.minutes;
+  if (!m) return null;
+  const lead = `${m.played} / ${m.available}`;
+  return m.note.startsWith(lead)
+    ? `${thousands(m.played)} / ${thousands(m.available)}${m.note.slice(lead.length)}`
+    : m.note;
+})();
+
+// A keeper who also appears in the outfield table has two published minute
+// counts, and the card reads them in two places: the bar above reads the
+// player table (player.ts), the career row the goalkeeping table. Fort Hays
+// State's stats page prints 1,683 for Payton Roehrich in one and 1,679 in the
+// other. Neither is wrong to print; printing both without a word was a silent
+// contradiction (design council, 2026-11-15), so the bar names its source and
+// the other figure where they differ.
+const minutesSource = (() => {
+  const { player, keeper } = minutesPublished;
+  if (!card.minutes || player === undefined || keeper === undefined || player === keeper) return null;
+  if (card.minutes.played !== player) return null;
+  return `Minutes from the stats page's player table. Its goalkeeping table, which the career row below reads, prints ${thousands(keeper)}.`;
+})();
 ---
 
 <div class="sheet" id={card.anchor}>
@@ -55,11 +103,12 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
       <div class="sheet-minutes">
         <div class="minutes-head">
           <span class="minutes-label">MINUTES</span>
-          <span class="num">{card.minutes.note}</span>
+          <span class="num">{minutesLine}</span>
         </div>
         <div class="minutes-track">
           <i class="minutes-fill" style={`width: ${card.minutes.pct}%`}></i>
         </div>
+        {minutesSource && <p class="minutes-source num">{minutesSource}</p>}
       </div>
     ) : (
       <p class="sheet-absent">
@@ -110,6 +159,9 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
       </div>
       {card.career.rates && (
         <div class="block-rows num career-rates">
+          <h4 class="career-rates-head">
+            CAREER RATES · {card.career.rows.length} SEASONS POOLED
+          </h4>
           {card.career.rates.map((r) => (
             <div class="block-row">
               <span class="block-key">{r.label}</span>
@@ -128,10 +180,20 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
             {card.programme} has not played a match that counts yet.
           </p>
         ) : (
-          card.log.map((l) => (
-            <div class="log-row">
+          card.log.map((l, i) => {
+            const extra = extraFor(i);
+            const Row = extra ? "a" : "div";
+            return (
+            <Row class:list={["log-row", { "log-link": extra }]} href={extra?.href}>
               <span class="log-date">{l.date}</span>
-              <span class="log-opp">{l.home ? "vs" : "at"} {l.opponent}</span>
+              {extra?.stage ? (
+                <span class="log-opp log-opp-staged">
+                  <span class="log-opp-name">{l.home ? "vs" : "at"} {l.opponent}</span>
+                  <StageChip chip={extra.stage} size="sm" />
+                </span>
+              ) : (
+                <span class="log-opp">{l.home ? "vs" : "at"} {l.opponent}</span>
+              )}
               <span class="log-result">
                 {l.result && <span class={`res res-${RESULT[l.result]}`}>{l.result}</span>}
                 {l.score && <span class="log-score">{l.score}</span>}
@@ -147,8 +209,9 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
               <span class={`log-line${l.line ? "" : " log-line-absent"}`}>
                 {l.line ?? l.absent}
               </span>
-            </div>
-          ))
+            </Row>
+            );
+          })
         )}
         {card.exhibitions && <div class="log-note">{card.exhibitions}</div>}
       </div>
@@ -359,6 +422,8 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
     display: flex; justify-content: space-between; font-size: 10.5px; color: var(--secondary);
   }
   .minutes-label { letter-spacing: 0.12em; font-weight: 600; }
+  /* Where the minutes come from, when the stats page prints two counts. */
+  .minutes-source { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--quiet); }
   .minutes-track { height: 7px; background: var(--hairline-soft); border-radius: 4px; overflow: hidden; }
   /* The chart's grey, not the accent: purple on this site is league and
      links, never data (owner, 2026-09-01). */
@@ -392,6 +457,11 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   .career-note { font-size: 13.5px; color: var(--quiet); }
   /* The career's rates read as the season's do above, one rule below the sum. */
   .career-rates { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--hairline-soft); }
+  /* The rates are pooled, not the season's: the head says so in the career
+     table's own column-head register. */
+  .career-rates-head {
+    margin: 0 0 2px; font-size: 10px; font-weight: 400; letter-spacing: 0.1em; color: var(--quiet);
+  }
 
   .log { display: flex; flex-direction: column; }
   .log-row {
@@ -401,6 +471,21 @@ const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
   .log-row + .log-row { border-top: 1px solid var(--hairline-soft); }
   .log-date { color: var(--quiet); }
   .log-opp { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* A postseason row names its round under the opponent rather than beside
+     it, so the tag never costs the name its ending; the name stays the row's
+     first line, which the other cells sit on. */
+  .log-opp-staged {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    white-space: normal;
+  }
+  .log-opp-name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* A row with a Match Centre is a link to it; the row keeps its ink and
+     takes the accent on the opponent, as the squad rows do on a name. */
+  a.log-link { color: inherit; text-decoration: none; }
+  a.log-link:hover .log-opp, a.log-link:focus-visible .log-opp { color: var(--accent); }
+  @media (pointer: coarse) {
+    a.log-link { min-height: 44px; align-items: center; }
+  }
   .log-result { text-align: right; display: flex; gap: 5px; justify-content: flex-end; }
   .res { font-weight: 600; }
   .res-win { color: var(--win); }

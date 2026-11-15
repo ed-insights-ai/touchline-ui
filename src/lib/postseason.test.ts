@@ -15,11 +15,15 @@ import { nameBookFor } from "./names.ts";
 import {
   aheadOf,
   fieldOf,
+  kickoffOf,
   layoutRegion,
   layoutTree,
   postseasonOf,
+  publisherOf,
   regionsOf,
+  routeOf,
   shapeOf,
+  sideSeasonOf,
   splitOf,
   stageTag,
   treesOf,
@@ -376,5 +380,70 @@ describe("a round is named from the confirmed shape before the final is collecte
 
   test("an unconfirmed shape keeps the names the chain alone supports", () => {
     expect(labels(qf).some((l) => l.endsWith(":QF"))).toBe(false);
+  });
+});
+
+describe("an unplayed tie's kickoff is printed as one page published it", () => {
+  // Two schedules of one second-round tie, each in its own local time.
+  const hostRecord = fx("2026-11-15", "fhsu", null, null, "lake-erie", {
+    stage: NCAA,
+    time: "13:00",
+    venue: "Hays, Kan.",
+    source_url: "https://fhsuathletics.com/sports/mens-soccer/schedule/2026",
+  });
+  const awayRecord = fx("2026-11-15", "fhsu", null, null, "lake-erie", {
+    stage: NCAA,
+    time: "14:00",
+    venue: "Hays, KS",
+    source_url: "https://lakeeriestorm.com/sports/mens-soccer/schedule/2026",
+  });
+  const earlier = fx("2026-11-13", "lake-erie", 2, 0, "ashland", { stage: NCAA });
+  // The away side's file first in config order: the host's record must still win.
+  const p = postseasonOf([
+    seasonOf("gmac", fileOf("G-MAC", ["lake-erie", "ashland"], [awayRecord, earlier])),
+    seasonOf("gac", fileOf("GAC", ["fhsu"], [hostRecord])),
+  ]);
+  const tie = p.ncaa.ties.find((t) => t.fixture.date === "2026-11-15");
+
+  test("the host's record is printed, and a page that differs is named, not merged", () => {
+    const k = tie && kickoffOf(tie);
+    expect(k?.hosted).toBe(true);
+    expect(k?.primary).toMatchObject({ by: "fhsu", time: "13:00", venue: "Hays, Kan." });
+    expect(k?.agree).toEqual([]);
+    expect(k?.differ.map((v) => [v.by, v.time])).toEqual([["lake-erie", "14:00"]]);
+  });
+
+  test("a neutral site has no host, so no record is called the host's", () => {
+    const n1 = fx("2026-11-15", "fhsu", null, null, "lake-erie", {
+      stage: NCAA,
+      neutral: true,
+      time: "13:00",
+    });
+    const q = postseasonOf([seasonOf("gac", fileOf("GAC", ["fhsu"], [n1]))]);
+    const t = q.ncaa.ties[0];
+    expect(t && kickoffOf(t).hosted).toBe(false);
+  });
+
+  test("a side's route is its earlier ties in the tournament, and a first tie has none", () => {
+    if (!tie) throw new Error("no tie");
+    expect(routeOf(p.ncaa, tie, "lake-erie").map((t) => t.fixture.away)).toEqual(["ashland"]);
+    expect(routeOf(p.ncaa, tie, "fhsu")).toEqual([]);
+  });
+
+  test("a side's record is read from the file it is a member of", () => {
+    if (!tie) throw new Error("no tie");
+    expect(sideSeasonOf(tie, "fhsu")?.key).toBe("gac");
+    expect(sideSeasonOf(tie, "lake-erie")?.key).toBe("gmac");
+  });
+
+  test("a record between two members is the page every row from its host involves", () => {
+    const a = fx("2026-11-01", "x", 1, 0, "y", { source_url: "https://x.edu/s" });
+    const b = fx("2026-10-01", "x", 1, 0, "z", { source_url: "https://x.edu/s" });
+    const c = fx("2026-10-02", "y", 1, 0, "w", { source_url: "https://y.edu/s" });
+    const season = seasonOf("c", fileOf("C", ["x", "y"], [a, b, c]));
+    expect(publisherOf({ key: "c", code: "C", season, fixture: a })).toBe("x");
+    expect(
+      publisherOf({ key: "c", code: "C", season, fixture: { ...a, source_url: undefined } }),
+    ).toBeNull();
   });
 });

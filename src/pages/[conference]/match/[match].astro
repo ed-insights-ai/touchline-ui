@@ -3,6 +3,7 @@ import { site } from "../../../site.config.ts";
 import Page from "../../../layouts/Page.astro";
 import {
   boxScoreGaps,
+  championshipHref,
   hasScore,
   isDisputed,
   isForfeit,
@@ -15,7 +16,10 @@ import {
 } from "../../../lib/derive.ts";
 import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
 import { identityLine } from "../../../lib/programmes.ts";
+import MatchLineups from "../../../components/MatchLineups.astro";
+import MatchSides from "../../../components/MatchSides.astro";
 import MatchTimeline from "../../../components/MatchTimeline.astro";
+import PersonLink from "../../../components/PersonLink.astro";
 import PlayLedger from "../../../components/PlayLedger.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
 import SiteHeader from "../../../components/SiteHeader.astro";
@@ -36,7 +40,19 @@ import {
 } from "../../../lib/division.ts";
 import { homeSeasons } from "../../../lib/home.ts";
 import { divisionPostseason } from "../../../lib/postseason-division.ts";
-import { stageTag } from "../../../lib/postseason.ts";
+import { stageTag, tieAnchor } from "../../../lib/postseason.ts";
+import {
+  boxScoreHost,
+  boxScorePublisher,
+  lineByName,
+  lineupOf,
+  meetingsOf,
+  memberSeasonOf,
+  type Named,
+  routeOf,
+  sheetIndex,
+  sideSummary,
+} from "../../../lib/preview.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
 import {
   clockTime,
@@ -287,6 +303,78 @@ const shootoutLine = (() => {
 const publishedShootout =
   !shootout && !tie?.disputed ? (tie?.resultPublished ?? fixture.result_published ?? null) : null;
 const awayName = names.name(fixture.away);
+
+// Every tie has a sheet on the championship page (championship.astro draws
+// one per tie), so the round chip opens it.
+const tieHref = tie ? `${championshipHref()}#${tieAnchor(tie)}` : null;
+
+// ── The player sheets a name may link to ────────────────────────────────────
+// A sheet exists only on a team page, and only for a player on that page's
+// roster: the member season the team page is built from is the one searched,
+// and anything it cannot find stays plain text.
+const division = homeSeasons();
+const rosterSheet = (slug: string) => {
+  const ms = memberSeasonOf(division, slug);
+  return ms && teamPageHref(season, slug) ? sheetIndex(slug, ms.rosters?.rosters[slug]?.players ?? []) : null;
+};
+const sheetLinker = (slug: string) => {
+  const team = teamPageHref(season, slug);
+  const find = rosterSheet(slug);
+  return (who: Named): string | null => {
+    const anchor = team && find ? find(who) : null;
+    return anchor ? `${team}#${anchor}` : null;
+  };
+};
+const homeSheet = sheetLinker(fixture.home);
+const awaySheet = sheetLinker(fixture.away);
+// A box-score side by its index, as the scoring and cautions name it.
+const sheetOfTeam = (index: number | undefined) => (index === sides?.homeIndex ? homeSheet : awaySheet);
+const scorerHref = (name: string, index: number | undefined): string | null =>
+  sheetOfTeam(index)(lineByName(index === undefined ? undefined : detail?.teams[index], name) ?? { name });
+
+// ── Played: who published the box score, and each side's lineup ─────────────
+const publisher = detail ? boxScorePublisher(division, detail.source_url) : null;
+const publishedHost = detail ? boxScoreHost(detail.source_url) : null;
+const lineupSides =
+  state === "played" && sides
+    ? [
+        { abbr: homeAbbr, name: homeName, home: true, lineup: lineupOf(sides.home), sheetHref: homeSheet },
+        { abbr: awayAbbr, name: awayName, home: false, lineup: lineupOf(sides.away), sheetHref: awaySheet },
+      ]
+    : [];
+const hasLineups = lineupSides.some(
+  (l) => l.lineup.starters.length + l.lineup.substitutes.length + l.lineup.unmarked.length > 0,
+);
+
+// ── Preview: the sides so far ───────────────────────────────────────────────
+const previewSides =
+  state === "preview"
+    ? [fixture.home, fixture.away].map((slug) => {
+        const ms = memberSeasonOf(division, slug);
+        return {
+          slug,
+          name: names.name(slug),
+          where: slug === fixture.home ? "HOME" : "AWAY",
+          href: teamPageHref(season, slug),
+          summary: ms ? sideSummary(ms, slug) : null,
+          route: routeOf(postseason, slug, fixture).map((r) => ({
+            ...r,
+            opponentName: r.tie.match.season.names.name(r.opponent),
+          })),
+          sheet: rosterSheet(slug),
+        };
+      })
+    : [];
+const meetings =
+  state === "preview"
+    ? meetingsOf(season, fixture.home, fixture.away, fixture).map((m) => ({
+        fixture: m.fixture,
+        href: m.href,
+        mark: m.mark,
+        home: names.name(m.fixture.home),
+        away: names.name(m.fixture.away),
+      }))
+    : [];
 ---
 <Page
   title={`Touchline — ${homeName} v ${awayName}`}
@@ -313,9 +401,18 @@ const awayName = names.name(fixture.away);
         {homeName} v {awayName}, {longDate(fixture.date)} — {badge.text}
       </h1>
       <div class={`badge badge-${badge.tone}`}>{badge.text}</div>
-      {stage && (
-        <div class:list={["stage", `stage-${stage.competition}`]}>{stage.text.trim()}</div>
-      )}
+      {stage &&
+        (tieHref ? (
+          <a
+            class:list={["stage", "stage-link", `stage-${stage.competition}`]}
+            href={tieHref}
+            aria-label={`${stage.text.trim()}: open the tie sheet`}
+          >
+            {stage.text.trim()}
+          </a>
+        ) : (
+          <div class:list={["stage", `stage-${stage.competition}`]}>{stage.text.trim()}</div>
+        ))}
       <div class="scoreline">
         <HomeSide class="side side-home" href={homeLink}>
           <span class="side-name">{homeName.toUpperCase()}</span>
@@ -349,8 +446,12 @@ const awayName = names.name(fixture.away);
               .filter((g) => g.team === sides?.homeIndex)
               .map((g) => (
                 <div>
-                  {g.minute}′ {surname(g.scorer)}
-                  {g.assist && <span class="assist"> ({surname(g.assist)})</span>}
+                  {g.minute}′ <PersonLink href={scorerHref(g.scorer, g.team)}>{surname(g.scorer)}</PersonLink>
+                  {g.assist && (
+                    <span class="assist">
+                      {" "}(<PersonLink href={scorerHref(g.assist, g.team)}>{surname(g.assist)}</PersonLink>)
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
@@ -360,8 +461,12 @@ const awayName = names.name(fixture.away);
               .filter((g) => g.team !== sides?.homeIndex)
               .map((g) => (
                 <div>
-                  {g.minute}′ {surname(g.scorer)}
-                  {g.assist && <span class="assist"> ({surname(g.assist)})</span>}
+                  {g.minute}′ <PersonLink href={scorerHref(g.scorer, g.team)}>{surname(g.scorer)}</PersonLink>
+                  {g.assist && (
+                    <span class="assist">
+                      {" "}(<PersonLink href={scorerHref(g.assist, g.team)}>{surname(g.assist)}</PersonLink>)
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
@@ -369,6 +474,7 @@ const awayName = names.name(fixture.away);
       )}
 
       {state === "played" ? (
+        <>
         <div class="hero-foot num">
           {[
             stampDate(fixture.date),
@@ -379,6 +485,17 @@ const awayName = names.name(fixture.away);
             .join(" · ")
             .toUpperCase()}
         </div>
+        {detail && (
+          <p class="provenance hero-source">
+            <a href={detail.source_url} rel="noopener external">
+              {publisher
+                ? `From ${publisher.name}'s published box score`
+                : `From the box score published at ${publishedHost ?? "the programme's site"}`}
+              <span aria-hidden="true"> ↗</span>
+            </a>
+          </p>
+        )}
+        </>
       ) : state === "preview" ? (
         <div class="hero-foot num">
           {/* The played page's own foot line: the date and the venue, quiet,
@@ -401,11 +518,25 @@ const awayName = names.name(fixture.away);
     </section>
 
     {state === "played" && strip && stripHasInk && (
-      <MatchTimeline
-        homeAbbr={homeAbbr}
-        awayAbbr={awayAbbr}
-        strip={strip}
-      />
+      <div class="timeline-wrap">
+        <MatchTimeline
+          homeAbbr={homeAbbr}
+          awayAbbr={awayAbbr}
+          strip={strip}
+        />
+        {/* The timeline is the match at a glance; the published sequence it
+            is drawn from sits folded at the foot of the page. The link jumps
+            there without script and opens it with. */}
+        {ledger.length > 0 && (
+          <a class="read-events" href="#play-by-play" data-opens-ledger>
+            Read the event list{" "}<span aria-hidden="true">↓</span>
+          </a>
+        )}
+      </div>
+    )}
+
+    {state === "preview" && (
+      <MatchSides sides={previewSides} meetings={meetings} tieHref={tieHref} />
     )}
 
     {state !== "preview" && (
@@ -413,6 +544,7 @@ const awayName = names.name(fixture.away);
       <div class="body-main">
         {state === "played" ? (
           <>
+            <div class="stats-block">
             <h2 class="sechead">TEAM STATISTICS</h2>
             <div class="stats num">
               {stats.map((r) => (
@@ -429,6 +561,12 @@ const awayName = names.name(fixture.away);
                 </div>
               ))}
             </div>
+            </div>
+            {hasLineups && (
+              <div class="lineups-slot">
+                <MatchLineups sides={lineupSides} />
+              </div>
+            )}
           </>
         ) : (
           <>
@@ -477,7 +615,10 @@ const awayName = names.name(fixture.away);
                     ...(sides?.away?.keepers ?? []).map((k) => ({ k, home: false, t: sides?.away })),
                   ].map(({ k, home, t }) => (
                     <div class={`line${home ? "" : " quiet"}`}>
-                      <span>{surname(k.name)} <span class="tag">{home ? homeAbbr : awayAbbr}</span></span>
+                      <span>
+                        <PersonLink href={(home ? homeSheet : awaySheet)(k)}>{surname(k.name)}</PersonLink>{" "}
+                        <span class="tag">{home ? homeAbbr : awayAbbr}</span>
+                      </span>
                       <span class="line-val">
                         {k.saves ?? 0} sv · {k.goals_against ?? 0} ga{k.minutes !== undefined ? ` · ${k.minutes}′` : ""}
                       </span>
@@ -539,13 +680,33 @@ const awayName = names.name(fixture.away);
     )}
 
     {ledger.length > 0 && (
-      <PlayLedger rows={ledger} playCount={plays.length} abbrChars={abbrChars} />
+      <div id="play-by-play" class="ledger-anchor">
+        <PlayLedger rows={ledger} playCount={plays.length} abbrChars={abbrChars} />
+      </div>
     )}
 
 
     <SiteFooter seasons={[season]} />
   </div>
 </Page>
+
+<script>
+  // Arriving at the play-by-play by its link (or its address) opens it. The
+  // link works without this: it jumps to the folded list, which a tap opens.
+  const ledger = () => document.querySelector<HTMLDetailsElement>("#play-by-play details");
+  const openOnHash = () => {
+    const d = ledger();
+    if (d && location.hash === "#play-by-play") d.open = true;
+  };
+  for (const a of document.querySelectorAll("[data-opens-ledger]")) {
+    a.addEventListener("click", () => {
+      const d = ledger();
+      if (d) d.open = true;
+    });
+  }
+  addEventListener("hashchange", openOnHash);
+  openOnHash();
+</script>
 
 <style>
   .match { min-height: 100vh; padding-bottom: 36px; }
@@ -556,8 +717,8 @@ const awayName = names.name(fixture.away);
     display: flex; flex-direction: column; align-items: center; gap: 13px;
   }
   .hero-quiet { padding: 34px 0 28px; gap: 14px; border-bottom: 1px solid var(--hairline); }
-  /* A preview is the hero and nothing under it, so the footer's rule closes
-     the page and the hero does not draw one of its own. */
+  /* A preview's hero is closed by THE SIDES' own rule beneath it, so it does
+     not draw one of its own. */
   .hero-preview { border-bottom: none; padding-bottom: 40px; }
   .badge {
     font-size: 10.5px; letter-spacing: 0.24em; font-weight: 600;
@@ -572,6 +733,23 @@ const awayName = names.name(fixture.away);
     padding: 3px 10px; border: 1px solid var(--ink); border-radius: 3px;
   }
   .stage-ncaa { background: var(--ink); color: var(--paper); }
+  /* The chip opens the tie sheet; it stays a chip, and says so on hover. */
+  a.stage-link:hover { border-color: var(--accent); color: var(--accent); }
+  a.stage-link.stage-ncaa:hover { background: var(--accent); color: var(--paper); }
+  .hero-source { margin: -4px 0 0; }
+  .hero-source a { color: var(--quiet); }
+  .hero-source a:hover { color: var(--accent); }
+
+  .timeline-wrap { position: relative; }
+  /* On the caption line at the timeline's foot, opposite the hint. */
+  .read-events {
+    position: absolute; right: 0; bottom: 18px;
+    font-size: 12px; letter-spacing: 0.04em; color: var(--accent);
+    display: inline-flex; align-items: center; min-height: 24px;
+  }
+  .read-events:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 3px; }
+  .ledger-anchor { scroll-margin-top: 12px; }
+  .lineups-slot { margin-top: 28px; }
   .shootout { margin: 0; font-size: 12px; letter-spacing: 0.12em; font-weight: 600; color: var(--ink); text-align: center; }
 
   .scoreline { display: flex; align-items: center; gap: 48px; }
@@ -696,14 +874,29 @@ const awayName = names.name(fixture.away);
     .scorers { flex-direction: column; gap: 8px; align-items: center; }
     .scorers-gap { display: none; }
     .body { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    /* One column: the lineups are the longest block, so they go below the
+       short panels rather than pushing the score by period off the screen. */
+    .body:not(.body-solo) { display: flex; flex-direction: column; }
+    .body:not(.body-solo) .body-main { display: contents; }
+    .stats-block { order: 0; }
+    .body-side { order: 1; }
+    .lineups-slot { order: 2; margin-top: 0; }
   }
 
   /* ── Phone ──────────────────────────────────────────────────────────────
      The rule for this whole block: the page body never scrolls sideways.
      Anything that genuinely cannot reflow — the timeline is a scale drawing
      of ninety minutes — scrolls inside its own box instead. */
+  @media (pointer: coarse) {
+    .read-events { min-height: 44px; bottom: 4px; }
+    a.stage-link { position: relative; }
+    a.stage-link::after { content: ""; position: absolute; inset: -12px -4px; }
+  }
+
   @media (max-width: 720px) {
     .figure { font-size: 56px; }
+    /* Under the timeline on a phone, where the hint line has no room beside it. */
+    .read-events { position: static; align-self: flex-end; display: flex; justify-content: flex-end; min-height: 44px; }
     .hero-explain { font-size: 14px; }
 
     /* Mirrored bars need width the phone does not have; the figures and the

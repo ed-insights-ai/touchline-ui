@@ -33,6 +33,7 @@ import {
   bandMeta,
   bandOpenFlags,
   type CardView,
+  championshipLine,
   conferenceOfProgramme,
   GLYPHS,
   glyphAt,
@@ -63,9 +64,19 @@ import {
   regionChips,
   unplacedLines,
 } from "./home.ts";
-import { loadNationalJournal, type NationalJournalFile } from "./journal.ts";
+import {
+  defaultKicker,
+  loadNationalJournal,
+  type NationalJournalFile,
+  PHASE_BEFORE,
+  PHASE_DECIDED,
+  PHASE_LIVE,
+  PHASE_TOURNAMENT,
+  seasonPhase,
+} from "./journal.ts";
 import { type Fixture, isPlayed } from "./model.ts";
 import { conferenceEntries, ledgerSummary, splitLedger } from "./nav.ts";
+import { divisionPostseason } from "./postseason-division.ts";
 import { type RegionConfig, regionsInUse } from "./regions.ts";
 
 const seasons = homeSeasons();
@@ -305,6 +316,68 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     });
   });
 
+  describe("the phase a card, a band head and a lead line state", () => {
+    const at = (key: string, phase: string, live = true): BandColumn => ({
+      key,
+      live,
+      opensOn: null,
+      kickoff: null,
+      phase,
+    });
+    const cfgP: RegionConfig = {
+      regions: [{ key: "w", name: "West" }],
+      conferenceRegions: { a: "w", b: "w", c: "w", d: "w" },
+    };
+
+    test("every card's phase is the season page's own, read from one function", () => {
+      for (const c of columns) {
+        expect(c.phase).toBe(seasonPhase(c.season));
+        // The card prints the phase word the season page's kicker carries.
+        if (c.phase !== PHASE_BEFORE) {
+          expect(opensLine(c)).toBe(c.phase);
+          expect(defaultKicker(c.season)).toContain(` · ${opensLine(c)} · `);
+        }
+      }
+    });
+
+    test("a decided or running tournament is never called conference play", () => {
+      expect(opensLine({ live: true, opensOn: null, phase: PHASE_DECIDED })).toBe(PHASE_DECIDED);
+      expect(opensLine({ live: true, opensOn: null, phase: PHASE_TOURNAMENT })).toBe(
+        PHASE_TOURNAMENT,
+      );
+      expect(opensLine({ live: true, opensOn: null, phase: PHASE_LIVE })).toBe(PHASE_LIVE);
+      // A view with no phase reads from `live` alone, as it always did.
+      expect(opensLine({ live: true, opensOn: null })).toBe(PHASE_LIVE);
+      expect(opensLine({ live: false, opensOn: "2026-09-04" })).toBe("OPENS SEP 4");
+    });
+
+    test("the band head counts each phase, latest first", () => {
+      const all = homeBands(
+        ["a", "b", "c", "d"].map((k) => at(k, PHASE_DECIDED)),
+        cfgP,
+      )[0] as HomeBand<BandColumn>;
+      expect(bandHead(all)).toBe("4 CONFERENCES · 4 DECIDED");
+      const mixed = homeBands(
+        [
+          at("a", PHASE_LIVE),
+          at("b", PHASE_DECIDED),
+          at("c", PHASE_TOURNAMENT),
+          at("d", PHASE_DECIDED),
+        ],
+        cfgP,
+      )[0] as HomeBand<BandColumn>;
+      expect(bandMeta(mixed)).toBe("2 DECIDED · 1 IN TOURNAMENT · 1 LIVE");
+    });
+
+    test("the live site's band heads never say LIVE of a decided conference", () => {
+      for (const b of homeBands(columns)) {
+        const league = b.columns.filter((c) => c.phase === PHASE_LIVE).length;
+        expect(b.league).toBe(league);
+        if (league === 0) expect(bandMeta(b)).not.toContain("LIVE");
+      }
+    });
+  });
+
   describe("the lead line", () => {
     const view = (
       key: string,
@@ -346,6 +419,16 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     test("a band under way speaks for the live conference", () => {
       const band = only([view("g", "GLVC", { live: true })]);
       expect(leadLine(band, null)).toBe("Midwest: the GLVC is in conference play.");
+    });
+
+    test("and in its phase once the tournament has begun", () => {
+      const decided = only([{ ...view("g", "GLVC", { live: true }), phase: PHASE_DECIDED }]);
+      expect(leadLine(decided, null)).toBe("Midwest: the GLVC tournament is decided.");
+      expect(leadLine(decided, { programme: "Lewis", code: "GLVC" })).toBe(
+        "Open for the headline: Lewis, of the GLVC. The GLVC tournament is decided.",
+      );
+      const running = only([{ ...view("g", "GLVC", { live: true }), phase: PHASE_TOURNAMENT }]);
+      expect(leadLine(running, null)).toBe("Midwest: the GLVC tournament is under way.");
     });
 
     test("the headline case says why the band is open", () => {
@@ -615,7 +698,15 @@ describe("up to the column cap the page is columns; past it, region bands", () =
         `${b.columns.length} ${b.columns.length === 1 ? "CONFERENCE" : "CONFERENCES"} · ${meta}`,
       );
       if (b.live > 0) {
-        expect(meta.startsWith(`${b.live} LIVE`)).toBe(true);
+        // Each phase under way is counted, latest first, and the counts add
+        // up to the conferences under way: a decided conference is not LIVE.
+        const cells = [
+          b.decided > 0 ? `${b.decided} DECIDED` : null,
+          b.tournament > 0 ? `${b.tournament} IN TOURNAMENT` : null,
+          b.league > 0 ? `${b.league} LIVE` : null,
+        ].filter(Boolean);
+        expect(meta.startsWith(cells.join(" · "))).toBe(true);
+        expect(b.decided + b.tournament + b.league).toBe(b.live);
         if (b.nextOpens)
           expect(meta).toContain(`NEXT OPENS ${shortDate(b.nextOpens).toUpperCase()}`);
       } else if (b.nextOpens) {
@@ -868,7 +959,9 @@ describe("the masthead is derived, deterministically, from counts and opener dat
     const fresh = { headline: "Fresh today", updated: asOf } as NationalJournalFile;
     expect(nationalMasthead(columns, asOf, national, fresh).stamp).toBe(null);
     const standing = { headline: "Standing", updated: "2026-08-27" } as NationalJournalFile;
-    expect(nationalMasthead(columns, asOf, national, standing).stamp).toBe("UPDATED AUG 27");
+    expect(nationalMasthead(columns, asOf, national, standing).stamp).toBe(
+      "HEADLINE WRITTEN AUG 27",
+    );
   });
 
   test("no headline is manufactured — the floor writes none", () => {
@@ -1227,5 +1320,41 @@ describe("the map's places and its members with no dot", () => {
     );
     if (view.provinces.length > 0) expect(view.footer).toMatch(/ AND (ONE|TWO|\w+) PROVINCES?$/);
     for (const u of view.unplaced) expect(["off-frame", "no-point"]).toContain(u.reason);
+  });
+});
+
+describe("the championship line under LAST NIGHT", () => {
+  const tie = (status: string, scored: boolean): { fixture: Fixture } => ({
+    fixture: {
+      status,
+      ...(scored ? { home_score: 1, away_score: 0 } : {}),
+    } as unknown as Fixture,
+  });
+
+  test("no tie collected, no line", () => {
+    expect(championshipLine({ ties: [] })).toBeNull();
+  });
+
+  test("played is a final with a published score, over every collected tie", () => {
+    const ties = [tie("final", true), tie("final", false), tie("scheduled", false)];
+    expect(championshipLine({ ties }, "NCAA")).toBe("NCAA championship · 1 of 3 ties played");
+    expect(championshipLine({ ties: [tie("scheduled", false)] }, "NCAA")).toBe(
+      "NCAA championship · 0 of 1 tie played",
+    );
+  });
+
+  test("on the live data it says what the championship page's dek says", () => {
+    const ncaa = divisionPostseason().ncaa;
+    const line = championshipLine(ncaa);
+    if (ncaa.ties.length === 0) {
+      expect(line).toBeNull();
+      return;
+    }
+    const played = ncaa.ties.filter((t) => t.fixture.status === "final" && hasScore(t.fixture));
+    expect(line).toBe(
+      `${site.governingBody} championship · ${played.length} of ${ncaa.ties.length} ${
+        ncaa.ties.length === 1 ? "tie" : "ties"
+      } played`,
+    );
   });
 });

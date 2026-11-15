@@ -26,8 +26,8 @@
 // - A shootout is a draw in every record. Nothing here touches outcome().
 
 import type { Season } from "./derive.ts";
-import { hasScore, matchIdentity } from "./derive.ts";
-import { allSightings, type DivisionMatch, foldToMatches } from "./division.ts";
+import { hasScore, matchIdentity, memberSlugs } from "./derive.ts";
+import { allSightings, type DivisionMatch, foldToMatches, type Sighting } from "./division.ts";
 import { type Fixture, type FixtureStage, isPlayed, outcome, type Shootout } from "./model.ts";
 
 export type Phase = FixtureStage["phase"];
@@ -691,3 +691,92 @@ export const tieAnchor = (t: Tie): string =>
 
 /** Whether the season has any postseason tie collected yet. */
 export const hasPostseason = (p: Postseason): boolean => p.byIdentity.size > 0;
+
+/** The programme whose own schedule page a record was read from, or null when
+ *  the record cannot say. A conference's file holds its members' schedules, so
+ *  a record of a match against an outsider is the member's. A record of a match
+ *  between two members is whichever page the collector reached it on: the
+ *  side every other row from that page's host involves. */
+export function publisherOf(s: Sighting): string | null {
+  const f = s.fixture;
+  const members = memberSlugs(s.season);
+  const candidates = [f.home, f.away].filter((slug) => members.has(slug));
+  if (candidates.length === 1) return candidates[0] as string;
+  const host = hostOf(f.source_url);
+  if (!host) return null;
+  const fromHost = s.season.fixtures.fixtures.filter((x) => hostOf(x.source_url) === host);
+  const every = candidates.filter((slug) =>
+    fromHost.every((x) => x.home === slug || x.away === slug),
+  );
+  return every.length === 1 ? (every[0] as string) : null;
+}
+
+/** "fhsuathletics.com" from a record's source URL, or null when it has none. */
+function hostOf(url: string | undefined): string | null {
+  if (!url) return null;
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return null;
+  }
+}
+
+/** One record's kickoff, with whose page printed it. */
+export interface KickoffVersion {
+  /** The programme whose schedule printed it; null when the record cannot say. */
+  by: string | null;
+  /** The page's host, for a record whose programme is unknown. */
+  source: string | null;
+  /** HH:MM as published; null when that page published no time. */
+  time: string | null;
+  venue: string | null;
+}
+
+/** An unplayed tie's kickoff as published. Two schedules can print one match
+ *  differently (each in its own local time, say), so nothing is merged: one
+ *  record is printed, the host's where the match has one, and every other
+ *  record is named beside it as agreeing or as printing something else. */
+export interface Kickoff {
+  /** The record printed: the home side's own, unless the match is at a
+   *  neutral site or the home side's record is not collected. */
+  primary: KickoffVersion;
+  /** The primary is the host's page: a home side at its own ground. */
+  hosted: boolean;
+  /** Other records that print the same time. */
+  agree: KickoffVersion[];
+  /** Other records that print a different time, or none. */
+  differ: KickoffVersion[];
+}
+
+export function kickoffOf(tie: Tie): Kickoff {
+  const versions = tie.match.sightings.map(
+    (s): KickoffVersion => ({
+      by: publisherOf(s),
+      source: hostOf(s.fixture.source_url),
+      time: s.fixture.time ?? null,
+      venue: s.fixture.venue ?? null,
+    }),
+  );
+  const home = tie.match.neutral ? null : tie.fixture.home;
+  const hostIndex = home === null ? -1 : versions.findIndex((v) => v.by === home);
+  const at = hostIndex >= 0 ? hostIndex : 0;
+  const primary = versions[at] as KickoffVersion;
+  const rest = versions.filter((_, i) => i !== at);
+  return {
+    primary,
+    hosted: hostIndex >= 0,
+    agree: rest.filter((v) => v.time === primary.time),
+    differ: rest.filter((v) => v.time !== primary.time),
+  };
+}
+
+/** A side's ties in its tournament before this one, in order: its route to
+ *  it. Empty when this is the first tie of its collected. */
+export const routeOf = (t: Tournament, tie: Tie, slug: string): Tie[] =>
+  t.ties.filter((x) => x !== tie && sides(x).includes(slug) && byDate(x, tie) < 0).sort(byDate);
+
+/** The season a side's record is read from: the file it is a member of among
+ *  the tie's records. Null for a side no collected record holds as a member,
+ *  whose record the site does not have. */
+export const sideSeasonOf = (tie: Tie, slug: string): Season | null =>
+  tie.match.sightings.find((s) => memberSlugs(s.season).has(slug))?.season ?? null;

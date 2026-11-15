@@ -1,0 +1,276 @@
+---
+// The sides, under a preview's header: each programme's season so far, read
+// off the same derivations its team page prints (lib/preview.ts picks them).
+// Results to date, never a forecast — the note under the head says so, and
+// nothing here ranks the two sides against each other.
+//
+// A side outside every collected conference gets the designed absence, named
+// for that side only; the other side's column stands.
+import FormBadges from "./FormBadges.astro";
+import PersonLink from "./PersonLink.astro";
+import { dayOfMonth, monShort, rate3 } from "../lib/format.ts";
+import type { Named, RouteStep, SideSummary } from "../lib/preview.ts";
+import type { Fixture } from "../lib/model.ts";
+
+export interface SideColumn {
+  slug: string;
+  name: string;
+  /** "HOME" / "AWAY". */
+  where: string;
+  /** The side's team page, or null when it has none. */
+  href: string | null;
+  summary: SideSummary | null;
+  route: (RouteStep & { opponentName: string })[];
+  /** The anchor of a player's sheet on the team page, or null: no sheet, no link. */
+  sheet: ((who: Named) => string | null) | null;
+}
+
+interface Props {
+  sides: SideColumn[];
+  meetings: { fixture: Fixture; href: string; mark: string | null; home: string; away: string }[];
+  /** The tie sheet on the championship page, when this match is a tie. */
+  tieHref: string | null;
+}
+const { sides, meetings, tieHref } = Astro.props;
+
+const wdl = (r: { won: number; drawn: number; lost: number }): string => `${r.won}–${r.drawn}–${r.lost}`;
+const shortDay = (iso: string): string => `${monShort(iso)} ${dayOfMonth(iso)}`;
+const sheetHref = (side: SideColumn, who: Named): string | null => {
+  const anchor = side.href && side.sheet ? side.sheet(who) : null;
+  return anchor ? `${side.href}#${anchor}` : null;
+};
+---
+
+<section class="sides-band" aria-labelledby="the-sides">
+  <div class="sides-head">
+    <h2 class="sechead" id="the-sides">THE SIDES</h2>
+    {tieHref && <a class="tie-link" href={tieHref}>Tie sheet →</a>}
+  </div>
+  <p class="provenance sides-note">
+    Each side's season so far, from the results and statistics its programme published. What has
+    happened, not a forecast.
+  </p>
+
+  <div class="sides-grid">
+    {sides.map((side) => {
+      const s = side.summary;
+      const scorerHref = s?.topScorer ? sheetHref(side, s.topScorer) : null;
+      const keeperHref = s?.keeper ? sheetHref(side, s.keeper) : null;
+      const NameTag = side.href ? "a" : "span";
+      return (
+        <div class="col">
+          <div class="col-head">
+            <NameTag class="col-name serif" href={side.href ?? undefined}>{side.name}</NameTag>
+            <span class="label">
+              {side.where}
+              {s?.conference ? ` · ${s.conference.code}` : ""}
+            </span>
+          </div>
+
+          {s === null ? (
+            <p class="absent serif-italic">
+              {side.name} is outside the conferences Touchline collects, so its season is not on
+              the record here.
+            </p>
+          ) : (
+            <div class="facts num">
+              <div class="fact">
+                <span class="fact-label">RECORD</span>
+                <span class="fact-value">
+                  {s.played > 0 ? (
+                    <>
+                      <span class="fig">{wdl(s)}</span>
+                      <span class="quiet"> W–D–L · {s.played} played</span>
+                    </>
+                  ) : (
+                    <span class="quiet">No result published yet</span>
+                  )}
+                </span>
+              </div>
+              {s.conference && (
+                <div class="fact">
+                  <span class="fact-label">{s.conference.code}</span>
+                  <span class="fact-value">
+                    {s.conference.played > 0 ? (
+                      <>
+                        <span class="fig">{wdl(s.conference)}</span>
+                        <span class="quiet"> in conference</span>
+                      </>
+                    ) : (
+                      <span class="quiet">No conference result yet</span>
+                    )}
+                  </span>
+                </div>
+              )}
+              {s.form.length > 0 && (
+                <div class="fact">
+                  <span class="fact-label">LAST {s.form.length}</span>
+                  <span class="fact-value">
+                    <span class="vh">{s.form.join(", ")}, oldest first</span>
+                    <span class="form" aria-hidden="true"><FormBadges form={s.form} /></span>
+                  </span>
+                </div>
+              )}
+              {s.played > 0 && (
+                <div class="fact">
+                  <span class="fact-label">GOALS</span>
+                  <span class="fact-value">
+                    <span class="fig">{s.goalsFor}</span> scored · <span class="fig">{s.goalsAgainst}</span> conceded
+                  </span>
+                </div>
+              )}
+              <div class="fact">
+                <span class="fact-label">TOP SCORER</span>
+                <span class="fact-value">
+                  {s.topScorer ? (
+                    <>
+                      <PersonLink class="serif" href={scorerHref}>{s.topScorer.name}</PersonLink>
+                      <span class="quiet"> {s.topScorer.goals} G · {s.topScorer.assists} A</span>
+                    </>
+                  ) : (
+                    <span class="quiet">
+                      {s.hasStats ? "No goal in the published statistics" : "No season statistics collected"}
+                    </span>
+                  )}
+                </span>
+              </div>
+              <div class="fact">
+                <span class="fact-label">GOALKEEPER</span>
+                <span class="fact-value">
+                  {s.keeper ? (
+                    <>
+                      <PersonLink class="serif" href={keeperHref}>{s.keeper.name}</PersonLink>
+                      <span class="quiet">
+                        {" "}
+                        {[
+                          rate3(s.keeper.save_pct) ? `${rate3(s.keeper.save_pct)} SV%` : null,
+                          s.keeper.minutes !== undefined ? `${s.keeper.minutes.toLocaleString("en-US")}′` : null,
+                        ]
+                          .filter(Boolean)
+                          .join(" · ")}
+                      </span>
+                    </>
+                  ) : (
+                    <span class="quiet">
+                      {s.hasStats ? "No goalkeeping line published" : "No season statistics collected"}
+                    </span>
+                  )}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {side.route.length > 0 && (
+            <div class="route">
+              <div class="label route-label">POSTSEASON SO FAR</div>
+              {side.route.map((r) => (
+                <a class="route-row num" href={r.href}>
+                  <span class="route-when">
+                    <span class="route-date">{shortDay(r.date)}</span>
+                    <span class="route-tag">{r.tag}</span>
+                  </span>
+                  <span class="route-opp">v {r.opponentName}</span>
+                  <span class="route-score">
+                    {r.result && <span class={`wdl wdl-${r.result}`}>{r.result}</span>}
+                    {r.line ?? <span class="quiet">to play</span>}
+                    {r.pens && <span class="quiet"> ({r.pens} pens)</span>}
+                    {r.mark && <span class="quiet"> {r.mark}</span>}
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+
+  {meetings.length > 0 && (
+    <div class="met">
+      <h3 class="sechead">MET THIS SEASON</h3>
+      {meetings.map((m) => (
+        <a class="met-row num" href={m.href}>
+          <span class="route-date">{shortDay(m.fixture.date)}</span>
+          <span class="met-line">
+            {m.home} <b>{m.fixture.home_score}–{m.fixture.away_score}</b> {m.away}
+            {m.mark && <span class="quiet"> · {m.mark}</span>}
+          </span>
+          <span class="met-go" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
+  )}
+</section>
+
+<style>
+  .sides-band {
+    padding: 22px 0 8px;
+    border-top: 1px solid var(--hairline);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .sides-head { display: flex; align-items: baseline; gap: 16px; border-bottom: 2px solid var(--ink); }
+  .sides-head .sechead { border-bottom: none; }
+  .tie-link {
+    margin-left: auto; font-size: 12px; letter-spacing: 0.04em; color: var(--accent);
+    padding-bottom: 7px;
+  }
+  .tie-link:hover { color: var(--accent-hover); text-decoration: underline; text-underline-offset: 3px; }
+  .sides-note { margin: 2px 0 6px; }
+
+  .sides-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; }
+  .col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .col-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .col-name { font-size: 22px; line-height: 1.2; color: var(--ink); }
+  a.col-name:hover { color: var(--accent); }
+
+  .facts { display: flex; flex-direction: column; }
+  .fact {
+    display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; align-items: center;
+    min-height: 38px; padding: 6px 0; border-top: 1px solid var(--hairline-soft); font-size: 13px;
+  }
+  .fact:last-child { border-bottom: 1px solid var(--hairline-soft); }
+  .fact-label { color: var(--quiet); letter-spacing: 0.12em; font-size: 10.5px; }
+  .fact-value { min-width: 0; overflow-wrap: anywhere; }
+  /* FormBadges right-aligns itself for the tables; shrink-wrapped, it reads
+     from the left here. */
+  .form { display: inline-flex; vertical-align: middle; }
+  .fig { font-weight: 600; }
+  .quiet { color: var(--quiet); }
+  .fact-value :global(.serif) { font-size: 15px; }
+
+  .absent { margin: 0; font-size: 15px; line-height: 1.5; color: var(--secondary); max-width: 44ch; }
+
+  .route { display: flex; flex-direction: column; }
+  .route-label { padding-bottom: 6px; }
+  .route-row, .met-row {
+    display: grid; grid-template-columns: 52px 78px minmax(0, 1fr) auto; gap: 10px; align-items: center;
+    min-height: 36px; border-top: 1px solid var(--hairline-soft); font-size: 13px; color: var(--ink);
+  }
+  .route-row:last-child, .met-row:last-child { border-bottom: 1px solid var(--hairline-soft); }
+  .route-row:hover .route-opp, .met-row:hover .met-line { color: var(--accent); }
+  .route-date { color: var(--quiet); font-size: 12px; }
+  .route-when { display: contents; }
+  .route-tag { font-size: 10.5px; letter-spacing: 0.12em; font-weight: 600; color: var(--secondary); white-space: nowrap; }
+  .route-opp { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .route-score { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; white-space: nowrap; }
+  .route-score .quiet { font-weight: 400; }
+
+  .met { display: flex; flex-direction: column; gap: 6px; margin-top: 18px; max-width: 620px; }
+  .met-row { grid-template-columns: 52px minmax(0, 1fr) auto; }
+  .met-line b { font-weight: 600; padding: 0 2px; }
+  .met-go { color: var(--quiet); }
+
+  @media (pointer: coarse) {
+    .route-row, .met-row { min-height: 44px; }
+    .tie-link { padding: 12px 0; margin-bottom: -5px; }
+  }
+
+  @media (max-width: 720px) {
+    .sides-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .fact { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
+    /* The date and the round stack, so the opponent keeps the width. */
+    .route-row { grid-template-columns: 76px minmax(0, 1fr) auto; gap: 8px; padding: 5px 0; }
+    .route-when { display: flex; flex-direction: column; gap: 1px; }
+    .met-row { grid-template-columns: 46px minmax(0, 1fr) auto; gap: 8px; }
+  }
+</style>

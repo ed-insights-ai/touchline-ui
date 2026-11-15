@@ -1,0 +1,33 @@
+---
+// The round a postseason match belongs to, in the ledger's own register:
+// outlined for a conference tournament, solid ink for the NCAA (LedgerRow's
+// .lstage, the Match Centre's .stage). One chip, so the team page, the player
+// sheet and the conference cards cannot each grow a dialect of it.
+import type { StageChip } from "../lib/stage.ts";
+
+interface Props {
+  chip: StageChip;
+  /** "sm" for a strip cell or a log row; the default sits beside a label. */
+  size?: "sm" | "md";
+}
+const { chip, size = "md" } = Astro.props;
+---
+<span class:list={["stage-chip", `stage-chip-${chip.competition}`, `stage-chip-${size}`]} title={chip.phrase}>{chip.text}</span>
+
+<style>
+  .stage-chip {
+    display: inline-block;
+    padding: 1px 5px;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    color: var(--ink);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.35;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .stage-chip-sm { font-size: 8.5px; letter-spacing: 0.03em; padding: 0 2px; }
+  .stage-chip-ncaa { background: var(--ink); color: var(--paper); }
+</style>

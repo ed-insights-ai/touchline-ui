@@ -8,7 +8,8 @@ import SiteHeader from "../components/SiteHeader.astro";
 import Page from "../layouts/Page.astro";
 import { lastLooked, loadSeason } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
-import { dayOfMonth, monShort } from "../lib/format.ts";
+import { dayOfMonth, monShort, spell } from "../lib/format.ts";
+import { laggingOf, newestLook } from "../lib/freshness.ts";
 import { footprintOf } from "../lib/geo.ts";
 import { unplacedLines } from "../lib/home.ts";
 import { site } from "../site.config.ts";
@@ -22,7 +23,7 @@ const seasons: Season[] = site.conferences.flatMap((key) => {
     return [];
   }
 });
-const named = seasons.map((s) => site.conferenceNames[s.key] ?? s.fixtures.conference);
+const nameOf = (s: Season): string => site.conferenceNames[s.key] ?? s.fixtures.conference;
 // The members the home page's map draws no dot for, by name and by reason,
 // in the same words the map itself uses (lib/home.ts unplacedLines).
 const offMap = unplacedLines(
@@ -36,10 +37,26 @@ const offMap = unplacedLines(
       ).unplaced,
   ),
 );
-const conferenceList =
-  named.length <= 1
-    ? (named[0] ?? "")
-    : `${named.slice(0, -1).join(", ")} and ${named[named.length - 1]}`;
+// The opening sentence counts the conferences and points at the list; it
+// used to name all of them, which at nineteen was a paragraph of proper nouns
+// before the reader learned what the site is. The list below names each one
+// beside the day it was last collected.
+const only = seasons.length === 1 ? nameOf(seasons[0] as Season) : null;
+
+// Every conference's stamp, and a quiet flag on any more than a day behind
+// the newest: the footer names the laggards and links here (lib/freshness.ts).
+const newest = newestLook(seasons);
+const lagDays = new Map(laggingOf(seasons, nameOf).map((l) => [l.key, l.days]));
+const behind = (days: number): string =>
+  days === 0 ? "more than a day behind" : `${days} ${days === 1 ? "day" : "days"} behind`;
+
+// The page's own index: the sections, in order, each an anchor below.
+const sections = [
+  { id: "words", label: "What the words mean" },
+  { id: "evidence", label: "How to read the evidence" },
+  { id: "checked", label: "What is checked" },
+  { id: "source", label: "Where it comes from" },
+] as const;
 
 const stamp = (iso: string): string =>
   `${monShort(iso.slice(0, 10))} ${dayOfMonth(iso.slice(0, 10))}, ${iso.slice(11, 16)} UTC`;
@@ -59,15 +76,20 @@ const stamp = (iso: string): string =>
       <div class="akicker num">TOUCHLINE · {site.division.toUpperCase()}</div>
       <h1 class="atitle serif">About &amp; method</h1>
       <p class="intro">
-        Touchline is a season journal for {site.division}, following the{" "}
-        {conferenceList}. It is <strong>independent and unofficial</strong>: it has no
+        Touchline is a season journal for {site.division}, following{" "}
+        {only ? `the ${only}` : (
+          <>{spell(seasons.length)} conferences, <a class="intro-link" href="#collection">listed below</a></>
+        )}. It is <strong>independent and unofficial</strong>: it has no
         connection to any conference, programme or governing body. Everything on it comes
         from the programmes' own published pages — and what they did not publish is shown
         as what it is.
       </p>
+      <nav class="toc" aria-label="On this page">
+        {sections.map((x) => <a class="toc-link" href={`#${x.id}`}>{x.label}</a>)}
+      </nav>
     </section>
 
-    <section class="band">
+    <section class="band" id="words">
       <h2 class="sechead">WHAT THE WORDS MEAN</h2>
       <div class="terms">
         <div class="term">
@@ -148,7 +170,38 @@ const stamp = (iso: string): string =>
       </div>
     </section>
 
-    <section class="band">
+    {/* The two evidence chips the site prints, and only those: the
+        championship page and its tie sheets mark which of their figures were
+        published and which were worked out from what was. The other grades
+        in the design system's grammar appear nowhere on a reader surface, so
+        they are not defined here — a key to marks nobody meets is a grammar
+        to learn for nothing (owner, 2026-09-01). */}
+    <section class="band" id="evidence">
+      <h2 class="sechead">HOW TO READ THE EVIDENCE</h2>
+      <p class="para">
+        Where a page has to say how far a figure stands from the page it came from — the
+        championship's bracket and its tie sheets — it carries one of two marks.
+      </p>
+      <dl class="grades">
+        <div class="grade">
+          <dt><span class="chip chip-observed">OBSERVED ●●●</span></dt>
+          <dd>
+            Published. A score, a date or a name exactly as a programme's own page printed
+            it; Touchline copied it and computed nothing.
+          </dd>
+        </div>
+        <div class="grade">
+          <dt><span class="chip chip-derived">DERIVED ●●○</span></dt>
+          <dd>
+            Worked out exactly from published values — which round a tie was, who went
+            through — and shown with what it was worked out from. Anyone holding the same
+            pages gets the same answer. Never an estimate.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="band" id="checked">
       <h2 class="sechead">WHAT IS CHECKED</h2>
       <p class="para">
         Every figure on this site is recomputed from the published pages it came from
@@ -159,7 +212,7 @@ const stamp = (iso: string): string =>
       </p>
     </section>
 
-    <section class="band">
+    <section class="band" id="source">
       <h2 class="sechead">WHERE IT COMES FROM</h2>
       <p class="para">
         A collector reads each programme's own schedule, roster, statistics and box score
@@ -172,14 +225,23 @@ const stamp = (iso: string): string =>
           The home page's map draws the lower 48 states. {offMap.join(" ")}
         </p>
       )}
-      <div class="stamps num">
-        {seasons.map((s) => (
-          <div class="stamp-row">
-            <span class="stamp-conf">{site.conferenceNames[s.key] ?? s.fixtures.conference}</span>
-            <span class="stamp-when">last collected {stamp(lastLooked(s))}</span>
-          </div>
-        ))}
-      </div>
+      <h3 class="stamps-head" id="collection">LAST COLLECTED</h3>
+      <dl class="stamps num">
+        {seasons.map((s) => {
+          const lag = lagDays.get(s.key);
+          return (
+            <div class:list={["stamp-row", { "is-behind": lag !== undefined }]}>
+              <dt class="stamp-conf">{nameOf(s)}</dt>
+              <dd class="stamp-when">
+                {stamp(lastLooked(s))}
+                {lag !== undefined && newest && (
+                  <span class="stamp-lag"><span class="stamp-sep"> · </span>{behind(lag)}</span>
+                )}
+              </dd>
+            </div>
+          );
+        })}
+      </dl>
     </section>
 
     <SiteFooter seasons={seasons} />
@@ -188,6 +250,9 @@ const stamp = (iso: string): string =>
 
 <style>
   .about { min-height: 100vh; }
+  @media (pointer: coarse) {
+    .toc-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0; }
+  }
   .lede { padding: 40px 0 30px; max-width: 720px; }
   /* The masthead's kicker, in its type: every page opens on a dateline. */
   .akicker { margin-bottom: 14px; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
@@ -197,6 +262,8 @@ const stamp = (iso: string): string =>
     font-family: var(--serif); font-weight: 400; text-wrap: pretty;
   }
   .intro strong { font-weight: 600; }
+  .intro-link { color: inherit; border-bottom: 1px solid var(--outline-quiet); }
+  .intro-link:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
 
   /* Bands separate with a top rule, and the last one does NOT close with a
      bottom one: .site-footer's own border-top is the page's closing rule, and
@@ -220,15 +287,51 @@ const stamp = (iso: string): string =>
   }
   .para:last-child { margin-bottom: 0; }
 
-  .stamps { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
-  .stamp-row { display: flex; gap: 12px; font-size: 12.5px; flex-wrap: wrap; }
-  .stamp-conf { color: var(--ink); min-width: 190px; }
+  /* The page's index: one quiet line of section names under the intro. */
+  .toc { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 22px; }
+  .toc-link {
+    font-size: 11px; letter-spacing: 0.14em; font-weight: 600; text-transform: uppercase;
+    color: var(--secondary); padding: 2px 0;
+  }
+  .toc-link:hover { color: var(--accent-hover); }
+  .toc-link:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .band[id], .stamps-head { scroll-margin-top: 16px; }
+
+  /* The evidence key: the site's own chips, each beside its definition. */
+  .grades { display: flex; flex-direction: column; gap: 14px; margin: 4px 0 0; }
+  .grade { display: grid; grid-template-columns: 128px minmax(0, 1fr); column-gap: 16px; align-items: baseline; }
+  .grade dt { margin: 0; }
+  .grade dd {
+    margin: 0; font-family: var(--serif); font-size: 15.5px; line-height: 1.55;
+    color: var(--ink-soft); text-wrap: pretty;
+  }
+
+  /* Every conference's stamp, two aligned columns on hairlines: the name, and
+     when it was last collected. One more than a day behind the newest is
+     flagged in the caution colour, quietly — a word, not a badge. */
+  .stamps-head {
+    margin: 22px 0 6px; font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600;
+    color: var(--ink);
+  }
+  .stamps { display: grid; grid-template-columns: max-content minmax(0, 1fr); margin: 0; }
+  .stamp-row { display: contents; }
+  .stamp-conf, .stamp-when {
+    margin: 0; padding: 6px 0; border-top: 1px solid var(--hairline-soft); font-size: 12.5px;
+  }
+  .stamp-conf { color: var(--ink); padding-right: 28px; }
   .stamp-when { color: var(--quiet); }
+  .stamp-lag { color: var(--draw); font-weight: 600; }
 
   @media (max-width: 720px) {
     .atitle { font-size: 32px; }
     .intro { font-size: 15.5px; }
-    .grammar-row { flex-direction: column; gap: 5px; }
-    .stamp-conf { min-width: 0; }
+    .grade { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
+    /* The name takes what the stamp leaves and wraps; the stamp never does,
+       and a lag flag drops beneath it rather than splitting it. */
+    .stamps { grid-template-columns: minmax(0, 1fr) max-content; }
+    .stamp-conf { padding-right: 16px; }
+    .stamp-when { white-space: nowrap; text-align: right; }
+    .stamp-lag { display: block; }
+    .stamp-sep { display: none; }
   }
 </style>

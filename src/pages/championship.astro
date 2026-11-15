@@ -106,6 +106,15 @@ const pathCss = traced
   )
   .join("\n");
 const allTies = [...p.byIdentity.values()];
+
+// The page's sections, in order, for the jump row under the masthead: only
+// the ones this build draws.
+const jumps = [
+  ...(ncaa.ties.length > 0 ? [{ href: "#field", label: "The field" }] : []),
+  ...(finalsCards.length > 0 ? [{ href: "#finals", label: "The finals" }] : []),
+  ...(ncaa.ties.length > 0 ? [{ href: "#bracket", label: "The bracket" }] : []),
+  { href: "#conference-tournaments", label: "Conference tournaments" },
+];
 const hasRegions = regionsOf(ncaa).length > 0;
 ---
 
@@ -144,6 +153,11 @@ const hasRegions = regionsOf(ncaa).length > 0;
           <span class="prov">The route and the rounds, recomputed from {ncaa.ties.length} results.</span>
         </div>
       )}
+      {jumps.length > 1 && (
+        <nav class="jumps" slot="after" aria-label="On this page">
+          {jumps.map((j) => <a href={j.href}>{j.label}</a>)}
+        </nav>
+      )}
     </Masthead>
     </div>
 
@@ -155,7 +169,7 @@ const hasRegions = regionsOf(ncaa).length > 0;
     )}
 
     {finalsCards.length > 0 && (
-      <section class="block">
+      <section class="block" id="finals">
         <h2 class="sechead">THE FINALS</h2>
         <div class="finals">
           {finalsCards.map(({ tie, cls, lab }) => {
@@ -269,7 +283,17 @@ const hasRegions = regionsOf(ncaa).length > 0;
   .path-anchors span { display: block; }
   .ev { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
   .prov { font-size: 12px; color: var(--secondary); }
-  .block { display: grid; gap: 16px; min-width: 0; }
+  .block { display: grid; gap: 16px; min-width: 0; scroll-margin-top: 16px; }
+  /* The jump row: the page's sections in the masthead's quiet register,
+     each underlined by a hairline, so it reads as a way round the page and
+     not as a second header nav. */
+  .jumps { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 2px; font-size: 12.5px; }
+  .jumps a { color: var(--secondary); border-bottom: 1px solid var(--hairline); padding-bottom: 1px; }
+  .jumps a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  @media (pointer: coarse) {
+    .jumps { gap: 0 20px; }
+    .jumps a { display: inline-flex; align-items: center; min-height: 44px; padding-bottom: 0; border-bottom: 0; text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: 4px; }
+  }
 
   .finals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: center; }
   .finals .sf1 { grid-column: 1; grid-row: 1; }
