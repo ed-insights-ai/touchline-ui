@@ -55,6 +55,8 @@ import {
   sideSummary,
 } from "../../../lib/preview.ts";
 import { cardPlayer, stripOf } from "../../../lib/timeline.ts";
+import { divisionMatchOf } from "../../../lib/kickoff-division.ts";
+import { kickoffCall, kickoffNote } from "../../../lib/schedule.ts";
 import {
   clockTime,
   longDate,
@@ -233,6 +235,23 @@ const resultNote = disputedTwin
     ? forfeitNote(names.name(fixture.forfeit === "home" ? fixture.home : fixture.away))
     : null;
 
+// The kickoff. A match between two programmes the site follows is in two
+// files, and the two schedule pages can print it at different times (each in
+// its own local time, say). Then the host's page is printed — the home side's
+// own record, none at a neutral ground — and the other is named beside it, as
+// the tie sheet does (schedule.ts kickoffCall), so this page and the bracket
+// never print two times for one match without saying why.
+const kickoffDisagreement = (() => {
+  const m = divisionMatchOf(matchIdentity(fixture));
+  return m ? kickoffCall(m) : null;
+})();
+const kickoffClock = clockTime(
+  kickoffDisagreement ? (kickoffDisagreement.printed.time ?? undefined) : fixture.time,
+);
+const kickoffSaid = kickoffDisagreement
+  ? kickoffNote(kickoffDisagreement, (slug) => names.name(slug))
+  : null;
+
 const knownRows: { label: string; value: string }[] = [
   {
     label: "DATE",
@@ -240,7 +259,9 @@ const knownRows: { label: string; value: string }[] = [
     value:
       state === "preview"
         ? longDate(fixture.date)
-        : `${longDate(fixture.date)} · ${clockTime(fixture.time) ?? "no kickoff time published"}`,
+        : `${longDate(fixture.date)} · ${kickoffClock ?? "no kickoff time published"}${
+            kickoffSaid ? ` (${kickoffSaid.charAt(0).toLowerCase()}${kickoffSaid.slice(1, -1)})` : ""
+          }`,
   },
   { label: "VENUE", value: fixture.venue ?? "not published" },
   ...(state === "preview"
@@ -431,7 +452,7 @@ const meetings =
           <div class="kickoff num">
             {/* Where the score will go, the kickoff: the one figure a match
                 still to come has. No dashes standing in for a result. */}
-            <span class="kickoff-time">{clockTime(fixture.time) ?? "TBA"}</span>
+            <span class="kickoff-time">{kickoffClock ?? "TBA"}</span>
             <span class="kickoff-label">KICKOFF</span>
           </div>
         ) : (
@@ -538,12 +559,15 @@ const meetings =
         )}
         </>
       ) : state === "preview" ? (
+        <>
         <div class="hero-foot num">
           {/* The played page's own foot line: the date and the venue, quiet,
               and nothing else. A preview has no table and no footnote to
               carry (owner's ruling, 2026-09-01). */}
           {[stampDate(fixture.date), fixture.venue].filter(Boolean).join(" · ").toUpperCase()}
         </div>
+        {kickoffSaid && <p class="hero-explain serif-italic">{kickoffSaid}</p>}
+        </>
       ) : (
         explain[state] && <p class="hero-explain serif-italic">{explain[state]}</p>
       )}

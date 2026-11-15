@@ -25,21 +25,28 @@ import {
   kickoffOf,
   roundNameOf,
   routeOf,
+  sameDayNote,
   sideSeasonOf,
   type Tie,
   tieAnchor,
   type Tournament,
 } from "../lib/postseason.ts";
+import type { Season } from "../lib/derive.ts";
 import FormBadges from "./FormBadges.astro";
 
 interface Props {
   tie: Tie;
   tournament: Tournament;
+  /** Every programme any loaded file lists, with its conference code: the
+   *  division-wide registry an absence claim is checked against. */
   conferenceOf: ReadonlyMap<string, string>;
+  /** Each listed programme's season, for a side none of this tie's records
+   *  holds as a member. */
+  seasonOf?: ReadonlyMap<string, Season>;
   /** Where closing returns to. */
   back: string;
 }
-const { tie, tournament, conferenceOf, back } = Astro.props;
+const { tie, tournament, conferenceOf, seasonOf, back } = Astro.props;
 const f = tie.fixture;
 const names = tie.match.season.names;
 const ROUND: Record<string, string> = {
@@ -87,9 +94,11 @@ const throughLine = (() => {
 const levelUnsettled =
   scored && !tie.disputed && !tie.through && f.home_score === f.away_score
     ? tie.resultPublished
-      ? `Drawn ${f.home_score}–${f.away_score}, from the published score. No record collects the shootout's winner, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
+      ? `Drawn ${f.home_score}–${f.away_score}, from the published score. The result is quoted below as published; it names no programme Touchline can match to a side, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
       : `Drawn ${f.home_score}–${f.away_score}, from the published score. No record publishes a shootout, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
     : null;
+// One side, two records, one day: each file's name for the opponent, quoted.
+const sameDay = tie.sameDay ? { kind: tie.sameDay.kind, text: sameDayNote(tie.sameDay, nameOf) } : null;
 const published = [tie.source, tie.roundPublished, tie.resultPublished].filter(
   (x): x is string => typeof x === "string",
 );
@@ -124,7 +133,9 @@ const kickoff = (() => {
 // Each side's season and route, from the records the site holds.
 const unplayed = kickoff !== null;
 const columns = sides.map((s) => {
-  const season = sideSeasonOf(tie, s.slug);
+  // The side's own file among this tie's records, else whichever loaded file
+  // lists it: a side is "not followed" only when no loaded file does.
+  const season = sideSeasonOf(tie, s.slug) ?? seasonOf?.get(s.slug) ?? null;
   const record = season ? recordOf(season, s.slug) : null;
   const route = routeOf(tournament, tie, s.slug).map((x) => {
     const xf = x.fixture;
@@ -152,7 +163,7 @@ const columns = sides.map((s) => {
     ...s,
     record: record && record.played > 0 ? record : null,
     form: season && record && record.played > 0 ? formOf(season, s.slug) : [],
-    followed: season !== null,
+    followed: season !== null || conferenceOf.has(s.slug),
     route,
   };
 });
@@ -267,6 +278,17 @@ const tournamentName = tie.competition === "ncaa" ? "NCAA tournament" : `${tourn
     </div>}
     {unplayed && columns.some((c) => c.record) && (
       <p class="sh-pub">Season records and last five from each programme's published results; a shootout is a draw.</p>
+    )}
+
+    {sameDay && (
+      <p class="sh-note">
+        {sameDay.kind === "folded" ? (
+          <span class="chip chip-observed">OBSERVED ●●●</span>
+        ) : (
+          <span class="chip chip-context">Set apart</span>
+        )}
+        <span>{sameDay.text}</span>
+      </p>
     )}
 
     {tie.label && (

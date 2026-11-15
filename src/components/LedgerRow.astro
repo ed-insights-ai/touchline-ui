@@ -12,6 +12,7 @@ import type { DivisionMatch } from "../lib/division.ts";
 import { outcome } from "../lib/model.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { stageTag } from "../lib/postseason.ts";
+import NeutralMark from "./NeutralMark.astro";
 
 interface Props {
   r: DivisionMatch;
@@ -98,7 +99,7 @@ const pens =
         ? kick ?? <span title="No kickoff time published">—<span class="vh"> no kickoff time published</span></span>
         : "—"}
     {pens && <span class="lpens"> ({pens[0]}–{pens[1]} pens)</span>}
-    {r.neutral && <span class="lneutral"> v</span>}
+    {r.neutral && <NeutralMark />}
     {mark && <span class="lmark"> {mark}</span>}
   </span>
   <span class={right.cls}>{r.season.names.name(right.slug)}</span>
@@ -131,8 +132,8 @@ const pens =
   }
   .lside { min-width: 0; }
   .l-away { text-align: right; }
-  /* The neutral mark: quiet, and the only thing that tells a neutral row apart. */
-  .lneutral { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; }
+  /* The neutral mark (NeutralMark.astro) is quiet, and the only thing that
+     tells a neutral row apart; it names itself on hover and to a reader. */
   /* "by forfeit" or "disputed": the same register, beside the score. */
   .lmark { color: var(--quiet); font-size: 10px; letter-spacing: 0.08em; font-weight: 400; white-space: nowrap; }
   /* The stage tag takes the code cell: outlined for a conference

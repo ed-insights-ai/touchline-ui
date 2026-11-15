@@ -9,6 +9,7 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import ConferenceTable from "../../components/ConferenceTable.astro";
 import BasisPanel from "../../components/BasisPanel.astro";
 import FormBadges from "../../components/FormBadges.astro";
+import NeutralMark from "../../components/NeutralMark.astro";
 import StageChip from "../../components/StageChip.astro";
 import { stageChipOf } from "../../lib/stage.ts";
 import {
@@ -50,7 +51,6 @@ import {
 } from "../../lib/journal.ts";
 import {
   clockTime,
-  clockTimeBare,
   dayNumber,
   dowShort,
   initialLast,
@@ -457,8 +457,10 @@ const nextLabel = (f: Fixture): string => {
                 <span class="astamp">{dowShort(f.date).toUpperCase()}</span>
                 <span class="atext quiet">
                   {chip && <StageChip chip={chip} size="sm" />}
-                  {names.name(f.away)} at {names.name(f.home)}
-                  {f.time ? ` · ${clockTimeBare(f.time)}` : ""}
+                  {names.name(f.away)}
+                  {f.neutral ? <NeutralMark as="word" /> : " at "}
+                  {names.name(f.home)}
+                  {f.time ? ` · ${clockTime(f.time)}` : ""}
                 </span>
               </a>
             );
@@ -472,8 +474,10 @@ const nextLabel = (f: Fixture): string => {
                 </span>
                 <span class="atext quiet">
                   {chip && <StageChip chip={chip} size="sm" />}
-                  {names.name(f.away)} at {names.name(f.home)}
-                  {f.time ? ` · ${clockTimeBare(f.time)}` : ""}
+                  {names.name(f.away)}
+                  {f.neutral ? <NeutralMark as="word" /> : " at "}
+                  {names.name(f.home)}
+                  {f.time ? ` · ${clockTime(f.time)}` : ""}
                 </span>
               </a>
             );

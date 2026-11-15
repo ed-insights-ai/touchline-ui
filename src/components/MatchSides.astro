@@ -5,11 +5,29 @@
 // nothing here ranks the two sides against each other.
 //
 // A side outside every collected conference gets the designed absence, named
-// for that side only; the other side's column stands.
+// for that side only; the other side's column stands. The absence is claimed
+// only when no loaded file lists the slug AND the postseason fold does not
+// read it as a followed programme: one schedule may name an opponent by a
+// slug no file lists while that opponent's own schedule lists the match
+// (2026 women's CCAA "concordia", which is Concordia Irvine). Then the
+// programme's season is shown, under a note quoting each file's name for it.
 import FormBadges from "./FormBadges.astro";
 import PersonLink from "./PersonLink.astro";
+import { teamPageHref } from "../lib/derive.ts";
 import { dayOfMonth, monShort, rate3 } from "../lib/format.ts";
-import type { Entry, Named, RouteStep, SideSummary } from "../lib/preview.ts";
+import { homeSeasons } from "../lib/home.ts";
+import {
+  type Entry,
+  memberSeasonOf,
+  type Named,
+  type RouteStep,
+  routeOf,
+  type SideSummary,
+  sideReadingOf,
+  sideSummary,
+  tieAtHref,
+} from "../lib/preview.ts";
+import { divisionPostseason } from "../lib/postseason-division.ts";
 import type { Fixture } from "../lib/model.ts";
 
 export interface SideColumn {
@@ -34,7 +52,38 @@ interface Props {
   /** The tie sheet on the championship page, when this match is a tie. */
   tieHref: string | null;
 }
-const { sides, meetings, tieHref } = Astro.props;
+const props = Astro.props;
+const { meetings, tieHref } = props;
+
+// Each side as the division reads it. A side with no member season is checked
+// against the fold before any absence is printed (lib/preview.ts
+// sideReadingOf); the registry is every loaded file, never this match's own.
+const postseason = divisionPostseason();
+const division = homeSeasons();
+const tie = tieAtHref(postseason, tieHref);
+const sides = props.sides.map((side) => {
+  if (side.summary) return { ...side, reading: null, followed: true };
+  const nameOf = (slug: string): string =>
+    memberSeasonOf(division, slug)?.names.name(slug) ?? tie?.match.season.names.name(slug) ?? slug;
+  const reading = sideReadingOf(tie, side.slug, nameOf);
+  const ms = reading ? memberSeasonOf(division, reading.slug) : null;
+  if (!reading || !ms || !tie) {
+    return { ...side, reading: null, followed: postseason.conferenceOf.has(side.slug) };
+  }
+  return {
+    ...side,
+    slug: reading.slug,
+    name: nameOf(reading.slug),
+    href: teamPageHref(ms, reading.slug),
+    summary: sideSummary(ms, reading.slug),
+    route: routeOf(postseason, reading.slug, tie.fixture).map((r) => ({
+      ...r,
+      opponentName: r.tie.match.season.names.name(r.opponent),
+    })),
+    reading,
+    followed: true,
+  };
+});
 
 const wdl = (r: { won: number; drawn: number; lost: number }): string => `${r.won}–${r.drawn}–${r.lost}`;
 const shortDay = (iso: string): string => `${monShort(iso)} ${dayOfMonth(iso)}`;
@@ -70,11 +119,21 @@ const sheetHref = (side: SideColumn, who: Named): string | null => {
             </span>
           </div>
 
-          {s === null ? (
-            <p class="absent serif-italic">
-              {side.name} is outside the conferences Touchline collects, so its season is not on
-              the record here.
+          {side.reading && (
+            <p class="reading">
+              <span class="chip chip-observed">OBSERVED ●●●</span>
+              <span>{side.reading.note}</span>
             </p>
+          )}
+          {s === null ? (
+            side.followed ? (
+              <p class="absent serif-italic">No season record for {side.name} is collected yet.</p>
+            ) : (
+              <p class="absent serif-italic">
+                {side.name} is outside the conferences Touchline collects, so its season is not on
+                the record here.
+              </p>
+            )
           ) : (
             <div class="facts num">
               <div class="fact">
@@ -254,18 +313,21 @@ const sheetHref = (side: SideColumn, who: Named): string | null => {
   .fact-value :global(.serif) { font-size: 15px; }
 
   .absent { margin: 0; font-size: 15px; line-height: 1.5; color: var(--secondary); max-width: 44ch; }
+  .reading { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--secondary); display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
 
   .route { display: flex; flex-direction: column; }
   .route-label { padding-bottom: 6px; }
   .route-row, .met-row {
-    display: grid; grid-template-columns: 52px 78px minmax(0, 1fr) auto; gap: 10px; align-items: center;
+    display: grid; grid-template-columns: 52px 96px minmax(0, 1fr) auto; gap: 10px; align-items: center;
     min-height: 36px; border-top: 1px solid var(--hairline-soft); font-size: 13px; color: var(--ink);
   }
   .route-row:last-child, .met-row:last-child { border-bottom: 1px solid var(--hairline-soft); }
   .route-row:hover .route-opp, .met-row:hover .met-line { color: var(--accent); }
   .route-date { color: var(--quiet); font-size: 12px; }
   .route-when { display: contents; }
-  .route-tag { font-size: 10.5px; letter-spacing: 0.12em; font-weight: 600; color: var(--secondary); white-space: nowrap; }
+  /* A long tag ("PACWEST FINAL", "GAC/MIAA SF") wraps inside its column
+     rather than running under the opponent. */
+  .route-tag { font-size: 10.5px; letter-spacing: 0.12em; font-weight: 600; color: var(--secondary); line-height: 1.25; overflow-wrap: anywhere; }
   .route-opp { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .route-score { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; white-space: nowrap; }
   .route-score .quiet { font-weight: 400; }

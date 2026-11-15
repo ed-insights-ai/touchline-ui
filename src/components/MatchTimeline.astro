@@ -94,6 +94,24 @@ const selectionCss = lanes
   })
   .join("\n");
 
+// A goal label reads "2–0 · Francesca · 73′". On a phone the band is ~350px
+// wide, and three goals inside twenty minutes printed their names over one
+// another and over the marks beside them (council, round 3). There the name
+// steps back and the label keeps the score and the minute; the scorer is still
+// one tap away in the published line under the strip, and named under the
+// score in the hero. A label that is not in the three-part form is left whole.
+const labelParts = (text: string): { lead: string; name: string | null; tail: string } => {
+  const parts = text.split(" · ");
+  if (parts.length < 3 || !/′$/.test(parts[parts.length - 1] as string)) {
+    return { lead: text, name: null, tail: "" };
+  }
+  return {
+    lead: parts[0] as string,
+    name: parts.slice(1, -1).join(" · "),
+    tail: parts[parts.length - 1] as string,
+  };
+};
+
 const stackLabel = (stack: LaneStack): string =>
   `${stack.minute}′ — ${stack.marks.length} ${stack.marks.length === 1 ? "play" : "plays"}`;
 ---
@@ -170,12 +188,15 @@ const stackLabel = (stack: LaneStack): string =>
       </>
     ))}
 
-    {strip.goals.map((g) => (
-      <div
-        class={`goal-label lane-${g.home ? "home" : "away"} tier-${g.tier} at-${g.align}`}
-        style={`left:${g.x}%`}
-      >{g.text}</div>
-    ))}
+    {strip.goals.map((g) => {
+      const p = labelParts(g.text);
+      return (
+        <div
+          class={`goal-label lane-${g.home ? "home" : "away"} tier-${g.tier} at-${g.align}`}
+          style={`left:${g.x}%`}
+        >{p.name === null ? p.lead : <>{p.lead}<span class="gl-name"> · {p.name}</span> · {p.tail}</>}</div>
+      );
+    })}
   </div>
 
   {(hasToggle || noteText) && (
@@ -418,5 +439,10 @@ const stackLabel = (stack: LaneStack): string =>
     .goal-label.lane-away.tier-a { bottom: calc(var(--foot) - 18px); }
     .goal-label.lane-away.tier-b { bottom: calc(var(--foot) - 32px); }
     .tld-row { flex-wrap: wrap; gap: 4px 10px; }
+  }
+  /* A phone: the label keeps the score and the minute; the name is in the
+     published line a tap prints below the strip. */
+  @media (max-width: 480px) {
+    .gl-name { display: none; }
   }
 </style>

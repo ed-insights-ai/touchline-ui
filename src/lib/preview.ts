@@ -24,7 +24,7 @@ import {
 } from "./derive.ts";
 import type { KeeperStats, MatchPlayerLine, MatchTeam, Player, PlayerStats } from "./model.ts";
 import { foldName, playerIdOf } from "./player.ts";
-import { type Postseason, stageTag, type Tie } from "./postseason.ts";
+import { type Postseason, stageTag, type Tie, tieAnchor } from "./postseason.ts";
 
 // ── Whose season a side is ──────────────────────────────────────────────────
 
@@ -138,31 +138,42 @@ export interface RouteStep {
  *  not part of the route to it. */
 export function routeOf(p: Postseason, slug: string, current: Fixture): RouteStep[] {
   const here = matchIdentity(current);
-  return [...p.byIdentity.values()]
-    .filter((t) => t.identity !== here && (t.fixture.home === slug || t.fixture.away === slug))
-    .filter((t) => t.fixture.date <= current.date)
-    .sort((a, b) => a.fixture.date.localeCompare(b.fixture.date))
-    .map((t) => {
-      const f = t.fixture;
-      const home = f.home === slug;
-      const scored = !t.disputed && f.status === "final" && hasScore(f);
-      const sh = t.shootout;
-      return {
-        tie: t,
-        tag: stageTag(p, t.identity)?.text.trim() ?? "",
-        opponent: home ? f.away : f.home,
-        date: f.date,
-        line: scored
-          ? home
-            ? `${f.home_score}–${f.away_score}`
-            : `${f.away_score}–${f.home_score}`
-          : null,
-        result: scored ? resultFor(f, home ? "home" : "away") : null,
-        pens: sh && !t.disputed ? (home ? `${sh.home}–${sh.away}` : `${sh.away}–${sh.home}`) : null,
-        mark: t.disputed ? "disputed" : markOf(t.match.season, f),
-        href: matchHref(t.match.key, f.id),
-      };
-    });
+  // The page's own tie, found from its record even where the fold read that
+  // record's opponent under another slug (lib/postseason.ts sameDayGroups).
+  const self = p.byIdentity.get(here);
+  return (
+    [...p.byIdentity.values()]
+      .filter(
+        (t) =>
+          t !== self && t.identity !== here && (t.fixture.home === slug || t.fixture.away === slug),
+      )
+      // Strictly earlier days: no side plays two ties in one day, so a tie on
+      // the page's own date is never the road to it.
+      .filter((t) => t.fixture.date < current.date)
+      .sort((a, b) => a.fixture.date.localeCompare(b.fixture.date))
+      .map((t) => {
+        const f = t.fixture;
+        const home = f.home === slug;
+        const scored = !t.disputed && f.status === "final" && hasScore(f);
+        const sh = t.shootout;
+        return {
+          tie: t,
+          tag: stageTag(p, t.identity)?.text.trim() ?? "",
+          opponent: home ? f.away : f.home,
+          date: f.date,
+          line: scored
+            ? home
+              ? `${f.home_score}–${f.away_score}`
+              : `${f.away_score}–${f.home_score}`
+            : null,
+          result: scored ? resultFor(f, home ? "home" : "away") : null,
+          pens:
+            sh && !t.disputed ? (home ? `${sh.home}–${sh.away}` : `${sh.away}–${sh.home}`) : null,
+          mark: t.disputed ? "disputed" : markOf(t.match.season, f),
+          href: matchHref(t.match.key, f.id),
+        };
+      })
+  );
 }
 
 // ── Where a side joins the knockout ────────────────────────────────────────
@@ -205,7 +216,7 @@ export function entryOf(
   const firstRound = tournament.ties.filter((t) => t.round === 1);
   if (firstRound.length === 0) return null;
   const mine = tournament.ties.filter(
-    (t) => t.identity !== here && (t.fixture.home === slug || t.fixture.away === slug),
+    (t) => t !== tie && (t.fixture.home === slug || t.fixture.away === slug),
   );
   // An unplaced tie of this side might be the earlier round; say nothing.
   if (mine.some((t) => t.round === 0 || t.round < tie.round)) return null;
@@ -227,6 +238,49 @@ export function entryOf(
   if (!word) return null;
   const owner = tie.competition === "ncaa" ? "NCAA" : tournament.codes.join("/") || "CONF";
   return { round: tie.round, text: `Enters in ${word}`, owner };
+}
+
+// ── A side the record names by another slug ────────────────────────────────
+
+/** The tie a tie-sheet link points at ("…/championship/#tie-…"), or null. */
+export function tieAtHref(p: Postseason, href: string | null): Tie | null {
+  const anchor = href?.split("#")[1];
+  if (!anchor) return null;
+  return [...p.byIdentity.values()].find((t) => tieAnchor(t) === anchor) ?? null;
+}
+
+/** A side this page's record names by a slug no loaded file lists, which the
+ *  postseason reads as a followed programme because that programme's own
+ *  schedule lists the match (a folded same-day tie): the programme, and each
+ *  file's name for it. Null for every other side, which is read as named. */
+export interface SideReading {
+  /** The programme the fold reads the side as. */
+  slug: string;
+  /** The record's own words: each file's name for the side, and whose
+   *  schedule corroborates it. */
+  note: string;
+}
+
+export function sideReadingOf(
+  tie: Tie | null,
+  slug: string,
+  nameOf: (slug: string) => string,
+): SideReading | null {
+  const sd = tie?.sameDay;
+  if (sd?.kind !== "folded" || !sd.opponent) return null;
+  if (slug === sd.opponent || slug === sd.side) return null;
+  const named = sd.readings.filter((r) => r.opponent === slug);
+  const confirmed = sd.readings.find((r) => r.publisher === sd.opponent);
+  if (named.length === 0 || !confirmed) return null;
+  const who = (r: { publisher: string | null; code: string }): string =>
+    r.publisher
+      ? `${nameOf(r.publisher)}'s schedule (${r.code})`
+      : `A schedule in the ${r.code} file`;
+  const names = [...new Set(named.map((r) => `${who(r)} names this side “${r.name}”`))];
+  return {
+    slug: sd.opponent,
+    note: `${names.join("; ")}; ${nameOf(sd.opponent)}'s own schedule (${confirmed.code}) lists this match against ${nameOf(sd.side)}, on the same day, so its season is shown.`,
+  };
 }
 
 // ── Met this season ─────────────────────────────────────────────────────────

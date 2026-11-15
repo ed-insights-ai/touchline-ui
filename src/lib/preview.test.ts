@@ -19,6 +19,7 @@ import {
 import { homeSeasons } from "./home.ts";
 import type { MatchTeam, Player, PlayerStats } from "./model.ts";
 import { playerCard } from "./player.ts";
+import { type Tie, tieAnchor } from "./postseason.ts";
 import { divisionPostseason } from "./postseason-division.ts";
 import {
   boxScorePublisher,
@@ -30,7 +31,9 @@ import {
   routeOf,
   sheetAnchor,
   sheetIndex,
+  sideReadingOf,
   sideSummary,
+  tieAtHref,
   topScorerOf,
 } from "./preview.ts";
 
@@ -184,7 +187,8 @@ describe("routeOf", () => {
       const route = routeOf(p, slug, f);
       for (const r of route) {
         expect(r.tie.identity).not.toBe(matchIdentity(f));
-        expect(r.date <= f.date).toBe(true);
+        // Strictly earlier: no side plays two ties in one day.
+        expect(r.date < f.date).toBe(true);
         expect(r.tie.fixture.home === slug || r.tie.fixture.away === slug).toBe(true);
         expect(r.tag.length).toBeGreaterThan(0);
       }
@@ -285,4 +289,72 @@ describe("boxScorePublisher", () => {
     }
     expect(checked).toBeGreaterThan(0);
   });
+});
+
+describe("a side a record names by another slug", () => {
+  const p = divisionPostseason();
+  test("a tie-sheet link finds its tie, and anything else finds none", () => {
+    const tie = [...p.byIdentity.values()][0];
+    if (!tie) return;
+    expect(tieAtHref(p, `/touchline-ui/championship/#${tieAnchor(tie)}`)).toBe(tie);
+    expect(tieAtHref(p, null)).toBeNull();
+    expect(tieAtHref(p, "/championship/#tie-1999-01-01-x-y")).toBeNull();
+  });
+
+  test("only a folded tie's uncorroborated name is read as the programme", () => {
+    const tie = {
+      sameDay: {
+        side: "cal-state-la",
+        date: "2026-11-15",
+        kind: "folded",
+        opponent: "concordia-irvine",
+        reason: null,
+        agreed: ["kickoff", "ground"],
+        readings: [
+          { code: "CCAA", publisher: "cal-state-la", opponent: "concordia", name: "Concordia" },
+          {
+            code: "PACWEST",
+            publisher: "concordia-irvine",
+            opponent: "concordia-irvine",
+            name: "Concordia Irvine",
+          },
+        ],
+      },
+    } as unknown as Tie;
+    const name = (slug: string): string =>
+      ({ "cal-state-la": "Cal State LA", "concordia-irvine": "Concordia Irvine" })[slug] ?? slug;
+    const read = sideReadingOf(tie, "concordia", name);
+    expect(read?.slug).toBe("concordia-irvine");
+    expect(read?.note).toContain("Cal State LA's schedule (CCAA) names this side “Concordia”");
+    expect(read?.note).toContain("Concordia Irvine's own schedule (PACWEST) lists this match");
+    // The sides the fold already names as followed are read as named.
+    expect(sideReadingOf(tie, "cal-state-la", name)).toBeNull();
+    expect(sideReadingOf(tie, "concordia-irvine", name)).toBeNull();
+    expect(sideReadingOf(null, "concordia", name)).toBeNull();
+    const apart = {
+      sameDay: { ...tie.sameDay, kind: "ambiguous", opponent: null },
+    } as unknown as Tie;
+    expect(sideReadingOf(apart, "concordia", name)).toBeNull();
+  });
+
+  test.skipIf(site.gender !== "women")(
+    "women's CCAA preview of Cal State LA's second-round tie: Concordia is Concordia Irvine",
+    () => {
+      const ccaa = loadSeason("ccaa");
+      const f = fixtureById(ccaa, "sidearm:cal-state-la:6625");
+      if (f?.home !== "concordia") return; // the collector has fixed the slug
+      const tie = p.byIdentity.get(matchIdentity(f)) ?? null;
+      expect(tie?.identity).toBe("2026-11-15 cal-state-la v concordia-irvine");
+      // No loaded file lists "concordia", so only the fold keeps the page
+      // from calling it outside the conferences Touchline collects.
+      expect(memberSeasonOf(seasons, "concordia")).toBeNull();
+      const read = sideReadingOf(tie, "concordia", (slug) => slug);
+      expect(read?.slug).toBe("concordia-irvine");
+      expect(memberSeasonOf(seasons, "concordia-irvine")).not.toBeNull();
+      // The route to the tie holds nothing from its own day.
+      for (const slug of ["cal-state-la", "concordia-irvine"]) {
+        for (const r of routeOf(p, slug, f)) expect(r.date < f.date).toBe(true);
+      }
+    },
+  );
 });

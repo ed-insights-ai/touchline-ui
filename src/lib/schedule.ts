@@ -23,8 +23,10 @@ import {
   isExhibition,
   type Season,
 } from "./derive.ts";
+import type { DivisionMatch } from "./division.ts";
 import { clockTime, dayNumber, dowIndex, toISO } from "./format.ts";
 import { outcome } from "./model.ts";
+import { publisherOf } from "./postseason.ts";
 
 /**
  * A row whose home or away slug names an NCAA round rather than a programme.
@@ -261,6 +263,92 @@ export function scheduleCounts(s: Season): ScheduleCounts {
  *  clockTime), so a schedule and a match page never disagree on casing. */
 export function kickoff(hhmm: string | undefined): string | null {
   return clockTime(hhmm);
+}
+
+/** The word between two sides still to play. "at" names the home ground; a
+ *  match the schedule page marked neutral has none to name, and reads "v",
+ *  the ledger's own neutral mark (LedgerRow.astro). */
+export const meetWord = (f: Fixture): "at" | "v" => (f.neutral ? "v" : "at");
+
+/** What the neutral "v" means, said once for every surface that prints it:
+ *  its title, its screen-reader text, the matches key and the About page. */
+export const NEUTRAL_GROUND = "At a neutral ground";
+
+/** One record's kickoff: whose schedule page printed it, and what it says. */
+export interface KickoffRecord {
+  /** The programme whose page the record was read from (postseason.ts
+   *  publisherOf), or null when the record cannot say. */
+  by: string | null;
+  /** The page's host, named when the programme cannot be. */
+  source: string | null;
+  /** HH:MM as published; null when that page printed no time. */
+  time: string | null;
+}
+
+/** The kickoff of a match whose collected records print different times. */
+export interface KickoffCall {
+  /** The record printed: the host's own (the home side's schedule page),
+   *  unless the match is at a neutral ground or the host's record is not
+   *  collected, when it is the first record in config order — the rule the
+   *  tie sheet's kickoffOf follows, so a Match Centre and its bracket agree. */
+  printed: KickoffRecord;
+  /** The printed record is the host's page. */
+  hosted: boolean;
+  /** Every other record that prints something else, a time or none. */
+  differ: KickoffRecord[];
+}
+
+const hostname = (url: string | undefined): string | null => {
+  if (!url) return null;
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return null;
+  }
+};
+
+/** The kickoff call for a match the site holds more than one record of, or
+ *  null when every record prints the same time (or there is only one): then
+ *  the page's own record is the whole story and nothing needs naming. Nothing
+ *  is merged or averaged: one record is printed and the others are named. */
+export function kickoffCall(m: DivisionMatch): KickoffCall | null {
+  if (m.sightings.length < 2) return null;
+  const records = m.sightings.map(
+    (s): KickoffRecord => ({
+      by: publisherOf(s),
+      source: hostname(s.fixture.source_url),
+      time: s.fixture.time ?? null,
+    }),
+  );
+  if (records.every((r) => r.time === records[0]?.time)) return null;
+  const home = m.neutral ? null : m.fixture.home;
+  const hostAt = home === null ? -1 : records.findIndex((r) => r.by === home);
+  const at = hostAt >= 0 ? hostAt : 0;
+  const printed = records[at] as KickoffRecord;
+  return {
+    printed,
+    hosted: hostAt >= 0,
+    differ: records.filter((r, i) => i !== at && r.time !== printed.time),
+  };
+}
+
+/** The line beside a kickoff the records disagree on, the tie sheet's form:
+ *  "As published by Dallas Baptist, the host; UCCS lists 11:00 AM." */
+export function kickoffNote(call: KickoffCall, nameOf: (slug: string) => string): string {
+  const who = (r: KickoffRecord): string =>
+    r.by ? nameOf(r.by) : (r.source ?? "another schedule");
+  const lead = call.printed.by
+    ? `${call.printed.time ? "As published" : "No kickoff time published"} by ${nameOf(call.printed.by)}${call.hosted ? ", the host" : ""}`
+    : call.printed.source
+      ? `${call.printed.time ? "As published" : "No kickoff time published"} on ${call.printed.source}`
+      : call.printed.time
+        ? "As published"
+        : "No kickoff time published";
+  const others = call.differ.map((r) => {
+    const t = clockTime(r.time ?? undefined);
+    return `${who(r)} ${t ? `lists ${t}` : "lists no time"}`;
+  });
+  return `${[lead, ...others].join("; ")}.`;
 }
 
 /** Which side, if either, the reader's eye should rest on. A forfeit's

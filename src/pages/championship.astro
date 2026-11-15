@@ -22,7 +22,7 @@ import Page from "../layouts/Page.astro";
 import { hasScore, matchHref } from "../lib/derive.ts";
 import { dayOfMonth, dowShort, monShort, spell } from "../lib/format.ts";
 import { homeSeasons } from "../lib/home.ts";
-import { regionsOf, type Tie, verdictLine, verdictOf } from "../lib/postseason.ts";
+import { regionsOf, sameDayNote, type Tie, tieAnchor, verdictLine, verdictOf } from "../lib/postseason.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { currentDivision, site } from "../site.config.ts";
 
@@ -133,6 +133,24 @@ const jumps = [
   { href: "#conference-tournaments", label: "Conference tournaments" },
 ];
 const hasRegions = regionsOf(ncaa).length > 0;
+
+// Ties set apart: records that give one side two ties on one day and that no
+// record settles (lib/postseason.ts sameDayGroups). They count nowhere above;
+// each is named here so the count's silence about it is said, not hidden.
+const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) => {
+  const ties = ncaa.apart.filter((t) => t.sameDay === sd);
+  const first = ties[0];
+  if (!sd || !first) return [];
+  return [
+    {
+      links: ties.map((t) => ({
+        href: `#${tieAnchor(t)}`,
+        label: `${day(t.fixture.date)} · ${name(t, t.fixture.home)} v ${name(t, t.fixture.away)}`,
+      })),
+      note: sameDayNote(sd, (slug) => name(first, slug)),
+    },
+  ];
+});
 ---
 
 <Page
@@ -184,6 +202,17 @@ const hasRegions = regionsOf(ncaa).length > 0;
       <section class="block" id="field">
         <h2 class="sechead">THE FIELD</h2>
         <FieldStrip tournament={ncaa} conferenceOf={p.conferenceOf} />
+        {apartGroups.map((g) => (
+          <p class="apart">
+            <span class="chip chip-context">Set apart</span>
+            <span>
+              Not counted above:{" "}
+              {g.links.map((a, i) => (
+                <>{i > 0 && " and "}<a href={a.href}>{a.label}</a></>
+              ))}. {g.note}
+            </span>
+          </p>
+        ))}
       </section>
     )}
 
@@ -280,6 +309,7 @@ const hasRegions = regionsOf(ncaa).length > 0;
           tie={tie}
           tournament={tournament}
           conferenceOf={p.conferenceOf}
+          seasonOf={p.seasonOf}
           back={tie.competition === "ncaa" ? "#bracket" : "#conference-tournaments"}
         />
       ) : null;
@@ -353,6 +383,8 @@ const hasRegions = regionsOf(ncaa).length > 0;
   .thead span { font-size: 11.5px; color: var(--secondary); text-align: right; }
   .empty { margin: 0; font-size: 13px; color: var(--secondary); }
   .tnote { margin: 0; font-size: 11.5px; line-height: 1.4; color: var(--secondary); }
+  .apart { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--secondary); display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .apart a { color: var(--ink); border-bottom: 1px solid var(--hairline); }
 
   @media (max-width: 860px) {
     .finals { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }

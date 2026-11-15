@@ -7,7 +7,15 @@
 // holds, never who meets whom. Each programme stands once, read from its
 // latest tie (fieldOf), and each chip is the path tracer's link: selecting
 // one lights that programme's ties in the bracket below.
-import { type FieldEntry, fieldOf, labelAt, roundNameOf, shapeOf, type Tournament } from "../lib/postseason.ts";
+import {
+  type FieldEntry,
+  fieldOf,
+  labelAt,
+  noShapeLine,
+  roundNameOf,
+  shapeOf,
+  type Tournament,
+} from "../lib/postseason.ts";
 
 interface Props {
   tournament: Tournament;
@@ -17,6 +25,9 @@ const { tournament, conferenceOf } = Astro.props;
 
 const entries = fieldOf(tournament);
 const shape = shapeOf(tournament);
+// No shape, no funnel: said in one quiet line, so the missing bars read as a
+// decision and not as a page that failed to draw.
+const noShape = noShapeLine(tournament);
 
 // The round a label names, as a phrase: "the second round", "the final".
 const PHRASE: Record<string, string> = {
@@ -104,6 +115,7 @@ const ordered = [...groups.values()]
 ---
 
 <div class="field">
+  {noShape && <p class="provenance no-shape">{noShape}</p>}
   {stages.length > 0 && (
     <ol class="funnel" aria-label="Sides left in each round">
       {stages.map((s) => (

@@ -20,14 +20,18 @@ import {
   canonicalFixture,
   canonicalSlug,
   fieldOf,
+  groundsAgree,
   kickoffOf,
   knownProgrammes,
   layoutRegion,
   layoutTree,
+  noShapeLine,
+  participantsOf,
   postseasonOf,
   publisherOf,
   regionsOf,
   routeOf,
+  sameDayNote,
   shapeOf,
   sideSeasonOf,
   splitOf,
@@ -494,6 +498,11 @@ describe("a final played level is decided, and names a champion only from a shoo
     const line = verdictLine(t, name);
     expect(line.head).toBe("Final drawn 0–0 · shootout winner not collected");
     expect(line.note).toContain("“T, 0-0 3-2 PKs”");
+    // The quote names a winner in its own words; the note must not read as
+    // contradicting it, only say why no programme is named from it.
+    expect(line.note).toContain("quoted as published");
+    expect(line.note).toContain("names no programme Touchline can match to a side");
+    expect(line.note).not.toContain("No record collects");
     expect(line.head).not.toContain("to play");
   });
 
@@ -674,9 +683,9 @@ describe("a ranking printed in front of an opponent's slug is read past", () => 
 
 describe("no side plays two rounds in one day", () => {
   test("two ties one side has on one date are not successive rounds", () => {
-    // One schedule names the opponent differently ("concordia" beside
-    // "concordia-irvine"): the fold cannot join them, and the chain must not
-    // read them as one round and the next.
+    // One schedule names the opponent differently ("x" beside "x-irvine"),
+    // and no record settles which it is: the two are set apart, and the chain
+    // must not read them as one round and the next.
     const ties = [
       fx("2026-11-13", "a", 1, 0, "b", { stage: NCAA }),
       fx("2026-11-13", "c", 1, 0, "d", { stage: NCAA }),
@@ -692,9 +701,208 @@ describe("no side plays two rounds in one day", () => {
       "2026-11-13:R1",
       "2026-11-13:R1",
       "2026-11-15:R2",
-      "2026-11-15:R2",
-      "2026-11-15:R2",
     ]);
+    expect(p.ncaa.apart.map((t) => t.sameDay?.reason)).toEqual([
+      "uncorroborated",
+      "uncorroborated",
+    ]);
+  });
+});
+
+describe("one side, two records, one day: one tie where a record corroborates it", () => {
+  // The 2026 women's shape: Cal State LA's schedule names its second-round
+  // opponent "concordia", a slug no file lists; Concordia Irvine's own
+  // schedule lists the same kickoff in Irvine.
+  const ccaa = fileOf(
+    "CCAA",
+    ["csula", "merced"],
+    [
+      fx("2026-11-13", "csula", 2, 0, "merced", { stage: NCAA }),
+      fx("2026-11-15", "concordia", null, null, "csula", {
+        stage: NCAA,
+        time: "15:00",
+        venue: "Irvine",
+        source_url: "https://lagoldeneagles.com/sports/womens-soccer/schedule/2026",
+      }),
+    ],
+  );
+  const pacwest = fileOf(
+    "PACWEST",
+    ["concordia-irvine", "biola"],
+    [
+      fx("2026-11-13", "biola", 0, 1, "concordia-irvine", { stage: NCAA }),
+      fx("2026-11-15", "concordia-irvine", null, null, "csula", {
+        stage: NCAA,
+        neutral: true,
+        time: "15:00",
+        venue: "Irvine, Calif. / UC Irvine",
+        source_url: "https://cuigoldeneagles.com/sports/womens-soccer/schedule/2026",
+      }),
+    ],
+  );
+  const p = postseasonOf([seasonOf("ccaa", ccaa), seasonOf("pacwest", pacwest)]);
+  const day = p.ncaa.ties.filter((t) => t.fixture.date === "2026-11-15");
+
+  test("the two records are one tie against the corroborated opponent", () => {
+    expect(day).toHaveLength(1);
+    const tie = day[0];
+    expect(tie?.identity).toBe("2026-11-15 concordia-irvine v csula");
+    expect(tie?.match.sightings.map((s) => s.code)).toEqual(["CCAA", "PACWEST"]);
+    expect(tie?.sameDay).toMatchObject({
+      kind: "folded",
+      side: "csula",
+      opponent: "concordia-irvine",
+      agreed: ["kickoff", "ground"],
+    });
+    expect(participantsOf(p.ncaa).has("concordia")).toBe(false);
+    expect(p.ncaa.ties).toHaveLength(3);
+    expect(p.ncaa.apart).toEqual([]);
+  });
+
+  test("the record that named the opponent differently still finds the tie", () => {
+    const raw = ccaa.fixtures[1] as Fixture;
+    expect(p.byIdentity.get(matchIdentity(raw))?.identity).toBe(
+      "2026-11-15 concordia-irvine v csula",
+    );
+    expect([...p.byIdentity.values()]).toHaveLength(3);
+  });
+
+  test("each file's name for the opponent is quoted", () => {
+    const tie = day[0];
+    if (!tie?.sameDay) throw new Error("no fold");
+    const note = sameDayNote(tie.sameDay, (slug) => tie.match.season.names.name(slug));
+    expect(note).toContain("(CCAA) names the opponent “Concordia”");
+    expect(note).toContain("own schedule (PACWEST) lists this match");
+    expect(note).toContain("counted once");
+  });
+
+  test("no corroboration, no fold: both set apart, counted nowhere", () => {
+    const lone = fileOf(
+      "CCAA",
+      ["csula", "merced"],
+      [
+        fx("2026-11-13", "csula", 2, 0, "merced", { stage: NCAA }),
+        fx("2026-11-15", "concordia", null, null, "csula", { stage: NCAA, time: "15:00" }),
+        fx("2026-11-15", "concordia-ca", null, null, "csula", { stage: NCAA, time: "15:00" }),
+      ],
+    );
+    const q = postseasonOf([seasonOf("ccaa", lone)]);
+    expect(q.ncaa.ties).toHaveLength(1);
+    expect(q.ncaa.apart).toHaveLength(2);
+    expect(q.ncaa.apart.every((t) => t.sameDay?.kind === "ambiguous" && t.round === 0)).toBe(true);
+    expect(participantsOf(q.ncaa).has("concordia")).toBe(false);
+    // Still a tie the site can open and look up.
+    expect(q.byIdentity.size).toBe(3);
+    const sd = q.ncaa.apart[0]?.sameDay;
+    if (!sd) throw new Error("no note");
+    expect(sameDayNote(sd, (s) => s)).toContain("set apart and count nowhere");
+  });
+
+  test("a different kickoff keeps them apart, even with a corroborated opponent", () => {
+    const later = {
+      ...pacwest,
+      fixtures: pacwest.fixtures.map((f) =>
+        f.date === "2026-11-15" ? { ...f, time: "19:00" } : f,
+      ),
+    };
+    const q = postseasonOf([seasonOf("ccaa", ccaa), seasonOf("pacwest", later)]);
+    expect(q.ncaa.ties.filter((t) => t.fixture.date === "2026-11-15")).toEqual([]);
+    expect(q.ncaa.apart.map((t) => t.sameDay?.reason)).toEqual(["differ", "differ"]);
+  });
+
+  test("grounds agree when one wording leads with the other's place", () => {
+    expect(groundsAgree("Irvine", "Irvine, Calif. / UC Irvine")).toBe(true);
+    expect(groundsAgree("Hays, Kan.", "Hays, KS")).toBe(true);
+    expect(groundsAgree("Irvine", "Pomona, Calif.")).toBe(false);
+  });
+
+  test("a side's route never holds a tie on the same day", () => {
+    const tie = day[0];
+    if (!tie) throw new Error("no tie");
+    expect(routeOf(p.ncaa, tie, "csula").map((t) => t.fixture.date)).toEqual(["2026-11-13"]);
+    // A same-day twin left unfolded is not the road here either.
+    const q = postseasonOf([
+      seasonOf(
+        "x",
+        fileOf(
+          "X",
+          ["a", "b", "c"],
+          [
+            fx("2026-11-13", "a", 1, 0, "b", { stage: NCAA }),
+            fx("2026-11-15", "a", null, null, "c", { stage: CONF, time: "13:00" }),
+            fx("2026-11-15", "a", null, null, "q", { stage: NCAA }),
+          ],
+        ),
+      ),
+    ]);
+    const last = q.ncaa.ties.find((t) => t.fixture.date === "2026-11-15");
+    if (!last) throw new Error("no tie");
+    expect(routeOf(q.ncaa, last, "a").map((t) => t.fixture.date)).toEqual(["2026-11-13"]);
+  });
+
+  test.skipIf(site.gender !== "women")(
+    "women's 2026: Cal State LA plays one second-round tie, and the field has a shape",
+    () => {
+      const real = divisionPostseason();
+      const mine = real.ncaa.ties.filter(
+        (t) =>
+          t.fixture.date === "2026-11-15" &&
+          [t.fixture.home, t.fixture.away].includes("cal-state-la"),
+      );
+      expect(mine).toHaveLength(1);
+      expect(mine[0]?.identity).toBe("2026-11-15 cal-state-la v concordia-irvine");
+      expect(new Set(mine[0]?.match.sightings.map((s) => s.code))).toEqual(
+        new Set(["CCAA", "PACWEST"]),
+      );
+      expect(mine[0]?.sameDay?.kind).toBe("folded");
+      // The CCAA record's own identity still reaches it.
+      expect(real.byIdentity.get("2026-11-15 cal-state-la v concordia")).toBe(mine[0]);
+      expect(participantsOf(real.ncaa).has("concordia")).toBe(false);
+      // No side holds two ties on one day anywhere in the field.
+      const days = real.ncaa.ties.flatMap((t) =>
+        [t.fixture.home, t.fixture.away].map((slug) => `${t.fixture.date} ${slug}`),
+      );
+      expect(days.length).toBe(new Set(days).size);
+      // With the phantom gone the knockout reads a shape: no silent funnel.
+      expect(shapeOf(real.ncaa)).not.toBeNull();
+      expect(noShapeLine(real.ncaa)).toBeNull();
+    },
+  );
+});
+
+describe("a field with no shape says why no funnel is drawn", () => {
+  test("the counts the page has, in one line", () => {
+    const ties = [
+      fx("2026-11-13", "a", 1, 0, "b", { stage: NCAA }),
+      fx("2026-11-13", "c", 1, 0, "d", { stage: NCAA }),
+      fx("2026-11-13", "e", 1, 0, "f", { stage: NCAA }),
+      fx("2026-11-15", "a", null, null, "c", { stage: NCAA }),
+      fx("2026-11-15", "e", null, null, "g", { stage: NCAA }),
+      fx("2026-11-15", "h", null, null, "i", { stage: NCAA }),
+    ];
+    const p = postseasonOf([seasonOf("x", fileOf("X", ["a", "b", "c", "d", "e", "f"], ties))]);
+    expect(shapeOf(p.ncaa)).toBeNull();
+    expect(noShapeLine(p.ncaa)).toBe(
+      "No per-round funnel is drawn: the first round holds 3 collected ties and the second round 3, and no round halving to a final can be read from those counts.",
+    );
+  });
+  test("a shape, or no tie at all, needs no line", () => {
+    const p = postseasonOf([
+      seasonOf(
+        "x",
+        fileOf(
+          "X",
+          ["a", "b", "c", "d"],
+          [
+            fx("2026-11-13", "a", 1, 0, "b", { stage: NCAA }),
+            fx("2026-11-13", "c", 1, 0, "d", { stage: NCAA }),
+          ],
+        ),
+      ),
+    ]);
+    expect(shapeOf(p.ncaa)).not.toBeNull();
+    expect(noShapeLine(p.ncaa)).toBeNull();
+    expect(noShapeLine(postseasonOf([seasonOf("x", fileOf("X", ["a"], []))]).ncaa)).toBeNull();
   });
 });
 
@@ -702,12 +910,11 @@ describe("every side of every NCAA tie is a programme the data home knows", () =
   // Read straight from each gender's files, whichever gender this build is.
   // A side that resolves to no known programme is a phantom in the field.
   //
-  // One known exception, named so it cannot grow quietly: the 2026 women's
-  // CCAA file slugs Concordia Irvine as "concordia", a slug the NSIC file uses
-  // for a different school. It carries no ranking, so canonicalSlug rightly
-  // leaves it; the collector has to name it. The test fails once the data no
-  // longer holds it, so the exception is removed with the fault.
-  const EXPECTED_UNRESOLVED: Record<string, string[]> = { women: ["concordia"] };
+  // No exception. The 2026 women's CCAA file still slugs Concordia Irvine as
+  // "concordia" (a collector fault the site does not edit), and the same-day
+  // fold reads it as Concordia Irvine because that programme's own schedule
+  // lists the match (sameDayGroups). A slug neither rule resolves fails here.
+  const EXPECTED_UNRESOLVED: Record<string, string[]> = {};
   for (const gender of ["men", "women"] as const) {
     const files = divisions[gender].conferences.flatMap((key) => {
       try {

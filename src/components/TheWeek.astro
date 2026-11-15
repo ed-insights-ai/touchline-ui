@@ -4,7 +4,8 @@
 // so, because an empty Tuesday is a fact about the week and not a gap in the
 // page.
 //
-// Each line reads away "at" home, the way a schedule is spoken. The programme
+// Each line reads away "at" home, the way a schedule is spoken; a match the
+// schedule page marked neutral reads "v", since no side is at home. The programme
 // this site collects carries the weight; an opponent it does not follow stays
 // quiet. When two collected programmes meet, both carry it — there is no
 // reason to favour either.
@@ -12,6 +13,7 @@ import { dayOfMonth, dowLong, monLong } from "../lib/format.ts";
 import { matchHref, type Season } from "../lib/derive.ts";
 import { kickoff, weekOf } from "../lib/schedule.ts";
 import { stageChipOf } from "../lib/stage.ts";
+import NeutralMark from "./NeutralMark.astro";
 import StageChip from "./StageChip.astro";
 
 interface Props {
@@ -85,7 +87,7 @@ const emptyNote =
                       <span class={members.has(f.away) ? "wk-side wk-mine" : "wk-side"}>
                         {names.name(f.away)}
                       </span>
-                      <span class="wk-at"> at </span>
+                      {f.neutral ? <NeutralMark as="word" /> : <span class="wk-at"> at </span>}
                       <span class={members.has(f.home) ? "wk-side wk-mine" : "wk-side"}>
                         {names.name(f.home)}
                       </span>

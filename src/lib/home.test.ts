@@ -1441,4 +1441,30 @@ describe("the NCAA's next playing day under LAST NIGHT", () => {
       true,
     );
   });
+
+  test("on the live data no side is listed twice on the day: the folded ties are counted", () => {
+    // Two records of one tie, one naming the opponent by another slug, are
+    // one row (lib/postseason.ts sameDayGroups), never two.
+    const ncaa = divisionPostseason().ncaa;
+    for (const date of new Set(ncaa.ties.map((t) => t.fixture.date))) {
+      const day = ncaaNextDay(ncaa, date);
+      if (day === null || day.date !== date) continue;
+      const sides = day.matches.flatMap((m) => [m.fixture.home, m.fixture.away]);
+      expect(sides.length).toBe(new Set(sides).size);
+    }
+  });
+
+  test.skipIf(site.gender !== "women")(
+    "women's Nov 15: Cal State LA v Concordia Irvine is one row, read from both files",
+    () => {
+      const day = ncaaNextDay(divisionPostseason().ncaa, "2026-11-15");
+      if (day === null || day.date !== "2026-11-15") return;
+      const csula = day.matches.filter((m) =>
+        [m.fixture.home, m.fixture.away].includes("cal-state-la"),
+      );
+      expect(csula).toHaveLength(1);
+      expect(csula[0]?.identity).toBe("2026-11-15 cal-state-la v concordia-irvine");
+      expect([...(csula[0]?.codes ?? [])].sort()).toEqual(["CCAA", "PACWEST"]);
+    },
+  );
 });

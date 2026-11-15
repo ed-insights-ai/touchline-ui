@@ -13,6 +13,7 @@
 //     folded into it;
 //   • still to come — away at home, the kickoff the home programme published,
 //     and the venue when the schedule names one.
+import NeutralMark from "../../components/NeutralMark.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import StageChip from "../../components/StageChip.astro";
@@ -23,6 +24,7 @@ import {
   byDay,
   isSilentFinal,
   matchesOf,
+  NEUTRAL_GROUND,
   scheduleCounts,
   weightOf,
 } from "../../lib/schedule.ts";
@@ -104,6 +106,9 @@ const keyChips = [
 // form the team page, the Match Centre and the tie sheets print.
 const timeOf = (f: Fixture): string => clockTime(f.time) ?? "—";
 const hasLeague = matches.some((f) => f.conference_game);
+// The neutral "v" is a single letter beside a score; the key says what it
+// means whenever the page prints one, and only then.
+const hasNeutral = matches.some((f) => f.neutral);
 const todayLabel = `TODAY \u00b7 ${dayLabel(today)}${todayGroup ? "" : " \u2014 NO MATCHES"}`;
 
 const title = `Touchline — ${confName} Matches`;
@@ -132,7 +137,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
           )}
           <a class="mx-jump-link" href="#today">Today <span aria-hidden="true">↓</span></a>
         </nav>
-        {(hasLeague || keyChips.length > 0) && (
+        {(hasLeague || keyChips.length > 0 || hasNeutral) && (
           <ul class="mx-key" aria-label="Key">
             {hasLeague && (
               <li class="mx-key-item"><span class="mx-key-league" aria-hidden="true"></span>League match</li>
@@ -143,6 +148,9 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                 {chip.competition === "ncaa" ? "NCAA tournament round" : "Conference tournament round"}
               </li>
             ))}
+            {hasNeutral && (
+              <li class="mx-key-item"><span class="mx-key-v" aria-hidden="true">v</span>{NEUTRAL_GROUND}</li>
+            )}
           </ul>
         )}
       </div>
@@ -173,6 +181,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                         </span>
                         <span class="mx-score num">
                           {f.away_score}–{f.home_score}
+                          {f.neutral && <NeutralMark />}
                           {chipOf.get(f.id) && <span class="mx-stage"><StageChip chip={chipOf.get(f.id)!} size="sm" /></span>}
                         </span>
                         <span class={`mx-home mx-${weightOf(f, "home", isDisputed(season, f))}`}>
@@ -188,6 +197,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                         </span>
                         <span class="mx-score mx-silent num">
                           —
+                          {f.neutral && <NeutralMark />}
                           {chipOf.get(f.id) && <span class="mx-stage"><StageChip chip={chipOf.get(f.id)!} size="sm" /></span>}
                         </span>
                         <span class="mx-home mx-even">
@@ -203,6 +213,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                         </span>
                         <span class="mx-score mx-waiting num">
                           —
+                          {f.neutral && <NeutralMark />}
                           {chipOf.get(f.id) && <span class="mx-stage"><StageChip chip={chipOf.get(f.id)!} size="sm" /></span>}
                         </span>
                         <span class="mx-home mx-even">
@@ -233,7 +244,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                     <span class="mx-line">
                       {f.conference_game && <span class="vh">League match. </span>}
                       <span class="mx-side">{names.name(f.away)}</span>
-                      <span class="mx-at"> at </span>
+                      {f.neutral ? <NeutralMark as="word" /> : <span class="mx-at"> at </span>}
                       <span class="mx-side mx-strong">{names.name(f.home)}</span>
                       {f.venue && <span class="mx-venue"> · {f.venue}</span>}
                     </span>
@@ -257,7 +268,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
                     <span class="mx-line">
                       {f.conference_game && <span class="vh">League match. </span>}
                       <span class="mx-side">{names.name(f.away)}</span>
-                      <span class="mx-at"> at </span>
+                      {f.neutral ? <NeutralMark as="word" /> : <span class="mx-at"> at </span>}
                       <span class="mx-side mx-strong">{names.name(f.home)}</span>
                       {f.venue && <span class="mx-venue"> · {f.venue}</span>}
                     </span>
@@ -275,7 +286,9 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
 
       {/* The rail is an index, not an essay: the months with matches, each
           with its count, and TODAY, so a page of a hundred rows can be
-          entered anywhere. What the rail used to explain in prose is now the
+          entered anywhere. The count carries its noun: on a phone the rail
+          runs across the page, and "SEP 40" beside "TODAY NOV 15" read as
+          two dates (council, round 3). What the rail used to explain in prose is now the
           strip under the title, as figures. */}
       <aside class="mx-rail">
         {days.length > 0 && (
@@ -284,7 +297,7 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
             {months.map((m) => (
               <a class="mx-index-row hoverable" href={`#m-${m.key}`}>
                 <span class="mx-index-month">{m.label}</span>
-                <span class="mx-index-count num">{m.count}</span>
+                <span class="mx-index-count num">{m.count} {m.count === 1 ? "match" : "matches"}</span>
               </a>
             ))}
             <a class="mx-index-row mx-index-today hoverable" href="#today">
@@ -349,6 +362,8 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
   .mx-key { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 0; padding: 0; list-style: none; }
   .mx-key-item { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--quiet); }
   .mx-key-league { width: 8px; height: 8px; border-radius: 1px; background: var(--accent); }
+  /* The neutral mark itself, as the rows print it. */
+  .mx-key-v { font-size: 10px; letter-spacing: 0.08em; }
 
   /* The rail is the index's width, not a column's: it was 420px around a
      220px list, which pushed the one-column fold up to 1180 and took the
@@ -481,6 +496,9 @@ const dek = `The complete ${season.fixtures.season} schedule and results, day by
     .mx-index { position: static; flex-direction: row; flex-wrap: wrap; max-width: none; gap: 0 18px; }
     .mx-index-head { flex-basis: 100%; border-bottom: none; padding-bottom: 2px; }
     .mx-index-row { border-bottom: none; padding: 4px 0; gap: 6px; }
+    /* Run together on one line, a month and its count need a separator
+       to read as a month and a count, not as a date. */
+    .mx-index-row:not(.mx-index-today) .mx-index-count::before { content: "·"; margin-right: 6px; color: var(--outline-quiet); }
   }
   /* Under a finger every row and every jump is a 44px target; the text does
      not move, the row grows around it. */

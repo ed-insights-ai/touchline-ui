@@ -357,19 +357,21 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
         {/* The page's figures in the masthead's strip. The record and the goals
             live in TEAM PROFILE beneath and are not said twice up here. */}
         <div class="crest-strip num">
-          {[
-            `${counts.played} OF ${counts.total} PLAYED`,
-            counts.silentFinals > 0
-              ? `${counts.silentFinals} SCORE ${counts.silentFinals === 1 ? "GAP" : "GAPS"}`
-              : null,
-            grid.size > 0 ? `SQUAD ${grid.size}` : null,
-            ...honours,
-            opener && opener.status !== "final"
-              ? `CONFERENCE OPENS ${monShort(opener.date).toUpperCase()} ${dayOfMonth(opener.date)}`
-              : null,
-          ]
-            .filter((c): c is string => c !== null)
-            .map((c) => <span class="cell">{c}</span>)}
+          <div class="crest-strip-in">
+            {[
+              `${counts.played} OF ${counts.total} PLAYED`,
+              counts.silentFinals > 0
+                ? `${counts.silentFinals} SCORE ${counts.silentFinals === 1 ? "GAP" : "GAPS"}`
+                : null,
+              grid.size > 0 ? `SQUAD ${grid.size}` : null,
+              ...honours,
+              opener && opener.status !== "final"
+                ? `CONFERENCE OPENS ${monShort(opener.date).toUpperCase()} ${dayOfMonth(opener.date)}`
+                : null,
+            ]
+              .filter((c): c is string => c !== null)
+              .map((c) => <span class="cell">{c}</span>)}
+          </div>
         </div>
       </div>
       <div class="grow"></div>
@@ -671,16 +673,20 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
   .crest-id { display: flex; flex-direction: column; gap: 5px; }
   .crest-name { margin: 0; font-size: 40px; line-height: 1; }
   .crest-meta { font-size: 13px; color: var(--secondary); }
+  /* The masthead strip's technique: the middot sits in the gap BEFORE each
+     cell and the row is pulled left by one gap inside a box that clips, so
+     the dot before whichever cell starts a line falls outside the box. A
+     wrapped strip never opens a line on a separator, nor ends one on one. */
   .crest-strip {
-    display: flex;
-    flex-wrap: wrap;
     margin-top: 8px;
+    overflow: hidden;
     font-size: 11.5px;
     letter-spacing: 0.1em;
     color: var(--secondary);
   }
-  .cell { white-space: nowrap; }
-  .cell + .cell::before { content: "·"; margin: 0 10px; color: var(--outline-quiet); }
+  .crest-strip-in { display: flex; flex-wrap: wrap; row-gap: 4px; margin-left: -23px; }
+  .cell { position: relative; margin-left: 23px; white-space: nowrap; }
+  .cell::before { content: "·"; position: absolute; left: -15px; color: var(--outline-quiet); }
   @media (max-width: 480px) { .cell { white-space: normal; } }
   .crest-form { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
   .crest-form-row { display: flex; gap: 10px; align-items: center; }
