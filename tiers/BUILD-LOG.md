@@ -1127,3 +1127,53 @@ What `just verify` ran:
 - the women's gate: 1,082 pass, 15 skip, 0 fail;
 - the Division I men's gate: 1,020 pass, 35 skip, 0 fail;
 - links: 9,480 pages and 852,435 references, 0 broken.
+
+## Stage 8: IR-31 replaced, a test (vi) word ends at a hyphen
+
+The orchestrator approved IR-26 to IR-30 and IR-32 as built, and replaced IR-31: **in test (vi), a word ends at
+white space or at a hyphen.** Test (ii) and every other reading of a word are unchanged, and every other condition
+of N2a stands. Both builds read the same frozen snapshot as in Phase 6.
+
+| Commit | What changed here |
+| --- | --- |
+| `6948a34193` | `players.ts`: `nameWordList` splits on white space and on U+002D, U+2010 and U+2011, so a hyphenated double surname is two words in test (vi). `nameWords` (test (ii)) is unchanged. The regression test "[IR-31] a hyphenated double surname joins under (vi)" is in `regressions.test.ts` |
+| `5d83723c44` | Artifacts rebuilt, `--frozen-at 2026-11-16`: one entry fewer in six files, and three fewer in 2023 men. `position-readings.json` is unchanged |
+
+**Agreement with the Python build:** 100% on players and teams in all ten files, and identical in every field, debug
+files included. The Python build keeps the old reading behind `REF_VI_SPACE=1`, which reproduces Phase 6 exactly.
+
+**Effect:**
+- 9 joins added, each read as one person; entries 60,723 → 60,714. `joins-sample.md` lists them with their evidence.
+- 2 statuses change, both Charlise Hernandez-Tersigni's (Ursuline): 2023 `needs_minutes` → `eligible`, and 2024
+  `needs_second_season` → `eligible`. Three of the 9 entries absorbed were `incomplete no_position`.
+- No other entry changes status, tier or kind. Tiers lost 0, gained 0. Holders stay 2,878, and the per-file table
+  in Phase 6 stands.
+- N2b's flagged pairs (33) and N2c's links (36) are unchanged. The sibling pairs (Wegesend, Pollacchi, Reis,
+  Ichimiya, Camargo, Burke, Vandamia, Padilla) stay apart.
+
+**Named end states:**
+- Charlise Hernandez-Tersigni (Ursuline women): 2022 `needs_second_season` on 1,245 minutes, 2023 `eligible` on
+  1,083, 2024 `eligible` on 1,312, and 2025 `eligible` on 1,515.
+- Carlos Murguia (Erskine 2023): `eligible` on 961.
+- Madison Richardson (Chowan women 2026): a goalkeeper, `needs_minutes` on 423.
+
+### Gates (worktree, after `5d83723c44`)
+
+| Gate | Result |
+| --- | --- |
+| `bunx tsc --noEmit -p .` | clean |
+| `bunx biome check .` | the same 6 warnings, in files this branch may not touch; `scripts/tiers` is clean |
+| `bun test` | 1,076 pass, 7 skip, 0 fail |
+| `TOUCHLINE_CONTRACTS_DIR=… just verify` | exit 0 |
+
+`bun test` has one test more than in Phase 6, the IR-31 test. Four fewer skip: those four test the built pages, and
+in Phase 6 they skipped because `dist/` predated a test file.
+
+What `just verify` ran:
+
+- biome, with the same 6 warnings;
+- three `astro build` runs: Division II men 2,728 pages, Division II women 3,429, and Division I 3,323;
+- the men's gate: 1,093 pass, 5 skip, 0 fail;
+- the women's gate: 1,083 pass, 15 skip, 0 fail;
+- the Division I men's gate: 1,021 pass, 35 skip, 0 fail;
+- links: 9,480 pages and 852,435 references, 0 broken.
