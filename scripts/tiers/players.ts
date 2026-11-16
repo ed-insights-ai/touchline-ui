@@ -99,8 +99,8 @@ export interface PlayerSeason {
   penGoals: number;
   penAttempts: number;
   /** Penalty goals and attempts the play-by-play credits to the player on
-   *  records where none of his lines prints minutes: skipped by 4.6, so not
-   *  "found above" when the stats file is compared. Measured, never used. */
+   *  records where none of his lines prints minutes. 4.6 skips those records,
+   *  but [R-E] counts them as found when the stats file is compared. */
   skippedPenGoals: number;
   skippedPenAttempts: number;
   /** Σ g and Σ s over the season, before the opponent adjustment. */
@@ -457,6 +457,11 @@ export function statsRowFor(p: PlayerSeason, rows: readonly PlayerStats[]): Play
  * Scale adjG and adjS down where the row shows more penalty goals or attempts
  * than the play-by-play: by max(G − e, 0) / G and max(S − e, 0) / S (zero when
  * G or S is zero). Mutates `p`; returns what it did, or null when nothing.
+ *
+ * [R-E] The row is compared with EVERY penalty the play-by-play credits to the
+ * player that season, on records whose lines print minutes or not. A penalty
+ * on a record 4.6 skips was never in G, so counting it as missing from the
+ * play-by-play would take it off a second time.
  */
 export function applyStatsPenalties(
   p: PlayerSeason,
@@ -465,17 +470,19 @@ export function applyStatsPenalties(
   if (row === null) return null;
   const factor = (excess: number, total: number) =>
     total === 0 ? 0 : Math.max(total - excess, 0) / total;
-  const eG = row.penalty_goals === undefined ? 0 : row.penalty_goals - p.penGoals;
-  const eS = row.penalty_attempts === undefined ? 0 : row.penalty_attempts - p.penAttempts;
+  const foundGoals = p.penGoals + p.skippedPenGoals;
+  const foundAttempts = p.penAttempts + p.skippedPenAttempts;
+  const eG = row.penalty_goals === undefined ? 0 : row.penalty_goals - foundGoals;
+  const eS = row.penalty_attempts === undefined ? 0 : row.penalty_attempts - foundAttempts;
   const goalsFactor = eG > 0 ? factor(eG, p.G) : 1;
   const shotsFactor = eS > 0 ? factor(eS, p.S) : 1;
   if (eG <= 0 && eS <= 0) return null;
   p.adjG *= goalsFactor;
   p.adjS *= shotsFactor;
   return {
-    playByPlayGoals: p.penGoals,
+    playByPlayGoals: foundGoals,
     statsGoals: row.penalty_goals ?? null,
-    playByPlayAttempts: p.penAttempts,
+    playByPlayAttempts: foundAttempts,
     statsAttempts: row.penalty_attempts ?? null,
     skippedGoals: p.skippedPenGoals,
     skippedAttempts: p.skippedPenAttempts,

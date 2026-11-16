@@ -503,6 +503,49 @@ describe("4.6, second: penalties from the season statistics", () => {
     expect(p.adjS).toBeCloseTo(7, 12);
   });
 
+  test("R-E: a penalty on a no-minutes line counts as found, so it is not taken off twice", () => {
+    // m1: Ann's line prints no minutes; she scores a penalty there (1 goal,
+    // 1 shot). 4.6 skips the record, so it never reaches G or S. m2: 90
+    // minutes, 3 goals from 6 shots, one of them a penalty. G = 2, S = 5.
+    // The stats file shows 2 penalty goals from 2 attempts: both are in the
+    // play-by-play (one skipped, one found above), so e = 0 and nothing moves.
+    const [p] = join([
+      sheet("m1", [line({ name: "Ann Lee", minutes: null, goals: 1, shots: 1 })], {
+        credits: [{ lines: [0], goal: true }],
+      }),
+      sheet("m2", [line({ name: "Ann Lee", minutes: 90, goals: 3, shots: 6 })], {
+        credits: [{ lines: [0], goal: true }],
+      }),
+    ]);
+    const q = p as PlayerSeason;
+    expect([q.G, q.S, q.penGoals, q.penAttempts]).toEqual([2, 5, 1, 1]);
+    expect([q.skippedPenGoals, q.skippedPenAttempts]).toEqual([1, 1]);
+    expect(
+      applyStatsPenalties(q, stats({ name: "Ann Lee", penalty_goals: 2, penalty_attempts: 2 })),
+    ).toBeNull();
+    expect([q.adjG, q.adjS]).toEqual([2, 5]);
+    // Read as "found above" only (the 2.2 wording), e would be 1 goal and 1
+    // attempt: adjG 2 → 1, adjS 5 → 4, taking off a penalty already absent.
+    // A third penalty goal in the stats file IS missing: e = 1 against the
+    // two found, so adjG = 2 × (2 − 1) / 2 = 1 and adjS = 5 × 4/5 = 4.
+    const c = applyStatsPenalties(
+      q,
+      stats({ name: "Ann Lee", penalty_goals: 3, penalty_attempts: 3 }),
+    );
+    expect(c).toEqual({
+      playByPlayGoals: 2,
+      statsGoals: 3,
+      playByPlayAttempts: 2,
+      statsAttempts: 3,
+      skippedGoals: 1,
+      skippedAttempts: 1,
+      goalsFactor: 0.5,
+      shotsFactor: 0.8,
+    });
+    expect(q.adjG).toBeCloseTo(1, 12);
+    expect(q.adjS).toBeCloseTo(4, 12);
+  });
+
   test("an excess beyond G, or a G of zero, takes the figure to zero", () => {
     const p = scorer();
     applyStatsPenalties(p, stats({ name: "Ann Lee", penalty_goals: 9 }));
