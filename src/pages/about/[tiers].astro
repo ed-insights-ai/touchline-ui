@@ -68,6 +68,15 @@ const retroactive =
     ? `Tiers for the seasons before ${tiers.season} were worked out in ${workedOut[0]} by the same rule, from every match of those seasons, postseason included.`
     : null;
 
+// The first season with a tiers file. Nothing before it is counted, so that
+// season's players could not have an earlier one: said once, when there is an
+// earlier file to say it of.
+const firstSeason = earlier[0]?.season ?? null;
+const firstSeasonNote =
+  firstSeason === null
+    ? null
+    : `The first season with tiers is ${firstSeason}, and nothing before it is counted: no ${firstSeason} defender or goalkeeper could hold the team defence tier, and a ${firstSeason} forward or midfielder is judged on that season alone.`;
+
 // The address a correction or a removal goes to. The gate opens for
 // publication only with one configured; a preview without one says so in
 // place, so the gap is plain in review.
@@ -200,12 +209,15 @@ const sections = [
             </tr>
             <tr>
               <th scope="row">Eligible</th>
-              <td>900 minutes this season, or 600 in each of the last two at the same programme.</td>
+              <td>
+                900 minutes this season, or 600 in each of the last two as a forward or midfielder
+                at the same programme.
+              </td>
               <td>Two or three seasons in a row as a regular at the same programme.</td>
             </tr>
             <tr>
               <th scope="row">Seasons counted</th>
-              <td>This one, and the one before if it had 600 minutes.</td>
+              <td>This one, and the one before if it had 600 minutes as a forward or midfielder.</td>
               <td>Each season in a row as a regular, up to three.</td>
             </tr>
           </tbody>
@@ -215,10 +227,15 @@ const sections = [
           goalkeeper, 600 minutes and 50%. Men and women are compared separately.
         </p>
         <p class="para">
-          Positions come from the roster. Where it lists two, the one the box scores show most;
-          where it lists none, the box scores. Minutes come from the box scores. Where a
-          programme's box scores do not print minutes for every match, the season total the
-          programme publishes is used.
+          Positions come from the roster. Where it lists two, the one the box scores show most,
+          if they show it at least three times; otherwise the first listed. Where it lists none,
+          the box scores.
+        </p>
+        <p class="para">
+          Minutes come from the box scores. Where a programme's box scores do not print minutes
+          for every match, the season total the programme publishes is used, or the box-score
+          minutes if they are higher. Where it publishes no total, the box-score minutes are used
+          if at least half the matches print them.
         </p>
       </section>
 
@@ -336,6 +353,7 @@ const sections = [
         <p class="para">
           Once a season, in {setIn}, before the postseason honours are announced, and not moved
           after. The minutes beside a tier are the minutes to that day.{retroactive && ` ${retroactive}`}
+          {firstSeasonNote}
         </p>
       </section>
 

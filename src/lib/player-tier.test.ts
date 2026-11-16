@@ -186,12 +186,12 @@ describe("the meaning line, for every status and kind", () => {
     [
       "needs more minutes, forward",
       { status: "needs_minutes", tier: null },
-      "A tier needs 900 minutes this season, or 600 in each of the last two seasons at Calder State.",
+      "A tier needs 900 minutes this season, or 600 in each of the last two seasons as a forward or midfielder at Calder State.",
     ],
     [
       "needs more minutes, midfielder",
       { status: "needs_minutes", tier: null, group: "M" },
-      "A tier needs 900 minutes this season, or 600 in each of the last two seasons at Calder State.",
+      "A tier needs 900 minutes this season, or 600 in each of the last two seasons as a forward or midfielder at Calder State.",
     ],
     [
       "needs more minutes, defender",

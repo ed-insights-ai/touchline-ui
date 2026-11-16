@@ -124,7 +124,7 @@ export function meaningLine(e: TierEntry, programme: string): string {
       if (defence) {
         return `The team defence tier needs a regular: 900 minutes and 70% of ${P}'s minutes in a season.`;
       }
-      return `A tier needs 900 minutes this season, or 600 in each of the last two seasons at ${P}.`;
+      return `A tier needs 900 minutes this season, or 600 in each of the last two seasons as a forward or midfielder at ${P}.`;
     case "needs_second_season":
       return `A regular in defence or goal at ${P} this season, but not the season before. The team defence tier needs two such seasons in a row.`;
     case "incomplete":
