@@ -15,6 +15,9 @@
 // it, in a `.debug/` directory next to --out (tiers/.debug, gitignored), it
 // writes the comparison rows and the measured report the build log quotes.
 // Those hold intermediate estimates and must never be committed or imported.
+// Next to --out it also writes position-readings.json (tiers/, committed):
+// every position label the build asked the site's reader about and the answer
+// it got, which position-readings.test.ts holds the reader to afterwards.
 // The report's acceptance 11.4 table needs a second computation of each gender
 // with the roster pass of 4.2 switched off; nothing of it is written but the
 // two counts.
@@ -40,6 +43,7 @@ import { ncaaDivision } from "../../src/site.config.ts";
 import { computeGender, FIRST_SEASON, LAST_SEASON } from "./compute.ts";
 import type { ConferenceSeason } from "./matches.ts";
 import { buildArtifact, serialize } from "./output.ts";
+import { recordReadings, serializeReadings } from "./position.ts";
 import { debugFile, reportMarkdown, statsChangesCsv } from "./report.ts";
 
 const GENDERS: readonly Gender[] = ["men", "women"];
@@ -136,6 +140,7 @@ function main(): void {
   const nicknames = new Map(
     Object.entries(loadProgrammes().programmes).map(([slug, row]) => [slug, row.nickname]),
   );
+  const readings = recordReadings();
   const results = [];
   const before = [];
   const files: TiersFile[] = [];
@@ -166,6 +171,9 @@ function main(): void {
     results.push(g);
     before.push(computeGender(gender, data, { rosterPass: false, nicknames }));
   }
+  const readingsPath = join(dirname(args.out), "position-readings.json");
+  writeFileSync(readingsPath, serializeReadings(args.frozenAt, readings));
+  console.log(`tiers: wrote ${readingsPath} (${readings.size} labels)`);
   const header = `Built ${args.frozenAt} from data home ${root} at ${commit}.\n\n`;
   writeFileSync(join(debugDir, "report.md"), header + reportMarkdown(results, files, before));
   writeFileSync(join(debugDir, "stats-penalties.csv"), statsChangesCsv(results));

@@ -30,10 +30,49 @@ export const GROUP_OF_LINE: Readonly<Record<Line, PositionGroup>> = {
   FWD: "F",
 };
 
+export const READINGS_SCHEMA = "touchline-ui.tier-position-readings/1";
+
+/**
+ * Every label a build asked positionLine about, with the answer it got. Null
+ * unless a build turned it on (recordReadings): the tests and the site never
+ * record. build.ts writes it to tiers/position-readings.json, and
+ * position-readings.test.ts holds the reader to it afterwards.
+ */
+let recorded: Map<string, Line | null> | null = null;
+
+/** Start recording the reader's answers; the map fills as the build runs. */
+export function recordReadings(): Map<string, Line | null> {
+  recorded = new Map();
+  return recorded;
+}
+
+/** The recorded answers as a file: labels in code-unit order, one a line, so
+ *  a rebuild that reads nothing new rewrites it byte for byte. */
+export function serializeReadings(
+  frozenAt: string,
+  readings: ReadonlyMap<string, Line | null>,
+): string {
+  const labels = [...readings.keys()].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+  const rows = labels.map(
+    (label) => `    ${JSON.stringify(label)}: ${JSON.stringify(readings.get(label) ?? null)}`,
+  );
+  return [
+    "{",
+    `  "schema": ${JSON.stringify(READINGS_SCHEMA)},`,
+    `  "frozen_at": ${JSON.stringify(frozenAt)},`,
+    '  "readings": {',
+    rows.join(",\n"),
+    "  }",
+    "}",
+    "",
+  ].join("\n");
+}
+
 /** A label's position group [R-F]: positionLine's line, mapped; null when
  *  positionLine places nobody. */
 export function group(label: string | undefined | null): PositionGroup | null {
   const line = positionLine(label ?? undefined);
+  if (recorded !== null && typeof label === "string") recorded.set(label, line);
   return line === null ? null : GROUP_OF_LINE[line];
 }
 

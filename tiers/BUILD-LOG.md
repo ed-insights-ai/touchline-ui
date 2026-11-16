@@ -1001,3 +1001,27 @@ What `just verify` ran:
 - the men's gate: 1,052 pass, 5 skip, 0 fail;
 - the women's gate: 1,042 pass, 15 skip, 0 fail;
 - links: 6,157 pages and 571,797 references, 0 broken.
+
+## After the Division I merge: the position reader, and a guard on it
+
+`main` gained the Division I build (#68) while this branch was open, and the branch was rebased onto
+it. #68 taught the site's position reader, `positionLine`, six codes ("goaltender", LCB, RWB, LWB, WF,
+ATT), five misspellings and the form "c/rb". Ruling R-F makes that reader the tier build's reader, so
+a change to it can change a tier.
+
+**Nothing moved.** No Division II roster or box-score label of 2022 to 2026 uses any of the new
+readings, and `bun run tiers:build` on the rebased branch reproduces all ten files byte for byte.
+
+**The guard.** The build now writes `tiers/position-readings.json`: every label it asked the reader
+about, 1,016 of them, with the answer it got. `scripts/tiers/position-readings.test.ts` fails when
+`positionLine` reads any of them differently, and when the file's `frozen_at` is not the tier files'.
+A sheet's position chip is read live and its tier is frozen, so without the guard a later change to
+the reader could leave the two at odds for a player and nothing would say so. The failure message
+names the labels and the two ways out: keep the old reading, or rebuild at the next freeze.
+
+| Gate, after the guard | Result |
+| --- | --- |
+| `bun run tiers:build` | the ten files unchanged; `position-readings.json` written |
+| `bunx tsc --noEmit -p .` | clean |
+| `bunx biome check scripts/tiers` | clean |
+| The guard with one reading altered by hand | fails, naming the label; passes when restored |
