@@ -1,0 +1,348 @@
+---
+// How tiers work: the method page for player tiers, in About's reading
+// register (serif prose under ruled heads, no cards, no chrome). The copy is
+// player-tiers design/about-tiers.md.
+//
+// A dynamic route on purpose, with one possible path: getStaticPaths returns
+// it only while the tiers are on (lib/player-tier.ts activeTiers, which holds
+// the publication gate in tiers.config.ts and the Division II rule). With the
+// gate closed, or on a Division I build, the build emits no page at all, not
+// an empty one.
+//
+// Its CSS is an inline block for the same reason the sheet's is: a scoped
+// <style> here would be bundled into the site's stylesheets even on a build
+// that emits no page, and a closed gate must leave the site as it was. Every
+// rule is under .tm, this page's own root, so it reaches nothing else.
+//
+// The level's name, the month tiers are set, and the date earlier seasons were
+// worked out read from config and from the files' frozen_at; nothing here is
+// a date or a division written by hand.
+import SiteFooter from "../../components/SiteFooter.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import Page from "../../layouts/Page.astro";
+import { loadSeason, type Season } from "../../lib/derive.ts";
+import { monLong } from "../../lib/format.ts";
+import { activeTiers } from "../../lib/player-tier.ts";
+import { loadTiers, type TiersFile } from "../../lib/tiers.ts";
+import { currentDivision, type NcaaDivision, ncaaDivisions, site } from "../../site.config.ts";
+import { tiersConfig } from "../../tiers.config.ts";
+
+export function getStaticPaths() {
+  return activeTiers() ? [{ params: { tiers: "tiers" } }] : [];
+}
+
+// Present, because the page is built only when it is.
+const tiers = activeTiers() as TiersFile;
+
+const seasons: Season[] = site.conferences.flatMap((key) => {
+  try {
+    return [loadSeason(key)];
+  } catch {
+    return [];
+  }
+});
+
+const division = currentDivision.name;
+const divisionOne = (ncaaDivisions.find((d) => d.key === "d1") as NcaaDivision).name;
+
+/** The month this season's tiers were frozen in. */
+const setIn = monLong(tiers.frozen_at);
+
+// Earlier seasons' files that were frozen after their own season ended were
+// worked out later, by the same rule. Said once, and only when every earlier
+// file agrees on when that was.
+const earlier = Array.from({ length: 10 }, (_, i) => tiers.season - 10 + i)
+  .map((y) => loadTiers(tiers.level, y, tiers.gender))
+  .filter((f): f is TiersFile => f !== null);
+const workedOut = [
+  ...new Set(
+    earlier
+      .filter((f) => Number(f.frozen_at.slice(0, 4)) > f.season)
+      .map((f) => `${monLong(f.frozen_at)} ${f.frozen_at.slice(0, 4)}`),
+  ),
+];
+const retroactive =
+  earlier.length > 0 &&
+  earlier.every((f) => Number(f.frozen_at.slice(0, 4)) > f.season) &&
+  workedOut.length === 1
+    ? `Tiers for the seasons before ${tiers.season} were worked out in ${workedOut[0]} by the same rule.`
+    : null;
+
+// The address a correction or a removal goes to. The gate opens for
+// publication only with one configured; a preview without one says so in
+// place, so the gap is plain in review.
+const contact = tiersConfig.correctionsContact?.trim() || null;
+const contactShown = contact ?? "[contact address not yet set]";
+const mailto = contact && /^[^\s@]+@[^\s@]+$/.test(contact) ? `mailto:${contact}` : null;
+
+const sections = [
+  { id: "what", label: "What it is" },
+  { id: "who", label: "Who" },
+  { id: "shooting", label: "Shooting and scoring" },
+  { id: "defence", label: "Team defence" },
+  { id: "figures", label: "Team figures" },
+  { id: "statuses", label: "Statuses" },
+  { id: "unseen", label: "Unseen" },
+  { id: "firm", label: "How firm" },
+  { id: "when", label: "When" },
+  { id: "division", label: division },
+  { id: "corrections", label: "Corrections" },
+] as const;
+---
+
+<Page
+  title="Touchline — How tiers work"
+  description="How Touchline sets player tiers, who can hold one, and what each one rests on."
+>
+  <style is:inline>
+    .tm .lede { padding: 40px 0 30px; max-width: 720px; }
+    .tm .akicker { margin-bottom: 14px; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
+    .tm .atitle { margin: 0 0 16px; font-size: 42px; line-height: 1.1; letter-spacing: -0.005em; }
+    .tm .intro {
+      margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink-soft);
+      font-family: var(--serif); font-weight: 400; text-wrap: pretty;
+    }
+    .tm .toc { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 22px; }
+    .tm .toc-link {
+      font-size: 11px; letter-spacing: 0.14em; font-weight: 600; text-transform: uppercase;
+      color: var(--secondary); padding: 2px 0;
+    }
+    .tm .toc-link:hover { color: var(--accent-hover); }
+    .tm .toc-link:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+    @media (pointer: coarse) {
+      .tm .toc-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0; }
+    }
+    .tm .band { padding: 26px 0; border-top: 1px solid var(--hairline); max-width: 720px; scroll-margin-top: 16px; }
+    .tm .band .sechead { margin-bottom: 18px; display: inline-block; }
+    .tm .para, .tm .list {
+      margin: 0 0 16px; font-family: var(--serif); font-weight: 400;
+      font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty;
+    }
+    .tm .para:last-child, .tm .list:last-child { margin-bottom: 0; }
+    .tm .para strong, .tm .list strong { font-weight: 600; }
+    .tm .list { padding-left: 1.25em; }
+    .tm .list li + li { margin-top: 6px; }
+    .tm .para a { color: inherit; border-bottom: 1px solid var(--outline-quiet); }
+    .tm .para a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+    /* Who can hold one: two kinds side by side, ruled as About's stamps are. */
+    .tm .who { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 13px; line-height: 1.45; }
+    .tm .who th, .tm .who td {
+      text-align: left; vertical-align: top; padding: 8px 14px 8px 0;
+      border-top: 1px solid var(--hairline-soft);
+    }
+    .tm .who thead th {
+      border-top: 0; padding-top: 0;
+      font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary);
+    }
+    .tm .who tbody th { width: 108px; font-weight: 600; color: var(--ink); }
+    .tm .who td { color: var(--ink-soft); }
+    @media (max-width: 720px) {
+      .tm .atitle { font-size: 32px; }
+      .tm .intro { font-size: 15.5px; }
+      .tm .who { font-size: 12.5px; }
+      .tm .who tbody th { width: 72px; }
+      .tm .who th, .tm .who td { padding-right: 10px; }
+    }
+  </style>
+  <div class="tl-page">
+    <SiteHeader />
+
+    <article class="tm">
+      <section class="lede">
+        <div class="akicker num">TOUCHLINE · NCAA {division.toUpperCase()}</div>
+        <h1 class="atitle serif">How tiers work</h1>
+        <p class="intro">
+          A tier marks one thing a season shows clearly in the published box scores. Forwards
+          and midfielders can hold a tier for their own shooting and scoring. Defenders and
+          goalkeepers can share a tier that belongs to their team's defending. Most players
+          hold no tier, and no tier is not a bad mark.
+        </p>
+        <nav class="toc" aria-label="On this page">
+          {sections.map((x) => <a class="toc-link" href={`#${x.id}`}>{x.label}</a>)}
+        </nav>
+      </section>
+
+      <section class="band" id="what">
+        <h2 class="sechead">WHAT A TIER IS, AND IS NOT</h2>
+        <p class="para">
+          A tier is a distinction, worked out by a published rule from the box scores, and
+          shown with what it rests on: minutes, appearances, the seasons counted and class year.
+        </p>
+        <p class="para">
+          It is not a rating, and there is no score, ranking or order inside a tier. It is not a
+          prediction. It describes one part of the game the record can see; players matter in
+          many ways it cannot.
+        </p>
+      </section>
+
+      <section class="band" id="who">
+        <h2 class="sechead">WHO CAN HOLD ONE</h2>
+        <table class="who">
+          <thead>
+            <tr>
+              <th scope="col"><span class="vh">What</span></th>
+              <th scope="col">SHOOTING AND SCORING</th>
+              <th scope="col">TEAM DEFENCE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Positions</th>
+              <td>Forwards and midfielders</td>
+              <td>Defenders and goalkeepers</td>
+            </tr>
+            <tr>
+              <th scope="row">Tiers</th>
+              <td>
+                Tier 1, the top 5% of eligible players in the position group. Tier 2, the next 15%.
+              </td>
+              <td>One tier: the top fifth of eligible players.</td>
+            </tr>
+            <tr>
+              <th scope="row">Eligible</th>
+              <td>900 minutes this season, or 600 in each of the last two at the same programme.</td>
+              <td>Two or three seasons in a row as a regular at the same programme.</td>
+            </tr>
+            <tr>
+              <th scope="row">Seasons counted</th>
+              <td>This one, and the one before if it had 600 minutes.</td>
+              <td>Each season in a row as a regular, up to three.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="para">
+          A defender is a regular with 900 minutes and 70% of the team's minutes in a season; a
+          goalkeeper, 600 minutes and 50%. Positions come from the roster. Men and women are
+          compared separately.
+        </p>
+      </section>
+
+      <section class="band" id="shooting">
+        <h2 class="sechead">SHOOTING AND SCORING</h2>
+        <p class="para">
+          A player's own goals and shots, penalties left out, for every 90 minutes played.
+          Against a defence that gives up few, a goal or a shot counts for a little more; against
+          one that gives up many, a little less. Home and away are allowed for.
+        </p>
+        <p class="para">
+          A goal counts for about two and a half to three shots. Shots count because they say more
+          about the goals to come than past goals do. With two seasons counted, this one weighs
+          most. Assists and the pass before a shot are not counted.
+        </p>
+      </section>
+
+      <section class="band" id="defence">
+        <h2 class="sechead">TEAM DEFENCE</h2>
+        <p class="para">
+          This tier belongs to the team. A box score says who scored, not who won a tackle, so
+          Touchline does not split a team's defending between its players.
+        </p>
+        <p class="para">
+          Each season the teams fall into three equal groups by shots faced a match: light,
+          typical and heavy workload. A team is compared only with its own group, so a defence is
+          not rewarded for being rarely tested. Inside the group, a season is measured by the goals
+          given up against the number the opponents usually score. A player's record is that,
+          averaged over the seasons counted, and the top fifth hold the tier. Players of one team
+          with the same seasons always share a result.
+        </p>
+      </section>
+
+      <section class="band" id="figures">
+        <h2 class="sechead">THE TEAM FIGURES</h2>
+        <p class="para">
+          Every regular defender's and goalkeeper's sheet shows three, tier or no tier.
+        </p>
+        <ol class="list">
+          <li>
+            <strong>Shots faced a match, with the workload group.</strong> Which teams yours is
+            compared with.
+          </li>
+          <li><strong>Shots faced that went in.</strong> The share that ended in the net.</li>
+          <li>
+            <strong>Goals given up, beside the number the opponents usually score.</strong> What
+            those opponents score in a typical match, added up over the matches played. This is the
+            figure the tier compares.
+          </li>
+        </ol>
+        <p class="para">
+          The first two sit beside the division's figure. The third reads as one sentence, such
+          as “Gave up 24 goals where its opponents usually score 31.” A heavy workload team with
+          the tier may have given up more goals than a light workload team without it; the
+          figures show it plainly.
+        </p>
+      </section>
+
+      <section class="band" id="statuses">
+        <h2 class="sechead">WHAT A SHEET SAYS</h2>
+        <p class="para">Every {division} player with a box score line has one of these.</p>
+        <ul class="list">
+          <li><strong>A tier, with its kind,</strong> such as Tier 2 · Shooting and scoring.</li>
+          <li>
+            <strong>Eligible, no tier.</strong> Compared, and no tier this season. About four in
+            five compared players.
+          </li>
+          <li><strong>Needs more minutes.</strong> Nothing else is implied.</li>
+          <li>
+            <strong>Needs a second season.</strong> A defender or goalkeeper in a first season as
+            a regular.
+          </li>
+          <li>
+            <strong>Incomplete records.</strong> The record cannot be compared fairly, and the
+            sheet says why: no minutes printed, no position on the roster, a name that could not be
+            matched from one match to the next, or too few of the team's matches collected.
+          </li>
+        </ul>
+      </section>
+
+      <section class="band" id="unseen">
+        <h2 class="sechead">WHAT TOUCHLINE CANNOT SEE</h2>
+        <p class="para">
+          Where someone played on the field. One player's defending. Seasons at another
+          programme. And why a player did not play: a box score lists who played, not who was
+          injured or rested, and Touchline never states or implies a reason.
+        </p>
+      </section>
+
+      <section class="band" id="firm">
+        <h2 class="sechead">HOW FIRM A TIER IS</h2>
+        <p class="para">
+          Small differences can move a player near the line. If the same season were played
+          again, about eight or nine in ten Tier 1 players would hold a tier again, and about half
+          of Tier 2.
+        </p>
+        <p class="para">
+          Team defence is less firm. Of players holding it on one random half of their matches,
+          about four in ten hold it on the other half; luck alone would give two in ten. Of holders
+          who are regulars again the next season, about seven in ten hold it again.
+        </p>
+      </section>
+
+      <section class="band" id="when">
+        <h2 class="sechead">WHEN TIERS ARE SET</h2>
+        <p class="para">
+          Once a season, in {setIn}, before the postseason honours are announced, and not moved
+          after. The minutes beside a tier are the minutes to that day.{retroactive && ` ${retroactive}`}
+        </p>
+      </section>
+
+      <section class="band" id="division">
+        <h2 class="sechead">{division.toUpperCase()} ONLY</h2>
+        <p class="para">
+          Tiers cover {division} men's and women's soccer at the programmes Touchline follows.
+          {divisionOne} pages show none.
+        </p>
+      </section>
+
+      <section class="band" id="corrections">
+        <h2 class="sechead">CORRECTIONS AND REMOVAL</h2>
+        <p class="para">
+          A player, a parent or guardian, or a school can ask for a correction, or for the
+          player's sheet to be removed, with no reason needed. Write to{" "}
+          {mailto ? <a href={mailto}>{contactShown}</a> : contactShown}, naming the page.
+        </p>
+      </section>
+    </article>
+
+    <SiteFooter seasons={seasons} />
+  </div>
+</Page>

@@ -1,6 +1,7 @@
 // The tier on the site's pages, read from their source in table.test.ts's
 // way: the sheet and the team page read no tier field outside ALGORITHM.md
-// section 10, and the method page keeps its place on the Men / Women switch.
+// section 10, the method page is built only through the gate and carries no
+// placeholder, and it keeps its place on the Men / Women switch.
 
 import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
@@ -41,6 +42,34 @@ describe("the sheet and the team page print only what section 10 holds", () => {
     const sheet = src("components/PlayerSheet.astro");
     expect(sheet).not.toContain("activeTiers");
     expect(sheet).not.toContain("loadTiers");
+  });
+});
+
+describe("the method page", () => {
+  const page = src("pages/about/[tiers].astro");
+
+  test("is emitted only through the gate: one path while the tiers are on, none otherwise", () => {
+    expect(page).toContain('return activeTiers() ? [{ params: { tiers: "tiers" } }] : [];');
+    // About's index names it only on the same terms.
+    const about = src("pages/about.astro");
+    expect(about).toContain("const tiersOn = activeTiers() !== null;");
+    expect(about).toContain('{tiersOn && <a class="toc-link" href={aboutTiersHref()}>Tiers</a>}');
+  });
+
+  test("reads its division and its dates, and never prints a placeholder", () => {
+    for (const rel of ["pages/about/[tiers].astro", "lib/player-tier.ts", "tiers.config.ts"]) {
+      expect(src(rel), rel).not.toContain("{{");
+    }
+    // What the reader meets, the markup: no level and no month by hand.
+    const markup = page.slice(page.indexOf("---", 3) + 3);
+    expect(markup).not.toMatch(/Division I{1,3}\b/);
+    expect(markup).not.toMatch(
+      /\b(January|February|March|April|May|June|July|August|September|October|November|December)\b/,
+    );
+    expect(page).not.toMatch(/"Division I{1,3}"/);
+    expect(page).toContain("currentDivision.name");
+    expect(page).toContain("monLong(tiers.frozen_at)");
+    expect(page).toContain('"[contact address not yet set]"');
   });
 });
 
