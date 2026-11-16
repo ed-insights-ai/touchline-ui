@@ -115,6 +115,9 @@ export interface PlayerSeason {
   /** Records where one sheet carries two or more of the player's lines. */
   doubled: number;
   minutes: number;
+  /** [M3] Appearances: lines with minutes above zero in records printing
+   *  minutes for the side, and his lines in records printing none (one per
+   *  record). In stats mode, the larger of these and the row's games played. */
   matches: number;
   starts: number;
   /** Penalty goals and attempts found in the play-by-play, over the lines
@@ -683,6 +686,11 @@ export function playerSeasons(
       }
       const k = scale(sheet);
       p.records += 1;
+      // [M3] An appearance: a line with minutes above zero in a record that
+      // prints minutes for the side, or any line of his in a record that prints
+      // none. A doubled line counts once: one per record, as 4.6 takes it.
+      const sidePrints = sheet.lines.some((l) => l.minutes !== null);
+      if (!sidePrints || (chosen !== null && (chosen.minutes as number) > 0)) p.matches += 1;
       const any = chosen ?? (mine[0] as Flat).line;
       const anyG = Math.max(any.goals - penG, 0);
       const anyS = Math.max(any.shots - penA, 0);
@@ -706,7 +714,6 @@ export function playerSeasons(
       p.penGoals += penG;
       p.penAttempts += penA;
       p.minutes += minutes;
-      if (minutes > 0) p.matches += 1;
       if (chosen.started) p.starts += 1;
     }
     out.push(p);

@@ -152,7 +152,8 @@ describe("N1: the stats-mode sums", () => {
 
   test("box sums read the record with minutes only; every-record sums read all three", () => {
     const p = one(sheets);
-    expect([p.minutes, p.matches, p.G, p.S, p.starts]).toEqual([80, 1, 0, 2, 1]);
+    // [M3] m1 and m3 print no minutes for the side: his lines there are appearances.
+    expect([p.minutes, p.matches, p.G, p.S, p.starts]).toEqual([80, 3, 0, 2, 1]);
     expect(p.adjS).toBeCloseTo(0.5, 12);
     expect(p.records).toBe(3);
     expect(p.everyRecord).toEqual({ starts: 2, G: 3, S: 9, adjG: 1.5, adjS: 2.25 });
@@ -173,16 +174,25 @@ describe("N1: the stats-mode sums", () => {
     expect([p.minutes, p.matches, p.G, p.S, p.starts]).toEqual([80, 3, 3, 9, 2]);
   });
 
-  test("a row with no games played: the records he has a line in", () => {
+  test("[M3] a row with no games played: his appearances", () => {
     const p = one(sheets);
     applyMinutesOfRecord(p, minutesOfRecord(3, 1, { minutes: 250 }, null));
     expect(p.matches).toBe(3);
   });
 
+  test("[M3] games played below his appearances: the appearances", () => {
+    const p = one(sheets);
+    applyMinutesOfRecord(p, minutesOfRecord(3, 1, { minutes: 250, gp: 2 }, null));
+    expect(p.matches).toBe(3);
+    const q = one(sheets);
+    applyMinutesOfRecord(q, minutesOfRecord(3, 1, { minutes: 250, gp: 5 }, null));
+    expect(q.matches).toBe(5);
+  });
+
   test("any other mode leaves the box sums alone", () => {
     const p = one(sheets);
     applyMinutesOfRecord(p, minutesOfRecord(3, 3, { minutes: 250, gp: 3 }, null));
-    expect([p.minutes, p.matches, p.G]).toEqual([80, 1, 0]);
+    expect([p.minutes, p.matches, p.G]).toEqual([80, 3, 0]);
   });
 
   test("a penalty comes off once, on a record with or without minutes", () => {

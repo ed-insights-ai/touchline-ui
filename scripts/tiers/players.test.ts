@@ -611,10 +611,34 @@ describe("4.6: minutes, goals and shots, record by record", () => {
       sheet("m1", [line({ name: "Ann Lee", minutes: null, goals: 3, shots: 5, started: true })]),
     ]);
     expect(p?.minutes).toBe(0);
-    expect(p?.matches).toBe(0);
+    // [M3] The record prints no minutes for the side: his line is an appearance.
+    expect(p?.matches).toBe(1);
     expect(p?.starts).toBe(0);
     expect(p?.adjG).toBe(0);
     expect(p?.lineCount).toBe(1);
+  });
+
+  test("[M3] appearances: by the record's minutes, one per record", () => {
+    const [p] = join([
+      // The side prints minutes and his line none: not an appearance.
+      sheet("m1", [
+        line({ name: "Ann Lee", minutes: null }),
+        line({ name: "Bea Soto", minutes: 90 }),
+      ]),
+      // The side prints minutes and his line 0: not an appearance.
+      sheet("m2", [line({ name: "Ann Lee", minutes: 0 }), line({ name: "Bea Soto", minutes: 90 })]),
+      // The side prints none, and he has two lines: one appearance.
+      sheet("m3", [
+        line({ name: "Ann Lee", minutes: null }),
+        line({ name: "Ann Lee", minutes: null }),
+        line({ name: "Bea Soto", minutes: null }),
+      ]),
+      sheet("m4", [
+        line({ name: "Ann Lee", minutes: 30 }),
+        line({ name: "Bea Soto", minutes: 90 }),
+      ]),
+    ]).filter((x) => x.name === "Ann Lee");
+    expect([p?.matches, p?.minutes, p?.records]).toEqual([2, 30, 4]);
   });
 
   test("minutes > 0 is an appearance; started counts a start", () => {

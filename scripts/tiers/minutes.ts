@@ -8,9 +8,10 @@
 //   m = r                          box minutes, as 4.6 sums them; share over r
 //   m < r, a stats row with minutes > 0
 //                                  the larger of the row's minutes and his box
-//                                  minutes [M1]; matches its games played
-//                                  (else the records he has a line in); goals
-//                                  and shots over every record; share over r
+//                                  minutes [M1]; matches the larger of his
+//                                  appearances and its games played [M3];
+//                                  goals and shots over every record; share
+//                                  over r
 //   m < r, no such row, m/r ≥ 0.5  box minutes; share over m (box_partial),
 //                                  but the U test below
 //   otherwise                      incomplete, no_minutes
@@ -90,14 +91,15 @@ export function minutesOfRecord(
 }
 
 /** In stats mode, the player's sums become the season's: the larger of the
- *  row's minutes and his box minutes (`p.minutes` on entry) [M1], the row's
- *  games played (else his records), and the every-record goals and shots.
- *  Mutates `p`; any other mode leaves the box sums as they are. */
+ *  row's minutes and his box minutes (`p.minutes` on entry) [M1], the larger
+ *  of his appearances (`p.matches` on entry) and the row's games played when
+ *  that is an integer [M3], and the every-record goals and shots. Mutates `p`;
+ *  any other mode leaves the box sums as they are. */
 export function applyMinutesOfRecord(p: PlayerSeason, rec: MinutesOfRecord): void {
   if (rec.mode !== "stats" || rec.row === null) return;
   const gp = rec.row.gp;
   p.minutes = Math.max(rec.row.minutes as number, p.minutes);
-  p.matches = typeof gp === "number" && Number.isInteger(gp) ? gp : p.records;
+  if (typeof gp === "number" && Number.isInteger(gp)) p.matches = Math.max(p.matches, gp);
   p.starts = p.everyRecord.starts;
   p.G = p.everyRecord.G;
   p.S = p.everyRecord.S;

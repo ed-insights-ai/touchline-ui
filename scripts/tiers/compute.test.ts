@@ -376,11 +376,12 @@ describe("[N1] box minutes in part: the 0.5 bar and the U test, end to end", () 
     // 2026 gamma prints every minute: 12 × 90 = 1,080 for each. The 2025
     // season is incomplete by the U test alone, and its 630 box minutes are
     // certain, so it counts for the forward and the midfielder: basis
-    // 630 + 1,080 = 1,710 minutes, 7 + 12 = 19 matches. [N1 (a)]
+    // 630 + 1,080 = 1,710 minutes, and 12 + 12 = 24 matches, his five lines in
+    // the 2025 records that print no minutes being appearances too. [N1 (a), M3]
     for (const name of ["Striker Ten", "Mid Six"]) {
       expect(find(p2026, "gamma", name)?.basis).toEqual({
         minutes: 1710,
-        matches: 19,
+        matches: 24,
         seasons: [2025, 2026],
         class_year: "Senior",
       });
