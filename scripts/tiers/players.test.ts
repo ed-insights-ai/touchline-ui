@@ -153,6 +153,44 @@ describe("4.2, pass 3: the roster pass", () => {
     expect(byPage[0]?.playerId).toBe("101");
   });
 
+  test("every group tied to one roster entry is one player (Concord 2022, Garret Boucher)", () => {
+    // Roster: Garret Boucher, #3, bio 7619. Concord's own copies print him as
+    // "Garret Boucher" with page id 7619 and no minutes. King's copy prints
+    // "Garrett Boucher" with a twin ref 7619; Charleston's prints "Garrett
+    // Boucher" with neither. Pass 1 groups the twin line, pass 2 the page-id
+    // lines: two groups, both tied to bio 7619. Charleston's lines find the
+    // entry by number and surname. All three are one player: 3 × 90 minutes.
+    const players = [bio("7619", { name: "Garret Boucher", number: "3" })];
+    const ps = join(
+      [
+        sheet("m1", [
+          line({ name: "Garret Boucher", number: "3", playerId: "7619", minutes: null }),
+        ]),
+        sheet("m2", [
+          line({ name: "Garrett Boucher", number: "3", ref: { id: "7619", source: "twin" } }),
+        ]),
+        sheet("m3", [line({ name: "Garrett Boucher", number: "3" })]),
+        sheet("m4", [line({ name: "Garrett Boucher", number: "3" })]),
+      ],
+      players,
+    );
+    expect(ps.map((p) => [p.name, p.playerId, p.minutes, p.lineCount])).toEqual([
+      ["Garrett Boucher", "7619", 270, 4],
+    ]);
+    // Without the lookup the two bio-tied groups still join: one roster line,
+    // one person.
+    const tiedOnly = join(
+      [
+        sheet("m1", [line({ name: "Garret Boucher", number: "3", playerId: "7619" })]),
+        sheet("m2", [
+          line({ name: "Garrett Boucher", number: "3", ref: { id: "7619", source: "twin" } }),
+        ]),
+      ],
+      players,
+    );
+    expect(tiedOnly.length).toBe(1);
+  });
+
   test("a line with a page or twin ref is not looked up", () => {
     const ps = join(
       [

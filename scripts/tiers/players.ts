@@ -292,11 +292,8 @@ function join(
   pass(({ line }) => (line.ref && line.ref.source !== "key" ? line.ref.id : null));
   pass(({ line }) => line.playerId);
   if (options.rosterPass) {
-    const tiedTo = new Map<string, number>();
-    for (let i = 0; i < n; i++) {
-      const t = tie[find(i)];
-      if (t && !tiedTo.has(t)) tiedTo.set(t, find(i));
-    }
+    // Each line with no ref, or a key ref, looks up its roster entry; its
+    // group takes that tie unless it already holds another.
     flat.forEach(({ line }, i) => {
       if (line.ref && line.ref.source !== "key") return;
       const found = rosterLookup(roster, line.name, line.number);
@@ -308,16 +305,21 @@ function join(
         measures.rosterConflicts++;
         return;
       }
-      const held = tiedTo.get(found);
-      if (held === undefined) {
-        tie[r] = found;
-        tiedTo.set(found, r);
-      } else if (merge(i, held)) {
-        tiedTo.set(found, find(i));
-      } else {
-        measures.blocked++;
-      }
+      tie[r] = found;
     });
+    // "Lines that find the same roster entry are merged, and merged with ANY
+    // group already tied to that roster entry": every group tied to one entry,
+    // by a bio id or by the lookup, joins the first, in line order. (Before
+    // the reconciliation a found line joined only the first tied group, so a
+    // page-id group and a twin-ref group of one player could stay apart.)
+    const firstOf = new Map<string, number>();
+    for (let i = 0; i < n; i++) {
+      const t = tie[find(i)];
+      if (!t) continue;
+      const held = firstOf.get(t);
+      if (held === undefined) firstOf.set(t, i);
+      else if (!merge(held, i)) measures.blocked++;
+    }
   }
   pass(({ line }) => foldName(line.name) || null);
 
