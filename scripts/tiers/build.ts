@@ -1,7 +1,13 @@
 #!/usr/bin/env bun
-// The player-tiers build: ALGORITHM.md (version 2.2) over the data home.
+// The player-tiers build: ALGORITHM.md (version 2.2, with the contract 2.3
+// rulings) over the data home.
 //
-//   bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16
+//   bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16 [--require-clean]
+//
+// [N5] --require-clean refuses to build when the data home's working tree is
+// modified (`git status --porcelain` not empty), so the commit the artifacts
+// print carries no "+dirty". It is not the default: the collector leaves
+// files modified between its runs.
 //
 // Reads every season 2022 to 2026, men and women, through the site's own
 // loaders (src/lib/data.ts), fits the opponent model jointly over the five
@@ -41,6 +47,7 @@ const GENDERS: readonly Gender[] = ["men", "women"];
 interface Args {
   out: string;
   frozenAt: string;
+  requireClean: boolean;
 }
 
 function today(): string {
@@ -52,15 +59,27 @@ function today(): string {
 function parseArgs(argv: readonly string[]): Args {
   let out: string | null = null;
   let frozenAt = today();
+  let requireClean = false;
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--out") out = argv[++i] ?? null;
     else if (a === "--frozen-at") frozenAt = argv[++i] ?? "";
+    else if (a === "--require-clean") requireClean = true;
     else throw new Error(`tiers: unknown argument ${a}`);
   }
   if (!out) throw new Error("tiers: --out <dir> is required (e.g. --out tiers/d2)");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(frozenAt)) throw new Error("tiers: --frozen-at is YYYY-MM-DD");
-  return { out: resolve(out), frozenAt };
+  return { out: resolve(out), frozenAt, requireClean };
+}
+
+/** [N5] Throw when the data home's working tree is modified. */
+export function assertClean(root: string): void {
+  const status = execFileSync("git", ["-C", root, "status", "--porcelain"], { encoding: "utf8" });
+  if (status.trim() !== "") {
+    throw new Error(
+      `tiers: --require-clean: the data home ${root} has uncommitted changes:\n${status.trimEnd()}`,
+    );
+  }
 }
 
 /** HEAD of the data home, "+dirty" when its working tree is modified. */
@@ -108,6 +127,7 @@ function main(): void {
   if (!relative(root, args.out).startsWith("..")) {
     throw new Error(`tiers: --out ${args.out} is inside the data home ${root}, which is read-only`);
   }
+  if (args.requireClean) assertClean(root);
   const commit = dataCommit(root);
   const debugDir = join(dirname(args.out), ".debug");
   mkdirSync(args.out, { recursive: true });
