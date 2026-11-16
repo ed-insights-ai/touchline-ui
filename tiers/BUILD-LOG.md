@@ -1177,3 +1177,21 @@ What `just verify` ran:
 - the women's gate: 1,083 pass, 15 skip, 0 fail;
 - the Division I men's gate: 1,021 pass, 35 skip, 0 fail;
 - links: 9,480 pages and 852,435 references, 0 broken.
+
+## The freeze of 16 November 2026, from a clean data commit
+
+Every file before this one printed `data_commit: ea45f891+dirty`: three files of the data home were
+uncommitted when the tiers were first set. The daily collection of 16 November committed them, and
+the files were rebuilt with `--require-clean` from data commit `a6c5e738`, which holds every match
+played to 15 November.
+
+- **2022 to 2025:** no entry changes; only the commit id in each file.
+- **2026 men:** 24 entries change status; holders 246 → 247 (5 lose a tier, 6 gain one).
+- **2026 women:** 34 entries change status; holders 350 → 353 (12 lose, 15 gain).
+- **All ten files:** 60,715 entries and 2,882 tier holders.
+- **The Python reference build**, rebuilt from the same commit, is identical to these files field for
+  field (`compare-final.txt`: PASS in every file).
+- `tiers/position-readings.json` is unchanged.
+
+This is the freeze the site publishes and the 2026 honours lists are compared with. It is not
+rebuilt until the next season's freeze.
