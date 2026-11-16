@@ -65,7 +65,7 @@ const retroactive =
   earlier.length > 0 &&
   earlier.every((f) => Number(f.frozen_at.slice(0, 4)) > f.season) &&
   workedOut.length === 1
-    ? `Tiers for the seasons before ${tiers.season} were worked out in ${workedOut[0]} by the same rule.`
+    ? `Tiers for the seasons before ${tiers.season} were worked out in ${workedOut[0]} by the same rule, from every match of those seasons, postseason included.`
     : null;
 
 // The address a correction or a removal goes to. The gate opens for
@@ -212,8 +212,13 @@ const sections = [
         </table>
         <p class="para">
           A defender is a regular with 900 minutes and 70% of the team's minutes in a season; a
-          goalkeeper, 600 minutes and 50%. Positions come from the roster. Men and women are
-          compared separately.
+          goalkeeper, 600 minutes and 50%. Men and women are compared separately.
+        </p>
+        <p class="para">
+          Positions come from the roster. Where it lists two, the one the box scores show most;
+          where it lists none, the box scores. Minutes come from the box scores. Where a
+          programme's box scores do not print minutes for every match, the season total the
+          programme publishes is used.
         </p>
       </section>
 
@@ -225,8 +230,8 @@ const sections = [
           one that gives up many, a little less. Home and away are allowed for.
         </p>
         <p class="para">
-          A goal counts for about two and a half to three shots. Shots count because they say more
-          about the goals to come than past goals do. With two seasons counted, this one weighs
+          A goal counts for between two and a half and a little over three shots. Shots count
+          because they say more about the goals to come than past goals do. With two seasons counted, this one weighs
           most. Assists and the pass before a shot are not counted.
         </p>
       </section>
@@ -274,7 +279,10 @@ const sections = [
 
       <section class="band" id="statuses">
         <h2 class="sechead">WHAT A SHEET SAYS</h2>
-        <p class="para">Every {division} player with a box score line has one of these.</p>
+        <p class="para">
+          Every player at a {division} programme Touchline follows, with a box score line, has one
+          of these.
+        </p>
         <ul class="list">
           <li><strong>A tier, with its kind,</strong> such as Tier 2 · Shooting and scoring.</li>
           <li>
@@ -283,13 +291,14 @@ const sections = [
           </li>
           <li><strong>Needs more minutes.</strong> Nothing else is implied.</li>
           <li>
-            <strong>Needs a second season.</strong> A defender or goalkeeper in a first season as
-            a regular.
+            <strong>Needs a second season.</strong> A regular defender or goalkeeper this season,
+            but not here the season before.
           </li>
           <li>
             <strong>Incomplete records.</strong> The record cannot be compared fairly, and the
-            sheet says why: no minutes printed, no position on the roster, a name that could not be
-            matched from one match to the next, or too few of the team's matches collected.
+            sheet says why: minutes not published for enough matches, no position on the roster or
+            in the box scores, a name that could not be matched from one match to the next, or, for
+            defenders and goalkeepers, too few of the team's matches collected.
           </li>
         </ul>
       </section>
@@ -306,9 +315,10 @@ const sections = [
       <section class="band" id="firm">
         <h2 class="sechead">HOW FIRM A TIER IS</h2>
         <p class="para">
-          Small differences can move a player near the line. If the same season were played
-          again, about eight or nine in ten Tier 1 players would hold a tier again, and about half
-          of Tier 2.
+          Small differences can move a player near the line. Position matters too: a player
+          listed in another position group is compared with a different set of players. If the
+          same season were played again, about eight or nine in ten Tier 1 players would hold a
+          tier again, and about half of Tier 2.
         </p>
         <p class="para">
           Team defence is less firm. Of players holding it on one random half of their matches,
