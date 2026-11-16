@@ -18,7 +18,7 @@ import { join } from "node:path";
 import { z } from "zod";
 
 export const TIERS_SCHEMA = "touchline-ui.tiers/1";
-export const TIERS_SPEC = "player-tiers/0.6";
+export const TIERS_SPEC = "player-tiers/0.7";
 
 /** A figure the contract prints to one decimal: finite, and already rounded. */
 const oneDecimal = z

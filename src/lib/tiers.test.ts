@@ -148,7 +148,7 @@ const fixture = (players: TierEntry[]): TiersFile => ({
   level: "d2",
   season: 2026,
   gender: "men",
-  spec: "player-tiers/0.6",
+  spec: "player-tiers/0.7",
   frozen_at: "2026-11-16",
   data_commit: "abc1234",
   division: { teams: 1, shots_faced_per_match: 12.3, pct_in: 12.8 },
