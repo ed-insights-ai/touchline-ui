@@ -442,12 +442,13 @@ export function playerSeasons(
 // ── 4.6, second: the season statistics ─────────────────────────────────────
 
 /** The player's row in the stats file: by page id, else by folded name; null
- *  when neither singles one out. */
+ *  when neither singles one out. [Ruling S4, reconciliation] "Then by folded
+ *  name" applies whenever the page id does not single out one row, two rows
+ *  as well as none. */
 export function statsRowFor(p: PlayerSeason, rows: readonly PlayerStats[]): PlayerStats | null {
   if (p.playerId !== null) {
     const byId = rows.filter((r) => r.player_id === p.playerId);
     if (byId.length === 1) return byId[0] ?? null;
-    if (byId.length > 1) return null;
   }
   const byName = rows.filter((r) => foldName(r.name) === p.key);
   return byName.length === 1 ? (byName[0] ?? null) : null;

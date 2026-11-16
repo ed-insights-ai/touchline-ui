@@ -480,6 +480,20 @@ describe("4.6, second: penalties from the season statistics", () => {
     ).toBeNull();
   });
 
+  test("S4: a page id on two rows falls through to the folded name", () => {
+    // Page id 11 is on two rows; only one of them is Ann Lee by name.
+    const p = scorer();
+    const ann = stats({ name: "Lee, Ann", player_id: "11" });
+    expect(statsRowFor(p, [stats({ name: "Bea Kim", player_id: "11" }), ann])).toBe(ann);
+    // Two rows by id and none, or two, by name: no row.
+    expect(
+      statsRowFor(p, [
+        stats({ name: "Bea Kim", player_id: "11" }),
+        stats({ name: "Cy Park", player_id: "11" }),
+      ]),
+    ).toBeNull();
+  });
+
   test("more penalty goals and attempts than found: adjG and adjS scale down by (G − e) / G", () => {
     const p = scorer();
     expect([p.G, p.S, p.penGoals, p.penAttempts]).toEqual([4, 10, 1, 1]);
