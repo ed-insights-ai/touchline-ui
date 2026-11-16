@@ -46,14 +46,20 @@ export function namedText(playText: string): string {
   return named.replace(/\s+/g, " ").trim();
 }
 
-/** The first letter of the folded given name, for 4.3: the part after the
- *  comma in "Last, First", every word but the last otherwise; empty when
- *  there is none. */
-export function givenInitial(name: string): string {
+/** The folded given name: the part after the comma in "Last, First", every
+ *  word but the last otherwise, folded by steps 2 to 4 of 4.1 ("Mary Ann"
+ *  gives "maryann"); empty when there is none. */
+export function givenFolded(name: string): string {
   const comma = name.indexOf(",");
   const given =
     comma >= 0 ? name.slice(comma + 1) : name.trim().split(/\s+/).slice(0, -1).join(" ");
-  return foldLetters(given).slice(0, 1);
+  return foldLetters(given);
+}
+
+/** The first letter of the folded given name, for 4.3; empty when there is
+ *  none. */
+export function givenInitial(name: string): string {
+  return givenFolded(name).slice(0, 1);
 }
 
 /** [v2.2] The kicker test's first letter: of the first word once "Last,

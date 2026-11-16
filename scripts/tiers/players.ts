@@ -35,7 +35,7 @@ import {
   shirtNumber,
 } from "../../src/lib/tiers.ts";
 import type { Venue } from "./opponents.ts";
-import { givenInitial } from "./penalties.ts";
+import { givenFolded, givenInitial } from "./penalties.ts";
 
 /** One line of a `players` list, as the build reads it. */
 export interface SheetLine {
@@ -202,15 +202,17 @@ export function nameWords(name: string): Set<string> {
   return new Set(givenFirst(name).split(/\s+/).map(foldLetters).filter(Boolean));
 }
 
-export type CloseTest = "i" | "ii" | "iii" | "iv";
+export type CloseTest = "i" | "ii" | "iii" | "iv" | "v";
 
 /**
  * The closeness tests two names pass, on names folded as in 4.1: (i) the edit
  * distance of the folded full names is at most 2, or at most 15% of the longer
  * one's length; (ii) every folded word of one is a folded word of the other;
  * (iv) the folded surnames are equal and the folded given names begin with the
- * same letter; (iii) the first given-name words fold the same. A test on an
- * empty fold never holds.
+ * same letter; (v) the folded surnames are equal and the folded given names
+ * begin with the same three letters (each at least three letters long);
+ * (iii) the first given-name words fold the same. A test on an empty fold
+ * never holds.
  */
 export function closeTests(a: string, b: string): Set<CloseTest> {
   const out = new Set<CloseTest>();
@@ -227,6 +229,16 @@ export function closeTests(a: string, b: string): Set<CloseTest> {
   const sa = foldSurname(a);
   const ia = givenInitial(a);
   if (sa && sa === foldSurname(b) && ia && ia === givenInitial(b)) out.add("iv");
+  const fga = givenFolded(a);
+  const fgb = givenFolded(b);
+  if (
+    sa &&
+    sa === foldSurname(b) &&
+    fga.length >= 3 &&
+    fgb.length >= 3 &&
+    fga.slice(0, 3) === fgb.slice(0, 3)
+  )
+    out.add("v");
   const ga = foldLetters(givenWords(a)[0] ?? "");
   if (ga && ga === foldLetters(givenWords(b)[0] ?? "")) out.add("iii");
   return out;
@@ -250,11 +262,6 @@ export function rosterNumbers(row: Player | null | undefined): Set<string> {
   }
   return out;
 }
-
-/** [N2c] A home town as evidence for a link: the text before the first comma,
- *  folded by steps 2 to 4 of 4.1. */
-export const townKey = (town: string | undefined): string =>
-  foldLetters((town ?? "").split(",")[0] ?? "");
 
 /** [N2d] A line that prints a team row, not a person: TEAM, TEAM TEAM, or the
  *  programme's own nickname (folded) with no minutes (null or zero). */
@@ -871,19 +878,24 @@ export function sameName(
   return byNumber.length === 1 ? (byNumber[0] ?? null) : null;
 }
 
-/** [N2c] When no player at the season before has the key: the only one whose
- *  name is close by (i), (ii) or (iv) and who shares a shirt number or the
- *  same non-empty folded home town (townKey); else null. */
+/**
+ * [N2c] When no player at the season before has his key: the only player
+ * there, at the programme, who (1) is not the same-key link of a player this
+ * season (he does not continue under his own name; `keyLinked`), (2) shares a
+ * shirt number with him (IR-18: lines and roster line), (3) is close by (i),
+ * (ii) or (v), and (4) is not refused by the class-year rule; else null. A
+ * home town is neither evidence for a link nor against one.
+ */
 export function closeLink(
   current: PlayerSeason,
   earlier: readonly PlayerSeason[],
+  keyLinked: ReadonlySet<PlayerSeason> = new Set(),
 ): PlayerSeason | null {
-  const town = townKey(current.roster?.hometown);
-  const found = earlier.filter(
-    (p) =>
-      isClose(p.name, current.name) &&
-      (intersects(p.numbers, current.numbers) ||
-        (town !== "" && townKey(p.roster?.hometown) === town)),
-  );
+  const found = earlier.filter((p) => {
+    if (keyLinked.has(p) || !intersects(p.numbers, current.numbers)) return false;
+    const t = closeTests(p.name, current.name);
+    if (!t.has("i") && !t.has("ii") && !t.has("v")) return false;
+    return !contradicts(p.roster, current.roster);
+  });
   return found.length === 1 ? (found[0] ?? null) : null;
 }

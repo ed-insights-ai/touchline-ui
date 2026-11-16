@@ -505,21 +505,36 @@ export function computeGender(
     for (const [slug, list] of rated) {
       const earlier = before?.get(slug) ?? [];
       const earlierPs = earlier.map((r) => r.p);
+      // The same key as now, for every player of the season, before any close
+      // name: [N2c] a player who continues under his own name is no one's
+      // close link.
+      const keyLinked = new Set<PlayerSeason>();
+      const noKey: Rated[] = [];
       for (const r of list) {
-        // The same key as now; [N2c] when no earlier player has it, a close name.
         const sameKey = earlier.filter((e) => e.p.key === r.p.key).length;
-        const prevP = sameKey > 0 ? sameName(r.p, earlierPs) : closeLink(r.p, earlierPs);
+        if (sameKey === 0) {
+          noKey.push(r);
+          continue;
+        }
+        const prevP = sameName(r.p, earlierPs);
         if (prevP === null) {
           if (sameKey > 1) measures.ambiguousLinks++;
           continue;
         }
-        if (sameKey === 0) measures.closeLinks++;
         const prev = earlier.find((e) => e.p === prevP) as Rated;
         if (contradicts(prev.p.roster, r.p.roster)) {
           measures.contradictedLinks++;
           continue;
         }
         r.previous = prev;
+        keyLinked.add(prevP);
+      }
+      // [N2c] No earlier player has his key: the only close one left.
+      for (const r of noKey) {
+        const prevP = closeLink(r.p, earlierPs, keyLinked);
+        if (prevP === null) continue;
+        measures.closeLinks++;
+        r.previous = earlier.find((e) => e.p === prevP) as Rated;
       }
     }
 

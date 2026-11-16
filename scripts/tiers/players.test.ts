@@ -27,7 +27,6 @@ import {
   sameName,
   splitSpellingPairs,
   statsRowFor,
-  townKey,
 } from "./players.ts";
 
 const line = (over: Partial<SheetLine> & { name: string }): SheetLine => ({
@@ -865,13 +864,27 @@ describe("[N2] close names", () => {
       "iii",
     ]);
     expect([...closeTests("Gonzalez Suarez, Pelayo", "Pelayo Gonzalez")].sort()).toContain("ii");
-    expect([...closeTests("Juan Linares", "Juanito Linares")].sort()).toEqual(["iv"]);
+    expect([...closeTests("Juan Linares", "Juanito Linares")].sort()).toEqual(["iv", "v"]);
     expect([...closeTests("Alli Parker", "Alli French")]).toEqual(["iii"]);
     // Siblings the rules must keep apart.
     expect(closeTests("Lucas Pollacchi", "Tomas Pollacchi").size).toBe(0);
     expect(closeTests("Ian Reis", "Eric Reis").size).toBe(0);
     // A one-word name has no given name: (iv) and (iii) never hold.
     expect(closeTests("Pele", "Pele").has("iv")).toBe(false);
+  });
+
+  test("[N2c] (v): the surname and the given name's first three letters", () => {
+    // "jennifer" / "jenny": jen = jen. Not (i): 4 edits in 15 letters is 27%.
+    expect([...closeTests("Jennifer Mueller", "Jenny Mueller")].sort()).toEqual(["iv", "v"]);
+    expect(closeTests("Mueller, Jennifer", "Jenny Mueller").has("v")).toBe(true);
+    // "ann" / "and": (iv) holds, (v) does not. Siblings, kept apart.
+    expect([...closeTests("Ann Mueller", "Andrew Mueller")]).toEqual(["iv"]);
+    // A given name under three letters never passes (v): "jo" / "joe".
+    expect(closeTests("Jo Smith", "Joe Smith").has("v")).toBe(false);
+    // The given name is every word before the last: "maryann" / "marybeth".
+    expect(closeTests("Mary Ann Lee", "Mary Beth Lee").has("v")).toBe(true);
+    // Different surnames: never.
+    expect(closeTests("Jennifer Mueller", "Jenny Muller").has("v")).toBe(false);
   });
 });
 
@@ -974,26 +987,52 @@ describe("4.4: the same person across seasons", () => {
     expect(contradicts(null, town("Searcy, Ark."))).toBe(false);
   });
 
-  test("[N2c] no earlier player with the key: the only close one sharing a number or a town", () => {
-    const at = (name: string, number: string, hometown?: string, season = 2025): PlayerSeason => {
+  test("[N2c] no earlier player with the key: the only one close by (i), (ii) or (v) sharing a number", () => {
+    const at = (
+      name: string,
+      number: string,
+      over: Partial<Player> = {},
+      season = 2025,
+    ): PlayerSeason => {
       const [ps] = join(
         [sheet("m1", [line({ name, number, ref: { id: name, source: "roster" } })])],
-        [bio(name, { name, number, hometown })],
+        [bio(name, { name, number, ...over })],
       );
       return { ...(ps as PlayerSeason), season };
     };
-    const now = at("Jennifer Mueller", "23", "Rio Rancho, NM", 2026);
-    // (iv) close and #23 shared.
-    const jenny = at("Jenny Mueller", "23", "Rio Rancho");
+    const now = at("Jennifer Mueller", "23", { hometown: "Rio Rancho, NM" }, 2026);
+    // (v) close and #23 shared.
+    const jenny = at("Jenny Mueller", "23");
     expect(closeLink(now, [at("Ann Lee", "23"), jenny])).toBe(jenny);
-    // A different number but the same town before the comma.
-    const town = at("Jenny Mueller", "9", "Rio Rancho");
-    expect(closeLink(now, [town])).toBe(town);
-    expect(townKey("Rio Rancho, NM")).toBe("riorancho");
-    // Neither number nor town; a name not close; two candidates: no link.
-    expect(closeLink(now, [at("Jenny Mueller", "9", "Albuquerque")])).toBeNull();
-    expect(closeLink(now, [at("Ann Mueller", "23")])).toBeNull();
+    // A home town is no evidence: the same town and a different number, no link.
+    expect(closeLink(now, [at("Jenny Mueller", "9", { hometown: "Rio Rancho, NM" })])).toBeNull();
+    // (iv) alone is not enough across seasons: "Jessica" shares only the initial.
+    expect(closeLink(now, [at("Jessica Mueller", "23")])).toBeNull();
+    // [IR-18] the roster line's number counts: lines #7, roster line "23".
+    const [rosterOnly] = join(
+      [
+        sheet("m1", [
+          line({ name: "Jenny Mueller", number: "7", ref: { id: "j", source: "roster" } }),
+        ]),
+      ],
+      [bio("j", { name: "Jenny Mueller", number: "23" })],
+    );
+    const viaRoster = { ...(rosterOnly as PlayerSeason), season: 2025 };
+    expect(closeLink(now, [viaRoster])).toBe(viaRoster);
+    // Two candidates: no link.
     expect(closeLink(now, [jenny, at("Jen Mueller", "23")])).toBeNull();
+    // (1) A player who continues under his own name is no one's close link.
+    expect(closeLink(now, [jenny], new Set([jenny]))).toBeNull();
+    // ... and with him out, the only other candidate links.
+    const jen = at("Jen Mueller", "23");
+    expect(closeLink(now, [jenny, jen], new Set([jenny]))).toBe(jen);
+    // (4) The class-year rule inside the count: a Senior before a Sophomore is
+    // refused, so the Freshman is the only one left.
+    const soph = at("Jennifer Mueller", "23", { class_year: "Sophomore" }, 2026);
+    const senior = at("Jenny Mueller", "23", { class_year: "Senior" });
+    const fresh = at("Jen Mueller", "23", { class_year: "Freshman" });
+    expect(closeLink(soph, [senior, fresh])).toBe(fresh);
+    expect(closeLink(soph, [senior])).toBeNull();
   });
 
   test("class year: the ladder, a redshirt word ignored, the first year a string names", () => {
