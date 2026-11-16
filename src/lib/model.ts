@@ -62,7 +62,15 @@ export const programmeSchema = z
     slug: z.string().min(1),
     name: z.string().min(1),
     conference: z.string().min(1),
-    abbr: z.string().min(1).max(6).optional(),
+    /** The programme's own short form, as its site prints it. The rib's
+     *  model caps it at six characters, and the Division I home (written
+     *  2026-11-15) breaks that cap on 37 of its 213 2026 programmes with the
+     *  short form the school's own site uses ("Missouri State", "Wake
+     *  Forest"). This reader admits any length and prints it as published:
+     *  refusing the file would refuse the whole conference over a display
+     *  string, and shortening it would invent one. The rib's cap is the one
+     *  to settle (raise it, or the writer to honour it). */
+    abbr: z.string().min(1).optional(),
     /** touchline.fixtures/2 (contract changelog 2026-09-04, rib 51dc0d2, bead
      *  tl-4sg.40): The conference's own grouping of this programme for the
      *  season, spelled as the conference prints it ("East", "Northwest",

@@ -8,6 +8,7 @@ import FormBadges from "../../../components/FormBadges.astro";
 import {
   cleanSheetsOf,
   conferenceOpenerOf,
+  coverageFor,
   fixturesOf,
   programmeCounts,
   formOf,
@@ -341,6 +342,22 @@ const spread = (squares: { tenure: { step: keyof typeof TENURE_WORDS | null } }[
 const title = displayNameOf(slug, programme?.name ?? names.name(slug));
 // Absent identity is a designed state: the meta line simply starts at the record.
 const identity = identityLine(slug);
+// A programme whose own schedule page the collect could not read (coverage
+// `schedule` other than complete) still has matches here, every one of them
+// from an opponent's published schedule. The page says so under the strip,
+// in the coverage state's own terms, rather than letting a reader take the
+// list for the programme's own. Measured 2026-11-15: no Division II
+// programme is in this state; Division I's Harvard is.
+const SCHEDULE_GAP: Record<string, string> = {
+  unavailable: "could not be collected",
+  empty: "listed no matches",
+  "no-collector": "has no collector",
+};
+const scheduleState = coverageFor(season, slug).schedule;
+const scheduleGap =
+  scheduleState && scheduleState !== "complete"
+    ? `${title}'s own ${season.fixtures.season} schedule page ${SCHEDULE_GAP[scheduleState] ?? scheduleState}, so every match listed here is one an opponent's published schedule carries.`
+    : null;
 // Whether any square on this roster is hollow — a player whose class year the
 // roster never printed — so the legend keys it only where it appears.
 const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq) => !sq.tenure.step));
@@ -400,6 +417,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
           ahead: c.fixture.status === "scheduled",
         }))}
       />
+      {scheduleGap && <p class="empty schedule-gap">{scheduleGap}</p>}
     </section>
 
     <section class="band">
@@ -891,6 +909,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
   }
   .squad-more { font-size: 12px; color: var(--quiet); }
   .empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--quiet); }
+  .schedule-gap { margin-top: 12px; }
 
   @media (max-width: 1180px) {
     .profile { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }

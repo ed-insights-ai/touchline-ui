@@ -46,6 +46,7 @@ import {
   type Sighting,
   unpostedSides,
 } from "./division.ts";
+import { describeD2, readsD2 } from "./fixtures/facts.ts";
 import { homeSeasons } from "./home.ts";
 import type { Fixture, FixturesFile } from "./model.ts";
 import { nameBookFor } from "./names.ts";
@@ -104,10 +105,13 @@ describe("the records agree, which is what makes folding safe", () => {
       .concat(unplayed(s.fixture.status) ? "unplayed" : s.fixture.status)
       .join("|");
 
-  /** A record that has said nothing about the result yet. */
+  /** A record that has said nothing about the result yet: a not-yet row, or
+   *  a final that posts no result (the Division I WMT recipe writes a played
+   *  exhibition with no score as final; division.ts reads it as not yet). */
   const pending = (s: Sighting): boolean =>
-    (s.fixture.status === "scheduled" || s.fixture.status === "postponed") &&
-    s.fixture.home_score === undefined;
+    ((s.fixture.status === "scheduled" || s.fixture.status === "postponed") &&
+      s.fixture.home_score === undefined) ||
+    (s.fixture.status === "final" && !hasResult(s.fixture));
 
   test("both files publish the same score, or one has posted it and the other has not yet", () => {
     const disagreements: string[] = [];
@@ -131,6 +135,13 @@ describe("the records agree, which is what makes folding safe", () => {
         posted.length > 0 &&
         new Set(posted.map(sideFree)).size === 1 &&
         m.sightings.every((s) => hasResult(s.fixture) || pending(s));
+      // Nothing posted on any record: no fact to dispute and no score to
+      // rest on one page. The match is neither one-sided nor disputed.
+      if (posted.length === 0 && m.sightings.every(pending)) {
+        expect(m.oneSided, m.identity).toBe(false);
+        expect(m.disputed, m.identity).toBe(false);
+        continue;
+      }
       if (!lag) {
         // Two posted finals printing different scores. Since #30 the fold
         // does not choose between them: the pair is marked disputed, both
@@ -256,7 +267,7 @@ describe("the records agree, which is what makes folding safe", () => {
 
   // Men's fixtures: the Rogers State tournament is the men's GAC and GLVC
   // collect. The rule above holds every neutral match of either division.
-  test.skipIf(site.gender !== "men")(
+  test.skipIf(!readsD2("men"))(
     "the two Rogers State tournament matches are the neutral cases this was measured on",
     () => {
       // 2026-08-27 Maryville v Southern Nazarene and 2026-08-29 McKendree v
@@ -529,7 +540,7 @@ const sightingOf = (season: Season, fixture: Fixture): Sighting => ({
   fixture,
 });
 
-describe("a forfeit final folds like any final, and the fold keeps the award", () => {
+describeD2("a forfeit final folds like any final, and the fold keeps the award", () => {
   // The pair the ruling was measured on (tl-wyv). 2024-09-05 Upper Iowa v
   // Roosevelt is in two files: GLVC's from Upper Iowa's own schedule
   // (sidearm:upper-iowa:9017, "W, 2-2" beside "Win by forfeit"), GLIAC's from
@@ -802,7 +813,7 @@ describe("a disputed final keeps both scores instead of failing the build", () =
   });
 });
 
-describe("the collector's neutral flag makes a match neutral on its own (tl-a33)", () => {
+describeD2("the collector's neutral flag makes a match neutral on its own (tl-a33)", () => {
   // The fixture contract's `neutral: true` is the schedule page itself
   // marking the site. Before this the fold read neutrality only from two
   // records disagreeing on the home side, so a neutral-site match seen by
@@ -926,5 +937,58 @@ describe("the collector's neutral flag makes a match neutral on its own (tl-a33)
     // And the same disagreement with the flag present on top folds the same.
     expect(only(foldToMatches([sightingOf(lscSeason, msu), b])).neutral).toBe(true);
     expect(only(foldToMatches([sightingOf(lscSeason, msu), b])).key).toBe(first);
+  });
+});
+
+describe("a final that posts no result has said nothing yet", () => {
+  // The Division I home's WMT recipe writes a played exhibition with no score
+  // as final (2026-08-07 VCU v Virginia Tech: final on Virginia Tech's page,
+  // scheduled on VCU's). Division II's collector never does (rib #85). The
+  // fold reads it as not yet, beside either kind of twin, and still refuses
+  // it beside a cancelled one.
+  const row = {
+    date: "2026-08-07",
+    home: "a",
+    away: "b",
+    conference_game: false,
+    match_type: "exhibition" as const,
+    source_url: "https://x.example/",
+  };
+  const fileOf = (code: string, slug: string, fixture: Fixture): FixturesFile => ({
+    schema: "touchline.fixtures/2",
+    season: 2026,
+    gender: "men",
+    conference: code,
+    collected_at: "2026-11-15T00:00:00+00:00",
+    programmes: [{ slug, name: slug.toUpperCase(), conference: code }],
+    fixtures: [fixture],
+  });
+  const pendingRow: Fixture = { ...row, id: "x:a:1", status: "scheduled" };
+  const silent: Fixture = { ...row, id: "x:b:1", status: "final" };
+  const fold = (a: Fixture) => {
+    const out = foldToMatches([
+      sightingOf(seasonOf("aa", fileOf("A", "a", a)), a),
+      sightingOf(seasonOf("bb", fileOf("B", "b", silent)), silent),
+    ]);
+    expect(out).toHaveLength(1);
+    return out[0] as (typeof out)[number];
+  };
+
+  test("beside a not-yet twin: one match, neither one-sided nor disputed", () => {
+    const m = fold(pendingRow);
+    expect(m.oneSided).toBe(false);
+    expect(m.disputed).toBe(false);
+    // The home side's conference holds the canonical record, as ever.
+    expect(m.key).toBe("aa");
+  });
+
+  test("beside a scored final: the lag, and the final is the match", () => {
+    const m = fold({ ...pendingRow, status: "final", home_score: 1, away_score: 0 });
+    expect(m.oneSided).toBe(true);
+    expect(m.fixture.home_score).toBe(1);
+  });
+
+  test("beside a cancelled twin it still refuses to fold", () => {
+    expect(() => fold({ ...pendingRow, status: "cancelled" })).toThrow(/disagree/);
   });
 });
