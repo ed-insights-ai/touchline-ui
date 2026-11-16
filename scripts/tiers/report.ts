@@ -56,6 +56,7 @@ export function debugFile(r: SeasonResult) {
       records: x.records,
       with_minutes: x.withMinutes,
       box_minutes: x.boxMinutes,
+      u_test: x.couldReachBar,
     })),
     teams: Object.fromEntries(
       [...r.teams]

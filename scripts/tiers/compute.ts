@@ -28,7 +28,12 @@ import {
   type PhysicalMatch,
   physicalMatches,
 } from "./matches.ts";
-import { applyMinutesOfRecord, type MinutesOfRecord, minutesOfRecord } from "./minutes.ts";
+import {
+  applyMinutesOfRecord,
+  couldReachBar,
+  type MinutesOfRecord,
+  minutesOfRecord,
+} from "./minutes.ts";
 import {
   type Factors,
   fitFactors,
@@ -104,6 +109,8 @@ export interface Rated {
   withMinutes: number;
   /** The box minutes, whatever the minutes of record. */
   boxMinutes: number;
+  /** [N1 (a)] A box_partial player the U test made incomplete (no_minutes). */
+  couldReachBar: boolean;
   /** The basis the entry prints. */
   basisSeasons: number[];
   basisMinutes: number;
@@ -146,6 +153,8 @@ export interface Measures {
   ambiguousLinks: number;
   /** [N2c] Links made by a close name. */
   closeLinks: number;
+  /** [N1 (a)] Box_partial players the U test made incomplete. */
+  couldReachBar: number;
   noMinutesProgrammes: string[];
   teamsWithoutMatches: string[];
   /** Collected programme-days still holding two records after one match a day. */
@@ -226,6 +235,7 @@ const emptyMeasures = (): Measures => ({
   contradictedLinks: 0,
   ambiguousLinks: 0,
   closeLinks: 0,
+  couldReachBar: 0,
   noMinutesProgrammes: [],
   teamsWithoutMatches: [],
   sameDayDoubles: [],
@@ -475,6 +485,7 @@ export function computeGender(
           records: r,
           withMinutes: m,
           boxMinutes,
+          couldReachBar: false,
           basisSeasons: [season],
           basisMinutes: p.minutes,
           basisMatches: p.matches,
@@ -538,8 +549,31 @@ export function computeGender(
       }
     }
 
-    // ── Section 5: shooting and scoring ─────────────────────────────────────
+    // ── [N1 (a)] The U test ─────────────────────────────────────────────────
+    // After the links, since the season before is judged as always. [IR-20]
+    // Every box_partial player with a group whose 4.7 reason is none or ranks
+    // below no_minutes (identity, few_matches): one who could reach the bar
+    // takes no_minutes, 4.7's first reason.
     const all = [...rated.values()].flat();
+    for (const r of all) {
+      if (r.ofRecord.mode !== "box_partial" || r.group === null) continue;
+      if (r.reason !== null && r.reason !== "identity" && r.reason !== "few_matches") continue;
+      const prev = r.previous;
+      const prevCounts =
+        prev !== null && seasonCounts(prev.p.minutes, prev.group, prev.reason !== null);
+      if (!couldReachBar(r.group, r.p.minutes, r.records, r.withMinutes, prevCounts)) continue;
+      if (r.reason === "identity") {
+        measures.identity--;
+        if (r.p.minutes >= COUNTS_MINUTES) measures.identity600--;
+      }
+      r.reason = "no_minutes";
+      r.status = "incomplete";
+      r.regular = false;
+      r.couldReachBar = true;
+      measures.couldReachBar++;
+    }
+
+    // ── Section 5: shooting and scoring ─────────────────────────────────────
     for (const g of ["F", "M"] as const) {
       // An incomplete player is in no pool and no average (4.7).
       const complete = all.filter((r) => r.group === g && r.reason === null);

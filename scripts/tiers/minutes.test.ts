@@ -1,7 +1,7 @@
 // Ruling N1 (contract 2.3): the minutes of record, worked by hand.
 
 import { describe, expect, test } from "bun:test";
-import { applyMinutesOfRecord, minutesOfRecord } from "./minutes.ts";
+import { applyMinutesOfRecord, couldReachBar, minutesOfRecord } from "./minutes.ts";
 import { type PlayerSeason, playerSeasons, type Sheet, type SheetLine } from "./players.ts";
 
 const line = (over: Partial<SheetLine> & { name: string }): SheetLine => ({
@@ -65,16 +65,63 @@ describe("N1: which minutes count", () => {
     expect(minutesOfRecord(20, 4, null, keeper).list).toBe("keepers");
   });
 
-  test("no row with minutes: box minutes over m when m/r ≥ 0.9, else no_minutes", () => {
-    // 18 of 20 is exactly 0.9.
-    expect(minutesOfRecord(20, 18, null, null)).toEqual({
+  test("no row with minutes: box minutes over m when m/r ≥ 0.5, else no_minutes", () => {
+    // 10 of 20 is exactly 0.5; 9 of 20 is under it.
+    expect(minutesOfRecord(20, 10, null, null)).toEqual({
       mode: "box_partial",
-      denominator: 18,
+      denominator: 10,
       row: null,
       list: null,
     });
-    expect(minutesOfRecord(20, 17, null, null).mode).toBe("none");
+    expect(minutesOfRecord(20, 18, null, null).mode).toBe("box_partial");
+    expect(minutesOfRecord(20, 9, null, null).mode).toBe("none");
+    // 10 of 19 is 0.526: box_partial; 9 of 19 is 0.474: none.
+    expect(minutesOfRecord(19, 10, null, null).mode).toBe("box_partial");
+    expect(minutesOfRecord(19, 9, null, null).mode).toBe("none");
     expect(minutesOfRecord(20, 0, { minutes: 0, gp: 3 }, null).mode).toBe("none");
+  });
+});
+
+describe("N1 (a): the U test, U = box minutes + 90 × (r − m)", () => {
+  test("a forward or midfielder: not eligible on box minutes, eligible on U", () => {
+    // r 20, m 12: U = 700 + 90 × 8 = 1,420 ≥ 900, so he could reach the bar.
+    expect(couldReachBar("F", 700, 20, 12, false)).toBe(true);
+    expect(couldReachBar("M", 700, 20, 12, false)).toBe(true);
+    // r 20, m 19: U = 700 + 90 = 790 < 900. Needs minutes, and that is certain.
+    expect(couldReachBar("F", 700, 20, 19, false)).toBe(false);
+    // Eligible on box minutes already: nothing to test.
+    expect(couldReachBar("F", 950, 20, 12, false)).toBe(false);
+    // The season before counts: the bar is 600. 650 is eligible as it stands;
+    // 500 with r − m = 1 is U = 590 < 600; with r − m = 2, U = 680.
+    expect(couldReachBar("F", 650, 20, 19, true)).toBe(false);
+    expect(couldReachBar("F", 500, 20, 19, true)).toBe(false);
+    expect(couldReachBar("F", 500, 20, 18, true)).toBe(true);
+    // Without the season before, 500 + 180 = 680 < 900.
+    expect(couldReachBar("F", 500, 20, 18, false)).toBe(false);
+  });
+
+  test("a defender: share over m × 90 at 0.70 or more, under 900, U at 900 or more", () => {
+    // m 14, r 15: 882 ÷ 1,260 = 0.70 exactly; U = 882 + 90 = 972.
+    expect(couldReachBar("D", 882, 15, 14, false)).toBe(true);
+    // m 10, r 11: 630 ÷ 900 = 0.70, but U = 720 < 900. Certain.
+    expect(couldReachBar("D", 630, 11, 10, false)).toBe(false);
+    // m 12, r 20: 700 ÷ 1,080 = 0.648 < 0.70. The share is certain: needs minutes.
+    expect(couldReachBar("D", 700, 20, 12, false)).toBe(false);
+    // A regular already: 950 ÷ 1,260 = 0.75.
+    expect(couldReachBar("D", 950, 15, 14, false)).toBe(false);
+  });
+
+  test("a goalkeeper: share at 0.50 or more, under 600, U at 600 or more", () => {
+    // m 12, r 20: 560 ÷ 1,080 = 0.519; U = 560 + 720 = 1,280.
+    expect(couldReachBar("GK", 560, 20, 12, false)).toBe(true);
+    // 500 ÷ 1,080 = 0.463 < 0.50.
+    expect(couldReachBar("GK", 500, 20, 12, false)).toBe(false);
+    // 620 is a regular: 620 ÷ 1,080 = 0.574.
+    expect(couldReachBar("GK", 620, 20, 12, false)).toBe(false);
+  });
+
+  test("no group: never", () => {
+    expect(couldReachBar(null, 0, 20, 10, false)).toBe(false);
   });
 });
 

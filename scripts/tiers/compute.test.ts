@@ -56,14 +56,15 @@ const SQUAD: readonly { name: string; position: string; label: string; number: s
 
 const person = (slug: Slug, name: string) => `${slug[0]?.toUpperCase()}${slug.slice(1)} ${name}`;
 
-/** A side's box-score table: every shot by the forwards, goals to striker ten. */
-function side(slug: Slug, goals: number, shots: number): MatchTeam {
+/** A side's box-score table: every shot by the forwards, goals to striker ten.
+ *  `minutes` false prints no minutes on any line. */
+function side(slug: Slug, goals: number, shots: number, minutes = true): MatchTeam {
   const players: MatchPlayerLine[] = SQUAD.map((p) => ({
     name: person(slug, p.name),
     number: p.number,
     position: p.label,
     started: true,
-    minutes: 90,
+    ...(minutes ? { minutes: 90 } : {}),
     goals: p.number === "10" ? goals : 0,
     shots:
       p.number === "10"
@@ -78,7 +79,11 @@ function side(slug: Slug, goals: number, shots: number): MatchTeam {
 /** 18 matches a season, so each programme plays 12, six against each of the
  *  others: alpha always wins 2–0 on 10 shots to 6, beta and gamma draw 1–1 on
  *  8 shots each. */
-function season(year: number, classYear: (slug: Slug, name: string) => string): ConferenceSeason {
+function season(
+  year: number,
+  classYear: (slug: Slug, name: string) => string,
+  noMinutes: (slug: Slug, match: number) => boolean = () => false,
+): ConferenceSeason {
   const fixtures: Fixture[] = [];
   const matches: Record<string, MatchDetail> = {};
   const pairs: [Slug, Slug][] = [
@@ -106,8 +111,8 @@ function season(year: number, classYear: (slug: Slug, name: string) => string): 
       source_url: `https://example.test/${id}`,
       home_index: 0,
       teams: [
-        side(home, score(home, away), shots(home, away)),
-        side(away, score(away, home), shots(away, home)),
+        side(home, score(home, away), shots(home, away), !noMinutes(home, i)),
+        side(away, score(away, home), shots(away, home), !noMinutes(away, i)),
       ],
       plays: [],
     };
@@ -303,5 +308,76 @@ describe("R-B: the model rows of a record", () => {
   test("a neutral site is h = 1 for both sides", () => {
     const n = modelRows([record({ neutral: true })]);
     expect(n.goals.map((r) => r.venue)).toEqual(["neutral", "neutral"]);
+  });
+});
+
+// [N1] 2025 again, but gamma's side prints no minutes in five of its twelve
+// matches (m = 7, r = 12: 7/12 ≥ 0.5, box_partial), and beta's in seven of
+// its twelve (m = 5: 5/12 < 0.5, none). No stats file, so no season minutes.
+// 2026 prints every minute.
+describe("[N1] box minutes in part: the 0.5 bar and the U test, end to end", () => {
+  // Gamma plays at i % 3 = 1 (beta) and 2 (alpha); beta at 0 (alpha) and 1.
+  const gammaGap = new Set([1, 2, 4, 5, 7]);
+  const betaGap = new Set([0, 3, 6, 9, 12, 15, 1]);
+  const partial = computeGender(
+    "men",
+    new Map([
+      [
+        2025,
+        [
+          season(
+            2025,
+            () => "Junior",
+            (slug, i) =>
+              (slug === "gamma" && gammaGap.has(i)) || (slug === "beta" && betaGap.has(i)),
+          ),
+        ],
+      ],
+      [2026, [season(2026, () => "Senior")]],
+    ]),
+  );
+  const p2025 = partial.seasons[0] as SeasonResult;
+  const p2026 = partial.seasons[1] as SeasonResult;
+  const rated = (s: SeasonResult, slug: Slug, name: string) =>
+    s.rated.find((r) => r.p.programme === slug && r.p.name === person(slug, name));
+
+  test("m/r under 0.5: every player no_minutes, the keeper too", () => {
+    for (const e of p2025.entries.get("beta") ?? []) {
+      expect([e.status, e.reason]).toEqual(["incomplete", "no_minutes"]);
+    }
+    expect(rated(p2025, "beta", "Keeper")?.ofRecord.mode).toBe("none");
+  });
+
+  test("m/r at 0.5 or more: box minutes over m; who could reach the bar is no_minutes", () => {
+    // 7 × 90 = 630 box minutes each; U = 630 + 5 × 90 = 1,080.
+    const striker = rated(p2025, "gamma", "Striker Ten");
+    expect([striker?.ofRecord.mode, striker?.ofRecord.denominator, striker?.p.minutes]).toEqual([
+      "box_partial",
+      7,
+      630,
+    ]);
+    // A forward and a midfielder: 630 < 900, U ≥ 900.
+    for (const name of ["Striker Ten", "Mid Six"]) {
+      const r = rated(p2025, "gamma", name);
+      expect([r?.status, r?.reason, r?.couldReachBar]).toEqual(["incomplete", "no_minutes", true]);
+    }
+    // A defender: share 630 ÷ 630 = 1, 630 < 900, U ≥ 900.
+    expect(rated(p2025, "gamma", "Back Two")?.reason).toBe("no_minutes");
+    // The keeper is a regular on box minutes (630 ≥ 600, share 1): no U test.
+    const keeper = rated(p2025, "gamma", "Keeper");
+    expect([keeper?.status, keeper?.regular, keeper?.couldReachBar]).toEqual([
+      "needs_second_season",
+      true,
+      false,
+    ]);
+  });
+
+  test("a season the U test made incomplete does not count the season after", () => {
+    // 2026 gamma prints every minute: 1,080 for each, eligible alone, and the
+    // 2025 season is incomplete, so it neither counts for the forward nor
+    // starts the defender's run; the keeper's two regular seasons do count.
+    expect(find(p2026, "gamma", "Striker Ten")?.basis.seasons).toEqual([2026]);
+    expect(find(p2026, "gamma", "Back Two")?.status).toBe("needs_second_season");
+    expect(find(p2026, "gamma", "Keeper")?.basis.seasons).toEqual([2025, 2026]);
   });
 });
