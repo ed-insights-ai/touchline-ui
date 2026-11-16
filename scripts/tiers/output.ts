@@ -17,14 +17,27 @@ import {
 } from "../../src/lib/tiers.ts";
 import type { TeamSeason } from "./workload.ts";
 
-/** One decimal, rounding the double's exact value, a tie (x.x5 exactly,
- *  which a double can hold only as .25 or .75) going up. */
-export const round1 = (x: number): number => Number(x.toFixed(1));
+// [v2] Rounding is half up on the exact value. A ratio of integers is rounded
+// as the ratio it is, in integer arithmetic, so a figure that is 12.35 exactly
+// prints 12.4 even though the double nearest 247/20 sits a hair below it.
 
-/** Whether x sits exactly on a rounding tie at one decimal, where a
- *  half-even rounding would print the other figure. Counted for the log. */
-export const onRoundingTie = (x: number): boolean =>
-  Number.isInteger(x * 4) && !Number.isInteger(x * 2);
+/** floor(a / b) for non-negative integers a and b > 0, without a division in
+ *  floating point. */
+const intDiv = (a: number, b: number): number => (a - (a % b)) / b;
+
+/** num / den to one decimal, half up, in integer arithmetic:
+ *  floor((20·num + den) / (2·den)) / 10. */
+export const ratio1 = (num: number, den: number): number => intDiv(20 * num + den, 2 * den) / 10;
+
+/** shots_faced_per_match = floor((20·SA + n) / (2·n)) / 10. */
+export const shotsPerMatch1 = (sa: number, n: number): number => ratio1(sa, n);
+
+/** pct_in = floor((2000·GA + SA) / (2·SA)) / 10. */
+export const pctIn1 = (ga: number, sa: number): number => intDiv(2000 * ga + sa, 2 * sa) / 10;
+
+/** opponents_usual = floor(EGA × 10 + 0.5) / 10: EGA is not a ratio of
+ *  integers, so it is rounded as the double it is. */
+export const round1 = (x: number): number => Math.floor(x * 10 + 0.5) / 10;
 
 /** Section 10's keys, in the order it shows them. */
 export const SECTION_10 = {
@@ -105,14 +118,24 @@ export function section10Violations(artifact: unknown): string[] {
   return out;
 }
 
-/** Section 10's order: by key, then number (as printed, a missing number
- *  last), both in code-unit order. */
-export function byKeyThenNumber(a: TierEntry, b: TierEntry): number {
+/** Code-unit order of two strings, a null first. */
+const nullFirst = (a: string | null, b: string | null): number => {
+  if (a === b) return 0;
+  if (a === null) return -1;
+  if (b === null) return 1;
+  return a < b ? -1 : 1;
+};
+
+/** Section 10's order [v2.2]: by key, then number as a string with a null
+ *  number first, then name, then player_id (a null first, the number's rule;
+ *  the contract does not say), all in code-unit order. */
+export function entryOrder(a: TierEntry, b: TierEntry): number {
   if (a.key !== b.key) return a.key < b.key ? -1 : 1;
-  if (a.number === b.number) return 0;
-  if (a.number === null) return 1;
-  if (b.number === null) return -1;
-  return a.number < b.number ? -1 : 1;
+  return (
+    nullFirst(a.number, b.number) ||
+    nullFirst(a.name, b.name) ||
+    nullFirst(a.player_id, b.player_id)
+  );
 }
 
 /**
@@ -124,8 +147,8 @@ export function assertNothingForbidden(artifact: TiersFile): void {
   const problems = section10Violations(artifact);
   for (const [slug, list] of Object.entries(artifact.players)) {
     for (let i = 1; i < list.length; i++) {
-      if (byKeyThenNumber(list[i - 1] as TierEntry, list[i] as TierEntry) > 0) {
-        problems.push(`$.players.${slug}: not sorted by key, then number`);
+      if (entryOrder(list[i - 1] as TierEntry, list[i] as TierEntry) > 0) {
+        problems.push(`$.players.${slug}: not sorted by key, number, name, player_id`);
         break;
       }
     }
@@ -139,10 +162,10 @@ export function teamFigure(t: TeamSeason): TierTeam {
   return {
     matches: t.matches,
     workload: t.workload,
-    shots_faced_per_match: t.matches > 0 ? round1(t.shotsFaced / t.matches) : null,
-    pct_in: t.shotsFaced > 0 ? round1((100 * t.goalsAgainst) / t.shotsFaced) : null,
+    shots_faced_per_match: t.matches > 0 ? shotsPerMatch1(t.shotsFaced, t.matches) : null,
+    pct_in: t.shotsFaced > 0 ? pctIn1(t.goalsAgainst, t.shotsFaced) : null,
     goals_conceded: t.goalsAgainst,
-    opponents_usual: round1(t.expected),
+    opponents_usual: t.matches > 0 ? round1(t.expected) : null,
   };
 }
 
@@ -159,8 +182,8 @@ export function divisionFigure(teams: readonly TeamSeason[]): TierDivision {
   if (n === 0 || sa === 0) throw new Error("tiers: no team has a workload group");
   return {
     teams: grouped.length,
-    shots_faced_per_match: round1(sa / n),
-    pct_in: round1((100 * ga) / sa),
+    shots_faced_per_match: shotsPerMatch1(sa, n),
+    pct_in: pctIn1(ga, sa),
   };
 }
 
@@ -170,6 +193,7 @@ export interface ArtifactInput {
   gender: TiersFile["gender"];
   frozenAt: string;
   dataCommit: string;
+  /** Every collected programme-season; those with no record are left out. */
   teams: readonly TeamSeason[];
   /** Entries by programme slug, in any order. */
   players: ReadonlyMap<string, readonly TierEntry[]>;
@@ -197,16 +221,23 @@ export function serialize(artifact: TiersFile): string {
   ].join(",\n")}\n}\n`;
 }
 
-/** The artifact, in section 10's key order, sorted, checked and parsed. */
+/** The artifact, in section 10's key order, sorted, checked and parsed.
+ *  [v2.2] `teams` and `players` hold the same programmes: every collected
+ *  programme-season with at least one record, in slug order, a programme
+ *  whose box scores carry no line for it holding an empty list. */
 export function buildArtifact(input: ArtifactInput): TiersFile {
-  const teams: Record<string, TierTeam> = {};
-  for (const t of [...input.teams].sort((a, b) => (a.slug < b.slug ? -1 : 1))) {
-    teams[t.slug] = teamFigure(t);
+  const withRecords = [...input.teams]
+    .filter((t) => t.matches > 0)
+    .sort((a, b) => (a.slug < b.slug ? -1 : 1));
+  const known = new Set(withRecords.map((t) => t.slug));
+  for (const slug of input.players.keys()) {
+    if (!known.has(slug)) throw new Error(`tiers: entries for ${slug}, which has no record`);
   }
+  const teams: Record<string, TierTeam> = {};
   const players: Record<string, TierEntry[]> = {};
-  for (const slug of [...input.players.keys()].sort()) {
-    const list = [...(input.players.get(slug) ?? [])].sort(byKeyThenNumber);
-    if (list.length > 0) players[slug] = list;
+  for (const t of withRecords) {
+    teams[t.slug] = teamFigure(t);
+    players[t.slug] = [...(input.players.get(t.slug) ?? [])].sort(entryOrder);
   }
   const artifact: TiersFile = {
     schema: TIERS_SCHEMA,

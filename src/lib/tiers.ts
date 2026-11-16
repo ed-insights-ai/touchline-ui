@@ -2,8 +2,8 @@
 // writes (scripts/tiers/build.ts), one per level, season and gender, under
 // `tiers/{level}/{season}-{gender}.json` at the repository root.
 //
-// The contract is docs/specs/player-tiers/ALGORITHM.md, section 10, in the
-// platform repository. The schema here is strict in the same way model.ts is:
+// The contract is docs/specs/player-tiers/ALGORITHM.md (version 2.2), section
+// 10, in the platform repository. The schema here is strict in the same way model.ts is:
 // a key the contract does not name is an error, not something to carry, and
 // that is how section 9 ("what is never computed or stored") is held at the
 // reader as well as at the writer. No score, estimate, rank or percentile for
@@ -69,7 +69,7 @@ export const tierEntrySchema = z
   .object({
     /** As the source prints it. */
     name: z.string().min(1),
-    /** The folded name (foldKey). */
+    /** The folded name (foldName, the collector's fold_name). */
     key: z.string(),
     /** The page id when the source has one. */
     player_id: z.string().min(1).nullable(),
@@ -115,16 +115,17 @@ export type TierEntry = z.infer<typeof tierEntrySchema>;
 
 export const tierTeamSchema = z
   .object({
-    /** n: physical matches where both sides have integer shots and scores. */
+    /** n: records where both sides have integer shots and scores. */
     matches: z.number().int().nonnegative(),
     /** null when n < 12. */
     workload: workloadSchema.nullable(),
+    /** SA / n; null when n is 0. */
     shots_faced_per_match: oneDecimal.nullable(),
     /** 100 × GA / SA; null when SA is 0. */
     pct_in: oneDecimal.nullable(),
     goals_conceded: z.number().int().nonnegative(),
-    /** EGA. */
-    opponents_usual: oneDecimal,
+    /** EGA; null when n is 0. */
+    opponents_usual: oneDecimal.nullable(),
   })
   .strict();
 export type TierTeam = z.infer<typeof tierTeamSchema>;
@@ -156,17 +157,68 @@ export const tiersFileSchema = z
 export type TiersFile = z.infer<typeof tiersFileSchema>;
 
 // ── The fold ────────────────────────────────────────────────────────────────
+//
+// ALGORITHM.md 4.1: the collector's own rule, `fold_name` in
+// keelson-rib-touchline pipeline/src/identity.py, ported line for line so the
+// artifact's `key` is the key the collector's `player_ref` was resolved with.
+// It is deliberately NOT player.ts's foldName (which keeps spaces and digits
+// and leaves the name in printed order): "Høihjelle, Iver" and "Iver
+// Hoihjelle" both fold to "iverhoihjelle" here. A page that looks a player up
+// hands tierFor the name as printed; tierFor folds it.
 
-/** ALGORITHM.md section 4's fold, and the artifact's `key`: Unicode NFKD,
- *  combining marks stripped, lower-cased, letters only. It is deliberately
- *  NOT player.ts's foldName, which keeps spaces: "Juan Linares" folds to
- *  "juanlinares" here. A page that looks a player up passes this fold. */
-export const foldKey = (name: string): string =>
-  name
-    .normalize("NFKD")
-    .replace(/\p{M}/gu, "")
+/** Letters NFKD leaves whole, and the ASCII a stat crew types for them. */
+const PLAIN_LETTERS: Readonly<Record<string, string>> = {
+  ø: "o",
+  æ: "ae",
+  œ: "oe",
+  ß: "ss",
+  ð: "d",
+  þ: "th",
+  ł: "l",
+  đ: "d",
+  ı: "i",
+};
+
+/** Steps 2 to 4 of 4.1 (the collector's `_letters`): lower-case, NFKD, the
+ *  fixed letter table, combining marks dropped, a to z kept. */
+export const foldLetters = (text: string): string =>
+  text
     .toLowerCase()
-    .replace(/[^\p{L}]/gu, "");
+    .normalize("NFKD")
+    .replace(/[øæœßðþłđı]/g, (c) => PLAIN_LETTERS[c] ?? c)
+    .replace(/\p{M}/gu, "")
+    .replace(/[^a-z]/g, "");
+
+/** Step 1 (the collector's `_given_first`): "Last, First" becomes "First
+ *  Last" when there is something after the comma. */
+export function givenFirst(name: string): string {
+  const comma = name.indexOf(",");
+  if (comma >= 0) {
+    const head = name.slice(0, comma).trim();
+    const tail = name.slice(comma + 1).trim();
+    if (tail) return `${tail} ${head}`;
+  }
+  return name.trim();
+}
+
+/** ALGORITHM.md 4.1, the collector's `fold_name`: the artifact's `key`. */
+export const foldName = (name: string): string => foldLetters(givenFirst(name));
+
+/** The folded surname (the collector's `fold_surname`): the part before the
+ *  comma in "Last, First", the last word otherwise. */
+export function foldSurname(name: string): string {
+  const comma = name.indexOf(",");
+  const surname = comma >= 0 ? name.slice(0, comma) : (name.trim().split(/\s+/).at(-1) ?? "");
+  return foldLetters(surname);
+}
+
+/** A shirt number as compared (the collector's `_number`): trimmed, leading
+ *  zeros dropped so "01" and "1" agree, "0" for a number of zeros alone,
+ *  empty when none is printed. */
+export function shirtNumber(value: string | null | undefined): string {
+  const text = (value ?? "").trim();
+  return text.replace(/^0+/, "") || (text ? "0" : "");
+}
 
 // ── Reading the artifact ────────────────────────────────────────────────────
 
@@ -219,18 +271,19 @@ export function loadTiers(
 export interface TierQuery {
   /** The page id the roster or the statistics carry, when they carry one. */
   playerId?: string | null;
-  /** foldKey of the name the page prints. */
-  foldedName: string;
+  /** The name as the page prints it; folded here by foldName. */
+  name: string;
   /** The shirt number as printed, when there is one. */
   number?: string | null;
 }
 
-/** One of several candidates, by shirt number; null when the number does not
- *  settle it, because a wrong player's tier is worse than none. */
-function settle(candidates: readonly TierEntry[], number: string | null): TierEntry | null {
+/** One of several candidates, by shirt number (leading zeros dropped); null
+ *  when the number does not settle it, because a wrong player's tier is worse
+ *  than none. */
+function settle(candidates: readonly TierEntry[], number: string): TierEntry | null {
   if (candidates.length === 1) return candidates[0] ?? null;
-  if (candidates.length === 0 || number === null) return null;
-  const byNumber = candidates.filter((e) => e.number === number);
+  if (candidates.length === 0 || number === "") return null;
+  const byNumber = candidates.filter((e) => shirtNumber(e.number) === number);
   return byNumber.length === 1 ? (byNumber[0] ?? null) : null;
 }
 
@@ -238,9 +291,9 @@ function settle(candidates: readonly TierEntry[], number: string | null): TierEn
  * A player's entry in one programme's list, or null.
  *
  * Matched on the page id when both the query and the entry carry one, else
- * on the folded name; the shirt number breaks a tie. Ids are compared first
- * and on their own: an entry whose id differs from the query's is a different
- * player even when the names fold alike.
+ * on the folded name (foldName of the printed name); the shirt number breaks
+ * a tie. Ids are compared first and on their own: an entry whose id differs
+ * from the query's is a different player even when the names fold alike.
  */
 export function tierFor(
   tiers: TiersFile,
@@ -249,14 +302,14 @@ export function tierFor(
 ): TierEntry | null {
   const list = tiers.players[programmeSlug] ?? [];
   const id = query.playerId ?? null;
-  const number = query.number ?? null;
+  const number = shirtNumber(query.number);
   if (id !== null) {
     const byId = list.filter((e) => e.player_id === id);
     if (byId.length > 0) return settle(byId, number);
   }
-  const byName = list.filter(
-    (e) => (id === null || e.player_id === null) && e.key === query.foldedName,
-  );
+  const key = foldName(query.name);
+  if (key === "") return null;
+  const byName = list.filter((e) => (id === null || e.player_id === null) && e.key === key);
   return settle(byName, number);
 }
 
