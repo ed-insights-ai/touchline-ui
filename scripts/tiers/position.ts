@@ -1,118 +1,33 @@
-// ALGORITHM.md section 3 (version 2): a player-season's position group.
+// ALGORITHM.md section 3: a player-season's position group.
 //
-// `group(label)` is the contract's normaliser, step for step, over its word
-// and phrase tables. The tables are the contract's and closed: a label they do
-// not reach has no group. Widening them is a change to the contract, not to
-// this file.
+// [Ruling R-F, reconciliation] A label's group is whatever the site's own
+// position parser, `positionLine` in src/lib/format.ts, returns: GK is GK,
+// DEF is D, MID is M, FWD is F, and null is no group. It replaces the
+// contract's `group(label)` normaliser and its word and phrase tables, for the
+// roster label and the box-score labels alike, so the tier file and the team
+// sheet beside it read one roster line the same way. The parser is called,
+// never copied: a published form it learns is learned here too. Everything
+// else in section 3 stands (below): the roster line first, else the most
+// common box-score group, a tie to the group seen first in date order.
 
+import { type Line, positionLine } from "../../src/lib/format.ts";
 import type { PositionGroup } from "../../src/lib/tiers.ts";
 
 export const GROUP_ORDER: readonly PositionGroup[] = ["GK", "D", "M", "F"];
 
-export const GROUP_WORDS: Readonly<Record<PositionGroup, readonly string[]>> = {
-  GK: ["GK", "G", "K", "GOALKEEPER", "GOALIE"],
-  D: [
-    "D",
-    "DEF",
-    "B",
-    "DB",
-    "CB",
-    "LB",
-    "RB",
-    "DEFENDER",
-    "DEFENSE",
-    "BACK",
-    "FB",
-    "WB",
-    "DF",
-    "OB",
-    "DEFENSEMAN",
-    "CENTERBACK",
-    "CENTREBACK",
-    "WINGBACK",
-    "FULLBACK",
-  ],
-  M: ["M", "MID", "MF", "MD", "CM", "DM", "AM", "MIDFIELDER", "MIDFIELD", "CDM", "CAM", "HCM"],
-  F: [
-    "F",
-    "FWD",
-    "FW",
-    "FOR",
-    "ST",
-    "S",
-    "FORWARD",
-    "W",
-    "LW",
-    "RW",
-    "STRIKER",
-    "WING",
-    "WINGER",
-    "FOWARD",
-    "ATTACKER",
-  ],
+/** The site's four lines, as the contract's four groups. */
+export const GROUP_OF_LINE: Readonly<Record<Line, PositionGroup>> = {
+  GK: "GK",
+  DEF: "D",
+  MID: "M",
+  FWD: "F",
 };
 
-export const GROUP_PHRASES: Readonly<Record<PositionGroup, readonly string[]>> = {
-  GK: ["GOAL KEEPER"],
-  D: [
-    "CENTER BACK",
-    "CENTRE BACK",
-    "OUTSIDE BACK",
-    "RIGHT BACK",
-    "LEFT BACK",
-    "WING BACK",
-    "FULL BACK",
-  ],
-  M: [
-    "CENTER MIDFIELDER",
-    "CENTRAL MIDFIELDER",
-    "CENTER MIDFIELD",
-    "CENTER MID",
-    "MID FIELDER",
-    "OUTSIDE MIDFIELDER",
-    "DEFENSIVE MIDFIELDER",
-    "ATTACKING MIDFIELDER",
-    "CENTER ATTACKING MIDFIELDER",
-  ],
-  F: [],
-};
-
-const table = (t: Readonly<Record<PositionGroup, readonly string[]>>) =>
-  new Map<string, PositionGroup>(GROUP_ORDER.flatMap((g) => t[g].map((x) => [x, g] as const)));
-const WORDS = table(GROUP_WORDS);
-const PHRASES = table(GROUP_PHRASES);
-
-/** Every run of spaces and hyphens as one space. */
-const collapse = (s: string): string => s.replace(/[\s-]+/g, " ");
-
-/**
- * `group(label)`, in the contract's four steps:
- *
- * 1. upper-case, remove full stops, strip leading and trailing characters
- *    that are not letters ("- MID" is "MID"); empty has no group;
- * 2. spaces and hyphens collapsed: a phrase is the group;
- * 3. else the first non-empty piece of the step-1 string split on `/`, `\`
- *    and `-`, trimmed: a word, or (collapsed) a phrase, is the group;
- * 4. else the first word of that piece, if it is a word.
- */
+/** A label's position group [R-F]: positionLine's line, mapped; null when
+ *  positionLine places nobody. */
 export function group(label: string | undefined | null): PositionGroup | null {
-  if (label === undefined || label === null) return null;
-  const s = label
-    .toUpperCase()
-    .replaceAll(".", "")
-    .replace(/^[^\p{L}]+|[^\p{L}]+$/gu, "");
-  if (s === "") return null;
-  const phrase = PHRASES.get(collapse(s));
-  if (phrase) return phrase;
-  const piece =
-    s
-      .split(/[/\\-]/)
-      .map((p) => p.trim())
-      .find((p) => p !== "") ?? "";
-  const fromPiece = WORDS.get(piece) ?? PHRASES.get(collapse(piece));
-  if (fromPiece) return fromPiece;
-  const first = piece.split(/\s+/)[0] ?? "";
-  return WORDS.get(first) ?? null;
+  const line = positionLine(label ?? undefined);
+  return line === null ? null : GROUP_OF_LINE[line];
 }
 
 /**

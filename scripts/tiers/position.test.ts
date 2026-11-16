@@ -1,74 +1,58 @@
-// ALGORITHM.md section 3 (version 2): the position normaliser and its tables.
+// ALGORITHM.md section 3, under ruling R-F: a label's group is the site's
+// positionLine, mapped to the contract's four groups.
 
 import { describe, expect, test } from "bun:test";
-import { boxGroupTied, GROUP_PHRASES, GROUP_WORDS, group, groupOf } from "./position.ts";
+import { positionLine } from "../../src/lib/format.ts";
+import { boxGroupTied, GROUP_OF_LINE, group, groupOf } from "./position.ts";
 
-describe("group(label): the tables", () => {
-  test("every word and every phrase in the contract's tables lands in its group", () => {
-    for (const [g, words] of Object.entries(GROUP_WORDS)) {
-      for (const w of words) expect(group(w)).toBe(g as never);
-    }
-    for (const [g, phrases] of Object.entries(GROUP_PHRASES)) {
-      for (const p of phrases) expect(group(p)).toBe(g as never);
-    }
-  });
-});
-
-describe("group(label): the contract's own examples", () => {
-  test("F/M, F\\M and F-M are F (step 3: the first piece)", () => {
-    expect(group("F/M")).toBe("F");
-    expect(group("F\\M")).toBe("F");
-    expect(group("F-M")).toBe("F");
+describe("R-F: group(label) is positionLine, mapped", () => {
+  test("GK is GK, DEF is D, MID is M, FWD is F; null, undefined and empty have no group", () => {
+    expect(GROUP_OF_LINE).toEqual({ GK: "GK", DEF: "D", MID: "M", FWD: "F" });
+    expect(["Goalkeeper", "Defender", "Midfielder", "Forward"].map(group)).toEqual([
+      "GK",
+      "D",
+      "M",
+      "F",
+    ]);
+    expect([group(null), group(undefined), group("")]).toEqual([null, null, null]);
   });
 
-  test("Center-Back is D (step 2: 'CENTER BACK' once the hyphen is a space)", () => {
+  test("it is the site's parser, called: same answer on every label here", () => {
+    const labels = ["Keeper", "LM/RM", "C/B", "F Pathfinder", "M-B", "Utility", "DB", "N/A"];
+    for (const label of labels) {
+      const line = positionLine(label);
+      expect(group(label)).toBe(line === null ? null : GROUP_OF_LINE[line]);
+    }
+  });
+
+  test("roster labels the 2.2 normaliser could not read now place the player", () => {
+    // Each is printed on a 2022-2026 roster and had no group under 2.2.
+    expect(group("Center Defensive Midfielder")).toBe("M"); // midfield read before defen
+    expect(group("LM/RM")).toBe("M"); // Tiffin's left-or-right midfielder
+    expect(group("Forward, Back")).toBe("F"); // the first of several
+    expect(group("Keeper")).toBe("GK");
+    expect(group("Goakeeper")).toBe("GK"); // "keeper" anywhere
+    expect(group("Midifelder")).toBe("M"); // the published-typo table
+    expect(group("Left Wing")).toBe("F");
+    expect(group("Center-Attacking Midfield")).toBe("M"); // midfield before attack
+    expect(group("A/M East Meadow Soccer Club ECNL")).toBe("F"); // club after the initials
+  });
+
+  test("the contract's own examples read the same way", () => {
+    for (const label of ["F/M", "F\\M", "F-M"]) expect(group(label), label).toBe("F");
     expect(group("Center-Back")).toBe("D");
-  });
-
-  test("'MF Tonka Fusion Elite' is M (step 4: the piece's first word)", () => {
     expect(group("MF Tonka Fusion Elite")).toBe("M");
+    for (const label of ["FM", "C", "N/A", "Manager"]) expect(group(label), label).toBeNull();
   });
 
-  test("FM, C, N/A and Manager have no group", () => {
-    // N/A: step 3 takes "N", step 4 "N"; neither is a word.
-    for (const label of ["FM", "C", "N/A", "Manager"]) expect(group(label)).toBeNull();
-  });
-});
-
-describe("group(label): each step", () => {
-  test("step 1: '- MID' strips the dash; 'G.K.' drops full stops; '  defender ' is D", () => {
-    expect(group("- MID")).toBe("M");
-    expect(group("- FWD")).toBe("F");
-    expect(group("G.K.")).toBe("GK");
-    expect(group("  defender ")).toBe("D");
-  });
-
-  test("step 1: a label with no letters, or none at all, has no group", () => {
-    expect(group("- 20 -")).toBeNull();
-    expect(group("")).toBeNull();
-    expect(group(undefined)).toBeNull();
-    expect(group(null)).toBeNull();
-  });
-
-  test("step 2: phrases with runs of spaces and hyphens ('Goal  Keeper', 'Center - Mid')", () => {
-    expect(group("Goal  Keeper")).toBe("GK");
-    expect(group("Goal Keeper")).toBe("GK");
-    // "CENTER - MID" collapses to "CENTER MID".
-    expect(group("Center - Mid")).toBe("M");
-    expect(group("Outside Back")).toBe("D");
-  });
-
-  test("step 3: the first piece is a word, or a phrase once collapsed", () => {
-    expect(group("Defender/Midfielder")).toBe("D");
-    expect(group("Central Midfielder / Forward")).toBe("M");
-    expect(group("M\\D")).toBe("M");
-  });
-
-  test("step 4: the first word of the piece ('Winger Left' is F, 'Back Four' is D)", () => {
-    expect(group("Winger Left")).toBe("F");
-    expect(group("Back Four")).toBe("D");
-    // "Foward" is a word in its own right now.
-    expect(group("Foward")).toBe("F");
+  test("labels the 2.2 tables placed and positionLine does not: no group (measured, reported)", () => {
+    // DB (101 box-score lines with "- DB"), WB, DM and a centre back with his
+    // club after the initials are real positions positionLine has no word for.
+    for (const label of ["DB", "- DB", "WB", "DM", "CB Solar ECNL Comp", "K"]) {
+      expect(group(label), label).toBeNull();
+    }
+    // Two full words joined by a hyphen are read as one phrase, midfield first.
+    expect(group("Forward-Midfielder")).toBe("M");
   });
 });
 
