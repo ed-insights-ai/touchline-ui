@@ -10,8 +10,12 @@ import { join, resolve } from "node:path";
 import { section10Violations } from "../../scripts/tiers/output.ts";
 import { ncaaDivision } from "../site.config.ts";
 import {
-  foldKey,
+  foldLetters,
+  foldName,
+  foldSurname,
+  givenFirst,
   loadTiers,
+  shirtNumber,
   type TierEntry,
   type TiersFile,
   teamFigures,
@@ -54,10 +58,19 @@ describe("the committed artifacts in tiers/d2", () => {
   )("%s: every key is the fold of its name, and lists are in section 10's order", (name) => {
     const a = loadTiers("d2", Number(name.slice(0, 4)), name.slice(5, -5), ROOT) as TiersFile;
     for (const list of Object.values(a.players)) {
-      for (const e of list) expect(e.key).toBe(foldKey(e.name));
-      const keys = list.map((e) => `${e.key}\u0000${e.number ?? "￿"}`);
+      for (const e of list) expect(e.key).toBe(foldName(e.name));
+      // Key, then number, name and player_id as strings, a null first
+      // (section 10, v2.2): a null sorts as "", anything else after a "#".
+      const part = (x: string | null) => (x === null ? "" : `#${x}`);
+      const keys = list.map((e) =>
+        [e.key, part(e.number), part(e.name), part(e.player_id)].join("\u0000"),
+      );
       expect(keys).toEqual([...keys].sort());
     }
+    // [v2.2] teams and players hold the same programmes, in slug order.
+    expect(Object.keys(a.players)).toEqual(Object.keys(a.teams));
+    expect(Object.keys(a.teams)).toEqual(Object.keys(a.teams).sort());
+    for (const t of Object.values(a.teams)) expect(t.matches).toBeGreaterThan(0);
   });
 });
 
@@ -83,13 +96,49 @@ describe("loadTiers", () => {
   });
 });
 
-describe("foldKey", () => {
-  test("NFKD, combining marks stripped, lower-case, letters only", () => {
-    expect(foldKey("As The Source Prints It")).toBe("asthesourceprintsit");
-    expect(foldKey("Noé Coutiño")).toBe("noecoutino");
-    expect(foldKey("Edoardo Degl'Innocenti")).toBe("edoardodeglinnocenti");
-    expect(foldKey("Jean-Luc O’Neil Jr.")).toBe("jeanluconeiljr");
-    expect(foldKey("ﬁfi")).toBe("fifi");
+describe("foldName: the collector's fold_name (4.1)", () => {
+  test("given names first: 'Last, First' becomes 'First Last'", () => {
+    expect(givenFirst("Høihjelle, Iver")).toBe("Iver Høihjelle");
+    expect(givenFirst("Iver Høihjelle")).toBe("Iver Høihjelle");
+    // Nothing after the comma: the name as it stands (the fold drops the comma).
+    expect(givenFirst("Pelé,")).toBe("Pelé,");
+    expect(foldName("Pelé,")).toBe("pele");
+    // Only the first comma splits.
+    expect(givenFirst("Lee, Ann, Jr.")).toBe("Ann, Jr. Lee");
+  });
+
+  test("both orders of one name fold alike; the letter table and NFKD do the rest", () => {
+    expect(foldName("Høihjelle, Iver")).toBe("iverhoihjelle");
+    expect(foldName("Iver Hoihjelle")).toBe("iverhoihjelle");
+    expect(foldName("As The Source Prints It")).toBe("asthesourceprintsit");
+    expect(foldName("Noé Coutiño")).toBe("noecoutino");
+    expect(foldName("Edoardo Degl'Innocenti")).toBe("edoardodeglinnocenti");
+    expect(foldName("Jean-Luc O’Neil Jr.")).toBe("jeanluconeiljr");
+    expect(foldName("ﬁfi")).toBe("fifi");
+  });
+
+  test("the replacements NFKD does not make: ø æ œ ß ð þ ł đ ı", () => {
+    expect(foldLetters("Søren Æbelø Œuvre")).toBe("sorenaebelooeuvre");
+    expect(foldLetters("Straß Ðaði Þór")).toBe("strassdadithor");
+    expect(foldLetters("Łukasz Đorđe Kılıç")).toBe("lukaszdordekilic");
+    // Upper-case forms fold through lower-casing first.
+    expect(foldLetters("ØSTERGÅRD")).toBe("ostergard");
+  });
+
+  test("the folded surname: before the comma, else the last word", () => {
+    expect(foldSurname("Høihjelle, Iver")).toBe("hoihjelle");
+    expect(foldSurname("Iver Høihjelle")).toBe("hoihjelle");
+    expect(foldSurname("Juan Carlos de la Cruz")).toBe("cruz");
+    expect(foldSurname("de la Cruz, Juan")).toBe("delacruz");
+  });
+
+  test("a shirt number compares with leading zeros dropped; a bare zero stays", () => {
+    expect(shirtNumber("07")).toBe("7");
+    expect(shirtNumber(" 7 ")).toBe("7");
+    expect(shirtNumber("00")).toBe("0");
+    expect(shirtNumber("0")).toBe("0");
+    expect(shirtNumber("")).toBe("");
+    expect(shirtNumber(null)).toBe("");
   });
 });
 
@@ -133,34 +182,43 @@ describe("tierFor", () => {
   test("matches on player_id when both sides carry one", () => {
     const hit = e({ player_id: "77", name: "Annie Lee", key: "annielee" });
     const t = fixture([e({ player_id: "12" }), hit]);
-    expect(tierFor(t, "harding", { playerId: "77", foldedName: "annlee" })).toBe(hit);
+    expect(tierFor(t, "harding", { playerId: "77", name: "Ann Lee" })).toBe(hit);
   });
 
   test("an entry whose id differs is a different player, even with the same name", () => {
     const t = fixture([e({ player_id: "12" })]);
-    expect(tierFor(t, "harding", { playerId: "77", foldedName: "annlee" })).toBeNull();
+    expect(tierFor(t, "harding", { playerId: "77", name: "Ann Lee" })).toBeNull();
   });
 
   test("falls back to the folded name when either side has no id", () => {
     const hit = e({ player_id: null });
     const t = fixture([hit, e({ key: "beakim", name: "Bea Kim" })]);
-    expect(tierFor(t, "harding", { playerId: "77", foldedName: "annlee" })).toBe(hit);
-    expect(tierFor(t, "harding", { foldedName: "annlee" })).toBe(hit);
+    expect(tierFor(t, "harding", { playerId: "77", name: "Ann Lee" })).toBe(hit);
+    expect(tierFor(t, "harding", { name: "Ann Lee" })).toBe(hit);
   });
 
   test("the shirt number breaks a tie, and an unbroken tie is no answer", () => {
     const four = e({ number: "4" });
     const nine = e({ number: "9" });
     const t = fixture([four, nine]);
-    expect(tierFor(t, "harding", { foldedName: "annlee", number: "9" })).toBe(nine);
-    expect(tierFor(t, "harding", { foldedName: "annlee", number: "2" })).toBeNull();
-    expect(tierFor(t, "harding", { foldedName: "annlee" })).toBeNull();
+    expect(tierFor(t, "harding", { name: "Ann Lee", number: "9" })).toBe(nine);
+    expect(tierFor(t, "harding", { name: "Ann Lee", number: "2" })).toBeNull();
+    expect(tierFor(t, "harding", { name: "Ann Lee" })).toBeNull();
+  });
+
+  test("the name is folded by the collector's rule, and the number loses its leading zeros", () => {
+    const hit = e({ name: "Iver Høihjelle", key: "iverhoihjelle", number: "07" });
+    const t = fixture([hit, e({ name: "Iver Høihjelle", key: "iverhoihjelle", number: "9" })]);
+    expect(tierFor(t, "harding", { name: "Høihjelle, Iver", number: "7" })).toBe(hit);
+    expect(tierFor(t, "harding", { name: "Iver Hoihjelle", number: "007" })).toBe(hit);
+    // A name with no letters folds to nothing and finds nobody.
+    expect(tierFor(t, "harding", { name: "#7" })).toBeNull();
   });
 
   test("an unknown programme or player is null", () => {
     const t = fixture([e({})]);
-    expect(tierFor(t, "ouachita-baptist", { foldedName: "annlee" })).toBeNull();
-    expect(tierFor(t, "harding", { foldedName: "nobody" })).toBeNull();
+    expect(tierFor(t, "ouachita-baptist", { name: "Ann Lee" })).toBeNull();
+    expect(tierFor(t, "harding", { name: "Nobody" })).toBeNull();
   });
 });
 

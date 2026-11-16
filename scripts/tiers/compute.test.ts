@@ -112,9 +112,12 @@ function season(year: number, hometown: (slug: Slug, name: string) => string): C
       plays: [],
     };
   }
+  // A bio URL ending in a number: the roster pass (4.2) sees only entries
+  // with a bio id, as the collector's index does.
   const roster = (slug: Slug): Player[] =>
-    SQUAD.map((p) => ({
+    SQUAD.map((p, i) => ({
       name: person(slug, p.name),
+      source_url: `https://example.test/${slug}/roster/${100 + i}`,
       number: p.number,
       position: p.position,
       class_year: year === 2025 ? "Junior" : "Senior",
