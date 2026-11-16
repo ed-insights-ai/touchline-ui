@@ -705,3 +705,122 @@ is not committed.
 | 2025-women | usc-beaufort | Izzy Amphlett | 0 / 0 | 0 / 1 | no |
 | 2026-women | central-washington | Kylee Schreck | 0 / 1 | 0 / 2 | no |
 | 2026-women | emory-henry | Siena Booth | 1 / 2 | 1 / 2 | no |
+
+## Phase 2: contract 2.3 (rulings N1, N2, N3 and N5)
+
+This build now also implements the 2.3 rulings in `docs/specs/player-tiers/ALGORITHM-2.3-rulings.md`
+(ed-insights-platform). N4 changes wording only, and the build prints none of that wording. The tables earlier in
+this log describe the 2.2 build. The 2.3 figures are below.
+
+The full write-up is the "Phase 2" section of `RECONCILIATION.md`. It covers the per-ruling measures, named players,
+honours and the invented readings IR-11 to IR-19. The joins and links samples are in `joins-sample.md`, beside it.
+
+| Commit | Ruling | What changed here |
+| --- | --- | --- |
+| `7194bf5e40` | N1 | `minutes.ts` (new). The minutes of record are box, stats, box_partial or none: r records, m printing minutes, and the stats row's minutes (players list, then keepers list) |
+| `cc645aeb11` | N2 | `players.ts`, which adds five things: the N2e untied set for pass 3; team rows dropped; the N2a fifth pass; N2d's printed name; closeness tests (i), (ii), (iii), (iv). N2b widens the split-spelling flag. N2c links by close name, and a home town no longer contradicts. Nicknames come from `loadProgrammes()` |
+| `d3b79d4298` | N3 | `position.ts` `rosterGroup`: a roster label naming two or more groups is read by the box scores |
+| `d05d18e605` | N5 | `regressions.test.ts`: R-A (4,887 arrangements of copies) and R-E. `--require-clean` and `assertClean` in `build.ts` |
+| `d062c65af1` | | Artifacts rebuilt, `--frozen-at 2026-11-16` |
+
+**Agreement with the Python build:** 100% on players and teams in all ten files, and identical in every field. Each
+ruling was also compared alone, at its commit, against the Python build with the later rulings switched off; each
+was identical. No team figure changes under 2.3.
+
+### Counts per file (2.3)
+
+| File | Entries | shooting_scoring: tier / eligible / needs_minutes / incomplete | team_defence: tier / eligible / needs_second_season / needs_minutes / incomplete | no group (incomplete) | Incomplete by reason |
+| --- | --- | --- | --- | --- | --- |
+| 2022-men | 5374 | 174 / 690 / 1842 / 389 | 0 / 0 / 632 / 1246 / 219 | 182 | few_matches 2, identity 1, no_minutes 651, no_position 136 |
+| 2023-men | 5344 | 206 / 820 / 1798 / 353 | 50 / 200 / 363 / 1205 / 202 | 147 | few_matches 3, identity 7, no_minutes 588, no_position 104 |
+| 2024-men | 5445 | 208 / 831 / 1840 / 328 | 44 / 172 / 441 / 1266 / 184 | 131 | few_matches 2, no_minutes 541, no_position 100 |
+| 2025-men | 5537 | 205 / 812 / 1941 / 329 | 42 / 165 / 419 / 1333 / 179 | 112 | identity 2, no_minutes 524, no_position 94 |
+| 2026-men | 5725 | 201 / 802 / 2024 / 331 | 40 / 151 / 447 / 1435 / 207 | 87 | no_minutes 548, no_position 77 |
+| 2022-women | 6507 | 241 / 962 / 2205 / 401 | 0 / 0 / 862 / 1450 / 201 | 185 | few_matches 2, identity 2, no_minutes 640, no_position 143 |
+| 2023-women | 6583 | 281 / 1118 / 2078 / 368 | 78 / 311 / 441 / 1565 / 195 | 148 | few_matches 11, identity 4, no_minutes 582, no_position 114 |
+| 2024-women | 6703 | 285 / 1134 / 2216 / 350 | 79 / 304 / 485 / 1583 / 162 | 105 | no_minutes 528, no_position 89 |
+| 2025-women | 6760 | 286 / 1140 / 2250 / 336 | 67 / 268 / 527 / 1624 / 167 | 95 | few_matches 8, identity 2, no_minutes 513, no_position 75 |
+| 2026-women | 6782 | 282 / 1124 / 2336 / 321 | 64 / 256 / 525 / 1644 / 166 | 64 | few_matches 11, no_minutes 483, no_position 57 |
+
+- **Entries:** 61,714 → 60,760. N2a joins 948 split spellings into their roster entry, and 3 team rows are dropped.
+- **`no_minutes`:** 5,598 entries, up from 74. Under N1, an entry is `no_minutes` when its programme's box
+  scores print minutes in under 90% of its records **and** its conference's stats file gives none for it. Most of
+  these were `needs_minutes` under 2.2.
+- **`identity`:** 18 entries. N2b flags 32 pairs (64 entries), and all 64 are `incomplete`. 43 of them show
+  `no_minutes` and 2 `no_position`, because 4.7 ranks both above `identity`.
+
+### Tier holders per file (2.3)
+
+| File | Tier 1 F | Tier 1 M | Tier 2 F | Tier 2 M | Team defence: defenders | Team defence: goalkeepers | All (2.2 → 2.3) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2022-men | 14 | 30 | 42 | 88 | 0 | 0 | 167 → 174 |
+| 2023-men | 18 | 34 | 52 | 102 | 35 | 15 | 250 → 256 |
+| 2024-men | 19 | 34 | 54 | 101 | 32 | 12 | 247 → 252 |
+| 2025-men | 19 | 33 | 57 | 96 | 27 | 15 | 236 → 247 |
+| 2026-men | 17 | 34 | 51 | 99 | 28 | 12 | 229 → 241 |
+| 2022-women | 23 | 38 | 69 | 111 | 0 | 0 | 233 → 241 |
+| 2023-women | 28 | 43 | 83 | 127 | 57 | 21 | 351 → 359 |
+| 2024-women | 29 | 43 | 86 | 127 | 60 | 19 | 352 → 364 |
+| 2025-women | 28 | 44 | 84 | 130 | 43 | 24 | 341 → 353 |
+| 2026-women | 27 | 44 | 81 | 130 | 40 | 24 | 339 → 346 |
+
+All files together: 2,745 → **2,833**. Tier 1 goes 1,032 → 1,063, and Tier 2 goes 1,713 → 1,770.
+
+Section 11.2 under 2.3, men / women. Regular defenders 446.2 / 610.8; regular goalkeepers **187.0 / 242.6**;
+two-season defenders and goalkeepers 216.0 / 356.8, of whom 44.0 / 72.0 hold the tier. The goalkeeper row now sits
+3–5% above the table, outside its 1% band. That is N1: a keeper's season minutes come from the keepers list (IR-11),
+which makes more keepers regulars.
+
+### The appendix under 2.3
+
+The appendix lists every player the second penalty source changed under 2.2: 90 player-seasons. Under 2.3 there are
+83.
+
+- **Seven leave, because N2a joined a second spelling whose lines carry the penalty the play-by-play credits.** The
+  stats file and the play-by-play now agree for each:
+  - 2022 Alessandra Borsellino (Molloy), with "Alessand Borsellino";
+  - 2023 Noa Ahlfors (Dominican), with "Noa Hjalmar Ahlfors";
+  - 2024 Jaime Guillén (West Florida), with "Jaime GuillÃ©n";
+  - 2024 Kaylee Gillespie (Jessup);
+  - 2025 Jacob Darwesh Lund Iversen (Maryville), with "Jacob Lund-Iversen";
+  - 2025 Jorge Perez Rosales (Saint Leo), with "Jorge Perez";
+  - 2025 Izzy Amphlett (USC Beaufort).
+- **2026 Jon-Michael Gordon (Wheeling):** the play-by-play now finds 1 of his 2.
+- **Four are renamed by N2d** to the roster's name as printed:
+  - Lewis  Green;
+  - Daniel Gardner, Jr.;
+  - Pablo  Galietero Diez;
+  - Matias Milla  Munoz.
+
+`tiers/.debug/stats-penalties.csv` holds the full 2.3 list.
+
+### Points for the orchestrator
+
+These are measured in `RECONCILIATION.md`.
+
+- **N2c lets wrong rows in.** Of its 89 close-name links:
+  - 36 join two people, and 1 is unclear.
+  - 33 of the 36 came by home town alone. They are siblings with the same surname, first initial and home town.
+  - Smallest change: drop the home-town branch, and count the roster line's shirt number among a player's numbers.
+    That keeps 49 links, 3 of them wrong.
+- **N1 takes three honoured tier holders to `incomplete`:** Theo Faillon, Meghan Deneen and Elle Smith (2025).
+  - Their conferences publish no season minutes, and under 90% of their records print box minutes.
+  - A `box_partial` threshold of 0.5 instead of 0.9 returns all three, and 46 tier holders in all.
+- **N2d prints roster names as printed:** 2,437 names carry a doubled space. The page collapses it.
+
+### Gates (worktree, after `d062c65af1`)
+
+| Gate | Result |
+| --- | --- |
+| `bunx tsc --noEmit -p .` | clean |
+| `bunx biome check .` | 6 warnings, all in files this branch may not touch: `scripts/journal/national-prompt.ts` (2), `scripts/journal/national.ts`, `scripts/links.ts`, `src/lib/table.test.ts` (2). `scripts/tiers` is clean |
+| `bun test` | 1,016 pass, 11 skip, 0 fail |
+| `TOUCHLINE_CONTRACTS_DIR=… just verify` | exit 0 |
+
+What `just verify` ran:
+
+- biome, with the same 6 warnings;
+- two `astro build` runs, of 2,728 and 3,429 pages;
+- the men's gate: 1,037 pass, 5 skip, 0 fail;
+- the women's gate: 1,027 pass, 15 skip, 0 fail;
+- links: 6,157 pages and 571,797 references, 0 broken.
