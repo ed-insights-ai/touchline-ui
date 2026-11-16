@@ -185,6 +185,9 @@ describe("against the rosters this site actually collects", () => {
       // players once its columns read straight (rib #91).
       "team manager",
       "manager",
+      // Division I: wcc/saint-marys-california 2024, one row, an honorary
+      // roster place the programme published as "12th Man" (no. 87, 4'4").
+      "12th man",
     ];
     // Every collected season, not just the two the site renders: the
     // vocabulary is authored once for the whole archive, and Southwest
