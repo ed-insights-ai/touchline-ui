@@ -15,6 +15,12 @@
 //      keepers list's larger row is passed over for the players list's.
 // M2   (contract 2.4) fails if a record that lists the side's players and has
 //      no line for him adds to his U.
+// M5   (contract 2.4) fails if test (vi) does not join a short form to a
+//      double surname ("May Queiroz" and "Mayara Queiroz Reis", one shirt
+//      number, never on one sheet), or if it joins a sibling pair: different
+//      first initials (Rachel and Shania Wegesend, one number), or two names
+//      only (vi) holds for that share a sheet or no shirt number ("Sara
+//      Queiroz" and "Sofia Queiroz Reis").
 
 import { describe, expect, test } from "bun:test";
 import { execFileSync } from "node:child_process";
@@ -22,7 +28,7 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { Sighting } from "../../src/lib/division.ts";
-import type { Fixture, MatchDetail, MatchTeam } from "../../src/lib/model.ts";
+import type { Fixture, MatchDetail, MatchTeam, Player } from "../../src/lib/model.ts";
 import { assertClean, dataCommit } from "./build.ts";
 import {
   applyMinutesOfRecord,
@@ -32,10 +38,13 @@ import {
 } from "./minutes.ts";
 import {
   applyStatsPenalties,
+  closeTests,
+  emptyJoinMeasures,
   type PlayerSeason,
   playerSeasons,
   type Sheet,
   type SheetLine,
+  testVi,
 } from "./players.ts";
 import { type Resolution, resolveSides } from "./sides.ts";
 
@@ -299,6 +308,106 @@ describe("M2 regression: the U test counts the player's own lines", () => {
     expect(couldReachBar("F", 700, unprintedCounter(sheets, 14)(own), 10, false)).toBe(false);
     // The rule M2 replaced read r − m = 4: U = 1,060, and he was no_minutes.
     expect(couldReachBar("F", 700, 14 - 10, 10, false)).toBe(true);
+  });
+});
+
+// ── M5 ──────────────────────────────────────────────────────────────────────
+
+describe("M5 regression: test (vi) joins a short form, never a sibling", () => {
+  const row = (id: string, name: string, number: string): Player => ({
+    name,
+    number,
+    position: "F",
+    source_url: `https://x.test/roster/${id}`,
+  });
+  /** A line; tied to the roster row `id` when given. */
+  const at = (name: string, number: string, id?: string): SheetLine => ({
+    name,
+    playerId: null,
+    ref: id ? { id, source: "roster" } : null,
+    number,
+    position: "F",
+    started: true,
+    minutes: 90,
+    goals: 0,
+    shots: 0,
+  });
+  const sheet = (id: string, lines: SheetLine[]): Sheet => ({
+    identity: id,
+    date: id,
+    opponent: "2025:opp",
+    venue: "neutral",
+    lines,
+    credits: [],
+  });
+  const join = (sheets: Sheet[], roster: Player[]) => {
+    const m = emptyJoinMeasures();
+    const ps = playerSeasons(
+      "own",
+      2025,
+      sheets,
+      roster,
+      () => ({ goals: 1, shots: 1 }),
+      undefined,
+      m,
+    );
+    return { ps, m };
+  };
+
+  test("a (vi) join: 'May Queiroz' and 'Mayara Queiroz Reis', one shirt number", () => {
+    // None of (i) to (v) holds; (vi) does: m…, and "queiroz" is in both and
+    // is neither name's first word.
+    expect(closeTests("May Queiroz", "Mayara Queiroz Reis").size).toBe(0);
+    expect(testVi("May Queiroz", "Mayara Queiroz Reis")).toBe(true);
+    const may = row("71", "May Queiroz", "7");
+    const own = (id: string) => sheet(id, [at("May Queiroz", "7", "71")]);
+    const { ps, m } = join(
+      [own("m1"), own("m2"), sheet("m3", [at("Mayara Queiroz Reis", "7")])],
+      [may],
+    );
+    expect(ps.map((p) => [p.name, p.minutes, p.lineCount])).toEqual([["May Queiroz", 270, 3]]);
+    expect([m.closeJoined, m.closeJoinedVi]).toEqual([1, 1]);
+    // (vi) needs a shirt number in common: another number, or none, stays apart.
+    for (const n of ["8", ""]) {
+      const apart = join([own("m1"), sheet("m2", [at("Mayara Queiroz Reis", n)])], [may]);
+      expect(apart.ps).toHaveLength(2);
+    }
+  });
+
+  test("a sibling pair stays apart", () => {
+    // Rachel and Shania Wegesend wear #18 (Emmanuel 2022 and 2023): the first
+    // initials differ, so (vi) does not hold. (In one season, pass 3's number
+    // and surname would tie an untied "Rachel" to Shania's roster line before
+    // N2a; that is 2.2's rule, not (vi).)
+    expect(testVi("Shania Wegesend", "Rachel Wegesend")).toBe(false);
+    // Sisters, one printed with the double surname: only (vi) holds on the
+    // names. (Maicee and MaLiah Burke pass (iv), loose closeness, already.)
+    expect(closeTests("Sara Queiroz", "Sofia Queiroz Reis").size).toBe(0);
+    expect(testVi("Sara Queiroz", "Sofia Queiroz Reis")).toBe(true);
+    const sara = [row("61", "Sara Queiroz", "6")];
+    // One sheet lists both: apart.
+    const together = join(
+      [
+        sheet("m1", [at("Sara Queiroz", "6", "61")]),
+        sheet("m2", [at("Sara Queiroz", "6", "61"), at("Sofia Queiroz Reis", "6")]),
+      ],
+      sara,
+    );
+    expect(together.ps).toHaveLength(2);
+    // Never on one sheet, but no shirt number in common: apart.
+    const otherNumber = join(
+      [sheet("m1", [at("Sara Queiroz", "6", "61")]), sheet("m2", [at("Sofia Queiroz Reis", "16")])],
+      sara,
+    );
+    expect(otherNumber.ps).toHaveLength(2);
+    expect([together.m.closeJoined, otherNumber.m.closeJoined]).toEqual([0, 0]);
+  });
+
+  test("a word is a white-space word: a hyphenated surname is one word", () => {
+    expect(testVi("Queiroz, May", "Mayara Queiroz Reis")).toBe(true);
+    expect(testVi("Reis Silva", "Reis Queiroz")).toBe(false);
+    expect(testVi("Jo Lee", "Jo Ann Lee")).toBe(false);
+    expect(testVi("Charlise Hernandez-Tersigni", "C Hernandez-Abraham")).toBe(false);
   });
 });
 

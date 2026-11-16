@@ -207,6 +207,29 @@ export function nameWords(name: string): Set<string> {
 
 export type CloseTest = "i" | "ii" | "iii" | "iv" | "v";
 
+/** [M5] The folded words of a name in order, given names first, each white
+ *  space word folded as test (ii) folds it; words that fold to nothing are
+ *  dropped before the first is taken. */
+export function nameWordList(name: string): string[] {
+  return givenFirst(name).split(/\s+/).map(foldLetters).filter(Boolean);
+}
+
+/**
+ * [M5] Test (vi), for N2a only and only with a shirt number in common (the
+ * caller checks the number): the two names' first folded words begin with the
+ * same letter, and some folded word of four or more letters is in both names
+ * and is the first word of neither. "May Queiroz" and "Mayara Queiroz Reis".
+ */
+export function testVi(a: string, b: string): boolean {
+  const wa = nameWordList(a);
+  const wb = nameWordList(b);
+  const fa = wa[0];
+  const fb = wb[0];
+  if (!fa || !fb || fa[0] !== fb[0]) return false;
+  const inB = new Set(wb);
+  return wa.some((w) => w.length >= 4 && w !== fa && w !== fb && inB.has(w));
+}
+
 /**
  * The closeness tests two names pass, on names folded as in 4.1: (i) the edit
  * distance of the folded full names is at most 2, or at most 15% of the longer
@@ -380,8 +403,10 @@ export interface JoinMeasures {
   /** [N2d] Players dropped as team rows. */
   teamRows: number;
   /** [N2a] Players joined to a roster player; refused by the page-id rule;
-   *  left alone because two or more roster players qualified. */
+   *  left alone because two or more roster players qualified. [M5] Of the
+   *  joined, those whose names only test (vi) holds for. */
   closeJoined: number;
+  closeJoinedVi: number;
   closeRefused: number;
   closeAmbiguous: number;
 }
@@ -393,6 +418,7 @@ export const emptyJoinMeasures = (): JoinMeasures => ({
   rosterFoundUntied: 0,
   teamRows: 0,
   closeJoined: 0,
+  closeJoinedVi: 0,
   closeRefused: 0,
   closeAmbiguous: 0,
 });
@@ -533,7 +559,8 @@ function join(
   // [N2a] The fifth pass, over the groups pass 4 left, every pair judged
   // before any is merged: an untied group joins the only tied one it shares
   // no record with, whose name is loosely close, and with which it shares a
-  // shirt number, or, for a close name, when it prints none. [IR-18] A tied
+  // shirt number, or, for a close name, when it prints none. [M5] Or whose
+  // name test (vi) holds for, with a shirt number in common. [IR-18] A tied
   // group's numbers are its lines' and its roster line's.
   const printed = (r: number, idx: readonly number[]): string => {
     const entry = tie[r];
@@ -557,23 +584,33 @@ function join(
   }
   const byRoot = (a: number, b: number) => a - b;
   const tied = [...info.keys()].filter((r) => tie[r] !== null).sort(byRoot);
-  const plan: [number, number][] = [];
+  const plan: [number, number, boolean][] = [];
   for (const b of [...info.keys()].filter((r) => tie[r] === null).sort(byRoot)) {
     const ib = info.get(b) as { records: Set<string>; numbers: Set<string>; name: string };
+    const viOnly = new Set<number>();
     const found = tied.filter((a) => {
       const ia = info.get(a) as { records: Set<string>; numbers: Set<string>; name: string };
       if (intersects(ia.records, ib.records)) return false;
+      const shared = intersects(ia.numbers, ib.numbers);
       const t = closeTests(ia.name, ib.name);
-      if (t.size === 0) return false;
+      if (t.size === 0) {
+        // [M5] Not loosely close: (vi), with a shirt number in common.
+        if (!shared || !testVi(ia.name, ib.name)) return false;
+        viOnly.add(a);
+        return true;
+      }
       const close = t.has("i") || t.has("ii") || t.has("iv");
-      return intersects(ia.numbers, ib.numbers) || (ib.numbers.size === 0 && close);
+      return shared || (ib.numbers.size === 0 && close);
     });
-    if (found.length === 1) plan.push([b, found[0] as number]);
+    const [only] = found;
+    if (found.length === 1 && only !== undefined) plan.push([b, only, viOnly.has(only)]);
     else if (found.length > 1) measures.closeAmbiguous++;
   }
-  for (const [b, a] of plan) {
-    if (merge(a, b)) measures.closeJoined++;
-    else measures.closeRefused++;
+  for (const [b, a, vi] of plan) {
+    if (merge(a, b)) {
+      measures.closeJoined++;
+      if (vi) measures.closeJoinedVi++;
+    } else measures.closeRefused++;
   }
   if (plan.length > 0) groups = collect();
   const roots = [...groups.keys()];
