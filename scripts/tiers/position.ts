@@ -9,6 +9,13 @@
 // never copied: a published form it learns is learned here too. Everything
 // else in section 3 stands (below): the roster line first, else the most
 // common box-score group, a tie to the group seen first in date order.
+//
+// [N3, contract 2.3] A roster label that names two or more groups is not read
+// as its first: its parts (split on '/', '\' and ',', or on '-' when the label
+// is hyphen-joined initials such as "F-M") are each read by positionLine, and
+// the one most common among the player's box-score labels that season wins, a
+// tie to the one seen first in date order. When none of them appears there,
+// the label is read whole, as before.
 
 import { type Line, positionLine } from "../../src/lib/format.ts";
 import type { PositionGroup } from "../../src/lib/tiers.ts";
@@ -30,16 +37,54 @@ export function group(label: string | undefined | null): PositionGroup | null {
   return line === null ? null : GROUP_OF_LINE[line];
 }
 
+/** Hyphen-joined initials, trimmed and lower-cased: "f-m", "mf-d", "gk-d". */
+const HYPHEN_INITIALS = /^(gk|mf|[a-z])(-(gk|mf|[a-z]))+$/;
+
 /**
- * The group of the roster line's label; else the most common group among the
- * box-score labels, which come in date order, a tie going to the tied group
- * that appears first; else null (status incomplete, reason no_position).
+ * [N3] A roster label's group: positionLine of the whole label, unless its
+ * parts name two or more different groups; then the part most common among
+ * the box-score labels (in date order, a tie to the one seen first), or the
+ * whole label's when none of them appears there. `byBox` says the box scores
+ * decided it against the whole label's reading.
+ */
+export function rosterGroup(
+  label: string | undefined | null,
+  boxLabels: readonly (string | undefined | null)[],
+): { group: PositionGroup | null; byBox: boolean } {
+  const whole = group(label);
+  if (typeof label !== "string" || label === "") return { group: whole, byBox: false };
+  const pieces = HYPHEN_INITIALS.test(label.trim().toLowerCase())
+    ? label.split("-")
+    : label.split(/[/\\,]/);
+  const parts: PositionGroup[] = [];
+  for (const piece of pieces) {
+    const g = group(piece);
+    if (g !== null && !parts.includes(g)) parts.push(g);
+  }
+  if (parts.length < 2) return { group: whole, byBox: false };
+  const box = boxLabels.map(group).filter((g): g is PositionGroup => g !== null);
+  const counts = new Map<PositionGroup, number>();
+  for (const g of box) counts.set(g, (counts.get(g) ?? 0) + 1);
+  let best: PositionGroup | null = null;
+  for (const g of box) {
+    if (!parts.includes(g)) continue;
+    if (best === null || (counts.get(g) as number) > (counts.get(best) as number)) best = g;
+  }
+  if (best === null) return { group: whole, byBox: false };
+  return { group: best, byBox: best !== whole };
+}
+
+/**
+ * The group of the roster line's label [N3: rosterGroup]; else the most
+ * common group among the box-score labels, which come in date order, a tie
+ * going to the tied group that appears first; else null (status incomplete,
+ * reason no_position).
  */
 export function groupOf(
   rosterLabel: string | undefined | null,
   boxLabels: readonly (string | undefined | null)[],
 ): PositionGroup | null {
-  const fromRoster = group(rosterLabel);
+  const fromRoster = rosterGroup(rosterLabel, boxLabels).group;
   if (fromRoster !== null) return fromRoster;
   return mostCommonGroup(boxLabels);
 }

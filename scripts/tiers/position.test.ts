@@ -3,7 +3,7 @@
 
 import { describe, expect, test } from "bun:test";
 import { positionLine } from "../../src/lib/format.ts";
-import { boxGroupTied, GROUP_OF_LINE, group, groupOf } from "./position.ts";
+import { boxGroupTied, GROUP_OF_LINE, group, groupOf, rosterGroup } from "./position.ts";
 
 describe("R-F: group(label) is positionLine, mapped", () => {
   test("GK is GK, DEF is D, MID is M, FWD is F; null, undefined and empty have no group", () => {
@@ -79,5 +79,47 @@ describe("groupOf: the roster line first, then the box scores", () => {
   test("neither source gives a group: null (status incomplete, reason no_position)", () => {
     expect(groupOf(undefined, [])).toBeNull();
     expect(groupOf("Utility", ["FM", null, "20"])).toBeNull();
+  });
+});
+
+describe("[N3] a roster label naming two groups: the one the box scores show most", () => {
+  test("parts split on '/', '\\' and ','; the most common in the box scores wins", () => {
+    // positionLine reads "D/M" as its first, D; the box scores say M twice, D once.
+    expect(group("D/M")).toBe("D");
+    expect(rosterGroup("D/M", ["MID", "DEF", "MID"])).toEqual({ group: "M", byBox: true });
+    expect(rosterGroup("Midfielder, Forward", ["F", "F"])).toEqual({ group: "F", byBox: true });
+    expect(rosterGroup("D\\F", ["FWD"]).group).toBe("F");
+    // The box scores agree with the first: decided, but not against it.
+    expect(rosterGroup("D/M", ["DEF"])).toEqual({ group: "D", byBox: false });
+    expect(groupOf("D/M", ["MID", "DEF", "MID"])).toBe("M");
+  });
+
+  test("a tie goes to the part seen first in date order", () => {
+    expect(rosterGroup("D/M", ["MID", "DEF"]).group).toBe("M");
+    expect(rosterGroup("D/M", ["DEF", "MID"]).group).toBe("D");
+    // Labels of a group the roster does not name neither count nor order.
+    expect(rosterGroup("D/M", ["FWD", "FWD", "MID"]).group).toBe("M");
+  });
+
+  test("none of the parts in the box scores: the label read whole", () => {
+    expect(rosterGroup("D/M", ["FWD", "GK"])).toEqual({ group: "D", byBox: false });
+    expect(rosterGroup("D/M", [])).toEqual({ group: "D", byBox: false });
+  });
+
+  test("hyphen-joined initials split on '-'; other hyphenated labels do not", () => {
+    expect(group("F-M")).toBe("F");
+    expect(rosterGroup("F-M", ["MID", "MID"]).group).toBe("M");
+    expect(rosterGroup(" mf-d ", ["DEF"]).group).toBe("D");
+    expect(rosterGroup("GK-F", ["FWD"]).group).toBe("F");
+    // "Center-Back" is a word, not initials: one part, one group.
+    expect(rosterGroup("Center-Back", ["MID", "MID"])).toEqual({ group: "D", byBox: false });
+    expect(rosterGroup("Forward-Midfielder", ["FWD"]).group).toBe("M");
+  });
+
+  test("a label naming one group, or none, is read as before", () => {
+    expect(rosterGroup("Forward", ["DEF", "DEF"])).toEqual({ group: "F", byBox: false });
+    expect(rosterGroup("F/F", ["MID"]).group).toBe("F");
+    expect(rosterGroup("Utility", ["MID"]).group).toBeNull();
+    expect(rosterGroup(null, ["MID"]).group).toBeNull();
   });
 });

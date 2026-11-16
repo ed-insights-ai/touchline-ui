@@ -63,7 +63,7 @@ import {
   splitSpellingPairs,
   statsRowFor,
 } from "./players.ts";
-import { boxGroupTied, groupOf, group as groupOfLabel } from "./position.ts";
+import { boxGroupTied, group as groupOfLabel, mostCommonGroup, rosterGroup } from "./position.ts";
 import {
   COUNTS_MINUTES,
   estimate,
@@ -136,6 +136,9 @@ export interface Measures {
   doubledRecords: number;
   join: JoinMeasures;
   boxGroupTies: number;
+  /** [N3] Players whose two-group roster label the box scores decided
+   *  against the whole label's reading. */
+  rosterGroupByBox: number;
   noRosterLine: number;
   rosterLabelNoGroup: number;
   splitPairs: number;
@@ -216,6 +219,7 @@ const emptyMeasures = (): Measures => ({
   doubledRecords: 0,
   join: emptyJoinMeasures(),
   boxGroupTies: 0,
+  rosterGroupByBox: 0,
   noRosterLine: 0,
   rosterLabelNoGroup: 0,
   splitPairs: 0,
@@ -437,7 +441,10 @@ export function computeGender(
             measures.unplacedClassYears.set(cy, (measures.unplacedClassYears.get(cy) ?? 0) + 1);
           }
         }
-        const g = groupOf(p.roster?.position, p.labels);
+        // Section 3, [N3] a roster label naming two groups read by the box scores.
+        const fromRoster = rosterGroup(p.roster?.position, p.labels);
+        if (fromRoster.byBox) measures.rosterGroupByBox++;
+        const g = fromRoster.group ?? mostCommonGroup(p.labels);
         if (groupOfLabel(p.roster?.position) === null && boxGroupTied(p.labels)) {
           measures.boxGroupTies++;
         }
