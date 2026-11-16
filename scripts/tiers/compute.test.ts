@@ -159,21 +159,29 @@ function season(
   };
 }
 
+/** The season with one player's shirt number changed on his roster line and
+ *  on every box-score line. */
+function renumber(cs: ConferenceSeason, slug: Slug, name: string, number: string) {
+  const who = person(slug, name);
+  for (const p of cs.rosters?.rosters[slug]?.players ?? []) if (p.name === who) p.number = number;
+  for (const m of Object.values(cs.matches?.matches ?? {})) {
+    for (const t of m.teams) for (const l of t.players ?? []) if (l.name === who) l.number = number;
+  }
+  return cs;
+}
+
 // In 2026 one of gamma's defenders is listed two class years below 2025's
-// (Junior, then Freshman): a contradicted link, so that player's 2025 season
-// is not theirs. [N2c] A home town no longer contradicts one.
+// (Junior, then Freshman) and wears another shirt number (#2, then #12): a
+// contradicted link, so that player's 2025 season is not theirs. [M6] With a
+// number in common the same-key link would hold. [N2c] A home town no longer
+// contradicts one.
+const classFell = (slug: Slug, name: string) =>
+  slug === "gamma" && name === "Back Two" ? "Freshman" : "Senior";
 const result = computeGender(
   "men",
   new Map([
     [2025, [season(2025, () => "Junior")]],
-    [
-      2026,
-      [
-        season(2026, (slug, name) =>
-          slug === "gamma" && name === "Back Two" ? "Freshman" : "Senior",
-        ),
-      ],
-    ],
+    [2026, [renumber(season(2026, classFell), "gamma", "Back Two", "12")]],
   ]),
 );
 const s2025 = result.seasons[0] as SeasonResult;
@@ -257,6 +265,15 @@ describe("a toy division, end to end", () => {
     expect(back?.status).toBe("needs_second_season");
     expect(back?.basis.seasons).toEqual([2026]);
     expect(find(s2026, "gamma", "Back Three")?.basis.seasons).toEqual([2025, 2026]);
+    // [M6] The same fall of two class steps, with #2 in both seasons: linked.
+    const kept = computeGender(
+      "men",
+      new Map([
+        [2025, [season(2025, () => "Junior")]],
+        [2026, [season(2026, classFell)]],
+      ]),
+    ).seasons[1] as SeasonResult;
+    expect(find(kept, "gamma", "Back Two")?.basis.seasons).toEqual([2025, 2026]);
   });
 
   test("nothing about a person but their name, number and published basis leaves the build", () => {

@@ -11,6 +11,7 @@ import {
   closeLink,
   closeTests,
   contradicts,
+  contradictsSameKey,
   emptyJoinMeasures,
   isTeamRow,
   type JoinMeasures,
@@ -1123,5 +1124,19 @@ describe("4.4: the same person across seasons", () => {
     expect(contradicts(year("Senior (Fifth Year)"), year("Freshman"))).toBe(true);
     // A string naming no year never contradicts.
     expect(contradicts(year("Redshirt"), year("Freshman"))).toBe(false);
+  });
+
+  test("[M6] a same-key link is refused on class only when no shirt number is shared", () => {
+    // Josiah Fontenot, West Florida: Junior #7 in 2023, Freshman #7 in 2024.
+    const season = (class_year: string, numbers: string[]) =>
+      ({
+        roster: roster({ name: "Josiah Fontenot", class_year }),
+        numbers: new Set(numbers),
+      }) as unknown as PlayerSeason;
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Freshman", ["7"]))).toBe(false);
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Freshman", ["17"]))).toBe(true);
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Freshman", []))).toBe(true);
+    // A fall of one step never refused.
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Sophomore", ["17"]))).toBe(false);
   });
 });

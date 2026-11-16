@@ -919,6 +919,14 @@ export function contradicts(earlier: Player | null, later: Player | null): boole
   return ra !== null && rb !== null && rb <= ra - 2;
 }
 
+/** [M6] Whether the class-year rule refuses a same-key link (4.4): the class
+ *  year falls by two or more steps and the two share no shirt number (IR-18:
+ *  the numbers on the box-score lines and on the roster line). A close-name
+ *  link (N2c) keeps the rule as written (`contradicts`). */
+export function contradictsSameKey(earlier: PlayerSeason, later: PlayerSeason): boolean {
+  return contradicts(earlier.roster, later.roster) && !intersects(earlier.numbers, later.numbers);
+}
+
 /** The player at the season before with the same key; when several have it,
  *  the only one who shares a shirt number with him [IR-18: the numbers on his
  *  box-score lines and on his roster line]; else null. */

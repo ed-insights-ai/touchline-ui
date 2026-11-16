@@ -56,7 +56,7 @@ import {
   applyStatsPenalties,
   classStep,
   closeLink,
-  contradicts,
+  contradictsSameKey,
   emptyJoinMeasures,
   type JoinMeasures,
   type JoinOptions,
@@ -547,7 +547,9 @@ export function computeGender(
           continue;
         }
         const prev = earlier.find((e) => e.p === prevP) as Rated;
-        if (contradicts(prev.p.roster, r.p.roster)) {
+        // [M6] The class-year rule refuses a same-key link only when the two
+        // share no shirt number.
+        if (contradictsSameKey(prev.p, r.p)) {
           measures.contradictedLinks++;
           continue;
         }
