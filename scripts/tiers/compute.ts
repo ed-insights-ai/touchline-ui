@@ -128,6 +128,16 @@ export interface Measures {
    *  published under two opponent slugs ("concordia" and "concordia-irvine"),
    *  which no grouping by slug pair can merge. */
   sameDayDoubles: string[];
+  /** Penalty plays reading AWARDED: the contract counts each as an attempt. */
+  penaltyAwarded: number;
+  /** Penalty plays that say GOAL other than as PENALTY KICK GOAL: the
+   *  contract counts each as a miss. */
+  penaltyGoalElsewhere: number;
+  /** Player-seasons incomplete for no_position; those with no label at all;
+   *  and every label the others carry (roster and box score), once a player. */
+  noPosition: number;
+  noPositionUnlabelled: number;
+  noPositionLabels: Map<string, number>;
   penaltyCompared: number;
   penaltyGaps: PenaltyGap[];
   penaltyNoStatsLine: number;
@@ -220,6 +230,11 @@ const emptyMeasures = (): Measures => ({
   noMinutesProgrammes: [],
   teamsWithoutMatches: [],
   sameDayDoubles: [],
+  penaltyAwarded: 0,
+  penaltyGoalElsewhere: 0,
+  noPosition: 0,
+  noPositionUnlabelled: 0,
+  noPositionLabels: new Map(),
   penaltyCompared: 0,
   penaltyGaps: [],
   penaltyNoStatsLine: 0,
@@ -304,7 +319,10 @@ export function computeGender(
       if (m.detail) {
         for (const play of m.detail.plays ?? []) {
           if (isGoalPlay(play)) measures.goalPlays++;
-          if (play.type === "penalty" && isPenaltyGoalText(play.text)) measures.penaltyGoalPlays++;
+          if (play.type !== "penalty") continue;
+          if (isPenaltyGoalText(play.text)) measures.penaltyGoalPlays++;
+          else if (/GOAL/i.test(play.text)) measures.penaltyGoalElsewhere++;
+          if (/AWARDED/i.test(play.text)) measures.penaltyAwarded++;
         }
         pens = readPenalties(m.detail);
         measures.penaltyPlays += pens.credits.length + pens.unattributed.length;
@@ -426,6 +444,18 @@ export function computeGender(
         };
       });
       rated.set(slug, entries);
+      for (const r of entries) {
+        if (r.reason !== "no_position") continue;
+        measures.noPosition++;
+        const labels = new Set(
+          [r.roster?.position ?? null, ...r.p.labels].filter(
+            (l): l is string => l !== null && l.trim() !== "",
+          ),
+        );
+        if (labels.size === 0) measures.noPositionUnlabelled++;
+        const tally = measures.noPositionLabels;
+        for (const l of labels) tally.set(l, (tally.get(l) ?? 0) + 1);
+      }
     }
     ratedBySeason.set(season, rated);
 

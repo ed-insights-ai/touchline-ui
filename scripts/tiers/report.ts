@@ -4,6 +4,25 @@
 
 import type { TierEntry, TiersFile } from "../../src/lib/tiers.ts";
 import type { GenderResult, SeasonResult } from "./compute.ts";
+import { onRoundingTie } from "./output.ts";
+
+/** Team figures of one file whose double sits exactly on a .x5 (only .25 and
+ *  .75 can), where half-up (toFixed, used here) and half-to-even (Python's
+ *  round) print different tenths. Off those, both round the same double the
+ *  same way, so a figure that is .x5 in exact arithmetic but stored a hair
+ *  below prints the lower tenth in either. */
+function roundingTies(r: SeasonResult): number {
+  let ties = 0;
+  for (const t of r.teams) {
+    const raw = [
+      t.matches > 0 ? t.shotsFaced / t.matches : null,
+      t.shotsFaced > 0 ? (100 * t.goalsAgainst) / t.shotsFaced : null,
+      t.expected,
+    ];
+    for (const x of raw) if (x !== null && onRoundingTie(x)) ties++;
+  }
+  return ties;
+}
 
 /** The comparison file's rows: per player and per team, the intermediate
  *  figures. Written to tiers/.debug/, which is gitignored; it holds the
@@ -257,6 +276,27 @@ export function reportMarkdown(
       );
     }
   }
+
+  out.push("");
+  out.push(
+    "| Season | Penalty plays reading AWARDED | Penalty plays saying GOAL elsewhere | no_position / with no label | Team figures on a rounding tie |",
+  );
+  out.push("| --- | --- | --- | --- | --- |");
+  const labels = new Map<string, number>();
+  for (const g of results) {
+    for (const r of g.seasons) {
+      const m = r.measures;
+      for (const [l, c] of m.noPositionLabels) labels.set(l, (labels.get(l) ?? 0) + c);
+      out.push(
+        `| ${r.season}-${r.gender} | ${m.penaltyAwarded} | ${m.penaltyGoalElsewhere} | ${m.noPosition} / ${m.noPositionUnlabelled} | ${roundingTies(r)} |`,
+      );
+    }
+  }
+  const top = [...labels]
+    .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
+    .slice(0, 15)
+    .map(([l, c]) => `\`${JSON.stringify(l)}\` ${c}`);
+  out.push(`\nLabels carried by no_position players, all files: ${top.join(", ") || "none"}.`);
 
   out.push("\n### Penalty check (section 4): play-by-play penalty goals against the stats file\n");
   out.push(
