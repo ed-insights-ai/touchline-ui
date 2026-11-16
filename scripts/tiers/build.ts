@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
-// The player-tiers build: ALGORITHM.md (player-tiers 0.6) over the data home.
+// The player-tiers build: ALGORITHM.md (version 2.2) over the data home.
 //
-//   bun run scripts/tiers/build.ts --out tiers/d2 [--frozen-at YYYY-MM-DD]
+//   bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16
 //
 // Reads every season 2022 to 2026, men and women, through the site's own
 // loaders (src/lib/data.ts), fits the opponent model jointly over the five
@@ -9,6 +9,9 @@
 // it, in a `.debug/` directory next to --out (tiers/.debug, gitignored), it
 // writes the comparison rows and the measured report the build log quotes.
 // Those hold intermediate estimates and must never be committed or imported.
+// The report's acceptance 11.4 table needs a second computation of each gender
+// with the roster pass of 4.2 switched off; nothing of it is written but the
+// two counts.
 //
 // The data home is read-only: nothing here opens a file in it for writing,
 // and an --out inside it is refused.
@@ -30,7 +33,7 @@ import { ncaaDivision } from "../../src/site.config.ts";
 import { computeGender, FIRST_SEASON, LAST_SEASON } from "./compute.ts";
 import type { ConferenceSeason } from "./matches.ts";
 import { buildArtifact, serialize } from "./output.ts";
-import { debugFile, penaltyGapsCsv, reportMarkdown } from "./report.ts";
+import { debugFile, reportMarkdown, statsChangesCsv } from "./report.ts";
 
 const GENDERS: readonly Gender[] = ["men", "women"];
 
@@ -110,6 +113,7 @@ function main(): void {
   mkdirSync(debugDir, { recursive: true });
 
   const results = [];
+  const before = [];
   const files: TiersFile[] = [];
   for (const gender of GENDERS) {
     const started = Date.now();
@@ -136,10 +140,11 @@ function main(): void {
       console.log(`tiers: wrote ${join(args.out, name)}`);
     }
     results.push(g);
+    before.push(computeGender(gender, data, { rosterPass: false }));
   }
   const header = `Built ${args.frozenAt} from data home ${root} at ${commit}.\n\n`;
-  writeFileSync(join(debugDir, "report.md"), header + reportMarkdown(results, files));
-  writeFileSync(join(debugDir, "penalty-gaps.csv"), penaltyGapsCsv(results));
+  writeFileSync(join(debugDir, "report.md"), header + reportMarkdown(results, files, before));
+  writeFileSync(join(debugDir, "stats-penalties.csv"), statsChangesCsv(results));
   console.log(`tiers: report at ${join(debugDir, "report.md")}`);
 }
 

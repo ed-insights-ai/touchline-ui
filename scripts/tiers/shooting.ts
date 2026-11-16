@@ -34,8 +34,11 @@ export function threat(gender: Gender, adjG: number, adjS: number, minutes: numb
 }
 
 /** A season counts: at least 600 minutes in it at this programme, group F or M. */
-export const seasonCounts = (minutes: number, g: PositionGroup | null): boolean =>
-  isShootingGroup(g) && minutes >= COUNTS_MINUTES;
+export const seasonCounts = (
+  minutes: number,
+  g: PositionGroup | null,
+  incomplete = false,
+): boolean => !incomplete && isShootingGroup(g) && minutes >= COUNTS_MINUTES;
 
 /** Eligible: group F or M, and at least 900 minutes this season, or at least
  *  600 this season with the season before counting. */

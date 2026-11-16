@@ -1,4 +1,5 @@
-// ALGORITHM.md section 8: the team defence tier, for defenders and goalkeepers.
+// ALGORITHM.md section 8 (version 2): the team defence tier, for defenders and
+// goalkeepers. No 2022 player can hold it: 2021 is out of scope (section 0).
 
 import type { PositionGroup, Workload } from "../../src/lib/tiers.ts";
 import { topWithTies } from "./cut.ts";
@@ -12,13 +13,21 @@ export const DEFENCE_PERCENT = 20;
 
 export const isDefenceGroup = (g: PositionGroup | null): boolean => g === "D" || g === "GK";
 
-/** share = player minutes / (n × 90). Zero when the team has no matches. */
-export const share = (minutes: number, n: number): number => (n > 0 ? minutes / (n * 90) : 0);
+/** [v2] share = player minutes / (m × 90), where m is the number of the
+ *  programme's records that season in which its box score prints minutes for
+ *  at least one player. Zero when m is zero. */
+export const share = (minutes: number, m: number): number => (m > 0 ? minutes / (m * 90) : 0);
 
 /** A regular: a defender with at least 900 minutes and share ≥ 0.70; a
- *  goalkeeper with at least 600 minutes and share ≥ 0.50. */
-export function isRegular(g: PositionGroup | null, minutes: number, n: number): boolean {
-  const s = share(minutes, n);
+ *  goalkeeper with at least 600 minutes and share ≥ 0.50; and not incomplete. */
+export function isRegular(
+  g: PositionGroup | null,
+  minutes: number,
+  m: number,
+  incomplete = false,
+): boolean {
+  if (incomplete) return false;
+  const s = share(minutes, m);
   if (g === "D") return minutes >= DEFENDER_MINUTES && s >= DEFENDER_SHARE;
   if (g === "GK") return minutes >= KEEPER_MINUTES && s >= KEEPER_SHARE;
   return false;

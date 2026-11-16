@@ -1,9 +1,10 @@
-// The whole contract for one gender, every season at once: the opponent model
-// is fitted jointly across the seasons (section 2), and a player's earlier
-// seasons at the programme feed sections 5 and 8. Pure over loaded files: the
-// CLI (build.ts) reads the data home and writes what this returns.
+// The whole contract (ALGORITHM.md version 2.2) for one gender, every season
+// at once: the opponent model is fitted jointly across the seasons (section
+// 2), and a player's earlier seasons at the programme feed sections 5 and 8.
+// Pure over loaded files: the CLI (build.ts) reads the data home and writes
+// what this returns.
 
-import type { Gender, MatchPlayerLine, MatchTeam, Player, StatsFile } from "../../src/lib/model.ts";
+import type { Gender, MatchPlayerLine } from "../../src/lib/model.ts";
 import { isGoalPlay } from "../../src/lib/plays.ts";
 import type {
   IncompleteReason,
@@ -12,7 +13,6 @@ import type {
   TierKind,
   TierStatus,
 } from "../../src/lib/tiers.ts";
-import { foldKey } from "../../src/lib/tiers.ts";
 import {
   careerRecord,
   type DefenceSeason,
@@ -38,16 +38,21 @@ import {
   type Venue,
   venueFactor,
 } from "./opponents.ts";
-import { isPenaltyGoalText, readPenalties } from "./penalties.ts";
+import { isPenaltyAttempt, isPenaltyGoalText, readPenalties } from "./penalties.ts";
 import {
+  applyStatsPenalties,
+  classStep,
   contradicts,
+  type JoinMeasures,
+  type JoinOptions,
   type PlayerSeason,
   playerSeasons,
-  rosterEntryFor,
   type Sheet,
   type SheetLine,
+  type StatsPenaltyChange,
   sameName,
   splitSpellingPairs,
+  statsRowFor,
 } from "./players.ts";
 import { boxGroupTied, groupOf, group as groupOfLabel } from "./position.ts";
 import {
@@ -69,7 +74,6 @@ export const LAST_SEASON = 2026;
 /** One player-season after every section has run. */
 export interface Rated {
   p: PlayerSeason;
-  roster: Player | null;
   group: PositionGroup | null;
   kind: TierKind | null;
   status: TierStatus;
@@ -82,6 +86,7 @@ export interface Rated {
   career: number | null;
   regular: boolean;
   defence: DefenceSeason | null;
+  statsChange: StatsPenaltyChange | null;
   /** The basis the entry prints. */
   basisSeasons: number[];
   basisMinutes: number;
@@ -98,57 +103,51 @@ export interface SeasonResult {
   measures: Measures;
 }
 
-export interface PenaltyGap {
-  programme: string;
-  name: string;
-  playByPlay: number;
-  stats: number;
-}
-
 /** What the build log reports beyond the artifact. */
 export interface Measures {
   boundaries: { first: number; second: number } | null;
-  penaltyPlays: number;
+  /** Penalty plays that are attempts, and those no line was found for. */
+  penaltyAttempts: number;
   penaltyUnattributed: number;
+  /** Penalty plays that are not attempts (AWARDED, or a `*` note). */
+  penaltyNotAttempts: number;
+  /** Penalty attempts that are goals, and every goal play. */
   penaltyGoalPlays: number;
   goalPlays: number;
-  keeperOnlyLines: number;
   linesSkippedNoMinutes: number;
-  multiIdPlayers: number;
-  twiceOnOneSheet: number;
+  /** Player-records with two or more lines on one sheet (counted once). */
+  doubledRecords: number;
+  join: JoinMeasures;
   boxGroupTies: number;
-  rosterLabelUnrecognised: number;
-  noRosterEntry: number;
+  noRosterLine: number;
+  rosterLabelNoGroup: number;
   splitPairs: number;
   contradictedLinks: number;
   ambiguousLinks: number;
   noMinutesProgrammes: string[];
   teamsWithoutMatches: string[];
-  /** Collected programme-days holding two or more physical matches: one match
-   *  published under two opponent slugs ("concordia" and "concordia-irvine"),
-   *  which no grouping by slug pair can merge. */
+  /** Collected programme-days still holding two records after one match a day. */
   sameDayDoubles: string[];
-  /** Penalty plays reading AWARDED: the contract counts each as an attempt. */
-  penaltyAwarded: number;
-  /** Penalty plays that say GOAL other than as PENALTY KICK GOAL: the
-   *  contract counts each as a miss. */
-  penaltyGoalElsewhere: number;
-  /** Player-seasons incomplete for no_position; those with no label at all;
-   *  and every label the others carry (roster and box score), once a player. */
   noPosition: number;
   noPositionUnlabelled: number;
   noPositionLabels: Map<string, number>;
-  penaltyCompared: number;
-  penaltyGaps: PenaltyGap[];
-  penaltyNoStatsLine: number;
-  penaltyStatsUnpublished: number;
+  /** Roster class years the 4.4 ladder cannot place, with how many lines. */
+  unplacedClassYears: Map<string, number>;
+  /** Players incomplete for identity, and of them those with 600+ minutes. */
+  identity: number;
+  identity600: number;
+  /** Player-seasons the second penalty source changed. */
+  statsChanges: { programme: string; name: string; change: StatsPenaltyChange }[];
+  /** m of section 8 per collected programme: records whose box score prints
+   *  minutes for at least one of its players. */
+  withMinutes: Map<string, number>;
 }
 
 const integer = (x: number | null | undefined): x is number =>
   typeof x === "number" && Number.isInteger(x);
 
-/** The model rows of one season's matches: one row per side per match where
- *  y is an integer. */
+/** The model rows of one season's records: one row per side per record
+ *  where y is an integer. */
 export function modelRows(matches: readonly PhysicalMatch[]): {
   goals: ModelRow[];
   shots: ModelRow[];
@@ -170,20 +169,7 @@ export function modelRows(matches: readonly PhysicalMatch[]): {
   return { goals, shots };
 }
 
-/** A side's box-score lines: every players[] line, plus a keepers[] line whose
- *  name the players[] table does not carry (the keeper is otherwise listed in
- *  both, and counting both would count their minutes twice). */
-export function sideLines(team: MatchTeam): { lines: MatchPlayerLine[]; keeperOnly: number } {
-  const players = team.players ?? [];
-  const names = new Set(players.map((l) => l.name));
-  const extra = (team.keepers ?? []).filter((k) => !names.has(k.name));
-  return { lines: [...players, ...extra], keeperOnly: extra.length };
-}
-
-function toSheetLine(
-  line: MatchPlayerLine,
-  pen: { goals: number; attempts: number } | undefined,
-): SheetLine {
+export function toSheetLine(line: MatchPlayerLine): SheetLine {
   return {
     name: line.name,
     playerId: line.player_id ?? null,
@@ -194,51 +180,36 @@ function toSheetLine(
     minutes: typeof line.minutes === "number" ? line.minutes : null,
     goals: line.goals ?? 0,
     shots: line.shots ?? 0,
-    penGoals: pen?.goals ?? 0,
-    penAttempts: pen?.attempts ?? 0,
   };
-}
-
-/** The stats file's line for a player-season: by page id, else by folded name
- *  with the shirt number settling a tie. */
-function statsLineFor(p: PlayerSeason, stats: StatsFile | null) {
-  const team = stats?.teams[p.programme];
-  if (!team) return null;
-  const byId = team.players.filter((x) => x.player_id !== undefined && p.ids.has(x.player_id));
-  const pool = byId.length > 0 ? byId : team.players.filter((x) => foldKey(x.name) === p.key);
-  if (pool.length === 1) return pool[0] ?? null;
-  const byNumber = pool.filter((x) => x.number !== undefined && p.numbers.has(x.number));
-  return byNumber.length === 1 ? (byNumber[0] ?? null) : null;
 }
 
 const emptyMeasures = (): Measures => ({
   boundaries: null,
-  penaltyPlays: 0,
+  penaltyAttempts: 0,
   penaltyUnattributed: 0,
+  penaltyNotAttempts: 0,
   penaltyGoalPlays: 0,
   goalPlays: 0,
-  keeperOnlyLines: 0,
   linesSkippedNoMinutes: 0,
-  multiIdPlayers: 0,
-  twiceOnOneSheet: 0,
+  doubledRecords: 0,
+  join: { blocked: 0, rosterFound: 0, rosterConflicts: 0 },
   boxGroupTies: 0,
-  rosterLabelUnrecognised: 0,
-  noRosterEntry: 0,
+  noRosterLine: 0,
+  rosterLabelNoGroup: 0,
   splitPairs: 0,
   contradictedLinks: 0,
   ambiguousLinks: 0,
   noMinutesProgrammes: [],
   teamsWithoutMatches: [],
   sameDayDoubles: [],
-  penaltyAwarded: 0,
-  penaltyGoalElsewhere: 0,
   noPosition: 0,
   noPositionUnlabelled: 0,
   noPositionLabels: new Map(),
-  penaltyCompared: 0,
-  penaltyGaps: [],
-  penaltyNoStatsLine: 0,
-  penaltyStatsUnpublished: 0,
+  unplacedClassYears: new Map(),
+  identity: 0,
+  identity600: 0,
+  statsChanges: [],
+  withMinutes: new Map(),
 });
 
 export interface GenderResult {
@@ -248,12 +219,19 @@ export interface GenderResult {
   seasons: SeasonResult[];
 }
 
+export interface ComputeOptions {
+  /** Section 4.2's roster pass; off only to measure acceptance 11.4. */
+  rosterPass: boolean;
+}
+
 /** Every season of one gender. `data` holds each season's conference files. */
 export function computeGender(
   gender: Gender,
   data: ReadonlyMap<number, readonly ConferenceSeason[]>,
+  options: ComputeOptions = { rosterPass: true },
 ): GenderResult {
   const seasons = [...data.keys()].sort((a, b) => a - b);
+  const join: JoinOptions = { rosterPass: options.rosterPass };
 
   // ── Section 1, then section 2 over all five seasons ───────────────────────
   const folded = new Map<number, { matches: PhysicalMatch[]; counts: FoldCounts }>();
@@ -280,87 +258,68 @@ export function computeGender(
     };
     const measures = emptyMeasures();
 
-    // Collected programmes this season, and the files each one's lives in.
+    // Collected programmes this season (section 0), and each one's files.
     const memberOf = new Map<string, ConferenceSeason>();
     for (const c of confs) {
       for (const p of c.fixtures.programmes) if (!memberOf.has(p.slug)) memberOf.set(p.slug, c);
     }
 
-    // ── Sheets and team matches per collected programme ─────────────────────
+    // ── Sheets, team records and m per collected programme ──────────────────
     const sheets = new Map<string, Sheet[]>();
     const teamMatches = new Map<string, TeamMatch[]>();
+    const withMinutes = new Map<string, number>();
     for (const slug of memberOf.keys()) {
       sheets.set(slug, []);
       teamMatches.set(slug, []);
+      withMinutes.set(slug, 0);
     }
     for (const m of matches) {
       const hv: Venue = m.neutral ? "neutral" : "home";
-      const sides = [
-        {
-          slug: m.home,
-          opp: m.away,
-          venue: hv,
-          team: m.homeTeam,
-          oppTeam: m.awayTeam,
-          gf: m.homeGoals,
-          ga: m.awayGoals,
-        },
-        {
-          slug: m.away,
-          opp: m.home,
-          venue: otherVenue(hv),
-          team: m.awayTeam,
-          oppTeam: m.homeTeam,
-          gf: m.awayGoals,
-          ga: m.homeGoals,
-        },
-      ];
-      let pens: ReturnType<typeof readPenalties> | null = null;
-      if (m.detail) {
-        for (const play of m.detail.plays ?? []) {
-          if (isGoalPlay(play)) measures.goalPlays++;
-          if (play.type !== "penalty") continue;
-          if (isPenaltyGoalText(play.text)) measures.penaltyGoalPlays++;
-          else if (/GOAL/i.test(play.text)) measures.penaltyGoalElsewhere++;
-          if (/AWARDED/i.test(play.text)) measures.penaltyAwarded++;
-        }
-        pens = readPenalties(m.detail);
-        measures.penaltyPlays += pens.credits.length + pens.unattributed.length;
-        measures.penaltyUnattributed += pens.unattributed.length;
+      for (const play of m.detail.plays ?? []) {
+        if (isGoalPlay(play)) measures.goalPlays++;
+        if (isPenaltyAttempt(play) && isPenaltyGoalText(play.text)) measures.penaltyGoalPlays++;
       }
-      for (const side of sides) {
+      const pens = readPenalties(m.detail);
+      measures.penaltyAttempts += pens.credits.length + pens.unattributed.length;
+      measures.penaltyUnattributed += pens.unattributed.length;
+      measures.penaltyNotAttempts += pens.notAttempts;
+      const sides = [
+        { slug: m.home, opp: m.away, venue: hv, team: m.homeTeam, oppTeam: m.awayTeam },
+        { slug: m.away, opp: m.home, venue: otherVenue(hv), team: m.awayTeam, oppTeam: m.homeTeam },
+      ];
+      const scores = [
+        [m.homeGoals, m.awayGoals],
+        [m.awayGoals, m.homeGoals],
+      ];
+      sides.forEach((side, k) => {
         const tm = teamMatches.get(side.slug);
-        if (!tm) continue; // not a collected programme
+        if (!tm) return; // not a collected programme
         tm.push({
           opponent: teamId(season, side.opp),
           venue: side.venue,
-          goalsFor: side.gf,
-          goalsAgainst: side.ga,
+          goalsFor: scores[k]?.[0] ?? null,
+          goalsAgainst: scores[k]?.[1] ?? null,
           shotsFor: integer(side.team?.shots) ? (side.team?.shots as number) : null,
           shotsAgainst: integer(side.oppTeam?.shots) ? (side.oppTeam?.shots as number) : null,
         });
-        if (!side.team || !m.detail) continue;
+        if (!side.team) return;
         const sideIndex = m.detail.teams.indexOf(side.team);
-        const credit = new Map<MatchPlayerLine, { goals: number; attempts: number }>();
-        for (const c of pens?.credits ?? []) {
-          if (c.side !== sideIndex) continue;
-          const t = credit.get(c.line) ?? { goals: 0, attempts: 0 };
-          t.attempts += 1;
-          if (c.goal) t.goals += 1;
-          credit.set(c.line, t);
+        const lines = (side.team.players ?? []).map(toSheetLine);
+        measures.linesSkippedNoMinutes += lines.filter((l) => l.minutes === null).length;
+        if (lines.some((l) => l.minutes !== null)) {
+          withMinutes.set(side.slug, (withMinutes.get(side.slug) ?? 0) + 1);
         }
-        const { lines, keeperOnly } = sideLines(side.team);
-        measures.keeperOnlyLines += keeperOnly;
-        const sheetLines = lines.map((l) => toSheetLine(l, credit.get(l)));
-        measures.linesSkippedNoMinutes += sheetLines.filter((l) => l.minutes === null).length;
         (sheets.get(side.slug) as Sheet[]).push({
           identity: m.identity,
           date: m.date,
           opponent: teamId(season, side.opp),
           venue: side.venue,
-          lines: sheetLines,
+          lines,
+          credits: pens.credits
+            .filter((c) => c.side === sideIndex)
+            .map((c) => ({ lines: c.lines, goal: c.goal })),
         });
-      }
+      });
     }
 
     const days = new Map<string, number>();
@@ -372,8 +331,9 @@ export function computeGender(
       }
     }
     measures.sameDayDoubles = [...days].filter(([, c]) => c > 1).map(([k]) => k);
+    measures.withMinutes = withMinutes;
 
-    // ── Sections 6 and 7 ─────────────────────────────────────────────────────
+    // ── Sections 6 and 7, over collected programme-seasons ──────────────────
     const totals = [...memberOf.keys()].map((slug) =>
       teamTotals(slug, teamMatches.get(slug) ?? [], goals),
     );
@@ -389,11 +349,12 @@ export function computeGender(
     });
     const rated = new Map<string, Rated[]>();
     for (const [slug, list] of sheets) {
-      const ps = playerSeasons(slug, season, list, scale);
-      if (ps.length === 0) continue;
+      if (list.length === 0) continue;
       const conf = memberOf.get(slug) as ConferenceSeason;
       const roster = conf.rosters?.rosters[slug]?.players ?? [];
-      const noMinutes = !ps.some((p) => p.printedMinutes);
+      const ps = playerSeasons(slug, season, list, roster, scale, join, measures.join);
+      if (ps.length === 0) continue;
+      const noMinutes = !list.some((sh) => sh.lines.some((l) => l.minutes !== null));
       if (noMinutes) measures.noMinutesProgrammes.push(slug);
       const identity = new Set<number>();
       const pairs = splitSpellingPairs(ps);
@@ -402,22 +363,29 @@ export function computeGender(
         identity.add(i);
         identity.add(j);
       }
-      for (const p of ps) {
-        if (p.ids.size > 1) measures.multiIdPlayers++;
-        if (p.sheets.size < p.lineCount) measures.twiceOnOneSheet++;
-      }
+      const statsRows = conf.stats?.teams[slug]?.players ?? [];
+      const team = teamBySlug.get(slug);
+      const m = withMinutes.get(slug) ?? 0;
       const entries: Rated[] = ps.map((p, i) => {
-        const entry = rosterEntryFor(p, roster);
-        if (entry === null) measures.noRosterEntry++;
-        else if (entry.position && groupOfLabel(entry.position) === null) {
-          measures.rosterLabelUnrecognised++;
+        measures.doubledRecords += p.doubled;
+        const statsChange = applyStatsPenalties(p, statsRowFor(p, statsRows));
+        if (statsChange)
+          measures.statsChanges.push({ programme: slug, name: p.name, change: statsChange });
+        if (p.roster === null) measures.noRosterLine++;
+        else {
+          if (groupOfLabel(p.roster.position) === null) measures.rosterLabelNoGroup++;
+          const cy = p.roster.class_year?.trim();
+          if (cy && classStep(cy) === null) {
+            measures.unplacedClassYears.set(cy, (measures.unplacedClassYears.get(cy) ?? 0) + 1);
+          }
         }
-        const g = groupOf(entry?.position, p.labels);
-        if (groupOfLabel(entry?.position) === null && boxGroupTied(p.labels))
+        const g = groupOf(p.roster?.position, p.labels);
+        if (groupOfLabel(p.roster?.position) === null && boxGroupTied(p.labels)) {
           measures.boxGroupTies++;
+        }
         const kind: TierKind | null =
           g === null ? null : isShootingGroup(g) ? "shooting_scoring" : "team_defence";
-        const team = teamBySlug.get(slug);
+        // Section 4.7: the first reason that applies, in this order.
         let reason: IncompleteReason | null = null;
         if (noMinutes) reason = "no_minutes";
         else if (g === null) reason = "no_position";
@@ -425,7 +393,6 @@ export function computeGender(
         else if (isDefenceGroup(g) && (team?.workload ?? null) === null) reason = "few_matches";
         return {
           p,
-          roster: entry,
           group: g,
           kind,
           status: reason === null ? "needs_minutes" : "incomplete",
@@ -436,8 +403,9 @@ export function computeGender(
           estimate: null,
           counted: [],
           career: null,
-          regular: isRegular(g, p.minutes, team?.matches ?? 0),
+          regular: isRegular(g, p.minutes, m, reason !== null),
           defence: null,
+          statsChange,
           basisSeasons: [season],
           basisMinutes: p.minutes,
           basisMatches: p.matches,
@@ -445,10 +413,14 @@ export function computeGender(
       });
       rated.set(slug, entries);
       for (const r of entries) {
+        if (r.reason === "identity") {
+          measures.identity++;
+          if (r.p.minutes >= COUNTS_MINUTES) measures.identity600++;
+        }
         if (r.reason !== "no_position") continue;
         measures.noPosition++;
         const labels = new Set(
-          [r.roster?.position ?? null, ...r.p.labels].filter(
+          [r.p.roster?.position ?? null, ...r.p.labels].filter(
             (l): l is string => l !== null && l.trim() !== "",
           ),
         );
@@ -459,20 +431,19 @@ export function computeGender(
     }
     ratedBySeason.set(season, rated);
 
-    // ── The cross-season link (section 4) ───────────────────────────────────
+    // ── Section 4.4: the same person across seasons ─────────────────────────
     const before = ratedBySeason.get(season - 1);
     for (const [slug, list] of rated) {
       const earlier = before?.get(slug) ?? [];
       const earlierPs = earlier.map((r) => r.p);
       for (const r of list) {
-        const sameKey = earlier.filter((e) => e.p.key === r.p.key).length;
         const prevP = sameName(r.p, earlierPs);
         if (prevP === null) {
-          if (sameKey > 1) measures.ambiguousLinks++;
+          if (earlier.filter((e) => e.p.key === r.p.key).length > 1) measures.ambiguousLinks++;
           continue;
         }
         const prev = earlier.find((e) => e.p === prevP) as Rated;
-        if (contradicts(prev.roster, r.roster)) {
+        if (contradicts(prev.p.roster, r.p.roster)) {
           measures.contradictedLinks++;
           continue;
         }
@@ -483,29 +454,31 @@ export function computeGender(
     // ── Section 5: shooting and scoring ─────────────────────────────────────
     const all = [...rated.values()].flat();
     for (const g of ["F", "M"] as const) {
-      const pool = all.filter((r) => r.group === g && r.p.minutes >= COUNTS_MINUTES);
-      const avg = groupAverage(pool.map((r) => r.threat as number));
+      // An incomplete player is in no pool and no average (4.7).
+      const complete = all.filter((r) => r.group === g && r.reason === null);
+      const avg = groupAverage(
+        complete.filter((r) => r.p.minutes >= COUNTS_MINUTES).map((r) => r.threat as number),
+      );
       const eligible: { id: string; value: number; r: Rated }[] = [];
-      all
-        .filter((r) => r.group === g && r.status !== "incomplete")
-        .forEach((r, idx) => {
-          const prev = r.previous;
-          const prevCounts = prev !== null && seasonCounts(prev.p.minutes, prev.group);
-          if (!shootingEligible(r.p.minutes, r.group, prevCounts)) return;
-          r.estimate = estimate(
-            gender,
-            r.threat as number,
-            avg as number,
-            prevCounts ? (prev?.threat as number) : null,
-          );
-          r.status = "eligible";
-          if (prevCounts && prev) {
-            r.basisSeasons = [season - 1, season];
-            r.basisMinutes = prev.p.minutes + r.p.minutes;
-            r.basisMatches = prev.p.matches + r.p.matches;
-          }
-          eligible.push({ id: String(idx), value: r.estimate, r });
-        });
+      complete.forEach((r, idx) => {
+        const prev = r.previous;
+        const prevCounts =
+          prev !== null && seasonCounts(prev.p.minutes, prev.group, prev.reason !== null);
+        if (!shootingEligible(r.p.minutes, r.group, prevCounts)) return;
+        r.estimate = estimate(
+          gender,
+          r.threat as number,
+          avg as number,
+          prevCounts ? (prev?.threat as number) : null,
+        );
+        r.status = "eligible";
+        if (prevCounts && prev) {
+          r.basisSeasons = [season - 1, season];
+          r.basisMinutes = prev.p.minutes + r.p.minutes;
+          r.basisMatches = prev.p.matches + r.p.matches;
+        }
+        eligible.push({ id: String(idx), value: r.estimate, r });
+      });
       const tiers = shootingTiers(eligible);
       for (const e of eligible) {
         const t = tiers.get(e.id);
@@ -532,7 +505,7 @@ export function computeGender(
     }
     const pool: { id: string; value: number; r: Rated }[] = [];
     all
-      .filter((r) => isDefenceGroup(r.group) && r.status !== "incomplete")
+      .filter((r) => isDefenceGroup(r.group) && r.reason === null)
       .forEach((r, idx) => {
         const counted = seasonsCounted(r.defence as DefenceSeason);
         r.counted = counted.map((s) => s.season);
@@ -567,31 +540,6 @@ export function computeGender(
       }
     }
 
-    // ── The penalty check (section 4) ───────────────────────────────────────
-    for (const [slug, list] of rated) {
-      const stats = (memberOf.get(slug) as ConferenceSeason).stats;
-      for (const r of list) {
-        const line = statsLineFor(r.p, stats);
-        if (line === null) {
-          if (r.p.penGoals > 0) measures.penaltyNoStatsLine++;
-          continue;
-        }
-        if (line.penalty_goals === undefined) {
-          if (r.p.penGoals > 0) measures.penaltyStatsUnpublished++;
-          continue;
-        }
-        measures.penaltyCompared++;
-        if (line.penalty_goals !== r.p.penGoals) {
-          measures.penaltyGaps.push({
-            programme: slug,
-            name: r.p.name,
-            playByPlay: r.p.penGoals,
-            stats: line.penalty_goals,
-          });
-        }
-      }
-    }
-
     // ── Entries (section 10) ────────────────────────────────────────────────
     const entries = new Map<string, TierEntry[]>();
     for (const [slug, list] of rated) {
@@ -611,7 +559,7 @@ export function computeGender(
             minutes: r.basisMinutes,
             matches: r.basisMatches,
             seasons: r.basisSeasons,
-            class_year: r.roster?.class_year?.trim() ? (r.roster.class_year as string) : null,
+            class_year: r.p.roster?.class_year?.trim() ? (r.p.roster.class_year as string) : null,
           },
         })),
       );
