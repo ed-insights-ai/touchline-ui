@@ -238,6 +238,19 @@ export const isClose = (a: string, b: string): boolean => {
   return t.has("i") || t.has("ii") || t.has("iv");
 };
 
+/** [IR-18] The shirt numbers a roster line prints: its number split on "/",
+ *  each part kept when it is all digits once trimmed, leading zeros dropped
+ *  ("29/28" gives 29 and 28; "RS", "DP", "5A" and "" give none). A player's
+ *  shirt numbers are his box-score lines' and these. */
+export function rosterNumbers(row: Player | null | undefined): Set<string> {
+  const out = new Set<string>();
+  for (const part of (row?.number ?? "").split("/")) {
+    const t = part.trim();
+    if (/^[0-9]+$/.test(t)) out.add(shirtNumber(t));
+  }
+  return out;
+}
+
 /** [N2c] A home town as evidence for a link: the text before the first comma,
  *  folded by steps 2 to 4 of 4.1. */
 export const townKey = (town: string | undefined): string =>
@@ -505,7 +518,8 @@ function join(
   // [N2a] The fifth pass, over the groups pass 4 left, every pair judged
   // before any is merged: an untied group joins the only tied one it shares
   // no record with, whose name is loosely close, and with which it shares a
-  // shirt number, or, for a close name, when it prints none.
+  // shirt number, or, for a close name, when it prints none. [IR-18] A tied
+  // group's numbers are its lines' and its roster line's.
   const printed = (r: number, idx: readonly number[]): string => {
     const entry = tie[r];
     const row = entry ? roster.entries.get(entry) : undefined;
@@ -515,9 +529,14 @@ function join(
   };
   const info = new Map<number, { records: Set<string>; numbers: Set<string>; name: string }>();
   for (const [r, idx] of groups) {
+    const entry = tie[r];
+    const numbers = new Set(
+      idx.map((i) => shirtNumber((flat[i] as Flat).line.number)).filter(Boolean),
+    );
+    for (const n of rosterNumbers(entry ? roster.entries.get(entry) : undefined)) numbers.add(n);
     info.set(r, {
       records: new Set(idx.map((i) => (flat[i] as Flat).sheet.identity)),
-      numbers: new Set(idx.map((i) => shirtNumber((flat[i] as Flat).line.number)).filter(Boolean)),
+      numbers,
       name: printed(r, idx),
     });
   }
@@ -603,7 +622,11 @@ export function playerSeasons(
       joinKey: foldName(joinName),
       playerId,
       number: mostCommon(lines.flatMap((l) => (l.number ? [l.number] : []))),
-      numbers: new Set(lines.map((l) => shirtNumber(l.number)).filter(Boolean)),
+      // [IR-18] The box-score lines' numbers and the roster line's.
+      numbers: new Set([
+        ...lines.map((l) => shirtNumber(l.number)).filter(Boolean),
+        ...rosterNumbers(rosterRow),
+      ]),
       sheets: new Set(entries.map((e) => e.sheet.identity)),
       labels: lines.map((l) => l.position),
       lineCount: lines.length,
@@ -836,16 +859,15 @@ export function contradicts(earlier: Player | null, later: Player | null): boole
 }
 
 /** The player at the season before with the same key; when several have it,
- *  the one with the same shirt number (leading zeros dropped); else null. */
+ *  the only one who shares a shirt number with him [IR-18: the numbers on his
+ *  box-score lines and on his roster line]; else null. */
 export function sameName(
   current: PlayerSeason,
   earlier: readonly PlayerSeason[],
 ): PlayerSeason | null {
   const byKey = earlier.filter((p) => p.key === current.key);
   if (byKey.length <= 1) return byKey[0] ?? null;
-  const shirt = shirtNumber(current.number);
-  if (!shirt) return null;
-  const byNumber = byKey.filter((p) => shirtNumber(p.number) === shirt);
+  const byNumber = byKey.filter((p) => intersects(p.numbers, current.numbers));
   return byNumber.length === 1 ? (byNumber[0] ?? null) : null;
 }
 

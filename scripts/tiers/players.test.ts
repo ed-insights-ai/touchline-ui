@@ -21,6 +21,7 @@ import {
   rosterBioId,
   rosterIndex,
   rosterLookup,
+  rosterNumbers,
   type Sheet,
   type SheetLine,
   sameName,
@@ -517,6 +518,73 @@ describe("4.5: the name, number and page id an entry prints", () => {
   });
 });
 
+describe("[IR-18] shirt numbers: the box-score lines' and the roster line's", () => {
+  test("a roster number: split on '/', all-digit parts, leading zeros dropped", () => {
+    const of = (number: string | undefined) => [...rosterNumbers(roster({ name: "A B", number }))];
+    expect(of("29/28")).toEqual(["29", "28"]);
+    expect(of(" 07 ")).toEqual(["7"]);
+    expect(of("00")).toEqual(["0"]);
+    // The 250 that are not plain digits: none of these is a number.
+    expect(of("RS")).toEqual([]);
+    expect(of("DP")).toEqual([]);
+    expect(of("5A")).toEqual([]);
+    expect(of("")).toEqual([]);
+    expect(of(undefined)).toEqual([]);
+    expect([...rosterNumbers(null)]).toEqual([]);
+  });
+
+  test("a player's numbers hold his roster line's; the number printed is still the lines'", () => {
+    // Lines print #7 twice; the roster line prints "12": numbers {7, 12}, number "7".
+    const [p] = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee", number: "7", ref: { id: "5", source: "roster" } })]),
+        sheet("m2", [line({ name: "Ann Lee", number: "07", ref: { id: "5", source: "roster" } })]),
+      ],
+      [bio("5", { name: "Ann Lee", number: "12" })],
+    );
+    expect([...(p as PlayerSeason).numbers].sort()).toEqual(["12", "7"]);
+    expect(p?.number).toBe("07");
+  });
+
+  test("[N2a] an untied player joins on the roster line's number", () => {
+    // Alli Parker's lines print #7, her roster line #12; "Alli French" prints #12.
+    // (iii) holds, so the shared number decides: by the roster line, they join.
+    const parker = bio("301", { name: "Alli Parker", number: "12", position: "F" });
+    const sheets = [
+      sheet("m1", [
+        line({ name: "Alli Parker", number: "7", ref: { id: "301", source: "roster" } }),
+      ]),
+      sheet("m2", [line({ name: "Alli French", number: "12" })]),
+    ];
+    const m = measures();
+    expect(join(sheets, [parker], true, m)).toHaveLength(1);
+    expect(m.closeJoined).toBe(1);
+    // A roster line printing "RS" gives no number: no join.
+    expect(join(sheets, [{ ...parker, number: "RS" }])).toHaveLength(2);
+  });
+
+  test("[N2b] a pair on the roster line's number", () => {
+    // "Juan Linares" #7 on his lines, "17" on his roster line; "Juanito Linares"
+    // #17 on his lines; (iv) close, never on one sheet: an unresolved pair.
+    const ps = join(
+      [
+        sheet("m1", [
+          line({ name: "Juan Linares", number: "7", ref: { id: "8", source: "roster" } }),
+        ]),
+        sheet("m2", [
+          line({ name: "Juanito Linares", number: "17", ref: { id: "9", source: "roster" } }),
+        ]),
+      ],
+      [
+        bio("8", { name: "Juan Linares", number: "17" }),
+        bio("9", { name: "Juanito Linares", number: "17" }),
+      ],
+    );
+    expect(ps).toHaveLength(2);
+    expect(splitSpellingPairs(ps)).toEqual([[0, 1]]);
+  });
+});
+
 describe("4.6: minutes, goals and shots, record by record", () => {
   test("a line without minutes is skipped whole, but still says who the person is", () => {
     const [p] = join([
@@ -884,15 +952,20 @@ describe("4.4: the same person across seasons", () => {
     return { ...(ps as PlayerSeason), ...over };
   };
 
-  test("the same key the season before links; several with it settle by shirt number", () => {
-    const now = p("Ann Lee");
+  test("the same key the season before links; several with it: the only one sharing a number [IR-18]", () => {
+    const now = p("Ann Lee"); // numbers {4}
     const before = p("Lee, Ann", { season: 2025 });
     expect(sameName(now, [p("Bea Kim"), before])).toBe(before);
-    const a = p("Ann Lee", { number: "04" });
-    const b = p("Ann Lee", { number: "9" });
+    const n = (...xs: string[]) => ({ numbers: new Set(xs) });
+    const a = p("Ann Lee", n("4", "11"));
+    const b = p("Ann Lee", n("9"));
     expect(sameName(now, [a, b])).toBe(a);
-    expect(sameName(now, [b, p("Ann Lee", { number: "8" })])).toBeNull();
-    expect(sameName(p("Ann Lee", { number: null }), [a, b])).toBeNull();
+    // Two share one, none shares one, he has none: no link.
+    expect(sameName(now, [a, p("Ann Lee", n("4"))])).toBeNull();
+    expect(sameName(now, [b, p("Ann Lee", n("8"))])).toBeNull();
+    expect(sameName(p("Ann Lee", n()), [a, b])).toBeNull();
+    // His roster line's #9 is one of his numbers: b, not a.
+    expect(sameName(p("Ann Lee", n("4", "9")), [p("Ann Lee", n("11")), b])).toBe(b);
   });
 
   test("[N2c] a home town never contradicts a link", () => {
