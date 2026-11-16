@@ -11,7 +11,7 @@
 // anything.
 
 import { describe, expect, test } from "bun:test";
-import { site } from "../site.config.ts";
+import { type NcaaDivisionKey, site } from "../site.config.ts";
 import { BASEMAP_VIEWBOX, STATE_OUTLINES } from "./basemap.ts";
 import { loadSeason } from "./derive.ts";
 import {
@@ -185,25 +185,52 @@ function distanceToPath(d: string, x: number, y: number): number {
  * by distance — a point that drifts further than the peninsula is wide is a
  * wrong point, not a thin coast.
  */
-const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> = {
-  // St. Petersburg (ssc/eckerd) sits on the Pinellas peninsula between Tampa
-  // Bay and the Gulf; the outline draws it too thin to contain the town's
-  // internal point, which lands 1.7px into the bay.
-  eckerd: "Pinellas peninsula",
-  // Wheeling (mec/wheeling) sits on the Ohio River in West Virginia's Northern
-  // Panhandle, a strip of the state a few miles wide between Ohio and
-  // Pennsylvania; the outline draws the river bank coarsely enough that the
-  // city's Gazetteer point lands 0.1px into Ohio.
-  wheeling: "Northern Panhandle",
-  // Marquette (gliac/northern-michigan) sits on the Lake Superior shore of
-  // the Upper Peninsula; the outline draws the lakeshore coarsely enough that
-  // the city's Gazetteer point lands 0.3px into the lake.
-  "northern-michigan": "Lake Superior shore",
-  // Santa Barbara (ccaa/westmont) sits on the Pacific shore under the Santa
-  // Ynez range; the outline draws the coast coarsely enough that the city's
-  // Gazetteer point lands 0.6px into the Pacific.
-  westmont: "Santa Barbara coast",
+const OFFSHORE_BY_DIVISION: Readonly<
+  Partial<Record<NcaaDivisionKey, Readonly<Record<string, string>>>>
+> = {
+  d2: {
+    // St. Petersburg (ssc/eckerd) sits on the Pinellas peninsula between Tampa
+    // Bay and the Gulf; the outline draws it too thin to contain the town's
+    // internal point, which lands 1.7px into the bay.
+    eckerd: "Pinellas peninsula",
+    // Wheeling (mec/wheeling) sits on the Ohio River in West Virginia's Northern
+    // Panhandle, a strip of the state a few miles wide between Ohio and
+    // Pennsylvania; the outline draws the river bank coarsely enough that the
+    // city's Gazetteer point lands 0.1px into Ohio.
+    wheeling: "Northern Panhandle",
+    // Marquette (gliac/northern-michigan) sits on the Lake Superior shore of
+    // the Upper Peninsula; the outline draws the lakeshore coarsely enough that
+    // the city's Gazetteer point lands 0.3px into the lake.
+    "northern-michigan": "Lake Superior shore",
+    // Santa Barbara (ccaa/westmont) sits on the Pacific shore under the Santa
+    // Ynez range; the outline draws the coast coarsely enough that the city's
+    // Gazetteer point lands 0.6px into the Pacific.
+    westmont: "Santa Barbara coast",
+  },
+  // Division I, measured 2026-11-15 over its 2026 members. Each is the same
+  // simplification as above, under a pixel.
+  d1: {
+    // Evanston (b1g/northwestern) is on the Lake Michigan shore; the point
+    // lands 0.3px into the lake.
+    northwestern: "Lake Michigan shore",
+    // Santa Barbara again (bigwest/uc-santa-barbara): westmont's 0.6px.
+    "uc-santa-barbara": "Santa Barbara coast",
+    // West Long Branch (caa/monmouth) is a mile from the Atlantic shore; the
+    // point lands 0.3px into the ocean.
+    monmouth: "Jersey Shore",
+    // Hanover (ivy/dartmouth) is on the Connecticut River, which is the New
+    // Hampshire–Vermont line; the point lands 0.1px into Vermont.
+    dartmouth: "Connecticut River",
+    // NOT here: wcc/san-francisco. Its Gazetteer point (San Francisco city,
+    // 37.7272, -123.0322) is the city's internal point, which the Farallon
+    // Islands pull into the Pacific: 6.7px off the coast, far past any
+    // simplification. That is a wrong point in the data home's reference,
+    // and the test names it until the reference carries a point on land.
+  },
 };
+/** This build's allowance: its own division's towns, and no other's. */
+const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> =
+  OFFSHORE_BY_DIVISION[site.ncaaDivision] ?? {};
 const OFFSHORE_TOLERANCE_PX = 3;
 
 describe("the projection", () => {

@@ -12,6 +12,7 @@ import { describe, expect, test } from "bun:test";
 import { divisions, site } from "../site.config.ts";
 import { loadFixtures } from "./data.ts";
 import { matchIdentity, type Season } from "./derive.ts";
+import { readsD2 } from "./fixtures/facts.ts";
 import { PHASE_DECIDED, PHASE_TOURNAMENT, seasonPhase } from "./journal.ts";
 import { computeTable, type Fixture, type FixtureStage, type FixturesFile } from "./model.ts";
 import { nameBookFor } from "./names.ts";
@@ -547,18 +548,15 @@ describe("a final played level is decided, and names a champion only from a shoo
   const realFinal = (code: string) =>
     divisionPostseason().conference.find((t) => t.codes.includes(code));
 
-  test.skipIf(site.gender !== "men")(
-    "men's MEC: the 1–1 final is decided, no champion named",
-    () => {
-      const t = realFinal("MEC");
-      expect(t?.final?.fixture.date).toBe("2026-11-08");
-      expect(t?.decided).toBe(true);
-      expect(t?.champion).toBeNull();
-      expect(t && verdictLine(t, (s) => s).head).toBe("Final drawn 1–1 · shootout not published");
-    },
-  );
+  test.skipIf(!readsD2("men"))("men's MEC: the 1–1 final is decided, no champion named", () => {
+    const t = realFinal("MEC");
+    expect(t?.final?.fixture.date).toBe("2026-11-08");
+    expect(t?.decided).toBe(true);
+    expect(t?.champion).toBeNull();
+    expect(t && verdictLine(t, (s) => s).head).toBe("Final drawn 1–1 · shootout not published");
+  });
 
-  test.skipIf(site.gender !== "women")(
+  test.skipIf(!readsD2("women"))(
     "women's GLVC and GLIAC: drawn finals are decided, no champion named",
     () => {
       for (const code of ["GLVC", "GLIAC"]) {
@@ -840,7 +838,7 @@ describe("one side, two records, one day: one tie where a record corroborates it
     expect(routeOf(q.ncaa, last, "a").map((t) => t.fixture.date)).toEqual(["2026-11-13"]);
   });
 
-  test.skipIf(site.gender !== "women")(
+  test.skipIf(!readsD2("women"))(
     "women's 2026: Cal State LA plays one second-round tie, and the field has a shape",
     () => {
       const real = divisionPostseason();
@@ -924,7 +922,7 @@ describe("every side of every NCAA tie is a programme the data home knows", () =
   // lists the match (sameDayGroups). A slug neither rule resolves fails here.
   const EXPECTED_UNRESOLVED: Record<string, string[]> = {};
   for (const gender of ["men", "women"] as const) {
-    const files = divisions[gender].conferences.flatMap((key) => {
+    const files = (divisions[gender]?.conferences ?? []).flatMap((key) => {
       try {
         return [{ key, file: loadFixtures(site.season, gender, key) }];
       } catch {

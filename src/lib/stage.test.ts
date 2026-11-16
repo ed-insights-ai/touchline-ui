@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { site } from "../site.config.ts";
 import { fixturesOf, loadSeason, matchIdentity } from "./derive.ts";
 import { stageTag } from "./postseason.ts";
 import { divisionPostseason } from "./postseason-division.ts";
@@ -38,7 +39,7 @@ describe("a postseason match wears the ledger's tag, and only a postseason match
   });
 
   test("a regular-season fixture carries no chip", () => {
-    const s = loadSeason("gac");
+    const s = loadSeason(site.home);
     const p = divisionPostseason();
     for (const slug of s.fixtures.programmes.map((x) => x.slug)) {
       for (const f of fixturesOf(s, slug)) {

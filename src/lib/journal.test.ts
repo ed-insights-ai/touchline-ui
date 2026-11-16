@@ -44,8 +44,14 @@ import {
 
 const seasons = site.conferences.map((k) => loadSeason(k));
 const anySeason = seasons[0] as Season;
-/** A real journal, to lay over a season with fields changed. */
-const anyJournal = seasons.map((s) => loadJournal(s)).find((j) => j !== null) as JournalFile;
+/** A real journal, to lay over a season with fields changed: this build's own
+ *  when one has been written, else the checked-in sample. A build with no
+ *  journal yet (Division I, until its first run) still has every rule here
+ *  held, and a journal is never borrowed from another division to do it. */
+const anyJournal = (seasons.map((s) => loadJournal(s)).find((j) => j !== null) ??
+  journalFileSchema.parse(
+    JSON.parse(readFileSync(join(import.meta.dir, "../../reference/journal.sample.json"), "utf8")),
+  )) as JournalFile;
 
 /** A season copied with every fixture's stage removed. */
 function withoutStages(s: Season): Season {

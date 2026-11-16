@@ -111,7 +111,7 @@ describe("the words a roster prints", () => {
   test("the two-letter positional codes Southwest Baptist 2023 writes", () => {
     // glvc/southwest-baptist, 2023 roster: every player is a code, most are
     // several joined by a slash, and the first listed is the position.
-    for (const p of ["RB", "CB", "LB", "RB/CB/CDM", "LB/RB/CM"]) {
+    for (const p of ["RB", "CB", "LCB", "LB", "RWB", "LWB", "RB/CB/CDM", "LB/RB/CM"]) {
       expect(positionLine(p), p).toBe("DEF");
     }
     for (const p of ["CM", "CDM", "CAM", "CM/CAM/RW", "CDM/CM/CAM/CB", "CAM/CM/LW"]) {
@@ -185,6 +185,12 @@ describe("against the rosters this site actually collects", () => {
       // players once its columns read straight (rib #91).
       "team manager",
       "manager",
+      // Division I: wcc/saint-marys-california 2024, one row, an honorary
+      // roster place the programme published as "12th Man" (no. 87, 4'4").
+      "12th man",
+      // Division I: caa/northeastern 2023, one row whose position column
+      // carries the player's hometown.
+      "marshfield, mass.",
     ];
     // Every collected season, not just the two the site renders: the
     // vocabulary is authored once for the whole archive, and Southwest

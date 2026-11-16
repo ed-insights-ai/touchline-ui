@@ -58,17 +58,21 @@ import {
   teamPageHref,
   unresolved,
 } from "./derive.ts";
+import { readsD2 } from "./fixtures/facts.ts";
 import { dayNumber, daysBetween, dowIndex, friendlies, monShort, toISO } from "./format.ts";
 import type { Fixture, FixturesFile, KeeperStats } from "./model.ts";
 import { computeTable, isForfeit, isPlayed, STATS_SCHEMA } from "./model.ts";
 import { nameBookFor } from "./names.ts";
 import { playerCard } from "./player.ts";
 
-const CONFERENCES = ["gac", "lsc", "gsc"] as const;
+// Division II's first three by name; any other build, its own first three.
+const CONFERENCES = readsD2() ? (["gac", "lsc", "gsc"] as const) : site.conferences.slice(0, 3);
 const seasons = CONFERENCES.map((key) => ({ key, season: loadSeason(key) }));
 
 describe("exhibitions are outside the record", () => {
-  test("every conference publishes some, and none of them count", () => {
+  // Every Division II conference publishes some; Division I's American does
+  // not, so the claim is a fact about that home.
+  test.skipIf(!readsD2())("every conference publishes some, and none of them count", () => {
     for (const { key, season } of seasons) {
       const exhibitions = exhibitionsOf(season);
       expect(exhibitions.length, `${key} should carry exhibitions`).toBeGreaterThan(0);
@@ -79,7 +83,7 @@ describe("exhibitions are outside the record", () => {
     }
   });
 
-  test("a scored exhibition still contributes nothing to a record", () => {
+  test.skipIf(!readsD2())("a scored exhibition still contributes nothing to a record", () => {
     // Saint Mary's played friendlies with published scores — a 3-0 win over a
     // club side and a 1-2 loss. Counting them read 2-0-2 with 5 goals for a
     // side that had scored none.
@@ -243,13 +247,16 @@ describe("opponents link only where a page exists", () => {
     }
   });
 
-  test("a member of another configured conference resolves cross-conference", () => {
-    // UT Tyler appears in GAC fixtures and its team page lives in the LSC.
-    const gac = loadSeason("gac");
-    expect(teamPageHref(gac, "ut-tyler")).toContain("/lsc/team/ut-tyler/");
-  });
+  test.skipIf(!readsD2())(
+    "a member of another configured conference resolves cross-conference",
+    () => {
+      // UT Tyler appears in GAC fixtures and its team page lives in the LSC.
+      const gac = loadSeason("gac");
+      expect(teamPageHref(gac, "ut-tyler")).toContain("/lsc/team/ut-tyler/");
+    },
+  );
 
-  test("a programme in no configured conference gets no link at all", () => {
+  test.skipIf(!readsD2())("a programme in no configured conference gets no link at all", () => {
     // Ecclesia appears in a GAC match report and has a page nowhere.
     const gac = loadSeason("gac");
     expect(teamPageHref(gac, "ecclesia")).toBeNull();
@@ -336,8 +343,9 @@ describe("the table counts conference football and nothing else", () => {
   test("an unflagged friendly between two members takes no conference points", () => {
     // Every exhibition the 2026 collect carries also says conference_game:
     // false, so the real data cannot prove this guard exists. Construct the
-    // fixture the collector has not published yet.
-    const gac = loadSeason("gac");
+    // fixture the collector has not published yet. Any conference will do:
+    // the build's own home.
+    const gac = loadSeason(site.home);
     const [a, b] = gac.fixtures.programmes;
     const friendly = {
       ...(gac.fixtures.fixtures.find((f) => hasScore(f)) as Fixture),
@@ -675,8 +683,13 @@ describe("the goals chart draws one population, and it is the season's", () => {
         const scored = (f.home_score ?? 0) + (f.away_score ?? 0);
         if (scored === 0) continue;
         // The bar holds only countable goals, so a friendly's cannot fit in it.
-        expect(rows.get(f.home)?.goals ?? 0).toBe(ownGoals(season, f.home));
-        expect(rows.get(f.away)?.goals ?? 0).toBe(ownGoals(season, f.away));
+        // Bars are members' alone: an opponent from outside the conference
+        // has none, whatever else it played here (Division I: Daytona State,
+        // a friendly against UCF and a countable match against a member).
+        for (const side of [f.home, f.away]) {
+          const row = rows.get(side);
+          if (row) expect(row.goals, `${side}`).toBe(ownGoals(season, side));
+        }
       }
     }
   });
@@ -847,8 +860,9 @@ describe("a forfeit is the award, and a disputed score is nobody's fact", () => 
 describe("the goalkeeping line is the keeper who kept goal", () => {
   // Fort Hays State 2026, as published: a reserve's one save in thirteen
   // minutes (1.000) beside the starter's 1,679 minutes at .863. Ranked by
-  // the rate, the reserve headlined the team page.
-  const base = loadSeason("gac");
+  // the rate, the reserve headlined the team page. The constructed cases read
+  // any season; the build's own home conference.
+  const base = loadSeason(readsD2() ? "gac" : site.home);
   const withKeepers = (keepers: KeeperStats[]): Season => ({
     ...base,
     stats: {
@@ -901,7 +915,7 @@ describe("the goalkeeping line is the keeper who kept goal", () => {
     expect(leadKeeper(withKeepers([]), "alpha")).toBeNull();
   });
 
-  test("the real Fort Hays State line names Payton Roehrich", () => {
+  test.skipIf(!readsD2())("the real Fort Hays State line names Payton Roehrich", () => {
     const k = leadKeeper(base, "fort-hays-state");
     if (base.stats?.teams["fort-hays-state"]?.keepers.some((x) => x.name === "Payton Roehrich")) {
       expect(k?.name).toBe("Payton Roehrich");

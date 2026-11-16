@@ -137,6 +137,9 @@ const shapeStatus = (f: Fixture): string => (UNPLAYED.has(f.status) ? "unplayed"
 const PENDING: ReadonlySet<Fixture["status"]> = new Set(["scheduled", "postponed"]);
 const isPending = (f: Fixture): boolean => PENDING.has(f.status) && !hasScore(f);
 
+/** A final that posts no result: no score and no forfeit. */
+const isSilentFinal = (f: Fixture): boolean => f.status === "final" && !hasResult(f);
+
 /** The facts two records of one match must agree on once the home side is
  *  set aside: the unordered score and whether the match was played. Order-free
  *  so that two sites each calling itself the home side still compare equal. */
@@ -194,16 +197,29 @@ export function foldToMatches(sightings: readonly Sighting[]): DivisionMatch[] {
     // with their sources, and lets the build stand. Every record must still
     // be a final or a not-yet: a cancelled twin beside any final is the one
     // disagreement that is not about the score, and it still throws.
+    //
+    // A final with no score has said nothing about the result either. The
+    // Division II collector never writes one (rib #85 stores it as
+    // scheduled), but the Division I home's WMT recipe does, on exhibitions
+    // its pages list as played with no score (2026-08-07 VCU v Virginia Tech:
+    // Virginia Tech's page final, VCU's still scheduled). It is read as not
+    // yet here: beside a scored final it is the lag above, and beside another
+    // not-yet record there is no disagreement at all, nothing having been
+    // posted, so the match wears the home conference's record as any match
+    // does. Beside a cancelled twin it still throws.
     const shapes = new Set(group.map((s) => sideFreeShape(s.fixture)));
     const posted = group.filter((s) => hasResult(s.fixture));
-    const spoken = group.every((s) => hasResult(s.fixture) || isPending(s.fixture));
+    const spoken = group.every(
+      (s) => hasResult(s.fixture) || isPending(s.fixture) || isSilentFinal(s.fixture),
+    );
     const disputed = scoresDisagree(group.map((s) => s.fixture)) && spoken;
     const oneSided =
       shapes.size > 1 &&
       posted.length > 0 &&
       new Set(posted.map((s) => sideFreeShape(s.fixture))).size === 1 &&
       spoken;
-    if (shapes.size > 1 && !oneSided && !disputed) {
+    const unposted = posted.length === 0 && spoken;
+    if (shapes.size > 1 && !oneSided && !disputed && !unposted) {
       throw new Error(
         `Touchline: the records of ${identity} disagree on the score or status: ${group
           .map((s) => `${s.key} ${sideFreeShape(s.fixture)} (${s.fixture.status})`)

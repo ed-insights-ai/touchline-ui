@@ -12,7 +12,7 @@
  * that is accounted for.
  */
 
-import { describe, expect, test } from "bun:test";
+import { expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
@@ -28,10 +28,10 @@ import {
   scoredCount,
   unresolved,
 } from "../../src/lib/derive.ts";
+import { describeD2, readsD2 } from "../../src/lib/fixtures/facts.ts";
 import { dayOfMonth, monLong } from "../../src/lib/format.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
 import { WIRE_MAX_CHARS } from "../../src/lib/prose.ts";
-import { site } from "../../src/site.config.ts";
 import { coverageSubject, restatementDrops, validateJournal } from "./validate.ts";
 
 // The season's dateline is pinned. pageFacts() vouches for the date parts of
@@ -43,7 +43,12 @@ import { coverageSubject, restatementDrops, validateJournal } from "./validate.t
 // deliberately 21:07:31, which pageFacts() must ignore. The football is still
 // read live: every derived expectation is computed from this same object.
 const DATELINE = { asOf: "2026-08-30", collectedAt: "2026-08-30T21:07:31Z" };
-const season = { ...loadSeason("gac"), ...DATELINE };
+// The GAC's files, as of the dateline these journals were written against.
+// Every case below is a claim about those rows, so the file runs where the
+// Division II home is read and nowhere else (fixtures/facts.ts).
+const season = (readsD2() ? { ...loadSeason("gac"), ...DATELINE } : null) as ReturnType<
+  typeof loadSeason
+>;
 
 /** A journal with only the fields under test filled in. */
 function journal(over: Partial<JournalFile>): JournalFile {
@@ -67,7 +72,7 @@ const paths = (j: JournalFile): string[] =>
 const unbacked = (j: JournalFile, path: string): string[] =>
   validateJournal(j, season, "test").report.review.find((r) => r.path === path)?.unbacked ?? [];
 
-describe("numbers a reader will believe", () => {
+describeD2("numbers a reader will believe", () => {
   test("a spelled number in the headline with no basis is flagged", () => {
     const j = journal({ headline: "Twenty matches in, the table is still empty." });
     expect(unbacked(j, "headline")).toContain("20");
@@ -171,7 +176,7 @@ const claimOf = (j: JournalFile) =>
 // The data home is re-collected daily and these tests read it live. Every
 // expectation below is computed from the same collect the checker reads, or is
 // true by construction whatever the collect holds — never pinned to a snapshot.
-describe("comparative claims", () => {
+describeD2("comparative claims", () => {
   const rows = goalsForByProgramme(season);
   const top = rows[0];
   const bottom = rows[rows.length - 1];
@@ -250,7 +255,7 @@ describe("comparative claims", () => {
   });
 });
 
-describe("fixture counts read the basis's scope", () => {
+describeD2("fixture counts read the basis's scope", () => {
   // The 2026-09-05 cadence dropped three true findings (LSC Midwestern State,
   // NE10 Saint Anselm and Saint Michael's) because a basis naming a programme
   // had its "played: 3" held against the conference's 26 scored finals. The
@@ -331,7 +336,7 @@ describe("fixture counts read the basis's scope", () => {
   });
 });
 
-describe("set claims", () => {
+describeD2("set claims", () => {
   const u = unresolved(season);
   const silences = [...u.finalsWithoutScore, ...u.pastDateNoResult];
 
@@ -402,7 +407,7 @@ describe("set claims", () => {
   });
 });
 
-describe("the audit is advisory", () => {
+describeD2("the audit is advisory", () => {
   test("an unbacked numeral is never a reason to drop a claim", () => {
     // The basis is READ from the data home, not pinned to a snapshot of it.
     // A collect lands daily; this claim was written with the silences at 3
@@ -441,7 +446,7 @@ describe("the audit is advisory", () => {
  * season headline it used to render, which is the same fallback an old journal
  * with no wire at all takes.
  */
-describe("the wire is checked like a finding, and drops like one", () => {
+describeD2("the wire is checked like a finding, and drops like one", () => {
   const wireOf = (j: JournalFile) => validateJournal(j, season, "test").journal.wire;
 
   test("a wire whose basis the data contradicts is dropped", () => {
@@ -549,7 +554,7 @@ describe("the wire is checked like a finding, and drops like one", () => {
   });
 });
 
-describe("a line that is another line with the words moved", () => {
+describeD2("a line that is another line with the words moved", () => {
   // The CACC dek and featured line of 2026-09-04, which the site gate flagged
   // at 0.90 and this validator had never looked at. The rule is the site's
   // own (src/lib/prose.ts) so the two cannot disagree about a sentence.
@@ -629,7 +634,7 @@ describe("a line that is another line with the words moved", () => {
   });
 });
 
-describe("a disputed score is never read as a fact", () => {
+describeD2("a disputed score is never read as a fact", () => {
   // Two conference files printing different final scores for one match
   // (division.ts foldToMatches). The site shows the home programme's figure
   // with a mark and counts it nowhere; the validator has no figure it may
@@ -656,7 +661,7 @@ describe("a disputed score is never read as a fact", () => {
   });
 });
 
-describe("a finding is about the football, not the collection", () => {
+describeD2("a finding is about the football, not the collection", () => {
   // The two findings the GAC journal of 2026-09-06 opened with, verbatim.
   // Both verified — their figures were true — and both are the masthead's
   // coverage disclosure said again at finding altitude (UI review, 2026-09-06).
@@ -689,7 +694,7 @@ describe("a finding is about the football, not the collection", () => {
   // lines are true of the men's collect only: under the women's division
   // the "no score gap" figure is false, so a numbers check drops it before
   // the coverage rule is ever reached.
-  test.skipIf(site.gender !== "men")(
+  test.skipIf(!readsD2("men"))(
     "a coverage finding is dropped as a claim the CLI can ask about, and the football stands",
     () => {
       const j = journal({

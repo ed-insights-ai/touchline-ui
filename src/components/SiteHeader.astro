@@ -5,9 +5,9 @@
 // and a quiet view nav (Overview, Matches) for the pages of that conference.
 // A match page and the matches page wear it too, where a Season/Matches pair
 // used to stand in for it.
-import { currentDivision, ncaaDivisions, publishedGenders, site } from "../site.config.ts";
+import { currentDivision, deployGenders, ncaaDivisions, publishedGenders, site } from "../site.config.ts";
 import { championshipHref, homeHref, matchesHref, seasonHref, teamHref } from "../lib/derive.ts";
-import { genderHref } from "../lib/gender.ts";
+import { divisionHref, genderHref } from "../lib/gender.ts";
 import type { Season } from "../lib/derive.ts";
 import { homeSeasons } from "../lib/home.ts";
 import { menuColumns } from "../lib/menu.ts";
@@ -64,14 +64,23 @@ const genderLabel = { men: "Men", women: "Women" } as const;
 // The championship tab appears once the season has a postseason match: the
 // page exists from the first collected conference tournament tie.
 const championship = hasPostseason(divisionPostseason()) ? championshipHref() : null;
-const genders = publishedGenders.length > 1
-  ? publishedGenders.map((g) => ({
+// The column appears when the deploy publishes both genders. A gender this
+// division does not field (Division I has no women's build) is a row that
+// says so, never a link to a page that does not exist.
+const genders = deployGenders.length > 1
+  ? deployGenders.map((g) => ({
       key: g,
       label: genderLabel[g],
-      href: genderHref(g, Astro.url.pathname),
+      href: publishedGenders.includes(g) ? genderHref(g, Astro.url.pathname) : null,
       current: g === site.gender,
     }))
   : [];
+// Each published division links to its own build's home; this build's own
+// row is the way home, as it always was.
+const divisionRows = ncaaDivisions.map((d) => ({
+  ...d,
+  href: !d.published ? null : d.key === currentDivision.key ? homeHref() : divisionHref(d.key),
+}));
 ---
 <header class="site-header">
   {/* The wordmark is the way back to the top of the site, so it points at the
@@ -108,11 +117,11 @@ const genders = publishedGenders.length > 1
           <div class="hmenu-col">
             <div class="hmenu-group" role="group" aria-label="NCAA division">
               <div class="hmenu-region">NCAA division</div>
-              {ncaaDivisions.map((d) =>
-                d.published ? (
+              {divisionRows.map((d) =>
+                d.href ? (
                   <a
                     class="mrow"
-                    href={homeHref()}
+                    href={d.href}
                     aria-current={d.key === currentDivision.key ? "page" : undefined}
                   ><span class="mabbr">{d.abbr}</span><span class="mname">{d.name}</span></a>
                 ) : (
@@ -127,13 +136,19 @@ const genders = publishedGenders.length > 1
             <div class="hmenu-col">
               <div class="hmenu-group" role="group" aria-label="Men's and women's">
                 <div class="hmenu-region">Men's and women's</div>
-                {genders.map((g) => (
-                  <a
-                    class="mrow"
-                    href={g.href}
-                    aria-current={g.current ? "page" : undefined}
-                  ><span class="mname">{g.label}</span></a>
-                ))}
+                {genders.map((g) =>
+                  g.href ? (
+                    <a
+                      class="mrow"
+                      href={g.href}
+                      aria-current={g.current ? "page" : undefined}
+                    ><span class="mname">{g.label}</span></a>
+                  ) : (
+                    <span class="mrow mrow-soon" aria-disabled="true"
+                      ><span class="mname">{g.label}</span><span class="msoon">Not covered</span></span
+                    >
+                  ),
+                )}
               </div>
             </div>
           )}

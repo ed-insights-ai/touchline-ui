@@ -9,6 +9,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
+import { site } from "../site.config.ts";
 import { type CoverageFile, coverageFileSchema } from "./coverage.ts";
 import {
   type FixturesFile,
@@ -21,15 +22,20 @@ import {
   statsFileSchema,
 } from "./model.ts";
 
-const DEFAULT_ROOT = join(homedir(), "keelson", "d2-soccer");
-
 function expandTilde(p: string): string {
   return p === "~" || p.startsWith("~/") ? join(homedir(), p.slice(1)) : p;
 }
 
+/** This build's own data home: each NCAA division is its own (site.config
+ *  `dataHome`: ~/keelson/d2-soccer, ~/keelson/d1-soccer), so every read below,
+ *  the cross-conference folds and the career tables included, stays inside
+ *  the division being built. */
+const DEFAULT_ROOT = expandTilde(site.dataHome);
+
 /** The data home's root — the directory that CONTAINS `data/`.
  *
- *  `TOUCHLINE_DATA_DIR` names it, exactly as it does for the rib. Being
+ *  `TOUCHLINE_DATA_DIR` names it, exactly as it does for the rib, for this
+ *  one build; unset, it is the build's division's own home. Being
  *  pointed at the `data/` directory itself is a common enough slip that we
  *  recognise it rather than failing with an empty site. */
 export function dataRoot(): string {

@@ -221,7 +221,8 @@ export const LINE_LABEL: Record<Line, string> = {
 const POSITIONS: readonly [RegExp, Line][] = [
   // Nothing else in the vocabulary contains "keeper".
   // "GKP" is Shorter's 2021 code (gsc/shorter); Truman 2022 writes "Goalie".
-  [/keeper|goalie|^gkp$|^gk$|^g$/, "GK"],
+  // "Goaltender" is Canisius's and Marist's 2024 word (maac).
+  [/keeper|goalie|goaltender|^gkp$|^gk$|^g$/, "GK"],
   // "CM" is centre midfield on Lewis's 2026 roster, beside "MF". Southwest
   // Baptist's 2023 roster (glvc/southwest-baptist) writes the whole squad in
   // positional codes: CM, CDM and CAM are the three midfield roles.
@@ -235,8 +236,11 @@ const POSITIONS: readonly [RegExp, Line][] = [
   // RB, CB and LB are Southwest Baptist 2023's right, centre and left backs.
   // "DF" is Christian Brothers 2020 (gsc/christian-brothers); "FB" is a full
   // back on Saint Edward's 2023; "OB" is an outside back on Adams State 2026
-  // (rmac/adams-state), beside "RB/ST/CDM" and "Center Back".
-  [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lb$|^fb$|^ob$/, "DEF"],
+  // (rmac/adams-state), beside "RB/ST/CDM" and "Center Back". "LCB" is a
+  // left centre back on NC State's roster (acc/nc-state, Division I), and
+  // "RWB" and "LWB" are Queens' right and left wing backs in 2023
+  // (asun/queens-charlotte).
+  [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lcb$|^lb$|^fb$|^ob$|^rwb$|^lwb$/, "DEF"],
   // LW, RW and ST are Southwest Baptist 2023's wings and striker.
   // "FW" is Newman 2022 and Christian Brothers 2020; "FOR" is Shorter 2021;
   // "S" is the striker beside "W" and "W/S" on Saint Edward's 2023. "A" is
@@ -244,7 +248,12 @@ const POSITIONS: readonly [RegExp, Line][] = [
   // Pace 2025 (ne10/pace).
   // "CF" is the centre forward on North Greenville 2023 (cc/north-greenville),
   // beside CAM and LW.
-  [/forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^cf$|^s$|^a$/, "FWD"],
+  // "WF" is South Florida 2026's wide forward (aac/south-florida), beside F.
+  // "ATT" is an attacker on California Baptist 2023 (wac/california-baptist).
+  [
+    /forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^cf$|^s$|^a$|^wf$|^att$/,
+    "FWD",
+  ],
 ];
 
 /**
@@ -307,6 +316,15 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   // Cal State LA 2024 (ccaa/cal-state-la): one "FF" on a roster where every
   // other forward is "F".
   ff: "forward",
+  // Division I, collected 2026-11-15. Fordham 2026 (a10/fordham):
+  // "Midfiedler"; Kentucky 2026 (sunbelt/kentucky): "Midfieder"; Presbyterian
+  // 2026 (bigsouth/presbyterian): "Defemder"; Mercyhurst 2026
+  // (nec/mercyhurst): "Defemse"; UIW 2025 (ovc/uiw): "Forwrard".
+  midfiedler: "midfielder",
+  midfieder: "midfielder",
+  defemder: "defender",
+  defemse: "defense",
+  forwrard: "forward",
 };
 
 /**
@@ -325,6 +343,9 @@ const PUBLISHED_FORMS: Readonly<Record<string, string>> = {
   // Westminster 2026 (rmac/westminster): "Center/ Midfieler" — a centre
   // midfielder whose slash is a stray, not a second position.
   "center/ midfieler": "center midfielder",
+  // Dartmouth 2026 (ivy/dartmouth): one "C/RB" beside "CB" and "D", a centre
+  // or right back. Read whole, the slash would leave a bare "C".
+  "c/rb": "center back",
 };
 
 export function positionLine(position: string | undefined): Line | null {
