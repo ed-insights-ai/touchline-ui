@@ -4,7 +4,7 @@
 // frozen file; copy.test.ts holds the same sentences, composed for every real
 // player, to the house's rules about form.
 
-import { describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { resolve } from "node:path";
 import { tiersConfig, tiersEnabled } from "../tiers.config.ts";
 import {
@@ -73,6 +73,20 @@ function file(over: Partial<TiersFile> = {}): TiersFile {
 // ── The gate ────────────────────────────────────────────────────────────────
 
 describe("the publication gate", () => {
+  // A row's undefined preview means the variable is not set. An undefined
+  // argument takes the parameter's default, which reads the environment, so
+  // the variable is cleared here: the suite also runs with
+  // TOUCHLINE_TIERS_PREVIEW=1, and these rows must not read it.
+  let saved: string | undefined;
+  beforeEach(() => {
+    saved = process.env.TOUCHLINE_TIERS_PREVIEW;
+    delete process.env.TOUCHLINE_TIERS_PREVIEW;
+  });
+  afterEach(() => {
+    if (saved === undefined) delete process.env.TOUCHLINE_TIERS_PREVIEW;
+    else process.env.TOUCHLINE_TIERS_PREVIEW = saved;
+  });
+
   const live = { published: true, correctionsContact: "corrections@example.org" };
   const rows: [string, string | undefined, typeof live | typeof tiersConfig, boolean][] = [
     // Division II: published with a contact, or the preview variable.
