@@ -126,15 +126,17 @@ export function meaningLine(e: TierEntry, programme: string): string {
       }
       return `A tier needs 900 minutes this season, or 600 in each of the last two seasons at ${P}.`;
     case "needs_second_season":
-      return `A regular this season. The team defence tier needs two seasons in a row as a regular at ${P}.`;
+      return `A regular in defence or goal at ${P} this season, but not the season before. The team defence tier needs two such seasons in a row.`;
     case "incomplete":
       switch (e.reason) {
         case "no_minutes":
-          return `${P}'s box scores print no minutes, so playing time cannot be counted.`;
+          return `${P}'s box scores print minutes for too few matches, and its season statistics give none for this player, so playing time cannot be counted.`;
         case "no_position":
-          return `${P}'s roster lists no position for this player.`;
+          return `Neither ${P}'s roster nor its box scores give a position for this player.`;
         case "few_matches":
           return `Fewer than twelve of ${P}'s matches were collected, too few to compare its defending.`;
+        // "identity": the schema sets a reason on every incomplete entry, and
+        // this is the fourth and last it allows.
         default:
           return `The name could not be matched from one ${P} box score to the next, so the season cannot be counted fairly.`;
       }

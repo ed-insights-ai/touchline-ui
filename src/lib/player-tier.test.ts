@@ -206,17 +206,17 @@ describe("the meaning line, for every status and kind", () => {
     [
       "needs a second season",
       { status: "needs_second_season", tier: null, group: "GK", kind: "team_defence" },
-      "A regular this season. The team defence tier needs two seasons in a row as a regular at Calder State.",
+      "A regular in defence or goal at Calder State this season, but not the season before. The team defence tier needs two such seasons in a row.",
     ],
     [
       "incomplete, no minutes",
       { status: "incomplete", tier: null, reason: "no_minutes" },
-      "Calder State's box scores print no minutes, so playing time cannot be counted.",
+      "Calder State's box scores print minutes for too few matches, and its season statistics give none for this player, so playing time cannot be counted.",
     ],
     [
       "incomplete, no position",
       { status: "incomplete", tier: null, reason: "no_position", group: null, kind: null },
-      "Calder State's roster lists no position for this player.",
+      "Neither Calder State's roster nor its box scores give a position for this player.",
     ],
     [
       "incomplete, identity",
