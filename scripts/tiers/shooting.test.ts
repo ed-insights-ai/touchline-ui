@@ -3,6 +3,7 @@
 import { describe, expect, test } from "bun:test";
 import { cutCount, topWithTies } from "./cut.ts";
 import {
+  earlierSeasonCounts,
   estimate,
   groupAverage,
   seasonCounts,
@@ -32,6 +33,20 @@ describe("a season counts, and eligibility, at the minute edges", () => {
     expect(seasonCounts(600, "M")).toBe(true);
     expect(seasonCounts(2000, "D")).toBe(false);
     expect(seasonCounts(2000, null)).toBe(false);
+  });
+
+  test("[N1 (a)] a season the U test made incomplete still counts from 600 box minutes", () => {
+    // (minutes, group, incomplete, made incomplete by the U test)
+    expect(earlierSeasonCounts(630, "F", true, true)).toBe(true);
+    expect(earlierSeasonCounts(600, "M", true, true)).toBe(true);
+    expect(earlierSeasonCounts(599, "F", true, true)).toBe(false);
+    // Incomplete for any other reason (identity, no_position, rule (b)): no.
+    expect(earlierSeasonCounts(1200, "F", true, false)).toBe(false);
+    // Complete: as before.
+    expect(earlierSeasonCounts(600, "F", false, false)).toBe(true);
+    // Defenders and keepers never count here; their run is section 8's.
+    expect(earlierSeasonCounts(1200, "D", true, true)).toBe(false);
+    expect(earlierSeasonCounts(1200, "GK", false, false)).toBe(false);
   });
 
   test("599 and 600: eligible at 600 only when the season before counts", () => {

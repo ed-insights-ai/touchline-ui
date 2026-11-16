@@ -72,10 +72,10 @@ import {
 import { boxGroupTied, group as groupOfLabel, mostCommonGroup, rosterGroup } from "./position.ts";
 import {
   COUNTS_MINUTES,
+  earlierSeasonCounts,
   estimate,
   groupAverage,
   isShootingGroup,
-  seasonCounts,
   shootingEligible,
   shootingTiers,
   threat,
@@ -217,6 +217,13 @@ export function toSheetLine(line: MatchPlayerLine): SheetLine {
     shots: line.shots ?? 0,
   };
 }
+
+/** [N1 (a)] Whether the linked season before counts (section 5): 600 minutes
+ *  as a forward or midfielder, and not incomplete unless only the U test made
+ *  it so (its box minutes are certain). */
+const previousCounts = (prev: Rated | null): boolean =>
+  prev !== null &&
+  earlierSeasonCounts(prev.p.minutes, prev.group, prev.reason !== null, prev.couldReachBar);
 
 const emptyMeasures = (): Measures => ({
   boundaries: null,
@@ -560,8 +567,7 @@ export function computeGender(
       if (r.ofRecord.mode !== "box_partial" || r.group === null) continue;
       if (r.reason !== null && r.reason !== "identity" && r.reason !== "few_matches") continue;
       const prev = r.previous;
-      const prevCounts =
-        prev !== null && seasonCounts(prev.p.minutes, prev.group, prev.reason !== null);
+      const prevCounts = previousCounts(prev);
       if (!couldReachBar(r.group, r.p.minutes, r.records, r.withMinutes, prevCounts)) continue;
       if (r.reason === "identity") {
         measures.identity--;
@@ -584,8 +590,7 @@ export function computeGender(
       const eligible: { id: string; value: number; r: Rated }[] = [];
       complete.forEach((r, idx) => {
         const prev = r.previous;
-        const prevCounts =
-          prev !== null && seasonCounts(prev.p.minutes, prev.group, prev.reason !== null);
+        const prevCounts = previousCounts(prev);
         if (!shootingEligible(r.p.minutes, r.group, prevCounts)) return;
         r.estimate = estimate(
           gender,

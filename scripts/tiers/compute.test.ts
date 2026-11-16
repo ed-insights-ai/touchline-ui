@@ -372,11 +372,21 @@ describe("[N1] box minutes in part: the 0.5 bar and the U test, end to end", () 
     ]);
   });
 
-  test("a season the U test made incomplete does not count the season after", () => {
-    // 2026 gamma prints every minute: 1,080 for each, eligible alone, and the
-    // 2025 season is incomplete, so it neither counts for the forward nor
-    // starts the defender's run; the keeper's two regular seasons do count.
-    expect(find(p2026, "gamma", "Striker Ten")?.basis.seasons).toEqual([2026]);
+  test("a season the U test made incomplete counts the season after from 600 box minutes", () => {
+    // 2026 gamma prints every minute: 12 × 90 = 1,080 for each. The 2025
+    // season is incomplete by the U test alone, and its 630 box minutes are
+    // certain, so it counts for the forward and the midfielder: basis
+    // 630 + 1,080 = 1,710 minutes, 7 + 12 = 19 matches. [N1 (a)]
+    for (const name of ["Striker Ten", "Mid Six"]) {
+      expect(find(p2026, "gamma", name)?.basis).toEqual({
+        minutes: 1710,
+        matches: 19,
+        seasons: [2025, 2026],
+        class_year: "Senior",
+      });
+    }
+    // It is not a regular season, so it starts no defender's run; the
+    // keeper's two regular seasons do count.
     expect(find(p2026, "gamma", "Back Two")?.status).toBe("needs_second_season");
     expect(find(p2026, "gamma", "Keeper")?.basis.seasons).toEqual([2025, 2026]);
   });

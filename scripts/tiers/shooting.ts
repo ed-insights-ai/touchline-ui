@@ -40,6 +40,17 @@ export const seasonCounts = (
   incomplete = false,
 ): boolean => !incomplete && isShootingGroup(g) && minutes >= COUNTS_MINUTES;
 
+/** [N1 (a)] The season before counts when it is not incomplete, or when only
+ *  the U test made it incomplete: "A season the U test made `incomplete` still
+ *  counts as the earlier season when its box minutes reach 600." Its box
+ *  minutes are certain, whatever the missing box scores hold. */
+export const earlierSeasonCounts = (
+  minutes: number,
+  g: PositionGroup | null,
+  incomplete: boolean,
+  uTest: boolean,
+): boolean => seasonCounts(minutes, g, incomplete && !uTest);
+
 /** Eligible: group F or M, and at least 900 minutes this season, or at least
  *  600 this season with the season before counting. */
 export function shootingEligible(
