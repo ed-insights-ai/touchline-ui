@@ -293,7 +293,7 @@ export function computeGender(
       measures.penaltyAttempts += pens.credits.length + pens.unattributed.length;
       measures.penaltyUnattributed += pens.unattributed.length;
       measures.penaltyNotAttempts += pens.notAttempts;
-      // A side's penalty credits come from the copy its lines come from.
+      // [R-A] A side's penalty credits come from the copy its lines come from.
       const creditsOf = (src: SideSource) => {
         let r = readings.get(src.detail);
         if (!r) {

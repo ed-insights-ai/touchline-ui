@@ -286,3 +286,100 @@ describe("R-B: the score and the team shot totals", () => {
     expect([r.home, r.homeShots, r.awayShots, r.neutral]).toEqual(["chico-state", 19, 4, true]);
   });
 });
+
+describe("R-A: each side's lines come from its own site's copy when it prints minutes", () => {
+  /** A copy of host v visitor whose box prints, for each side, lines with or
+   *  without minutes, or none. */
+  type Lines = "minutes" | "no-minutes" | "none";
+  const copy = (id: string, host: Lines, visitor: Lines) => ({ id, host, visitor });
+  const players = (side: string, kind: Lines) =>
+    kind === "none"
+      ? []
+      : [
+          {
+            name: `${side} Keeper`,
+            ...(kind === "minutes" ? { minutes: 90 } : {}),
+          },
+        ];
+  function sides(copies: ReturnType<typeof copy>[]) {
+    const fixtures = copies.map(
+      (c): Fixture =>
+        ({
+          id: c.id,
+          date: "2025-09-06",
+          home: "host",
+          away: "visitor",
+          status: "final",
+          home_score: 1,
+          away_score: 1,
+        }) as Fixture,
+    );
+    const boxes = new Map(
+      copies.map((c) => [
+        c.id,
+        {
+          source_url: "https://example.test/box",
+          home_index: 0,
+          teams: [
+            { name: "Host", periods: [], shots: 5, players: players("Host", c.host) },
+            { name: "Visitor", periods: [], shots: 5, players: players("Visitor", c.visitor) },
+          ],
+        } as MatchDetail,
+      ]),
+    );
+    const r = resolveSides(
+      fixtures.map((fixture) => ({ fixture }) as Sighting),
+      fixtures[0] as Fixture,
+      false,
+      (s) => boxes.get(s.fixture.id) ?? null,
+      () => 0,
+    );
+    return [r.homeSide?.fixtureId, r.awaySide?.fixtureId];
+  }
+
+  test("both copies print minutes: each side reads its own site's copy", () => {
+    // The kept copy is the host's; the visitor's lines still come from the
+    // visitor's own copy, where its page ids are its own roster's.
+    expect(
+      sides([
+        copy("sidearm:host:1", "minutes", "minutes"),
+        copy("sidearm:visitor:2", "minutes", "minutes"),
+      ]),
+    ).toEqual(["sidearm:host:1", "sidearm:visitor:2"]);
+  });
+
+  test("the own copy prints no minutes for the side: the other copy that does", () => {
+    // 2022 men, Concord at Charleston: Concord's own copies print no minutes
+    // for Concord; Charleston's copy prints 90 for Garrett Boucher.
+    expect(
+      sides([
+        copy("sidearm:host:1", "minutes", "minutes"),
+        copy("sidearm:visitor:2", "minutes", "no-minutes"),
+      ]),
+    ).toEqual(["sidearm:host:1", "sidearm:host:1"]);
+  });
+
+  test("no copy prints minutes for the side: the first copy, own first, with any line", () => {
+    expect(
+      sides([
+        copy("sidearm:host:1", "minutes", "no-minutes"),
+        copy("sidearm:visitor:2", "minutes", "no-minutes"),
+      ]),
+    ).toEqual(["sidearm:host:1", "sidearm:visitor:2"]);
+    expect(
+      sides([
+        copy("sidearm:host:1", "minutes", "no-minutes"),
+        copy("sidearm:visitor:2", "minutes", "none"),
+      ]),
+    ).toEqual(["sidearm:host:1", "sidearm:host:1"]);
+  });
+
+  test("with no copy from the side's own site, the other copies in record id order", () => {
+    expect(
+      sides([
+        copy("sidearm:neutral-b:2", "minutes", "minutes"),
+        copy("sidearm:neutral-a:1", "no-minutes", "minutes"),
+      ]),
+    ).toEqual(["sidearm:neutral-b:2", "sidearm:neutral-a:1"]);
+  });
+});

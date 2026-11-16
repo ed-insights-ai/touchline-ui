@@ -1,6 +1,6 @@
 // Section 1, reconciled: which copy of a physical match each figure is read
 // from. Contract 2.2 names the kept copy for the score and no copy for the
-// box score; the reconciliation with the Python build ruled (R-B to R-D, and
+// box score; the reconciliation with the Python build ruled (R-A to R-D, and
 // the orientation rule below; docs/specs/player-tiers/reference/
 // RECONCILIATION.md in ed-insights-platform):
 //
@@ -13,6 +13,10 @@
 // - R-B: the score is the home side's own-site copy's, else the other copy's
 //   (record id order). The team shot totals come from the first box copy, the
 //   home side's own first, whose two totals are both integers.
+// - R-A: each side's lines, and the penalty plays credited to them, come from
+//   its own site's box copy when that copy prints minutes for the side; else
+//   from another copy that does; else (the side has no minutes in the match)
+//   from the first copy with any line for the side.
 // - A box score's two rows are matched to the copy's two slugs by the team
 //   names when the names decide (evidence/build.py's affinity, ported below),
 //   otherwise by `home_index`. A box score neither orients is not a box score.
@@ -209,6 +213,11 @@ interface BoxCopy {
 
 const integer = (x: unknown): x is number => typeof x === "number" && Number.isInteger(x);
 
+const printsMinutes = (team: MatchTeam): boolean =>
+  (team.players ?? []).some((l) => integer(l.minutes));
+
+const hasLines = (team: MatchTeam): boolean => (team.players ?? []).length > 0;
+
 /** Copies ordered for a slug: its own site's first, then the rest, each in
  *  record id order. */
 function ownFirst<T extends { fixture: Fixture }>(copies: readonly T[], slug: string): T[] {
@@ -302,20 +311,23 @@ export function resolveSides(
     }
   }
 
-  // Each side's lines: the kept copy's box score, else the first other copy
-  // with one (the build's reading of 2.2, unchanged here).
-  const keptCopy = boxes.find((c) => c.fixture.id === kept.id) ?? boxes[0];
   const sideOf = (slug: string): SideSource | null => {
-    if (!keptCopy) return null;
-    const row = rowFor(keptCopy, slug);
-    const team = row === null ? undefined : keptCopy.detail.teams[row];
-    if (row === null || !team) return null;
+    const ordered = ownFirst(boxes, slug).flatMap((c) => {
+      const row = rowFor(c, slug);
+      const team = row === null ? undefined : c.detail.teams[row];
+      return row === null || !team ? [] : [{ c, row, team }];
+    });
+    const pick =
+      ordered.find((o) => printsMinutes(o.team)) ??
+      ordered.find((o) => hasLines(o.team)) ??
+      ordered[0];
+    if (!pick) return null;
     return {
-      fixtureId: keptCopy.fixture.id,
-      detail: keptCopy.detail,
-      row,
-      team,
-      own: publisherOf(keptCopy.fixture.id) === slug,
+      fixtureId: pick.c.fixture.id,
+      detail: pick.c.detail,
+      row: pick.row,
+      team: pick.team,
+      own: publisherOf(pick.c.fixture.id) === slug,
     };
   };
 

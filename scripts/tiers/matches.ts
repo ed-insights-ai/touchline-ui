@@ -91,7 +91,7 @@ export interface PhysicalMatch {
   /** Team shot totals by R-B, both from one copy; null when no copy has both. */
   homeShots: number | null;
   awayShots: number | null;
-  /** Each side's lines (and the penalty plays credited to them); null
+  /** Each side's lines (and the penalty plays credited to them) by R-A; null
    *  when no copy carries a box score for that side. */
   homeSide: SideSource | null;
   awaySide: SideSource | null;
