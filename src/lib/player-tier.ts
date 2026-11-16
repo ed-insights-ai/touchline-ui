@@ -19,6 +19,7 @@
 
 import { ncaaDivision, site } from "../site.config.ts";
 import { tiersEnabled } from "../tiers.config.ts";
+import { isScored, type Season } from "./derive.ts";
 import { dayOfMonth, monLong, plural } from "./format.ts";
 import { classFull, playerIdOf } from "./player.ts";
 import {
@@ -193,6 +194,20 @@ export interface SeasonLine {
   played: number;
   appearances: number | null;
   keeperTable: number | null;
+  /** The programme has played since the tiers were set (playedSince). */
+  since: boolean;
+}
+
+/**
+ * Whether the programme has played since the tiers were set. A freeze is
+ * built in the morning from the matches played to the day before, so a match
+ * dated on the freeze day or later is not in it; the sheet's season line is
+ * read live and runs on past the tier's count.
+ */
+export function playedSince(s: Season, slug: string, frozenAt: string): boolean {
+  return s.fixtures.fixtures.some(
+    (f) => (f.home === slug || f.away === slug) && isScored(f) && f.date >= frozenAt,
+  );
 }
 
 /**
@@ -204,6 +219,7 @@ export interface SeasonLine {
 export function seasonLineOf(
   minutes: { played: number; note: string } | null,
   keeperTable?: number | null,
+  since = false,
 ): SeasonLine | null {
   if (!minutes) return null;
   const appearances = /· (\d+) appearances?\b/.exec(minutes.note)?.[1];
@@ -211,6 +227,7 @@ export function seasonLineOf(
     played: minutes.played,
     appearances: appearances === undefined ? null : Number(appearances),
     keeperTable: keeperTable ?? null,
+    since,
   };
 }
 
@@ -222,12 +239,23 @@ export function seasonLineOf(
  * of one season without a word is a silent contradiction, which the minutes
  * bar already refuses for its own two tables (PlayerSheet's minutesSource).
  *
+ * Once the programme has played since the tiers were set, the line above has
+ * run on and the tier has not ("the minutes beside a tier are the minutes to
+ * that day"). A difference then is said as that, whatever else is in it: the
+ * source of a count cannot be told apart from a later match.
+ *
  * Null when the two agree, when the sheet prints no line, when the status
  * prints no basis, and when the basis spans seasons: a sum over seasons names
  * its seasons and is not the season's line.
  */
 export function basisNote(e: TierEntry, line: SeasonLine | null): string | null {
   if (line === null || e.status === "incomplete" || e.basis.seasons.length !== 1) return null;
+  const differs =
+    e.basis.minutes !== line.played ||
+    (line.appearances !== null && e.basis.matches !== line.appearances);
+  if (differs && line.since) {
+    return "Counted to the day the tier was set; the line above includes matches played since.";
+  }
   if (e.basis.minutes !== line.played) {
     return line.keeperTable !== null && e.basis.minutes === line.keeperTable
       ? "Counted from the stats page's goalkeeping table."

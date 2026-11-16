@@ -47,7 +47,13 @@ import {
 } from "./journal.ts";
 import { footNote, metaDescription, oneSourceNote, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
-import { careerTiersLine, earlierTiers, seasonLineOf, sheetTier } from "./player-tier.ts";
+import {
+  careerTiersLine,
+  earlierTiers,
+  playedSince,
+  seasonLineOf,
+  sheetTier,
+} from "./player-tier.ts";
 import {
   DEK_MAX_CHARS,
   HEADLINE_MAX_CHARS,
@@ -200,7 +206,7 @@ function playerCards(s: Season): Line[] {
             slug,
             s.names.name(slug),
             m.player,
-            seasonLineOf(c.minutes, m.keeper?.minutes),
+            seasonLineOf(c.minutes, m.keeper?.minutes, playedSince(s, slug, tiers.frozen_at)),
           )
         : null;
       const career = tiers ? careerTiersLine(earlierTiers(tiers, slug, m.player)) : null;

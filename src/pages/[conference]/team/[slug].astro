@@ -33,7 +33,13 @@ import { countOrigins, originOf } from "../../../lib/origin.ts";
 import { returnedShare, tenureGrid } from "../../../lib/tenure.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
 import TierStyles from "../../../components/TierStyles.astro";
-import { activeTiers, earlierTiers, seasonLineOf, sheetTier } from "../../../lib/player-tier.ts";
+import {
+  activeTiers,
+  earlierTiers,
+  playedSince,
+  seasonLineOf,
+  sheetTier,
+} from "../../../lib/player-tier.ts";
 import { stageChipOf } from "../../../lib/stage.ts";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
@@ -89,12 +95,15 @@ const counts = programmeCounts(season, slug);
 // the publication gate is closed (tiers.config.ts), and then this page draws
 // no tier anywhere: no block, no top line, no CAREER line, no mark, no key.
 const tiers = activeTiers();
+// A programme that has played since the tiers were set has a season line that
+// has run on past the tier's count, and its sheets say so.
+const since = tiers ? playedSince(season, slug, tiers.frozen_at) : false;
 const cards = squadOf(season, slug).map((m) => {
   const card = playerCard(season, slug, m.player, m.stats, m.keeper);
   // The sheet's own MINUTES line goes to the tier with the player: where the
   // tier counts other minutes or appearances than that line prints, the block
   // says where its count comes from.
-  const line = seasonLineOf(card.minutes, m.keeper?.minutes);
+  const line = seasonLineOf(card.minutes, m.keeper?.minutes, since);
   return {
     member: m,
     card,

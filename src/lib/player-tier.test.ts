@@ -17,6 +17,7 @@ import {
   holderLine,
   labelText,
   meaningLine,
+  playedSince,
   type SheetTier,
   seasonLineOf,
   seasonsPhrase,
@@ -326,11 +327,14 @@ describe("the team figures", () => {
     expect(seasonLineOf(null)).toBeNull();
     expect(
       seasonLineOf({ played: 1683, note: "1683 / 1800 · 20 appearances, 20 starts" }, 1679),
-    ).toEqual({ played: 1683, appearances: 20, keeperTable: 1679 });
-    expect(seasonLineOf({ played: 56, note: "56 / 1620 · 1 appearance, 0 starts" })).toEqual({
+    ).toEqual({ played: 1683, appearances: 20, keeperTable: 1679, since: false });
+    expect(
+      seasonLineOf({ played: 56, note: "56 / 1620 · 1 appearance, 0 starts" }, null, true),
+    ).toEqual({
       played: 56,
       appearances: 1,
       keeperTable: null,
+      since: true,
     });
     // A note in another shape still gives its minutes; the appearances are not guessed.
     expect(seasonLineOf({ played: 90, note: "90 minutes" })?.appearances).toBeNull();
@@ -350,10 +354,12 @@ describe("the team figures", () => {
       played: number,
       appearances: number | null,
       keeperTable: number | null = null,
+      since = false,
     ) => ({
       played,
       appearances,
       keeperTable,
+      since,
     });
     // The two agree, or the sheet prints no line: nothing to say.
     expect(basisNote(one(1412, 17), line(1412, 17))).toBeNull();
@@ -387,6 +393,42 @@ describe("the team figures", () => {
     expect(
       basisNote(one(736, 10, { status: "incomplete", reason: "no_minutes" }), line(300, 5)),
     ).toBeNull();
+    // Once the programme has played since the tiers were set, a difference is
+    // said as that: the line above has run on, and the source of a count
+    // cannot be told apart from a later match.
+    const since =
+      "Counted to the day the tier was set; the line above includes matches played since.";
+    expect(basisNote(one(1434, 18), line(1524, 19, null, true))).toBe(since);
+    expect(basisNote(one(1412, 17), line(1412, 18, null, true))).toBe(since);
+    expect(basisNote(one(1620, 18, { group: "GK" }), line(90, 1, 1620, true))).toBe(since);
+    // Played since, and nothing differs: this player did not appear again.
+    expect(basisNote(one(1412, 17), line(1412, 17, null, true))).toBeNull();
+  });
+
+  test("a programme has played since the freeze when a scored match is dated on or after it", () => {
+    const fixtureOn = (date: string, scored: boolean) => ({
+      date,
+      home: "calder",
+      away: "elsewhere",
+      status: scored ? "final" : "scheduled",
+      home_score: scored ? 1 : null,
+      away_score: scored ? 0 : null,
+    });
+    const seasonOf = (...fixtures: ReturnType<typeof fixtureOn>[]) =>
+      ({ fixtures: { fixtures } }) as unknown as Parameters<typeof playedSince>[0];
+    // The freeze holds matches to the day before it.
+    expect(playedSince(seasonOf(fixtureOn("2026-11-15", true)), "calder", "2026-11-16")).toBe(
+      false,
+    );
+    expect(playedSince(seasonOf(fixtureOn("2026-11-16", true)), "calder", "2026-11-16")).toBe(true);
+    expect(playedSince(seasonOf(fixtureOn("2026-11-20", true)), "calder", "2026-11-16")).toBe(true);
+    // A match still to be played, or somebody else's, is not one.
+    expect(playedSince(seasonOf(fixtureOn("2026-11-20", false)), "calder", "2026-11-16")).toBe(
+      false,
+    );
+    expect(playedSince(seasonOf(fixtureOn("2026-11-20", true)), "nobody", "2026-11-16")).toBe(
+      false,
+    );
   });
 
   test("the block carries the note only when the page hands it the sheet's line", () => {
@@ -398,6 +440,7 @@ describe("the team figures", () => {
         played: 1300,
         appearances: 17,
         keeperTable: null,
+        since: false,
       }).basisNote,
     ).toBe("Counted from the box scores, which differ from the stats page's totals above.");
   });
