@@ -1025,3 +1025,105 @@ names the labels and the two ways out: keep the old reading, or rebuild at the n
 | `bunx tsc --noEmit -p .` | clean |
 | `bunx biome check scripts/tiers` | clean |
 | The guard with one reading altered by hand | fails, naming the label; passes when restored |
+
+## Phase 6: contract 2.4 (rulings M1 to M7, and M10)
+
+The orchestrator ruled on the final adversarial review (`ALGORITHM-2.4-rulings.md`, G1 to G12). This phase builds
+M1 to M7 and M10, one ruling at a time, in this build and the Python build. M8 (wording) and M9 (not adopted) are
+not build changes.
+- Both builds read a frozen snapshot of the data home through `TOUCHLINE_DATA_DIR`: commit `ea45f891` with the same
+  three modified files. Before the first ruling, `bun run tiers:build` reproduced the committed artifacts from it
+  byte for byte.
+- `RECONCILIATION.md` (ed-insights-platform, `docs/specs/player-tiers/reference/`) has the Phase 6 section, and
+  "The rulings in force" is rewritten with M1 to M7 folded in.
+- `FINAL-COUNTS.md`, beside it, holds the counts from these artifacts and the end state of every player named in
+  G1 to G10.
+
+| Commit | Ruling | What changed here |
+| --- | --- | --- |
+| `8adff84f82` | M1 | `minutes.ts`: in stats mode `T` is the larger of the players and keepers rows (the players row on a tie); minutes of record are the larger of `T` and the printed box minutes. The M1 regression tests are in `regressions.test.ts` |
+| `c3294eeb1d` | M2 | `minutes.ts`, `compute.ts`: `U = box minutes + 90 × u`, where `u` counts only unprinted records in which the player has a line or the side has none. The M2 regression tests are in `regressions.test.ts` |
+| `eff880b838` | M3 | `players.ts`, `minutes.ts`: a line in a record that prints no minutes for the side is an appearance, one per record; stats `matches` is the larger of that count and the row's gp |
+| `3cec183381` | M4 | `players.ts`: the printed number is the roster line's field, trimmed, when IR-22 reads a number in it |
+| `02de2003d6` | M5 | `players.ts`: test (vi) in N2a only, with a shared number (`testVi`, `nameWordList`). The M5 regression tests are in `regressions.test.ts` |
+| `eaf3a5f6ab` | M6 | `players.ts`, `compute.ts`: `contradictsSameKey`, so a same-key link holds on a shared number despite the class year. N2c is unchanged |
+| `d3a0e7f6e6` | M7 | `position.ts`: `BOX_LABELS_TO_OVERRULE = 3`, so the box scores overrule a two-position roster label only on three or more labels |
+| `9cbc695d42` | M10 | `TIERS_SPEC` is `player-tiers/0.7` |
+| `8dd9eae8eb` | | Artifacts rebuilt, `--frozen-at 2026-11-16`. `position-readings.json` is unchanged |
+
+**Agreement with the Python build:** 100% on players and teams in all ten files after every stage, and identical in
+every field, debug files included.
+
+**Effect, stage by stage:**
+
+| Ruling | Entries whose status, tier or kind changes | Tiers lost / gained | Holders |
+| --- | ---: | --- | --- |
+| M1 | 40; minutes of record rise for 402 entries | 5 / 10 | 2,875 → 2,880 |
+| M2 | 121, all `incomplete no_minutes` → `needs_minutes`; U-test entries 751 → 627 | 0 / 0 | 2,880 |
+| M3, M4 | 0, asserted; `matches` rises for 5,763 entries and the number changes for 13,693 | 0 / 0 | 2,880 |
+| M5 | 5, and 10 joins (every one read: one person each); entries 60,733 → 60,723 | 1 / 1, 3 move | 2,881 |
+| M6 | 2; exactly 3 same-key links restored (Fontenot, Moore, Greco) | 1 / 1 | 2,881 |
+| M7 | 158; 229 entries return to the roster's whole label; kind flips 82 → 42 | 16 / 13, 9 move | 2,878 |
+
+**Over the phase:**
+- Tier holders 2,875 → **2,878**: Tier 1 with team defence 1,078 → 1,080, and Tier 2 1,797 → 1,798.
+- Of the 60,713 entries in both builds, 320 change: 20 lose a tier, 22 gain one, and 12 move.
+
+**Named end states:**
+- Vasilis Christodoulou (Seton Hill 2025) is `eligible` on 1,216 minutes.
+- May Queiroz (Florida Tech women 2022) is one entry, Tier 1.
+- Gustavo Moses Bessa (Carson-Newman 2022) is `needs_minutes`, U 371.
+- Josiah Fontenot (West Florida 2024) is Tier 2.
+- Elle Smith (IUP 2025) is midfield Tier 1.
+- Keegan Ferreira (Hawaii–Hilo) still changes kind between 2022 and 2023: M7 does not reach his case.
+
+**The T5 label swap** (`REF_BOX_FIRST=1` in the Python build) has 2,918 holders. Against the final build, 123 lose a
+tier and 163 gain one.
+
+### Tier holders per file (final)
+
+| File | Tier 1 F | Tier 1 M | Tier 2 F | Tier 2 M | Team defence: defenders | Team defence: goalkeepers | All (Phase 4 → Phase 6) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2022-men | 15 | 31 | 42 | 91 | 0 | 0 | 178 → 179 |
+| 2023-men | 18 | 35 | 54 | 105 | 35 | 16 | 262 → 263 |
+| 2024-men | 19 | 35 | 56 | 103 | 33 | 12 | 257 → 258 |
+| 2025-men | 20 | 33 | 57 | 97 | 27 | 15 | 250 → 249 |
+| 2026-men | 18 | 34 | 52 | 101 | 29 | 12 | 243 → 246 |
+| 2022-women | 24 | 38 | 69 | 114 | 0 | 0 | 245 → 245 |
+| 2023-women | 29 | 43 | 84 | 128 | 59 | 22 | 366 → 365 |
+| 2024-women | 29 | 43 | 87 | 129 | 60 | 19 | 367 → 367 |
+| 2025-women | 28 | 44 | 84 | 132 | 44 | 24 | 358 → 356 |
+| 2026-women | 28 | 44 | 81 | 132 | 41 | 24 | 349 → 350 |
+
+### Readings invented in Phase 6 (for approval)
+
+`RECONCILIATION.md` words them as IR-26 to IR-32. Both builds apply each one identically.
+
+- **M1:** when `T` ties, the players-list row is the row of record, and its gp is used.
+- **M3:**
+  - a record adds at most one appearance;
+  - stats mode without an integer gp takes the appearance count;
+  - "the build asserts it" is an assertion in the stage comparison of both builds, not a run-time check.
+- **M5:**
+  - words that fold to nothing are dropped before the first word is taken;
+  - a word is a white-space word, so a hyphenated double surname is one word. The other reading would add 9 joins.
+- **M7:** the three are counted over every line the entry holds, so a doubled line counts twice. At most 2 entries
+  could read differently.
+
+### Gates (worktree, after `8dd9eae8eb`)
+
+| Gate | Result |
+| --- | --- |
+| `bunx tsc --noEmit -p .` | clean |
+| `bunx biome check .` | the same 6 warnings, in files this branch may not touch; `scripts/tiers` is clean |
+| `bun test` | 1,071 pass, 11 skip, 0 fail |
+| `TOUCHLINE_CONTRACTS_DIR=… just verify` | exit 0 |
+
+What `just verify` ran:
+
+- biome, with the same 6 warnings;
+- three `astro build` runs: Division II men 2,728 pages, Division II women 3,429, and Division I 3,323;
+- the men's gate: 1,092 pass, 5 skip, 0 fail;
+- the women's gate: 1,082 pass, 15 skip, 0 fail;
+- the Division I men's gate: 1,020 pass, 35 skip, 0 fail;
+- links: 9,480 pages and 852,435 references, 0 broken.
