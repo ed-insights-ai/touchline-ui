@@ -48,6 +48,7 @@ export function counterpartPath(within: string, target: Counterpart): string {
   const parts = within.split("/").filter(Boolean);
   if (parts.length === 0) return "/";
   if (parts.length === 1 && parts[0] === "about") return "/about/";
+  if (parts.length === 2 && parts[0] === "about" && parts[1] === "tiers") return "/about/tiers/";
   const [conf, view, slug] = parts;
   if (!conf || !target.conferences.includes(conf)) return "/";
   if (view === "matches" && parts.length === 2) return `/${conf}/matches/`;
