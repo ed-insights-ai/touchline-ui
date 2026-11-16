@@ -25,7 +25,6 @@ import { monLong } from "../../lib/format.ts";
 import { activeTiers } from "../../lib/player-tier.ts";
 import { loadTiers, type TiersFile } from "../../lib/tiers.ts";
 import { currentDivision, type NcaaDivision, ncaaDivisions, site } from "../../site.config.ts";
-import { tiersConfig } from "../../tiers.config.ts";
 
 export function getStaticPaths() {
   return activeTiers() ? [{ params: { tiers: "tiers" } }] : [];
@@ -77,13 +76,6 @@ const firstSeasonNote =
     ? null
     : `The first season with tiers is ${firstSeason}, and nothing before it is counted: no ${firstSeason} defender or goalkeeper could hold the team defence tier, and a ${firstSeason} forward or midfielder is judged on that season alone.`;
 
-// The address a correction or a removal goes to. The gate opens for
-// publication only with one configured; a preview without one says so in
-// place, so the gap is plain in review.
-const contact = tiersConfig.correctionsContact?.trim() || null;
-const contactShown = contact ?? "[contact address not yet set]";
-const mailto = contact && /^[^\s@]+@[^\s@]+$/.test(contact) ? `mailto:${contact}` : null;
-
 const sections = [
   { id: "what", label: "What it is" },
   { id: "who", label: "Who" },
@@ -95,7 +87,6 @@ const sections = [
   { id: "firm", label: "How firm" },
   { id: "when", label: "When" },
   { id: "division", label: division },
-  { id: "corrections", label: "Corrections" },
 ] as const;
 ---
 
@@ -368,14 +359,6 @@ const sections = [
         </p>
       </section>
 
-      <section class="band" id="corrections">
-        <h2 class="sechead">CORRECTIONS AND REMOVAL</h2>
-        <p class="para">
-          A player, a parent or guardian, or a school can ask for a correction, or for the
-          player's sheet to be removed, with no reason needed. Write to{" "}
-          {mailto ? <a href={mailto}>{contactShown}</a> : contactShown}, naming the page.
-        </p>
-      </section>
     </article>
 
     <SiteFooter seasons={seasons} />

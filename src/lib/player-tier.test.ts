@@ -89,39 +89,41 @@ describe("the publication gate", () => {
     else process.env.TOUCHLINE_TIERS_PREVIEW = saved;
   });
 
-  const live = { published: true, correctionsContact: "corrections@example.org" };
+  const live = { published: true };
+  const closed = { published: false };
   const rows: [string, string | undefined, typeof live | typeof tiersConfig, boolean][] = [
-    // Division II: published with a contact, or the preview variable.
-    ["d2", undefined, { published: false, correctionsContact: null }, false],
-    ["d2", undefined, { published: true, correctionsContact: null }, false],
-    ["d2", undefined, { published: true, correctionsContact: "   " }, false],
-    ["d2", undefined, { published: false, correctionsContact: "corrections@example.org" }, false],
+    // Division II: published, or the preview variable.
+    ["d2", undefined, closed, false],
     ["d2", undefined, live, true],
-    ["d2", "1", { published: false, correctionsContact: null }, true],
+    ["d2", "1", closed, true],
     ["d2", "1", live, true],
-    ["d2", "0", { published: false, correctionsContact: null }, false],
-    ["d2", "true", { published: false, correctionsContact: null }, false],
-    ["d2", "", { published: false, correctionsContact: null }, false],
-    // Any other level: nothing, in preview too.
+    ["d2", "0", closed, false],
+    ["d2", "0", live, true],
+    ["d2", "true", closed, false],
+    ["d2", "", closed, false],
+    // Any other level: nothing, published or in preview.
     ["d1", undefined, live, false],
     ["d1", "1", live, false],
-    ["d1", "1", { published: false, correctionsContact: null }, false],
+    ["d1", "1", closed, false],
     ["d3", "1", live, false],
   ];
   test.each(rows)("level %s, preview %p, %o → %p", (level, preview, config, open) => {
     expect(tiersEnabled(level, preview, config)).toBe(open);
   });
 
-  test("ships closed: unpublished and with no contact", () => {
-    expect(tiersConfig.published).toBe(false);
-    expect(tiersConfig.correctionsContact).toBeNull();
-    expect(tiersEnabled("d2", undefined)).toBe(false);
+  test("ships open: the owner published the tiers on 16 November 2026", () => {
+    expect(tiersConfig.published).toBe(true);
+    expect(tiersEnabled("d2", undefined)).toBe(true);
+    // Division I shows none, whatever the gate says.
+    expect(tiersEnabled("d1", undefined)).toBe(false);
   });
 
-  test("activeTiers is the season's file only with the gate open, and never for Division I", () => {
-    expect(activeTiers("d2", 2026, "men", "0")).toBeNull();
-    expect(activeTiers("d1", 2026, "men", "1")).toBeNull();
+  test("activeTiers is the season's file while the tiers are published, and never for Division I", () => {
+    // Published: the preview variable is not needed. A closed gate is the
+    // truth table's business above; this reads the gate as it ships.
+    expect(activeTiers("d2", 2026, "men", "0")?.season).toBe(2026);
     expect(activeTiers("d2", 2026, "men", "1")?.season).toBe(2026);
+    expect(activeTiers("d1", 2026, "men", "1")).toBeNull();
     // No file for the season: nothing, even with the gate open.
     expect(activeTiers("d2", 2019, "men", "1")).toBeNull();
   });
@@ -552,8 +554,6 @@ describe("a block prints only what section 10 holds", () => {
 
   test("a Division I build renders none of it, in preview too", () => {
     expect(activeTiers("d1", 2026, "men", "1")).toBeNull();
-    expect(tiersEnabled("d1", "1", { published: true, correctionsContact: "x@example.org" })).toBe(
-      false,
-    );
+    expect(tiersEnabled("d1", "1", { published: true })).toBe(false);
   });
 });

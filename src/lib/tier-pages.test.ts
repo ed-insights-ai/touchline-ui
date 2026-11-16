@@ -69,7 +69,9 @@ describe("the method page", () => {
     expect(page).not.toMatch(/"Division I{1,3}"/);
     expect(page).toContain("currentDivision.name");
     expect(page).toContain("monLong(tiers.frozen_at)");
-    expect(page).toContain('"[contact address not yet set]"');
+    // The owner took the corrections section off the page (16 November 2026):
+    // the page promises no address, so it prints none and no stand-in for one.
+    expect(page).not.toMatch(/contact|corrections/i);
   });
 });
 
