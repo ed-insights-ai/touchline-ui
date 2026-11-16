@@ -824,3 +824,122 @@ What `just verify` ran:
 - the men's gate: 1,037 pass, 5 skip, 0 fail;
 - the women's gate: 1,027 pass, 15 skip, 0 fail;
 - links: 6,157 pages and 571,797 references, 0 broken.
+
+
+## Phase 3: contract 2.3 as revised (N2c, N1, N2d; IR-18)
+
+The orchestrator approved IR-11 to IR-19 on 16 November 2026, changed IR-18, revised N2c and N1, and added a
+sentence to N2d. This build implements those changes. The figures under "Phase 2" above describe the build before
+them; the Phase 3 figures are below.
+
+The full write-up is the "Phase 3" section of `RECONCILIATION.md` (ed-insights-platform,
+`docs/specs/player-tiers/reference/`). It covers the per-ruling measures, the named players, the findings and the
+new readings IR-20 to IR-25. It ends with **"The rulings in force"**: the final wording of R-A to R-F, IR-1 to
+IR-25 and N1 to N5, in one place. Every N2c link and every join IR-18 adds is listed, and was read, in
+`joins-sample.md`, beside it.
+
+| Commit | Ruling | What changed here |
+| --- | --- | --- |
+| `f13a470d2f` | IR-18 | `players.ts`: `rosterNumbers`. A player's numbers include the roster line's, in N2a, N2b, N2c and the 4.4 key collision |
+| `c5781da57c` | N2c | `players.ts`: `closeLink` requires a shared number, closeness by (i), (ii) or test (v) (new, `givenFolded` in `penalties.ts`), no same-key link, and the class-year rule. The home-town branch is gone. `compute.ts` makes every key link of a season before any close link |
+| `569b585faa` | N1 | `minutes.ts`: the box_partial bar is 0.5, and `couldReachBar` adds the U test. `compute.ts` applies it after the links, season by season; the debug files gain `u_test` |
+| `cb32fe0c25` | N2d | `players.ts` `printedName`: white space collapses in the printed name |
+| `c58dca4ed1` | | Artifacts rebuilt, `--frozen-at 2026-11-16` |
+
+**Agreement with the Python build:** 100% on players and teams in all ten files, and identical in every field.
+Each change was also compared alone, at its commit, against the Python build with the later changes switched off;
+each was identical. No team figure changes.
+
+### Counts per file (Phase 3)
+
+| File | Entries | shooting_scoring: tier / eligible / needs_minutes / incomplete | team_defence: tier / eligible / needs_second_season / needs_minutes / incomplete | no group (incomplete) | Incomplete by reason |
+| --- | --- | --- | --- | --- | --- |
+| 2022-men | 5372 | 178 / 706 / 1958 / 251 | 0 / 0 / 649 / 1341 / 107 | 182 | few_matches 2, identity 2, no_minutes 358, no_position 178 |
+| 2023-men | 5342 | 210 / 835 / 1881 / 250 | 51 / 202 / 380 / 1279 / 107 | 147 | few_matches 3, identity 8, no_minutes 346, no_position 147 |
+| 2024-men | 5444 | 212 / 840 / 1913 / 242 | 44 / 176 / 451 / 1321 / 114 | 131 | few_matches 2, identity 3, no_minutes 355, no_position 127 |
+| 2025-men | 5534 | 206 / 821 / 2019 / 239 | 42 / 167 / 427 / 1406 / 96 | 111 | identity 3, no_minutes 338, no_position 105 |
+| 2026-men | 5722 | 203 / 807 / 2098 / 250 | 39 / 156 / 450 / 1496 / 136 | 87 | identity 1, no_minutes 390, no_position 82 |
+| 2022-women | 6502 | 245 / 976 / 2275 / 310 | 0 / 0 / 875 / 1508 / 128 | 185 | few_matches 2, identity 10, no_minutes 430, no_position 181 |
+| 2023-women | 6582 | 284 / 1132 / 2149 / 280 | 81 / 313 / 445 / 1615 / 136 | 147 | few_matches 11, identity 10, no_minutes 399, no_position 143 |
+| 2024-women | 6699 | 286 / 1142 / 2275 / 279 | 79 / 307 / 494 / 1618 / 115 | 104 | identity 2, no_minutes 394, no_position 102 |
+| 2025-women | 6756 | 289 / 1152 / 2298 / 272 | 68 / 268 / 537 / 1660 / 119 | 93 | few_matches 8, identity 2, no_minutes 390, no_position 84 |
+| 2026-women | 6780 | 283 / 1129 / 2377 / 274 | 65 / 256 / 526 / 1670 / 136 | 64 | few_matches 11, no_minutes 402, no_position 61 |
+
+- **Entries:** 60,760 → 60,733. IR-18 lets N2a join 27 more split spellings into their roster entry.
+- **`no_minutes`:** 5,598 → 3,802. Rule (b), under half the records printing minutes and no stats-file minutes, gives
+  3,009. The U test gives 793: these are players short of the bar on box minutes whom the missing box scores could
+  carry over it.
+- **`identity`:** 18 → 41, and **`no_position`:** 989 → 1,210. Fewer entries are `no_minutes`, which 4.7 ranks
+  above both.
+
+### Tier holders per file (Phase 3)
+
+| File | Tier 1 F | Tier 1 M | Tier 2 F | Tier 2 M | Team defence: defenders | Team defence: goalkeepers | All (Phase 2 → Phase 3) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2022-men | 15 | 31 | 42 | 90 | 0 | 0 | 174 → 178 |
+| 2023-men | 18 | 35 | 54 | 103 | 36 | 15 | 256 → 261 |
+| 2024-men | 19 | 35 | 56 | 102 | 33 | 11 | 252 → 256 |
+| 2025-men | 19 | 33 | 57 | 97 | 27 | 15 | 247 → 248 |
+| 2026-men | 18 | 34 | 51 | 100 | 27 | 12 | 241 → 242 |
+| 2022-women | 24 | 38 | 69 | 114 | 0 | 0 | 241 → 245 |
+| 2023-women | 28 | 43 | 84 | 129 | 59 | 22 | 359 → 365 |
+| 2024-women | 29 | 43 | 86 | 128 | 60 | 19 | 364 → 365 |
+| 2025-women | 29 | 44 | 85 | 131 | 44 | 24 | 353 → 357 |
+| 2026-women | 27 | 44 | 81 | 131 | 40 | 25 | 346 → 348 |
+
+All files together: 2,833 → **2,865**. Tier 1 goes 1,063 → 1,075, and Tier 2 goes 1,770 → 1,790. 1,610 entries
+change status, tier or kind against Phase 2: 17 lose a tier and 49 gain one.
+
+Section 11.2, men / women:
+
+| Row | Phase 2 | Phase 3 |
+| --- | --- | --- |
+| Regular defenders | 446.2 / 610.8 | 457.8 / 619.0 |
+| Regular goalkeepers | 187.0 / 242.6 | 189.0 / 243.8 |
+| Two-season defenders and goalkeepers | 216.0 / 356.8 | 219.2 / 359.2 |
+| of whom hold the tier | 44.0 / 72.0 | 44.0 / 73.2 |
+
+### The appendix under Phase 3
+
+83 → 82 player-seasons. 2025 Jordina Rovira (IUP) leaves: IR-18 lets N2a join "Jordina Rovira Sole", whose lines
+carry the penalty the play-by-play credits, so the play-by-play and the stats file now agree. The debug list prints
+names before N2d's white-space collapse (IR-25), so the four names with doubled spaces read as before.
+
+### Points for the orchestrator
+
+These are measured in `RECONCILIATION.md`, "What the revised rulings still let in or throw away".
+
+- **The U test's knock-on throws valid rows away.**
+  - A season the U test makes `incomplete` no longer counts as the earlier season, although its box minutes, 600 or
+    more, are certain.
+  - This is why Elle Smith (IUP 2025) stays `incomplete`: the 2024 season has 602 box minutes and is U-test
+    `incomplete` itself.
+  - Smallest change: "a season the U test made `incomplete` still counts as the earlier season when its box minutes
+    reach 600". Measured, it changes 88 entries and takes tier holders from 2,865 to 2,875. All 13 U-test cases among
+    the 49 tier holders that Phase 2's N1 sent to `incomplete` return to a tier, which makes 46 of 49 in all.
+- **N2c makes 36 links, and none of them is two people.** All 36 wrong links from Phase 2 are gone. It loses 9 right
+  ones: 6 because the shirt number changed, 3 because a nickname is close only by (iv). One tier is affected: Alex
+  Blanche (Christian Brothers 2025), Tier 1 → Tier 2. Relaxing either condition trades right links for wrong ones:
+  - dropping the shared number: 5 right recovered for 1 wrong;
+  - accepting (iv) again: 3 right for 2 wrong.
+- **Tests (i) and (v) admit one sibling pair, Shiko and Shimon Ichimiya** (California (PA) men). Only the shared
+  number refuses it: the class-year rule allows a fall of one step.
+- **Honoured players:** Theo Faillon and Meghan Deneen return to Tier 2. Elle Smith stays `incomplete` (above).
+- **Rule (b) keeps one of the 49 out:** Peter Plougmand (Mars Hill 2024), with minutes printed in 9 of 19 records.
+
+### Gates (worktree, after `c58dca4ed1`)
+
+| Gate | Result |
+| --- | --- |
+| `bunx tsc --noEmit -p .` | clean |
+| `bunx biome check .` | 6 warnings, all in files this branch may not touch: `scripts/journal/national-prompt.ts` (2), `scripts/journal/national.ts`, `scripts/links.ts`, `src/lib/table.test.ts` (2). `scripts/tiers` is clean |
+| `bun test` | 1,030 pass, 11 skip, 0 fail |
+| `TOUCHLINE_CONTRACTS_DIR=… just verify` | exit 0 |
+
+What `just verify` ran:
+
+- biome, with the same 6 warnings;
+- two `astro build` runs, of 2,728 and 3,429 pages;
+- the men's gate: 1,051 pass, 5 skip, 0 fail;
+- the women's gate: 1,041 pass, 15 skip, 0 fail;
+- links: 6,157 pages and 571,797 references, 0 broken.
