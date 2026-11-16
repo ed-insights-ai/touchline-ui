@@ -19,7 +19,7 @@
 
 import { ncaaDivision, site } from "../site.config.ts";
 import { tiersEnabled } from "../tiers.config.ts";
-import { dayOfMonth, monLong, plural, spell } from "./format.ts";
+import { dayOfMonth, monLong, plural } from "./format.ts";
 import { classFull, playerIdOf } from "./player.ts";
 import {
   loadTiers,
@@ -207,7 +207,8 @@ export function goalsLine(team: TierTeam): string | null {
   if (team.opponents_usual === null) return null;
   const usual = Math.floor(team.opponents_usual + 0.5);
   const n = team.goals_conceded;
-  return `Gave up ${spell(n)} ${plural(n, "goal", "goals")} where its opponents usually score ${spell(usual)}.`;
+  // Figures, not prose: two counts set side by side read as numerals, both of them.
+  return `Gave up ${n} ${plural(n, "goal", "goals")} where its opponents usually score ${usual}.`;
 }
 
 /** The note under the figures: they are the team's, not the player's. */
@@ -266,7 +267,8 @@ export interface SheetTier {
   holder: string | null;
   status: StatusLabel;
   meaning: string;
-  basis: string;
+  /** Null for incomplete records: minutes that cannot be counted fairly are not printed as a basis. */
+  basis: string | null;
   figures: TierFigures | null;
   source: string;
 }
@@ -283,7 +285,7 @@ export function tierBlock(
     holder: holderLine(e),
     status: statusLabel(e),
     meaning: meaningLine(e, programme),
-    basis: basisLine(e.basis),
+    basis: e.status === "incomplete" ? null : basisLine(e.basis),
     figures: figures ? tierFigures(figures, programme, tiers.season) : null,
     source: sourceLine(tiers.frozen_at),
   };

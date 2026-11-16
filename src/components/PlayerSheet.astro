@@ -158,7 +158,7 @@ const minutesSource = (() => {
         <h3 class="block-label">TIER</h3>
         <p class="tier-status">{tier.status.head}{tier.status.kind && <><span aria-hidden="true"> · </span><span class="vh">, </span>{tier.status.kind}</>}</p>
         <p class="tier-meaning">{tier.meaning}</p>
-        <p class="tier-basis num">{tier.basis}</p>
+        {tier.basis && <p class="tier-basis num">{tier.basis}</p>}
         {tier.figures && (
           <>
             <table class="tier-team num">

@@ -306,15 +306,27 @@ describe("the team figures", () => {
     });
   });
 
-  test("the goals sentence rounds half up and spells numbers to twenty", () => {
+  test("incomplete records print no basis line; every other status prints one", () => {
+    const f = file();
+    const block = (over: Partial<TierEntry>) => tierBlock(entry(over), f, "calder", "Calder State");
+    // Minutes that cannot be counted fairly are not offered as what a status rests on.
+    expect(block({ status: "incomplete", tier: null, reason: "identity" }).basis).toBeNull();
+    expect(block({ status: "incomplete", tier: null, reason: "no_minutes" }).basis).toBeNull();
+    expect(block({ status: "needs_minutes", tier: null }).basis).toBe(
+      "1,412 minutes · 17 appearances · season 2026 · Junior",
+    );
+    expect(block({ status: "eligible", tier: null }).basis).not.toBeNull();
+  });
+
+  test("the goals sentence rounds half up and prints both counts as numerals", () => {
     expect(goalsLine(team({ goals_conceded: 24, opponents_usual: 30.5 }))).toBe(
       "Gave up 24 goals where its opponents usually score 31.",
     );
     expect(goalsLine(team({ goals_conceded: 12, opponents_usual: 15.4 }))).toBe(
-      "Gave up twelve goals where its opponents usually score fifteen.",
+      "Gave up 12 goals where its opponents usually score 15.",
     );
     expect(goalsLine(team({ goals_conceded: 1, opponents_usual: 2.2 }))).toBe(
-      "Gave up one goal where its opponents usually score two.",
+      "Gave up 1 goal where its opponents usually score 2.",
     );
     expect(goalsLine(team({ opponents_usual: null }))).toBeNull();
   });
