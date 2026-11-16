@@ -636,7 +636,12 @@ export function playerSeasons(
       nameSource,
       joinKey: foldName(joinName),
       playerId,
-      number: mostCommon(lines.flatMap((l) => (l.number ? [l.number] : []))),
+      // [M4] The number follows the name: the roster line's number field,
+      // trimmed, when IR-22 reads a number in it; else the lines' most common.
+      number:
+        rosterRow && rosterNumbers(rosterRow).size > 0
+          ? (rosterRow.number as string).trim()
+          : mostCommon(lines.flatMap((l) => (l.number ? [l.number] : []))),
       // [IR-18] The box-score lines' numbers and the roster line's.
       numbers: new Set([
         ...lines.map((l) => shirtNumber(l.number)).filter(Boolean),

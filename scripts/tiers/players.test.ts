@@ -553,17 +553,22 @@ describe("[IR-18] shirt numbers: the box-score lines' and the roster line's", ()
     expect([...rosterNumbers(null)]).toEqual([]);
   });
 
-  test("a player's numbers hold his roster line's; the number printed is still the lines'", () => {
-    // Lines print #7 twice; the roster line prints "12": numbers {7, 12}, number "7".
-    const [p] = join(
-      [
-        sheet("m1", [line({ name: "Ann Lee", number: "7", ref: { id: "5", source: "roster" } })]),
-        sheet("m2", [line({ name: "Ann Lee", number: "07", ref: { id: "5", source: "roster" } })]),
-      ],
-      [bio("5", { name: "Ann Lee", number: "12" })],
-    );
+  test("a player's numbers hold his roster line's; [M4] the number printed is the roster line's", () => {
+    // Lines print #7 and #07; the roster line prints "12": numbers {7, 12}, number "12".
+    const sheets = [
+      sheet("m1", [line({ name: "Ann Lee", number: "7", ref: { id: "5", source: "roster" } })]),
+      sheet("m2", [line({ name: "Ann Lee", number: "07", ref: { id: "5", source: "roster" } })]),
+    ];
+    const [p] = join(sheets, [bio("5", { name: "Ann Lee", number: "12" })]);
     expect([...(p as PlayerSeason).numbers].sort()).toEqual(["12", "7"]);
-    expect(p?.number).toBe("07");
+    expect(p?.number).toBe("12");
+    const printed = (number: string) =>
+      join(sheets, [bio("5", { name: "Ann Lee", number })])[0]?.number;
+    // The field trimmed, leading zeros kept, a two-number field as printed.
+    expect(printed(" 07 ")).toBe("07");
+    expect(printed("29/28")).toBe("29/28");
+    // IR-22 reads no number in "RS": the lines' most common, ties to the smallest.
+    expect(printed("RS")).toBe("07");
   });
 
   test("[N2a] an untied player joins on the roster line's number", () => {
