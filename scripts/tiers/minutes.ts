@@ -7,7 +7,8 @@
 //
 //   m = r                          box minutes, as 4.6 sums them; share over r
 //   m < r, a stats row with minutes > 0
-//                                  the row's minutes; matches its games played
+//                                  the larger of the row's minutes and his box
+//                                  minutes [M1]; matches its games played
 //                                  (else the records he has a line in); goals
 //                                  and shots over every record; share over r
 //   m < r, no such row, m/r ≥ 0.5  box minutes; share over m (box_partial),
@@ -20,9 +21,16 @@
 // no_minutes, not needs_minutes: couldReachBar. For everyone else the box
 // minutes' status is certain.
 //
-// [IR-11] The stats row is the players list's, joined as 4.6 joins it;
-// failing that, the keepers list's by the same join, since a keeper who takes
-// no shot appears in the keepers table alone.
+// [IR-11, as M1 amends it] T is the larger of the minutes on his players-list
+// row and on his keepers-list row, each joined as 4.6 joins it (a keeper who
+// takes no shot appears in the keepers table alone, and a keeper's players-list
+// row can carry fewer minutes than his keepers-list row). A missing row, or one
+// with no minutes, counts 0; on a tie the players list's row is the one that
+// gave T, for its games played.
+//
+// [M1, contract 2.4] Printed minutes are a floor. A printed minute was played,
+// so his box minutes P can only be too low: the minutes of record are the
+// larger of T and P.
 
 import type { PositionGroup } from "../../src/lib/tiers.ts";
 import {
@@ -64,24 +72,29 @@ export function minutesOfRecord(
   players: SeasonRow | null,
   keepers: SeasonRow | null,
 ): MinutesOfRecord {
-  const [row, list] = positive(players?.minutes)
-    ? [players, "players" as const]
-    : positive(keepers?.minutes)
-      ? [keepers, "keepers" as const]
-      : [null, null];
+  const ts = positive(players?.minutes) ? players.minutes : 0;
+  const tk = positive(keepers?.minutes) ? keepers.minutes : 0;
+  // [M1] The row that gave T: the larger, the players list's on a tie.
+  const [row, list] =
+    ts === 0 && tk === 0
+      ? [null, null]
+      : ts >= tk
+        ? [players, "players" as const]
+        : [keepers, "keepers" as const];
   if (m === r) return { mode: "box", denominator: r, row: null, list: null };
   if (row !== null) return { mode: "stats", denominator: r, row, list };
   if (2 * m >= r) return { mode: "box_partial", denominator: m, row: null, list: null };
   return { mode: "none", denominator: m, row: null, list: null };
 }
 
-/** In stats mode, the player's sums become the season's: the row's minutes,
- *  its games played (else his records), and the every-record goals and shots.
+/** In stats mode, the player's sums become the season's: the larger of the
+ *  row's minutes and his box minutes (`p.minutes` on entry) [M1], the row's
+ *  games played (else his records), and the every-record goals and shots.
  *  Mutates `p`; any other mode leaves the box sums as they are. */
 export function applyMinutesOfRecord(p: PlayerSeason, rec: MinutesOfRecord): void {
   if (rec.mode !== "stats" || rec.row === null) return;
   const gp = rec.row.gp;
-  p.minutes = rec.row.minutes as number;
+  p.minutes = Math.max(rec.row.minutes as number, p.minutes);
   p.matches = typeof gp === "number" && Number.isInteger(gp) ? gp : p.records;
   p.starts = p.everyRecord.starts;
   p.G = p.everyRecord.G;

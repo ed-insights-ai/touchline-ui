@@ -10,6 +10,9 @@
 // R-E  fails if a penalty is removed twice: a penalty on a line without
 //      minutes was never in G, so the stats file's count of it must not take
 //      it off again, under box minutes or [N1] the season's.
+// M1   (contract 2.4) fails if a season total below the minutes the box
+//      scores print for the player becomes his minutes of record, or if the
+//      keepers list's larger row is passed over for the players list's.
 
 import { describe, expect, test } from "bun:test";
 import { execFileSync } from "node:child_process";
@@ -214,6 +217,39 @@ describe("R-E regression: a penalty is removed once", () => {
     expect(change?.goalsFactor).toBe(0.5);
     expect(change?.shotsFactor).toBe(0.75);
     expect([p.adjG, p.adjS]).toEqual([1, 3]);
+  });
+});
+
+// ── M1 ──────────────────────────────────────────────────────────────────────
+
+describe("M1 regression: printed minutes are a floor", () => {
+  test("a stats total below the printed minutes: the printed minutes stand", () => {
+    // Three records, two printing minutes (90 + 85). The stats row reads 60:
+    // the programme's season total is short of what the box scores print.
+    const p = player(
+      ["r1", line(null, 1, 2), null],
+      ["r2", line(90, 1, 3), null],
+      ["r3", line(85, 0, 1), null],
+    );
+    expect(p.minutes).toBe(175);
+    const rec = minutesOfRecord(3, 2, { minutes: 60, gp: 3 }, null);
+    expect(rec.mode).toBe("stats");
+    applyMinutesOfRecord(p, rec);
+    expect([p.minutes, p.matches, p.G, p.S]).toEqual([175, 3, 2, 6]);
+  });
+
+  test("a stats total above the printed minutes still wins", () => {
+    const p = player(["r1", line(null, 0, 0), null], ["r2", line(90, 0, 1), null]);
+    applyMinutesOfRecord(p, minutesOfRecord(2, 1, { minutes: 170, gp: 2 }, null));
+    expect(p.minutes).toBe(170);
+  });
+
+  test("the keepers list's row, when larger than the players list's, gives T", () => {
+    const p = player(["r1", line(null, 0, 0), null], ["r2", line(90, 0, 0), null]);
+    const rec = minutesOfRecord(2, 1, { minutes: 90, gp: 1 }, { minutes: 180, gp: 2 });
+    expect(rec.list).toBe("keepers");
+    applyMinutesOfRecord(p, rec);
+    expect([p.minutes, p.matches]).toEqual([180, 2]);
   });
 });
 

@@ -65,6 +65,21 @@ describe("N1: which minutes count", () => {
     expect(minutesOfRecord(20, 4, null, keeper).list).toBe("keepers");
   });
 
+  test("[M1] T is the larger of the two rows; the players list's row on a tie", () => {
+    // A starting keeper's players-list row can carry one match's minutes.
+    const players = { minutes: 90, gp: 1 };
+    const keeper = { minutes: 1620, gp: 18 };
+    expect(minutesOfRecord(20, 4, players, keeper)).toEqual({
+      mode: "stats",
+      denominator: 20,
+      row: keeper,
+      list: "keepers",
+    });
+    const level = { minutes: 1620, gp: 17 };
+    expect(minutesOfRecord(20, 4, level, keeper).row).toBe(level);
+    expect(minutesOfRecord(20, 4, keeper, players).list).toBe("players");
+  });
+
   test("no row with minutes: box minutes over m when m/r ≥ 0.5, else no_minutes", () => {
     // 10 of 20 is exactly 0.5; 9 of 20 is under it.
     expect(minutesOfRecord(20, 10, null, null)).toEqual({
@@ -147,6 +162,13 @@ describe("N1: the stats-mode sums", () => {
     expect([p.minutes, p.matches, p.G, p.S, p.starts, p.adjG, p.adjS]).toEqual([
       250, 3, 3, 9, 2, 1.5, 2.25,
     ]);
+  });
+
+  test("[M1] a row below his box minutes: the box minutes are a floor", () => {
+    const p = one(sheets);
+    applyMinutesOfRecord(p, minutesOfRecord(3, 1, { minutes: 60, gp: 3 }, null));
+    // Box minutes 80 > 60; everything else is the stats mode's.
+    expect([p.minutes, p.matches, p.G, p.S, p.starts]).toEqual([80, 3, 3, 9, 2]);
   });
 
   test("a row with no games played: the records he has a line in", () => {
