@@ -48,6 +48,12 @@ export function debugFile(r: SeasonResult) {
             ? x.basisSeasons
             : [],
       career_record: x.career,
+      minutes_mode: x.ofRecord.mode,
+      minutes_list: x.ofRecord.list,
+      share_records: x.ofRecord.denominator,
+      records: x.records,
+      with_minutes: x.withMinutes,
+      box_minutes: x.boxMinutes,
     })),
     teams: Object.fromEntries(
       [...r.teams]

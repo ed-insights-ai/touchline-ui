@@ -108,6 +108,21 @@ export interface PlayerSeason {
   S: number;
   adjG: number;
   adjS: number;
+  /** The records the player has a line in (a doubled line counted once). */
+  records: number;
+  /** [N1, contract 2.3] The same sums over every record with a line, whether
+   *  or not it prints minutes: the doubled line chosen as above, else the
+   *  first printed. Read when the minutes of record are the season total. */
+  everyRecord: SeasonSums;
+}
+
+/** Goals and shots summed over a set of records (penalties stripped). */
+export interface SeasonSums {
+  starts: number;
+  G: number;
+  S: number;
+  adjG: number;
+  adjS: number;
 }
 
 // ── 4.5: the value on the most lines ────────────────────────────────────────
@@ -392,6 +407,8 @@ export function playerSeasons(
       S: 0,
       adjG: 0,
       adjS: 0,
+      records: 0,
+      everyRecord: { starts: 0, G: 0, S: 0, adjG: 0, adjS: 0 },
     };
     // 4.6, one record at a time.
     const bySheet = new Map<Sheet, Flat[]>();
@@ -415,6 +432,16 @@ export function playerSeasons(
         penA += 1;
         if (c.goal) penG += 1;
       }
+      const k = scale(sheet);
+      p.records += 1;
+      const any = chosen ?? (mine[0] as Flat).line;
+      const anyG = Math.max(any.goals - penG, 0);
+      const anyS = Math.max(any.shots - penA, 0);
+      p.everyRecord.adjG += anyG / k.goals;
+      p.everyRecord.adjS += anyS / k.shots;
+      p.everyRecord.G += anyG;
+      p.everyRecord.S += anyS;
+      if (any.started) p.everyRecord.starts += 1;
       if (chosen === null) {
         p.skippedPenGoals += penG;
         p.skippedPenAttempts += penA;
@@ -423,7 +450,6 @@ export function playerSeasons(
       const minutes = chosen.minutes as number;
       const g = Math.max(chosen.goals - penG, 0);
       const s = Math.max(chosen.shots - penA, 0);
-      const k = scale(sheet);
       p.adjG += g / k.goals;
       p.adjS += s / k.shots;
       p.G += g;
@@ -444,8 +470,11 @@ export function playerSeasons(
 /** The player's row in the stats file: by page id, else by folded name; null
  *  when neither singles one out. [Ruling S4, reconciliation] "Then by folded
  *  name" applies whenever the page id does not single out one row, two rows
- *  as well as none. */
-export function statsRowFor(p: PlayerSeason, rows: readonly PlayerStats[]): PlayerStats | null {
+ *  as well as none. Read against the players list, and [N1] the keepers list. */
+export function statsRowFor<T extends { name: string; player_id?: string }>(
+  p: PlayerSeason,
+  rows: readonly T[],
+): T | null {
   if (p.playerId !== null) {
     const byId = rows.filter((r) => r.player_id === p.playerId);
     if (byId.length === 1) return byId[0] ?? null;

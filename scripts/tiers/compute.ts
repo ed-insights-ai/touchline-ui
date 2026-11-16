@@ -27,6 +27,7 @@ import {
   type PhysicalMatch,
   physicalMatches,
 } from "./matches.ts";
+import { applyMinutesOfRecord, type MinutesOfRecord, minutesOfRecord } from "./minutes.ts";
 import {
   type Factors,
   fitFactors,
@@ -93,6 +94,13 @@ export interface Rated {
   regular: boolean;
   defence: DefenceSeason | null;
   statsChange: StatsPenaltyChange | null;
+  /** [N1] Where the minutes of record came from, and the share's records. */
+  ofRecord: MinutesOfRecord;
+  /** [N1] r and m of the programme-season. */
+  records: number;
+  withMinutes: number;
+  /** The box minutes, whatever the minutes of record. */
+  boxMinutes: number;
   /** The basis the entry prints. */
   basisSeasons: number[];
   basisMinutes: number;
@@ -396,11 +404,17 @@ export function computeGender(
         identity.add(j);
       }
       const statsRows = conf.stats?.teams[slug]?.players ?? [];
+      const keeperRows = conf.stats?.teams[slug]?.keepers ?? [];
       const team = teamBySlug.get(slug);
+      const r = (teamMatches.get(slug) ?? []).length;
       const m = withMinutes.get(slug) ?? 0;
       const entries: Rated[] = ps.map((p, i) => {
         measures.doubledRecords += p.doubled;
-        const statsChange = applyStatsPenalties(p, statsRowFor(p, statsRows));
+        const boxMinutes = p.minutes;
+        const statsRow = statsRowFor(p, statsRows);
+        const ofRecord = minutesOfRecord(r, m, statsRow, statsRowFor(p, keeperRows));
+        applyMinutesOfRecord(p, ofRecord);
+        const statsChange = applyStatsPenalties(p, statsRow);
         if (statsChange)
           measures.statsChanges.push({ programme: slug, name: p.name, change: statsChange });
         if (p.roster === null) measures.noRosterLine++;
@@ -419,7 +433,7 @@ export function computeGender(
           g === null ? null : isShootingGroup(g) ? "shooting_scoring" : "team_defence";
         // Section 4.7: the first reason that applies, in this order.
         let reason: IncompleteReason | null = null;
-        if (noMinutes) reason = "no_minutes";
+        if (ofRecord.mode === "none") reason = "no_minutes";
         else if (g === null) reason = "no_position";
         else if (identity.has(i)) reason = "identity";
         else if (isDefenceGroup(g) && (team?.workload ?? null) === null) reason = "few_matches";
@@ -435,9 +449,13 @@ export function computeGender(
           estimate: null,
           counted: [],
           career: null,
-          regular: isRegular(g, p.minutes, m, reason !== null),
+          regular: isRegular(g, p.minutes, ofRecord.denominator, reason !== null),
           defence: null,
           statsChange,
+          ofRecord,
+          records: r,
+          withMinutes: m,
+          boxMinutes,
           basisSeasons: [season],
           basisMinutes: p.minutes,
           basisMatches: p.matches,
