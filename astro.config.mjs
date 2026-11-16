@@ -1,6 +1,13 @@
 // @ts-check
 import { writeFile } from "node:fs/promises";
 import { defineConfig } from "astro/config";
+import {
+  genderFromEnv,
+  ncaaDivisionFromEnv,
+  publishedBuilds,
+  publishedDivisionsFromEnv,
+  publishedFromEnv,
+} from "./src/site.config.ts";
 
 // Static output, always. The site is rebuilt on every data collect; nothing
 // is computed at request time. See reference/ARCHITECTURE.md.
@@ -70,12 +77,14 @@ function sitemap() {
         // programmes published, and whether it wants to be found is a question
         // about the site rather than about robots.txt.
         //
-        // A crawler reads robots.txt only at the root, so the women's build
-        // (served at /women, written into dist/women by the justfile) writes
-        // none; the root build names both sitemaps when the deploy carries both.
-        if (gender === "men") {
-          const sitemaps = [`${origin}${prefix}/sitemap.xml`];
-          if (genders.includes("women")) sitemaps.push(`${origin}${prefix}/women/sitemap.xml`);
+        // A crawler reads robots.txt only at the root, so only the root build
+        // (Division II men's) writes one; every other build (the women's at
+        // /women, Division I at /d1, each written into the same segment of
+        // dist/ by the justfile) writes none, and the root build names every
+        // sitemap the deploy carries, read from the same build list the
+        // header's switch reads (src/site.config.ts publishedBuilds).
+        if (division === "d2" && gender === "men") {
+          const sitemaps = builds.map((b) => `${origin}${prefix}${b.path}/sitemap.xml`);
           await writeFile(
             new URL("robots.txt", dir),
             `User-agent: *\nAllow: /\n\n${sitemaps.map((s) => `Sitemap: ${s}`).join("\n")}\n`,
@@ -89,11 +98,16 @@ function sitemap() {
 }
 
 // Where this build writes. The men's build is dist/ as always; the justfile
-// writes the women's build into dist/women/, the same /women segment it is
-// served under (src/site.config.ts genderPath), so one dist/ is one deploy.
+// writes the women's build into dist/women/ and Division I's into dist/d1/,
+// the same segments they are served under (src/site.config.ts buildPath), so
+// one dist/ is one deploy.
 const outDir = process.env.TOUCHLINE_OUT_DIR?.trim() || undefined;
-const gender = process.env.TOUCHLINE_GENDER?.trim() || "men";
-const genders = (process.env.TOUCHLINE_GENDERS ?? "").split(",").map((s) => s.trim());
+const gender = genderFromEnv(process.env.TOUCHLINE_GENDER);
+const division = ncaaDivisionFromEnv(process.env.TOUCHLINE_NCAA_DIVISION);
+const builds = publishedBuilds(
+  publishedDivisionsFromEnv(process.env.TOUCHLINE_NCAA_DIVISIONS, division),
+  publishedFromEnv(process.env.TOUCHLINE_GENDERS, gender),
+);
 
 export default defineConfig({
   ...(site ? { site } : {}),

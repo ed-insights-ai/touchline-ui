@@ -13,6 +13,7 @@
 import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { loadSeason, matchDetailOf } from "./derive.ts";
+import { readsD2 } from "./fixtures/facts.ts";
 import { matchMinute } from "./format.ts";
 import type { MatchDetail, MatchPlay } from "./model.ts";
 import { goalRecord } from "./plays.ts";
@@ -332,7 +333,8 @@ describe("a caution the source named nobody for", () => {
 
 // ── The real data home ──────────────────────────────────────────────────────
 
-const CONFERENCES = ["gac", "lsc", "gsc"] as const;
+// Division II's first three by name; any other build, its own first three.
+const CONFERENCES = readsD2() ? (["gac", "lsc", "gsc"] as const) : site.conferences.slice(0, 3);
 const seasons = CONFERENCES.map((key) => ({ key, season: loadSeason(key) }));
 
 interface RealMatch {
@@ -435,9 +437,9 @@ describe("the collected placeholder cautions (tui-mvc)", () => {
     expect(allCards.length).toBeGreaterThan(0);
     expect(placeholders.length).toBeGreaterThan(0);
     // Both of the ruling's decisive box scores, recomputed rather than pinned.
-    // They are men's matches; the women's collect is held to the two counts
-    // above alone.
-    if (site.gender !== "men") return;
+    // They are Division II men's matches; every other collect is held to the
+    // two counts above alone.
+    if (!readsD2("men")) return;
     const forMatch = (id: string) => placeholders.filter((p) => p.id === id).length;
     expect(forMatch("sidearm:uah:13290")).toBe(2);
     expect(forMatch("sidearm:saint-edwards:8618")).toBe(2);
@@ -473,7 +475,7 @@ describe("the collected placeholder cautions (tui-mvc)", () => {
 // The contract's reference records are men's matches (the men's GAC and
 // MIAA collect), so they are read only when the run builds the men's
 // division.
-describe.skipIf(site.gender !== "men")("the contract's reference arithmetic (tui-641)", () => {
+describe.skipIf(!readsD2("men"))("the contract's reference arithmetic (tui-641)", () => {
   // Deliberately pinned: these are the binding contract's own figures for the
   // NSU–Lincoln record of Aug 30, recomputed from the live play list before
   // this shipped and equal on that day. If a recollect ever moves this

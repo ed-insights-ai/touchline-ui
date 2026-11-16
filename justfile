@@ -43,6 +43,34 @@ site_url := env_var_or_default("SITE_URL", "https://ed-insights-ai.github.io")
 genders := env_var_or_default("TOUCHLINE_GENDERS", `jq -r '(.genders // ["men"]) | join(",")' "$HOME/.keelson/rib-touchline/config.json" 2>/dev/null || echo men`)
 with_women := if genders =~ '(^|,)\s*women\s*(,|$)' { "1" } else { "" }
 
+# The NCAA divisions this deploy publishes, comma-separated, on the same terms
+# as the genders and for the same reason: a publish replaces the whole branch,
+# so a publish that leaves Division I out takes it off the live site. Division
+# II is always built, at site_base as it always was; "d1" adds Division I's
+# men's build at {{site_base}}/d1 (src/site.config.ts divisionPath), read from
+# its own data home (~/keelson/d1-soccer, site.config `dataHome`) and its own
+# journal directory (journal/d1). Division I fields no women's build, so
+# "women" in the genders list adds nothing under /d1, and its header names that
+# row and links nowhere.
+#
+# The list is a property of the deployment: TOUCHLINE_NCAA_DIVISIONS when set,
+# else the rib config's "ncaa_divisions", else Division II and Division I. The
+# daily cadence calls `just publish` from the main checkout with only a gender
+# pinned, so with nothing set it publishes Division I too. One variable turns
+# Division I off: TOUCHLINE_NCAA_DIVISIONS=d2.
+ncaa_divisions := env_var_or_default("TOUCHLINE_NCAA_DIVISIONS", `jq -r '(.ncaa_divisions // ["d2","d1"]) | join(",")' "$HOME/.keelson/rib-touchline/config.json" 2>/dev/null || echo d2,d1`)
+with_d1 := if ncaa_divisions =~ '(^|,)\s*d1\s*(,|$)' { "1" } else { "" }
+# What every build is told the deploy publishes: Division II always, Division
+# I when listed. The header's division rows link only to what is in here.
+divisions := if with_d1 == "1" { "d2,d1" } else { "d2" }
+
+# The Division I build runs with the variables that belong to Division II's
+# cadence scrubbed: the cadence exports TOUCHLINE_RECOLLECTED (its report of
+# Division II conferences), and a TOUCHLINE_DATA_DIR or TOUCHLINE_JOURNAL_DIR
+# set for a Division II run would otherwise point Division I at Division II's
+# home. TOUCHLINE_D1_DATA_DIR overrides Division I's home for every recipe.
+d1_env := "env -u TOUCHLINE_RECOLLECTED -u TOUCHLINE_DATA_DIR -u TOUCHLINE_JOURNAL_DIR TOUCHLINE_NCAA_DIVISION=d1 TOUCHLINE_GENDER=men" + (if env_var_or_default("TOUCHLINE_D1_DATA_DIR", "") != "" { " TOUCHLINE_DATA_DIR=" + env_var("TOUCHLINE_D1_DATA_DIR") } else { "" })
+
 default: all
 
 # The whole loop, in the order the pipeline runs it.
@@ -60,13 +88,19 @@ all: collect journal build publish
 # explicitly: the women's cadence run calls `just publish` with
 # TOUCHLINE_GENDER=women in its environment, and the gate must hold the same
 # tree to the same tests whichever division's run calls it. The women's run
-# reads the women's build at dist/women (home.test).
+# reads the women's build at dist/women (home.test), Division I's at dist/d1,
+# against its own data home and its own sample conference and programme
+# (site.config `home`, `sampleProgramme`).
 gate:
     @echo "→ gate  (men)"
-    TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" bun test
+    TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test
     if [ -n "{{with_women}}" ]; then \
       echo "→ gate  (women)"; \
-      TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" bun test; \
+      TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test; \
+    fi
+    if [ -n "{{with_d1}}" ]; then \
+      echo "→ gate  (d1 men)"; \
+      {{d1_env}} TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test; \
     fi
 
 # Ask the sources for today's record. Costs network and time; nothing else does.
@@ -82,6 +116,10 @@ collect:
 # in. The national run comes AFTER the conferences: its brief reads the cards'
 # lines and the wires, so it must see today's conference journals, not
 # yesterday's.
+#
+# Division I is deliberately NOT here: this recipe runs on the cadence, and
+# each Division I run is twenty-three conference model calls and a national
+# one. `just journal-d1` runs it on purpose.
 journal:
     # --strict is deliberately absent: a dropped claim is the system working.
     @echo "→ journal"
@@ -92,6 +130,19 @@ journal:
       TOUCHLINE_GENDER=women bun run journal run --all --write && \
       TOUCHLINE_GENDER=women bun run journal run --national --write; \
     fi
+
+# Division I's journal, run only when asked: every Division I conference, then
+# its national journal, written to journal/d1 from the Division I home. This
+# SPENDS MODEL CALLS (`claude -p`, one per conference and one national). The
+# model is the caller's choice and is passed through to the model command:
+#   just journal-d1                   the command's default model
+#   just journal-d1 claude-haiku-4-5  a cheaper one
+# `concurrency` caps how many conferences ask at once, as `journal` does.
+journal-d1 model="" concurrency="4":
+    # --strict is deliberately absent: a dropped claim is the system working.
+    @echo "→ journal (d1{{ if model != "" { ", model " + model } else { "" } }})"
+    {{d1_env}} bun run journal run --all --write --concurrency {{concurrency}} {{ if model != "" { "--model " + model } else { "" } }}
+    {{d1_env}} bun run journal run --national --write {{ if model != "" { "--model " + model } else { "" } }}
 
 # Vendor the flag artwork the origin table places, and only that.
 #
@@ -105,13 +156,19 @@ flags:
 
 # Render the static site from the data home. The men's build goes first because
 # Astro empties its outDir, and dist/ is the men's; the women's build then
-# writes dist/women/, so one dist/ holds the whole deploy.
+# writes dist/women/ and Division I's dist/d1/, so one dist/ holds the whole
+# deploy. Every build is told the whole deploy (TOUCHLINE_GENDERS,
+# TOUCHLINE_NCAA_DIVISIONS), because its header links into the others.
 build:
-    @echo "→ build  (base {{site_base}}, divisions {{genders}})"
-    TOUCHLINE_STRICT_BASE=1 TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" SITE_BASE="{{site_base}}" SITE_URL="{{site_url}}" bun run build
+    @echo "→ build  (base {{site_base}}, divisions {{genders}}, ncaa {{divisions}})"
+    TOUCHLINE_STRICT_BASE=1 TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" SITE_BASE="{{site_base}}" SITE_URL="{{site_url}}" bun run build
     if [ -n "{{with_women}}" ]; then \
       echo "→ build  (base {{site_base}}/women)"; \
-      TOUCHLINE_STRICT_BASE=1 TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_OUT_DIR=dist/women SITE_BASE="{{site_base}}/women" SITE_URL="{{site_url}}" bun run build; \
+      TOUCHLINE_STRICT_BASE=1 TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" TOUCHLINE_OUT_DIR=dist/women SITE_BASE="{{site_base}}/women" SITE_URL="{{site_url}}" bun run build; \
+    fi
+    if [ -n "{{with_d1}}" ]; then \
+      echo "→ build  (base {{site_base}}/d1)"; \
+      {{d1_env}} TOUCHLINE_STRICT_BASE=1 TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" TOUCHLINE_OUT_DIR=dist/d1 SITE_BASE="{{site_base}}/d1" SITE_URL="{{site_url}}" bun run build; \
     fi
 
 # Types, lint, a clean build, then the tests — the gate before publishing.
@@ -201,6 +258,14 @@ publish: _require-git build gate
       match="$(find dist/women/gac/match -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | head -n1 | sed 's#.*/##')"; \
       pages="/,/gac/,/about/,/gac/team/harding/${match:+,/gac/match/$match/}"; \
       bun scripts/deployed.ts "{{site_url}}{{site_base}}/women/" "${stamp:-{{site_base}}/women/}" "$pages"; \
+    fi
+    # Division I on the same terms, over its own sample read from config (its
+    # home conference and sample programme) and the first match this build
+    # wrote: no Division II name exists in the Division I home.
+    if [ -n "{{with_d1}}" ]; then \
+      stamp="$(sed -n 's/.*name="touchline-build" content="\([^"]*\)".*/\1/p' dist/d1/index.html | head -n1)"; \
+      pages="$({{d1_env}} bun scripts/sample.ts dist/d1)"; \
+      bun scripts/deployed.ts "{{site_url}}{{site_base}}/d1/" "${stamp:-{{site_base}}/d1/}" "$pages"; \
     fi
 
 # Publishing needs somewhere to publish to; say so rather than half-doing it.

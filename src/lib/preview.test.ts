@@ -16,6 +16,7 @@ import {
   recordOf,
   squadOf,
 } from "./derive.ts";
+import { readsD2 } from "./fixtures/facts.ts";
 import { homeSeasons } from "./home.ts";
 import type { MatchTeam, Player, PlayerStats } from "./model.ts";
 import { playerCard } from "./player.ts";
@@ -39,8 +40,10 @@ import {
 
 // The real-data cases name men's programmes (the GAC final, Fort Hays State
 // v Lake Erie), so they run against the men's build and skip under women's.
-const menOnly = test.skipIf(site.gender !== "men");
-const gac = loadSeason("gac");
+const menOnly = test.skipIf(!readsD2("men"));
+// The home conference of any other build: the generic cases read it, and the
+// menOnly ones never run there.
+const gac = loadSeason(readsD2() ? "gac" : site.home);
 const seasons = homeSeasons();
 const PREVIEW = "sidearm:fort-hays-state:14072"; // FHSU v Lake Erie, NCAA, scheduled
 const PLAYED = "sidearm:fort-hays-state:14405"; // GAC final, FHSU 2–1 Northeastern State
@@ -337,7 +340,7 @@ describe("a side a record names by another slug", () => {
     expect(sideReadingOf(apart, "concordia", name)).toBeNull();
   });
 
-  test.skipIf(site.gender !== "women")(
+  test.skipIf(!readsD2("women"))(
     "women's CCAA preview of Cal State LA's second-round tie: Concordia is Concordia Irvine",
     () => {
       const ccaa = loadSeason("ccaa");

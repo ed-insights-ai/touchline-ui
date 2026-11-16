@@ -11,10 +11,13 @@
 import { describe, expect, test } from "bun:test";
 import { loadSeason } from "../../src/lib/derive.ts";
 import type { JournalFile } from "../../src/lib/journal.ts";
+import { site } from "../../src/site.config.ts";
 import { generateThenValidate, type Steps } from "./regenerate.ts";
 import { restatementDrops, validateJournal } from "./validate.ts";
 
-const season = loadSeason("gac");
+// Any season will do: the fakes write the prose, and only the first fixture's
+// reference is read from the files. The build's own home conference.
+const season = loadSeason(site.home);
 const fixture = season.fixtures.fixtures[0];
 const ref = fixture ? `${fixture.date} ${fixture.home} v ${fixture.away}` : "";
 

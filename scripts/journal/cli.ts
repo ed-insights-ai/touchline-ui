@@ -4,6 +4,11 @@
 //
 //   bun run journal brief    --conference gac
 //   bun run journal generate --conference gac [--model <id>] [--dry-run]
+//
+// --model (or TOUCHLINE_JOURNAL_MODEL) is passed through to the model command
+// as its own --model, so the owner can choose a cheaper model; unset, the
+// command's default model answers. TOUCHLINE_NCAA_DIVISION=d1 runs the same
+// commands over Division I, reading its data home and writing journal/d1.
 //   bun run journal validate --conference gac [--write]
 //   bun run journal run      --conference gac        # generate, then validate
 //
@@ -34,6 +39,7 @@ import { loadSeason } from "../../src/lib/derive.ts";
 import { homeSeasons, nationalAsOf } from "../../src/lib/home.ts";
 import {
   type JournalFile,
+  journalDir,
   journalFileSchema,
   type NationalJournalFile,
   nationalJournalFile,
@@ -41,6 +47,7 @@ import {
 } from "../../src/lib/journal.ts";
 import { site } from "../../src/site.config.ts";
 import { buildBrief, fixtureIndex } from "./brief.ts";
+import { modelArgv } from "./model-argv.ts";
 import { buildNationalBrief, nationalFixtureIndex } from "./national.ts";
 import { buildNationalPrompt } from "./national-prompt.ts";
 import { validateNationalJournal } from "./national-validate.ts";
@@ -85,9 +92,11 @@ function parseArgs(argv: string[]): Args {
   return {
     command,
     conferences: bool("all") || !conference ? [...site.conferences] : conference.split(","),
-    model: flag("model"),
+    model: flag("model") ?? (process.env.TOUCHLINE_JOURNAL_MODEL?.trim() || undefined),
     modelCommand: flag("command") ?? "claude",
-    out: flag("out") ?? join(process.cwd(), "journal"),
+    // This build's own journal directory: journal/ for Division II, journal/d1
+    // for Division I (site.config `journalSubdir`), the one the site reads.
+    out: flag("out") ?? journalDir(),
     dryRun: bool("dry-run"),
     from: flag("from"),
     write: bool("write"),
@@ -177,7 +186,7 @@ const REPLY_CAP = 32 * 1024 * 1024;
  *  conferences can be asking at once: the reply streams into a buffer while
  *  the other tasks carry on, and the promise settles when the command does. */
 function askModel(args: Args, prompt: string): Promise<string> {
-  const argv = ["-p", ...(args.model ? ["--model", args.model] : [])];
+  const argv = modelArgv(args.model);
   return new Promise((resolve, reject) => {
     const child = spawn(args.modelCommand, argv, { stdio: ["pipe", "pipe", "pipe"] });
     const out: Buffer[] = [];

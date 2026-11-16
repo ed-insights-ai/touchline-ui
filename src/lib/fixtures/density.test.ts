@@ -9,7 +9,7 @@
 import { describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { divisions, site } from "../../site.config.ts";
+import { profiles, site } from "../../site.config.ts";
 import { BASEMAP_VIEWBOX } from "../basemap.ts";
 import { regionLabels } from "../geo.ts";
 import { bandMeta, homeBands, homeLayout, mapView, openBandIndex } from "../home.ts";
@@ -298,7 +298,8 @@ describe("against the live config", () => {
     // conferences (MIAA, NSIC) the fixture never modelled. Regions are shared
     // between the divisions, so every fixture key is held to the live table.
     const cfg = densityConfig(19);
-    const live = divisions.men.conferences;
+    // Division I keys are not in it: the fixture models Division II alone.
+    const live = profiles.d2.men?.conferences ?? [];
     for (const key of live) {
       expect(cfg.conferenceRegions[key], key).toBe(site.conferenceRegions[key] ?? "");
     }

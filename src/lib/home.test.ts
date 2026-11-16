@@ -9,7 +9,7 @@
 
 import { describe, expect, test } from "bun:test";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { site } from "../site.config.ts";
+import { buildPath, site } from "../site.config.ts";
 import {
   boxScoreGaps,
   hasResult,
@@ -23,6 +23,7 @@ import {
 } from "./derive.ts";
 import { allSightings, type DivisionMatch, divisionCounts, foldToMatches } from "./division.ts";
 import { densityCards, densityConfig } from "./fixtures/density.ts";
+import { readsD2 } from "./fixtures/facts.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import { footprintOf } from "./geo.ts";
 import {
@@ -481,10 +482,11 @@ describe("up to the column cap the page is columns; past it, region bands", () =
 
     // The page this division's build wrote: TOUCHLINE_OUT_DIR when the build
     // was pointed somewhere, else where `just build` puts it — dist/ for the
-    // men, dist/women/ for the women. A women's run reading dist/ would hold
-    // the men's page to the women's journals.
+    // men, dist/women/ for the women, dist/d1/ for Division I (site.config
+    // buildPath). A women's run reading dist/ would hold the men's page to
+    // the women's journals.
     const outDir =
-      process.env.TOUCHLINE_OUT_DIR?.trim() || (site.gender === "women" ? "dist/women" : "dist");
+      process.env.TOUCHLINE_OUT_DIR?.trim() || `dist${buildPath(site.ncaaDivision, site.gender)}`;
     const dist = `${process.cwd()}/${outDir}/index.html`;
     const stale = builtPageIsStale(dist, `${process.cwd()}/src`);
     if (stale) console.warn(`skipping "the built home page": ${stale}`);
@@ -1454,7 +1456,7 @@ describe("the NCAA's next playing day under LAST NIGHT", () => {
     }
   });
 
-  test.skipIf(site.gender !== "women")(
+  test.skipIf(!readsD2("women"))(
     "women's Nov 15: Cal State LA v Concordia Irvine is one row, read from both files",
     () => {
       const day = ncaaNextDay(divisionPostseason().ncaa, "2026-11-15");

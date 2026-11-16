@@ -8,6 +8,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
+import { site } from "../site.config.ts";
 import { dataRoot, seasonKey } from "./data.ts";
 import {
   boxScoreGaps,
@@ -276,12 +277,7 @@ export function loadNationalJournal(season: number, gender: string): NationalJou
   const file = nationalJournalFile(season, gender);
   const hit = nationalCache.get(file);
   if (hit !== undefined) return hit;
-  const override = process.env.TOUCHLINE_JOURNAL_DIR?.trim();
-  const paths = [
-    ...(override ? [join(override, file)] : []),
-    join(dataRoot(), "data", "journal", file),
-    join(process.cwd(), "journal", file),
-  ];
+  const paths = journalDirs().map((dir) => join(dir, file));
   let found: NationalJournalFile | null = null;
   for (const path of paths) {
     if (!existsSync(path)) continue;
@@ -297,16 +293,35 @@ export function loadNationalJournal(season: number, gender: string): NationalJou
   return found;
 }
 
-/** Where a journal may live, in the order we look: an explicit override, the
- *  data home beside the files it describes, then this repo's own directory. */
+/** The directories this build's journals may live in, in the order we look:
+ *  an explicit override, the build's own data home beside the files it
+ *  describes, then this repo's own directory. Each is the BUILD'S OWN: the
+ *  override and the repo's journal/ are joined with the division's subdirectory
+ *  (site.config `journalSubdir`: "" for Division II, "d1" for Division I), and
+ *  the data home is the division's own. So no build can read another
+ *  division's journal, and the national file, whose name carries no division,
+ *  cannot cross either: a Division I build with no journal renders from data
+ *  alone instead of printing Division II's. */
+export function journalDirs(
+  override: string | undefined = process.env.TOUCHLINE_JOURNAL_DIR?.trim() || undefined,
+  sub: string = site.journalSubdir,
+): string[] {
+  return [
+    ...(override ? [join(override, sub)] : []),
+    join(dataRoot(), "data", "journal"),
+    journalDir(sub),
+  ];
+}
+
+/** This repo's journal directory for a division: where the journal CLI writes
+ *  by default and the last place a build looks. */
+export function journalDir(sub: string = site.journalSubdir): string {
+  return join(process.cwd(), "journal", sub);
+}
+
 function journalPaths(key: string): string[] {
   const file = `journal-${key}.json`;
-  const override = process.env.TOUCHLINE_JOURNAL_DIR?.trim();
-  return [
-    ...(override ? [join(override, file)] : []),
-    join(dataRoot(), "data", "journal", file),
-    join(process.cwd(), "journal", file),
-  ];
+  return journalDirs().map((dir) => join(dir, file));
 }
 
 const cache = new Map<string, JournalFile | null>();
