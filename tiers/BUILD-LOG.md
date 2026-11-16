@@ -943,3 +943,61 @@ What `just verify` ran:
 - the men's gate: 1,051 pass, 5 skip, 0 fail;
 - the women's gate: 1,041 pass, 15 skip, 0 fail;
 - links: 6,157 pages and 571,797 references, 0 broken.
+
+
+## Phase 4: the U test's earlier season (N1 (a), adopted)
+
+The orchestrator approved IR-20 to IR-25 and adopted one sentence into N1 (a): *"A season the U test made
+`incomplete` still counts as the earlier season when its box minutes reach 600."* N2c and rule (b) stay as written.
+`RECONCILIATION.md` (ed-insights-platform, `docs/specs/player-tiers/reference/`) has the Phase 4 section and, at its
+end, **"The rulings in force"**: the single final list of R-A to R-F, IR-1 to IR-25 and N1 to N5. `FINAL-COUNTS.md`,
+beside it, holds the counts taken from these artifacts.
+
+| Commit | Ruling | What changed here |
+| --- | --- | --- |
+| `0ed2e915f7` | N1 (a) | `shooting.ts` `earlierSeasonCounts`: the season before counts when it is not incomplete, or when only the U test made it so, from 600 box minutes. `compute.ts` `previousCounts` uses it in the U test and in section 5. Hand-worked tests in `shooting.test.ts` and `compute.test.ts` (2026 carries a U-test 2025: 630 + 1,080 = 1,710 minutes, 19 matches) |
+| `78d86d24b1` | | Artifacts rebuilt, `--frozen-at 2026-11-16` |
+
+**Agreement with the Python build:** 100% on players and teams in all ten files, and identical in every field.
+
+**Effect:**
+
+- 88 entries change; 7 lose a tier and 17 gain one.
+- Tier holders go from 2,865 to **2,875**. Tier 1, with team defence, is 1,078 and Tier 2 is 1,797.
+- `incomplete no_minutes` goes from 3,802 to 3,760; the U test now accounts for 751 of them.
+- The 2022 files and team defence do not change.
+- All 13 U-test cases among the 49 tier holders that Phase 2's N1 sent to `incomplete` hold a tier again. Elle
+  Smith (IUP 2025) is Tier 2.
+- Of the 49: 46 hold a tier, 2 are eligible, and 1 stays out under rule (b) (Peter Plougmand 2024).
+
+### Tier holders per file (final)
+
+| File | Tier 1 F | Tier 1 M | Tier 2 F | Tier 2 M | Team defence: defenders | Team defence: goalkeepers | All (Phase 3 → Phase 4) |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2022-men | 15 | 31 | 42 | 90 | 0 | 0 | 178 → 178 |
+| 2023-men | 18 | 35 | 54 | 104 | 36 | 15 | 261 → 262 |
+| 2024-men | 19 | 35 | 56 | 103 | 33 | 11 | 256 → 257 |
+| 2025-men | 20 | 33 | 57 | 98 | 27 | 15 | 248 → 250 |
+| 2026-men | 18 | 34 | 51 | 101 | 27 | 12 | 242 → 243 |
+| 2022-women | 24 | 38 | 69 | 114 | 0 | 0 | 245 → 245 |
+| 2023-women | 28 | 44 | 84 | 129 | 59 | 22 | 365 → 366 |
+| 2024-women | 29 | 43 | 87 | 129 | 60 | 19 | 365 → 367 |
+| 2025-women | 29 | 44 | 85 | 132 | 44 | 24 | 357 → 358 |
+| 2026-women | 28 | 44 | 81 | 131 | 40 | 25 | 348 → 349 |
+
+### Gates (worktree, after `78d86d24b1`)
+
+| Gate | Result |
+| --- | --- |
+| `bunx tsc --noEmit -p .` | clean |
+| `bunx biome check .` | the same 6 warnings, in files this branch may not touch; `scripts/tiers` is clean |
+| `bun test` | 1,031 pass, 11 skip, 0 fail |
+| `TOUCHLINE_CONTRACTS_DIR=… just verify` | exit 0 |
+
+What `just verify` ran:
+
+- biome, with the same 6 warnings;
+- two `astro build` runs, of 2,728 and 3,429 pages;
+- the men's gate: 1,052 pass, 5 skip, 0 fail;
+- the women's gate: 1,042 pass, 15 skip, 0 fail;
+- links: 6,157 pages and 571,797 references, 0 broken.
