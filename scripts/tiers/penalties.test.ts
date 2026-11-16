@@ -104,6 +104,19 @@ describe("resolving the text to a line", () => {
     expect(resolveNamed("FHSU Z. Laws", names)).toEqual([1]);
   });
 
+  test("S3: the line's letter is its given name's; a one-word line has none", () => {
+    // "L. Laws" against a one-word line "Laws" and "Lewis Laws". The try's
+    // letter is l. "Lewis Laws" has given name Lewis: l, a match. "Laws" has
+    // no given name, so it fails the test (read by its first word it would
+    // pass, two lines would match and the try would fall through to "Laws",
+    // crediting the one-word line).
+    expect(resolveNamed("L. Laws", ["Laws", "Lewis Laws"])).toEqual([1]);
+    // "Laws, Lewis" swaps to Lewis Laws: given name Lewis, letter l.
+    expect(resolveNamed("L. Laws", ["Laws", "Laws, Lewis"])).toEqual([1]);
+    // A one-word try still takes no letter test and finds "Laws" by its fold.
+    expect(resolveNamed("Laws", ["Laws", "Rhys Laws"])).toEqual([0]);
+  });
+
   test("two lines that fold alike are one player printed twice, and resolve together", () => {
     expect(resolveNamed("Ann Lee", ["Ann Lee", "Rhys Laws", "Lee, Ann"])).toEqual([0, 2]);
   });

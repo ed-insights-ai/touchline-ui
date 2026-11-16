@@ -67,9 +67,12 @@ export function firstLetter(name: string): string {
  * null. Tried as it stands, then with one leading word removed, then two, and
  * so on while a word remains; the first try that resolves wins. For each try,
  * the lines whose folded name equals the try's fold, else the only line with
- * the same folded surname and, when the try has more than one word, the same
- * first letter (firstLetter) as the try. Lines that fold alike are one player
- * printed twice, and resolve together.
+ * the same folded surname and, when the try has more than one word, a folded
+ * given name whose first letter is the try's (firstLetter of the try,
+ * givenInitial of the line; a one-word line has no given name and fails that
+ * test). Lines that fold alike are one player printed twice, and resolve
+ * together. [Ruling S3, reconciliation: the line's letter is its given
+ * name's, not its first word's after the swap.]
  */
 export function resolveNamed(text: string, names: readonly string[]): number[] | null {
   const words = text.split(/\s+/).filter(Boolean);
@@ -85,7 +88,7 @@ export function resolveNamed(text: string, names: readonly string[]): number[] |
     if (surname === "") continue;
     const initial = tryWords.length > 1 ? firstLetter(t) : "";
     const hits = names.flatMap((n, i) =>
-      foldSurname(n) === surname && (initial === "" || firstLetter(n) === initial) ? [i] : [],
+      foldSurname(n) === surname && (initial === "" || givenInitial(n) === initial) ? [i] : [],
     );
     if (hits.length > 0 && new Set(hits.map((i) => foldName(names[i] as string))).size === 1) {
       return hits;
