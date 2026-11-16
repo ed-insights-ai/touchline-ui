@@ -47,7 +47,7 @@ import {
 } from "./journal.ts";
 import { footNote, metaDescription, oneSourceNote, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
-import { careerTiersLine, earlierTiers, sheetTier } from "./player-tier.ts";
+import { careerTiersLine, earlierTiers, seasonLineOf, sheetTier } from "./player-tier.ts";
 import {
   DEK_MAX_CHARS,
   HEADLINE_MAX_CHARS,
@@ -194,7 +194,15 @@ function playerCards(s: Season): Line[] {
     for (const m of squadOf(s, slug)) {
       const c = playerCard(s, slug, m.player, m.stats, m.keeper);
       const at = `${s.key} ${slug} ${c.name}`;
-      const tier = tiers ? sheetTier(tiers, slug, s.names.name(slug), m.player) : null;
+      const tier = tiers
+        ? sheetTier(
+            tiers,
+            slug,
+            s.names.name(slug),
+            m.player,
+            seasonLineOf(c.minutes, m.keeper?.minutes),
+          )
+        : null;
       const career = tiers ? careerTiersLine(earlierTiers(tiers, slug, m.player)) : null;
       for (const [what, text] of [
         ["tenure", c.tenure],
@@ -204,6 +212,7 @@ function playerCards(s: Season): Line[] {
         ["exhibitions", c.exhibitions],
         ["tier meaning", tier?.meaning],
         ["tier basis", tier?.basis],
+        ["tier basis note", tier?.basisNote],
         ["tier goals", tier?.figures?.goals],
         ["tier figures note", tier?.figures?.note],
         ["tier source", tier?.source],

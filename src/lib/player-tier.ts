@@ -165,6 +165,8 @@ export function seasonsPhrase(seasons: readonly number[]): string {
  * What the status rests on: "1,412 minutes · 17 appearances · season 2026 ·
  * Junior". Summed over the seasons counted, which is why it says seasons when
  * there are two or three: the sum will not equal this season's MINUTES line.
+ * One season's figures may not equal that line either, because the line reads
+ * the stats page and the tier counts the box scores (basisNote, below).
  * A class year the roster never printed is left out, never "unknown".
  */
 export function basisLine(b: TierBasis): string {
@@ -177,6 +179,63 @@ export function basisLine(b: TierBasis): string {
   ]
     .filter(Boolean)
     .join(" · ");
+}
+
+// ── The basis beside the sheet's own line ───────────────────────────────────
+
+/**
+ * What the sheet's MINUTES line prints for the season, as the tier's note
+ * reads it: the minutes, the appearances when the line prints them, and the
+ * goalkeeping table's minutes when the stats page has that table for the
+ * player.
+ */
+export interface SeasonLine {
+  played: number;
+  appearances: number | null;
+  keeperTable: number | null;
+}
+
+/**
+ * The season line off the card's own minutes ("1683 / 1800 · 20 appearances,
+ * 20 starts"). It is read from what the sheet prints, not from the stats row
+ * again, so the note compares the tier with the figures the reader sees. Null
+ * when the sheet prints no MINUTES line.
+ */
+export function seasonLineOf(
+  minutes: { played: number; note: string } | null,
+  keeperTable?: number | null,
+): SeasonLine | null {
+  if (!minutes) return null;
+  const appearances = /· (\d+) appearances?\b/.exec(minutes.note)?.[1];
+  return {
+    played: minutes.played,
+    appearances: appearances === undefined ? null : Number(appearances),
+    keeperTable: keeperTable ?? null,
+  };
+}
+
+/**
+ * One sentence where the tier's minutes or appearances are not the ones on
+ * the sheet's own MINUTES line. That line reads the stats page; the tier
+ * counts the box scores, or for a keeper the stats page's goalkeeping table,
+ * whichever shows more (ALGORITHM.md, rulings N1 and M1). Printing two counts
+ * of one season without a word is a silent contradiction, which the minutes
+ * bar already refuses for its own two tables (PlayerSheet's minutesSource).
+ *
+ * Null when the two agree, when the sheet prints no line, when the status
+ * prints no basis, and when the basis spans seasons: a sum over seasons names
+ * its seasons and is not the season's line.
+ */
+export function basisNote(e: TierEntry, line: SeasonLine | null): string | null {
+  if (line === null || e.status === "incomplete" || e.basis.seasons.length !== 1) return null;
+  if (e.basis.minutes !== line.played) {
+    return line.keeperTable !== null && e.basis.minutes === line.keeperTable
+      ? "Counted from the stats page's goalkeeping table."
+      : "Counted from the box scores, which differ from the stats page's totals above.";
+  }
+  return line.appearances !== null && e.basis.matches !== line.appearances
+    ? "Appearances are counted from the box scores, which differ from the stats page's count above."
+    : null;
 }
 
 // ── The team figures ────────────────────────────────────────────────────────
@@ -271,6 +330,8 @@ export interface SheetTier {
   meaning: string;
   /** Null for incomplete records: minutes that cannot be counted fairly are not printed as a basis. */
   basis: string | null;
+  /** Why the basis is not the sheet's own MINUTES line, where it is not. */
+  basisNote: string | null;
   figures: TierFigures | null;
   source: string;
 }
@@ -281,6 +342,7 @@ export function tierBlock(
   tiers: TiersFile,
   slug: string,
   programme: string,
+  line: SeasonLine | null = null,
 ): SheetTier {
   const figures = showsFigures(e) ? teamFigures(tiers, slug) : null;
   return {
@@ -288,6 +350,7 @@ export function tierBlock(
     status: statusLabel(e),
     meaning: meaningLine(e, programme),
     basis: e.status === "incomplete" ? null : basisLine(e.basis),
+    basisNote: basisNote(e, line),
     figures: figures ? tierFigures(figures, programme, tiers.season) : null,
     source: sourceLine(tiers.frozen_at),
   };
@@ -312,13 +375,14 @@ export function sheetTier(
   slug: string,
   programme: string,
   player: TierPlayer,
+  line: SeasonLine | null = null,
 ): SheetTier | null {
   const e = tierFor(tiers, slug, {
     playerId: playerIdOf(player),
     name: player.name,
     number: player.number ?? null,
   });
-  return e ? tierBlock(e, tiers, slug, programme) : null;
+  return e ? tierBlock(e, tiers, slug, programme, line) : null;
 }
 
 // ── CAREER ──────────────────────────────────────────────────────────────────

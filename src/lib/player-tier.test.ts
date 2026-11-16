@@ -10,6 +10,7 @@ import { tiersConfig, tiersEnabled } from "../tiers.config.ts";
 import {
   activeTiers,
   basisLine,
+  basisNote,
   careerTiersLine,
   earlierTiers,
   goalsLine,
@@ -17,6 +18,7 @@ import {
   labelText,
   meaningLine,
   type SheetTier,
+  seasonLineOf,
   seasonsPhrase,
   sheetTier,
   sourceLine,
@@ -316,6 +318,86 @@ describe("the team figures", () => {
       "1,412 minutes · 17 appearances · season 2026 · Junior",
     );
     expect(block({ status: "eligible", tier: null }).basis).not.toBeNull();
+  });
+
+  test("the season line is read off the sheet's own MINUTES note", () => {
+    expect(seasonLineOf(null)).toBeNull();
+    expect(
+      seasonLineOf({ played: 1683, note: "1683 / 1800 · 20 appearances, 20 starts" }, 1679),
+    ).toEqual({ played: 1683, appearances: 20, keeperTable: 1679 });
+    expect(seasonLineOf({ played: 56, note: "56 / 1620 · 1 appearance, 0 starts" })).toEqual({
+      played: 56,
+      appearances: 1,
+      keeperTable: null,
+    });
+    // A note in another shape still gives its minutes; the appearances are not guessed.
+    expect(seasonLineOf({ played: 90, note: "90 minutes" })?.appearances).toBeNull();
+  });
+
+  test("the basis says where its count comes from when it is not the MINUTES line's", () => {
+    const one = (minutes: number, matches: number, over: Partial<TierEntry> = {}) =>
+      entry({
+        status: "needs_second_season",
+        tier: null,
+        group: "D",
+        kind: "team_defence",
+        basis: { minutes, matches, seasons: [2026], class_year: "Fr." },
+        ...over,
+      });
+    const line = (
+      played: number,
+      appearances: number | null,
+      keeperTable: number | null = null,
+    ) => ({
+      played,
+      appearances,
+      keeperTable,
+    });
+    // The two agree, or the sheet prints no line: nothing to say.
+    expect(basisNote(one(1412, 17), line(1412, 17))).toBeNull();
+    expect(basisNote(one(1412, 17), null)).toBeNull();
+    // The stats page says 266 minutes in 3 matches; the box scores print 1,434 in 18.
+    expect(basisNote(one(1434, 18), line(266, 3))).toBe(
+      "Counted from the box scores, which differ from the stats page's totals above.",
+    );
+    // Fewer in the box scores than on the stats page is said the same way.
+    expect(basisNote(one(1360, 21), line(1414, 22))).toBe(
+      "Counted from the box scores, which differ from the stats page's totals above.",
+    );
+    // A keeper whose minutes are the goalkeeping table's, beside a bar that reads the player table.
+    expect(basisNote(one(1620, 18, { group: "GK" }), line(90, 1, 1620))).toBe(
+      "Counted from the stats page's goalkeeping table.",
+    );
+    // Minutes agree and appearances do not.
+    expect(basisNote(one(1412, 19), line(1412, 17))).toBe(
+      "Appearances are counted from the box scores, which differ from the stats page's count above.",
+    );
+    // A line that prints no appearances is compared on minutes alone.
+    expect(basisNote(one(1412, 19), line(1412, null))).toBeNull();
+    // A sum over seasons names its seasons and is not the season's line.
+    expect(
+      basisNote(
+        entry({ basis: { minutes: 2390, matches: 41, seasons: [2025, 2026], class_year: "Jr." } }),
+        line(1414, 22),
+      ),
+    ).toBeNull();
+    // Incomplete records print no basis, so nothing to explain.
+    expect(
+      basisNote(one(736, 10, { status: "incomplete", reason: "no_minutes" }), line(300, 5)),
+    ).toBeNull();
+  });
+
+  test("the block carries the note only when the page hands it the sheet's line", () => {
+    const f = file();
+    const e = entry({ status: "needs_minutes", tier: null });
+    expect(tierBlock(e, f, "calder", "Calder State").basisNote).toBeNull();
+    expect(
+      tierBlock(e, f, "calder", "Calder State", {
+        played: 1300,
+        appearances: 17,
+        keeperTable: null,
+      }).basisNote,
+    ).toBe("Counted from the box scores, which differ from the stats page's totals above.");
   });
 
   test("the goals sentence rounds half up and prints both counts as numerals", () => {

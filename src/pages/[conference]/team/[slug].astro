@@ -33,7 +33,7 @@ import { countOrigins, originOf } from "../../../lib/origin.ts";
 import { returnedShare, tenureGrid } from "../../../lib/tenure.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
 import TierStyles from "../../../components/TierStyles.astro";
-import { activeTiers, earlierTiers, sheetTier } from "../../../lib/player-tier.ts";
+import { activeTiers, earlierTiers, seasonLineOf, sheetTier } from "../../../lib/player-tier.ts";
 import { stageChipOf } from "../../../lib/stage.ts";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
@@ -89,12 +89,19 @@ const counts = programmeCounts(season, slug);
 // the publication gate is closed (tiers.config.ts), and then this page draws
 // no tier anywhere: no block, no top line, no CAREER line, no mark, no key.
 const tiers = activeTiers();
-const cards = squadOf(season, slug).map((m) => ({
-  member: m,
-  card: playerCard(season, slug, m.player, m.stats, m.keeper),
-  tier: tiers ? sheetTier(tiers, slug, names.name(slug), m.player) : null,
-  careerTiers: tiers ? earlierTiers(tiers, slug, m.player) : [],
-}));
+const cards = squadOf(season, slug).map((m) => {
+  const card = playerCard(season, slug, m.player, m.stats, m.keeper);
+  // The sheet's own MINUTES line goes to the tier with the player: where the
+  // tier counts other minutes or appearances than that line prints, the block
+  // says where its count comes from.
+  const line = seasonLineOf(card.minutes, m.keeper?.minutes);
+  return {
+    member: m,
+    card,
+    tier: tiers ? sheetTier(tiers, slug, names.name(slug), m.player, line) : null,
+    careerTiers: tiers ? earlierTiers(tiers, slug, m.player) : [],
+  };
+});
 const cardFor = (name: string) => cards.find((c) => c.member.player.name === name)?.card;
 // A holder's tier in words, for the squad row's mark; null for everyone else.
 // One drawn mark for any tier, after the name and before the flag slot; which
