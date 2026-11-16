@@ -4,7 +4,7 @@
 // Pure over loaded files: the CLI (build.ts) reads the data home and writes
 // what this returns.
 
-import type { Gender, MatchPlayerLine } from "../../src/lib/model.ts";
+import type { Gender, MatchDetail, MatchPlayerLine } from "../../src/lib/model.ts";
 import { isGoalPlay } from "../../src/lib/plays.ts";
 import type {
   IncompleteReason,
@@ -38,7 +38,12 @@ import {
   type Venue,
   venueFactor,
 } from "./opponents.ts";
-import { isPenaltyAttempt, isPenaltyGoalText, readPenalties } from "./penalties.ts";
+import {
+  isPenaltyAttempt,
+  isPenaltyGoalText,
+  type PenaltyReading,
+  readPenalties,
+} from "./penalties.ts";
 import {
   applyStatsPenalties,
   classStep,
@@ -65,6 +70,7 @@ import {
   shootingTiers,
   threat,
 } from "./shooting.ts";
+import type { SideSource } from "./sides.ts";
 import { type TeamMatch, teamTotals } from "./teams.ts";
 import { scoreTeams, type TeamSeason } from "./workload.ts";
 
@@ -147,7 +153,8 @@ const integer = (x: number | null | undefined): x is number =>
   typeof x === "number" && Number.isInteger(x);
 
 /** The model rows of one season's records: one row per side per record
- *  where y is an integer. */
+ *  where y is an integer; [R-B] a record enters the shots model only when
+ *  both its shot totals (one copy's, sides.ts) are integers. */
 export function modelRows(matches: readonly PhysicalMatch[]): {
   goals: ModelRow[];
   shots: ModelRow[];
@@ -161,10 +168,12 @@ export function modelRows(matches: readonly PhysicalMatch[]): {
     const av: Venue = otherVenue(hv);
     if (integer(m.homeGoals)) goals.push({ attack: home, defend: away, y: m.homeGoals, venue: hv });
     if (integer(m.awayGoals)) goals.push({ attack: away, defend: home, y: m.awayGoals, venue: av });
-    const hs = m.homeTeam?.shots;
-    const as = m.awayTeam?.shots;
-    if (integer(hs)) shots.push({ attack: home, defend: away, y: hs, venue: hv });
-    if (integer(as)) shots.push({ attack: away, defend: home, y: as, venue: av });
+    const hs = m.homeShots;
+    const as = m.awayShots;
+    if (integer(hs) && integer(as)) {
+      shots.push({ attack: home, defend: away, y: hs, venue: hv });
+      shots.push({ attack: away, defend: home, y: as, venue: av });
+    }
   }
   return { goals, shots };
 }
@@ -273,6 +282,7 @@ export function computeGender(
       teamMatches.set(slug, []);
       withMinutes.set(slug, 0);
     }
+    const readings = new Map<MatchDetail, PenaltyReading>();
     for (const m of matches) {
       const hv: Venue = m.neutral ? "neutral" : "home";
       for (const play of m.detail.plays ?? []) {
@@ -283,9 +293,34 @@ export function computeGender(
       measures.penaltyAttempts += pens.credits.length + pens.unattributed.length;
       measures.penaltyUnattributed += pens.unattributed.length;
       measures.penaltyNotAttempts += pens.notAttempts;
+      // A side's penalty credits come from the copy its lines come from.
+      const creditsOf = (src: SideSource) => {
+        let r = readings.get(src.detail);
+        if (!r) {
+          r = readPenalties(src.detail);
+          readings.set(src.detail, r);
+        }
+        return r.credits
+          .filter((c) => c.side === src.row)
+          .map((c) => ({ lines: c.lines, goal: c.goal }));
+      };
       const sides = [
-        { slug: m.home, opp: m.away, venue: hv, team: m.homeTeam, oppTeam: m.awayTeam },
-        { slug: m.away, opp: m.home, venue: otherVenue(hv), team: m.awayTeam, oppTeam: m.homeTeam },
+        {
+          slug: m.home,
+          opp: m.away,
+          venue: hv,
+          src: m.homeSide,
+          shots: m.homeShots,
+          oppShots: m.awayShots,
+        },
+        {
+          slug: m.away,
+          opp: m.home,
+          venue: otherVenue(hv),
+          src: m.awaySide,
+          shots: m.awayShots,
+          oppShots: m.homeShots,
+        },
       ];
       const scores = [
         [m.homeGoals, m.awayGoals],
@@ -299,12 +334,11 @@ export function computeGender(
           venue: side.venue,
           goalsFor: scores[k]?.[0] ?? null,
           goalsAgainst: scores[k]?.[1] ?? null,
-          shotsFor: integer(side.team?.shots) ? (side.team?.shots as number) : null,
-          shotsAgainst: integer(side.oppTeam?.shots) ? (side.oppTeam?.shots as number) : null,
+          shotsFor: integer(side.shots) ? side.shots : null,
+          shotsAgainst: integer(side.oppShots) ? side.oppShots : null,
         });
-        if (!side.team) return;
-        const sideIndex = m.detail.teams.indexOf(side.team);
-        const lines = (side.team.players ?? []).map(toSheetLine);
+        if (!side.src) return;
+        const lines = (side.src.team.players ?? []).map(toSheetLine);
         measures.linesSkippedNoMinutes += lines.filter((l) => l.minutes === null).length;
         if (lines.some((l) => l.minutes !== null)) {
           withMinutes.set(side.slug, (withMinutes.get(side.slug) ?? 0) + 1);
@@ -315,9 +349,7 @@ export function computeGender(
           opponent: teamId(season, side.opp),
           venue: side.venue,
           lines,
-          credits: pens.credits
-            .filter((c) => c.side === sideIndex)
-            .map((c) => ({ lines: c.lines, goal: c.goal })),
+          credits: creditsOf(side.src),
         });
       });
     }

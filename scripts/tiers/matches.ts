@@ -23,6 +23,13 @@
 // folded again by the site's fold, which then picks the kept copy and reads
 // any disagreement as it always does.
 //
+// Which copy each figure is then read from (the score, the shot totals, each
+// side's lines, home, away and neutral) is decided per record by the
+// reconciliation rulings in sides.ts, not by the kept copy. A record is
+// dropped as an exhibition or a forfeit when any of its final copies is
+// marked so (R-C), and it needs a box score in some final copy that its team
+// names or home_index orient.
+//
 // A cluster whose records share no one slug (a chain: A and B share one
 // programme, B and C another) names no single "other side"; the contract does
 // not say how to rewrite it. None occurs in the data home at this freeze; if
@@ -42,12 +49,21 @@ import {
   isForfeit,
   type MatchDetail,
   type MatchesFile,
-  type MatchTeam,
   type RostersFile,
   type StatsFile,
 } from "../../src/lib/model.ts";
 import { NameBook } from "../../src/lib/names.ts";
 import { canonicalFixture, knownProgrammes } from "../../src/lib/postseason.ts";
+import {
+  homeRow,
+  programmeTokens,
+  publisherOf,
+  type Resolution,
+  resolveSides,
+  type SideSource,
+} from "./sides.ts";
+
+export { publisherOf };
 
 /** One conference's four files for one season and gender. */
 export interface ConferenceSeason {
@@ -63,21 +79,28 @@ export interface PhysicalMatch {
   season: number;
   identity: string;
   date: string;
+  /** Home, away and neutral by R-D (sides.ts). */
   home: string;
   away: string;
   neutral: boolean;
-  /** The copies print different finals; the kept copy's score is used. */
+  venueBy: Resolution["venueBy"];
+  /** The copies print different finals; R-B's copy's score is used. */
   disputed: boolean;
   homeGoals: number | null;
   awayGoals: number | null;
-  /** The box score: the kept copy's, else another copy's. */
+  /** Team shot totals by R-B, both from one copy; null when no copy has both. */
+  homeShots: number | null;
+  awayShots: number | null;
+  /** Each side's lines (and the penalty plays credited to them); null
+   *  when no copy carries a box score for that side. */
+  homeSide: SideSource | null;
+  awaySide: SideSource | null;
+  /** The kept copy's box score, else another copy's: read only for the
+   *  section 11 play-by-play counts. */
   detail: MatchDetail;
-  /** The box score's side for the record's home and away slugs (null when
-   *  the box score gives no usable home_index). */
-  homeTeam: MatchTeam | null;
-  awayTeam: MatchTeam | null;
   /** Records one match a day merged into this one (0 when none). */
   merged: number;
+  /** The kept copy has no box score (another copy's is `detail`). */
   boxFromOtherCopy: boolean;
 }
 
@@ -135,9 +158,6 @@ export function seasonOf(c: ConferenceSeason): Season {
   };
 }
 
-const integer = (x: number | null | undefined): x is number =>
-  typeof x === "number" && Number.isInteger(x);
-
 /**
  * The site's fold, one identity group at a time, so one refused group stands
  * aside instead of stopping the season. The fold throws when a match's copies
@@ -169,10 +189,6 @@ export function foldEach(sightings: readonly Sighting[]): {
   }
   return { folded, refused };
 }
-
-/** The programme slug inside a record id (`sidearm:<slug>:<n>`): the site
- *  that published that copy. */
-export const publisherOf = (fixtureId: string): string => fixtureId.split(":")[1] ?? "";
 
 const boxOf = (s: Sighting): MatchDetail | null => s.season.matches?.matches[s.fixture.id] ?? null;
 
@@ -334,38 +350,13 @@ export function oneMatchADay(
   return out;
 }
 
-/** The box score of a match and its sides, oriented to the kept copy's home
- *  and away slugs: the kept copy's box score, else the first other copy's. */
-function boxScore(m: DivisionMatch): {
-  detail: MatchDetail;
-  homeTeam: MatchTeam | null;
-  awayTeam: MatchTeam | null;
-  other: boolean;
-} | null {
-  const keptBox = m.season.matches?.matches[m.fixture.id] ?? null;
-  const source = keptBox
-    ? { fixture: m.fixture, detail: keptBox, other: false }
-    : (() => {
-        const s = m.sightings.find((x) => boxOf(x) !== null);
-        return s ? { fixture: s.fixture, detail: boxOf(s) as MatchDetail, other: true } : null;
-      })();
-  if (!source) return null;
-  const { detail, fixture } = source;
-  const hi = detail.home_index;
-  if (detail.teams.length !== 2 || (hi !== 0 && hi !== 1)) {
-    return { detail, homeTeam: null, awayTeam: null, other: source.other };
-  }
-  // teams[hi] is the copy's home slug; find it among the kept copy's sides.
-  const bySlug = new Map([
-    [fixture.home, detail.teams[hi] as MatchTeam],
-    [fixture.away, detail.teams[1 - hi] as MatchTeam],
-  ]);
-  return {
-    detail,
-    homeTeam: bySlug.get(m.fixture.home) ?? null,
-    awayTeam: bySlug.get(m.fixture.away) ?? null,
-    other: source.other,
-  };
+/** The kept copy's box score, else the first other copy's: read only for the
+ *  section 11 counts of the play-by-play. */
+function keptBox(m: DivisionMatch): { detail: MatchDetail; other: boolean } | null {
+  const own = m.season.matches?.matches[m.fixture.id] ?? null;
+  if (own) return { detail: own, other: false };
+  const s = m.sightings.find((x) => boxOf(x) !== null);
+  return s ? { detail: boxOf(s) as MatchDetail, other: true } : null;
 }
 
 /** Every record of one season and gender, in date order. */
@@ -395,13 +386,25 @@ export function physicalMatches(
     merges: [],
     illDefined: [],
   };
+  // Each box copy's home row, read on the copy as published (before any
+  // one-match-a-day rename): by the team names, else by home_index.
+  const tokens = programmeTokens(conferences.flatMap((c) => c.fixtures.programmes));
+  const rows = new Map<string, 0 | 1 | null>();
+  for (const s of sightings) {
+    const detail = boxOf(s);
+    if (detail) rows.set(s.fixture.id, homeRow(s.fixture, detail, tokens));
+  }
+  const rowOf = (s: Sighting): 0 | 1 | null => rows.get(s.fixture.id) ?? null;
+  const finals = (m: DivisionMatch) => m.sightings.filter((s) => s.fixture.status === "final");
+
   const records: DivisionMatch[] = [];
   for (const m of folded) {
     const f = m.fixture;
-    if (isExhibition(f)) counts.exhibitions++;
-    else if (isForfeit(f)) counts.forfeits++;
+    // R-C: an exhibition or a forfeit as any final copy marks it.
+    if (finals(m).some((s) => isExhibition(s.fixture))) counts.exhibitions++;
+    else if (finals(m).some((s) => isForfeit(s.fixture))) counts.forfeits++;
     else if (f.status !== "final") counts.unplayed++;
-    else if (!m.sightings.some((s) => boxOf(s) !== null)) counts.noBoxScore++;
+    else if (!finals(m).some((s) => boxOf(s) !== null && rowOf(s) !== null)) counts.noBoxScore++;
     else records.push(m);
   }
 
@@ -409,25 +412,29 @@ export function physicalMatches(
   const absorbed = new Map<DivisionMatch, number>();
   for (const m of oneMatchADay(records, counts, absorbed)) {
     const f = m.fixture;
-    const box = boxScore(m);
+    const box = keptBox(m);
     if (box === null) continue; // unreachable: every record has a box score
+    const r = resolveSides(m.sightings, f, m.neutral, boxOf, rowOf);
     if (m.disputed) counts.disputed++;
-    if (box.homeTeam === null) counts.unoriented++;
+    if (r.homeSide === null || r.awaySide === null) counts.unoriented++;
     if (box.other) counts.boxFromOtherCopy++;
     counts.records++;
     out.push({
       season,
       identity: m.identity,
       date: f.date,
-      home: f.home,
-      away: f.away,
-      neutral: m.neutral,
+      home: r.home,
+      away: r.away,
+      neutral: r.neutral,
+      venueBy: r.venueBy,
       disputed: m.disputed,
-      homeGoals: integer(f.home_score) ? f.home_score : null,
-      awayGoals: integer(f.away_score) ? f.away_score : null,
+      homeGoals: r.homeGoals,
+      awayGoals: r.awayGoals,
+      homeShots: r.homeShots,
+      awayShots: r.awayShots,
+      homeSide: r.homeSide,
+      awaySide: r.awaySide,
       detail: box.detail,
-      homeTeam: box.homeTeam,
-      awayTeam: box.awayTeam,
       merged: absorbed.get(m) ?? 0,
       boxFromOtherCopy: box.other,
     });

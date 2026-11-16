@@ -9,8 +9,8 @@ import type {
   MatchTeam,
   Player,
 } from "../../src/lib/model.ts";
-import { computeGender, type SeasonResult } from "./compute.ts";
-import type { ConferenceSeason } from "./matches.ts";
+import { computeGender, modelRows, type SeasonResult } from "./compute.ts";
+import type { ConferenceSeason, PhysicalMatch } from "./matches.ts";
 
 const TEAMS = ["alpha", "beta", "gamma"] as const;
 type Slug = (typeof TEAMS)[number];
@@ -267,5 +267,40 @@ describe("a toy division, end to end", () => {
       "reason",
       "basis",
     ]);
+  });
+});
+
+describe("R-B: the model rows of a record", () => {
+  const record = (over: Partial<PhysicalMatch>): PhysicalMatch =>
+    ({
+      season: 2026,
+      home: "alpha",
+      away: "beta",
+      neutral: false,
+      homeGoals: 2,
+      awayGoals: 1,
+      homeShots: 14,
+      awayShots: 6,
+      ...over,
+    }) as PhysicalMatch;
+
+  test("goals: a row per side with a score; shots: both sides, or neither", () => {
+    const both = modelRows([record({})]);
+    expect(both.goals.map((r) => [r.attack, r.y, r.venue])).toEqual([
+      ["2026:alpha", 2, "home"],
+      ["2026:beta", 1, "away"],
+    ]);
+    expect(both.shots.map((r) => [r.attack, r.y])).toEqual([
+      ["2026:alpha", 14],
+      ["2026:beta", 6],
+    ]);
+    // One side's total missing: the record still counts for goals, not shots.
+    const one = modelRows([record({ awayShots: null })]);
+    expect([one.goals.length, one.shots.length]).toEqual([2, 0]);
+  });
+
+  test("a neutral site is h = 1 for both sides", () => {
+    const n = modelRows([record({ neutral: true })]);
+    expect(n.goals.map((r) => r.venue)).toEqual(["neutral", "neutral"]);
   });
 });

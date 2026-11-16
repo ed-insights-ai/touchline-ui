@@ -17,15 +17,33 @@ interface Copy {
   score: [number, number];
   /** Whether the copy carries a box score (default true). */
   box?: boolean;
+  forfeit?: "home" | "away";
+  exhibition?: boolean;
+  /** The box score's home_index (default 0) and team names (default the
+   *  slugs, home first). */
+  homeIndex?: number | null;
+  teamNames?: [string, string];
 }
 
 const box = (c: Copy): MatchDetail =>
   ({
     source_url: `https://example.test/${c.by}/${c.n}`,
-    home_index: 0,
+    ...(c.homeIndex === null ? {} : { home_index: c.homeIndex ?? 0 }),
     teams: [
-      { name: c.home, periods: [c.score[0]], score: c.score[0], shots: 9, players: [] },
-      { name: c.away, periods: [c.score[1]], score: c.score[1], shots: 4, players: [] },
+      {
+        name: c.teamNames?.[0] ?? c.home,
+        periods: [c.score[0]],
+        score: c.score[0],
+        shots: 9,
+        players: [],
+      },
+      {
+        name: c.teamNames?.[1] ?? c.away,
+        periods: [c.score[1]],
+        score: c.score[1],
+        shots: 4,
+        players: [],
+      },
     ],
     plays: [],
   }) as MatchDetail;
@@ -41,6 +59,8 @@ function conference(key: string, members: string[], copies: Copy[]): ConferenceS
     status: "final",
     home_score: c.score[0],
     away_score: c.score[1],
+    ...(c.forfeit ? { forfeit: c.forfeit } : {}),
+    ...(c.exhibition ? { match_type: "exhibition" as const } : {}),
   }));
   const at = `2026-11-30T00:00:00Z`;
   return {
@@ -231,5 +251,77 @@ describe("the other side's slug, and the publisher", () => {
     expect(counts.merges[0]?.other).toBe("omega");
     expect(counts.merges[0]?.from).toBe("kept");
     expect(matches[0]?.away).toBe("omega");
+  });
+});
+
+describe("R-C: what is not a record", () => {
+  test("a forfeit or an exhibition as ANY final copy marks it (2024-09-05 Roosevelt at Upper Iowa)", () => {
+    // Upper Iowa's own copy marks the 2-2 a forfeit by the home side; Roosevelt's
+    // copy prints the bare score. One copy is enough: no record either way.
+    const copies: Copy[] = [
+      { by: "roosevelt", n: 4837, date: D, home: "upper-iowa", away: "roosevelt", score: [2, 2] },
+      {
+        by: "upper-iowa",
+        n: 9017,
+        date: D,
+        home: "upper-iowa",
+        away: "roosevelt",
+        score: [2, 2],
+        forfeit: "home",
+      },
+    ];
+    const { counts } = physicalMatches(2026, [
+      conference("gliac", ["roosevelt"], copies),
+      conference("glvc", ["upper-iowa"], copies),
+    ]);
+    expect([counts.forfeits, counts.records]).toEqual([1, 0]);
+    const exhibition: Copy[] = [
+      { by: "alpha", n: 1, date: D, home: "alpha", away: "beta", score: [1, 0] },
+      { by: "beta", n: 2, date: D, home: "alpha", away: "beta", score: [1, 0], exhibition: true },
+    ];
+    const ex = physicalMatches(2026, [
+      conference("aaa", ["alpha"], exhibition),
+      conference("bbb", ["beta"], exhibition),
+    ]).counts;
+    expect([ex.exhibitions, ex.records]).toEqual([1, 0]);
+  });
+
+  test("a box score oriented by neither names nor home_index is no box score", () => {
+    const copies: Copy[] = [
+      {
+        by: "alpha",
+        n: 1,
+        date: D,
+        home: "alpha",
+        away: "beta",
+        score: [1, 0],
+        homeIndex: null,
+        teamNames: ["Home", "Away"],
+      },
+    ];
+    const { counts } = physicalMatches(2026, [conference("aaa", ["alpha", "beta"], copies)]);
+    expect([counts.noBoxScore, counts.records]).toEqual([1, 0]);
+  });
+});
+
+describe("orientation by team names", () => {
+  test("the names overrule a home_index they contradict; shots follow the names", () => {
+    // Lake Erie's copies print the visitors in row 0 with home_index 0. Here:
+    // alpha at home, the box prints ["Beta", "Alpha"] with home_index 0 and
+    // shots 9 (row 0) and 4 (row 1). Beta took 9 shots, alpha 4.
+    const copies: Copy[] = [
+      {
+        by: "alpha",
+        n: 1,
+        date: D,
+        home: "alpha",
+        away: "beta",
+        score: [1, 0],
+        homeIndex: 0,
+        teamNames: ["Beta", "Alpha"],
+      },
+    ];
+    const { matches } = physicalMatches(2026, [conference("aaa", ["alpha", "beta"], copies)]);
+    expect(matches.map((m) => [m.home, m.homeShots, m.awayShots])).toEqual([["alpha", 4, 9]]);
   });
 });
