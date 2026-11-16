@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "generated_at": "2026-11-15T19:32:00+00:00",
-  "data_collected_at": "2026-11-15T19:25:38+00:00",
+  "generated_at": "2026-11-16T12:41:00+00:00",
+  "data_collected_at": "2026-11-16T12:34:22+00:00",
   "headline": "Regis end Seattle Pacific's winning run",
   "dek": "Seattle Pacific had won every match since their October defeat at Western Oregon, until Regis came to their ground and won. It is only their fourth defeat of the season.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 4
   },
   "lede_updated": "2026-11-15",
-  "displaced_by": "Regis won at Seattle Pacific on 2026-11-14, ending the run that followed their October defeat at Western Oregon. The old dek's 'the latest on Saturday' now points to the wrong match.",
   "pattern": {
     "label": "derived",
     "text": "Saint Martin's 32 goals are more than Simon Fraser, Western Washington or Northwest Nazarene have scored, yet they sit bottom of the table: most of their goals have come against sides outside the conference, not in the matches the table counts.",
@@ -98,13 +97,13 @@
     },
     {
       "label": "observed",
-      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 100 were saved and 27 went in.",
+      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 105 were saved and 30 went in.",
       "basis": {
         "source": "stats",
         "player": "Austin Valdez",
         "programme": "western-oregon",
-        "saves": 100,
-        "goals_against": 27
+        "saves": 105,
+        "goals_against": 30
       }
     }
   ],
@@ -133,16 +132,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-14 seattle-pacific v regis",
-      "line": "Regis are the only side outside the conference to have beaten Seattle Pacific this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 cal-state-la v western-oregon",
-      "line": "Since conference play opened, Western Oregon have lost to no one but Seattle Pacific."
+      "line": "Western Oregon still top the conference table, and within it only Seattle Pacific have beaten them."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:33:54.352Z"
+    "validated_at": "2026-11-16T12:44:40.915Z"
   }
 }

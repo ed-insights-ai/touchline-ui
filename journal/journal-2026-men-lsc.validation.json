@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-11-15T19:34:06.962Z",
-  "data_collected_at": "2026-11-15T19:26:10+00:00",
+  "validated_at": "2026-11-16T12:45:00.899Z",
+  "data_collected_at": "2026-11-16T12:35:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fourteen different players have scored Midwestern State's 53 goals, and Parker Plaxco has seventeen of them.",
+      "text": "Fourteen different players have scored Midwestern State's 56 goals, and Parker Plaxco has eighteen of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Parker Plaxco — 17 G · 67 shots",
+      "text": "Parker Plaxco — 18 G · 71 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 midwestern-state v saint-marys",
+      "text": "2026-11-15 midwestern-state v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 midwestern-state v uccs",
+      "text": "2026-11-20 midwestern-state v cal-state-san-bernardino",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:33:22.455Z",
-    "generate_ms": 44506,
+    "started_at": "2026-11-16T12:44:07.668Z",
+    "generate_ms": 53230,
     "validate_ms": 1,
-    "wall_ms": 44507,
+    "wall_ms": 53231,
     "concurrency": 4
   }
 }

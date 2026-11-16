@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "validated_at": "2026-11-15T19:35:00.354Z",
-  "data_collected_at": "2026-11-15T19:26:46+00:00",
+  "validated_at": "2026-11-16T12:46:19.758Z",
+  "data_collected_at": "2026-11-16T12:35:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "wire",
+      "text": "Southern New Hampshire have outscored the conference's three lowest-scoring sides together.",
+      "unbacked": ["3"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Southern New Hampshire's fifty-eight goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
+      "text": "Southern New Hampshire's sixty-one goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,12 +44,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Southern New Hampshire have conceded twelve goals in eighteen matches.",
-      "checker": "team_goals+team_record",
+      "text": "Southern New Hampshire have outscored the conference's three lowest-scoring sides together.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["matches: 18"]
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -102,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Inigo Burusco — 13 G · 5 A · 70 shots",
+      "text": "Inigo Burusco — 13 G · 5 A · 74 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 franklin-pierce v mercy",
+      "text": "2026-11-15 southern-new-hampshire v st-thomas-aquinas",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 southern-new-hampshire v st-thomas-aquinas",
+      "text": "2026-11-20 southern-new-hampshire v davis-elkins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:33:54.548Z",
-    "generate_ms": 65804,
+    "started_at": "2026-11-16T12:44:45.869Z",
+    "generate_ms": 93887,
     "validate_ms": 1,
-    "wall_ms": 65806,
+    "wall_ms": 93889,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "validated_at": "2026-11-15T19:35:12.778Z",
-  "data_collected_at": "2026-11-15T19:27:35+00:00",
+  "validated_at": "2026-11-16T12:46:55.325Z",
+  "data_collected_at": "2026-11-16T12:37:04+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Gannon have scored more than California (Pa.) and Shippensburg together but conceded 24, so theirs is a lead in goals scored, not in goals kept out.",
+      "text": "Gannon have scored more than California (Pa.), Shippensburg and Pitt-Johnstown together but conceded 25, so theirs is a lead in goals scored, not in goals kept out.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Rafa Hyde — 15 G · 5 A · 62 shots",
+      "text": "Rafa Hyde — 18 G · 6 A · 68 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 millersville v georgian-court",
+      "text": "2026-11-15 gannon v concord",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 gannon v concord",
+      "text": "2026-11-20 charleston v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:34:25.883Z",
-    "generate_ms": 46893,
-    "validate_ms": 1,
-    "wall_ms": 46895,
+    "started_at": "2026-11-16T12:45:28.545Z",
+    "generate_ms": 86778,
+    "validate_ms": 2,
+    "wall_ms": 86780,
     "concurrency": 4
   }
 }

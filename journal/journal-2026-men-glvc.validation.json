@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-11-15T19:33:42.959Z",
-  "data_collected_at": "2026-11-15T19:25:20+00:00",
+  "validated_at": "2026-11-16T12:44:45.673Z",
+  "data_collected_at": "2026-11-16T12:33:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -16,11 +16,6 @@
   },
   "normalizations": [],
   "review": [
-    {
-      "path": "dek",
-      "text": "Maryville won at Drury on Friday, on the ground where the two had drawn in October, and have lost four times all season. They travel to Saginaw Valley State today, the same day Lincoln, still without a defeat, meet Roosevelt.",
-      "unbacked": ["2"]
-    },
     {
       "path": "findings[0].text",
       "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
@@ -81,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's forty-two goals, from sixty-nine shots.",
+      "text": "Jonathan Nemorden, a freshman, has thirteen of Lincoln's forty-four goals, from seventy-three shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -117,7 +112,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jonathan Nemorden — 12 G · 2 A · 69 shots",
+      "text": "Jonathan Nemorden — 13 G · 2 A · 73 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -135,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 drury v maryville",
+      "text": "2026-11-15 saginaw-valley-state v maryville",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -144,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 lincoln v roosevelt",
+      "text": "2026-11-20 lincoln v findlay",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -152,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:32:27.691Z",
-    "generate_ms": 75266,
+    "started_at": "2026-11-16T12:43:38.228Z",
+    "generate_ms": 67443,
     "validate_ms": 1,
-    "wall_ms": 75267,
+    "wall_ms": 67445,
     "concurrency": 4
   }
 }

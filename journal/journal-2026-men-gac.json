@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "generated_at": "2026-11-15T19:32:00Z",
-  "data_collected_at": "2026-11-15T19:24:46+00:00",
+  "generated_at": "2026-11-16T12:40:00Z",
+  "data_collected_at": "2026-11-16T12:33:13+00:00",
   "headline": "Fort Hays State complete an unbeaten conference season",
   "dek": "Fort Hays State won eleven and drew one of their twelve conference matches for 34 points, the draw at Rogers State the only points they dropped. Rogers State and Northeastern State finished level on 19 points, fifteen behind them.",
   "lede_basis": {
@@ -26,7 +26,7 @@
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "fort-hays-state": 46,
+        "fort-hays-state": 49,
         "rogers-state": 32,
         "northeastern-state": 27,
         "southern-nazarene": 26,
@@ -48,10 +48,10 @@
     "line": "Fort Hays State conceded ten goals all season and lost twice.",
     "basis": {
       "programme": "fort-hays-state",
-      "wins": 15,
+      "wins": 16,
       "draws": 3,
       "losses": 2,
-      "gf": 46,
+      "gf": 49,
       "ga": 10
     },
     "updated": "2026-11-08"
@@ -97,18 +97,18 @@
   ],
   "players_to_watch": [
     {
-      "player": "Len Valkema",
-      "programme": "fort-hays-state",
-      "position": "FWD",
-      "class": "JR",
-      "line": "11 G · 4 A · 39 shots"
-    },
-    {
       "player": "Juan Linares",
       "programme": "fort-hays-state",
       "position": "MID",
       "class": "SO",
-      "line": "9 G · 8 A · 34 shots"
+      "line": "11 G · 8 A · 37 shots"
+    },
+    {
+      "player": "Len Valkema",
+      "programme": "fort-hays-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 4 A · 40 shots"
     },
     {
       "player": "Carter Adams",
@@ -120,16 +120,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 fort-hays-state v northeastern-state",
-      "line": "Fort Hays State have beaten Northeastern State in every meeting this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 fort-hays-state v lake-erie",
       "line": "Fort Hays State have not lost since early September."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-20 fort-hays-state v maryville",
+      "line": "Maryville have already won at Southern Nazarene this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:32:41.774Z"
+    "validated_at": "2026-11-16T12:43:38.017Z"
   }
 }

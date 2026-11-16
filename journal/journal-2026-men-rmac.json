@@ -3,18 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-11-15T19:35:00+00:00",
-  "data_collected_at": "2026-11-15T19:27:53+00:00",
-  "headline": "Regis beat Seattle Pacific again, this time away",
-  "dek": "Regis won the day after Fort Lewis lost at Western Oregon, and UCCS and CSU Pueblo are now the only sides in the conference with a match still listed. CSU Pueblo take thirteen wins and one defeat into theirs, and that defeat came at home to Fort Lewis.",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:37:33+00:00",
+  "headline": "CSU Pueblo lose a second home match running",
+  "dek": "Cal State San Bernardino won at CSU Pueblo, the second side to do so after Fort Lewis, and those are the only defeats in a season of thirteen wins and three draws. UCCS also lost, at Midwestern State, and Regis are now the only side in the conference with a match still listed.",
   "lede_basis": {
     "programme": "csu-pueblo",
     "wins": 13,
     "draws": 3,
-    "losses": 1
+    "losses": 2
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Regis and Fort Lewis have played the matches the standing dek listed; only UCCS and CSU Pueblo still have one, so the standing lines no longer hold.",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "CSU Pueblo lost at home to Cal State San Bernardino and UCCS lost at Midwestern State. The standing dek's one-defeat CSU Pueblo record, and its two sides with a match still listed, no longer hold.",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 30; scoring is not what separates the top of the table.",
@@ -24,8 +24,8 @@
         "fort-lewis": 45,
         "regis": 43,
         "south-dakota-mines": 43,
+        "uccs": 41,
         "csu-pueblo": 40,
-        "uccs": 39,
         "westminster": 36,
         "colorado-mesa": 26,
         "msu-denver": 25,
@@ -96,13 +96,13 @@
     },
     {
       "label": "observed",
-      "text": "UCCS's Hugo Sjöberg has made 68 saves this season and conceded twenty goals.",
+      "text": "UCCS's Hugo Sjöberg has made 72 saves this season and conceded 23 goals.",
       "basis": {
         "source": "stats",
         "player": "Hugo Sjöberg",
         "programme": "uccs",
-        "saves": 68,
-        "goals_against": 20
+        "saves": 72,
+        "goals_against": 23
       }
     }
   ],
@@ -131,16 +131,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-14 seattle-pacific v regis",
-      "line": "Regis had already beaten Seattle Pacific at home in September, and had not lost since their defeat at UCCS in October."
+      "fixture_ref": "2026-11-15 csu-pueblo v cal-state-san-bernardino",
+      "line": "Cal State San Bernardino had already held Regis to a goalless draw in September."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 csu-pueblo v cal-state-san-bernardino",
-      "line": "Cal State San Bernardino held Regis to a goalless draw in September; CSU Pueblo have won every home match against a non-conference side."
+      "fixture_ref": "2026-11-20 cal-state-la v regis",
+      "line": "Cal State LA beat Regis at home in September; Regis have not lost since UCCS beat them in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:36:08.191Z"
+    "validated_at": "2026-11-16T12:47:15.071Z"
   }
 }

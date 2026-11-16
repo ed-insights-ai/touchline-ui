@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNAC",
-  "validated_at": "2026-11-15T19:33:54.352Z",
-  "data_collected_at": "2026-11-15T19:25:38+00:00",
+  "validated_at": "2026-11-16T12:44:40.915Z",
+  "data_collected_at": "2026-11-16T12:34:22+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 100 were saved and 27 went in.",
+      "text": "Of the shots on target Austin Valdez has faced for Western Oregon, 105 were saved and 30 went in.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -119,15 +119,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-14 seattle-pacific v regis",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-15 cal-state-la v western-oregon",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:32:41.973Z",
-    "generate_ms": 72378,
+    "started_at": "2026-11-16T12:43:50.246Z",
+    "generate_ms": 50668,
     "validate_ms": 1,
-    "wall_ms": 72379,
+    "wall_ms": 50669,
     "concurrency": 4
   }
 }

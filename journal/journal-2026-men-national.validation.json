@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-15T19:37:21.293Z",
+  "validated_at": "2026-11-16T12:48:22.074Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Regis end Seattle Pacific's winning run Seattle Pacific lose on their own ground to a Rocky Mountain Athletic Conference side and now stand at seventeen wins, one draw and four defeats. Regis had already beaten them at home earlier in the season.",
-      "checker": "team_record",
+      "text": "Cal State LA move clear for most wins in the division Cal State LA beat Western Oregon at home and remain without a defeat all season. Seattle Pacific, Charleston and Francis Marion are the nearest on wins, and Regis travel to face them next.",
+      "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is charleston at 17"
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:36:51.010Z",
-    "generate_ms": 30280,
-    "validate_ms": 2,
-    "wall_ms": 30282
+    "started_at": "2026-11-16T12:47:40.775Z",
+    "generate_ms": 41294,
+    "validate_ms": 5,
+    "wall_ms": 41299
   }
 }

@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-11-15T19:32:27.489Z",
-  "data_collected_at": "2026-11-15T19:24:15+00:00",
+  "validated_at": "2026-11-16T12:43:53.720Z",
+  "data_collected_at": "2026-11-16T12:32:36+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lake Erie top the table, having scored 37 goals and conceded 16.",
-      "checker": "team_goals",
+      "text": "Findlay have scored 40 goals, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Carson Oberski has scored eleven goals for Findlay from 55 shots.",
+      "text": "Carson Oberski has scored twelve goals for Findlay from 58 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Carson Oberski — 11 G · 5 A · 55 shots",
+      "text": "Carson Oberski — 12 G · 5 A · 58 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,15 +119,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-07 findlay v kentucky-wesleyan",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-15 findlay v northern-michigan",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:31:34.426Z",
-    "generate_ms": 53062,
+    "started_at": "2026-11-16T12:42:41.060Z",
+    "generate_ms": 72659,
     "validate_ms": 1,
-    "wall_ms": 53063,
+    "wall_ms": 72660,
     "concurrency": 4
   }
 }

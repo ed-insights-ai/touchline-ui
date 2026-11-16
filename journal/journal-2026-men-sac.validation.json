@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "validated_at": "2026-11-15T19:36:01.926Z",
-  "data_collected_at": "2026-11-15T19:28:09+00:00",
+  "validated_at": "2026-11-16T12:46:56.536Z",
+  "data_collected_at": "2026-11-16T12:37:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Palm Beach Atlantic in September.",
+      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Lees-McRae.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Catawba's defeat at Emory & Henry was their second of the season, against fourteen wins and two draws.",
+      "text": "Catawba's home win over North Georgia was their fifteenth of the season, against two draws and two defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -81,9 +81,18 @@
       "dropped": false
     },
     {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Héctor Vara has kept nine shutouts in goal for Catawba.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Alex Payton — 11 G · 3 A · 43 shots",
+      "text": "Alex Payton — 11 G · 4 A · 44 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-08 emory-henry v catawba",
+      "text": "2026-11-15 catawba v north-georgia",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 emory-henry v lees-mcrae",
+      "text": "2026-11-20 catawba v emory-henry",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:35:00.555Z",
-    "generate_ms": 61371,
-    "validate_ms": 1,
-    "wall_ms": 61373,
+    "started_at": "2026-11-16T12:46:17.579Z",
+    "generate_ms": 38955,
+    "validate_ms": 2,
+    "wall_ms": 38957,
     "concurrency": 4
   }
 }

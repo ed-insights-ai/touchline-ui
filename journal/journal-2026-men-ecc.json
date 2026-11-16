@@ -3,24 +3,25 @@
   "season": 2026,
   "gender": "men",
   "conference": "ECC",
-  "generated_at": "2026-11-15T19:30:00+00:00",
-  "data_collected_at": "2026-11-15T19:23:45+00:00",
+  "generated_at": "2026-11-16T12:40:00+00:00",
+  "data_collected_at": "2026-11-16T12:31:59+00:00",
   "headline": "St. Thomas Aquinas end the season unbeaten by any member",
-  "dek": "St. Thomas Aquinas closed conference play by beating D'Youville, the side that had held them to a draw in October. Their four defeats all came against programmes from outside the conference, and among members only D'Youville and Molloy took a point off them.",
+  "dek": "St. Thomas Aquinas finished the season as they began it, beaten by Southern New Hampshire. All five of their defeats came against programmes from outside the conference; among members, only D'Youville and Molloy took a point off them.",
   "lede_basis": {
     "programme": "st-thomas-aquinas",
     "wins": 11,
     "draws": 4,
-    "losses": 4
+    "losses": 5
   },
-  "lede_updated": "2026-11-10",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "St. Thomas Aquinas lost at Southern New Hampshire, a fifth defeat that made the standing dek's 'four defeats' untrue; the headline still holds",
   "pattern": {
     "label": "derived",
-    "text": "Goals have not ordered the table: Mercy and Queens have each outscored every other programme on the chart, and that includes the leaders, St. Thomas Aquinas.",
+    "text": "Goals have not ordered the table: Queens have outscored every programme except Mercy, and that includes the leaders, St. Thomas Aquinas.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "mercy": 40,
+        "mercy": 41,
         "queens": 35,
         "st-thomas-aquinas": 32,
         "district-of-columbia": 27,
@@ -65,8 +66,8 @@
         "st-thomas-aquinas",
         "staten-island"
       ],
-      "gf": 40,
-      "ga": 22
+      "gf": 41,
+      "ga": 24
     },
     "updated": "2026-11-02"
   },
@@ -125,14 +126,13 @@
     },
     {
       "label": "derived",
-      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 40 goals from 55 shots.",
+      "text": "Jacob Darwesh Lund-Iversen has scored thirteen of Mercy's 41 goals.",
       "basis": {
         "source": "stats",
         "player": "Jacob Darwesh Lund-Iversen",
         "programme": "mercy",
         "goals": 13,
-        "shots": 55,
-        "gf": 40
+        "gf": 41
       }
     },
     {
@@ -152,14 +152,14 @@
       "programme": "mercy",
       "position": "FWD",
       "class": "SR",
-      "line": "13 G · 7 A · 55 shots"
+      "line": "13 G · 7 A · 56 shots"
     },
     {
       "player": "Jalen Moni",
       "programme": "st-thomas-aquinas",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 31 shots"
+      "line": "10 G · 32 shots"
     },
     {
       "player": "Tommy Gunn",
@@ -171,16 +171,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 mercy v franklin-pierce",
-      "line": "Franklin Pierce arrived having beaten St. Thomas Aquinas and Queens; Mercy are the first member to stop them."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-15 southern-new-hampshire v st-thomas-aquinas",
-      "line": "Southern New Hampshire won at St. Thomas Aquinas on opening day, and have also taken a draw at Queens."
+      "fixture_ref": "2026-11-15 charleston v mercy",
+      "line": "Mercy finish with more wins than any other programme in the conference, but not the table."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:32:16.195Z"
+    "validated_at": "2026-11-16T12:42:40.853Z"
   }
 }

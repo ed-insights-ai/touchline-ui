@@ -3,18 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-11-15T19:40:00+00:00",
-  "data_collected_at": "2026-11-15T19:27:20+00:00",
-  "headline": "Flagler finish the conference table unbeaten",
-  "dek": "Flagler's only dropped points in conference play came in a draw at home to North Georgia in September, and their only defeat of the season at Florida Southern the following Wednesday. They take fourteen wins and four draws into Sunday's match at home to Lynn, as North Georgia go to Catawba after Friday's win at West Alabama.",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:36:43+00:00",
+  "headline": "Flagler finish their schedule beaten only once",
+  "dek": "Flagler's only defeat came at Florida Southern in September, and they won every match after it, the last at home to Lynn. They finish with fifteen wins and four draws, having conceded nineteen goals. North Georgia, the only side to draw with them in conference play, closed at Catawba with a defeat.",
   "lede_basis": {
     "programme": "flagler",
-    "wins": 14,
+    "wins": 15,
     "draws": 4,
-    "losses": 1
+    "losses": 1,
+    "gf": 46,
+    "ga": 19
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "North Georgia have played at West Alabama and Flagler now have a match against Lynn on the calendar, so the standing lines' claim that North Georgia alone had matches left is no longer true.",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Flagler have now played Lynn and North Georgia have played at Catawba, so the standing dek's matches still to come are no longer true, and no match remains on the calendar.",
   "pattern": {
     "label": "derived",
     "text": "Fifteen different players have scored North Georgia's 48 goals, so their attack is spread across the squad rather than leaning on one scorer.",
@@ -22,7 +24,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "north-georgia": 48,
-        "flagler": 42,
+        "flagler": 46,
         "clayton-state": 40,
         "middle-georgia-state": 29,
         "lander": 26,
@@ -34,7 +36,7 @@
     "basis": {
       "programme": "north-georgia",
       "gf": 48,
-      "ga": 27,
+      "ga": 29,
       "distinct_scorers_min": 15
     }
   },
@@ -42,7 +44,7 @@
     "line": "Flagler have won every match since Florida Southern beat them in September.",
     "basis": {
       "programme": "flagler",
-      "wins": 14,
+      "wins": 15,
       "draws": 4,
       "losses": 1
     },
@@ -79,15 +81,15 @@
     },
     {
       "label": "derived",
-      "text": "Isaac Calderon has scored twelve of North Georgia's 48 goals from 55 shots.",
+      "text": "Isaac Calderon has scored twelve of North Georgia's 48 goals from 58 shots.",
       "basis": {
         "source": "stats",
         "player": "Isaac Calderon",
         "programme": "north-georgia",
         "goals": 12,
-        "shots": 55,
+        "shots": 58,
         "gf": 48,
-        "ga": 27
+        "ga": 29
       }
     },
     {
@@ -105,14 +107,14 @@
     },
     {
       "label": "derived",
-      "text": "Finn Weigelt has scored eleven of Flagler's 42 goals from 38 shots.",
+      "text": "Finn Weigelt has scored eleven of Flagler's 46 goals from 38 shots.",
       "basis": {
         "source": "stats",
         "player": "Finn Weigelt",
         "programme": "flagler",
         "goals": 11,
         "shots": 38,
-        "gf": 42,
+        "gf": 46,
         "ga": 19
       }
     }
@@ -123,7 +125,7 @@
       "programme": "north-georgia",
       "position": "MID",
       "class": "SR",
-      "line": "12 G · 4 A · 55 shots"
+      "line": "12 G · 4 A · 58 shots"
     },
     {
       "player": "Finn Weigelt",
@@ -142,16 +144,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 west-alabama v north-georgia",
-      "line": "West Alabama have now lost to every side from this conference they have faced, at home and away."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 catawba v north-georgia",
-      "line": "North Georgia are unbeaten against sides from outside this conference this season."
+      "line": "Catawba are the first side from outside this conference to beat North Georgia this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:35:59.253Z"
+    "validated_at": "2026-11-16T12:46:12.924Z"
   }
 }

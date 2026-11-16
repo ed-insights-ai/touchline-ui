@@ -3,27 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-11-15T19:31:00Z",
-  "data_collected_at": "2026-11-15T19:26:10+00:00",
-  "headline": "Midwestern State beat St. Mary's again and stay unbeaten",
-  "dek": "Midwestern State beat St. Mary's on their own ground in their last match, as they had there in conference play. They have won fifteen and drawn five this season without a loss, conceding fifteen goals, and remain the only side in the conference yet to be beaten.",
+  "generated_at": "2026-11-16T12:40:00Z",
+  "data_collected_at": "2026-11-16T12:35:05+00:00",
+  "headline": "Midwestern State become the only conference side to beat UCCS",
+  "dek": "Midwestern State beat UCCS at home, having drawn with them away in September, while Sul Ross State, St. Mary's and Lubbock Christian each lost to UCCS. Midwestern State have won sixteen and drawn five this season without a loss.",
   "lede_basis": {
     "programme": "midwestern-state",
-    "wins": 15,
+    "wins": 16,
     "draws": 5,
     "losses": 0,
-    "gf": 53,
-    "ga": 15
+    "gf": 56,
+    "ga": 17
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "truth: the standing dek's 'on Saturday' now reads as Nov 14, but the match it names was played Nov 7; the story stands and the relative day is removed",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "truth: the standing dek named St. Mary's as Midwestern State's last match and gave fifteen wins and fifteen conceded; their win over UCCS, the side that beat every other conference programme it met, is the newer story",
   "pattern": {
     "label": "derived",
-    "text": "Fourteen different players have scored Midwestern State's 53 goals, and Parker Plaxco has seventeen of them.",
+    "text": "Fourteen different players have scored Midwestern State's 56 goals, and Parker Plaxco has eighteen of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 53,
+        "midwestern-state": 56,
         "ut-dallas": 42,
         "saint-marys": 38,
         "oklahoma-christian": 28,
@@ -39,19 +39,19 @@
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 53,
-      "ga": 15,
+      "gf": 56,
+      "ga": 17,
       "distinct_scorers_min": 14,
       "source": "stats",
       "player": "Parker Plaxco",
-      "goals": 17
+      "goals": 18
     }
   },
   "wire": {
     "line": "Every side but Midwestern State has now lost at least once.",
     "basis": {
       "programme": "midwestern-state",
-      "wins": 15,
+      "wins": 16,
       "draws": 5,
       "losses": 0
     },
@@ -118,7 +118,7 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "17 G · 67 shots"
+      "line": "18 G · 71 shots"
     },
     {
       "player": "Avery Brazzell",
@@ -137,16 +137,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-07 midwestern-state v saint-marys",
-      "line": "Midwestern State have now beaten St. Mary's twice on this ground, and have yet to lose this season."
+      "fixture_ref": "2026-11-15 midwestern-state v uccs",
+      "line": "Midwestern State drew at UCCS in September and won the return; they have yet to lose this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 midwestern-state v uccs",
-      "line": "Midwestern State drew at UCCS in September; every other conference side UCCS have played, they have beaten."
+      "fixture_ref": "2026-11-20 midwestern-state v cal-state-san-bernardino",
+      "line": "Cal State San Bernardino beat Texas A&M International without conceding in September; Midwestern State have yet to lose."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:34:06.962Z"
+    "validated_at": "2026-11-16T12:45:00.899Z"
   }
 }

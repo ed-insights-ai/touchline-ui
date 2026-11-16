@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "validated_at": "2026-11-15T19:33:22.252Z",
-  "data_collected_at": "2026-11-15T19:25:04+00:00",
+  "validated_at": "2026-11-16T12:43:50.040Z",
+  "data_collected_at": "2026-11-16T12:33:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -124,22 +124,13 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
-      "text": "2026-11-15 lincoln v roosevelt",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:32:16.399Z",
-    "generate_ms": 65852,
+    "started_at": "2026-11-16T12:43:10.799Z",
+    "generate_ms": 39240,
     "validate_ms": 1,
-    "wall_ms": 65853,
+    "wall_ms": 39240,
     "concurrency": 4
   }
 }

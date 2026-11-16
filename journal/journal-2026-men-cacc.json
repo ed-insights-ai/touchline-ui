@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "generated_at": "2026-11-15T19:40:00+00:00",
-  "data_collected_at": "2026-11-15T19:22:30+00:00",
-  "headline": "Georgian Court turn the tables at Millersville",
-  "dek": "Georgian Court won at Millersville, where they had lost without reply in September. The win was their thirteenth, more than any other programme in the conference has managed this season.",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:30:17+00:00",
+  "headline": "Georgian Court's winning run comes to an end",
+  "dek": "Georgian Court have lost for the first time since Jefferson beat them in October, two days after their win at Millersville. Their thirteen wins are still more than any other programme in the conference has managed this season.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "wins",
@@ -23,10 +23,11 @@
       "post",
       "wilmington"
     ],
-    "wins": 13
+    "wins": 13,
+    "days_between_millersville_and_latest": 2
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Georgian Court have now played and won at Millersville, so the standing dek's 'go to Millersville with twelve wins' is no longer true",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Georgian Court lost their latest match, ending the winning run since October that the standing headline's Millersville win belonged to",
   "pattern": {
     "label": "observed",
     "text": "Goals have not decided the table: Bridgeport have scored 49 and conceded 41, in a season of nine wins, three draws and eight defeats.",
@@ -34,7 +35,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "bridgeport": 49,
-        "georgian-court": 42,
+        "georgian-court": 43,
         "felician": 36,
         "wilmington": 33,
         "jefferson": 29,
@@ -138,7 +139,7 @@
       "programme": "georgian-court",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 9 A · 85 shots"
+      "line": "11 G · 9 A · 86 shots"
     },
     {
       "player": "Eliass Elfasoukhi",
@@ -157,16 +158,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 millersville v georgian-court",
-      "line": "Georgian Court have won every match since Jefferson beat them in October."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 davis-elkins v georgian-court",
-      "line": "Georgian Court are the only programme in the conference with a match still to play."
+      "line": "Georgian Court had won every match since Jefferson beat them in October until this one."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:33:08.858Z"
+    "validated_at": "2026-11-16T12:43:10.606Z"
   }
 }

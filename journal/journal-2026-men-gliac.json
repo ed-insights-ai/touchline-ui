@@ -3,18 +3,17 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-11-15T19:40:00+00:00",
-  "data_collected_at": "2026-11-15T19:25:04+00:00",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:33:34+00:00",
   "headline": "Saginaw Valley State finish top of the table",
   "dek": "Saginaw Valley State's one defeat on the record came at home to Northern Michigan in September, and they have not lost since. Roosevelt ended Purdue Northwest's run of wins on their own ground, then went back to the same ground and won there again.",
   "lede_basis": {
     "programme": "saginaw-valley-state",
     "wins": 9,
-    "draws": 7,
+    "draws": 8,
     "losses": 1
   },
   "lede_updated": "2026-11-15",
-  "displaced_by": "Roosevelt won at Purdue Northwest again on 2026-11-13, so the standing dek's 'on the last day' no longer holds",
   "pattern": {
     "label": "derived",
     "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Davenport and St. Cloud State together.",
@@ -23,7 +22,7 @@
       "values": {
         "northern-michigan": 36,
         "saginaw-valley-state": 34,
-        "roosevelt": 31,
+        "roosevelt": 32,
         "purdue-northwest": 26,
         "wisconsin-parkside": 19,
         "davenport": 18,
@@ -44,7 +43,7 @@
     "basis": {
       "programme": "saginaw-valley-state",
       "wins": 9,
-      "draws": 7,
+      "draws": 8,
       "losses": 1
     },
     "updated": "2026-11-08"
@@ -131,14 +130,10 @@
     "last_match": {
       "fixture_ref": "2026-11-15 findlay v northern-michigan",
       "line": "Northern Michigan have not won since beating Davenport in October."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-15 lincoln v roosevelt",
-      "line": "Roosevelt have not lost since October; Lincoln held Saginaw Valley State to a draw in August."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:33:22.252Z"
+    "validated_at": "2026-11-16T12:43:50.040Z"
   }
 }

@@ -3,24 +3,40 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-11-15T19:40:00+00:00",
-  "data_collected_at": "2026-11-15T19:27:35+00:00",
-  "headline": "Gannon finish the regular season top of the table",
-  "dek": "Gannon won at E. Stroudsburg on Sunday and finished the regular season top of the table, with fourteen wins, three draws and three defeats across all their matches. E. Stroudsburg had arrived from clean-sheet wins at Lock Haven and Millersville, and could not find a way past the leaders.",
+  "generated_at": "2026-11-16T12:50:00+00:00",
+  "data_collected_at": "2026-11-16T12:37:04+00:00",
+  "headline": "Gannon keep winning and still have a match to play",
+  "dek": "Gannon won at home again and now have fifteen wins, three draws and three defeats across all their matches. No other programme in the conference has won as often.",
   "lede_basis": {
     "programme": "gannon",
-    "wins": 14,
+    "wins": 15,
     "draws": 3,
-    "losses": 3
+    "losses": 3,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": [
+      "bloomsburg",
+      "california-pa",
+      "e-stroudsburg",
+      "lock-haven",
+      "millersville",
+      "pitt-johnstown",
+      "seton-hill",
+      "shepherd",
+      "shippensburg",
+      "slippery-rock",
+      "west-chester"
+    ]
   },
-  "lede_updated": "2026-11-08",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Gannon's home win took their record to fifteen wins, so the standing dek's fourteen was no longer true.",
   "pattern": {
     "label": "derived",
-    "text": "Gannon have scored more than California (Pa.) and Shippensburg together but conceded 24, so theirs is a lead in goals scored, not in goals kept out.",
+    "text": "Gannon have scored more than California (Pa.), Shippensburg and Pitt-Johnstown together but conceded 25, so theirs is a lead in goals scored, not in goals kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "gannon": 50,
+        "gannon": 55,
         "millersville": 40,
         "lock-haven": 33,
         "e-stroudsburg": 30,
@@ -39,9 +55,9 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "gannon",
-      "of": ["california-pa", "shippensburg"],
-      "gf": 50,
-      "ga": 24
+      "of": ["california-pa", "shippensburg", "pitt-johnstown"],
+      "gf": 55,
+      "ga": 25
     }
   },
   "wire": {
@@ -141,7 +157,7 @@
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "15 G · 5 A · 62 shots"
+      "line": "18 G · 6 A · 68 shots"
     },
     {
       "player": "Roy Parkyn",
@@ -160,16 +176,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 millersville v georgian-court",
-      "line": "Georgian Court reversed their September visit, when Millersville had beaten them without conceding."
+      "fixture_ref": "2026-11-15 gannon v concord",
+      "line": "Gannon's first match against a side from outside the conference since the middle of September."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 gannon v concord",
-      "line": "Concord drew at Seton Hill in September; Gannon have not lost since their defeat at Lock Haven."
+      "fixture_ref": "2026-11-20 charleston v gannon",
+      "line": "Gannon have lost away from home only at Lock Haven."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:35:12.778Z"
+    "validated_at": "2026-11-16T12:46:55.325Z"
   }
 }

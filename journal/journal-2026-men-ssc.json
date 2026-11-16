@@ -3,21 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "generated_at": "2026-11-15T19:40:00+00:00",
-  "data_collected_at": "2026-11-15T19:28:46+00:00",
-  "headline": "Lynn take a seven-match unbeaten run to Flagler",
-  "dek": "Lynn's win over AUM was their fifth in a row, and two of the five came against Barry and Florida Southern, both of whom had beaten them earlier in the season. They sit fifth on the conference table, eight points behind Florida Tech, who have not played since losing at Rollins.",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:38:39+00:00",
+  "headline": "Flagler end Lynn's seven-match unbeaten run",
+  "dek": "Lynn went to Flagler on five straight wins, Barry, Rollins and Florida Southern among them, and lost by four goals, their first defeat since losing at Barry in October. No conference side has another match on the schedule.",
   "lede_basis": {
-    "lynn_unbeaten_run": 7,
-    "lynn_consecutive_wins": 5,
-    "wins_in_run_over_sides_that_had_beaten_lynn": 2,
-    "lynn_table_position": 5,
-    "lynn_points": 15,
-    "florida_tech_points": 23,
-    "points_behind_florida_tech": 8
+    "lynn_unbeaten_run_ended": 7,
+    "lynn_consecutive_wins_before_flagler": 5,
+    "flagler_margin_of_victory": 4,
+    "lynn_goals_at_flagler": 0,
+    "flagler_goals_v_lynn": 4,
+    "upcoming_conference_matches": 0
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Lynn beat AUM for a fifth straight win, so the run the standing headline placed at Florida Southern has moved on and the dek's 'last six' undercounts it; the new lines are about the unbeaten stretch Lynn take to Flagler, not the win that extended it.",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Lynn lost at Flagler, so the unbeaten run the standing headline carried there has ended; the new lines are about the run's end and an empty schedule, not the run itself.",
   "pattern": {
     "label": "derived",
     "text": "Florida Southern have outscored every other programme, but goals have not settled the table: Florida Tech lead it on a total from the middle of the pack.",
@@ -148,16 +147,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 lynn v aum",
-      "line": "AUM came in having beaten both Saint Leo and Tampa at home in August."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 flagler v lynn",
-      "line": "Flagler have won at Embry-Riddle and held Barry to a draw on this ground."
+      "line": "Flagler had already won at Embry-Riddle; Florida Southern are the only conference side to have beaten them."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:36:48.777Z"
+    "validated_at": "2026-11-16T12:47:35.883Z"
   }
 }

@@ -3,18 +3,18 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-11-15T19:40:00+00:00",
-  "data_collected_at": "2026-11-15T19:25:20+00:00",
-  "headline": "Maryville win at Drury as Lincoln play on unbeaten",
-  "dek": "Maryville won at Drury on Friday, on the ground where the two had drawn in October, and have lost four times all season. They travel to Saginaw Valley State today, the same day Lincoln, still without a defeat, meet Roosevelt.",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:33:56+00:00",
+  "headline": "Lincoln take an unbeaten season into Friday",
+  "dek": "Lincoln beat Roosevelt at home on Sunday for their sixteenth win, and four draws remain the only matches they have not won. Maryville drew at Saginaw Valley State the same day. Both are at home on Friday, Lincoln against Findlay and Maryville against Fort Hays State.",
   "lede_basis": {
-    "programme": "maryville",
-    "wins": 12,
+    "programme": "lincoln",
+    "wins": 16,
     "draws": 4,
-    "losses": 4
+    "losses": 0
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Lincoln meet Roosevelt today, so the standing headline's finished season and the dek's 'last match of the season' are no longer true; Maryville's win at Drury on Friday takes the lede.",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "The dek's trip to Saginaw Valley State 'today' is now past; Lincoln's win over Roosevelt carries their unbeaten season into Friday's home match with Findlay.",
   "pattern": {
     "label": "derived",
     "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
@@ -22,8 +22,8 @@
       "kind": "goals-for-by-team",
       "values": {
         "southwest-baptist": 45,
+        "lincoln": 44,
         "maryville": 44,
-        "lincoln": 42,
         "drury": 32,
         "mckendree": 30,
         "missouri-s-t": 30,
@@ -55,7 +55,7 @@
     "line": "Lincoln are the only programme in the conference still without a defeat this season.",
     "basis": {
       "programme": "lincoln",
-      "wins": 15,
+      "wins": 16,
       "draws": 4,
       "losses": 0
     },
@@ -83,14 +83,14 @@
     },
     {
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has twelve of Lincoln's forty-two goals, from sixty-nine shots.",
+      "text": "Jonathan Nemorden, a freshman, has thirteen of Lincoln's forty-four goals, from seventy-three shots.",
       "basis": {
         "source": "stats",
         "player": "Jonathan Nemorden",
         "programme": "lincoln",
-        "goals": 12,
-        "shots": 69,
-        "gf": 42
+        "goals": 13,
+        "shots": 73,
+        "gf": 44
       }
     },
     {
@@ -131,7 +131,7 @@
       "programme": "lincoln",
       "position": "FWD",
       "class": "FR",
-      "line": "12 G · 2 A · 69 shots"
+      "line": "13 G · 2 A · 73 shots"
     },
     {
       "player": "Fredrik Thulin",
@@ -143,16 +143,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 drury v maryville",
-      "line": "Drury have not won since beating Southwest Baptist in October."
+      "fixture_ref": "2026-11-15 saginaw-valley-state v maryville",
+      "line": "Maryville have not lost since Lincoln beat them in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 lincoln v roosevelt",
-      "line": "Lincoln have won every match they played at home this season; Roosevelt won at Missouri-St. Louis in September."
+      "fixture_ref": "2026-11-20 lincoln v findlay",
+      "line": "Lincoln have won every match they have played at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:33:42.959Z"
+    "validated_at": "2026-11-16T12:44:45.673Z"
   }
 }

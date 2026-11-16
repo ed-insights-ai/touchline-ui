@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SAC",
-  "generated_at": "2026-11-15T19:36:00+00:00",
-  "data_collected_at": "2026-11-15T19:28:09+00:00",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:37:58+00:00",
   "headline": "Emory & Henry beat Catawba to top the table unbeaten",
   "dek": "Emory & Henry finished the table a point above Catawba, the only side in it without a defeat, then beat Catawba at home. The sides' first meeting, at Catawba in September, had ended goalless.",
   "lede_basis": {
@@ -12,14 +12,13 @@
     "table_points_ahead": 1
   },
   "lede_updated": "2026-11-15",
-  "displaced_by": "untrue: the standing dek's 'on Sunday' now reads as today (2026-11-15, a Sunday); the win was 2026-11-08 and the table was already complete before it",
   "pattern": {
     "label": "observed",
     "text": "Emory & Henry have scored 30 and conceded nine: the side top of the table got there by keeping goals out, not by scoring them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "catawba": 48,
+        "catawba": 50,
         "mars-hill": 42,
         "anderson": 37,
         "emory-henry": 30,
@@ -45,7 +44,7 @@
       "comparative": "greater_than_each",
       "metric": "gf",
       "programme": "catawba",
-      "gf": 48,
+      "gf": 50,
       "of": [
         "anderson",
         "carson-newman",
@@ -64,11 +63,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Six matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Palm Beach Atlantic in September.",
+      "text": "Seven matches whose dates have passed carry no result: Newberry's opener at Converse, and the rest Emory & Henry's, the latest their home match with Lees-McRae.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 6
+        "past_date_no_result": 7
       }
     },
     {
@@ -83,10 +82,10 @@
     },
     {
       "label": "observed",
-      "text": "Catawba's defeat at Emory & Henry was their second of the season, against fourteen wins and two draws.",
+      "text": "Catawba's home win over North Georgia was their fifteenth of the season, against two draws and two defeats.",
       "basis": {
         "programme": "catawba",
-        "wins": 14,
+        "wins": 15,
         "draws": 2,
         "losses": 2
       }
@@ -112,6 +111,16 @@
           "wingate"
         ]
       }
+    },
+    {
+      "label": "observed",
+      "text": "Héctor Vara has kept nine shutouts in goal for Catawba.",
+      "basis": {
+        "source": "stats",
+        "player": "Héctor Vara",
+        "programme": "catawba",
+        "shutouts": 9
+      }
     }
   ],
   "players_to_watch": [
@@ -120,7 +129,7 @@
       "programme": "catawba",
       "position": "MID",
       "class": "SO",
-      "line": "11 G · 3 A · 43 shots"
+      "line": "11 G · 4 A · 44 shots"
     },
     {
       "player": "Luis Munoz",
@@ -139,16 +148,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-08 emory-henry v catawba",
-      "line": "Catawba had lost only once before, at home to Coker in October; Emory & Henry remain unbeaten."
+      "fixture_ref": "2026-11-15 catawba v north-georgia",
+      "line": "Catawba's first match since their defeat at Emory & Henry, the side they meet next."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 emory-henry v lees-mcrae",
-      "line": "Emory & Henry have yet to lose this season; their opponents beat Lenoir-Rhyne and Tusculum in September, both at home."
+      "fixture_ref": "2026-11-20 catawba v emory-henry",
+      "line": "A third meeting: the first, at Catawba, was goalless, and Emory & Henry won the second at home, and have yet to lose this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:36:01.926Z"
+    "validated_at": "2026-11-16T12:46:56.536Z"
   }
 }

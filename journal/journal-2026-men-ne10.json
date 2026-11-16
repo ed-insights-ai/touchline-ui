@@ -3,28 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-11-15T19:35:00+00:00",
-  "data_collected_at": "2026-11-15T19:26:46+00:00",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:35:55+00:00",
   "headline": "Southern New Hampshire see off American International again",
-  "dek": "Southern New Hampshire beat American International by three clear goals at home earlier this month, a wider margin than the single goal that settled their meeting there in September. Their one defeat in eighteen matches came at Adelphi in October.",
+  "dek": "Southern New Hampshire beat American International by three clear goals at home earlier this month, a wider margin than the single goal that settled their meeting there in September. Their only defeat of the season came at Adelphi in October.",
   "lede_basis": {
     "programme": "southern-new-hampshire",
-    "wins": 13,
+    "wins": 14,
     "draws": 4,
     "losses": 1,
-    "matches": 18,
     "winning_margin_v_american_international_2026_11_07": 3,
     "winning_margin_v_american_international_2026_09_19": 1
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "truth: the standing dek's 'on Saturday' reads as yesterday on a Sunday collect, and the match was played the Saturday before; headline still true and stands",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "truth: the standing dek's 'one defeat in eighteen matches' became nineteen with the win over St Thomas Aquinas on 2026-11-15; the dek now names the defeat without a count, and the headline is still true and stands",
   "pattern": {
     "label": "signal",
-    "text": "Southern New Hampshire's fifty-eight goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
+    "text": "Southern New Hampshire's sixty-one goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "southern-new-hampshire": 58,
+        "southern-new-hampshire": 61,
         "franklin-pierce": 36,
         "american-international": 35,
         "assumption": 31,
@@ -40,21 +39,19 @@
     "basis": {
       "programme": "southern-new-hampshire",
       "distinct_scorers_min": 16,
-      "gf": 58
+      "gf": 61
     }
   },
   "wire": {
-    "line": "Southern New Hampshire have conceded twelve goals in eighteen matches.",
+    "line": "Southern New Hampshire have outscored the conference's three lowest-scoring sides together.",
     "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
       "programme": "southern-new-hampshire",
-      "gf": 58,
-      "ga": 12,
-      "wins": 13,
-      "draws": 4,
-      "losses": 1,
-      "matches": 18
+      "of": ["saint-michael-s", "southern-connecticut", "pace"],
+      "gf": 61
     },
-    "updated": "2026-11-08"
+    "updated": "2026-11-16"
   },
   "findings": [
     {
@@ -145,7 +142,7 @@
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
-      "line": "13 G · 5 A · 70 shots"
+      "line": "13 G · 5 A · 74 shots"
     },
     {
       "player": "Cody Holbert",
@@ -157,16 +154,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 franklin-pierce v mercy",
-      "line": "The visitors are unbeaten against NE10 sides this season; Franklin Pierce had also lost their previous match, at Southern New Hampshire."
+      "fixture_ref": "2026-11-15 southern-new-hampshire v st-thomas-aquinas",
+      "line": "Southern New Hampshire also won this meeting away, on the season's opening day."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 southern-new-hampshire v st-thomas-aquinas",
-      "line": "Southern New Hampshire have already won this meeting once, away on the season's opening day."
+      "fixture_ref": "2026-11-20 southern-new-hampshire v davis-elkins",
+      "line": "Southern New Hampshire have yet to lose at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:35:00.354Z"
+    "validated_at": "2026-11-16T12:46:19.758Z"
   }
 }

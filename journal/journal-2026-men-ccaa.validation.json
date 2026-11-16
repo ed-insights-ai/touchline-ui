@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-11-15T19:32:11.264Z",
-  "data_collected_at": "2026-11-15T19:23:26+00:00",
+  "validated_at": "2026-11-16T12:42:58.275Z",
+  "data_collected_at": "2026-11-16T12:31:34+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -44,11 +44,12 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Cal State LA have lost none of nineteen matches and conceded only six goals in them.",
-      "checker": "team_goals+team_record+fixture_counts",
+      "text": "Cal State San Bernardino have scored 42 goals, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is cal-state-la at 41"
     },
     {
       "path": "findings[0]",
@@ -109,7 +110,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Angel Sandres — 5 G · 10 A · 24 shots",
+      "text": "Angel Sandres — 5 G · 10 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +119,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Rafa Fonseca — 9 G · 1 A · 40 shots",
+      "text": "Rafa Fonseca — 9 G · 1 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -127,7 +128,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-08 cal-state-san-bernardino v cal-state-la",
+      "text": "2026-11-15 cal-state-la v western-oregon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,7 +137,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 csu-pueblo v cal-state-san-bernardino",
+      "text": "2026-11-20 midwestern-state v cal-state-san-bernardino",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -144,10 +145,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:31:34.421Z",
-    "generate_ms": 36836,
-    "validate_ms": 6,
-    "wall_ms": 36843,
+    "started_at": "2026-11-16T12:41:34.695Z",
+    "generate_ms": 83576,
+    "validate_ms": 4,
+    "wall_ms": 83580,
     "concurrency": 4
   }
 }

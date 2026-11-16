@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "validated_at": "2026-11-15T19:34:19.139Z",
-  "data_collected_at": "2026-11-15T19:25:52+00:00",
+  "validated_at": "2026-11-16T12:44:55.114Z",
+  "data_collected_at": "2026-11-16T12:34:43+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 11,
+    "verified": 11,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Chris Douglas — 20 G · 5 A · 54 shots",
+      "text": "Chris Douglas — 20 G · 5 A · 57 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,15 +110,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 north-georgia v west-alabama",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-15 trevecca v francis-marion",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -127,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:33:09.060Z",
-    "generate_ms": 70077,
+    "started_at": "2026-11-16T12:43:53.923Z",
+    "generate_ms": 61190,
     "validate_ms": 1,
-    "wall_ms": 70078,
+    "wall_ms": 61191,
     "concurrency": 4
   }
 }

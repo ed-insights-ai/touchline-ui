@@ -3,21 +3,33 @@
   "season": 2026,
   "gender": "men",
   "conference": "GSC",
-  "generated_at": "2026-11-15T19:40:00+00:00",
-  "data_collected_at": "2026-11-15T19:25:52+00:00",
-  "headline": "Friday defeats leave Trevecca the last side still playing",
-  "dek": "AUM lost to Lynn and West Alabama lost at North Georgia, and Trevecca host Francis Marion today. Trevecca have lost two of their eighteen matches all season, both at home, to Lee and to West Alabama.",
+  "generated_at": "2026-11-16T12:45:00+00:00",
+  "data_collected_at": "2026-11-16T12:34:43+00:00",
+  "headline": "Every Gulf South side has lost its latest match",
+  "dek": "Trevecca were the last to fall, to Francis Marion. They have still won fourteen of their nineteen matches, and all three of their defeats have come at home, to Lee, West Alabama and Francis Marion.",
   "lede_basis": {
     "programme": "trevecca",
     "wins": 14,
     "draws": 2,
-    "losses": 2,
-    "played": 18,
-    "home_losses": 2,
-    "defeated_on_friday": ["aum", "west-alabama"]
+    "losses": 3,
+    "played": 19,
+    "home_losses": 3,
+    "lost_latest_match": [
+      "aum",
+      "christian-brothers",
+      "delta-state",
+      "lee",
+      "mississippi-college",
+      "montevallo",
+      "spring-hill",
+      "trevecca",
+      "uah",
+      "union",
+      "west-alabama"
+    ]
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "The standing dek is no longer true: AUM's defeat by Lynn makes the hosts' losses eight of 51, not seven of 50. The Friday trip it looked ahead to has also been played, and West Alabama lost it.",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "The standing lines are no longer true: Trevecca have played Francis Marion and lost, a third home defeat, which leaves every programme beaten in its latest match.",
   "pattern": {
     "label": "derived",
     "text": "West Alabama's goals have not bought a matching record: they have conceded 35, more than any other programme, and won nine of their twenty matches.",
@@ -25,7 +37,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "west-alabama": 54,
-        "trevecca": 43,
+        "trevecca": 44,
         "uah": 33,
         "montevallo": 29,
         "aum": 25,
@@ -129,7 +141,7 @@
       "programme": "trevecca",
       "position": "FWD",
       "class": "JR",
-      "line": "20 G · 5 A · 54 shots"
+      "line": "20 G · 5 A · 57 shots"
     },
     {
       "player": "Florian Laot",
@@ -141,16 +153,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 north-georgia v west-alabama",
-      "line": "North Georgia have now beaten every conference side to visit them."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 trevecca v francis-marion",
-      "line": "Trevecca have lost at home only to Lee and West Alabama; AUM won at Francis Marion in September."
+      "line": "Francis Marion had lost at home to AUM in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:34:19.139Z"
+    "validated_at": "2026-11-16T12:44:55.114Z"
   }
 }
