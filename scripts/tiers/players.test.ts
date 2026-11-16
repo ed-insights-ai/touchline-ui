@@ -18,6 +18,7 @@ import {
   mostCommon,
   type PlayerSeason,
   playerSeasons,
+  printedName,
   rosterBioId,
   rosterIndex,
   rosterLookup,
@@ -490,6 +491,26 @@ describe("[N2d] the name printed", () => {
       "samuelvillanueva",
     ]);
     expect(statsRowFor(p as PlayerSeason, rows)).toBe(rows[0] as PlayerStats);
+  });
+});
+
+describe("[N2d] white space in the name printed", () => {
+  test("runs collapse to one space and the ends are trimmed; nothing else changes", () => {
+    expect(printedName("Lewis  Green")).toBe("Lewis Green");
+    expect(printedName(" Pablo\tGalietero  Diez ")).toBe("Pablo Galietero Diez");
+    expect(printedName("Matias Milla \u00a0Munoz")).toBe("Matias Milla Munoz");
+    // Punctuation and case stay as printed.
+    expect(printedName("Daniel Gardner, Jr.")).toBe("Daniel Gardner, Jr.");
+    expect(printedName("GREEN,  Lewis")).toBe("GREEN, Lewis");
+  });
+
+  test("the roster's doubled space is kept inside the build; the key is the same", () => {
+    const [p] = join(
+      [sheet("m1", [line({ name: "Lewis Green", ref: { id: "4", source: "roster" } })])],
+      [bio("4", { name: "Lewis  Green" })],
+    );
+    expect([p?.name, p?.key]).toEqual(["Lewis  Green", "lewisgreen"]);
+    expect(printedName(p?.name as string)).toBe("Lewis Green");
   });
 });
 

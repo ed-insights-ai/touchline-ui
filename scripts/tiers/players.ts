@@ -263,6 +263,11 @@ export function rosterNumbers(row: Player | null | undefined): Set<string> {
   return out;
 }
 
+/** [N2d] The name an entry prints: runs of white space collapse to one space
+ *  and the ends are trimmed. Nothing else about the name changes, and the key
+ *  (4.1's fold, letters only) is the same either way. */
+export const printedName = (name: string): string => name.replace(/\s+/g, " ").trim();
+
 /** [N2d] A line that prints a team row, not a person: TEAM, TEAM TEAM, or the
  *  programme's own nickname (folded) with no minutes (null or zero). */
 export function isTeamRow(line: SheetLine, nicknameFold: string): boolean {

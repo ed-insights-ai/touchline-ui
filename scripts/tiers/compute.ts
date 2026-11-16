@@ -61,6 +61,7 @@ import {
   type JoinOptions,
   type PlayerSeason,
   playerSeasons,
+  printedName,
   type Sheet,
   type SheetLine,
   type StatsPenaltyChange,
@@ -667,7 +668,7 @@ export function computeGender(
       entries.set(
         slug,
         list.map((r) => ({
-          name: r.p.name,
+          name: printedName(r.p.name),
           key: r.p.key,
           player_id: r.p.playerId,
           number: r.p.number,
