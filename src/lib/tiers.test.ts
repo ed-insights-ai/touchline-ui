@@ -8,7 +8,6 @@ import { mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { section10Violations } from "../../scripts/tiers/output.ts";
-import { ncaaDivision } from "../site.config.ts";
 import {
   foldLetters,
   foldName,
@@ -76,7 +75,9 @@ describe("the committed artifacts in tiers/d2", () => {
 
 describe("loadTiers", () => {
   test("reads tiers/{level}/{season}-{gender}.json under the repository root", () => {
-    const a = loadTiers(ncaaDivision, 2026, "men", ROOT);
+    // The committed files' own level, not the build's: the suite also runs
+    // with TOUCHLINE_NCAA_DIVISION=d1, and the d2 files are there either way.
+    const a = loadTiers("d2", 2026, "men", ROOT);
     expect(a?.season).toBe(2026);
     expect(a?.gender).toBe("men");
   });
