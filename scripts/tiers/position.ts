@@ -76,6 +76,9 @@ export function group(label: string | undefined | null): PositionGroup | null {
   return line === null ? null : GROUP_OF_LINE[line];
 }
 
+/** [M7] The box-score lines a part of a two-position label needs to decide. */
+export const BOX_LABELS_TO_OVERRULE = 3;
+
 /** Hyphen-joined initials, trimmed and lower-cased: "f-m", "mf-d", "gk-d". */
 const HYPHEN_INITIALS = /^(gk|mf|[a-z])(-(gk|mf|[a-z]))+$/;
 
@@ -83,8 +86,10 @@ const HYPHEN_INITIALS = /^(gk|mf|[a-z])(-(gk|mf|[a-z]))+$/;
  * [N3] A roster label's group: positionLine of the whole label, unless its
  * parts name two or more different groups; then the part most common among
  * the box-score labels (in date order, a tie to the one seen first), or the
- * whole label's when none of them appears there. `byBox` says the box scores
- * decided it against the whole label's reading.
+ * whole label's when none of them appears there. [M7] That part decides only
+ * when it is on at least three of his box-score lines that season; otherwise
+ * the whole label's. `byBox` says the box scores decided it against the whole
+ * label's reading.
  */
 export function rosterGroup(
   label: string | undefined | null,
@@ -110,6 +115,8 @@ export function rosterGroup(
     if (best === null || (counts.get(g) as number) > (counts.get(best) as number)) best = g;
   }
   if (best === null) return { group: whole, byBox: false };
+  // [M7] Fewer than three box labels do not overrule the roster's label.
+  if ((counts.get(best) as number) < BOX_LABELS_TO_OVERRULE) return { group: whole, byBox: false };
   return { group: best, byBox: best !== whole };
 }
 

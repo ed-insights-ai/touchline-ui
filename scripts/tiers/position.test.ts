@@ -3,7 +3,14 @@
 
 import { describe, expect, test } from "bun:test";
 import { positionLine } from "../../src/lib/format.ts";
-import { boxGroupTied, GROUP_OF_LINE, group, groupOf, rosterGroup } from "./position.ts";
+import {
+  BOX_LABELS_TO_OVERRULE,
+  boxGroupTied,
+  GROUP_OF_LINE,
+  group,
+  groupOf,
+  rosterGroup,
+} from "./position.ts";
 
 describe("R-F: group(label) is positionLine, mapped", () => {
   test("GK is GK, DEF is D, MID is M, FWD is F; null, undefined and empty have no group", () => {
@@ -84,21 +91,38 @@ describe("groupOf: the roster line first, then the box scores", () => {
 
 describe("[N3] a roster label naming two groups: the one the box scores show most", () => {
   test("parts split on '/', '\\' and ','; the most common in the box scores wins", () => {
-    // positionLine reads "D/M" as its first, D; the box scores say M twice, D once.
+    // positionLine reads "D/M" as its first, D; the box scores say M three times, D once.
     expect(group("D/M")).toBe("D");
-    expect(rosterGroup("D/M", ["MID", "DEF", "MID"])).toEqual({ group: "M", byBox: true });
-    expect(rosterGroup("Midfielder, Forward", ["F", "F"])).toEqual({ group: "F", byBox: true });
-    expect(rosterGroup("D\\F", ["FWD"]).group).toBe("F");
+    expect(rosterGroup("D/M", ["MID", "DEF", "MID", "MID"])).toEqual({ group: "M", byBox: true });
+    expect(rosterGroup("Midfielder, Forward", ["F", "F", "F"])).toEqual({
+      group: "F",
+      byBox: true,
+    });
+    expect(rosterGroup("D\\F", ["FWD", "FWD", "FWD"]).group).toBe("F");
     // The box scores agree with the first: decided, but not against it.
-    expect(rosterGroup("D/M", ["DEF"])).toEqual({ group: "D", byBox: false });
-    expect(groupOf("D/M", ["MID", "DEF", "MID"])).toBe("M");
+    expect(rosterGroup("D/M", ["DEF", "DEF", "DEF"])).toEqual({ group: "D", byBox: false });
+    expect(groupOf("D/M", ["MID", "DEF", "MID", "MID"])).toBe("M");
+  });
+
+  test("[M7] a part decides only on three or more box-score lines; else the label read whole", () => {
+    // Keegan Ferreira, "Defender / Midfielder": M on two lines is not enough.
+    expect(BOX_LABELS_TO_OVERRULE).toBe(3);
+    expect(rosterGroup("D/M", ["MID", "DEF", "MID"])).toEqual({ group: "D", byBox: false });
+    expect(rosterGroup("D/M", ["MID"])).toEqual({ group: "D", byBox: false });
+    expect(rosterGroup("D/M", ["MID", "MID", "MID"])).toEqual({ group: "M", byBox: true });
+    // The count is of lines in the group, whatever the label's spelling.
+    expect(rosterGroup("D/M", ["MID", "M", "Midfielder"])).toEqual({ group: "M", byBox: true });
+    // groupOf takes the roster's reading; the box scores' most common only
+    // when the roster line gives no group at all.
+    expect(groupOf("D/M", ["MID", "MID"])).toBe("D");
   });
 
   test("a tie goes to the part seen first in date order", () => {
-    expect(rosterGroup("D/M", ["MID", "DEF"]).group).toBe("M");
-    expect(rosterGroup("D/M", ["DEF", "MID"]).group).toBe("D");
+    const m3d3 = ["MID", "DEF", "MID", "DEF", "MID", "DEF"];
+    expect(rosterGroup("D/M", m3d3).group).toBe("M");
+    expect(rosterGroup("D/M", ["DEF", ...m3d3]).group).toBe("D");
     // Labels of a group the roster does not name neither count nor order.
-    expect(rosterGroup("D/M", ["FWD", "FWD", "MID"]).group).toBe("M");
+    expect(rosterGroup("D/M", ["FWD", "FWD", "FWD", "FWD", "MID", "MID", "MID"]).group).toBe("M");
   });
 
   test("none of the parts in the box scores: the label read whole", () => {
@@ -107,13 +131,14 @@ describe("[N3] a roster label naming two groups: the one the box scores show mos
   });
 
   test("hyphen-joined initials split on '-'; other hyphenated labels do not", () => {
+    const three = (l: string) => [l, l, l];
     expect(group("F-M")).toBe("F");
-    expect(rosterGroup("F-M", ["MID", "MID"]).group).toBe("M");
-    expect(rosterGroup(" mf-d ", ["DEF"]).group).toBe("D");
-    expect(rosterGroup("GK-F", ["FWD"]).group).toBe("F");
+    expect(rosterGroup("F-M", three("MID")).group).toBe("M");
+    expect(rosterGroup(" mf-d ", three("DEF")).group).toBe("D");
+    expect(rosterGroup("GK-F", three("FWD")).group).toBe("F");
     // "Center-Back" is a word, not initials: one part, one group.
-    expect(rosterGroup("Center-Back", ["MID", "MID"])).toEqual({ group: "D", byBox: false });
-    expect(rosterGroup("Forward-Midfielder", ["FWD"]).group).toBe("M");
+    expect(rosterGroup("Center-Back", three("MID"))).toEqual({ group: "D", byBox: false });
+    expect(rosterGroup("Forward-Midfielder", three("FWD")).group).toBe("M");
   });
 
   test("a label naming one group, or none, is read as before", () => {
