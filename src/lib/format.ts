@@ -236,8 +236,11 @@ const POSITIONS: readonly [RegExp, Line][] = [
   // RB, CB and LB are Southwest Baptist 2023's right, centre and left backs.
   // "DF" is Christian Brothers 2020 (gsc/christian-brothers); "FB" is a full
   // back on Saint Edward's 2023; "OB" is an outside back on Adams State 2026
-  // (rmac/adams-state), beside "RB/ST/CDM" and "Center Back".
-  [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lb$|^fb$|^ob$/, "DEF"],
+  // (rmac/adams-state), beside "RB/ST/CDM" and "Center Back". "LCB" is a
+  // left centre back on NC State's roster (acc/nc-state, Division I), and
+  // "RWB" and "LWB" are Queens' right and left wing backs in 2023
+  // (asun/queens-charlotte).
+  [/back|defen|^def$|^df$|^d$|^b$|^rb$|^cb$|^lcb$|^lb$|^fb$|^ob$|^rwb$|^lwb$/, "DEF"],
   // LW, RW and ST are Southwest Baptist 2023's wings and striker.
   // "FW" is Newman 2022 and Christian Brothers 2020; "FOR" is Shorter 2021;
   // "S" is the striker beside "W" and "W/S" on Saint Edward's 2023. "A" is
@@ -246,8 +249,9 @@ const POSITIONS: readonly [RegExp, Line][] = [
   // "CF" is the centre forward on North Greenville 2023 (cc/north-greenville),
   // beside CAM and LW.
   // "WF" is South Florida 2026's wide forward (aac/south-florida), beside F.
+  // "ATT" is an attacker on California Baptist 2023 (wac/california-baptist).
   [
-    /forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^cf$|^s$|^a$|^wf$/,
+    /forward|foward|strik|wing|attack|^fwd$|^fw$|^for$|^f$|^w$|^lw$|^rw$|^st$|^cf$|^s$|^a$|^wf$|^att$/,
     "FWD",
   ],
 ];
