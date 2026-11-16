@@ -60,7 +60,7 @@ function file(over: Partial<TiersFile> = {}): TiersFile {
     level: "d2",
     season: 2026,
     gender: "men",
-    spec: "player-tiers/0.6",
+    spec: "player-tiers/0.7",
     frozen_at: "2026-11-16",
     data_commit: "ea45f891",
     division: { teams: 198, shots_faced_per_match: 12.3, pct_in: 12.8 },
