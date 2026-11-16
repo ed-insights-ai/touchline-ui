@@ -2,11 +2,11 @@
 // plus anyone tied with the last of them.
 //
 // The fraction is taken as a whole-number percentage and the count is
-// ceil(percent × n / 100). Written as 0.05 × n in floating point, a count that
-// is exactly whole can come out a hair above it (0.05 × 60 is
-// 3.0000000000000004, whose ceiling is 4), which would hand the tier to one
-// player more than the contract does. percent × n and 100 are exact integers,
-// so their quotient is exact whenever it is whole.
+// ceil(percent × n / 100), in integers: percent × n and 100 are exact, so the
+// quotient is exact whenever it is whole and a whole count can never come out
+// a hair above itself. For every n up to 2,000 this agrees with ceil(0.05 × n)
+// and ceil(0.20 × n) in floating point (cut.test in shooting.test.ts holds
+// that), so it is a safeguard, not a difference from the contract.
 
 /** ceil(percent × n / 100), computed without the floating-point trap above. */
 export function cutCount(percent: number, n: number): number {
