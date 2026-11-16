@@ -33,6 +33,7 @@ import {
   couldReachBar,
   type MinutesOfRecord,
   minutesOfRecord,
+  unprintedCounter,
 } from "./minutes.ts";
 import {
   type Factors,
@@ -108,6 +109,9 @@ export interface Rated {
   /** [N1] r and m of the programme-season. */
   records: number;
   withMinutes: number;
+  /** [M2] u: the records printing no minutes for the side in which he has a
+   *  line, or the side has no lines at all. */
+  unprinted: number;
   /** The box minutes, whatever the minutes of record. */
   boxMinutes: number;
   /** [N1 (a)] A box_partial player the U test made incomplete (no_minutes). */
@@ -442,6 +446,7 @@ export function computeGender(
       const team = teamBySlug.get(slug);
       const r = (teamMatches.get(slug) ?? []).length;
       const m = withMinutes.get(slug) ?? 0;
+      const unprinted = unprintedCounter(list, r);
       const entries: Rated[] = ps.map((p, i) => {
         measures.doubledRecords += p.doubled;
         const boxMinutes = p.minutes;
@@ -492,6 +497,7 @@ export function computeGender(
           ofRecord,
           records: r,
           withMinutes: m,
+          unprinted: unprinted(p.sheets),
           boxMinutes,
           couldReachBar: false,
           basisSeasons: [season],
@@ -568,7 +574,7 @@ export function computeGender(
       if (r.reason !== null && r.reason !== "identity" && r.reason !== "few_matches") continue;
       const prev = r.previous;
       const prevCounts = previousCounts(prev);
-      if (!couldReachBar(r.group, r.p.minutes, r.records, r.withMinutes, prevCounts)) continue;
+      if (!couldReachBar(r.group, r.p.minutes, r.unprinted, r.withMinutes, prevCounts)) continue;
       if (r.reason === "identity") {
         measures.identity--;
         if (r.p.minutes >= COUNTS_MINUTES) measures.identity600--;

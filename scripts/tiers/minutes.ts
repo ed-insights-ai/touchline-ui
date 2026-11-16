@@ -16,10 +16,12 @@
 //   otherwise                      incomplete, no_minutes
 //
 // [Phase 3] The bar is 0.5 (it was 0.9), and a box_partial player who falls
-// short on box minutes but could reach the bar, were his programme's r − m
-// records without box minutes full matches for him, is incomplete, reason
-// no_minutes, not needs_minutes: couldReachBar. For everyone else the box
-// minutes' status is certain.
+// short on box minutes but could reach the bar, were the records without box
+// minutes that count for him full matches, is incomplete, reason no_minutes,
+// not needs_minutes: couldReachBar. For everyone else the box minutes' status
+// is certain. [M2] The records that count for him are those printing no
+// minutes for the side in which he has a line, or the side has no lines at
+// all: a record that lists the side and has no line for him adds nothing.
 //
 // [IR-11, as M1 amends it] T is the larger of the minutes on his players-list
 // row and on his keepers-list row, each joined as 4.6 joins it (a keeper who
@@ -41,7 +43,7 @@ import {
   KEEPER_SHARE,
   share,
 } from "./defence.ts";
-import type { PlayerSeason } from "./players.ts";
+import type { PlayerSeason, Sheet } from "./players.ts";
 import { isShootingGroup, shootingEligible } from "./shooting.ts";
 
 export type MinutesMode = "box" | "stats" | "box_partial" | "none";
@@ -103,9 +105,27 @@ export function applyMinutesOfRecord(p: PlayerSeason, rec: MinutesOfRecord): voi
   p.adjS = p.everyRecord.adjS;
 }
 
+/** [M2] u for the players of one programme-season of r records, `sheets` the
+ *  records that give the side a sheet: of the records printing no minutes for
+ *  the side, those in which the player has a line (`own`, his records'
+ *  identities) or the side has no lines at all. A record that lists the side
+ *  and has no line for him adds nothing: he did not play in it. */
+export function unprintedCounter(
+  sheets: readonly Sheet[],
+  r: number,
+): (own: ReadonlySet<string>) => number {
+  const noMinutes = new Set(
+    sheets.filter((sh) => !sh.lines.some((l) => l.minutes !== null)).map((sh) => sh.identity),
+  );
+  const unlisted = r - sheets.filter((sh) => sh.lines.length > 0).length;
+  return (own) => unlisted + [...own].filter((id) => noMinutes.has(id)).length;
+}
+
 /**
- * [N1 (a)] The U test, for a box_partial player of a programme-season with r
- * records, m of them printing minutes: U = box minutes + 90 × (r − m).
+ * [N1 (a), M2] The U test, for a box_partial player of a programme-season whose
+ * m records print minutes: U = box minutes + 90 × u, where u (`unprinted`)
+ * counts the records printing no minutes for the side in which he has a line,
+ * or the side has no lines at all.
  *
  *   F, M   not eligible on box minutes, but eligible were this season's
  *          minutes U (the season before judged as always: `previousCounts`)
@@ -117,11 +137,11 @@ export function applyMinutesOfRecord(p: PlayerSeason, rec: MinutesOfRecord): voi
 export function couldReachBar(
   g: PositionGroup | null,
   minutes: number,
-  r: number,
+  unprinted: number,
   m: number,
   previousCounts: boolean,
 ): boolean {
-  const u = minutes + 90 * (r - m);
+  const u = minutes + 90 * unprinted;
   if (isShootingGroup(g)) {
     return !shootingEligible(minutes, g, previousCounts) && shootingEligible(u, g, previousCounts);
   }

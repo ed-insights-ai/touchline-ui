@@ -13,6 +13,8 @@
 // M1   (contract 2.4) fails if a season total below the minutes the box
 //      scores print for the player becomes his minutes of record, or if the
 //      keepers list's larger row is passed over for the players list's.
+// M2   (contract 2.4) fails if a record that lists the side's players and has
+//      no line for him adds to his U.
 
 import { describe, expect, test } from "bun:test";
 import { execFileSync } from "node:child_process";
@@ -22,7 +24,12 @@ import { join } from "node:path";
 import type { Sighting } from "../../src/lib/division.ts";
 import type { Fixture, MatchDetail, MatchTeam } from "../../src/lib/model.ts";
 import { assertClean, dataCommit } from "./build.ts";
-import { applyMinutesOfRecord, minutesOfRecord } from "./minutes.ts";
+import {
+  applyMinutesOfRecord,
+  couldReachBar,
+  minutesOfRecord,
+  unprintedCounter,
+} from "./minutes.ts";
 import {
   applyStatsPenalties,
   type PlayerSeason,
@@ -250,6 +257,48 @@ describe("M1 regression: printed minutes are a floor", () => {
     expect(rec.list).toBe("keepers");
     applyMinutesOfRecord(p, rec);
     expect([p.minutes, p.matches]).toEqual([180, 2]);
+  });
+});
+
+// ── M2 ──────────────────────────────────────────────────────────────────────
+
+describe("M2 regression: the U test counts the player's own lines", () => {
+  const mate = (minutes: number | null): SheetLine => ({
+    ...line(minutes, 0, 0),
+    name: "Bea Soto",
+  });
+  const sheet = (id: string, lines: SheetLine[]): Sheet => ({
+    identity: id,
+    date: id,
+    opponent: "2025:opp",
+    venue: "neutral",
+    lines,
+    credits: [],
+  });
+  // r 14. Ten records print minutes, 70 for him in each: 700 box minutes.
+  // Two print no minutes and list the side with no line for him; one prints
+  // no minutes with a line for him; one lists no lines for the side at all.
+  const printed = Array.from({ length: 10 }, (_, i) => sheet(`p${i}`, [line(70, 0, 1), mate(90)]));
+  const sheets = [
+    ...printed,
+    sheet("x1", [mate(null)]),
+    sheet("x2", [mate(null)]),
+    sheet("own", [line(null, 0, 0), mate(null)]),
+    sheet("empty", []),
+  ];
+  const own = new Set([...printed.map((s) => s.identity), "own"]);
+
+  test("a record with lines but none for him adds nothing to u", () => {
+    expect(unprintedCounter(sheets, 14)(own)).toBe(2);
+    // A record with no sheet at all is a record without lines too.
+    expect(unprintedCounter(sheets.slice(0, -1), 14)(own)).toBe(2);
+    expect(unprintedCounter(sheets, 15)(own)).toBe(3);
+  });
+
+  test("U = 700 + 90 × 2 = 880 < 900: needs minutes, not no_minutes", () => {
+    expect(couldReachBar("F", 700, unprintedCounter(sheets, 14)(own), 10, false)).toBe(false);
+    // The rule M2 replaced read r − m = 4: U = 1,060, and he was no_minutes.
+    expect(couldReachBar("F", 700, 14 - 10, 10, false)).toBe(true);
   });
 });
 
