@@ -870,8 +870,20 @@ describe("one side, two records, one day: one tie where a record corroborates it
       );
       expect(days.length).toBe(new Set(days).size);
       // With the phantom gone the knockout reads a shape: no silent funnel.
-      expect(shapeOf(real.ncaa)).not.toBeNull();
-      expect(noShapeLine(real.ncaa)).toBeNull();
+      // That holds once every tie is placed. While one pod's next round is not
+      // scheduled yet, its ties are unplaced by design (place(): a chain that
+      // ends more than two days before the latest tie is never counted from a
+      // false end), and then no round halves to a final. 16 November 2026:
+      // Dallas Baptist v UCCS was played a day after the rest of the second
+      // round, with the third round already listed for the other seven pods.
+      // The field then draws no funnel and says why, which is the other honest
+      // state; what may never happen is no shape and no word.
+      if (real.ncaa.ties.every((t) => t.round > 0)) {
+        expect(shapeOf(real.ncaa)).not.toBeNull();
+        expect(noShapeLine(real.ncaa)).toBeNull();
+      } else {
+        expect(noShapeLine(real.ncaa) === null).toBe(shapeOf(real.ncaa) !== null);
+      }
     },
   );
 });
