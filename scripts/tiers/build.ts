@@ -1,0 +1,153 @@
+#!/usr/bin/env bun
+// The player-tiers build: ALGORITHM.md (player-tiers 0.6) over the data home.
+//
+//   bun run scripts/tiers/build.ts --out tiers/d2 [--frozen-at YYYY-MM-DD]
+//
+// Reads every season 2022 to 2026, men and women, through the site's own
+// loaders (src/lib/data.ts), fits the opponent model jointly over the five
+// seasons, and writes one artifact per season and gender into --out. Beside
+// it, in a `.debug/` directory next to --out (tiers/.debug, gitignored), it
+// writes the comparison rows and the measured report the build log quotes.
+// Those hold intermediate estimates and must never be committed or imported.
+//
+// The data home is read-only: nothing here opens a file in it for writing,
+// and an --out inside it is refused.
+
+import { execFileSync } from "node:child_process";
+import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
+import { dirname, join, relative, resolve } from "node:path";
+import {
+  dataHome,
+  dataRoot,
+  loadFixtures,
+  loadMatches,
+  loadRosters,
+  loadStats,
+} from "../../src/lib/data.ts";
+import type { Gender } from "../../src/lib/model.ts";
+import type { TiersFile } from "../../src/lib/tiers.ts";
+import { ncaaDivision } from "../../src/site.config.ts";
+import { computeGender, FIRST_SEASON, LAST_SEASON } from "./compute.ts";
+import type { ConferenceSeason } from "./matches.ts";
+import { buildArtifact, serialize } from "./output.ts";
+import { debugFile, penaltyGapsCsv, reportMarkdown } from "./report.ts";
+
+const GENDERS: readonly Gender[] = ["men", "women"];
+
+interface Args {
+  out: string;
+  frozenAt: string;
+}
+
+function today(): string {
+  const d = new Date();
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+function parseArgs(argv: readonly string[]): Args {
+  let out: string | null = null;
+  let frozenAt = today();
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === "--out") out = argv[++i] ?? null;
+    else if (a === "--frozen-at") frozenAt = argv[++i] ?? "";
+    else throw new Error(`tiers: unknown argument ${a}`);
+  }
+  if (!out) throw new Error("tiers: --out <dir> is required (e.g. --out tiers/d2)");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(frozenAt)) throw new Error("tiers: --frozen-at is YYYY-MM-DD");
+  return { out: resolve(out), frozenAt };
+}
+
+/** HEAD of the data home, "+dirty" when its working tree is modified. */
+export function dataCommit(root: string): string {
+  const git = (...args: string[]) =>
+    execFileSync("git", ["-C", root, ...args], { encoding: "utf8" }).trim();
+  const head = git("rev-parse", "--short", "HEAD");
+  return git("status", "--porcelain") === "" ? head : `${head}+dirty`;
+}
+
+/** The conference keys the data home holds a fixtures file for. */
+function conferenceKeys(fixturesDir: string, season: number, gender: Gender): string[] {
+  const prefix = `${season}-${gender}-`;
+  return readdirSync(fixturesDir)
+    .filter((f) => f.startsWith(prefix) && f.endsWith(".json"))
+    .map((f) => f.slice(prefix.length, -".json".length))
+    .sort();
+}
+
+function loadGender(gender: Gender): Map<number, ConferenceSeason[]> {
+  const home = dataHome();
+  const data = new Map<number, ConferenceSeason[]>();
+  for (let season = FIRST_SEASON; season <= LAST_SEASON; season++) {
+    data.set(
+      season,
+      conferenceKeys(home.fixturesDir, season, gender).map((key) => ({
+        key,
+        fixtures: loadFixtures(season, gender, key, home),
+        rosters: loadRosters(season, gender, key, home),
+        stats: loadStats(season, gender, key, home),
+        matches: loadMatches(season, gender, key, home),
+      })),
+    );
+  }
+  return data;
+}
+
+function main(): void {
+  const args = parseArgs(process.argv.slice(2));
+  if (ncaaDivision !== "d2") {
+    console.log(`tiers: the contract covers Division II only; ${ncaaDivision} writes nothing.`);
+    return;
+  }
+  const root = dataRoot();
+  if (!relative(root, args.out).startsWith("..")) {
+    throw new Error(`tiers: --out ${args.out} is inside the data home ${root}, which is read-only`);
+  }
+  const commit = dataCommit(root);
+  const debugDir = join(dirname(args.out), ".debug");
+  mkdirSync(args.out, { recursive: true });
+  mkdirSync(debugDir, { recursive: true });
+
+  const results = [];
+  const files: TiersFile[] = [];
+  for (const gender of GENDERS) {
+    const started = Date.now();
+    const data = loadGender(gender);
+    const loaded = Date.now();
+    const g = computeGender(gender, data);
+    console.log(
+      `tiers: ${gender} loaded in ${((loaded - started) / 1000).toFixed(1)}s, computed in ${((Date.now() - loaded) / 1000).toFixed(1)}s`,
+    );
+    for (const r of g.seasons) {
+      const artifact = buildArtifact({
+        level: ncaaDivision,
+        season: r.season,
+        gender,
+        frozenAt: args.frozenAt,
+        dataCommit: commit,
+        teams: r.teams,
+        players: r.entries,
+      });
+      const name = `${r.season}-${gender}.json`;
+      writeFileSync(join(args.out, name), serialize(artifact));
+      writeFileSync(join(debugDir, name), `${JSON.stringify(debugFile(r))}\n`);
+      files.push(artifact);
+      console.log(`tiers: wrote ${join(args.out, name)}`);
+    }
+    results.push(g);
+  }
+  const header = `Built ${args.frozenAt} from data home ${root} at ${commit}.\n\n`;
+  writeFileSync(join(debugDir, "report.md"), header + reportMarkdown(results, files));
+  writeFileSync(join(debugDir, "penalty-gaps.csv"), penaltyGapsCsv(results));
+  console.log(`tiers: report at ${join(debugDir, "report.md")}`);
+}
+
+if (import.meta.main) {
+  try {
+    main();
+  } catch (err) {
+    console.error((err as Error).message);
+    process.exit(1);
+  }
+}

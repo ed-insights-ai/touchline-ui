@@ -14,7 +14,8 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "test": "bun test",
-    "journal": "bun scripts/journal/cli.ts"
+    "journal": "bun scripts/journal/cli.ts",
+    "tiers:build": "bun run scripts/tiers/build.ts --out tiers/d2"
   },
   "dependencies": {
     "astro": "^5.14.1",
