@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "PSAC",
-  "validated_at": "2026-11-15T19:52:13.174Z",
-  "data_collected_at": "2026-11-15T19:41:02+00:00",
+  "validated_at": "2026-11-16T13:08:31.108Z",
+  "data_collected_at": "2026-11-16T12:55:14+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -38,11 +38,12 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "West Chester have conceded seven goals in all their matches this season.",
-      "checker": "team_goals",
+      "text": "Kutztown have scored 60 goals in all their matches, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is slippery-rock at 48"
     },
     {
       "path": "findings[0]",
@@ -94,7 +95,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Carly Louey — 15 G · 6 A · 78 shots",
+      "text": "Carly Louey — 16 G · 6 A · 82 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +113,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 gannon v frostburg-state",
+      "text": "2026-11-15 kutztown v west-chester",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +122,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 kutztown v west-chester",
+      "text": "2026-11-20 gannon v kutztown",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -129,10 +130,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:51:07.066Z",
-    "generate_ms": 66105,
-    "validate_ms": 3,
-    "wall_ms": 66108,
+    "started_at": "2026-11-16T13:07:01.795Z",
+    "generate_ms": 89309,
+    "validate_ms": 4,
+    "wall_ms": 89313,
     "concurrency": 4
   }
 }

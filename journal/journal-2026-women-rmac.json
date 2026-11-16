@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "RMAC",
-  "generated_at": "2026-11-15T20:05:00+00:00",
-  "data_collected_at": "2026-11-15T19:47:28+00:00",
+  "generated_at": "2026-11-16T13:10:00+00:00",
+  "data_collected_at": "2026-11-16T13:02:53+00:00",
   "headline": "UCCS turn the tables on Regis",
   "dek": "Regis had beaten UCCS on their own field in October, and UCCS have now won the return there, after Colorado Mesa did the same. The side that went through the conference table unbeaten has four defeats on the season; Rollins and Dallas Baptist took the others before conference play opened.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 4
   },
   "lede_updated": "2026-11-15",
-  "displaced_by": "UCCS won at Regis on 2026-11-13, so the standing dek's claim of three defeats, only one of them to a member, is no longer true.",
   "pattern": {
     "label": "derived",
     "text": "The chart does not set the order of the table: Colorado School of Mines have scored more than Regis and UCCS, and sit behind both of them.",
@@ -60,13 +59,13 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Bella Campos has scored 29 goals from 135 shots for Colorado School of Mines.",
+      "text": "Bella Campos has scored 29 goals from 143 shots for Colorado School of Mines.",
       "basis": {
         "source": "stats",
         "player": "Bella Campos",
         "programme": "colorado-school-of-mines",
         "goals": 29,
-        "shots": 135
+        "shots": 143
       }
     },
     {
@@ -117,7 +116,7 @@
       "programme": "colorado-school-of-mines",
       "position": "FWD",
       "class": "SR",
-      "line": "29 G · 9 A · 135 shots"
+      "line": "29 G · 9 A · 143 shots"
     },
     {
       "player": "Fernanda Rodriguez",
@@ -136,16 +135,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 midwestern-state v colorado-school-of-mines",
-      "line": "Colorado School of Mines have not lost since Colorado Mesa beat them in October."
+      "fixture_ref": "2026-11-15 texas-womans v colorado-school-of-mines",
+      "line": "It was the first defeat for Colorado School of Mines since Colorado Mesa beat them in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 texas-womans v colorado-school-of-mines",
-      "line": "Texas Woman's have already beaten Colorado Mesa at home this season."
+      "fixture_ref": "2026-11-16 dallas-baptist v uccs",
+      "line": "Dallas Baptist have already won away at both UCCS and Regis this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:56:25.889Z"
+    "validated_at": "2026-11-16T13:11:36.766Z"
   }
 }

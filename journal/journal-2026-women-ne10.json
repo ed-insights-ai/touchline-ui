@@ -3,19 +3,17 @@
   "season": 2026,
   "gender": "women",
   "conference": "NE10",
-  "generated_at": "2026-11-15T20:10:00+00:00",
-  "data_collected_at": "2026-11-15T19:46:19+00:00",
-  "headline": "Bentley beat the only side to have beaten them",
-  "dek": "Bentley won at Franklin Pierce, who had gone through the conference table without a defeat, on the ground where Bentley lost in October. That remains the only loss beside fifteen wins and three draws, and Bentley have conceded fifteen goals all season.",
+  "generated_at": "2026-11-16T13:25:00+00:00",
+  "data_collected_at": "2026-11-16T13:01:11+00:00",
+  "headline": "Saint Michael's win at Bentley",
+  "dek": "Saint Michael's won at Bentley, where they had lost both earlier meetings by a single goal, and go to Franklin Pierce next. Bentley were held scoreless by a defence that has conceded twelve goals all season.",
   "lede_basis": {
-    "programme": "bentley",
-    "wins": 15,
-    "draws": 3,
-    "losses": 1,
-    "gf": 50,
-    "ga": 15
+    "programme": "saint-michael-s",
+    "gf": 33,
+    "ga": 12
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Saint Michael's won at Bentley on 2026-11-15, so the loss at Franklin Pierce is no longer Bentley's only defeat and the standing dek is no longer true (Bentley now 15-3-2, 17 conceded)",
   "pattern": {
     "label": "derived",
     "text": "Scoring alone has not settled the table: Pace have scored 33 goals, but conceded 37, more than any other programme.",
@@ -23,9 +21,9 @@
       "kind": "goals-for-by-team",
       "values": {
         "bentley": 50,
-        "franklin-pierce": 47,
+        "franklin-pierce": 48,
         "pace": 33,
-        "saint-michael-s": 31,
+        "saint-michael-s": 33,
         "assumption": 29,
         "saint-anselm": 28,
         "southern-connecticut": 26,
@@ -67,6 +65,29 @@
     "updated": "2026-11-09"
   },
   "findings": [
+    {
+      "label": "derived",
+      "text": "Franklin Pierce have won sixteen matches, more than any other programme.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "programme": "franklin-pierce",
+        "of": [
+          "adelphi",
+          "american-international",
+          "assumption",
+          "bentley",
+          "pace",
+          "saint-anselm",
+          "saint-michael-s",
+          "southern-connecticut",
+          "southern-new-hampshire"
+        ],
+        "wins": 16,
+        "draws": 2,
+        "losses": 3
+      }
+    },
     {
       "label": "derived",
       "text": "Southern Connecticut have drawn seven matches, more than any other programme.",
@@ -134,39 +155,39 @@
   ],
   "players_to_watch": [
     {
-      "player": "Abi Hennessey",
-      "programme": "bentley",
-      "position": "MID",
-      "class": "SR",
-      "line": "13 G · 7 A · 76 shots"
-    },
-    {
-      "player": "Kayleigh Goodrich",
-      "programme": "adelphi",
-      "position": "FWD",
-      "class": "SR",
-      "line": "16 G · 99 shots"
-    },
-    {
       "player": "McKenna Maguire",
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 10 A · 71 shots"
+      "line": "9 G · 10 A · 72 shots"
+    },
+    {
+      "player": "Scarlett Brookes",
+      "programme": "saint-michael-s",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 4 A · 66 shots"
+    },
+    {
+      "player": "Aino Martikainen",
+      "programme": "franklin-pierce",
+      "position": "DEF",
+      "class": "5Y",
+      "line": "6 G · 5 A · 33 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 franklin-pierce v molloy",
-      "line": "Franklin Pierce had already beaten Molloy at home in September without conceding."
+      "fixture_ref": "2026-11-15 bentley v saint-michael-s",
+      "line": "Bentley had won both earlier meetings and had not lost at home all season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 bentley v saint-michael-s",
-      "line": "Saint Michael's have lost both meetings with Bentley this season, each by a single goal."
+      "fixture_ref": "2026-11-20 franklin-pierce v saint-michael-s",
+      "line": "The sides drew without a goal at Saint Michael's in October, their only meeting this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:55:15.851Z"
+    "validated_at": "2026-11-16T13:11:03.111Z"
   }
 }

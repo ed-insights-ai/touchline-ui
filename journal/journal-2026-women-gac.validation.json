@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GAC",
-  "validated_at": "2026-11-15T19:51:40.776Z",
-  "data_collected_at": "2026-11-15T19:40:09+00:00",
+  "validated_at": "2026-11-16T13:07:27.923Z",
+  "data_collected_at": "2026-11-16T12:53:51+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -119,10 +119,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:51:07.053Z",
-    "generate_ms": 33720,
+    "started_at": "2026-11-16T13:07:01.782Z",
+    "generate_ms": 26137,
     "validate_ms": 3,
-    "wall_ms": 33723,
+    "wall_ms": 26141,
     "concurrency": 4
   }
 }

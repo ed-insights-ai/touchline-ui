@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "PBC",
-  "validated_at": "2026-11-15T19:55:54.373Z",
-  "data_collected_at": "2026-11-15T19:47:11+00:00",
+  "validated_at": "2026-11-16T13:11:08.967Z",
+  "data_collected_at": "2026-11-16T13:02:28+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Grace McGill has now set up more goals for North Georgia than she has scored: twelve assists to eleven goals.",
+      "text": "Grace McGill has now scored as many goals for North Georgia as she has set up: twelve of each.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Grace McGill — 11 G · 12 A · 64 shots",
+      "text": "Grace McGill — 12 G · 12 A · 66 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Nina Lopez — 12 G · 6 A · 65 shots",
+      "text": "Nina Lopez — 12 G · 6 A · 71 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Shania Wegesend — 10 G · 2 A · 40 shots",
+      "text": "Shania Wegesend — 10 G · 2 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 columbus-state v flagler",
+      "text": "2026-11-15 north-georgia v francis-marion",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 columbus-state v unc-pembroke",
+      "text": "2026-11-20 columbus-state v north-georgia",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:55:16.042Z",
-    "generate_ms": 38330,
+    "started_at": "2026-11-16T13:10:27.858Z",
+    "generate_ms": 41107,
     "validate_ms": 1,
-    "wall_ms": 38331,
+    "wall_ms": 41108,
     "concurrency": 4
   }
 }

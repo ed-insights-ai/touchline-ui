@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "ECC",
-  "validated_at": "2026-11-15T19:53:21.681Z",
-  "data_collected_at": "2026-11-15T19:42:38+00:00",
+  "validated_at": "2026-11-16T13:08:49.312Z",
+  "data_collected_at": "2026-11-16T12:57:29+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -118,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:52:32.674Z",
-    "generate_ms": 49006,
+    "started_at": "2026-11-16T13:08:25.282Z",
+    "generate_ms": 24029,
     "validate_ms": 1,
-    "wall_ms": 49007,
+    "wall_ms": 24030,
     "concurrency": 4
   }
 }

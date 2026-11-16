@@ -3,21 +3,21 @@
   "season": 2026,
   "gender": "women",
   "conference": "GNAC",
-  "generated_at": "2026-11-15T20:05:00+00:00",
-  "data_collected_at": "2026-11-15T19:45:09+00:00",
-  "headline": "Western Washington host the side that beat Simon Fraser",
-  "dek": "Cal Poly Pomona beat Simon Fraser at home in September and again in November, and travel next to Western Washington. The hosts have lost twice in twenty-one matches and conceded six goals across all of them on the way to the top of the conference table.",
+  "generated_at": "2026-11-16T13:10:00+00:00",
+  "data_collected_at": "2026-11-16T12:59:26+00:00",
+  "headline": "Western Washington concede six goals in twenty-two matches",
+  "dek": "Western Washington kept a clean sheet against Cal Poly Pomona, the side that had beaten Simon Fraser in September and again in November. It was their seventeenth win in twenty-two matches; they have lost two, and they sit top of the conference table.",
   "lede_basis": {
     "programme": "western-washington",
-    "wins": 16,
+    "wins": 17,
     "draws": 3,
     "losses": 2,
-    "gf": 30,
+    "gf": 31,
     "ga": 6,
-    "played": 21
+    "played": 22
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Simon Fraser lost at Cal Poly Pomona, who now visit Western Washington, so the standing dek's 'closing the season' no longer holds",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Western Washington beat Cal Poly Pomona, so the standing lines that called the match still to come no longer hold",
   "pattern": {
     "label": "derived",
     "text": "Simon Fraser scored more than any other programme and still finished below Western Washington: in this conference the goals did not decide the table.",
@@ -26,7 +26,7 @@
       "values": {
         "simon-fraser": 48,
         "seattle-pacific": 32,
-        "western-washington": 30,
+        "western-washington": 31,
         "central-washington": 22,
         "northwest-nazarene": 16,
         "western-oregon": 16,
@@ -128,7 +128,7 @@
       "programme": "western-washington",
       "position": "FWD",
       "class": "FR",
-      "line": "7 G · 3 A · 43 shots"
+      "line": "7 G · 4 A · 44 shots"
     },
     {
       "player": "Logann Dukes",
@@ -140,16 +140,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 cal-poly-pomona v simon-fraser",
-      "line": "Simon Fraser had gone unbeaten since their defeat at Western Washington."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 western-washington v cal-poly-pomona",
       "line": "Western Washington have not conceded since their defeat at Simon Fraser."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-20 western-washington v concordia-irvine",
+      "line": "Western Washington's only home defeat of the season came in August."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:54:24.755Z"
+    "validated_at": "2026-11-16T13:09:56.842Z"
   }
 }

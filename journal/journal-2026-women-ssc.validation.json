@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SSC",
-  "validated_at": "2026-11-15T19:56:33.267Z",
-  "data_collected_at": "2026-11-15T19:48:18+00:00",
+  "validated_at": "2026-11-16T13:12:02.408Z",
+  "data_collected_at": "2026-11-16T13:04:03+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Genesis Hernandez has scored sixteen goals and added five assists for Nova Southeastern, from 85 shots.",
+      "text": "Genesis Hernandez has scored sixteen goals and added five assists for Nova Southeastern, from 91 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Genesis Hernandez — 16 G · 5 A · 85 shots",
+      "text": "Genesis Hernandez — 16 G · 5 A · 91 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Eboni Bradshaw — 9 G · 7 A · 60 shots",
+      "text": "Eboni Bradshaw — 9 G · 7 A · 61 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 florida-tech v florida-southern",
+      "text": "2026-11-15 montevallo v florida-tech",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 nova-southeastern v lee",
+      "text": "2026-11-20 nova-southeastern v montevallo",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:55:54.570Z",
-    "generate_ms": 38695,
+    "started_at": "2026-11-16T13:11:09.164Z",
+    "generate_ms": 53243,
     "validate_ms": 1,
-    "wall_ms": 38696,
+    "wall_ms": 53244,
     "concurrency": 4
   }
 }

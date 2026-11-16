@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "women",
   "conference": "GLIAC",
-  "validated_at": "2026-11-15T19:54:40.524Z",
-  "data_collected_at": "2026-11-15T19:44:37+00:00",
+  "validated_at": "2026-11-16T13:09:51.894Z",
+  "data_collected_at": "2026-11-16T12:58:46+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
+    "checked": 12,
     "verified": 12,
     "contradicted": 0,
-    "unverifiable": 1,
-    "dropped": 1
+    "unverifiable": 0,
+    "dropped": 0
   },
   "normalizations": [],
   "review": [],
@@ -38,11 +38,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Wayne State are the only side in the conference with a match still to play.",
-      "checker": null,
-      "verdict": "unverifiable",
-      "mismatches": ["the claim carries no basis"],
-      "dropped": true
+      "text": "Grand Valley State, Saginaw Valley State and Wayne State have each lost their latest match outside the conference.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Wayne State have conceded fifteen goals all season while scoring thirty-nine.",
+      "text": "Wayne State have conceded seventeen goals all season while scoring forty.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Sienna Mroue — 13 G · 9 A · 82 shots",
+      "text": "Sienna Mroue — 13 G · 9 A · 85 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,16 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 ashland v grand-valley-state",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
-      "text": "2026-11-15 15-ashland v wayne-state",
+      "text": "2026-11-15 wayne-state v ashland",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:53:18.436Z",
-    "generate_ms": 82086,
+    "started_at": "2026-11-16T13:08:49.503Z",
+    "generate_ms": 62390,
     "validate_ms": 1,
-    "wall_ms": 82087,
+    "wall_ms": 62391,
     "concurrency": 4
   }
 }

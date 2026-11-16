@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "LSC",
-  "validated_at": "2026-11-15T19:54:37.558Z",
-  "data_collected_at": "2026-11-15T19:45:42+00:00",
+  "validated_at": "2026-11-16T13:09:56.403Z",
+  "data_collected_at": "2026-11-16T13:00:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -22,7 +22,7 @@
       "unbacked": ["1"]
     },
     {
-      "path": "findings[3].text",
+      "path": "findings[4].text",
       "text": "Kat Graves has made 105 saves for Sul Ross State, a save percentage of .808.",
       "unbacked": ["808"]
     }
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Helen Lazaro has scored 14 goals for St. Mary's as a freshman.",
+      "text": "Helen Lazaro has scored fourteen goals for St. Mary's as a freshman.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -84,6 +84,15 @@
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Lauren Wade has scored thirteen goals for Texas Woman's as a freshman.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "Kat Graves has made 105 saves for Sul Ross State, a save percentage of .808.",
       "checker": "player_stat",
@@ -112,7 +121,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lauren Wade — 11 G · 2 A · 55 shots",
+      "text": "Lauren Wade — 13 G · 2 A · 61 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -121,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 midwestern-state v colorado-school-of-mines",
+      "text": "2026-11-15 texas-womans v colorado-school-of-mines",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 texas-womans v colorado-school-of-mines",
+      "text": "2026-11-16 dallas-baptist v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -138,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:54:04.835Z",
-    "generate_ms": 32722,
+    "started_at": "2026-11-16T13:09:24.484Z",
+    "generate_ms": 31918,
     "validate_ms": 1,
-    "wall_ms": 32723,
+    "wall_ms": 31919,
     "concurrency": 4
   }
 }

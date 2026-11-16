@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "RMAC",
-  "validated_at": "2026-11-15T19:56:25.889Z",
-  "data_collected_at": "2026-11-15T19:47:28+00:00",
+  "validated_at": "2026-11-16T13:11:36.766Z",
+  "data_collected_at": "2026-11-16T13:02:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Bella Campos has scored 29 goals from 135 shots for Colorado School of Mines.",
+      "text": "Bella Campos has scored 29 goals from 143 shots for Colorado School of Mines.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Bella Campos — 29 G · 9 A · 135 shots",
+      "text": "Bella Campos — 29 G · 9 A · 143 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 midwestern-state v colorado-school-of-mines",
+      "text": "2026-11-15 texas-womans v colorado-school-of-mines",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 texas-womans v colorado-school-of-mines",
+      "text": "2026-11-16 dallas-baptist v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:55:31.376Z",
-    "generate_ms": 54513,
+    "started_at": "2026-11-16T13:11:03.306Z",
+    "generate_ms": 33458,
     "validate_ms": 1,
-    "wall_ms": 54514,
+    "wall_ms": 33460,
     "concurrency": 4
   }
 }

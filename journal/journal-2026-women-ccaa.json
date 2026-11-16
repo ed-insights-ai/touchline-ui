@@ -3,25 +3,25 @@
   "season": 2026,
   "gender": "women",
   "conference": "CCAA",
-  "generated_at": "2026-11-15T19:55:00+00:00",
-  "data_collected_at": "2026-11-15T19:42:19+00:00",
-  "headline": "Cal State LA beat UC Merced again",
-  "dek": "Cal State LA have beaten UC Merced in consecutive matches this month, after the sides drew in September, and are away to Concordia today. Cal Poly Pomona, beaten twice all season, face Western Washington after seeing off Simon Fraser.",
+  "generated_at": "2026-11-16T13:10:00+00:00",
+  "data_collected_at": "2026-11-16T12:57:01+00:00",
+  "headline": "Cal Poly Pomona and Cal State LA both lose",
+  "dek": "Cal Poly Pomona and Cal State LA were both beaten away from home on the same afternoon, against non-conference opposition. For Pomona it was only a third defeat all season; Cal State LA had arrived off consecutive wins over UC Merced.",
   "lede_basis": {
     "programme": "cal-poly-pomona",
     "wins": 12,
     "draws": 6,
-    "losses": 2
+    "losses": 3
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Cal State LA beat UC Merced on 2026-11-13, so the dek's upcoming meeting has now been played, and Cal Poly Pomona have conceded seven, so the six-goal headline is no longer true",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Both sides played and lost on 2026-11-15, so the dek's upcoming matches have now been played and Pomona's 'beaten twice all season' is no longer true",
   "pattern": {
     "label": "derived",
-    "text": "Scoring is top-heavy: Cal State LA's 37 goals are more than Fresno Pacific, San Francisco State and Cal State Dominguez Hills have scored between them.",
+    "text": "Scoring is top-heavy: Cal State LA's 38 goals are more than Fresno Pacific, San Francisco State and Cal State Dominguez Hills have scored between them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "cal-state-la": 37,
+        "cal-state-la": 38,
         "uc-merced": 33,
         "cal-state-san-bernardino": 29,
         "cal-state-monterey-bay": 28,
@@ -43,7 +43,7 @@
       "metric": "gf",
       "programme": "cal-state-la",
       "of": ["fresno-pacific", "san-francisco-state", "cal-state-dominguez-hills"],
-      "gf": 37
+      "gf": 38
     }
   },
   "wire": {
@@ -132,21 +132,17 @@
       "programme": "cal-state-la",
       "position": "FWD",
       "class": "FR",
-      "line": "10 G · 4 A · 51 shots"
+      "line": "10 G · 4 A · 54 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 cal-poly-pomona v simon-fraser",
-      "line": "Cal Poly Pomona had already beaten Simon Fraser on this ground in September."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-15 concordia v cal-state-la",
-      "line": "Cal State LA have not lost since Stanislaus State won at their ground in September."
+      "fixture_ref": "2026-11-15 western-washington v cal-poly-pomona",
+      "line": "Cal Poly Pomona's first defeat since UC Merced won at their ground earlier this month."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:53:18.227Z"
+    "validated_at": "2026-11-16T13:09:15.868Z"
   }
 }

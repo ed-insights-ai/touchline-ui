@@ -3,20 +3,20 @@
   "season": 2026,
   "gender": "women",
   "conference": "CACC",
-  "generated_at": "2026-11-15T19:55:00+00:00",
-  "data_collected_at": "2026-11-15T19:41:22+00:00",
+  "generated_at": "2026-11-16T13:10:00+00:00",
+  "data_collected_at": "2026-11-16T12:55:45+00:00",
   "headline": "Jefferson go through conference play without dropping a point",
-  "dek": "Jefferson's only defeat this season came against a non-conference side in September, and they have won every match since. They have scored 49 goals across all their matches and conceded eleven; Bridgeport, whom they beat in October, are the only side to have let in as few.",
+  "dek": "Both of Jefferson's defeats this season came outside the conference: Penn beat them in September, and Franklin Pierce ended the winning run that followed in their latest match. Across all their matches they have scored 49 goals and conceded twelve.",
   "lede_basis": {
     "programme": "jefferson",
     "wins": 16,
     "draws": 2,
-    "losses": 1,
+    "losses": 2,
     "gf": 49,
-    "ga": 11
+    "ga": 12
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Bridgeport's home defeat to Saint Michael's took their goals against to 11, level with Jefferson's, so the standing dek's 'only Bridgeport have let in fewer' no longer held; the headline is still true and stands",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Jefferson lost to Franklin Pierce, so the dek's 'only defeat' and 'won every match since' no longer held and their goals against rose to 12; the headline is still true and stands",
   "pattern": {
     "label": "derived",
     "text": "Goals scored do not set the order beneath Jefferson: Goldey-Beacom have scored 33 in all matches and conceded 54, more than any other programme.",
@@ -48,14 +48,14 @@
     }
   },
   "wire": {
-    "line": "Jefferson have lost once all season and won every match since.",
+    "line": "Franklin Pierce have ended Jefferson's winning run, handing them only their second defeat of the season.",
     "basis": {
       "programme": "jefferson",
       "wins": 16,
       "draws": 2,
-      "losses": 1
+      "losses": 2
     },
-    "updated": "2026-11-15"
+    "updated": "2026-11-16"
   },
   "findings": [
     {
@@ -128,16 +128,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 bridgeport v saint-michael-s",
-      "line": "It was Bridgeport's first defeat at home this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-15 jefferson v franklin-pierce",
-      "line": "The visitors have already beaten Bridgeport and Post this season."
+      "line": "Jefferson had won every home match before this one, and had not lost since September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:52:39.554Z"
+    "validated_at": "2026-11-16T13:08:24.770Z"
   }
 }

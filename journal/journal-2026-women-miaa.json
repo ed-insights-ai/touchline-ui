@@ -3,18 +3,18 @@
   "season": 2026,
   "gender": "women",
   "conference": "MIAA",
-  "generated_at": "2026-11-15T19:55:00Z",
-  "data_collected_at": "2026-11-15T19:40:45+00:00",
-  "headline": "Washburn win again and lead the conference in victories",
-  "dek": "Washburn have won 17 of their 21 matches, the latest over Southwestern Oklahoma State, and no other programme in the conference has won as many. Their one defeat came at Pittsburg State in September, and they have conceded seven goals; Central Missouri are next.",
+  "generated_at": "2026-11-16T13:10:00Z",
+  "data_collected_at": "2026-11-16T12:54:47+00:00",
+  "headline": "Washburn keep Central Missouri scoreless again",
+  "dek": "Washburn won their eighteenth match in 22 by beating Central Missouri, and no other programme in the conference has won as many. They have conceded seven goals all season, and Central Missouri have yet to score against them this season.",
   "lede_basis": {
     "programme": "washburn",
-    "wins": 17,
+    "wins": 18,
     "draws": 3,
     "losses": 1,
-    "gf": 53,
+    "gf": 54,
     "ga": 7,
-    "played": 21,
+    "played": 22,
     "comparative": "greater_than_each",
     "metric": "wins",
     "of": [
@@ -32,17 +32,17 @@
       "rogers-state"
     ]
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Standing dek no longer true (Pittsburg State now 16 wins in 22); Washburn now hold the most wins in the conference.",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Washburn beat Central Missouri; the standing dek's 17 wins in 21 is no longer true (now 18 in 22).",
   "pattern": {
     "label": "derived",
     "text": "The drop from the top is steep rather than gradual: Washburn have more goals than Newman, Missouri Southern and Fort Hays State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "washburn": 53,
+        "washburn": 54,
         "central-missouri": 49,
-        "pittsburg-state": 41,
+        "pittsburg-state": 45,
         "emporia-state": 36,
         "central-oklahoma": 24,
         "missouri-western": 23,
@@ -60,7 +60,7 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "washburn",
-      "gf": 53,
+      "gf": 54,
       "of": ["newman", "missouri-southern", "fort-hays-state"]
     }
   },
@@ -68,10 +68,10 @@
     "line": "Pittsburg State have conceded four goals all season and lost once, to Washburn.",
     "basis": {
       "programme": "pittsburg-state",
-      "wins": 16,
+      "wins": 17,
       "draws": 5,
       "losses": 1,
-      "gf": 41,
+      "gf": 45,
       "ga": 4
     },
     "updated": "2026-11-15"
@@ -88,23 +88,23 @@
     },
     {
       "label": "derived",
-      "text": "Central Missouri have conceded seven goals in 21 matches while scoring 49.",
+      "text": "Central Missouri have conceded eight goals in 22 matches while scoring 49.",
       "basis": {
         "programme": "central-missouri",
         "wins": 15,
         "draws": 4,
-        "losses": 2,
+        "losses": 3,
         "gf": 49,
-        "ga": 7,
-        "played": 21
+        "ga": 8,
+        "played": 22
       }
     },
     {
       "label": "derived",
-      "text": "Seventeen different players have scored for Pittsburg State.",
+      "text": "Eighteen different players have scored for Pittsburg State.",
       "basis": {
         "programme": "pittsburg-state",
-        "distinct_scorers_min": 17
+        "distinct_scorers_min": 18
       }
     },
     {
@@ -143,7 +143,7 @@
       "programme": "central-missouri",
       "position": "FWD",
       "class": "SR",
-      "line": "10 G · 57 shots"
+      "line": "10 G · 59 shots"
     },
     {
       "player": "Ella Favot",
@@ -155,16 +155,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 northern-state v pittsburg-state",
-      "line": "Pittsburg State won away in their first match since losing at Washburn."
+      "fixture_ref": "2026-11-15 washburn v central-missouri",
+      "line": "Central Missouri have now lost to both Pittsburg State and Washburn this month."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 washburn v central-missouri",
-      "line": "Their October meeting ended goalless; Washburn have won every match since."
+      "fixture_ref": "2026-11-20 washburn v pittsburg-state",
+      "line": "Each side's only defeat this season came against the other."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:52:32.469Z"
+    "validated_at": "2026-11-16T13:08:25.078Z"
   }
 }

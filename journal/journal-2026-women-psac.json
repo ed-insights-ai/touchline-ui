@@ -3,27 +3,27 @@
   "season": 2026,
   "gender": "women",
   "conference": "PSAC",
-  "generated_at": "2026-11-15T19:55:00+00:00",
-  "data_collected_at": "2026-11-15T19:41:02+00:00",
-  "headline": "Gannon beat the side that beat Slippery Rock",
-  "dek": "Frostburg State came to Gannon having won at Slippery Rock, and left beaten, extending a Gannon run without defeat that reaches back to the first week of September. Across all their matches they have won seventeen times and been beaten twice, conceding fourteen goals.",
+  "generated_at": "2026-11-16T13:10:00+00:00",
+  "data_collected_at": "2026-11-16T12:55:14+00:00",
+  "headline": "Kutztown alone beat West Chester",
+  "dek": "Kutztown beat West Chester for the third time this season, and those three matches are the only ones West Chester have lost. Against everyone else they have won fourteen times and drawn three.",
   "lede_basis": {
-    "programme": "gannon",
-    "wins": 17,
+    "programme": "west-chester",
+    "wins": 14,
     "draws": 3,
-    "losses": 2,
+    "losses": 3,
     "gf": 46,
-    "ga": 14
+    "ga": 9
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "The standing dek's goals-conceded figure for Gannon is no longer true after the Frostburg State match. Gannon beating the side that beat Slippery Rock is now the story.",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Kutztown beat West Chester again, so every West Chester defeat is now Kutztown's. That is a bigger story than Gannon beating Frostburg State.",
   "pattern": {
     "label": "derived",
     "text": "The goals gather at the top end: Kutztown alone have scored more than California (Pa.), Pitt-Johnstown and Mansfield, the sides at the foot of the table, put together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "kutztown": 58,
+        "kutztown": 60,
         "slippery-rock": 48,
         "gannon": 46,
         "millersville": 46,
@@ -48,17 +48,19 @@
       "metric": "gf",
       "programme": "kutztown",
       "of": ["california-pa", "pitt-johnstown", "mansfield"],
-      "gf": 58
+      "gf": 60
     }
   },
   "wire": {
-    "line": "West Chester have conceded seven goals in all their matches this season.",
+    "line": "Kutztown have scored 60 goals in all their matches, more than any other programme in the conference.",
     "basis": {
-      "programme": "west-chester",
-      "gf": 46,
-      "ga": 7
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "kutztown",
+      "of_any": 16,
+      "gf": 60
     },
-    "updated": "2026-11-09"
+    "updated": "2026-11-16"
   },
   "findings": [
     {
@@ -118,7 +120,7 @@
       "programme": "kutztown",
       "position": "FWD",
       "class": "FR",
-      "line": "15 G · 6 A · 78 shots"
+      "line": "16 G · 6 A · 82 shots"
     },
     {
       "player": "Brooklyn Respecki",
@@ -130,16 +132,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 gannon v frostburg-state",
-      "line": "Gannon have won every match they have played in November."
+      "fixture_ref": "2026-11-15 kutztown v west-chester",
+      "line": "West Chester have not scored against Kutztown this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 kutztown v west-chester",
-      "line": "Both of West Chester's defeats this season have come against Kutztown."
+      "fixture_ref": "2026-11-20 gannon v kutztown",
+      "line": "Gannon have not lost since the first week of September, and Kutztown's last defeat came against Gannon."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:52:13.174Z"
+    "validated_at": "2026-11-16T13:08:31.108Z"
   }
 }

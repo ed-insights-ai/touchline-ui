@@ -3,25 +3,26 @@
   "season": 2026,
   "gender": "women",
   "conference": "SSC",
-  "generated_at": "2026-11-15T19:55:00+00:00",
-  "data_collected_at": "2026-11-15T19:48:18+00:00",
+  "generated_at": "2026-11-16T13:10:00+00:00",
+  "data_collected_at": "2026-11-16T13:04:03+00:00",
   "headline": "Nova Southeastern and Eckerd go through the conference unbeaten",
-  "dek": "Nova Southeastern have won eleven and drawn six without losing a match all season. Eckerd, who drew with them in their latest meeting, have been beaten only by sides from outside the conference, and every other programme has lost to a conference rival at least once.",
+  "dek": "Nova Southeastern have won eleven and drawn seven without losing a match all season. Eckerd, who drew with them in their latest meeting, have been beaten only by sides from outside the conference, and every other programme has lost to a conference rival at least once.",
   "lede_basis": {
     "programme": "nova-southeastern",
     "wins": 11,
-    "draws": 6,
+    "draws": 7,
     "losses": 0
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Nova Southeastern's draw with Lee made the dek's six draws seven; the headline still holds and stands",
   "pattern": {
     "label": "derived",
     "text": "Scoring and standing agree: the sides at the head of the table, Eckerd, Nova Southeastern and Florida Tech, are its highest scorers, and every other programme has scored fewer than Eckerd's 36.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "florida-tech": 48,
-        "nova-southeastern": 40,
+        "florida-tech": 50,
+        "nova-southeastern": 41,
         "eckerd": 36,
         "barry": 32,
         "palm-beach-atlantic": 32,
@@ -56,7 +57,7 @@
     "basis": {
       "programme": "nova-southeastern",
       "wins": 11,
-      "draws": 6,
+      "draws": 7,
       "losses": 0
     },
     "updated": "2026-11-09"
@@ -82,20 +83,20 @@
           "tampa"
         ],
         "wins": 14,
-        "draws": 5,
+        "draws": 6,
         "losses": 2
       }
     },
     {
       "label": "observed",
-      "text": "Genesis Hernandez has scored sixteen goals and added five assists for Nova Southeastern, from 85 shots.",
+      "text": "Genesis Hernandez has scored sixteen goals and added five assists for Nova Southeastern, from 91 shots.",
       "basis": {
         "source": "stats",
         "player": "Genesis Hernandez",
         "programme": "nova-southeastern",
         "goals": 16,
         "assists": 5,
-        "shots": 85
+        "shots": 91
       }
     },
     {
@@ -124,14 +125,14 @@
       "programme": "nova-southeastern",
       "position": "FWD",
       "class": "JR",
-      "line": "16 G · 5 A · 85 shots"
+      "line": "16 G · 5 A · 91 shots"
     },
     {
       "player": "Eboni Bradshaw",
       "programme": "florida-tech",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 7 A · 60 shots"
+      "line": "9 G · 7 A · 61 shots"
     },
     {
       "player": "Nell Doe",
@@ -143,16 +144,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 florida-tech v florida-southern",
-      "line": "Florida Southern had won the October meeting on their own ground; Florida Tech answer it on theirs."
+      "fixture_ref": "2026-11-15 montevallo v florida-tech",
+      "line": "Florida Tech have conceded at least twice in every match they have played in November."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 nova-southeastern v lee",
-      "line": "Nova Southeastern bring an unbeaten season to the match; Lee have already won at Eckerd this week."
+      "fixture_ref": "2026-11-20 nova-southeastern v montevallo",
+      "line": "Nova Southeastern have yet to lose all season; Montevallo have already held Florida Tech to a draw."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:56:33.267Z"
+    "validated_at": "2026-11-16T13:12:02.408Z"
   }
 }

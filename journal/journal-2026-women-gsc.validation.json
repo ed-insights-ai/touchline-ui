@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GSC",
-  "validated_at": "2026-11-15T19:54:41.774Z",
-  "data_collected_at": "2026-11-15T19:45:25+00:00",
+  "validated_at": "2026-11-16T13:10:27.672Z",
+  "data_collected_at": "2026-11-16T12:59:49+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lee have conceded eight goals all season and lost only twice, to Trevecca and UAH.",
-      "checker": "team_goals+team_record",
+      "text": "Christian Brothers' one win all season came at King in August, and they finished conference play without a win.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Lainey Farabaugh has scored 14 goals from 94 shots for Montevallo.",
+      "text": "Lainey Farabaugh has scored 14 goals from 98 shots for Montevallo.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -79,6 +79,15 @@
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Lee have conceded nine goals across all their matches.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "derived",
       "text": "At least seventeen different players have scored for Lee this season.",
       "checker": "distinct_scorers",
@@ -87,18 +96,9 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
-      "label": "observed",
-      "text": "Christian Brothers have scored six goals and conceded 46 across all their matches.",
-      "checker": "team_goals",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Ayla Ertekin — 14 G · 6 A · 44 shots",
+      "text": "Ayla Ertekin — 14 G · 6 A · 46 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-13 lee v eckerd",
+      "text": "2026-11-15 nova-southeastern v lee",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-15 montevallo v florida-tech",
+      "text": "2026-11-20 montevallo v nova-southeastern",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:54:03.254Z",
-    "generate_ms": 38518,
+    "started_at": "2026-11-16T13:09:16.071Z",
+    "generate_ms": 71599,
     "validate_ms": 1,
-    "wall_ms": 38520,
+    "wall_ms": 71600,
     "concurrency": 4
   }
 }

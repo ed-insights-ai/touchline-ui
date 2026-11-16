@@ -2,23 +2,21 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "women",
-  "generated_at": "2026-11-15T20:05:00+00:00",
-  "data_collected_at": "2026-11-15T19:40:09+00:00",
-  "headline": "Minnesota State win more often than any other programme",
-  "dek": "Minnesota State have won nineteen, drawn three and lost two. No programme in any other conference has reached that many wins, and none in the Northern Sun has either.",
+  "generated_at": "2026-11-16T13:20:00+00:00",
+  "data_collected_at": "2026-11-16T12:53:51+00:00",
+  "headline": "Kutztown remain the only side to beat West Chester",
+  "dek": "West Chester have lost three times this season, and all three defeats have come against Kutztown, the latest last night. Against everyone else they have fourteen wins and three draws.",
   "basis": {
-    "comparative": "greater_than_each",
-    "metric": "wins",
-    "programme": "minnesota-state",
-    "of_any": 1,
-    "wins": 19,
+    "programme": "west-chester",
+    "wins": 14,
     "draws": 3,
-    "losses": 2
+    "losses": 3
   },
-  "updated": "2026-11-15",
-  "displaced_by": "age",
+  "fixture_ref": "2026-11-15 kutztown v west-chester",
+  "updated": "2026-11-16",
+  "displaced_by": "results night: Kutztown beat West Chester a third time and are still the only side to have beaten them",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:57:34.293Z"
+    "validated_at": "2026-11-16T13:12:56.892Z"
   }
 }

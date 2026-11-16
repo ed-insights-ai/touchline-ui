@@ -3,27 +3,31 @@
   "season": 2026,
   "gender": "women",
   "conference": "PACWEST",
-  "generated_at": "2026-11-15T20:05:00+00:00",
-  "data_collected_at": "2026-11-15T19:46:55+00:00",
-  "headline": "Point Loma top the table without a conference defeat",
-  "dek": "Point Loma close the conference schedule without a defeat in it, and Hawai'i Hilo are the only other side who can say the same. Point Loma's 40 goals in all matches are more than any of the other nine programmes scored, set against nineteen conceded.",
+  "generated_at": "2026-11-16T13:20:00+00:00",
+  "data_collected_at": "2026-11-16T13:02:07+00:00",
+  "headline": "Concordia Irvine play on as the conference's last side",
+  "dek": "Concordia Irvine beat Cal State LA to reach 41 goals in all matches, more than any of the other nine programmes, and are the only side in the conference with a match still to play. Their two defeats both came against Point Loma, who finished the table unbeaten.",
   "lede_basis": {
-    "programme": "point-loma",
-    "gf": 40,
+    "programme": "concordia-irvine",
+    "wins": 13,
+    "draws": 5,
+    "losses": 2,
+    "gf": 41,
     "ga": 19,
     "comparative": "greater_than_each",
     "metric": "gf",
     "of_any": 9
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-16",
+  "displaced_by": "Concordia Irvine's 41 goals pass Point Loma's 40, so the standing dek's 'more than any' claim is false; Concordia are the last side still playing",
   "pattern": {
     "label": "derived",
     "text": "Hawai'i Hilo sit mid-chart on 21 goals yet conceded eleven in all matches: their place near the top of the table was built at the back, not in front of goal.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "concordia-irvine": 41,
         "point-loma": 40,
-        "concordia-irvine": 39,
         "biola": 33,
         "dominican-of-california": 25,
         "hawaii-hilo": 21,
@@ -54,12 +58,10 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Concordia Irvine have lost two matches in all, both of them to Point Loma, against twelve wins and five draws.",
+      "text": "Fourteen different players have scored for Hawai'i Hilo.",
       "basis": {
-        "programme": "concordia-irvine",
-        "wins": 12,
-        "draws": 5,
-        "losses": 2
+        "programme": "hawaii-hilo",
+        "distinct_scorers_min": 14
       }
     },
     {
@@ -106,18 +108,18 @@
   ],
   "players_to_watch": [
     {
+      "player": "Ashley Grubert",
+      "programme": "concordia-irvine",
+      "position": "MID",
+      "class": "SR",
+      "line": "14 G · 5 A · 40 shots"
+    },
+    {
       "player": "Briley Phelps",
       "programme": "biola",
       "position": "MID",
       "class": "SR",
       "line": "13 G · 7 A · 98 shots"
-    },
-    {
-      "player": "Ashley Grubert",
-      "programme": "concordia-irvine",
-      "position": "MID",
-      "class": "SR",
-      "line": "13 G · 4 A · 37 shots"
     },
     {
       "player": "Maddy Saruwatari",
@@ -129,16 +131,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-13 concordia-irvine v biola",
-      "line": "Concordia Irvine are unbeaten against Biola this season; Biola have not won since beating Point Loma."
+      "fixture_ref": "2026-11-15 concordia-irvine v cal-state-la",
+      "line": "Concordia Irvine have not lost since October's defeat at Point Loma; Cal State LA had already beaten Biola and Westmont this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-15 concordia-irvine v cal-state-la",
-      "line": "Concordia Irvine are the last side in the conference with a match to play; Cal State LA have beaten Biola and Westmont and drawn with Point Loma and Vanguard."
+      "fixture_ref": "2026-11-20 western-washington v concordia-irvine",
+      "line": "Western Washington beat Hawai'i Hilo in August, the only conference side they have met this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:55:31.169Z"
+    "validated_at": "2026-11-16T13:11:13.100Z"
   }
 }
