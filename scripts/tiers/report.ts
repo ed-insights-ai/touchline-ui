@@ -48,6 +48,8 @@ export function debugFile(r: SeasonResult) {
             ? x.basisSeasons
             : [],
       career_record: x.career,
+      line_name: x.p.lineName,
+      name_source: x.p.nameSource,
       minutes_mode: x.ofRecord.mode,
       minutes_list: x.ofRecord.list,
       share_records: x.ofRecord.denominator,

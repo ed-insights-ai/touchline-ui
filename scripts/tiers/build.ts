@@ -28,6 +28,7 @@ import {
   loadStats,
 } from "../../src/lib/data.ts";
 import type { Gender } from "../../src/lib/model.ts";
+import { loadProgrammes } from "../../src/lib/programmes.ts";
 import type { TiersFile } from "../../src/lib/tiers.ts";
 import { ncaaDivision } from "../../src/site.config.ts";
 import { computeGender, FIRST_SEASON, LAST_SEASON } from "./compute.ts";
@@ -112,6 +113,9 @@ function main(): void {
   mkdirSync(args.out, { recursive: true });
   mkdirSync(debugDir, { recursive: true });
 
+  const nicknames = new Map(
+    Object.entries(loadProgrammes().programmes).map(([slug, row]) => [slug, row.nickname]),
+  );
   const results = [];
   const before = [];
   const files: TiersFile[] = [];
@@ -119,7 +123,7 @@ function main(): void {
     const started = Date.now();
     const data = loadGender(gender);
     const loaded = Date.now();
-    const g = computeGender(gender, data);
+    const g = computeGender(gender, data, { rosterPass: true, nicknames });
     console.log(
       `tiers: ${gender} loaded in ${((loaded - started) / 1000).toFixed(1)}s, computed in ${((Date.now() - loaded) / 1000).toFixed(1)}s`,
     );
@@ -140,7 +144,7 @@ function main(): void {
       console.log(`tiers: wrote ${join(args.out, name)}`);
     }
     results.push(g);
-    before.push(computeGender(gender, data, { rosterPass: false }));
+    before.push(computeGender(gender, data, { rosterPass: false, nicknames }));
   }
   const header = `Built ${args.frozenAt} from data home ${root} at ${commit}.\n\n`;
   writeFileSync(join(debugDir, "report.md"), header + reportMarkdown(results, files, before));

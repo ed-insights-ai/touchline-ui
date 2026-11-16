@@ -13,6 +13,7 @@ import type {
   TierKind,
   TierStatus,
 } from "../../src/lib/tiers.ts";
+import { foldName } from "../../src/lib/tiers.ts";
 import {
   careerRecord,
   type DefenceSeason,
@@ -48,7 +49,9 @@ import {
 import {
   applyStatsPenalties,
   classStep,
+  closeLink,
   contradicts,
+  emptyJoinMeasures,
   type JoinMeasures,
   type JoinOptions,
   type PlayerSeason,
@@ -138,6 +141,8 @@ export interface Measures {
   splitPairs: number;
   contradictedLinks: number;
   ambiguousLinks: number;
+  /** [N2c] Links made by a close name. */
+  closeLinks: number;
   noMinutesProgrammes: string[];
   teamsWithoutMatches: string[];
   /** Collected programme-days still holding two records after one match a day. */
@@ -209,13 +214,14 @@ const emptyMeasures = (): Measures => ({
   goalPlays: 0,
   linesSkippedNoMinutes: 0,
   doubledRecords: 0,
-  join: { blocked: 0, rosterFound: 0, rosterConflicts: 0 },
+  join: emptyJoinMeasures(),
   boxGroupTies: 0,
   noRosterLine: 0,
   rosterLabelNoGroup: 0,
   splitPairs: 0,
   contradictedLinks: 0,
   ambiguousLinks: 0,
+  closeLinks: 0,
   noMinutesProgrammes: [],
   teamsWithoutMatches: [],
   sameDayDoubles: [],
@@ -239,6 +245,9 @@ export interface GenderResult {
 export interface ComputeOptions {
   /** Section 4.2's roster pass; off only to measure acceptance 11.4. */
   rosterPass: boolean;
+  /** [N2d] Each programme's nickname (the programmes reference), so a line
+   *  printing it with no minutes is read as a team row. */
+  nicknames?: ReadonlyMap<string, string>;
 }
 
 /** Every season of one gender. `data` holds each season's conference files. */
@@ -392,7 +401,11 @@ export function computeGender(
       if (list.length === 0) continue;
       const conf = memberOf.get(slug) as ConferenceSeason;
       const roster = conf.rosters?.rosters[slug]?.players ?? [];
-      const ps = playerSeasons(slug, season, list, roster, scale, join, measures.join);
+      const statsRows = conf.stats?.teams[slug]?.players ?? [];
+      const ps = playerSeasons(slug, season, list, roster, scale, join, measures.join, {
+        statsRows,
+        nicknameFold: foldName(options.nicknames?.get(slug) ?? ""),
+      });
       if (ps.length === 0) continue;
       const noMinutes = !list.some((sh) => sh.lines.some((l) => l.minutes !== null));
       if (noMinutes) measures.noMinutesProgrammes.push(slug);
@@ -403,7 +416,6 @@ export function computeGender(
         identity.add(i);
         identity.add(j);
       }
-      const statsRows = conf.stats?.teams[slug]?.players ?? [];
       const keeperRows = conf.stats?.teams[slug]?.keepers ?? [];
       const team = teamBySlug.get(slug);
       const r = (teamMatches.get(slug) ?? []).length;
@@ -487,11 +499,14 @@ export function computeGender(
       const earlier = before?.get(slug) ?? [];
       const earlierPs = earlier.map((r) => r.p);
       for (const r of list) {
-        const prevP = sameName(r.p, earlierPs);
+        // The same key as now; [N2c] when no earlier player has it, a close name.
+        const sameKey = earlier.filter((e) => e.p.key === r.p.key).length;
+        const prevP = sameKey > 0 ? sameName(r.p, earlierPs) : closeLink(r.p, earlierPs);
         if (prevP === null) {
-          if (earlier.filter((e) => e.p.key === r.p.key).length > 1) measures.ambiguousLinks++;
+          if (sameKey > 1) measures.ambiguousLinks++;
           continue;
         }
+        if (sameKey === 0) measures.closeLinks++;
         const prev = earlier.find((e) => e.p === prevP) as Rated;
         if (contradicts(prev.p.roster, r.p.roster)) {
           measures.contradictedLinks++;

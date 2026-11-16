@@ -1,4 +1,5 @@
-// ALGORITHM.md section 4 (version 2.2): a player-season.
+// ALGORITHM.md section 4 (version 2.2, with the contract 2.3 rulings N1 and
+// N2 of ALGORITHM-2.3-rulings.md): a player-season.
 //
 // 4.2 joins a programme-season's `players` lines into people in four passes,
 // each merging the groups the earlier passes formed: the collector's
@@ -15,9 +16,24 @@
 // entry on the roster, with or without a bio id. A group is also tied to the
 // entry whose bio id equals any of its page, twin or roster `player_ref` ids
 // or its page `player_id`s; that entry is the player's roster line.
+//
+// [N2] One person, one entry. Pass 3 also looks up every line of a group that
+// passes 1 and 2 left untied (N2e); a group whose every line prints a team
+// row is dropped (N2d); a fifth pass joins an untied group to the only roster
+// player whose name is close and who shares a number or, for a close name,
+// to one printing none (N2a); the name printed is the roster line's, else the
+// stats row's (N2d); the split-spelling flag reads close names (N2b); a link
+// across seasons may go by a close name (N2c), and a home town no longer
+// contradicts one.
 
 import type { Player, PlayerRefSource, PlayerStats } from "../../src/lib/model.ts";
-import { foldLetters, foldName, foldSurname, shirtNumber } from "../../src/lib/tiers.ts";
+import {
+  foldLetters,
+  foldName,
+  foldSurname,
+  givenFirst,
+  shirtNumber,
+} from "../../src/lib/tiers.ts";
 import type { Venue } from "./opponents.ts";
 import { givenInitial } from "./penalties.ts";
 
@@ -74,9 +90,16 @@ export interface StatsPenaltyChange {
 export interface PlayerSeason {
   programme: string;
   season: number;
-  /** 4.5: the name, number and page id the entry prints, and the key. */
+  /** 4.5: the name, number and page id the entry prints, and the key.
+   *  [N2d] The name is the roster line's, else the joined stats row's, else
+   *  the value on the most lines (`lineName`). */
   name: string;
   key: string;
+  lineName: string;
+  nameSource: "roster" | "stats" | "lines";
+  /** [N2d] The folded name the stats file is joined by after the page id: the
+   *  roster line's name when there is one, else `lineName`. */
+  joinKey: string;
   playerId: string | null;
   number: string | null;
   /** Every shirt number the lines print, leading zeros dropped. */
@@ -141,6 +164,91 @@ export function mostCommon(values: readonly string[]): string | null {
     }
   }
   return best;
+}
+
+const intersects = <T>(a: ReadonlySet<T>, b: ReadonlySet<T>): boolean => {
+  for (const x of a) if (b.has(x)) return true;
+  return false;
+};
+
+// ── [N2] Close names ────────────────────────────────────────────────────────
+
+/** Plain unit-cost edit distance (insert, delete, substitute). */
+export function levenshtein(a: string, b: string): number {
+  const [x, y] = a.length < b.length ? [b, a] : [a, b];
+  let prev = Array.from({ length: y.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= x.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= y.length; j++) {
+      const sub = (prev[j - 1] as number) + (x[i - 1] === y[j - 1] ? 0 : 1);
+      cur.push(Math.min((prev[j] as number) + 1, (cur[j - 1] as number) + 1, sub));
+    }
+    prev = cur;
+  }
+  return prev[y.length] as number;
+}
+
+/** The words of the given name: after the comma in "Last, First", else every
+ *  word before the last. */
+export function givenWords(name: string): string[] {
+  const comma = name.indexOf(",");
+  const words = (s: string) => s.trim().split(/\s+/).filter(Boolean);
+  return comma >= 0 ? words(name.slice(comma + 1)) : words(name).slice(0, -1);
+}
+
+/** (ii)'s words: given names first (4.1 step 1), each word folded by steps 2
+ *  to 4; words that fold to nothing dropped. */
+export function nameWords(name: string): Set<string> {
+  return new Set(givenFirst(name).split(/\s+/).map(foldLetters).filter(Boolean));
+}
+
+export type CloseTest = "i" | "ii" | "iii" | "iv";
+
+/**
+ * The closeness tests two names pass, on names folded as in 4.1: (i) the edit
+ * distance of the folded full names is at most 2, or at most 15% of the longer
+ * one's length; (ii) every folded word of one is a folded word of the other;
+ * (iv) the folded surnames are equal and the folded given names begin with the
+ * same letter; (iii) the first given-name words fold the same. A test on an
+ * empty fold never holds.
+ */
+export function closeTests(a: string, b: string): Set<CloseTest> {
+  const out = new Set<CloseTest>();
+  const fa = foldName(a);
+  const fb = foldName(b);
+  if (fa && fb) {
+    const d = levenshtein(fa, fb);
+    if (d <= 2 || 20 * d <= 3 * Math.max(fa.length, fb.length)) out.add("i");
+  }
+  const wa = nameWords(a);
+  const wb = nameWords(b);
+  const within = (x: Set<string>, y: Set<string>) => [...x].every((w) => y.has(w));
+  if (wa.size > 0 && wb.size > 0 && (within(wa, wb) || within(wb, wa))) out.add("ii");
+  const sa = foldSurname(a);
+  const ia = givenInitial(a);
+  if (sa && sa === foldSurname(b) && ia && ia === givenInitial(b)) out.add("iv");
+  const ga = foldLetters(givenWords(a)[0] ?? "");
+  if (ga && ga === foldLetters(givenWords(b)[0] ?? "")) out.add("iii");
+  return out;
+}
+
+/** Close: (i), (ii) or (iv). */
+export const isClose = (a: string, b: string): boolean => {
+  const t = closeTests(a, b);
+  return t.has("i") || t.has("ii") || t.has("iv");
+};
+
+/** [N2c] A home town as evidence for a link: the text before the first comma,
+ *  folded by steps 2 to 4 of 4.1. */
+export const townKey = (town: string | undefined): string =>
+  foldLetters((town ?? "").split(",")[0] ?? "");
+
+/** [N2d] A line that prints a team row, not a person: TEAM, TEAM TEAM, or the
+ *  programme's own nickname (folded) with no minutes (null or zero). */
+export function isTeamRow(line: SheetLine, nicknameFold: string): boolean {
+  const f = foldName(line.name);
+  if (f === "team" || f === "teamteam") return true;
+  return nicknameFold !== "" && f === nicknameFold && (line.minutes === null || line.minutes === 0);
 }
 
 // ── The roster, read the collector's way ────────────────────────────────────
@@ -238,6 +346,35 @@ export interface JoinMeasures {
   /** Lines pass 3 sent to a roster row other than the one their group is
    *  already tied to: the earlier tie stands. */
   rosterConflicts: number;
+  /** [N2e] Of rosterFound, lines with a page, twin or roster ref, looked up
+   *  because passes 1 and 2 left their group untied. */
+  rosterFoundUntied: number;
+  /** [N2d] Players dropped as team rows. */
+  teamRows: number;
+  /** [N2a] Players joined to a roster player; refused by the page-id rule;
+   *  left alone because two or more roster players qualified. */
+  closeJoined: number;
+  closeRefused: number;
+  closeAmbiguous: number;
+}
+
+export const emptyJoinMeasures = (): JoinMeasures => ({
+  blocked: 0,
+  rosterFound: 0,
+  rosterConflicts: 0,
+  rosterFoundUntied: 0,
+  teamRows: 0,
+  closeJoined: 0,
+  closeRefused: 0,
+  closeAmbiguous: 0,
+});
+
+/** What the join reads beyond the lines and the roster [N2]. */
+export interface SeasonContext {
+  /** The stats file's players list for the programme-season (N2d names). */
+  statsRows: readonly PlayerStats[];
+  /** The programme's nickname, folded (N2d team rows). */
+  nicknameFold: string;
 }
 
 interface Flat {
@@ -255,6 +392,7 @@ function join(
   roster: RosterIndex,
   options: JoinOptions,
   measures: JoinMeasures,
+  context: SeasonContext,
 ): { groups: number[][]; tie: (string | null)[] } {
   const n = flat.length;
   const parent = Array.from({ length: n }, (_, i) => i);
@@ -307,13 +445,17 @@ function join(
   pass(({ line }) => (line.ref && line.ref.source !== "key" ? line.ref.id : null));
   pass(({ line }) => line.playerId);
   if (options.rosterPass) {
-    // Each line with no ref, or a key ref, looks up its roster entry; its
-    // group takes that tie unless it already holds another.
+    // Each line with no ref, or a key ref, looks up its roster entry; [N2e] so
+    // does every line of a group passes 1 and 2 left untied, whatever ref it
+    // carries. Its group takes that tie unless it already holds another.
+    const untied = flat.map((_, i) => tie[find(i)] === null);
     flat.forEach(({ line }, i) => {
-      if (line.ref && line.ref.source !== "key") return;
+      const resolved = line.ref !== null && line.ref.source !== "key";
+      if (resolved && !untied[i]) return;
       const found = rosterLookup(roster, line.name, line.number);
       if (found === null) return;
       measures.rosterFound++;
+      if (resolved) measures.rosterFoundUntied++;
       const r = find(i);
       if (tie[r] === found) return;
       if (tie[r] !== null) {
@@ -338,13 +480,68 @@ function join(
   }
   pass(({ line }) => foldName(line.name) || null);
 
-  const groups = new Map<number, number[]>();
-  for (let i = 0; i < n; i++) {
-    const r = find(i);
-    const g = groups.get(r);
-    if (g) g.push(i);
-    else groups.set(r, [i]);
+  const dropped = new Set<number>();
+  const collect = () => {
+    const out = new Map<number, number[]>();
+    for (let i = 0; i < n; i++) {
+      if (dropped.has(i)) continue;
+      const r = find(i);
+      const g = out.get(r);
+      if (g) g.push(i);
+      else out.set(r, [i]);
+    }
+    return out;
+  };
+  let groups = collect();
+
+  // [N2d] A player whose every line prints a team row is not a person.
+  for (const [r, idx] of groups) {
+    if (!idx.every((i) => isTeamRow((flat[i] as Flat).line, context.nicknameFold))) continue;
+    for (const i of idx) dropped.add(i);
+    groups.delete(r);
+    measures.teamRows++;
   }
+
+  // [N2a] The fifth pass, over the groups pass 4 left, every pair judged
+  // before any is merged: an untied group joins the only tied one it shares
+  // no record with, whose name is loosely close, and with which it shares a
+  // shirt number, or, for a close name, when it prints none.
+  const printed = (r: number, idx: readonly number[]): string => {
+    const entry = tie[r];
+    const row = entry ? roster.entries.get(entry) : undefined;
+    if (row?.name) return row.name;
+    const lineName = mostCommon(idx.map((i) => (flat[i] as Flat).line.name)) as string;
+    return statsRowOf(context.statsRows, page[r] ?? null, foldName(lineName))?.name ?? lineName;
+  };
+  const info = new Map<number, { records: Set<string>; numbers: Set<string>; name: string }>();
+  for (const [r, idx] of groups) {
+    info.set(r, {
+      records: new Set(idx.map((i) => (flat[i] as Flat).sheet.identity)),
+      numbers: new Set(idx.map((i) => shirtNumber((flat[i] as Flat).line.number)).filter(Boolean)),
+      name: printed(r, idx),
+    });
+  }
+  const byRoot = (a: number, b: number) => a - b;
+  const tied = [...info.keys()].filter((r) => tie[r] !== null).sort(byRoot);
+  const plan: [number, number][] = [];
+  for (const b of [...info.keys()].filter((r) => tie[r] === null).sort(byRoot)) {
+    const ib = info.get(b) as { records: Set<string>; numbers: Set<string>; name: string };
+    const found = tied.filter((a) => {
+      const ia = info.get(a) as { records: Set<string>; numbers: Set<string>; name: string };
+      if (intersects(ia.records, ib.records)) return false;
+      const t = closeTests(ia.name, ib.name);
+      if (t.size === 0) return false;
+      const close = t.has("i") || t.has("ii") || t.has("iv");
+      return intersects(ia.numbers, ib.numbers) || (ib.numbers.size === 0 && close);
+    });
+    if (found.length === 1) plan.push([b, found[0] as number]);
+    else if (found.length > 1) measures.closeAmbiguous++;
+  }
+  for (const [b, a] of plan) {
+    if (merge(a, b)) measures.closeJoined++;
+    else measures.closeRefused++;
+  }
+  if (plan.length > 0) groups = collect();
   const roots = [...groups.keys()];
   return {
     groups: roots.map((r) => groups.get(r) as number[]),
@@ -365,7 +562,8 @@ export function playerSeasons(
   roster: readonly Player[],
   scale: (sheet: Sheet) => Scale,
   options: JoinOptions = { rosterPass: true },
-  measures: JoinMeasures = { blocked: 0, rosterFound: 0, rosterConflicts: 0 },
+  measures: JoinMeasures = emptyJoinMeasures(),
+  context: SeasonContext = { statsRows: [], nicknameFold: "" },
 ): PlayerSeason[] {
   const flat: Flat[] = [];
   for (const sheet of sheets) {
@@ -374,26 +572,42 @@ export function playerSeasons(
     });
   }
   const index = rosterIndex(roster);
-  const { groups, tie } = join(flat, index, options, measures);
+  const { groups, tie } = join(flat, index, options, measures, context);
 
   const out: PlayerSeason[] = [];
   groups.forEach((members, gi) => {
     const entries = members.map((i) => flat[i] as Flat);
     const lines = entries.map((e) => e.line);
-    const name = mostCommon(lines.map((l) => l.name)) as string;
+    const lineName = mostCommon(lines.map((l) => l.name)) as string;
     const entry = tie[gi] ?? null;
+    const rosterRow = entry === null ? null : (index.entries.get(entry) ?? null);
+    const playerId = mostCommon(lines.flatMap((l) => (l.playerId ? [l.playerId] : [])));
+    // [N2d] The roster line's name; else the stats row's, joined by page id,
+    // then by the folded name; else the value on the most lines.
+    const joinName = rosterRow?.name ? rosterRow.name : lineName;
+    const row = rosterRow?.name
+      ? null
+      : statsRowOf(context.statsRows, playerId, foldName(joinName));
+    const [name, nameSource] = rosterRow?.name
+      ? [rosterRow.name, "roster" as const]
+      : row
+        ? [row.name, "stats" as const]
+        : [lineName, "lines" as const];
     const p: PlayerSeason = {
       programme,
       season,
       name,
       key: foldName(name),
-      playerId: mostCommon(lines.flatMap((l) => (l.playerId ? [l.playerId] : []))),
+      lineName,
+      nameSource,
+      joinKey: foldName(joinName),
+      playerId,
       number: mostCommon(lines.flatMap((l) => (l.number ? [l.number] : []))),
       numbers: new Set(lines.map((l) => shirtNumber(l.number)).filter(Boolean)),
       sheets: new Set(entries.map((e) => e.sheet.identity)),
       labels: lines.map((l) => l.position),
       lineCount: lines.length,
-      roster: entry === null ? null : (index.entries.get(entry) ?? null),
+      roster: rosterRow,
       rosterEntry: entry,
       doubled: 0,
       minutes: 0,
@@ -475,11 +689,21 @@ export function statsRowFor<T extends { name: string; player_id?: string }>(
   p: PlayerSeason,
   rows: readonly T[],
 ): T | null {
-  if (p.playerId !== null) {
-    const byId = rows.filter((r) => r.player_id === p.playerId);
+  return statsRowOf(rows, p.playerId, p.joinKey);
+}
+
+/** The row with the page id, if exactly one has it; else the row whose
+ *  folded name is `key`, if exactly one has it; else null. */
+export function statsRowOf<T extends { name: string; player_id?: string }>(
+  rows: readonly T[],
+  playerId: string | null,
+  key: string,
+): T | null {
+  if (playerId !== null) {
+    const byId = rows.filter((r) => r.player_id === playerId);
     if (byId.length === 1) return byId[0] ?? null;
   }
-  const byName = rows.filter((r) => foldName(r.name) === p.key);
+  const byName = rows.filter((r) => foldName(r.name) === key);
   return byName.length === 1 ? (byName[0] ?? null) : null;
 }
 
@@ -523,33 +747,21 @@ export function applyStatsPenalties(
 
 // ── 4.3: split spellings ────────────────────────────────────────────────────
 
-const intersects = <T>(a: ReadonlySet<T>, b: ReadonlySet<T>): boolean => {
-  for (const x of a) if (b.has(x)) return true;
-  return false;
-};
-
 /**
- * The unresolved pairs of one programme-season, after the join: a shirt
- * number in common (leading zeros dropped), the same folded surname, the same
- * first letter of the folded given name, and no record in which both have a
- * line. Index pairs into `players`; both halves are incomplete (identity).
+ * [N2b] The unresolved pairs of one programme-season, after the join and
+ * N2a: a shirt number in common (leading zeros dropped), names close by (i),
+ * (ii) or (iv), and no record in which both have a line. Index pairs into
+ * `players`; both halves are incomplete (identity).
  */
 export function splitSpellingPairs(players: readonly PlayerSeason[]): [number, number][] {
-  const parts = players.map((p) => ({
-    surname: foldSurname(p.name),
-    initial: givenInitial(p.name),
-  }));
   const pairs: [number, number][] = [];
   for (let i = 0; i < players.length; i++) {
     for (let j = i + 1; j < players.length; j++) {
       const a = players[i] as PlayerSeason;
       const b = players[j] as PlayerSeason;
-      const pa = parts[i] as { surname: string; initial: string };
-      const pb = parts[j] as { surname: string; initial: string };
-      if (!pa.surname || pa.surname !== pb.surname) continue;
-      if (!pa.initial || pa.initial !== pb.initial) continue;
       if (!intersects(a.numbers, b.numbers)) continue;
       if (intersects(a.sheets, b.sheets)) continue;
+      if (!isClose(a.name, b.name)) continue;
       pairs.push([i, j]);
     }
   }
@@ -557,21 +769,6 @@ export function splitSpellingPairs(players: readonly PlayerSeason[]): [number, n
 }
 
 // ── 4.4: across seasons ─────────────────────────────────────────────────────
-
-/** [v2.2] Whether two home towns clearly differ: fold each whole town and
- *  its first word by steps 2 to 4 of 4.1; they differ only when the first
- *  words differ and neither whole fold begins with the other. An empty
- *  whole fold never contradicts. The town is read here and nowhere else, and
- *  never stored. */
-export function townsDiffer(earlier: string | undefined, later: string | undefined): boolean {
-  const whole = (t: string | undefined) => foldLetters(t ?? "");
-  const first = (t: string | undefined) => foldLetters((t ?? "").trim().split(/\s+/)[0] ?? "");
-  const a = whole(earlier);
-  const b = whole(later);
-  if (a === "" || b === "") return false;
-  if (first(earlier) === first(later)) return false;
-  return !a.startsWith(b) && !b.startsWith(a);
-}
 
 const STEPS: readonly (readonly [number, readonly string[]])[] = [
   [1, ["fr", "freshman", "first year", "1st year", "first", "1st", "fy"]],
@@ -629,12 +826,10 @@ export function classStep(year: string | undefined): number | null {
   return null;
 }
 
-/** Whether two roster lines contradict a same-key link: the home towns
- *  clearly differ (townsDiffer), or the class year falls by two or more
- *  steps. */
+/** Whether two roster lines contradict a link: the class year falls by two
+ *  or more steps. [N2c] A home town is evidence for a link, never against. */
 export function contradicts(earlier: Player | null, later: Player | null): boolean {
   if (!earlier || !later) return false;
-  if (townsDiffer(earlier.hometown, later.hometown)) return true;
   const ra = classStep(earlier.class_year);
   const rb = classStep(later.class_year);
   return ra !== null && rb !== null && rb <= ra - 2;
@@ -652,4 +847,21 @@ export function sameName(
   if (!shirt) return null;
   const byNumber = byKey.filter((p) => shirtNumber(p.number) === shirt);
   return byNumber.length === 1 ? (byNumber[0] ?? null) : null;
+}
+
+/** [N2c] When no player at the season before has the key: the only one whose
+ *  name is close by (i), (ii) or (iv) and who shares a shirt number or the
+ *  same non-empty folded home town (townKey); else null. */
+export function closeLink(
+  current: PlayerSeason,
+  earlier: readonly PlayerSeason[],
+): PlayerSeason | null {
+  const town = townKey(current.roster?.hometown);
+  const found = earlier.filter(
+    (p) =>
+      isClose(p.name, current.name) &&
+      (intersects(p.numbers, current.numbers) ||
+        (town !== "" && townKey(p.roster?.hometown) === town)),
+  );
+  return found.length === 1 ? (found[0] ?? null) : null;
 }

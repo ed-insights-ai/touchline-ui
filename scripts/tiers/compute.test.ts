@@ -78,7 +78,7 @@ function side(slug: Slug, goals: number, shots: number): MatchTeam {
 /** 18 matches a season, so each programme plays 12, six against each of the
  *  others: alpha always wins 2–0 on 10 shots to 6, beta and gamma draw 1–1 on
  *  8 shots each. */
-function season(year: number, hometown: (slug: Slug, name: string) => string): ConferenceSeason {
+function season(year: number, classYear: (slug: Slug, name: string) => string): ConferenceSeason {
   const fixtures: Fixture[] = [];
   const matches: Record<string, MatchDetail> = {};
   const pairs: [Slug, Slug][] = [
@@ -120,8 +120,8 @@ function season(year: number, hometown: (slug: Slug, name: string) => string): C
       source_url: `https://example.test/${slug}/roster/${100 + i}`,
       number: p.number,
       position: p.position,
-      class_year: year === 2025 ? "Junior" : "Senior",
-      hometown: hometown(slug, p.name),
+      class_year: classYear(slug, p.name),
+      hometown: "Searcy, Ark.",
     }));
   return {
     key: "tst",
@@ -154,17 +154,18 @@ function season(year: number, hometown: (slug: Slug, name: string) => string): C
   };
 }
 
-// In 2026 one of gamma's defenders lists a different home town than in 2025:
-// a contradicted link, so that player's 2025 season is not theirs.
+// In 2026 one of gamma's defenders is listed two class years below 2025's
+// (Junior, then Freshman): a contradicted link, so that player's 2025 season
+// is not theirs. [N2c] A home town no longer contradicts one.
 const result = computeGender(
   "men",
   new Map([
-    [2025, [season(2025, () => "Searcy, Ark.")]],
+    [2025, [season(2025, () => "Junior")]],
     [
       2026,
       [
         season(2026, (slug, name) =>
-          slug === "gamma" && name === "Back Two" ? "Leeds, England" : "Searcy, Ark.",
+          slug === "gamma" && name === "Back Two" ? "Freshman" : "Senior",
         ),
       ],
     ],

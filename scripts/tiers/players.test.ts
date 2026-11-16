@@ -1,14 +1,20 @@
-// ALGORITHM.md section 4 (version 2.2): joining lines (with the roster pass),
-// the values an entry prints, the sums with a doubled line and penalties, the
-// second penalty source, split spellings and the cross-season link.
+// ALGORITHM.md section 4 (version 2.2, with the contract 2.3 ruling N2):
+// joining lines (with the roster pass), the values an entry prints, the sums
+// with a doubled line and penalties, the second penalty source, split
+// spellings and the cross-season link.
 
 import { describe, expect, test } from "bun:test";
 import type { Player, PlayerStats } from "../../src/lib/model.ts";
 import {
   applyStatsPenalties,
   classStep,
+  closeLink,
+  closeTests,
   contradicts,
+  emptyJoinMeasures,
+  isTeamRow,
   type JoinMeasures,
+  levenshtein,
   mostCommon,
   type PlayerSeason,
   playerSeasons,
@@ -20,7 +26,7 @@ import {
   sameName,
   splitSpellingPairs,
   statsRowFor,
-  townsDiffer,
+  townKey,
 } from "./players.ts";
 
 const line = (over: Partial<SheetLine> & { name: string }): SheetLine => ({
@@ -52,10 +58,17 @@ const roster = (over: Partial<Player> & { name: string }): Player => ({ ...over 
 const bio = (id: string, over: Partial<Player> & { name: string }): Player =>
   roster({ source_url: `https://x.test/roster/${id}`, ...over });
 
-const measures = (): JoinMeasures => ({ blocked: 0, rosterFound: 0, rosterConflicts: 0 });
+const measures = (): JoinMeasures => emptyJoinMeasures();
 
-const join = (sheets: Sheet[], players: Player[] = [], rosterPass = true, m = measures()) =>
-  playerSeasons("x", 2026, sheets, players, unit, { rosterPass }, m);
+const join = (
+  sheets: Sheet[],
+  players: Player[] = [],
+  rosterPass = true,
+  m = measures(),
+  statsRows: PlayerStats[] = [],
+  nicknameFold = "",
+) =>
+  playerSeasons("x", 2026, sheets, players, unit, { rosterPass }, m, { statsRows, nicknameFold });
 
 describe("4.2, passes 1, 2 and 4: player_ref, page id, folded name", () => {
   test("player_ref, page id and folded name each join; the three together make one person", () => {
@@ -174,8 +187,9 @@ describe("4.2, pass 3: the roster pass", () => {
       ],
       players,
     );
-    expect(ps.map((p) => [p.name, p.playerId, p.minutes, p.lineCount])).toEqual([
-      ["Garrett Boucher", "7619", 270, 4],
+    // [N2d] The name printed is the roster line's, not the lines' "Garrett".
+    expect(ps.map((p) => [p.name, p.lineName, p.playerId, p.minutes, p.lineCount])).toEqual([
+      ["Garret Boucher", "Garrett Boucher", "7619", 270, 4],
     ]);
     // Without the lookup the two bio-tied groups still join: one roster line,
     // one person.
@@ -191,15 +205,44 @@ describe("4.2, pass 3: the roster pass", () => {
     expect(tiedOnly.length).toBe(1);
   });
 
-  test("a line with a page or twin ref is not looked up", () => {
+  test("a line with a page or twin ref is not looked up while its group is tied", () => {
+    // The twin ref 102 ties "A. Lee" to Bea Kim's entry; it is not looked up,
+    // so it does not find Ann Lee's by number and surname.
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee", number: "4" })]),
+        sheet("m2", [line({ name: "A. Lee", number: "4", ref: { id: "102", source: "twin" } })]),
+      ],
+      rows,
+      true,
+      m,
+    );
+    expect(ps).toHaveLength(2);
+    expect(m.rosterFoundUntied).toBe(0);
+  });
+
+  test("[N2e] every line of a group passes 1 and 2 left untied is looked up, whatever its ref", () => {
+    // Twin ref 55 is no bio id: the group is untied, so "A. Lee" #4 finds Ann
+    // Lee by number and surname and joins her (2.2 left it a second person).
+    const m = measures();
     const ps = join(
       [
         sheet("m1", [line({ name: "Ann Lee", number: "4" })]),
         sheet("m2", [line({ name: "A. Lee", number: "4", ref: { id: "55", source: "twin" } })]),
+        sheet("m3", [
+          line({ name: "Bea Kim", playerId: "9001", ref: { id: "9001", source: "page" } }),
+        ]),
       ],
       rows,
+      true,
+      m,
     );
-    expect(ps).toHaveLength(2);
+    expect(ps.map((p) => [p.name, p.rosterEntry, p.lineCount])).toEqual([
+      ["Ann Lee", "bio:101", 2],
+      ["Bea Kim", "bio:102", 1],
+    ]);
+    expect(m.rosterFoundUntied).toBe(2);
   });
 
   test("two lines that find one entry but hold different page ids stay apart", () => {
@@ -292,6 +335,161 @@ describe("4.2, pass 3: the roster pass", () => {
       "",
     );
     expect(rosterBioId({ name: "A", player_id: "5" } as unknown as Player)).toBe("5");
+  });
+});
+
+describe("[N2d] team rows", () => {
+  test("TEAM, TEAM TEAM and the programme's nickname with no minutes are dropped", () => {
+    const nick = "warriors";
+    expect(isTeamRow(line({ name: "TEAM", minutes: 0 }), nick)).toBe(true);
+    expect(isTeamRow(line({ name: "Team Team", minutes: 90 }), nick)).toBe(true);
+    expect(isTeamRow(line({ name: "Warriors", minutes: null }), nick)).toBe(true);
+    expect(isTeamRow(line({ name: "Warriors", minutes: 0 }), nick)).toBe(true);
+    // The nickname with minutes is somebody's name; no nickname, no test.
+    expect(isTeamRow(line({ name: "Warriors", minutes: 12 }), nick)).toBe(false);
+    expect(isTeamRow(line({ name: "Warriors", minutes: null }), "")).toBe(false);
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee" }), line({ name: "Warriors", minutes: null })]),
+        sheet("m2", [line({ name: "Ann Lee" }), line({ name: "TEAM TEAM", minutes: 0 })]),
+      ],
+      [],
+      true,
+      m,
+      [],
+      nick,
+    );
+    expect(ps.map((p) => p.name)).toEqual(["Ann Lee"]);
+    expect(m.teamRows).toBe(2);
+  });
+});
+
+describe("[N2a] the fifth pass: an untied player joins the only close roster player", () => {
+  const parker = bio("301", { name: "Alli Parker", number: "7", position: "F" });
+  const own = (id: string) =>
+    sheet(id, [line({ name: "Alli Parker", number: "7", ref: { id: "301", source: "roster" } })]);
+
+  test("a shared number and a loosely close name join (Alli Parker / 'Alli French')", () => {
+    // (iii): the first given-name words agree; #7 is shared; never on one sheet.
+    const m = measures();
+    const ps = join(
+      [own("m1"), own("m2"), sheet("m3", [line({ name: "Alli French", number: "07" })])],
+      [parker],
+      true,
+      m,
+    );
+    expect(ps.map((p) => [p.name, p.minutes, p.lineCount])).toEqual([["Alli Parker", 270, 3]]);
+    expect(m.closeJoined).toBe(1);
+  });
+
+  test("no number: only a close name joins; (iii) alone does not", () => {
+    const close = join([own("m1"), sheet("m2", [line({ name: "A. Parker" })])], [parker]);
+    expect(close).toHaveLength(1);
+    const loose = join([own("m1"), sheet("m2", [line({ name: "Alli French" })])], [parker]);
+    expect(loose).toHaveLength(2);
+  });
+
+  test("not when they share a record, or the numbers differ", () => {
+    const together = join(
+      [
+        sheet("m1", [
+          line({ name: "Alli Parker", number: "7", ref: { id: "301", source: "roster" } }),
+          line({ name: "Alli French", number: "7" }),
+        ]),
+      ],
+      [parker],
+    );
+    expect(together).toHaveLength(2);
+    const otherNumber = join(
+      [own("m1"), sheet("m2", [line({ name: "Alli French", number: "8" })])],
+      [parker],
+    );
+    expect(otherNumber).toHaveLength(2);
+  });
+
+  test("two roster players who qualify: neither is joined", () => {
+    const m = measures();
+    const ps = join(
+      [
+        own("m1"),
+        sheet("m2", [
+          line({ name: "Alli Pak", number: "7", ref: { id: "302", source: "roster" } }),
+        ]),
+        sheet("m3", [line({ name: "Alli French", number: "7" })]),
+      ],
+      [parker, bio("302", { name: "Alli Pak", number: "7" })],
+      true,
+      m,
+    );
+    expect(ps).toHaveLength(3);
+    expect(m.closeAmbiguous).toBe(1);
+  });
+
+  test("the page-id rule still refuses", () => {
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [
+          line({
+            name: "Alli Parker",
+            number: "7",
+            playerId: "88",
+            ref: { id: "301", source: "roster" },
+          }),
+        ]),
+        sheet("m2", [line({ name: "Alli French", number: "7", playerId: "89" })]),
+      ],
+      [parker],
+      true,
+      m,
+    );
+    expect(ps).toHaveLength(2);
+    expect(m.closeRefused).toBe(1);
+  });
+});
+
+describe("[N2d] the name printed", () => {
+  test("no roster line: the stats row's name, joined by page id; else the lines'", () => {
+    const rows: PlayerStats[] = [{ name: "Samuel Villanueva", player_id: "55" }];
+    const [p] = join(
+      [sheet("m1", [line({ name: "Sammy Villanueva", playerId: "55" })])],
+      [],
+      true,
+      measures(),
+      rows,
+    );
+    expect([p?.name, p?.lineName, p?.key, p?.nameSource]).toEqual([
+      "Samuel Villanueva",
+      "Sammy Villanueva",
+      "samuelvillanueva",
+      "stats",
+    ]);
+    const [q] = join(
+      [sheet("m1", [line({ name: "Sammy Villanueva" })])],
+      [],
+      true,
+      measures(),
+      rows,
+    );
+    expect([q?.name, q?.nameSource]).toEqual(["Sammy Villanueva", "lines"]);
+  });
+
+  test("a roster line: its name, and the stats file is joined by it", () => {
+    const rows: PlayerStats[] = [{ name: "Villanueva, Samuel", penalty_goals: 1 }];
+    const [p] = join(
+      [sheet("m1", [line({ name: "Sammy Villanueva", ref: { id: "9", source: "roster" } })])],
+      [bio("9", { name: "Samuel Villanueva" })],
+      true,
+      measures(),
+      rows,
+    );
+    expect([p?.name, p?.nameSource, p?.joinKey]).toEqual([
+      "Samuel Villanueva",
+      "roster",
+      "samuelvillanueva",
+    ]);
+    expect(statsRowFor(p as PlayerSeason, rows)).toBe(rows[0] as PlayerStats);
   });
 });
 
@@ -578,7 +776,38 @@ describe("4.6, second: penalties from the season statistics", () => {
   });
 });
 
-describe("4.3: split spellings", () => {
+describe("[N2] close names", () => {
+  test("Levenshtein: plain unit cost", () => {
+    expect(levenshtein("kitten", "sitting")).toBe(3);
+    expect(levenshtein("", "abc")).toBe(3);
+    expect(levenshtein("lee", "lee")).toBe(0);
+  });
+
+  test("(i) distance at most 2, or at most 15% of the longer fold", () => {
+    expect(closeTests("Jon Smith", "John Smith").has("i")).toBe(true);
+    // Three substitutions in 20 letters is 15%: close; in 19 it is not.
+    expect(closeTests("Abcdefghij Klmnopqrst", "Xbcdefghij Klmnopqrxy").has("i")).toBe(true);
+    expect(closeTests("Abcdefghij Klmnopqrs", "Xbcdefghij Klmnopqxy").has("i")).toBe(false);
+  });
+
+  test("(ii) one name's folded words all in the other's; (iv) surname and initial; (iii) first given word", () => {
+    // Six letters apart in twenty: not (i).
+    expect([...closeTests("Pelayo Gonzalez", "Pelayo Gonzalez Suarez")].sort()).toEqual([
+      "ii",
+      "iii",
+    ]);
+    expect([...closeTests("Gonzalez Suarez, Pelayo", "Pelayo Gonzalez")].sort()).toContain("ii");
+    expect([...closeTests("Juan Linares", "Juanito Linares")].sort()).toEqual(["iv"]);
+    expect([...closeTests("Alli Parker", "Alli French")]).toEqual(["iii"]);
+    // Siblings the rules must keep apart.
+    expect(closeTests("Lucas Pollacchi", "Tomas Pollacchi").size).toBe(0);
+    expect(closeTests("Ian Reis", "Eric Reis").size).toBe(0);
+    // A one-word name has no given name: (iv) and (iii) never hold.
+    expect(closeTests("Pele", "Pele").has("iv")).toBe(false);
+  });
+});
+
+describe("4.3 [N2b]: split spellings, widened to close names", () => {
   const two = (a: SheetLine, aSheets: string[], b: SheetLine, bSheets: string[]) =>
     join([
       ...aSheets.map((id) => sheet(id, [a])),
@@ -630,6 +859,23 @@ describe("4.3: split spellings", () => {
     );
     expect(splitSpellingPairs(ps)).toEqual([[0, 1]]);
   });
+
+  test("[N2b] names close by (i) or (ii) are a pair too", () => {
+    const byDistance = two(
+      line({ name: "Caylee Boorse", number: "22" }),
+      ["m1"],
+      line({ name: "Caylee Borse", number: "22" }),
+      ["m2"],
+    );
+    expect(splitSpellingPairs(byDistance)).toEqual([[0, 1]]);
+    const byWords = two(
+      line({ name: "Fatima Leme", number: "5" }),
+      ["m1"],
+      line({ name: "Fatima Paes Leme", number: "5" }),
+      ["m2"],
+    );
+    expect(splitSpellingPairs(byWords)).toEqual([[0, 1]]);
+  });
 });
 
 describe("4.4: the same person across seasons", () => {
@@ -649,25 +895,32 @@ describe("4.4: the same person across seasons", () => {
     expect(sameName(p("Ann Lee", { number: null }), [a, b])).toBeNull();
   });
 
-  test("[v2.2] home towns differ only when the first words differ and neither fold begins the other", () => {
-    // The contract's own examples agree.
-    expect(townsDiffer("Örebro Sweden", "Örebro, Sweden")).toBe(false);
-    expect(townsDiffer("Clinton Twp.", "Clinton Township")).toBe(false);
-    // Another state or country after the same town: the first words agree.
-    expect(townsDiffer("Searcy, Ark.", "SEARCY, Arkansas")).toBe(false);
-    // First words differ, but one whole fold begins the other.
-    expect(townsDiffer("Bergen/Norway", "Bergen")).toBe(false);
-    // Clearly different towns.
-    expect(townsDiffer("Searcy, Ark.", "Leeds, England")).toBe(true);
-    // As written, a spelling of one word the other way round differs.
-    expect(townsDiffer("St. Louis, Mo.", "Saint Louis, Mo.")).toBe(true);
-    // An empty fold never contradicts; nor does a missing town.
-    expect(townsDiffer("Searcy, Ark.", "—")).toBe(false);
-    expect(townsDiffer("Searcy, Ark.", undefined)).toBe(false);
+  test("[N2c] a home town never contradicts a link", () => {
     const town = (hometown: string | undefined) => roster({ name: "Ann Lee", hometown });
-    expect(contradicts(town("Searcy, Ark."), town("Leeds, England"))).toBe(true);
-    expect(contradicts(town("Örebro Sweden"), town("Örebro, Sweden"))).toBe(false);
+    expect(contradicts(town("Searcy, Ark."), town("Leeds, England"))).toBe(false);
     expect(contradicts(null, town("Searcy, Ark."))).toBe(false);
+  });
+
+  test("[N2c] no earlier player with the key: the only close one sharing a number or a town", () => {
+    const at = (name: string, number: string, hometown?: string, season = 2025): PlayerSeason => {
+      const [ps] = join(
+        [sheet("m1", [line({ name, number, ref: { id: name, source: "roster" } })])],
+        [bio(name, { name, number, hometown })],
+      );
+      return { ...(ps as PlayerSeason), season };
+    };
+    const now = at("Jennifer Mueller", "23", "Rio Rancho, NM", 2026);
+    // (iv) close and #23 shared.
+    const jenny = at("Jenny Mueller", "23", "Rio Rancho");
+    expect(closeLink(now, [at("Ann Lee", "23"), jenny])).toBe(jenny);
+    // A different number but the same town before the comma.
+    const town = at("Jenny Mueller", "9", "Rio Rancho");
+    expect(closeLink(now, [town])).toBe(town);
+    expect(townKey("Rio Rancho, NM")).toBe("riorancho");
+    // Neither number nor town; a name not close; two candidates: no link.
+    expect(closeLink(now, [at("Jenny Mueller", "9", "Albuquerque")])).toBeNull();
+    expect(closeLink(now, [at("Ann Mueller", "23")])).toBeNull();
+    expect(closeLink(now, [jenny, at("Jen Mueller", "23")])).toBeNull();
   });
 
   test("class year: the ladder, a redshirt word ignored, the first year a string names", () => {
