@@ -20,7 +20,10 @@
 //      number, never on one sheet), or if it joins a sibling pair: different
 //      first initials (Rachel and Shania Wegesend, one number), or two names
 //      only (vi) holds for that share a sheet or no shirt number ("Sara
-//      Queiroz" and "Sofia Queiroz Reis").
+//      Queiroz" and "Sofia Queiroz Reis"). Stage 8 (IR-31): fails if a
+//      hyphenated double surname does not join under (vi) ("Charlise
+//      Hernandez-Tersigni" and "C.Hernandez-Tersigni", one number), or if the
+//      hyphen reaches test (ii).
 
 import { describe, expect, test } from "bun:test";
 import { execFileSync } from "node:child_process";
@@ -40,6 +43,8 @@ import {
   applyStatsPenalties,
   closeTests,
   emptyJoinMeasures,
+  nameWordList,
+  nameWords,
   type PlayerSeason,
   playerSeasons,
   type Sheet,
@@ -403,11 +408,67 @@ describe("M5 regression: test (vi) joins a short form, never a sibling", () => {
     expect([together.m.closeJoined, otherNumber.m.closeJoined]).toEqual([0, 0]);
   });
 
-  test("a word is a white-space word: a hyphenated surname is one word", () => {
+  test("given names first; a first word or a short word does not count", () => {
     expect(testVi("Queiroz, May", "Mayara Queiroz Reis")).toBe(true);
     expect(testVi("Reis Silva", "Reis Queiroz")).toBe(false);
     expect(testVi("Jo Lee", "Jo Ann Lee")).toBe(false);
-    expect(testVi("Charlise Hernandez-Tersigni", "C Hernandez-Abraham")).toBe(false);
+  });
+
+  test("[IR-31] a hyphenated double surname joins under (vi)", () => {
+    // In (vi) a word ends at white space or at a hyphen. Charlise
+    // Hernandez-Tersigni, Ursuline #29, is printed "C.Hernandez-Tersigni" on
+    // one 2024 box score: only (vi) holds, on "tersigni".
+    expect(closeTests("Charlise Hernandez-Tersigni", "C.Hernandez-Tersigni").size).toBe(0);
+    expect(nameWordList("C.Hernandez-Tersigni")).toEqual(["chernandez", "tersigni"]);
+    expect(testVi("Charlise Hernandez-Tersigni", "C Hernandez-Abraham")).toBe(true);
+    expect(testVi("Matthew Vargas-Oyuela", "Matt Vargas")).toBe(true);
+    const charlise = [row("29", "Charlise Hernandez-Tersigni", "29")];
+    const own = (id: string) => sheet(id, [at("Charlise Hernandez-Tersigni", "29", "29")]);
+    const { ps, m } = join(
+      [own("m1"), own("m2"), sheet("m3", [at("C.Hernandez-Tersigni", "29")])],
+      charlise,
+    );
+    expect(ps.map((p) => [p.name, p.minutes, p.lineCount])).toEqual([
+      ["Charlise Hernandez-Tersigni", 270, 3],
+    ]);
+    expect([m.closeJoined, m.closeJoinedVi]).toEqual([1, 1]);
+    // Still a shirt number in common, and never on one sheet.
+    const otherNumber = join(
+      [own("m1"), sheet("m2", [at("C.Hernandez-Tersigni", "30")])],
+      charlise,
+    );
+    const together = join(
+      [
+        own("m1"),
+        sheet("m2", [
+          at("Charlise Hernandez-Tersigni", "29", "29"),
+          at("C.Hernandez-Tersigni", "29"),
+        ]),
+      ],
+      charlise,
+    );
+    expect([otherNumber.ps.length, together.ps.length]).toEqual([2, 2]);
+    // Test (ii) still reads a word at white space only.
+    expect(closeTests("Carl Murguia", "Carl Murguia-Pulido").has("ii")).toBe(false);
+    expect([...nameWords("Carl Murguia-Pulido")]).toEqual(["carl", "murguiapulido"]);
+    // A sibling pair with a hyphenated double surname stays apart on one
+    // sheet or without a number in common.
+    expect(testVi("Sara Hernandez", "Sofia Hernandez-Tersigni")).toBe(true);
+    const sara = [row("61", "Sara Hernandez", "6")];
+    const sisters = (n: string, both: boolean) =>
+      join(
+        [
+          sheet("m1", [at("Sara Hernandez", "6", "61")]),
+          sheet(
+            "m2",
+            both
+              ? [at("Sara Hernandez", "6", "61"), at("Sofia Hernandez-Tersigni", n)]
+              : [at("Sofia Hernandez-Tersigni", n)],
+          ),
+        ],
+        sara,
+      ).ps.length;
+    expect([sisters("6", true), sisters("16", false)]).toEqual([2, 2]);
   });
 });
 

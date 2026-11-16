@@ -207,11 +207,17 @@ export function nameWords(name: string): Set<string> {
 
 export type CloseTest = "i" | "ii" | "iii" | "iv" | "v";
 
-/** [M5] The folded words of a name in order, given names first, each white
- *  space word folded as test (ii) folds it; words that fold to nothing are
- *  dropped before the first is taken. */
+/** [IR-31] Where a word ends in test (vi): at white space or at a hyphen
+ *  (U+002D, U+2010 HYPHEN, U+2011 NON-BREAKING HYPHEN). Test (ii) and every
+ *  other reading of a word still end it at white space only. */
+const VI_WORD_BREAK = /[\s\-\u2010\u2011]+/;
+
+/** [M5, IR-31] Test (vi)'s folded words of a name in order, given names
+ *  first: "Hernandez-Tersigni" is two words. Each word is folded as test (ii)
+ *  folds one; words that fold to nothing are dropped before the first is
+ *  taken (IR-30). */
 export function nameWordList(name: string): string[] {
-  return givenFirst(name).split(/\s+/).map(foldLetters).filter(Boolean);
+  return givenFirst(name).split(VI_WORD_BREAK).map(foldLetters).filter(Boolean);
 }
 
 /**
