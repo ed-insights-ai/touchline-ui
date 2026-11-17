@@ -3,29 +3,30 @@
   "season": 2026,
   "gender": "women",
   "conference": "LSC",
-  "generated_at": "2026-11-16T13:20:00+00:00",
-  "data_collected_at": "2026-11-16T13:00:16+00:00",
-  "headline": "Dallas Baptist remain the conference's only unbeaten side",
-  "dek": "Dallas Baptist have won seventeen and drawn two, scoring 63 goals across all their matches and conceding eight. None of the other fourteen programmes has scored as many.",
+  "generated_at": "2026-11-17T13:15:00+00:00",
+  "data_collected_at": "2026-11-17T12:55:19+00:00",
+  "headline": "Unbeaten Dallas Baptist meet Texas Woman's again",
+  "dek": "Dallas Baptist have won eighteen and drawn two, scoring 65 goals across all their matches and conceding nine; none of the other fourteen programmes has scored as many. One of those draws came against Texas Woman's, the side they meet next.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "gf",
     "programme": "dallas-baptist",
     "of_any": 14,
-    "gf": 63,
-    "ga": 8,
-    "wins": 17,
+    "gf": 65,
+    "ga": 9,
+    "wins": 18,
     "draws": 2,
     "losses": 0
   },
-  "lede_updated": "2026-11-09",
+  "lede_updated": "2026-11-17",
+  "displaced_by": "The standing dek's figures were outgrown: Dallas Baptist moved to eighteen wins, 65 scored and nine conceded after beating UCCS. The headline now leads on their next match, a rematch with Texas Woman's, the second side in the table.",
   "pattern": {
     "label": "derived",
     "text": "One programme scores at a different rate from the rest: Dallas Baptist have more goals than Angelo State, UT Permian Basin, Texas A&M International, Sul Ross State and Eastern New Mexico together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "dallas-baptist": 63,
+        "dallas-baptist": 65,
         "midwestern-state": 43,
         "texas-womans": 41,
         "lubbock-christian": 33,
@@ -54,7 +55,7 @@
         "sul-ross-state",
         "eastern-new-mexico"
       ],
-      "gf": 63
+      "gf": 65
     }
   },
   "wire": {
@@ -85,22 +86,22 @@
     },
     {
       "label": "observed",
+      "text": "Ashley Washburn has eighteen assists for Dallas Baptist.",
+      "basis": {
+        "source": "stats",
+        "player": "Ashley Washburn",
+        "programme": "dallas-baptist",
+        "assists": 18
+      }
+    },
+    {
+      "label": "observed",
       "text": "Helen Lazaro has scored fourteen goals for St. Mary's as a freshman.",
       "basis": {
         "source": "stats",
         "player": "Helen Lazaro",
         "programme": "saint-marys",
         "goals": 14
-      }
-    },
-    {
-      "label": "observed",
-      "text": "Lauren Wade has scored thirteen goals for Texas Woman's as a freshman.",
-      "basis": {
-        "source": "stats",
-        "player": "Lauren Wade",
-        "programme": "texas-womans",
-        "goals": 13
       }
     },
     {
@@ -121,7 +122,7 @@
       "programme": "dallas-baptist",
       "position": "FWD",
       "class": "SR",
-      "line": "13 G · 16 A · 79 shots"
+      "line": "13 G · 18 A · 82 shots"
     },
     {
       "player": "Helen Lazaro",
@@ -140,16 +141,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 texas-womans v colorado-school-of-mines",
-      "line": "Colorado School of Mines had beaten every conference side they met before this one."
+      "fixture_ref": "2026-11-16 dallas-baptist v uccs",
+      "line": "Dallas Baptist had already won at UCCS in September, and are yet to lose this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-16 dallas-baptist v uccs",
-      "line": "Dallas Baptist are yet to lose this season, and have already won at UCCS."
+      "fixture_ref": "2026-11-20 dallas-baptist v texas-womans",
+      "line": "Texas Woman's only defeat this season came at Midwestern State."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T13:09:56.403Z"
+    "validated_at": "2026-11-17T13:03:29.926Z"
   }
 }

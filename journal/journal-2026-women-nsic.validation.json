@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NSIC",
-  "validated_at": "2026-11-15T19:55:54.676Z",
-  "data_collected_at": "2026-11-15T19:46:36+00:00",
+  "validated_at": "2026-11-17T13:03:48.522Z",
+  "data_collected_at": "2026-11-17T12:56:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "pattern.text",
-      "text": "One attack has pulled clear of the conference: Minnesota State's 70 goals are more than Augustana and Concordia-St. Paul have scored together.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "One attack has pulled clear of the conference: Minnesota State's 70 goals are more than Augustana and Concordia-St. Paul have scored together.",
+      "text": "The conference's goals sit at the top: Minnesota State's 57 are more than Winona State, MSU Moorhead, Southwest Minnesota State and Minnesota Crookston have scored together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -53,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Nine matches are past their date with no result published, every one of them against a non-conference opponent.",
+      "text": "Seven matches are past their date with no result published, every one of them against a non-conference opponent.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -134,10 +128,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-15T19:54:40.732Z",
-    "generate_ms": 73941,
+    "started_at": "2026-11-17T13:02:53.290Z",
+    "generate_ms": 55230,
     "validate_ms": 2,
-    "wall_ms": 73944,
+    "wall_ms": 55232,
     "concurrency": 4
   }
 }

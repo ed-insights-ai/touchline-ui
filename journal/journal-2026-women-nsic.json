@@ -3,25 +3,25 @@
   "season": 2026,
   "gender": "women",
   "conference": "NSIC",
-  "generated_at": "2026-11-15T20:05:00+00:00",
-  "data_collected_at": "2026-11-15T19:46:36+00:00",
+  "generated_at": "2026-11-17T13:10:00+00:00",
+  "data_collected_at": "2026-11-17T12:56:35+00:00",
   "headline": "Minnesota State and UMary both lose at home",
-  "dek": "Central Missouri won at UMary and Missouri Western at Minnesota State on the season's last day, with the two sides level on points at the top of the table. It was Minnesota State's second defeat of the season, against nineteen wins, and Northern State lost at Pittsburg State the same day.",
+  "dek": "Central Missouri won at UMary and Missouri Western at Minnesota State on the season's last day, with the two sides level on points at the top of the table. It was Minnesota State's second defeat of the season, against seventeen wins, and Northern State lost at Pittsburg State the same day.",
   "lede_basis": {
     "programme": "minnesota-state",
-    "wins": 19,
+    "wins": 17,
     "draws": 3,
     "losses": 2
   },
-  "lede_updated": "2026-11-15",
-  "displaced_by": "Missouri Western won at Minnesota State, so the standing lines are no longer true: Minnesota State have now lost twice and conceded thirteen, not eleven",
+  "lede_updated": "2026-11-17",
+  "displaced_by": "The standing dek is no longer true: today's data gives Minnesota State seventeen wins, not nineteen. The headline still holds and stands.",
   "pattern": {
     "label": "derived",
-    "text": "One attack has pulled clear of the conference: Minnesota State's 70 goals are more than Augustana and Concordia-St. Paul have scored together.",
+    "text": "The conference's goals sit at the top: Minnesota State's 57 are more than Winona State, MSU Moorhead, Southwest Minnesota State and Minnesota Crookston have scored together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "minnesota-state": 70,
+        "minnesota-state": 57,
         "umary": 38,
         "augustana": 35,
         "concordia-saint-paul": 33,
@@ -44,8 +44,8 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "minnesota-state",
-      "of": ["augustana", "concordia-saint-paul"],
-      "gf": 70
+      "of": ["winona-state", "msu-moorhead", "southwest-minnesota-state", "minnesota-crookston"],
+      "gf": 57
     }
   },
   "wire": {
@@ -63,11 +63,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Nine matches are past their date with no result published, every one of them against a non-conference opponent.",
+      "text": "Seven matches are past their date with no result published, every one of them against a non-conference opponent.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 9
+        "past_date_no_result": 7
       }
     },
     {
@@ -142,6 +142,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:55:54.676Z"
+    "validated_at": "2026-11-17T13:03:48.522Z"
   }
 }

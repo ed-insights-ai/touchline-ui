@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "RMAC",
-  "validated_at": "2026-11-16T13:11:36.766Z",
-  "data_collected_at": "2026-11-16T13:02:53+00:00",
+  "validated_at": "2026-11-17T13:04:43.002Z",
+  "data_collected_at": "2026-11-17T12:57:50+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "New Mexico Highlands have conceded 74 goals and are still looking for their first win of the season.",
-      "checker": "team_goals+team_record",
+      "text": "Regis went through the conference table unbeaten, then lost at home to Colorado Mesa and UCCS in November.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -119,15 +119,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 texas-womans v colorado-school-of-mines",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-16 dallas-baptist v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T13:11:03.306Z",
-    "generate_ms": 33458,
+    "started_at": "2026-11-17T13:03:22.357Z",
+    "generate_ms": 80644,
     "validate_ms": 1,
-    "wall_ms": 33460,
+    "wall_ms": 80644,
     "concurrency": 4
   }
 }
