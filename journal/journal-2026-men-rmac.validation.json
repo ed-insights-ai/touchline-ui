@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "validated_at": "2026-11-16T12:47:15.071Z",
-  "data_collected_at": "2026-11-16T12:37:33+00:00",
+  "validated_at": "2026-11-17T12:42:10.523Z",
+  "data_collected_at": "2026-11-17T12:36:58+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Nine matches have passed their date with no result published, the earliest from the season's opening day; none is a score gap.",
+      "text": "Eight matches have passed their date with no result published, the earliest from the season's opening day; none is a score gap.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T12:46:13.115Z",
-    "generate_ms": 61955,
+    "started_at": "2026-11-17T12:41:41.043Z",
+    "generate_ms": 29479,
     "validate_ms": 1,
-    "wall_ms": 61956,
+    "wall_ms": 29480,
     "concurrency": 4
   }
 }

@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-16T12:48:22.074Z",
+  "validated_at": "2026-11-17T12:43:45.635Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,7 +17,7 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Cal State LA move clear for most wins in the division Cal State LA beat Western Oregon at home and remain without a defeat all season. Seattle Pacific, Charleston and Francis Marion are the nearest on wins, and Regis travel to face them next.",
+      "text": "Cal State LA lead the division on wins outright Cal State LA beat Western Oregon at home and remain without a defeat all season. Seattle Pacific, Charleston and Francis Marion are the nearest on wins, and Regis travel to Cal State LA next.",
       "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -26,9 +26,9 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T12:47:40.775Z",
-    "generate_ms": 41294,
-    "validate_ms": 5,
-    "wall_ms": 41299
+    "started_at": "2026-11-17T12:43:23.721Z",
+    "generate_ms": 21909,
+    "validate_ms": 4,
+    "wall_ms": 21914
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-11-16T12:40:00Z",
-  "data_collected_at": "2026-11-16T12:35:05+00:00",
+  "generated_at": "2026-11-17T12:40:00Z",
+  "data_collected_at": "2026-11-17T12:34:47+00:00",
   "headline": "Midwestern State become the only conference side to beat UCCS",
   "dek": "Midwestern State beat UCCS at home, having drawn with them away in September, while Sul Ross State, St. Mary's and Lubbock Christian each lost to UCCS. Midwestern State have won sixteen and drawn five this season without a loss.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 17
   },
   "lede_updated": "2026-11-16",
-  "displaced_by": "truth: the standing dek named St. Mary's as Midwestern State's last match and gave fifteen wins and fifteen conceded; their win over UCCS, the side that beat every other conference programme it met, is the newer story",
   "pattern": {
     "label": "derived",
     "text": "Fourteen different players have scored Midwestern State's 56 goals, and Parker Plaxco has eighteen of them.",
@@ -138,15 +137,15 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-11-15 midwestern-state v uccs",
-      "line": "Midwestern State drew at UCCS in September and won the return; they have yet to lose this season."
+      "line": "Midwestern State drew at UCCS in September and won the return."
     },
     "next_match": {
       "fixture_ref": "2026-11-20 midwestern-state v cal-state-san-bernardino",
-      "line": "Cal State San Bernardino beat Texas A&M International without conceding in September; Midwestern State have yet to lose."
+      "line": "Cal State San Bernardino's only match against the conference so far was a home win over Texas A&M International, without conceding."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T12:45:00.899Z"
+    "validated_at": "2026-11-17T12:41:40.844Z"
   }
 }
