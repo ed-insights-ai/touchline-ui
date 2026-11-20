@@ -769,6 +769,8 @@ export const homeHref = (): string => withBase("/");
 
 /** The About & method page, which every footer links to. */
 export const aboutHref = (): string => withBase("/about/");
+/** How tiers work: the method page, built only when tiers are published. */
+export const aboutTiersHref = (): string => withBase("/about/tiers/");
 /** The division's postseason: the NCAA bracket and the conference finals. */
 export const championshipHref = (): string => withBase("/championship/");
 

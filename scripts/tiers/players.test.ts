@@ -1,0 +1,1142 @@
+// ALGORITHM.md section 4 (version 2.2, with the contract 2.3 ruling N2):
+// joining lines (with the roster pass), the values an entry prints, the sums
+// with a doubled line and penalties, the second penalty source, split
+// spellings and the cross-season link.
+
+import { describe, expect, test } from "bun:test";
+import type { Player, PlayerStats } from "../../src/lib/model.ts";
+import {
+  applyStatsPenalties,
+  classStep,
+  closeLink,
+  closeTests,
+  contradicts,
+  contradictsSameKey,
+  emptyJoinMeasures,
+  isTeamRow,
+  type JoinMeasures,
+  levenshtein,
+  mostCommon,
+  type PlayerSeason,
+  playerSeasons,
+  printedName,
+  rosterBioId,
+  rosterIndex,
+  rosterLookup,
+  rosterNumbers,
+  type Sheet,
+  type SheetLine,
+  sameName,
+  splitSpellingPairs,
+  statsRowFor,
+} from "./players.ts";
+
+const line = (over: Partial<SheetLine> & { name: string }): SheetLine => ({
+  playerId: null,
+  ref: null,
+  number: null,
+  position: null,
+  started: false,
+  minutes: 90,
+  goals: 0,
+  shots: 0,
+  ...over,
+});
+
+const sheet = (identity: string, lines: SheetLine[], over: Partial<Sheet> = {}): Sheet => ({
+  identity,
+  date: identity,
+  opponent: "2026:opp",
+  venue: "home",
+  lines,
+  credits: [],
+  ...over,
+});
+
+const unit = () => ({ goals: 1, shots: 1 });
+
+const roster = (over: Partial<Player> & { name: string }): Player => ({ ...over });
+/** A roster row with a bio id (the trailing number of its URL). */
+const bio = (id: string, over: Partial<Player> & { name: string }): Player =>
+  roster({ source_url: `https://x.test/roster/${id}`, ...over });
+
+const measures = (): JoinMeasures => emptyJoinMeasures();
+
+const join = (
+  sheets: Sheet[],
+  players: Player[] = [],
+  rosterPass = true,
+  m = measures(),
+  statsRows: PlayerStats[] = [],
+  nicknameFold = "",
+) =>
+  playerSeasons("x", 2026, sheets, players, unit, { rosterPass }, m, { statsRows, nicknameFold });
+
+describe("4.2, passes 1, 2 and 4: player_ref, page id, folded name", () => {
+  test("player_ref, page id and folded name each join; the three together make one person", () => {
+    const ps = join([
+      // Own page: the page id and a page ref.
+      sheet("m1", [
+        line({ name: "Noé Coutiño", playerId: "11", ref: { id: "11", source: "page" } }),
+      ]),
+      // The opponent's page: no page id, the collector's twin ref, no accents.
+      sheet("m2", [line({ name: "Noe Coutino", ref: { id: "11", source: "twin" } })]),
+      // A legacy file: no ref at all, only the name, given name last.
+      sheet("m3", [line({ name: "Coutino, Noe" })]),
+    ]);
+    expect(ps).toHaveLength(1);
+    const p = ps[0] as PlayerSeason;
+    expect(p.minutes).toBe(270);
+    expect(p.matches).toBe(3);
+    expect(p.key).toBe("noecoutino");
+    expect(p.playerId).toBe("11");
+  });
+
+  test("a synthetic key ref is its own namespace, not a page id", () => {
+    const ps = join([
+      sheet("m1", [line({ name: "Ann Lee", ref: { id: "x:annlee:4", source: "key" } })]),
+      sheet("m2", [line({ name: "Bea Kim", playerId: "x:annlee:4" })]),
+    ]);
+    expect(ps).toHaveLength(2);
+  });
+
+  test("a pass never merges two groups that hold different page ids", () => {
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee", playerId: "11" })]),
+        sheet("m2", [line({ name: "Ann Lee", playerId: "12" })]),
+        // Folds alike, no id: pass 4 joins it to the first group that takes it.
+        sheet("m3", [line({ name: "Lee, Ann" })]),
+      ],
+      [],
+      true,
+      m,
+    );
+    expect(ps.map((p) => [p.playerId, p.minutes])).toEqual([
+      ["11", 180],
+      ["12", 90],
+    ]);
+    // Pass 4 wanted 12 with 11, and was refused.
+    expect(m.blocked).toBe(1);
+  });
+});
+
+describe("4.2, pass 3: the roster pass", () => {
+  const rows = [
+    bio("101", { name: "Ann Lee", number: "4", position: "D" }),
+    bio("102", { name: "Bea Kim", number: "9", position: "F" }),
+  ];
+
+  test("a line finds its entry by folded full name, else by number and surname; both join", () => {
+    // "A. Lee" #04 folds to alee: no name match; #4 and surname lee give 101.
+    const sheets = [
+      sheet("m1", [line({ name: "Ann Lee", number: "4" })]),
+      sheet("m2", [line({ name: "A. Lee", number: "04" })]),
+    ];
+    const m = measures();
+    const ps = join(sheets, rows, true, m);
+    expect(ps).toHaveLength(1);
+    expect(ps[0]?.roster).toBe(rows[0] as Player);
+    expect(ps[0]?.rosterEntry).toBe("bio:101");
+    expect(ps[0]?.minutes).toBe(180);
+    expect(m.rosterFound).toBe(2);
+    // Without the pass the two spellings are two people.
+    const off = join(sheets, rows, false);
+    expect(off.map((p) => p.key).sort()).toEqual(["alee", "annlee"]);
+    expect(off.every((p) => p.roster === null)).toBe(true);
+  });
+
+  test("it joins a group already tied by a roster-sourced ref or by a page id equal to the bio id", () => {
+    const byRef = join(
+      [
+        sheet("m1", [line({ name: "Annie Lee", ref: { id: "101", source: "roster" } })]),
+        sheet("m2", [line({ name: "A Lee", number: "4" })]),
+      ],
+      rows,
+    );
+    expect(byRef).toHaveLength(1);
+    expect(byRef[0]?.rosterEntry).toBe("bio:101");
+    const byPage = join(
+      [
+        sheet("m1", [line({ name: "Annie Lee", playerId: "101" })]),
+        sheet("m2", [line({ name: "A Lee", number: "4" })]),
+      ],
+      rows,
+    );
+    expect(byPage).toHaveLength(1);
+    expect(byPage[0]?.playerId).toBe("101");
+  });
+
+  test("every group tied to one roster entry is one player (Concord 2022, Garret Boucher)", () => {
+    // Roster: Garret Boucher, #3, bio 7619. Concord's own copies print him as
+    // "Garret Boucher" with page id 7619 and no minutes. King's copy prints
+    // "Garrett Boucher" with a twin ref 7619; Charleston's prints "Garrett
+    // Boucher" with neither. Pass 1 groups the twin line, pass 2 the page-id
+    // lines: two groups, both tied to bio 7619. Charleston's lines find the
+    // entry by number and surname. All three are one player: 3 × 90 minutes.
+    const players = [bio("7619", { name: "Garret Boucher", number: "3" })];
+    const ps = join(
+      [
+        sheet("m1", [
+          line({ name: "Garret Boucher", number: "3", playerId: "7619", minutes: null }),
+        ]),
+        sheet("m2", [
+          line({ name: "Garrett Boucher", number: "3", ref: { id: "7619", source: "twin" } }),
+        ]),
+        sheet("m3", [line({ name: "Garrett Boucher", number: "3" })]),
+        sheet("m4", [line({ name: "Garrett Boucher", number: "3" })]),
+      ],
+      players,
+    );
+    // [N2d] The name printed is the roster line's, not the lines' "Garrett".
+    expect(ps.map((p) => [p.name, p.lineName, p.playerId, p.minutes, p.lineCount])).toEqual([
+      ["Garret Boucher", "Garrett Boucher", "7619", 270, 4],
+    ]);
+    // Without the lookup the two bio-tied groups still join: one roster line,
+    // one person.
+    const tiedOnly = join(
+      [
+        sheet("m1", [line({ name: "Garret Boucher", number: "3", playerId: "7619" })]),
+        sheet("m2", [
+          line({ name: "Garrett Boucher", number: "3", ref: { id: "7619", source: "twin" } }),
+        ]),
+      ],
+      players,
+    );
+    expect(tiedOnly.length).toBe(1);
+  });
+
+  test("a line with a page or twin ref is not looked up while its group is tied", () => {
+    // The twin ref 102 ties "A. Lee" to Bea Kim's entry; it is not looked up,
+    // so it does not find Ann Lee's by number and surname.
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee", number: "4" })]),
+        sheet("m2", [line({ name: "A. Lee", number: "4", ref: { id: "102", source: "twin" } })]),
+      ],
+      rows,
+      true,
+      m,
+    );
+    expect(ps).toHaveLength(2);
+    expect(m.rosterFoundUntied).toBe(0);
+  });
+
+  test("[N2e] every line of a group passes 1 and 2 left untied is looked up, whatever its ref", () => {
+    // Twin ref 55 is no bio id: the group is untied, so "A. Lee" #4 finds Ann
+    // Lee by number and surname and joins her (2.2 left it a second person).
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee", number: "4" })]),
+        sheet("m2", [line({ name: "A. Lee", number: "4", ref: { id: "55", source: "twin" } })]),
+        sheet("m3", [
+          line({ name: "Bea Kim", playerId: "9001", ref: { id: "9001", source: "page" } }),
+        ]),
+      ],
+      rows,
+      true,
+      m,
+    );
+    expect(ps.map((p) => [p.name, p.rosterEntry, p.lineCount])).toEqual([
+      ["Ann Lee", "bio:101", 2],
+      ["Bea Kim", "bio:102", 1],
+    ]);
+    expect(m.rosterFoundUntied).toBe(2);
+  });
+
+  test("two lines that find one entry but hold different page ids stay apart", () => {
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee", number: "4", playerId: "7001" })]),
+        sheet("m2", [line({ name: "Ann Lee", number: "4", playerId: "7002" })]),
+      ],
+      rows,
+      true,
+      m,
+    );
+    expect(ps).toHaveLength(2);
+    expect(m.blocked).toBeGreaterThanOrEqual(1);
+  });
+
+  test("[v2.2] a twin or page ref equal to a bio id ties the group to that roster line", () => {
+    // The kept copy is the opponent's: a twin ref and no page id. It ties to
+    // 101 all the same, and the roster line gives the position.
+    const twin = join(
+      [sheet("m1", [line({ name: "Ann Lee", ref: { id: "101", source: "twin" } })])],
+      rows,
+    );
+    expect(twin[0]?.roster).toBe(rows[0] as Player);
+    const page = join(
+      [sheet("m1", [line({ name: "Annie Lee", ref: { id: "102", source: "page" } })])],
+      rows,
+    );
+    expect(page[0]?.rosterEntry).toBe("bio:102");
+    // A twin-tied group takes in the lines pass 3 sends to the same entry.
+    const both = join(
+      [
+        sheet("m1", [line({ name: "Annie Lee", ref: { id: "101", source: "twin" } })]),
+        sheet("m2", [line({ name: "A. Lee", number: "4" })]),
+      ],
+      rows,
+    );
+    expect(both).toHaveLength(1);
+    // A key ref's id is a synthetic key, never a bio id.
+    const key = join(
+      [sheet("m1", [line({ name: "Annie Lee", ref: { id: "101", source: "key" } })])],
+      rows,
+    );
+    expect(key[0]?.roster).toBeNull();
+  });
+
+  test("[v2.2] the roster pass searches every entry, with or without a bio id", () => {
+    // A PrestoSports roster: no bio ids. Both spellings find the one row.
+    const presto = [roster({ name: "Ann Lee", number: "4", position: "Midfielder" })];
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee", number: "4" })]),
+        sheet("m2", [line({ name: "A. Lee", number: "4" })]),
+      ],
+      presto,
+    );
+    expect(ps).toHaveLength(1);
+    expect(ps[0]?.roster).toBe(presto[0] as Player);
+    expect(ps[0]?.rosterEntry).toBe("row:0");
+  });
+
+  test("the lookup: one name match wins; two settle by number and surname, or not at all", () => {
+    const twoAnns = rosterIndex([
+      bio("101", { name: "Ann Lee", number: "4" }),
+      bio("103", { name: "Lee, Ann", number: "12" }),
+    ]);
+    expect(rosterLookup(twoAnns, "Ann Lee", "12")).toBe("bio:103");
+    expect(rosterLookup(twoAnns, "Ann Lee", "4")).toBe("bio:101");
+    expect(rosterLookup(twoAnns, "Ann Lee", null)).toBeNull();
+    expect(rosterLookup(twoAnns, "Ann Lee", "8")).toBeNull();
+    // One row twice (the same bio id) is one entry.
+    const twice = rosterIndex([bio("101", { name: "Ann Lee" }), bio("101", { name: "Ann Lee" })]);
+    expect(rosterLookup(twice, "Ann Lee", null)).toBe("bio:101");
+    // Two id-less rows of one name are two entries: no answer by name.
+    const idless = rosterIndex([
+      roster({ name: "Ann Lee", number: "4" }),
+      roster({ name: "Ann Lee", number: "9" }),
+    ]);
+    expect(rosterLookup(idless, "Ann Lee", null)).toBeNull();
+    expect(rosterLookup(idless, "Ann Lee", "09")).toBe("row:1");
+  });
+
+  test("a bio id is the row's player_id, else its URL's trailing number", () => {
+    expect(rosterBioId(bio("88", { name: "A" }))).toBe("88");
+    expect(
+      rosterBioId(roster({ name: "A", source_url: "https://x.test/roster/ann-lee/88/" })),
+    ).toBe("88");
+    expect(rosterBioId(roster({ name: "A", source_url: "https://x.test/roster/ann-lee" }))).toBe(
+      "",
+    );
+    expect(rosterBioId({ name: "A", player_id: "5" } as unknown as Player)).toBe("5");
+  });
+});
+
+describe("[N2d] team rows", () => {
+  test("TEAM, TEAM TEAM and the programme's nickname with no minutes are dropped", () => {
+    const nick = "warriors";
+    expect(isTeamRow(line({ name: "TEAM", minutes: 0 }), nick)).toBe(true);
+    expect(isTeamRow(line({ name: "Team Team", minutes: 90 }), nick)).toBe(true);
+    expect(isTeamRow(line({ name: "Warriors", minutes: null }), nick)).toBe(true);
+    expect(isTeamRow(line({ name: "Warriors", minutes: 0 }), nick)).toBe(true);
+    // The nickname with minutes is somebody's name; no nickname, no test.
+    expect(isTeamRow(line({ name: "Warriors", minutes: 12 }), nick)).toBe(false);
+    expect(isTeamRow(line({ name: "Warriors", minutes: null }), "")).toBe(false);
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [line({ name: "Ann Lee" }), line({ name: "Warriors", minutes: null })]),
+        sheet("m2", [line({ name: "Ann Lee" }), line({ name: "TEAM TEAM", minutes: 0 })]),
+      ],
+      [],
+      true,
+      m,
+      [],
+      nick,
+    );
+    expect(ps.map((p) => p.name)).toEqual(["Ann Lee"]);
+    expect(m.teamRows).toBe(2);
+  });
+});
+
+describe("[N2a] the fifth pass: an untied player joins the only close roster player", () => {
+  const parker = bio("301", { name: "Alli Parker", number: "7", position: "F" });
+  const own = (id: string) =>
+    sheet(id, [line({ name: "Alli Parker", number: "7", ref: { id: "301", source: "roster" } })]);
+
+  test("a shared number and a loosely close name join (Alli Parker / 'Alli French')", () => {
+    // (iii): the first given-name words agree; #7 is shared; never on one sheet.
+    const m = measures();
+    const ps = join(
+      [own("m1"), own("m2"), sheet("m3", [line({ name: "Alli French", number: "07" })])],
+      [parker],
+      true,
+      m,
+    );
+    expect(ps.map((p) => [p.name, p.minutes, p.lineCount])).toEqual([["Alli Parker", 270, 3]]);
+    expect(m.closeJoined).toBe(1);
+  });
+
+  test("no number: only a close name joins; (iii) alone does not", () => {
+    const close = join([own("m1"), sheet("m2", [line({ name: "A. Parker" })])], [parker]);
+    expect(close).toHaveLength(1);
+    const loose = join([own("m1"), sheet("m2", [line({ name: "Alli French" })])], [parker]);
+    expect(loose).toHaveLength(2);
+  });
+
+  test("not when they share a record, or the numbers differ", () => {
+    const together = join(
+      [
+        sheet("m1", [
+          line({ name: "Alli Parker", number: "7", ref: { id: "301", source: "roster" } }),
+          line({ name: "Alli French", number: "7" }),
+        ]),
+      ],
+      [parker],
+    );
+    expect(together).toHaveLength(2);
+    const otherNumber = join(
+      [own("m1"), sheet("m2", [line({ name: "Alli French", number: "8" })])],
+      [parker],
+    );
+    expect(otherNumber).toHaveLength(2);
+  });
+
+  test("two roster players who qualify: neither is joined", () => {
+    const m = measures();
+    const ps = join(
+      [
+        own("m1"),
+        sheet("m2", [
+          line({ name: "Alli Pak", number: "7", ref: { id: "302", source: "roster" } }),
+        ]),
+        sheet("m3", [line({ name: "Alli French", number: "7" })]),
+      ],
+      [parker, bio("302", { name: "Alli Pak", number: "7" })],
+      true,
+      m,
+    );
+    expect(ps).toHaveLength(3);
+    expect(m.closeAmbiguous).toBe(1);
+  });
+
+  test("the page-id rule still refuses", () => {
+    const m = measures();
+    const ps = join(
+      [
+        sheet("m1", [
+          line({
+            name: "Alli Parker",
+            number: "7",
+            playerId: "88",
+            ref: { id: "301", source: "roster" },
+          }),
+        ]),
+        sheet("m2", [line({ name: "Alli French", number: "7", playerId: "89" })]),
+      ],
+      [parker],
+      true,
+      m,
+    );
+    expect(ps).toHaveLength(2);
+    expect(m.closeRefused).toBe(1);
+  });
+});
+
+describe("[N2d] the name printed", () => {
+  test("no roster line: the stats row's name, joined by page id; else the lines'", () => {
+    const rows: PlayerStats[] = [{ name: "Samuel Villanueva", player_id: "55" }];
+    const [p] = join(
+      [sheet("m1", [line({ name: "Sammy Villanueva", playerId: "55" })])],
+      [],
+      true,
+      measures(),
+      rows,
+    );
+    expect([p?.name, p?.lineName, p?.key, p?.nameSource]).toEqual([
+      "Samuel Villanueva",
+      "Sammy Villanueva",
+      "samuelvillanueva",
+      "stats",
+    ]);
+    const [q] = join(
+      [sheet("m1", [line({ name: "Sammy Villanueva" })])],
+      [],
+      true,
+      measures(),
+      rows,
+    );
+    expect([q?.name, q?.nameSource]).toEqual(["Sammy Villanueva", "lines"]);
+  });
+
+  test("a roster line: its name, and the stats file is joined by it", () => {
+    const rows: PlayerStats[] = [{ name: "Villanueva, Samuel", penalty_goals: 1 }];
+    const [p] = join(
+      [sheet("m1", [line({ name: "Sammy Villanueva", ref: { id: "9", source: "roster" } })])],
+      [bio("9", { name: "Samuel Villanueva" })],
+      true,
+      measures(),
+      rows,
+    );
+    expect([p?.name, p?.nameSource, p?.joinKey]).toEqual([
+      "Samuel Villanueva",
+      "roster",
+      "samuelvillanueva",
+    ]);
+    expect(statsRowFor(p as PlayerSeason, rows)).toBe(rows[0] as PlayerStats);
+  });
+});
+
+describe("[N2d] white space in the name printed", () => {
+  test("runs collapse to one space and the ends are trimmed; nothing else changes", () => {
+    expect(printedName("Lewis  Green")).toBe("Lewis Green");
+    expect(printedName(" Pablo\tGalietero  Diez ")).toBe("Pablo Galietero Diez");
+    expect(printedName("Matias Milla \u00a0Munoz")).toBe("Matias Milla Munoz");
+    // Punctuation and case stay as printed.
+    expect(printedName("Daniel Gardner, Jr.")).toBe("Daniel Gardner, Jr.");
+    expect(printedName("GREEN,  Lewis")).toBe("GREEN, Lewis");
+  });
+
+  test("the roster's doubled space is kept inside the build; the key is the same", () => {
+    const [p] = join(
+      [sheet("m1", [line({ name: "Lewis Green", ref: { id: "4", source: "roster" } })])],
+      [bio("4", { name: "Lewis  Green" })],
+    );
+    expect([p?.name, p?.key]).toEqual(["Lewis  Green", "lewisgreen"]);
+    expect(printedName(p?.name as string)).toBe("Lewis Green");
+  });
+});
+
+describe("4.5: the name, number and page id an entry prints", () => {
+  test("the value on the most lines, ties to the lexicographically smallest", () => {
+    const [p] = join([
+      sheet("m1", [line({ name: "Lee, Ann", number: "07", playerId: "11" })]),
+      sheet("m2", [line({ name: "Ann Lee", number: "07", playerId: "11" })]),
+      sheet("m3", [line({ name: "Ann Lee", number: "7" })]),
+      sheet("m4", [line({ name: "Lee, Ann", number: "7" })]),
+      sheet("m5", [line({ name: "Lee, Ann", number: "07" })]),
+    ]);
+    // Lee, Ann 3 to Ann Lee 2; "07" 3 to "7" 2 (kept with its zero).
+    expect(p?.name).toBe("Lee, Ann");
+    expect(p?.number).toBe("07");
+    expect(p?.key).toBe("annlee");
+    expect(mostCommon(["b", "a", "b", "a"])).toBe("a");
+    expect(mostCommon(["Lee", "Ann Lee"])).toBe("Ann Lee");
+    expect(mostCommon([])).toBeNull();
+  });
+
+  test("player_id is the page field only: a ref's id is never printed", () => {
+    const [p] = join([sheet("m1", [line({ name: "Ann Lee", ref: { id: "55", source: "twin" } })])]);
+    expect(p?.playerId).toBeNull();
+  });
+});
+
+describe("[IR-18] shirt numbers: the box-score lines' and the roster line's", () => {
+  test("a roster number: split on '/', all-digit parts, leading zeros dropped", () => {
+    const of = (number: string | undefined) => [...rosterNumbers(roster({ name: "A B", number }))];
+    expect(of("29/28")).toEqual(["29", "28"]);
+    expect(of(" 07 ")).toEqual(["7"]);
+    expect(of("00")).toEqual(["0"]);
+    // The 250 that are not plain digits: none of these is a number.
+    expect(of("RS")).toEqual([]);
+    expect(of("DP")).toEqual([]);
+    expect(of("5A")).toEqual([]);
+    expect(of("")).toEqual([]);
+    expect(of(undefined)).toEqual([]);
+    expect([...rosterNumbers(null)]).toEqual([]);
+  });
+
+  test("a player's numbers hold his roster line's; [M4] the number printed is the roster line's", () => {
+    // Lines print #7 and #07; the roster line prints "12": numbers {7, 12}, number "12".
+    const sheets = [
+      sheet("m1", [line({ name: "Ann Lee", number: "7", ref: { id: "5", source: "roster" } })]),
+      sheet("m2", [line({ name: "Ann Lee", number: "07", ref: { id: "5", source: "roster" } })]),
+    ];
+    const [p] = join(sheets, [bio("5", { name: "Ann Lee", number: "12" })]);
+    expect([...(p as PlayerSeason).numbers].sort()).toEqual(["12", "7"]);
+    expect(p?.number).toBe("12");
+    const printed = (number: string) =>
+      join(sheets, [bio("5", { name: "Ann Lee", number })])[0]?.number;
+    // The field trimmed, leading zeros kept, a two-number field as printed.
+    expect(printed(" 07 ")).toBe("07");
+    expect(printed("29/28")).toBe("29/28");
+    // IR-22 reads no number in "RS": the lines' most common, ties to the smallest.
+    expect(printed("RS")).toBe("07");
+  });
+
+  test("[N2a] an untied player joins on the roster line's number", () => {
+    // Alli Parker's lines print #7, her roster line #12; "Alli French" prints #12.
+    // (iii) holds, so the shared number decides: by the roster line, they join.
+    const parker = bio("301", { name: "Alli Parker", number: "12", position: "F" });
+    const sheets = [
+      sheet("m1", [
+        line({ name: "Alli Parker", number: "7", ref: { id: "301", source: "roster" } }),
+      ]),
+      sheet("m2", [line({ name: "Alli French", number: "12" })]),
+    ];
+    const m = measures();
+    expect(join(sheets, [parker], true, m)).toHaveLength(1);
+    expect(m.closeJoined).toBe(1);
+    // A roster line printing "RS" gives no number: no join.
+    expect(join(sheets, [{ ...parker, number: "RS" }])).toHaveLength(2);
+  });
+
+  test("[N2b] a pair on the roster line's number", () => {
+    // "Juan Linares" #7 on his lines, "17" on his roster line; "Juanito Linares"
+    // #17 on his lines; (iv) close, never on one sheet: an unresolved pair.
+    const ps = join(
+      [
+        sheet("m1", [
+          line({ name: "Juan Linares", number: "7", ref: { id: "8", source: "roster" } }),
+        ]),
+        sheet("m2", [
+          line({ name: "Juanito Linares", number: "17", ref: { id: "9", source: "roster" } }),
+        ]),
+      ],
+      [
+        bio("8", { name: "Juan Linares", number: "17" }),
+        bio("9", { name: "Juanito Linares", number: "17" }),
+      ],
+    );
+    expect(ps).toHaveLength(2);
+    expect(splitSpellingPairs(ps)).toEqual([[0, 1]]);
+  });
+});
+
+describe("4.6: minutes, goals and shots, record by record", () => {
+  test("a line without minutes is skipped whole, but still says who the person is", () => {
+    const [p] = join([
+      sheet("m1", [line({ name: "Ann Lee", minutes: null, goals: 3, shots: 5, started: true })]),
+    ]);
+    expect(p?.minutes).toBe(0);
+    // [M3] The record prints no minutes for the side: his line is an appearance.
+    expect(p?.matches).toBe(1);
+    expect(p?.starts).toBe(0);
+    expect(p?.adjG).toBe(0);
+    expect(p?.lineCount).toBe(1);
+  });
+
+  test("[M3] appearances: by the record's minutes, one per record", () => {
+    const [p] = join([
+      // The side prints minutes and his line none: not an appearance.
+      sheet("m1", [
+        line({ name: "Ann Lee", minutes: null }),
+        line({ name: "Bea Soto", minutes: 90 }),
+      ]),
+      // The side prints minutes and his line 0: not an appearance.
+      sheet("m2", [line({ name: "Ann Lee", minutes: 0 }), line({ name: "Bea Soto", minutes: 90 })]),
+      // The side prints none, and he has two lines: one appearance.
+      sheet("m3", [
+        line({ name: "Ann Lee", minutes: null }),
+        line({ name: "Ann Lee", minutes: null }),
+        line({ name: "Bea Soto", minutes: null }),
+      ]),
+      sheet("m4", [
+        line({ name: "Ann Lee", minutes: 30 }),
+        line({ name: "Bea Soto", minutes: 90 }),
+      ]),
+    ]).filter((x) => x.name === "Ann Lee");
+    expect([p?.matches, p?.minutes, p?.records]).toEqual([2, 30, 4]);
+  });
+
+  test("minutes > 0 is an appearance; started counts a start", () => {
+    const [p] = join([
+      sheet("m1", [line({ name: "Ann Lee", minutes: 0, started: false })]),
+      sheet("m2", [line({ name: "Ann Lee", minutes: 30, started: true })]),
+    ]);
+    expect(p?.minutes).toBe(30);
+    expect(p?.matches).toBe(1);
+    expect(p?.starts).toBe(1);
+  });
+
+  test("a doubled line counts once: the line with more minutes, the first on a tie", () => {
+    // One sheet prints Ann Lee twice: 45 minutes with a goal, 90 without.
+    const [p] = join([
+      sheet("m1", [
+        line({ name: "Ann Lee", minutes: 45, goals: 1, shots: 2, started: true }),
+        line({ name: "Lee, Ann", minutes: 90, goals: 0, shots: 1 }),
+      ]),
+    ]);
+    expect(p?.doubled).toBe(1);
+    expect(p?.minutes).toBe(90);
+    expect(p?.matches).toBe(1);
+    expect(p?.G).toBe(0);
+    expect(p?.S).toBe(1);
+    expect(p?.starts).toBe(0);
+    // A tie on minutes: the first printed.
+    const [q] = join([
+      sheet("m1", [
+        line({ name: "Ann Lee", minutes: 90, goals: 2 }),
+        line({ name: "Ann Lee", minutes: 90, goals: 1 }),
+      ]),
+    ]);
+    expect(q?.G).toBe(2);
+    expect(q?.minutes).toBe(90);
+    // A doubled line without minutes is no rival.
+    const [r] = join([
+      sheet("m1", [
+        line({ name: "Ann Lee", minutes: null, goals: 4 }),
+        line({ name: "Ann Lee", minutes: 10, goals: 1 }),
+      ]),
+    ]);
+    expect(r?.G).toBe(1);
+  });
+
+  test("a penalty goal and its attempt come off goals and shots", () => {
+    // 2 goals from 4 shots, one of each a penalty: g = 1, s = 3.
+    const [p] = playerSeasons(
+      "x",
+      2026,
+      [
+        sheet("m1", [line({ name: "Ann Lee", goals: 2, shots: 4 })], {
+          credits: [{ lines: [0], goal: true }],
+        }),
+      ],
+      [],
+      () => ({ goals: 0.8, shots: 1.25 }),
+    );
+    // adjG = 1 / 0.8 = 1.25; adjS = 3 / 1.25 = 2.4.
+    expect(p?.adjG).toBeCloseTo(1.25, 12);
+    expect(p?.adjS).toBeCloseTo(2.4, 12);
+    expect([p?.penGoals, p?.penAttempts]).toEqual([1, 1]);
+  });
+
+  test("more penalty attempts than shots floors at zero, never below", () => {
+    // One goal from one shot, three penalty attempts of which two scored:
+    // g = max(1 − 2, 0) = 0, s = max(1 − 3, 0) = 0.
+    const [p] = join([
+      sheet("m1", [line({ name: "Ann Lee", goals: 1, shots: 1 })], {
+        credits: [
+          { lines: [0], goal: true },
+          { lines: [0], goal: true },
+          { lines: [0], goal: false },
+        ],
+      }),
+    ]);
+    expect(p?.adjG).toBe(0);
+    expect(p?.adjS).toBe(0);
+    expect([p?.penGoals, p?.penAttempts]).toEqual([2, 3]);
+  });
+
+  test("a penalty credited to a doubled player's two lines comes off once", () => {
+    const [p] = join([
+      sheet(
+        "m1",
+        [
+          line({ name: "Ann Lee", minutes: 90, goals: 1, shots: 3 }),
+          line({ name: "Ann Lee", minutes: 30, goals: 1, shots: 3 }),
+        ],
+        { credits: [{ lines: [0, 1], goal: true }] },
+      ),
+    ]);
+    expect([p?.G, p?.S, p?.penGoals, p?.penAttempts]).toEqual([0, 2, 1, 1]);
+  });
+
+  test("a penalty on a record the player has no minutes in is not 'found above'", () => {
+    const [p] = join([
+      sheet("m1", [line({ name: "Ann Lee", minutes: null, goals: 1, shots: 1 })], {
+        credits: [{ lines: [0], goal: true }],
+      }),
+      sheet("m2", [line({ name: "Ann Lee", minutes: 90, goals: 1, shots: 2 })]),
+    ]);
+    expect([p?.penGoals, p?.penAttempts]).toEqual([0, 0]);
+    expect([p?.skippedPenGoals, p?.skippedPenAttempts]).toEqual([1, 1]);
+    expect([p?.G, p?.S]).toEqual([1, 2]);
+  });
+
+  test("the opponent's divisor is per sheet: dfn[opponent] × h", () => {
+    // One non-penalty goal against each of two defences: 1/0.5 + 1/2 = 2.5.
+    const [p] = playerSeasons(
+      "x",
+      2026,
+      [
+        sheet("m1", [line({ name: "Ann Lee", goals: 1 })], { opponent: "2026:tight" }),
+        sheet("m2", [line({ name: "Ann Lee", goals: 1 })], { opponent: "2026:open" }),
+      ],
+      [],
+      (s) => ({ goals: s.opponent === "2026:tight" ? 0.5 : 2, shots: 1 }),
+    );
+    expect(p?.adjG).toBeCloseTo(2.5, 12);
+  });
+});
+
+describe("4.6, second: penalties from the season statistics", () => {
+  const stats = (over: Partial<PlayerStats> & { name: string }): PlayerStats =>
+    ({ ...over }) as PlayerStats;
+  /** A player with G = 4 and S = 10 on unit divisors, one penalty goal found. */
+  const scorer = (): PlayerSeason => {
+    const [p] = join([
+      sheet("m1", [line({ name: "Ann Lee", playerId: "11", goals: 3, shots: 6 })], {
+        credits: [{ lines: [0], goal: true }],
+      }),
+      sheet("m2", [line({ name: "Ann Lee", playerId: "11", goals: 2, shots: 5 })]),
+    ]);
+    return p as PlayerSeason;
+  };
+
+  test("the row is joined by page id, then by folded name; two candidates join nothing", () => {
+    const p = scorer();
+    const byId = stats({ name: "Annie Lee", player_id: "11" });
+    expect(statsRowFor(p, [stats({ name: "Ann Lee", player_id: "12" }), byId])).toBe(byId);
+    const byName = stats({ name: "Lee, Ann" });
+    expect(statsRowFor({ ...p, playerId: null }, [byName])).toBe(byName);
+    expect(
+      statsRowFor({ ...p, playerId: null }, [
+        stats({ name: "Ann Lee" }),
+        stats({ name: "Lee, Ann" }),
+      ]),
+    ).toBeNull();
+  });
+
+  test("S4: a page id on two rows falls through to the folded name", () => {
+    // Page id 11 is on two rows; only one of them is Ann Lee by name.
+    const p = scorer();
+    const ann = stats({ name: "Lee, Ann", player_id: "11" });
+    expect(statsRowFor(p, [stats({ name: "Bea Kim", player_id: "11" }), ann])).toBe(ann);
+    // Two rows by id and none, or two, by name: no row.
+    expect(
+      statsRowFor(p, [
+        stats({ name: "Bea Kim", player_id: "11" }),
+        stats({ name: "Cy Park", player_id: "11" }),
+      ]),
+    ).toBeNull();
+  });
+
+  test("more penalty goals and attempts than found: adjG and adjS scale down by (G − e) / G", () => {
+    const p = scorer();
+    expect([p.G, p.S, p.penGoals, p.penAttempts]).toEqual([4, 10, 1, 1]);
+    // The stats file: 3 penalty goals (e = 2), 4 attempts (e = 3).
+    const c = applyStatsPenalties(
+      p,
+      stats({ name: "Ann Lee", penalty_goals: 3, penalty_attempts: 4 }),
+    );
+    expect(c).toEqual({
+      playByPlayGoals: 1,
+      statsGoals: 3,
+      playByPlayAttempts: 1,
+      statsAttempts: 4,
+      skippedGoals: 0,
+      skippedAttempts: 0,
+      goalsFactor: 0.5,
+      shotsFactor: 0.7,
+    });
+    // adjG = 4 × 2/4 = 2; adjS = 10 × 7/10 = 7.
+    expect(p.adjG).toBeCloseTo(2, 12);
+    expect(p.adjS).toBeCloseTo(7, 12);
+  });
+
+  test("R-E: a penalty on a no-minutes line counts as found, so it is not taken off twice", () => {
+    // m1: Ann's line prints no minutes; she scores a penalty there (1 goal,
+    // 1 shot). 4.6 skips the record, so it never reaches G or S. m2: 90
+    // minutes, 3 goals from 6 shots, one of them a penalty. G = 2, S = 5.
+    // The stats file shows 2 penalty goals from 2 attempts: both are in the
+    // play-by-play (one skipped, one found above), so e = 0 and nothing moves.
+    const [p] = join([
+      sheet("m1", [line({ name: "Ann Lee", minutes: null, goals: 1, shots: 1 })], {
+        credits: [{ lines: [0], goal: true }],
+      }),
+      sheet("m2", [line({ name: "Ann Lee", minutes: 90, goals: 3, shots: 6 })], {
+        credits: [{ lines: [0], goal: true }],
+      }),
+    ]);
+    const q = p as PlayerSeason;
+    expect([q.G, q.S, q.penGoals, q.penAttempts]).toEqual([2, 5, 1, 1]);
+    expect([q.skippedPenGoals, q.skippedPenAttempts]).toEqual([1, 1]);
+    expect(
+      applyStatsPenalties(q, stats({ name: "Ann Lee", penalty_goals: 2, penalty_attempts: 2 })),
+    ).toBeNull();
+    expect([q.adjG, q.adjS]).toEqual([2, 5]);
+    // Read as "found above" only (the 2.2 wording), e would be 1 goal and 1
+    // attempt: adjG 2 → 1, adjS 5 → 4, taking off a penalty already absent.
+    // A third penalty goal in the stats file IS missing: e = 1 against the
+    // two found, so adjG = 2 × (2 − 1) / 2 = 1 and adjS = 5 × 4/5 = 4.
+    const c = applyStatsPenalties(
+      q,
+      stats({ name: "Ann Lee", penalty_goals: 3, penalty_attempts: 3 }),
+    );
+    expect(c).toEqual({
+      playByPlayGoals: 2,
+      statsGoals: 3,
+      playByPlayAttempts: 2,
+      statsAttempts: 3,
+      skippedGoals: 1,
+      skippedAttempts: 1,
+      goalsFactor: 0.5,
+      shotsFactor: 0.8,
+    });
+    expect(q.adjG).toBeCloseTo(1, 12);
+    expect(q.adjS).toBeCloseTo(4, 12);
+  });
+
+  test("an excess beyond G, or a G of zero, takes the figure to zero", () => {
+    const p = scorer();
+    applyStatsPenalties(p, stats({ name: "Ann Lee", penalty_goals: 9 }));
+    expect(p.adjG).toBe(0);
+    expect(p.adjS).toBeCloseTo(10, 12);
+  });
+
+  test("the same count or fewer, or no count printed, changes nothing", () => {
+    const p = scorer();
+    expect(
+      applyStatsPenalties(p, stats({ name: "Ann Lee", penalty_goals: 1, penalty_attempts: 0 })),
+    ).toBeNull();
+    expect(applyStatsPenalties(p, stats({ name: "Ann Lee" }))).toBeNull();
+    expect(applyStatsPenalties(p, null)).toBeNull();
+    expect([p.adjG, p.adjS]).toEqual([4, 10]);
+  });
+});
+
+describe("[N2] close names", () => {
+  test("Levenshtein: plain unit cost", () => {
+    expect(levenshtein("kitten", "sitting")).toBe(3);
+    expect(levenshtein("", "abc")).toBe(3);
+    expect(levenshtein("lee", "lee")).toBe(0);
+  });
+
+  test("(i) distance at most 2, or at most 15% of the longer fold", () => {
+    expect(closeTests("Jon Smith", "John Smith").has("i")).toBe(true);
+    // Three substitutions in 20 letters is 15%: close; in 19 it is not.
+    expect(closeTests("Abcdefghij Klmnopqrst", "Xbcdefghij Klmnopqrxy").has("i")).toBe(true);
+    expect(closeTests("Abcdefghij Klmnopqrs", "Xbcdefghij Klmnopqxy").has("i")).toBe(false);
+  });
+
+  test("(ii) one name's folded words all in the other's; (iv) surname and initial; (iii) first given word", () => {
+    // Six letters apart in twenty: not (i).
+    expect([...closeTests("Pelayo Gonzalez", "Pelayo Gonzalez Suarez")].sort()).toEqual([
+      "ii",
+      "iii",
+    ]);
+    expect([...closeTests("Gonzalez Suarez, Pelayo", "Pelayo Gonzalez")].sort()).toContain("ii");
+    expect([...closeTests("Juan Linares", "Juanito Linares")].sort()).toEqual(["iv", "v"]);
+    expect([...closeTests("Alli Parker", "Alli French")]).toEqual(["iii"]);
+    // Siblings the rules must keep apart.
+    expect(closeTests("Lucas Pollacchi", "Tomas Pollacchi").size).toBe(0);
+    expect(closeTests("Ian Reis", "Eric Reis").size).toBe(0);
+    // A one-word name has no given name: (iv) and (iii) never hold.
+    expect(closeTests("Pele", "Pele").has("iv")).toBe(false);
+  });
+
+  test("[N2c] (v): the surname and the given name's first three letters", () => {
+    // "jennifer" / "jenny": jen = jen. Not (i): 4 edits in 15 letters is 27%.
+    expect([...closeTests("Jennifer Mueller", "Jenny Mueller")].sort()).toEqual(["iv", "v"]);
+    expect(closeTests("Mueller, Jennifer", "Jenny Mueller").has("v")).toBe(true);
+    // "ann" / "and": (iv) holds, (v) does not. Siblings, kept apart.
+    expect([...closeTests("Ann Mueller", "Andrew Mueller")]).toEqual(["iv"]);
+    // A given name under three letters never passes (v): "jo" / "joe".
+    expect(closeTests("Jo Smith", "Joe Smith").has("v")).toBe(false);
+    // The given name is every word before the last: "maryann" / "marybeth".
+    expect(closeTests("Mary Ann Lee", "Mary Beth Lee").has("v")).toBe(true);
+    // Different surnames: never.
+    expect(closeTests("Jennifer Mueller", "Jenny Muller").has("v")).toBe(false);
+  });
+});
+
+describe("4.3 [N2b]: split spellings, widened to close names", () => {
+  const two = (a: SheetLine, aSheets: string[], b: SheetLine, bSheets: string[]) =>
+    join([
+      ...aSheets.map((id) => sheet(id, [a])),
+      ...bSheets.map((id) => sheet(`${id}b`, [b], { identity: id })),
+    ]);
+
+  test("same number, surname and first initial, never on one sheet: an unresolved pair", () => {
+    // "Juan Linares" #7 and "Juanito Linares" #07: zeros dropped, the numbers agree.
+    const ps = two(
+      line({ name: "Juan Linares", number: "7" }),
+      ["m1", "m2"],
+      line({ name: "Juanito Linares", number: "07" }),
+      ["m3"],
+    );
+    expect(ps).toHaveLength(2);
+    expect(splitSpellingPairs(ps)).toEqual([[0, 1]]);
+  });
+
+  test("not a pair when they share a sheet, or the number or the initial differs", () => {
+    const together = two(
+      line({ name: "Juan Linares", number: "7" }),
+      ["m1"],
+      line({ name: "Juanito Linares", number: "7" }),
+      ["m1"],
+    );
+    expect(splitSpellingPairs(together)).toEqual([]);
+    const otherNumber = two(
+      line({ name: "Juan Linares", number: "7" }),
+      ["m1"],
+      line({ name: "Juanito Linares", number: "8" }),
+      ["m2"],
+    );
+    expect(splitSpellingPairs(otherNumber)).toEqual([]);
+    const otherInitial = two(
+      line({ name: "Juan Linares", number: "7" }),
+      ["m1"],
+      line({ name: "Pablo Linares", number: "7" }),
+      ["m2"],
+    );
+    expect(splitSpellingPairs(otherInitial)).toEqual([]);
+  });
+
+  test("the surname is before the comma, else the last word", () => {
+    const ps = two(
+      line({ name: "Linares, Juan", number: "7" }),
+      ["m1"],
+      line({ name: "Juanito Linares", number: "7" }),
+      ["m2"],
+    );
+    expect(splitSpellingPairs(ps)).toEqual([[0, 1]]);
+  });
+
+  test("[N2b] names close by (i) or (ii) are a pair too", () => {
+    const byDistance = two(
+      line({ name: "Caylee Boorse", number: "22" }),
+      ["m1"],
+      line({ name: "Caylee Borse", number: "22" }),
+      ["m2"],
+    );
+    expect(splitSpellingPairs(byDistance)).toEqual([[0, 1]]);
+    const byWords = two(
+      line({ name: "Fatima Leme", number: "5" }),
+      ["m1"],
+      line({ name: "Fatima Paes Leme", number: "5" }),
+      ["m2"],
+    );
+    expect(splitSpellingPairs(byWords)).toEqual([[0, 1]]);
+  });
+});
+
+describe("4.4: the same person across seasons", () => {
+  const p = (name: string, over: Partial<PlayerSeason> = {}): PlayerSeason => {
+    const [ps] = join([sheet("m1", [line({ name, number: "4" })])]);
+    return { ...(ps as PlayerSeason), ...over };
+  };
+
+  test("the same key the season before links; several with it: the only one sharing a number [IR-18]", () => {
+    const now = p("Ann Lee"); // numbers {4}
+    const before = p("Lee, Ann", { season: 2025 });
+    expect(sameName(now, [p("Bea Kim"), before])).toBe(before);
+    const n = (...xs: string[]) => ({ numbers: new Set(xs) });
+    const a = p("Ann Lee", n("4", "11"));
+    const b = p("Ann Lee", n("9"));
+    expect(sameName(now, [a, b])).toBe(a);
+    // Two share one, none shares one, he has none: no link.
+    expect(sameName(now, [a, p("Ann Lee", n("4"))])).toBeNull();
+    expect(sameName(now, [b, p("Ann Lee", n("8"))])).toBeNull();
+    expect(sameName(p("Ann Lee", n()), [a, b])).toBeNull();
+    // His roster line's #9 is one of his numbers: b, not a.
+    expect(sameName(p("Ann Lee", n("4", "9")), [p("Ann Lee", n("11")), b])).toBe(b);
+  });
+
+  test("[N2c] a home town never contradicts a link", () => {
+    const town = (hometown: string | undefined) => roster({ name: "Ann Lee", hometown });
+    expect(contradicts(town("Searcy, Ark."), town("Leeds, England"))).toBe(false);
+    expect(contradicts(null, town("Searcy, Ark."))).toBe(false);
+  });
+
+  test("[N2c] no earlier player with the key: the only one close by (i), (ii) or (v) sharing a number", () => {
+    const at = (
+      name: string,
+      number: string,
+      over: Partial<Player> = {},
+      season = 2025,
+    ): PlayerSeason => {
+      const [ps] = join(
+        [sheet("m1", [line({ name, number, ref: { id: name, source: "roster" } })])],
+        [bio(name, { name, number, ...over })],
+      );
+      return { ...(ps as PlayerSeason), season };
+    };
+    const now = at("Jennifer Mueller", "23", { hometown: "Rio Rancho, NM" }, 2026);
+    // (v) close and #23 shared.
+    const jenny = at("Jenny Mueller", "23");
+    expect(closeLink(now, [at("Ann Lee", "23"), jenny])).toBe(jenny);
+    // A home town is no evidence: the same town and a different number, no link.
+    expect(closeLink(now, [at("Jenny Mueller", "9", { hometown: "Rio Rancho, NM" })])).toBeNull();
+    // (iv) alone is not enough across seasons: "Jessica" shares only the initial.
+    expect(closeLink(now, [at("Jessica Mueller", "23")])).toBeNull();
+    // [IR-18] the roster line's number counts: lines #7, roster line "23".
+    const [rosterOnly] = join(
+      [
+        sheet("m1", [
+          line({ name: "Jenny Mueller", number: "7", ref: { id: "j", source: "roster" } }),
+        ]),
+      ],
+      [bio("j", { name: "Jenny Mueller", number: "23" })],
+    );
+    const viaRoster = { ...(rosterOnly as PlayerSeason), season: 2025 };
+    expect(closeLink(now, [viaRoster])).toBe(viaRoster);
+    // Two candidates: no link.
+    expect(closeLink(now, [jenny, at("Jen Mueller", "23")])).toBeNull();
+    // (1) A player who continues under his own name is no one's close link.
+    expect(closeLink(now, [jenny], new Set([jenny]))).toBeNull();
+    // ... and with him out, the only other candidate links.
+    const jen = at("Jen Mueller", "23");
+    expect(closeLink(now, [jenny, jen], new Set([jenny]))).toBe(jen);
+    // (4) The class-year rule inside the count: a Senior before a Sophomore is
+    // refused, so the Freshman is the only one left.
+    const soph = at("Jennifer Mueller", "23", { class_year: "Sophomore" }, 2026);
+    const senior = at("Jenny Mueller", "23", { class_year: "Senior" });
+    const fresh = at("Jen Mueller", "23", { class_year: "Freshman" });
+    expect(closeLink(soph, [senior, fresh])).toBe(fresh);
+    expect(closeLink(soph, [senior])).toBeNull();
+  });
+
+  test("class year: the ladder, a redshirt word ignored, the first year a string names", () => {
+    expect(classStep("Fr.")).toBe(1);
+    expect(classStep("First Year")).toBe(1);
+    expect(classStep("So")).toBe(2);
+    expect(classStep("JUNIOR")).toBe(3);
+    expect(classStep("Sr.")).toBe(4);
+    expect(classStep("Graduate")).toBe(5);
+    expect(classStep("Gr.")).toBe(5);
+    expect(classStep("5th Year")).toBe(5);
+    expect(classStep("Sixth Year")).toBe(6);
+    expect(classStep("Redshirt Freshman")).toBe(1);
+    expect(classStep("R-Fr.")).toBe(1);
+    expect(classStep("RSo")).toBe(2);
+    expect(classStep("RS Jr.")).toBe(3);
+    expect(classStep("R-Sr.")).toBe(4);
+    // [v2.2] Two years named: the first. A redshirt word after the year is
+    // ignored like one before it.
+    expect(classStep("Senior (Fifth Year)")).toBe(4);
+    expect(classStep("Junior/Senior")).toBe(3);
+    expect(classStep("Freshman (Redshirt)")).toBe(1);
+    expect(classStep("Fr.-RS")).toBe(1);
+    // No year at all.
+    expect(classStep("Redshirt")).toBeNull();
+    expect(classStep("")).toBeNull();
+    expect(classStep(undefined)).toBeNull();
+  });
+
+  test("a fall of two or more steps contradicts; a fall of one, a repeat or a rise does not", () => {
+    const year = (class_year: string) => roster({ name: "Ann Lee", class_year });
+    expect(contradicts(year("Senior"), year("Sophomore"))).toBe(true);
+    expect(contradicts(year("Graduate"), year("Freshman"))).toBe(true);
+    expect(contradicts(year("Junior"), year("Sophomore"))).toBe(false);
+    expect(contradicts(year("Freshman"), year("Redshirt Freshman"))).toBe(false);
+    expect(contradicts(year("Junior"), year("Senior"))).toBe(false);
+    // A string naming two years is its first: Senior, then Freshman, falls three.
+    expect(contradicts(year("Senior (Fifth Year)"), year("Freshman"))).toBe(true);
+    // A string naming no year never contradicts.
+    expect(contradicts(year("Redshirt"), year("Freshman"))).toBe(false);
+  });
+
+  test("[M6] a same-key link is refused on class only when no shirt number is shared", () => {
+    // Josiah Fontenot, West Florida: Junior #7 in 2023, Freshman #7 in 2024.
+    const season = (class_year: string, numbers: string[]) =>
+      ({
+        roster: roster({ name: "Josiah Fontenot", class_year }),
+        numbers: new Set(numbers),
+      }) as unknown as PlayerSeason;
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Freshman", ["7"]))).toBe(false);
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Freshman", ["17"]))).toBe(true);
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Freshman", []))).toBe(true);
+    // A fall of one step never refused.
+    expect(contradictsSameKey(season("Junior", ["7"]), season("Sophomore", ["17"]))).toBe(false);
+  });
+});

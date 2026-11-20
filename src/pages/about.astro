@@ -7,7 +7,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import StageChip from "../components/StageChip.astro";
 import Page from "../layouts/Page.astro";
-import { lastLooked, loadSeason } from "../lib/derive.ts";
+import { aboutTiersHref, lastLooked, loadSeason } from "../lib/derive.ts";
 import type { Season } from "../lib/derive.ts";
 import { dayOfMonth, monShort, spell } from "../lib/format.ts";
 import { laggingOf, newestLook } from "../lib/freshness.ts";
@@ -19,6 +19,7 @@ import {
   PHASE_LIVE,
   PHASE_TOURNAMENT,
 } from "../lib/journal.ts";
+import { activeTiers } from "../lib/player-tier.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { chipFrom, type StageChip as Chip } from "../lib/stage.ts";
 import { site } from "../site.config.ts";
@@ -80,6 +81,10 @@ const sections = [
   { id: "checked", label: "What is checked" },
   { id: "source", label: "Where it comes from" },
 ] as const;
+// And the method page for player tiers, which exists only while the tiers are
+// on (tiers.config.ts). The entry sits against the list before it in the
+// markup so that, with them off, this page is the page it was.
+const tiersOn = activeTiers() !== null;
 
 const stamp = (iso: string): string =>
   `${monShort(iso.slice(0, 10))} ${dayOfMonth(iso.slice(0, 10))}, ${iso.slice(11, 16)} UTC`;
@@ -108,7 +113,7 @@ const stamp = (iso: string): string =>
         as what it is.
       </p>
       <nav class="toc" aria-label="On this page">
-        {sections.map((x) => <a class="toc-link" href={`#${x.id}`}>{x.label}</a>)}
+        {sections.map((x) => <a class="toc-link" href={`#${x.id}`}>{x.label}</a>)}{tiersOn && <a class="toc-link" href={aboutTiersHref()}>Tiers</a>}
       </nav>
     </section>
 

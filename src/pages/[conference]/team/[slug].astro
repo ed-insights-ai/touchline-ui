@@ -32,6 +32,14 @@ import { displayNameOf, identityLine } from "../../../lib/programmes.ts";
 import { countOrigins, originOf } from "../../../lib/origin.ts";
 import { returnedShare, tenureGrid } from "../../../lib/tenure.ts";
 import PlayerSheet from "../../../components/PlayerSheet.astro";
+import TierStyles from "../../../components/TierStyles.astro";
+import {
+  activeTiers,
+  earlierTiers,
+  playedSince,
+  seasonLineOf,
+  sheetTier,
+} from "../../../lib/player-tier.ts";
 import { stageChipOf } from "../../../lib/stage.ts";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
 import SiteFooter from "../../../components/SiteFooter.astro";
@@ -83,11 +91,37 @@ const keeper = leadKeeper(season, slug);
 const opener = conferenceOpenerOf(season, slug);
 const upcoming = upcomingOf(season, slug);
 const counts = programmeCounts(season, slug);
-const cards = squadOf(season, slug).map((m) => ({
-  member: m,
-  card: playerCard(season, slug, m.player, m.stats, m.keeper),
-}));
+// Player tiers (lib/player-tier.ts): the season's tiers file, or null while
+// the publication gate is closed (tiers.config.ts), and then this page draws
+// no tier anywhere: no block, no top line, no CAREER line, no mark, no key.
+const tiers = activeTiers();
+// A programme that has played since the tiers were set has a season line that
+// has run on past the tier's count, and its sheets say so.
+const since = tiers ? playedSince(season, slug, tiers.frozen_at) : false;
+const cards = squadOf(season, slug).map((m) => {
+  const card = playerCard(season, slug, m.player, m.stats, m.keeper);
+  // The sheet's own MINUTES line goes to the tier with the player: where the
+  // tier counts other minutes or appearances than that line prints, the block
+  // says where its count comes from.
+  const line = seasonLineOf(card.minutes, m.keeper?.minutes, since);
+  return {
+    member: m,
+    card,
+    tier: tiers ? sheetTier(tiers, slug, names.name(slug), m.player, line) : null,
+    careerTiers: tiers ? earlierTiers(tiers, slug, m.player) : [],
+  };
+});
 const cardFor = (name: string) => cards.find((c) => c.member.player.name === name)?.card;
+// A holder's tier in words, for the squad row's mark; null for everyone else.
+// One drawn mark for any tier, after the name and before the flag slot; which
+// tier, and whose, is on the sheet.
+//
+// Each tier expression in the markup below sits against the tag before it, on
+// purpose: an expression on a line of its own adds a space to the HTML even
+// when it renders nothing, and with the gate closed this page must be the
+// page it was, byte for byte.
+const holderOf = (name: string): string | null =>
+  cards.find((c) => c.member.player.name === name)?.tier?.holder ?? null;
 
 // The names and the order come from the one list that has them, so this
 // section and the shape above it cannot drift apart again. Only the colour is
@@ -116,6 +150,8 @@ const nationOf = (m: { player: { hometown?: string } }) => {
 // "+ N more" — are the same population.
 const rendered = LINES.flatMap((l) => squadByLine(season, slug, l.key));
 const origins = countOrigins(rendered.map((m) => m.player.hometown));
+// The tier mark is keyed only on a squad that has one, as the hollow square is.
+const anyHolder = rendered.some((m) => holderOf(m.player.name) !== null);
 // The hometown count rides the SQUAD head as a figure; the flags beside the
 // names are the rest of the story (owner's ruling, 2026-09-01).
 const originKey =
@@ -578,7 +614,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
         <h2 class="sq-title">SQUAD</h2>
         {grid.size > 0 && (
           <div class="sq-keys num">
-            <span class="sq-key"><span class="squad-tick is-new" aria-hidden="true"></span>NEWCOMER</span>
+            <span class="sq-key"><span class="squad-tick is-new" aria-hidden="true"></span>NEWCOMER</span>{anyHolder && <span class="sq-key"><span class="squad-tier" aria-hidden="true"></span>TIER</span>}
             {originKey && <span class="sq-key">{originKey}</span>}
           </div>
         )}
@@ -601,6 +637,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
                 <div class="squad-list">
                   {members.slice(0, SQUAD_SHOWN).map((m) => {
                     const from = nationOf(m);
+                    const holder = holderOf(m.player.name);
                     return (
                       <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
                         <span class={`squad-tick${m.isNew ? " is-new" : ""}`} aria-hidden="true"></span>
@@ -608,7 +645,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
                           class={`squad-name${m === lead && m.headline ? " is-lead" : ""}`}
                         >
                           {initialLast(m.player.name)}
-                        </span>
+                        </span>{holder && <><span class="squad-tier" aria-hidden="true"></span><span class="vh">{holder}</span></>}
                         {from && (
                           <span class="squad-origin" title={`${from.name} · by published hometown`}>
                             <img class="squad-flag" src={flagHref(from.iso)} alt="" decoding="async" />
@@ -625,10 +662,11 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
                       <summary class="squad-more">+ {members.length - SQUAD_SHOWN} more</summary>
                       {members.slice(SQUAD_SHOWN).map((m) => {
                         const from = nationOf(m);
+                        const holder = holderOf(m.player.name);
                         return (
                           <a class="squad-row" href={`#${cardFor(m.player.name)?.anchor ?? ""}`}>
                             <span class={`squad-tick${m.isNew ? " is-new" : ""}`} aria-hidden="true"></span>
-                            <span class="squad-name">{initialLast(m.player.name)}</span>
+                            <span class="squad-name">{initialLast(m.player.name)}</span>{holder && <><span class="squad-tier" aria-hidden="true"></span><span class="vh">{holder}</span></>}
                             {from && (
                               <span
                                 class="squad-origin"
@@ -658,13 +696,15 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
       )}
     </section>
 
-    {cards.map(({ member, card }) => (
+    {cards.map(({ member, card, tier, careerTiers }) => (
       <PlayerSheet
         card={card}
         logExtras={logExtras}
         minutesPublished={{ player: member.stats?.minutes, keeper: member.keeper?.minutes }}
+        tier={tier}
+        careerTiers={careerTiers}
       />
-    ))}
+    ))}{tiers && <TierStyles />}
 
     <SiteFooter seasons={[season]} />
   </div>

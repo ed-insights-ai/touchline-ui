@@ -17,7 +17,7 @@
  * altitudes; the conference page's headline, dek, chart caption and findings
  * selected exactly as the page selects them (the journal's if it wrote them,
  * the computed fallback if not); every match's footnote, provenance and share
- * description; every player card's composed lines.
+ * description; every player card's composed lines, the tier's among them.
  *
  * One thing is deliberately NOT in it: the published play-by-play. Those are
  * the programme's own sentences, quoted, and the site's whole discipline is to
@@ -26,7 +26,7 @@
  */
 
 import { describe, expect, test } from "bun:test";
-import { site } from "../site.config.ts";
+import { ncaaDivision, site } from "../site.config.ts";
 import { hasScore, loadSeason, matchDetailOf, type Season, squadOf } from "./derive.ts";
 import { divisionCounts, oneSidedFinals, postedSide, unpostedSides } from "./division.ts";
 import { longDate, shortDate, spell } from "./format.ts";
@@ -48,12 +48,20 @@ import {
 import { footNote, metaDescription, oneSourceNote, provenance } from "./matchstate.ts";
 import { playerCard } from "./player.ts";
 import {
+  careerTiersLine,
+  earlierTiers,
+  playedSince,
+  seasonLineOf,
+  sheetTier,
+} from "./player-tier.ts";
+import {
   DEK_MAX_CHARS,
   HEADLINE_MAX_CHARS,
   type Line,
   WIRE_MAX_CHARS,
   wordsMoved,
 } from "./prose.ts";
+import { loadTiers } from "./tiers.ts";
 
 const seasons = site.conferences.map((k) => loadSeason(k));
 
@@ -183,16 +191,38 @@ function nationalPage(): Line[] {
 /** Every player card's composed lines. */
 function playerCards(s: Season): Line[] {
   const out: Line[] = [];
+  // The tier's sentences (lib/player-tier.ts), for every player the season's
+  // tiers file carries. Read past the publication gate on purpose: the gate
+  // decides whether a page prints them, and these rules hold the sentences
+  // whether it is open or not.
+  const tiers = loadTiers(ncaaDivision, s.fixtures.season, s.fixtures.gender);
   for (const slug of Object.keys(s.rosters?.rosters ?? {})) {
     for (const m of squadOf(s, slug)) {
       const c = playerCard(s, slug, m.player, m.stats, m.keeper);
       const at = `${s.key} ${slug} ${c.name}`;
+      const tier = tiers
+        ? sheetTier(
+            tiers,
+            slug,
+            s.names.name(slug),
+            m.player,
+            seasonLineOf(c.minutes, m.keeper?.minutes, playedSince(s, slug, tiers.frozen_at)),
+          )
+        : null;
+      const career = tiers ? careerTiersLine(earlierTiers(tiers, slug, m.player)) : null;
       for (const [what, text] of [
         ["tenure", c.tenure],
         ["career note", c.career.note],
         ["finding", c.finding?.text],
         ["minutes", c.minutes?.note],
         ["exhibitions", c.exhibitions],
+        ["tier meaning", tier?.meaning],
+        ["tier basis", tier?.basis],
+        ["tier basis note", tier?.basisNote],
+        ["tier goals", tier?.figures?.goals],
+        ["tier figures note", tier?.figures?.note],
+        ["tier source", tier?.source],
+        ["tier career", career],
       ] as const) {
         if (text) out.push({ where: `${at} ${what}`, text });
       }

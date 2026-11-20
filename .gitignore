@@ -18,3 +18,7 @@ journal/*.rejected.txt
 .beads-credential-key
 .beads/
 .beads.gate.lock
+
+# Player-tiers comparison rows and the build report: intermediate estimates
+# that section 9 keeps out of every committed file. Never commit or import.
+tiers/.debug/
