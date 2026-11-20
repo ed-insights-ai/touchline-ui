@@ -199,14 +199,48 @@ describe("the meaning line, for every status and kind", () => {
       "A tier needs 900 minutes this season, or 600 in each of the last two seasons as a forward or midfielder at Calder State.",
     ],
     [
-      "needs more minutes, defender",
-      { status: "needs_minutes", tier: null, group: "D", kind: "team_defence" },
+      "needs more minutes, defender under the floor",
+      {
+        status: "needs_minutes",
+        tier: null,
+        group: "D",
+        kind: "team_defence",
+        basis: { minutes: 635, matches: 9, seasons: [2026], class_year: "Senior" },
+      },
       "The team defence tier needs a regular: 900 minutes and 70% of Calder State's minutes in a season.",
     ],
     [
-      "needs more minutes, goalkeeper",
-      { status: "needs_minutes", tier: null, group: "GK", kind: "team_defence" },
+      "needs more minutes, defender over the floor but under the share",
+      {
+        status: "needs_minutes",
+        tier: null,
+        group: "D",
+        kind: "team_defence",
+        basis: { minutes: 1080, matches: 16, seasons: [2026], class_year: "Junior" },
+      },
+      "The team defence tier needs a regular: 900 minutes and 70% of Calder State's minutes in a season. The 1,080 below clear the 900 but fall short of the 70%.",
+    ],
+    [
+      "needs more minutes, goalkeeper under the floor",
+      {
+        status: "needs_minutes",
+        tier: null,
+        group: "GK",
+        kind: "team_defence",
+        basis: { minutes: 164, matches: 3, seasons: [2026], class_year: "Sophomore" },
+      },
       "The team defence tier needs a regular: 600 minutes and 50% of Calder State's minutes in a season.",
+    ],
+    [
+      "needs more minutes, goalkeeper over the floor but under the share",
+      {
+        status: "needs_minutes",
+        tier: null,
+        group: "GK",
+        kind: "team_defence",
+        basis: { minutes: 642, matches: 8, seasons: [2026], class_year: "Junior" },
+      },
+      "The team defence tier needs a regular: 600 minutes and 50% of Calder State's minutes in a season. The 642 below clear the 600 but fall short of the 50%.",
     ],
     [
       "needs a second season",
