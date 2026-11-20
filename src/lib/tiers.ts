@@ -17,8 +17,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { z } from "zod";
 
-export const TIERS_SCHEMA = "touchline-ui.tiers/1";
-export const TIERS_SPEC = "player-tiers/0.7";
+export const TIERS_SCHEMA = "touchline-ui.tiers/2";
+export const TIERS_SPEC = "player-tiers/0.8";
 
 /** A figure the contract prints to one decimal: finite, and already rounded. */
 const oneDecimal = z
@@ -126,8 +126,14 @@ export const tierTeamSchema = z
     goals_conceded: z.number().int().nonnegative(),
     /** EGA; null when n is 0. */
     opponents_usual: oneDecimal.nullable(),
+    /** [0.8] The team defence badge: in the top fifth of the season's
+     *  programmes with a workload group by record (−ln(max(GA, 0.5) / EGA)),
+     *  compared across the whole division, ties included. False for a team
+     *  with no workload group. */
+    badge: z.boolean(),
   })
-  .strict();
+  .strict()
+  .refine((t) => !t.badge || t.workload !== null, "a badge needs a workload group");
 export type TierTeam = z.infer<typeof tierTeamSchema>;
 
 export const tierDivisionSchema = z

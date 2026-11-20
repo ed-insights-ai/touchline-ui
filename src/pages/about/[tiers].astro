@@ -25,12 +25,17 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import Page from "../../layouts/Page.astro";
 import { loadSeason, type Season } from "../../lib/derive.ts";
-import { monLong } from "../../lib/format.ts";
+import { dayOfMonth, monLong } from "../../lib/format.ts";
 import TiersScope from "../../components/TiersScope.astro";
 import { activeTiers, coverageLine } from "../../lib/player-tier.ts";
 import { loadTiers, type TiersFile } from "../../lib/tiers.ts";
 import { currentDivision, ncaaDivisions, site } from "../../site.config.ts";
-import { levelTiers, TIERS_LEVELS } from "../../tiers.config.ts";
+import {
+  levelTiers,
+  showsFullShooting,
+  TEAM_DEFENCE_TIER_RETIRED,
+  TIERS_LEVELS,
+} from "../../tiers.config.ts";
 
 export function getStaticPaths() {
   return activeTiers() ? [{ params: { tiers: "tiers" } }] : [];
@@ -51,7 +56,7 @@ const division = currentDivision.name;
 // What this level shows. Every tier: the full method below. Part of them: the
 // short page (TiersScope) in its place.
 const shown = levelTiers(tiers.level);
-const partial = shown !== null && !(shown.teamDefence && shown.shooting.length === 2);
+const partial = shown !== null && !showsFullShooting(shown);
 // What each other level shows, for the coverage paragraph: from config, never
 // a division named by hand.
 const elsewhere = ncaaDivisions
@@ -88,7 +93,10 @@ const firstSeason = earlier[0]?.season ?? null;
 const firstSeasonNote =
   firstSeason === null
     ? null
-    : `The first season with tiers is ${firstSeason}, and nothing before it is counted: no ${firstSeason} defender or goalkeeper could hold the team defence tier, and a ${firstSeason} forward or midfielder is judged on that season alone.`;
+    : `The first season with tiers is ${firstSeason}, and nothing before it is counted: a ${firstSeason} forward or midfielder is judged on that season alone.`;
+
+// The day the team defence tier left player sheets, said once, from config.
+const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE_TIER_RETIRED)}, ${TEAM_DEFENCE_TIER_RETIRED.slice(0, 4)}`;
 ---
 
 <Page
@@ -446,7 +454,7 @@ const firstSeasonNote =
           ability.</strong>
         </p>
 
-        <div class="tier-tiles" aria-label="The three Touchline tier labels">
+        <div class="tier-tiles" aria-label="Touchline's two tiers and the team defence badge">
           <div class="tier-tile tier-tile-primary">
             <div class="tile-kicker">Tier 1</div>
             <div class="tile-stat">Top 5%</div>
@@ -464,19 +472,20 @@ const firstSeasonNote =
             </div>
           </div>
           <div class="tier-tile">
-            <div class="tile-kicker">Team defence</div>
+            <div class="tile-kicker">Team defence badge</div>
             <div class="tile-stat">Top 20%</div>
             <div class="tile-kind">Team performance</div>
             <div class="tile-scope">
-              <strong>Not an individual rating.</strong> Shared by regular defenders &amp;
-              goalkeepers based on 2–3 seasons of team defending.
+              <strong>Awarded to the team, not a player.</strong> The division's best records of
+              goals conceded against what opponents usually score, this season.
             </div>
           </div>
         </div>
         <p class="tile-footnote">
           Percentages are within eligible comparison groups. Men and women are evaluated
           separately; forwards and midfielders are evaluated separately. About{" "}
-          <strong>80% of eligible players hold no tier</strong>.
+          <strong>80% of eligible players hold no tier</strong>, and about 80% of teams hold no
+          badge.
         </p>
 
         <nav class="journey" aria-label="Reading levels">
@@ -528,10 +537,10 @@ const firstSeasonNote =
         </p>
         <ul class="list">
           <li>
-            <strong>Team defence belongs to the team, not one player.</strong> Regular defenders
-            and goalkeepers are pooled together, and the 20% cutoff applies to eligible{" "}
-            <em>players</em> (not necessarily the top 20% of teams). Teammates with the same
-            counted seasons always receive the exact same result.
+            <strong>Defence is recognised on the team, not on one player.</strong> The team
+            defence badge sits on the team page. A regular defender's or goalkeeper's sheet shows
+            the team's figures and, where the team holds it, the badge, but no defence tier of
+            the player's own: nothing in the box scores measures one defender's part reliably.
           </li>
           <li>
             <strong>Box scores leave out most of soccer.</strong> Tiers cannot see positioning,
@@ -545,13 +554,13 @@ const firstSeasonNote =
       <section class="band" id="statuses">
         <h3 class="sechead">WHAT EACH STATUS ON A PLAYER SHEET MEANS</h3>
         <p class="para">
-          Every player with a box-score line at a {division} programme Touchline follows displays
-          one of five statuses. None of them implies poor playing ability:
+          Every forward and midfielder with a box-score line at a {division} programme Touchline
+          follows displays one of four statuses. None of them implies poor playing ability:
         </p>
         <dl class="status-grid">
           <div class="status-row">
             <dt>Tier awarded</dt>
-            <dd>Cleared eligibility and finished inside the tier cutoff (Tier 1, Tier 2 or Team defence tier).</dd>
+            <dd>Cleared eligibility and finished inside the tier cutoff (Tier 1 or Tier 2).</dd>
           </div>
           <div class="status-row">
             <dt>Eligible, no tier</dt>
@@ -560,10 +569,6 @@ const firstSeasonNote =
           <div class="status-row">
             <dt>Needs more minutes</dt>
             <dd>Did not reach the playing-time threshold for a fair comparison. Nothing else is implied.</dd>
-          </div>
-          <div class="status-row">
-            <dt>Needs a second season</dt>
-            <dd>A defensive regular this season, but not a regular at the same programme the season before.</dd>
           </div>
           <div class="status-row">
             <dt>Incomplete records</dt>
@@ -753,47 +758,54 @@ const firstSeasonNote =
         {/* Idea 4: Defensive workload */}
         <h4 class="question">4. Does allowing fewer goals always mean a better defence?</h4>
         <p class="para">
-          Not necessarily. A back line on a dominant possession team facing 6 shots a match has a
+          Not on its own. A back line on a dominant possession team facing 6 shots a match has a
           very different job from one facing 16 shots a match — and box scores do not tell us which
           individual defender won each tackle.
         </p>
         <p class="para">
-          So Touchline evaluates <strong>the team as a whole</strong> across three questions: what
-          its opponents usually score, how many goals the team actually conceded, and how much that
-          margin stands out <strong>only against teams facing a similar shot workload</strong>{" "}
-          (Light, Typical or Heavy thirds). Because single-season goal totals are noisy, the Team
-          defence tier averages two or three consecutive regular seasons at the same programme.
+          Touchline first tried to credit the back line alone, comparing a team only with teams
+          facing a similar shot workload, so that a defence holding firm behind a midfield that
+          cannot keep the ball would stand out. Tested on every season collected, that comparison
+          did not hold up: split a season's matches in two at random, and the teams that stood out
+          on one half mostly did not on the other. Goals per shot faced and a goalkeeper's save
+          percentage did no better.
         </p>
-        <div class="compare-grid" aria-label="Illustrative defensive workload comparison">
+        <p class="para">
+          What does hold up is the team's whole defending: <strong>goals conceded against what its
+          opponents usually score</strong>, compared across the whole division. Keeping the other
+          side from shooting counts as much as stopping the shots, so it rewards the team, from the
+          front line's pressing to the goalkeeper. The top fifth of teams each season hold the{" "}
+          <strong>team defence badge</strong>.
+        </p>
+        <div class="compare-grid" aria-label="Illustrative team defence comparison">
           <div class="compare-card">
-            <div class="compare-kicker">Heavy workload · 16.0 shots/match</div>
-            <div class="compare-figure compare-figure-accent">+1.40</div>
-            <div class="compare-label">Stands out further vs. peers</div>
-            <div class="compare-meta">Allowed 24 goals vs. 32 expected (25% below expectation)</div>
+            <div class="compare-kicker">Team A · 16.0 shots faced a match</div>
+            <div class="compare-figure">25% below</div>
+            <div class="compare-label">Conceded 24 where opponents usually score 32</div>
+            <div class="compare-meta">record = ln(32 ÷ 24) = +0.288</div>
           </div>
           <div class="compare-card">
-            <div class="compare-kicker">Typical workload · 12.2 shots/match</div>
-            <div class="compare-figure">+1.10</div>
-            <div class="compare-label">Strong, slightly smaller margin vs. peers</div>
-            <div class="compare-meta">Allowed 16 goals vs. 24 expected (33% below expectation)</div>
+            <div class="compare-kicker">Team B · 12.2 shots faced a match</div>
+            <div class="compare-figure compare-figure-accent">33% below</div>
+            <div class="compare-label">Conceded 16 where opponents usually score 24</div>
+            <div class="compare-meta">record = ln(24 ÷ 16) = +0.405, the stronger record</div>
           </div>
         </div>
         <p class="caption">
-          Illustrative values from the current methodology. Teams under heavy shot pressure usually
-          concede more than expected, so keeping opponents well below expectation under heavy fire
-          stands out further from its peers than conceding fewer raw goals under lighter pressure.
+          Illustrative values. Teams are ranked by how far below expectation they conceded; the
+          shots a team faced are part of that record, not set aside.
         </p>
         <details class="tech-disclosure">
           <summary>See the defensive calculation</summary>
           <div class="tech-body">
             <div class="formula">
               <div class="formula-eq">
-                team record = −ln( max(GA, 0.5) ÷ EGA ) = ln( EGA ÷ max(GA, 0.5) )<br />
-                season score = (team record − workload group mean) ÷ workload group sd
+                team record = −ln( max(GA, 0.5) ÷ EGA ) = ln( EGA ÷ max(GA, 0.5) )
               </div>
               <div class="formula-note">
-                Averaged over 2 or 3 consecutive regular seasons. Full walkthrough in{" "}
-                <a href="#defence">Explore the mathematics → Team defence formulas</a>.
+                The top fifth of the division's teams with 12 or more complete matches, each season.
+                Full walkthrough in{" "}
+                <a href="#defence">Explore the mathematics → Team defence badge</a>.
               </div>
             </div>
           </div>
@@ -817,7 +829,7 @@ const firstSeasonNote =
           <a class="math-link" href="#eligibility">Eligibility &amp; minutes</a>
           <a class="math-link" href="#opponents">Opponent model</a>
           <a class="math-link" href="#shooting">Shooting formulas</a>
-          <a class="math-link" href="#defence">Defence formulas</a>
+          <a class="math-link" href="#defence">Team defence badge</a>
           <a class="math-link" href="#examples">Worked examples</a>
           <a class="math-link" href="#sheet">Player sheet details</a>
           <a class="math-link" href="#reliability">Reliability</a>
@@ -839,19 +851,19 @@ const firstSeasonNote =
                   <tr>
                     <th scope="col"><span class="vh">Rule</span></th>
                     <th scope="col">Shooting and scoring</th>
-                    <th scope="col">Team defence</th>
+                    <th scope="col">Team figures on a sheet</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <th scope="row">Positions</th>
                     <td>Forwards (F) and midfielders (M), compared separately</td>
-                    <td>Defenders (D) and goalkeepers (GK), pooled together</td>
+                    <td>Defenders (D) and goalkeepers (GK)</td>
                   </tr>
                   <tr>
                     <th scope="row">Tiers</th>
                     <td>Tier 1: top 5% (rounded up + ties). Tier 2: next 15% (to top 20% + ties).</td>
-                    <td>One tier: top 20% of eligible players (rounded up + ties).</td>
+                    <td>None. The team defence badge is the team's, shown on the team page.</td>
                   </tr>
                   <tr>
                     <th scope="row">Eligibility</th>
@@ -860,14 +872,14 @@ const firstSeasonNote =
                       or M at the same programme.
                     </td>
                     <td>
-                      2 or 3 consecutive seasons as a regular at the same programme in the same
-                      position group, with at least 12 complete team matches each season.
+                      A regular this season (thresholds below), at a programme with at least 12
+                      complete team matches.
                     </td>
                   </tr>
                   <tr>
                     <th scope="row">Seasons counted</th>
                     <td>This season, plus last season if it had 600+ minutes as F or M.</td>
-                    <td>Each consecutive regular season ending with this one, up to 3.</td>
+                    <td>This season alone.</td>
                   </tr>
                 </tbody>
               </table>
@@ -875,8 +887,8 @@ const firstSeasonNote =
 
             <h4 class="subhead">Defensive regular thresholds</h4>
             <p class="para">
-              A defensive season counts only when the player clears both a playing-time floor and a
-              minimum share of the team's recorded minutes (<span class="sym">minutes ÷ (matches × 90)</span>):
+              A defender's or goalkeeper's sheet carries the team's figures only when the player
+              clears both a playing-time floor and a minimum share of the team's recorded minutes (<span class="sym">minutes ÷ (matches × 90)</span>):
             </p>
             <ul class="list">
               <li><strong>Defender:</strong> at least <span class="sym">900</span> minutes and at least <span class="sym">70%</span> of the team's minutes.</li>
@@ -1058,8 +1070,8 @@ const firstSeasonNote =
         <details class="tech-disclosure" id="defence">
           <summary>
             <span>
-              4. Team defence formulas
-              <span class="tech-summary-meta">Expected goals against, workload thirds, log-ratio scoring, z-scores &amp; multi-season average</span>
+              4. Team defence badge
+              <span class="tech-summary-meta">Expected goals against, log-ratio record, top fifth of the division &amp; the workload label</span>
             </span>
           </summary>
           <div class="tech-body">
@@ -1086,59 +1098,27 @@ const firstSeasonNote =
 
               <li class="step">
                 <div class="step-body">
-                  <h4 class="step-title">Divide teams into three equal shot-workload groups</h4>
+                  <h4 class="step-title">Rank across the whole division and award the top fifth</h4>
                   <p class="para">
-                    Each qualifying team's shots faced per match (<span class="sym">SA ÷ matches</span>)
-                    places it into one of three equal thirds using the 1/3 and 2/3
-                    linear-interpolation quantiles for that season and gender: <strong>Light</strong>,{" "}
-                    <strong>Typical</strong> or <strong>Heavy</strong> workload. A team sitting
-                    exactly on a boundary joins the heavier group.
+                    Every qualifying team in the season (men and women separately) is ranked by its
+                    record, and the top <span class="sym">ceil(0.20 × N)</span> teams, plus exact
+                    ties, hold the <strong>team defence badge</strong> for that season. The badge is
+                    one season's: it is not averaged with earlier seasons, and a team page lists the
+                    earlier seasons a programme held it beside this one.
                   </p>
                 </div>
               </li>
 
               <li class="step">
                 <div class="step-body">
-                  <h4 class="step-title">Compute the team's log-ratio defensive record</h4>
-                  <div class="formula">
-                    <div class="formula-eq">
-                      team record = −ln( max(GA, 0.5) ÷ EGA ) = ln( EGA ÷ max(GA, 0.5) )
-                    </div>
-                    <div class="formula-note">
-                      0 means goals conceded matched expectation; positive is better; negative is
-                      worse. Halving expected goals (10 vs. 20, or 15 vs. 30) gives the exact same
-                      record (+0.693). The 0.5 floor avoids dividing by zero on a zero-goal season.
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="step">
-                <div class="step-body">
-                  <h4 class="step-title">Standardise inside the workload group</h4>
-                  <div class="formula">
-                    <div class="formula-eq">
-                      season score = (team record − workload group mean) ÷ workload group population sd
-                    </div>
-                    <div class="formula-note">
-                      Puts Light, Typical and Heavy seasons onto one shared scale so seasons can be
-                      averaged cleanly even if a team changes workload group from year to year.
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="step">
-                <div class="step-body">
-                  <h4 class="step-title">Average over 2 or 3 consecutive regular seasons and cut at 20%</h4>
+                  <h4 class="step-title">Label the workload, without ranking by it</h4>
                   <p class="para">
-                    Each eligible defender and goalkeeper receives the plain average of their
-                    team's season scores across their 2 or 3 consecutive regular seasons at that
-                    programme and position group. All eligible defenders and goalkeepers are pooled
-                    together (men and women separately), and the top{" "}
-                    <span class="sym">ceil(0.20 × N)</span> players (plus exact ties) hold the{" "}
-                    <strong>Team defence tier</strong>. Teammates with the same counted seasons
-                    always share the same result.
+                    Each qualifying team's shots faced per match (<span class="sym">SA ÷ matches</span>)
+                    places it in a third for that season and gender, at the 1/3 and 2/3
+                    linear-interpolation quantiles: <strong>Light</strong>,{" "}
+                    <strong>Typical</strong> or <strong>Heavy</strong>, a team on a boundary joining
+                    the heavier. The label is printed beside the team's figures so a reader can see
+                    how much defending it did; the badge does not compare teams only within a third.
                   </p>
                 </div>
               </li>
@@ -1151,7 +1131,7 @@ const firstSeasonNote =
           <summary>
             <span>
               5. Worked mathematical examples
-              <span class="tech-summary-meta">Complete step-by-step arithmetic for one forward and one two-season defender (illustrative values)</span>
+              <span class="tech-summary-meta">Complete step-by-step arithmetic for one forward and two teams' defence (illustrative values)</span>
             </span>
           </summary>
           <div class="tech-body">
@@ -1185,28 +1165,27 @@ const firstSeasonNote =
               </li>
             </ul>
 
-            <div class="example-head">Example B · Team defence (illustrative two-season defender)</div>
+            <div class="example-head">Example B · Team defence badge (illustrative two teams)</div>
             <p class="para">
-              Suppose a defender is a regular at the same programme for two consecutive seasons,
-              and her team moves from a heavy workload last season to a typical workload this
-              season.
+              Suppose two teams in a division of 198 qualifying teams, one facing many more shots
+              than the other.
             </p>
             <ul class="example-rows">
               <li>
-                <span class="example-label">Last season (Heavy)</span>
-                <span>Allowed 24 goals vs. 32.0 expected → record = ln(32 ÷ 24) = <strong>+0.288</strong>. Heavy group mean −0.062, sd 0.250 → season score = (0.288 − (−0.062)) ÷ 0.250 = <strong>+1.40</strong></span>
+                <span class="example-label">Team A (Heavy)</span>
+                <span>16.0 shots faced a match. Gave up 24 goals where its opponents usually score 32.0 → record = ln(32 ÷ 24) = <strong>+0.288</strong></span>
               </li>
               <li>
-                <span class="example-label">This season (Typical)</span>
-                <span>Allowed 16 goals vs. 24.0 expected → record = ln(24 ÷ 16) = <strong>+0.405</strong>. Typical group mean +0.075, sd 0.300 → season score = (0.405 − 0.075) ÷ 0.300 = <strong>+1.10</strong></span>
+                <span class="example-label">Team B (Light)</span>
+                <span>12.2 shots faced a match. Gave up 16 goals where its opponents usually score 24.0 → record = ln(24 ÷ 16) = <strong>+0.405</strong></span>
               </li>
               <li>
-                <span class="example-label">Two-season average</span>
-                <span>(1.40 + 1.10) ÷ 2 = <strong>+1.25</strong></span>
+                <span class="example-label">The cut</span>
+                <span>ceil(0.20 × 198) = <strong>40</strong> badges, plus ties with the 40th record.</span>
               </li>
               <li>
                 <span class="example-label">Applying the cut</span>
-                <span>If +1.25 sits in the top 20% of all eligible defenders and goalkeepers, she — and every teammate in defence or goal with those same two seasons — holds the <strong>Team defence tier</strong>.</span>
+                <span>If the 40th-best record is +0.35, Team B holds the <strong>team defence badge</strong> and Team A does not, though Team A faced more shots: the badge credits keeping opponents from shooting as well as stopping the shots they take.</span>
               </li>
             </ul>
           </div>
@@ -1222,12 +1201,13 @@ const firstSeasonNote =
         <h4 class="subhead">Team figures for regular defenders and goalkeepers</h4>
         <p class="para">
           Every regular defender's and goalkeeper's player sheet prints three team figures for the
-          current season, tier or no tier:
+          current season, under TEAM DEFENCE. They are the team's facts, not a mark for the player;
+          when the team holds the badge, the block says so:
         </p>
         <ol class="list">
           <li>
             <strong>Shots faced a match, with the workload group</strong> (beside the division
-            average). Shows which third of teams this defence is compared against.
+            average). Shows which third of the division's teams by shots faced this one sits in.
           </li>
           <li>
             <strong>Shots faced that went in</strong> (beside the division average). The share of
@@ -1237,11 +1217,11 @@ const firstSeasonNote =
             <strong>Goals given up, beside what the opponents usually score.</strong> Printed as one
             sentence — for example, “Gave up 24 goals where its opponents usually score 31.” This
             is the <span class="sym">GA</span> vs. <span class="sym">EGA</span> comparison behind
-            the team defence tier.
+            the team defence badge.
           </li>
         </ol>
 
-        <h4 class="subhead">The four reasons a sheet reads “Incomplete records”</h4>
+        <h4 class="subhead">The three reasons a sheet reads “Incomplete records”</h4>
         <p class="para">
           “Incomplete records” always means missing or unmatched published data prevented a fair
           comparison — never poor performance. The sheet states which reason applied:
@@ -1250,7 +1230,6 @@ const firstSeasonNote =
           <li><strong>Missing minutes:</strong> box scores omitted minutes for too many matches with no season stats total available (or unprinted matches could have lifted a borderline player over the eligibility bar).</li>
           <li><strong>No position:</strong> neither the roster nor the box scores printed a readable position.</li>
           <li><strong>Unmatched name:</strong> the player's name could not be reliably matched from one box score to the next.</li>
-          <li><strong>Too few team matches:</strong> for defenders and goalkeepers, fewer than 12 collected team matches had complete goal and shot totals.</li>
         </ul>
       </section>
 
@@ -1259,12 +1238,13 @@ const firstSeasonNote =
         <h4 class="question">How consistent are the tier results?</h4>
         <p class="para">
           Small margins matter near any cutoff: a single goal, a handful of shots, or being listed
-          as a midfielder rather than a forward can move a player near the 5% or 20% boundary.
+          as a midfielder rather than a forward can move a player near the 5% or 20% boundary, and a
+          single goal conceded can move a team across the badge's.
         </p>
         <p class="para">
           To test how much a tier reflects real season-long performance rather than luck, Touchline
           splits a season's matches randomly into two halves and runs the full tier formula
-          independently on each half. Because 20% of eligible players receive a tier, pure chance
+          independently on each half. Because 20% of eligible players (or teams) receive one, pure chance
           would produce about <strong>2 in 10</strong> repeat holders across halves. Instead:
         </p>
         <ul class="list">
@@ -1279,21 +1259,16 @@ const firstSeasonNote =
             tier on the other half.
           </li>
           <li>
-            <strong>Team defence (within one season):</strong> about <strong>4 in 10</strong> hold
-            the tier on the other half — goals allowed are noisier than shots taken, which is why
-            the tier requires two or three consecutive seasons.
-          </li>
-          <li>
-            <strong>Team defence (season to season):</strong> among holders who return as regulars
-            the next season, about <strong>7 in 10</strong> hold it again. (Year-to-year
-            consistency is distinct from a split-half test, and consecutive multi-season defensive
-            windows overlap on shared seasons.)
+            <strong>Team defence badge:</strong> about <strong>5 in 10</strong> holding teams hold
+            it on the other half, again against 2 in 10 by chance. It is the team's whole
+            defending that repeats: most of it is how few shots the team lets opponents take.
           </li>
         </ul>
         <p class="para">
           A full season uses twice as many matches as either half, so published tiers are steadier
           than half-season checks. These tests measure consistency within past box scores — they do
-          not predict future performance.
+          not predict future performance. The badge has not been tested season forward; a team's
+          record correlates about 0.5 to 0.7 with its record the season before.
         </p>
       </section>
 
@@ -1303,6 +1278,15 @@ const firstSeasonNote =
           Tiers are calculated once a season, in {setIn}, before postseason honours are announced,
           and are not moved afterward. The minutes printed beside a tier are the minutes counted
           through that day.{retroactive && ` ${retroactive}`}{firstSeasonNote && ` ${firstSeasonNote}`}
+        </p>
+        <p class="para" id="retired">
+          Until {retired}, regular defenders and goalkeepers held a <strong>team defence
+          tier</strong>: their team's record, compared only with teams facing a similar number of
+          shots and averaged over two or three seasons, handed to each of them. A review that day
+          found nothing in it that belonged to one player, and the comparison inside workload
+          thirds did not repeat. It left player sheets that day on every level, and the team
+          defence badge, on the team page, took its place. The shooting and scoring tiers did not
+          change.
         </p>
         <p class="para">
           Tiers currently cover {division} men's and women's soccer at the programmes Touchline

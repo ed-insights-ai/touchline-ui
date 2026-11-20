@@ -18,7 +18,13 @@
  */
 
 import { ncaaDivision, site } from "../site.config.ts";
-import { type LevelTiers, levelShows, tiersEnabled } from "../tiers.config.ts";
+import {
+  type LevelTiers,
+  levelShows,
+  levelTiers,
+  showsFullShooting,
+  tiersEnabled,
+} from "../tiers.config.ts";
 import { isScored, type Season } from "./derive.ts";
 import { dayOfMonth, monLong, plural } from "./format.ts";
 import { classFull, playerIdOf } from "./player.ts";
@@ -61,13 +67,16 @@ export function activeTiers(
  */
 export function coverageLine(name: string, shown: LevelTiers | null): string {
   if (shown === null) return `${name} pages show none.`;
-  if (shown.teamDefence && shown.shooting.length === 2) return `${name} pages show every tier.`;
-  const groups = shown.shooting.map((g) => (g === "M" ? "midfielders" : "forwards")).join(" and ");
+  const groups = showsFullShooting(shown)
+    ? "forwards and midfielders"
+    : shown.shooting.map((g) => (g === "M" ? "midfielders" : "forwards")).join(" and ");
   const parts = [
     ...(groups ? [`the shooting and scoring tier for ${groups}`] : []),
-    ...(shown.teamDefence ? ["the team defence tier"] : []),
+    ...(shown.badge ? ["the team defence badge"] : []),
   ];
-  return `${name} pages show ${parts.join(" and ")} only.`;
+  return parts.length === 0
+    ? `${name} pages show none.`
+    : `${name} pages show ${parts.join(" and ")}.`;
 }
 
 // ── The status ──────────────────────────────────────────────────────────────
@@ -437,6 +446,82 @@ export function sheetTier(
   // An entry the level does not show (tiers.config.ts) draws nothing: a
   // Division I forward's sheet is the sheet as it was before tiers.
   return e && levelShows(tiers.level, e) ? tierBlock(e, tiers, slug, programme, line) : null;
+}
+
+// ── Team defence ────────────────────────────────────────────────────────────
+
+/**
+ * A regular defender's or goalkeeper's TEAM DEFENCE block: the team's figures
+ * as facts, and the badge when the team holds it. Nothing in it is the
+ * player's own: the team defence tier left player sheets on 20 November 2026
+ * (tiers.config.ts TEAM_DEFENCE_TIER_RETIRED), and the file's team defence
+ * entry is read here only to know a regular this season.
+ */
+export interface SheetDefence {
+  /** "Harding holds the team defence badge for 2026." Null without it. */
+  badge: string | null;
+  figures: TierFigures;
+  source: string;
+}
+
+/** The badge as a team page and a sheet say it. */
+export const badgeLine = (programme: string, season: number): string =>
+  `${programme} holds the team defence badge for ${season}: its goals conceded, against what its opponents usually score, were in the top fifth of the division.`;
+
+export function sheetDefence(
+  tiers: TiersFile,
+  slug: string,
+  programme: string,
+  player: TierPlayer,
+): SheetDefence | null {
+  const shown = levelTiers(tiers.level);
+  if (!shown?.badge) return null;
+  const e = tierFor(tiers, slug, {
+    playerId: playerIdOf(player),
+    name: player.name,
+    number: player.number ?? null,
+  });
+  if (!e || !showsFigures(e)) return null;
+  const f = teamFigures(tiers, slug);
+  const figures = f ? tierFigures(f, programme, tiers.season) : null;
+  if (!figures) return null;
+  return {
+    badge: f?.team.badge ? badgeLine(programme, tiers.season) : null,
+    figures,
+    source: sourceLine(tiers.frozen_at),
+  };
+}
+
+/** The team page's badge: this season's line, and the earlier seasons the
+ *  programme held it, oldest first. Null when it holds none in any file. */
+export interface TeamBadge {
+  line: string | null;
+  earlier: number[];
+}
+
+export function teamBadge(
+  tiers: TiersFile,
+  slug: string,
+  programme: string,
+  load: (season: number) => TiersFile | null = (y) => loadTiers(tiers.level, y, tiers.gender),
+): TeamBadge | null {
+  if (!levelTiers(tiers.level)?.badge) return null;
+  const earlier: number[] = [];
+  for (let y = tiers.season - EARLIER_SEASONS; y < tiers.season; y++) {
+    if (load(y)?.teams[slug]?.badge) earlier.push(y);
+  }
+  const now = tiers.teams[slug]?.badge === true;
+  if (!now && earlier.length === 0) return null;
+  return { line: now ? badgeLine(programme, tiers.season) : null, earlier };
+}
+
+/** "2023 and 2025", "2022, 2024 and 2025": the earlier seasons in words.
+ *  Null for none. */
+export function badgeYears(earlier: readonly number[]): string | null {
+  if (earlier.length === 0) return null;
+  return earlier.length === 1
+    ? `${earlier[0]}`
+    : `${earlier.slice(0, -1).join(", ")} and ${earlier[earlier.length - 1]}`;
 }
 
 // ── CAREER ──────────────────────────────────────────────────────────────────

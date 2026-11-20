@@ -67,6 +67,16 @@
     vertical-align: -1px; background: currentColor; clip-path: var(--tier-star);
   }
   .tier-status.is-holder { color: var(--accent); }
+  /* The team defence badge under the team's name: the team's, so it is drawn
+     once here and on no player row. A holder's line wears the star and the
+     accent; a programme that held it only in earlier seasons says so quietly. */
+  .crest-badge { font-size: 12px; font-weight: 600; letter-spacing: 0.02em; color: var(--secondary); }
+  .crest-badge.is-holder { color: var(--accent); }
+  .crest-badge.is-holder::before {
+    content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px;
+    vertical-align: -1px; background: currentColor; clip-path: var(--tier-star);
+  }
+  .crest-badge-earlier { font-weight: 400; color: var(--quiet); }
   /* Earlier seasons' tiers, under the career note, in words. */
   .career-tiers { font-size: 12px; color: var(--quiet); }
   /* The squad mark: a small five-point star in the accent, drawn and never

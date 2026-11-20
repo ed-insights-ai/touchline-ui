@@ -5,6 +5,8 @@ import { describe, expect, test } from "bun:test";
 import { type TierEntry, type TiersFile, tiersFileSchema } from "../../src/lib/tiers.ts";
 import {
   assertNothingForbidden,
+  BADGE_PERCENT,
+  badgeHolders,
   buildArtifact,
   entryOrder,
   pctIn1,
@@ -141,9 +143,24 @@ describe("the artifact", () => {
       pct_in: 13.2,
       goals_conceded: 54,
       opponents_usual: 27.4,
+      badge: true,
     });
     // The division counts only teams with a workload group.
     expect(a.division).toEqual({ teams: 1, shots_faced_per_match: 22.8, pct_in: 13.2 });
+  });
+
+  test("the badge is the top fifth by record across the division, ties in, workload ignored", () => {
+    expect(BADGE_PERCENT).toBe(20);
+    const loads = ["light", "typical", "heavy"] as const;
+    // Ten teams with a workload group: ceil(0.2 × 10) = 2, and t7 ties the 2nd.
+    const teams = Array.from({ length: 10 }, (_, i) =>
+      team({ slug: `t${i}`, record: i === 7 ? 0.8 : i / 10, workload: loads[i % 3] }),
+    );
+    teams[9] = team({ slug: "t9", record: 0.9, workload: "light" });
+    teams[8] = team({ slug: "t8", record: 0.8, workload: "light" });
+    // No workload group (under twelve matches): never counted, never badged.
+    const short = team({ slug: "short", matches: 9, workload: null, record: null, score: null });
+    expect([...badgeHolders([...teams, short])].sort()).toEqual(["t7", "t8", "t9"]);
   });
 
   test("a ratio is rounded half up on its exact value, in integer arithmetic", () => {
@@ -180,6 +197,7 @@ describe("the artifact", () => {
       pct_in: null,
       goals_conceded: 0,
       opponents_usual: null,
+      badge: false,
     });
   });
 

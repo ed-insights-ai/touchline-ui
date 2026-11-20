@@ -15,6 +15,7 @@ import {
   type TierTeam,
   tiersFileSchema,
 } from "../../src/lib/tiers.ts";
+import { topWithTies } from "./cut.ts";
 import type { TeamSeason } from "./workload.ts";
 
 // [v2] Rounding is half up on the exact value. A ratio of integers is rounded
@@ -61,6 +62,7 @@ export const SECTION_10 = {
     "pct_in",
     "goals_conceded",
     "opponents_usual",
+    "badge",
   ],
   entry: [
     "name",
@@ -158,7 +160,23 @@ export function assertNothingForbidden(artifact: TiersFile): void {
   }
 }
 
-export function teamFigure(t: TeamSeason): TierTeam {
+/** [0.8] The team defence badge: the top fifth (rounded up, ties included)
+ *  of the season's programmes with a workload group, by record across the
+ *  whole division. No workload groups here: the review of 20 November 2026
+ *  measured the record inside them at R 0.51 / 0.54 / 0.40 (D2 men, D2 women,
+ *  D1 men) and across the division at 0.76 / 0.82 / 0.66, against T1's 0.61. */
+export const BADGE_PERCENT = 20;
+
+export function badgeHolders(teams: readonly TeamSeason[]): Set<string> {
+  return topWithTies(
+    teams
+      .filter((t) => t.workload !== null && t.record !== null)
+      .map((t) => ({ id: t.slug, value: t.record as number })),
+    BADGE_PERCENT,
+  );
+}
+
+export function teamFigure(t: TeamSeason, badge = false): TierTeam {
   return {
     matches: t.matches,
     workload: t.workload,
@@ -166,6 +184,7 @@ export function teamFigure(t: TeamSeason): TierTeam {
     pct_in: t.shotsFaced > 0 ? pctIn1(t.goalsAgainst, t.shotsFaced) : null,
     goals_conceded: t.goalsAgainst,
     opponents_usual: t.matches > 0 ? round1(t.expected) : null,
+    badge,
   };
 }
 
@@ -235,8 +254,9 @@ export function buildArtifact(input: ArtifactInput): TiersFile {
   }
   const teams: Record<string, TierTeam> = {};
   const players: Record<string, TierEntry[]> = {};
+  const badged = badgeHolders(input.teams);
   for (const t of withRecords) {
-    teams[t.slug] = teamFigure(t);
+    teams[t.slug] = teamFigure(t, badged.has(t.slug));
     players[t.slug] = [...(input.players.get(t.slug) ?? [])].sort(entryOrder);
   }
   const artifact: TiersFile = {

@@ -7,7 +7,7 @@
 // mechanism later without touching a figure on the card.
 import { aboutTiersHref } from "../lib/derive.ts";
 import type { PlayerCard } from "../lib/player.ts";
-import type { CareerTier, SheetTier } from "../lib/player-tier.ts";
+import type { CareerTier, SheetDefence, SheetTier } from "../lib/player-tier.ts";
 import type { StageChip as Chip } from "../lib/stage.ts";
 import StageChip from "./StageChip.astro";
 
@@ -32,8 +32,19 @@ interface Props {
   tier?: SheetTier | null;
   /** Earlier seasons' tiers at this programme, oldest first. */
   careerTiers?: readonly CareerTier[];
+  /** A regular defender's or goalkeeper's TEAM DEFENCE block: the team's
+   *  figures and, when it holds it, the team defence badge. Nothing in it is
+   *  the player's own. */
+  defence?: SheetDefence | null;
 }
-const { card, logExtras = [], minutesPublished = {}, tier = null, careerTiers = [] } = Astro.props;
+const {
+  card,
+  logExtras = [],
+  minutesPublished = {},
+  tier = null,
+  careerTiers = [],
+  defence = null,
+} = Astro.props;
 const RESULT: Record<string, string> = { W: "win", D: "draw", L: "loss" };
 
 const thousands = (n: number): string => n.toLocaleString("en-US");
@@ -186,6 +197,34 @@ const minutesSource = (() => {
           </>
         )}
         <p class="tier-source provenance">{tier.source} <a class="tier-link" href={aboutTiersHref()}>How tiers work</a></p>
+      </div>
+    )}{defence && (
+      <div class="sheet-block tier-block">
+        <h3 class="block-label">TEAM DEFENCE</h3>
+        {defence.badge && <p class="tier-status is-holder">Team defence badge</p>}
+        {defence.badge && <p class="tier-meaning">{defence.badge}</p>}
+        <table class="tier-team num">
+          <caption>{defence.figures.caption.head}{defence.figures.caption.workload && <><span aria-hidden="true"> · </span><span class="vh">, </span>{defence.figures.caption.workload}</>}</caption>
+          <thead>
+            <tr>
+              <th scope="col"><span class="vh">Figure</span></th>
+              <th scope="col">TEAM</th>
+              <th scope="col">DIVISION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {defence.figures.rows.map((r) => (
+              <tr>
+                <th scope="row">{r.label}</th>
+                <td>{r.absent ? <><span aria-hidden="true">{r.team}</span><span class="vh">{r.absent}</span></> : r.team}</td>
+                <td class="tier-div">{r.division}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {defence.figures.goals && <p class="tier-goals">{defence.figures.goals}</p>}
+        <p class="tier-note">{defence.figures.note}</p>
+        <p class="tier-source provenance">{defence.source} <a class="tier-link" href={aboutTiersHref()}>How tiers work</a></p>
       </div>
     )}
 
