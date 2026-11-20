@@ -6,7 +6,16 @@
 
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { resolve } from "node:path";
-import { levelShows, levelTiers, tiersConfig, tiersEnabled } from "../tiers.config.ts";
+import {
+  FORWARDS_ONE_TIER,
+  levelShows,
+  levelTiers,
+  SHOOTING_LEVELS,
+  showsFullShooting,
+  TEAM_DEFENCE_TIER_RETIRED,
+  tiersConfig,
+  tiersEnabled,
+} from "../tiers.config.ts";
 import {
   activeTiers,
   badgeLine,
@@ -42,7 +51,7 @@ function entry(over: Partial<TierEntry> = {}): TierEntry {
     key: "tomasferreira",
     player_id: "101",
     number: "9",
-    group: "F",
+    group: "M",
     kind: "shooting_scoring",
     status: "tier",
     tier: 1,
@@ -161,17 +170,27 @@ describe("what each level shows", () => {
     expect(levelTiers("d2")).toMatchObject({ shooting: ["F", "M"], badge: true });
   });
 
-  test("Division I shows midfielders' shooting and scoring only: the one group that passed T1 there", () => {
-    expect(levelTiers("d1")).toMatchObject({ shooting: ["M"], badge: true });
-    expect(levelShows("d1", mid)).toBe(true);
-    expect(levelShows("d1", entry({ group: "M", status: "needs_minutes", tier: null }))).toBe(true);
-    for (const e of [fwd, def, keeper, unplaced]) expect(levelShows("d1", e)).toBe(false);
+  test("Division I shows what Division II shows: forwards and midfielders, no defence tier", () => {
+    expect(levelTiers("d1")).toMatchObject({ shooting: ["F", "M"], badge: true });
+    for (const e of [mid, fwd, unplaced]) expect(levelShows("d1", e)).toBe(true);
+    for (const e of [def, keeper]) expect(levelShows("d1", e)).toBe(false);
     expect(levelShows("d3", mid)).toBe(false);
+  });
+
+  test("a group's levels are the same on every level of play", () => {
+    expect(SHOOTING_LEVELS).toEqual({ F: 1, M: 2 });
+    // The method page says the forwards' change came the same day as the
+    // defence tier's retirement.
+    expect(FORWARDS_ONE_TIER).toBe(TEAM_DEFENCE_TIER_RETIRED);
+    for (const level of ["d1", "d2"]) {
+      const shown = levelTiers(level);
+      expect(shown && showsFullShooting(shown)).toBe(true);
+    }
   });
 
   test("the coverage sentence says what another level shows, from config", () => {
     expect(coverageLine("Division I", levelTiers("d1"))).toBe(
-      "Division I pages show the shooting and scoring tier for midfielders and the team defence badge.",
+      "Division I pages show the shooting and scoring tier for forwards and midfielders and the team defence badge.",
     );
     expect(coverageLine("Division II", levelTiers("d2"))).toBe(
       "Division II pages show the shooting and scoring tier for forwards and midfielders and the team defence badge.",
@@ -192,13 +211,18 @@ describe("what each level shows", () => {
 
   test("an entry the level does not show draws no block and no CAREER line", () => {
     const d1 = (e: TierEntry) => file({ level: "d1", players: { calder: [e] } });
-    expect(sheetTier(d1(fwd), "calder", "Calder State", { name: "Tomas Ferreira" })).toBeNull();
+    const heldDefence = entry({ group: "D", kind: "team_defence", status: "tier", tier: null });
+    expect(
+      sheetTier(d1(heldDefence), "calder", "Calder State", { name: "Tomas Ferreira" }),
+    ).toBeNull();
     expect(sheetTier(d1(mid), "calder", "Calder State", { name: "Tomas Ferreira" })?.holder).toBe(
       "Tier 1, shooting and scoring",
     );
     const earlier = (e: TierEntry) => (y: number) =>
       y === 2025 ? file({ level: "d1", season: 2025, players: { calder: [e] } }) : null;
-    expect(earlierTiers(d1(mid), "calder", { name: "Tomas Ferreira" }, earlier(fwd))).toEqual([]);
+    expect(
+      earlierTiers(d1(mid), "calder", { name: "Tomas Ferreira" }, earlier(heldDefence)),
+    ).toEqual([]);
     expect(
       earlierTiers(d1(mid), "calder", { name: "Tomas Ferreira" }, earlier(mid)).map(
         (c) => c.season,
@@ -210,6 +234,22 @@ describe("what each level shows", () => {
 // ── The status ──────────────────────────────────────────────────────────────
 
 describe("the status, as the sheet, the top line and the squad row say it", () => {
+  test("a forward holds one tier, read from the file's Tier 1 or Tier 2 alike", () => {
+    for (const tier of [1, 2] as const) {
+      const e = entry({ group: "F", tier });
+      expect(statusLabel(e)).toEqual({ head: "Tier", kind: "Shooting and scoring" });
+      expect(labelText(statusLabel(e))).toBe("Tier · Shooting and scoring");
+      expect(holderLine(e)).toBe("Shooting and scoring tier");
+      expect(meaningLine(e, "Calder State")).toBe(
+        "The top 20% of eligible forwards for shooting and scoring. Forwards hold one tier, not two.",
+      );
+    }
+    // A forward with no tier reads as before.
+    expect(labelText(statusLabel(entry({ group: "F", status: "eligible", tier: null })))).toBe(
+      "Eligible, no tier",
+    );
+  });
+
   test("a tier of shooting and scoring", () => {
     expect(statusLabel(entry())).toEqual({ head: "Tier 1", kind: "Shooting and scoring" });
     expect(labelText(statusLabel(entry({ tier: 2 })))).toBe("Tier 2 · Shooting and scoring");
@@ -244,7 +284,7 @@ describe("the status, as the sheet, the top line and the squad row say it", () =
 describe("the meaning line, for every status and kind", () => {
   const P = "Calder State";
   const cases: [string, Partial<TierEntry>, string][] = [
-    ["Tier 1", {}, "The top 5% of eligible forwards for shooting and scoring."],
+    ["Tier 1", {}, "The top 5% of eligible midfielders for shooting and scoring."],
     [
       "Tier 2, midfielder",
       { tier: 2, group: "M" },

@@ -26,13 +26,14 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import Page from "../../layouts/Page.astro";
 import { loadSeason, type Season } from "../../lib/derive.ts";
 import { dayOfMonth, monLong } from "../../lib/format.ts";
+import TierTiles from "../../components/TierTiles.astro";
 import TiersScope from "../../components/TiersScope.astro";
 import { activeTiers, coverageLine } from "../../lib/player-tier.ts";
 import { loadTiers, type TiersFile } from "../../lib/tiers.ts";
 import { currentDivision, ncaaDivisions, site } from "../../site.config.ts";
 import {
   levelTiers,
-  showsFullShooting,
+  methodIsShort,
   TEAM_DEFENCE_TIER_RETIRED,
   TIERS_LEVELS,
 } from "../../tiers.config.ts";
@@ -56,7 +57,7 @@ const division = currentDivision.name;
 // What this level shows. Every tier: the full method below. Part of them: the
 // short page (TiersScope) in its place.
 const shown = levelTiers(tiers.level);
-const partial = shown !== null && !showsFullShooting(shown);
+const partial = shown !== null && methodIsShort(shown);
 // What each other level shows, for the coverage paragraph: from config, never
 // a division named by hand.
 const elsewhere = ncaaDivisions
@@ -118,7 +119,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
       margin: 24px 0 12px;
     }
-    .tm .tier-tiles-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tm .tier-tiles-two, .tm .tier-tiles-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .tm .tier-tile {
       padding: 16px 16px 15px; background: var(--card);
       border: 1px solid var(--hairline); border-radius: 6px;
@@ -454,33 +455,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           ability.</strong>
         </p>
 
-        <div class="tier-tiles" aria-label="Touchline's two tiers and the team defence badge">
-          <div class="tier-tile tier-tile-primary">
-            <div class="tile-kicker">Tier 1</div>
-            <div class="tile-stat">Top 5%</div>
-            <div class="tile-kind">Shooting &amp; scoring</div>
-            <div class="tile-scope">
-              Individual non-penalty goals &amp; shots per 90 for eligible forwards or midfielders.
-            </div>
-          </div>
-          <div class="tier-tile">
-            <div class="tile-kicker">Tier 2</div>
-            <div class="tile-stat">Next 15%</div>
-            <div class="tile-kind">Shooting &amp; scoring</div>
-            <div class="tile-scope">
-              Positions 6% to 20% of eligible forwards or midfielders in their position group.
-            </div>
-          </div>
-          <div class="tier-tile">
-            <div class="tile-kicker">Team defence badge</div>
-            <div class="tile-stat">Top 20%</div>
-            <div class="tile-kind">Team performance</div>
-            <div class="tile-scope">
-              <strong>Awarded to the team, not a player.</strong> The division's best records of
-              goals conceded against what opponents usually score, this season.
-            </div>
-          </div>
-        </div>
+        {shown && <TierTiles shown={shown} />}
         <p class="tile-footnote">
           Percentages are within eligible comparison groups. Men and women are evaluated
           separately; forwards and midfielders are evaluated separately. About{" "}
@@ -527,8 +502,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           <p>
             A player without a tier may still be one of the most valuable players on the field.
             Behind the scenes, Touchline calculates numerical estimates to draw the cutoff lines,
-            but never publishes scores or rankings — inside Tier 1 or Tier 2 there is no #1 and no
-            #50.
+            but never publishes scores or rankings — inside a tier there is no #1 and no #50.
           </p>
         </div>
 
@@ -541,6 +515,13 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
             defence badge sits on the team page. A regular defender's or goalkeeper's sheet shows
             the team's figures and, where the team holds it, the badge, but no defence tier of
             the player's own: nothing in the box scores measures one defender's part reliably.
+          </li>
+          <li>
+            <strong>Forwards hold one tier; midfielders hold two.</strong> A forward in the top 20%
+            holds the shooting and scoring tier. Midfielders are split into Tier 1 (top 5%) and
+            Tier 2 (the next 15%). The forward score repeats well enough to mark the top fifth, but
+            not to separate the top 5% from the rest of it on every level, so forwards get one
+            mark everywhere.
           </li>
           <li>
             <strong>Box scores leave out most of soccer.</strong> Tiers cannot see positioning,
@@ -560,7 +541,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         <dl class="status-grid">
           <div class="status-row">
             <dt>Tier awarded</dt>
-            <dd>Cleared eligibility and finished inside the tier cutoff (Tier 1 or Tier 2).</dd>
+            <dd>Cleared eligibility and finished inside the tier cutoff: the top 20% for a forward, Tier 1 or Tier 2 for a midfielder.</dd>
           </div>
           <div class="status-row">
             <dt>Eligible, no tier</dt>
@@ -862,7 +843,10 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
                   </tr>
                   <tr>
                     <th scope="row">Tiers</th>
-                    <td>Tier 1: top 5% (rounded up + ties). Tier 2: next 15% (to top 20% + ties).</td>
+                    <td>
+                      Midfielders: Tier 1, top 5% (rounded up + ties); Tier 2, next 15% (to top 20% +
+                      ties). Forwards: one tier, top 20% (rounded up + ties).
+                    </td>
                     <td>None. The team defence badge is the team's, shown on the team page.</td>
                   </tr>
                   <tr>
@@ -1052,8 +1036,9 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
                   </p>
                   <div class="formula">
                     <div class="formula-eq">
-                      Tier 1: top ceil(0.05 × N), plus exact ties at the cutoff<br />
-                      Tier 2: remaining players inside top ceil(0.20 × N), plus exact ties at the cutoff
+                      Midfielders, Tier 1: top ceil(0.05 × N), plus exact ties at the cutoff<br />
+                      Midfielders, Tier 2: remaining players inside top ceil(0.20 × N), plus exact ties<br />
+                      Forwards, the tier: top ceil(0.20 × N), plus exact ties at the cutoff
                     </div>
                     <div class="formula-note">
                       Once assigned, the numerical estimates and ordering are discarded and never
@@ -1161,7 +1146,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
               </li>
               <li>
                 <span class="example-label">4. Applying the cut</span>
-                <span>Among 320 eligible men's forwards, the top 16 (5%) receive <strong>Tier 1</strong> and the next 48 (to 20%) receive <strong>Tier 2</strong>.</span>
+                <span>Among 320 eligible men's forwards, the top 64 (20%) hold the <strong>shooting and scoring tier</strong>. Among 320 midfielders, the top 16 (5%) would receive <strong>Tier 1</strong> and the next 48 (to 20%) <strong>Tier 2</strong>.</span>
               </li>
             </ul>
 
@@ -1249,14 +1234,19 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         </p>
         <ul class="list">
           <li>
-            <strong>Tier 1 (shooting and scoring):</strong> about <strong>8 or 9 in 10</strong>{" "}
-            hold <em>a</em> tier (Tier 1 or Tier 2) on the other half — about{" "}
-            <strong>7 in 10</strong> among men's forwards. (Retaining some tier across halves is
-            not the same as retaining Tier 1 specifically.)
+            <strong>Midfielders, Tier 1:</strong> about <strong>8 or 9 in 10</strong> hold{" "}
+            <em>a</em> tier (Tier 1 or Tier 2) on the other half. (Retaining some tier across
+            halves is not the same as retaining Tier 1 specifically.)
           </li>
           <li>
-            <strong>Tier 2 (shooting and scoring):</strong> about <strong>5 in 10</strong> hold a
-            tier on the other half.
+            <strong>Midfielders, Tier 2:</strong> about <strong>5 or 6 in 10</strong> hold a tier
+            on the other half.
+          </li>
+          <li>
+            <strong>Forwards' tier:</strong> about <strong>5 in 10</strong> men's forwards and{" "}
+            <strong>6 in 10</strong> women's forwards in the top 20% on one half are in it on the
+            other. Forwards' scoring swings more from match to match than midfielders', which is
+            why they hold one tier rather than two.
           </li>
           <li>
             <strong>Team defence badge:</strong> about <strong>5 in 10</strong> holding teams hold
@@ -1285,8 +1275,10 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           shots and averaged over two or three seasons, handed to each of them. A review that day
           found nothing in it that belonged to one player, and the comparison inside workload
           thirds did not repeat. It left player sheets that day on every level, and the team
-          defence badge, on the team page, took its place. The shooting and scoring tiers did not
-          change.
+          defence badge, on the team page, took its place. On the same day forwards' Tier 1 and
+          Tier 2 became one tier, the top 20%, so that a forward is marked the same way on every
+          level: a forward who held either holds it. Midfielders' tiers did not change, and no
+          player's place in or out of the top 20% moved.
         </p>
         <p class="para">
           Tiers currently cover {division} men's and women's soccer at the programmes Touchline

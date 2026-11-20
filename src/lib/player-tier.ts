@@ -22,6 +22,7 @@ import {
   type LevelTiers,
   levelShows,
   levelTiers,
+  SHOOTING_LEVELS,
   showsFullShooting,
   tiersEnabled,
 } from "../tiers.config.ts";
@@ -91,12 +92,18 @@ export interface StatusLabel {
   kind: string | null;
 }
 
+/** Whether the entry's tier is a group's only one (SHOOTING_LEVELS): a
+ *  forward's, read from the file's Tier 1 or Tier 2 as the top 20%. */
+const oneLevel = (e: TierEntry): boolean =>
+  e.kind === "shooting_scoring" && (e.group === "F" || e.group === "M")
+    ? SHOOTING_LEVELS[e.group] === 1
+    : false;
+
 export function statusLabel(e: TierEntry): StatusLabel {
   switch (e.status) {
     case "tier":
-      return e.kind === "team_defence"
-        ? { head: "Team defence tier", kind: null }
-        : { head: `Tier ${e.tier}`, kind: "Shooting and scoring" };
+      if (e.kind === "team_defence") return { head: "Team defence tier", kind: null };
+      return { head: oneLevel(e) ? "Tier" : `Tier ${e.tier}`, kind: "Shooting and scoring" };
     case "eligible":
       return { head: "Eligible, no tier", kind: null };
     case "needs_minutes":
@@ -118,7 +125,8 @@ export const labelText = (l: StatusLabel): string => (l.kind ? `${l.head} · ${l
  */
 export function holderLine(e: TierEntry): string | null {
   if (e.status !== "tier") return null;
-  return e.kind === "team_defence" ? "Team defence tier" : `Tier ${e.tier}, shooting and scoring`;
+  if (e.kind === "team_defence") return "Team defence tier";
+  return oneLevel(e) ? "Shooting and scoring tier" : `Tier ${e.tier}, shooting and scoring`;
 }
 
 // ── The meaning ─────────────────────────────────────────────────────────────
@@ -135,6 +143,9 @@ export function meaningLine(e: TierEntry, programme: string): string {
     case "tier":
       if (defence) {
         return `${P}'s defending over the seasons counted, shared by every regular defender and goalkeeper with the same seasons. It describes the team, not one player.`;
+      }
+      if (oneLevel(e)) {
+        return `The top 20% of eligible ${groupPlural(e)} for shooting and scoring. ${groupPlural(e)[0]?.toUpperCase()}${groupPlural(e).slice(1)} hold one tier, not two.`;
       }
       return e.tier === 1
         ? `The top 5% of eligible ${groupPlural(e)} for shooting and scoring.`
