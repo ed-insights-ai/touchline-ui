@@ -325,10 +325,11 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   defemder: "defender",
   defemse: "defense",
   forwrard: "forward",
-  // Division I 2022 archive. Winthrop 2022 (bigsouth/winthrop): "Goakleeper";
-  // Milwaukee 2022 (horizon/milwaukee): "Goalkepper".
+  // Division I 2022 archive. Winthrop 2022 (bigsouth/winthrop): "Goakleeper".
+  // ("Goalkepper" on horizon/milwaukee 2022 also appeared on D-II glvc/mckendree
+  // women 2026 at the 2026-11-16 tier freeze, so it stays unmapped until the
+  // next freeze.)
   goakleeper: "goalkeeper",
-  goalkepper: "goalkeeper",
 };
 
 /**

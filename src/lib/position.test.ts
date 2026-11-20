@@ -89,7 +89,6 @@ describe("the words a roster prints", () => {
     expect(positionLine("Milfielder")).toBe("MID");
     expect(positionLine("Goalkeper")).toBe("GK");
     expect(positionLine("Goakleeper")).toBe("GK");
-    expect(positionLine("Goalkepper")).toBe("GK");
     expect(positionLine("De")).toBe("DEF");
     // Westminster 2026: "Center/ Midfieler" is one position, read whole.
     expect(positionLine("Center/ Midfieler")).toBe("MID");
@@ -193,6 +192,10 @@ describe("against the rosters this site actually collects", () => {
       // Division I: caa/northeastern 2023, one row whose position column
       // carries the player's hometown.
       "marshfield, mass.",
+      // Division I: horizon/milwaukee 2022, one row ("Goalkepper"). Also
+      // printed on D-II glvc/mckendree women 2026 where it read null at the
+      // 2026-11-16 tier freeze, so kept unmapped until the next tier freeze.
+      "goalkepper",
     ];
     // Every collected season, not just the two the site renders: the
     // vocabulary is authored once for the whole archive, and Southwest
