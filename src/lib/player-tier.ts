@@ -118,14 +118,22 @@ export function meaningLine(e: TierEntry, programme: string): string {
       return defence
         ? `A regular at ${P} for enough seasons in a row to be compared.`
         : `Played enough this season to be compared with eligible ${groupPlural(e)} for shooting and scoring.`;
-    case "needs_minutes":
-      if (e.group === "GK") {
-        return `The team defence tier needs a regular: 600 minutes and 50% of ${P}'s minutes in a season.`;
-      }
-      if (defence) {
-        return `The team defence tier needs a regular: 900 minutes and 70% of ${P}'s minutes in a season.`;
+    case "needs_minutes": {
+      const keeper = e.group === "GK";
+      if (keeper || defence) {
+        const [floor, share] = keeper ? [600, 50] : [900, 70];
+        const rule = `The team defence tier needs a regular: ${thousands(floor)} minutes and ${share}% of ${P}'s minutes in a season.`;
+        // A regular must clear both bars. With the minutes over the floor, the
+        // share is the bar missed, and a reader who sees "1,080 minutes" under
+        // "900 minutes" needs telling so. The file carries no share to print
+        // (section 10), so the sentence names the bar, not a percentage.
+        const m = e.basis.minutes;
+        return e.basis.seasons.length === 1 && m >= floor
+          ? `${rule} The ${thousands(m)} below clear the ${thousands(floor)} but fall short of the ${share}%.`
+          : rule;
       }
       return `A tier needs 900 minutes this season, or 600 in each of the last two seasons as a forward or midfielder at ${P}.`;
+    }
     case "needs_second_season":
       return `A regular in defence or goal at ${P} this season, but not the season before. The team defence tier needs two such seasons in a row.`;
     case "incomplete":
