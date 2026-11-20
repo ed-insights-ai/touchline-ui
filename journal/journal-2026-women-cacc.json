@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "CACC",
-  "generated_at": "2026-11-16T13:10:00+00:00",
-  "data_collected_at": "2026-11-16T12:55:45+00:00",
+  "generated_at": "2026-11-17T13:05:00+00:00",
+  "data_collected_at": "2026-11-17T12:51:03+00:00",
   "headline": "Jefferson go through conference play without dropping a point",
   "dek": "Both of Jefferson's defeats this season came outside the conference: Penn beat them in September, and Franklin Pierce ended the winning run that followed in their latest match. Across all their matches they have scored 49 goals and conceded twelve.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 12
   },
   "lede_updated": "2026-11-16",
-  "displaced_by": "Jefferson lost to Franklin Pierce, so the dek's 'only defeat' and 'won every match since' no longer held and their goals against rose to 12; the headline is still true and stands",
   "pattern": {
     "label": "derived",
     "text": "Goals scored do not set the order beneath Jefferson: Goldey-Beacom have scored 33 in all matches and conceded 54, more than any other programme.",
@@ -134,6 +133,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T13:08:24.770Z"
+    "validated_at": "2026-11-17T13:02:16.599Z"
   }
 }

@@ -2,21 +2,20 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "men",
-  "generated_at": "2026-11-16T12:50:00+00:00",
-  "data_collected_at": "2026-11-16T12:33:13+00:00",
-  "headline": "Cal State LA move clear for most wins in the division",
-  "dek": "Cal State LA beat Western Oregon at home and remain without a defeat all season. Seattle Pacific, Charleston and Francis Marion are the nearest on wins, and Regis travel to face them next.",
+  "generated_at": "2026-11-20T12:50:00+00:00",
+  "data_collected_at": "2026-11-20T12:32:34+00:00",
+  "headline": "Southern New Hampshire outscore every other programme in the division",
+  "dek": "Midwestern State are next on goals and have not lost all season, and neither have Cal State LA, Lincoln or Emory & Henry. Every one of them, Southern New Hampshire included, still has a match to play.",
   "basis": {
     "comparative": "greater_than_each",
-    "metric": "wins",
-    "programme": "cal-state-la",
+    "metric": "gf",
+    "programme": "southern-new-hampshire",
     "of_any": 1
   },
-  "fixture_ref": "2026-11-15 cal-state-la v western-oregon",
-  "updated": "2026-11-16",
-  "displaced_by": "results night: Cal State LA's win over Western Oregon takes them past Seattle Pacific for the most wins in the division",
+  "updated": "2026-11-20",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T12:48:22.074Z"
+    "validated_at": "2026-11-20T12:41:41.640Z"
   }
 }

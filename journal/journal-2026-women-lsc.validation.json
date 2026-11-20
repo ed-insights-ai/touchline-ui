@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "LSC",
-  "validated_at": "2026-11-16T13:09:56.403Z",
-  "data_collected_at": "2026-11-16T13:00:16+00:00",
+  "validated_at": "2026-11-20T12:58:38.144Z",
+  "data_collected_at": "2026-11-20T12:52:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Helen Lazaro has scored fourteen goals for St. Mary's as a freshman.",
+      "text": "Ashley Washburn has eighteen assists for Dallas Baptist.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +85,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Lauren Wade has scored thirteen goals for Texas Woman's as a freshman.",
+      "text": "Helen Lazaro has scored fourteen goals for St. Mary's as a freshman.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -103,7 +103,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Ashley Washburn — 13 G · 16 A · 79 shots",
+      "text": "Ashley Washburn — 13 G · 18 A · 82 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,7 +130,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 texas-womans v colorado-school-of-mines",
+      "text": "2026-11-16 dallas-baptist v uccs",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -139,7 +139,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-16 dallas-baptist v uccs",
+      "text": "2026-11-20 dallas-baptist v texas-womans",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +147,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T13:09:24.484Z",
-    "generate_ms": 31918,
+    "started_at": "2026-11-20T12:58:15.985Z",
+    "generate_ms": 22157,
     "validate_ms": 1,
-    "wall_ms": 31919,
+    "wall_ms": 22159,
     "concurrency": 4
   }
 }

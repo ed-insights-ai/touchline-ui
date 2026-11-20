@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "RMAC",
-  "generated_at": "2026-11-16T12:45:00+00:00",
-  "data_collected_at": "2026-11-16T12:37:33+00:00",
+  "generated_at": "2026-11-20T12:45:00+00:00",
+  "data_collected_at": "2026-11-20T12:35:47+00:00",
   "headline": "CSU Pueblo lose a second home match running",
   "dek": "Cal State San Bernardino won at CSU Pueblo, the second side to do so after Fort Lewis, and those are the only defeats in a season of thirteen wins and three draws. UCCS also lost, at Midwestern State, and Regis are now the only side in the conference with a match still listed.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 2
   },
   "lede_updated": "2026-11-16",
-  "displaced_by": "CSU Pueblo lost at home to Cal State San Bernardino and UCCS lost at Midwestern State. The standing dek's one-defeat CSU Pueblo record, and its two sides with a match still listed, no longer hold.",
   "pattern": {
     "label": "derived",
     "text": "South Dakota Mines have scored more goals than Colorado School of Mines and Adams State together, but have also conceded 30; scoring is not what separates the top of the table.",
@@ -57,11 +56,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Nine matches have passed their date with no result published, the earliest from the season's opening day; none is a score gap.",
+      "text": "Eight matches have passed their date with no result published, the earliest from the season's opening day; none is a score gap.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 9
+        "past_date_no_result": 8
       }
     },
     {
@@ -141,6 +140,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T12:47:15.071Z"
+    "validated_at": "2026-11-20T12:40:49.532Z"
   }
 }

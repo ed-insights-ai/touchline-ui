@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NE10",
-  "generated_at": "2026-11-16T13:25:00+00:00",
-  "data_collected_at": "2026-11-16T13:01:11+00:00",
+  "generated_at": "2026-11-17T13:20:00+00:00",
+  "data_collected_at": "2026-11-17T12:56:11+00:00",
   "headline": "Saint Michael's win at Bentley",
   "dek": "Saint Michael's won at Bentley, where they had lost both earlier meetings by a single goal, and go to Franklin Pierce next. Bentley were held scoreless by a defence that has conceded twelve goals all season.",
   "lede_basis": {
@@ -13,7 +13,6 @@
     "ga": 12
   },
   "lede_updated": "2026-11-16",
-  "displaced_by": "Saint Michael's won at Bentley on 2026-11-15, so the loss at Franklin Pierce is no longer Bentley's only defeat and the standing dek is no longer true (Bentley now 15-3-2, 17 conceded)",
   "pattern": {
     "label": "derived",
     "text": "Scoring alone has not settled the table: Pace have scored 33 goals, but conceded 37, more than any other programme.",
@@ -188,6 +187,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T13:11:03.111Z"
+    "validated_at": "2026-11-17T13:03:22.174Z"
   }
 }

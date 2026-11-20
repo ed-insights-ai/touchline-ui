@@ -3,7 +3,7 @@
   "journal": "journal-2026-women-national.json",
   "season": 2026,
   "gender": "women",
-  "validated_at": "2026-11-16T13:12:56.892Z",
+  "validated_at": "2026-11-20T13:00:00.883Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Kutztown remain the only side to beat West Chester West Chester have lost three times this season, and all three defeats have come against Kutztown, the latest last night. Against everyone else they have fourteen wins and three draws.",
-      "checker": "team_record",
+      "text": "Montevallo outscore every other programme in the division Montevallo have scored 72 goals, and the nearest total in the division belongs to North Georgia of the Peach Belt. The Gulf South side have won seventeen matches, drawn two and lost two.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is north-georgia at 66"
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T13:12:06.038Z",
-    "generate_ms": 50852,
-    "validate_ms": 1,
-    "wall_ms": 50854
+    "started_at": "2026-11-20T12:59:20.117Z",
+    "generate_ms": 40749,
+    "validate_ms": 17,
+    "wall_ms": 40766
   }
 }

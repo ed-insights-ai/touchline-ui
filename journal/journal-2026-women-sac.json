@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SAC",
-  "generated_at": "2026-11-15T20:05:00+00:00",
-  "data_collected_at": "2026-11-15T19:47:46+00:00",
+  "generated_at": "2026-11-20T13:10:00+00:00",
+  "data_collected_at": "2026-11-20T12:54:18+00:00",
   "headline": "Catawba top the table and outscore the conference",
   "dek": "Catawba scored 50 goals across all their matches and won thirteen of them. The next best attack belongs to Lenoir-Rhyne, second behind them in the table, who conceded fewer goals than Catawba across the season.",
   "lede_basis": {
@@ -19,7 +19,6 @@
     "of_any": 10
   },
   "lede_updated": "2026-11-15",
-  "displaced_by": "dek no longer true: Catawba have now conceded 24, and their season ended in a home defeat to UNC Pembroke, not to Lenoir-Rhyne",
   "pattern": {
     "label": "derived",
     "text": "Catawba's 50 goals in all their matches are more than Anderson, Tusculum and Emory & Henry scored together, and the attack that leads the chart belongs to the side that leads the table.",
@@ -136,6 +135,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-15T19:56:35.930Z"
+    "validated_at": "2026-11-20T12:59:14.864Z"
   }
 }

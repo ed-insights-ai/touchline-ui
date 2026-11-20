@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PSAC",
-  "generated_at": "2026-11-16T12:50:00+00:00",
-  "data_collected_at": "2026-11-16T12:37:04+00:00",
+  "generated_at": "2026-11-20T12:45:00+00:00",
+  "data_collected_at": "2026-11-20T12:35:30+00:00",
   "headline": "Gannon keep winning and still have a match to play",
   "dek": "Gannon won at home again and now have fifteen wins, three draws and three defeats across all their matches. No other programme in the conference has won as often.",
   "lede_basis": {
@@ -29,7 +29,6 @@
     ]
   },
   "lede_updated": "2026-11-16",
-  "displaced_by": "Gannon's home win took their record to fifteen wins, so the standing dek's fourteen was no longer true.",
   "pattern": {
     "label": "derived",
     "text": "Gannon have scored more than California (Pa.), Shippensburg and Pitt-Johnstown together but conceded 25, so theirs is a lead in goals scored, not in goals kept out.",
@@ -186,6 +185,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T12:46:55.325Z"
+    "validated_at": "2026-11-20T12:40:32.202Z"
   }
 }

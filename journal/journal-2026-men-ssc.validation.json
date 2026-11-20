@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SSC",
-  "validated_at": "2026-11-16T12:47:35.883Z",
-  "data_collected_at": "2026-11-16T12:38:39+00:00",
+  "validated_at": "2026-11-20T12:40:57.747Z",
+  "data_collected_at": "2026-11-20T12:36:42+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -48,7 +48,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy, and Eckerd's home match against Trinity in September, have all passed their date with no result.",
+      "text": "Five matches have passed their date with no result: Palm Beach Atlantic's home matches against Florida Atlantic, Barry and Strive Academy in August, and Nova Southeastern's home match against Florida Memorial and Eckerd's against Trinity in September.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -128,10 +128,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T12:46:19.948Z",
-    "generate_ms": 75933,
-    "validate_ms": 2,
-    "wall_ms": 75936,
+    "started_at": "2026-11-20T12:40:24.799Z",
+    "generate_ms": 32947,
+    "validate_ms": 1,
+    "wall_ms": 32948,
     "concurrency": 4
   }
 }

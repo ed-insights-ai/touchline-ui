@@ -3,27 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-11-16T12:45:00+00:00",
-  "data_collected_at": "2026-11-16T12:35:31+00:00",
-  "headline": "Davis & Elkins alone still have a match to play",
-  "dek": "Davis & Elkins have conceded ten goals in eighteen matches, fewer than any other side in the conference, and won their latest by a goal, as did Charleston, who have seventeen wins in twenty. Concord, the third side out on the same day, were beaten away from home.",
+  "generated_at": "2026-11-20T12:45:00+00:00",
+  "data_collected_at": "2026-11-20T12:34:19+00:00",
+  "headline": "Charleston and Davis & Elkins play on",
+  "dek": "Both won their latest by a single goal, and theirs are the only two matches left on the conference calendar. Between them they have lost three times in thirty-eight; each of the other eight programmes has lost at least five.",
   "lede_basis": {
-    "programme": "davis-elkins",
-    "wins": 14,
-    "draws": 3,
-    "losses": 1,
-    "gf": 40,
-    "ga": 10,
-    "played": 18,
-    "upcoming_matches": 1,
-    "next_fewest_ga_charleston": 13,
+    "programmes": ["charleston", "davis-elkins"],
     "winning_margin_2026_11_15": 1,
+    "upcoming_matches": 2,
+    "combined_losses": 3,
+    "combined_played": 38,
     "charleston_wins": 17,
-    "charleston_played": 20,
-    "sides_in_action_2026_11_15": 3
+    "charleston_draws": 1,
+    "charleston_losses": 2,
+    "davis_elkins_wins": 14,
+    "davis_elkins_draws": 3,
+    "davis_elkins_losses": 1,
+    "other_programmes": 8,
+    "fewest_losses_among_others": 5
   },
-  "lede_updated": "2026-11-16",
-  "displaced_by": "Davis & Elkins have now conceded ten in eighteen, so the standing dek's nine in seventeen no longer holds; they are the only side with a match left.",
+  "lede_updated": "2026-11-17",
   "pattern": {
     "label": "derived",
     "text": "Charleston have scored more goals than West Liberty and Wheeling together, and seventeen different players have shared their fifty-five; the scoring is spread, not carried.",
@@ -53,14 +52,16 @@
     }
   },
   "wire": {
-    "line": "Davis & Elkins have lost only once all season, and no other conference side has beaten Charleston.",
+    "line": "Davis & Elkins have lost once and conceded ten goals all season, fewer than any other side in the conference.",
     "basis": {
       "programme": "davis-elkins",
       "wins": 14,
       "draws": 3,
-      "losses": 1
+      "losses": 1,
+      "gf": 40,
+      "ga": 10
     },
-    "updated": "2026-10-29"
+    "updated": "2026-11-17"
   },
   "findings": [
     {
@@ -89,13 +90,13 @@
     },
     {
       "label": "observed",
-      "text": "Hugo Fauli has ten assists and three goals for Davis & Elkins from thirty-nine shots.",
+      "text": "Hugo Fauli has eleven assists and three goals for Davis & Elkins from thirty-nine shots.",
       "basis": {
         "source": "stats",
         "player": "Hugo Fauli",
         "programme": "davis-elkins",
         "goals": 3,
-        "assists": 10,
+        "assists": 11,
         "shots": 39
       }
     },
@@ -142,7 +143,7 @@
       "programme": "davis-elkins",
       "position": "MID",
       "class": "SR",
-      "line": "7 G · 7 A · 45 shots"
+      "line": "7 G · 8 A · 45 shots"
     }
   ],
   "featured": {
@@ -151,12 +152,12 @@
       "line": "It is the most Concord have conceded in any match this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-20 southern-new-hampshire v davis-elkins",
-      "line": "Davis & Elkins' only defeat this season came at home to Concord."
+      "fixture_ref": "2026-11-20 charleston v gannon",
+      "line": "Both of Charleston's defeats this season have come at home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T12:46:17.392Z"
+    "validated_at": "2026-11-20T12:40:25.146Z"
   }
 }

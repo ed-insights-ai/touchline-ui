@@ -3,17 +3,17 @@
   "season": 2026,
   "gender": "women",
   "conference": "RMAC",
-  "generated_at": "2026-11-16T13:10:00+00:00",
-  "data_collected_at": "2026-11-16T13:02:53+00:00",
-  "headline": "UCCS turn the tables on Regis",
-  "dek": "Regis had beaten UCCS on their own field in October, and UCCS have now won the return there, after Colorado Mesa did the same. The side that went through the conference table unbeaten has four defeats on the season; Rollins and Dallas Baptist took the others before conference play opened.",
+  "generated_at": "2026-11-20T13:02:00+00:00",
+  "data_collected_at": "2026-11-20T12:54:01+00:00",
+  "headline": "Dallas Baptist beat UCCS again to close the calendar",
+  "dek": "Dallas Baptist, who had won away at both Regis and UCCS in September, beat UCCS again on their own ground in the last match on the calendar. UCCS end the season with five defeats, the first and the last of them to Dallas Baptist.",
   "lede_basis": {
-    "programme": "regis",
+    "programme": "uccs",
     "wins": 15,
-    "draws": 1,
-    "losses": 4
+    "draws": 2,
+    "losses": 5
   },
-  "lede_updated": "2026-11-15",
+  "lede_updated": "2026-11-17",
   "pattern": {
     "label": "derived",
     "text": "The chart does not set the order of the table: Colorado School of Mines have scored more than Regis and UCCS, and sit behind both of them.",
@@ -21,7 +21,7 @@
       "kind": "goals-for-by-team",
       "values": {
         "colorado-school-of-mines": 60,
-        "uccs": 58,
+        "uccs": 59,
         "regis": 43,
         "black-hills-state": 36,
         "colorado-mesa": 30,
@@ -45,16 +45,14 @@
     }
   },
   "wire": {
-    "line": "New Mexico Highlands have conceded 74 goals and are still looking for their first win of the season.",
+    "line": "Regis went through the conference table unbeaten, then lost at home to Colorado Mesa and UCCS in November.",
     "basis": {
-      "programme": "new-mexico-highlands",
-      "gf": 8,
-      "ga": 74,
-      "wins": 0,
+      "programme": "regis",
+      "wins": 15,
       "draws": 1,
-      "losses": 16
+      "losses": 4
     },
-    "updated": "2026-11-09"
+    "updated": "2026-11-17"
   },
   "findings": [
     {
@@ -135,16 +133,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 texas-womans v colorado-school-of-mines",
-      "line": "It was the first defeat for Colorado School of Mines since Colorado Mesa beat them in October."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-16 dallas-baptist v uccs",
-      "line": "Dallas Baptist have already won away at both UCCS and Regis this season."
+      "line": "UCCS had won away at Regis in their previous match."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T13:11:36.766Z"
+    "validated_at": "2026-11-20T12:58:42.284Z"
   }
 }

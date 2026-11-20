@@ -2,21 +2,24 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "women",
-  "generated_at": "2026-11-16T13:20:00+00:00",
+  "generated_at": "2026-11-20T13:20:00+00:00",
   "data_collected_at": "2026-11-16T12:53:51+00:00",
-  "headline": "Kutztown remain the only side to beat West Chester",
-  "dek": "West Chester have lost three times this season, and all three defeats have come against Kutztown, the latest last night. Against everyone else they have fourteen wins and three draws.",
+  "headline": "Montevallo outscore every other programme in the division",
+  "dek": "Montevallo have scored 72 goals, and the nearest total in the division belongs to North Georgia of the Peach Belt. The Gulf South side have won seventeen matches, drawn two and lost two.",
   "basis": {
-    "programme": "west-chester",
-    "wins": 14,
-    "draws": 3,
-    "losses": 3
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "montevallo",
+    "of_any": 1,
+    "gf": 72,
+    "wins": 17,
+    "draws": 2,
+    "losses": 2
   },
-  "fixture_ref": "2026-11-15 kutztown v west-chester",
-  "updated": "2026-11-16",
-  "displaced_by": "results night: Kutztown beat West Chester a third time and are still the only side to have beaten them",
+  "updated": "2026-11-20",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T13:12:56.892Z"
+    "validated_at": "2026-11-20T13:00:00.883Z"
   }
 }

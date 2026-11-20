@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-16T12:48:22.074Z",
+  "validated_at": "2026-11-20T12:41:41.640Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,18 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Cal State LA move clear for most wins in the division Cal State LA beat Western Oregon at home and remain without a defeat all season. Seattle Pacific, Charleston and Francis Marion are the nearest on wins, and Regis travel to face them next.",
+      "text": "Southern New Hampshire outscore every other programme in the division Midwestern State are next on goals and have not lost all season, and neither have Cal State LA, Lincoln or Emory & Henry. Every one of them, Southern New Hampshire included, still has a match to play.",
       "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is charleston at 17"
+      "note": "held against every other programme; the nearest is midwestern-state at 56"
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T12:47:40.775Z",
-    "generate_ms": 41294,
-    "validate_ms": 5,
-    "wall_ms": 41299
+    "started_at": "2026-11-20T12:41:00.076Z",
+    "generate_ms": 41550,
+    "validate_ms": 12,
+    "wall_ms": 41563
   }
 }
