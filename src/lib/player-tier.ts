@@ -18,7 +18,7 @@
  */
 
 import { ncaaDivision, site } from "../site.config.ts";
-import { tiersEnabled } from "../tiers.config.ts";
+import { type LevelTiers, levelShows, tiersEnabled } from "../tiers.config.ts";
 import { isScored, type Season } from "./derive.ts";
 import { dayOfMonth, monLong, plural } from "./format.ts";
 import { classFull, playerIdOf } from "./player.ts";
@@ -41,7 +41,7 @@ const EARLIER_SEASONS = 10;
 
 /**
  * The tiers file this build renders, or null: null when the gate is closed,
- * when the build is not Division II, and when no file was built for the
+ * when the level has no tiers, and when no file was built for the
  * season and gender. A page that holds null draws no tier anywhere.
  */
 export function activeTiers(
@@ -52,6 +52,22 @@ export function activeTiers(
 ): TiersFile | null {
   if (!tiersEnabled(level, preview)) return null;
   return loadTiers(level, season, gender);
+}
+
+/**
+ * What another level's pages show, in one sentence for the method page's
+ * coverage paragraph: "Division I pages show the shooting and scoring tier for
+ * midfielders only." The level's name is the caller's, from config.
+ */
+export function coverageLine(name: string, shown: LevelTiers | null): string {
+  if (shown === null) return `${name} pages show none.`;
+  if (shown.teamDefence && shown.shooting.length === 2) return `${name} pages show every tier.`;
+  const groups = shown.shooting.map((g) => (g === "M" ? "midfielders" : "forwards")).join(" and ");
+  const parts = [
+    ...(groups ? [`the shooting and scoring tier for ${groups}`] : []),
+    ...(shown.teamDefence ? ["the team defence tier"] : []),
+  ];
+  return `${name} pages show ${parts.join(" and ")} only.`;
 }
 
 // ── The status ──────────────────────────────────────────────────────────────
@@ -418,7 +434,9 @@ export function sheetTier(
     name: player.name,
     number: player.number ?? null,
   });
-  return e ? tierBlock(e, tiers, slug, programme, line) : null;
+  // An entry the level does not show (tiers.config.ts) draws nothing: a
+  // Division I forward's sheet is the sheet as it was before tiers.
+  return e && levelShows(tiers.level, e) ? tierBlock(e, tiers, slug, programme, line) : null;
 }
 
 // ── CAREER ──────────────────────────────────────────────────────────────────
@@ -452,7 +470,9 @@ export function earlierTiers(
       name: player.name,
       number: player.number ?? null,
     });
-    if (e?.status === "tier") out.push({ season: y, label: statusLabel(e) });
+    if (e?.status === "tier" && levelShows(file.level, e)) {
+      out.push({ season: y, label: statusLabel(e) });
+    }
   }
   return out;
 }

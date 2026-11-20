@@ -1,22 +1,23 @@
 // ALGORITHM.md section 5: shooting and scoring, for forwards and midfielders.
 
 import type { Gender } from "../../src/lib/model.ts";
+import { CONSTANTS, type ShootingConstants } from "../../src/lib/tier-constants.ts";
 import type { PositionGroup } from "../../src/lib/tiers.ts";
+import { type NcaaDivisionKey, ncaaDivision } from "../../src/site.config.ts";
 import { topWithTies } from "./cut.ts";
 
-export const WEIGHTS: Readonly<Record<Gender, { wG: number; wS: number }>> = {
-  men: { wG: 0.234, wS: 0.0885 },
-  women: { wG: 0.238, wS: 0.0749 },
-};
+export { CONSTANTS };
 
-/** The estimate's blend: [this, average] for one season counted, [this,
- *  previous, average] for two. */
-export const BLEND: Readonly<
-  Record<Gender, { one: readonly [number, number]; two: readonly [number, number, number] }>
-> = {
-  men: { one: [0.79, 0.21], two: [0.59, 0.34, 0.07] },
-  women: { one: [0.82, 0.18], two: [0.64, 0.3, 0.06] },
-};
+/** The constants for a level and gender; a level or gender nothing was
+ *  fitted for has none, and computing with it is an error, not a default. */
+export function constantsFor(
+  gender: Gender,
+  level: NcaaDivisionKey = ncaaDivision,
+): ShootingConstants {
+  const c = CONSTANTS[level]?.[gender];
+  if (!c) throw new Error(`tiers: no shooting constants are fitted for ${level} ${gender}`);
+  return c;
+}
 
 export const COUNTS_MINUTES = 600;
 export const ELIGIBLE_MINUTES = 900;
@@ -27,9 +28,15 @@ export const isShootingGroup = (g: PositionGroup | null): boolean => g === "F" |
 
 /** threat = wG × adjG × 90 / minutes + wS × adjS × 90 / minutes; null at
  *  zero minutes, where it is undefined. */
-export function threat(gender: Gender, adjG: number, adjS: number, minutes: number): number | null {
+export function threat(
+  gender: Gender,
+  adjG: number,
+  adjS: number,
+  minutes: number,
+  level: NcaaDivisionKey = ncaaDivision,
+): number | null {
   if (minutes <= 0) return null;
-  const { wG, wS } = WEIGHTS[gender];
+  const { wG, wS } = constantsFor(gender, level).weights;
   return (wG * adjG * 90) / minutes + (wS * adjS * 90) / minutes;
 }
 
@@ -69,8 +76,9 @@ export function estimate(
   current: number,
   average: number,
   previous: number | null,
+  level: NcaaDivisionKey = ncaaDivision,
 ): number {
-  const b = BLEND[gender];
+  const b = constantsFor(gender, level).blend;
   if (previous === null) return b.one[0] * current + b.one[1] * average;
   return b.two[0] * current + b.two[1] * previous + b.two[2] * average;
 }

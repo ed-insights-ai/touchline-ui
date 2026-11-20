@@ -6,9 +6,12 @@
 //
 // A dynamic route on purpose, with one possible path: getStaticPaths returns
 // it only while the tiers are on (lib/player-tier.ts activeTiers, which holds
-// the publication gate in tiers.config.ts and the Division II rule). With the
-// gate closed, or on a Division I build, the build emits no page at all, not
-// an empty one.
+// the publication gate and the levels in tiers.config.ts). With the gate
+// closed, or on a level with no tiers, the build emits no page at all, not an
+// empty one. A level that shows only part of the tiers (Division I men:
+// midfielders) gets a short page of its own (components/TiersScope.astro) in
+// this page's frame and styles; the full method below is the level that shows
+// every tier.
 //
 // Its CSS is an inline block for the same reason the sheet's is: a scoped
 // <style> here would be bundled into the site's stylesheets even on a build
@@ -23,9 +26,11 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import Page from "../../layouts/Page.astro";
 import { loadSeason, type Season } from "../../lib/derive.ts";
 import { monLong } from "../../lib/format.ts";
-import { activeTiers } from "../../lib/player-tier.ts";
+import TiersScope from "../../components/TiersScope.astro";
+import { activeTiers, coverageLine } from "../../lib/player-tier.ts";
 import { loadTiers, type TiersFile } from "../../lib/tiers.ts";
-import { currentDivision, type NcaaDivision, ncaaDivisions, site } from "../../site.config.ts";
+import { currentDivision, ncaaDivisions, site } from "../../site.config.ts";
+import { levelTiers, TIERS_LEVELS } from "../../tiers.config.ts";
 
 export function getStaticPaths() {
   return activeTiers() ? [{ params: { tiers: "tiers" } }] : [];
@@ -43,7 +48,15 @@ const seasons: Season[] = site.conferences.flatMap((key) => {
 });
 
 const division = currentDivision.name;
-const divisionOne = (ncaaDivisions.find((d) => d.key === "d1") as NcaaDivision).name;
+// What this level shows. Every tier: the full method below. Part of them: the
+// short page (TiersScope) in its place.
+const shown = levelTiers(tiers.level);
+const partial = shown !== null && !(shown.teamDefence && shown.shooting.length === 2);
+// What each other level shows, for the coverage paragraph: from config, never
+// a division named by hand.
+const elsewhere = ncaaDivisions
+  .filter((d) => d.key !== currentDivision.key && d.published)
+  .map((d) => coverageLine(d.name, TIERS_LEVELS[d.key] ?? null));
 
 /** The month this season's tiers were frozen in. */
 const setIn = monLong(tiers.frozen_at);
@@ -97,6 +110,7 @@ const firstSeasonNote =
       display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
       margin: 24px 0 12px;
     }
+    .tm .tier-tiles-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .tm .tier-tile {
       padding: 16px 16px 15px; background: var(--card);
       border: 1px solid var(--hairline); border-radius: 6px;
@@ -411,7 +425,15 @@ const firstSeasonNote =
   <div class="tl-page">
     <SiteHeader />
 
-    <article class="tm">
+    <article class="tm">{partial && shown ? (
+      <TiersScope
+        tiers={tiers}
+        shown={shown}
+        setIn={setIn}
+        retroactive={retroactive}
+        firstSeason={firstSeason}
+      />
+    ) : (<>
       {/* ══════════════════════════════════════════════════════════════════
           FIRST SCREEN · UNDERSTAND ALL THREE TIERS IN 15 SECONDS
           ══════════════════════════════════════════════════════════════════ */}
@@ -1284,11 +1306,11 @@ const firstSeasonNote =
         </p>
         <p class="para">
           Tiers currently cover {division} men's and women's soccer at the programmes Touchline
-          follows. {divisionOne} pages show none.
+          follows.{elsewhere.map((line) => ` ${line}`).join("")}
         </p>
       </section>
 
-    </article>
+    </>)}</article>
 
     <SiteFooter seasons={seasons} />
   </div>

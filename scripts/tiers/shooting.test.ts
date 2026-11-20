@@ -3,6 +3,7 @@
 import { describe, expect, test } from "bun:test";
 import { cutCount, topWithTies } from "./cut.ts";
 import {
+  constantsFor,
   earlierSeasonCounts,
   estimate,
   groupAverage,
@@ -16,13 +17,29 @@ describe("threat", () => {
   test("wG × adjG × 90 / minutes + wS × adjS × 90 / minutes", () => {
     // Men: 10 goals and 60 shots over 1800 minutes, i.e. 0.5 and 3 a 90:
     // 0.234 × 0.5 + 0.0885 × 3 = 0.117 + 0.2655 = 0.3825.
-    expect(threat("men", 10, 60, 1800)).toBeCloseTo(0.3825, 12);
+    expect(threat("men", 10, 60, 1800, "d2")).toBeCloseTo(0.3825, 12);
     // Women, the same line: 0.238 × 0.5 + 0.0749 × 3 = 0.119 + 0.2247 = 0.3437.
-    expect(threat("women", 10, 60, 1800)).toBeCloseTo(0.3437, 12);
+    expect(threat("women", 10, 60, 1800, "d2")).toBeCloseTo(0.3437, 12);
   });
 
   test("undefined at zero minutes", () => {
-    expect(threat("men", 0, 0, 0)).toBeNull();
+    expect(threat("men", 0, 0, 0, "d2")).toBeNull();
+  });
+});
+
+describe("constants per level", () => {
+  test("Division I men use their own fit, by the same procedure", () => {
+    // 0.207 × 0.5 + 0.0837 × 3 = 0.1035 + 0.2511 = 0.3546.
+    expect(threat("men", 10, 60, 1800, "d1")).toBeCloseTo(0.3546, 12);
+    expect(estimate("men", 0.5, 0.3, null, "d1")).toBeCloseTo(0.46, 12);
+    expect(estimate("men", 0.5, 0.3, 0.4, "d1")).toBeCloseTo(0.45, 12);
+  });
+
+  test("a level or gender with no fit has no constants, never a borrowed set", () => {
+    expect(() => constantsFor("women", "d1")).toThrow(
+      /no shooting constants are fitted for d1 women/,
+    );
+    expect(() => constantsFor("men", "d3")).toThrow(/d3 men/);
   });
 });
 
@@ -70,15 +87,15 @@ describe("a season counts, and eligibility, at the minute edges", () => {
 describe("the estimate", () => {
   test("one season: men 0.79 × this + 0.21 × avg; women 0.82 and 0.18", () => {
     // this 0.5, avg 0.3: men 0.395 + 0.063 = 0.458; women 0.41 + 0.054 = 0.464.
-    expect(estimate("men", 0.5, 0.3, null)).toBeCloseTo(0.458, 12);
-    expect(estimate("women", 0.5, 0.3, null)).toBeCloseTo(0.464, 12);
+    expect(estimate("men", 0.5, 0.3, null, "d2")).toBeCloseTo(0.458, 12);
+    expect(estimate("women", 0.5, 0.3, null, "d2")).toBeCloseTo(0.464, 12);
   });
 
   test("two seasons: men 0.59 / 0.34 / 0.07; women 0.64 / 0.30 / 0.06", () => {
     // this 0.5, previous 0.4, avg 0.3:
     // men 0.295 + 0.136 + 0.021 = 0.452; women 0.32 + 0.12 + 0.018 = 0.458.
-    expect(estimate("men", 0.5, 0.3, 0.4)).toBeCloseTo(0.452, 12);
-    expect(estimate("women", 0.5, 0.3, 0.4)).toBeCloseTo(0.458, 12);
+    expect(estimate("men", 0.5, 0.3, 0.4, "d2")).toBeCloseTo(0.452, 12);
+    expect(estimate("women", 0.5, 0.3, 0.4, "d2")).toBeCloseTo(0.458, 12);
   });
 
   test("the group average is the plain mean", () => {

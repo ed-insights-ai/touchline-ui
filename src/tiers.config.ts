@@ -11,10 +11,16 @@
 // the gate ships open. TOUCHLINE_TIERS_PREVIEW=1 still opens a closed gate for
 // local review, should it ever be closed again.
 //
-// Whatever this file says, tiers belong to Division II alone: a build for any
-// other level renders none of it, in preview too.
+// A level shows only the tiers that passed the reliability test there
+// (ed-insights-platform FIRMNESS.md, T1: R >= 0.80 for three published levels,
+// R >= 0.61 for two), measured once on that level's own data with constants
+// fitted by one procedure. Division II passes all three. Division I men,
+// measured 2026-11-20 over 2022-2026: midfielders 0.86 pass; forwards 0.78 and
+// team defence 0.47 do not, so a Division I page shows a midfielder's
+// shooting and scoring tier and nothing else, in preview too.
 
-import { ncaaDivision } from "./site.config.ts";
+import type { TierEntry } from "./lib/tiers.ts";
+import { type NcaaDivisionKey, ncaaDivision } from "./site.config.ts";
 
 export interface TiersConfig {
   /** The owner's go-ahead to publish tiers. */
@@ -25,21 +31,71 @@ export const tiersConfig: TiersConfig = {
   published: true,
 };
 
-/** The only level tiers are built for (ALGORITHM.md section 0). */
-const TIERS_LEVEL = "d2";
+/** One tier group's reliability on a level (FIRMNESS.md, T1): the mean over
+ *  100 split halves, stepped up to a full season, and the bar it must reach. */
+export interface Measured {
+  group: "M" | "F" | "team_defence";
+  r: number;
+  bar: number;
+}
+
+/** What a level publishes: the shooting and scoring groups, and whether the
+ *  team defence tier is shown. A level that shows only part of the tiers
+ *  carries the measurement that decided it, which its method page prints. */
+export interface LevelTiers {
+  shooting: readonly ("F" | "M")[];
+  teamDefence: boolean;
+  measured?: { seasons: readonly [number, number]; rows: readonly Measured[] };
+}
+
+/** The levels tiers are built and shown for, and what each shows. */
+export const TIERS_LEVELS: Readonly<Partial<Record<NcaaDivisionKey, LevelTiers>>> = {
+  d2: { shooting: ["F", "M"], teamDefence: true },
+  d1: {
+    shooting: ["M"],
+    teamDefence: false,
+    measured: {
+      seasons: [2022, 2026],
+      rows: [
+        { group: "M", r: 0.86, bar: 0.8 },
+        { group: "F", r: 0.78, bar: 0.8 },
+        { group: "team_defence", r: 0.47, bar: 0.61 },
+      ],
+    },
+  },
+};
 
 /**
  * Whether this build renders player tiers.
  *
- * True only for a Division II build, and then only when tiers are published
- * or the preview variable is "1". The level is an argument so a Division I
- * build can be held to it before one exists.
+ * True only for a level in TIERS_LEVELS, and then only when tiers are
+ * published or the preview variable is "1". The level is an argument so any
+ * build can be held to it.
  */
 export function tiersEnabled(
   level: string = ncaaDivision,
   preview: string | undefined = process.env.TOUCHLINE_TIERS_PREVIEW,
   config: TiersConfig = tiersConfig,
 ): boolean {
-  if (level !== TIERS_LEVEL) return false;
+  if (levelTiers(level) === null) return false;
   return config.published || preview === "1";
+}
+
+/** What a level shows, or null for a level with no tiers. */
+export function levelTiers(level: string = ncaaDivision): LevelTiers | null {
+  return TIERS_LEVELS[level as NcaaDivisionKey] ?? null;
+}
+
+/** Whether a level shows this entry: its kind is shown there, and for
+ *  shooting and scoring, its group. An entry it does not show is drawn
+ *  nowhere, as if the file did not carry it. */
+export function levelShows(level: string, e: Pick<TierEntry, "kind" | "group">): boolean {
+  const shown = levelTiers(level);
+  if (shown === null) return false;
+  // No kind: no position could be read, so the player might have been either
+  // kind. Shown only where every kind is; elsewhere it would imply a tier the
+  // level does not publish.
+  if (e.kind === null) return shown.teamDefence && shown.shooting.length === 2;
+  if (e.kind === "team_defence") return shown.teamDefence;
+  return shown.shooting.some((g) => g === e.group);
 }

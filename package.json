@@ -15,7 +15,8 @@
     "check:fix": "biome check --write .",
     "test": "bun test",
     "journal": "bun scripts/journal/cli.ts",
-    "tiers:build": "bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16"
+    "tiers:build": "bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16",
+    "tiers:build:d1": "TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --frozen-at 2026-11-20"
   },
   "dependencies": {
     "astro": "^5.14.1",
