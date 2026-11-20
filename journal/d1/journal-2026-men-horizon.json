@@ -1,0 +1,132 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "HORIZON",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:19:56+00:00",
+  "headline": "Cleveland State's November run ends at Washington",
+  "dek": "Cleveland State won at Robert Morris, at Milwaukee and at Purdue Fort Wayne in successive November matches, the last of them on the ground of the side atop the table. Washington ended the run, and Cleveland State's season stands at nine wins and seven defeats.",
+  "lede_basis": {
+    "programme": "cleveland-state",
+    "wins": 9,
+    "draws": 4,
+    "losses": 7
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Goals scored did not sort this conference: Milwaukee scored 16 all season and lost only five matches, conceding 14.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "wright-state": 32,
+        "cleveland-state": 29,
+        "purdue-fort-wayne": 29,
+        "northern-illinois": 26,
+        "robert-morris": 23,
+        "detroit-mercy": 20,
+        "oakland": 19,
+        "green-bay": 18,
+        "northern-kentucky": 17,
+        "milwaukee": 16,
+        "iu-indy": 14
+      },
+      "highlight": "milwaukee"
+    },
+    "basis": {
+      "programme": "milwaukee",
+      "gf": 16,
+      "ga": 14,
+      "wins": 7,
+      "draws": 6,
+      "losses": 5
+    }
+  },
+  "wire": {
+    "line": "Wright State's 32 goals came from seventeen different scorers.",
+    "basis": {
+      "programme": "wright-state",
+      "gf": 32,
+      "ga": 40,
+      "distinct_scorers_min": 17
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Eight matches past their date have no published result, all of them from the season's opening days in August.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Domenic Ruggiero, a freshman forward, has ten goals for Cleveland State from 60 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Domenic Ruggiero",
+        "programme": "cleveland-state",
+        "goals": 10,
+        "shots": 60
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Carson Pridie has made 74 saves in Milwaukee's goal at a save percentage of .892.",
+      "basis": {
+        "source": "stats",
+        "player": "Carson Pridie",
+        "programme": "milwaukee",
+        "saves": 74,
+        "save_pct": 0.892
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Northern Kentucky have one win all season, against three draws and thirteen defeats.",
+      "basis": {
+        "programme": "northern-kentucky",
+        "wins": 1,
+        "draws": 3,
+        "losses": 13
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Domenic Ruggiero",
+      "programme": "cleveland-state",
+      "position": "FWD",
+      "class": "FR",
+      "line": "10 G · 1 A · 60 shots"
+    },
+    {
+      "player": "Anelson Azard",
+      "programme": "robert-morris",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 27 shots"
+    },
+    {
+      "player": "Brandon Razo",
+      "programme": "purdue-fort-wayne",
+      "position": "FWD",
+      "class": "FR",
+      "line": "8 G · 1 A · 44 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 washington v cleveland-state",
+      "line": "Cleveland State had not lost in November before this match."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:51:09.248Z"
+  }
+}

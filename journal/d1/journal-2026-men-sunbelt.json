@@ -1,0 +1,139 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SUNBELT",
+  "generated_at": "2026-11-20T14:05:00+00:00",
+  "data_collected_at": "2026-11-20T13:24:53+00:00",
+  "headline": "West Virginia build a season on keeping goals out",
+  "dek": "West Virginia have let in nine goals so far and lost twice, while scoring 35 at the other end. They were level on points with Marshall when the conference table was complete, and they have won every match since.",
+  "lede_basis": {
+    "programme": "west-virginia",
+    "gf": 35,
+    "ga": 9,
+    "wins": 13,
+    "draws": 4,
+    "losses": 2
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "signal",
+    "text": "Goals scored do not sort this conference: Old Dominion have scored 39 and won ten, yet all six of their defeats came against Sun Belt sides.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "south-carolina": 43,
+        "marshall": 42,
+        "old-dominion": 39,
+        "ucf": 35,
+        "west-virginia": 35,
+        "coastal-carolina": 26,
+        "james-madison": 24,
+        "georgia-southern": 21,
+        "kentucky": 19,
+        "georgia-state": 18
+      },
+      "highlight": "south-carolina"
+    },
+    "basis": {
+      "programme": "old-dominion",
+      "gf": 39,
+      "ga": 29,
+      "wins": 10,
+      "draws": 1,
+      "losses": 6
+    }
+  },
+  "wire": {
+    "line": "West Virginia have conceded nine goals and lost twice; no Sun Belt side has let in fewer.",
+    "basis": {
+      "programme": "west-virginia",
+      "gf": 35,
+      "ga": 9,
+      "wins": 13,
+      "draws": 4,
+      "losses": 2
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "West Virginia's home match with Akron is past its date with no result published, and it is the only Sun Belt match in that state.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "west-virginia",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Drew Hansen has scored 12 of UCF's 35 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Drew Hansen",
+        "programme": "ucf",
+        "goals": 12,
+        "gf": 35
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Erik Jaspers has made 59 saves for James Madison, a save percentage of .787.",
+      "basis": {
+        "source": "stats",
+        "player": "Erik Jaspers",
+        "programme": "james-madison",
+        "saves": 59,
+        "save_pct": 0.787
+      }
+    },
+    {
+      "label": "observed",
+      "text": "All three of Kentucky's wins have come against Sun Belt sides.",
+      "basis": {
+        "programme": "kentucky",
+        "wins": 3,
+        "draws": 4,
+        "losses": 10
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Pablo Pozos",
+      "programme": "west-virginia",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 2 A · 53 shots"
+    },
+    {
+      "player": "Carl Romberg",
+      "programme": "marshall",
+      "position": "FWD",
+      "class": "SR",
+      "line": "7 G · 7 A · 36 shots"
+    },
+    {
+      "player": "Angel Lopez",
+      "programme": "south-carolina",
+      "position": "FWD",
+      "class": "SO",
+      "line": "7 G · 7 A · 25 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 marshall v bowling-green",
+      "line": "Marshall have lost only once all season to a side from outside the Sun Belt, at home to Utah Valley."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 west-virginia v cleveland-state",
+      "line": "Cleveland State are West Virginia's first opponent from outside the Sun Belt since their draw at American."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:56:36.042Z"
+  }
+}

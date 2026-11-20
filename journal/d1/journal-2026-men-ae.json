@@ -1,0 +1,133 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "AE",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:17:14+00:00",
+  "headline": "Bryant and Vermont win again and play on",
+  "dek": "Bryant beat HCU and Vermont beat North Florida, and they are now the only members with a match still to play, Bryant at SMU and Vermont at Clemson. Vermont are the only member to have beaten Bryant this season.",
+  "lede_basis": {
+    "programme": "bryant",
+    "wins": 14,
+    "draws": 5,
+    "losses": 2
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "NJIT's goals have come at a cost at the back: they have conceded 30 and lost six times, more defeats than Bryant and Vermont together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "njit": 38,
+        "bryant": 35,
+        "vermont": 34,
+        "new-hampshire": 28,
+        "ualbany": 22,
+        "umbc": 19,
+        "umass-lowell": 18,
+        "binghamton": 13
+      },
+      "highlight": "njit"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "losses",
+      "programme": "njit",
+      "of": ["bryant", "vermont"],
+      "losses": 6,
+      "gf": 38,
+      "ga": 30
+    }
+  },
+  "wire": {
+    "line": "Bryant have won fourteen matches, more than any other side in the conference, and lost twice.",
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "programme": "bryant",
+      "of": ["binghamton", "new-hampshire", "njit", "ualbany", "umass-lowell", "umbc", "vermont"],
+      "wins": 14,
+      "losses": 2
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Seven matches have passed their date with no result, the most recent UMBC's home match with Navy.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 7
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Vermont have had goals from fourteen different players.",
+      "basis": {
+        "programme": "vermont",
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Diogo Rebelo has scored nine and set up seven for NJIT from midfield.",
+      "basis": {
+        "source": "stats",
+        "player": "Diogo Rebelo",
+        "programme": "njit",
+        "goals": 9,
+        "assists": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Binghamton have won twice all season, against nine defeats.",
+      "basis": {
+        "programme": "binghamton",
+        "wins": 2,
+        "draws": 6,
+        "losses": 9
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Diogo Rebelo",
+      "programme": "njit",
+      "position": "MID",
+      "class": "SO",
+      "line": "9 G · 7 A · 77 shots"
+    },
+    {
+      "player": "Fermin Rodriguez",
+      "programme": "bryant",
+      "position": "FWD",
+      "class": "SR",
+      "line": "6 G · 5 A · 28 shots"
+    },
+    {
+      "player": "Ivar Gissurarson",
+      "programme": "ualbany",
+      "position": "MID",
+      "class": "SR",
+      "line": "6 G · 6 A · 21 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 bryant v hcu",
+      "line": "Bryant have not lost since the opening day of conference play."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 clemson v vermont",
+      "line": "Vermont's only defeat since September came at UAlbany."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:47:46.509Z"
+  }
+}

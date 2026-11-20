@@ -1,0 +1,124 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-ivy.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "IVY",
+  "validated_at": "2026-11-20T17:52:00.901Z",
+  "data_collected_at": "2026-11-20T13:20:13+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 10,
+    "verified": 10,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "Scoring in this conference runs through one programme: Cornell's 48 goals are more than Columbia, Dartmouth and Harvard scored between them.",
+      "unbacked": ["1"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring in this conference runs through one programme: Cornell's 48 goals are more than Columbia, Dartmouth and Harvard scored between them.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "derived",
+      "text": "Marco Bottene has scored 11 of Penn's 32 goals.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Yale's 19 goals have come from fourteen different scorers.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Andrew Samuels has kept seven shutouts in Princeton's goal.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Two matches past their date carry no result: a Dartmouth home match in August and a Cornell home match in October.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Marco Bottene — 11 G · 2 A · 48 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Connor Miller — 6 G · 9 A · 40 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Lennon Harrington — 7 G · 1 A · 25 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-19 cornell v fdu",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-20T17:50:23.717Z",
+    "generate_ms": 97183,
+    "validate_ms": 1,
+    "wall_ms": 97184,
+    "concurrency": 4
+  }
+}

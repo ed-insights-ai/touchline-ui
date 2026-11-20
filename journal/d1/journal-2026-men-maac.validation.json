@@ -1,0 +1,129 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-maac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MAAC",
+  "validated_at": "2026-11-20T17:52:11.550Z",
+  "data_collected_at": "2026-11-20T13:20:31+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Goals scored did not separate the leading sides: Quinnipiac scored as many as Fairfield and Marist, and conceded more than either.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Fairfield lost four times all season, and Sacred Heart were the only side to do it on Fairfield's own ground.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Taehyeon Lim scored twelve goals for Quinnipiac from 41 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Merrimack drew nine of their matches, more than any other programme in the conference.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is mount-st-marys at 8"
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Canisius conceded 37 goals, more than any other programme in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is manhattan at 33"
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Thirteen different players scored for Fairfield, none of them among the conference's leading scorers.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Taehyeon Lim — 12 G · 3 A · 41 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Chris Verheul — 9 G · 4 A · 32 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Danny Istambouli — 8 G · 3 A · 46 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-19 syracuse v sacred-heart",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-20T17:50:30.459Z",
+    "generate_ms": 101089,
+    "validate_ms": 2,
+    "wall_ms": 101091,
+    "concurrency": 4
+  }
+}

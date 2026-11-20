@@ -1,0 +1,143 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "WCC",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:25:46+00:00",
+  "headline": "Portland sweep the conference and keep on winning",
+  "dek": "Portland took every point on offer in conference play and have not stopped winning since: fourteen wins overall against two draws and three defeats, every defeat in the season's first month. Miguel-Angel Hernandez has kept seven shutouts behind them.",
+  "lede_basis": {
+    "source": "stats",
+    "player": "Miguel-Angel Hernandez",
+    "programme": "portland",
+    "shutouts": 7,
+    "wins": 14,
+    "draws": 2,
+    "losses": 3
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "signal",
+    "text": "Goals sort the top of the table and little else: Seattle U have scored as many as San Francisco and finished below them, and LMU, with the fewest, are not bottom.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "portland": 50,
+        "san-diego": 41,
+        "san-francisco": 30,
+        "seattle-u": 30,
+        "denver": 22,
+        "pacific": 22,
+        "saint-marys-california": 21,
+        "santa-clara": 17,
+        "lmu": 10
+      },
+      "highlight": "portland"
+    },
+    "basis": {
+      "programme": "seattle-u",
+      "gf": 30,
+      "ga": 31
+    }
+  },
+  "wire": {
+    "line": "San Diego's only conference defeat came against Portland, who then beat them again.",
+    "basis": {
+      "programme": "san-diego",
+      "wins": 11,
+      "draws": 3,
+      "losses": 6
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Eight matches dated before any WCC side had a published result still carry none, and they belong to San Diego, Santa Clara, Saint Mary's College of California and LMU alone.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 8
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Saint Mary's College of California have conceded 48 goals, more than any other WCC programme.",
+      "basis": {
+        "programme": "saint-marys-california",
+        "gf": 21,
+        "ga": 48,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "denver",
+          "lmu",
+          "pacific",
+          "portland",
+          "san-diego",
+          "san-francisco",
+          "santa-clara",
+          "seattle-u"
+        ]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "LMU have scored ten goals and conceded twenty, and both totals are the lowest in the WCC.",
+      "basis": {
+        "programme": "lmu",
+        "gf": 10,
+        "ga": 20
+      }
+    },
+    {
+      "label": "observed",
+      "text": "David Raphael has scored ten goals for San Francisco from 61 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "David Raphael",
+        "programme": "san-francisco",
+        "goals": 10,
+        "shots": 61
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Joe Highfield",
+      "programme": "portland",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 11 A · 60 shots"
+    },
+    {
+      "player": "Steven Ramirez",
+      "programme": "san-diego",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 3 A · 60 shots"
+    },
+    {
+      "player": "Alex Notzka",
+      "programme": "seattle-u",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 3 A · 28 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 san-diego v grand-canyon",
+      "line": "San Diego lost by a single goal, as they had at Portland in their previous match."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 south-carolina v portland",
+      "line": "Portland have won every match since a goalless draw with Oregon State in September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:57:20.174Z"
+  }
+}

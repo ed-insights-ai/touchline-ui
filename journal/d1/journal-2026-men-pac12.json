@@ -1,0 +1,155 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PAC12",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:22:51+00:00",
+  "headline": "Oregon State top the table on a run of wins",
+  "dek": "Oregon State have scored 50 goals across all their matches, more than any other programme, and have not lost since a defeat at Utah Valley in October. California Baptist alone match their twelve wins, and have conceded fewer goals than anyone.",
+  "lede_basis": {
+    "programme": "oregon-state",
+    "gf": 50,
+    "ga": 25,
+    "wins": 12,
+    "draws": 4,
+    "losses": 4,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "cal-poly",
+      "california-baptist",
+      "gonzaga",
+      "san-diego-state",
+      "uc-riverside",
+      "uc-san-diego"
+    ]
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Oregon State's 50 goals stand apart: the other programmes sit far closer to one another than any of them sits to the leaders, so the scoring in this conference is one side and a pack.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "oregon-state": 50,
+        "california-baptist": 33,
+        "san-diego-state": 29,
+        "uc-san-diego": 29,
+        "cal-poly": 26,
+        "uc-riverside": 26,
+        "gonzaga": 24
+      },
+      "highlight": "oregon-state"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "oregon-state",
+      "of": [
+        "cal-poly",
+        "california-baptist",
+        "gonzaga",
+        "san-diego-state",
+        "uc-riverside",
+        "uc-san-diego"
+      ],
+      "gf": 50
+    }
+  },
+  "wire": {
+    "line": "Wyatt Borso has 15 goals for Oregon State, more than any other player in the conference.",
+    "basis": {
+      "source": "stats",
+      "player": "Wyatt Borso",
+      "programme": "oregon-state",
+      "goals": 15
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "San Diego State have drawn nine of their matches, more than any other programme in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "san-diego-state",
+        "of": [
+          "cal-poly",
+          "california-baptist",
+          "gonzaga",
+          "oregon-state",
+          "uc-riverside",
+          "uc-san-diego"
+        ],
+        "wins": 4,
+        "draws": 9,
+        "losses": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "California Baptist have conceded 18 goals, fewer than any other programme in the conference.",
+      "basis": {
+        "programme": "california-baptist",
+        "gf": 33,
+        "ga": 18
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Fourteen different players have scored for Oregon State.",
+      "basis": {
+        "programme": "oregon-state",
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Five matches have passed their date with no result, UC San Diego's August home matches against San Diego, Arizona Western and Grand Canyon among them.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Wyatt Borso",
+      "programme": "oregon-state",
+      "position": "FWD",
+      "class": "SR",
+      "line": "15 G · 51 shots"
+    },
+    {
+      "player": "Blake D'Agostino",
+      "programme": "california-baptist",
+      "position": "FWD",
+      "class": "JR",
+      "line": "7 G · 7 A · 40 shots"
+    },
+    {
+      "player": "Jaxson Hutcheon",
+      "programme": "san-diego-state",
+      "position": "FWD",
+      "class": "SO",
+      "line": "7 G · 3 A · 37 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 oregon-state v cal-state-bakersfield",
+      "line": "Oregon State have now beaten Cal State Bakersfield, the side that won at their ground in October."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 louisville v oregon-state",
+      "line": "Oregon State's September visits to Georgetown and Virginia brought a defeat and a draw."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:54:41.563Z"
+  }
+}

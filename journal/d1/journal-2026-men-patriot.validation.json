@@ -1,0 +1,133 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-patriot.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PATRIOT",
+  "validated_at": "2026-11-20T17:55:42.616Z",
+  "data_collected_at": "2026-11-20T13:23:27+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "pattern.text",
+      "text": "Goals did not settle the table: Navy scored 25, more than seven other programmes, yet finished level on the fewest points.",
+      "unbacked": ["7"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Goals did not settle the table: Navy scored 25, more than seven other programmes, yet finished level on the fewest points.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Against outside opponents the conference won 12 matches and lost 42, scoring 57 goals and conceding 138.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Three matches are past their date with no result published, and Navy and Bucknell are the programmes involved.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Archie Hatcher scored nine of Holy Cross's 21 goals, from 71 shots.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Ben Alexander conceded 13 goals in Boston University's goal across the season.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "American won six, drew five and lost seven of their matches, scoring 16, yet finished above every conference side but Boston University.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Archie Hatcher — 9 G · 3 A · 71 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Thomas Robertson — 8 G · 1 A · 35 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Andrea Di Blasio — 8 G · 1 A · 32 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-19 charlotte v lehigh",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-20T17:53:43.562Z",
+    "generate_ms": 119052,
+    "validate_ms": 1,
+    "wall_ms": 119053,
+    "concurrency": 4
+  }
+}

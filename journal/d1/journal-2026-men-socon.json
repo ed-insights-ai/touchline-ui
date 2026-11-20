@@ -1,0 +1,131 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SOCON",
+  "generated_at": "2026-11-20T17:55:25+00:00",
+  "data_collected_at": "2026-11-20T13:23:59+00:00",
+  "headline": "Furman and Wofford finish level at the top",
+  "dek": "Furman and Wofford close the conference season level at the head of the table, with ETSU and UNC Greensboro, neither beaten by a SOCON side, just behind them. Furman's 36 goals in all matches are more than any other programme in the conference has scored.",
+  "lede_basis": {
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "furman",
+    "of": ["etsu", "liberty", "mercer", "unc-greensboro", "vmi", "wofford"],
+    "gf": 36,
+    "ga": 25
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Away from Mercer, the conference scores at much the same rate; Mercer's seven goals in all matches are the one break in the shape.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "furman": 36,
+        "unc-greensboro": 31,
+        "vmi": 31,
+        "liberty": 30,
+        "etsu": 29,
+        "wofford": 26,
+        "mercer": 7
+      },
+      "highlight": "furman"
+    },
+    "basis": {
+      "programme": "mercer",
+      "gf": 7,
+      "ga": 33
+    }
+  },
+  "wire": {
+    "line": "Mercer close the season without a win and with seven goals scored all year.",
+    "basis": {
+      "programme": "mercer",
+      "wins": 0,
+      "draws": 5,
+      "losses": 13,
+      "gf": 7,
+      "ga": 33
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three matches stand past their date with no result, all of them from August and none of them between SOCON sides.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "VMI concede 47 goals in all matches, more than any other SOCON programme.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "vmi",
+        "of": ["etsu", "furman", "liberty", "mercer", "unc-greensboro", "wofford"],
+        "gf": 31,
+        "ga": 47
+      }
+    },
+    {
+      "label": "observed",
+      "text": "UNC Greensboro's 31 goals come from at least twelve different scorers.",
+      "basis": {
+        "programme": "unc-greensboro",
+        "distinct_scorers_min": 12,
+        "gf": 31,
+        "ga": 18
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Henry Hampshaw makes 78 saves for Mercer and concedes 27, a save percentage of .743.",
+      "basis": {
+        "source": "stats",
+        "player": "Henry Hampshaw",
+        "programme": "mercer",
+        "saves": 78,
+        "goals_against": 27,
+        "save_pct": 0.743
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Wilfer Bustamante",
+      "programme": "furman",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 4 A · 34 shots"
+    },
+    {
+      "player": "Samson Kpardeh",
+      "programme": "liberty",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 45 shots"
+    },
+    {
+      "player": "Gavin Dick",
+      "programme": "etsu",
+      "position": "FWD",
+      "class": "FR",
+      "line": "5 G · 5 A · 27 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 uncw v liberty",
+      "line": "Liberty came in off away wins at Furman and at UNC Greensboro."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:55:35.012Z"
+  }
+}

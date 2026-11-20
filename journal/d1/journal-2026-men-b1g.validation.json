@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-b1g.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "B1G",
+  "validated_at": "2026-11-20T17:48:51.815Z",
+  "data_collected_at": "2026-11-20T13:17:55+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[1].text",
+      "text": "Laurin Mack has made 86 saves in Maryland's goal, a save percentage of .768.",
+      "unbacked": ["768"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "signal",
+      "text": "Goals have tracked the foot of the table more closely than its top: Michigan and Penn State, the only programmes without a conference win, have scored the fewest, while the leaders are not the side that has scored the most.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Zach Ramsey has scored nineteen of Washington's forty-five goals this season.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Ohio State's home match with Indianapolis, dated in August, is the one match in the conference past its date with no result published.",
+      "checker": "set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Laurin Mack has made 86 saves in Maryland's goal, a save percentage of .768.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Seventeen different players have scored for Rutgers this season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Michigan's three wins this season have all come outside the conference.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Zach Ramsey — 19 G · 6 A · 78 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Oliver Moller-Jensen — 13 G · 5 A · 81 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Rodrigo Neri — 8 G · 2 A · 53 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-19 washington v cleveland-state",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-22 indiana v missouri-state",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-20T17:47:39.683Z",
+    "generate_ms": 72131,
+    "validate_ms": 1,
+    "wall_ms": 72132,
+    "concurrency": 4
+  }
+}

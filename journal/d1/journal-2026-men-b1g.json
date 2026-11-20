@@ -1,0 +1,139 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "B1G",
+  "generated_at": "2026-11-20T13:30:00+00:00",
+  "data_collected_at": "2026-11-20T13:17:55+00:00",
+  "headline": "Only Rutgers have beaten Indiana",
+  "dek": "The defeat came in October, and Indiana have won fifteen and drawn four around it. Michal Mroz has kept eight clean sheets behind a defence that has conceded thirteen goals all season.",
+  "lede_basis": {
+    "programme": "indiana",
+    "wins": 15,
+    "draws": 4,
+    "losses": 1,
+    "gf": 41,
+    "ga": 13,
+    "source": "stats",
+    "player": "Michal Mroz",
+    "shutouts": 8
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "signal",
+    "text": "Goals have tracked the foot of the table more closely than its top: Michigan and Penn State, the only programmes without a conference win, have scored the fewest, while the leaders are not the side that has scored the most.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "washington": 45,
+        "indiana": 41,
+        "wisconsin": 38,
+        "michigan-state": 37,
+        "ucla": 36,
+        "rutgers": 34,
+        "maryland": 30,
+        "ohio-state": 29,
+        "northwestern": 25,
+        "michigan": 18,
+        "penn-state": 18
+      },
+      "highlight": "washington"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "washington",
+      "of": ["indiana"],
+      "gf": 45
+    }
+  },
+  "wire": {
+    "line": "Zach Ramsey has scored nineteen of Washington's forty-five goals this season.",
+    "basis": {
+      "source": "stats",
+      "player": "Zach Ramsey",
+      "programme": "washington",
+      "goals": 19,
+      "gf": 45,
+      "ga": 22
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Ohio State's home match with Indianapolis, dated in August, is the one match in the conference past its date with no result published.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "ohio-state",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Laurin Mack has made 86 saves in Maryland's goal, a save percentage of .768.",
+      "basis": {
+        "source": "stats",
+        "player": "Laurin Mack",
+        "programme": "maryland",
+        "saves": 86,
+        "save_pct": 0.768
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Seventeen different players have scored for Rutgers this season.",
+      "basis": {
+        "programme": "rutgers",
+        "distinct_scorers_min": 17
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Michigan's three wins this season have all come outside the conference.",
+      "basis": {
+        "programme": "michigan",
+        "wins": 3,
+        "draws": 5,
+        "losses": 8
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Zach Ramsey",
+      "programme": "washington",
+      "position": "MID",
+      "class": "JR",
+      "line": "19 G · 6 A · 78 shots"
+    },
+    {
+      "player": "Oliver Moller-Jensen",
+      "programme": "indiana",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 5 A · 81 shots"
+    },
+    {
+      "player": "Rodrigo Neri",
+      "programme": "maryland",
+      "position": "FWD",
+      "class": "FR",
+      "line": "8 G · 2 A · 53 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 washington v cleveland-state",
+      "line": "Washington's first win since the end of October."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 indiana v missouri-state",
+      "line": "Missouri State have already beaten Penn State; Indiana have not lost since October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:48:51.815Z"
+  }
+}

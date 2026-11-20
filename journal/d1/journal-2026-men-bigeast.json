@@ -1,0 +1,133 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "BIGEAST",
+  "generated_at": "2026-11-20T14:05:00+00:00",
+  "data_collected_at": "2026-11-20T13:18:40+00:00",
+  "headline": "Akron win at Georgetown, the only side to beat them",
+  "dek": "Akron's single defeat came at home to Georgetown in September, and they have conceded 14 goals across the whole season. Georgetown top the conference table without a loss and had not lost at home until Akron arrived.",
+  "lede_basis": {
+    "programme": "akron",
+    "wins": 13,
+    "draws": 4,
+    "losses": 1,
+    "gf": 38,
+    "ga": 14
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Georgetown's goals are spread wide: at least seventeen different players have scored for them.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "georgetown": 56,
+        "creighton": 53,
+        "akron": 38,
+        "marquette": 37,
+        "xavier": 33,
+        "uconn": 32,
+        "providence": 29,
+        "depaul": 27,
+        "st-johns": 21,
+        "villanova": 20,
+        "seton-hall": 19,
+        "butler": 13
+      },
+      "highlight": "georgetown"
+    },
+    "basis": {
+      "programme": "georgetown",
+      "distinct_scorers_min": 17
+    }
+  },
+  "wire": {
+    "line": "A defender, Creighton's Matthew Reed, has scored more goals than anyone else in the conference: 14.",
+    "basis": {
+      "source": "stats",
+      "player": "Matthew Reed",
+      "programme": "creighton",
+      "goals": 14
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Akron's visit to West Virginia in September is one of five matches past their date with no published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Xavier have conceded 11 goals all season while scoring 33.",
+      "basis": {
+        "programme": "xavier",
+        "gf": 33,
+        "ga": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Devin Armstrong has kept 10 shutouts in Seton Hall's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Devin Armstrong",
+        "programme": "seton-hall",
+        "shutouts": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Alex Yagudayev has made 118 saves for Villanova and conceded 27 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Alex Yagudayev",
+        "programme": "villanova",
+        "saves": 118,
+        "goals_against": 27
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Matthew Van Horn",
+      "programme": "georgetown",
+      "position": "MID",
+      "class": "SR",
+      "line": "13 G · 9 A · 37 shots"
+    },
+    {
+      "player": "Mitchell Baker",
+      "programme": "georgetown",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 6 A · 45 shots"
+    },
+    {
+      "player": "Tomiwa Adewumi",
+      "programme": "marquette",
+      "position": "FWD",
+      "class": "FR",
+      "line": "10 G · 3 A · 22 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 creighton v omaha",
+      "line": "Creighton's first home defeat of the season, against a side they had beaten away in September."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 akron v wake-forest",
+      "line": "Akron have already beaten Wake Forest at home this season, in August."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:49:42.072Z"
+  }
+}

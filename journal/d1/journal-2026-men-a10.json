@@ -1,0 +1,131 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "A10",
+  "generated_at": "2026-11-20T14:05:00+00:00",
+  "data_collected_at": "2026-11-20T13:15:12+00:00",
+  "headline": "Saint Louis lose the last match on the schedule",
+  "dek": "Saint Louis beat Dayton, Davidson and Fordham in November and were the only A10 side to play again. Missouri State's win leaves them at ten wins, five draws and five losses, with nineteen goals conceded in twenty matches.",
+  "lede_basis": {
+    "programme": "saint-louis",
+    "wins": 10,
+    "draws": 5,
+    "losses": 5,
+    "played": 20,
+    "gf": 30,
+    "ga": 19
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring did not settle the season: La Salle's 38 goals came with seven wins and eight defeats.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "la-salle": 38,
+        "dayton": 37,
+        "rhode-island": 37,
+        "davidson": 30,
+        "saint-louis": 30,
+        "duquesne": 29,
+        "fordham": 28,
+        "george-mason": 22,
+        "loyola-chicago": 21,
+        "george-washington": 19,
+        "saint-josephs": 19,
+        "st-bonaventure": 14,
+        "vcu": 13
+      },
+      "highlight": "la-salle"
+    },
+    "basis": {
+      "programme": "la-salle",
+      "gf": 38,
+      "ga": 31,
+      "wins": 7,
+      "draws": 3,
+      "losses": 8
+    }
+  },
+  "wire": {
+    "line": "Fordham are the only A10 side to have beaten Saint Louis, and Saint Louis won the next meeting between them.",
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches have passed their date with no result, Saint Louis's visit to DePaul and Drexel's to Saint Joseph's, both in August; none is a score gap.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Dayton's Cooper Lijewski has scored ten goals from 39 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Cooper Lijewski",
+        "programme": "dayton",
+        "goals": 10,
+        "shots": 39
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Alex Smith has kept six clean sheets for Saint Joseph's and conceded 17 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Alex Smith",
+        "programme": "saint-josephs",
+        "shutouts": 6,
+        "goals_against": 17
+      }
+    },
+    {
+      "label": "derived",
+      "text": "VCU won twice all season, against three draws and ten defeats.",
+      "basis": {
+        "programme": "vcu",
+        "wins": 2,
+        "draws": 3,
+        "losses": 10
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Cooper Lijewski",
+      "programme": "dayton",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 7 A · 39 shots"
+    },
+    {
+      "player": "Bruno Cellerino",
+      "programme": "fordham",
+      "position": "MID",
+      "class": "SO",
+      "line": "6 G · 4 A · 32 shots"
+    },
+    {
+      "player": "Tanner Anderson",
+      "programme": "saint-louis",
+      "position": "MID",
+      "class": "SR",
+      "line": "7 G · 1 A · 20 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 missouri-state v saint-louis",
+      "line": "Saint Louis's first defeat since Fordham beat them in October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:48:21.268Z"
+  }
+}

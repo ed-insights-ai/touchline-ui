@@ -1,0 +1,133 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CAA",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:19:38+00:00",
+  "headline": "UNCW top the table unbeaten",
+  "dek": "UNCW have lost three times all season, none of them in a table match, and conceded fifteen goals across everything they have played. Theirs is the only CAA match still to come.",
+  "lede_basis": {
+    "programme": "uncw",
+    "wins": 12,
+    "draws": 2,
+    "losses": 3,
+    "gf": 28,
+    "ga": 15
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "signal",
+    "text": "The table's leader does not lead the chart: UNCW have scored 28 goals in all matches and conceded fifteen, a lead built on what they keep out.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "elon": 37,
+        "stony-brook": 37,
+        "charleston-south-carolina": 32,
+        "william-mary": 30,
+        "uncw": 28,
+        "drexel": 27,
+        "hofstra": 27,
+        "northeastern": 22,
+        "campbell": 15,
+        "monmouth": 13
+      },
+      "highlight": "uncw"
+    },
+    "basis": {
+      "programme": "uncw",
+      "gf": 28,
+      "ga": 15
+    }
+  },
+  "wire": {
+    "line": "UNCW, unbeaten in the table, are the only CAA side with a match still to play.",
+    "basis": {
+      "programme": "uncw",
+      "wins": 12,
+      "draws": 2,
+      "losses": 3
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Eight matches, all dated in August, have passed with no result published, and none of them involves a North division side.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 8
+      }
+    },
+    {
+      "label": "derived",
+      "text": "College of Charleston have won ten matches in all, more than either Elon or Stony Brook, who both sit above them in the table.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "programme": "charleston-south-carolina",
+        "of": ["elon", "stony-brook"],
+        "wins": 10,
+        "draws": 5,
+        "losses": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Fifteen different players have scored for Elon.",
+      "basis": {
+        "programme": "elon",
+        "distinct_scorers_min": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Milo Risenhoover has kept seven shutouts in Hofstra's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Milo Risenhoover",
+        "programme": "hofstra",
+        "shutouts": 7
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Cameron Keay",
+      "programme": "uncw",
+      "position": "FWD",
+      "class": "FR",
+      "line": "10 G · 4 A · 28 shots"
+    },
+    {
+      "player": "Matt Lenert",
+      "programme": "charleston-south-carolina",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 6 A · 49 shots"
+    },
+    {
+      "player": "Dominik Renz",
+      "programme": "elon",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 4 A · 33 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 uncw v liberty",
+      "line": "UNCW followed their home defeat to College of Charleston with a clean sheet."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 north-carolina v uncw",
+      "line": "Both of UNCW's defeats outside the conference came away from home."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:51:08.700Z"
+  }
+}

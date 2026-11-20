@@ -1,0 +1,138 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MW",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:21:22+00:00",
+  "headline": "No conference side beats Grand Canyon",
+  "dek": "All five of Grand Canyon's defeats have come against programmes from outside the conference. Inside it, only UNLV and UC Davis have taken so much as a point off them, each with a draw.",
+  "lede_basis": {
+    "programme": "grand-canyon",
+    "wins": 14,
+    "draws": 2,
+    "losses": 5
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring and standing run together: every programme sits in the conference table exactly where its goals across all its matches put it on this chart.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "grand-canyon": 42,
+        "unlv": 30,
+        "san-jose-state": 26,
+        "air-force": 22,
+        "uc-davis": 20,
+        "utah-tech": 12
+      },
+      "highlight": "grand-canyon"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "grand-canyon",
+      "of": ["unlv", "san-jose-state", "air-force", "uc-davis", "utah-tech"],
+      "gf": 42
+    }
+  },
+  "wire": {
+    "line": "Grand Canyon are the last side in the conference with a match still to play.",
+    "basis": {
+      "source": "fixtures",
+      "played": 81,
+      "total": 84
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Both matches past their date with no published result are UC Davis home matches from August, against California and Chico State.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "uc-davis",
+        "count": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Maxim Scordo has scored twelve of UNLV's 30 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Maxim Scordo",
+        "programme": "unlv",
+        "goals": 12,
+        "gf": 30
+      }
+    },
+    {
+      "label": "derived",
+      "text": "All nineteen goals UNLV have conceded went in past Hugo Lemos.",
+      "basis": {
+        "source": "stats",
+        "player": "Hugo Lemos",
+        "programme": "unlv",
+        "goals_against": 19,
+        "ga": 19
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UC Davis have conceded 45 goals, more than Grand Canyon and UNLV together.",
+      "basis": {
+        "comparative": "greater_than_sum",
+        "metric": "ga",
+        "programme": "uc-davis",
+        "of": ["grand-canyon", "unlv"],
+        "ga": 45
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Seventeen different players have scored for Grand Canyon.",
+      "basis": {
+        "programme": "grand-canyon",
+        "distinct_scorers_min": 17
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jorge Lopez",
+      "programme": "grand-canyon",
+      "position": "MID",
+      "class": "SR",
+      "line": "7 G · 12 A · 55 shots"
+    },
+    {
+      "player": "Arnau Camaño",
+      "programme": "grand-canyon",
+      "position": "FWD",
+      "class": "FR",
+      "line": "9 G · 1 A · 29 shots"
+    },
+    {
+      "player": "Maxim Scordo",
+      "programme": "unlv",
+      "position": "FWD",
+      "class": "SO",
+      "line": "12 G · 3 A · 45 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 san-diego v grand-canyon",
+      "line": "Grand Canyon have not lost since the middle of September."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-22 pitt v grand-canyon",
+      "line": "Grand Canyon's only away defeat came in their first match of the season, at Stanford."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:53:00.211Z"
+  }
+}

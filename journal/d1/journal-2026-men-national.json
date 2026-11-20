@@ -1,0 +1,21 @@
+{
+  "schema": "touchline.national/1",
+  "season": 2026,
+  "gender": "men",
+  "generated_at": "2026-11-20T14:05:00+00:00",
+  "data_collected_at": "2026-11-20T13:15:12+00:00",
+  "headline": "Omaha beat Creighton on their own ground",
+  "dek": "A Summit League side went into the Big East and took the result home: Omaha's twelfth victory of the season, set against four defeats. Their next match is at UCLA.",
+  "basis": {
+    "programme": "omaha",
+    "wins": 12,
+    "draws": 3,
+    "losses": 4
+  },
+  "fixture_ref": "2026-11-19 creighton v omaha",
+  "updated": "2026-11-20",
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:58:20.719Z"
+  }
+}

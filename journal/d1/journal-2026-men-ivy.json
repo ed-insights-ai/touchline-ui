@@ -1,0 +1,123 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "IVY",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:20:13+00:00",
+  "headline": "Cornell go through Ivy play unbeaten",
+  "dek": "Cornell dropped points in Ivy play only in a draw at Yale, and have since beaten Harvard and Penn again. Across the season they have won 14 matches and lost three, each defeat to a side from outside the conference.",
+  "lede_basis": {
+    "programme": "cornell",
+    "wins": 14,
+    "draws": 1,
+    "losses": 3
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in this conference runs through one programme: Cornell's 48 goals are more than Columbia, Dartmouth and Harvard scored between them.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "cornell": 48,
+        "penn": 32,
+        "brown": 21,
+        "princeton": 19,
+        "yale": 19,
+        "columbia": 18,
+        "dartmouth": 15,
+        "harvard": 13
+      },
+      "highlight": "cornell"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "cornell",
+      "of": ["columbia", "dartmouth", "harvard"],
+      "gf": 48,
+      "ga": 18
+    }
+  },
+  "wire": {
+    "line": "Cornell have not lost since Colgate beat them in October.",
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Marco Bottene has scored 11 of Penn's 32 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Marco Bottene",
+        "programme": "penn",
+        "goals": 11,
+        "gf": 32,
+        "ga": 24
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Yale's 19 goals have come from fourteen different scorers.",
+      "basis": {
+        "programme": "yale",
+        "distinct_scorers_min": 14,
+        "gf": 19,
+        "ga": 27
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Andrew Samuels has kept seven shutouts in Princeton's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Andrew Samuels",
+        "programme": "princeton",
+        "shutouts": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Two matches past their date carry no result: a Dartmouth home match in August and a Cornell home match in October.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Marco Bottene",
+      "programme": "penn",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 2 A · 48 shots"
+    },
+    {
+      "player": "Connor Miller",
+      "programme": "cornell",
+      "position": "MID",
+      "class": "SR",
+      "line": "6 G · 9 A · 40 shots"
+    },
+    {
+      "player": "Lennon Harrington",
+      "programme": "cornell",
+      "position": "DEF",
+      "class": "FR",
+      "line": "7 G · 1 A · 25 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 cornell v fdu",
+      "line": "Cornell have won every home match that has a published result."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:52:00.901Z"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-bigsouth.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "BIGSOUTH",
+  "validated_at": "2026-11-20T17:50:23.543Z",
+  "data_collected_at": "2026-11-20T13:19:02+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "wire",
+      "text": "Longwood's season outlasted the rest: they beat the table's top two away before losing at Wake Forest.",
+      "unbacked": ["2"]
+    },
+    {
+      "path": "pattern.text",
+      "text": "Scoring does not sort this table. Longwood have scored as many as anyone and conceded 39, more than Gardner-Webb or High Point, the two sides above everyone in the table.",
+      "unbacked": ["2"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring does not sort this table. Longwood have scored as many as anyone and conceded 39, more than Gardner-Webb or High Point, the two sides above everyone in the table.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Longwood's season outlasted the rest: they beat the table's top two away before losing at Wake Forest.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Ten matches from August still carry no result, among them Gardner-Webb's home match with Wofford and Longwood's visit to Virginia.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Presbyterian have not won a match all season: one draw and fifteen defeats.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Brando Bedolla has 19 assists for Longwood, more than his 11 goals.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Lucca Barros has kept six shutouts in UNC Asheville's goal.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "Fifteen different players have scored for Gardner-Webb.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Brando Bedolla — 11 G · 19 A · 68 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Daniel Lugo — 13 G · 3 A · 61 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Tyler Ware — 11 G · 8 A · 57 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-19 wake-forest v longwood",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-20T17:48:21.459Z",
+    "generate_ms": 122082,
+    "validate_ms": 1,
+    "wall_ms": 122083,
+    "concurrency": 4
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "BIGWEST",
+  "generated_at": "2026-11-20T13:30:00+00:00",
+  "data_collected_at": "2026-11-20T13:19:20+00:00",
+  "headline": "Cal State Bakersfield's November run ends at Oregon State",
+  "dek": "Cal State Bakersfield won at Utah Valley, the table's leaders, and at UC Santa Barbara in November, before losing at Oregon State in their last match. They finish with seven wins, seven draws and five defeats, more draws than any other side in the conference.",
+  "lede_basis": {
+    "programme": "cal-state-bakersfield",
+    "wins": 7,
+    "draws": 7,
+    "losses": 5,
+    "comparative": "greater_than_each",
+    "metric": "draws",
+    "of": [
+      "cal-state-fullerton",
+      "csun",
+      "sacramento-state",
+      "uc-irvine",
+      "uc-santa-barbara",
+      "utah-valley"
+    ]
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "signal",
+    "text": "Scoring barely separates the conference's programmes, so the table turned on defence: Utah Valley, joint lowest scorers with 25 goals, conceded 16 and finished top.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "csun": 30,
+        "uc-santa-barbara": 30,
+        "cal-state-bakersfield": 29,
+        "sacramento-state": 26,
+        "uc-irvine": 26,
+        "cal-state-fullerton": 25,
+        "utah-valley": 25
+      },
+      "highlight": "utah-valley"
+    },
+    "basis": {
+      "programme": "utah-valley",
+      "gf": 25,
+      "ga": 16
+    }
+  },
+  "wire": {
+    "line": "Cal State Bakersfield won at Utah Valley and UC Santa Barbara in November, then lost at Oregon State.",
+    "basis": {
+      "programme": "cal-state-bakersfield",
+      "wins": 7,
+      "draws": 7,
+      "losses": 5
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Scott Williams kept eight shutouts in UC Irvine's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Scott Williams",
+        "programme": "uc-irvine",
+        "shutouts": 8
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Sacramento State conceded 38 goals, more than Utah Valley and UC Irvine together.",
+      "basis": {
+        "programme": "sacramento-state",
+        "gf": 26,
+        "ga": 38,
+        "comparative": "greater_than_sum",
+        "metric": "ga",
+        "of": ["utah-valley", "uc-irvine"]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Utah Valley won ten matches and lost three.",
+      "basis": {
+        "programme": "utah-valley",
+        "wins": 10,
+        "draws": 3,
+        "losses": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Five August matches are past their date with no published result, each of them CSUN's or Sacramento State's.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Zac Giles",
+      "programme": "sacramento-state",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 5 A · 72 shots"
+    },
+    {
+      "player": "Steinar Bjornsson",
+      "programme": "uc-santa-barbara",
+      "position": "MID",
+      "class": "SO",
+      "line": "11 G · 3 A · 66 shots"
+    },
+    {
+      "player": "Filip Arras",
+      "programme": "cal-state-bakersfield",
+      "position": "DEF",
+      "class": "SR",
+      "line": "7 G · 2 A · 22 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 oregon-state v cal-state-bakersfield",
+      "line": "Cal State Bakersfield had won on this same ground in October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:50:30.285Z"
+  }
+}

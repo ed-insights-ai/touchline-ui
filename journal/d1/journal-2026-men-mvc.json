@@ -1,0 +1,130 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MVC",
+  "generated_at": "2026-11-20T14:05:00+00:00",
+  "data_collected_at": "2026-11-20T13:20:57+00:00",
+  "headline": "Western Michigan have beaten both sides above them",
+  "dek": "Bowling Green and Evansville finished level at the top, and Bowling Green won the only meeting between them, at Evansville in October. Western Michigan, the only side to beat Bowling Green in the table, have not lost since a defeat at DePaul in October.",
+  "lede_basis": {},
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Goals across the whole season did not set the table's order: Western Michigan and Belmont both outscored the two sides that finished level at the top.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "western-michigan": 28,
+        "belmont": 27,
+        "bowling-green": 25,
+        "bradley": 25,
+        "evansville": 23,
+        "uic": 21,
+        "drake": 14
+      },
+      "highlight": "western-michigan"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "western-michigan",
+      "of": ["bowling-green", "evansville"],
+      "gf": 28,
+      "ga": 31
+    }
+  },
+  "wire": {
+    "line": "Bowling Green have won ten matches this season, more than any other side in the conference.",
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "programme": "bowling-green",
+      "of_any": 6,
+      "wins": 10,
+      "draws": 3,
+      "losses": 7
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Evansville have lost nine matches this season, more than any other side in the conference, and only one of them counts in the table.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "losses",
+        "programme": "evansville",
+        "of_any": 6,
+        "wins": 7,
+        "draws": 2,
+        "losses": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bowling Green have conceded 23 goals this season, ten of them with Jason Ball in goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Jason Ball",
+        "programme": "bowling-green",
+        "goals_against": 10,
+        "gf": 25,
+        "ga": 23
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Vitor Geromel has scored eleven goals for Western Michigan from 62 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Vitor Geromel",
+        "programme": "western-michigan",
+        "goals": 11,
+        "shots": 62
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Six matches from August are past their dates with no result published, half of them involving Bradley.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Vitor Geromel",
+      "programme": "western-michigan",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 3 A · 62 shots"
+    },
+    {
+      "player": "Devin Shepherd",
+      "programme": "evansville",
+      "position": "MID",
+      "class": "SO",
+      "line": "4 G · 5 A · 31 shots"
+    },
+    {
+      "player": "Aiden Ptacek",
+      "programme": "bowling-green",
+      "position": "MID",
+      "class": "SR",
+      "line": "4 G · 4 A · 36 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 marshall v bowling-green",
+      "line": "Bowling Green's first defeat since Western Michigan won at Bowling Green in September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:53:43.390Z"
+  }
+}

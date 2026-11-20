@@ -1,0 +1,143 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "BIGSOUTH",
+  "generated_at": "2026-11-20T13:45:00+00:00",
+  "data_collected_at": "2026-11-20T13:19:02+00:00",
+  "headline": "Longwood topple High Point and Gardner-Webb on the road",
+  "dek": "Longwood won at Winthrop, at High Point and at Gardner-Webb across ten days in November, scoring nine and conceding two. High Point had lost to no conference side until then, Gardner-Webb to one. Wake Forest ended the run five days later.",
+  "lede_basis": {
+    "programme": "longwood",
+    "run_fixtures": [
+      "2026-11-04 winthrop v longwood",
+      "2026-11-08 high-point v longwood",
+      "2026-11-14 gardner-webb v longwood"
+    ],
+    "run_span_days": 10,
+    "run_gf": 9,
+    "run_ga": 2,
+    "gardner_webb_conference_defeats_before_run": 1,
+    "days_to_wake_forest": 5
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring does not sort this table. Longwood have scored as many as anyone and conceded 39, more than Gardner-Webb or High Point, the two sides above everyone in the table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "longwood": 43,
+        "unc-asheville": 43,
+        "gardner-webb": 41,
+        "high-point": 38,
+        "winthrop": 31,
+        "usc-upstate": 29,
+        "radford": 24,
+        "presbyterian": 11
+      },
+      "highlight": "longwood"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "ga",
+      "programme": "longwood",
+      "of": ["gardner-webb", "high-point"],
+      "gf": 43,
+      "ga": 39
+    }
+  },
+  "wire": {
+    "line": "Longwood's season outlasted the rest: they beat the table's top two away before losing at Wake Forest.",
+    "basis": {
+      "programme": "longwood",
+      "wins": 11,
+      "draws": 1,
+      "losses": 8
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Ten matches from August still carry no result, among them Gardner-Webb's home match with Wofford and Longwood's visit to Virginia.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Presbyterian have not won a match all season: one draw and fifteen defeats.",
+      "basis": {
+        "programme": "presbyterian",
+        "wins": 0,
+        "draws": 1,
+        "losses": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Brando Bedolla has 19 assists for Longwood, more than his 11 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Brando Bedolla",
+        "programme": "longwood",
+        "assists": 19,
+        "goals": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lucca Barros has kept six shutouts in UNC Asheville's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Lucca Barros",
+        "programme": "unc-asheville",
+        "shutouts": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Fifteen different players have scored for Gardner-Webb.",
+      "basis": {
+        "programme": "gardner-webb",
+        "distinct_scorers_min": 15
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Brando Bedolla",
+      "programme": "longwood",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 19 A · 68 shots"
+    },
+    {
+      "player": "Daniel Lugo",
+      "programme": "high-point",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 3 A · 61 shots"
+    },
+    {
+      "player": "Tyler Ware",
+      "programme": "unc-asheville",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 8 A · 57 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 wake-forest v longwood",
+      "line": "Longwood's first defeat since October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:50:23.543Z"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "ASUN",
+  "generated_at": "2026-11-20T14:00:00+00:00",
+  "data_collected_at": "2026-11-20T13:17:35+00:00",
+  "headline": "North Florida goes unbeaten against its own conference",
+  "dek": "The only points North Florida dropped to a conference side all season came in a goalless draw at Bellarmine. Luciano Natoli kept seven shutouts behind thirteen wins, and the side's latest match, away to Vermont, was a defeat.",
+  "lede_basis": {
+    "source": "stats",
+    "player": "Luciano Natoli",
+    "programme": "north-florida",
+    "shutouts": 7,
+    "wins": 13,
+    "draws": 3,
+    "losses": 5
+  },
+  "lede_updated": "2026-11-20",
+  "pattern": {
+    "label": "derived",
+    "text": "North Florida turned 30 goals into thirteen wins, more wins than any other programme: the bars sit close together, and the most wins did not come from the most goals.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "stetson": 33,
+        "central-arkansas": 32,
+        "queens-charlotte": 31,
+        "north-florida": 30,
+        "jacksonville": 28,
+        "fgcu": 27,
+        "bellarmine": 25,
+        "west-florida": 21,
+        "lipscomb": 16
+      },
+      "highlight": "north-florida"
+    },
+    "basis": {
+      "programme": "north-florida",
+      "gf": 30,
+      "ga": 22,
+      "wins": 13,
+      "draws": 3,
+      "losses": 5,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of_any": 8
+    }
+  },
+  "wire": {
+    "line": "North Florida went the season without losing to a conference rival, then lost at Vermont.",
+    "basis": {
+      "programme": "north-florida",
+      "wins": 13,
+      "draws": 3,
+      "losses": 5
+    },
+    "updated": "2026-11-20"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Twelve August matches are past their date with no result; Stetson, Lipscomb, Queens, FGCU and Bellarmine each have at least one among them.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 12
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Lipscomb finished with three wins and twelve defeats, more defeats than any other programme.",
+      "basis": {
+        "programme": "lipscomb",
+        "wins": 3,
+        "draws": 1,
+        "losses": 12,
+        "comparative": "greater_than_each",
+        "metric": "losses",
+        "of_any": 8
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Queens conceded 42 goals, more than any other programme, against 31 scored.",
+      "basis": {
+        "programme": "queens-charlotte",
+        "gf": 31,
+        "ga": 42,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bellarmine conceded fourteen goals on a record of seven wins, five draws and four defeats.",
+      "basis": {
+        "programme": "bellarmine",
+        "wins": 7,
+        "draws": 5,
+        "losses": 4,
+        "gf": 25,
+        "ga": 14
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Luis Vera Mayorca",
+      "programme": "queens-charlotte",
+      "position": "MID",
+      "class": "SO",
+      "line": "8 G · 7 A · 43 shots"
+    },
+    {
+      "player": "Aron Martinez",
+      "programme": "fgcu",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 3 A · 39 shots"
+    },
+    {
+      "player": "Mark Romano",
+      "programme": "north-florida",
+      "position": "FWD",
+      "class": "SR",
+      "line": "9 G · 2 A · 31 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-19 vermont v north-florida",
+      "line": "North Florida's first defeat since losing at FIU in early October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-20T17:49:21.815Z"
+  }
+}
