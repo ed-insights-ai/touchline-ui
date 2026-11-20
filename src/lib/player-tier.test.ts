@@ -9,6 +9,8 @@ import { resolve } from "node:path";
 import { levelShows, levelTiers, tiersConfig, tiersEnabled } from "../tiers.config.ts";
 import {
   activeTiers,
+  badgeLine,
+  badgeYears,
   basisLine,
   basisNote,
   careerTiersLine,
@@ -22,9 +24,11 @@ import {
   type SheetTier,
   seasonLineOf,
   seasonsPhrase,
+  sheetDefence,
   sheetTier,
   sourceLine,
   statusLabel,
+  teamBadge,
   tierBlock,
   tierFigures,
 } from "./player-tier.ts";
@@ -55,16 +59,17 @@ const team = (over: Partial<TierTeam> = {}): TierTeam => ({
   pct_in: 8.1,
   goals_conceded: 24,
   opponents_usual: 30.6,
+  badge: false,
   ...over,
 });
 
 function file(over: Partial<TiersFile> = {}): TiersFile {
   return {
-    schema: "touchline-ui.tiers/1",
+    schema: "touchline-ui.tiers/2",
     level: "d2",
     season: 2026,
     gender: "men",
-    spec: "player-tiers/0.7",
+    spec: "player-tiers/0.8",
     frozen_at: "2026-11-16",
     data_commit: "ea45f891",
     division: { teams: 198, shots_faced_per_match: 12.3, pct_in: 12.8 },
@@ -150,12 +155,14 @@ describe("what each level shows", () => {
     reason: "no_position",
   });
 
-  test("Division II shows every tier and every status", () => {
-    for (const e of [mid, fwd, def, keeper, unplaced]) expect(levelShows("d2", e)).toBe(true);
+  test("Division II shows shooting and scoring for both groups, and no defence tier", () => {
+    for (const e of [mid, fwd, unplaced]) expect(levelShows("d2", e)).toBe(true);
+    for (const e of [def, keeper]) expect(levelShows("d2", e)).toBe(false);
+    expect(levelTiers("d2")).toMatchObject({ shooting: ["F", "M"], badge: true });
   });
 
   test("Division I shows midfielders' shooting and scoring only: the one group that passed T1 there", () => {
-    expect(levelTiers("d1")).toMatchObject({ shooting: ["M"], teamDefence: false });
+    expect(levelTiers("d1")).toMatchObject({ shooting: ["M"], badge: true });
     expect(levelShows("d1", mid)).toBe(true);
     expect(levelShows("d1", entry({ group: "M", status: "needs_minutes", tier: null }))).toBe(true);
     for (const e of [fwd, def, keeper, unplaced]) expect(levelShows("d1", e)).toBe(false);
@@ -164,10 +171,10 @@ describe("what each level shows", () => {
 
   test("the coverage sentence says what another level shows, from config", () => {
     expect(coverageLine("Division I", levelTiers("d1"))).toBe(
-      "Division I pages show the shooting and scoring tier for midfielders only.",
+      "Division I pages show the shooting and scoring tier for midfielders and the team defence badge.",
     );
     expect(coverageLine("Division II", levelTiers("d2"))).toBe(
-      "Division II pages show every tier.",
+      "Division II pages show the shooting and scoring tier for forwards and midfielders and the team defence badge.",
     );
     expect(coverageLine("Division III", levelTiers("d3"))).toBe("Division III pages show none.");
   });
@@ -176,13 +183,9 @@ describe("what each level shows", () => {
     for (const level of ["d1", "d2"]) {
       const shown = levelTiers(level);
       for (const m of shown?.measured?.rows ?? []) {
-        const e =
-          m.group === "team_defence"
-            ? entry({ group: "D", kind: "team_defence", tier: null, status: "eligible" })
-            : entry({ group: m.group });
-        expect(`${level} ${m.group} shown ${levelShows(level, e)}`).toBe(
-          `${level} ${m.group} shown ${m.r >= m.bar}`,
-        );
+        const on =
+          m.group === "team_badge" ? shown?.badge : levelShows(level, entry({ group: m.group }));
+        expect(`${level} ${m.group} shown ${on}`).toBe(`${level} ${m.group} shown ${m.r >= m.bar}`);
       }
     }
   });
@@ -574,6 +577,76 @@ describe("the team figures", () => {
 });
 
 // ── The block ───────────────────────────────────────────────────────────────
+
+describe("the team defence badge", () => {
+  const def = entry({ group: "D", kind: "team_defence", status: "eligible", tier: null });
+  const badged = (over: Partial<TiersFile> = {}) =>
+    file({ teams: { calder: team({ badge: true }) }, players: { calder: [def] }, ...over });
+
+  test("a regular defender's sheet carries the team's figures, and the badge when the team holds it", () => {
+    const d = sheetDefence(badged(), "calder", "Calder State", { name: "Tomas Ferreira" });
+    expect(d?.badge).toBe(badgeLine("Calder State", 2026));
+    expect(d?.figures.rows.map((r) => r.label)).toEqual([
+      "Shots faced a match",
+      "Shots faced that went in",
+    ]);
+    const plain = sheetDefence(file({ players: { calder: [def] } }), "calder", "Calder State", {
+      name: "Tomas Ferreira",
+    });
+    expect(plain?.badge).toBeNull();
+    expect(plain?.figures).not.toBeNull();
+  });
+
+  test("the defence entry is never drawn as a tier, on any level", () => {
+    for (const level of ["d1", "d2"] as const) {
+      expect(
+        sheetTier(badged({ level }), "calder", "Calder State", { name: "Tomas Ferreira" }),
+      ).toBeNull();
+    }
+  });
+
+  test("no figures for a player who is not a regular, or for a forward", () => {
+    for (const e of [
+      entry({ group: "D", kind: "team_defence", status: "needs_minutes", tier: null }),
+      entry({
+        group: "D",
+        kind: "team_defence",
+        status: "incomplete",
+        tier: null,
+        reason: "few_matches",
+      }),
+      entry(),
+    ]) {
+      expect(
+        sheetDefence(badged({ players: { calder: [e] } }), "calder", "Calder State", {
+          name: "Tomas Ferreira",
+        }),
+      ).toBeNull();
+    }
+  });
+
+  test("the team page names this season's badge and the earlier ones, oldest first", () => {
+    const earlier = (held: number[]) => (y: number) =>
+      file({ season: y, teams: { calder: team({ badge: held.includes(y) }) } });
+    expect(teamBadge(badged(), "calder", "Calder State", earlier([2023, 2025]))).toEqual({
+      line: badgeLine("Calder State", 2026),
+      earlier: [2023, 2025],
+    });
+    expect(teamBadge(file(), "calder", "Calder State", earlier([2024]))).toEqual({
+      line: null,
+      earlier: [2024],
+    });
+    expect(teamBadge(file(), "calder", "Calder State", earlier([]))).toBeNull();
+    expect(teamBadge(badged({ level: "d3" }), "calder", "Calder State", () => null)).toBeNull();
+  });
+
+  test("the earlier seasons in words", () => {
+    expect(badgeYears([])).toBeNull();
+    expect(badgeYears([2025])).toBe("2025");
+    expect(badgeYears([2023, 2025])).toBe("2023 and 2025");
+    expect(badgeYears([2022, 2024, 2025])).toBe("2022, 2024 and 2025");
+  });
+});
 
 describe("the block", () => {
   const f = file();

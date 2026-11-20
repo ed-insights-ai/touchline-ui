@@ -1228,3 +1228,34 @@ forwards are not shown on Division I. Filed as bead tui-93x.
 | 2024-men | 43 | 126 | 22 | 63 |
 | 2025-men | 41 | 120 | 20 | 60 |
 | 2026-men | 39 | 114 | 20 | 58 |
+
+## The team defence badge, and the defence tier retired: 20 November 2026
+
+The adversarial review of this day (ed-insights-platform `player-tiers/evidence/defence-review`)
+measured the team defence tier against T1 and found it a team's record handed to its regular
+defenders and goalkeepers, with nothing individual in it that repeats: the record standardised
+inside workload thirds has R 0.51 / 0.54 / 0.40 for teams (D2 men, D2 women, D1 men), and the
+career label 0.60 / 0.64 / 0.35. The same record across the whole division, one season, has R
+0.76 / 0.82 / 0.66 against the single-label bar of 0.61, and passes on every level. The owner
+chose to show it on the team: the **team defence badge**.
+
+| | |
+| --- | --- |
+| Rule | Spec 0.8: the top `ceil(0.20 × N)` (ties in) by record = −ln(max(GA, 0.5) / EGA), over the season's programmes with a workload group (n ≥ 12). No standardising, no seasons averaged. `scripts/tiers/output.ts` `badgeHolders`. |
+| Schema | `touchline-ui.tiers/2`: each team carries `badge`; the reader refuses a badge without a workload group. |
+| Rebuild | Every file rebuilt at its own frozen data commit (D2 from a clone at a6c5e738, D1 at fd497c9). Against the committed files, the only changes are `schema`, `spec` and each team's `badge`: every entry, figure and tier is byte for byte as frozen. The shooting tiers do not move. |
+| Shown | Team pages on D1 and D2 (the crest line, with earlier seasons); a regular defender's or goalkeeper's sheet keeps the three team figures under TEAM DEFENCE, with the badge when the team holds it. No player holds a defence tier on any level; the files keep the defence entries, which mark a regular for those figures. |
+
+**What the badge is.** About three-quarters of the record is shot volume: it credits the whole
+team's defending, keeping opponents from shooting first. In 2026 the holders are 30 light / 9
+typical / 1 heavy workload (D2 men), 40 / 10 / 0 (D2 women) and 31 / 9 / 3 (D1 men). The method
+page says so. It has not been tested season forward; a team's record correlates 0.52 to 0.71
+with its record the season before.
+
+### Badges per file
+
+| File | Teams with a group | Badges |
+| --- | --- | --- |
+| d2/2022..2026-men | about 198 | 40 each |
+| d2/2022..2026-women | about 250 | 50, 50, 51, 51, 50 |
+| d1/2022..2026-men | about 212 | 42, 43, 43, 43, 43 |

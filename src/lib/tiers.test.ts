@@ -92,7 +92,7 @@ describe("loadTiers", () => {
     mkdirSync(join(root, "tiers", "d2"), { recursive: true });
     writeFileSync(
       join(root, "tiers", "d2", "2026-men.json"),
-      JSON.stringify({ schema: "touchline-ui.tiers/1", season: 2026, estimate: 1 }),
+      JSON.stringify({ schema: "touchline-ui.tiers/2", season: 2026, estimate: 1 }),
     );
     expect(() => loadTiers("d2", 2026, "men", root)).toThrow(/2026-men\.json does not match/);
   });
@@ -145,11 +145,11 @@ describe("foldName: the collector's fold_name (4.1)", () => {
 });
 
 const fixture = (players: TierEntry[]): TiersFile => ({
-  schema: "touchline-ui.tiers/1",
+  schema: "touchline-ui.tiers/2",
   level: "d2",
   season: 2026,
   gender: "men",
-  spec: "player-tiers/0.7",
+  spec: "player-tiers/0.8",
   frozen_at: "2026-11-16",
   data_commit: "abc1234",
   division: { teams: 1, shots_faced_per_match: 12.3, pct_in: 12.8 },
@@ -161,6 +161,7 @@ const fixture = (players: TierEntry[]): TiersFile => ({
       pct_in: 13.2,
       goals_conceded: 54,
       opponents_usual: 27.4,
+      badge: false,
     },
   },
   players: { harding: players },
