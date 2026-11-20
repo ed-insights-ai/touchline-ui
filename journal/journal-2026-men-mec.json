@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-11-17T12:45:00+00:00",
-  "data_collected_at": "2026-11-17T12:35:09+00:00",
+  "generated_at": "2026-11-20T12:45:00+00:00",
+  "data_collected_at": "2026-11-20T12:34:19+00:00",
   "headline": "Charleston and Davis & Elkins play on",
   "dek": "Both won their latest by a single goal, and theirs are the only two matches left on the conference calendar. Between them they have lost three times in thirty-eight; each of the other eight programmes has lost at least five.",
   "lede_basis": {
@@ -23,7 +23,6 @@
     "fewest_losses_among_others": 5
   },
   "lede_updated": "2026-11-17",
-  "displaced_by": "Charleston now also have a match left, at home to Gannon, so the standing line that Davis & Elkins alone still had one no longer holds.",
   "pattern": {
     "label": "derived",
     "text": "Charleston have scored more goals than West Liberty and Wheeling together, and seventeen different players have shared their fifty-five; the scoring is spread, not carried.",
@@ -159,6 +158,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T12:43:20.832Z"
+    "validated_at": "2026-11-20T12:40:25.146Z"
   }
 }
