@@ -1,7 +1,7 @@
 ---
 // How tiers work: the method page for player tiers, in About's reading
-// register (serif prose under ruled heads, no cards, no chrome). The copy is
-// player-tiers design/about-tiers.md.
+// register (serif prose under ruled heads, sans for formulas, tables and
+// worked examples, no cards).
 //
 // A dynamic route on purpose, with one possible path: getStaticPaths returns
 // it only while the tiers are on (lib/player-tier.ts activeTiers, which holds
@@ -77,32 +77,33 @@ const firstSeasonNote =
     : `The first season with tiers is ${firstSeason}, and nothing before it is counted: no ${firstSeason} defender or goalkeeper could hold the team defence tier, and a ${firstSeason} forward or midfielder is judged on that season alone.`;
 
 const sections = [
-  { id: "what", label: "What it is" },
-  { id: "who", label: "Who" },
-  { id: "shooting", label: "Shooting and scoring" },
+  { id: "what", label: "Overview" },
+  { id: "who", label: "Eligibility" },
+  { id: "opponents", label: "Opponent model" },
+  { id: "shooting", label: "Shooting & scoring" },
   { id: "defence", label: "Team defence" },
   { id: "figures", label: "Team figures" },
-  { id: "statuses", label: "Statuses" },
-  { id: "unseen", label: "Unseen" },
-  { id: "firm", label: "How firm" },
-  { id: "when", label: "When" },
+  { id: "statuses", label: "Sheet statuses" },
+  { id: "unseen", label: "Limits" },
+  { id: "firm", label: "Reliability" },
+  { id: "when", label: "When set" },
   { id: "division", label: division },
 ] as const;
 ---
 
 <Page
   title="Touchline — How tiers work"
-  description="How Touchline sets player tiers, who can hold one, and what each one rests on."
+  description="How Touchline computes player tiers from box scores: eligibility, opponent adjustments, the exact formulas and worked examples."
 >
   <style is:inline>
-    .tm .lede { padding: 40px 0 30px; max-width: 720px; }
+    .tm .lede { padding: 40px 0 30px; max-width: 740px; }
     .tm .akicker { margin-bottom: 14px; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
     .tm .atitle { margin: 0 0 16px; font-size: 42px; line-height: 1.1; letter-spacing: -0.005em; }
     .tm .intro {
       margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink-soft);
       font-family: var(--serif); font-weight: 400; text-wrap: pretty;
     }
-    .tm .toc { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 22px; }
+    .tm .toc { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 22px; }
     .tm .toc-link {
       font-size: 11px; letter-spacing: 0.14em; font-weight: 600; text-transform: uppercase;
       color: var(--secondary); padding: 2px 0;
@@ -112,22 +113,32 @@ const sections = [
     @media (pointer: coarse) {
       .tm .toc-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0; }
     }
-    .tm .band { padding: 26px 0; border-top: 1px solid var(--hairline); max-width: 720px; scroll-margin-top: 16px; }
+
+    .tm .band { padding: 28px 0; border-top: 1px solid var(--hairline); max-width: 740px; scroll-margin-top: 16px; }
     .tm .band .sechead { margin-bottom: 18px; display: inline-block; }
+    .tm .subhead {
+      margin: 22px 0 8px;
+      font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tm .subhead:first-of-type { margin-top: 4px; }
+
     .tm .para, .tm .list {
-      margin: 0 0 16px; font-family: var(--serif); font-weight: 400;
-      font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty;
+      margin: 0 0 15px; font-family: var(--serif); font-weight: 400;
+      font-size: 15.5px; line-height: 1.58; color: var(--ink-soft); text-wrap: pretty;
     }
     .tm .para:last-child, .tm .list:last-child { margin-bottom: 0; }
-    .tm .para strong, .tm .list strong { font-weight: 600; }
+    .tm .para strong, .tm .list strong { font-weight: 600; color: var(--ink); }
     .tm .list { padding-left: 1.25em; }
-    .tm .list li + li { margin-top: 6px; }
+    .tm .list li + li { margin-top: 8px; }
     .tm .para a { color: inherit; border-bottom: 1px solid var(--outline-quiet); }
     .tm .para a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
-    /* Who can hold one: two kinds side by side, ruled as About's stamps are. */
-    .tm .who { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 13px; line-height: 1.45; }
+
+    /* Comparison and parameter tables: ruled sans, matching About's register. */
+    .tm .who { width: 100%; border-collapse: collapse; margin: 16px 0 18px; font-size: 13px; line-height: 1.48; }
+    .tm .who:last-child { margin-bottom: 0; }
     .tm .who th, .tm .who td {
-      text-align: left; vertical-align: top; padding: 8px 14px 8px 0;
+      text-align: left; vertical-align: top; padding: 9px 14px 9px 0;
       border-top: 1px solid var(--hairline-soft);
     }
     .tm .who thead th {
@@ -135,14 +146,88 @@ const sections = [
       font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary);
       text-transform: uppercase;
     }
-    .tm .who tbody th { width: 108px; font-weight: 600; color: var(--ink); }
+    .tm .who tbody th { width: 132px; font-weight: 600; color: var(--ink); }
     .tm .who td { color: var(--ink-soft); }
+
+    /* Numbered calculation steps. */
+    .tm .steps { list-style: none; padding: 0; margin: 16px 0 18px; counter-reset: tm-step; }
+    .tm .step {
+      counter-increment: tm-step;
+      display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: 14px;
+      padding: 14px 0; border-top: 1px solid var(--hairline-soft);
+    }
+    .tm .step:first-child { border-top: 0; padding-top: 4px; }
+    .tm .step::before {
+      content: counter(tm-step);
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      background: var(--accent-wash-soft);
+      width: 24px; height: 24px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .tm .step-title {
+      margin: 0 0 6px; font-family: var(--sans); font-size: 14px; font-weight: 600;
+      color: var(--ink); line-height: 1.35;
+    }
+    .tm .step-body > .para { margin-bottom: 10px; }
+    .tm .step-body > .para:last-child { margin-bottom: 0; }
+
+    /* Formula callout: quiet left rule, same grammar as .basis in base.css. */
+    .tm .formula {
+      margin: 10px 0 12px; padding: 10px 14px;
+      background: var(--accent-wash-soft);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      font-family: var(--sans); font-size: 13px; line-height: 1.55;
+      color: var(--ink); font-variant-numeric: tabular-nums;
+    }
+    .tm .formula-eq { font-weight: 600; }
+    .tm .formula-note {
+      margin-top: 4px; font-size: 12.5px; color: var(--secondary); line-height: 1.45;
+    }
+
+    /* Worked example: distinct ruled inset with tabular arithmetic. */
+    .tm .example {
+      margin: 18px 0 4px; padding: 14px 16px;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      border-left: 2px solid var(--outline-quiet);
+      background: var(--card);
+    }
+    .tm .example-kicker {
+      font-size: 10px; letter-spacing: 0.16em; font-weight: 600;
+      text-transform: uppercase; color: var(--secondary); margin-bottom: 8px;
+    }
+    .tm .example .para { font-size: 14.5px; line-height: 1.55; margin-bottom: 10px; }
+    .tm .example-rows {
+      margin: 10px 0 0; padding: 0; list-style: none;
+      font-family: var(--sans); font-size: 13px; line-height: 1.5;
+      color: var(--ink-soft); font-variant-numeric: tabular-nums;
+    }
+    .tm .example-rows li {
+      padding: 6px 0; border-top: 1px solid var(--hairline-soft);
+      display: grid; grid-template-columns: 165px minmax(0, 1fr); column-gap: 12px;
+    }
+    .tm .example-rows li:first-child { border-top: 0; padding-top: 2px; }
+    .tm .example-label { font-weight: 600; color: var(--ink); }
+    .tm .example-rows strong { color: var(--ink); font-weight: 600; }
+
+    .tm .sym {
+      font-family: var(--sans); font-size: 0.9em; font-weight: 600;
+      color: var(--ink); font-variant-numeric: tabular-nums;
+    }
+
     @media (max-width: 720px) {
       .tm .atitle { font-size: 32px; }
       .tm .intro { font-size: 15.5px; }
       .tm .who { font-size: 12.5px; }
-      .tm .who tbody th { width: 72px; }
+      .tm .who tbody th { width: 92px; }
       .tm .who th, .tm .who td { padding-right: 10px; }
+      .tm .step { grid-template-columns: 24px minmax(0, 1fr); column-gap: 10px; }
+      .tm .example-rows li { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
     }
   </style>
   <div class="tl-page">
@@ -153,10 +238,12 @@ const sections = [
         <div class="akicker num">TOUCHLINE · NCAA {division.toUpperCase()}</div>
         <h1 class="atitle serif">How tiers work</h1>
         <p class="intro">
-          A tier marks one thing a season shows clearly in the published box scores. Forwards
-          and midfielders can hold a tier for their own shooting and scoring. Defenders and
-          goalkeepers can share a tier that belongs to their team's defending. Most players
-          hold no tier, and no tier is not a bad mark.
+          A tier is a top-of-group label calculated by a fixed formula from published box scores.
+          Touchline runs two separate tracks: <strong>Shooting and scoring</strong> for forwards
+          and midfielders (individual non-penalty goals and shots per 90 minutes, adjusted for
+          opponents), and <strong>Team defence</strong> for defenders and goalkeepers (how many
+          goals their team prevented relative to similar-workload teams over two or three seasons).
+          Four in five eligible players hold no tier, and holding no tier is not a negative mark.
         </p>
         <nav class="toc" aria-label="On this page">
           {sections.map((x) => <a class="toc-link" href={`#${x.id}`}>{x.label}</a>)}
@@ -166,195 +253,585 @@ const sections = [
       <section class="band" id="what">
         <h2 class="sechead">WHAT A TIER IS, AND IS NOT</h2>
         <p class="para">
-          A tier is a distinction, worked out by a published rule from the box scores, and
-          shown with what it rests on: minutes, appearances, the seasons counted and class year.
+          Every tier is worked out by the same published math from the box scores and shown
+          alongside the record it rests on: minutes, appearances, seasons counted and class year.
         </p>
         <p class="para">
-          It is not a rating, and there is no score, ranking or order inside a tier. It is not a
-          prediction. It describes one part of the game the record can see; players matter in
-          many ways it cannot.
+          It is <strong>not</strong> an overall player rating, a ranking or a prediction. Inside a
+          tier there is no #1 and no #50 — the intermediate scores used to draw the cut lines are
+          discarded and never printed. A tier only describes the part of the game that box scores
+          record; players help their team in many ways a box score never sees.
         </p>
-      </section>
-
-      <section class="band" id="who">
-        <h2 class="sechead">WHO CAN HOLD ONE</h2>
         <table class="who">
           <thead>
             <tr>
-              <th scope="col"><span class="vh">What</span></th>
+              <th scope="col"><span class="vh">Rule</span></th>
               <th scope="col">Shooting and scoring</th>
               <th scope="col">Team defence</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Positions</th>
-              <td>Forwards and midfielders</td>
-              <td>Defenders and goalkeepers</td>
+              <th scope="row">Who it covers</th>
+              <td>Forwards and midfielders (compared separately)</td>
+              <td>Defenders and goalkeepers (pooled together)</td>
             </tr>
             <tr>
-              <th scope="row">Tiers</th>
-              <td>
-                Tier 1, the top 5% of eligible players in the position group. Tier 2, the next 15%.
-              </td>
-              <td>One tier: the top fifth of eligible players.</td>
+              <th scope="row">What it measures</th>
+              <td>A player's own non-penalty goals and shots per 90 minutes, adjusted for opponent strength and venue</td>
+              <td>The team's goals conceded against what its opponents usually score, compared inside its shot-workload group</td>
             </tr>
             <tr>
-              <th scope="row">Eligible</th>
-              <td>
-                900 minutes this season, or 600 in each of the last two as a forward or midfielder
-                at the same programme.
-              </td>
-              <td>Two or three seasons in a row as a regular at the same programme.</td>
+              <th scope="row">Tiers awarded</th>
+              <td><strong>Tier 1</strong> (top 5% of eligible players) and <strong>Tier 2</strong> (next 15%)</td>
+              <td><strong>One tier</strong> (top 20% of eligible players)</td>
+            </tr>
+            <tr>
+              <th scope="row">To qualify</th>
+              <td>900 minutes this season, or 600 in each of the last two seasons as a forward or midfielder at the same programme</td>
+              <td>2 or 3 consecutive seasons as a regular at the same programme in the same position group</td>
             </tr>
             <tr>
               <th scope="row">Seasons counted</th>
-              <td>This one, and the one before if it had 600 minutes as a forward or midfielder.</td>
-              <td>Each season in a row as a regular, up to three.</td>
+              <td>This season, plus last season if it had 600+ minutes as a forward or midfielder</td>
+              <td>2 or 3 consecutive regular seasons, ending with this one</td>
             </tr>
           </tbody>
         </table>
+      </section>
+
+      <section class="band" id="who">
+        <h2 class="sechead">ELIGIBILITY, POSITIONS AND MINUTES</h2>
+
+        <h3 class="subhead">Separate pools</h3>
         <p class="para">
-          A defender is a regular with 900 minutes and 70% of the team's minutes in a season; a
-          goalkeeper, 600 minutes and 50%. Men and women are compared separately.
+          Men and women are always modelled and compared separately. In shooting and scoring,
+          forwards are compared only with forwards and midfielders only with midfielders, because
+          forwards naturally take more shots and score more goals. In team defence, eligible
+          defenders and goalkeepers are pooled together because every player carries their team's
+          defensive score.
+        </p>
+
+        <h3 class="subhead">What counts as a defensive regular</h3>
+        <p class="para">
+          To count a season toward team defence, a player must clear both a minutes floor and a
+          share of the team's recorded minutes (<span class="sym">minutes ÷ (team matches × 90)</span>):
+        </p>
+        <ul class="list">
+          <li><strong>Defender:</strong> at least <span class="sym">900</span> minutes and at least <span class="sym">70%</span> of the team's minutes.</li>
+          <li><strong>Goalkeeper:</strong> at least <span class="sym">600</span> minutes and at least <span class="sym">50%</span> of the team's minutes.</li>
+        </ul>
+        <p class="para">
+          The team must also have at least <span class="sym">12</span> collected matches with complete
+          goal and shot counts in each counted season.
+        </p>
+
+        <h3 class="subhead">How position is chosen</h3>
+        <p class="para">
+          Position comes from the programme's roster. If a roster lists two positions (such as
+          “F/M”), Touchline checks the player's box-score lines that season: if one of those listed
+          positions appears most often and at least three times, that one is used; otherwise the
+          roster's primary listing stands. If the roster gives no position, Touchline uses the most
+          common position printed in the player's box scores (ties go to the first seen in date
+          order).
+        </p>
+
+        <h3 class="subhead">How minutes are counted</h3>
+        <p class="para">
+          Not every programme prints player minutes in every match box score. Touchline picks a
+          player's minutes in this order:
+        </p>
+        <ol class="list">
+          <li>
+            <strong>All box scores print minutes:</strong> Touchline sums the minutes from the
+            match box scores.
+          </li>
+          <li>
+            <strong>Some box scores omit minutes, but the programme publishes a season total:</strong>{" "}
+            Touchline uses the season total from the programme's stats page — or the box-score sum
+            if it is higher (a printed minute was definitely played). For goalkeepers, both the
+            players table and the goalkeeping table are checked and the higher total is used.
+          </li>
+          <li>
+            <strong>Some box scores omit minutes and no season total is published:</strong>{" "}
+            Touchline uses the box-score sum as long as at least half of the team's matches print
+            minutes. If a player falls short of eligibility on printed minutes, Touchline checks
+            whether adding 90 minutes for each unprinted match they appeared in could lift them
+            over the line; if it could, the player is marked <strong>Incomplete records</strong>{" "}
+            rather than <strong>Needs more minutes</strong>.
+          </li>
+        </ol>
+        <p class="para">
+          Because the stats page and the box scores do not always match — and because tiers freeze
+          once a season — the minutes beside a tier can differ from the season total elsewhere on
+          the same player sheet. When they differ, the sheet states where the tier's count came
+          from.
+        </p>
+      </section>
+
+      <section class="band" id="opponents">
+        <h2 class="sechead">STEP 1 FOR BOTH TRACKS: OPPONENT STRENGTH AND HOME FIELD</h2>
+        <p class="para">
+          Before scoring any player or defence, Touchline measures how strong every team's attack
+          and defence were and how much home field mattered. That way, a goal scored away against a
+          stingy defence counts for more than a goal scored at home against a leaky one — and a
+          defence facing high-scoring opponents gets credit for the schedule it played.
         </p>
         <p class="para">
-          Positions come from the roster. Where it lists two, the one the box scores show most,
-          if they show it at least three times; otherwise the first listed. Where it lists none,
-          the box scores.
+          Touchline fits two identical multiplicative models across all collected seasons (men and
+          women separately): one for <strong>goals</strong> and one for <strong>shots</strong>. Each
+          team-season receives an <strong>attack factor</strong> (<span class="sym">att</span>) and
+          a <strong>defence factor</strong> (<span class="sym">dfn</span>), centred around{" "}
+          <span class="sym">1.0</span> for an average team:
         </p>
+        <div class="formula">
+          <div class="formula-eq">
+            Expected in a match = μ × att[attacking team] × dfn[defending team] × venue
+          </div>
+          <div class="formula-note">
+            <strong>μ</strong> is the division average per team per match (~1.5–1.6 goals, ~12.5
+            shots). <strong>venue</strong> is <strong>h</strong> at home (~1.10 for goals,
+            ~1.07–1.08 for shots), <strong>1 ÷ h</strong> away, and <strong>1.0</strong> at a
+            neutral site.
+          </div>
+        </div>
         <p class="para">
-          Minutes come from the box scores. Where a programme's box scores do not print minutes
-          for every match, the season total the programme publishes is used, or the box-score
-          minutes if they are higher. Where it publishes no total, the box-score minutes are used
-          if at least half the matches print them. So the minutes beside a tier can differ from the
-          season total on the same sheet. Where they do, the sheet says where the tier's count
-          comes from.
+          How to read the factors: a defence with <span class="sym">dfn = 0.80</span> allows 20%
+          fewer goals than an average defence; a defence with <span class="sym">dfn = 1.25</span>{" "}
+          allows 25% more. An attack with <span class="sym">att = 1.30</span> scores 30% more than
+          average. The model updates all teams over 40 passes (with a light prior of{" "}
+          <span class="sym">6</span> goals and <span class="sym">40</span> shots pulling tiny
+          samples toward <span class="sym">1.0</span>), so every team's rating automatically accounts
+          for the strength of the opponents it faced.
         </p>
       </section>
 
       <section class="band" id="shooting">
-        <h2 class="sechead">SHOOTING AND SCORING</h2>
+        <h2 class="sechead">SHOOTING AND SCORING: THE MATH STEP BY STEP</h2>
         <p class="para">
-          A player's own goals and shots, penalties left out, for every 90 minutes played.
-          Against a defence that gives up few, a goal or a shot counts for a little more; against
-          one that gives up many, a little less. Home and away are allowed for.
+          Forwards and midfielders are evaluated on their own non-penalty goals and shots per 90
+          minutes. Assists and earlier passes are not included. Here are the four steps from raw box
+          scores to a tier:
         </p>
-        <p class="para">
-          A goal counts for between two and a half and a little over three shots. Shots count
-          because they say more about the goals to come than past goals do. With two seasons counted, this one weighs
-          most. Assists and the pass before a shot are not counted.
-        </p>
+
+        <ol class="steps">
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Strip penalties and adjust each match for opponent and venue</h3>
+              <p class="para">
+                Penalty kicks (both goals and attempts, read from the play-by-play and cross-checked
+                against the season stats page) are removed so designated penalty takers are not
+                boosted over teammates who win the fouls. Then each match's non-penalty goals (
+                <span class="sym">g</span>) and shots (<span class="sym">s</span>) are divided by
+                how generous that opponent and venue were:
+              </p>
+              <div class="formula">
+                <div class="formula-eq">
+                  match adjG = g ÷ (dfn_goals[opponent] × venue_goals)<br />
+                  match adjS = s ÷ (dfn_shots[opponent] × venue_shots)
+                </div>
+                <div class="formula-note">
+                  Example: scoring 1 goal away (venue ≈ 0.91) against a stingy 0.80 defence divides
+                  by 0.73, giving <strong>1.37 adjusted goals</strong>. Scoring 1 goal at home
+                  (venue ≈ 1.10) against a 1.30 defence divides by 1.43, giving{" "}
+                  <strong>0.70 adjusted goals</strong>.
+                </div>
+              </div>
+              <p class="para">
+                Touchline sums <span class="sym">adjG</span> and <span class="sym">adjS</span>{" "}
+                across every counted match of the season.
+              </p>
+            </div>
+          </li>
+
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Combine adjusted goals and shots into a per-90 “threat” rate</h3>
+              <p class="para">
+                Both totals are put on a per-90-minute basis and combined with fixed weights. Shots
+                carry substantial weight alongside goals because goals alone swing widely on luck
+                and finishing streaks, while shot volume is steadier and predicts future scoring
+                better than past goals do.
+              </p>
+              <div class="formula">
+                <div class="formula-eq">
+                  threat = wG × (adjG × 90 ÷ minutes) + wS × (adjS × 90 ÷ minutes)
+                </div>
+              </div>
+              <table class="who num">
+                <thead>
+                  <tr>
+                    <th scope="col">Division</th>
+                    <th scope="col">Goal weight (wG)</th>
+                    <th scope="col">Shot weight (wS)</th>
+                    <th scope="col">1 goal equals</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Men</th>
+                    <td>0.234</td>
+                    <td>0.0885</td>
+                    <td>2.64 shots</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Women</th>
+                    <td>0.238</td>
+                    <td>0.0749</td>
+                    <td>3.18 shots</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </li>
+
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Blend with last season (if eligible) and the position average</h3>
+              <p class="para">
+                Even a full season has random streaks. To prevent a hot month from overstating a
+                player's level, Touchline blends the player's threat rate with the{" "}
+                <strong>position-group average</strong> (the mean threat of all complete players in
+                that position group and gender with at least 600 minutes that season). If the player
+                also logged 600+ minutes as a forward or midfielder at the same programme the season
+                before, that earlier season is blended in too — and the pull toward average shrinks
+                because there is twice as much evidence:
+              </p>
+              <table class="who num">
+                <thead>
+                  <tr>
+                    <th scope="col">Seasons counted</th>
+                    <th scope="col">Men's blend</th>
+                    <th scope="col">Women's blend</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1 season</th>
+                    <td>79% this season + 21% group avg</td>
+                    <td>82% this season + 18% group avg</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2 seasons</th>
+                    <td>59% this + 34% last + 7% group avg</td>
+                    <td>64% this + 30% last + 6% group avg</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </li>
+
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Draw the cut lines inside each position group</h3>
+              <p class="para">
+                All eligible players in the position group (forwards separately from midfielders)
+                are ordered by their blended estimate:
+              </p>
+              <ul class="list">
+                <li><strong>Tier 1:</strong> the top <span class="sym">5%</span> (rounded up, plus any exact ties at the cutoff).</li>
+                <li><strong>Tier 2:</strong> the next <span class="sym">15%</span> — everyone else in the top <span class="sym">20%</span> (rounded up, plus ties).</li>
+                <li><strong>Eligible, no tier:</strong> the remaining ~80%.</li>
+              </ul>
+              <p class="para">
+                Once the tiers are assigned, the underlying estimates and ranks are discarded.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <aside class="example" aria-label="Worked shooting and scoring example">
+          <div class="example-kicker">Worked example · Illustrative numbers (men's forward)</div>
+          <p class="para">
+            Suppose a men's forward plays <strong>1,350 minutes</strong> (15 full matches),
+            recording 9 non-penalty goals and 42 non-penalty shots against slightly tougher-than-average
+            defences, and the men's forward average threat is <strong>0.2800</strong>.
+          </p>
+          <ul class="example-rows">
+            <li>
+              <span class="example-label">1. Opponent-adjusted</span>
+              <span>9.75 adjG and 45.0 adjS → <strong>0.65 adjG/90</strong> and <strong>3.00 adjS/90</strong></span>
+            </li>
+            <li>
+              <span class="example-label">2. Season threat</span>
+              <span>0.234 × 0.65 + 0.0885 × 3.00 = 0.1521 + 0.2655 = <strong>0.4176</strong></span>
+            </li>
+            <li>
+              <span class="example-label">3a. If 1 season counted</span>
+              <span>0.79 × 0.4176 + 0.21 × 0.2800 = <strong>0.389</strong></span>
+            </li>
+            <li>
+              <span class="example-label">3b. If 2 seasons counted</span>
+              <span>With last season's threat at 0.3900: 0.59 × 0.4176 + 0.34 × 0.3900 + 0.07 × 0.2800 = <strong>0.399</strong></span>
+            </li>
+            <li>
+              <span class="example-label">4. Applying the cut</span>
+              <span>Among 320 eligible men's forwards, the top 16 (5%) receive <strong>Tier 1</strong> and the next 48 (to 20%) receive <strong>Tier 2</strong>.</span>
+            </li>
+          </ul>
+        </aside>
       </section>
 
       <section class="band" id="defence">
-        <h2 class="sechead">TEAM DEFENCE</h2>
+        <h2 class="sechead">TEAM DEFENCE: THE MATH STEP BY STEP</h2>
         <p class="para">
-          This tier belongs to the team. A box score says who scored, not who won a tackle, so
-          Touchline does not split a team's defending between its players.
+          A box score says who took a shot, not who broke up a counterattack or held the offside
+          line. Because box scores cannot split defending among individual players, the{" "}
+          <strong>Team defence tier</strong> belongs to the whole team — every regular defender and
+          goalkeeper with the same counted seasons at a programme always shares the same result.
         </p>
-        <p class="para">
-          Each season the teams fall into three equal groups by shots faced a match: light,
-          typical and heavy workload. A team is compared only with its own group, so a defence is
-          not rewarded for being rarely tested. Inside the group, a season is measured by the goals
-          given up against the number the opponents usually score. A player's record is that,
-          averaged over the seasons counted, and the top fifth hold the tier. Players of one team
-          with the same seasons always share a result.
-        </p>
+
+        <ol class="steps">
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Add up goals conceded against what opponents usually score</h3>
+              <p class="para">
+                Across every collected match with complete goals and shots (a team needs at least{" "}
+                <span class="sym">12</span> such matches to qualify), Touchline totals three numbers
+                for the team:
+              </p>
+              <ul class="list">
+                <li><strong>GA:</strong> total goals the team conceded.</li>
+                <li><strong>SA:</strong> total shots the team faced.</li>
+                <li>
+                  <strong>EGA (expected goals against):</strong> for each match, how many goals that
+                  opponent would score against an average defence at that venue (
+                  <span class="sym">μ × att[opponent] ÷ venue</span> from the goals model), summed
+                  across the season. On a player sheet this is printed as “what its opponents
+                  usually score.”
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Sort teams into three equal workload groups</h3>
+              <p class="para">
+                Touchline computes each qualifying team's{" "}
+                <strong>shots faced per match</strong> (<span class="sym">SA ÷ matches</span>) and
+                divides the division into three equal thirds using the 1/3 and 2/3 quantiles (a team
+                landing right on a boundary joins the heavier group):
+              </p>
+              <ul class="list">
+                <li><strong>Light workload:</strong> bottom third of shots faced per match.</li>
+                <li><strong>Typical workload:</strong> middle third.</li>
+                <li><strong>Heavy workload:</strong> top third.</li>
+              </ul>
+              <p class="para">
+                Teams are compared only inside their own workload group, so a back line on a
+                dominant possession team is not rewarded merely for facing very few shots.
+              </p>
+            </div>
+          </li>
+
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Measure goals prevented as a log ratio</h3>
+              <p class="para">
+                Rather than raw goal difference, Touchline compares goals conceded to expected goals
+                as a ratio on a logarithmic scale:
+              </p>
+              <div class="formula">
+                <div class="formula-eq">
+                  team record = −ln( max(GA, 0.5) ÷ EGA ) = ln( EGA ÷ max(GA, 0.5) )
+                </div>
+                <div class="formula-note">
+                  Giving up exactly what opponents usually score gives <strong>0</strong>. Allowing
+                  fewer goals is positive (better); allowing more is negative (worse). Cutting
+                  expected goals in half — 10 instead of 20, or 15 instead of 30 — gives the exact
+                  same record (<strong>+0.693</strong>). The 0.5 floor simply avoids dividing by
+                  zero if a team concedes 0 goals.
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Standardise inside the workload group</h3>
+              <p class="para">
+                Inside each workload group (Light, Typical or Heavy) for that season, Touchline
+                measures how far each team's record stands above or below its peers in standard
+                deviations (a z-score):
+              </p>
+              <div class="formula">
+                <div class="formula-eq">
+                  season score = (team record − workload group mean) ÷ workload group standard deviation
+                </div>
+                <div class="formula-note">
+                  This puts Light, Typical and Heavy seasons onto one shared scale, so a player's
+                  seasons can be averaged cleanly even if their team's workload changes from one
+                  year to the next.
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="step">
+            <div class="step-body">
+              <h3 class="step-title">Average over 2 or 3 consecutive seasons and take the top 20%</h3>
+              <p class="para">
+                Because a single season of goals allowed is noisy, a player must be a regular in{" "}
+                <strong>two or three consecutive seasons</strong> at the same programme and position
+                group. The player's multi-season score is the plain average of the team's season
+                scores across those two or three seasons. All eligible defenders and goalkeepers are
+                pooled together (men and women separately), and the <strong>top 20%</strong> (rounded
+                up, plus ties) hold the <strong>Team defence tier</strong>.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <aside class="example" aria-label="Worked team defence example">
+          <div class="example-kicker">Worked example · Illustrative numbers (two-season defender)</div>
+          <p class="para">
+            Suppose a defender is a regular at the same programme for two consecutive seasons, and
+            her team moves from a heavy workload last year to a typical workload this year.
+          </p>
+          <ul class="example-rows">
+            <li>
+              <span class="example-label">Last season (Heavy)</span>
+              <span>Gave up 24 goals vs. 32.0 expected → record = ln(32 ÷ 24) = <strong>+0.288</strong>. Heavy group mean −0.062, sd 0.250 → season score = (0.288 − (−0.062)) ÷ 0.250 = <strong>+1.40</strong></span>
+            </li>
+            <li>
+              <span class="example-label">This season (Typical)</span>
+              <span>Gave up 16 goals vs. 24.0 expected → record = ln(24 ÷ 16) = <strong>+0.405</strong>. Typical group mean +0.075, sd 0.300 → season score = (0.405 − 0.075) ÷ 0.300 = <strong>+1.10</strong></span>
+            </li>
+            <li>
+              <span class="example-label">Two-season average</span>
+              <span>(1.40 + 1.10) ÷ 2 = <strong>+1.25</strong></span>
+            </li>
+            <li>
+              <span class="example-label">Applying the cut</span>
+              <span>If +1.25 lands in the top 20% of all eligible defenders and goalkeepers, she — and every teammate in defence or goal with those same two seasons — holds the <strong>Team defence tier</strong>.</span>
+            </li>
+          </ul>
+          <p class="para" style="margin-top: 10px; margin-bottom: 0;">
+            Notice why the heavy-workload season (+1.40) outscored the typical-workload season
+            (+1.10) even though the team conceded 8 more goals: teams facing heavy shot volume
+            usually concede <em>more</em> than expected, so holding opponents 25% below expectation
+            under heavy fire stands out further from its peers.
+          </p>
+        </aside>
       </section>
 
       <section class="band" id="figures">
-        <h2 class="sechead">THE TEAM FIGURES</h2>
+        <h2 class="sechead">THE TEAM FIGURES ON A SHEET</h2>
         <p class="para">
-          Every regular defender's and goalkeeper's sheet shows three, tier or no tier.
+          Every regular defender's and goalkeeper's player sheet prints three team figures for the
+          current season, whether or not the player holds a tier:
         </p>
         <ol class="list">
           <li>
-            <strong>Shots faced a match, with the workload group.</strong> Which teams yours is
-            compared with.
+            <strong>Shots faced a match, with the workload group</strong> (beside the division
+            average). Shows which third of teams this defence is compared against.
           </li>
-          <li><strong>Shots faced that went in.</strong> The share that ended in the net.</li>
           <li>
-            <strong>Goals given up, beside the number the opponents usually score.</strong> What
-            those opponents score in a typical match, added up over the matches played. This is the
-            figure the tier compares.
+            <strong>Shots faced that went in</strong> (beside the division average). The percentage
+            of shots against that became goals.
+          </li>
+          <li>
+            <strong>Goals given up, beside what the opponents usually score.</strong> Printed as a
+            single sentence — for example, “Gave up 24 goals where its opponents usually score 31.”
+            This is the <span class="sym">GA</span> vs. <span class="sym">EGA</span> comparison the
+            team defence tier is built on.
           </li>
         </ol>
-        <p class="para">
-          The first two sit beside the division's figure. The third reads as one sentence, such
-          as “Gave up 24 goals where its opponents usually score 31.” A heavy workload team with
-          the tier may have given up more goals than a light workload team without it; the
-          figures show it plainly.
-        </p>
       </section>
 
       <section class="band" id="statuses">
-        <h2 class="sechead">WHAT A SHEET SAYS</h2>
+        <h2 class="sechead">WHAT EACH STATUS ON A SHEET MEANS</h2>
         <p class="para">
-          Every player at a {division} programme Touchline follows, with a box score line, has one
-          of these.
+          Every player at a {division} programme Touchline follows who appears in a box score gets
+          one of these five statuses:
         </p>
         <ul class="list">
-          <li><strong>A tier, with its kind,</strong> such as Tier 2 · Shooting and scoring.</li>
           <li>
-            <strong>Eligible, no tier.</strong> Compared, and no tier this season. About four in
-            five compared players.
-          </li>
-          <li><strong>Needs more minutes.</strong> Nothing else is implied.</li>
-          <li>
-            <strong>Needs a second season.</strong> A regular defender or goalkeeper this season,
-            but not here the season before.
+            <strong>A tier, with its kind</strong> — such as <em>Tier 1 · Shooting and scoring</em>,{" "}
+            <em>Tier 2 · Shooting and scoring</em> or <em>Team defence tier</em>.
           </li>
           <li>
-            <strong>Incomplete records.</strong> The record cannot be compared fairly, and the
-            sheet says why: minutes not published for enough matches, no position on the roster or
-            in the box scores, a name that could not be matched from one match to the next, or, for
-            defenders and goalkeepers, too few of the team's matches collected.
+            <strong>Eligible, no tier</strong> — cleared the playing-time and season rules and was
+            compared, but finished outside the top 20% (about four in five eligible players).
+          </li>
+          <li>
+            <strong>Needs more minutes</strong> — did not reach the minutes (or team-minute share)
+            threshold. Nothing else is implied.
+          </li>
+          <li>
+            <strong>Needs a second season</strong> — a regular defender or goalkeeper this season,
+            but not a regular at this programme the season before.
+          </li>
+          <li>
+            <strong>Incomplete records</strong> — could not be compared fairly, with the specific
+            reason printed on the sheet: minutes missing from too many box scores (with no stats
+            total), no position on the roster or in box scores, a name that could not be reliably
+            matched across matches, or (for defenders and goalkeepers) fewer than 12 collected team
+            matches.
           </li>
         </ul>
       </section>
 
       <section class="band" id="unseen">
-        <h2 class="sechead">WHAT TOUCHLINE CANNOT SEE</h2>
+        <h2 class="sechead">WHAT BOX SCORES CANNOT SEE</h2>
         <p class="para">
-          Where someone played on the field. One player's defending. Seasons at another
-          programme. And why a player did not play: a box score lists who played, not who was
-          injured or rested, and Touchline never states or implies a reason.
+          Box scores do not record where on the pitch a player operated, who won a tackle, who
+          started a buildup pass, or how a player performed in earlier seasons at a different
+          programme. They also list only who played — never why someone did not play (injury,
+          rotation or rest), and Touchline never states or implies a reason.
         </p>
       </section>
 
       <section class="band" id="firm">
-        <h2 class="sechead">HOW FIRM A TIER IS</h2>
+        <h2 class="sechead">HOW STEADY A TIER IS</h2>
         <p class="para">
-          Small differences can move a player near the line. Position matters too: a player
-          listed in another position group is compared with a different set of players.
+          Any cutoff has close calls: a single goal, a handful of shots, or being listed as a
+          midfielder rather than a forward can move a player sitting near the 5% or 20% line.
         </p>
         <p class="para">
-          To test a tier, Touchline splits a season's matches into two random halves and sets the
-          tiers on each. Of Tier 1 players on one half, about eight or nine in ten hold a tier on
-          the other; among men's forwards, seven in ten. Of Tier 2 players, about half do. Luck
-          alone would give two in ten. A full season is steadier than half of one.
+          To measure how much of a tier reflects real performance rather than luck, Touchline splits
+          a season's matches into two random halves and runs the entire formula independently on
+          each half. Because 20% of eligible players receive a tier, pure luck would produce about{" "}
+          <strong>2 in 10</strong> repeat holders across halves. Instead:
         </p>
+        <ul class="list">
+          <li>
+            <strong>Tier 1 (shooting and scoring):</strong> about <strong>8 or 9 in 10</strong>{" "}
+            hold a tier on the other half (about <strong>7 in 10</strong> among men's forwards).
+          </li>
+          <li>
+            <strong>Tier 2 (shooting and scoring):</strong> about <strong>5 in 10</strong> hold a
+            tier on the other half.
+          </li>
+          <li>
+            <strong>Team defence:</strong> about <strong>4 in 10</strong> hold it on the other half
+            of a single season — goals conceded are noisier than shots taken, which is why the tier
+            requires two or three seasons in a row. Among holders who are regulars again the
+            following season, about <strong>7 in 10</strong> hold it again (partly because their
+            multi-season windows overlap).
+          </li>
+        </ul>
         <p class="para">
-          Team defence is less firm. Of players holding it on one half, about four in ten hold it
-          on the other. Of holders who are regulars again the next season, about seven in ten hold
-          it again, partly because the seasons counted overlap.
+          A full season uses twice as many matches as either half, so the published tiers are
+          steadier than these half-season numbers.
         </p>
       </section>
 
       <section class="band" id="when">
         <h2 class="sechead">WHEN TIERS ARE SET</h2>
         <p class="para">
-          Once a season, in {setIn}, before the postseason honours are announced, and not moved
-          after. The minutes beside a tier are the minutes to that day.{retroactive && ` ${retroactive}`}
-          {firstSeasonNote}
+          Once a season, in {setIn}, before postseason honours are announced, and not moved
+          afterward. The minutes printed beside a tier are the minutes counted through that day.
+          {retroactive && ` ${retroactive}`}
+          {firstSeasonNote && ` ${firstSeasonNote}`}
         </p>
       </section>
 
       <section class="band" id="division">
         <h2 class="sechead">{division.toUpperCase()} ONLY</h2>
         <p class="para">
-          Tiers cover {division} men's and women's soccer at the programmes Touchline follows.
+          Tiers cover {division} men's and women's soccer at the programmes Touchline follows.{" "}
           {divisionOne} pages show none.
         </p>
       </section>
