@@ -325,6 +325,10 @@ const PUBLISHED_TYPOS: Readonly<Record<string, string>> = {
   defemder: "defender",
   defemse: "defense",
   forwrard: "forward",
+  // Division I 2022 archive. Winthrop 2022 (bigsouth/winthrop): "Goakleeper";
+  // Milwaukee 2022 (horizon/milwaukee): "Goalkepper".
+  goakleeper: "goalkeeper",
+  goalkepper: "goalkeeper",
 };
 
 /**

@@ -88,6 +88,8 @@ describe("the words a roster prints", () => {
     expect(positionLine("Derfender")).toBe("DEF");
     expect(positionLine("Milfielder")).toBe("MID");
     expect(positionLine("Goalkeper")).toBe("GK");
+    expect(positionLine("Goakleeper")).toBe("GK");
+    expect(positionLine("Goalkepper")).toBe("GK");
     expect(positionLine("De")).toBe("DEF");
     // Westminster 2026: "Center/ Midfieler" is one position, read whole.
     expect(positionLine("Center/ Midfieler")).toBe("MID");
