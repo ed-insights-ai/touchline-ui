@@ -3,19 +3,22 @@
 // rulings) over the data home.
 //
 //   bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16 [--require-clean]
+//   TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --frozen-at 2026-11-20
 //
 // [N5] --require-clean refuses to build when the data home's working tree is
 // modified (`git status --porcelain` not empty), so the commit the artifacts
 // print carries no "+dirty". It is not the default: the collector leaves
 // files modified between its runs.
 //
-// Reads every season 2022 to 2026, men and women, through the site's own
+// Reads every season 2022 to 2026, for each gender the data home holds files
+// of and the level has fitted constants for (shooting.ts), through the site's own
 // loaders (src/lib/data.ts), fits the opponent model jointly over the five
 // seasons, and writes one artifact per season and gender into --out. Beside
 // it, in a `.debug/` directory next to --out (tiers/.debug, gitignored), it
 // writes the comparison rows and the measured report the build log quotes.
 // Those hold intermediate estimates and must never be committed or imported.
-// Next to --out it also writes position-readings.json (tiers/, committed):
+// Next to --out it also writes position-readings.json (tiers/, committed; for
+// a level other than Division II, position-readings.<level>.json):
 // every position label the build asked the site's reader about and the answer
 // it got, which position-readings.test.ts holds the reader to afterwards.
 // The report's acceptance 11.4 table needs a second computation of each gender
@@ -45,8 +48,25 @@ import type { ConferenceSeason } from "./matches.ts";
 import { buildArtifact, serialize } from "./output.ts";
 import { recordReadings, serializeReadings } from "./position.ts";
 import { debugFile, reportMarkdown, statsChangesCsv } from "./report.ts";
+import { CONSTANTS } from "./shooting.ts";
 
 const GENDERS: readonly Gender[] = ["men", "women"];
+
+/** The genders this build computes: those the data home holds a fixtures
+ *  file for and the level has fitted constants for. The Division I home is
+ *  men only, and a gender with no files has nothing to fit. */
+function buildGenders(fixturesDir: string): Gender[] {
+  const files = readdirSync(fixturesDir);
+  return GENDERS.filter(
+    (g) =>
+      CONSTANTS[ncaaDivision]?.[g] !== undefined &&
+      files.some((f) => /^\d{4}-/.test(f) && f.slice(5).startsWith(`${g}-`)),
+  );
+}
+
+/** Division II's paths are the ones the first freeze wrote; another level's
+ *  carry its key, so one level's build never overwrites another's. */
+const levelSuffix = (): string => (ncaaDivision === "d2" ? "" : `-${ncaaDivision}`);
 
 interface Args {
   out: string;
@@ -123,8 +143,8 @@ function loadGender(gender: Gender): Map<number, ConferenceSeason[]> {
 
 function main(): void {
   const args = parseArgs(process.argv.slice(2));
-  if (ncaaDivision !== "d2") {
-    console.log(`tiers: the contract covers Division II only; ${ncaaDivision} writes nothing.`);
+  if (CONSTANTS[ncaaDivision] === undefined) {
+    console.log(`tiers: no shooting constants are fitted for ${ncaaDivision}; it writes nothing.`);
     return;
   }
   const root = dataRoot();
@@ -133,7 +153,8 @@ function main(): void {
   }
   if (args.requireClean) assertClean(root);
   const commit = dataCommit(root);
-  const debugDir = join(dirname(args.out), ".debug");
+  const debugDir = join(dirname(args.out), `.debug${levelSuffix()}`);
+  const genders = buildGenders(dataHome().fixturesDir);
   mkdirSync(args.out, { recursive: true });
   mkdirSync(debugDir, { recursive: true });
 
@@ -144,7 +165,7 @@ function main(): void {
   const results = [];
   const before = [];
   const files: TiersFile[] = [];
-  for (const gender of GENDERS) {
+  for (const gender of genders) {
     const started = Date.now();
     const data = loadGender(gender);
     const loaded = Date.now();
@@ -171,7 +192,10 @@ function main(): void {
     results.push(g);
     before.push(computeGender(gender, data, { rosterPass: false, nicknames }));
   }
-  const readingsPath = join(dirname(args.out), "position-readings.json");
+  const readingsPath = join(
+    dirname(args.out),
+    ncaaDivision === "d2" ? "position-readings.json" : `position-readings.${ncaaDivision}.json`,
+  );
   writeFileSync(readingsPath, serializeReadings(args.frozenAt, readings));
   console.log(`tiers: wrote ${readingsPath} (${readings.size} labels)`);
   const header = `Built ${args.frozenAt} from data home ${root} at ${commit}.\n\n`;

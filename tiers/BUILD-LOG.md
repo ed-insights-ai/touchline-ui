@@ -1195,3 +1195,36 @@ played to 15 November.
 
 This is the freeze the site publishes and the 2026 honours lists are compared with. It is not
 rebuilt until the next season's freeze.
+
+## Division I men: the freeze of 20 November 2026
+
+| | |
+| --- | --- |
+| Built | 2026-11-20. `frozen_at` is 2026-11-20 in every file. |
+| Data home | `~/keelson/d1-soccer` at **`fd497c9`**, clean: 2022 to 2026, 23 conferences in 2022 (rib #145), after the alias round (rib #146) and the re-collect of A10, Horizon, Summit and Ivy 2022. |
+| Command | `bun run tiers:build:d1` (= `TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --frozen-at 2026-11-20`). Men only: the build computes the genders the data home holds files for and the level has constants for. |
+| Output | `tiers/d1/{2022..2026}-men.json` and `tiers/position-readings.d1.json`, committed; `tiers/.debug-d1/` gitignored. Division II's files and readings are untouched. |
+| Constants | Fitted on this home by the procedure that fitted Division II's (ed-insights-platform `evidence/v01.py`), frozen before measuring, in `src/lib/tier-constants.ts`: wG 0.207, wS 0.0837; one season 0.80 / 0.20; two seasons 0.60 / 0.30 / 0.10. The same script on Division II's own debug files gives 0.79 / 0.21 and 0.58 / 0.34 / 0.08, its published blend to the rounding. |
+
+**What is shown.** T1 on this home (FIRMNESS.md method, 100 splits, the Python reference build
+adapted to Division I with the constants above): midfielders R 0.86 (0.85 to 0.87), 100 of 100
+splits at 0.80; forwards 0.78 (0.77 to 0.80), 3 of 100; team defence 0.47 (0.39 to 0.53), 0 of
+100. `src/tiers.config.ts` shows midfielders' shooting and scoring on Division I and nothing
+else; the files carry every entry, and the sheet draws only what the level shows (`levelShows`).
+
+**Against the Python reference build.** Every midfielder's status and tier agrees in all five
+files (2026: 39 Tier 1, 114 Tier 2). 2022, 2023 and 2026 agree on every entry. At Virginia,
+this build counts more minutes for 24 players in 2024 and 2 in 2025, and has one 2024 forward
+the reference does not (Anthony Faupel); the extra forward moves four other forwards across a
+2024 cut (Penn, Dayton, Canisius, North Carolina). No status or tier of a midfielder differs, and
+forwards are not shown on Division I. Filed as bead tui-93x.
+
+### Tier holders per file
+
+| File | Tier 1 M | Tier 2 M | (Tier 1 F, not shown) | (Tier 2 F, not shown) |
+| --- | --- | --- | --- | --- |
+| 2022-men | 37 | 111 | 17 | 49 |
+| 2023-men | 43 | 128 | 21 | 60 |
+| 2024-men | 43 | 126 | 22 | 63 |
+| 2025-men | 41 | 120 | 20 | 60 |
+| 2026-men | 39 | 114 | 20 | 58 |

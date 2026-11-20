@@ -83,7 +83,8 @@ describe("loadTiers", () => {
   });
 
   test("returns null when no file was built", () => {
-    expect(loadTiers("d1", 2026, "men", ROOT)).toBeNull();
+    expect(loadTiers("d3", 2026, "men", ROOT)).toBeNull();
+    expect(loadTiers("d1", 2026, "women", ROOT)).toBeNull();
   });
 
   test("throws, naming the file, on a schema mismatch", () => {

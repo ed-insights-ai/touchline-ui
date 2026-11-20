@@ -6,12 +6,13 @@
 
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { resolve } from "node:path";
-import { tiersConfig, tiersEnabled } from "../tiers.config.ts";
+import { levelShows, levelTiers, tiersConfig, tiersEnabled } from "../tiers.config.ts";
 import {
   activeTiers,
   basisLine,
   basisNote,
   careerTiersLine,
+  coverageLine,
   earlierTiers,
   goalsLine,
   holderLine,
@@ -102,10 +103,12 @@ describe("the publication gate", () => {
     ["d2", "0", live, true],
     ["d2", "true", closed, false],
     ["d2", "", closed, false],
-    // Any other level: nothing, published or in preview.
-    ["d1", undefined, live, false],
-    ["d1", "1", live, false],
-    ["d1", "1", closed, false],
+    // Division I: the same gate (what it shows is levelShows' business).
+    ["d1", undefined, closed, false],
+    ["d1", undefined, live, true],
+    ["d1", "1", closed, true],
+    // A level with no tiers: nothing, published or in preview.
+    ["d3", undefined, live, false],
     ["d3", "1", live, false],
   ];
   test.each(rows)("level %s, preview %p, %o → %p", (level, preview, config, open) => {
@@ -115,18 +118,89 @@ describe("the publication gate", () => {
   test("ships open: the owner published the tiers on 16 November 2026", () => {
     expect(tiersConfig.published).toBe(true);
     expect(tiersEnabled("d2", undefined)).toBe(true);
-    // Division I shows none, whatever the gate says.
-    expect(tiersEnabled("d1", undefined)).toBe(false);
+    expect(tiersEnabled("d1", undefined)).toBe(true);
   });
 
-  test("activeTiers is the season's file while the tiers are published, and never for Division I", () => {
+  test("activeTiers is the season's file while the tiers are published, at a level that has them", () => {
     // Published: the preview variable is not needed. A closed gate is the
     // truth table's business above; this reads the gate as it ships.
     expect(activeTiers("d2", 2026, "men", "0")?.season).toBe(2026);
     expect(activeTiers("d2", 2026, "men", "1")?.season).toBe(2026);
-    expect(activeTiers("d1", 2026, "men", "1")).toBeNull();
+    expect(activeTiers("d1", 2026, "men", "0")?.level).toBe("d1");
+    expect(activeTiers("d3", 2026, "men", "1")).toBeNull();
+    // No Division I women's file: nothing.
+    expect(activeTiers("d1", 2026, "women", "1")).toBeNull();
     // No file for the season: nothing, even with the gate open.
     expect(activeTiers("d2", 2019, "men", "1")).toBeNull();
+  });
+});
+
+// ── What a level shows ──────────────────────────────────────────────────────
+
+describe("what each level shows", () => {
+  const mid = entry({ group: "M" });
+  const fwd = entry({ group: "F" });
+  const def = entry({ group: "D", kind: "team_defence", tier: null, status: "eligible" });
+  const keeper = entry({ group: "GK", kind: "team_defence", tier: null, status: "eligible" });
+  const unplaced = entry({
+    group: null,
+    kind: null,
+    status: "incomplete",
+    tier: null,
+    reason: "no_position",
+  });
+
+  test("Division II shows every tier and every status", () => {
+    for (const e of [mid, fwd, def, keeper, unplaced]) expect(levelShows("d2", e)).toBe(true);
+  });
+
+  test("Division I shows midfielders' shooting and scoring only: the one group that passed T1 there", () => {
+    expect(levelTiers("d1")).toMatchObject({ shooting: ["M"], teamDefence: false });
+    expect(levelShows("d1", mid)).toBe(true);
+    expect(levelShows("d1", entry({ group: "M", status: "needs_minutes", tier: null }))).toBe(true);
+    for (const e of [fwd, def, keeper, unplaced]) expect(levelShows("d1", e)).toBe(false);
+    expect(levelShows("d3", mid)).toBe(false);
+  });
+
+  test("the coverage sentence says what another level shows, from config", () => {
+    expect(coverageLine("Division I", levelTiers("d1"))).toBe(
+      "Division I pages show the shooting and scoring tier for midfielders only.",
+    );
+    expect(coverageLine("Division II", levelTiers("d2"))).toBe(
+      "Division II pages show every tier.",
+    );
+    expect(coverageLine("Division III", levelTiers("d3"))).toBe("Division III pages show none.");
+  });
+
+  test("a level shows a group exactly when its measured reliability reaches the bar", () => {
+    for (const level of ["d1", "d2"]) {
+      const shown = levelTiers(level);
+      for (const m of shown?.measured?.rows ?? []) {
+        const e =
+          m.group === "team_defence"
+            ? entry({ group: "D", kind: "team_defence", tier: null, status: "eligible" })
+            : entry({ group: m.group });
+        expect(`${level} ${m.group} shown ${levelShows(level, e)}`).toBe(
+          `${level} ${m.group} shown ${m.r >= m.bar}`,
+        );
+      }
+    }
+  });
+
+  test("an entry the level does not show draws no block and no CAREER line", () => {
+    const d1 = (e: TierEntry) => file({ level: "d1", players: { calder: [e] } });
+    expect(sheetTier(d1(fwd), "calder", "Calder State", { name: "Tomas Ferreira" })).toBeNull();
+    expect(sheetTier(d1(mid), "calder", "Calder State", { name: "Tomas Ferreira" })?.holder).toBe(
+      "Tier 1, shooting and scoring",
+    );
+    const earlier = (e: TierEntry) => (y: number) =>
+      y === 2025 ? file({ level: "d1", season: 2025, players: { calder: [e] } }) : null;
+    expect(earlierTiers(d1(mid), "calder", { name: "Tomas Ferreira" }, earlier(fwd))).toEqual([]);
+    expect(
+      earlierTiers(d1(mid), "calder", { name: "Tomas Ferreira" }, earlier(mid)).map(
+        (c) => c.season,
+      ),
+    ).toEqual([2025]);
   });
 });
 
@@ -629,8 +703,8 @@ describe("a block prints only what section 10 holds", () => {
     expect([...keys].filter((k) => FORBIDDEN.test(k))).toEqual([]);
   });
 
-  test("a Division I build renders none of it, in preview too", () => {
-    expect(activeTiers("d1", 2026, "men", "1")).toBeNull();
-    expect(tiersEnabled("d1", "1", { published: true })).toBe(false);
+  test("a level with no tiers renders none of it, in preview too", () => {
+    expect(activeTiers("d3", 2026, "men", "1")).toBeNull();
+    expect(tiersEnabled("d3", "1", { published: true })).toBe(false);
   });
 });
