@@ -14,11 +14,11 @@
 // A level shows only the tiers that passed the reliability test there
 // (ed-insights-platform FIRMNESS.md, T1: R >= 0.80 for three published levels,
 // R >= 0.61 for two), measured once on that level's own data with constants
-// fitted by one procedure. Division II passes the shooting tier for both groups. Division I men,
-// measured 2026-11-20 over 2022-2026: midfielders 0.86 pass; forwards 0.78 do
-// not, so a Division I sheet shows a midfielder's shooting and scoring tier
-// and no other. The team defence badge (0.66) passes on every level and is
-// shown on team pages.
+// fitted by one procedure. Division I men, measured 2026-11-20 over 2022-2026:
+// midfielders 0.86 pass the bar for two levels; forwards 0.78 do not, and
+// pass the bar for one. Forwards therefore hold one tier on every level
+// (SHOOTING_LEVELS), and both groups are shown on both. The team defence
+// badge (0.66) passes on every level and is shown on team pages.
 
 import type { TierEntry } from "./lib/tiers.ts";
 import { type NcaaDivisionKey, ncaaDivision } from "./site.config.ts";
@@ -41,9 +41,9 @@ export interface Measured {
 }
 
 /** What a level publishes: the shooting and scoring groups, and whether its
- *  team pages show the team defence badge. A level that shows only part of
- *  the shooting tier carries the measurement that decided it, which its
- *  method page prints. */
+ *  team pages show the team defence badge. A level measured on its own
+ *  seasons, after the method was built on another, carries that measurement,
+ *  and its method page is the short one that prints it. */
 export interface LevelTiers {
   shooting: readonly ("F" | "M")[];
   badge: boolean;
@@ -62,27 +62,43 @@ export interface LevelTiers {
  */
 export const TEAM_DEFENCE_TIER_RETIRED = "2026-11-20";
 
+/**
+ * How many levels each group's shooting and scoring tier has, the same on
+ * every level of play: midfielders Tier 1 (top 5%) and Tier 2 (the next 15%);
+ * forwards one tier, the top 20%. The owner's decision of FORWARDS_ONE_TIER:
+ * Division I forwards measured R 0.78, short of T1's bar for two levels and
+ * over its bar for one, and one rule holds on every level. The files still
+ * carry Tier 1 and Tier 2 for forwards; together they are the top 20% with
+ * ties (scripts/tiers/shooting.ts), so the sheet reads the one tier from them.
+ */
+export const SHOOTING_LEVELS: Readonly<Record<"F" | "M", 1 | 2>> = { F: 1, M: 2 };
+export const FORWARDS_ONE_TIER = "2026-11-20";
+
 /** The levels tiers are built and shown for, and what each shows. */
 export const TIERS_LEVELS: Readonly<Partial<Record<NcaaDivisionKey, LevelTiers>>> = {
   d2: { shooting: ["F", "M"], badge: true },
   d1: {
-    shooting: ["M"],
+    shooting: ["F", "M"],
     badge: true,
     measured: {
       seasons: [2022, 2026],
       rows: [
         { group: "M", r: 0.86, bar: 0.8 },
-        { group: "F", r: 0.78, bar: 0.8 },
+        { group: "F", r: 0.78, bar: 0.61 },
         { group: "team_badge", r: 0.66, bar: 0.61 },
       ],
     },
   },
 };
 
-/** Whether a level shows the whole shooting tier, forwards and midfielders:
- *  its method page is the full one. */
+/** Whether a level shows the whole shooting tier, forwards and midfielders. */
 export const showsFullShooting = (shown: LevelTiers): boolean =>
   shown.shooting.includes("F") && shown.shooting.includes("M");
+
+/** Whether a level's method page is the short one: a level measured on its
+ *  own seasons, whose page prints that measurement and links the full method
+ *  of the level the method was built on. */
+export const methodIsShort = (shown: LevelTiers): boolean => shown.measured !== undefined;
 
 /**
  * Whether this build renders player tiers.

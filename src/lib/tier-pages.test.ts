@@ -80,7 +80,7 @@ describe("the short method page for a level that shows part of the tiers", () =>
 
   test("drawn by the method page in place of the full method, never on its own", () => {
     const page = src("pages/about/[tiers].astro");
-    expect(page).toContain("const partial = shown !== null && !showsFullShooting(shown);");
+    expect(page).toContain("const partial = shown !== null && methodIsShort(shown);");
     expect(page).toContain("{partial && shown ? (");
   });
 

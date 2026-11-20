@@ -1,0 +1,84 @@
+---
+// The method page's first screen: one tile for each label a level shows. Both
+// method pages draw it (the full one in [tiers].astro, the short one in
+// TiersScope.astro), so a label reads the same on every level. The tiles come
+// from config: the groups a level shows (TIERS_LEVELS), each group's levels
+// (SHOOTING_LEVELS), and whether the level shows the team defence badge. The
+// page draws it inside its .tm article; every class is that page's.
+import { type LevelTiers, SHOOTING_LEVELS } from "../tiers.config.ts";
+
+interface Props {
+  shown: LevelTiers;
+}
+
+const { shown } = Astro.props;
+
+interface Tile {
+  kicker: string;
+  stat: string;
+  kind: string;
+  scope: string;
+  strong?: string;
+}
+
+const plural = { M: "midfielders", F: "forwards" } as const;
+const title = (s: string): string => `${s[0]?.toUpperCase()}${s.slice(1)}`;
+
+// Two-level groups first, so the most selective label leads.
+const groups = [...shown.shooting].sort((a, b) => SHOOTING_LEVELS[b] - SHOOTING_LEVELS[a]);
+const tiles: Tile[] = groups.flatMap((g): Tile[] =>
+  SHOOTING_LEVELS[g] === 2
+    ? [
+        {
+          kicker: `${title(plural[g])} · Tier 1`,
+          stat: "Top 5%",
+          kind: "Shooting & scoring",
+          scope: `Non-penalty goals and shots per 90, against eligible ${plural[g]}.`,
+        },
+        {
+          kicker: `${title(plural[g])} · Tier 2`,
+          stat: "Next 15%",
+          kind: "Shooting & scoring",
+          scope: `Positions 6% to 20% of eligible ${plural[g]}.`,
+        },
+      ]
+    : [
+        {
+          kicker: `${title(plural[g])} · Tier`,
+          stat: "Top 20%",
+          kind: "Shooting & scoring",
+          scope: `Non-penalty goals and shots per 90, against eligible ${plural[g]}. One tier, not two.`,
+        },
+      ],
+);
+if (shown.badge) {
+  tiles.push({
+    kicker: "Team defence badge",
+    stat: "Top 20%",
+    kind: "Team performance",
+    strong: "Awarded to the team, not a player.",
+    scope:
+      "The division's best records of goals conceded against what opponents usually score, this season.",
+  });
+}
+
+const grid =
+  tiles.length === 4
+    ? "tier-tiles tier-tiles-four"
+    : tiles.length === 2
+      ? "tier-tiles tier-tiles-two"
+      : "tier-tiles";
+---
+
+<div class={grid} aria-label="The tiers and the badge shown here">
+  {tiles.map((t, i) => (
+    <div class={i === 0 ? "tier-tile tier-tile-primary" : "tier-tile"}>
+      <div class="tile-kicker">{t.kicker}</div>
+      <div class="tile-stat">{t.stat}</div>
+      <div class="tile-kind">{t.kind}</div>
+      <div class="tile-scope">
+        {t.strong && <strong>{t.strong}</strong>}{t.strong && " "}{t.scope}
+      </div>
+    </div>
+  ))}
+</div>

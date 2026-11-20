@@ -1259,3 +1259,21 @@ with its record the season before.
 | d2/2022..2026-men | about 198 | 40 each |
 | d2/2022..2026-women | about 250 | 50, 50, 51, 51, 50 |
 | d1/2022..2026-men | about 212 | 42, 43, 43, 43, 43 |
+
+## Forwards: one tier on every level, 20 November 2026
+
+The owner's decision, the same day: a forward holds one shooting and scoring tier, the top 20%,
+on Division I and Division II alike, and midfielders keep Tier 1 and Tier 2 on both. Division I
+forwards measured R 0.78 (above), short of T1's 0.80 for a label with two levels and over its
+0.61 for a label with one; one rule on every level puts Division II's forwards on one tier too.
+
+No file is rebuilt. A file's Tier 1 and Tier 2 for a group are the top 5% and the rest of the top
+20% (`scripts/tiers/shooting.ts`, both cuts with ties), so a forward holding either is in the
+top 20% with ties, and the sheet reads the one tier from them (`SHOOTING_LEVELS` in
+`src/tiers.config.ts`). No forward's place in or out of a tier moves; only the label does.
+Division I's sheets now show forwards, and its measured row for forwards carries the one-level
+bar.
+
+How often the one tier repeats across random halves (FIRMNESS.md A3 and this home's run, the
+top 20% on one half in it on the other, Tier 1 and Tier 2 holders pooled): D2 men 51%, D2 women
+64%, D1 men 50%, against 20% by chance. The method page prints them as about 5 and 6 in 10.

@@ -1,10 +1,11 @@
 ---
-// The method page's body for a level that shows only part of the shooting
-// tier (tiers.config.ts TIERS_LEVELS): Division I men, midfielders' shooting
-// and scoring, and the team defence badge on team pages. It says what the level shows, the measurement that decided
-// it, the constants fitted on the level's own seasons, and where the full
-// method is. The page ([tiers].astro) draws it inside its own .tm article, so
-// every class here is that page's and its inline styles reach these.
+// The method page's body for a level measured on its own seasons after the
+// method was built on another (tiers.config.ts methodIsShort): Division I
+// men. It says what the level shows, the measurement that decided it, the
+// constants fitted on the level's own seasons, how the badge is set, and
+// where the full method is. The page ([tiers].astro) draws it inside its own
+// .tm article, so every class here is that page's and its inline styles reach
+// these.
 //
 // As on the page itself, no division, month or constant is written by hand:
 // names come from site.config.ts, the decision and its figures from
@@ -13,13 +14,15 @@
 import { divisionHref } from "../lib/gender.ts";
 import { CONSTANTS } from "../lib/tier-constants.ts";
 import type { TiersFile } from "../lib/tiers.ts";
-import { currentDivision, ncaaDivisions, type NcaaDivisionKey } from "../site.config.ts";
+import { currentDivision, type NcaaDivisionKey, ncaaDivisions } from "../site.config.ts";
 import {
   type LevelTiers,
   type Measured,
-  showsFullShooting,
+  methodIsShort,
+  SHOOTING_LEVELS,
   TIERS_LEVELS,
 } from "../tiers.config.ts";
+import TierTiles from "./TierTiles.astro";
 
 interface Props {
   tiers: TiersFile;
@@ -36,28 +39,39 @@ const { tiers, shown, setIn, retroactive, firstSeason } = Astro.props;
 const division = currentDivision.name;
 const gender = tiers.gender === "men" ? "men's" : "women's";
 const groupPlural = { M: "midfielders", F: "forwards" } as const;
-const groups = shown.shooting.map((g) => groupPlural[g]);
-const groupWords = groups.join(" and ");
+const title = (s: string): string => `${s[0]?.toUpperCase() ?? ""}${s.slice(1)}`;
+const groupWords = shown.shooting.map((g) => groupPlural[g]).join(" and ");
+const twoLevel = shown.shooting
+  .filter((g) => SHOOTING_LEVELS[g] === 2)
+  .map((g) => groupPlural[g])
+  .join(" and ");
+const oneLevel = shown.shooting
+  .filter((g) => SHOOTING_LEVELS[g] === 1)
+  .map((g) => groupPlural[g])
+  .join(" and ");
 
-// The level that shows the whole shooting tier, for the full method's link.
+// The level whose page is the full method, for its link.
 const fullKey = (Object.keys(TIERS_LEVELS) as NcaaDivisionKey[]).find((k) => {
   const l = TIERS_LEVELS[k];
-  return l !== undefined && showsFullShooting(l);
+  return l !== undefined && !methodIsShort(l);
 });
 const full = ncaaDivisions.find((d) => d.key === fullKey) ?? null;
 const fullHome = full ? divisionHref(full.key) : null;
 const fullMethod = fullHome ? `${fullHome}about/tiers/` : null;
 
+const levelsOf = (m: Measured): string =>
+  m.group === "team_badge" ? "One" : SHOOTING_LEVELS[m.group] === 2 ? "Tier 1, Tier 2" : "One";
 const label = (m: Measured): string =>
   m.group === "team_badge"
     ? "Team defence badge (teams)"
-    : `${groupPlural[m.group][0]?.toUpperCase()}${groupPlural[m.group].slice(1)}, shooting and scoring`;
+    : `${title(groupPlural[m.group])}, shooting and scoring`;
 const two = (x: number): string => x.toFixed(2);
 const measured = shown.measured ?? null;
-// The bars are T1's, the same on every level: one for a tier with two levels
-// (shooting and scoring), one for a single label (the team defence badge).
-const barTwo = measured?.rows.find((m) => m.group !== "team_badge")?.bar ?? null;
-const barOne = measured?.rows.find((m) => m.group === "team_badge")?.bar ?? null;
+// The bars are T1's, the same on every level: one for a label with two
+// levels, one for a label with a single level.
+const twoBar = (m: Measured): boolean => m.group !== "team_badge" && SHOOTING_LEVELS[m.group] === 2;
+const barTwo = measured?.rows.find(twoBar)?.bar ?? null;
+const barOne = measured?.rows.find((m) => !twoBar(m))?.bar ?? null;
 
 const c = CONSTANTS[tiers.level as NcaaDivisionKey]?.[tiers.gender];
 const perShot = c ? (c.weights.wG / c.weights.wS).toFixed(2) : null;
@@ -65,61 +79,33 @@ const perShot = c ? (c.weights.wG / c.weights.wS).toFixed(2) : null;
 const firstSeasonNote =
   firstSeason === null
     ? null
-    : `The first season with tiers is ${firstSeason}, and nothing before it is counted: a ${firstSeason} ${groups[0]?.replace(/s$/, "") ?? "player"} is judged on that season alone.`;
+    : `The first season with tiers is ${firstSeason}, and nothing before it is counted: a ${firstSeason} forward or midfielder is judged on that season alone.`;
 ---
 
 <section class="lede">
   <div class="akicker num">TOUCHLINE · NCAA {division.toUpperCase()}</div>
   <h1 class="atitle serif">Understanding Touchline tiers</h1>
   <p class="intro">
-    On {division} pages Touchline shows one kind of player tier: <strong>shooting and scoring,
-    for {gender} {groupWords}</strong>{shown.badge && (<>, and on team pages the <strong>team
-    defence badge</strong></>)}. Tiers highlight standout box-score performance — not overall
-    player ability.
+    On {division} pages Touchline shows the <strong>shooting and scoring tier for {gender}{" "}
+    {groupWords}</strong>{shown.badge && (<>, and on team pages the <strong>team defence
+    badge</strong></>)}. Tiers highlight standout box-score performance — not overall player
+    ability.
   </p>
-  <div
-    class={shown.badge ? "tier-tiles" : "tier-tiles tier-tiles-two"}
-    aria-label={shown.badge ? "The two tiers and the team defence badge shown here" : "The two Touchline tier labels shown here"}
-  >
-    <div class="tier-tile tier-tile-primary">
-      <div class="tile-kicker">Tier 1</div>
-      <div class="tile-stat">Top 5%</div>
-      <div class="tile-kind">Shooting &amp; scoring</div>
-      <div class="tile-scope">
-        Individual non-penalty goals &amp; shots per 90 for eligible {groupWords}.
-      </div>
-    </div>
-    <div class="tier-tile">
-      <div class="tile-kicker">Tier 2</div>
-      <div class="tile-stat">Next 15%</div>
-      <div class="tile-kind">Shooting &amp; scoring</div>
-      <div class="tile-scope">Positions 6% to 20% of eligible {groupWords}.</div>
-    </div>
-    {shown.badge && (
-      <div class="tier-tile">
-        <div class="tile-kicker">Team defence badge</div>
-        <div class="tile-stat">Top 20%</div>
-        <div class="tile-kind">Team performance</div>
-        <div class="tile-scope">
-          Awarded to the team, not a player: goals conceded against what its opponents usually score.
-        </div>
-      </div>
-    )}
-  </div>
+  <TierTiles shown={shown} />
   <p class="tile-footnote">
-    Percentages are within one season's eligible {groupWords}{shown.badge && " or the division's teams"}. About{" "}
+    Percentages are within one season's eligible {groupWords}, compared separately{shown.badge && ", or the division's teams"}. About{" "}
     <strong>80% of eligible players hold no tier</strong>{shown.badge && ", and about 80% of teams hold no badge"}.
   </p>
 </section>
 
 {measured && (
   <section class="band" id="why">
-    <h3 class="sechead">WHY {groupWords.toUpperCase()} AND NOT EVERY PLAYER</h3>
+    <h3 class="sechead">WHAT THE TEST DECIDED</h3>
     <p class="para">
-      A tier is shown only where it passes the same reliability test at every level: split each
+      A tier is shown only where it passes the same reliability test on every level: split each
       player's season into two halves at random, and the tier must agree with itself across them.
       Stepped up to a full season, that agreement must reach {barTwo !== null && two(barTwo)} for a
-      tier with two levels (Tier 1, Tier 2){barOne !== null && ` and ${two(barOne)} for a single label, the badge`}.
+      label with two levels{barOne !== null && ` and ${two(barOne)} for a label with one`}.
       Measured once on {division} {gender} seasons{" "}
       {measured.seasons[0]} to {measured.seasons[1]}, over 100 random splits:
     </p>
@@ -127,7 +113,8 @@ const firstSeasonNote =
       <table class="who num">
         <thead>
           <tr>
-            <th scope="col">Tier</th>
+            <th scope="col">Label</th>
+            <th scope="col">Levels</th>
             <th scope="col">Reliability</th>
             <th scope="col">Needed</th>
             <th scope="col">Shown here</th>
@@ -137,6 +124,7 @@ const firstSeasonNote =
           {measured.rows.map((m) => (
             <tr>
               <th scope="row">{label(m)}</th>
+              <td>{levelsOf(m)}</td>
               <td>{two(m.r)}</td>
               <td>{two(m.bar)}</td>
               <td>{m.r >= m.bar ? "Yes" : "No"}</td>
@@ -146,9 +134,10 @@ const firstSeasonNote =
       </table>
     </div>
     <p class="para">
-      Where a tier is not shown, a player's sheet carries no tier block at all; no tier is not a
-      bad mark. Defenders and goalkeepers hold no tier on any level: a regular's sheet prints the
-      team's figures instead, and the badge is the team's.{full && ` On ${full.name} pages the shooting and scoring tier passes for forwards and midfielders both.`}
+      {twoLevel && `${title(twoLevel)} hold Tier 1 (top 5%) or Tier 2 (the next 15%). `}
+      {oneLevel && `${title(oneLevel)} hold one tier, the top 20%: their score repeats well enough to mark the top fifth, but not to separate the top 5% from the rest of it, and they are marked the same way on every level. `}
+      Defenders and goalkeepers hold no tier on any level: a regular's sheet prints the team's
+      figures instead, and the badge is the team's. No tier is not a bad mark.
     </p>
   </section>
 )}
@@ -158,9 +147,9 @@ const firstSeasonNote =
   <p class="para">
     Step for step as on every level: non-penalty goals and shots per 90, each adjusted for the
     defence faced and for home and away; blended with the player's previous season at the same
-    programme when that season counts, and pulled toward the group average; then the top 5%
-    (Tier 1) and the next 15% (Tier 2) of eligible {groupWords}, ties included. A player is
-    eligible with 900 minutes this season, or 600 this season and 600 the season before.
+    programme when that season counts, and pulled toward the group average; then the cut inside
+    each group, ties included. A player is eligible with 900 minutes this season, or 600 this
+    season and 600 the season before.
   </p>
   {c && (
     <>
