@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NSIC",
-  "generated_at": "2026-11-17T13:10:00+00:00",
-  "data_collected_at": "2026-11-17T12:56:35+00:00",
+  "generated_at": "2026-11-20T13:05:00+00:00",
+  "data_collected_at": "2026-11-20T12:53:05+00:00",
   "headline": "Minnesota State and UMary both lose at home",
   "dek": "Central Missouri won at UMary and Missouri Western at Minnesota State on the season's last day, with the two sides level on points at the top of the table. It was Minnesota State's second defeat of the season, against seventeen wins, and Northern State lost at Pittsburg State the same day.",
   "lede_basis": {
@@ -14,7 +14,6 @@
     "losses": 2
   },
   "lede_updated": "2026-11-17",
-  "displaced_by": "The standing dek is no longer true: today's data gives Minnesota State seventeen wins, not nineteen. The headline still holds and stands.",
   "pattern": {
     "label": "derived",
     "text": "The conference's goals sit at the top: Minnesota State's 57 are more than Winona State, MSU Moorhead, Southwest Minnesota State and Minnesota Crookston have scored together.",
@@ -142,6 +141,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T13:03:48.522Z"
+    "validated_at": "2026-11-20T12:58:47.198Z"
   }
 }

@@ -2,21 +2,24 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "women",
-  "generated_at": "2026-11-17T13:20:00+00:00",
+  "generated_at": "2026-11-20T13:20:00+00:00",
   "data_collected_at": "2026-11-16T12:53:51+00:00",
-  "headline": "Dallas Baptist get past UCCS and stay unbeaten",
-  "dek": "Eighteen wins and two draws now stand on Dallas Baptist's record, and no side has beaten them. Nova Southeastern are the only other programme in the division still without a defeat.",
+  "headline": "Montevallo outscore every other programme in the division",
+  "dek": "Montevallo have scored 72 goals, and the nearest total in the division belongs to North Georgia of the Peach Belt. The Gulf South side have won seventeen matches, drawn two and lost two.",
   "basis": {
-    "programme": "dallas-baptist",
-    "wins": 18,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "montevallo",
+    "of_any": 1,
+    "gf": 72,
+    "wins": 17,
     "draws": 2,
-    "losses": 0
+    "losses": 2
   },
-  "fixture_ref": "2026-11-16 dallas-baptist v uccs",
-  "updated": "2026-11-17",
-  "displaced_by": "results night: Dallas Baptist beat UCCS and are still one of only two unbeaten sides in the division, with Nova Southeastern",
+  "updated": "2026-11-20",
+  "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T13:05:22.663Z"
+    "validated_at": "2026-11-20T13:00:00.883Z"
   }
 }

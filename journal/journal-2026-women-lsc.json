@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "LSC",
-  "generated_at": "2026-11-17T13:15:00+00:00",
-  "data_collected_at": "2026-11-17T12:55:19+00:00",
+  "generated_at": "2026-11-20T13:10:00+00:00",
+  "data_collected_at": "2026-11-20T12:52:06+00:00",
   "headline": "Unbeaten Dallas Baptist meet Texas Woman's again",
   "dek": "Dallas Baptist have won eighteen and drawn two, scoring 65 goals across all their matches and conceding nine; none of the other fourteen programmes has scored as many. One of those draws came against Texas Woman's, the side they meet next.",
   "lede_basis": {
@@ -19,7 +19,6 @@
     "losses": 0
   },
   "lede_updated": "2026-11-17",
-  "displaced_by": "The standing dek's figures were outgrown: Dallas Baptist moved to eighteen wins, 65 scored and nine conceded after beating UCCS. The headline now leads on their next match, a rematch with Texas Woman's, the second side in the table.",
   "pattern": {
     "label": "derived",
     "text": "One programme scores at a different rate from the rest: Dallas Baptist have more goals than Angelo State, UT Permian Basin, Texas A&M International, Sul Ross State and Eastern New Mexico together.",
@@ -151,6 +150,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T13:03:29.926Z"
+    "validated_at": "2026-11-20T12:58:38.144Z"
   }
 }

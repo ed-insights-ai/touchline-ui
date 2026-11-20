@@ -3,7 +3,7 @@
   "journal": "journal-2026-women-national.json",
   "season": 2026,
   "gender": "women",
-  "validated_at": "2026-11-17T13:05:22.663Z",
+  "validated_at": "2026-11-20T13:00:00.883Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Dallas Baptist get past UCCS and stay unbeaten Eighteen wins and two draws now stand on Dallas Baptist's record, and no side has beaten them. Nova Southeastern are the only other programme in the division still without a defeat.",
-      "checker": "team_record",
+      "text": "Montevallo outscore every other programme in the division Montevallo have scored 72 goals, and the nearest total in the division belongs to North Georgia of the Peach Belt. The Gulf South side have won seventeen matches, drawn two and lost two.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is north-georgia at 66"
     }
   ],
   "timing": {
-    "started_at": "2026-11-17T13:04:45.439Z",
-    "generate_ms": 37222,
-    "validate_ms": 1,
-    "wall_ms": 37224
+    "started_at": "2026-11-20T12:59:20.117Z",
+    "generate_ms": 40749,
+    "validate_ms": 17,
+    "wall_ms": 40766
   }
 }
