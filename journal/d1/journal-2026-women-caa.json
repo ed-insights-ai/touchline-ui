@@ -1,0 +1,138 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CAA",
+  "generated_at": "2026-11-21T15:40:00+00:00",
+  "data_collected_at": "2026-11-21T15:23:03+00:00",
+  "headline": "UNCW carries an unbeaten season to Duke",
+  "dek": "UNCW has won fifteen and drawn seven without losing, and its 51 goals this season are more than any other program in the conference has scored. Its last result was another win over Towson, which sits second in the table.",
+  "lede_basis": {
+    "programme": "uncw",
+    "wins": 15,
+    "draws": 7,
+    "losses": 0,
+    "gf": 51,
+    "ga": 17,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 11
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Goals scored do not order the table: Hampton, at its foot, has scored more across all its matches than Hofstra, which trails only UNCW and Towson.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "uncw": 51,
+        "elon": 38,
+        "towson": 32,
+        "campbell": 26,
+        "hampton": 26,
+        "monmouth": 25,
+        "stony-brook": 24,
+        "charleston-south-carolina": 23,
+        "william-mary": 23,
+        "drexel": 21,
+        "hofstra": 21,
+        "northeastern": 16
+      },
+      "highlight": "uncw"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "hampton",
+      "of": ["hofstra"],
+      "gf": 26
+    }
+  },
+  "wire": {
+    "line": "UNCW is the only program in the conference without a loss this season.",
+    "basis": {
+      "programme": "uncw",
+      "wins": 15,
+      "draws": 7,
+      "losses": 0
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches are past their date with no result, one for Elon and one for William & Mary, both from the season's first week.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Fifteen different players have scored for Elon this season.",
+      "basis": {
+        "programme": "elon",
+        "distinct_scorers_min": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Northeastern's Eliza Teplow has made 97 saves at a .808 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Eliza Teplow",
+        "programme": "northeastern",
+        "saves": 97,
+        "save_pct": 0.808
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Tallulah Miller has kept seven shutouts for Monmouth.",
+      "basis": {
+        "source": "stats",
+        "player": "Tallulah Miller",
+        "programme": "monmouth",
+        "shutouts": 7
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Hailey Longwell",
+      "programme": "uncw",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 7 A · 60 shots"
+    },
+    {
+      "player": "Bella Antonio",
+      "programme": "charleston-south-carolina",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 3 A · 36 shots"
+    },
+    {
+      "player": "Sophie Thibeault",
+      "programme": "towson",
+      "position": "FWD",
+      "class": "SR",
+      "line": "7 G · 7 A · 69 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 uncw v towson",
+      "line": "UNCW has now beaten Towson twice, once at home and once away."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-21 duke v uncw",
+      "line": "Duke is the first opponent from outside the conference UNCW has met since September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:05:27.275Z"
+  }
+}

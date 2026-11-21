@@ -1,0 +1,139 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MW",
+  "generated_at": "2026-11-21T17:05:00+00:00",
+  "data_collected_at": "2026-11-21T16:40:09+00:00",
+  "headline": "Wyoming outwins the conference without topping its table",
+  "dek": "Wyoming has won fourteen matches this season, more than any other side in the conference. In goal, Haley Bartel has kept ten clean sheets for a defense that has conceded nineteen goals all season.",
+  "lede_basis": {
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "programme": "wyoming",
+    "of_any": 10,
+    "wins": 14,
+    "draws": 2,
+    "losses": 5,
+    "gf": 41,
+    "ga": 19,
+    "source": "stats",
+    "player": "Haley Bartel",
+    "shutouts": 10
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "signal",
+    "text": "Colorado College tops the conference table though it has conceded more goals than it has scored this season, 27 against 23: its conference wins have come by narrow margins, not by weight of scoring.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "air-force": 41,
+        "wyoming": 41,
+        "nevada": 31,
+        "new-mexico": 31,
+        "hawaii": 29,
+        "unlv": 28,
+        "utep": 24,
+        "colorado-college": 23,
+        "grand-canyon": 21,
+        "uc-davis": 18,
+        "san-jose-state": 11
+      },
+      "highlight": "air-force"
+    },
+    "basis": {
+      "programme": "colorado-college",
+      "gf": 23,
+      "ga": 27
+    }
+  },
+  "wire": {
+    "line": "Air Force took twelve wins into the conference's last match of the season, and lost it at Colorado.",
+    "basis": {
+      "programme": "air-force",
+      "wins": 12,
+      "draws": 3,
+      "losses": 6
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Grand Canyon's season opener at New Mexico State has no published result, the only match on the conference's schedule past its date without one.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "grand-canyon",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Sydney Nelms has made 101 saves for Air Force at a save percentage of .828.",
+      "basis": {
+        "source": "stats",
+        "player": "Sydney Nelms",
+        "programme": "air-force",
+        "saves": 101,
+        "save_pct": 0.828
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Alyssa Glover has ten goals and nine assists for Wyoming, from 64 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Alyssa Glover",
+        "programme": "wyoming",
+        "goals": 10,
+        "assists": 9,
+        "shots": 64
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Thirteen different players have scored for Air Force this season.",
+      "basis": {
+        "programme": "air-force",
+        "distinct_scorers_min": 13
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Alyssa Glover",
+      "programme": "wyoming",
+      "position": "MID",
+      "class": "5Y",
+      "line": "10 G · 9 A · 64 shots"
+    },
+    {
+      "player": "Annika Jost",
+      "programme": "air-force",
+      "position": "MID",
+      "class": "JR",
+      "line": "9 G · 10 A · 37 shots"
+    },
+    {
+      "player": "Presley Devey",
+      "programme": "new-mexico",
+      "position": "FWD",
+      "class": "5Y",
+      "line": "9 G · 4 A · 64 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 colorado v air-force",
+      "line": "Air Force's first defeat since Wyoming beat it at the start of November; no conference side has a match left to play."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:09:06.721Z"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "BIGSKY",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:22:00+00:00",
+  "headline": "Weber State finishes first with the conference's most goals",
+  "dek": "Weber State's forty-four goals are a total no other program in the conference has reached, and it beat Northern Colorado, the side behind it in the table, both times they met. It has still lost seven times, the last of them at BYU.",
+  "lede_basis": {
+    "programme": "weber-state",
+    "gf": 44,
+    "ga": 29,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "eastern-washington",
+      "idaho",
+      "idaho-state",
+      "montana",
+      "northern-arizona",
+      "northern-colorado",
+      "portland-state",
+      "southern-utah",
+      "utah-tech"
+    ],
+    "wins": 13,
+    "draws": 2,
+    "losses": 7
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Southern Utah's bar owes more than half its height to a single match against Justice; across the rest of its season the program has scored like the conference's lower half.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "weber-state": 44,
+        "southern-utah": 30,
+        "northern-arizona": 27,
+        "utah-tech": 27,
+        "idaho": 25,
+        "northern-colorado": 23,
+        "eastern-washington": 21,
+        "idaho-state": 17,
+        "portland-state": 11,
+        "montana": 8
+      },
+      "highlight": "weber-state"
+    },
+    "basis": {
+      "programme": "southern-utah",
+      "gf": 30,
+      "ga": 26
+    }
+  },
+  "wire": {
+    "line": "Weber State's Lily Blum has scored fifteen goals from defense.",
+    "basis": {
+      "source": "stats",
+      "player": "Lily Blum",
+      "programme": "weber-state",
+      "goals": 15
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Portland State's visit to Oregon State is the conference's one match past its date with no result published.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "portland-state",
+        "count": 1,
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Idaho State has conceded forty-four goals, more than any other program in the conference, against seventeen scored.",
+      "basis": {
+        "programme": "idaho-state",
+        "gf": 17,
+        "ga": 44,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "eastern-washington",
+          "idaho",
+          "montana",
+          "northern-arizona",
+          "northern-colorado",
+          "portland-state",
+          "southern-utah",
+          "utah-tech",
+          "weber-state"
+        ]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Thordis Melsted has nine shutouts in goal for Northern Colorado.",
+      "basis": {
+        "source": "stats",
+        "player": "Thordis Melsted",
+        "programme": "northern-colorado",
+        "shutouts": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Montana has won three of its matches and lost thirteen.",
+      "basis": {
+        "programme": "montana",
+        "wins": 3,
+        "draws": 1,
+        "losses": 13
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Lily Blum",
+      "programme": "weber-state",
+      "position": "DEF",
+      "class": "SR",
+      "line": "15 G · 6 A · 64 shots"
+    },
+    {
+      "player": "Lataya Brost",
+      "programme": "utah-tech",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 4 A · 41 shots"
+    },
+    {
+      "player": "Micala Boex",
+      "programme": "northern-arizona",
+      "position": "FWD",
+      "class": "JR",
+      "line": "8 G · 5 A · 111 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 byu v weber-state",
+      "line": "Weber State had not lost since its defeat at Portland State in mid-October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:05:34.450Z"
+  }
+}

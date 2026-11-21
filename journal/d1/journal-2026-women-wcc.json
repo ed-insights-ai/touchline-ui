@@ -1,0 +1,141 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "WCC",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:30:13+00:00",
+  "headline": "Pepperdine and LMU finish level at the top",
+  "dek": "LMU shares first place despite scoring thirteen goals in all its matches while conceding sixteen. Its goalkeeper, JJ Hoover, has recorded nine shutouts behind that defense.",
+  "lede_basis": {
+    "source": "stats",
+    "player": "JJ Hoover",
+    "programme": "lmu",
+    "shutouts": 9,
+    "gf": 13,
+    "ga": 16
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Seattle U has scored more goals than LMU, Pacific and Portland together, yet it is LMU that shares first place: in this conference, goals have not ordered the table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "seattle-u": 47,
+        "santa-clara": 36,
+        "pepperdine": 33,
+        "saint-marys-california": 25,
+        "denver": 18,
+        "san-diego": 16,
+        "lmu": 13,
+        "pacific": 13,
+        "portland": 13,
+        "san-francisco": 11
+      },
+      "highlight": "seattle-u"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "seattle-u",
+      "of": ["lmu", "pacific", "portland"],
+      "gf": 47
+    }
+  },
+  "wire": {
+    "line": "Santa Clara has not lost to a conference side all season; all three of its defeats came against outside opponents.",
+    "basis": {
+      "programme": "santa-clara",
+      "wins": 10,
+      "draws": 9,
+      "losses": 3
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Seattle U has won twelve matches, more than any other program in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "programme": "seattle-u",
+        "of": [
+          "denver",
+          "lmu",
+          "pacific",
+          "pepperdine",
+          "portland",
+          "saint-marys-california",
+          "san-diego",
+          "san-francisco",
+          "santa-clara"
+        ],
+        "wins": 12,
+        "draws": 5,
+        "losses": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "At least fourteen different players have scored for Santa Clara this season.",
+      "basis": {
+        "programme": "santa-clara",
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pacific has won once all season, against fifteen defeats.",
+      "basis": {
+        "programme": "pacific",
+        "wins": 1,
+        "draws": 2,
+        "losses": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Two August matches have no published result; Saint Mary's College of California and Santa Clara were the conference sides due to play them.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Kennedy Schoennauer",
+      "programme": "santa-clara",
+      "position": "FWD",
+      "class": "SR",
+      "line": "17 G · 1 A · 109 shots"
+    },
+    {
+      "player": "Julia Quinonez",
+      "programme": "pepperdine",
+      "position": "FWD",
+      "class": "SR",
+      "line": "14 G · 4 A · 50 shots"
+    },
+    {
+      "player": "U'i Kaaihue",
+      "programme": "seattle-u",
+      "position": "MID",
+      "class": "5Y",
+      "line": "8 G · 8 A · 97 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 stanford v santa-clara",
+      "line": "Santa Clara lost at home to the same opponent in September; no conference side has beaten Santa Clara this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:13:55.400Z"
+  }
+}

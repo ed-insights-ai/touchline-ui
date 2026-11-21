@@ -1,0 +1,140 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "BIG12",
+  "generated_at": "2026-11-21T17:05:00+00:00",
+  "data_collected_at": "2026-11-21T16:38:41+00:00",
+  "headline": "BYU edges Texas Tech and Baylor at the top",
+  "dek": "Baylor has won 18 matches this season, more than any other program in the conference, and still trails BYU in the table. The difference is defeats: BYU has lost fewer conference matches than any other side.",
+  "lede_basis": {
+    "programme": "baylor",
+    "wins": 18,
+    "draws": 1,
+    "losses": 4,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 15
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Colorado has outscored every side above it in the table and passed none of them: in this conference, goals have not decided the order at the top.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "colorado": 53,
+        "baylor": 44,
+        "houston": 42,
+        "kansas": 40,
+        "texas-tech": 38,
+        "byu": 37,
+        "oklahoma-state": 36,
+        "ucf": 35,
+        "arizona-state": 32,
+        "kansas-state": 31,
+        "west-virginia": 23,
+        "arizona": 20,
+        "utah": 20,
+        "tcu": 19,
+        "iowa-state": 17,
+        "cincinnati": 12
+      },
+      "highlight": "colorado"
+    },
+    "basis": {
+      "programme": "colorado",
+      "gf": 53,
+      "ga": 16,
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "of": ["byu", "texas-tech", "baylor"]
+    }
+  },
+  "wire": {
+    "line": "Iowa State has won four matches this season, none of them in the conference.",
+    "basis": {
+      "programme": "iowa-state",
+      "wins": 4,
+      "draws": 4,
+      "losses": 11
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Nine matches have passed their date with no result published. Apart from West Virginia's trip to Princeton, each involves Arizona State.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Brooke Goerish has kept eight shutouts in Colorado's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Brooke Goerish",
+        "programme": "colorado",
+        "shutouts": 8
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Arizona has drawn six matches this season, more than it has won.",
+      "basis": {
+        "programme": "arizona",
+        "wins": 5,
+        "draws": 6,
+        "losses": 8
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Twelve different players have scored for Arizona State this season.",
+      "basis": {
+        "programme": "arizona-state",
+        "distinct_scorers_min": 12
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Reagan Kotschau",
+      "programme": "colorado",
+      "position": "MID",
+      "class": "SR",
+      "line": "12 G · 12 A · 57 shots"
+    },
+    {
+      "player": "Taylor Zdrojewski",
+      "programme": "texas-tech",
+      "position": "FWD",
+      "class": "SR",
+      "line": "15 G · 4 A · 78 shots"
+    },
+    {
+      "player": "Naomi Clark",
+      "programme": "ucf",
+      "position": "FWD",
+      "class": "SR",
+      "line": "14 G · 5 A · 58 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 texas v houston",
+      "line": "Houston came in off back-to-back defeats by Baylor."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-27 byu v utah-state",
+      "line": "BYU lost the first meeting, in September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:03:32.288Z"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-bigeast.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "BIGEAST",
+  "validated_at": "2026-11-21T17:04:13.827Z",
+  "data_collected_at": "2026-11-21T15:21:33+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[2].text",
+      "text": "Mia Hurd has made 71 saves for Marquette and conceded 12 goals, a save percentage of .855.",
+      "unbacked": ["855"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "observed",
+      "text": "Goals scored do not sort these sides by results. Seton Hall has scored 14, among the fewest on the chart, and has lost only three matches because it has conceded nine.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Villanova has scored 48 goals, more than any other side in the conference, and conceded nine.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is xavier at 39"
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Four matches are past their dates with no result published: DePaul's August matches at Valparaiso and at home to Illinois State, Xavier's visit to Michigan, and Georgetown's visit to James Madison.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Marquette has drawn ten matches and lost only three.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Mia Hurd has made 71 saves for Marquette and conceded 12 goals, a save percentage of .855.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "St. John's scored eight goals all season and did not win any of its conference matches.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Dez Zapata — 8 G · 8 A · 29 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Peyton Kohls — 6 G · 6 A · 70 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Jocy Koffi — 8 G · 5 A · 61 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-20 penn-state v villanova",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-21 xavier v oklahoma",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-21T17:02:41.969Z",
+    "generate_ms": 91856,
+    "validate_ms": 1,
+    "wall_ms": 91857,
+    "concurrency": 4
+  }
+}

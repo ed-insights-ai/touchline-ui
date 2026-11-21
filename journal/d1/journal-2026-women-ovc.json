@@ -1,0 +1,123 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "OVC",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:26:34+00:00",
+  "headline": "UT Martin finishes the season first in the table",
+  "dek": "UT Martin closed the season on top of the table, beating SIUE and then Southern Indiana in November. It won eight matches, drew seven and lost six, the last of those defeats at Vanderbilt.",
+  "lede_basis": {
+    "programme": "ut-martin",
+    "wins": 8,
+    "draws": 7,
+    "losses": 6
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "SIUE's attack did not carry the table: the program conceded 30 goals across its season, more than the 28 it scored.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "siue": 28,
+        "ut-martin": 21,
+        "lindenwood": 18,
+        "eastern-illinois": 16,
+        "morehead-state": 16,
+        "southern-indiana": 14,
+        "southeast-missouri": 13,
+        "western-illinois": 9
+      },
+      "highlight": "siue"
+    },
+    "basis": {
+      "programme": "siue",
+      "gf": 28,
+      "ga": 30
+    }
+  },
+  "wire": {
+    "line": "UT Martin beat SIUE and Southern Indiana in November, then lost at Vanderbilt.",
+    "basis": {
+      "programme": "ut-martin",
+      "wins": 8,
+      "draws": 7,
+      "losses": 6
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches are past their dates with no result published, a UT Martin home match and a Western Illinois home match, both from August.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Western Illinois lost 16 matches and won three, without a draw all season.",
+      "basis": {
+        "programme": "western-illinois",
+        "wins": 3,
+        "draws": 0,
+        "losses": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Merrick Schwalbach kept ten shutouts in goal for Southern Indiana.",
+      "basis": {
+        "source": "stats",
+        "player": "Merrick Schwalbach",
+        "programme": "southern-indiana",
+        "shutouts": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Southern Indiana's 14 goals came from at least ten different scorers.",
+      "basis": {
+        "programme": "southern-indiana",
+        "gf": 14,
+        "distinct_scorers_min": 10
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Claire Nieroda",
+      "programme": "siue",
+      "position": "MID",
+      "class": "SO",
+      "line": "10 G · 9 A · 86 shots"
+    },
+    {
+      "player": "Mackenzie Compton",
+      "programme": "lindenwood",
+      "position": "FWD",
+      "class": "JR",
+      "line": "7 G · 4 A · 50 shots"
+    },
+    {
+      "player": "Peyton Cook",
+      "programme": "ut-martin",
+      "position": "FWD",
+      "class": "SR",
+      "line": "4 G · 6 A · 33 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 vanderbilt v ut-martin",
+      "line": "It was UT Martin's first defeat since SIUE beat it in October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:09:22.367Z"
+  }
+}

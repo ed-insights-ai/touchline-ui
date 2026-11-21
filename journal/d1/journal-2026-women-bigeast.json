@@ -1,0 +1,140 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "BIGEAST",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:21:33+00:00",
+  "headline": "Only Butler has beaten Villanova",
+  "dek": "Villanova has conceded nine goals all season and has won every match since that October defeat. Among those wins is one over Xavier, which had topped the conference table without a loss.",
+  "lede_basis": {
+    "programme": "villanova",
+    "wins": 15,
+    "draws": 5,
+    "losses": 1,
+    "gf": 48,
+    "ga": 9
+  },
+  "lede_updated": "2026-11-21",
+  "displaced_by": "first journal for this conference: Villanova's single defeat of the season",
+  "pattern": {
+    "label": "observed",
+    "text": "Goals scored do not sort these sides by results. Seton Hall has scored 14, among the fewest on the chart, and has lost only three matches because it has conceded nine.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "villanova": 48,
+        "xavier": 39,
+        "providence": 28,
+        "butler": 25,
+        "marquette": 25,
+        "georgetown": 22,
+        "creighton": 20,
+        "depaul": 17,
+        "uconn": 17,
+        "seton-hall": 14,
+        "st-johns": 8
+      },
+      "highlight": "villanova"
+    },
+    "basis": {
+      "programme": "seton-hall",
+      "gf": 14,
+      "ga": 9,
+      "wins": 7,
+      "draws": 7,
+      "losses": 3
+    }
+  },
+  "wire": {
+    "line": "Villanova has scored 48 goals, more than any other side in the conference, and conceded nine.",
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "villanova",
+      "of_any": 10,
+      "gf": 48,
+      "ga": 9
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four matches are past their dates with no result published: DePaul's August matches at Valparaiso and at home to Illinois State, Xavier's visit to Michigan, and Georgetown's visit to James Madison.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Marquette has drawn ten matches and lost only three.",
+      "basis": {
+        "programme": "marquette",
+        "wins": 7,
+        "draws": 10,
+        "losses": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mia Hurd has made 71 saves for Marquette and conceded 12 goals, a save percentage of .855.",
+      "basis": {
+        "source": "stats",
+        "player": "Mia Hurd",
+        "programme": "marquette",
+        "saves": 71,
+        "goals_against": 12,
+        "save_pct": 0.855
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. John's scored eight goals all season and did not win any of its conference matches.",
+      "basis": {
+        "programme": "st-johns",
+        "gf": 8,
+        "ga": 17
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Dez Zapata",
+      "programme": "villanova",
+      "position": "FWD",
+      "class": "JR",
+      "line": "8 G · 8 A · 29 shots"
+    },
+    {
+      "player": "Peyton Kohls",
+      "programme": "xavier",
+      "position": "FWD",
+      "class": "SR",
+      "line": "6 G · 6 A · 70 shots"
+    },
+    {
+      "player": "Jocy Koffi",
+      "programme": "providence",
+      "position": "FWD",
+      "class": "FR",
+      "line": "8 G · 5 A · 61 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 penn-state v villanova",
+      "line": "Villanova has won every match since its only defeat of the season, at Butler."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-21 xavier v oklahoma",
+      "line": "Xavier has yet to lose at home this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:04:13.827Z"
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-aac.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "AAC",
+  "validated_at": "2026-11-21T17:02:41.791Z",
+  "data_collected_at": "2026-11-21T15:18:12+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "signal",
+      "text": "Goals did not decide results: North Texas scored more than any other program yet finished with seven wins, six draws and seven losses.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is memphis at 40"
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "UAB is the only conference side to have beaten Memphis this season, and it did so in Memphis.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Two matches past their date still have no result: a Charlotte home match and a Temple home match, both from the same August day.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "East Carolina drew nine matches, more than any other program in the conference.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is north-texas at 6"
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Claire Niedermeier scored fourteen goals for North Texas on sixty-two shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Ana Zivkovic posted eight shutouts in goal for Temple.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Ai Kitagawa — 11 G · 8 A · 71 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Abby Forsgren — 6 G · 8 A · 53 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Hailey Santiago — 11 G · 2 A · 64 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-20 south-carolina v uab",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-21T17:00:15.410Z",
+    "generate_ms": 146379,
+    "validate_ms": 2,
+    "wall_ms": 146380,
+    "concurrency": 4
+  }
+}

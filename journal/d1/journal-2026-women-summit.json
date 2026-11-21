@@ -1,0 +1,141 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SUMMIT",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:29:26+00:00",
+  "headline": "Oral Roberts finishes unbeaten against Summit opposition",
+  "dek": "Oral Roberts's only two defeats came outside the conference, to Baylor and then to Kansas. Its defense conceded 13 goals all season, fewer than any other Summit program.",
+  "lede_basis": {
+    "programme": "oral-roberts",
+    "wins": 16,
+    "draws": 4,
+    "losses": 2,
+    "gf": 46,
+    "ga": 13
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Oral Roberts alone scored more than St. Thomas, Kansas City and Omaha together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "oral-roberts": 46,
+        "south-dakota-state": 43,
+        "south-dakota": 27,
+        "north-dakota-state": 25,
+        "north-dakota": 20,
+        "st-thomas": 18,
+        "kansas-city": 8,
+        "omaha": 8
+      },
+      "highlight": "oral-roberts"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "oral-roberts",
+      "of": ["st-thomas", "kansas-city", "omaha"],
+      "gf": 46
+    }
+  },
+  "wire": {
+    "line": "No Summit side beat Oral Roberts all season; its run ended with a loss at Kansas.",
+    "basis": {
+      "programme": "oral-roberts",
+      "wins": 16,
+      "draws": 4,
+      "losses": 2
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches are past their date with no result: St. Thomas's August match at Wisconsin and Idaho's September visit to South Dakota State.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "St. Thomas conceded 37 goals, more than any other Summit program.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "programme": "st-thomas",
+        "of": [
+          "oral-roberts",
+          "south-dakota-state",
+          "north-dakota-state",
+          "south-dakota",
+          "omaha",
+          "north-dakota",
+          "kansas-city"
+        ],
+        "gf": 18,
+        "ga": 37
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Omaha scored eight goals all season and drew seven of its matches.",
+      "basis": {
+        "programme": "omaha",
+        "gf": 8,
+        "ga": 17,
+        "wins": 4,
+        "draws": 7,
+        "losses": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Morgan Russmann scored ten goals from 86 shots for North Dakota State.",
+      "basis": {
+        "source": "stats",
+        "player": "Morgan Russmann",
+        "programme": "north-dakota-state",
+        "goals": 10,
+        "shots": 86
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Brianna Castleberry",
+      "programme": "oral-roberts",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 4 A · 61 shots"
+    },
+    {
+      "player": "Morgan Russmann",
+      "programme": "north-dakota-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 3 A · 86 shots"
+    },
+    {
+      "player": "Mia Bosch",
+      "programme": "south-dakota-state",
+      "position": "MID",
+      "class": "JR",
+      "line": "4 G · 10 A · 45 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 kansas v oral-roberts",
+      "line": "Oral Roberts had gone unbeaten since losing to Baylor in September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:12:08.229Z"
+  }
+}

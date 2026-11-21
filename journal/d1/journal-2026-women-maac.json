@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MAAC",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:24:27+00:00",
+  "headline": "Quinnipiac finishes top as Fairfield outscores the field",
+  "dek": "Quinnipiac has lost three times all season, scoring twenty-eight goals in all its matches and conceding twenty. Fairfield's attack has scored the most in the conference and still finished behind it.",
+  "lede_basis": {
+    "programme": "quinnipiac",
+    "wins": 12,
+    "draws": 3,
+    "losses": 3,
+    "gf": 28,
+    "ga": 20
+  },
+  "lede_updated": "2026-11-21",
+  "displaced_by": "first journal for the conference: Quinnipiac's finish at the top of a complete conference table",
+  "pattern": {
+    "label": "derived",
+    "text": "Fairfield has scored more than Quinnipiac and Manhattan together, yet goals did not settle the table: Quinnipiac tops it from the middle of this chart.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "fairfield": 54,
+        "siena": 32,
+        "sacred-heart": 31,
+        "niagara": 30,
+        "quinnipiac": 28,
+        "merrimack": 25,
+        "manhattan": 22,
+        "iona": 20,
+        "marist": 20,
+        "mount-st-marys": 20,
+        "canisius": 17,
+        "rider": 14,
+        "saint-peters": 14
+      },
+      "highlight": "fairfield"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "fairfield",
+      "of": ["quinnipiac", "manhattan"],
+      "gf": 54
+    }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Five matches have passed their dates without a result, every one of them an August match against an opponent from outside the conference.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Niagara's Caitlyn Gratton has seventeen goals from 57 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Caitlyn Gratton",
+        "programme": "niagara",
+        "goals": 17,
+        "shots": 57
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Siena goalkeeper Cate Burns has twelve shutouts this season.",
+      "basis": {
+        "source": "stats",
+        "player": "Cate Burns",
+        "programme": "siena",
+        "shutouts": 12
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Manhattan has conceded ten goals in all its matches, the fewest of any program in the conference.",
+      "basis": {
+        "programme": "manhattan",
+        "gf": 22,
+        "ga": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Fairfield's goals have come from at least twelve different scorers.",
+      "basis": {
+        "programme": "fairfield",
+        "distinct_scorers_min": 12
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Shea Kelleher",
+      "programme": "sacred-heart",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 8 A · 101 shots"
+    },
+    {
+      "player": "Payton Zaun",
+      "programme": "fairfield",
+      "position": "MID",
+      "class": "SO",
+      "line": "8 G · 12 A · 64 shots"
+    },
+    {
+      "player": "Catherine Rogers",
+      "programme": "siena",
+      "position": "MID",
+      "class": "JR",
+      "line": "12 G · 4 A · 65 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 quinnipiac v fairfield",
+      "line": "Fairfield has now met Quinnipiac twice without beating it."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-21 ucla v quinnipiac",
+      "line": "Quinnipiac has not lost since its trip to Manhattan in September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:08:06.179Z"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SOCON",
+  "generated_at": "2026-11-21T15:40:00+00:00",
+  "data_collected_at": "2026-11-21T15:28:35+00:00",
+  "headline": "Samford's season ends at Mississippi State",
+  "dek": "It was only the third defeat of Samford's year, and its first since September. Peyton Hull kept 11 shutouts behind a defense that conceded 12 goals in all.",
+  "lede_basis": {
+    "programme": "samford",
+    "wins": 13,
+    "draws": 6,
+    "losses": 3,
+    "gf": 37,
+    "ga": 12,
+    "source": "stats",
+    "player": "Peyton Hull",
+    "shutouts": 11
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "signal",
+    "text": "Goals did not settle the table: Mercer and The Citadel each outscored Samford, and both finished in its bottom half while Samford finished level at the top.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "furman": 48,
+        "mercer": 43,
+        "citadel": 39,
+        "samford": 37,
+        "chattanooga": 36,
+        "unc-greensboro": 28,
+        "etsu": 26,
+        "western-carolina": 21,
+        "wofford": 21,
+        "tennessee-tech": 20,
+        "vmi": 10
+      },
+      "highlight": "furman"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "mercer",
+      "gf": 43,
+      "of": ["samford"]
+    }
+  },
+  "wire": {
+    "line": "No side in the conference has a match left to play; Samford's season ended last, at Mississippi State.",
+    "basis": {
+      "programme": "samford",
+      "wins": 13,
+      "draws": 6,
+      "losses": 3
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four matches have passed their date with no published result, and none of them is between two conference members.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "VMI finished the season without a win, with one draw beside 19 defeats and 72 goals conceded.",
+      "basis": {
+        "programme": "vmi",
+        "wins": 0,
+        "draws": 1,
+        "losses": 19,
+        "gf": 10,
+        "ga": 72
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Samford's 37 goals came from at least 15 different scorers.",
+      "basis": {
+        "programme": "samford",
+        "distinct_scorers_min": 15,
+        "gf": 37
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Furman went through the table unbeaten and then lost to Mercer, a side from the table's bottom half.",
+      "basis": {
+        "programme": "furman",
+        "wins": 13,
+        "draws": 3,
+        "losses": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Zoe Santos made 100 saves for The Citadel at a .794 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Zoe Santos",
+        "programme": "citadel",
+        "saves": 100,
+        "save_pct": 0.794
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jasiah Pack",
+      "programme": "citadel",
+      "position": "FWD",
+      "class": "SR",
+      "line": "12 G · 6 A · 60 shots"
+    },
+    {
+      "player": "Olivia Bori",
+      "programme": "mercer",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 9 A · 62 shots"
+    },
+    {
+      "player": "Quinn Johnson",
+      "programme": "chattanooga",
+      "position": "MID",
+      "class": "SO",
+      "line": "9 G · 7 A · 63 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 mississippi-state v samford",
+      "line": "Samford had not lost to a conference member all season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:11:03.048Z"
+  }
+}

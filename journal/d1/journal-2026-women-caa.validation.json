@@ -1,0 +1,147 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-caa.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CAA",
+  "validated_at": "2026-11-21T17:05:27.275Z",
+  "data_collected_at": "2026-11-21T15:23:03+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[0].text",
+      "text": "Two matches are past their date with no result, one for Elon and one for William & Mary, both from the season's first week.",
+      "unbacked": ["1"]
+    },
+    {
+      "path": "findings[2].text",
+      "text": "Northeastern's Eliza Teplow has made 97 saves at a .808 save percentage.",
+      "unbacked": ["808"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Goals scored do not order the table: Hampton, at its foot, has scored more across all its matches than Hofstra, which trails only UNCW and Towson.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "UNCW is the only program in the conference without a loss this season.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Two matches are past their date with no result, one for Elon and one for William & Mary, both from the season's first week.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Fifteen different players have scored for Elon this season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Northeastern's Eliza Teplow has made 97 saves at a .808 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Tallulah Miller has kept seven shutouts for Monmouth.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Hailey Longwell — 9 G · 7 A · 60 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Bella Antonio — 10 G · 3 A · 36 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Sophie Thibeault — 7 G · 7 A · 69 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 uncw v towson",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-21 duke v uncw",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-21T17:04:14.036Z",
+    "generate_ms": 73238,
+    "validate_ms": 1,
+    "wall_ms": 73239,
+    "concurrency": 4
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "B1G",
+  "generated_at": "2026-11-21T15:40:00+00:00",
+  "data_collected_at": "2026-11-21T15:20:19+00:00",
+  "headline": "Ohio State leads the conference, beaten twice all season",
+  "dek": "Ohio State has won 16 times and conceded 11 goals all season, and only UCLA and Michigan have beaten it. Purdue and UCLA sit level on points behind it, with Michigan State just below them.",
+  "lede_basis": {
+    "programme": "ohio-state",
+    "wins": 16,
+    "draws": 1,
+    "losses": 2,
+    "gf": 43,
+    "ga": 11
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "observed",
+    "text": "Scoring has not settled the table: Purdue's two defeats all season came against Ohio State, which leads it, and UCLA, which is level with it on points.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "purdue": 78,
+        "ohio-state": 43,
+        "michigan-state": 42,
+        "iowa": 39,
+        "wisconsin": 38,
+        "penn-state": 33,
+        "michigan": 32,
+        "minnesota": 29,
+        "ucla": 29,
+        "washington": 26,
+        "oregon": 23,
+        "rutgers": 22,
+        "illinois": 18,
+        "usc": 18,
+        "indiana": 17,
+        "northwestern": 16,
+        "nebraska": 15,
+        "maryland": 7
+      },
+      "highlight": "purdue"
+    },
+    "basis": {
+      "programme": "purdue",
+      "wins": 18,
+      "draws": 3,
+      "losses": 2,
+      "gf": 78,
+      "ga": 23
+    }
+  },
+  "wire": {
+    "line": "Purdue has scored 78 goals, more than any other program in the conference.",
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "purdue",
+      "gf": 78,
+      "of": [
+        "illinois",
+        "indiana",
+        "iowa",
+        "maryland",
+        "michigan",
+        "michigan-state",
+        "minnesota",
+        "nebraska",
+        "northwestern",
+        "ohio-state",
+        "oregon",
+        "penn-state",
+        "rutgers",
+        "ucla",
+        "usc",
+        "washington",
+        "wisconsin"
+      ]
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Seven matches are past their date with no result published; the most recent is a Michigan home match in August.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Jaiden Anderson has scored 20 goals from 102 shots for Purdue.",
+      "basis": {
+        "source": "stats",
+        "player": "Jaiden Anderson",
+        "programme": "purdue",
+        "goals": 20,
+        "shots": 102
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Nebraska has drawn ten times this season, more than any other program in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "nebraska",
+        "wins": 3,
+        "draws": 10,
+        "losses": 5,
+        "of": [
+          "illinois",
+          "indiana",
+          "iowa",
+          "maryland",
+          "michigan",
+          "michigan-state",
+          "minnesota",
+          "northwestern",
+          "ohio-state",
+          "oregon",
+          "penn-state",
+          "purdue",
+          "rutgers",
+          "ucla",
+          "usc",
+          "washington",
+          "wisconsin"
+        ]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Izzy Lee has made 88 saves for Illinois at a .838 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Izzy Lee",
+        "programme": "illinois",
+        "saves": 88,
+        "save_pct": 0.838
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jaiden Anderson",
+      "programme": "purdue",
+      "position": "FWD",
+      "class": "JR",
+      "line": "20 G · 7 A · 102 shots"
+    },
+    {
+      "player": "Amanda Schlueter",
+      "programme": "ohio-state",
+      "position": "MID",
+      "class": "SR",
+      "line": "18 G · 8 A · 87 shots"
+    },
+    {
+      "player": "Kennedy Bell",
+      "programme": "michigan-state",
+      "position": "FWD",
+      "class": "SR",
+      "line": "8 G · 11 A · 63 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 purdue v southern-illinois",
+      "line": "Purdue has not lost since Ohio State won at Purdue in October."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-21 michigan-state v central-connecticut",
+      "line": "Purdue is the only program to have beaten Michigan State more than once this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:03:49.063Z"
+  }
+}

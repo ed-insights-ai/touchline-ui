@@ -1,0 +1,151 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "ACC",
+  "generated_at": "2026-11-21T15:40:00+00:00",
+  "data_collected_at": "2026-11-21T15:18:31+00:00",
+  "headline": "North Carolina wins more matches than any ACC side",
+  "dek": "North Carolina has won seventeen times and lost twice, and since finishing behind Notre Dame in the conference table it has beaten Duke and then Virginia. Notre Dame lost to Virginia in the same week.",
+  "lede_basis": {
+    "programme": "north-carolina",
+    "wins": 17,
+    "draws": 0,
+    "losses": 2,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 16
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Goals have not decided the table: Louisville has scored more than Notre Dame and more than Wake Forest, yet finishes below both in conference play.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "north-carolina": 54,
+        "duke": 45,
+        "louisville": 44,
+        "notre-dame": 41,
+        "stanford": 41,
+        "virginia": 41,
+        "nc-state": 40,
+        "boston-college": 38,
+        "wake-forest": 37,
+        "smu": 34,
+        "virginia-tech": 33,
+        "florida-state": 30,
+        "clemson": 27,
+        "miami": 24,
+        "pitt": 24,
+        "california": 17,
+        "syracuse": 12
+      },
+      "highlight": "north-carolina"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "louisville",
+      "of": ["notre-dame", "wake-forest"],
+      "gf": 44
+    }
+  },
+  "wire": {
+    "line": "Virginia has conceded twelve goals all season, fewer than one a match.",
+    "basis": {
+      "programme": "virginia",
+      "gf": 41,
+      "ga": 12,
+      "wins": 12,
+      "draws": 4,
+      "losses": 4
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Bella Devey, a North Carolina midfielder, has scored eighteen goals from 64 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Bella Devey",
+        "programme": "north-carolina",
+        "goals": 18,
+        "shots": 64
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Maya Naimoli has made 72 saves for Syracuse, a side that has lost eleven times.",
+      "basis": {
+        "source": "stats",
+        "player": "Maya Naimoli",
+        "programme": "syracuse",
+        "saves": 72,
+        "wins": 4,
+        "draws": 2,
+        "losses": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Valentina Amaral has kept seven shutouts in goal for Wake Forest.",
+      "basis": {
+        "source": "stats",
+        "player": "Valentina Amaral",
+        "programme": "wake-forest",
+        "shutouts": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "California's home match with Saint Mary's, the first match of the season, is the only one in the conference past its date with no published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "california",
+        "count": 1
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Bella Devey",
+      "programme": "north-carolina",
+      "position": "MID",
+      "class": "SO",
+      "line": "18 G · 1 A · 64 shots"
+    },
+    {
+      "player": "Mia Minestrella",
+      "programme": "duke",
+      "position": "FWD",
+      "class": "SR",
+      "line": "17 G · 2 A · 77 shots"
+    },
+    {
+      "player": "Addison Halpern",
+      "programme": "virginia",
+      "position": "FWD",
+      "class": "SO",
+      "line": "12 G · 6 A · 83 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 louisville v wisconsin",
+      "line": "Louisville was the only ACC side beaten on the day."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-21 north-carolina v unc-asheville",
+      "line": "North Carolina has not lost since Wake Forest beat it in October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:01:59.941Z"
+  }
+}

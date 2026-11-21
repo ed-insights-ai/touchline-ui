@@ -1,0 +1,138 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "AAC",
+  "generated_at": "2026-11-21T15:45:00+00:00",
+  "data_collected_at": "2026-11-21T15:18:12+00:00",
+  "headline": "Memphis finishes the table unbeaten",
+  "dek": "Memphis won thirteen times and conceded eighteen goals across all its matches, and none of its four defeats counts in the table. The only conference side to beat it was UAB, in Memphis, in a match outside the table; UAB then lost at South Carolina.",
+  "lede_basis": {
+    "programme": "memphis",
+    "wins": 13,
+    "draws": 3,
+    "losses": 4,
+    "gf": 40,
+    "ga": 18
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "signal",
+    "text": "Goals did not decide results: North Texas scored more than any other program yet finished with seven wins, six draws and seven losses.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "north-texas": 42,
+        "memphis": 40,
+        "rice": 36,
+        "charlotte": 35,
+        "tulsa": 34,
+        "uab": 30,
+        "temple": 29,
+        "florida-atlantic": 28,
+        "utsa": 26,
+        "east-carolina": 19,
+        "south-florida": 18
+      },
+      "highlight": "north-texas"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "north-texas",
+      "of_any": 10,
+      "gf": 42,
+      "wins": 7,
+      "draws": 6,
+      "losses": 7
+    }
+  },
+  "wire": {
+    "line": "UAB is the only conference side to have beaten Memphis this season, and it did so in Memphis.",
+    "basis": {
+      "programme": "memphis",
+      "wins": 13,
+      "draws": 3,
+      "losses": 4
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches past their date still have no result: a Charlotte home match and a Temple home match, both from the same August day.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "East Carolina drew nine matches, more than any other program in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "east-carolina",
+        "of_any": 10,
+        "wins": 3,
+        "draws": 9,
+        "losses": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Claire Niedermeier scored fourteen goals for North Texas on sixty-two shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Claire Niedermeier",
+        "programme": "north-texas",
+        "goals": 14,
+        "shots": 62
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Ana Zivkovic posted eight shutouts in goal for Temple.",
+      "basis": {
+        "source": "stats",
+        "player": "Ana Zivkovic",
+        "programme": "temple",
+        "shutouts": 8
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Ai Kitagawa",
+      "programme": "memphis",
+      "position": "MID",
+      "class": "JR",
+      "line": "11 G · 8 A · 71 shots"
+    },
+    {
+      "player": "Abby Forsgren",
+      "programme": "memphis",
+      "position": "MID",
+      "class": "FR",
+      "line": "6 G · 8 A · 53 shots"
+    },
+    {
+      "player": "Hailey Santiago",
+      "programme": "florida-atlantic",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 2 A · 64 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 south-carolina v uab",
+      "line": "UAB came in on a run of away wins at Temple, Charlotte and Memphis."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:02:41.791Z"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CUSA",
+  "generated_at": "2026-11-21T17:00:00+00:00",
+  "data_collected_at": "2026-11-21T16:39:42+00:00",
+  "headline": "Liberty unbeaten in conference play, beaten at Tennessee",
+  "dek": "Liberty's sixteen wins are more than any other program in the conference recorded, and the year's last result, a defeat at Tennessee, was only its third. The others came in August, at Virginia and Pitt.",
+  "lede_basis": {
+    "programme": "liberty",
+    "wins": 16,
+    "draws": 3,
+    "losses": 3,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 9
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Below WKU, Liberty and Delaware, season goals and the conference table part company: MTSU outscored the rest and still finished behind FIU and New Mexico State, the lowest scorer of all.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "wku": 39,
+        "liberty": 36,
+        "delaware": 32,
+        "mtsu": 30,
+        "sam-houston": 25,
+        "fiu": 23,
+        "jacksonville-state": 22,
+        "kennesaw-state": 21,
+        "missouri-state": 15,
+        "new-mexico-state": 14
+      },
+      "highlight": "wku"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "mtsu",
+      "of": [
+        "fiu",
+        "new-mexico-state",
+        "sam-houston",
+        "jacksonville-state",
+        "kennesaw-state",
+        "missouri-state"
+      ],
+      "gf": 30
+    }
+  },
+  "wire": {
+    "line": "WKU lost only twice all season, both times to Liberty.",
+    "basis": {
+      "programme": "wku",
+      "wins": 14,
+      "draws": 6,
+      "losses": 2
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches dated the day after the season opened, MTSU against Southern Miss and New Mexico State against Grand Canyon, still have no published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Sam Houston drew seven of its matches, more than any other program in the conference.",
+      "basis": {
+        "programme": "sam-houston",
+        "wins": 5,
+        "draws": 7,
+        "losses": 6,
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "of_any": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Halle Engle scored eleven of Liberty's 36 goals, from 71 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Halle Engle",
+        "programme": "liberty",
+        "goals": 11,
+        "shots": 71,
+        "gf": 36,
+        "ga": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Delaware conceded eighteen goals all season, and Sophia Hall kept a shutout in eight of its matches.",
+      "basis": {
+        "source": "stats",
+        "player": "Sophia Hall",
+        "programme": "delaware",
+        "shutouts": 8,
+        "goals_against": 18,
+        "gf": 32,
+        "ga": 18
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Halle Engle",
+      "programme": "liberty",
+      "position": "FWD",
+      "class": "5Y",
+      "line": "11 G · 3 A · 71 shots"
+    },
+    {
+      "player": "Makenna Egan",
+      "programme": "wku",
+      "position": "FWD",
+      "class": "SO",
+      "line": "11 G · 3 A · 52 shots"
+    },
+    {
+      "player": "Ania Denham",
+      "programme": "mtsu",
+      "position": "FWD",
+      "class": "FR",
+      "line": "9 G · 3 A · 44 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 tennessee v liberty",
+      "line": "Liberty had not lost since August."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:06:57.615Z"
+  }
+}

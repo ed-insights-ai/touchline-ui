@@ -1,0 +1,141 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SOUTHLAND",
+  "generated_at": "2026-11-21T17:05:00+00:00",
+  "data_collected_at": "2026-11-21T16:42:15+00:00",
+  "headline": "Lamar tops the Southland with a defense no rival matched",
+  "dek": "Lamar conceded 14 goals in all its matches, fewer than any other Southland program, and lost only three times. It scored 40, well short of Northwestern State's total, and finished above it all the same.",
+  "lede_basis": {
+    "programme": "lamar",
+    "wins": 12,
+    "draws": 5,
+    "losses": 3,
+    "gf": 40,
+    "ga": 14
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Goals did not buy Northwestern State safety: it conceded 50, more than any other program, and its 11 wins came with ten losses.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "northwestern-state": 55,
+        "lamar": 40,
+        "nicholls": 38,
+        "hcu": 33,
+        "sfa": 31,
+        "uiw": 30,
+        "mcneese": 26,
+        "southeastern-louisiana": 24,
+        "texas-a-m-corpus-christi": 23,
+        "east-texas-a-m": 22,
+        "utrgv": 20
+      },
+      "highlight": "northwestern-state"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "ga",
+      "programme": "northwestern-state",
+      "of": [
+        "east-texas-a-m",
+        "hcu",
+        "lamar",
+        "mcneese",
+        "nicholls",
+        "sfa",
+        "southeastern-louisiana",
+        "texas-a-m-corpus-christi",
+        "uiw",
+        "utrgv"
+      ],
+      "gf": 55,
+      "ga": 50,
+      "wins": 11,
+      "draws": 0,
+      "losses": 10
+    }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three matches passed their dates with no result published, one each involving Southeastern Louisiana, Nicholls and Lamar.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Marissa Gross, a midfielder, scored 12 of Lamar's 40 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Marissa Gross",
+        "programme": "lamar",
+        "goals": 12,
+        "gf": 40
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Shannon Dempsey conceded 10 goals for McNeese while making 70 saves, a save percentage of .875.",
+      "basis": {
+        "source": "stats",
+        "player": "Shannon Dempsey",
+        "programme": "mcneese",
+        "saves": 70,
+        "goals_against": 10,
+        "save_pct": 0.875
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Allyson Reed scored eight of East Texas A&M's 22 goals, from 86 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Allyson Reed",
+        "programme": "east-texas-a-m",
+        "goals": 8,
+        "shots": 86,
+        "gf": 22
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Katie Porter",
+      "programme": "texas-a-m-corpus-christi",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 3 A · 43 shots"
+    },
+    {
+      "player": "Alyce Chappelle",
+      "programme": "sfa",
+      "position": "FWD",
+      "class": "SO",
+      "line": "9 G · 2 A · 32 shots"
+    },
+    {
+      "player": "Isabella Dillow",
+      "programme": "hcu",
+      "position": "MID",
+      "class": "SR",
+      "line": "6 G · 6 A · 46 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 baylor v lamar",
+      "line": "No side scored more against Lamar in a single match all season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:11:56.860Z"
+  }
+}

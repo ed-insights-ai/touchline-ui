@@ -1,0 +1,134 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PATRIOT",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:26:58+00:00",
+  "headline": "Army and Navy finish level after drawing each other",
+  "dek": "In the table, Navy's lone defeat came in its opener, at Boston University, and Army's came at home to Holy Cross in its last match of the season. Below them, American and Lehigh went the whole season without a win.",
+  "lede_basis": {
+    "programme": "american",
+    "wins": 0,
+    "draws": 4,
+    "losses": 13
+  },
+  "lede_updated": "2026-11-21",
+  "displaced_by": "first journal for this conference",
+  "pattern": {
+    "label": "signal",
+    "text": "The chart breaks after Holy Cross, and the break is the table's: every program above it finished in the top half, and every program below it finished in the bottom half.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "navy": 43,
+        "boston-university": 34,
+        "army-west-point": 31,
+        "bucknell": 27,
+        "holy-cross": 26,
+        "loyola-maryland": 17,
+        "lafayette": 15,
+        "lehigh": 15,
+        "colgate": 13,
+        "american": 12
+      },
+      "highlight": "navy"
+    },
+    "basis": {
+      "programme": "holy-cross",
+      "gf": 26,
+      "ga": 27
+    }
+  },
+  "wire": {
+    "line": "Boston University closed the season by winning at Navy, the program with the most wins in the conference.",
+    "basis": {
+      "programme": "navy",
+      "wins": 14,
+      "draws": 3,
+      "losses": 5,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of_any": 9
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Loyola Maryland drew 11 of its matches and finished with four wins and four defeats.",
+      "basis": {
+        "programme": "loyola-maryland",
+        "wins": 4,
+        "draws": 11,
+        "losses": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Lehigh conceded 49 goals, more than any other program in the conference.",
+      "basis": {
+        "programme": "lehigh",
+        "gf": 15,
+        "ga": 49,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Kat Slott scored 13 goals for Boston University from 63 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Kat Slott",
+        "programme": "boston-university",
+        "goals": 13,
+        "shots": 63
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hannah Goetzer finished with a save percentage of .876 in goal for Loyola Maryland.",
+      "basis": {
+        "source": "stats",
+        "player": "Hannah Goetzer",
+        "programme": "loyola-maryland",
+        "save_pct": 0.876
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Kat Slott",
+      "programme": "boston-university",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 7 A · 63 shots"
+    },
+    {
+      "player": "Sam Halligan",
+      "programme": "holy-cross",
+      "position": "MID",
+      "class": "5Y",
+      "line": "8 G · 2 A · 41 shots"
+    },
+    {
+      "player": "Kamryn McWhinney",
+      "programme": "army-west-point",
+      "position": "MID",
+      "class": "FR",
+      "line": "8 G · 1 A · 19 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 navy v boston-university",
+      "line": "Navy had not lost at home since August; Boston University had not lost since its draw at Holy Cross."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:10:30.585Z"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "IVY",
+  "generated_at": "2026-11-21T15:40:00+00:00",
+  "data_collected_at": "2026-11-21T15:24:09+00:00",
+  "headline": "Brown beats Dartmouth and Columbia back to back",
+  "dek": "Brown, which finished the conference table behind Dartmouth and Columbia, has since won at both without conceding. Its 41 goals in all matches are more than any other Ivy program has scored, and its record stands at twelve wins, two draws and four losses.",
+  "lede_basis": {
+    "programme": "brown",
+    "gf": 41,
+    "ga": 17,
+    "wins": 12,
+    "draws": 2,
+    "losses": 4,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 7
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Brown's lead in goals rests on a broad base: at least 13 different players have scored for it, and Angelina Vargas, with eight, accounts for a small share of the 41.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "brown": 41,
+        "dartmouth": 25,
+        "princeton": 25,
+        "yale": 23,
+        "penn": 22,
+        "columbia": 20,
+        "cornell": 17,
+        "harvard": 16
+      },
+      "highlight": "brown"
+    },
+    "basis": {
+      "source": "stats",
+      "player": "Angelina Vargas",
+      "programme": "brown",
+      "goals": 8,
+      "distinct_scorers_min": 13,
+      "gf": 41,
+      "ga": 17
+    }
+  },
+  "wire": {
+    "line": "Brown has now won at both sides that finished above it in the Ivy table, and conceded in neither match.",
+    "basis": {
+      "programme": "brown",
+      "wins": 12,
+      "draws": 2,
+      "losses": 4
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Dartmouth's match against Assumption is past its date with no published result, the only Ivy match in that state.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "dartmouth",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Ola Goebel has kept ten shutouts in goal for Dartmouth.",
+      "basis": {
+        "source": "stats",
+        "player": "Ola Goebel",
+        "programme": "dartmouth",
+        "shutouts": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Dartmouth has conceded ten goals across all its matches.",
+      "basis": {
+        "programme": "dartmouth",
+        "gf": 25,
+        "ga": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Yale has scored 23 goals, more than Columbia, Cornell, Harvard or Penn. It has also lost ten of its matches.",
+      "basis": {
+        "programme": "yale",
+        "gf": 23,
+        "ga": 29,
+        "wins": 5,
+        "draws": 1,
+        "losses": 10,
+        "comparative": "greater_than_each",
+        "metric": "gf",
+        "of": ["columbia", "cornell", "harvard", "penn"]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Samantha Mahoney has made 59 saves for Columbia.",
+      "basis": {
+        "source": "stats",
+        "player": "Samantha Mahoney",
+        "programme": "columbia",
+        "saves": 59
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Joy Okonye",
+      "programme": "brown",
+      "position": "MID",
+      "class": "SR",
+      "line": "6 G · 9 A · 51 shots"
+    },
+    {
+      "player": "Stella Monberg",
+      "programme": "princeton",
+      "position": "FWD",
+      "class": "FR",
+      "line": "8 G · 3 A · 39 shots"
+    },
+    {
+      "player": "Madison Rose",
+      "programme": "dartmouth",
+      "position": "FWD",
+      "class": "SO",
+      "line": "4 G · 8 A · 23 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 columbia v brown",
+      "line": "Brown has now beaten both sides that finished above it in the conference table."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-21 clemson v brown",
+      "line": "Brown arrives having kept clean sheets against Dartmouth and Columbia."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:06:41.407Z"
+  }
+}

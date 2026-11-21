@@ -1,0 +1,129 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "BIGWEST",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:22:37+00:00",
+  "headline": "Utah Valley goes through the conference unbeaten",
+  "dek": "Utah Valley went through conference play without a defeat and has won fifteen matches in all. Behind it, Cal State Fullerton and UC San Diego sit level on points.",
+  "lede_basis": {
+    "programme": "utah-valley",
+    "wins": 15,
+    "draws": 3,
+    "losses": 5
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring alone does not order the table: Long Beach State has outscored UC San Diego and still sits below it.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "utah-valley": 56,
+        "cal-state-fullerton": 43,
+        "long-beach-state": 35,
+        "csun": 32,
+        "uc-san-diego": 30,
+        "uc-santa-barbara": 28,
+        "california-baptist": 25,
+        "sacramento-state": 25,
+        "cal-poly": 21,
+        "uc-irvine": 20,
+        "uc-riverside": 16,
+        "cal-state-bakersfield": 11
+      },
+      "highlight": "utah-valley"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "long-beach-state",
+      "of": ["uc-san-diego"],
+      "gf": 35
+    }
+  },
+  "wire": {
+    "line": "All five of Utah Valley's losses came against sides from outside the conference.",
+    "basis": {
+      "programme": "utah-valley",
+      "wins": 15,
+      "draws": 3,
+      "losses": 5
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Five matches from the season's opening week still have no published result, involving UC Riverside, Cal Poly, CSUN and Sacramento State.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "California Baptist has scored 25 goals and conceded 11 across all its matches.",
+      "basis": {
+        "programme": "california-baptist",
+        "gf": 25,
+        "ga": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Charlotte Wilfert has recorded nine shutouts in goal for UC San Diego.",
+      "basis": {
+        "source": "stats",
+        "player": "Charlotte Wilfert",
+        "programme": "uc-san-diego",
+        "shutouts": 9
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Cal State Bakersfield has won two matches and lost fifteen.",
+      "basis": {
+        "programme": "cal-state-bakersfield",
+        "wins": 2,
+        "draws": 3,
+        "losses": 15
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Sadie Beardall",
+      "programme": "utah-valley",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 8 A · 53 shots"
+    },
+    {
+      "player": "Cherrie Cox",
+      "programme": "long-beach-state",
+      "position": "FWD",
+      "class": "SR",
+      "line": "14 G · 2 A · 69 shots"
+    },
+    {
+      "player": "Cassie Villanueva",
+      "programme": "cal-state-fullerton",
+      "position": "FWD",
+      "class": "SR",
+      "line": "7 G · 10 A · 42 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 utah-state v utah-valley",
+      "line": "Utah State is the only opponent to beat Utah Valley twice this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:05:45.629Z"
+  }
+}

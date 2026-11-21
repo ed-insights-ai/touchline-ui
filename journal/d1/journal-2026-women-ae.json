@@ -1,0 +1,157 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "AE",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:19:45+00:00",
+  "headline": "Binghamton's defense allows nine goals all season",
+  "dek": "Binghamton finished top of the conference table, its lone loss to a member coming at Vermont. Its season ended at nine wins, six draws and three losses, and its 29 goals stand level with UMBC's.",
+  "lede_basis": {
+    "programme": "binghamton",
+    "wins": 9,
+    "draws": 6,
+    "losses": 3,
+    "gf": 29,
+    "ga": 9
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "New Hampshire outscored every side but Binghamton and UMBC, yet lost eight matches and conceded 30.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "binghamton": 29,
+        "umbc": 29,
+        "new-hampshire": 24,
+        "maine": 23,
+        "umass-lowell": 21,
+        "vermont": 19,
+        "bryant": 18,
+        "ualbany": 15,
+        "njit": 11
+      },
+      "highlight": "new-hampshire"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "new-hampshire",
+      "of": ["maine", "umass-lowell", "vermont", "bryant", "ualbany", "njit"],
+      "gf": 24,
+      "ga": 30,
+      "wins": 5,
+      "draws": 3,
+      "losses": 8
+    }
+  },
+  "wire": {
+    "line": "UMBC's Amara Codd ends the season with eight shutouts in goal.",
+    "basis": {
+      "source": "stats",
+      "player": "Amara Codd",
+      "programme": "umbc",
+      "shutouts": 8
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "UMass Lowell's home match with Siena in August is past its date and still carries no result, the only such match in the conference.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "umass-lowell",
+        "count": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UMBC won ten matches, more than any other program, yet finished level on points with UAlbany in the conference table.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "programme": "umbc",
+        "of": [
+          "binghamton",
+          "bryant",
+          "maine",
+          "new-hampshire",
+          "njit",
+          "ualbany",
+          "umass-lowell",
+          "vermont"
+        ],
+        "wins": 10,
+        "draws": 4,
+        "losses": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Vermont drew seven times, more than any other program in the conference.",
+      "basis": {
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "programme": "vermont",
+        "of": [
+          "binghamton",
+          "bryant",
+          "maine",
+          "new-hampshire",
+          "njit",
+          "ualbany",
+          "umass-lowell",
+          "umbc"
+        ],
+        "wins": 5,
+        "draws": 7,
+        "losses": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Shannon Mejia made 82 saves in goal for Bryant.",
+      "basis": {
+        "source": "stats",
+        "player": "Shannon Mejia",
+        "programme": "bryant",
+        "saves": 82
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jahkaya Davis",
+      "programme": "binghamton",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 45 shots"
+    },
+    {
+      "player": "Nora Belin",
+      "programme": "umass-lowell",
+      "position": "FWD",
+      "class": "SO",
+      "line": "4 G · 9 A · 39 shots"
+    },
+    {
+      "player": "Brooke Clagett",
+      "programme": "umbc",
+      "position": "FWD",
+      "class": "FR",
+      "line": "6 G · 2 A · 36 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 virginia v bryant",
+      "line": "Bryant had not lost since its October visit to UAlbany."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:02:06.945Z"
+  }
+}

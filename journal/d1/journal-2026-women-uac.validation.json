@@ -1,0 +1,133 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-uac.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "UAC",
+  "validated_at": "2026-11-21T17:13:30.818Z",
+  "data_collected_at": "2026-11-21T15:30:08+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[1].text",
+      "text": "Bella Medrano made 120 saves for Abilene Christian at a .889 save percentage.",
+      "unbacked": ["889"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "signal",
+      "text": "Little Rock, Austin Peay and West Georgia scored least and finish at the foot of the table in that same order; scoring and standing part company only higher up.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "West Georgia ends the season without a win, with seven goals scored in all.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Three matches from the opening days of August passed their dates with no published result, all involving North Alabama or West Georgia.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Bella Medrano made 120 saves for Abilene Christian at a .889 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Jessica Baires has eleven assists and ten goals for Tarleton State, from midfield.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Tarleton State drew ten times this season, more often than it won.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Jessica Baires — 10 G · 11 A · 47 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Addison Briscoe — 10 G · 3 A · 71 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Avery May — 7 G · 5 A · 75 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-20 texas-tech v abilene-christian",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-21T17:11:57.036Z",
+    "generate_ms": 93781,
+    "validate_ms": 1,
+    "wall_ms": 93781,
+    "concurrency": 4
+  }
+}

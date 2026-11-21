@@ -1,0 +1,124 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "ASUN",
+  "generated_at": "2026-11-21T16:05:00+00:00",
+  "data_collected_at": "2026-11-21T15:20:02+00:00",
+  "headline": "Lipscomb beats the table's top three away from home",
+  "dek": "Lipscomb won three of its ten conference matches and finished sixth. It then won by one goal at Bellarmine, North Florida and FGCU in the space of eight days, the last of them against a side that had lost once in conference play.",
+  "lede_basis": {
+    "programme": "lipscomb",
+    "top_three_beaten": 3,
+    "table_won": 3,
+    "table_played": 10,
+    "table_position": 6,
+    "margin_goals": 1,
+    "days_bellarmine_to_fgcu": 8,
+    "fgcu_table_lost": 1
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring splits the conference in two: West Florida, lowest of the rest, scored more goals than Queens University of Charlotte and Stetson together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "fgcu": 33,
+        "north-florida": 29,
+        "jacksonville": 28,
+        "bellarmine": 26,
+        "lipscomb": 25,
+        "west-florida": 23,
+        "queens-charlotte": 9,
+        "stetson": 9
+      },
+      "highlight": "fgcu"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "west-florida",
+      "of": ["queens-charlotte", "stetson"],
+      "gf": 23
+    }
+  },
+  "wire": {
+    "line": "FGCU's only home defeat came against Lipscomb, in the last match it hosted.",
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Six matches have passed their dates with no result published, every one of them before the season's first published score.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    },
+    {
+      "label": "observed",
+      "text": "West Florida conceded 11 goals while winning eight, drawing four and losing four.",
+      "basis": {
+        "programme": "west-florida",
+        "wins": 8,
+        "draws": 4,
+        "losses": 4,
+        "gf": 23,
+        "ga": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Sunnie Woodard kept five shutouts in goal for Lipscomb.",
+      "basis": {
+        "source": "stats",
+        "player": "Sunnie Woodard",
+        "programme": "lipscomb",
+        "shutouts": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "At least fourteen different players have scored for Jacksonville.",
+      "basis": {
+        "programme": "jacksonville",
+        "distinct_scorers_min": 14
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Paige McSwigan",
+      "programme": "north-florida",
+      "position": "FWD",
+      "class": "5Y",
+      "line": "10 G · 1 A · 34 shots"
+    },
+    {
+      "player": "Katie Paulakonis",
+      "programme": "bellarmine",
+      "position": "FWD",
+      "class": "SO",
+      "line": "9 G · 4 A · 44 shots"
+    },
+    {
+      "player": "Tatum Ahlemeyer",
+      "programme": "lipscomb",
+      "position": "MID",
+      "class": "JR",
+      "line": "8 G · 2 A · 46 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 ohio-state v lipscomb",
+      "line": "The defeat ended Lipscomb's run of wins at Bellarmine, North Florida and FGCU."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:04:04.424Z"
+  }
+}

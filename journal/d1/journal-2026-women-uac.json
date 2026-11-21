@@ -1,0 +1,132 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "UAC",
+  "generated_at": "2026-11-21T15:45:00+00:00",
+  "data_collected_at": "2026-11-21T15:30:08+00:00",
+  "headline": "No UAC side beats Abilene Christian",
+  "dek": "Abilene Christian lost three matches this season, all to opponents from outside the conference, the latest in its final match. Across the season it scored 36 goals and conceded fifteen.",
+  "lede_basis": {
+    "programme": "abilene-christian",
+    "wins": 10,
+    "draws": 8,
+    "losses": 3,
+    "gf": 36,
+    "ga": 15
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "signal",
+    "text": "Little Rock, Austin Peay and West Georgia scored least and finish at the foot of the table in that same order; scoring and standing part company only higher up.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "tarleton-state": 39,
+        "abilene-christian": 36,
+        "eku": 31,
+        "central-arkansas": 29,
+        "north-alabama": 26,
+        "little-rock": 16,
+        "austin-peay": 11,
+        "west-georgia": 7
+      },
+      "highlight": "tarleton-state"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "north-alabama",
+      "of": ["little-rock", "austin-peay", "west-georgia"],
+      "gf": 26
+    }
+  },
+  "wire": {
+    "line": "West Georgia ends the season without a win, with seven goals scored in all.",
+    "basis": {
+      "programme": "west-georgia",
+      "wins": 0,
+      "draws": 3,
+      "losses": 14,
+      "gf": 7,
+      "ga": 37
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three matches from the opening days of August passed their dates with no published result, all involving North Alabama or West Georgia.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bella Medrano made 120 saves for Abilene Christian at a .889 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Bella Medrano",
+        "programme": "abilene-christian",
+        "saves": 120,
+        "save_pct": 0.889
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Jessica Baires has eleven assists and ten goals for Tarleton State, from midfield.",
+      "basis": {
+        "source": "stats",
+        "player": "Jessica Baires",
+        "programme": "tarleton-state",
+        "goals": 10,
+        "assists": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Tarleton State drew ten times this season, more often than it won.",
+      "basis": {
+        "programme": "tarleton-state",
+        "wins": 8,
+        "draws": 10,
+        "losses": 3
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jessica Baires",
+      "programme": "tarleton-state",
+      "position": "MID",
+      "class": "JR",
+      "line": "10 G · 11 A · 47 shots"
+    },
+    {
+      "player": "Addison Briscoe",
+      "programme": "abilene-christian",
+      "position": "FWD",
+      "class": "FR",
+      "line": "10 G · 3 A · 71 shots"
+    },
+    {
+      "player": "Avery May",
+      "programme": "eku",
+      "position": "MID",
+      "class": "JR",
+      "line": "7 G · 5 A · 75 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 texas-tech v abilene-christian",
+      "line": "Abilene Christian had not lost since early September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:13:30.818Z"
+  }
+}

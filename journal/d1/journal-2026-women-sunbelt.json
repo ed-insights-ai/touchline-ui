@@ -1,0 +1,132 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SUNBELT",
+  "generated_at": "2026-11-21T17:05:00+00:00",
+  "data_collected_at": "2026-11-21T16:42:29+00:00",
+  "headline": "Old Dominion and James Madison finish level at the top",
+  "dek": "James Madison beat Old Dominion in their only conference meeting and still could not pull clear of it. Old Dominion has conceded 14 goals all season, and in November it beat Georgia State, Marshall, App State and South Alabama.",
+  "lede_basis": {
+    "programme": "old-dominion",
+    "gf": 32,
+    "ga": 14
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Louisiana's 45 goals are more than any of James Madison, Old Dominion and App State has scored, and each of them sits above it in the table: scoring has not set this conference's order.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "louisiana": 45,
+        "georgia-state": 34,
+        "app-state": 32,
+        "james-madison": 32,
+        "old-dominion": 32,
+        "georgia-southern": 29,
+        "marshall": 28,
+        "south-alabama": 28,
+        "coastal-carolina": 27,
+        "southern-miss": 27,
+        "ulm": 26,
+        "troy": 23,
+        "louisiana-tech": 22,
+        "arkansas-state": 15
+      },
+      "highlight": "louisiana"
+    },
+    "basis": {
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "programme": "louisiana",
+      "of": ["james-madison", "old-dominion", "app-state"],
+      "gf": 45
+    }
+  },
+  "wire": {
+    "line": "Ginny Lackey has scored 16 of James Madison's 32 goals this season.",
+    "basis": {
+      "source": "stats",
+      "player": "Ginny Lackey",
+      "programme": "james-madison",
+      "goals": 16,
+      "gf": 32
+    },
+    "updated": "2026-11-21"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Five matches are past their date with no published result, among them James Madison's trip to Virginia and its home match with Georgetown.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Fourteen different players have scored Troy's 23 goals.",
+      "basis": {
+        "programme": "troy",
+        "distinct_scorers_min": 14,
+        "gf": 23
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mackenzie Lorkowski has made 121 saves for Louisiana Tech, and the side has still conceded 44 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Mackenzie Lorkowski",
+        "programme": "louisiana-tech",
+        "saves": 121,
+        "ga": 44
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Miku Kurihara has scored 12 goals for Louisiana from midfield.",
+      "basis": {
+        "source": "stats",
+        "player": "Miku Kurihara",
+        "programme": "louisiana",
+        "goals": 12
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Ginny Lackey",
+      "programme": "james-madison",
+      "position": "FWD",
+      "class": "SR",
+      "line": "16 G · 4 A · 74 shots"
+    },
+    {
+      "player": "Aaliyah Faddoul",
+      "programme": "georgia-state",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 7 A · 73 shots"
+    },
+    {
+      "player": "Addison Comer",
+      "programme": "georgia-southern",
+      "position": "FWD",
+      "class": "SR",
+      "line": "6 G · 8 A · 41 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 old-dominion v west-virginia",
+      "line": "Old Dominion had won every match since James Madison beat it in October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:13:00.572Z"
+  }
+}

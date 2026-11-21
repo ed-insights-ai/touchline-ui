@@ -1,0 +1,132 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SWAC",
+  "generated_at": "2026-11-21T16:00:00+00:00",
+  "data_collected_at": "2026-11-21T15:29:56+00:00",
+  "headline": "Jackson State tops the table without a conference defeat",
+  "dek": "Jackson State has not lost to a conference side all season, and its eleven wins are more than any other program in the conference has managed. All seven of its defeats came against programs from outside the conference, including its most recent match.",
+  "lede_basis": {
+    "programme": "jackson-state",
+    "wins": 11,
+    "draws": 3,
+    "losses": 7,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": [
+      "alabama-a-m",
+      "alabama-state",
+      "alcorn-state",
+      "arkansas-pine-bluff",
+      "grambling-state",
+      "prairie-view-a-m",
+      "southern",
+      "texas-southern"
+    ]
+  },
+  "lede_updated": "2026-11-21",
+  "pattern": {
+    "label": "derived",
+    "text": "Alcorn State's 61 goals are more than Grambling State and Texas Southern scored together, yet the scoring did not carry it to the top of the table, where Jackson State finishes.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "alcorn-state": 61,
+        "jackson-state": 44,
+        "grambling-state": 33,
+        "texas-southern": 24,
+        "alabama-a-m": 23,
+        "prairie-view-a-m": 19,
+        "alabama-state": 17,
+        "southern": 17,
+        "arkansas-pine-bluff": 11
+      },
+      "highlight": "alcorn-state"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "alcorn-state",
+      "of": ["grambling-state", "texas-southern"],
+      "gf": 61
+    }
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches are past their date with no result: a Prairie View A&M home match in August and a Southern away match in September.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Arkansas-Pine Bluff conceded 143 goals and scored eleven, and won one of its matches against fourteen defeats.",
+      "basis": {
+        "programme": "arkansas-pine-bluff",
+        "gf": 11,
+        "ga": 143,
+        "wins": 1,
+        "draws": 0,
+        "losses": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Taylor Osborn kept eight shutouts in Jackson State's goal.",
+      "basis": {
+        "source": "stats",
+        "player": "Taylor Osborn",
+        "programme": "jackson-state",
+        "shutouts": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Annick Zouma has as many assists as goals for Alcorn State, seventeen of each.",
+      "basis": {
+        "source": "stats",
+        "player": "Annick Zouma",
+        "programme": "alcorn-state",
+        "goals": 17,
+        "assists": 17
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Grace Ambrose",
+      "programme": "alcorn-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "19 G · 9 A · 70 shots"
+    },
+    {
+      "player": "Nyla Dore-Anderson",
+      "programme": "grambling-state",
+      "position": "FWD",
+      "class": "SO",
+      "line": "14 G · 2 A · 35 shots"
+    },
+    {
+      "player": "Ava Coverdale",
+      "programme": "texas-southern",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 1 A · 52 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 alabama v jackson-state",
+      "line": "Jackson State arrived on a winning run, without a defeat against a conference side all season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-21T17:12:45.220Z"
+  }
+}
