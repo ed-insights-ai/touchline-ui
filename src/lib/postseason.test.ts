@@ -34,6 +34,7 @@ import {
   routeOf,
   sameDayNote,
   shapeOf,
+  shownKickoffOf,
   sideSeasonOf,
   splitOf,
   stageTag,
@@ -334,6 +335,24 @@ describe("what the field strip and the count may not claim", () => {
     expect(standing).toEqual({ a: "out", b: "out", c: "champion", d: "out" });
   });
 
+  test("a postponed or cancelled tie is off, not still to play", () => {
+    const ties = [
+      fx("2025-11-20", "a", null, null, "b", { stage: NCAA, status: "postponed" }),
+      fx("2025-11-20", "c", null, null, "d", { stage: NCAA, status: "cancelled" }),
+      fx("2025-11-20", "e", null, null, "f", { stage: NCAA }),
+    ];
+    const p = postseasonOf([seasonOf("x", fileOf("X", ["a", "b", "c", "d", "e", "f"], ties))]);
+    const standing = Object.fromEntries(fieldOf(p.ncaa).map((e) => [e.slug, e.standing]));
+    expect(standing).toEqual({
+      a: "off",
+      b: "off",
+      c: "off",
+      d: "off",
+      e: "to-play",
+      f: "to-play",
+    });
+  });
+
   test("a level score with no shootout collected is unsettled, not a result", () => {
     const ties = [
       fx("2025-11-20", "a", 1, 1, "b", { stage: NCAA }),
@@ -425,6 +444,26 @@ describe("an unplayed tie's kickoff is printed as one page published it", () => 
     expect(k?.primary).toMatchObject({ by: "fhsu", time: "13:00", venue: "Hays, Kan." });
     expect(k?.agree).toEqual([]);
     expect(k?.differ.map((v) => [v.by, v.time])).toEqual([["lake-erie", "14:00"]]);
+  });
+
+  test("the shown time is the printed record's, and a split between records is said", () => {
+    expect(tie && shownKickoffOf(tie)).toEqual({ time: "13:00", from: null, split: true });
+  });
+
+  test("where the printed record has no time, another record's is shown and named", () => {
+    const bare = fx("2026-11-15", "fhsu", null, null, "lake-erie", {
+      stage: NCAA,
+      source_url: "https://fhsuathletics.com/sports/mens-soccer/schedule/2026",
+    });
+    const q = postseasonOf([
+      seasonOf("gmac", fileOf("G-MAC", ["lake-erie"], [awayRecord])),
+      seasonOf("gac", fileOf("GAC", ["fhsu"], [bare])),
+    ]);
+    const t = q.ncaa.ties[0];
+    const shown = t && shownKickoffOf(t);
+    expect(shown?.time).toBe("14:00");
+    expect(shown?.from?.by).toBe("lake-erie");
+    expect(shown?.split).toBe(false);
   });
 
   test("a neutral site has no host, so no record is called the host's", () => {
@@ -902,6 +941,22 @@ describe("a field with no shape says why no funnel is drawn", () => {
     expect(shapeOf(p.ncaa)).toBeNull();
     expect(noShapeLine(p.ncaa)).toBe(
       "No per-round funnel is drawn: the first round holds 3 collected ties and the second round 3, and no round halving to a final can be read from those counts.",
+    );
+  });
+  test("ties not yet joined to a round are counted, not left out", () => {
+    const ties = [
+      fx("2026-11-12", "j", 2, 0, "k", { stage: NCAA }),
+      fx("2026-11-13", "a", 1, 0, "b", { stage: NCAA }),
+      fx("2026-11-13", "c", 1, 0, "d", { stage: NCAA }),
+      fx("2026-11-13", "e", 1, 0, "f", { stage: NCAA }),
+      fx("2026-11-15", "a", null, null, "c", { stage: NCAA }),
+      fx("2026-11-15", "e", null, null, "g", { stage: NCAA }),
+      fx("2026-11-15", "h", null, null, "i", { stage: NCAA }),
+    ];
+    const p = postseasonOf([seasonOf("x", fileOf("X", ["a", "b", "c", "d", "e", "f"], ties))]);
+    expect(p.ncaa.ties.filter((t) => t.round === 0)).toHaveLength(1);
+    expect(noShapeLine(p.ncaa)).toBe(
+      "No per-round funnel is drawn: the first round holds 3 collected ties and the second round 3; 1 more collected tie is not yet joined to a round, and no round halving to a final can be read from those counts.",
     );
   });
   test("a shape, or no tie at all, needs no line", () => {

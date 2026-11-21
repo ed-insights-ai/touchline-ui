@@ -7,7 +7,7 @@
 // between ties the results join.
 //
 // Until a region exists, the placed ties are one tree read left to right:
-// each tie joined to the next tie its winner played, a tie whose sides both
+// each tie joined to its winner's next collected tie, a tie whose sides both
 // enter in a later round shown as such, and the trees the results have not
 // yet joined stacked rather than paired. The rounds still to come are counts
 // beside it, never lines: the page never draws a pairing it has not seen.
@@ -77,17 +77,14 @@ for (const tree of trees) {
   treeRows += l.rows;
 }
 // Said once per run, not once per row: consecutive rows of one column whose
-// ties both sides enter later share one note, and each row keeps only its
-// dashed lead-in to the tie beside it.
-const enterRuns: { col: number; row: number; span: number; label: string }[] = [];
+// ties have no earlier tie collected share one note, and each row keeps only
+// its dashed lead-in to the tie beside it. The note says what the record
+// shows (no earlier tie collected), never why: a missing record is not a bye.
+const enterRuns: { col: number; row: number; span: number }[] = [];
 for (const e of [...enters].sort((a, b) => a.col - b.col || a.row - b.row)) {
   const run = enterRuns.at(-1);
   if (run && run.col === e.col && run.row + run.span === e.row) run.span++;
-  else enterRuns.push({ col: e.col, row: e.row, span: 1, label: "" });
-}
-for (const run of enterRuns) {
-  const label = placedLoose.find((t) => t.round === firstRound + run.col)?.label ?? `R${firstRound + run.col}`;
-  run.label = roundName(label).toLowerCase();
+  else enterRuns.push({ col: e.col, row: e.row, span: 1 });
 }
 const treeHeads = Array.from({ length: treeCols }, (_, i) => {
   const ties = placedLoose.filter((t) => t.round === firstRound + i);
@@ -95,12 +92,16 @@ const treeHeads = Array.from({ length: treeCols }, (_, i) => {
 });
 
 // Listed by round: with regions, the ties no region holds; without, only the
-// ties the graph could not place.
+// ties the graph could not place, which then sit beside the tree (a column
+// of their own) rather than under it, so they read as results still to be
+// joined and not as a separate, lesser list.
 const listed = laid.length > 0 ? loose : loose.filter((t) => t.round === 0);
+const beside = laid.length === 0 && listed.length > 0;
 const byRound = [...new Set(listed.map((t) => t.label || "—"))].map((label) => ({
   label,
   ties: listed.filter((t) => (t.label || "—") === label),
 }));
+const groupHead = (label: string): string => (label === "—" ? "Not yet joined" : roundName(label));
 const regionTabs = laid.map((l, i) => ({ id: `region-${i + 1}`, ground: l.ground }));
 
 // The rounds still to come, as counts.
@@ -145,7 +146,7 @@ const aheadName = (label: string, n: number): string => {
       </section>
     ))}
   </div>
-  {(trees.length > 0 || ahead.length > 0) && (
+  {(trees.length > 0 || ahead.length > 0 || beside) && (
     <div class:list={["treewrap", { below: laid.length > 0 }]}>
       {trees.length > 0 && (
         <div class="grid tree" style={`--cols:${treeCols};--rows:${treeRows}`}>
@@ -168,11 +169,9 @@ const aheadName = (label: string, n: number): string => {
           ))}
           {enterRuns.map((r) => (
             <span class="enter" style={`grid-column:${r.col};grid-row:${r.row + 1} / span ${r.span}`}>
-              <b>Both sides enter here</b>
+              <b>No earlier tie collected</b>
               <small>
-                {r.span === 1
-                  ? `The tie beside: both sides enter in the ${r.label}.`
-                  : `The ${r.span} ties beside: both sides of each enter in the ${r.label}.`}
+                {r.span === 1 ? "For either side of this tie." : `For either side of these ${r.span} ties.`}
               </small>
             </span>
           ))}
@@ -190,9 +189,30 @@ const aheadName = (label: string, n: number): string => {
           <p class="ah-note">Counts only: the pairings appear as the results do.</p>
         </aside>
       )}
+      {beside && (
+        <aside class="loose beside" aria-label="Not yet joined">
+          {byRound.map((g) => (
+            <section class="bydate">
+              <div class="region-head">
+                <b>{groupHead(g.label)}</b>
+                <span>{span(g.ties)}</span>
+              </div>
+              <div class="list">
+                {g.ties.map((t) => (
+                  <div class="item">
+                    <TieBox tie={t} conferenceOf={conferenceOf} />
+                    {t.roundPublished && <span class="pub">"{t.roundPublished}", as published</span>}
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+          <p class="loose-note">Each joins the tree once its winner's next tie is collected.</p>
+        </aside>
+      )}
     </div>
   )}
-  {byRound.length > 0 && (
+  {byRound.length > 0 && !beside && (
     <div class="loose">
       {laid.length > 0 && (
         <p class="loose-note">Ties the results do not yet join to a region, by round and date.</p>
@@ -200,14 +220,14 @@ const aheadName = (label: string, n: number): string => {
       {byRound.map((g) => (
         <section class="bydate">
           <div class="region-head">
-            <b>{g.label === "—" ? "Round not placed" : roundName(g.label)}</b>
+            <b>{groupHead(g.label)}</b>
             <span>{span(g.ties)}</span>
           </div>
           <div class="list">
             {g.ties.map((t) => (
               <div class="item">
                 <TieBox tie={t} conferenceOf={conferenceOf} />
-                {t.roundPublished && <span class="pub">"{t.roundPublished}"</span>}
+                {t.roundPublished && <span class="pub">"{t.roundPublished}", as published</span>}
               </div>
             ))}
           </div>
@@ -297,7 +317,10 @@ const aheadName = (label: string, n: number): string => {
   .loose-note { margin: 0; font-size: 12.5px; color: var(--secondary); }
   .bydate { display: grid; gap: 10px; }
   .bydate .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px 24px; }
-  .bydate .item { display: grid; gap: 4px; }
+  .bydate .item { display: grid; gap: 4px; align-content: start; }
+  /* Beside the tree: the unjoined ties take the room the tree leaves. */
+  .loose.beside { flex: 1 1 360px; min-width: 0; gap: 12px; align-content: start; }
+  .loose.beside .bydate .list { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
   .pub { font-family: var(--serif); font-style: italic; font-size: 12px; color: var(--quiet); }
 
   /* A phone: the region keeps its shape, at compact density, and the four
@@ -305,8 +328,11 @@ const aheadName = (label: string, n: number): string => {
   @media (max-width: 720px) {
     .bracket { --g: 12px; --fs: 11.5px; }
     .grid { grid-auto-rows: minmax(56px, auto); }
-    .rhead .rl, .rhead small { display: none; }
+    .rhead .rl { display: none; }
     .rhead .rs { display: inline; }
+    /* The round's date stays: an abbreviation with no date leaves a kickoff
+       time that names no day. */
+    .rhead small { font-size: 9.5px; letter-spacing: 0.02em; white-space: nowrap; }
     .region-tabs {
       display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
       font-size: 10.5px; letter-spacing: 0.08em; font-weight: 600;

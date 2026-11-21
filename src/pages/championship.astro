@@ -18,11 +18,22 @@ import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import TieBox from "../components/TieBox.astro";
 import TieSheet from "../components/TieSheet.astro";
+import TitleMark from "../components/TitleMark.astro";
 import Page from "../layouts/Page.astro";
 import { hasScore, matchHref } from "../lib/derive.ts";
-import { dayOfMonth, dowShort, monShort, spell } from "../lib/format.ts";
+import { clockTime, dayOfMonth, dowLong, dowShort, monShort, spell, statusWord } from "../lib/format.ts";
 import { homeSeasons } from "../lib/home.ts";
-import { regionsOf, sameDayNote, type Tie, tieAnchor, verdictLine, verdictOf } from "../lib/postseason.ts";
+import {
+  shownKickoffOf,
+  regionsOf,
+  roundNameOf,
+  routeOf,
+  sameDayNote,
+  type Tie,
+  tieAnchor,
+  verdictLine,
+  verdictOf,
+} from "../lib/postseason.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { currentDivision, site } from "../site.config.ts";
 
@@ -57,6 +68,104 @@ const goals = route.reduce(
   },
   { for: 0, against: 0 },
 );
+// The round being played next: the earliest placed round with a collected
+// tie still to play. While the championship is under way the headline names
+// it and its day, so a reader learns first what is on and when; how much is
+// collected is the provenance line's to say, once.
+// Only a tie still on the schedule counts: a postponed or cancelled one is
+// not what is on next.
+const toPlay = ncaa.ties.filter(
+  (t) => t.round > 0 && (t.fixture.status === "scheduled" || t.fixture.status === "live") && !t.disputed,
+);
+const nextRound = toPlay.length > 0 ? Math.min(...toPlay.map((t) => t.round)) : null;
+const nextTies = nextRound === null ? [] : ncaa.ties.filter((t) => t.round === nextRound);
+const kickoffTime = (t: Tie): string => shownKickoffOf(t).time ?? "99:99";
+const nextToPlay = toPlay
+  .filter((t) => t.round === nextRound)
+  .sort((a, b) => a.fixture.date.localeCompare(b.fixture.date) || kickoffTime(a).localeCompare(kickoffTime(b)));
+const nextLabel = nextTies[0]?.label ?? "";
+const ROUND_HEAD: Record<string, string> = {
+  R1: "First round",
+  R2: "Second round",
+  R3: "Third round",
+  QF: "Quarterfinals",
+  SF: "Semifinals",
+  FINAL: "The final",
+};
+const ROUND_ADJ: Record<string, string> = {
+  R1: "first-round",
+  R2: "second-round",
+  R3: "third-round",
+  QF: "quarterfinal",
+  SF: "semifinal",
+  FINAL: "final",
+};
+const nextHead = ROUND_HEAD[nextLabel] ?? roundNameOf(nextLabel);
+const nextDates = [...new Set(nextToPlay.map((t) => t.fixture.date))].sort();
+const nextWhen = (long: boolean): string => {
+  const a = nextDates[0];
+  const b = nextDates.at(-1);
+  if (!a || !b) return "";
+  if (a === b) return long ? `${dowLong(a)}, ${monShort(a)} ${dayOfMonth(a)}` : day(a);
+  return `${monShort(a)} ${dayOfMonth(a)}–${a.slice(5, 7) === b.slice(5, 7) ? dayOfMonth(b) : `${monShort(b)} ${dayOfMonth(b)}`}`;
+};
+const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+
+// A side's road to its next tie, in one sentence from its latest tie before
+// it: who it beat and by what, as published. A shootout is a draw and says
+// so; a side through only because it appears in the next round says that.
+// Every side gets a line: one with no earlier tie collected says so, and one
+// whose earlier tie has no settled result says that, never the same thing.
+const nextAdj = ROUND_ADJ[nextLabel] ?? "next";
+const routeLine = (prev: Tie, slug: string): string => {
+  const f = prev.fixture;
+  const home = f.home === slug;
+  const me = name(prev, slug);
+  const them = name(prev, home ? f.away : f.home);
+  const when = `${monShort(f.date)} ${dayOfMonth(f.date)}`;
+  if (prev.disputed || f.status !== "final" || !hasScore(f) || prev.through?.slug !== slug) {
+    return `${me} v ${them} on ${when}: no settled result on the record.`;
+  }
+  const mine = home ? f.home_score : f.away_score;
+  const theirs = home ? f.away_score : f.home_score;
+  const so = prev.shootout;
+  if (prev.through.by === "shootout" && so) {
+    const a = home ? so.home : so.away;
+    const b = home ? so.away : so.home;
+    return `${me} and ${them} drew ${mine}–${theirs} on ${when}; ${me} went through on penalties, ${a}–${b}, as published.`;
+  }
+  if (prev.through.by === "next round") {
+    return `${me} v ${them}, ${mine}–${theirs} on ${when}; ${me} went through, known only from this ${nextAdj} tie.`;
+  }
+  return `${me} beat ${them} ${mine}–${theirs} on ${when}.`;
+};
+// The kickoff the bracket shows too (shownKickoffOf): where the printed
+// record has no time, the record it comes from is named; where the records
+// print different times, that is said.
+const kickoffShown = (t: Tie): { time: string | null; note: string | null } => {
+  const k = shownKickoffOf(t);
+  const whose = (v: { by: string | null; source: string | null }): string =>
+    v.by ? `${name(t, v.by)}'s schedule` : (v.source ?? "another record");
+  const notes = [k.from ? `Time from ${whose(k.from)}.` : "", k.split ? "Schedules list different times." : ""];
+  return { time: clockTime(k.time ?? undefined) ?? null, note: notes.filter(Boolean).join(" ") || null };
+};
+// The semifinals and the final have their own cards (#finals); the list is
+// for the rounds before them.
+const nextCards =
+  decided || nextLabel === "SF" || nextLabel === "FINAL"
+    ? []
+    : nextToPlay.map((t) => {
+        const sidesOf = [t.fixture.home, t.fixture.away];
+        const prevs = sidesOf.map((slug) => routeOf(ncaa, t, slug).at(-1) ?? null);
+        const lines = prevs.every((x) => x === null)
+          ? ["No earlier tie is collected for either side."]
+          : sidesOf.map((slug, i) => {
+              const prev = prevs[i];
+              return prev ? routeLine(prev, slug) : `No earlier tie is collected for ${name(t, slug)}.`;
+            });
+        return { tie: t, ...kickoffShown(t), lines };
+      });
+
 const ROUND_WORD: Record<string, string> = {
   R1: "the first round",
   R2: "the second round",
@@ -68,6 +177,7 @@ const headline = (() => {
   if (champion && final) return `${name(final, champion)} are national champions`;
   if (decided && final) return "The NCAA final is played";
   if (ncaa.ties.length === 0) return "The NCAA field is not yet collected";
+  if (nextRound !== null && nextLabel && nextDates.length > 0) return `${nextHead}: ${nextWhen(true)}`;
   return "The NCAA championship is under way";
 })();
 const dek = (() => {
@@ -95,6 +205,34 @@ const dek = (() => {
   }
   if (ncaa.ties.length === 0) {
     return "No collected schedule lists an NCAA tie with an opponent yet. The conference tournaments that decide most of the field are below, as their results come in.";
+  }
+  if (nextRound !== null && nextLabel) {
+    const n = nextTies.length;
+    // A tie whose records disagree counts in no other column (TieSheet says
+    // so), so every tie lands in exactly one count and the counts sum to n.
+    const settledOf = nextTies.filter((t) => !t.disputed);
+    const done = settledOf.filter((t) => t.fixture.status === "final").length;
+    const ahead = nextToPlay.length;
+    const adj = ROUND_ADJ[nextLabel] ?? roundNameOf(nextLabel).toLowerCase();
+    // Each tie counted by its status as the record has it: a postponed or
+    // cancelled tie is said to be so, never folded into "to play".
+    const tally = [
+      [done, "played"],
+      [ahead, "to play"],
+      [settledOf.filter((t) => t.fixture.status === "postponed").length, "postponed"],
+      [settledOf.filter((t) => t.fixture.status === "cancelled").length, statusWord("cancelled")],
+      [n - settledOf.length, "with records that disagree"],
+    ] as const;
+    const first =
+      ahead === n
+        ? `${cap(spell(n))} ${adj} ${n === 1 ? "tie is" : "ties are"} collected, ${n === 1 ? "still" : "all still"} to play.`
+        : done + ahead === n
+          ? `${cap(spell(done))} of the ${spell(n)} ${adj} ties collected ${done === 1 ? "is" : "are"} played.`
+          : `${cap(spell(n))} ${adj} ${n === 1 ? "tie is" : "ties are"} collected: ${tally
+              .filter(([c]) => c > 0)
+              .map(([c, w]) => `${spell(c)} ${w}`)
+              .join(", ")}.`;
+    return `${first} The bracket below is drawn from the results alone.`;
   }
   return `${played} of ${ncaa.ties.length} collected ties played. The bracket below is drawn from those results alone.`;
 })();
@@ -127,12 +265,22 @@ const allTies = [...p.byIdentity.values()];
 // The page's sections, in order, for the jump row under the masthead: only
 // the ones this build draws.
 const jumps = [
-  ...(ncaa.ties.length > 0 ? [{ href: "#field", label: "The field" }] : []),
   ...(finalsCards.length > 0 ? [{ href: "#finals", label: "The finals" }] : []),
   ...(ncaa.ties.length > 0 ? [{ href: "#bracket", label: "The bracket" }] : []),
+  ...(ncaa.ties.length > 0 ? [{ href: "#field", label: "The field" }] : []),
   { href: "#conference-tournaments", label: "Conference tournaments" },
 ];
 const hasRegions = regionsOf(ncaa).length > 0;
+// The legend keys only the marks this bracket draws.
+const anyPens = ncaa.ties.some((t) => t.shootout !== null);
+const anyAdv = ncaa.ties.some((t) => t.through?.evidence === "DERIVED");
+// Ties the graph could not place: before regions, the bracket draws them in
+// a column beside the tree, and its note says so only when there are some.
+const unjoined = !hasRegions && ncaa.ties.some((t) => t.round === 0);
+// The conference tournaments collected, against the conferences configured:
+// a joint tournament counts each of its codes.
+const codesIn = new Set(p.conference.flatMap((t) => t.codes)).size;
+const noCodes: ReadonlyMap<string, string> = new Map();
 
 // Ties set apart: records that give one side two ties on one day and that no
 // record settles (lib/postseason.ts sameDayGroups). They count nowhere above;
@@ -162,9 +310,11 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
         30px rhythm starts beneath them. */}
     <div>
     <SiteHeader />
-    <div class="path-anchors" aria-hidden="true">
-      {traced.map((slug) => <span id={`path-${slug}`}></span>)}
-    </div>
+    {ncaa.ties.length === 0 && (
+      <div class="path-anchors" aria-hidden="true">
+        {traced.map((slug) => <span id={`path-${slug}`}></span>)}
+      </div>
+    )}
 
     <Masthead
       kicker={`NCAA ${currentDivision.name.toUpperCase()} CHAMPIONSHIP${decided && final ? ` · DECIDED · ${monShort(final.fixture.date).toUpperCase()} ${dayOfMonth(final.fixture.date)}` : ""}`}
@@ -176,7 +326,7 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
             `${played} played`,
             `${field.size} programs`,
             `${conferencesIn.size} of ${configured} conferences in the field`,
-            `${pens} ${pens === 1 ? "tie" : "ties"} settled on penalties`,
+            ...(pens > 0 ? [`${pens} ${pens === 1 ? "tie" : "ties"} settled on penalties`] : []),
           ]
         : []}
     >
@@ -198,6 +348,89 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
     </Masthead>
     </div>
 
+    {finalsCards.length > 0 && (
+      <section class="block" id="finals">
+        <h2 class="sechead">THE FINALS</h2>
+        <div class="finals">
+          {finalsCards.map(({ tie, cls, lab }) => {
+            const f = tie.fixture;
+            const sides = [f.home, f.away].map((slug) => ({
+              slug,
+              goals: hasScore(f) ? (slug === f.home ? f.home_score : f.away_score) : null,
+              pens: tie.shootout ? (slug === f.home ? tie.shootout.home : tie.shootout.away) : null,
+              state: tie.through ? (tie.through.slug === slug ? "w" : "l") : "",
+            }));
+            return (
+              <a class:list={["mcard", cls]} href={matchHref(tie.match.key, f.id)}>
+                <span class="lab"><span>{lab}</span><span>{day(f.date)}</span></span>
+                {sides.map((s) => (
+                  <span class:list={["side", s.state]}>
+                    <span class="n">
+                      {cls === "final" && champion === s.slug && <TitleMark kind="trophy" />}
+                      {name(tie, s.slug)}<small>{p.conferenceOf.get(s.slug) ?? ""}</small>
+                    </span>
+                    <span class="g num">{s.goals ?? ""}{s.pens !== null && <span class="pk">({s.pens})</span>}</span>
+                  </span>
+                ))}
+                <span class="foot"><span>{f.venue ?? ""}</span><b>Match Center →</b></span>
+              </a>
+            );
+          })}
+          {sfs.length === 2 && !final && (
+            <div class="mcard final pending">
+              <span class="lab"><span>Final</span><span>To be played</span></span>
+              <span class="meet">The two semifinal winners meet.</span>
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+
+    {nextCards.length > 0 && (
+      <section class="block next" aria-label={`${nextHead}, ${nextWhen(true)}`}>
+        <h2 class="sechead">{nextHead.toUpperCase()} · {nextWhen(false).toUpperCase()}</h2>
+        <div class="nlist">
+          {nextCards.map(({ tie, time, note, lines }) => (
+            <a class="ncard" href={`#${tieAnchor(tie)}`}>
+              <span class="nwhen"><span>{day(tie.fixture.date)}</span>{time && <b class="num">{time}</b>}</span>
+              {note && <span class="nnote">{note}</span>}
+              {[tie.fixture.home, tie.fixture.away].map((slug) => (
+                <span class="nside">{name(tie, slug)}<small>{p.conferenceOf.get(slug) ?? ""}</small></span>
+              ))}
+              <span class="nroute">{lines.map((l) => <span>{l}</span>)}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {ncaa.ties.length > 0 && (
+      <section class="block" id="bracket">
+        <div class="path-anchors" aria-hidden="true">
+          {traced.map((slug) => <span id={`path-${slug}`}></span>)}
+        </div>
+        <h2 class="sechead">THE BRACKET</h2>
+        <div class="legend">
+          {played > 0 && <span class="sw"><b class="num">2</b>&nbsp;went through</span>}
+          {played > 0 && <span class="sw"><span class="faint">1</span>&nbsp;went out</span>}
+          {anyPens && <span class="sw"><span class="num">1<span class="pk">(4)</span></span>&nbsp;penalties, as published; the match is a draw</span>}
+          {anyAdv && (
+            <span class="sw"><span class="adv">ADV</span><span class="advdot" aria-hidden="true"></span>&nbsp;went through, known only from the next round</span>
+          )}
+          <span class="sw"><span class="bar"></span>&nbsp;traced path</span>
+        </div>
+        <Bracket tournament={ncaa} conferenceOf={p.conferenceOf} />
+        <p class="provenance">
+          {hasRegions
+            ? "Regions are headed by the ground that hosted their quarterfinal, a fact from the fixtures."
+            : unjoined
+              ? "Each tie is joined to its winner's next collected tie; ties the results have not yet joined sit beside the tree, not paired."
+              : "Each tie is joined to its winner's next collected tie."}{" "}
+          No bracket document is collected, so there are no seeds or published region names. Select any tie.
+        </p>
+      </section>
+    )}
+
     {ncaa.ties.length > 0 && (
       <section class="block" id="field">
         <h2 class="sechead">THE FIELD</h2>
@@ -216,85 +449,65 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
       </section>
     )}
 
-    {finalsCards.length > 0 && (
-      <section class="block" id="finals">
-        <h2 class="sechead">THE FINALS</h2>
-        <div class="finals">
-          {finalsCards.map(({ tie, cls, lab }) => {
-            const f = tie.fixture;
-            const sides = [f.home, f.away].map((slug) => ({
-              slug,
-              goals: hasScore(f) ? (slug === f.home ? f.home_score : f.away_score) : null,
-              pens: tie.shootout ? (slug === f.home ? tie.shootout.home : tie.shootout.away) : null,
-              state: tie.through ? (tie.through.slug === slug ? "w" : "l") : "",
-            }));
-            return (
-              <a class:list={["mcard", cls]} href={matchHref(tie.match.key, f.id)}>
-                <span class="lab"><span>{lab}</span><span>{day(f.date)}</span></span>
-                {sides.map((s) => (
-                  <span class:list={["side", s.state]}>
-                    <span class="n">{name(tie, s.slug)}<small>{p.conferenceOf.get(s.slug) ?? ""}</small></span>
-                    <span class="g num">{s.goals ?? ""}{s.pens !== null && <span class="pk">({s.pens})</span>}</span>
-                  </span>
-                ))}
-                <span class="foot"><span>{f.venue ?? ""}</span><b>Match Centre →</b></span>
-              </a>
-            );
-          })}
-          {sfs.length === 2 && !final && (
-            <div class="mcard final pending">
-              <span class="lab"><span>Final</span><span>To be played</span></span>
-              <span class="meet">The two semifinal winners meet.</span>
-            </div>
-          )}
-        </div>
-      </section>
-    )}
-
-    {ncaa.ties.length > 0 && (
-      <section class="block" id="bracket">
-        <h2 class="sechead">THE BRACKET</h2>
-        <div class="legend">
-          <span class="sw"><b class="num">2</b>&nbsp;went through</span>
-          <span class="sw"><span class="faint">1</span>&nbsp;went out</span>
-          <span class="sw"><span class="num">1<span class="pk">(4)</span></span>&nbsp;penalties, as published; the match is a draw</span>
-          <span class="sw"><span class="adv">ADV</span>&nbsp;went through, known only from the next round</span>
-          <span class="sw"><span class="bar"></span>&nbsp;traced path</span>
-        </div>
-        <Bracket tournament={ncaa} conferenceOf={p.conferenceOf} />
-        <p class="provenance">
-          {hasRegions
-            ? "Regions are headed by the ground that hosted their quarterfinal, a fact from the fixtures."
-            : "Each tie is joined to the next tie its winner played; ties the results have not yet joined are stacked, not paired."}{" "}
-          No bracket document is collected, so there are no seeds or published region names. Select any tie.
-        </p>
-      </section>
-    )}
-
     <section class="block" id="conference-tournaments">
       <h2 class="sechead">THE CONFERENCE TOURNAMENTS</h2>
       {conferences.length === 0 ? (
         <p class="empty">No conference tournament match is collected yet.</p>
       ) : (
-        <div class="tourneys">
-          {conferences.map((t) => {
-            const latest = [...t.ties].sort((a, b) => b.round - a.round || b.fixture.date.localeCompare(a.fixture.date));
-            const shown = t.final ? [t.final] : latest.slice(0, 2);
-            // Decided is the final played; a champion is named only where a
-            // record says who won (lib/postseason.ts verdictLine).
-            const line = verdictLine(t, (slug) => (t.final ?? (t.ties[0] as Tie)).match.season.names.name(slug));
-            return (
-              <div class="tourney">
-                <div class="thead">
+        <>
+          <p class="prov">{codesIn} of {configured} conferences with a tournament match collected.</p>
+          {/* A phone reads the champions first, one line each; the scores
+              fold beneath them. Wide, the fold is open and its summary hidden,
+              so the grid reads as it always has. */}
+          <ul class="champ-list">
+            {conferences.map((t) => {
+              const v = verdictOf(t);
+              const nameIn = (slug: string): string => (t.final ?? (t.ties[0] as Tie)).match.season.names.name(slug);
+              const who = v.kind === "won" ? nameIn(v.champion.slug) : null;
+              // No champion: the tile's own head says why (no final yet, a
+              // drawn final, a shootout no side can be matched to).
+              const why = who ? "" : verdictLine(t, nameIn).head;
+              return (
+                <li>
                   <b>{t.codes.join("/")}</b>
-                  <span>{line.head}</span>
-                </div>
-                {shown.map((tie) => <TieBox tie={tie} conferenceOf={p.conferenceOf} />)}
-                {line.note && <p class="tnote">{line.note}</p>}
-              </div>
-            );
-          })}
-        </div>
+                  {who ? (
+                    <span class="cl-who"><TitleMark kind="ribbon" />{who}</span>
+                  ) : (
+                    <span class="cl-none">{why}</span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+          <details class="tfold" open>
+            <summary>
+              <span class="show">Show every tournament's scores</span><span class="hide">Hide the scores</span>
+              <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 L5 6.5 L8 3.5" /></svg>
+            </summary>
+            <div class="tourneys">
+              {conferences.map((t) => {
+                const latest = [...t.ties].sort((a, b) => b.round - a.round || b.fixture.date.localeCompare(a.fixture.date));
+                const shown = t.final ? [t.final] : latest.slice(0, 2);
+                // Decided is the final played; a champion is named only where a
+                // record says who won (lib/postseason.ts verdictLine).
+                const line = verdictLine(t, (slug) => (t.final ?? (t.ties[0] as Tie)).match.season.names.name(slug));
+                const won = verdictOf(t).kind === "won";
+                return (
+                  <div class="tourney">
+                    <div class="thead">
+                      <b>{t.codes.join("/")}</b>
+                      <span class="th-who">{won && <TitleMark kind="ribbon" />}{line.head}</span>
+                    </div>
+                    {/* One conference's tournament: its code is the heading's,
+                        so the rows do not repeat it. */}
+                    {shown.map((tie) => <TieBox tie={tie} conferenceOf={t.codes.length > 1 ? p.conferenceOf : noCodes} />)}
+                    {line.note && <p class="tnote">{line.note}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </details>
+        </>
       )}
       <p class="provenance">
         A tournament's rounds are counted back from its latest match: each tie is one round before the next tie
@@ -320,6 +533,19 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
 </Page>
 
 <style is:inline set:html={pathCss}></style>
+
+<script>
+  // A phone reads the champions list first, so the tournaments' scores start
+  // folded there. Without script the fold stays open: the wide reading.
+  // Widened past a phone's width, the fold opens again, since the wide page
+  // draws no champions list above it.
+  const narrow = matchMedia("(max-width: 560px)");
+  const folds = Array.from(document.querySelectorAll<HTMLDetailsElement>(".tfold"));
+  if (narrow.matches) for (const d of folds) d.open = false;
+  narrow.addEventListener("change", (e) => {
+    if (!e.matches) for (const d of folds) d.open = true;
+  });
+</script>
 
 <style>
   .champ { display: grid; gap: 30px; }
@@ -354,6 +580,7 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
   .mcard .side { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px; }
   .mcard .side .n { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .mcard .side .n small { font-size: 10px; letter-spacing: 0.1em; color: var(--quiet); margin-left: 6px; }
+  .mcard .side .n :global(.title-mark) { width: 16px; height: 16px; margin-right: 6px; vertical-align: -2px; }
   .mcard .side .g { font-family: var(--serif); font-size: 26px; line-height: 1; }
   .mcard .side.w .n { font-weight: 600; }
   .mcard .side.l .n, .mcard .side.l .g { color: var(--secondary); }
@@ -374,6 +601,7 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
   .legend .pk { font-size: 0.78em; }
   .legend .faint { color: var(--quiet); }
   .legend .adv { font-size: 9px; letter-spacing: 0.1em; color: var(--chip-derived-fg); font-weight: 600; }
+  .legend .advdot { display: none; width: 6px; height: 6px; border-radius: 50%; background: var(--chip-derived-fg); margin-left: 5px; }
   .legend .bar { width: 3px; height: 14px; background: var(--accent); display: inline-block; }
 
   .tourneys { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px 28px; }
@@ -381,6 +609,40 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
   .thead { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-bottom: 1px solid var(--ink); padding-bottom: 5px; }
   .thead b { font-size: 11px; letter-spacing: 0.16em; font-weight: 600; }
   .thead span { font-size: 11.5px; color: var(--secondary); text-align: right; }
+  .thead .th-who :global(.title-mark) { display: inline-block; vertical-align: -1px; margin-right: 5px; }
+  /* Wide, the fold is open and its summary hidden. A fold left closed (a
+     phone widened before the script's listener ran) still shows a way in. */
+  .tfold[open] > summary { display: none; }
+  .tfold > summary {
+    list-style: none; display: flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer;
+    font-size: 13px; font-weight: 600; color: var(--accent);
+  }
+  .tfold > summary::-webkit-details-marker { display: none; }
+  .tfold > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .tfold .chevron { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .tfold[open] .chevron { transform: rotate(180deg); }
+  .tfold .hide, .tfold[open] .show { display: none; }
+  .tfold[open] .hide { display: inline; }
+  .champ-list { display: none; }
+
+  /* The next round, as a list of fixtures: a phone's first read. Wide, the
+     bracket's own column carries the same ties. */
+  .next { display: none; }
+  .nlist { display: grid; gap: 12px; }
+  .ncard {
+    display: grid; gap: 2px; background: var(--card); border: 1px solid var(--hairline); border-radius: 6px;
+    padding: 10px 14px 12px; color: inherit;
+  }
+  .ncard:hover { border-color: var(--accent); }
+  .nwhen { display: flex; justify-content: space-between; font-size: 12px; color: var(--secondary); padding-bottom: 4px; }
+  .nwhen b { color: var(--ink); font-weight: 600; }
+  .nnote { font-size: 11.5px; color: var(--quiet); margin-top: -2px; padding-bottom: 2px; text-align: right; }
+  .nside { font-size: 15px; padding: 8px 0; border-bottom: 1px solid var(--hairline); }
+  /* The second side, by adjacency: the card's other spans (day, kickoff
+     note) come and go, so a position count would land on the wrong side. */
+  .nside + .nside { border-bottom: 0; }
+  .nside small { font-size: 9.5px; letter-spacing: 0.1em; color: var(--quiet); margin-left: 6px; }
+  .nroute { display: grid; gap: 2px; background: var(--paper); border-radius: 4px; padding: 8px 10px; font-size: 12.5px; line-height: 1.45; color: var(--secondary); }
   .empty { margin: 0; font-size: 13px; color: var(--secondary); }
   .tnote { margin: 0; font-size: 11.5px; line-height: 1.4; color: var(--secondary); }
   .apart { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--secondary); display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
@@ -392,9 +654,21 @@ const apartGroups = [...new Set(ncaa.apart.map((t) => t.sameDay))].flatMap((sd) 
     .finals .sf2 { grid-column: 2; grid-row: 1; }
     .finals .final { grid-column: 1 / -1; grid-row: 2; }
   }
+  @media (max-width: 720px) {
+    .next { display: grid; }
+    /* The compact bracket marks ADV with a dot; the legend shows both. */
+    .legend .advdot { display: inline-block; }
+  }
   @media (max-width: 560px) {
     .finals { grid-template-columns: minmax(0, 1fr); }
     .finals .sf1, .finals .sf2, .finals .final { grid-column: 1; grid-row: auto; }
-    .legend .sw:nth-child(4) { display: none; }
+    .champ-list { display: grid; margin: 0; padding: 0; list-style: none; }
+    .champ-list li {
+      display: flex; align-items: center; gap: 10px; min-height: 44px; border-bottom: 1px solid var(--hairline); font-size: 14px;
+    }
+    .champ-list b { width: 72px; flex: none; font-size: 10.5px; letter-spacing: 0.12em; font-weight: 600; }
+    .champ-list .cl-who { display: inline-flex; align-items: center; gap: 6px; }
+    .champ-list .cl-none { color: var(--quiet); }
+    .tfold[open] > summary { display: flex; margin-bottom: 10px; }
   }
 </style>
