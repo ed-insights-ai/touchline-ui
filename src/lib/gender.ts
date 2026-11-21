@@ -31,12 +31,16 @@ import {
 } from "../site.config.ts";
 import { dataHome, readParsed, seasonKey } from "./data.ts";
 import { fixturesFileSchema } from "./model.ts";
+import { activeTiers } from "./player-tier.ts";
 
 /** What the switch needs to know about the build it links into. */
 export interface Counterpart {
   conferences: readonly string[];
   /** Whether that build has a team page for this programme in this conference. */
   hasTeam: (conference: string, slug: string) => boolean;
+  /** Whether that build publishes the tiers method page (/about/tiers/): a
+   *  build with no tiers file emits none (pages/about/[tiers].astro). */
+  hasTiers: boolean;
 }
 
 /**
@@ -48,7 +52,9 @@ export function counterpartPath(within: string, target: Counterpart): string {
   const parts = within.split("/").filter(Boolean);
   if (parts.length === 0) return "/";
   if (parts.length === 1 && parts[0] === "about") return "/about/";
-  if (parts.length === 2 && parts[0] === "about" && parts[1] === "tiers") return "/about/tiers/";
+  if (parts.length === 2 && parts[0] === "about" && parts[1] === "tiers") {
+    return target.hasTiers ? "/about/tiers/" : "/about/";
+  }
   const [conf, view, slug] = parts;
   if (!conf || !target.conferences.includes(conf)) return "/";
   if (view === "matches" && parts.length === 2) return `/${conf}/matches/`;
@@ -129,5 +135,6 @@ export function counterpartOf(target: Gender): Counterpart {
       const file = readParsed(path, (r) => fixturesFileSchema.parse(r), false);
       return !!file?.programmes.some((p) => p.slug === slug);
     },
+    hasTiers: activeTiers(site.ncaaDivision, site.season, target) !== null,
   };
 }

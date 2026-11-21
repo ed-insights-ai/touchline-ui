@@ -322,8 +322,25 @@ describe("a program has one name", () => {
         if (abbr) allowed.add(abbr);
         wanted.set(fold(name), name);
       }
+      // A non-member opponent's name of more than one word is the opponent,
+      // printed as the site names it, and the words inside it are not a
+      // member's name: "Hawaii Pacific" is not the Mountain West's Hawai'i
+      // misspelled. Masked whole before the scan, longest first. A name that
+      // folds onto a member's is left in, since that one IS the offence.
+      const members = new Set(s.fixtures.programmes.map((p) => p.slug));
+      const strangers = [
+        ...new Set(
+          s.fixtures.fixtures
+            .flatMap((f) => [f.home, f.away])
+            .filter((slug) => !members.has(slug))
+            .map((slug) => s.names.name(slug))
+            .filter((n) => /\s/.test(n) && !wanted.has(fold(n))),
+        ),
+      ].sort((a, b) => b.length - a.length);
+      const mask = (text: string): string =>
+        strangers.reduce((t, n) => t.split(n).join(" \u2063 "), text);
       for (const l of [...conferencePage(s), ...matchPages(s), ...playerCards(s)]) {
-        const words = l.text.split(/\s+/);
+        const words = mask(l.text).split(/\s+/);
         for (let i = 0; i < words.length; i++) {
           for (let n = 1; n <= 6 && i + n <= words.length; n++) {
             const phrase = trim(words.slice(i, i + n).join(" "));

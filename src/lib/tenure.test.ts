@@ -19,7 +19,10 @@
  */
 
 import { describe, expect, test } from "bun:test";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { site } from "../site.config.ts";
+import { dataHome, seasonKey } from "./data.ts";
 import { loadSeason, squadOf } from "./derive.ts";
 import { LINE_LABEL, LINE_ORDER, type Line } from "./format.ts";
 import { returnedShare, TENURE_STEPS, tenureGrid, tenureOf, tenureWord } from "./tenure.ts";
@@ -29,6 +32,13 @@ const everyTeam = seasons.flatMap((s) =>
   Object.keys(s.rosters?.rosters ?? {}).map((slug) => ({ s, slug, grid: tenureGrid(s, slug) })),
 );
 
+// Whether the data home holds the season before this one. A build whose home
+// holds this season alone (Division I women until its 2022-2025 history is
+// collected, tui-xep) has no earlier roster or career to read, so the checks
+// that something was read hold the opposite instead: nothing was.
+const hasHistory = existsSync(
+  join(dataHome().fixturesDir, `${seasonKey(site.season - 1, site.gender, site.home)}.json`),
+);
 describe("reading a class year onto the ladder", () => {
   test("the five steps come off the forms a roster actually writes", () => {
     expect(tenureOf("Freshman").step).toBe("FR");
@@ -185,6 +195,10 @@ describe("the minutes the grid takes a share of", () => {
 
   test("the check is looking at something", () => {
     const withMinutes = everyTeam.filter((t) => (t.grid.minutes?.total ?? 0) > 0);
+    if (!hasHistory) {
+      expect(withMinutes).toEqual([]);
+      return;
+    }
     expect(withMinutes.length).toBeGreaterThan(20);
     expect(everyTeam.some((t) => t.grid.offLine.players > 0)).toBe(true);
     expect(everyTeam.some((t) => t.grid.rows.some((r) => returnedShare(r.minutes) === null))).toBe(

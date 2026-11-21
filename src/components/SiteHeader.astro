@@ -65,7 +65,7 @@ const genderLabel = { men: "Men", women: "Women" } as const;
 // page exists from the first collected conference tournament tie.
 const championship = hasPostseason(divisionPostseason()) ? championshipHref() : null;
 // The column appears when the deploy publishes both genders. A gender this
-// division does not field (Division I has no women's build) is a row that
+// division does not field in this deploy is a row that
 // says so, never a link to a page that does not exist.
 const genders = deployGenders.length > 1
   ? deployGenders.map((g) => ({

@@ -285,7 +285,12 @@ describe("the records agree, which is what makes folding safe", () => {
   );
 
   test("a disagreement on the score itself is a dispute, never a neutral site", () => {
-    const pair = shared.find((m) => m.neutral) ?? shared[0];
+    // A pair whose records both print a score, or there is no score to
+    // disagree about: Division I women's UNC Greensboro v Virginia Tech
+    // (2026-08-05) is a final the ACC file stores with no score at all.
+    const scored = (m: (typeof shared)[number]): boolean =>
+      m.sightings.every((x) => x.fixture.home_score != null && x.fixture.away_score != null);
+    const pair = shared.find((m) => m.neutral && scored(m)) ?? shared.find(scored);
     expect(pair, "no shared match in this data to disagree about").toBeDefined();
     const [a, b] = (pair as (typeof shared)[number]).sightings as [Sighting, Sighting];
     const bumped: Sighting = {
