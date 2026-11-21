@@ -196,12 +196,12 @@ const minutesSource = (() => {
             <p class="tier-note">{tier.figures.note}</p>
           </>
         )}
-        <p class="tier-source provenance">{tier.source} <a class="tier-link" href={aboutTiersHref()}>How tiers work</a></p>
+        <p class="tier-source provenance"><a class="tier-link" href={aboutTiersHref()}>How tiers work</a></p>
       </div>
     )}{defence && (
       <div class="sheet-block tier-block">
         <h3 class="block-label">TEAM DEFENCE</h3>
-        {defence.badge && <p class="tier-status is-holder">Team defence badge</p>}
+        {defence.badge && <p class="tier-status is-badge">Team defence badge</p>}
         {defence.badge && <p class="tier-meaning">{defence.badge}</p>}
         <table class="tier-team num">
           <caption>{defence.figures.caption.head}{defence.figures.caption.workload && <><span aria-hidden="true"> · </span><span class="vh">, </span>{defence.figures.caption.workload}</>}</caption>
@@ -224,7 +224,7 @@ const minutesSource = (() => {
         </table>
         {defence.figures.goals && <p class="tier-goals">{defence.figures.goals}</p>}
         <p class="tier-note">{defence.figures.note}</p>
-        <p class="tier-source provenance">{defence.source} <a class="tier-link" href={aboutTiersHref()}>How tiers work</a></p>
+        <p class="tier-source provenance"><a class="tier-link" href={aboutTiersHref()}>How tiers work</a></p>
       </div>
     )}
 

@@ -221,7 +221,6 @@ function playerCards(s: Season): Line[] {
         ["tier basis note", tier?.basisNote],
         ["tier goals", tier?.figures?.goals],
         ["tier figures note", tier?.figures?.note],
-        ["tier source", tier?.source],
         ["tier career", career],
       ] as const) {
         if (text) out.push({ where: `${at} ${what}`, text });

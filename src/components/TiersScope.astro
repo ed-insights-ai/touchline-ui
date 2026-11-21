@@ -1,9 +1,10 @@
 ---
 // The method page's body for a level measured on its own seasons after the
 // method was built on another (tiers.config.ts methodIsShort): Division I
-// men. It says what the level shows, the measurement that decided it, the
+// men. It says what the level shows, how each position is marked, the
 // constants fitted on the level's own seasons, how the badge is set, and
-// where the full method is. The page ([tiers].astro) draws it inside its own
+// where the full method is. The measurement behind those choices is the
+// build log's and the spec's, not the reader's. The page ([tiers].astro) draws it inside its own
 // .tm article, so every class here is that page's and its inline styles reach
 // these.
 //
@@ -17,7 +18,6 @@ import type { TiersFile } from "../lib/tiers.ts";
 import { currentDivision, type NcaaDivisionKey, ncaaDivisions } from "../site.config.ts";
 import {
   type LevelTiers,
-  type Measured,
   methodIsShort,
   SHOOTING_LEVELS,
   TIERS_LEVELS,
@@ -59,19 +59,7 @@ const full = ncaaDivisions.find((d) => d.key === fullKey) ?? null;
 const fullHome = full ? divisionHref(full.key) : null;
 const fullMethod = fullHome ? `${fullHome}about/tiers/` : null;
 
-const levelsOf = (m: Measured): string =>
-  m.group === "team_badge" ? "One" : SHOOTING_LEVELS[m.group] === 2 ? "Tier 1, Tier 2" : "One";
-const label = (m: Measured): string =>
-  m.group === "team_badge"
-    ? "Team defence badge (teams)"
-    : `${title(groupPlural[m.group])}, shooting and scoring`;
 const two = (x: number): string => x.toFixed(2);
-const measured = shown.measured ?? null;
-// The bars are T1's, the same on every level: one for a label with two
-// levels, one for a label with a single level.
-const twoBar = (m: Measured): boolean => m.group !== "team_badge" && SHOOTING_LEVELS[m.group] === 2;
-const barTwo = measured?.rows.find(twoBar)?.bar ?? null;
-const barOne = measured?.rows.find((m) => !twoBar(m))?.bar ?? null;
 
 const c = CONSTANTS[tiers.level as NcaaDivisionKey]?.[tiers.gender];
 const perShot = c ? (c.weights.wG / c.weights.wS).toFixed(2) : null;
@@ -98,49 +86,28 @@ const firstSeasonNote =
   </p>
 </section>
 
-{measured && (
-  <section class="band" id="why">
-    <h3 class="sechead">WHAT THE TEST DECIDED</h3>
-    <p class="para">
-      A tier is shown only where it passes the same reliability test on every level: split each
-      player's season into two halves at random, and the tier must agree with itself across them.
-      Stepped up to a full season, that agreement must reach {barTwo !== null && two(barTwo)} for a
-      label with two levels{barOne !== null && ` and ${two(barOne)} for a label with one`}.
-      Measured once on {division} {gender} seasons{" "}
-      {measured.seasons[0]} to {measured.seasons[1]}, over 100 random splits:
-    </p>
-    <div class="table-wrap">
-      <table class="who num">
-        <thead>
-          <tr>
-            <th scope="col">Label</th>
-            <th scope="col">Levels</th>
-            <th scope="col">Reliability</th>
-            <th scope="col">Needed</th>
-            <th scope="col">Shown here</th>
-          </tr>
-        </thead>
-        <tbody>
-          {measured.rows.map((m) => (
-            <tr>
-              <th scope="row">{label(m)}</th>
-              <td>{levelsOf(m)}</td>
-              <td>{two(m.r)}</td>
-              <td>{two(m.bar)}</td>
-              <td>{m.r >= m.bar ? "Yes" : "No"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    <p class="para">
-      {twoLevel && `${title(twoLevel)} hold Tier 1 (top 5%) or Tier 2 (the next 15%). `}
-      {oneLevel && `${title(oneLevel)} hold one tier, the top 20%: their score repeats well enough to mark the top fifth, but not to separate the top 5% from the rest of it, and they are marked the same way on every level. `}
-      Defenders and goalkeepers hold no tier on any level: a regular's sheet prints the team's
-      figures instead, and the badge is the team's. No tier is not a bad mark.
-    </p>
-  </section>
-)}
+<section class="band" id="positions">
+  <h3 class="sechead">HOW EACH POSITION IS MARKED</h3>
+  <ul class="list">
+    {twoLevel && (
+      <li>
+        <strong>{title(twoLevel)}:</strong> Tier 1 (the top 5%) or Tier 2 (the next 15%).
+      </li>
+    )}
+    {oneLevel && (
+      <li>
+        <strong>{title(oneLevel)}:</strong> one tier, the top 20%. A forward's scoring swings
+        more from match to match than a midfielder's, so Touchline marks the top fifth rather
+        than splitting it, the same way on every level.
+      </li>
+    )}
+    <li>
+      <strong>Defenders and goalkeepers:</strong> no player tier. A regular's sheet prints the
+      team's defensive figures{shown.badge && ", and the team defence badge goes to the team"}.
+    </li>
+  </ul>
+  <p class="para">No tier is not a bad mark.</p>
+</section>
 
 <section class="band" id="how">
   <h3 class="sechead">HOW THE TIER IS SET</h3>
@@ -154,8 +121,7 @@ const firstSeasonNote =
   {c && (
     <>
     <p class="para">
-      Two weightings are fitted on {division}'s own seasons, by the same method on every level,
-      and fixed before the test above was run:
+      Two weightings are fitted on {division}'s own seasons, by the same method on every level:
     </p>
     <ul class="list num">
       <li>

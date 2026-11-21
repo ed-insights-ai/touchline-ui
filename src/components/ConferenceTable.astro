@@ -14,6 +14,7 @@
 // gets one of these per division, headed by the division's printed name, and
 // then the conference-wide table beneath them (lib/standings.ts); the head is
 // the page's call too, and defaults to the one table most conferences print.
+import { activeTiers, tableMarks, tieredLine } from "../lib/player-tier.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { participantsOf } from "../lib/postseason.ts";
 import FormBadges from "./FormBadges.astro";
@@ -53,6 +54,12 @@ const form = (slug: string): Result[] => formOf(season, slug);
 const record = (r: TableRow): string => `${r.won}–${r.drawn}–${r.lost}`;
 // The all-matches record that sits beneath each conference row.
 const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : null;
+// The tiers, when they are on and are this season's: the team defence
+// badge's shield beside a holder's name, and the squad's tier holders on the
+// dim line. A count of tiers already published, not a rating.
+const tierFile = activeTiers();
+const tiers = tierFile && tierFile.season === season.fixtures.season ? tierFile : null;
+const marks = (slug: string) => (tiers ? tableMarks(tiers, slug) : null);
 ---
 
 {/* Until conference play opens, two words on the head rule say what the
@@ -86,21 +93,29 @@ const overall = live ? new Map(overallTable(season).map((r) => [r.slug, r])) : n
   {rows.map((r, i) => {
     const f = form(r.slug);
     const o = overall?.get(r.slug);
+    const m = marks(r.slug);
+    // The marks' CSS is TierMarks.astro's, drawn by the page while tiers are
+    // on, so the bundled stylesheet is the same with the gate closed.
+    const shield = m?.badge ? (
+      <span class="table-shield" title="Team defence badge"><span class="vh">, team defence badge</span></span>
+    ) : null;
+    const tiered = m ? tieredLine(m.tiered) : null;
     return live ? (
       <a class:list={["trow", "trow-live", "hoverable", { "trow-cut": frozen && i === cutAt }]} href={teamHref(season.key, r.slug)}>
         <span class="tpos">{i + 1}</span>
-        <span class="tname">{r.name}{frozen && r.slug === champion && <span class="tchamp">TOURNAMENT CHAMPION</span>}</span>
+        <span class="tname">{r.name}{shield}{frozen && r.slug === champion && <span class="tchamp">TOURNAMENT CHAMPION</span>}</span>
         <span class="trec">{record(r)}</span>
         <span class="tpts">{r.points}</span>
         <span class="tdim">
           <FormBadges form={f} />
           {o && <span class={f.length > 0 ? "tall tall-after" : "tall"}>all matches {record(o)} <span class="tcap">W–D–L</span></span>}
+          {tiered && m && <span class="table-tiered" title={tiered}><span aria-hidden="true">{m.tiered}</span><span class="vh">{tiered}</span></span>}
         </span>
       </a>
     ) : (
       <a class="trow trow-early hoverable" href={teamHref(season.key, r.slug)}>
         <span class="tpos">{i + 1}</span>
-        <span class="tname">{r.name}</span>
+        <span class="tname">{r.name}{shield}</span>
         <FormBadges form={f} />
         <span class="trec">{record(r)}</span>
       </a>

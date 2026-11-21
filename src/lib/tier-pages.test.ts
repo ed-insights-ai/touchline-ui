@@ -39,6 +39,13 @@ describe("the sheet and the team page print only what section 10 holds", () => {
     expect(page).toContain("const tiers = activeTiers();");
     expect(page).toContain("tier: tiers ? sheetTier(");
     expect(page).toContain("{tiers && <TierStyles />}");
+    // The conference table's marks: the page draws their CSS only while the
+    // tiers are on, and the table reads the same gate.
+    const conference = src("pages/[conference]/index.astro");
+    expect(conference).toContain("{activeTiers() && <TierMarks />}");
+    const table = src("components/ConferenceTable.astro");
+    expect(table).toContain("const tierFile = activeTiers();");
+    expect(table).not.toMatch(/<style>[\s\S]*table-shield/);
     const sheet = src("components/PlayerSheet.astro");
     expect(sheet).not.toContain("activeTiers");
     expect(sheet).not.toContain("loadTiers");
@@ -90,11 +97,13 @@ describe("the short method page for a level that shows part of the tiers", () =>
     expect(markup).not.toMatch(
       /\b(January|February|March|April|May|June|July|August|September|October|November|December)\b/,
     );
-    // The constants and the measurement are read from their tables.
+    // The constants are read from their table, and each group's levels from
+    // config; the page prints no reliability figure.
     expect(markup).not.toMatch(/0\.\d{2}/);
     expect(scope).toContain("currentDivision.name");
     expect(scope).toContain("CONSTANTS[");
-    expect(scope).toContain("shown.measured");
+    expect(scope).toContain("SHOOTING_LEVELS[");
+    expect(markup).not.toMatch(/reliab|\btest\b/i);
   });
 });
 
