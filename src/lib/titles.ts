@@ -30,6 +30,8 @@ export interface TitleMark {
   kind: TitleKind;
   /** The title in words, in sentence case: "Regular-season champion". */
   words: string;
+  /** The table's few words, in caps beside the mark: "SEASON CHAMPION". */
+  short: string;
 }
 
 /** The regular-season champion of a final, undivided table: the top row,
@@ -53,12 +55,18 @@ export const titleMarks = (t: Titles, slug: string): TitleMark[] => {
   const regular = t.regular === slug;
   const tournament = t.tournament === slug;
   if (regular && tournament) {
-    marks.push({ kind: "ribbon", words: "Regular-season and tournament champion" });
+    marks.push({
+      kind: "ribbon",
+      words: "Regular-season and tournament champion",
+      short: "SEASON & TOURNAMENT",
+    });
   } else if (regular) {
-    marks.push({ kind: "ribbon", words: "Regular-season champion" });
+    marks.push({ kind: "ribbon", words: "Regular-season champion", short: "SEASON CHAMPION" });
   } else if (tournament) {
-    marks.push({ kind: "ribbon", words: "Tournament champion" });
+    marks.push({ kind: "ribbon", words: "Tournament champion", short: "TOURNAMENT CHAMPION" });
   }
-  if (t.national === slug) marks.push({ kind: "trophy", words: "National champion" });
+  if (t.national === slug) {
+    marks.push({ kind: "trophy", words: "National champion", short: "NATIONAL CHAMPION" });
+  }
   return marks;
 };
