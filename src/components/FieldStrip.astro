@@ -16,6 +16,7 @@ import {
   shapeOf,
   type Tournament,
 } from "../lib/postseason.ts";
+import { statusWord } from "../lib/format.ts";
 
 interface Props {
   tournament: Tournament;
@@ -46,7 +47,9 @@ const labelOf = (round: number): string => {
 
 // The round being played now: the earliest with a collected tie still to
 // play; else the earliest the shape says is not yet complete.
-const unplayed = tournament.ties.filter((t) => t.round > 0 && t.fixture.status !== "final").map((t) => t.round);
+const unplayed = tournament.ties
+  .filter((t) => t.round > 0 && (t.fixture.status === "scheduled" || t.fixture.status === "live"))
+  .map((t) => t.round);
 const incomplete = shape
   ? Array.from({ length: shape.rounds - shape.from + 1 }, (_, i) => shape.from + i).filter(
       (r) => tournament.ties.filter((t) => t.round === r).length < shape.size(r),
@@ -94,13 +97,26 @@ const add = (key: string, head: string, cls: string, e: FieldEntry, rank: number
   g.entries.push(e);
   groups.set(key, g);
 };
+// A tie the graph could not place (round 0) names no round: its side is
+// grouped by what the record does show, never by a round the page would have
+// to guess. A side through there (on the score, or a shootout, which is a
+// draw) is through to a tie not yet collected.
 for (const e of entries) {
   const round = e.tie.round;
+  const placed = round > 0;
   if (e.standing === "champion") add("champion", "Champions", "champ", e, 0);
-  else if (e.standing === "through") add(`through-${round}`, `Through to ${phrase(labelOf(round + 1))}`, "thru", e, 100 - round);
-  else if (e.standing === "to-play") add(`to-play-${round}`, `To play in ${phrase(e.tie.label)}`, "live", e, 200 - round);
-  else if (e.standing === "unsettled") add("unsettled", "Played, no one through on the record", "uns", e, 300);
-  else add(`out-${round}`, `Out in ${phrase(e.tie.label)}`, "out", e, 400 - round);
+  else if (e.standing === "through")
+    add(`through-${round}`, placed ? `Through to ${phrase(labelOf(round + 1))}` : "Through · next tie not yet collected", "thru", e, placed ? 100 - round : 100);
+  else if (e.standing === "to-play")
+    add(`to-play-${round}`, placed ? `To play in ${phrase(e.tie.label)}` : "To play · not yet joined to the bracket", "live", e, placed ? 200 - round : 200);
+  else if (e.standing === "off") {
+    // The record's own word for it, in the site's spelling: postponed, or
+    // canceled (statusWord).
+    const w = statusWord(e.tie.fixture.status);
+    const word = w.charAt(0).toUpperCase() + w.slice(1);
+    add(`off-${word}-${round}`, placed ? `${word} in ${phrase(e.tie.label)}` : `${word} · not yet joined to the bracket`, "uns", e, placed ? 250 - round : 250);
+  } else if (e.standing === "unsettled") add("unsettled", "Played, no one through on the record", "uns", e, 300);
+  else add(`out-${round}`, placed ? `Out in ${phrase(e.tie.label)}` : "Out · not yet joined to the bracket", "out", e, placed ? 400 - round : 400);
 }
 const name = (e: FieldEntry): string => e.tie.match.season.names.name(e.slug);
 // A long group folds: past this many names a wall of chips buries the groups
@@ -167,11 +183,13 @@ const ordered = [...groups.values()]
       </div>
     ))}
   </div>
-  {shape && (
+  {shape ? (
     <p class="provenance">
       Sides per round are counted from a full {roundNameOf(labelAt(shape.from, shape.rounds)).toLowerCase()} of{" "}
-      {shape.size(shape.from)} ties, halving to the final. Select a programme to trace its path through the bracket.
+      {shape.size(shape.from)} ties, halving to the final. Select a program to trace its path through the bracket.
     </p>
+  ) : (
+    <p class="provenance">Select a program to trace its path through the bracket.</p>
   )}
 </div>
 

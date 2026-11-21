@@ -953,7 +953,14 @@ export function noShapeLine(t: Tournament): string | null {
     named.length === 1
       ? (named[0] as string)
       : `${named.slice(0, -1).join(", ")} and ${named.at(-1) as string}`;
-  return `No per-round funnel is drawn: ${list}, and no round halving to a final can be read from those counts.`;
+  // The ties the graph could not place are counted too, so the line never
+  // reads as the whole field when more ties sit on the page beside it.
+  const unplaced = t.ties.filter((x) => x.round === 0).length;
+  const rest =
+    unplaced > 0
+      ? `; ${unplaced} more collected ${unplaced === 1 ? "tie is" : "ties are"} not yet joined to a round`
+      : "";
+  return `No per-round funnel is drawn: ${list}${rest}, and no round halving to a final can be read from those counts.`;
 }
 
 /** The ties still to come in one round, as a count: no pairing is drawn. */
@@ -1045,7 +1052,7 @@ export function verdictLine(
 }
 
 /** Where one programme in the field stands, from its latest tie. */
-export type Standing = "champion" | "through" | "to-play" | "unsettled" | "out";
+export type Standing = "champion" | "through" | "to-play" | "off" | "unsettled" | "out";
 
 export interface FieldEntry {
   slug: string;
@@ -1055,7 +1062,8 @@ export interface FieldEntry {
 }
 
 /** Every programme with a tie, once, by its latest tie: through when it won
- *  it, out when the other side did, to play while it is unplayed, and
+ *  it, out when the other side did, to play while it is on the schedule (or
+ *  under way), off when the record has it postponed or cancelled, and
  *  unsettled when it was played but the record names no one through (a
  *  disputed tie, or a level score with no shootout collected). */
 export function fieldOf(t: Tournament): FieldEntry[] {
@@ -1065,7 +1073,14 @@ export function fieldOf(t: Tournament): FieldEntry[] {
   return [...latest].map(([slug, tie]) => {
     const through = tie.through;
     let standing: Standing;
-    if (through === null) standing = tie.fixture.status === "final" ? "unsettled" : "to-play";
+    const status = tie.fixture.status;
+    if (through === null)
+      standing =
+        status === "final"
+          ? "unsettled"
+          : status === "postponed" || status === "cancelled"
+            ? "off"
+            : "to-play";
     else if (through.slug !== slug) standing = "out";
     else standing = t.final === tie && t.champion?.slug === slug ? "champion" : "through";
     return { slug, standing, tie };
@@ -1243,6 +1258,27 @@ export function kickoffOf(tie: Tie): Kickoff {
     agree: rest.filter((v) => v.time === primary.time),
     differ: rest.filter((v) => v.time !== primary.time),
   };
+}
+
+/** The one kickoff a reader is shown for an unplayed tie, wherever it is
+ *  shown (bracket, list, order): the printed record's time; where that page
+ *  printed none, the first other record's that did, named in `from`. `split`
+ *  says the records that print a time do not all print the same one. */
+export interface ShownKickoff {
+  /** HH:MM as published, or null when no record prints one. */
+  time: string | null;
+  /** The record the time is taken from when it is not the printed one. */
+  from: KickoffVersion | null;
+  split: boolean;
+}
+
+export function shownKickoffOf(tie: Tie): ShownKickoff {
+  const k = kickoffOf(tie);
+  const timed = [k.primary, ...k.agree, ...k.differ].filter((v) => v.time !== null);
+  const split = new Set(timed.map((v) => v.time)).size > 1;
+  if (k.primary.time !== null) return { time: k.primary.time, from: null, split };
+  const alt = timed[0] ?? null;
+  return { time: alt?.time ?? null, from: alt, split };
 }
 
 /** A side's ties in its tournament before this one, in order: its route to

@@ -12,10 +12,11 @@
 // it appears in the next round wears ADV (a dot at compact density), in the
 // derived colour: it is DERIVED, and the sheet says so in words.
 //
-// A tie still to play carries its kickoff where the score will go, as the
-// host's page printed it (kickoffOf); the sheet names whose page that is.
+// A tie still to play carries its kickoff where the score will go: the one
+// time shownKickoffOf gives, the same the next-round list shows and sorts by;
+// the sheet names whose page printed it.
 import { hasScore } from "../lib/derive.ts";
-import { kickoffOf, type Tie, tieAnchor } from "../lib/postseason.ts";
+import { shownKickoffOf, type Tie, tieAnchor } from "../lib/postseason.ts";
 import { clockTime } from "../lib/format.ts";
 
 interface Props {
@@ -40,8 +41,10 @@ const rows = (["home", "away"] as const).map((side) => {
     derived: tie.through?.slug === slug && tie.through.evidence === "DERIVED",
   };
 });
-const unplayed = f.status !== "final" && !tie.disputed;
-const ko = unplayed ? clockTime(kickoffOf(tie).primary.time ?? undefined) : null;
+// Only a tie still on the schedule shows a kickoff: a postponed or canceled
+// one keeps whatever time its record once printed, which is no longer when.
+const unplayed = (f.status === "scheduled" || f.status === "live") && !tie.disputed;
+const ko = unplayed ? clockTime(shownKickoffOf(tie).time ?? undefined) : null;
 const label = `${rows[0]?.name} v ${rows[1]?.name}${ko ? `, kickoff ${ko}` : ""}`;
 ---
 
@@ -100,12 +103,15 @@ const label = `${rows[0]?.name} v ${rows[1]?.name}${ko ? `, kickoff ${ko}` : ""}
   /* A phone's bracket: two columns of ~170px, where a full name ellipsised
      says less than the abbreviation the files carry, which is an identifier
      and never cut. The full name stays in the row's title and the link's
-     label. A tie standing alone (a conference tournament's) has the width
-     for its names and keeps them. */
+     label. A tie outside the bracket's grid (a conference tournament's, or
+     one not yet joined) has the width for its names and keeps them. */
   @media (max-width: 420px) {
-    :global(.bracket) .n { text-overflow: clip; }
-    :global(.bracket) .n .full { display: none; }
-    :global(.bracket) .n .ab { display: inline; }
+    :global(.bracket .grid) .n { text-overflow: clip; }
+    :global(.bracket .grid) .n .full { display: none; }
+    :global(.bracket .grid) .n .ab { display: inline; }
+    /* A tie still to play keeps its kickoff; the conference code gives way
+       rather than being cut mid-word. */
+    :global(.bracket .grid) .has-ko .n small { display: none; }
   }
 
   /* Compact density (a phone's region, four columns of ~77px): names become
