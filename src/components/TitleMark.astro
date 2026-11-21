@@ -1,0 +1,32 @@
+---
+// The mark for a title won (lib/titles.ts): a ribbon for a conference title,
+// a trophy for the national championship. It is always drawn beside the
+// title's words, so it is hidden from assistive technology. The ribbon's
+// centre is a hole, not a fill, so it reads on any background a row takes.
+import type { TitleKind } from "../lib/titles.ts";
+
+interface Props {
+  kind: TitleKind;
+}
+const { kind } = Astro.props;
+---
+
+{kind === "ribbon" ? (
+  <svg class="title-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <polygon points="7.6,12.5 5.4,22 9.1,20.4 11,23 12,15" />
+    <polygon points="16.4,12.5 18.6,22 14.9,20.4 13,23 12,15" />
+    <path fill-rule="evenodd" d="M5 9a7 7 0 1 0 14 0a7 7 0 1 0 -14 0Z M8.6 9a3.4 3.4 0 1 0 6.8 0a3.4 3.4 0 1 0 -6.8 0Z" />
+  </svg>
+) : (
+  <svg class="title-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M6.5 2.5 H17.5 V8 C17.5 11.6 15.1 14 12 14 C8.9 14 6.5 11.6 6.5 8 Z" />
+    <path class="title-mark-line" d="M6.5 4.5 H3.8 V6.8 C3.8 9.2 5.3 10.8 7.4 11.2 M17.5 4.5 H20.2 V6.8 C20.2 9.2 18.7 10.8 16.6 11.2" />
+    <rect x="10.8" y="13.5" width="2.4" height="4.5" />
+    <rect x="7.5" y="18" width="9" height="3.5" />
+  </svg>
+)}
+
+<style>
+  .title-mark { width: 12px; height: 12px; flex: none; fill: var(--accent); }
+  .title-mark-line { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+</style>

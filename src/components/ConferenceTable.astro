@@ -17,7 +17,10 @@
 import { activeTiers, tableMarks, tieredLine } from "../lib/player-tier.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { participantsOf } from "../lib/postseason.ts";
+import { seasonTitles } from "../lib/titles-season.ts";
+import { titleMarks } from "../lib/titles.ts";
 import FormBadges from "./FormBadges.astro";
+import TitleMark from "./TitleMark.astro";
 import {
   formOf,
   overallTable,
@@ -39,14 +42,16 @@ const { season, rows, live, title = "THE TABLE" } = Astro.props;
 
 // Once the conference tournament has begun, the table is final: it is the
 // regular season's, and the tournament's games are not in it (model.ts
-// computeTable). The tournament champion is marked on its row, and an ink
-// rule falls under the last row that played in the tournament when those
+// computeTable). An ink rule falls under the last row that played in the tournament when those
 // rows are the table's top block, the line the tournament was cut at.
 const tournament = divisionPostseason().conference.find((t) =>
   t.codes.includes(season.fixtures.conference),
 );
 const frozen = live && tournament !== undefined;
-const champion = tournament?.champion?.slug ?? null;
+// The titles the season has decided (lib/titles.ts): a ribbon and its words
+// on a conference champion's row, a trophy on the national champion's.
+// Titles are results, not tiers, so they draw with the tiers gate closed.
+const titles = seasonTitles(season);
 const entered = tournament ? participantsOf(tournament) : new Set<string>();
 const lastIn = rows.findLastIndex((r) => entered.has(r.slug));
 const cutAt = lastIn >= 0 && rows.slice(0, lastIn + 1).every((r) => entered.has(r.slug)) ? lastIn : -1;
@@ -103,7 +108,9 @@ const marks = (slug: string) => (tiers ? tableMarks(tiers, slug) : null);
     return live ? (
       <a class:list={["trow", "trow-live", "hoverable", { "trow-cut": frozen && i === cutAt }]} href={teamHref(season.key, r.slug)}>
         <span class="tpos">{i + 1}</span>
-        <span class="tname">{r.name}{shield}{frozen && r.slug === champion && <span class="tchamp">TOURNAMENT CHAMPION</span>}</span>
+        <span class="tname">{r.name}{shield}{titleMarks(titles, r.slug).map((t) => (
+          <span class="tchamp"><TitleMark kind={t.kind} />{t.words.toUpperCase()}</span>
+        ))}</span>
         <span class="trec">{record(r)}</span>
         <span class="tpts">{r.points}</span>
         <span class="tdim">
@@ -148,7 +155,13 @@ const marks = (slug: string) => (tiers ? tableMarks(tiers, slug) : null);
   .trow.trow-head:hover { border-left-color: transparent; }
   .trow.trow-head .trec, .trow.trow-head .tpts, .trow.trow-head .tpos { font-size: 10px; color: var(--quiet); font-weight: 600; }
   .trow-head .tform { text-align: right; }
-  .tchamp { font-size: 9px; letter-spacing: 0.12em; font-weight: 600; color: var(--ink); margin-left: 8px; white-space: nowrap; }
+  /* A title won, its mark and its words beside the name. On a phone the
+     words wrap under the name whole rather than squeezing it. */
+  .tchamp {
+    display: inline-flex; align-items: center; gap: 4px; vertical-align: 1px;
+    font-size: 9.5px; letter-spacing: 0.12em; font-weight: 600; color: var(--ink);
+    margin-left: 8px; white-space: nowrap;
+  }
   .trow:hover { border-left-color: var(--accent); }
   .tpos { font-size: 11.5px; color: var(--quiet); }
   .tname { font-size: 13.5px; }
