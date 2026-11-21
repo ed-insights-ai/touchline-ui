@@ -57,7 +57,7 @@ export function activeTiers(
   gender: string = site.gender,
   preview?: string,
 ): TiersFile | null {
-  if (!tiersEnabled(level, preview)) return null;
+  if (!tiersEnabled(level, gender, preview)) return null;
   return loadTiers(level, season, gender);
 }
 
@@ -449,7 +449,9 @@ export function sheetTier(
   });
   // An entry the level does not show (tiers.config.ts) draws nothing: a
   // Division I forward's sheet is the sheet as it was before tiers.
-  return e && levelShows(tiers.level, e) ? tierBlock(e, tiers, slug, programme, line) : null;
+  return e && levelShows(tiers.level, tiers.gender, e)
+    ? tierBlock(e, tiers, slug, programme, line)
+    : null;
 }
 
 // ── Team defence ────────────────────────────────────────────────────────────
@@ -477,7 +479,7 @@ export function sheetDefence(
   programme: string,
   player: TierPlayer,
 ): SheetDefence | null {
-  const shown = levelTiers(tiers.level);
+  const shown = levelTiers(tiers.level, tiers.gender);
   if (!shown?.badge) return null;
   const e = tierFor(tiers, slug, {
     playerId: playerIdOf(player),
@@ -507,7 +509,7 @@ export function teamBadge(
   programme: string,
   load: (season: number) => TiersFile | null = (y) => loadTiers(tiers.level, y, tiers.gender),
 ): TeamBadge | null {
-  if (!levelTiers(tiers.level)?.badge) return null;
+  if (!levelTiers(tiers.level, tiers.gender)?.badge) return null;
   const earlier: number[] = [];
   for (let y = tiers.season - EARLIER_SEASONS; y < tiers.season; y++) {
     if (load(y)?.teams[slug]?.badge) earlier.push(y);
@@ -521,7 +523,7 @@ export function teamBadge(
  *  shows: a count of tiers already published, not a rating of its own. */
 export function tieredCount(tiers: TiersFile, slug: string): number {
   return (tiers.players[slug] ?? []).filter(
-    (e) => e.status === "tier" && levelShows(tiers.level, e),
+    (e) => e.status === "tier" && levelShows(tiers.level, tiers.gender, e),
   ).length;
 }
 
@@ -539,7 +541,7 @@ export interface TableMarks {
 }
 
 export function tableMarks(tiers: TiersFile, slug: string): TableMarks {
-  const shown = levelTiers(tiers.level);
+  const shown = levelTiers(tiers.level, tiers.gender);
   return {
     badge: shown?.badge === true && tiers.teams[slug]?.badge === true,
     tiered: tieredCount(tiers, slug),
@@ -586,7 +588,7 @@ export function earlierTiers(
       name: player.name,
       number: player.number ?? null,
     });
-    if (e?.status === "tier" && levelShows(file.level, e)) {
+    if (e?.status === "tier" && levelShows(file.level, file.gender, e)) {
       out.push({ season: y, label: statusLabel(e) });
     }
   }

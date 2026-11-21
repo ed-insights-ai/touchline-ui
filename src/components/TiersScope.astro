@@ -1,7 +1,7 @@
 ---
 // The method page's body for a level measured on its own seasons after the
 // method was built on another (tiers.config.ts methodIsShort): Division I
-// men. It says what the level shows, how each position is marked, the
+// men and women, each gender on its own measurement and constants. It says what the level shows, how each position is marked, the
 // constants fitted on the level's own seasons, how the badge is set, and
 // where the full method is. The measurement behind those choices is the
 // build log's and the spec's, not the reader's. The page ([tiers].astro) draws it inside its own
@@ -50,9 +50,9 @@ const oneLevel = shown.shooting
   .map((g) => groupPlural[g])
   .join(" and ");
 
-// The level whose page is the full method, for its link.
+// The level whose page is the full method for this gender, for its link.
 const fullKey = (Object.keys(TIERS_LEVELS) as NcaaDivisionKey[]).find((k) => {
-  const l = TIERS_LEVELS[k];
+  const l = TIERS_LEVELS[k]?.[tiers.gender];
   return l !== undefined && !methodIsShort(l);
 });
 const full = ncaaDivisions.find((d) => d.key === fullKey) ?? null;

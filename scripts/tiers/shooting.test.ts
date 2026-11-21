@@ -35,11 +35,19 @@ describe("constants per level", () => {
     expect(estimate("men", 0.5, 0.3, 0.4, "d1")).toBeCloseTo(0.45, 12);
   });
 
+  test("Division I women use their own fit, not the men's or Division II's", () => {
+    // 0.217 × 0.5 + 0.0718 × 3 = 0.1085 + 0.2154 = 0.3239.
+    expect(threat("women", 10, 60, 1800, "d1")).toBeCloseTo(0.3239, 12);
+    // 0.84 × 0.5 + 0.16 × 0.3 = 0.468; 0.64 × 0.5 + 0.34 × 0.4 + 0.02 × 0.3 = 0.462.
+    expect(estimate("women", 0.5, 0.3, null, "d1")).toBeCloseTo(0.468, 12);
+    expect(estimate("women", 0.5, 0.3, 0.4, "d1")).toBeCloseTo(0.462, 12);
+    expect(constantsFor("women", "d1")).not.toEqual(constantsFor("men", "d1"));
+    expect(constantsFor("women", "d1")).not.toEqual(constantsFor("women", "d2"));
+  });
+
   test("a level or gender with no fit has no constants, never a borrowed set", () => {
-    expect(() => constantsFor("women", "d1")).toThrow(
-      /no shooting constants are fitted for d1 women/,
-    );
-    expect(() => constantsFor("men", "d3")).toThrow(/d3 men/);
+    expect(() => constantsFor("men", "d3")).toThrow(/no shooting constants are fitted for d3 men/);
+    expect(() => constantsFor("women", "d3")).toThrow(/d3 women/);
   });
 });
 

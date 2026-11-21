@@ -3,7 +3,12 @@
 // rulings) over the data home.
 //
 //   bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16 [--require-clean]
-//   TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --frozen-at 2026-11-20
+//   TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --gender men --frozen-at 2026-11-20
+//   TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --gender women --frozen-at 2026-11-21
+//
+// --gender builds that gender alone: a level whose genders are frozen on
+// different days (Division I: men 2026-11-20, women 2026-11-21) rebuilds one
+// without touching the other's files.
 //
 // [N5] --require-clean refuses to build when the data home's working tree is
 // modified (`git status --porcelain` not empty), so the commit the artifacts
@@ -18,7 +23,8 @@
 // writes the comparison rows and the measured report the build log quotes.
 // Those hold intermediate estimates and must never be committed or imported.
 // Next to --out it also writes position-readings.json (tiers/, committed; for
-// a level other than Division II, position-readings.<level>.json):
+// a level other than Division II, position-readings.<level>.json, and for
+// that level's women built alone, position-readings.<level>.women.json):
 // every position label the build asked the site's reader about and the answer
 // it got, which position-readings.test.ts holds the reader to afterwards.
 // The report's acceptance 11.4 table needs a second computation of each gender
@@ -53,25 +59,37 @@ import { CONSTANTS } from "./shooting.ts";
 const GENDERS: readonly Gender[] = ["men", "women"];
 
 /** The genders this build computes: those the data home holds a fixtures
- *  file for and the level has fitted constants for. The Division I home is
- *  men only, and a gender with no files has nothing to fit. */
-function buildGenders(fixturesDir: string): Gender[] {
+ *  file for and the level has fitted constants for, or `only` (--gender)
+ *  alone. A gender with no files has nothing to fit, and one with no
+ *  constants is never computed on another's. */
+function buildGenders(fixturesDir: string, only: Gender | null): Gender[] {
   const files = readdirSync(fixturesDir);
-  return GENDERS.filter(
+  const genders = GENDERS.filter(
     (g) =>
+      (only === null || g === only) &&
       CONSTANTS[ncaaDivision]?.[g] !== undefined &&
       files.some((f) => /^\d{4}-/.test(f) && f.slice(5).startsWith(`${g}-`)),
   );
+  if (only !== null && genders.length === 0) {
+    throw new Error(
+      `tiers: --gender ${only}: no files or no fitted constants for ${ncaaDivision} ${only}`,
+    );
+  }
+  return genders;
 }
 
 /** Division II's paths are the ones the first freeze wrote; another level's
- *  carry its key, so one level's build never overwrites another's. */
-const levelSuffix = (): string => (ncaaDivision === "d2" ? "" : `-${ncaaDivision}`);
+ *  carry its key, so one level's build never overwrites another's. Division
+ *  I's men were that level's first freeze and keep its plain key; its women,
+ *  frozen on their own day, carry their gender too. */
+const scope = (only: Gender | null): string[] =>
+  ncaaDivision === "d2" ? [] : only === "women" ? [ncaaDivision, "women"] : [ncaaDivision];
 
 interface Args {
   out: string;
   frozenAt: string;
   requireClean: boolean;
+  gender: Gender | null;
 }
 
 function today(): string {
@@ -84,16 +102,21 @@ function parseArgs(argv: readonly string[]): Args {
   let out: string | null = null;
   let frozenAt = today();
   let requireClean = false;
+  let gender: Gender | null = null;
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--out") out = argv[++i] ?? null;
-    else if (a === "--frozen-at") frozenAt = argv[++i] ?? "";
+    else if (a === "--gender") {
+      const g = argv[++i];
+      if (g !== "men" && g !== "women") throw new Error("tiers: --gender is men or women");
+      gender = g;
+    } else if (a === "--frozen-at") frozenAt = argv[++i] ?? "";
     else if (a === "--require-clean") requireClean = true;
     else throw new Error(`tiers: unknown argument ${a}`);
   }
   if (!out) throw new Error("tiers: --out <dir> is required (e.g. --out tiers/d2)");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(frozenAt)) throw new Error("tiers: --frozen-at is YYYY-MM-DD");
-  return { out: resolve(out), frozenAt, requireClean };
+  return { out: resolve(out), frozenAt, requireClean, gender };
 }
 
 /** [N5] Throw when the data home's working tree is modified. */
@@ -153,8 +176,8 @@ function main(): void {
   }
   if (args.requireClean) assertClean(root);
   const commit = dataCommit(root);
-  const debugDir = join(dirname(args.out), `.debug${levelSuffix()}`);
-  const genders = buildGenders(dataHome().fixturesDir);
+  const debugDir = join(dirname(args.out), [".debug", ...scope(args.gender)].join("-"));
+  const genders = buildGenders(dataHome().fixturesDir, args.gender);
   mkdirSync(args.out, { recursive: true });
   mkdirSync(debugDir, { recursive: true });
 
@@ -194,7 +217,7 @@ function main(): void {
   }
   const readingsPath = join(
     dirname(args.out),
-    ncaaDivision === "d2" ? "position-readings.json" : `position-readings.${ncaaDivision}.json`,
+    ["position-readings", ...scope(args.gender), "json"].join("."),
   );
   writeFileSync(readingsPath, serializeReadings(args.frozenAt, readings));
   console.log(`tiers: wrote ${readingsPath} (${readings.size} labels)`);

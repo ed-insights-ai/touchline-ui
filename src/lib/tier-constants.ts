@@ -19,9 +19,11 @@ export interface ShootingConstants {
  * (ed-insights-platform evidence/v01.py: least squares with an intercept over
  * returning players at one programme, 600 minutes in both seasons), each on
  * its own population and frozen before that population was measured. Division
- * I has men only, fitted 2026-11-20 on ~/keelson/d1-soccer at fd497c9 (4,498
+ * I men were fitted 2026-11-20 on ~/keelson/d1-soccer at fd497c9 (4,498
  * returning pairs for the weights, 2,787 and 760 for the blend); the same
- * procedure on Division II's own data reproduces Division II's blend.
+ * procedure on Division II's own data reproduces Division II's blend. Division
+ * I women were fitted 2026-11-21 on the same home at 917eff8, 2022 to 2026
+ * (8,734 returning pairs for the weights, 5,409 and 1,749 for the blend).
  */
 export const CONSTANTS: Readonly<
   Partial<Record<NcaaDivisionKey, Partial<Record<Gender, ShootingConstants>>>>
@@ -38,5 +40,9 @@ export const CONSTANTS: Readonly<
   },
   d1: {
     men: { weights: { wG: 0.207, wS: 0.0837 }, blend: { one: [0.8, 0.2], two: [0.6, 0.3, 0.1] } },
+    women: {
+      weights: { wG: 0.217, wS: 0.0718 },
+      blend: { one: [0.84, 0.16], two: [0.64, 0.34, 0.02] },
+    },
   },
 };

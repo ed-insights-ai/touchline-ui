@@ -16,7 +16,8 @@
     "test": "bun test",
     "journal": "bun scripts/journal/cli.ts",
     "tiers:build": "bun run scripts/tiers/build.ts --out tiers/d2 --frozen-at 2026-11-16",
-    "tiers:build:d1": "TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --frozen-at 2026-11-20"
+    "tiers:build:d1": "TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --gender men --frozen-at 2026-11-20",
+    "tiers:build:d1:women": "TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --gender women --frozen-at 2026-11-21"
   },
   "dependencies": {
     "astro": "^5.14.1",
