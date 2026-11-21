@@ -331,7 +331,7 @@ export function densityFootprints(size: DensitySize): ConferenceFootprint[] {
       if (!at) continue;
       placed.push({
         slug: `${c.key}-placeholder-${i + 1}`,
-        name: `[programme ${i + 1}]`,
+        name: `[program ${i + 1}]`,
         city: "[town]",
         at,
       });

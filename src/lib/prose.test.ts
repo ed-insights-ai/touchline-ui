@@ -58,7 +58,7 @@ describe("a line that is another line with the words moved", () => {
         "Georgian Court have won once and drawn twice, scoring seven and conceding four, and their " +
         "first win came at home to Staten Island after draws on the road at Bentley and Saint " +
         "Michael's. Bridgeport's record is the same shape, a win and two draws. Every other " +
-        "programme in the CACC has already been beaten.",
+        "program in the CACC has already been beaten.",
     };
     const featured = {
       where: "cacc featured last_match",

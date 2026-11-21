@@ -21,7 +21,7 @@
 // drawn per state, and the three intent words — withheld, refused, declined —
 // are barred from all of them. A state says what exists and what does not.
 
-import { plural } from "./format.ts";
+import { plural, statusWord } from "./format.ts";
 
 /** The six readings the page renders from one fixture. Named here because the
  *  copy below is keyed to them and the page and the copy must not drift. */
@@ -119,7 +119,7 @@ export function disputedNote(
         `${s.source} (${s.code} file) has ${names.home} ${s.home_score}–${s.away_score} ${names.away}`,
     )
     .join("; ");
-  return `The sources disagree on the score: ${each}. The home programme's figure is shown; neither is counted in any record until the sources agree.`;
+  return `The sources disagree on the score: ${each}. The home program's figure is shown; neither is counted in any record until the sources agree.`;
 }
 
 /**
@@ -161,7 +161,7 @@ export function metaDescription(
     case "silent-past":
       return `${head} The date has passed with no result published.`;
     case "off":
-      return `${head} The programme marks this match ${m.status}.`;
+      return `${head} The program marks this match ${statusWord(m.status)}.`;
     default:
       return `${head} Not played yet.`;
   }
@@ -181,19 +181,19 @@ export function provenance(
   switch (state) {
     case "played":
       return source.hasPlays
-        ? "From the programme's published box score and play-by-play."
-        : "From the programme's published box score.";
+        ? "From the program's published box score and play-by-play."
+        : "From the program's published box score.";
     case "score-only":
       return source.forfeit
-        ? "Result by forfeit, from the programme's published schedule; no box score was published."
-        : "Result from the programme's published schedule; no box score was published.";
+        ? "Result by forfeit, from the program's published schedule; no box score was published."
+        : "Result from the program's published schedule; no box score was published.";
     case "silent-final":
-      return "The programme's schedule marks this match final; no score was published.";
+      return "The program's schedule marks this match final; no score was published.";
     case "silent-past":
-      return "From the programme's published schedule; the date has passed with no result published.";
+      return "From the program's published schedule; the date has passed with no result published.";
     case "off":
-      return `From the programme's published schedule, which marks this match ${source.status}.`;
+      return `From the program's published schedule, which marks this match ${statusWord(source.status)}.`;
     default:
-      return "From the programme's published schedule.";
+      return "From the program's published schedule.";
   }
 }

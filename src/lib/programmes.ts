@@ -91,7 +91,7 @@ export function loadProgrammes(): ProgrammesFile {
   // voice, the same one every other file this site reads fails in.
   if (!existsSync(path)) {
     throw new Error(
-      `Touchline: programmes reference is missing: ${path}\n` +
+      `Touchline: programs reference is missing: ${path}\n` +
         `  A collect writes it beside membership.json. Set TOUCHLINE_DATA_DIR to the data home ` +
         `root (the directory containing data/), or TOUCHLINE_PROGRAMMES_FILE to the file.`,
     );
@@ -151,7 +151,7 @@ export function assertProgrammesFor(
   const missing = missingProgrammes(members, rows);
   if (missing.length === 0) return;
   throw new Error(
-    `Touchline: programmes reference has no row for ${missing.join(", ")} ` +
+    `Touchline: programs reference has no row for ${missing.join(", ")} ` +
       `(members of ${conferenceSeason})\n` +
       `  ${programmesPath()}\n` +
       `  Every member of a followed conference-season needs a row with nickname, city and point. ` +

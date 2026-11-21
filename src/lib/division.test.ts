@@ -721,7 +721,7 @@ describe("a disputed final keeps both scores instead of failing the build", () =
     for (const x of m.scores) expect(x.source.length).toBeGreaterThan(0);
   });
 
-  test("the folded record is the home programme's, whichever arrived first", () => {
+  test("the folded record is the home program's, whichever arrived first", () => {
     const { home, peer } = records();
     for (const order of [
       [scored(home, 2, 1), scored(peer, 1, 1)],

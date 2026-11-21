@@ -117,7 +117,7 @@ describe("the justfile builds every profile where the site links it", () => {
     expect(buildPath("d1", "men")).toBe("/d1");
   });
 
-  test("the sample programme is a member of the home conference", () => {
+  test("the sample program is a member of the home conference", () => {
     const file = join(
       dataRoot(),
       "data",

@@ -97,7 +97,7 @@ const marks = (slug: string) => (tiers ? tableMarks(tiers, slug) : null);
     // The marks' CSS is TierMarks.astro's, drawn by the page while tiers are
     // on, so the bundled stylesheet is the same with the gate closed.
     const shield = m?.badge ? (
-      <span class="table-shield" title="Team defence badge"><span class="vh">, team defence badge</span></span>
+      <span class="table-shield" title="Team defense badge"><span class="vh">, team defense badge</span></span>
     ) : null;
     const tiered = m ? tieredLine(m.tiered) : null;
     return live ? (

@@ -95,7 +95,7 @@ describe("consecutive seasons counted", () => {
 });
 
 describe("career record and the tier", () => {
-  test("career record is the mean of the programme's scores over the seasons counted", () => {
+  test("career record is the mean of the program's scores over the seasons counted", () => {
     const chain = season(
       2026,
       { score: 1 },

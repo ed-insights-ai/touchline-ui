@@ -48,7 +48,7 @@ describe("each size", () => {
     }
   });
 
-  test("every row has a code, a name, programmes, and a sane placeholder box", () => {
+  test("every row has a code, a name, programs, and a sane placeholder box", () => {
     for (const c of DENSITY_CONFERENCES) {
       expect(c.code.length, c.key).toBeGreaterThan(0);
       expect(c.name.length, c.key).toBeGreaterThan(0);
@@ -174,7 +174,7 @@ describe("the home page under the cap keeps the map (owner's ruling)", () => {
     }
   });
 
-  test("the plain map draws the states, one dot per programme, the footer — and no selection", () => {
+  test("the plain map draws the states, one dot per program, the footer — and no selection", () => {
     for (const size of SMALL) {
       const cfg = densityConfig(size);
       const fps = densityFootprints(size);
@@ -199,7 +199,7 @@ describe("the home page under the cap keeps the map (owner's ruling)", () => {
       }
       // The footer names the counts the map draws; the placeholder points
       // hold no state, so the state count is honestly zero here.
-      expect(view.footer).toBe(`${view.dots.length} PROGRAMMES · ${view.states.length} STATES`);
+      expect(view.footer).toBe(`${view.dots.length} PROGRAMS · ${view.states.length} STATES`);
       expect(view.unplaced).toEqual(fps.flatMap((f) => f.unplaced));
     }
   });

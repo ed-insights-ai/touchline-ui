@@ -105,7 +105,7 @@ describe("the home factor and team ids", () => {
     expect(otherVenue("neutral")).toBe("neutral");
   });
 
-  test("a team is one programme in one season", () => {
+  test("a team is one program in one season", () => {
     expect(teamId(2025, "harding")).not.toBe(teamId(2026, "harding"));
   });
 });

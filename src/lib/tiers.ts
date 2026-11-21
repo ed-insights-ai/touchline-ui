@@ -99,10 +99,10 @@ export const tierEntrySchema = z
       fail("reason is set exactly when status is incomplete");
     }
     if (e.status === "needs_second_season" && e.kind !== "team_defence") {
-      fail("needs_second_season belongs to team defence");
+      fail("needs_second_season belongs to team defense");
     }
     if (e.reason === "few_matches" && e.kind !== "team_defence") {
-      fail("few_matches belongs to team defence");
+      fail("few_matches belongs to team defense");
     }
     if (e.reason === "no_position" && e.group !== null) fail("no_position has no group");
     if (e.group === null && e.status !== "incomplete") fail("a player with no group is incomplete");

@@ -51,7 +51,7 @@ export function printedDivisions(file: FixturesFile): string[] | null {
   if (without.length > 0) {
     console.warn(
       `[touchline] ${file.conference} ${file.gender} ${file.season} mixes divisions: ` +
-        `every programme must carry a division or none may; rendering one table. ` +
+        `every program must carry a division or none may; rendering one table. ` +
         `Without a division: ${without.join(", ")}`,
     );
     return null;

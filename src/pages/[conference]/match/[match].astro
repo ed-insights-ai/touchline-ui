@@ -64,6 +64,7 @@ import {
   monShort,
   dayOfMonth,
   stampDate,
+  statusWord,
 } from "../../../lib/format.ts";
 
 export function getStaticPaths() {
@@ -122,7 +123,7 @@ const BADGE: Record<State, { text: string; tone: "accent" | "alert" }> = {
   "silent-final": { text: "FINAL · SCORE GAP", tone: "alert" },
   "silent-past": { text: "PAST DATE · NO RESULT PUBLISHED", tone: "alert" },
   preview: { text: "SCHEDULED", tone: "accent" },
-  off: { text: fixture.status.toUpperCase(), tone: "alert" },
+  off: { text: statusWord(fixture.status).toUpperCase(), tone: "alert" },
 };
 const badge = BADGE[state];
 
@@ -282,7 +283,7 @@ const knownRows: { label: string; value: string }[] = [
             ? forfeit
               ? "Result by forfeit · no box score, because no match was played"
               : `Result published · box score not collected${gapReason ? ` — ${gapReason}` : ""}`
-            : `Listed as ${fixture.status}`,
+            : `Listed as ${statusWord(fixture.status)}`,
   }]),
   {
     label: "SOURCE",
@@ -296,13 +297,13 @@ const explain: Record<State, string> = {
   // says what the result is instead.
   "score-only": forfeit
     ? ""
-    : "The programme published the result but no box score Touchline could reach: a box score gap. The scoreline stands; the detail behind it does not exist here.",
+    : "The program published the result but no box score Touchline could reach: a box score gap. The scoreline stands; the detail behind it does not exist here.",
   "silent-final":
-    "The programme's schedule marked this match finished but never entered a result: a score gap. The silence is the site's own, and it stays on the record, named.",
+    "The program's schedule marked this match finished but never entered a result: a score gap. The silence is the site's own, and it stays on the record, named.",
   "silent-past":
-    "The date has passed and the programme's schedule still lists this match as scheduled. No result, no postponement, no note — the page simply has not changed.",
+    "The date has passed and the program's schedule still lists this match as scheduled. No result, no postponement, no note — the page simply has not changed.",
   preview: "",
-  off: `The programme marked this match ${fixture.status}. It stays on the record rather than disappearing from it.`,
+  off: `The program marked this match ${statusWord(fixture.status)}. It stays on the record rather than disappearing from it.`,
 };
 
 // Only a side with a team page somewhere gets a link; the rest read as plain
@@ -559,7 +560,7 @@ const meetings =
             <a href={detail.source_url} rel="noopener external">
               {publisher
                 ? `From ${publisher.name}'s published box score`
-                : `From the box score published at ${publishedHost ?? "the programme's site"}`}
+                : `From the box score published at ${publishedHost ?? "the program's site"}`}
               <span aria-hidden="true"> ↗</span>
             </a>
           </p>

@@ -73,7 +73,7 @@ export function coverageLine(name: string, shown: LevelTiers | null): string {
     : shown.shooting.map((g) => (g === "M" ? "midfielders" : "forwards")).join(" and ");
   const parts = [
     ...(groups ? [`the shooting and scoring tier for ${groups}`] : []),
-    ...(shown.badge ? ["the team defence badge"] : []),
+    ...(shown.badge ? ["the team defense badge"] : []),
   ];
   return parts.length === 0
     ? `${name} pages show none.`
@@ -102,7 +102,7 @@ const oneLevel = (e: TierEntry): boolean =>
 export function statusLabel(e: TierEntry): StatusLabel {
   switch (e.status) {
     case "tier":
-      if (e.kind === "team_defence") return { head: "Team defence tier", kind: null };
+      if (e.kind === "team_defence") return { head: "Team defense tier", kind: null };
       return { head: oneLevel(e) ? "Tier" : `Tier ${e.tier}`, kind: "Shooting and scoring" };
     case "eligible":
       return { head: "Eligible, no tier", kind: null };
@@ -125,7 +125,7 @@ export const labelText = (l: StatusLabel): string => (l.kind ? `${l.head} · ${l
  */
 export function holderLine(e: TierEntry): string | null {
   if (e.status !== "tier") return null;
-  if (e.kind === "team_defence") return "Team defence tier";
+  if (e.kind === "team_defence") return "Team defense tier";
   return oneLevel(e) ? "Shooting and scoring tier" : `Tier ${e.tier}, shooting and scoring`;
 }
 
@@ -158,7 +158,7 @@ export function meaningLine(e: TierEntry, programme: string): string {
       const keeper = e.group === "GK";
       if (keeper || defence) {
         const [floor, share] = keeper ? [600, 50] : [900, 70];
-        const rule = `The team defence tier needs a regular: ${thousands(floor)} minutes and ${share}% of ${P}'s minutes in a season.`;
+        const rule = `The team defense tier needs a regular: ${thousands(floor)} minutes and ${share}% of ${P}'s minutes in a season.`;
         // A regular must clear both bars. With the minutes over the floor, the
         // share is the bar missed, and a reader who sees "1,080 minutes" under
         // "900 minutes" needs telling so. The file carries no share to print
@@ -171,7 +171,7 @@ export function meaningLine(e: TierEntry, programme: string): string {
       return `A tier needs 900 minutes this season, or 600 in each of the last two seasons as a forward or midfielder at ${P}.`;
     }
     case "needs_second_season":
-      return `A regular in defence or goal at ${P} this season, but not the season before. The team defence tier needs two such seasons in a row.`;
+      return `A regular in defense or goal at ${P} this season, but not the season before. The team defense tier needs two such seasons in a row.`;
     case "incomplete":
       switch (e.reason) {
         case "no_minutes":
@@ -359,7 +359,7 @@ export function tierFigures(f: TeamFigures, programme: string, season: number): 
   if (team.shots_faced_per_match === null) return null;
   return {
     caption: {
-      head: `${programme.toUpperCase()}'S DEFENCE, ${season}`,
+      head: `${programme.toUpperCase()}'S DEFENSE, ${season}`,
       workload: team.workload ? `${team.workload.toUpperCase()} WORKLOAD` : null,
     },
     rows: [
@@ -469,7 +469,7 @@ export interface SheetDefence {
 
 /** The badge as a team page and a sheet say it. */
 export const badgeLine = (programme: string, season: number): string =>
-  `${programme} holds the team defence badge for ${season}: its goals conceded, against what its opponents usually score, were in the top fifth of the division.`;
+  `${programme} holds the team defense badge for ${season}: its goals conceded, against what its opponents usually score, were in the top fifth of the division.`;
 
 export function sheetDefence(
   tiers: TiersFile,

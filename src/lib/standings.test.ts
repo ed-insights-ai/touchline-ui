@@ -196,7 +196,7 @@ describe("a conference that publishes one table", () => {
 });
 
 describe("a mixed file, which the rib's check refuses", () => {
-  test("falls back to one table and says so in the build log, naming the odd programme", () => {
+  test("falls back to one table and says so in the build log, naming the odd program", () => {
     const warn = spyOn(console, "warn").mockImplementation(() => {});
     try {
       const s = seasonOf(mixed);

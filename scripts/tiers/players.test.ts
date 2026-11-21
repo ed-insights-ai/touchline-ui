@@ -341,7 +341,7 @@ describe("4.2, pass 3: the roster pass", () => {
 });
 
 describe("[N2d] team rows", () => {
-  test("TEAM, TEAM TEAM and the programme's nickname with no minutes are dropped", () => {
+  test("TEAM, TEAM TEAM and the program's nickname with no minutes are dropped", () => {
     const nick = "warriors";
     expect(isTeamRow(line({ name: "TEAM", minutes: 0 }), nick)).toBe(true);
     expect(isTeamRow(line({ name: "Team Team", minutes: 90 }), nick)).toBe(true);

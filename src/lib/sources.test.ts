@@ -118,7 +118,7 @@ const same = (a: Duplicate, b: Duplicate): boolean =>
   a.member === b.member &&
   a.alias === b.alias;
 
-describe("one programme, one slug", () => {
+describe("one program, one slug", () => {
   test("no member and a stranger play the same side on the same day", () => {
     // Whatever is here is a programme the collector reached twice under two
     // names, and every figure that folds by slug is already counting it twice.

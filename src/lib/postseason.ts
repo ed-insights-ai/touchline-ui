@@ -1036,7 +1036,7 @@ export function verdictLine(
   return published
     ? {
         head: `Final drawn ${score} · shootout published, winner not matched to a side`,
-        note: `Published as “${published}”, quoted as published. It names no programme Touchline can match to a side, so no champion is named.`,
+        note: `Published as “${published}”, quoted as published. It names no program Touchline can match to a side, so no champion is named.`,
       }
     : {
         head: `Final drawn ${score} · shootout not published`,

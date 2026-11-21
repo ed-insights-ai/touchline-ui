@@ -166,13 +166,13 @@ describe("what each level shows", () => {
     reason: "no_position",
   });
 
-  test("Division II shows shooting and scoring for both groups, and no defence tier", () => {
+  test("Division II shows shooting and scoring for both groups, and no defense tier", () => {
     for (const e of [mid, fwd, unplaced]) expect(levelShows("d2", e)).toBe(true);
     for (const e of [def, keeper]) expect(levelShows("d2", e)).toBe(false);
     expect(levelTiers("d2")).toMatchObject({ shooting: ["F", "M"], badge: true });
   });
 
-  test("Division I shows what Division II shows: forwards and midfielders, no defence tier", () => {
+  test("Division I shows what Division II shows: forwards and midfielders, no defense tier", () => {
     expect(levelTiers("d1")).toMatchObject({ shooting: ["F", "M"], badge: true });
     for (const e of [mid, fwd, unplaced]) expect(levelShows("d1", e)).toBe(true);
     for (const e of [def, keeper]) expect(levelShows("d1", e)).toBe(false);
@@ -192,10 +192,10 @@ describe("what each level shows", () => {
 
   test("the coverage sentence says what another level shows, from config", () => {
     expect(coverageLine("Division I", levelTiers("d1"))).toBe(
-      "Division I pages show the shooting and scoring tier for forwards and midfielders and the team defence badge.",
+      "Division I pages show the shooting and scoring tier for forwards and midfielders and the team defense badge.",
     );
     expect(coverageLine("Division II", levelTiers("d2"))).toBe(
-      "Division II pages show the shooting and scoring tier for forwards and midfielders and the team defence badge.",
+      "Division II pages show the shooting and scoring tier for forwards and midfielders and the team defense badge.",
     );
     expect(coverageLine("Division III", levelTiers("d3"))).toBe("Division III pages show none.");
   });
@@ -259,10 +259,10 @@ describe("the status, as the sheet, the top line and the squad row say it", () =
     expect(holderLine(entry({ tier: 2 }))).toBe("Tier 2, shooting and scoring");
   });
 
-  test("the team defence tier, with no workload group in its label", () => {
+  test("the team defense tier, with no workload group in its label", () => {
     const e = entry({ group: "D", kind: "team_defence" });
-    expect(statusLabel(e)).toEqual({ head: "Team defence tier", kind: null });
-    expect(holderLine(e)).toBe("Team defence tier");
+    expect(statusLabel(e)).toEqual({ head: "Team defense tier", kind: null });
+    expect(holderLine(e)).toBe("Team defense tier");
   });
 
   test("every other status is named, and is no holder", () => {
@@ -293,7 +293,7 @@ describe("the meaning line, for every status and kind", () => {
       "The next 15% of eligible midfielders, after Tier 1, for shooting and scoring.",
     ],
     [
-      "team defence tier",
+      "team defense tier",
       { group: "D", kind: "team_defence" },
       "Calder State's defending over the seasons counted, shared by every regular defender and goalkeeper with the same seasons. It describes the team, not one player.",
     ],
@@ -303,7 +303,7 @@ describe("the meaning line, for every status and kind", () => {
       "Played enough this season to be compared with eligible midfielders for shooting and scoring.",
     ],
     [
-      "eligible, team defence",
+      "eligible, team defense",
       { status: "eligible", tier: null, group: "GK", kind: "team_defence" },
       "A regular at Calder State for enough seasons in a row to be compared.",
     ],
@@ -326,7 +326,7 @@ describe("the meaning line, for every status and kind", () => {
         kind: "team_defence",
         basis: { minutes: 635, matches: 9, seasons: [2026], class_year: "Senior" },
       },
-      "The team defence tier needs a regular: 900 minutes and 70% of Calder State's minutes in a season.",
+      "The team defense tier needs a regular: 900 minutes and 70% of Calder State's minutes in a season.",
     ],
     [
       "needs more minutes, defender over the floor but under the share",
@@ -337,7 +337,7 @@ describe("the meaning line, for every status and kind", () => {
         kind: "team_defence",
         basis: { minutes: 1080, matches: 16, seasons: [2026], class_year: "Junior" },
       },
-      "The team defence tier needs a regular: 900 minutes and 70% of Calder State's minutes in a season. The 1,080 below clear the 900 but fall short of the 70%.",
+      "The team defense tier needs a regular: 900 minutes and 70% of Calder State's minutes in a season. The 1,080 below clear the 900 but fall short of the 70%.",
     ],
     [
       "needs more minutes, goalkeeper under the floor",
@@ -348,7 +348,7 @@ describe("the meaning line, for every status and kind", () => {
         kind: "team_defence",
         basis: { minutes: 164, matches: 3, seasons: [2026], class_year: "Sophomore" },
       },
-      "The team defence tier needs a regular: 600 minutes and 50% of Calder State's minutes in a season.",
+      "The team defense tier needs a regular: 600 minutes and 50% of Calder State's minutes in a season.",
     ],
     [
       "needs more minutes, goalkeeper over the floor but under the share",
@@ -359,12 +359,12 @@ describe("the meaning line, for every status and kind", () => {
         kind: "team_defence",
         basis: { minutes: 642, matches: 8, seasons: [2026], class_year: "Junior" },
       },
-      "The team defence tier needs a regular: 600 minutes and 50% of Calder State's minutes in a season. The 642 below clear the 600 but fall short of the 50%.",
+      "The team defense tier needs a regular: 600 minutes and 50% of Calder State's minutes in a season. The 642 below clear the 600 but fall short of the 50%.",
     ],
     [
       "needs a second season",
       { status: "needs_second_season", tier: null, group: "GK", kind: "team_defence" },
-      "A regular in defence or goal at Calder State this season, but not the season before. The team defence tier needs two such seasons in a row.",
+      "A regular in defense or goal at Calder State this season, but not the season before. The team defense tier needs two such seasons in a row.",
     ],
     [
       "incomplete, no minutes",
@@ -434,7 +434,7 @@ describe("the team figures", () => {
   test("two rows beside the division's, one sentence, and the note", () => {
     const f = tierFigures({ team: team(), division }, "Calder State", 2026);
     expect(f?.caption).toEqual({
-      head: "CALDER STATE'S DEFENCE, 2026",
+      head: "CALDER STATE'S DEFENSE, 2026",
       workload: "HEAVY WORKLOAD",
     });
     expect(f?.rows).toEqual([
@@ -558,7 +558,7 @@ describe("the team figures", () => {
     expect(basisNote(one(1412, 17), line(1412, 17, null, true))).toBeNull();
   });
 
-  test("a programme has played since the freeze when a scored match is dated on or after it", () => {
+  test("a program has played since the freeze when a scored match is dated on or after it", () => {
     const fixtureOn = (date: string, scored: boolean) => ({
       date,
       home: "calder",
@@ -620,7 +620,7 @@ describe("the team figures", () => {
 
 // ── The block ───────────────────────────────────────────────────────────────
 
-describe("the team defence badge", () => {
+describe("the team defense badge", () => {
   const def = entry({ group: "D", kind: "team_defence", status: "eligible", tier: null });
   const badged = (over: Partial<TiersFile> = {}) =>
     file({ teams: { calder: team({ badge: true }) }, players: { calder: [def] }, ...over });
@@ -639,7 +639,7 @@ describe("the team defence badge", () => {
     expect(plain?.figures).not.toBeNull();
   });
 
-  test("the defence entry is never drawn as a tier, on any level", () => {
+  test("the defense entry is never drawn as a tier, on any level", () => {
     for (const level of ["d1", "d2"] as const) {
       expect(
         sheetTier(badged({ level }), "calder", "Calder State", { name: "Tomas Ferreira" }),
@@ -763,8 +763,8 @@ describe("the block", () => {
 describe("the CAREER line", () => {
   test("one earlier tier", () => {
     expect(
-      careerTiersLine([{ season: 2025, label: { head: "Team defence tier", kind: null } }]),
-    ).toBe("Earlier seasons: Team defence tier in 2025.");
+      careerTiersLine([{ season: 2025, label: { head: "Team defense tier", kind: null } }]),
+    ).toBe("Earlier seasons: Team defense tier in 2025.");
   });
 
   test("several, oldest first", () => {

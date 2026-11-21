@@ -73,7 +73,7 @@ export type JournalChart = z.infer<typeof journalChartSchema>;
  *  one conference's bars were three goals short of its own record — and the
  *  answer was to make the bars whole rather than to narrow the caption around
  *  them. The chip's count and the chart's population are now the same set. */
-export const CHART_CAPTION = "Goals by programme, all matches";
+export const CHART_CAPTION = "Goals by program, all matches";
 
 export const journalFindingSchema = z
   .object({

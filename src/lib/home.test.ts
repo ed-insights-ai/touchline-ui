@@ -210,7 +210,7 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       expect(openBandIndex(none, null, conferenceOf)).toBe(0);
     });
 
-    test("a headline about a programme no followed season lists falls through to imminent", () => {
+    test("a headline about a program no followed season lists falls through to imminent", () => {
       expect(conferenceOf("stranger")).toBeNull();
       expect(openBandIndex(bands, "stranger", conferenceOf)).toBe(1);
       // And to the first when nothing is imminent either.
@@ -251,7 +251,7 @@ describe("up to the column cap the page is columns; past it, region bands", () =
       expect(conferenceOfProgramme(seasons, "")).toBeNull();
     });
 
-    test("the headline programme is the journal's basis, and only a non-empty string", () => {
+    test("the headline program is the journal's basis, and only a non-empty string", () => {
       expect(headlineProgrammeOf(null)).toBeNull();
       const none = { headline: "A story" } as unknown as NationalJournalFile;
       expect(headlineProgrammeOf(none)).toBeNull();
@@ -794,7 +794,7 @@ describe("the ledger holds only played finals — silences never enter it", () =
     // conferences is in both files, and counting the files counts it twice —
     // which is what the ledger did, printing one result as two rows under two
     // codes. The recount folds by the same identity the page must: the day and
-    // the two programmes, never the id, which is the collector's own key.
+    // the two programs, never the id, which is the collector's own key.
     for (const date of allDates) {
       const recount = new Set(
         seasons.flatMap((s) =>
@@ -1322,7 +1322,7 @@ describe("the map's places and its members with no dot", () => {
     );
     const view = mapView(footprints, null);
     expect(view.footer).toBe(
-      `${view.placed} PROGRAMMES · ${placesLine(view.states, view.provinces)}`,
+      `${view.placed} PROGRAMS · ${placesLine(view.states, view.provinces)}`,
     );
     if (view.provinces.length > 0) expect(view.footer).toMatch(/ AND (ONE|TWO|\w+) PROVINCES?$/);
     for (const u of view.unplaced) expect(["off-frame", "no-point"]).toContain(u.reason);

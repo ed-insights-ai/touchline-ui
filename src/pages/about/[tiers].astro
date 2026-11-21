@@ -450,7 +450,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         <div class="akicker num">TOUCHLINE · NCAA {division.toUpperCase()}</div>
         <h1 class="atitle serif">Understanding Touchline tiers</h1>
         <p class="intro">
-          Touchline recognizes players and defences that stand out in measurable parts of college
+          Touchline recognizes players and defenses that stand out in measurable parts of college
           soccer. <strong>Tiers highlight standout box-score performance — not overall player
           ability.</strong>
         </p>
@@ -511,9 +511,9 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         </p>
         <ul class="list">
           <li>
-            <strong>Defence is recognised on the team, not on one player.</strong> The team
-            defence badge sits on the team page. A regular defender's or goalkeeper's sheet shows
-            the team's figures and, where the team holds it, the badge, but no defence tier of
+            <strong>Defense is recognized on the team, not on one player.</strong> The team
+            defense badge sits on the team page. A regular defender's or goalkeeper's sheet shows
+            the team's figures and, where the team holds it, the badge, but no defense tier of
             the player's own: nothing in the box scores measures one defender's part reliably.
           </li>
           <li>
@@ -526,7 +526,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           <li>
             <strong>Box scores leave out most of soccer.</strong> Tiers cannot see positioning,
             tackles, interceptions, off-ball movement, build-up passing, assists, leadership,
-            seasons played at a previous programme, or why a player missed matches (Touchline never
+            seasons played at a previous program, or why a player missed matches (Touchline never
             assumes injury or rest).
           </li>
         </ul>
@@ -535,7 +535,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
       <section class="band" id="statuses">
         <h3 class="sechead">WHAT EACH STATUS ON A PLAYER SHEET MEANS</h3>
         <p class="para">
-          Every forward and midfielder with a box-score line at a {division} programme Touchline
+          Every forward and midfielder with a box-score line at a {division} program Touchline
           follows displays one of four statuses. None of them implies poor playing ability:
         </p>
         <dl class="status-grid">
@@ -610,32 +610,32 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         <h4 class="question">1. Is every goal worth the same?</h4>
         <p class="para">
           In the standings, yes. But imagine two forwards who each score ten goals: one faces
-          stingy defences on the road, while the other faces weaker defences at home. Simply
+          stingy defenses on the road, while the other faces weaker defenses at home. Simply
           counting goals treats those seasons as identical even though the circumstances were very
           different.
         </p>
         <p class="para">
           Touchline adjusts every match's non-penalty goals and shots for how tough the opponent's
-          defence is and whether the match was home or away. Penalty kicks are removed so
+          defense is and whether the match was home or away. Penalty kicks are removed so
           designated kickers are not boosted over teammates who win the fouls.
         </p>
         <div class="compare-grid" aria-label="Illustrative opponent adjustment comparison">
           <div class="compare-card">
-            <div class="compare-kicker">Away · Strong defence</div>
+            <div class="compare-kicker">Away · Strong defense</div>
             <div class="compare-figure compare-figure-accent">1.37</div>
             <div class="compare-label">Adjusted goal contribution</div>
-            <div class="compare-meta">1 goal scored · Opponent defence factor 0.80 (harder)</div>
+            <div class="compare-meta">1 goal scored · Opponent defense factor 0.80 (harder)</div>
           </div>
           <div class="compare-card">
-            <div class="compare-kicker">Home · Weaker defence</div>
+            <div class="compare-kicker">Home · Weaker defense</div>
             <div class="compare-figure">0.70</div>
             <div class="compare-label">Adjusted goal contribution</div>
-            <div class="compare-meta">1 goal scored · Opponent defence factor 1.30 (easier)</div>
+            <div class="compare-meta">1 goal scored · Opponent defense factor 1.30 (easier)</div>
           </div>
         </div>
         <p class="caption">
           Illustrative values from the current methodology, rounded. Both players scored once, but
-          scoring away against a tough defence counts nearly twice as much.
+          scoring away against a tough defense counts nearly twice as much.
         </p>
         <details class="tech-disclosure">
           <summary>See the opponent adjustment formula</summary>
@@ -686,7 +686,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           A single season can still be influenced by a hot streak or a soft stretch of opponents.
           To reduce the effect of short-term noise, Touchline pulls every estimate slightly toward
           the average for that position group. When a player also played regularly at the same
-          programme the year before, two seasons provide much stronger evidence — so the pull toward
+          program the year before, two seasons provide much stronger evidence — so the pull toward
           average becomes much smaller while the current season still carries the most weight.
         </p>
         <div class="compare-grid" aria-label="Illustrative one-season versus two-season blend">
@@ -737,7 +737,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         </details>
 
         {/* Idea 4: Defensive workload */}
-        <h4 class="question">4. Does allowing fewer goals always mean a better defence?</h4>
+        <h4 class="question">4. Does allowing fewer goals always mean a better defense?</h4>
         <p class="para">
           Not on its own. A back line on a dominant possession team facing 6 shots a match has a
           very different job from one facing 16 shots a match — and box scores do not tell us which
@@ -745,7 +745,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         </p>
         <p class="para">
           Touchline first tried to credit the back line alone, comparing a team only with teams
-          facing a similar shot workload, so that a defence holding firm behind a midfield that
+          facing a similar shot workload, so that a defense holding firm behind a midfield that
           cannot keep the ball would stand out. Tested on every season collected, that comparison
           did not hold up: split a season's matches in two at random, and the teams that stood out
           on one half mostly did not on the other. Goals per shot faced and a goalkeeper's save
@@ -756,9 +756,9 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           opponents usually score</strong>, compared across the whole division. Keeping the other
           side from shooting counts as much as stopping the shots, so it rewards the team, from the
           front line's pressing to the goalkeeper. The top fifth of teams each season hold the{" "}
-          <strong>team defence badge</strong>.
+          <strong>team defense badge</strong>.
         </p>
-        <div class="compare-grid" aria-label="Illustrative team defence comparison">
+        <div class="compare-grid" aria-label="Illustrative team defense comparison">
           <div class="compare-card">
             <div class="compare-kicker">Team A · 16.0 shots faced a match</div>
             <div class="compare-figure">25% below</div>
@@ -786,7 +786,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
               <div class="formula-note">
                 The top fifth of the division's teams with 12 or more complete matches, each season.
                 Full walkthrough in{" "}
-                <a href="#defence">Explore the mathematics → Team defence badge</a>.
+                <a href="#defence">Explore the mathematics → Team defense badge</a>.
               </div>
             </div>
           </div>
@@ -810,7 +810,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           <a class="math-link" href="#eligibility">Eligibility &amp; minutes</a>
           <a class="math-link" href="#opponents">Opponent model</a>
           <a class="math-link" href="#shooting">Shooting formulas</a>
-          <a class="math-link" href="#defence">Team defence badge</a>
+          <a class="math-link" href="#defence">Team defense badge</a>
           <a class="math-link" href="#examples">Worked examples</a>
           <a class="math-link" href="#sheet">Player sheet details</a>
           <a class="math-link" href="#reliability">Reliability</a>
@@ -847,16 +847,16 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
                       Midfielders: Tier 1, top 5% (rounded up + ties); Tier 2, next 15% (to top 20% +
                       ties). Forwards: one tier, top 20% (rounded up + ties).
                     </td>
-                    <td>None. The team defence badge is the team's, shown on the team page.</td>
+                    <td>None. The team defense badge is the team's, shown on the team page.</td>
                   </tr>
                   <tr>
                     <th scope="row">Eligibility</th>
                     <td>
                       900 minutes this season, or 600 minutes in each of the last two seasons as F
-                      or M at the same programme.
+                      or M at the same program.
                     </td>
                     <td>
-                      A regular this season (thresholds below), at a programme with at least 12
+                      A regular this season (thresholds below), at a program with at least 12
                       complete team matches.
                     </td>
                   </tr>
@@ -891,7 +891,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
 
             <h4 class="subhead">Minutes of record</h4>
             <p class="para">
-              Because some programmes omit player minutes in certain box scores, Touchline selects
+              Because some programs omit player minutes in certain box scores, Touchline selects
               a player's minutes in this exact order:
             </p>
             <ol class="list">
@@ -935,8 +935,8 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
               Touchline fits two multiplicative team-strength models across all collected seasons
               (men and women separately): one for <strong>goals</strong> and one for{" "}
               <strong>shots</strong>. Every team-season receives an attack factor (
-              <span class="sym">att</span>) and a defence factor (<span class="sym">dfn</span>),
-              centred around <span class="sym">1.0</span> for an average team:
+              <span class="sym">att</span>) and a defense factor (<span class="sym">dfn</span>),
+              centered around <span class="sym">1.0</span> for an average team:
             </p>
             <div class="formula">
               <div class="formula-eq">
@@ -976,7 +976,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
                     the season stats file; if the stats file reports extra penalties, season
                     adjusted totals are scaled down proportionally) are removed. Each match's
                     non-penalty goals (<span class="sym">g</span>) and shots (
-                    <span class="sym">s</span>) are divided by the opponent's defence factor times
+                    <span class="sym">s</span>) are divided by the opponent's defense factor times
                     the venue factor, then summed over the season into <span class="sym">adjG</span>{" "}
                     and <span class="sym">adjS</span>:
                   </p>
@@ -1015,7 +1015,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
                     Each eligible player's threat rate is blended with the position-group average
                     (mean threat of all complete players in that position group and gender with at
                     least 600 minutes) and, when linked and qualified (600+ minutes as F or M at
-                    the same programme), the prior season's threat:
+                    the same program), the prior season's threat:
                   </p>
                   <div class="formula">
                     <div class="formula-eq">
@@ -1055,7 +1055,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         <details class="tech-disclosure" id="defence">
           <summary>
             <span>
-              4. Team defence badge
+              4. Team defense badge
               <span class="tech-summary-meta">Expected goals against, log-ratio record, top fifth of the division &amp; the workload label</span>
             </span>
           </summary>
@@ -1087,7 +1087,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
                   <p class="para">
                     Every qualifying team in the season (men and women separately) is ranked by its
                     record, and the top <span class="sym">ceil(0.20 × N)</span> teams, plus exact
-                    ties, hold the <strong>team defence badge</strong> for that season. The badge is
+                    ties, hold the <strong>team defense badge</strong> for that season. The badge is
                     one season's: it is not averaged with earlier seasons, and a team page lists the
                     earlier seasons a programme held it beside this one.
                   </p>
@@ -1116,7 +1116,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
           <summary>
             <span>
               5. Worked mathematical examples
-              <span class="tech-summary-meta">Complete step-by-step arithmetic for one forward and two teams' defence (illustrative values)</span>
+              <span class="tech-summary-meta">Complete step-by-step arithmetic for one forward and two teams' defense (illustrative values)</span>
             </span>
           </summary>
           <div class="tech-body">
@@ -1124,7 +1124,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
             <p class="para">
               Suppose a men's forward plays <strong>1,350 minutes</strong> (15 full matches),
               recording 9 non-penalty goals and 42 non-penalty shots against slightly
-              tougher-than-average defences, while the men's forward average threat is{" "}
+              tougher-than-average defenses, while the men's forward average threat is{" "}
               <strong>0.2800</strong>.
             </p>
             <ul class="example-rows">
@@ -1150,7 +1150,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
               </li>
             </ul>
 
-            <div class="example-head">Example B · Team defence badge (illustrative two teams)</div>
+            <div class="example-head">Example B · Team defense badge (illustrative two teams)</div>
             <p class="para">
               Suppose two teams in a division of 198 qualifying teams, one facing many more shots
               than the other.
@@ -1170,7 +1170,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
               </li>
               <li>
                 <span class="example-label">Applying the cut</span>
-                <span>If the 40th-best record is +0.35, Team B holds the <strong>team defence badge</strong> and Team A does not, though Team A faced more shots: the badge credits keeping opponents from shooting as well as stopping the shots they take.</span>
+                <span>If the 40th-best record is +0.35, Team B holds the <strong>team defense badge</strong> and Team A does not, though Team A faced more shots: the badge credits keeping opponents from shooting as well as stopping the shots they take.</span>
               </li>
             </ul>
           </div>
@@ -1186,7 +1186,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
         <h4 class="subhead">Team figures for regular defenders and goalkeepers</h4>
         <p class="para">
           Every regular defender's and goalkeeper's player sheet prints three team figures for the
-          current season, under TEAM DEFENCE. They are the team's facts, not a mark for the player;
+          current season, under TEAM DEFENSE. They are the team's facts, not a mark for the player;
           when the team holds the badge, the block says so:
         </p>
         <ol class="list">
@@ -1202,7 +1202,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
             <strong>Goals given up, beside what the opponents usually score.</strong> Printed as one
             sentence — for example, “Gave up 24 goals where its opponents usually score 31.” This
             is the <span class="sym">GA</span> vs. <span class="sym">EGA</span> comparison behind
-            the team defence badge.
+            the team defense badge.
           </li>
         </ol>
 
@@ -1249,7 +1249,7 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
             why they hold one tier rather than two.
           </li>
           <li>
-            <strong>Team defence badge:</strong> about <strong>5 in 10</strong> holding teams hold
+            <strong>Team defense badge:</strong> about <strong>5 in 10</strong> holding teams hold
             it on the other half, again against 2 in 10 by chance. It is the team's whole
             defending that repeats: most of it is how few shots the team lets opponents take.
           </li>
@@ -1265,17 +1265,17 @@ const retired = `${monLong(TEAM_DEFENCE_TIER_RETIRED)} ${dayOfMonth(TEAM_DEFENCE
       <section class="band" id="when">
         <h3 class="sechead">WHEN TIERS ARE SET &amp; {division.toUpperCase()} COVERAGE</h3>
         <p class="para">
-          Tiers are calculated once a season, in {setIn}, before postseason honours are announced,
+          Tiers are calculated once a season, in {setIn}, before postseason honors are announced,
           and are not moved afterward. The minutes printed beside a tier are the minutes counted
           through that day.{retroactive && ` ${retroactive}`}{firstSeasonNote && ` ${firstSeasonNote}`}
         </p>
         <p class="para" id="retired">
-          Until {retired}, regular defenders and goalkeepers held a <strong>team defence
+          Until {retired}, regular defenders and goalkeepers held a <strong>team defense
           tier</strong>: their team's record, compared only with teams facing a similar number of
           shots and averaged over two or three seasons, handed to each of them. A review that day
           found nothing in it that belonged to one player, and the comparison inside workload
           thirds did not repeat. It left player sheets that day on every level, and the team
-          defence badge, on the team page, took its place. On the same day forwards' Tier 1 and
+          defense badge, on the team page, took its place. On the same day forwards' Tier 1 and
           Tier 2 became one tier, the top 20%, so that a forward is marked the same way on every
           level: a forward who held either holds it. Midfielders' tiers did not change, and no
           player's place in or out of the top 20% moved.
