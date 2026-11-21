@@ -78,6 +78,13 @@ default: all
 # The whole loop, in the order the pipeline runs it.
 all: collect journal build publish
 
+# Where the gate's tests are. Named by path, not found by a scan: every test
+# file lives under src/ or scripts/, and a scanning `bun test` (Bun 1.3.10) in
+# some agent sessions hands spawned processes no stdout, which fails the
+# tiers' --require-clean test on a clean tree (tui bead filed 2026-11-21).
+# The paths run the same files.
+test_paths := "./src ./scripts"
+
 # The tests, standing between the model-composed journal and any publish.
 # A dependency of `publish` itself — not a step in `all` — because the
 # cadence script calls `just publish` directly and every other path here
@@ -93,20 +100,21 @@ all: collect journal build publish
 # reads the women's build at dist/women (home.test), Division I's at dist/d1,
 # against its own data home and its own sample conference and programme
 # (site.config `home`, `sampleProgramme`).
+
 gate:
     @echo "→ gate  (men)"
-    TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test
+    TOUCHLINE_GENDER=men TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test {{test_paths}}
     if [ -n "{{with_women}}" ]; then \
       echo "→ gate  (women)"; \
-      TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test; \
+      TOUCHLINE_GENDER=women TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test {{test_paths}}; \
     fi
     if [ -n "{{with_d1}}" ]; then \
       echo "→ gate  (d1 men)"; \
-      {{d1_env}} TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test; \
+      {{d1_env}} TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test {{test_paths}}; \
     fi
     if [ -n "{{with_d1}}" ] && [ -n "{{with_women}}" ]; then \
       echo "→ gate  (d1 women)"; \
-      {{d1w_env}} TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test; \
+      {{d1w_env}} TOUCHLINE_GENDERS="{{genders}}" TOUCHLINE_NCAA_DIVISIONS="{{divisions}}" bun test {{test_paths}}; \
     fi
 
 # Ask the sources for today's record. Costs network and time; nothing else does.
