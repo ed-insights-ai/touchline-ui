@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Touchline — How tiers work</title><meta name="touchline-build" content="2026-11-21T23:00:01Z"><meta name="description" content="Understand Touchline tiers in 60 seconds, learn why opponent strength and playing time matter, or open the complete mathematical methodology."><link rel="canonical" href="https://ed-insights-ai.github.io/touchline-ui/d1/women/about/tiers/"><meta property="og:site_name" content="Touchline"><meta property="og:title" content="Touchline — How tiers work"><meta property="og:description" content="Understand Touchline tiers in 60 seconds, learn why opponent strength and playing time matter, or open the complete mathematical methodology."><meta property="og:type" content="website"><meta property="og:url" content="https://ed-insights-ai.github.io/touchline-ui/d1/women/about/tiers/"><meta name="twitter:card" content="summary"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Public+Sans:wght@400;500;600&display=swap"><link rel="stylesheet" href="/touchline-ui/d1/women/_astro/index.Cn4a8-6l.css"></head> <body> <main>  <style>
+    .tm .lede { padding: 40px 0 28px; max-width: 760px; }
+    .tm .akicker { margin-bottom: 14px; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
+    .tm .atitle { margin: 0 0 14px; font-size: 42px; line-height: 1.1; letter-spacing: -0.005em; }
+    .tm .intro {
+      margin: 0; font-size: 17.5px; line-height: 1.6; color: var(--ink-soft);
+      font-family: var(--serif); font-weight: 400; text-wrap: pretty;
+    }
+    .tm .intro strong { font-weight: 600; color: var(--ink); }
+
+    /* First-screen 3-tile tier summary: understand all three labels in seconds. */
+    .tm .tier-tiles {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+      margin: 24px 0 12px;
+    }
+    .tm .tier-tiles-two, .tm .tier-tiles-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tm .tier-tile {
+      padding: 16px 16px 15px; background: var(--card);
+      border: 1px solid var(--hairline); border-radius: 6px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .tm .tier-tile-primary { border-top: 2px solid var(--accent); }
+    .tm .tile-kicker {
+      font-size: 10.5px; letter-spacing: 0.16em; font-weight: 600;
+      text-transform: uppercase; color: var(--secondary);
+    }
+    .tm .tier-tile-primary .tile-kicker { color: var(--accent); }
+    .tm .tile-stat {
+      font-family: var(--serif); font-size: 32px; font-weight: 500;
+      line-height: 1.12; color: var(--ink); font-variant-numeric: tabular-nums;
+      margin: 4px 0 2px;
+    }
+    .tm .tile-kind { font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .tm .tile-scope { font-size: 12.5px; color: var(--secondary); line-height: 1.42; margin-top: 2px; }
+    .tm .tile-scope strong { color: var(--ink); font-weight: 600; }
+    .tm .tile-footnote {
+      margin: 0; font-family: var(--serif); font-size: 14.5px; line-height: 1.5;
+      color: var(--secondary); text-wrap: pretty;
+    }
+
+    /* Simple 3-stop reading journey bar. */
+    .tm .journey {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 18px;
+      margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--hairline);
+    }
+    .tm .journey-stop {
+      display: flex; flex-direction: column; gap: 2px; padding: 4px 0;
+      color: inherit;
+    }
+    .tm .journey-stop:hover .journey-title { color: var(--accent-hover); }
+    .tm .journey-stop:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; border-radius: 3px; }
+    .tm .journey-tag {
+      font-size: 10px; letter-spacing: 0.16em; font-weight: 600;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tm .journey-title { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+    .tm .journey-sub { font-size: 12px; color: var(--secondary); line-height: 1.4; }
+
+    /* Level dividers: clean transition from overview -> learning -> math. */
+    .tm .level-banner {
+      max-width: 760px; padding: 34px 0 8px;
+      border-top: 2px solid var(--ink);
+      margin-top: 8px;
+      scroll-margin-top: 16px;
+    }
+    .tm .level-tag {
+      font-size: 10.5px; letter-spacing: 0.2em; font-weight: 600;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+    }
+    .tm .level-heading {
+      margin: 0 0 6px; font-family: var(--serif); font-size: 27px; font-weight: 500;
+      line-height: 1.2; color: var(--ink);
+    }
+    .tm .level-dek {
+      margin: 0; font-family: var(--serif); font-size: 15.5px; line-height: 1.5;
+      color: var(--secondary); text-wrap: pretty;
+    }
+
+    /* Section bands inside each level. */
+    .tm .band { padding: 24px 0; border-top: 1px solid var(--hairline); max-width: 760px; scroll-margin-top: 16px; }
+    .tm .band-lead { border-top: 0; padding-top: 16px; }
+    .tm .band .sechead { margin-bottom: 16px; display: inline-block; }
+    .tm .subhead {
+      margin: 20px 0 8px;
+      font-size: 10.5px; letter-spacing: 0.18em; font-weight: 600;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tm .subhead:first-of-type { margin-top: 2px; }
+    .tm .question {
+      margin: 28px 0 10px; font-family: var(--serif); font-size: 21px; font-weight: 500;
+      line-height: 1.28; color: var(--ink);
+    }
+    .tm .question:first-of-type { margin-top: 2px; }
+
+    .tm .para, .tm .list {
+      margin: 0 0 14px; font-family: var(--serif); font-weight: 400;
+      font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty;
+    }
+    .tm .para:last-child, .tm .list:last-child { margin-bottom: 0; }
+    .tm .para strong, .tm .list strong { font-weight: 600; color: var(--ink); }
+    .tm .list { padding-left: 1.25em; }
+    .tm .list li + li { margin-top: 7px; }
+    .tm .para a, .tm .list a { color: inherit; border-bottom: 1px solid var(--outline-quiet); }
+    .tm .para a:hover, .tm .list a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+
+    /* Prominent editorial callout (e.g. "Not an overall player rating"). */
+    .tm .callout {
+      margin: 0 0 18px; padding: 15px 18px;
+      background: var(--accent-wash-soft);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+    }
+    .tm .callout p {
+      margin: 0; font-family: var(--serif); font-size: 16px; line-height: 1.55;
+      color: var(--ink); text-wrap: pretty;
+    }
+    .tm .callout p + p { margin-top: 8px; font-size: 15px; color: var(--ink-soft); }
+
+    /* Compact status rows. */
+    .tm .status-grid {
+      display: grid; grid-template-columns: 185px minmax(0, 1fr);
+      margin: 12px 0 0; border-top: 1px solid var(--hairline-soft);
+    }
+    .tm .status-row { display: contents; }
+    .tm .status-row dt, .tm .status-row dd {
+      margin: 0; padding: 9px 0; border-bottom: 1px solid var(--hairline-soft);
+    }
+    .tm .status-row dt {
+      font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--ink);
+      padding-right: 16px;
+    }
+    .tm .status-row dd {
+      font-family: var(--serif); font-size: 15px; line-height: 1.5; color: var(--ink-soft);
+    }
+
+    /* Level 2 four-step visual process sequence. */
+    .tm .flow {
+      list-style: none; padding: 0; margin: 14px 0 18px;
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
+    }
+    .tm .flow-step {
+      padding: 12px 14px; background: var(--card);
+      border: 1px solid var(--hairline); border-radius: 6px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .tm .flow-num {
+      font-size: 10px; letter-spacing: 0.16em; font-weight: 600;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tm .flow-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .tm .flow-desc { font-family: var(--serif); font-size: 13.5px; line-height: 1.45; color: var(--ink-soft); }
+
+    /* Side-by-side illustrative comparison cards. */
+    .tm .compare-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+      margin: 14px 0 10px;
+    }
+    .tm .compare-card {
+      padding: 14px 16px; background: var(--card);
+      border: 1px solid var(--hairline); border-radius: 6px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .tm .compare-kicker {
+      font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600;
+      text-transform: uppercase; color: var(--secondary);
+    }
+    .tm .compare-figure {
+      font-family: var(--serif); font-size: 30px; font-weight: 500;
+      line-height: 1.15; color: var(--ink); font-variant-numeric: tabular-nums;
+      margin: 4px 0 2px;
+    }
+    .tm .compare-figure-accent { color: var(--accent); }
+    .tm .compare-label { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+    .tm .compare-meta { font-size: 12.5px; color: var(--secondary); line-height: 1.45; }
+    .tm .caption {
+      margin: 0 0 14px; font-family: var(--serif); font-style: italic;
+      font-size: 13.5px; color: var(--secondary);
+    }
+
+    /* Tables: ruled sans, tabular figures, safe on narrow screens. */
+    .tm .table-wrap { overflow-x: auto; margin: 12px 0 16px; }
+    .tm .table-wrap:last-child { margin-bottom: 0; }
+    .tm .who { width: 100%; border-collapse: collapse; margin: 0; font-size: 13px; line-height: 1.48; }
+    .tm .who th, .tm .who td {
+      text-align: left; vertical-align: top; padding: 9px 14px 9px 0;
+      border-top: 1px solid var(--hairline-soft);
+    }
+    .tm .who thead th {
+      border-top: 0; padding-top: 0;
+      font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600; color: var(--secondary);
+      text-transform: uppercase;
+    }
+    .tm .who tbody th { width: 136px; font-weight: 600; color: var(--ink); }
+    .tm .who td { color: var(--ink-soft); }
+
+    /* Progressive disclosure for formulas (Level 2) and full technical chapters (Level 3). */
+    .tm .tech-disclosure {
+      margin: 12px 0 16px;
+      border: 1px solid var(--hairline);
+      border-radius: 6px;
+      background: var(--card);
+      scroll-margin-top: 16px;
+    }
+    .tm .tech-disclosure + .tech-disclosure { margin-top: 10px; }
+    .tm .tech-disclosure > summary {
+      list-style: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 12px 16px;
+      font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--ink);
+    }
+    .tm .tech-disclosure > summary::-webkit-details-marker { display: none; }
+    .tm .tech-disclosure > summary:hover { color: var(--accent-hover); }
+    .tm .tech-disclosure > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: -2px; border-radius: 6px; }
+    .tm .tech-summary-meta {
+      display: block; font-weight: 400; font-size: 12.5px; color: var(--secondary);
+      margin-top: 2px;
+    }
+    .tm .tech-disclosure > summary::after {
+      content: "+"; font-size: 17px; font-weight: 400; color: var(--accent); line-height: 1;
+      flex: none;
+    }
+    .tm .tech-disclosure[open] > summary::after { content: "−"; }
+    .tm .tech-disclosure[open] > summary { border-bottom: 1px solid var(--hairline-soft); }
+    .tm .tech-body { padding: 15px 17px; }
+    .tm .tech-body > :last-child { margin-bottom: 0; }
+    @media (pointer: coarse) {
+      .tm .tech-disclosure > summary { min-height: 48px; }
+    }
+
+    /* Compact anchor jump strip inside Level 3. */
+    .tm .math-index {
+      display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 16px;
+    }
+    .tm .math-link {
+      font-size: 11.5px; letter-spacing: 0.1em; font-weight: 600;
+      text-transform: uppercase; color: var(--secondary); padding: 2px 0;
+    }
+    .tm .math-link:hover { color: var(--accent-hover); }
+    .tm .math-link:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+    /* Numbered calculation steps inside Level 3 disclosures. */
+    .tm .steps { list-style: none; padding: 0; margin: 8px 0 4px; counter-reset: tm-step; }
+    .tm .step {
+      counter-increment: tm-step;
+      display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: 14px;
+      padding: 13px 0; border-top: 1px solid var(--hairline-soft);
+    }
+    .tm .step:first-child { border-top: 0; padding-top: 2px; }
+    .tm .step::before {
+      content: counter(tm-step);
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      background: var(--accent-wash-soft);
+      width: 24px; height: 24px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .tm .step-title {
+      margin: 0 0 6px; font-family: var(--sans); font-size: 14px; font-weight: 600;
+      color: var(--ink); line-height: 1.35;
+    }
+    .tm .step-body > .para { margin-bottom: 10px; }
+    .tm .step-body > .para:last-child { margin-bottom: 0; }
+
+    /* Formula callout: wraps cleanly without horizontal overflow. */
+    .tm .formula {
+      margin: 10px 0 12px; padding: 10px 14px;
+      background: var(--accent-wash-soft);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      font-family: var(--sans); font-size: 13px; line-height: 1.55;
+      color: var(--ink); font-variant-numeric: tabular-nums;
+      overflow-wrap: break-word;
+    }
+    .tm .formula-eq { font-weight: 600; }
+    .tm .formula-note {
+      margin-top: 5px; font-size: 12.5px; color: var(--secondary); line-height: 1.48;
+    }
+
+    /* Worked example arithmetic rows. */
+    .tm .example-head {
+      margin: 18px 0 8px;
+      font-size: 11px; letter-spacing: 0.16em; font-weight: 600;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .tm .example-head:first-child { margin-top: 2px; }
+    .tm .example-rows {
+      margin: 8px 0 14px; padding: 0; list-style: none;
+      font-family: var(--sans); font-size: 13px; line-height: 1.5;
+      color: var(--ink-soft); font-variant-numeric: tabular-nums;
+    }
+    .tm .example-rows:last-child { margin-bottom: 0; }
+    .tm .example-rows li {
+      padding: 7px 0; border-top: 1px solid var(--hairline-soft);
+      display: grid; grid-template-columns: 165px minmax(0, 1fr); column-gap: 12px;
+    }
+    .tm .example-rows li:first-child { border-top: 0; padding-top: 2px; }
+    .tm .example-label { font-weight: 600; color: var(--ink); }
+    .tm .example-rows strong { color: var(--ink); font-weight: 600; }
+
+    .tm .sym {
+      font-family: var(--sans); font-size: 0.9em; font-weight: 600;
+      color: var(--ink); font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 720px) {
+      .tm .atitle { font-size: 32px; }
+      .tm .intro { font-size: 16px; }
+      .tm .tier-tiles { grid-template-columns: minmax(0, 1fr); }
+      .tm .journey { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+      .tm .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tm .compare-grid { grid-template-columns: minmax(0, 1fr); }
+      .tm .status-grid { grid-template-columns: minmax(0, 1fr); }
+      .tm .status-row dt { border-bottom: 0; padding-bottom: 2px; }
+      .tm .status-row dd { padding-top: 0; }
+      .tm .who { font-size: 12.5px; }
+      .tm .who tbody th { width: 108px; }
+      .tm .who th, .tm .who td { padding-right: 10px; }
+      .tm .step { grid-template-columns: 24px minmax(0, 1fr); column-gap: 10px; }
+      .tm .example-rows li { grid-template-columns: minmax(0, 1fr); row-gap: 2px; }
+    }
+    @media (max-width: 480px) {
+      .tm .flow { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style> <div class="tl-page"> <header class="site-header" data-astro-cid-ctg3m53h>  <a class="wordmark" href="/touchline-ui/d1/women/" data-astro-cid-ctg3m53h> <span class="wordmark-square" data-astro-cid-ctg3m53h></span> <span class="wordmark-name" data-astro-cid-ctg3m53h>Touchline</span> </a>  <div class="season-tag num" data-astro-cid-ctg3m53h>   <details class="hmenu hmenu-division" data-astro-cid-ctg3m53h> <summary class="division-trigger" aria-label="Division: D-I · 2026 · WOMEN" data-astro-cid-ctg3m53h> <span data-astro-cid-ctg3m53h>D-I · 2026 · WOMEN</span> <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true" data-astro-cid-ctg3m53h><path d="M2 3.5 L5 6.5 L8 3.5" data-astro-cid-ctg3m53h></path></svg> </summary> <div class="hmenu-panel" data-astro-cid-ctg3m53h> <div class="hmenu-head" data-astro-cid-ctg3m53h> <span class="hmenu-tag num" data-astro-cid-ctg3m53h>2026 season</span> <button type="button" class="hmenu-close" data-astro-cid-ctg3m53h>Close</button> </div> <div class="hmenu-cols" data-astro-cid-ctg3m53h> <div class="hmenu-col" data-astro-cid-ctg3m53h> <div class="hmenu-group" role="group" aria-label="NCAA division" data-astro-cid-ctg3m53h> <div class="hmenu-region" data-astro-cid-ctg3m53h>NCAA division</div> <a class="mrow" href="/touchline-ui/d1/women/" aria-current="page" data-astro-cid-ctg3m53h><span class="mabbr" data-astro-cid-ctg3m53h>D-I</span><span class="mname" data-astro-cid-ctg3m53h>Division I</span></a><a class="mrow" href="/touchline-ui/women/" data-astro-cid-ctg3m53h><span class="mabbr" data-astro-cid-ctg3m53h>D-II</span><span class="mname" data-astro-cid-ctg3m53h>Division II</span></a><span class="mrow mrow-soon" aria-disabled="true" data-astro-cid-ctg3m53h><span class="mabbr" data-astro-cid-ctg3m53h>D-III</span><span class="mname" data-astro-cid-ctg3m53h>Division III</span><span class="msoon" data-astro-cid-ctg3m53h>Coming</span></span> </div> </div> <div class="hmenu-col" data-astro-cid-ctg3m53h> <div class="hmenu-group" role="group" aria-label="Men's and women's" data-astro-cid-ctg3m53h> <div class="hmenu-region" data-astro-cid-ctg3m53h>Men's and women's</div> <a class="mrow" href="/touchline-ui/d1/about/tiers/" data-astro-cid-ctg3m53h><span class="mname" data-astro-cid-ctg3m53h>Men</span></a><a class="mrow" href="/touchline-ui/d1/women/about/tiers/" aria-current="page" data-astro-cid-ctg3m53h><span class="mname" data-astro-cid-ctg3m53h>Women</span></a> </div> </div> </div> </div> </details> </div>  <nav class="hnav" aria-label="Conferences" data-astro-cid-ctg3m53h> <details class="hmenu hmenu-conf" data-astro-cid-ctg3m53h> <summary class="htab htab-conf" aria-label="Conferences" data-astro-cid-ctg3m53h> <span class="htab-label" data-astro-cid-ctg3m53h>Conferences</span> <svg class="chevron" viewBox="0 0 10 10" aria-hidden="true" data-astro-cid-ctg3m53h><path d="M2 3.5 L5 6.5 L8 3.5" data-astro-cid-ctg3m53h></path></svg> </summary> <div class="hmenu-panel"> <div class="hmenu-head"> <span class="hmenu-tag num">31 conferences · 2026 · WOMEN</span> <button type="button" class="hmenu-close">Close</button> </div> <div class="hmenu-cols" style="--mabbr-ch: 9"> <div class="hmenu-col"> <div class="hmenu-group" role="group" aria-label="Northeast"> <div class="hmenu-region">Northeast</div> <a class="mrow" href="/touchline-ui/d1/women/a10/"><span class="mabbr">A10</span><span class="mname">Atlantic 10 Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/ae/"><span class="mabbr">AE</span><span class="mname">America East Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/caa/"><span class="mabbr">CAA</span><span class="mname">Coastal Athletic Association</span></a><a class="mrow" href="/touchline-ui/d1/women/ivy/"><span class="mabbr">IVY</span><span class="mname">Ivy League</span></a><a class="mrow" href="/touchline-ui/d1/women/maac/"><span class="mabbr">MAAC</span><span class="mname">Metro Atlantic Athletic Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/nec/"><span class="mabbr">NEC</span><span class="mname">Northeast Conference</span></a> </div><div class="hmenu-group" role="group" aria-label="South Central"> <div class="hmenu-region">South Central</div> <a class="mrow" href="/touchline-ui/d1/women/cusa/"><span class="mabbr">CUSA</span><span class="mname">Conference USA</span></a><a class="mrow" href="/touchline-ui/d1/women/sec/"><span class="mabbr">SEC</span><span class="mname">Southeastern Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/southland/"><span class="mabbr">SOUTHLAND</span><span class="mname">Southland Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/swac/"><span class="mabbr">SWAC</span><span class="mname">Southwestern Athletic Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/uac/"><span class="mabbr">UAC</span><span class="mname">United Athletic Conference</span></a> </div> </div><div class="hmenu-col"> <div class="hmenu-group" role="group" aria-label="Mid-Atlantic"> <div class="hmenu-region">Mid-Atlantic</div> <a class="mrow" href="/touchline-ui/d1/women/mac/"><span class="mabbr">MAC</span><span class="mname">Mid-American Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/patriot/"><span class="mabbr">PATRIOT</span><span class="mname">Patriot League</span></a> </div><div class="hmenu-group" role="group" aria-label="Southeast"> <div class="hmenu-region">Southeast</div> <a class="mrow" href="/touchline-ui/d1/women/aac/"><span class="mabbr">AAC</span><span class="mname">American Athletic Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/acc/"><span class="mabbr">ACC</span><span class="mname">Atlantic Coast Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/asun/"><span class="mabbr">ASUN</span><span class="mname">Atlantic Sun Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/bigsouth/"><span class="mabbr">BIGSOUTH</span><span class="mname">Big South Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/socon/"><span class="mabbr">SOCON</span><span class="mname">Southern Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/sunbelt/"><span class="mabbr">SUNBELT</span><span class="mname">Sun Belt Conference</span></a> </div> </div><div class="hmenu-col"> <div class="hmenu-group" role="group" aria-label="Midwest"> <div class="hmenu-region">Midwest</div> <a class="mrow" href="/touchline-ui/d1/women/b1g/"><span class="mabbr">B1G</span><span class="mname">Big Ten Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/bigeast/"><span class="mabbr">BIGEAST</span><span class="mname">Big East Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/horizon/"><span class="mabbr">HORIZON</span><span class="mname">Horizon League</span></a><a class="mrow" href="/touchline-ui/d1/women/mvc/"><span class="mabbr">MVC</span><span class="mname">Missouri Valley Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/ovc/"><span class="mabbr">OVC</span><span class="mname">Ohio Valley Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/summit/"><span class="mabbr">SUMMIT</span><span class="mname">The Summit League</span></a> </div><div class="hmenu-group" role="group" aria-label="West"> <div class="hmenu-region">West</div> <a class="mrow" href="/touchline-ui/d1/women/big12/"><span class="mabbr">BIG12</span><span class="mname">Big 12 Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/bigsky/"><span class="mabbr">BIGSKY</span><span class="mname">Big Sky Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/bigwest/"><span class="mabbr">BIGWEST</span><span class="mname">The Big West</span></a><a class="mrow" href="/touchline-ui/d1/women/mw/"><span class="mabbr">MW</span><span class="mname">Mountain West Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/pac12/"><span class="mabbr">PAC12</span><span class="mname">Pac-12 Conference</span></a><a class="mrow" href="/touchline-ui/d1/women/wcc/"><span class="mabbr">WCC</span><span class="mname">West Coast Conference</span></a> </div> </div> </div> </div> </details>  <a class="htab htab-champ" href="/touchline-ui/d1/women/championship/" data-astro-cid-ctg3m53h><span class="htab-label" data-astro-cid-ctg3m53h>Championship</span></a> </nav>   <div class="grow" data-astro-cid-ctg3m53h></div> </header> <script type="module">const s=Array.from(document.querySelectorAll(".site-header .hmenu"));if(s.length){const c=e=>e.querySelector(":scope > summary"),a=e=>Array.from(e.querySelectorAll("a.mrow")),l=e=>c(e)?.setAttribute("aria-expanded",String(e.open)),r=(e,t)=>{e.open&&(e.open=!1,t&&c(e)?.focus())};for(const e of s)l(e),e.addEventListener("toggle",()=>{if(l(e),e.open)for(const t of s)t!==e&&r(t,!1)}),e.querySelector(".hmenu-close")?.addEventListener("click",()=>r(e,!0)),e.addEventListener("keydown",t=>{if(t.key==="Escape"){t.preventDefault(),r(e,!0);return}if(!e.open)return;const n=a(e);if(!n.length)return;const f=n.indexOf(document.activeElement);let o=null;t.key==="ArrowDown"?o=f<0?0:Math.min(f+1,n.length-1):t.key==="ArrowUp"?o=f<0?n.length-1:Math.max(f-1,0):t.key==="Home"?o=0:t.key==="End"&&(o=n.length-1),o!==null&&(t.preventDefault(),n[o]?.focus())});document.addEventListener("click",e=>{const t=e.target;for(const n of s)n.open&&t&&!n.contains(t)&&r(n,!1)}),document.addEventListener("focusin",e=>{const t=e.target;for(const n of s)n.open&&t&&!n.contains(t)&&r(n,!1)})}</script>  <article class="tm"><section class="lede"> <div class="akicker num">TOUCHLINE · NCAA DIVISION I</div> <h1 class="atitle serif">Understanding Touchline tiers</h1> <p class="intro">
+On Division I pages Touchline shows the <strong>shooting and scoring tier for women&#39;s  forwards and midfielders</strong>, and on team pages the <strong>team defense
+    badge</strong>. Tiers highlight standout box-score performance — not overall player
+    ability.
+</p> <div class="tier-tiles tier-tiles-four" aria-label="The tiers and the badge shown here"> <div class="tier-tile tier-tile-primary"> <div class="tile-kicker">Midfielders · Tier 1</div> <div class="tile-stat">Top 5%</div> <div class="tile-kind">Shooting &amp; scoring</div> <div class="tile-scope"> Non-penalty goals and shots per 90, against eligible midfielders. </div> </div><div class="tier-tile"> <div class="tile-kicker">Midfielders · Tier 2</div> <div class="tile-stat">Next 15%</div> <div class="tile-kind">Shooting &amp; scoring</div> <div class="tile-scope"> Positions 6% to 20% of eligible midfielders. </div> </div><div class="tier-tile"> <div class="tile-kicker">Forwards · Tier</div> <div class="tile-stat">Top 20%</div> <div class="tile-kind">Shooting &amp; scoring</div> <div class="tile-scope"> Non-penalty goals and shots per 90, against eligible forwards. One tier, not two. </div> </div><div class="tier-tile"> <div class="tile-kicker">Team defense badge</div> <div class="tile-stat">Top 20%</div> <div class="tile-kind">Team performance</div> <div class="tile-scope"> <strong>Awarded to the team, not a player.</strong> The division&#39;s best records of goals conceded against what opponents usually score, this season. </div> </div> </div> <p class="tile-footnote">
+Percentages are within one season's eligible forwards and midfielders, compared separately, or the division&#39;s teams. About  <strong>80% of eligible players hold no tier</strong>, and about 80% of teams hold no badge.
+</p> </section> <section class="band" id="positions"> <h3 class="sechead">HOW EACH POSITION IS MARKED</h3> <ul class="list"> <li> <strong>Midfielders:</strong> Tier 1 (the top 5%) or Tier 2 (the next 15%).
+</li> <li> <strong>Forwards:</strong> one tier, the top 20%. A forward's scoring swings
+        more from match to match than a midfielder's, so Touchline marks the top fifth rather
+        than splitting it, the same way on every level.
+</li> <li> <strong>Defenders and goalkeepers:</strong> no player tier. A regular's sheet prints the
+      team's defensive figures, and the team defense badge goes to the team.
+</li> </ul> <p class="para">No tier is not a bad mark.</p> </section> <section class="band" id="how"> <h3 class="sechead">HOW THE TIER IS SET</h3> <p class="para">
+Step for step as on every level: non-penalty goals and shots per 90, each adjusted for the
+    defense faced and for home and away; blended with the player's previous season at the same
+    program when that season counts, and pulled toward the group average; then the cut inside
+    each group, ties included. A player is eligible with 900 minutes this season, or 600 this
+    season and 600 the season before.
+</p>  <p class="para">
+Two weightings are fitted on Division I's own seasons, by the same method on every level:
+</p> <ul class="list num"> <li> <strong>Threat</strong> = 0.217 × goals + 0.0718 × shots, per 90 (one goal
+        counts as 3.02 shots).
+</li> <li> <strong>One season counts:</strong> 0.84 × this season + 0.16 × group
+        average.
+</li> <li> <strong>Two seasons count:</strong> 0.64 × this season + 0.34 ×
+        previous + 0.02 × group average.
+</li> </ul>  <p class="para">
+The full method, with worked examples, is on the <a href="/touchline-ui/women/about/tiers/">Division II tiers page</a>.
+</p> </section> <section class="band" id="badge"> <h3 class="sechead">HOW THE BADGE IS SET</h3> <p class="para">
+Over a team's complete matches (at least 12), Touchline compares the goals it conceded with
+      what its opponents usually score: record = ln(opponents' usual ÷ goals conceded). The top
+      fifth of the division's teams that season, ties included, hold the badge. Keeping opponents
+      from shooting counts as much as stopping their shots, so it credits the whole team's
+      defending, from the front line to the goalkeeper. It is one season's, and is not averaged
+      with earlier seasons.
+</p> </section> <section class="band" id="when"> <h3 class="sechead">WHEN TIERS ARE SET</h3> <p class="para">
+Tiers are calculated once a season, in November, and are not moved afterward. The minutes
+    printed beside a tier are the minutes counted through that day. Tiers for the seasons before 2026 were worked out in November 2026 by the same rule, from every match of those seasons, postseason included. The first season with tiers is 2022, and nothing before it is counted: a 2022 forward or midfielder is judged on that season alone. </p> </section></article> <footer class="site-footer" data-astro-cid-gcn2mc3v> <span class="sf-cell sf-left" data-astro-cid-gcn2mc3v> <span class="sf-left-in" data-astro-cid-gcn2mc3v> <span class="sf-say" data-astro-cid-gcn2mc3v>Touchline is independent and not affiliated with the NCAA</span> <span class="sf-about" data-astro-cid-gcn2mc3v><a class="sf-link" href="/touchline-ui/d1/women/about/" data-astro-cid-gcn2mc3v>About &amp; method</a></span> </span> </span> <span class="sf-cell sf-mid num" data-astro-cid-gcn2mc3v> <span class="sf-when" data-astro-cid-gcn2mc3v>Data collected Nov 21, 2026</span>  </span> <span class="sf-cell sf-right num" data-astro-cid-gcn2mc3v>© 2026 EDInsights.AI</span> </footer>  </div> <script>
+    // Progressive enhancement: jumping to a collapsed technical disclosure
+    // (#eligibility, #opponents, #shooting, #defence, #examples) opens it.
+    (() => {
+      const openHashTarget = () => {
+        const id = location.hash.slice(1);
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (el && el.tagName === "DETAILS") el.open = true;
+      };
+      openHashTarget();
+      window.addEventListener("hashchange", openHashTarget);
+      document.addEventListener("click", (e) => {
+        const a = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
+        if (!a) return;
+        const id = a.getAttribute("href")?.slice(1);
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (el && el.tagName === "DETAILS") el.open = true;
+      });
+    })();
+  </script>  </main> </body></html>
