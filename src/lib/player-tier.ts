@@ -27,7 +27,7 @@ import {
   tiersEnabled,
 } from "../tiers.config.ts";
 import { isScored, type Season } from "./derive.ts";
-import { dayOfMonth, monLong, plural } from "./format.ts";
+import { plural } from "./format.ts";
 import { classFull, playerIdOf } from "./player.ts";
 import {
   loadTiers,
@@ -389,11 +389,6 @@ const showsFigures = (e: TierEntry): boolean =>
 
 // ── The block ───────────────────────────────────────────────────────────────
 
-/** "Set on November 16 from the published box scores." The day of the
- *  freeze, from the file; the year is the season's and the sheet has it. */
-export const sourceLine = (frozenAt: string): string =>
-  `Set on ${monLong(frozenAt)} ${dayOfMonth(frozenAt)} from the published box scores.`;
-
 /** The TIER block, and the holder's line that rides at the top of the sheet. */
 export interface SheetTier {
   /** The top line and the squad row's words; null for a non-holder. */
@@ -405,7 +400,6 @@ export interface SheetTier {
   /** Why the basis is not the sheet's own MINUTES line, where it is not. */
   basisNote: string | null;
   figures: TierFigures | null;
-  source: string;
 }
 
 /** The block for one entry of the file, at the programme it belongs to. */
@@ -424,7 +418,6 @@ export function tierBlock(
     basis: e.status === "incomplete" ? null : basisLine(e.basis),
     basisNote: basisNote(e, line),
     figures: figures ? tierFigures(figures, programme, tiers.season) : null,
-    source: sourceLine(tiers.frozen_at),
   };
 }
 
@@ -472,7 +465,6 @@ export interface SheetDefence {
   /** "Harding holds the team defence badge for 2026." Null without it. */
   badge: string | null;
   figures: TierFigures;
-  source: string;
 }
 
 /** The badge as a team page and a sheet say it. */
@@ -499,7 +491,6 @@ export function sheetDefence(
   return {
     badge: f?.team.badge ? badgeLine(programme, tiers.season) : null,
     figures,
-    source: sourceLine(tiers.frozen_at),
   };
 }
 
@@ -524,6 +515,35 @@ export function teamBadge(
   const now = tiers.teams[slug]?.badge === true;
   if (!now && earlier.length === 0) return null;
   return { line: now ? badgeLine(programme, tiers.season) : null, earlier };
+}
+
+/** How many of a programme's players hold a tier this season that the level
+ *  shows: a count of tiers already published, not a rating of its own. */
+export function tieredCount(tiers: TiersFile, slug: string): number {
+  return (tiers.players[slug] ?? []).filter(
+    (e) => e.status === "tier" && levelShows(tiers.level, e),
+  ).length;
+}
+
+/** "1 player holds a tier", "3 players hold a tier"; null for none. */
+export function tieredLine(n: number): string | null {
+  if (n === 0) return null;
+  return n === 1 ? "1 player holds a tier" : `${n} players hold a tier`;
+}
+
+/** What the conference table marks on a programme's row: the badge beside
+ *  its name, and its tier holders on the dim line. */
+export interface TableMarks {
+  badge: boolean;
+  tiered: number;
+}
+
+export function tableMarks(tiers: TiersFile, slug: string): TableMarks {
+  const shown = levelTiers(tiers.level);
+  return {
+    badge: shown?.badge === true && tiers.teams[slug]?.badge === true,
+    tiered: tieredCount(tiers, slug),
+  };
 }
 
 /** "2023 and 2025", "2022, 2024 and 2025": the earlier seasons in words.

@@ -7,6 +7,8 @@ import SeasonSpine from "../../components/SeasonSpine.astro";
 import TheWeek from "../../components/TheWeek.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import ConferenceTable from "../../components/ConferenceTable.astro";
+import TierMarks from "../../components/TierMarks.astro";
+import { activeTiers } from "../../lib/player-tier.ts";
 import BasisPanel from "../../components/BasisPanel.astro";
 import FormBadges from "../../components/FormBadges.astro";
 import NeutralMark from "../../components/NeutralMark.astro";
@@ -383,6 +385,9 @@ const nextLabel = (f: Fixture): string => {
       </div>
 
       <div class="col">
+        {/* The table's marks (the badge's shield, the tier holders' star)
+            draw only while tiers are on: their CSS rides with them. */}
+        {activeTiers() && <TierMarks />}
         {divisions ? (
           <>
             {divisions.map((d) => (

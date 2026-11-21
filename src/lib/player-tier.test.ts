@@ -35,10 +35,12 @@ import {
   seasonsPhrase,
   sheetDefence,
   sheetTier,
-  sourceLine,
   statusLabel,
+  tableMarks,
   teamBadge,
   tierBlock,
+  tieredCount,
+  tieredLine,
   tierFigures,
 } from "./player-tier.ts";
 import { loadTiers, type TierEntry, type TiersFile, type TierTeam } from "./tiers.ts";
@@ -680,6 +682,24 @@ describe("the team defence badge", () => {
     expect(teamBadge(badged({ level: "d3" }), "calder", "Calder State", () => null)).toBeNull();
   });
 
+  test("the table marks a holder's row, and counts the squad's tier holders", () => {
+    const players = [
+      entry({ group: "M", tier: 1 }),
+      entry({ group: "F", tier: 2, key: "b", name: "B" }),
+      entry({ group: "M", status: "eligible", tier: null, key: "c", name: "C" }),
+      entry({ group: "D", kind: "team_defence", status: "tier", tier: null, key: "d", name: "D" }),
+    ];
+    const f = file({ teams: { calder: team({ badge: true }) }, players: { calder: players } });
+    // The defence entry is no tier on any level; the eligible midfielder holds none.
+    expect(tieredCount(f, "calder")).toBe(2);
+    expect(tableMarks(f, "calder")).toEqual({ badge: true, tiered: 2 });
+    expect(tableMarks(file(), "calder")).toEqual({ badge: false, tiered: 1 });
+    expect(tableMarks(file(), "nobody")).toEqual({ badge: false, tiered: 0 });
+    expect(tieredLine(0)).toBeNull();
+    expect(tieredLine(1)).toBe("1 player holds a tier");
+    expect(tieredLine(3)).toBe("3 players hold a tier");
+  });
+
   test("the earlier seasons in words", () => {
     expect(badgeYears([])).toBeNull();
     expect(badgeYears([2025])).toBe("2025");
@@ -690,11 +710,6 @@ describe("the team defence badge", () => {
 
 describe("the block", () => {
   const f = file();
-
-  test("the source line carries the freeze date in the site's own form", () => {
-    expect(sourceLine("2026-11-16")).toBe("Set on November 16 from the published box scores.");
-    expect(sourceLine("2026-11-02")).toBe("Set on November 2 from the published box scores.");
-  });
 
   test("figures only for regular defenders and goalkeepers", () => {
     const figs = (over: Partial<TierEntry>) =>

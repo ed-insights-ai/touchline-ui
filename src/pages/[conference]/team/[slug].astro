@@ -42,6 +42,8 @@ import {
   sheetDefence,
   sheetTier,
   teamBadge,
+  tieredCount,
+  tieredLine,
 } from "../../../lib/player-tier.ts";
 import { stageChipOf } from "../../../lib/stage.ts";
 import SeasonStrip from "../../../components/SeasonStrip.astro";
@@ -119,6 +121,9 @@ const cards = squadOf(season, slug).map((m) => {
 // the team's, so it is drawn once at the top of the page and on no player row.
 const badge = tiers ? teamBadge(tiers, slug, names.name(slug)) : null;
 const badgeEarlier = badge ? badgeYears(badge.earlier) : null;
+// The squad's tier holders this season, as a count beside the badge: a fact
+// the file holds, not a rating.
+const tiered = tiers ? tieredLine(tieredCount(tiers, slug)) : null;
 const cardFor = (name: string) => cards.find((c) => c.member.player.name === name)?.card;
 // A holder's tier in words, for the squad row's mark; null for everyone else.
 // One drawn mark for any tier, after the name and before the flag slot; which
@@ -419,7 +424,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
             <a class="tier-link" href={aboutTiersHref()}>{badge.line ? `Team defence badge, ${season.fixtures.season}` : "Team defence badge"}</a>{badgeEarlier && <span class="crest-badge-earlier">{badge.line ? ` · also ${badgeEarlier}` : ` in ${badgeEarlier}`}</span>}
             {badge.line && <span class="vh">{badge.line}</span>}
           </div>
-        )}
+        )}{tiered && <div class="crest-tiered">{tiered}</div>}
         {/* The page's figures in the masthead's strip. The record and the goals
             live in TEAM PROFILE beneath and are not said twice up here. */}
         <div class="crest-strip num">

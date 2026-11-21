@@ -1,0 +1,28 @@
+---
+// The two tier marks, drawn and never type: the player's star and the team's
+// shield (the owner's choice, 20 November 2026: a star for a player's tier, a
+// shield for the team defence badge, so the two never read as one thing).
+// The shapes, and the conference table's use of them, in one inline block
+// for the reason TierStyles.astro gives: it is in the output only on a page
+// that draws a tier, so a closed gate leaves the bundled stylesheet as it
+// was. TierStyles draws it on the team page; the conference page draws it
+// once, above its tables. Every class is the tier's own.
+---
+
+<style is:inline>
+  :root {
+    --tier-star: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    --badge-shield: polygon(50% 0%, 96% 14%, 96% 46%, 90% 66%, 77% 83%, 50% 100%, 23% 83%, 10% 66%, 4% 46%, 4% 14%);
+  }
+  /* The conference table: the shield beside a badge holder's name, and the
+     squad's tier holders, with the star, at the end of the dim line. */
+  .table-shield {
+    display: inline-block; width: 10px; height: 11px; margin-left: 7px; vertical-align: -1px;
+    background: var(--accent); clip-path: var(--badge-shield);
+  }
+  .table-tiered { margin-left: auto; padding-left: 10px; white-space: nowrap; }
+  .table-tiered::before {
+    content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 4px;
+    background: var(--accent); clip-path: var(--tier-star);
+  }
+</style>
