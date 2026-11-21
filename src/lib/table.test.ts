@@ -150,7 +150,7 @@ describe("the season page's middle, by the numbers", () => {
     expect(table).toContain('{frozen && <span class="tscope num">FINAL · REGULAR SEASON</span>}');
     // The titles won ride on the row as a ribbon or a trophy and their words
     // (lib/titles.ts), in place of the old TOURNAMENT CHAMPION label.
-    expect(table).toContain("<TitleMark kind={t.kind} />{t.words.toUpperCase()}");
+    expect(table).toContain('<TitleMark kind={t.kind} /><span aria-hidden="true">{t.short}</span>');
     expect(table).not.toContain("TOURNAMENT CHAMPION");
   });
 

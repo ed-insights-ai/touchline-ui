@@ -45,16 +45,18 @@ describe("a team's title marks", () => {
   test("a double is one ribbon with both titles in words", () => {
     const t = { ...none, regular: "fort-hays-state", tournament: "fort-hays-state" };
     expect(titleMarks(t, "fort-hays-state")).toEqual([
-      { kind: "ribbon", words: "Regular-season and tournament champion" },
+      {
+        kind: "ribbon",
+        words: "Regular-season and tournament champion",
+        short: "SEASON & TOURNAMENT",
+      },
     ]);
   });
 
   test("split titles give each team its own ribbon", () => {
     const t = { ...none, regular: "florida-tech", tournament: "lynn" };
-    expect(titleMarks(t, "florida-tech")).toEqual([
-      { kind: "ribbon", words: "Regular-season champion" },
-    ]);
-    expect(titleMarks(t, "lynn")).toEqual([{ kind: "ribbon", words: "Tournament champion" }]);
+    expect(titleMarks(t, "florida-tech").map((m) => m.short)).toEqual(["SEASON CHAMPION"]);
+    expect(titleMarks(t, "lynn").map((m) => m.short)).toEqual(["TOURNAMENT CHAMPION"]);
     expect(titleMarks(t, "barry")).toEqual([]);
   });
 

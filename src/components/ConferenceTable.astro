@@ -109,7 +109,7 @@ const marks = (slug: string) => (tiers ? tableMarks(tiers, slug) : null);
       <a class:list={["trow", "trow-live", "hoverable", { "trow-cut": frozen && i === cutAt }]} href={teamHref(season.key, r.slug)}>
         <span class="tpos">{i + 1}</span>
         <span class="tname">{r.name}{shield}{titleMarks(titles, r.slug).map((t) => (
-          <span class="tchamp"><TitleMark kind={t.kind} />{t.words.toUpperCase()}</span>
+          <span class="tchamp" title={t.words}><TitleMark kind={t.kind} /><span aria-hidden="true">{t.short}</span><span class="vh">, {t.words}</span></span>
         ))}</span>
         <span class="trec">{record(r)}</span>
         <span class="tpts">{r.points}</span>
@@ -155,16 +155,16 @@ const marks = (slug: string) => (tiers ? tableMarks(tiers, slug) : null);
   .trow.trow-head:hover { border-left-color: transparent; }
   .trow.trow-head .trec, .trow.trow-head .tpts, .trow.trow-head .tpos { font-size: 10px; color: var(--quiet); font-weight: 600; }
   .trow-head .tform { text-align: right; }
-  /* A title won, its mark and its words beside the name. On a phone the
-     words wrap under the name whole rather than squeezing it. */
+  /* A title won: its mark and its words on their own line under the name,
+     free to wrap, so a long title never widens the name's column and pushes
+     the record and points out of theirs. */
   .tchamp {
-    display: inline-flex; align-items: center; gap: 4px; vertical-align: 1px;
-    font-size: 9.5px; letter-spacing: 0.12em; font-weight: 600; color: var(--ink);
-    margin-left: 8px; white-space: nowrap;
+    display: flex; align-items: flex-start; gap: 4px; margin-top: 3px;
+    font-size: 9.5px; letter-spacing: 0.12em; font-weight: 600; line-height: 1.3; color: var(--ink);
   }
   .trow:hover { border-left-color: var(--accent); }
   .tpos { font-size: 11.5px; color: var(--quiet); }
-  .tname { font-size: 13.5px; }
+  .tname { font-size: 13.5px; min-width: 0; }
   .trec { font-size: 12.5px; text-align: right; color: var(--quiet); white-space: nowrap; }
   .tpts { font-size: 13.5px; font-weight: 600; text-align: right; color: var(--quiet); }
   /* Once the table is the conference table, its record and points are the
