@@ -109,9 +109,14 @@ describe("the short method page for a level that shows part of the tiers", () =>
 
 describe("the gender switch keeps the method page", () => {
   test("/about/tiers/ maps to itself, and /about/ still does", () => {
-    const target = { conferences: ["gac"], hasTeam: () => false };
+    const target = { conferences: ["gac"], hasTeam: () => false, hasTiers: true };
     expect(counterpartPath("/about/tiers/", target)).toBe("/about/tiers/");
     expect(counterpartPath("/about/", target)).toBe("/about/");
     expect(counterpartPath("/about/other/", target)).toBe("/");
+  });
+
+  test("a build with no tiers page lands on About instead", () => {
+    const target = { conferences: ["gac"], hasTeam: () => false, hasTiers: false };
+    expect(counterpartPath("/about/tiers/", target)).toBe("/about/");
   });
 });

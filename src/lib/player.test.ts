@@ -24,7 +24,10 @@
  */
 
 import { describe, expect, test } from "bun:test";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { site } from "../site.config.ts";
+import { dataHome, seasonKey } from "./data.ts";
 import { cleanSheetsOf, type Fixture, loadSeason, resultsOf, squadOf } from "./derive.ts";
 import { classAbbr } from "./format.ts";
 import type { MatchesFile } from "./model.ts";
@@ -66,6 +69,13 @@ const everyCard = site.conferences.flatMap((key) => {
 
 const CLASS_WORDS = ["freshman", "sophomore", "junior", "senior"] as const;
 
+// Whether the data home holds the season before this one. A build whose home
+// holds this season alone (Division I women until its 2022-2025 history is
+// collected, tui-xep) has no earlier roster or career to read, so the checks
+// that something was read hold the opposite instead: nothing was.
+const hasHistory = existsSync(
+  join(dataHome().fixturesDir, `${seasonKey(site.season - 1, site.gender, site.home)}.json`),
+);
 describe("a card never claims a class year", () => {
   test("no derived sentence names a class the program published otherwise", () => {
     const offenders = everyCard.filter((c) =>
@@ -349,7 +359,7 @@ describe("every card's clean sheets and career agree with the season", () => {
 
   test("the career total is the column above it, added", () => {
     const withTotal = everyCard.filter((c) => c.card.career.total);
-    expect(withTotal.length).toBeGreaterThan(0);
+    expect(withTotal.length > 0).toBe(hasHistory);
     for (const { card } of withTotal) {
       const total = card.career.total;
       if (!total) continue;
@@ -415,7 +425,7 @@ describe("career rates pool the seasons that carry every part they divide", () =
 
   test("every card with a career total carries rates, and every rate is well formed", () => {
     const withTotal = everyCard.filter((c) => c.card.career.total);
-    expect(withTotal.length).toBeGreaterThan(0);
+    expect(withTotal.length > 0).toBe(hasHistory);
     const shape =
       /^(—|\.\d{3}|1\.000|\d+\.\d{2}|\d+\.\d%|\d+ of \d+|\d+ in \d+′|\d+–\d+–\d+)( · \d+ of \d+ seasons)?$/;
     for (const { card } of withTotal) {

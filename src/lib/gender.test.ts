@@ -19,6 +19,7 @@ import {
 const women: Counterpart = {
   conferences: ["gac"],
   hasTeam: (conf, slug) => conf === "gac" && slug === "harding",
+  hasTiers: true,
 };
 
 describe("counterpartPath", () => {
@@ -68,7 +69,7 @@ describe("rootBase", () => {
 });
 
 describe("genderHref", () => {
-  const men: Counterpart = { conferences: ["gac", "lsc"], hasTeam: () => true };
+  const men: Counterpart = { conferences: ["gac", "lsc"], hasTeam: () => true, hasTiers: true };
 
   test("men's page to the women's build, under the project base", () => {
     expect(
@@ -119,15 +120,24 @@ describe("divisionHref", () => {
     expect(divisionHref("d2", "/d1", "men", "d1", both)).toBe("/");
   });
 
-  test("a gender the target division does not field lands on one it does", () => {
-    // Division I fields no women's build: the women's page links to its men's.
+  test("the reader's own gender carries across when the target division fields it", () => {
     expect(divisionHref("d1", "/touchline-ui/women", "women", "d2", both)).toBe(
+      "/touchline-ui/d1/women/",
+    );
+    expect(divisionGender("d1", "women", both)).toBe("women");
+    expect(divisionHref("d2", "/touchline-ui/d1/women", "women", "d1", both)).toBe(
+      "/touchline-ui/women/",
+    );
+    expect(divisionGender("d2", "women", both)).toBe("women");
+  });
+
+  test("a gender the target division does not field in this deploy lands on one it does", () => {
+    // A deploy that publishes Division I's men alone: the women's page links
+    // to Division I's men's home.
+    expect(divisionGender("d1", "women", ["men"])).toBe("men");
+    expect(divisionHref("d1", "/touchline-ui/women", "women", "d2", ["men"])).toBe(
       "/touchline-ui/d1/",
     );
-    expect(divisionGender("d1", "women", both)).toBe("men");
-    // Division II keeps the reader's own gender.
-    expect(divisionHref("d2", "/touchline-ui/d1", "men", "d1", both)).toBe("/touchline-ui/");
-    expect(divisionGender("d2", "women", both)).toBe("women");
   });
 
   test("a division with no build at all has no address", () => {
@@ -155,6 +165,7 @@ describe("the NCAA division as a build dimension", () => {
       { division: "d2", gender: "men", path: "" },
       { division: "d2", gender: "women", path: "/women" },
       { division: "d1", gender: "men", path: "/d1" },
+      { division: "d1", gender: "women", path: "/d1/women" },
     ]);
     expect(publishedBuilds(["d2"], ["men"])).toEqual([{ division: "d2", gender: "men", path: "" }]);
   });

@@ -187,10 +187,8 @@ export const profiles: Readonly<
       sampleProgramme: "harding",
     },
   },
-  // Division I men's soccer, from its own data home (~/keelson/d1-soccer):
-  // every conference with 2026 season files there, in key order. There is no
-  // Division I women's data, so there is no women's profile and no women's
-  // build: the header names that row and links nowhere.
+  // Division I, from its own data home (~/keelson/d1-soccer): every
+  // conference with 2026 season files there, in key order.
   d1: {
     men: {
       conferences: [
@@ -228,6 +226,52 @@ export const profiles: Readonly<
       dataHome: D1_HOME,
       // Its own directory under journal/, so a Division I build can never
       // read Division II's journals (the national file names are the same).
+      journalSubdir: "d1",
+      sampleProgramme: "saint-louis",
+    },
+    women: {
+      conferences: [
+        "a10",
+        "aac",
+        "acc",
+        "ae",
+        "asun",
+        "b1g",
+        "big12",
+        "bigeast",
+        "bigsky",
+        "bigsouth",
+        "bigwest",
+        "caa",
+        "cusa",
+        "horizon",
+        "ivy",
+        "maac",
+        "mac",
+        "mvc",
+        "mw",
+        "nec",
+        "ovc",
+        "pac12",
+        "patriot",
+        "sec",
+        "socon",
+        "southland",
+        "summit",
+        "sunbelt",
+        "swac",
+        "uac",
+        "wcc",
+      ],
+      home: "a10",
+      division: "NCAA Division I women's soccer",
+      // Report of the NCAA DI Women's Soccer Oversight Committee, March 9,
+      // 2026, item 3: "The following 31 conferences have been approved for
+      // automatic qualification for the 2026 NCAA Division I Women's Soccer
+      // Championship" (d1-soccer docs/onboarding-2026-11-20-women).
+      divisionConferences: 31,
+      dataHome: D1_HOME,
+      // The men's directory: journal file names carry the gender.
       journalSubdir: "d1",
       sampleProgramme: "saint-louis",
     },
@@ -325,8 +369,8 @@ export function publishedDivisionsFromEnv(
 }
 
 /** The builds a deploy publishes: every (division, gender) both lists name
- *  that has a profile. Division I has no women's profile, so a deploy that
- *  publishes women and Division I builds three sites, not four. */
+ *  that has a profile. A division with no profile for a gender adds no build
+ *  for it. */
 export function publishedBuilds(
   divisions: readonly NcaaDivisionKey[],
   genders: readonly Gender[],
@@ -441,6 +485,15 @@ export const site: SiteConfig = {
     summit: "The Summit League",
     sunbelt: "Sun Belt Conference",
     wcc: "West Coast Conference",
+    // Division I, women only: these eight sponsor women's soccer and not men's.
+    big12: "Big 12 Conference",
+    bigsky: "Big Sky Conference",
+    cusa: "Conference USA",
+    mac: "Mid-American Conference",
+    sec: "Southeastern Conference",
+    southland: "Southland Conference",
+    swac: "Southwestern Athletic Conference",
+    uac: "United Athletic Conference",
   },
   governingBody: "NCAA",
   publisher: "EDInsights.AI",
@@ -508,6 +561,27 @@ export const site: SiteConfig = {
     summit: "midwest",
     sunbelt: "southeast",
     wcc: "west",
+    // Division I, women only, placed on the same terms, with the men's
+    // placements above left where they are. The Northeast, the Southeast and
+    // the Midwest already hold six each, so a conference whose members lean
+    // to one of them goes to its strongest region with room: the Big 12 (five
+    // West, five Midwest, four South Central) to the West, the SEC (ten
+    // Southeast, three South Central) and Conference USA (six Southeast, two
+    // South Central) and the SWAC (five Southeast, four South Central) to
+    // South Central, and the MAC (nine Midwest, two Northeast, one
+    // Mid-Atlantic) to the Mid-Atlantic. The UAC's tie (four South Central,
+    // four Southeast) went to the region with room. Moving the Horizon League
+    // (nine Midwest, three Mid-Atlantic) to the Mid-Atlantic would let the
+    // MAC sit in the Midwest, at the cost of moving a men's band; the owner
+    // may make that trade.
+    big12: "west",
+    bigsky: "west",
+    cusa: "south-central",
+    mac: "mid-atlantic",
+    sec: "south-central",
+    southland: "south-central",
+    swac: "south-central",
+    uac: "south-central",
   },
   nameOverrides: {
     "ncaa-1st-and-2nd-round": "NCAA First & Second Rounds",

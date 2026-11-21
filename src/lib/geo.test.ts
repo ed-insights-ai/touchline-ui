@@ -228,9 +228,25 @@ const OFFSHORE_BY_DIVISION: Readonly<
     // and the test names it until the reference carries a point on land.
   },
 };
+/** Towns only one gender's build places, so only that build may name them:
+ *  the stale-entry check below holds every name to a placed row. */
+const OFFSHORE_BY_DIVISION_GENDER: Readonly<
+  Partial<Record<string, Partial<Record<string, Readonly<Record<string, string>>>>>>
+> = {
+  d1: {
+    women: {
+      // Staten Island (nec/wagner), measured 2026-11-21: the borough's
+      // Gazetteer point sits on the Upper New York Bay shore and lands 0.2px
+      // into the water. Wagner fields no Division I men's team.
+      wagner: "Staten Island shore",
+    },
+  },
+};
 /** This build's allowance: its own division's towns, and no other's. */
-const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> =
-  OFFSHORE_BY_DIVISION[site.ncaaDivision] ?? {};
+const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> = {
+  ...(OFFSHORE_BY_DIVISION[site.ncaaDivision] ?? {}),
+  ...(OFFSHORE_BY_DIVISION_GENDER[site.ncaaDivision]?.[site.gender] ?? {}),
+};
 const OFFSHORE_TOLERANCE_PX = 3;
 
 describe("the projection", () => {
