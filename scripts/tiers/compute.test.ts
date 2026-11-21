@@ -190,7 +190,7 @@ const find = (s: SeasonResult, slug: Slug, name: string) =>
   s.entries.get(slug)?.find((e) => e.name === person(slug, name));
 
 describe("a toy division, end to end", () => {
-  test("every programme played twelve matches: each has a workload group", () => {
+  test("every program played twelve matches: each has a workload group", () => {
     for (const s of [s2025, s2026]) {
       expect(s.teams.map((t) => t.matches)).toEqual([12, 12, 12]);
       expect(s.teams.every((t) => t.workload !== null)).toBe(true);
@@ -239,7 +239,7 @@ describe("a toy division, end to end", () => {
     expect(new Set(mids.map((r) => r.tier))).toEqual(new Set([1]));
   });
 
-  test("team defence: team-mates with the same seasons share the result", () => {
+  test("team defense: team-mates with the same seasons share the result", () => {
     // Fifteen defenders and keepers are regulars both seasons; gamma's Back Two
     // has one season counted (next test), so the pool is 14 and the tier is
     // ceil(0.2 × 14) = 3 plus ties. Team-mates with the same seasons have the

@@ -272,7 +272,7 @@ describe("boxScorePublisher", () => {
     const d = matchDetailOf(gac, PLAYED);
     expect(d && boxScorePublisher(seasons, d.source_url)?.slug).toBe("fort-hays-state");
   });
-  test("a host no collected programme owns names nobody", () => {
+  test("a host no collected program owns names nobody", () => {
     expect(boxScorePublisher(seasons, "https://example.org/boxscore/1")).toBeNull();
     expect(boxScorePublisher(seasons, "not a url")).toBeNull();
   });
@@ -304,7 +304,7 @@ describe("a side a record names by another slug", () => {
     expect(tieAtHref(p, "/championship/#tie-1999-01-01-x-y")).toBeNull();
   });
 
-  test("only a folded tie's uncorroborated name is read as the programme", () => {
+  test("only a folded tie's uncorroborated name is read as the program", () => {
     const tie = {
       sameDay: {
         side: "cal-state-la",

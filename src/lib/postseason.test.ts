@@ -303,7 +303,7 @@ describe("before a region exists, the bracket is the trees the results join", ()
     ]);
   });
 
-  test("every programme in the field stands once, read from its latest tie", () => {
+  test("every program in the field stands once, read from its latest tie", () => {
     const standing = Object.fromEntries(fieldOf(p.ncaa).map((e) => [e.slug, e.standing]));
     expect(Object.keys(standing).sort()).toEqual(slugs);
     expect(standing).toEqual({
@@ -502,7 +502,7 @@ describe("a final played level is decided, and names a champion only from a shoo
     // The quote names a winner in its own words; the note must not read as
     // contradicting it, only say why no programme is named from it.
     expect(line.note).toContain("quoted as published");
-    expect(line.note).toContain("names no programme Touchline can match to a side");
+    expect(line.note).toContain("names no program Touchline can match to a side");
     expect(line.note).not.toContain("No record collects");
     expect(line.head).not.toContain("to play");
   });
@@ -572,7 +572,7 @@ describe("a final played level is decided, and names a champion only from a shoo
 describe("a ranking printed in front of an opponent's slug is read past", () => {
   const known = new Set(["mckendree", "wayne-state", "ashland", "21-club"]);
 
-  test("the ranking is stripped only when the rest is a known programme and the whole is not", () => {
+  test("the ranking is stripped only when the rest is a known program and the whole is not", () => {
     expect(canonicalSlug("21-mckendree", known)).toBe("mckendree");
     expect(canonicalSlug("15-ashland", known)).toBe("ashland");
     expect(canonicalSlug("mckendree", known)).toBe("mckendree");
@@ -631,7 +631,7 @@ describe("a ranking printed in front of an opponent's slug is read past", () => 
   ]);
   const field = new Set(p.ncaa.ties.flatMap((t) => [t.fixture.home, t.fixture.away]));
 
-  test("no phantom programme joins the field", () => {
+  test("no phantom program joins the field", () => {
     expect([...field].sort()).toEqual([
       "ashland",
       "drury",
@@ -924,7 +924,7 @@ describe("a field with no shape says why no funnel is drawn", () => {
   });
 });
 
-describe("every side of every NCAA tie is a programme the data home knows", () => {
+describe("every side of every NCAA tie is a program the data home knows", () => {
   // Read straight from each gender's files, whichever gender this build is.
   // A side that resolves to no known programme is a phantom in the field.
   //

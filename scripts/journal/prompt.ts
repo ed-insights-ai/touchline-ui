@@ -64,12 +64,16 @@ programme, both recomputed from the set itself.
 
 Always name the player AND the programme in a player basis. Never invent a key.`;
 
-export const VOICE = `VOICE — the programme's house register.
+export const VOICE = `VOICE — the program's house register.
 - Evidence first, no hype, no superlatives the numbers do not carry.
 - Count dates in days, never rounded to weeks. Spell numbers up to twenty.
 - Absence is content: a silence is named, never dropped or explained away.
 - Never write about a match, player or figure that is not in the brief.
-- "programme", not "program". "Match Centre", not "match center".
+- American spelling in every sentence a reader sees: "program", "defense",
+  "center", "honors", "recognize". The basis keeps its JSON keys as they are
+  ("programme" in a basis is the contract's key, not the reader's word).
+- A team takes a singular verb, as American papers write it: "Fort Hays State
+  leads the conference", "Midwestern State is unbeaten", never "lead" or "are".
 - "matches", never "fixtures", in every sentence a reader will see. The JSON
   field is still called "fixture_ref" — that is the contract's name, not the
   reader's word.

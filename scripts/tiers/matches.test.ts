@@ -120,7 +120,7 @@ describe("one match a day", () => {
     expect(counts.illDefined).toEqual([]);
   });
 
-  test("a programme with two matches on different days is not merged", () => {
+  test("a program with two matches on different days is not merged", () => {
     const copies: Copy[] = [
       { by: "alpha", n: 1, date: D, home: "alpha", away: "gamma", score: [2, 1] },
       { by: "alpha", n: 2, date: "2026-09-06", home: "alpha", away: "gamma-u", score: [0, 0] },
@@ -159,7 +159,7 @@ describe("one match a day", () => {
     expect(counts.illDefined).toEqual([]);
   });
 
-  test("one slug for two programmes: only the records whose scores agree are copies", () => {
+  test("one slug for two programs: only the records whose scores agree are copies", () => {
     // The shape of 2025-09-13 (men): alpha's site calls Delta State "delta",
     // which is also another collected programme's slug. Delta (the real one)
     // played beta 1-0; Delta State's own site publishes alpha 2-0 delta-state.
@@ -184,7 +184,7 @@ describe("one match a day", () => {
     expect(counts.illDefined).toEqual([]);
   });
 
-  test("two matches of one programme on one day with different scores both stand", () => {
+  test("two matches of one program on one day with different scores both stand", () => {
     // The shape of 2022-08-28 (women): "queens" names two programmes.
     const copies: Copy[] = [
       { by: "alpha", n: 1, date: D, home: "alpha", away: "queens", score: [0, 0] },

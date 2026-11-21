@@ -94,7 +94,7 @@ const throughLine = (() => {
 const levelUnsettled =
   scored && !tie.disputed && !tie.through && f.home_score === f.away_score
     ? tie.resultPublished
-      ? `Drawn ${f.home_score}–${f.away_score}, from the published score. The result is quoted below as published; it names no programme Touchline can match to a side, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
+      ? `Drawn ${f.home_score}–${f.away_score}, from the published score. The result is quoted below as published; it names no program Touchline can match to a side, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
       : `Drawn ${f.home_score}–${f.away_score}, from the published score. No record publishes a shootout, so no side is named${tie.label === "FINAL" ? " champion" : " through"}.`
     : null;
 // One side, two records, one day: each file's name for the opponent, quoted.
@@ -249,7 +249,7 @@ const tournamentName = tie.competition === "ncaa" ? "NCAA tournament" : `${tourn
               </div>
             ) : (
               <span class="sh-none">
-                {c.followed ? "No result collected this season." : "Not a programme this site follows: no season record."}
+                {c.followed ? "No result collected this season." : "Not a program this site follows: no season record."}
               </span>
             )
           )}
@@ -277,7 +277,7 @@ const tournamentName = tie.competition === "ncaa" ? "NCAA tournament" : `${tourn
       ))}
     </div>}
     {unplayed && columns.some((c) => c.record) && (
-      <p class="sh-pub">Season records and last five from each programme's published results; a shootout is a draw.</p>
+      <p class="sh-pub">Season records and last five from each program's published results; a shootout is a draw.</p>
     )}
 
     {sameDay && (
@@ -308,7 +308,7 @@ const tournamentName = tie.competition === "ncaa" ? "NCAA tournament" : `${tourn
       {sides.map((s) => (
         <a class="btn" href={`#path-${s.slug}`}>Trace {s.name}'s path</a>
       ))}
-      <a class="btn primary" href={matchHref(tie.match.key, f.id)}>Match Centre →</a>
+      <a class="btn primary" href={matchHref(tie.match.key, f.id)}>Match Center →</a>
     </div>
   </div>
 </div>

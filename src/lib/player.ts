@@ -589,7 +589,7 @@ export function playerCard(
     firstYear === null
       ? null
       : archiveNew
-        ? "First season in this programme's archive"
+        ? "First season in this program's archive"
         : `On the roster since ${firstYear}`;
 
   // ── The season's own figures ──────────────────────────────────────────────
@@ -748,8 +748,8 @@ export function playerCard(
             floors ? " A + is a floor: a clean sheet without a box score to say who kept it." : ""
           }`
         : archiveNew
-          ? "No earlier season in this programme's archive carries this player."
-          : "No earlier season of this programme carries a line for this name.",
+          ? "No earlier season in this program's archive carries this player."
+          : "No earlier season of this program carries a line for this name.",
   };
 
   // ── Match by match ────────────────────────────────────────────────────────

@@ -623,7 +623,7 @@ export function mapView(
     states,
     provinces,
     unplaced: footprints.flatMap((f) => f.unplaced),
-    footer: `${placed} PROGRAMMES · ${placesLine(states, provinces)}`,
+    footer: `${placed} PROGRAMS · ${placesLine(states, provinces)}`,
   };
 }
 

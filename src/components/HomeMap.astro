@@ -56,7 +56,7 @@ const absent = unplacedLines(unplaced);
     class="map"
     viewBox={`${MAP_FRAME.x} ${MAP_FRAME.y} ${MAP_FRAME.w} ${MAP_FRAME.h}`}
     role="img"
-    aria-label={`Map of the lower 48 United States. ${placed} dots mark the towns of the programmes Touchline collects, across ${places} in ${spell(conferences)} conferences, labelled by region.${selecting ? " A region label opens that region's conferences beside the map." : ""}`}
+    aria-label={`Map of the lower 48 United States. ${placed} dots mark the towns of the programs Touchline collects, across ${places} in ${spell(conferences)} conferences, labeled by region.${selecting ? " A region label opens that region's conferences beside the map." : ""}`}
   >
     <g class="land">
       {STATE_OUTLINES.map((s) => <path d={s.d} />)}
@@ -76,7 +76,7 @@ const absent = unplacedLines(unplaced);
           class="rlink"
           href={l.href}
           data-region={l.key}
-          aria-label={`${l.name}: ${l.conferences} ${l.conferences === 1 ? "conference" : "conferences"}, ${l.programmes} programmes. Open the band.`}
+          aria-label={`${l.name}: ${l.conferences} ${l.conferences === 1 ? "conference" : "conferences"}, ${l.programmes} programs. Open the band.`}
         >
           <rect class="rhit" x={l.x - 80} y={l.y - 20} width="160" height="30" rx="6" />
           <text class={l.on ? "rlabel on" : "rlabel"} data-region={l.key} x={l.x} y={l.y} text-anchor="middle">

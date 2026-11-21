@@ -396,3 +396,9 @@ export function pct1(value: number | undefined): string | null {
   if (value === undefined || Number.isNaN(value)) return null;
   return `${(value * 100).toFixed(1)}%`;
 }
+
+/** A fixture status as copy prints it: the contract's value in American
+ *  spelling ("cancelled" is stored, "canceled" is read). The stored value is
+ *  never rewritten; only the word on the page. */
+export const statusWord = (status: string): string =>
+  status === "cancelled" ? "canceled" : status;

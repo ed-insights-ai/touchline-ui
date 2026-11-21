@@ -86,7 +86,7 @@ describe("provenance names a source, never an intention", () => {
     // Nothing is missing from a match that has not been played. The line names
     // the schedule it read and stops there.
     const text = provenance("preview", { hasPlays: false, status: "scheduled" });
-    expect(text).toBe("From the programme's published schedule.");
+    expect(text).toBe("From the program's published schedule.");
     expect(text.toLowerCase()).not.toContain("result");
     expect(text.toLowerCase()).not.toContain("score");
   });
@@ -100,22 +100,22 @@ describe("provenance names a source, never an intention", () => {
 
   test("score-only says the result exists and the detail does not", () => {
     const text = provenance("score-only", { hasPlays: false, status: "final" });
-    expect(text).toContain("Result from the programme's published schedule");
+    expect(text).toContain("Result from the program's published schedule");
     expect(text).toContain("no box score was published");
   });
 
   test("a played match names what it actually read", () => {
     expect(provenance("played", { hasPlays: false, status: "final" })).toBe(
-      "From the programme's published box score.",
+      "From the program's published box score.",
     );
     expect(provenance("played", { hasPlays: true, status: "final" })).toBe(
-      "From the programme's published box score and play-by-play.",
+      "From the program's published box score and play-by-play.",
     );
   });
 
-  test("an off match repeats the programme's own word for it", () => {
+  test("an off match repeats the program's own word for it", () => {
     expect(provenance("off", { hasPlays: false, status: "cancelled" })).toContain(
-      "marks this match cancelled",
+      "marks this match canceled",
     );
   });
 });

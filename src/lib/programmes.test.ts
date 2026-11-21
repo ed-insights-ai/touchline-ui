@@ -30,7 +30,7 @@ function firstMember(): string {
   const key = site.conferences[0];
   if (!key) throw new Error("site.conferences is empty");
   const slug = loadFixtures(site.season, site.gender, key).programmes[0]?.slug;
-  if (!slug) throw new Error(`${key} lists no programmes`);
+  if (!slug) throw new Error(`${key} lists no programs`);
   return slug;
 }
 
@@ -83,7 +83,7 @@ describe("the build gate", () => {
 });
 
 describe("what a slug resolves to", () => {
-  test("a programme displays under the reference's name, which tells the two Dominicans apart", () => {
+  test("a program displays under the reference's name, which tells the two Dominicans apart", () => {
     // The CACC's fixtures file names its member "Dominican"; the reference
     // carries the disambiguated form for both, and the page title, the h1
     // and the masthead's team disclosure all read from here.

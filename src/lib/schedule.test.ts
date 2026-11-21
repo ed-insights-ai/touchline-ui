@@ -100,7 +100,7 @@ describe("what counts as a match", () => {
     }
   });
 
-  test("a placeholder is recognised on either side of the fixture", () => {
+  test("a placeholder is recognized on either side of the fixture", () => {
     const f = { home: "ncaa-1st-and-2nd-round", away: "harding" } as unknown as Fixture;
     const g = { home: "harding", away: "ncaa-semifinals-and-final" } as unknown as Fixture;
     const h = { home: "harding", away: "newman" } as unknown as Fixture;
@@ -109,7 +109,7 @@ describe("what counts as a match", () => {
     expect(isPlaceholder(h)).toBe(false);
   });
 
-  test("a bare NCAA opponent is a placeholder, and a programme whose slug starts ncaa is not", () => {
+  test("a bare NCAA opponent is a placeholder, and a program whose slug starts ncaa is not", () => {
     const bare = { home: "flagler", away: "ncaa" } as unknown as Fixture;
     const named = { home: "ncaaville", away: "harding" } as unknown as Fixture;
     expect(isPlaceholder(bare)).toBe(true);
@@ -346,7 +346,7 @@ describe("how a row is weighted", () => {
 });
 
 describe("kickoff times", () => {
-  test("render as the home programme's clock, lower case", () => {
+  test("render as the home program's clock, lower case", () => {
     expect(kickoff("15:30")).toBe("3:30 PM");
     expect(kickoff("00:05")).toBe("12:05 AM");
     expect(kickoff("12:00")).toBe("12:00 PM");

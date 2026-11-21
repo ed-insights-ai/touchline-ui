@@ -218,7 +218,7 @@ describe("tierFor", () => {
     expect(tierFor(t, "harding", { name: "#7" })).toBeNull();
   });
 
-  test("an unknown programme or player is null", () => {
+  test("an unknown program or player is null", () => {
     const t = fixture([e({})]);
     expect(tierFor(t, "ouachita-baptist", { name: "Ann Lee" })).toBeNull();
     expect(tierFor(t, "harding", { name: "Nobody" })).toBeNull();
@@ -226,7 +226,7 @@ describe("tierFor", () => {
 });
 
 describe("teamFigures", () => {
-  test("the programme's figures beside the division's", () => {
+  test("the program's figures beside the division's", () => {
     const t = fixture([]);
     expect(teamFigures(t, "harding")).toEqual({
       team: t.teams.harding,

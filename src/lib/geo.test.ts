@@ -129,7 +129,7 @@ function insidePath(d: string, x: number, y: number): boolean {
 }
 
 describe("the coordinate join", () => {
-  test("every collected programme has a point, and every point has a programme", () => {
+  test("every collected program has a point, and every point has a program", () => {
     const collected = new Set(seasons.flatMap((s) => s.fixtures.programmes.map((p) => p.slug)));
     const missing = [...collected].filter((s) => !pointOf(s)).sort();
     expect(missing).toEqual([]);
@@ -150,7 +150,7 @@ describe("the coordinate join", () => {
     expect(total).toBe(seasons.reduce((n, s) => n + s.fixtures.programmes.length, 0));
   });
 
-  test("a programme with no point is named, not dropped", () => {
+  test("a program with no point is named, not dropped", () => {
     for (const f of footprints) {
       for (const u of f.unplaced) expect(u.name.length).toBeGreaterThan(0);
     }
@@ -234,7 +234,7 @@ const OFFSHORE_BY_SIMPLIFICATION: Readonly<Record<string, string>> =
 const OFFSHORE_TOLERANCE_PX = 3;
 
 describe("the projection", () => {
-  test("every programme lands inside the state its own source row names", () => {
+  test("every program lands inside the state its own source row names", () => {
     const byName = new Map(STATE_OUTLINES.map((s) => [s.name, s.d]));
     const wrong: string[] = [];
     for (const f of footprints) {
@@ -295,12 +295,12 @@ describe("the projection", () => {
     // mile figure must never be derived from the projected positions.
     const c = pointOf("sul-ross-state");
     const d = pointOf("texas-a-m-international");
-    if (!a || !b || !c || !d) throw new Error("reference programmes missing");
+    if (!a || !b || !c || !d) throw new Error("reference programs missing");
     const miles = (p: typeof a, q: typeof a) => milesBetween(p, q);
     const pixels = (p: typeof a, q: typeof a) => {
       const pp = projectPoint(p.lon, p.lat);
       const qq = projectPoint(q.lon, q.lat);
-      if (!pp || !qq) throw new Error("reference programmes off-frame");
+      if (!pp || !qq) throw new Error("reference programs off-frame");
       return Math.hypot(pp.x - qq.x, pp.y - qq.y);
     };
     const ratioA = miles(a, b) / pixels(a, b);

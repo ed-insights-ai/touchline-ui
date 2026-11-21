@@ -421,7 +421,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
         <h1 class="crest-name serif">{title}</h1>
         {identity && <div class="crest-meta num">{identity}</div>}{badge && (
           <div class={badge.line ? "crest-badge is-holder" : "crest-badge"}>
-            <a class="tier-link" href={aboutTiersHref()}>{badge.line ? `Team defence badge, ${season.fixtures.season}` : "Team defence badge"}</a>{badgeEarlier && <span class="crest-badge-earlier">{badge.line ? ` · also ${badgeEarlier}` : ` in ${badgeEarlier}`}</span>}
+            <a class="tier-link" href={aboutTiersHref()}>{badge.line ? `Team defense badge, ${season.fixtures.season}` : "Team defense badge"}</a>{badgeEarlier && <span class="crest-badge-earlier">{badge.line ? ` · also ${badgeEarlier}` : ` in ${badgeEarlier}`}</span>}
             {badge.line && <span class="vh">{badge.line}</span>}
           </div>
         )}{tiered && <div class="crest-tiered">{tiered}</div>}
@@ -638,7 +638,7 @@ const anyOpen = grid.rows.some((r) => [...r.returners, ...r.newcomers].some((sq)
         )}
       </div>
       {grid.size === 0 ? (
-        <p class="empty">No roster has been collected for this programme.</p>
+        <p class="empty">No roster has been collected for this program.</p>
       ) : (
         <div class="squad">
           {LINES.map((l) => {

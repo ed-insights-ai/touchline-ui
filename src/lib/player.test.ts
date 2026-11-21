@@ -39,7 +39,7 @@ import {
   sumColumn,
 } from "./player.ts";
 
-const ARCHIVE_NEW = "First season in this programme's archive";
+const ARCHIVE_NEW = "First season in this program's archive";
 
 /** Every rostered player in every conference, with the copy the card derives
  *  for them held apart from the copy it quotes off the roster. */
@@ -67,7 +67,7 @@ const everyCard = site.conferences.flatMap((key) => {
 const CLASS_WORDS = ["freshman", "sophomore", "junior", "senior"] as const;
 
 describe("a card never claims a class year", () => {
-  test("no derived sentence names a class the programme published otherwise", () => {
+  test("no derived sentence names a class the program published otherwise", () => {
     const offenders = everyCard.filter((c) =>
       CLASS_WORDS.some(
         (word) => c.derived.includes(word) && !(c.published ?? "").toLowerCase().includes(word),

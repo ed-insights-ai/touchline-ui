@@ -101,7 +101,7 @@ describe("the artifact", () => {
     expect(entryOrder(b, b)).toBe(0);
   });
 
-  test("[v2.2] teams and players hold every programme with a record, and only those", () => {
+  test("[v2.2] teams and players hold every program with a record, and only those", () => {
     const a = buildArtifact({
       level: "d2",
       season: 2026,

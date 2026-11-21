@@ -191,7 +191,7 @@ describe("played means a final with a published score", () => {
     }
   });
 
-  test("a programme's own counts sum the same way", () => {
+  test("a program's own counts sum the same way", () => {
     for (const { key, season } of seasons) {
       for (const p of season.fixtures.programmes) {
         const c = programmeCounts(season, p.slug);
@@ -256,7 +256,7 @@ describe("opponents link only where a page exists", () => {
     },
   );
 
-  test.skipIf(!readsD2())("a programme in no configured conference gets no link at all", () => {
+  test.skipIf(!readsD2())("a program in no configured conference gets no link at all", () => {
     // Ecclesia appears in a GAC match report and has a page nowhere.
     const gac = loadSeason("gac");
     expect(teamPageHref(gac, "ecclesia")).toBeNull();
