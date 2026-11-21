@@ -1277,3 +1277,59 @@ bar.
 How often the one tier repeats across random halves (FIRMNESS.md A3 and this home's run, the
 top 20% on one half in it on the other, Tier 1 and Tier 2 holders pooled): D2 men 51%, D2 women
 64%, D1 men 50%, against 20% by chance. The method page prints them as about 5 and 6 in 10.
+
+## Division I women: the freeze of 21 November 2026
+
+| | |
+| --- | --- |
+| Built | 2026-11-21. `frozen_at` is 2026-11-21 in every file. |
+| Data home | `~/keelson/d1-soccer` at **`917eff8`**, clean (`--require-clean`): women 2022 to 2026, 31 or 32 conferences a season (history from rib #151, the alias round of rib #152). |
+| Command | `bun run tiers:build:d1:women` (= `TOUCHLINE_NCAA_DIVISION=d1 bun run scripts/tiers/build.ts --out tiers/d1 --gender women --frozen-at 2026-11-21`). `--gender` builds one gender alone, so the men's files of 20 November are not rebuilt; `tiers:build:d1` now passes `--gender men`, which reproduces their freeze. |
+| Output | `tiers/d1/{2022..2026}-women.json` and `tiers/position-readings.d1.women.json`, committed; `tiers/.debug-d1-women/` gitignored. The men's files and readings are untouched. |
+| Constants | Fitted on this home's women by the procedure that fitted Division I men's (ed-insights-platform `evidence/v01.py`: least squares with an intercept over returning players at one programme, the 4.4 link, 600 minutes in both seasons), and frozen before measuring, in `src/lib/tier-constants.ts`: wG 0.217, wS 0.0718 (8,734 pairs, R² 0.45); one season 0.84 / 0.16 (5,409, R² 0.62); two seasons 0.64 / 0.34 / 0.02 (1,749, R² 0.69). Neither the men's nor Division II's constants are used. |
+
+**What is shown.** T1 on this home (FIRMNESS.md method, 100 splits, seeds 0 to 99, the Python
+reference build adapted to Division I women with the constants above, measured once):
+
+| Label | R, mean (5th to 95th) | Bar | Splits reaching it | Shown |
+| --- | --- | --- | --- | --- |
+| Midfielders, Tier 1 and Tier 2 | 0.88 (0.88 to 0.89) | 0.80 | 100 of 100 | yes |
+| Forwards, one tier | 0.88 (0.87 to 0.88) | 0.61 | 100 of 100 (and 100 of 100 at 0.80) | yes |
+| Team defence badge | 0.78 (0.77 to 0.79) | 0.61 | 100 of 100 | yes |
+
+So Division I women show what Division I men show: both groups' shooting and scoring, forwards
+on one tier (`SHOOTING_LEVELS`), and the badge on team pages. `src/tiers.config.ts` now holds what
+a level shows per gender (`TIERS_LEVELS[level][gender]`), each gender with its own measurement, so
+one gender's result never decides the other's. The badge figure is the defence review's team
+measure (whole-division record, one season, at least 5 records a half), whose harness reproduces
+the published 0.66 (D1 men), 0.76 and 0.82 (D2) before measuring. The forwards' top 20% on one
+half is in it on the other for about 65% of holders, against 20% by chance.
+
+Adaptations to the reference copies, beside the men's (level, seasons, internal consistency in
+place of `reference/out`): the genders are women alone, with the home's men's records dropped
+after section 1 (the home now holds both); and a one-match-a-day cluster with no programme common
+to all its records (one, 2022-08-21: Miami 1-0 Alabama, Miami (OH) 1-0 Alabama and Loyola Chicago
+0-1 Miami (OH)) stays its records, as this build keeps it (`counts.illDefined`), where the
+reference stopped on it. No rule, constant, cut or split was changed.
+
+**Against the Python reference build.** Players agree on status, tier and kind for every entry
+of 2023, 2024 and 2025; 2022 differs on one entry (a Winthrop player with 15 minutes the
+reference cannot place, a goalkeeper here); 2026 differs on two midfielders at the Tier 2 cut.
+On 2026-09-24 one copy has Texas A&M 0-1 Alabama and another Prairie View A&M 1-0 Texas A&M; one
+match a day merges them, and the two builds keep different copies: this build's fold keeps
+Alabama's (Alabama 21 matches, Prairie View A&M 18), the reference's box-quality choice keeps
+Prairie View A&M's (20 and 19). The 2026 opponent factors move a little with it, and one
+midfielder crosses the Tier 2 cut each way (Grace Restovich, Notre Dame, Tier 2 in the reference;
+Lauren Pickup, Rice, Tier 2 here). Every other 2026 status and tier agrees, and every file's
+badges agree (70 a season). Team figures elsewhere differ only at the printed decimal. Filed as
+bead tui-4ycf.
+
+### Tier holders per file
+
+| File | Tier 1 M | Tier 2 M | Forwards' tier (Tier 1 + Tier 2 in the file) | Badges |
+| --- | --- | --- | --- | --- |
+| 2022-women | 59 | 174 | 152 (38 + 114) | 70 |
+| 2023-women | 68 | 202 | 185 (47 + 138) | 70 |
+| 2024-women | 65 | 193 | 189 (48 + 141) | 70 |
+| 2025-women | 63 | 187 | 188 (47 + 141) | 70 |
+| 2026-women | 62 | 186 | 189 (48 + 141) | 70 |

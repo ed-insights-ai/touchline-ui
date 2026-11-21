@@ -128,13 +128,22 @@ describe("the publication gate", () => {
     ["d3", "1", live, false],
   ];
   test.each(rows)("level %s, preview %p, %o → %p", (level, preview, config, open) => {
-    expect(tiersEnabled(level, preview, config)).toBe(open);
+    for (const gender of ["men", "women"]) {
+      expect(tiersEnabled(level, gender, preview, config)).toBe(open);
+    }
+  });
+
+  test("a gender a level does not list shows nothing there, in preview too", () => {
+    expect(tiersEnabled("d2", "mixed", "1", live)).toBe(false);
+    expect(levelTiers("d1", "mixed")).toBeNull();
   });
 
   test("ships open: the owner published the tiers on 16 November 2026", () => {
     expect(tiersConfig.published).toBe(true);
-    expect(tiersEnabled("d2", undefined)).toBe(true);
-    expect(tiersEnabled("d1", undefined)).toBe(true);
+    for (const gender of ["men", "women"]) {
+      expect(tiersEnabled("d2", gender, undefined)).toBe(true);
+      expect(tiersEnabled("d1", gender, undefined)).toBe(true);
+    }
   });
 
   test("activeTiers is the season's file while the tiers are published, at a level that has them", () => {
@@ -143,9 +152,8 @@ describe("the publication gate", () => {
     expect(activeTiers("d2", 2026, "men", "0")?.season).toBe(2026);
     expect(activeTiers("d2", 2026, "men", "1")?.season).toBe(2026);
     expect(activeTiers("d1", 2026, "men", "0")?.level).toBe("d1");
+    expect(activeTiers("d1", 2026, "women", "0")?.gender).toBe("women");
     expect(activeTiers("d3", 2026, "men", "1")).toBeNull();
-    // No Division I women's file: nothing.
-    expect(activeTiers("d1", 2026, "women", "1")).toBeNull();
     // No file for the season: nothing, even with the gate open.
     expect(activeTiers("d2", 2019, "men", "1")).toBeNull();
   });
@@ -167,16 +175,23 @@ describe("what each level shows", () => {
   });
 
   test("Division II shows shooting and scoring for both groups, and no defense tier", () => {
-    for (const e of [mid, fwd, unplaced]) expect(levelShows("d2", e)).toBe(true);
-    for (const e of [def, keeper]) expect(levelShows("d2", e)).toBe(false);
-    expect(levelTiers("d2")).toMatchObject({ shooting: ["F", "M"], badge: true });
+    for (const g of ["men", "women"]) {
+      for (const e of [mid, fwd, unplaced]) expect(levelShows("d2", g, e)).toBe(true);
+      for (const e of [def, keeper]) expect(levelShows("d2", g, e)).toBe(false);
+      expect(levelTiers("d2", g)).toMatchObject({ shooting: ["F", "M"], badge: true });
+    }
   });
 
-  test("Division I shows what Division II shows: forwards and midfielders, no defense tier", () => {
-    expect(levelTiers("d1")).toMatchObject({ shooting: ["F", "M"], badge: true });
-    for (const e of [mid, fwd, unplaced]) expect(levelShows("d1", e)).toBe(true);
-    for (const e of [def, keeper]) expect(levelShows("d1", e)).toBe(false);
-    expect(levelShows("d3", mid)).toBe(false);
+  test("Division I shows what Division II shows, men and women each on their own measurement", () => {
+    for (const g of ["men", "women"]) {
+      expect(levelTiers("d1", g)).toMatchObject({ shooting: ["F", "M"], badge: true });
+      expect(levelTiers("d1", g)?.measured?.rows.length).toBe(3);
+      for (const e of [mid, fwd, unplaced]) expect(levelShows("d1", g, e)).toBe(true);
+      for (const e of [def, keeper]) expect(levelShows("d1", g, e)).toBe(false);
+      expect(levelShows("d3", g, mid)).toBe(false);
+    }
+    // Two measurements, not one copied: the women's figures are their own.
+    expect(levelTiers("d1", "women")?.measured).not.toEqual(levelTiers("d1", "men")?.measured);
   });
 
   test("a group's levels are the same on every level of play", () => {
@@ -185,28 +200,40 @@ describe("what each level shows", () => {
     // defence tier's retirement.
     expect(FORWARDS_ONE_TIER).toBe(TEAM_DEFENCE_TIER_RETIRED);
     for (const level of ["d1", "d2"]) {
-      const shown = levelTiers(level);
-      expect(shown && showsFullShooting(shown)).toBe(true);
+      for (const g of ["men", "women"]) {
+        const shown = levelTiers(level, g);
+        expect(shown && showsFullShooting(shown)).toBe(true);
+      }
     }
   });
 
   test("the coverage sentence says what another level shows, from config", () => {
-    expect(coverageLine("Division I", levelTiers("d1"))).toBe(
-      "Division I pages show the shooting and scoring tier for forwards and midfielders and the team defense badge.",
-    );
-    expect(coverageLine("Division II", levelTiers("d2"))).toBe(
-      "Division II pages show the shooting and scoring tier for forwards and midfielders and the team defense badge.",
-    );
-    expect(coverageLine("Division III", levelTiers("d3"))).toBe("Division III pages show none.");
+    for (const g of ["men", "women"]) {
+      expect(coverageLine("Division I", levelTiers("d1", g))).toBe(
+        "Division I pages show the shooting and scoring tier for forwards and midfielders and the team defense badge.",
+      );
+      expect(coverageLine("Division II", levelTiers("d2", g))).toBe(
+        "Division II pages show the shooting and scoring tier for forwards and midfielders and the team defense badge.",
+      );
+      expect(coverageLine("Division III", levelTiers("d3", g))).toBe(
+        "Division III pages show none.",
+      );
+    }
   });
 
   test("a level shows a group exactly when its measured reliability reaches the bar", () => {
     for (const level of ["d1", "d2"]) {
-      const shown = levelTiers(level);
-      for (const m of shown?.measured?.rows ?? []) {
-        const on =
-          m.group === "team_badge" ? shown?.badge : levelShows(level, entry({ group: m.group }));
-        expect(`${level} ${m.group} shown ${on}`).toBe(`${level} ${m.group} shown ${m.r >= m.bar}`);
+      for (const g of ["men", "women"]) {
+        const shown = levelTiers(level, g);
+        for (const m of shown?.measured?.rows ?? []) {
+          const on =
+            m.group === "team_badge"
+              ? shown?.badge
+              : levelShows(level, g, entry({ group: m.group }));
+          expect(`${level} ${g} ${m.group} shown ${on}`).toBe(
+            `${level} ${g} ${m.group} shown ${m.r >= m.bar}`,
+          );
+        }
       }
     }
   });
@@ -833,6 +860,6 @@ describe("a block prints only what section 10 holds", () => {
 
   test("a level with no tiers renders none of it, in preview too", () => {
     expect(activeTiers("d3", 2026, "men", "1")).toBeNull();
-    expect(tiersEnabled("d3", "1", { published: true })).toBe(false);
+    expect(tiersEnabled("d3", "men", "1", { published: true })).toBe(false);
   });
 });

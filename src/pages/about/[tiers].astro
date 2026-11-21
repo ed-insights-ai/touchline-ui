@@ -8,10 +8,10 @@
 // it only while the tiers are on (lib/player-tier.ts activeTiers, which holds
 // the publication gate and the levels in tiers.config.ts). With the gate
 // closed, or on a level with no tiers, the build emits no page at all, not an
-// empty one. A level that shows only part of the tiers (Division I men:
-// midfielders) gets a short page of its own (components/TiersScope.astro) in
-// this page's frame and styles; the full method below is the level that shows
-// every tier.
+// empty one. A level measured on its own seasons (Division I, each gender on
+// its own measurement) gets a short page of its own (components/TiersScope.astro) in
+// this page's frame and styles; the full method below is the level the method
+// was built on.
 //
 // Its CSS is an inline block for the same reason the sheet's is: a scoped
 // <style> here would be bundled into the site's stylesheets even on a build
@@ -31,12 +31,7 @@ import TiersScope from "../../components/TiersScope.astro";
 import { activeTiers, coverageLine } from "../../lib/player-tier.ts";
 import { loadTiers, type TiersFile } from "../../lib/tiers.ts";
 import { currentDivision, ncaaDivisions, site } from "../../site.config.ts";
-import {
-  levelTiers,
-  methodIsShort,
-  TEAM_DEFENCE_TIER_RETIRED,
-  TIERS_LEVELS,
-} from "../../tiers.config.ts";
+import { levelTiers, methodIsShort, TEAM_DEFENCE_TIER_RETIRED } from "../../tiers.config.ts";
 
 export function getStaticPaths() {
   return activeTiers() ? [{ params: { tiers: "tiers" } }] : [];
@@ -54,15 +49,15 @@ const seasons: Season[] = site.conferences.flatMap((key) => {
 });
 
 const division = currentDivision.name;
-// What this level shows. Every tier: the full method below. Part of them: the
-// short page (TiersScope) in its place.
-const shown = levelTiers(tiers.level);
+// What this level shows for this gender. Every tier: the full method below.
+// Measured on its own seasons: the short page (TiersScope) in its place.
+const shown = levelTiers(tiers.level, tiers.gender);
 const partial = shown !== null && methodIsShort(shown);
-// What each other level shows, for the coverage paragraph: from config, never
-// a division named by hand.
+// What each other level shows this gender, for the coverage paragraph: from
+// config, never a division named by hand.
 const elsewhere = ncaaDivisions
   .filter((d) => d.key !== currentDivision.key && d.published)
-  .map((d) => coverageLine(d.name, TIERS_LEVELS[d.key] ?? null));
+  .map((d) => coverageLine(d.name, levelTiers(d.key, tiers.gender)));
 
 /** The month this season's tiers were frozen in. */
 const setIn = monLong(tiers.frozen_at);

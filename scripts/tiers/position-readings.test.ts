@@ -2,7 +2,8 @@
 // reader, positionLine in src/lib/format.ts, about every roster and box-score
 // label of 2022 to 2026 (ruling R-F, and N3 for a roster label's parts). The
 // build wrote each label and the answer it got to tiers/position-readings.json
-// (Division I: tiers/position-readings.d1.json).
+// (Division I: tiers/position-readings.d1.json for its men, frozen 2026-11-20,
+// and tiers/position-readings.d1.women.json for its women, frozen a day later).
 //
 // The reader is shared with the rest of the site and keeps learning labels:
 // the Division I build (#68) taught it six codes and five spellings. None of
@@ -25,20 +26,41 @@ interface Readings {
   readings: Record<string, string | null>;
 }
 
-// One readings file per level, beside that level's tier files: Division II's
-// is the first freeze's name, Division I's carries its key.
+// One readings file per freeze, beside its tier files: Division II's (men and
+// women together) is the first freeze's name, Division I's carries its key,
+// and Division I's women, frozen on their own day, their gender too. `files`
+// names the tier files that freeze wrote.
 const LEVELS = [
-  { level: "d2", file: "position-readings.json", name: "Division II", build: "tiers:build" },
-  { level: "d1", file: "position-readings.d1.json", name: "Division I", build: "tiers:build:d1" },
+  {
+    level: "d2",
+    files: /^\d{4}-(men|women)\.json$/,
+    file: "position-readings.json",
+    name: "Division II",
+    build: "tiers:build",
+  },
+  {
+    level: "d1",
+    files: /^\d{4}-men\.json$/,
+    file: "position-readings.d1.json",
+    name: "Division I men's",
+    build: "tiers:build:d1",
+  },
+  {
+    level: "d1",
+    files: /^\d{4}-women\.json$/,
+    file: "position-readings.d1.women.json",
+    name: "Division I women's",
+    build: "tiers:build:d1:women",
+  },
 ] as const;
 
-for (const { level, file: readingsFile, name, build } of LEVELS) {
+for (const { level, files: frozenFiles, file: readingsFile, name, build } of LEVELS) {
   const snapshot = JSON.parse(readFileSync(join(TIERS, readingsFile), "utf8")) as Readings;
 
   describe(`the position reader answers as it did when the ${name} tiers were frozen`, () => {
     test("the readings file belongs to the committed tier files", () => {
       expect(snapshot.schema).toBe(READINGS_SCHEMA);
-      const files = readdirSync(join(TIERS, level)).filter((f) => f.endsWith(".json"));
+      const files = readdirSync(join(TIERS, level)).filter((f) => frozenFiles.test(f));
       expect(files.length).toBeGreaterThan(0);
       for (const f of files) {
         const tiers = JSON.parse(readFileSync(join(TIERS, level, f), "utf8")) as {
