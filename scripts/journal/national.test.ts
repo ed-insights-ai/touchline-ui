@@ -17,6 +17,7 @@
 import { describe, expect, test } from "bun:test";
 import { hasScore, isScored, type Season } from "../../src/lib/derive.ts";
 import { allSightings, divisionCounts, foldToMatches } from "../../src/lib/division.ts";
+import { spansConferences } from "../../src/lib/fixtures/facts.ts";
 import {
   homeColumns,
   homeSeasons,
@@ -47,7 +48,8 @@ describe("every division figure is a count of matches", () => {
     const columns = homeColumns(seasons);
     const sum = columns.reduce((n, c) => n + c.counts.total, 0);
     expect(brief.division.duplicated_records.total).toBe(sum - brief.division.matches_total);
-    expect(brief.division.duplicated_records.total).toBeGreaterThan(0);
+    // A sample home follows one conference, which holds no match twice.
+    if (spansConferences()) expect(brief.division.duplicated_records.total).toBeGreaterThan(0);
   });
 
   test("the match index offers each match once", () => {
@@ -99,21 +101,25 @@ describe("the division's record against everyone else is not three records added
     expect(brief.across.division_vs_outside.losses).toBe(r.losses);
   });
 
-  test("and it differs from the sum, which holds both halves of the same match", () => {
-    // A match between two covered conferences is "outside the conference" for
-    // both of them, so each counts it — one as a win, the other as that same
-    // match's loss. Adding the three gives a record with both halves in it.
-    // The difference is not cosmetic and the test says so out loud.
-    const sum = brief.conferences.reduce(
-      (acc, c) => ({
-        wins: acc.wins + c.record_vs_outside.wins,
-        losses: acc.losses + c.record_vs_outside.losses,
-      }),
-      { wins: 0, losses: 0 },
-    );
-    expect(sum.wins).toBeGreaterThan(brief.across.division_vs_outside.wins);
-    expect(sum.losses).toBeGreaterThan(brief.across.division_vs_outside.losses);
-  });
+  // A sample home follows one conference: no match is outside two of them.
+  test.skipIf(!spansConferences())(
+    "and it differs from the sum, which holds both halves of the same match",
+    () => {
+      // A match between two covered conferences is "outside the conference" for
+      // both of them, so each counts it — one as a win, the other as that same
+      // match's loss. Adding the three gives a record with both halves in it.
+      // The difference is not cosmetic and the test says so out loud.
+      const sum = brief.conferences.reduce(
+        (acc, c) => ({
+          wins: acc.wins + c.record_vs_outside.wins,
+          losses: acc.losses + c.record_vs_outside.losses,
+        }),
+        { wins: 0, losses: 0 },
+      );
+      expect(sum.wins).toBeGreaterThan(brief.across.division_vs_outside.wins);
+      expect(sum.losses).toBeGreaterThan(brief.across.division_vs_outside.losses);
+    },
+  );
 });
 
 describe("the surfaces the brief describes are the surfaces the page renders", () => {
@@ -149,6 +155,8 @@ describe("the surfaces the brief describes are the surfaces the page renders", (
     // The division's own total is smaller than the cards added up — which is
     // the whole reason the writer is shown both.
     const added = brief.surfaces.cards.reduce((n, c) => n + c.matches_total, 0);
-    expect(brief.division.matches_total).toBeLessThan(added);
+    // A sample home follows one conference, which holds no match twice.
+    if (spansConferences()) expect(brief.division.matches_total).toBeLessThan(added);
+    else expect(brief.division.matches_total).toBe(added);
   });
 });

@@ -58,15 +58,15 @@ import {
   teamPageHref,
   unresolved,
 } from "./derive.ts";
-import { readsD2 } from "./fixtures/facts.ts";
+import { readsD2, readsFullD2 } from "./fixtures/facts.ts";
 import { dayNumber, daysBetween, dowIndex, friendlies, monShort, toISO } from "./format.ts";
 import type { Fixture, FixturesFile, KeeperStats } from "./model.ts";
 import { computeTable, isForfeit, isPlayed, STATS_SCHEMA } from "./model.ts";
 import { nameBookFor } from "./names.ts";
 import { playerCard } from "./player.ts";
 
-// Division II's first three by name; any other build, its own first three.
-const CONFERENCES = readsD2() ? (["gac", "lsc", "gsc"] as const) : site.conferences.slice(0, 3);
+// Division II's first three by name; any other build (a sample home too), its own first three.
+const CONFERENCES = readsFullD2() ? (["gac", "lsc", "gsc"] as const) : site.conferences.slice(0, 3);
 const seasons = CONFERENCES.map((key) => ({ key, season: loadSeason(key) }));
 
 describe("exhibitions are outside the record", () => {
@@ -83,7 +83,7 @@ describe("exhibitions are outside the record", () => {
     }
   });
 
-  test.skipIf(!readsD2())("a scored exhibition still contributes nothing to a record", () => {
+  test.skipIf(!readsFullD2())("a scored exhibition still contributes nothing to a record", () => {
     // Saint Mary's played friendlies with published scores — a 3-0 win over a
     // club side and a 1-2 loss. Counting them read 2-0-2 with 5 goals for a
     // side that had scored none.
@@ -247,7 +247,7 @@ describe("opponents link only where a page exists", () => {
     }
   });
 
-  test.skipIf(!readsD2())(
+  test.skipIf(!readsFullD2())(
     "a member of another configured conference resolves cross-conference",
     () => {
       // UT Tyler appears in GAC fixtures and its team page lives in the LSC.

@@ -16,6 +16,7 @@
 
 import { describe, expect, test } from "bun:test";
 import { divisionCounts } from "../../src/lib/division.ts";
+import { spansConferences } from "../../src/lib/fixtures/facts.ts";
 import { homeColumns, homeSeasons } from "../../src/lib/home.ts";
 import type { NationalJournalFile } from "../../src/lib/journal.ts";
 import { DEK_MAX_CHARS, HEADLINE_MAX_CHARS } from "../../src/lib/prose.ts";
@@ -58,25 +59,29 @@ describe("a division count is a count of matches", () => {
     expect(run(j).journal.headline).toBe(j.headline);
   });
 
-  test("and the conferences' sum is contradicted, because it is not what the page prints", () => {
-    // The exact defect this surface shipped: 48 of 363 where the honest
-    // figures are 45 of 342. A validator that accepted the sum would have let
-    // it back in.
-    const columns = homeColumns(seasons);
-    const sum = (pick: (c: (typeof columns)[number]) => number): number =>
-      columns.reduce((n, c) => n + pick(c), 0);
-    const j = journal({
-      headline: "The division has played a great many matches.",
-      basis: {
-        source: "division",
-        matches_played: sum((c) => c.counts.played),
-        matches_total: sum((c) => c.counts.total),
-      },
-    });
-    expect(claim(j)?.verdict).toBe("contradicted");
-    // And the headline is emptied, so the masthead falls back to its floor.
-    expect(run(j).journal.headline).toBe("");
-  });
+  // On a sample home's one conference the sum is the division's figure.
+  test.skipIf(!spansConferences())(
+    "and the conferences' sum is contradicted, because it is not what the page prints",
+    () => {
+      // The exact defect this surface shipped: 48 of 363 where the honest
+      // figures are 45 of 342. A validator that accepted the sum would have let
+      // it back in.
+      const columns = homeColumns(seasons);
+      const sum = (pick: (c: (typeof columns)[number]) => number): number =>
+        columns.reduce((n, c) => n + pick(c), 0);
+      const j = journal({
+        headline: "The division has played a great many matches.",
+        basis: {
+          source: "division",
+          matches_played: sum((c) => c.counts.played),
+          matches_total: sum((c) => c.counts.total),
+        },
+      });
+      expect(claim(j)?.verdict).toBe("contradicted");
+      // And the headline is emptied, so the masthead falls back to its floor.
+      expect(run(j).journal.headline).toBe("");
+    },
+  );
 });
 
 describe("a comparative ranges across the conference lines", () => {

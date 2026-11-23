@@ -46,7 +46,7 @@ import {
   type Sighting,
   unpostedSides,
 } from "./division.ts";
-import { describeD2, readsD2 } from "./fixtures/facts.ts";
+import { describeFullD2, readsD2, spansConferences } from "./fixtures/facts.ts";
 import { homeSeasons } from "./home.ts";
 import type { Fixture, FixturesFile } from "./model.ts";
 import { nameBookFor } from "./names.ts";
@@ -66,13 +66,57 @@ const allSightings: Sighting[] = seasons.flatMap((season) =>
 const folded = foldToMatches(allSightings);
 const shared = folded.filter((m) => m.sightings.length > 1);
 
+// A sample home (data/sample.json) follows one conference, so no match is in
+// two of its files: the fold's rules still run there, on the pair below, and
+// the tests that recount what the files themselves share wait for a full home.
+
+/** A shared match with a home side, as its two records: the home side's
+ *  conference's and the peer's. From the data whenever two followed
+ *  conferences both hold one, so which record is the home conference's is a
+ *  fact and not a choice. A one-conference home shares nothing, so there the
+ *  pair is the home conference's own record of a match against an outside
+ *  opponent, twinned with the record that opponent's conference would file:
+ *  the same date, sides and score under another collector id. */
+function homeAndPeer(): { home: Sighting; peer: Sighting } {
+  const pair = shared.find((m) => !m.neutral);
+  if (pair) {
+    const home = pair.sightings.find((s) => memberSlugs(s.season).has(s.fixture.home)) as Sighting;
+    const peer = pair.sightings.find((s) => s !== home) as Sighting;
+    return { home, peer };
+  }
+  expect(spansConferences(), "no shared match with a home side in this data").toBe(false);
+  const own = allSightings.find(
+    (s) =>
+      memberSlugs(s.season).has(s.fixture.home) &&
+      !memberSlugs(s.season).has(s.fixture.away) &&
+      !s.fixture.neutral,
+  );
+  expect(own, "no match against an outside opponent in this data").toBeDefined();
+  const home = own as Sighting;
+  const opponent = home.season.fixtures.programmes.find((p) => p.slug === home.fixture.away);
+  const fixture: Fixture = { ...home.fixture, id: `${home.fixture.id}:peer` };
+  const file: FixturesFile = {
+    ...home.season.fixtures,
+    conference: "PEER",
+    programmes: [
+      {
+        slug: home.fixture.away,
+        name: opponent?.name ?? home.fixture.away,
+        conference: "PEER",
+      },
+    ],
+    fixtures: [fixture],
+  };
+  return { home, peer: sightingOf(seasonOf("peer", file), fixture) };
+}
+
 describe("what makes two records one match", () => {
   test("the identity does not care which side is at home", () => {
     const f = (allSightings[0] as Sighting).fixture;
     expect(matchIdentity(f)).toBe(matchIdentity({ ...f, home: f.away, away: f.home } as typeof f));
   });
 
-  test("the identity is never the collector's id", () => {
+  test.skipIf(!spansConferences())("the identity is never the collector's id", () => {
     // Two files, two ids, one match. An id-keyed fold is the bug this exists
     // to have fixed, so it is worth stating that no two sightings of a shared
     // match share one.
@@ -291,8 +335,20 @@ describe("the records agree, which is what makes folding safe", () => {
     const scored = (m: (typeof shared)[number]): boolean =>
       m.sightings.every((x) => x.fixture.home_score != null && x.fixture.away_score != null);
     const pair = shared.find((m) => m.neutral && scored(m)) ?? shared.find(scored);
-    expect(pair, "no shared match in this data to disagree about").toBeDefined();
-    const [a, b] = (pair as (typeof shared)[number]).sightings as [Sighting, Sighting];
+    expect(
+      pair ?? !spansConferences(),
+      "no shared match in this data to disagree about",
+    ).toBeTruthy();
+    // A one-conference home: the built pair, given a score both records print.
+    const built = (): [Sighting, Sighting] => {
+      const { home, peer } = homeAndPeer();
+      const final = (s: Sighting): Sighting => ({
+        ...s,
+        fixture: { ...s.fixture, status: "final", home_score: 2, away_score: 1 },
+      });
+      return [final(home), final(peer)];
+    };
+    const [a, b] = pair ? (pair.sightings as [Sighting, Sighting]) : built();
     const bumped: Sighting = {
       ...b,
       fixture: { ...b.fixture, home_score: (b.fixture.home_score ?? 0) + 1 },
@@ -316,14 +372,7 @@ describe("cancelled and postponed fold as one unplayed shape", () => {
   // Island v Assumption, which ECC's file calls postponed and NE10's calls
   // cancelled. Built here on a shared match with a home side, so that which
   // record is the home conference's is a fact of the data and not a choice.
-  const pair = shared.find((m) => !m.neutral);
-  const records = (): { home: Sighting; peer: Sighting } => {
-    expect(pair, "no shared match with a home side in this data").toBeDefined();
-    const m = pair as (typeof shared)[number];
-    const home = m.sightings.find((s) => memberSlugs(s.season).has(s.fixture.home)) as Sighting;
-    const peer = m.sightings.find((s) => s !== home) as Sighting;
-    return { home, peer };
-  };
+  const records = homeAndPeer;
   const withStatus = (s: Sighting, status: Sighting["fixture"]["status"]): Sighting => ({
     ...s,
     fixture: { ...s.fixture, status, home_score: undefined, away_score: undefined },
@@ -412,14 +461,7 @@ describe("a scored final beats a twin that has not posted yet", () => {
   // page staying scheduled for eighteen hours or more, and each time the
   // build refusing until it caught up. Built, like the block above, on a
   // shared match with a home side.
-  const pair = shared.find((m) => !m.neutral);
-  const records = (): { home: Sighting; peer: Sighting } => {
-    expect(pair, "no shared match with a home side in this data").toBeDefined();
-    const m = pair as (typeof shared)[number];
-    const home = m.sightings.find((s) => memberSlugs(s.season).has(s.fixture.home)) as Sighting;
-    const peer = m.sightings.find((s) => s !== home) as Sighting;
-    return { home, peer };
-  };
+  const records = homeAndPeer;
   const scored = (s: Sighting, h: number, a: number): Sighting => ({
     ...s,
     fixture: { ...s.fixture, status: "final", home_score: h, away_score: a },
@@ -545,7 +587,7 @@ const sightingOf = (season: Season, fixture: Fixture): Sighting => ({
   fixture,
 });
 
-describeD2("a forfeit final folds like any final, and the fold keeps the award", () => {
+describeFullD2("a forfeit final folds like any final, and the fold keeps the award", () => {
   // The pair the ruling was measured on (tl-wyv). 2024-09-05 Upper Iowa v
   // Roosevelt is in two files: GLVC's from Upper Iowa's own schedule
   // (sidearm:upper-iowa:9017, "W, 2-2" beside "Win by forfeit"), GLIAC's from
@@ -695,14 +737,7 @@ describe("a disputed final keeps both scores instead of failing the build", () =
   // Built, because no pair in the data home disagrees yet. A shared match
   // with a home side, from the live data, so that which record is the home
   // conference's is a fact and not a choice.
-  const pair = shared.find((m) => !m.neutral);
-  const records = (): { home: Sighting; peer: Sighting } => {
-    expect(pair, "no shared match with a home side in this data").toBeDefined();
-    const m = pair as (typeof shared)[number];
-    const home = m.sightings.find((s) => memberSlugs(s.season).has(s.fixture.home)) as Sighting;
-    const peer = m.sightings.find((s) => s !== home) as Sighting;
-    return { home, peer };
-  };
+  const records = homeAndPeer;
   const scored = (s: Sighting, h: number, a: number): Sighting => ({
     ...s,
     fixture: { ...s.fixture, status: "final", home_score: h, away_score: a },
@@ -736,7 +771,12 @@ describe("a disputed final keeps both scores instead of failing the build", () =
       expect(m.key).toBe(home.key);
       expect(m.fixture.id).toBe(home.fixture.id);
       expect(m.fixture.home_score).toBe(2);
-      expect(m.codes).toEqual((pair as (typeof shared)[number]).codes);
+      // Config order, and a conference this site does not follow after all.
+      const rank = (s: Sighting): number =>
+        site.conferences.includes(s.key)
+          ? site.conferences.indexOf(s.key)
+          : site.conferences.length;
+      expect(m.codes).toEqual([home, peer].sort((a, b) => rank(a) - rank(b)).map((s) => s.code));
     }
   });
 
@@ -818,7 +858,7 @@ describe("a disputed final keeps both scores instead of failing the build", () =
   });
 });
 
-describeD2("the collector's neutral flag makes a match neutral on its own (tl-a33)", () => {
+describeFullD2("the collector's neutral flag makes a match neutral on its own (tl-a33)", () => {
   // The fixture contract's `neutral: true` is the schedule page itself
   // marking the site. Before this the fold read neutrality only from two
   // records disagreeing on the home side, so a neutral-site match seen by

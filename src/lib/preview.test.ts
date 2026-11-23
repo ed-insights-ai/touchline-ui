@@ -16,7 +16,7 @@ import {
   recordOf,
   squadOf,
 } from "./derive.ts";
-import { readsD2 } from "./fixtures/facts.ts";
+import { readsD2, readsFullD2, readsFullHome } from "./fixtures/facts.ts";
 import { homeSeasons } from "./home.ts";
 import type { MatchTeam, Player, PlayerStats } from "./model.ts";
 import { playerCard } from "./player.ts";
@@ -41,6 +41,9 @@ import {
 // The real-data cases name men's programmes (the GAC final, Fort Hays State
 // v Lake Erie), so they run against the men's build and skip under women's.
 const menOnly = test.skipIf(!readsD2("men"));
+// The cases that read the rest of the men's field (another conference's
+// member, the bracket's first round), which a sample home was cut without.
+const fullMenOnly = test.skipIf(!readsFullD2("men"));
 // The home conference of any other build: the generic cases read it, and the
 // menOnly ones never run there.
 const gac = loadSeason(readsD2() ? "gac" : site.home);
@@ -166,7 +169,8 @@ describe("lineByName", () => {
 describe("a side's season so far", () => {
   menOnly("a side's season is the conference that lists it; outside them, none", () => {
     expect(memberSeasonOf(seasons, "fort-hays-state")?.key).toBe("gac");
-    expect(memberSeasonOf(seasons, "lake-erie")?.key).toBe("g-mac");
+    // Lake Erie's G-MAC is not in a sample home, which lists it nowhere.
+    expect(memberSeasonOf(seasons, "lake-erie")?.key).toBe(readsFullHome() ? "g-mac" : undefined);
     expect(memberSeasonOf(seasons, "no-such-programme")).toBeNull();
   });
   menOnly("the summary is the team page's own figures, not new ones", () => {
@@ -213,7 +217,7 @@ describe("routeOf", () => {
 describe("entryOf", () => {
   const p = divisionPostseason();
   const f = fixtureById(gac, PREVIEW);
-  menOnly("a followed side with no first-round tie enters in the second round", () => {
+  fullMenOnly("a followed side with no first-round tie enters in the second round", () => {
     if (!f) throw new Error("preview fixture missing");
     expect(entryOf(p, memberSeasonOf(seasons, f.home), f.home, f)?.text).toBe(
       "Enters in the second round",
@@ -340,7 +344,7 @@ describe("a side a record names by another slug", () => {
     expect(sideReadingOf(apart, "concordia", name)).toBeNull();
   });
 
-  test.skipIf(!readsD2("women"))(
+  test.skipIf(!readsFullD2("women"))(
     "women's CCAA preview of Cal State LA's second-round tie: Concordia is Concordia Irvine",
     () => {
       const ccaa = loadSeason("ccaa");

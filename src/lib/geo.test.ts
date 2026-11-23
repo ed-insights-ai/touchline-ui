@@ -14,6 +14,7 @@ import { describe, expect, test } from "bun:test";
 import { type NcaaDivisionKey, site } from "../site.config.ts";
 import { BASEMAP_VIEWBOX, STATE_OUTLINES } from "./basemap.ts";
 import { loadSeason } from "./derive.ts";
+import { readsFullHome, spansConferences } from "./fixtures/facts.ts";
 import {
   closestCrossConference,
   footprintOf,
@@ -277,6 +278,9 @@ describe("the projection", () => {
     const byName = new Map(STATE_OUTLINES.map((s) => [s.name, s.d]));
     for (const slug of Object.keys(OFFSHORE_BY_SIMPLIFICATION)) {
       const placed = footprints.flatMap((f) => f.placed).find((p) => p.slug === slug);
+      // A sample home places its one conference's members and no others, so
+      // there an unplaced row says nothing about the list.
+      if (!placed && !readsFullHome()) continue;
       expect(placed, slug).toBeDefined();
       if (!placed) continue;
       const d = byName.get(STATE_NAME[pointOf(slug)?.state ?? ""] ?? "") ?? "";
@@ -302,47 +306,56 @@ describe("the projection", () => {
     expect(projectPoint(-149.9, 61.22)).toBeNull();
   });
 
-  test("measures miles on the globe, from coordinates and never from pixels", () => {
-    const a = pointOf("fort-hays-state");
-    const b = pointOf("harding");
-    expect(a && b ? Math.round(milesBetween(a, b)) : 0).toBe(488);
-    // Equal-area is not equidistant: the same great-circle distance covers a
-    // different number of pixels depending on where it sits in the frame, so a
-    // mile figure must never be derived from the projected positions.
-    const c = pointOf("sul-ross-state");
-    const d = pointOf("texas-a-m-international");
-    if (!a || !b || !c || !d) throw new Error("reference programs missing");
-    const miles = (p: typeof a, q: typeof a) => milesBetween(p, q);
-    const pixels = (p: typeof a, q: typeof a) => {
-      const pp = projectPoint(p.lon, p.lat);
-      const qq = projectPoint(q.lon, q.lat);
-      if (!pp || !qq) throw new Error("reference programs off-frame");
-      return Math.hypot(pp.x - qq.x, pp.y - qq.y);
-    };
-    const ratioA = miles(a, b) / pixels(a, b);
-    const ratioB = miles(c, d) / pixels(c, d);
-    expect(Math.abs(ratioA - ratioB)).toBeGreaterThan(0.01);
-  });
+  // The reference programmes are Division II's, from every region; a sample
+  // home's reference file holds its own conference's rows alone.
+  test.skipIf(!readsFullHome())(
+    "measures miles on the globe, from coordinates and never from pixels",
+    () => {
+      const a = pointOf("fort-hays-state");
+      const b = pointOf("harding");
+      expect(a && b ? Math.round(milesBetween(a, b)) : 0).toBe(488);
+      // Equal-area is not equidistant: the same great-circle distance covers a
+      // different number of pixels depending on where it sits in the frame, so a
+      // mile figure must never be derived from the projected positions.
+      const c = pointOf("sul-ross-state");
+      const d = pointOf("texas-a-m-international");
+      if (!a || !b || !c || !d) throw new Error("reference programs missing");
+      const miles = (p: typeof a, q: typeof a) => milesBetween(p, q);
+      const pixels = (p: typeof a, q: typeof a) => {
+        const pp = projectPoint(p.lon, p.lat);
+        const qq = projectPoint(q.lon, q.lat);
+        if (!pp || !qq) throw new Error("reference programs off-frame");
+        return Math.hypot(pp.x - qq.x, pp.y - qq.y);
+      };
+      const ratioA = miles(a, b) / pixels(a, b);
+      const ratioB = miles(c, d) / pixels(c, d);
+      expect(Math.abs(ratioA - ratioB)).toBeGreaterThan(0.01);
+    },
+  );
 });
 
 describe("members the frame cannot hold", () => {
-  test("a point outside the frame is off-frame; no row at all is no-point; a province is counted", () => {
-    // Honolulu has a Gazetteer row and projects off the lower-48 frame;
-    // Burnaby has a row with no state and projects inside it; the third slug
-    // has no row anywhere.
-    const f = footprintOf("t", "T", "Test", [
-      { slug: "chaminade", name: "Chaminade" },
-      { slug: "simon-fraser", name: "Simon Fraser" },
-      { slug: "no-such-programme", name: "Nowhere" },
-    ]);
-    expect(f.placed.map((p) => p.slug)).toEqual(["simon-fraser"]);
-    expect(f.unplaced).toEqual([
-      { slug: "chaminade", name: "Chaminade", reason: "off-frame" },
-      { slug: "no-such-programme", name: "Nowhere", reason: "no-point" },
-    ]);
-    expect(f.states).toEqual([]);
-    expect(f.provinces).toEqual(["B.C."]);
-  });
+  // Chaminade and Simon Fraser are rows of the full home's reference file.
+  test.skipIf(!readsFullHome())(
+    "a point outside the frame is off-frame; no row at all is no-point; a province is counted",
+    () => {
+      // Honolulu has a Gazetteer row and projects off the lower-48 frame;
+      // Burnaby has a row with no state and projects inside it; the third slug
+      // has no row anywhere.
+      const f = footprintOf("t", "T", "Test", [
+        { slug: "chaminade", name: "Chaminade" },
+        { slug: "simon-fraser", name: "Simon Fraser" },
+        { slug: "no-such-programme", name: "Nowhere" },
+      ]);
+      expect(f.placed.map((p) => p.slug)).toEqual(["simon-fraser"]);
+      expect(f.unplaced).toEqual([
+        { slug: "chaminade", name: "Chaminade", reason: "off-frame" },
+        { slug: "no-such-programme", name: "Nowhere", reason: "no-point" },
+      ]);
+      expect(f.states).toEqual([]);
+      expect(f.provinces).toEqual(["B.C."]);
+    },
+  );
 
   test("a province is read from the town, never from a state row", () => {
     expect(provinceOf("Burnaby, B.C.")).toBe("B.C.");
@@ -411,17 +424,20 @@ describe("what the band prints", () => {
 });
 
 describe("why no territories are drawn", () => {
-  test("two conferences have members closer than either league is wide", () => {
-    const near = closestCrossConference(footprints);
-    expect(near).not.toBeNull();
-    if (!near) return;
-    // The finding the map is built around: the leagues interleave on the
-    // ground, so a shaded region would claim ground its conference lacks. If
-    // this ever stops being true, the band's design should be revisited — not
-    // the assertion quietly relaxed.
-    const narrowest = Math.min(...footprints.map((f) => f.widestGap ?? Number.POSITIVE_INFINITY));
-    expect(near.miles).toBeLessThan(narrowest);
-  });
+  test.skipIf(!spansConferences())(
+    "two conferences have members closer than either league is wide",
+    () => {
+      const near = closestCrossConference(footprints);
+      expect(near).not.toBeNull();
+      if (!near) return;
+      // The finding the map is built around: the leagues interleave on the
+      // ground, so a shaded region would claim ground its conference lacks. If
+      // this ever stops being true, the band's design should be revisited — not
+      // the assertion quietly relaxed.
+      const narrowest = Math.min(...footprints.map((f) => f.widestGap ?? Number.POSITIVE_INFINITY));
+      expect(near.miles).toBeLessThan(narrowest);
+    },
+  );
 });
 
 describe("region labels", () => {
