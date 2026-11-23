@@ -69,12 +69,14 @@ just build             # static site into dist/ with the project-page base
 ```
 
 `TOUCHLINE_DATA_DIR` names the data home (default `~/keelson/d2-soccer`);
-`TOUCHLINE_CONTRACTS_DIR` names the rib's `contracts/` for the drift tests.
+`TOUCHLINE_CONTRACTS_DIR` names the `contracts/` for the drift tests (default
+`../touchline-contracts/contracts`, then `../keelson-rib-touchline/contracts`).
 
-Without the private data homes, build from a sample home (keelson-rib-touchline
-`samples/`, moving to touchline-contracts): `TOUCHLINE_DATA_DIR=<rib>/samples/d2-soccer bun run build`,
+Without the private data homes, clone `ed-insights-ai/touchline-contracts` beside this
+repo and build from a sample home: `TOUCHLINE_DATA_DIR=../touchline-contracts/samples/d2-soccer bun run build`,
 or with `TOUCHLINE_NCAA_DIVISION=d1` and `samples/d1-soccer`. A home with a `data/sample.json`
 narrows the build to the one conference it holds; a full home has none and narrows nothing.
+touchline-contracts is a copy the rib publishes; change fixtures in the rib, never there.
 
 ## Architecture Overview
 

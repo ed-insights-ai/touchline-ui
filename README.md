@@ -53,11 +53,13 @@ field the writer can emit and held to the writer by the rib's CI.
 inventory with those documents key by key, naming any key that drifts in
 either direction. So a writer-side shape change fails in the rib's CI and a
 reader-side tightening fails in `bun test` here, never on the published build.
-The fixtures are read from the rib checkout, not copied:
+The fixtures are read from a checkout of touchline-contracts (the rib's
+published copy), not copied:
 
 ```
-TOUCHLINE_CONTRACTS_DIR   the rib's contracts/ directory
-                          default: ../keelson-rib-touchline/contracts
+TOUCHLINE_CONTRACTS_DIR   a contracts/ directory
+                          default: ../touchline-contracts/contracts,
+                          then ../keelson-rib-touchline/contracts
 ```
 
 When that directory is absent the suite skips, naming the path it looked at.
