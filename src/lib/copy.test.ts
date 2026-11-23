@@ -354,7 +354,9 @@ describe("a program has one name", () => {
       }
     }
     expect([...new Set(offenders)]).toEqual([]);
-  }, 20_000);
+    // 27.4s on a hosted runner with the full archive (Nov 23): the limit is
+    // for a hang, not for a slow machine.
+  }, 60_000);
 });
 
 describe("a sentence earns its place", () => {
