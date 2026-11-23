@@ -2,6 +2,10 @@
 // literal in code — so pointing Touchline at GSC or LSC is an edit to this
 // file and nothing else.
 
+import { existsSync, readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { dirname, join, resolve } from "node:path";
+
 export type Gender = "men" | "women";
 
 /** A region: the one grouping the site draws above the conference. */
@@ -419,16 +423,83 @@ export const currentDivision: NcaaDivision = ncaaDivisions.find(
   (d) => d.key === ncaaDivision,
 ) as NcaaDivision;
 
-const profile = divisions[gender];
-if (!profile) {
+const configured = divisions[gender];
+if (!configured) {
   throw new Error(
     `Touchline: there is no ${ncaaDivision} ${gender}'s build (site.config profiles); ` +
       `set TOUCHLINE_NCAA_DIVISION and TOUCHLINE_GENDER to one that exists`,
   );
 }
 
+function expandTilde(p: string): string {
+  return p === "~" || p.startsWith("~/") ? join(homedir(), p.slice(1)) : p;
+}
+
+/** The data home's root, the directory that CONTAINS `data/`: TOUCHLINE_DATA_DIR
+ *  for one build, else the division's own home. Being pointed at `data/`
+ *  itself is recognised rather than failing with an empty site. lib/data.ts
+ *  reads through this same function. */
+export function resolveDataRoot(dataHome: string): string {
+  const override = process.env.TOUCHLINE_DATA_DIR?.trim();
+  const root = resolve(override ? expandTilde(override) : expandTilde(dataHome));
+  if (!existsSync(join(root, "data", "fixtures")) && existsSync(join(root, "fixtures"))) {
+    return dirname(root);
+  }
+  return root;
+}
+
+/** A sample data home's manifest (data/sample.json, cut by the rib's
+ *  pipeline/scripts/cut_sample.py): one conference, one season, both
+ *  genders, so the public repos can build and test without the full,
+ *  private dataset. */
+export interface SampleManifest {
+  schema: "touchline.sample/1";
+  season: number;
+  conference: string;
+  genders: readonly Gender[];
+}
+
+/** The sample manifest of the home at `root`, or null for a full home. */
+export function readSampleManifest(root: string): SampleManifest | null {
+  const path = join(root, "data", "sample.json");
+  if (!existsSync(path)) return null;
+  const raw = JSON.parse(readFileSync(path, "utf8"));
+  if (raw?.schema !== "touchline.sample/1") {
+    throw new Error(`Touchline: ${path} is not a touchline.sample/1 manifest`);
+  }
+  return raw as SampleManifest;
+}
+
+/** The profile a build follows over a given home. A full home (no manifest)
+ *  changes nothing, so every configured conference stays required and a
+ *  missing season file still fails the build. A sample home narrows the
+ *  build to the conference it holds, which must be one the profile names,
+ *  and opens on it. */
+export function profileForHome(
+  profile: BuildProfile,
+  sample: SampleManifest | null,
+  g: Gender,
+): BuildProfile {
+  if (!sample) return profile;
+  if (!profile.conferences.includes(sample.conference)) {
+    throw new Error(
+      `Touchline: the sample home holds ${sample.conference}, which this build's profile does not follow`,
+    );
+  }
+  if (!sample.genders.includes(g)) {
+    throw new Error(`Touchline: the sample home holds no ${g}'s season for ${sample.conference}`);
+  }
+  return { ...profile, conferences: [sample.conference], home: sample.conference };
+}
+
+/** Set when this build reads a sample home rather than a full one. */
+export const sample: SampleManifest | null = readSampleManifest(
+  resolveDataRoot(configured.dataHome),
+);
+const profile = profileForHome(configured, sample, gender);
+
 export const site: SiteConfig = {
-  season: Number(process.env.TOUCHLINE_SEASON ?? 2026),
+  season: Number(process.env.TOUCHLINE_SEASON ?? sample?.season ?? 2026),
   gender,
   ncaaDivision: ncaaDivisionKey,
   ...profile,

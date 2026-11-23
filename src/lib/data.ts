@@ -7,9 +7,8 @@
 // an error, not something to guess at.
 
 import { existsSync, readFileSync } from "node:fs";
-import { homedir } from "node:os";
-import { dirname, join, resolve } from "node:path";
-import { site } from "../site.config.ts";
+import { join } from "node:path";
+import { resolveDataRoot, site } from "../site.config.ts";
 import { type CoverageFile, coverageFileSchema } from "./coverage.ts";
 import {
   type FixturesFile,
@@ -22,29 +21,16 @@ import {
   statsFileSchema,
 } from "./model.ts";
 
-function expandTilde(p: string): string {
-  return p === "~" || p.startsWith("~/") ? join(homedir(), p.slice(1)) : p;
-}
-
-/** This build's own data home: each NCAA division is its own (site.config
- *  `dataHome`: ~/keelson/d2-soccer, ~/keelson/d1-soccer), so every read below,
- *  the cross-conference folds and the career tables included, stays inside
- *  the division being built. */
-const DEFAULT_ROOT = expandTilde(site.dataHome);
-
 /** The data home's root — the directory that CONTAINS `data/`.
  *
  *  `TOUCHLINE_DATA_DIR` names it, exactly as it does for the rib, for this
- *  one build; unset, it is the build's division's own home. Being
- *  pointed at the `data/` directory itself is a common enough slip that we
- *  recognise it rather than failing with an empty site. */
+ *  one build; unset, it is the build's division's own home (site.config
+ *  `dataHome`: ~/keelson/d2-soccer, ~/keelson/d1-soccer), so every read below,
+ *  the cross-conference folds and the career tables included, stays inside
+ *  the division being built. site.config resolves it, because a sample home
+ *  narrows the build's conferences before any page reads a file. */
 export function dataRoot(): string {
-  const override = process.env.TOUCHLINE_DATA_DIR?.trim();
-  const root = resolve(override ? expandTilde(override) : DEFAULT_ROOT);
-  if (!existsSync(join(root, "data", "fixtures")) && existsSync(join(root, "fixtures"))) {
-    return dirname(root);
-  }
-  return root;
+  return resolveDataRoot(site.dataHome);
 }
 
 export interface DataHome {
