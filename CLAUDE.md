@@ -66,6 +66,7 @@ just verify            # tsc, biome, build, bun test, link check: the gate befor
 bun test               # the tests alone (model drift, copy properties, fold, home)
 bun run journal run --conference gac   # the AI step; --all, --national; never run by the build
 just build             # static site into dist/ with the project-page base
+just determinism       # same data → same bytes; a one-game change stays local
 ```
 
 `TOUCHLINE_DATA_DIR` names the data home (default `~/keelson/d2-soccer`);

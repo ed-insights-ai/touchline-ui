@@ -99,3 +99,9 @@ export function freshness(seasons: readonly Season[], nameOf: (s: Season) => str
         : `${lagging.length} conferences last collected earlier`;
   return { line, lagging, lagLine };
 }
+
+/** "Aug 30, 21:07 UTC": a collect's own moment, as a match page's SOURCE row
+ *  prints it (through the build's freshness.js). */
+export function shortStamp(looked: string): string {
+  return `${md(looked)}, ${looked.slice(11, 16)} UTC`;
+}

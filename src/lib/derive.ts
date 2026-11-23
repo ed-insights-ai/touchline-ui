@@ -769,6 +769,9 @@ export const homeHref = (): string => withBase("/");
 
 /** The About & method page, which every footer links to. */
 export const aboutHref = (): string => withBase("/about/");
+/** The build's one freshness file: each conference's footer stamp, read by
+ *  the pages that print one conference's stamp (src/pages/freshness.js.ts). */
+export const freshnessHref = (): string => withBase("/freshness.js");
 /** How tiers work: the method page, built only when tiers are published. */
 export const aboutTiersHref = (): string => withBase("/about/tiers/");
 /** The division's postseason: the NCAA bracket and the conference finals. */

@@ -202,6 +202,14 @@ verify:
     just gate
     bun scripts/links.ts dist "{{site_base}}"
 
+# Prove the build is incremental: the same data built twice differs only in
+# the home page's build stamp, and a one-game change touches only that match,
+# its two team pages, freshness.js and the hub pages. The host is synced by
+# content, so this is what keeps a daily deploy from re-sending the whole site.
+# Deliberately NOT part of `verify`: it builds three times.
+determinism home="":
+    bun scripts/determinism.ts {{home}}
+
 # Pixel-diff the built site against a saved baseline, at desktop and phone
 # width. Deliberately NOT part of `verify`: it needs Chrome and ImageMagick,
 # and a refactor's baseline is a judgement about intent, not a fact about the

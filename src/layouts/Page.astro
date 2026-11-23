@@ -5,8 +5,14 @@ import { builtAt } from "../lib/build.ts";
 interface Props {
   title: string;
   description?: string;
+  /** Carry the build stamp. Only each build's home page does: a stamp that
+   *  changes every build, on every page, makes every file new to the deploy,
+   *  and the site is synced to its host by content — so one stamp per build,
+   *  on the page `just deployed` already reads, says which build is live and
+   *  leaves every other page byte-identical until its own data changes. */
+  stamp?: boolean;
 }
-const { title, description } = Astro.props;
+const { title, description, stamp = false } = Astro.props;
 
 // The page's own address, absolute, and only where the build was told where it
 // will be served. Astro.url carries the deploy base already — the same base
@@ -24,8 +30,9 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : nu
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {/* Which build is this? Meta only — visible nowhere, so the pixel
-        harness never sees it; `curl -s <url> | grep touchline-build` does. */}
-    <meta name="touchline-build" content={builtAt} />
+        harness never sees it; `curl -s <url> | grep touchline-build` does.
+        Home page only (the stamp prop above). */}
+    {stamp && <meta name="touchline-build" content={builtAt} />}
     {description && <meta name="description" content={description} />}
     {canonical && <link rel="canonical" href={canonical} />}
 

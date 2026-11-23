@@ -54,7 +54,6 @@ function sitemap() {
         }
         const origin = site.replace(/\/$/, "");
         const prefix = (base ?? "").replace(/\/$/, "");
-        const day = new Date().toISOString().slice(0, 10);
         const urls = pages
           .map((p) => `${origin}${prefix}/${p.pathname}`.replace(/([^:])\/{2,}/g, "$1/"))
           .sort();
@@ -62,7 +61,7 @@ function sitemap() {
           '<?xml version="1.0" encoding="UTF-8"?>\n' +
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
           urls
-            .map((u) => `  <url><loc>${u}</loc><lastmod>${day}</lastmod></url>`)
+            .map((u) => `  <url><loc>${u}</loc></url>`)
             .join("\n") +
           "\n</urlset>\n";
         await writeFile(new URL("sitemap.xml", dir), xml, "utf8");

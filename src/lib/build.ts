@@ -6,10 +6,12 @@
 // but "which build am I looking at?" is a fact about the artefact, not the
 // data, and only the build clock can answer it.
 //
-// Evaluated once per build process, so every page of one build carries the
-// same stamp. It ships as a <meta> tag only — invisible to the pixel harness,
+// Evaluated once per build process. It ships as a <meta> tag on each build's
+// HOME page only (Page.astro's `stamp`) — invisible to the pixel harness,
 // readable with curl — and is the ideal stamp argument for
-// scripts/deployed.ts, which waits for the deploy that carries it.
+// scripts/deployed.ts, which waits for the deploy that carries it. Every other
+// page is a pure function of the data home, so a deploy synced by content
+// uploads only the pages whose data changed (scripts/determinism.ts proves it).
 //
 // Do not import this anywhere content-bearing: not into derive.ts, not into
 // the journal, and never near the numeral audit.
