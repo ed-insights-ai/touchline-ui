@@ -71,6 +71,11 @@ just build             # static site into dist/ with the project-page base
 `TOUCHLINE_DATA_DIR` names the data home (default `~/keelson/d2-soccer`);
 `TOUCHLINE_CONTRACTS_DIR` names the rib's `contracts/` for the drift tests.
 
+Without the private data homes, build from a sample home (keelson-rib-touchline
+`samples/`, moving to touchline-contracts): `TOUCHLINE_DATA_DIR=<rib>/samples/d2-soccer bun run build`,
+or with `TOUCHLINE_NCAA_DIVISION=d1` and `samples/d1-soccer`. A home with a `data/sample.json`
+narrows the build to the one conference it holds; a full home has none and narrows nothing.
+
 ## Architecture Overview
 
 A static Astro site rebuilt from the rib's JSON data home on every collect: 19 configured conferences, one journal per conference plus a national one written by a model and validated against the data, published to `gh-pages` by `just publish`. See `reference/ARCHITECTURE.md`.
