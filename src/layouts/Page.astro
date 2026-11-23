@@ -11,8 +11,12 @@ interface Props {
    *  on the page `just deployed` already reads, says which build is live and
    *  leaves every other page byte-identical until its own data changes. */
   stamp?: boolean;
+  /** The not-found page. The host serves it at whatever address was missing,
+   *  so it has no address of its own to name as canonical, and it is not a
+   *  page to index. */
+  missing?: boolean;
 }
-const { title, description, stamp = false } = Astro.props;
+const { title, description, stamp = false, missing = false } = Astro.props;
 
 // The page's own address, absolute, and only where the build was told where it
 // will be served. Astro.url carries the deploy base already — the same base
@@ -21,7 +25,7 @@ const { title, description, stamp = false } = Astro.props;
 // SITE_URL there is no honest absolute URL to give, and a guessed one is worse
 // than none: it would point every share and every crawler at a host this build
 // knows nothing about.
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : null;
+const canonical = Astro.site && !missing ? new URL(Astro.url.pathname, Astro.site).href : null;
 ---
 <!doctype html>
 <html lang="en">
@@ -34,6 +38,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : nu
         Home page only (the stamp prop above). */}
     {stamp && <meta name="touchline-build" content={builtAt} />}
     {description && <meta name="description" content={description} />}
+    {missing && <meta name="robots" content="noindex" />}
     {canonical && <link rel="canonical" href={canonical} />}
 
     {/* What an unfurler reads. It is given the page's own title and the same

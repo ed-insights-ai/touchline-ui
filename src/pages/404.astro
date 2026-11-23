@@ -1,0 +1,56 @@
+---
+// Not found. The page the host serves for any address the site does not have
+// (CloudFront's error response names /404.html). It wears the shared header,
+// the About page's opening in the About page's type, and the shared footer,
+// so a reader who followed a dead link is still on Touchline and has the two
+// ways out every page offers: the wordmark home, and the conference menu.
+//
+// The host serves this one file for a missing address under any build's path
+// (/d1/women/… included), so every link on it is root-absolute through the
+// base and none is relative to where the reader landed.
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import Page from "../layouts/Page.astro";
+import { homeHref } from "../lib/derive.ts";
+import { homeSeasons } from "../lib/home.ts";
+import { site } from "../site.config.ts";
+
+const seasons = homeSeasons();
+---
+
+<Page title="Touchline — Page not found" description="There is no page at this address." missing>
+  <div class="tl-page missing">
+    <SiteHeader />
+
+    <section class="lede">
+      <div class="akicker num">TOUCHLINE · {site.division.toUpperCase()}</div>
+      <h1 class="atitle serif">Page not found</h1>
+      <p class="intro">
+        There is no page at this address. It may have been mistyped, or it may name a season,
+        conference or team this site does not carry. The <a class="intro-link" href={homeHref()}>home page</a>{" "}
+        lists everything it does, and the conference menu above reaches any of it.
+      </p>
+    </section>
+
+    <SiteFooter seasons={seasons} />
+  </div>
+</Page>
+
+<style>
+  /* The About page's opening, in the same measures: nothing here is new. */
+  .missing { min-height: 100vh; }
+  .lede { padding: 40px 0 30px; max-width: 720px; }
+  .akicker { margin-bottom: 14px; font-size: 11px; letter-spacing: 0.2em; color: var(--accent); font-weight: 600; }
+  .atitle { margin: 0 0 16px; font-size: 42px; line-height: 1.1; letter-spacing: -0.005em; }
+  .intro {
+    margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink-soft);
+    font-family: var(--serif); font-weight: 400; text-wrap: pretty;
+  }
+  .intro-link { color: inherit; border-bottom: 1px solid var(--outline-quiet); }
+  .intro-link:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+
+  @media (max-width: 720px) {
+    .atitle { font-size: 32px; }
+    .intro { font-size: 15.5px; }
+  }
+</style>

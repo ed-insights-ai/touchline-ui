@@ -54,7 +54,10 @@ function sitemap() {
         }
         const origin = site.replace(/\/$/, "");
         const prefix = (base ?? "").replace(/\/$/, "");
+        // The not-found page is served at whatever address was missing, never
+        // at its own, so it is no route to list (src/pages/404.astro).
         const urls = pages
+          .filter((p) => p.pathname.replace(/\/$/, "") !== "404")
           .map((p) => `${origin}${prefix}/${p.pathname}`.replace(/([^:])\/{2,}/g, "$1/"))
           .sort();
         const xml =
