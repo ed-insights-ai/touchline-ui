@@ -144,10 +144,9 @@ const dir = contractsDir();
 
 /** The four season files, the schemas model.ts reads them with, and the keys
  *  each declares that the rib's fixture does not exercise as of its contract
- *  changelog of 2026-09-07. Every one of these is declared by the rib's own
+ *  changelog of 2026-11-23. Every one of these is declared by the rib's own
  *  src/model.ts as well, so none is a site invention: `clock` is the live
- *  fixture's minute, and no collect has caught a live row; `offsides` is a
- *  box-score team line the fixture's pages did not print; and the match line
+ *  fixture's minute, and no collect has caught a live row; and the match line
  *  schema is shared between outfield players and keepers, so the keeper-only
  *  fields never appear on a player row and the outfield fields never on a
  *  keeper row. A key leaving this list means the rib's fixture now carries
@@ -171,7 +170,6 @@ const seasonFiles = [
       "matches.*.teams.[].keepers.[].shots",
       "matches.*.teams.[].keepers.[].sog",
       "matches.*.teams.[].keepers.[].started",
-      "matches.*.teams.[].offsides",
       "matches.*.teams.[].players.[].goals_against",
       "matches.*.teams.[].players.[].saves",
     ],
