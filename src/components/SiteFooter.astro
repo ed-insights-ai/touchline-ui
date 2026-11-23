@@ -27,15 +27,28 @@
 //
 // No logo and no bold name. The line opens with the word Touchline, which is
 // the identity, and everything after it is one quiet hairline register.
-import { aboutHref, type Season } from "../lib/derive.ts";
+//
+// A team or match page reads its stamp from the build's freshness.js rather
+// than printing it (`shared`). Those pages are nearly all of the site, and the
+// stamp moves on every collect while the page around it does not: printed, it
+// made every page a new file every day and the deploy re-sent the whole site.
+// Read from one shared file, a page changes only when its own data does. The
+// line a reader sees is the same text, filled by a parser-blocking script
+// placed right after it, so it is there before first paint; without scripts
+// the cell links to the About page's list of every stamp instead.
+import { aboutHref, freshnessHref, type Season } from "../lib/derive.ts";
 import { freshness } from "../lib/freshness.ts";
 import { site } from "../site.config.ts";
 
 interface Props {
   /** Every conference this page speaks for, in the order it should be read. */
   seasons: readonly Season[];
+  /** Read the stamp from freshness.js instead of printing it. One-conference
+   *  pages only: a several-conference line is computed across them. */
+  shared?: boolean;
 }
-const { seasons } = Astro.props;
+const { seasons, shared = false } = Astro.props;
+const sharedKey = shared && seasons.length === 1 ? seasons[0]?.key : undefined;
 const collected = freshness(
   seasons,
   (s) => site.conferenceNames[s.key] ?? s.fixtures.conference,
@@ -53,7 +66,14 @@ const published = new Date().getUTCFullYear();
     </span>
   </span>
   <span class="sf-cell sf-mid num">
-    <span class="sf-when">{collected.line}</span>
+    {sharedKey ? (
+      <>
+        <span class="sf-when" data-conf={sharedKey} data-stamp="line"><noscript><a class="sf-link" href={`${aboutHref()}#collection`}>Collection dates</a></noscript></span>
+        <script is:inline src={freshnessHref()}></script>
+      </>
+    ) : (
+      <span class="sf-when">{collected.line}</span>
+    )}
     {collected.lagLine && (
       <a class="sf-lag" href={`${aboutHref()}#collection`}>{collected.lagLine}</a>
     )}

@@ -2,6 +2,7 @@
 import { site } from "../../../site.config.ts";
 import Page from "../../../layouts/Page.astro";
 import {
+  aboutHref,
   boxScoreGaps,
   championshipHref,
   hasScore,
@@ -15,6 +16,7 @@ import {
   teamPageHref,
 } from "../../../lib/derive.ts";
 import type { Fixture, MatchDetail, Season } from "../../../lib/derive.ts";
+import { shortStamp } from "../../../lib/freshness.ts";
 import { identityLine } from "../../../lib/programmes.ts";
 import MatchLineups from "../../../components/MatchLineups.astro";
 import MatchSides from "../../../components/MatchSides.astro";
@@ -61,8 +63,6 @@ import {
   clockTime,
   longDate,
   matchMinute,
-  monShort,
-  dayOfMonth,
   stampDate,
   statusWord,
 } from "../../../lib/format.ts";
@@ -204,7 +204,7 @@ const awayAbbr = names.abbr(fixture.away);
 
 // "Aug 30, 21:07 UTC" — the collect's own moment, not an ISO string.
 const looked = lastLooked(season);
-const collectedStamp = `${monShort(looked.slice(0, 10))} ${dayOfMonth(looked.slice(0, 10))}, ${looked.slice(11, 16)} UTC`;
+const collectedStamp = shortStamp(looked);
 
 const gaps = boxScoreGaps(season);
 const gapReason = gaps.find((g) => g.fixtureId === fixture.id)?.reason;
@@ -258,7 +258,10 @@ const kickoffSaid = kickoffDisagreement
   ? kickoffNote(kickoffDisagreement, (slug) => names.name(slug))
   : null;
 
-const knownRows: { label: string; value: string }[] = [
+// The SOURCE row's stamp is read from the build's freshness.js (`stamp`), not
+// printed: it moves on every collect while the match does not, and printed it
+// made this page a new file every day (SiteFooter `shared` says the same).
+const knownRows: { label: string; value: string; stamp?: string }[] = [
   {
     label: "DATE",
     // On a preview the kickoff is the hero's own figure; the row does not say it twice.
@@ -287,7 +290,8 @@ const knownRows: { label: string; value: string }[] = [
   }]),
   {
     label: "SOURCE",
-    value: `${fixture.source_url ? new URL(fixture.source_url).hostname : "source not recorded"} · schedule page · last collected ${collectedStamp}`,
+    value: `${fixture.source_url ? new URL(fixture.source_url).hostname : "source not recorded"} · schedule page · last collected `,
+    stamp: collectedStamp,
   },
 ];
 
@@ -648,7 +652,9 @@ const meetings =
               {knownRows.map((r) => (
                 <div class="known-row">
                   <span class="known-label">{r.label}</span>
-                  <span class="known-value">{r.value}</span>
+                  <span class="known-value">{r.value}{r.stamp && (
+                    <span data-conf={season.key} data-stamp="short"><noscript>{"on the "}<a href={`${aboutHref()}#collection`}>About page</a></noscript></span>
+                  )}</span>
                 </div>
               ))}
             </div>
@@ -759,7 +765,7 @@ const meetings =
     )}
 
 
-    <SiteFooter seasons={[season]} />
+    <SiteFooter seasons={[season]} shared />
   </div>
 </Page>
 
