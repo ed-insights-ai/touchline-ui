@@ -160,7 +160,9 @@ describe("the reader's word for one is friendly", () => {
     // Builds every player card in every conference, so its cost grows with the
     // season: it crossed bun's 5s default by mid-November and blocked the
     // publish gate. Same budget as the other whole-corpus scan (copy.test.ts).
-  }, 20_000);
+    // 20s held on the Mac but not on a hosted runner with the full archive
+    // (22.7s on Nov 23), so the budget is 60s: a hang, not a slow machine.
+  }, 60_000);
 
   test("the count the word describes is still the collector's exhibitions", () => {
     // Renaming the noun must not have moved what it counts.
