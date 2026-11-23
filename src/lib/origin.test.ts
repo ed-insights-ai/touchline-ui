@@ -17,6 +17,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { site } from "../site.config.ts";
 import { loadSeason, squadByLine } from "./derive.ts";
+import { readsFullHome } from "./fixtures/facts.ts";
 import { positionLine } from "./format.ts";
 import { countOrigins, originOf, PLACED_NATIONS, trigramOf } from "./origin.ts";
 
@@ -137,8 +138,10 @@ describe("against the rosters this site actually collects", () => {
         }
       }
     }
-    // The check must actually be looking at something.
-    expect(checked).toBeGreaterThan(50);
+    // The check must actually be looking at something: past fifty rows on the
+    // full archive, at least one on a sample home's one conference, whose
+    // rosters mostly print "Tulsa, Okla." rather than a USPS code.
+    expect(checked).toBeGreaterThan(readsFullHome() ? 50 : 0);
   });
 
   test("every marker is a three-letter trigram", () => {
@@ -198,7 +201,9 @@ describe("against the rosters this site actually collects", () => {
     // 7,105 placed, with 166 unplaced, so not a reading failure). A floor
     // set from the men's would call the women's honest figure a catastrophe.
     const floor = site.gender === "men" ? 0.15 : 0.04;
-    expect(placed).toBeGreaterThan(500);
+    // The ratio holds on a sample home too; its one conference cannot reach
+    // the full archive's row floor.
+    expect(placed).toBeGreaterThan(readsFullHome() ? 500 : 0);
     expect(abroad / placed).toBeGreaterThan(floor);
     expect(abroad / placed).toBeLessThan(0.65);
   });
@@ -271,8 +276,8 @@ describe("the flag the marker draws", () => {
       }
     }
     // The check must be looking at something: these rosters span two dozen
-    // countries, not two.
-    expect(drawn.size).toBeGreaterThan(20);
+    // countries, not two. A sample home's one conference spans a handful.
+    expect(drawn.size).toBeGreaterThan(readsFullHome() ? 20 : 0);
     for (const iso of drawn) expect(existsSync(join(VENDORED, `${iso}.svg`)), iso).toBe(true);
   });
 });

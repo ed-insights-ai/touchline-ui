@@ -23,7 +23,7 @@ import {
 } from "./derive.ts";
 import { allSightings, type DivisionMatch, divisionCounts, foldToMatches } from "./division.ts";
 import { densityCards, densityConfig } from "./fixtures/density.ts";
-import { readsD2 } from "./fixtures/facts.ts";
+import { readsD2, readsFullHome, spansConferences } from "./fixtures/facts.ts";
 import { daysBetween, dowShort, longDate, shortDate, spell } from "./format.ts";
 import { footprintOf } from "./geo.ts";
 import {
@@ -807,7 +807,8 @@ describe("the ledger holds only played finals — silences never enter it", () =
     }
   });
 
-  test("and it goes red if the fold stops folding", () => {
+  // A sample home follows one conference: nothing is collected twice to fold.
+  test.skipIf(!spansConferences())("and it goes red if the fold stops folding", () => {
     // The teeth. Somewhere in this season two conferences collected the same
     // scored match; if that ever stops being true this test is measuring
     // nothing, so it says so rather than passing quietly.
@@ -874,25 +875,31 @@ describe("the ledger holds only played finals — silences never enter it", () =
     }
   });
 
-  test("a scored exhibition still stays out — the Saint Mary's trap, again", () => {
-    // Friendlies with published scores exist in the data; the ledger must
-    // refuse them the way every record on the site does.
-    const scoredExhibitions = seasons.flatMap((s) =>
-      s.fixtures.fixtures.filter((f) => isExhibition(f) && hasScore(f)),
-    );
-    expect(scoredExhibitions.length, "the trap is gone from the data").toBeGreaterThan(0);
-    for (const f of scoredExhibitions) {
-      const rows = lastNightLedger(seasons, f.date);
-      expect(
-        rows.some((r) => r.sightings.some((x) => x.fixture.id === f.id)),
-        f.id,
-      ).toBe(false);
-      expect(
-        lastNightOpen(seasons, f.date).some((o) => o.sightings.some((x) => x.fixture.id === f.id)),
-        f.id,
-      ).toBe(false);
-    }
-  });
+  // The trap is LSC's; a sample home's one conference may publish none.
+  test.skipIf(!readsFullHome())(
+    "a scored exhibition still stays out — the Saint Mary's trap, again",
+    () => {
+      // Friendlies with published scores exist in the data; the ledger must
+      // refuse them the way every record on the site does.
+      const scoredExhibitions = seasons.flatMap((s) =>
+        s.fixtures.fixtures.filter((f) => isExhibition(f) && hasScore(f)),
+      );
+      expect(scoredExhibitions.length, "the trap is gone from the data").toBeGreaterThan(0);
+      for (const f of scoredExhibitions) {
+        const rows = lastNightLedger(seasons, f.date);
+        expect(
+          rows.some((r) => r.sightings.some((x) => x.fixture.id === f.id)),
+          f.id,
+        ).toBe(false);
+        expect(
+          lastNightOpen(seasons, f.date).some((o) =>
+            o.sightings.some((x) => x.fixture.id === f.id),
+          ),
+          f.id,
+        ).toBe(false);
+      }
+    },
+  );
 
   test("last night is the day before the national asOf, and the ledger stays on it", () => {
     const asOf = nationalAsOf(seasons);
@@ -1024,7 +1031,10 @@ describe("the masthead is derived, deterministically, from counts and opener dat
     // paragraph for the surfaces that get nothing else.
     const text = nationalDescription(columns, national);
     expect(text).toContain(`${national.played} of ${national.total} matches played`);
-    expect(text).toContain(`across ${spell(columns.length)} conferences`);
+    // One conference is a sample home's whole division, and is singular.
+    expect(text).toContain(
+      `across ${spell(columns.length)} ${columns.length === 1 ? "conference" : "conferences"}.`,
+    );
     // The score-gap sentence, in whichever form the count takes. Zero is the
     // usual form now: the collector stores a scoreless final as scheduled
     // (rib #85), so a silent final reaches the division only from an older
@@ -1188,15 +1198,19 @@ describe("the reconciliation the page stopped printing", () => {
     ).toEqual([]);
   });
 
-  test("the middle term is not zero — the subtraction is doing work", () => {
-    // Without this, a fold that stopped folding would pass every check above
-    // by agreeing with a sum that had nothing to subtract. Recounted from the
-    // files, not from divisionCounts.
-    expect(duplicatedRecords(isCountable), "no shared match in this data").toBeGreaterThan(0);
-    expect(duplicatedRecords(isScored), "no shared result in this data").toBeGreaterThan(0);
-    expect(fromFixtures.total()).toBeLessThan(sum((c) => c.counts.total));
-    expect(fromFixtures.played()).toBeLessThan(sum((c) => c.counts.played));
-  });
+  // A sample home follows one conference: nothing is collected twice to fold.
+  test.skipIf(!spansConferences())(
+    "the middle term is not zero — the subtraction is doing work",
+    () => {
+      // Without this, a fold that stopped folding would pass every check above
+      // by agreeing with a sum that had nothing to subtract. Recounted from the
+      // files, not from divisionCounts.
+      expect(duplicatedRecords(isCountable), "no shared match in this data").toBeGreaterThan(0);
+      expect(duplicatedRecords(isScored), "no shared result in this data").toBeGreaterThan(0);
+      expect(fromFixtures.total()).toBeLessThan(sum((c) => c.counts.total));
+      expect(fromFixtures.played()).toBeLessThan(sum((c) => c.counts.played));
+    },
+  );
 
   test("and every figure the division prints folds, whether or not it needs to today", () => {
     // Structural, not conditional. Silences and gaps have no duplicate on this
@@ -1265,7 +1279,8 @@ describe("the reconciliation the page stopped printing", () => {
     ).toContain("total:");
   });
 
-  test("and it goes red if the fold stops folding at all", () => {
+  // A sample home follows one conference: nothing is collected twice to fold.
+  test.skipIf(!spansConferences())("and it goes red if the fold stops folding at all", () => {
     // The failure the middle term exists to catch: a division figure that is
     // the raw sum again. Neither surface may agree with it.
     const unfolded = {

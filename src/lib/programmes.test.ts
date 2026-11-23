@@ -11,6 +11,7 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { site } from "../site.config.ts";
 import { loadFixtures } from "./data.ts";
+import { readsFullHome } from "./fixtures/facts.ts";
 import { pointOf } from "./geo.ts";
 import {
   assertProgrammesFor,
@@ -83,14 +84,19 @@ describe("the build gate", () => {
 });
 
 describe("what a slug resolves to", () => {
-  test("a program displays under the reference's name, which tells the two Dominicans apart", () => {
-    // The CACC's fixtures file names its member "Dominican"; the reference
-    // carries the disambiguated form for both, and the page title, the h1
-    // and the masthead's team disclosure all read from here.
-    expect(displayNameOf("dominican", "Dominican")).toBe("Dominican (N.Y.)");
-    expect(displayNameOf("dominican-of-california", "Dominican")).toBe("Dominican (Calif.)");
-    expect(displayNameOf("no-such-programme", "Nowhere")).toBe("Nowhere");
-  });
+  // Both Dominicans are rows of the full home's reference file; a sample's
+  // holds its own conference's rows alone.
+  test.skipIf(!readsFullHome())(
+    "a program displays under the reference's name, which tells the two Dominicans apart",
+    () => {
+      // The CACC's fixtures file names its member "Dominican"; the reference
+      // carries the disambiguated form for both, and the page title, the h1
+      // and the masthead's team disclosure all read from here.
+      expect(displayNameOf("dominican", "Dominican")).toBe("Dominican (N.Y.)");
+      expect(displayNameOf("dominican-of-california", "Dominican")).toBe("Dominican (Calif.)");
+      expect(displayNameOf("no-such-programme", "Nowhere")).toBe("Nowhere");
+    },
+  );
 
   test("a stranger renders the absence state", () => {
     expect(identityLine("no-such-programme")).toBeNull();

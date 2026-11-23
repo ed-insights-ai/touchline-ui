@@ -21,6 +21,7 @@ import { describe, expect, test } from "bun:test";
 import { site } from "../site.config.ts";
 import { loadRosters } from "./data.ts";
 import { loadSeason, squadByLine, squadOf } from "./derive.ts";
+import { readsFullHome } from "./fixtures/facts.ts";
 import { LINE_ORDER, positionLine } from "./format.ts";
 import { originOf } from "./origin.ts";
 
@@ -223,9 +224,11 @@ describe("against the rosters this site actually collects", () => {
         }
       }
     }
-    expect(checked).toBeGreaterThan(1500);
+    // A sample home is one conference's season: the floor is the full
+    // archive's, and on a sample the check need only be looking at something.
+    expect(checked).toBeGreaterThan(readsFullHome() ? 1500 : 0);
     // 32 conference-seasons are on disk today; fewer means a file went missing.
-    expect(seasonsRead).toBeGreaterThanOrEqual(32);
+    expect(seasonsRead).toBeGreaterThanOrEqual(readsFullHome() ? 32 : 1);
   });
 });
 
@@ -252,7 +255,9 @@ describe("what placing a player must not touch", () => {
         }
       }
     }
-    expect(compared).toBeGreaterThan(800);
+    // A sample home is one conference's season: the floor is the full
+    // archive's, and on a sample the check need only be looking at something.
+    expect(compared).toBeGreaterThan(readsFullHome() ? 800 : 0);
   });
 
   test("every player the four lines draw is a player on the roster, once", () => {
