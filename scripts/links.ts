@@ -135,7 +135,11 @@ if (existsSync(sitemapFile)) {
     }
   }
   for (const page of pages) {
-    const own = base + `/${relative(dist, page).split("\\").join("/")}`.replace(/index\.html$/, "");
+    const rel = `/${relative(dist, page).split("\\").join("/")}`;
+    // A build's not-found page is served at whatever address was missing,
+    // never at its own, so the sitemap leaves it out (astro.config.mjs).
+    if (rel.endsWith("/404.html")) continue;
+    const own = base + rel.replace(/index\.html$/, "");
     if (!listed.has(own))
       broken.push({ page: "sitemap.xml", url: own, kind: "page not in sitemap" });
   }
