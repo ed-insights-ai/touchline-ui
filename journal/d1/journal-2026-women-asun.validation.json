@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "ASUN",
-  "validated_at": "2026-11-21T17:04:04.424Z",
-  "data_collected_at": "2026-11-21T15:20:02+00:00",
+  "validated_at": "2026-11-24T19:52:42.204Z",
+  "data_collected_at": "2026-11-23T16:35:16+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 10,
@@ -53,7 +53,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "West Florida conceded 11 goals while winning eight, drawing four and losing four.",
+      "text": "West Florida conceded eleven goals while winning eight, drawing four and losing four.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -115,10 +115,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:01:44.982Z",
-    "generate_ms": 139441,
-    "validate_ms": 1,
-    "wall_ms": 139441,
+    "started_at": "2026-11-24T19:52:14.457Z",
+    "generate_ms": 27743,
+    "validate_ms": 4,
+    "wall_ms": 27747,
     "concurrency": 4
   }
 }

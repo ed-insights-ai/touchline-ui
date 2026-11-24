@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GNAC",
-  "validated_at": "2026-11-17T13:02:53.089Z",
-  "data_collected_at": "2026-11-17T12:54:32+00:00",
+  "validated_at": "2026-11-24T19:29:17.127Z",
+  "data_collected_at": "2026-11-24T14:28:40+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Simon Fraser scored more than any other programme and still finished below Western Washington: in this conference the goals did not decide the table.",
+      "text": "Simon Fraser scored more than any other program and still finished below Western Washington: in this conference the goals did not decide the table.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Six matches are past their date with no result, every one of them scheduled before conference play opened.",
+      "text": "Six matches are past their date with no result, all scheduled before conference play opened.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Saint Martin's conceded thirty-seven goals, more than any other programme.",
+      "text": "Saint Martin's conceded 37 goals, more than any other program.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -74,8 +74,17 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Seattle Pacific scored thirty-two goals, none of them against Simon Fraser.",
+      "text": "Seattle Pacific scored 32 goals, none of them against Simon Fraser.",
       "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Simon Fraser goalkeeper Sofia Piperni kept nine shutouts while conceding fourteen goals.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Madeline Mays — 7 G · 4 A · 44 shots",
+      "text": "Madeline Mays — 7 G · 4 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,16 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 western-washington v cal-poly-pomona",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
-      "text": "2026-11-20 western-washington v concordia-irvine",
+      "text": "2026-11-22 western-washington v dallas-baptist",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-17T13:02:21.906Z",
-    "generate_ms": 31182,
-    "validate_ms": 1,
-    "wall_ms": 31183,
+    "started_at": "2026-11-24T19:27:25.362Z",
+    "generate_ms": 111761,
+    "validate_ms": 3,
+    "wall_ms": 111765,
     "concurrency": 4
   }
 }

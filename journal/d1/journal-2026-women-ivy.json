@@ -3,58 +3,62 @@
   "season": 2026,
   "gender": "women",
   "conference": "IVY",
-  "generated_at": "2026-11-21T15:40:00+00:00",
-  "data_collected_at": "2026-11-21T15:24:09+00:00",
-  "headline": "Brown beats Dartmouth and Columbia back to back",
-  "dek": "Brown, which finished the conference table behind Dartmouth and Columbia, has since won at both without conceding. Its 41 goals in all matches are more than any other Ivy program has scored, and its record stands at twelve wins, two draws and four losses.",
+  "generated_at": "2026-11-23T16:45:00+00:00",
+  "data_collected_at": "2026-11-23T16:40:58+00:00",
+  "headline": "Brown holds Clemson scoreless on the road",
+  "dek": "Brown held Clemson without a goal, extending a defensive streak that began with shutouts at Dartmouth and Columbia. The draw leaves Brown at twelve wins, three draws and four losses overall — more wins than any other Ivy program — with 41 goals scored and seventeen conceded across all matches.",
   "lede_basis": {
     "programme": "brown",
+    "wins": 12,
+    "draws": 3,
+    "losses": 4,
     "gf": 41,
     "ga": 17,
-    "wins": 12,
-    "draws": 2,
-    "losses": 4,
     "comparative": "greater_than_each",
-    "metric": "gf",
+    "metric": "wins",
     "of_any": 7
   },
-  "lede_updated": "2026-11-21",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Brown drew at Clemson, and Harvard now shares Brown's 41-goal lead across all matches.",
   "pattern": {
     "label": "derived",
-    "text": "Brown's lead in goals rests on a broad base: at least 13 different players have scored for it, and Angelina Vargas, with eight, accounts for a small share of the 41.",
+    "text": "Scoring volume has not tracked the Ivy table: Harvard reached 41 goals with at least twelve different scorers, led by Brooke Huleatt with eleven, yet finished below Dartmouth and Columbia.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "brown": 41,
+        "harvard": 41,
         "dartmouth": 25,
         "princeton": 25,
         "yale": 23,
         "penn": 22,
         "columbia": 20,
-        "cornell": 17,
-        "harvard": 16
+        "cornell": 17
       },
-      "highlight": "brown"
+      "highlight": "harvard"
     },
     "basis": {
       "source": "stats",
-      "player": "Angelina Vargas",
-      "programme": "brown",
-      "goals": 8,
-      "distinct_scorers_min": 13,
+      "player": "Brooke Huleatt",
+      "programme": "harvard",
+      "goals": 11,
+      "distinct_scorers_min": 12,
       "gf": 41,
-      "ga": 17
+      "ga": 22
     }
   },
   "wire": {
-    "line": "Brown has now won at both sides that finished above it in the Ivy table, and conceded in neither match.",
+    "line": "Harvard freshman Brooke Huleatt has eleven goals and seven assists as Harvard matches Brown's 41-goal total.",
     "basis": {
-      "programme": "brown",
-      "wins": 12,
-      "draws": 2,
-      "losses": 4
+      "source": "stats",
+      "player": "Brooke Huleatt",
+      "programme": "harvard",
+      "goals": 11,
+      "assists": 7,
+      "gf": 41,
+      "ga": 22
     },
-    "updated": "2026-11-21"
+    "updated": "2026-11-23"
   },
   "findings": [
     {
@@ -90,7 +94,7 @@
     },
     {
       "label": "derived",
-      "text": "Yale has scored 23 goals, more than Columbia, Cornell, Harvard or Penn. It has also lost ten of its matches.",
+      "text": "Yale has scored 23 goals, more than Columbia, Cornell or Penn. It has also lost ten of its matches.",
       "basis": {
         "programme": "yale",
         "gf": 23,
@@ -100,7 +104,7 @@
         "losses": 10,
         "comparative": "greater_than_each",
         "metric": "gf",
-        "of": ["columbia", "cornell", "harvard", "penn"]
+        "of": ["columbia", "cornell", "penn"]
       }
     },
     {
@@ -116,39 +120,35 @@
   ],
   "players_to_watch": [
     {
+      "player": "Brooke Huleatt",
+      "programme": "harvard",
+      "position": "FWD",
+      "class": "FR",
+      "line": "11 G · 7 A · 62 shots"
+    },
+    {
+      "player": "Ólöf Kristinsdóttir",
+      "programme": "harvard",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 4 A · 40 shots"
+    },
+    {
       "player": "Joy Okonye",
       "programme": "brown",
       "position": "MID",
       "class": "SR",
-      "line": "6 G · 9 A · 51 shots"
-    },
-    {
-      "player": "Stella Monberg",
-      "programme": "princeton",
-      "position": "FWD",
-      "class": "FR",
-      "line": "8 G · 3 A · 39 shots"
-    },
-    {
-      "player": "Madison Rose",
-      "programme": "dartmouth",
-      "position": "FWD",
-      "class": "SO",
-      "line": "4 G · 8 A · 23 shots"
+      "line": "6 G · 9 A · 52 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 columbia v brown",
-      "line": "Brown has now beaten both sides that finished above it in the conference table."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-21 clemson v brown",
-      "line": "Brown arrives having kept clean sheets against Dartmouth and Columbia."
+      "line": "Brown arrived having beaten both Dartmouth and Columbia away without conceding."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:06:41.407Z"
+    "validated_at": "2026-11-24T20:01:05.788Z"
   }
 }

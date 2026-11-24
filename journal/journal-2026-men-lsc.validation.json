@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "validated_at": "2026-11-17T12:41:40.844Z",
-  "data_collected_at": "2026-11-17T12:34:47+00:00",
+  "validated_at": "2026-11-24T19:06:53.595Z",
+  "data_collected_at": "2026-11-23T16:24:30+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fourteen different players have scored Midwestern State's 56 goals, and Parker Plaxco has eighteen of them.",
+      "text": "Fourteen different players have scored Midwestern State's 57 goals, and Parker Plaxco has nineteen of them.",
       "checker": "player_stat+distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Oklahoma Christian have lost four times, and St. Mary's are the only conference side to have beaten them.",
+      "text": "Oklahoma Christian has lost four times, with St. Mary's the only conference side to beat it.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "UT Dallas have lost twice, against eleven wins and seven draws, and conceded sixteen goals.",
+      "text": "UT Dallas has lost twice, against eleven wins and seven draws, and conceded sixteen goals.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Sul Ross State have lost all sixteen of their matches and scored twice.",
+      "text": "Sul Ross State has lost all sixteen of its matches and scored twice.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Parker Plaxco — 18 G · 71 shots",
+      "text": "Parker Plaxco — 19 G · 75 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,15 +119,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 midwestern-state v uccs",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-20 midwestern-state v cal-state-san-bernardino",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-17T12:41:05.836Z",
-    "generate_ms": 35006,
-    "validate_ms": 1,
-    "wall_ms": 35008,
+    "started_at": "2026-11-24T19:05:41.457Z",
+    "generate_ms": 72131,
+    "validate_ms": 7,
+    "wall_ms": 72138,
     "concurrency": 4
   }
 }

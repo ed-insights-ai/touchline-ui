@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "ASUN",
-  "generated_at": "2026-11-21T16:05:00+00:00",
-  "data_collected_at": "2026-11-21T15:20:02+00:00",
+  "generated_at": "2026-11-23T16:40:00+00:00",
+  "data_collected_at": "2026-11-23T16:35:16+00:00",
   "headline": "Lipscomb beats the table's top three away from home",
   "dek": "Lipscomb won three of its ten conference matches and finished sixth. It then won by one goal at Bellarmine, North Florida and FGCU in the space of eight days, the last of them against a side that had lost once in conference play.",
   "lede_basis": {
@@ -59,7 +59,7 @@
     },
     {
       "label": "observed",
-      "text": "West Florida conceded 11 goals while winning eight, drawing four and losing four.",
+      "text": "West Florida conceded eleven goals while winning eight, drawing four and losing four.",
       "basis": {
         "programme": "west-florida",
         "wins": 8,
@@ -119,6 +119,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:04:04.424Z"
+    "validated_at": "2026-11-24T19:52:42.204Z"
   }
 }

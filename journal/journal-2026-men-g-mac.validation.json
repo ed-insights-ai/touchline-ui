@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "G-MAC",
-  "validated_at": "2026-11-20T12:39:57.468Z",
-  "data_collected_at": "2026-11-20T12:32:03+00:00",
+  "validated_at": "2026-11-24T19:15:01.999Z",
+  "data_collected_at": "2026-11-23T16:51:38+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Findlay have scored 40 goals, more than any other programme in the conference.",
-      "checker": "team_goals+comparative",
+      "text": "Findlay leads the conference with fourteen wins, yet Lake Erie tops the table.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Tiffin have drawn six matches, more than any other programme in the conference.",
+      "text": "Tiffin has drawn six matches, more than any other program in the conference.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Carson Oberski has scored twelve goals for Findlay from 58 shots.",
+      "text": "Carson Oberski has scored thirteen goals for Findlay from 61 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Carson Oberski — 12 G · 5 A · 58 shots",
+      "text": "Carson Oberski — 13 G · 5 A · 61 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,15 +119,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 findlay v northern-michigan",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-20 findlay v lincoln",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:39:31.666Z",
-    "generate_ms": 25798,
-    "validate_ms": 3,
-    "wall_ms": 25802,
+    "started_at": "2026-11-24T19:12:19.367Z",
+    "generate_ms": 162629,
+    "validate_ms": 2,
+    "wall_ms": 162632,
     "concurrency": 4
   }
 }

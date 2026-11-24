@@ -3,24 +3,25 @@
   "season": 2026,
   "gender": "men",
   "conference": "MW",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:21:22+00:00",
-  "headline": "No conference side beats Grand Canyon",
-  "dek": "All five of Grand Canyon's defeats have come against programmes from outside the conference. Inside it, only UNLV and UC Davis have taken so much as a point off them, each with a draw.",
+  "generated_at": "2026-11-23T17:00:00+00:00",
+  "data_collected_at": "2026-11-23T16:29:53+00:00",
+  "headline": "Grand Canyon wins at Pitt to extend its season",
+  "dek": "The shutout win at Pitt brings Grand Canyon to fifteen victories, with only five defeats and two draws all season, and books a trip to Cornell. Every other MW program has finished its schedule, leaving the conference's unbeaten league leader as the only side still playing.",
   "lede_basis": {
     "programme": "grand-canyon",
-    "wins": 14,
+    "wins": 15,
     "draws": 2,
     "losses": 5
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Grand Canyon won at Pitt to reach fifteen wins and extend its season to Cornell",
   "pattern": {
     "label": "derived",
-    "text": "Scoring and standing run together: every programme sits in the conference table exactly where its goals across all its matches put it on this chart.",
+    "text": "Scoring and standing run together: every program sits in the conference table exactly where its goals across all its matches put it on this chart.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "grand-canyon": 42,
+        "grand-canyon": 43,
         "unlv": 30,
         "san-jose-state": 26,
         "air-force": 22,
@@ -34,17 +35,17 @@
       "metric": "gf",
       "programme": "grand-canyon",
       "of": ["unlv", "san-jose-state", "air-force", "uc-davis", "utah-tech"],
-      "gf": 42
+      "gf": 43
     }
   },
   "wire": {
-    "line": "Grand Canyon are the last side in the conference with a match still to play.",
+    "line": "Grand Canyon shut out Pitt on the road and now travels to Cornell as the only MW side still playing.",
     "basis": {
       "source": "fixtures",
-      "played": 81,
-      "total": 84
+      "played": 82,
+      "total": 85
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-23"
   },
   "findings": [
     {
@@ -69,7 +70,7 @@
     },
     {
       "label": "derived",
-      "text": "All nineteen goals UNLV have conceded went in past Hugo Lemos.",
+      "text": "All nineteen goals UNLV has conceded went in past Hugo Lemos.",
       "basis": {
         "source": "stats",
         "player": "Hugo Lemos",
@@ -80,7 +81,7 @@
     },
     {
       "label": "derived",
-      "text": "UC Davis have conceded 45 goals, more than Grand Canyon and UNLV together.",
+      "text": "UC Davis has conceded 45 goals, more than Grand Canyon and UNLV together.",
       "basis": {
         "comparative": "greater_than_sum",
         "metric": "ga",
@@ -104,7 +105,7 @@
       "programme": "grand-canyon",
       "position": "MID",
       "class": "SR",
-      "line": "7 G · 12 A · 55 shots"
+      "line": "7 G · 12 A · 57 shots"
     },
     {
       "player": "Arnau Camaño",
@@ -123,16 +124,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 san-diego v grand-canyon",
-      "line": "Grand Canyon have not lost since the middle of September."
+      "fixture_ref": "2026-11-22 pitt v grand-canyon",
+      "line": "Grand Canyon has not lost since the middle of September."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 pitt v grand-canyon",
-      "line": "Grand Canyon's only away defeat came in their first match of the season, at Stanford."
+      "fixture_ref": "2026-11-29 cornell v grand-canyon",
+      "line": "Grand Canyon's only away defeat came in its opening match of the season, at Stanford."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:53:00.211Z"
+    "validated_at": "2026-11-24T19:37:10.816Z"
   }
 }

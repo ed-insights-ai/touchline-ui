@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MVC",
-  "generated_at": "2026-11-20T14:05:00+00:00",
-  "data_collected_at": "2026-11-20T13:20:57+00:00",
+  "generated_at": "2026-11-23T16:35:00+00:00",
+  "data_collected_at": "2026-11-23T16:29:41+00:00",
   "headline": "Western Michigan have beaten both sides above them",
   "dek": "Bowling Green and Evansville finished level at the top, and Bowling Green won the only meeting between them, at Evansville in October. Western Michigan, the only side to beat Bowling Green in the table, have not lost since a defeat at DePaul in October.",
   "lede_basis": {},
@@ -50,7 +50,7 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Evansville have lost nine matches this season, more than any other side in the conference, and only one of them counts in the table.",
+      "text": "Evansville has lost nine matches this season, more than any other side in the conference, and only one of them counts in the table.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "losses",
@@ -63,7 +63,7 @@
     },
     {
       "label": "observed",
-      "text": "Bowling Green have conceded 23 goals this season, ten of them with Jason Ball in goal.",
+      "text": "Bowling Green has conceded 23 goals this season, ten of them with Jason Ball in goal.",
       "basis": {
         "source": "stats",
         "player": "Jason Ball",
@@ -125,6 +125,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:53:43.390Z"
+    "validated_at": "2026-11-24T19:36:17.083Z"
   }
 }

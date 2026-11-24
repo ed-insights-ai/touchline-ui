@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "BIGSOUTH",
-  "validated_at": "2026-11-20T17:50:23.543Z",
-  "data_collected_at": "2026-11-20T13:19:02+00:00",
+  "validated_at": "2026-11-24T19:33:44.064Z",
+  "data_collected_at": "2026-11-23T16:27:38+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -23,7 +23,7 @@
     },
     {
       "path": "pattern.text",
-      "text": "Scoring does not sort this table. Longwood have scored as many as anyone and conceded 39, more than Gardner-Webb or High Point, the two sides above everyone in the table.",
+      "text": "Scoring does not sort this table. Longwood has scored as many as anyone and conceded 39, more than Gardner-Webb or High Point, the two sides above everyone in the table.",
       "unbacked": ["2"]
     }
   ],
@@ -31,7 +31,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring does not sort this table. Longwood have scored as many as anyone and conceded 39, more than Gardner-Webb or High Point, the two sides above everyone in the table.",
+      "text": "Scoring does not sort this table. Longwood has scored as many as anyone and conceded 39, more than Gardner-Webb or High Point, the two sides above everyone in the table.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +67,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Presbyterian have not won a match all season: one draw and fifteen defeats.",
+      "text": "Presbyterian has not won a match all season: one draw and fifteen defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +76,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Brando Bedolla has 19 assists for Longwood, more than his 11 goals.",
+      "text": "Brando Bedolla has nineteen assists for Longwood, more than his eleven goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -138,10 +138,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:48:21.459Z",
-    "generate_ms": 122082,
-    "validate_ms": 1,
-    "wall_ms": 122083,
+    "started_at": "2026-11-24T19:32:50.292Z",
+    "generate_ms": 53769,
+    "validate_ms": 2,
+    "wall_ms": 53771,
     "concurrency": 4
   }
 }

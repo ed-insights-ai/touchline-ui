@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "BIG12",
-  "generated_at": "2026-11-21T17:05:00+00:00",
-  "data_collected_at": "2026-11-21T16:38:41+00:00",
+  "generated_at": "2026-11-24T14:40:00+00:00",
+  "data_collected_at": "2026-11-24T14:38:06+00:00",
   "headline": "BYU edges Texas Tech and Baylor at the top",
   "dek": "Baylor has won 18 matches this season, more than any other program in the conference, and still trails BYU in the table. The difference is defeats: BYU has lost fewer conference matches than any other side.",
   "lede_basis": {
@@ -64,11 +64,14 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Nine matches have passed their date with no result published. Apart from West Virginia's trip to Princeton, each involves Arizona State.",
+      "text": "One match has passed its date with no result published: West Virginia's trip to Princeton.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 9
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "west-virginia",
+        "count": 1
       }
     },
     {
@@ -135,6 +138,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:03:32.288Z"
+    "validated_at": "2026-11-24T19:59:28.842Z"
   }
 }

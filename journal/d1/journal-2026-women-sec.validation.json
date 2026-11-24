@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SEC",
-  "validated_at": "2026-11-21T17:10:52.444Z",
-  "data_collected_at": "2026-11-21T16:40:40+00:00",
+  "validated_at": "2026-11-24T20:03:03.508Z",
+  "data_collected_at": "2026-11-24T19:02:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Three matches past their date carry no result, involving South Carolina, Kentucky and Mississippi State; Mississippi State's has stood since August.",
+      "text": "Two matches past their date carry no result, involving Oklahoma and Mississippi State; each has stood since August.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -55,15 +55,24 @@
     },
     {
       "path": "findings[1]",
-      "label": "observed",
-      "text": "Alabama has not drawn a match all season, with 16 wins and five losses.",
-      "checker": "team_record",
+      "label": "derived",
+      "text": "Oklahoma's Kayla Keefer has scored 22 of her team's 54 goals.",
+      "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[2]",
+      "label": "observed",
+      "text": "Alabama has not drawn a match all season, with sixteen wins and five losses.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
       "label": "observed",
       "text": "Ole Miss has won seven matches, every one of them outside the conference, and has lost eleven.",
       "checker": "team_record",
@@ -72,18 +81,9 @@
       "dropped": false
     },
     {
-      "path": "findings[3]",
-      "label": "derived",
-      "text": "Ireland Churchill, a freshman, has scored 13 of Texas A&M's 32 goals.",
-      "checker": "player_stat+team_goals",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Sydney Watts — 16 G · 5 A · 82 shots",
+      "text": "Kayla Keefer — 22 G · 3 A · 97 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Ashley Roni — 13 G · 3 A · 63 shots",
+      "text": "Sydney Watts — 16 G · 5 A · 82 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Kyla Dawn — 11 G · 2 A · 33 shots",
+      "text": "Ashley Roni — 13 G · 3 A · 63 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-20 auburn v washington",
+      "text": "2026-11-21 xavier v oklahoma",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:09:22.544Z",
-    "generate_ms": 89899,
-    "validate_ms": 1,
-    "wall_ms": 89900,
+    "started_at": "2026-11-24T20:01:55.551Z",
+    "generate_ms": 67954,
+    "validate_ms": 2,
+    "wall_ms": 67956,
     "concurrency": 4
   }
 }

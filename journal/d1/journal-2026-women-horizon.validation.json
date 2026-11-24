@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "HORIZON",
-  "validated_at": "2026-11-21T17:07:26.534Z",
-  "data_collected_at": "2026-11-21T15:23:51+00:00",
+  "validated_at": "2026-11-24T19:59:53.619Z",
+  "data_collected_at": "2026-11-23T16:40:38+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -128,10 +128,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:05:27.470Z",
-    "generate_ms": 119062,
-    "validate_ms": 2,
-    "wall_ms": 119063,
+    "started_at": "2026-11-24T19:59:10.409Z",
+    "generate_ms": 43205,
+    "validate_ms": 4,
+    "wall_ms": 43209,
     "concurrency": 4
   }
 }

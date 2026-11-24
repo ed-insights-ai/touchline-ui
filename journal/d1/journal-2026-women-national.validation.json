@@ -3,7 +3,7 @@
   "journal": "journal-2026-women-national.json",
   "season": 2026,
   "gender": "women",
-  "validated_at": "2026-11-21T17:15:05.686Z",
+  "validated_at": "2026-11-24T20:11:28.265Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,17 +17,18 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Purdue and Baylor now lead the division in wins Purdue has eighteen wins after beating Southern Illinois, and Baylor matched that count by beating Lamar. North Carolina had as many wins as both of them before last night, and it did not play.",
-      "checker": "team_record",
+      "text": "Arkansas-Pine Bluff allows more goals than any two programs Even VMI and Chicago State, the next highest in the Southern and Northeast conferences, conceded fewer goals together than the SWAC side did alone. Arkansas-Pine Bluff's season is over, leaving that defensive total unmatched across the division.",
+      "checker": "comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "\"any 2 others\" was held against the strongest 2: vmi 72 + chicago-state 60"
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:13:55.622Z",
-    "generate_ms": 70062,
-    "validate_ms": 2,
-    "wall_ms": 70063
+    "started_at": "2026-11-24T20:07:38.471Z",
+    "generate_ms": 229717,
+    "validate_ms": 77,
+    "wall_ms": 229795
   }
 }

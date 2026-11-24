@@ -3,26 +3,27 @@
   "season": 2026,
   "gender": "women",
   "conference": "GLVC",
-  "generated_at": "2026-11-17T13:00:00+00:00",
-  "data_collected_at": "2026-11-17T12:49:43+00:00",
-  "headline": "Missouri-St. Louis wins on as McKendree falls",
-  "dek": "Missouri-St. Louis answered their defeat at Maryville by beating Saginaw Valley State and Findlay without conceding, and have let in thirteen goals all season. McKendree, the only other side with sixteen wins, lost to Wayne State.",
+  "generated_at": "2026-11-24T14:35:00+00:00",
+  "data_collected_at": "2026-11-24T14:28:24+00:00",
+  "headline": "Missouri-St. Louis shuts out Ashland and Pittsburg State",
+  "dek": "Missouri-St. Louis answered its season-opening defeat to Pittsburg State by keeping a clean sheet in the rematch, reaching eighteen wins against two losses. Having also beaten Ashland, Findlay, and Saginaw Valley State without conceding, the program has allowed thirteen goals while scoring 55 all season. Franklin Pierce is next.",
   "lede_basis": {
     "programme": "missouri-st-louis",
-    "gf": 53,
-    "ga": 13,
-    "wins": 16,
+    "wins": 18,
     "draws": 3,
-    "losses": 2
+    "losses": 2,
+    "gf": 55,
+    "ga": 13
   },
-  "lede_updated": "2026-11-15",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Missouri-St. Louis beat Ashland and Pittsburg State without conceding to reach eighteen wins.",
   "pattern": {
     "label": "derived",
     "text": "Lincoln, Indianapolis, Upper Iowa and William Jewell scored fewer goals between them than McKendree did alone.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "missouri-st-louis": 53,
+        "missouri-st-louis": 55,
         "mckendree": 52,
         "missouri-s-t": 39,
         "maryville": 38,
@@ -49,24 +50,24 @@
     }
   },
   "wire": {
-    "line": "Since losing at Maryville, Missouri-St. Louis have beaten Saginaw Valley State and Findlay without conceding.",
+    "line": "Missouri-St. Louis reaches eighteen wins with thirteen goals conceded all season, and faces Franklin Pierce next.",
     "basis": {
       "programme": "missouri-st-louis",
-      "wins": 16,
+      "wins": 18,
       "draws": 3,
-      "losses": 2
+      "losses": 2,
+      "gf": 55,
+      "ga": 13
     },
-    "updated": "2026-11-15"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
       "label": "derived",
-      "text": "Missouri-St. Louis lost twice all season, to Pittsburg State and to Maryville.",
+      "text": "At least seventeen players scored for Missouri-St. Louis this season.",
       "basis": {
         "programme": "missouri-st-louis",
-        "wins": 16,
-        "draws": 3,
-        "losses": 2
+        "distinct_scorers_min": 17
       }
     },
     {
@@ -138,16 +139,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-14 missouri-st-louis v findlay",
-      "line": "Missouri-St. Louis have not lost at home this season."
+      "fixture_ref": "2026-11-22 missouri-st-louis v pittsburg-state",
+      "line": "Missouri-St. Louis stayed unbeaten at home and reversed its opening-day loss to Pittsburg State."
     },
     "next_match": {
-      "fixture_ref": "2026-11-20 missouri-st-louis v ashland",
-      "line": "Missouri-St. Louis are the only side in the conference with a match left to play."
+      "fixture_ref": "2026-12-03 franklin-pierce v missouri-st-louis",
+      "line": "Missouri-St. Louis is the only side in the conference with a match left to play."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T13:02:12.288Z"
+    "validated_at": "2026-11-24T19:23:58.021Z"
   }
 }

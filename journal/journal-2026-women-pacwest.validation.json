@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "PACWEST",
-  "validated_at": "2026-11-16T13:11:13.100Z",
-  "data_collected_at": "2026-11-16T13:02:07+00:00",
+  "validated_at": "2026-11-24T19:28:13.451Z",
+  "data_collected_at": "2026-11-23T16:26:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Hawai'i Hilo sit mid-chart on 21 goals yet conceded eleven in all matches: their place near the top of the table was built at the back, not in front of goal.",
+      "text": "Hawai'i Hilo sits mid-chart on 21 goals yet conceded eleven in all matches: its place near the top of the table was built at the back, not in front of goal.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Hawai'i Pacific have no win among their published results: three draws and thirteen defeats.",
+      "text": "Concordia Irvine fell to Western Washington to end the conference's season with thirteen wins, five draws, and three losses.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jessup conceded 50 goals in all matches, more than any other programme in the conference.",
+      "text": "Jessup conceded 50 goals in all matches, more than any other program in the conference.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -120,15 +120,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 concordia-irvine v cal-state-la",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-20 western-washington v concordia-irvine",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -137,10 +128,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T13:09:57.048Z",
-    "generate_ms": 76049,
-    "validate_ms": 1,
-    "wall_ms": 76051,
+    "started_at": "2026-11-24T19:26:40.078Z",
+    "generate_ms": 93369,
+    "validate_ms": 3,
+    "wall_ms": 93373,
     "concurrency": 4
   }
 }

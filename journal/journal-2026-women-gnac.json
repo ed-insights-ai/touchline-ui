@@ -3,29 +3,29 @@
   "season": 2026,
   "gender": "women",
   "conference": "GNAC",
-  "generated_at": "2026-11-17T13:05:00+00:00",
-  "data_collected_at": "2026-11-17T12:54:32+00:00",
-  "headline": "Western Washington concede six goals in twenty-two matches",
-  "dek": "Western Washington kept a clean sheet against Cal Poly Pomona, the side that had beaten Simon Fraser in September and again in November. It was their seventeenth win in twenty-two matches; they have lost two, and they sit top of the conference table.",
+  "generated_at": "2026-11-24T14:35:00+00:00",
+  "data_collected_at": "2026-11-24T14:28:40+00:00",
+  "headline": "Dallas Baptist ends Western Washington's winning run",
+  "dek": "Western Washington beat Concordia Irvine to stay unbeaten in November before falling at home to Dallas Baptist. The conference leader closes with eighteen wins, three draws and three losses, having scored 33 goals and conceded eight.",
   "lede_basis": {
     "programme": "western-washington",
-    "wins": 17,
+    "wins": 18,
     "draws": 3,
-    "losses": 2,
-    "gf": 31,
-    "ga": 6,
-    "played": 22
+    "losses": 3,
+    "gf": 33,
+    "ga": 8
   },
-  "lede_updated": "2026-11-16",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Dallas Baptist beat Western Washington, ending its shutout run and lifting its goals conceded to eight.",
   "pattern": {
     "label": "derived",
-    "text": "Simon Fraser scored more than any other programme and still finished below Western Washington: in this conference the goals did not decide the table.",
+    "text": "Simon Fraser scored more than any other program and still finished below Western Washington: in this conference the goals did not decide the table.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "simon-fraser": 48,
+        "western-washington": 33,
         "seattle-pacific": 32,
-        "western-washington": 31,
         "central-washington": 22,
         "northwest-nazarene": 16,
         "western-oregon": 16,
@@ -40,8 +40,8 @@
       "programme": "simon-fraser",
       "gf": 48,
       "of": [
-        "seattle-pacific",
         "western-washington",
+        "seattle-pacific",
         "central-washington",
         "northwest-nazarene",
         "western-oregon",
@@ -64,7 +64,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Six matches are past their date with no result, every one of them scheduled before conference play opened.",
+      "text": "Six matches are past their date with no result, all scheduled before conference play opened.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -73,7 +73,7 @@
     },
     {
       "label": "derived",
-      "text": "Saint Martin's conceded thirty-seven goals, more than any other programme.",
+      "text": "Saint Martin's conceded 37 goals, more than any other program.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -106,11 +106,22 @@
     },
     {
       "label": "observed",
-      "text": "Seattle Pacific scored thirty-two goals, none of them against Simon Fraser.",
+      "text": "Seattle Pacific scored 32 goals, none of them against Simon Fraser.",
       "basis": {
         "programme": "seattle-pacific",
         "gf": 32,
         "ga": 27
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Simon Fraser goalkeeper Sofia Piperni kept nine shutouts while conceding fourteen goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Sofia Piperni",
+        "programme": "simon-fraser",
+        "shutouts": 9,
+        "goals_against": 14
       }
     }
   ],
@@ -127,7 +138,7 @@
       "programme": "western-washington",
       "position": "FWD",
       "class": "FR",
-      "line": "7 G · 4 A · 44 shots"
+      "line": "7 G · 4 A · 47 shots"
     },
     {
       "player": "Logann Dukes",
@@ -139,16 +150,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 western-washington v cal-poly-pomona",
-      "line": "Western Washington have not conceded since their defeat at Simon Fraser."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-20 western-washington v concordia-irvine",
-      "line": "Western Washington's only home defeat of the season came in August."
+      "fixture_ref": "2026-11-22 western-washington v dallas-baptist",
+      "line": "Western Washington had not conceded since its October defeat at Simon Fraser."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T13:02:53.089Z"
+    "validated_at": "2026-11-24T19:29:17.127Z"
   }
 }

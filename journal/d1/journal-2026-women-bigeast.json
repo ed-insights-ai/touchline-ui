@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "BIGEAST",
-  "generated_at": "2026-11-21T16:00:00+00:00",
-  "data_collected_at": "2026-11-21T15:21:33+00:00",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:39:02+00:00",
   "headline": "Only Butler has beaten Villanova",
   "dek": "Villanova has conceded nine goals all season and has won every match since that October defeat. Among those wins is one over Xavier, which had topped the conference table without a loss.",
   "lede_basis": {
@@ -16,15 +16,14 @@
     "ga": 9
   },
   "lede_updated": "2026-11-21",
-  "displaced_by": "first journal for this conference: Villanova's single defeat of the season",
   "pattern": {
     "label": "observed",
-    "text": "Goals scored do not sort these sides by results. Seton Hall has scored 14, among the fewest on the chart, and has lost only three matches because it has conceded nine.",
+    "text": "Goals scored do not sort these sides by results. Seton Hall has scored fourteen, among the fewest on the chart, and has lost only three matches because it has conceded nine.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "villanova": 48,
-        "xavier": 39,
+        "xavier": 42,
         "providence": 28,
         "butler": 25,
         "marquette": 25,
@@ -70,6 +69,16 @@
     },
     {
       "label": "observed",
+      "text": "Xavier has scored 42 goals across at least thirteen different scorers.",
+      "basis": {
+        "programme": "xavier",
+        "gf": 42,
+        "ga": 21,
+        "distinct_scorers_min": 13
+      }
+    },
+    {
+      "label": "observed",
       "text": "Marquette has drawn ten matches and lost only three.",
       "basis": {
         "programme": "marquette",
@@ -80,7 +89,7 @@
     },
     {
       "label": "observed",
-      "text": "Mia Hurd has made 71 saves for Marquette and conceded 12 goals, a save percentage of .855.",
+      "text": "Mia Hurd has made 71 saves for Marquette and conceded twelve goals, a save percentage of .855.",
       "basis": {
         "source": "stats",
         "player": "Mia Hurd",
@@ -113,7 +122,7 @@
       "programme": "xavier",
       "position": "FWD",
       "class": "SR",
-      "line": "6 G · 6 A · 70 shots"
+      "line": "6 G · 6 A · 71 shots"
     },
     {
       "player": "Jocy Koffi",
@@ -125,16 +134,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-20 penn-state v villanova",
-      "line": "Villanova has won every match since its only defeat of the season, at Butler."
+      "fixture_ref": "2026-11-21 xavier v oklahoma",
+      "line": "Xavier remains unbeaten at home this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-21 xavier v oklahoma",
-      "line": "Xavier has yet to lose at home this season."
+      "fixture_ref": "2026-11-27 villanova v texas-tech",
+      "line": "Villanova has yet to lose at home this season and has won every match since its defeat at Butler."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:04:13.827Z"
+    "validated_at": "2026-11-24T20:01:03.644Z"
   }
 }

@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "BIGSOUTH",
-  "validated_at": "2026-11-21T17:05:07.295Z",
-  "data_collected_at": "2026-11-21T15:22:17+00:00",
+  "validated_at": "2026-11-24T19:56:04.307Z",
+  "data_collected_at": "2026-11-23T16:38:36+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "UNC Asheville, beaten four times all season, is the only program with a match left: North Carolina, away.",
-      "checker": "team_record",
+      "text": "No matches remain; Big South programs finished with 25 wins, thirteen draws, and 40 losses against non-conference opponents.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -108,7 +108,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Lili Adams — 9 G · 4 A · 59 shots",
+      "text": "Lili Adams — 9 G · 4 A · 60 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -126,15 +126,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 unc-asheville v radford",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-21 north-carolina v unc-asheville",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -143,10 +134,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:03:49.240Z",
-    "generate_ms": 78054,
-    "validate_ms": 1,
-    "wall_ms": 78055,
+    "started_at": "2026-11-24T19:54:25.759Z",
+    "generate_ms": 98545,
+    "validate_ms": 3,
+    "wall_ms": 98548,
     "concurrency": 4
   }
 }

@@ -3,20 +3,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "AE",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:17:14+00:00",
-  "headline": "Bryant and Vermont win again and play on",
-  "dek": "Bryant beat HCU and Vermont beat North Florida, and they are now the only members with a match still to play, Bryant at SMU and Vermont at Clemson. Vermont are the only member to have beaten Bryant this season.",
+  "generated_at": "2026-11-24T14:35:00+00:00",
+  "data_collected_at": "2026-11-24T14:27:52+00:00",
+  "headline": "Vermont plays on alone after Bryant falls at SMU",
+  "dek": "Vermont held Clemson scoreless to earn a trip to Kansas City, leaving it as the only conference program with a match left on the schedule. Bryant's season ended with a loss at SMU. Vermont heads west with eleven wins, six draws, and two losses, having conceded sixteen goals all season.",
   "lede_basis": {
-    "programme": "bryant",
-    "wins": 14,
-    "draws": 5,
-    "losses": 2
+    "programme": "vermont",
+    "wins": 11,
+    "draws": 6,
+    "losses": 2,
+    "gf": 34,
+    "ga": 16
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Bryant lost at SMU and Vermont drew at Clemson to remain the only program still playing",
   "pattern": {
     "label": "derived",
-    "text": "NJIT's goals have come at a cost at the back: they have conceded 30 and lost six times, more defeats than Bryant and Vermont together.",
+    "text": "NJIT's goals have come at a cost at the back: the program has conceded 30 and lost six times, more defeats than Bryant and Vermont together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -42,16 +45,16 @@
     }
   },
   "wire": {
-    "line": "Bryant have won fourteen matches, more than any other side in the conference, and lost twice.",
+    "line": "Outside conference play, AE programs have won 37 matches against 21 defeats, scoring 115 goals and conceding 88.",
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "wins",
-      "programme": "bryant",
-      "of": ["binghamton", "new-hampshire", "njit", "ualbany", "umass-lowell", "umbc", "vermont"],
-      "wins": 14,
-      "losses": 2
+      "derived_from": "fixtures",
+      "wins": 37,
+      "draws": 16,
+      "losses": 21,
+      "gf": 115,
+      "ga": 88
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -65,7 +68,7 @@
     },
     {
       "label": "derived",
-      "text": "Vermont have had goals from fourteen different players.",
+      "text": "Vermont has had goals from fourteen different players.",
       "basis": {
         "programme": "vermont",
         "distinct_scorers_min": 14
@@ -84,7 +87,18 @@
     },
     {
       "label": "observed",
-      "text": "Binghamton have won twice all season, against nine defeats.",
+      "text": "Niklas Herceg has kept nine shutouts for Vermont while allowing twelve goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Niklas Herceg",
+        "programme": "vermont",
+        "shutouts": 9,
+        "goals_against": 12
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Binghamton has won twice all season, against nine defeats.",
       "basis": {
         "programme": "binghamton",
         "wins": 2,
@@ -118,16 +132,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 bryant v hcu",
-      "line": "Bryant have not lost since the opening day of conference play."
+      "fixture_ref": "2026-11-22 smu v bryant",
+      "line": "The defeat ended an unbeaten run that stretched back to the opening day of conference play."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 clemson v vermont",
+      "fixture_ref": "2026-11-29 kansas-city v vermont",
       "line": "Vermont's only defeat since September came at UAlbany."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:47:46.509Z"
+    "validated_at": "2026-11-24T19:33:40.664Z"
   }
 }

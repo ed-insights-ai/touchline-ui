@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "G-MAC",
-  "validated_at": "2026-11-17T13:02:51.452Z",
-  "data_collected_at": "2026-11-17T12:53:16+00:00",
+  "validated_at": "2026-11-24T19:27:25.258Z",
+  "data_collected_at": "2026-11-23T16:59:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring and standing run together: the five programmes with 30 goals or more are the five at the top of the table.",
+      "text": "Scoring and standing run together: the five programs with 30 goals or more are the five at the top of the table.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -39,8 +39,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Kentucky Wesleyan have yet to win a match this season and have conceded 53 goals.",
-      "checker": "team_goals+team_record",
+      "text": "Ashland ends the G-MAC season with four losses after falling at Missouri-St. Louis.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -48,7 +48,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Ashland have scored 44 goals, more than Malone, Ursuline and Kentucky Wesleyan together.",
+      "text": "Ashland scored 44 goals, more than Malone, Ursuline, and Kentucky Wesleyan combined.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -57,7 +57,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Ashland have 16 wins, three draws and three defeats, and have conceded ten goals.",
+      "text": "Kentucky Wesleyan went winless with three draws and fifteen defeats, scoring ten goals while conceding 53.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -66,7 +66,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Emma Yeager has made 71 saves for Thomas More against nine goals conceded.",
+      "text": "Emma Yeager made 71 saves for Thomas More while conceding nine goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -75,7 +75,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Madelyn Boyd, a Northwood freshman, has ten goals from 31 shots.",
+      "text": "Northwood freshman Madelyn Boyd scored ten goals from 31 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -84,7 +84,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Lindsay Jacob has kept six shutouts in goal for Northwood.",
+      "text": "Lindsay Jacob kept six shutouts in goal for Northwood.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -120,15 +120,6 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 ashland v wayne-state",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
       "text": "2026-11-20 missouri-st-louis v ashland",
       "checker": "fixture_ref",
       "verdict": "verified",
@@ -137,10 +128,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-17T13:02:19.668Z",
-    "generate_ms": 31782,
-    "validate_ms": 1,
-    "wall_ms": 31783,
+    "started_at": "2026-11-24T19:25:31.828Z",
+    "generate_ms": 113427,
+    "validate_ms": 3,
+    "wall_ms": 113430,
     "concurrency": 4
   }
 }

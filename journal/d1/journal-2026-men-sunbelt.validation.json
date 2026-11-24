@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "SUNBELT",
-  "validated_at": "2026-11-20T17:56:36.042Z",
-  "data_collected_at": "2026-11-20T13:24:53+00:00",
+  "validated_at": "2026-11-24T19:39:21.315Z",
+  "data_collected_at": "2026-11-24T14:33:24+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "signal",
-      "text": "Goals scored do not sort this conference: Old Dominion have scored 39 and won ten, yet all six of their defeats came against Sun Belt sides.",
+      "text": "Goals scored do not sort this conference: Old Dominion has scored 39 and won ten, yet all six of its defeats came against Sun Belt sides.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "West Virginia have conceded nine goals and lost twice; no Sun Belt side has let in fewer.",
-      "checker": "team_goals+team_record",
+      "text": "Sun Belt sides have won 44, drawn seventeen, and lost twenty outside the conference, scoring 151 goals and conceding 92.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Drew Hansen has scored 12 of UCF's 35 goals.",
+      "text": "Drew Hansen has scored twelve of UCF's 35 goals.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -87,9 +87,19 @@
       "dropped": false
     },
     {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "West Virginia has won thirteen matches, more than any other Sun Belt program.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is marshall at 12"
+    },
+    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Pablo Pozos — 11 G · 2 A · 53 shots",
+      "text": "Carl Romberg — 7 G · 7 A · 39 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +108,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Carl Romberg — 7 G · 7 A · 36 shots",
+      "text": "Angel Lopez — 7 G · 7 A · 28 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +117,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Angel Lopez — 7 G · 7 A · 25 shots",
+      "text": "Alejandro Velazquez-Lopez — 7 G · 4 A · 45 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -116,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-19 marshall v bowling-green",
+      "text": "2026-11-22 west-virginia v washington",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -125,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-22 west-virginia v cleveland-state",
+      "text": "2026-11-28 marshall v wake-forest",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -133,10 +143,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:54:41.735Z",
-    "generate_ms": 114305,
-    "validate_ms": 1,
-    "wall_ms": 114306,
+    "started_at": "2026-11-24T19:37:17.114Z",
+    "generate_ms": 124197,
+    "validate_ms": 3,
+    "wall_ms": 124200,
     "concurrency": 4
   }
 }

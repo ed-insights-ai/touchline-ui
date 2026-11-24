@@ -3,18 +3,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "generated_at": "2026-11-20T12:40:00+00:00",
-  "data_collected_at": "2026-11-20T12:30:57+00:00",
-  "headline": "Lees-McRae lose again as Francis Marion keep winning",
-  "dek": "Lees-McRae lost again on Sunday, the first time this season they have been beaten in successive matches. Francis Marion won on the same day, and their seventeen wins are more than any other programme in the conference has managed.",
+  "generated_at": "2026-11-24T14:30:00+00:00",
+  "data_collected_at": "2026-11-24T14:25:31+00:00",
+  "headline": "Francis Marion draws at Flagler as winning run ends",
+  "dek": "Flagler held Francis Marion to a draw on Saturday in the last match on the schedule, ending the program's winning run. Francis Marion still finishes with seventeen wins, more than any other conference program, having scored 42 goals and conceded just seventeen.",
   "lede_basis": {
     "programme": "francis-marion",
     "wins": 17,
+    "draws": 3,
+    "losses": 4,
+    "gf": 42,
+    "ga": 17,
     "comparative": "greater_than_each",
     "metric": "wins",
     "of_any": 14
   },
-  "lede_updated": "2026-11-16",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Francis Marion drew at Flagler on November 21, ending its winning run.",
   "pattern": {
     "label": "derived",
     "text": "Chowan's 50 goals have come from at least fifteen different scorers and have still brought five defeats; spreading the scoring has not bought a clean record.",
@@ -24,7 +29,7 @@
         "chowan": 50,
         "converse": 50,
         "young-harris": 46,
-        "francis-marion": 39,
+        "francis-marion": 42,
         "barton": 34,
         "lees-mcrae": 31,
         "southern-wesleyan": 30,
@@ -49,14 +54,16 @@
     }
   },
   "wire": {
-    "line": "Francis Marion have won every match since losing at Barton in October, and are the only side in the conference with a match left.",
+    "line": "Lees-McRae conceded just eleven goals all season while winning fifteen matches.",
     "basis": {
-      "programme": "francis-marion",
-      "wins": 17,
-      "draws": 2,
-      "losses": 4
+      "programme": "lees-mcrae",
+      "wins": 15,
+      "draws": 3,
+      "losses": 3,
+      "gf": 31,
+      "ga": 11
     },
-    "updated": "2026-11-16"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -70,7 +77,7 @@
     },
     {
       "label": "derived",
-      "text": "Erskine have yet to win this season: two draws and thirteen defeats.",
+      "text": "Erskine has yet to win this season, with two draws and thirteen defeats.",
       "basis": {
         "programme": "erskine",
         "wins": 0,
@@ -138,16 +145,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 emory-henry v lees-mcrae",
-      "line": "Lees-McRae's first defeat this season by a side from outside the conference."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-20 flagler v francis-marion",
-      "line": "The sides drew at Francis Marion when they met in August."
+      "fixture_ref": "2026-11-21 flagler v francis-marion",
+      "line": "The draw ended Francis Marion's winning streak and matched the stalemate between the sides in August."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T12:40:02.506Z"
+    "validated_at": "2026-11-24T19:15:08.942Z"
   }
 }

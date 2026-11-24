@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "NEC",
-  "generated_at": "2026-11-20T14:05:00+00:00",
-  "data_collected_at": "2026-11-20T13:21:47+00:00",
-  "headline": "LIU top the table as FDU win the last meeting",
-  "dek": "FDU went to LIU on Sunday and won, reversing a defeat on the same ground in October, though LIU still finished top of the conference table. FDU's 13 wins are the most of any NEC side; their latest result is a heavy defeat at Cornell.",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:50:33+00:00",
+  "headline": "LIU tops the table as FDU wins the last meeting",
+  "dek": "FDU went to LIU in November and won, reversing an October defeat on the same ground, though LIU still finished top of the conference table. FDU's thirteen wins lead the NEC, even after its season ended in a heavy defeat at Cornell.",
   "lede_basis": {
     "comparative": "greater_than_each",
     "metric": "wins",
@@ -23,7 +23,8 @@
     ],
     "wins": 13
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "form",
   "pattern": {
     "label": "derived",
     "text": "Howard and Chicago State scored fewer goals between them than FDU did alone; above that pair, the rest of the conference scored at much the same rate, and the table was settled by what each side conceded.",
@@ -74,7 +75,7 @@
     },
     {
       "label": "derived",
-      "text": "Tal Levy scored 11 of LIU's 28 goals.",
+      "text": "Tal Levy scored eleven of LIU's 28 goals.",
       "basis": {
         "source": "stats",
         "player": "Tal Levy",
@@ -85,7 +86,7 @@
     },
     {
       "label": "derived",
-      "text": "Mercyhurst drew six matches, more than any other programme in the conference.",
+      "text": "Mercyhurst drew six matches, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
@@ -141,11 +142,11 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-11-19 cornell v fdu",
-      "line": "FDU arrived on a winning run that included Sunday's win at LIU."
+      "line": "FDU arrived on a winning run and had not conceded a goal all month."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:53:56.497Z"
+    "validated_at": "2026-11-24T19:37:11.136Z"
   }
 }

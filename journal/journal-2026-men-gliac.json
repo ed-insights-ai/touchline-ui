@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLIAC",
-  "generated_at": "2026-11-20T12:45:00+00:00",
-  "data_collected_at": "2026-11-20T12:32:51+00:00",
+  "generated_at": "2026-11-23T16:30:00+00:00",
+  "data_collected_at": "2026-11-23T16:24:05+00:00",
   "headline": "Saginaw Valley State finish top of the table",
   "dek": "Saginaw Valley State's one defeat on the record came at home to Northern Michigan in September, and they have not lost since. Roosevelt ended Purdue Northwest's run of wins on their own ground, then went back to the same ground and won there again.",
   "lede_basis": {
@@ -16,7 +16,7 @@
   "lede_updated": "2026-11-15",
   "pattern": {
     "label": "derived",
-    "text": "The scoring is top-heavy: Northern Michigan alone have scored more than Davenport and St. Cloud State together.",
+    "text": "The scoring is top-heavy: Northern Michigan alone has scored more than Davenport and St. Cloud State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -129,11 +129,11 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-11-15 findlay v northern-michigan",
-      "line": "Northern Michigan have not won since beating Davenport in October."
+      "line": "Northern Michigan has not won since beating Davenport in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T12:40:24.618Z"
+    "validated_at": "2026-11-24T19:13:21.502Z"
   }
 }

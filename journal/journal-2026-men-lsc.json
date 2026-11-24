@@ -3,26 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "LSC",
-  "generated_at": "2026-11-17T12:40:00Z",
-  "data_collected_at": "2026-11-17T12:34:47+00:00",
-  "headline": "Midwestern State become the only conference side to beat UCCS",
-  "dek": "Midwestern State beat UCCS at home, having drawn with them away in September, while Sul Ross State, St. Mary's and Lubbock Christian each lost to UCCS. Midwestern State have won sixteen and drawn five this season without a loss.",
+  "generated_at": "2026-11-23T16:30:00Z",
+  "data_collected_at": "2026-11-23T16:24:30+00:00",
+  "headline": "Midwestern State stays unbeaten against Cal State San Bernardino",
+  "dek": "Midwestern State drew with Cal State San Bernardino at home, a side that beat Texas A&M International in September. The draw leaves Midwestern State with sixteen wins and six draws without a loss, having scored 57 goals and conceded eighteen.",
   "lede_basis": {
     "programme": "midwestern-state",
     "wins": 16,
-    "draws": 5,
+    "draws": 6,
     "losses": 0,
-    "gf": 56,
-    "ga": 17
+    "gf": 57,
+    "ga": 18
   },
-  "lede_updated": "2026-11-16",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Midwestern State drew with Cal State San Bernardino, making the previous dek's five-draw figure stale",
   "pattern": {
     "label": "derived",
-    "text": "Fourteen different players have scored Midwestern State's 56 goals, and Parker Plaxco has eighteen of them.",
+    "text": "Fourteen different players have scored Midwestern State's 57 goals, and Parker Plaxco has nineteen of them.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "midwestern-state": 56,
+        "midwestern-state": 57,
         "ut-dallas": 42,
         "saint-marys": 38,
         "oklahoma-christian": 28,
@@ -38,12 +39,12 @@
     },
     "basis": {
       "programme": "midwestern-state",
-      "gf": 56,
-      "ga": 17,
+      "gf": 57,
+      "ga": 18,
       "distinct_scorers_min": 14,
       "source": "stats",
       "player": "Parker Plaxco",
-      "goals": 18
+      "goals": 19
     }
   },
   "wire": {
@@ -51,7 +52,7 @@
     "basis": {
       "programme": "midwestern-state",
       "wins": 16,
-      "draws": 5,
+      "draws": 6,
       "losses": 0
     },
     "updated": "2026-11-05"
@@ -68,7 +69,7 @@
     },
     {
       "label": "derived",
-      "text": "Oklahoma Christian have lost four times, and St. Mary's are the only conference side to have beaten them.",
+      "text": "Oklahoma Christian has lost four times, with St. Mary's the only conference side to beat it.",
       "basis": {
         "programme": "oklahoma-christian",
         "wins": 10,
@@ -78,7 +79,7 @@
     },
     {
       "label": "derived",
-      "text": "UT Dallas have lost twice, against eleven wins and seven draws, and conceded sixteen goals.",
+      "text": "UT Dallas has lost twice, against eleven wins and seven draws, and conceded sixteen goals.",
       "basis": {
         "programme": "ut-dallas",
         "wins": 11,
@@ -90,7 +91,7 @@
     },
     {
       "label": "derived",
-      "text": "Sul Ross State have lost all sixteen of their matches and scored twice.",
+      "text": "Sul Ross State has lost all sixteen of its matches and scored twice.",
       "basis": {
         "programme": "sul-ross-state",
         "wins": 0,
@@ -117,7 +118,7 @@
       "programme": "midwestern-state",
       "position": "FWD",
       "class": "SR",
-      "line": "18 G · 71 shots"
+      "line": "19 G · 75 shots"
     },
     {
       "player": "Avery Brazzell",
@@ -136,16 +137,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 midwestern-state v uccs",
-      "line": "Midwestern State drew at UCCS in September and won the return."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-20 midwestern-state v cal-state-san-bernardino",
-      "line": "Cal State San Bernardino's only match against the conference so far was a home win over Texas A&M International, without conceding."
+      "line": "Midwestern State remains unbeaten on the season; Cal State San Bernardino had beaten Texas A&M International in its only previous match against the conference."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T12:41:40.844Z"
+    "validated_at": "2026-11-24T19:06:53.595Z"
   }
 }

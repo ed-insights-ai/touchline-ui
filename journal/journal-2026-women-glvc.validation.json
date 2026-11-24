@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "GLVC",
-  "validated_at": "2026-11-17T13:02:12.288Z",
-  "data_collected_at": "2026-11-17T12:49:43+00:00",
+  "validated_at": "2026-11-24T19:23:58.021Z",
+  "data_collected_at": "2026-11-24T14:28:24+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Since losing at Maryville, Missouri-St. Louis have beaten Saginaw Valley State and Findlay without conceding.",
-      "checker": "team_record",
+      "text": "Missouri-St. Louis reaches eighteen wins with thirteen goals conceded all season, and faces Franklin Pierce next.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,8 +47,8 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Missouri-St. Louis lost twice all season, to Pittsburg State and to Maryville.",
-      "checker": "team_record",
+      "text": "At least seventeen players scored for Missouri-St. Louis this season.",
+      "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-14 missouri-st-louis v findlay",
+      "text": "2026-11-22 missouri-st-louis v pittsburg-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-20 missouri-st-louis v ashland",
+      "text": "2026-12-03 franklin-pierce v missouri-st-louis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-17T13:01:50.365Z",
-    "generate_ms": 21920,
-    "validate_ms": 3,
-    "wall_ms": 21923,
+    "started_at": "2026-11-24T19:22:14.479Z",
+    "generate_ms": 103537,
+    "validate_ms": 4,
+    "wall_ms": 103541,
     "concurrency": 4
   }
 }

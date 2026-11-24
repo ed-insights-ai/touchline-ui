@@ -3,20 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "NE10",
-  "generated_at": "2026-11-16T12:45:00+00:00",
-  "data_collected_at": "2026-11-16T12:35:55+00:00",
-  "headline": "Southern New Hampshire see off American International again",
-  "dek": "Southern New Hampshire beat American International by three clear goals at home earlier this month, a wider margin than the single goal that settled their meeting there in September. Their only defeat of the season came at Adelphi in October.",
+  "generated_at": "2026-11-23T16:30:00+00:00",
+  "data_collected_at": "2026-11-23T16:24:47+00:00",
+  "headline": "Southern New Hampshire extends unbeaten run with scoreless draw",
+  "dek": "Davis & Elkins kept Southern New Hampshire from scoring, yet the conference leader still has only one defeat beside fourteen wins and five draws. Across all matches, Southern New Hampshire has conceded twelve goals.",
   "lede_basis": {
     "programme": "southern-new-hampshire",
     "wins": 14,
-    "draws": 4,
+    "draws": 5,
     "losses": 1,
-    "winning_margin_v_american_international_2026_11_07": 3,
-    "winning_margin_v_american_international_2026_09_19": 1
+    "gf": 61,
+    "ga": 12
   },
-  "lede_updated": "2026-11-16",
-  "displaced_by": "truth: the standing dek's 'one defeat in eighteen matches' became nineteen with the win over St Thomas Aquinas on 2026-11-15; the dek now names the defeat without a count, and the headline is still true and stands",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Southern New Hampshire's scoreless draw with Davis & Elkins on 2026-11-20 moved its record to fourteen wins, five draws, and one loss; previous headline also used a plural verb",
   "pattern": {
     "label": "signal",
     "text": "Southern New Hampshire's sixty-one goals come from at least sixteen different scorers, so the tallest bar is the work of a squad rather than a single forward.",
@@ -67,7 +67,7 @@
     },
     {
       "label": "observed",
-      "text": "Pace have conceded thirty-eight goals, more than any other programme.",
+      "text": "Pace has conceded thirty-eight goals, more than any other program.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -89,7 +89,7 @@
     },
     {
       "label": "observed",
-      "text": "Southern Connecticut have drawn seven matches, more than any other programme.",
+      "text": "Southern Connecticut has drawn seven matches, more than any other program.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
@@ -110,7 +110,7 @@
     },
     {
       "label": "observed",
-      "text": "Saint Anselm have won eight matches and lost eight, and remain the only programme yet to draw a match.",
+      "text": "Saint Anselm has won eight matches and lost eight, remaining the only program yet to draw a match.",
       "basis": {
         "programme": "saint-anselm",
         "wins": 8,
@@ -142,7 +142,7 @@
       "programme": "southern-new-hampshire",
       "position": "FWD",
       "class": "5Y",
-      "line": "13 G · 5 A · 74 shots"
+      "line": "13 G · 5 A · 76 shots"
     },
     {
       "player": "Cody Holbert",
@@ -154,16 +154,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 southern-new-hampshire v st-thomas-aquinas",
-      "line": "Southern New Hampshire also won this meeting away, on the season's opening day."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-20 southern-new-hampshire v davis-elkins",
-      "line": "Southern New Hampshire have yet to lose at home this season."
+      "line": "Southern New Hampshire has yet to lose at home this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T12:46:19.758Z"
+    "validated_at": "2026-11-24T19:14:05.758Z"
   }
 }

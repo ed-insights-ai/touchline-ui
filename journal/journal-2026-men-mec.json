@@ -3,33 +3,26 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-11-20T12:45:00+00:00",
-  "data_collected_at": "2026-11-20T12:34:19+00:00",
-  "headline": "Charleston and Davis & Elkins play on",
-  "dek": "Both won their latest by a single goal, and theirs are the only two matches left on the conference calendar. Between them they have lost three times in thirty-eight; each of the other eight programmes has lost at least five.",
+  "generated_at": "2026-11-24T14:30:00+00:00",
+  "data_collected_at": "2026-11-24T14:26:47+00:00",
+  "headline": "Charleston shuts out Davis & Elkins",
+  "dek": "Charleston scored three unanswered goals against Davis & Elkins in the final match on the conference calendar, finishing with nineteen wins in 22 matches. The defeat was the second of the season for Davis & Elkins, whose defense still allowed thirteen goals, the fewest in the conference.",
   "lede_basis": {
-    "programmes": ["charleston", "davis-elkins"],
-    "winning_margin_2026_11_15": 1,
-    "upcoming_matches": 2,
-    "combined_losses": 3,
-    "combined_played": 38,
-    "charleston_wins": 17,
-    "charleston_draws": 1,
-    "charleston_losses": 2,
-    "davis_elkins_wins": 14,
-    "davis_elkins_draws": 3,
-    "davis_elkins_losses": 1,
-    "other_programmes": 8,
-    "fewest_losses_among_others": 5
+    "charleston_goals_2026_11_22": 3,
+    "charleston_wins": 19,
+    "charleston_played": 22,
+    "davis_elkins_losses": 2,
+    "davis_elkins_ga": 13
   },
-  "lede_updated": "2026-11-17",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Charleston beat Davis & Elkins in the final match on the calendar, leaving no upcoming matches.",
   "pattern": {
     "label": "derived",
-    "text": "Charleston have scored more goals than West Liberty and Wheeling together, and seventeen different players have shared their fifty-five; the scoring is spread, not carried.",
+    "text": "Charleston has scored more goals than West Liberty and Wheeling together, and seventeen different players have shared its 60; the scoring is spread, not carried.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "charleston": 55,
+        "charleston": 60,
         "davis-elkins": 40,
         "concord": 30,
         "frostburg-state": 30,
@@ -47,33 +40,33 @@
       "metric": "gf",
       "programme": "charleston",
       "of": ["west-liberty", "wheeling"],
-      "gf": 55,
+      "gf": 60,
       "distinct_scorers_min": 17
     }
   },
   "wire": {
-    "line": "Davis & Elkins have lost once and conceded ten goals all season, fewer than any other side in the conference.",
+    "line": "Conference programs won 21 matches, drew twelve, and lost ten against outside opponents, scoring 69 goals and allowing 59.",
     "basis": {
-      "programme": "davis-elkins",
-      "wins": 14,
-      "draws": 3,
-      "losses": 1,
-      "gf": 40,
-      "ga": 10
+      "derived_from": "fixtures",
+      "wins": 21,
+      "draws": 12,
+      "losses": 10,
+      "gf": 69,
+      "ga": 59
     },
-    "updated": "2026-11-17"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Martin Echarren has twelve goals and three assists for Charleston from forty-five shots.",
+      "text": "Martin Echarren has twelve goals and four assists for Charleston from 47 shots.",
       "basis": {
         "source": "stats",
         "player": "Martin Echarren",
         "programme": "charleston",
         "goals": 12,
-        "assists": 3,
-        "shots": 45
+        "assists": 4,
+        "shots": 47
       }
     },
     {
@@ -90,14 +83,14 @@
     },
     {
       "label": "observed",
-      "text": "Hugo Fauli has eleven assists and three goals for Davis & Elkins from thirty-nine shots.",
+      "text": "Hugo Fauli has eleven assists and three goals for Davis & Elkins from 41 shots.",
       "basis": {
         "source": "stats",
         "player": "Hugo Fauli",
         "programme": "davis-elkins",
         "goals": 3,
         "assists": 11,
-        "shots": 39
+        "shots": 41
       }
     },
     {
@@ -129,7 +122,7 @@
       "programme": "charleston",
       "position": "FWD",
       "class": "SO",
-      "line": "12 G · 3 A · 45 shots"
+      "line": "12 G · 4 A · 47 shots"
     },
     {
       "player": "Frank Stare",
@@ -143,21 +136,17 @@
       "programme": "davis-elkins",
       "position": "MID",
       "class": "SR",
-      "line": "7 G · 8 A · 45 shots"
+      "line": "7 G · 8 A · 48 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 gannon v concord",
-      "line": "It is the most Concord have conceded in any match this season."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-20 charleston v gannon",
-      "line": "Both of Charleston's defeats this season have come at home."
+      "fixture_ref": "2026-11-22 charleston v davis-elkins",
+      "line": "It is the most Davis & Elkins has conceded in any match this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T12:40:25.146Z"
+    "validated_at": "2026-11-24T19:12:45.331Z"
   }
 }

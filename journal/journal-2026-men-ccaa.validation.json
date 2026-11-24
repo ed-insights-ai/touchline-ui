@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CCAA",
-  "validated_at": "2026-11-20T12:39:58.005Z",
-  "data_collected_at": "2026-11-20T12:31:13+00:00",
+  "validated_at": "2026-11-24T19:15:46.543Z",
+  "data_collected_at": "2026-11-24T14:25:41+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,19 +15,13 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "findings[0].text",
-      "text": "Ten matches have passed their date with no result recorded; the latest, and the only one between conference sides, is Cal Poly Pomona's home match with Fresno Pacific.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Fresno Pacific have scored 37 goals and conceded only 27, yet have lost ten of their eighteen matches: a goal difference this healthy has bought them fewer wins than defeats.",
-      "checker": "team_goals+team_record+fixture_counts",
+      "text": "Fresno Pacific has scored 37 goals and conceded 27, yet ten losses outpace its seven wins and one draw: scoring freely has not turned into results.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -44,17 +38,16 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Cal State San Bernardino have scored 42 goals, more than any other programme in the conference.",
-      "checker": "team_goals+comparative",
+      "text": "Cal State LA has conceded seven goals across nineteen wins and three draws without a defeat.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "held against every other programme; the nearest is cal-state-la at 41"
+      "dropped": false
     },
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Ten matches have passed their date with no result recorded; the latest, and the only one between conference sides, is Cal Poly Pomona's home match with Fresno Pacific.",
+      "text": "Ten matches have passed their date with no result recorded; the latest, and the only meeting between conference sides, is Cal Poly Pomona's home match with Fresno Pacific.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -63,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Cal State East Bay have conceded 52 goals in eighteen matches, more than any other programme in the conference.",
-      "checker": "team_goals+team_record+fixture_counts+comparative",
+      "text": "Cal State East Bay has conceded 52 goals, more than any other program in the conference.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
@@ -73,8 +66,8 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Stanislaus State have drawn seven of their eighteen matches, more draws than any other side in the conference.",
-      "checker": "team_record+fixture_counts+comparative",
+      "text": "Stanislaus State has recorded seven draws, more than any other program in the conference.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
@@ -83,7 +76,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Cisco Avila has scored twelve of the 40 goals Cal State San Marcos have scored.",
+      "text": "Cisco Avila has scored twelve of Cal State San Marcos's 40 goals.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +85,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Yoel Vazquez has kept five shutouts in goal for Cal State San Marcos.",
+      "text": "Donovan Palomares has kept eight shutouts in goal for Cal State San Bernardino.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +103,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Angel Sandres — 5 G · 10 A · 28 shots",
+      "text": "Diego Lopez — 9 G · 4 A · 59 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +112,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Rafa Fonseca — 9 G · 1 A · 41 shots",
+      "text": "Angel Sandres — 5 G · 10 A · 30 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +121,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 cal-state-la v western-oregon",
+      "text": "2026-11-22 cal-state-la v cal-state-san-bernardino",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -137,7 +130,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-20 midwestern-state v cal-state-san-bernardino",
+      "text": "2026-12-03 charleston v cal-state-san-bernardino",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -145,10 +138,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:39:31.663Z",
-    "generate_ms": 26338,
-    "validate_ms": 4,
-    "wall_ms": 26342,
+    "started_at": "2026-11-24T19:14:05.855Z",
+    "generate_ms": 100677,
+    "validate_ms": 11,
+    "wall_ms": 100689,
     "concurrency": 4
   }
 }

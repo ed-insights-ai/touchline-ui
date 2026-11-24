@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "PATRIOT",
-  "validated_at": "2026-11-21T17:10:30.585Z",
-  "data_collected_at": "2026-11-21T15:26:58+00:00",
+  "validated_at": "2026-11-24T20:03:16.416Z",
+  "data_collected_at": "2026-11-23T16:43:56+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -44,17 +44,17 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Boston University closed the season by winning at Navy, the program with the most wins in the conference.",
-      "checker": "team_record+comparative",
+      "text": "Navy scored 43 goals while conceding twenty, leading the conference in scoring.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is army-west-point at 10"
+      "note": "held against every other programme; the nearest is boston-university at 38"
     },
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Loyola Maryland drew 11 of its matches and finished with four wins and four defeats.",
+      "text": "Loyola Maryland drew eleven of its matches and finished with four wins and four defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -73,7 +73,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Kat Slott scored 13 goals for Boston University from 63 shots.",
+      "text": "Kat Slott scored fourteen goals for Boston University from 64 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -91,7 +91,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Kat Slott — 13 G · 7 A · 63 shots",
+      "text": "Kat Slott — 14 G · 7 A · 64 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,7 +118,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 navy v boston-university",
+      "text": "2026-11-21 wake-forest v boston-university",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -126,10 +126,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:09:06.898Z",
-    "generate_ms": 83685,
-    "validate_ms": 1,
-    "wall_ms": 83686,
+    "started_at": "2026-11-24T20:01:47.979Z",
+    "generate_ms": 88433,
+    "validate_ms": 4,
+    "wall_ms": 88438,
     "concurrency": 4
   }
 }

@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "women",
   "conference": "BIGEAST",
-  "validated_at": "2026-11-21T17:04:13.827Z",
-  "data_collected_at": "2026-11-21T15:21:33+00:00",
+  "validated_at": "2026-11-24T20:01:03.644Z",
+  "data_collected_at": "2026-11-24T14:39:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -17,8 +17,8 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[2].text",
-      "text": "Mia Hurd has made 71 saves for Marquette and conceded 12 goals, a save percentage of .855.",
+      "path": "findings[3].text",
+      "text": "Mia Hurd has made 71 saves for Marquette and conceded twelve goals, a save percentage of .855.",
       "unbacked": ["855"]
     }
   ],
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Goals scored do not sort these sides by results. Seton Hall has scored 14, among the fewest on the chart, and has lost only three matches because it has conceded nine.",
+      "text": "Goals scored do not sort these sides by results. Seton Hall has scored fourteen, among the fewest on the chart, and has lost only three matches because it has conceded nine.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -49,7 +49,7 @@
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is xavier at 39"
+      "note": "held against every other programme; the nearest is xavier at 42"
     },
     {
       "path": "findings[0]",
@@ -63,8 +63,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Marquette has drawn ten matches and lost only three.",
-      "checker": "team_record",
+      "text": "Xavier has scored 42 goals across at least thirteen different scorers.",
+      "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -72,14 +72,23 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Mia Hurd has made 71 saves for Marquette and conceded 12 goals, a save percentage of .855.",
-      "checker": "player_stat",
+      "text": "Marquette has drawn ten matches and lost only three.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
     },
     {
       "path": "findings[3]",
+      "label": "observed",
+      "text": "Mia Hurd has made 71 saves for Marquette and conceded twelve goals, a save percentage of .855.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
       "label": "observed",
       "text": "St. John's scored eight goals all season and did not win any of its conference matches.",
       "checker": "team_goals",
@@ -99,7 +108,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Peyton Kohls — 6 G · 6 A · 70 shots",
+      "text": "Peyton Kohls — 6 G · 6 A · 71 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -117,7 +126,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-20 penn-state v villanova",
+      "text": "2026-11-21 xavier v oklahoma",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -126,7 +135,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-21 xavier v oklahoma",
+      "text": "2026-11-27 villanova v texas-tech",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -134,10 +143,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:02:41.969Z",
-    "generate_ms": 91856,
-    "validate_ms": 1,
-    "wall_ms": 91857,
+    "started_at": "2026-11-24T19:53:38.037Z",
+    "generate_ms": 445603,
+    "validate_ms": 4,
+    "wall_ms": 445607,
     "concurrency": 4
   }
 }

@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "B1G",
-  "generated_at": "2026-11-21T15:40:00+00:00",
-  "data_collected_at": "2026-11-21T15:20:19+00:00",
+  "generated_at": "2026-11-24T14:45:00+00:00",
+  "data_collected_at": "2026-11-24T14:37:13+00:00",
   "headline": "Ohio State leads the conference, beaten twice all season",
   "dek": "Ohio State has won 16 times and conceded 11 goals all season, and only UCLA and Michigan have beaten it. Purdue and UCLA sit level on points behind it, with Michigan State just below them.",
   "lede_basis": {
@@ -23,14 +23,14 @@
       "kind": "goals-for-by-team",
       "values": {
         "purdue": 78,
+        "michigan-state": 49,
         "ohio-state": 43,
-        "michigan-state": 42,
         "iowa": 39,
         "wisconsin": 38,
         "penn-state": 33,
+        "ucla": 33,
         "michigan": 32,
         "minnesota": 29,
-        "ucla": 29,
         "washington": 26,
         "oregon": 23,
         "rutgers": 22,
@@ -39,7 +39,7 @@
         "indiana": 17,
         "northwestern": 16,
         "nebraska": 15,
-        "maryland": 7
+        "maryland": 14
       },
       "highlight": "purdue"
     },
@@ -84,11 +84,11 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Seven matches are past their date with no result published; the most recent is a Michigan home match in August.",
+      "text": "Two matches from August are past their date with no result published: Minnesota away at Iowa State and Michigan at home against Xavier.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
-        "past_date_no_result": 7
+        "past_date_no_result": 2
       }
     },
     {
@@ -100,6 +100,17 @@
         "programme": "purdue",
         "goals": 20,
         "shots": 102
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Kennedy Bell has ten goals and twelve assists for Michigan State.",
+      "basis": {
+        "source": "stats",
+        "player": "Kennedy Bell",
+        "programme": "michigan-state",
+        "goals": 10,
+        "assists": 12
       }
     },
     {
@@ -165,21 +176,21 @@
       "programme": "michigan-state",
       "position": "FWD",
       "class": "SR",
-      "line": "8 G · 11 A · 63 shots"
+      "line": "10 G · 12 A · 66 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-20 purdue v southern-illinois",
-      "line": "Purdue has not lost since Ohio State won at Purdue in October."
+      "fixture_ref": "2026-11-21 michigan-state v central-connecticut",
+      "line": "Only Purdue has scored more goals in the conference than Michigan State this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-21 michigan-state v central-connecticut",
-      "line": "Purdue is the only program to have beaten Michigan State more than once this season."
+      "fixture_ref": "2026-11-27 ohio-state v tennessee",
+      "line": "Ohio State is unbeaten outside the conference this season; Tennessee has already beaten Rutgers and Northwestern."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:03:49.063Z"
+    "validated_at": "2026-11-24T19:53:37.934Z"
   }
 }

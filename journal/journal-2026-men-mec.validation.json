@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "validated_at": "2026-11-20T12:40:25.146Z",
-  "data_collected_at": "2026-11-20T12:34:19+00:00",
+  "validated_at": "2026-11-24T19:12:45.331Z",
+  "data_collected_at": "2026-11-24T14:26:47+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Charleston have scored more goals than West Liberty and Wheeling together, and seventeen different players have shared their fifty-five; the scoring is spread, not carried.",
+      "text": "Charleston has scored more goals than West Liberty and Wheeling together, and seventeen different players have shared its 60; the scoring is spread, not carried.",
       "checker": "distinct_scorers+team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Davis & Elkins have lost once and conceded ten goals all season, fewer than any other side in the conference.",
-      "checker": "team_goals+team_record",
+      "text": "Conference programs won 21 matches, drew twelve, and lost ten against outside opponents, scoring 69 goals and allowing 59.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Martin Echarren has twelve goals and three assists for Charleston from forty-five shots.",
+      "text": "Martin Echarren has twelve goals and four assists for Charleston from 47 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Hugo Fauli has eleven assists and three goals for Davis & Elkins from thirty-nine shots.",
+      "text": "Hugo Fauli has eleven assists and three goals for Davis & Elkins from 41 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Martin Echarren — 12 G · 3 A · 45 shots",
+      "text": "Martin Echarren — 12 G · 4 A · 47 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Francisco Lopez Kreik — 7 G · 8 A · 45 shots",
+      "text": "Francisco Lopez Kreik — 7 G · 8 A · 48 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,16 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 gannon v concord",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
-      "text": "2026-11-20 charleston v gannon",
+      "text": "2026-11-22 charleston v davis-elkins",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:39:59.549Z",
-    "generate_ms": 25596,
-    "validate_ms": 1,
-    "wall_ms": 25597,
+    "started_at": "2026-11-24T19:08:59.174Z",
+    "generate_ms": 226155,
+    "validate_ms": 2,
+    "wall_ms": 226157,
     "concurrency": 4
   }
 }

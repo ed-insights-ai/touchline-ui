@@ -3,19 +3,19 @@
   "season": 2026,
   "gender": "men",
   "conference": "PAC12",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:22:51+00:00",
-  "headline": "Oregon State top the table on a run of wins",
-  "dek": "Oregon State have scored 50 goals across all their matches, more than any other programme, and have not lost since a defeat at Utah Valley in October. California Baptist alone match their twelve wins, and have conceded fewer goals than anyone.",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:32:09+00:00",
+  "headline": "Oregon State breaks clear with Louisville road win",
+  "dek": "A road victory at Louisville carried Oregon State to thirteen wins, more than any other program in the conference, moving past California Baptist. Oregon State has scored 51 goals across all matches and has not lost since an October defeat at Utah Valley, with NC State visiting next.",
   "lede_basis": {
     "programme": "oregon-state",
-    "gf": 50,
-    "ga": 25,
-    "wins": 12,
+    "wins": 13,
     "draws": 4,
     "losses": 4,
+    "gf": 51,
+    "ga": 25,
     "comparative": "greater_than_each",
-    "metric": "gf",
+    "metric": "wins",
     "of": [
       "cal-poly",
       "california-baptist",
@@ -25,14 +25,15 @@
       "uc-san-diego"
     ]
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Oregon State won at Louisville to reach 13 wins and 51 goals, moving past California Baptist and making the standing dek untrue.",
   "pattern": {
     "label": "derived",
-    "text": "Oregon State's 50 goals stand apart: the other programmes sit far closer to one another than any of them sits to the leaders, so the scoring in this conference is one side and a pack.",
+    "text": "Oregon State's 51 goals stand apart: the other programs sit far closer to each other than any of them sits to the leader, leaving the conference's scoring as a lone frontrunner and a tightly bunched pack.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "oregon-state": 50,
+        "oregon-state": 51,
         "california-baptist": 33,
         "san-diego-state": 29,
         "uc-san-diego": 29,
@@ -54,7 +55,7 @@
         "uc-riverside",
         "uc-san-diego"
       ],
-      "gf": 50
+      "gf": 51
     }
   },
   "wire": {
@@ -70,7 +71,7 @@
   "findings": [
     {
       "label": "derived",
-      "text": "San Diego State have drawn nine of their matches, more than any other programme in the conference.",
+      "text": "San Diego State has drawn nine matches, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
@@ -90,7 +91,7 @@
     },
     {
       "label": "observed",
-      "text": "California Baptist have conceded 18 goals, fewer than any other programme in the conference.",
+      "text": "California Baptist has conceded eighteen goals while scoring 33 across its matches.",
       "basis": {
         "programme": "california-baptist",
         "gf": 33,
@@ -103,6 +104,17 @@
       "basis": {
         "programme": "oregon-state",
         "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Gonzaga goalkeeper Chema Preciado has made 72 saves while allowing 26 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Chema Preciado",
+        "programme": "gonzaga",
+        "saves": 72,
+        "goals_against": 26
       }
     },
     {
@@ -140,16 +152,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 oregon-state v cal-state-bakersfield",
-      "line": "Oregon State have now beaten Cal State Bakersfield, the side that won at their ground in October."
+      "fixture_ref": "2026-11-22 louisville v oregon-state",
+      "line": "Oregon State won away from home after back-to-back road defeats at Cal Poly and Utah Valley."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 louisville v oregon-state",
-      "line": "Oregon State's September visits to Georgetown and Virginia brought a defeat and a draw."
+      "fixture_ref": "2026-11-29 oregon-state v nc-state",
+      "line": "Oregon State has won every home match since its October loss to Cal State Bakersfield."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:54:41.563Z"
+    "validated_at": "2026-11-24T19:37:56.750Z"
   }
 }

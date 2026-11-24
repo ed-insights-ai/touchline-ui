@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "ACC",
-  "validated_at": "2026-11-20T17:47:32.559Z",
-  "data_collected_at": "2026-11-20T13:16:05+00:00",
+  "validated_at": "2026-11-24T19:32:50.189Z",
+  "data_collected_at": "2026-11-24T14:26:59+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,12 +20,11 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "SMU's goals come with almost none against: 51 scored and nine conceded, a margin of 42.",
-      "checker": "team_goals",
+      "text": "SMU has scored 53 goals, more than Pitt and Notre Dame combined, while allowing only nine.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "unchecked_figures": ["goal_difference: 42"]
+      "dropped": false
     },
     {
       "path": "pattern.chart",
@@ -39,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "North Carolina have now beaten Clemson, NC State and SMU in successive matches.",
-      "checker": "team_record",
+      "text": "Against non-conference opponents, the ACC has 86 wins, twenty draws, and 24 losses, scoring 301 goals to 129 conceded.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -57,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Joschi Schelb has eighteen goals for North Carolina from 76 shots.",
+      "text": "Joschi Schelb has eighteen goals for North Carolina from 80 shots.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -66,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Alan Rutkowski has kept seven shutouts in goal for North Carolina.",
+      "text": "Pitt goalkeeper Jack Moxom has recorded seven shutouts this season.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -82,9 +81,18 @@
       "dropped": false
     },
     {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "Wake Forest has spread its attack across at least seventeen different goal scorers.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Joschi Schelb — 18 G · 3 A · 76 shots",
+      "text": "Joschi Schelb — 18 G · 4 A · 80 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -93,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Ransford Gyan — 14 G · 5 A · 51 shots",
+      "text": "Ransford Gyan — 14 G · 5 A · 56 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -111,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-19 stanford v tulsa",
+      "text": "2026-11-22 north-carolina v uncw",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -120,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-22 smu v bryant",
+      "text": "2026-11-28 smu v wisconsin",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:45:53.445Z",
-    "generate_ms": 99111,
-    "validate_ms": 2,
-    "wall_ms": 99113,
+    "started_at": "2026-11-24T19:30:49.094Z",
+    "generate_ms": 121091,
+    "validate_ms": 4,
+    "wall_ms": 121095,
     "concurrency": 4
   }
 }

@@ -3,31 +3,34 @@
   "season": 2026,
   "gender": "men",
   "conference": "IVY",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:20:13+00:00",
-  "headline": "Cornell go through Ivy play unbeaten",
-  "dek": "Cornell dropped points in Ivy play only in a draw at Yale, and have since beaten Harvard and Penn again. Across the season they have won 14 matches and lost three, each defeat to a side from outside the conference.",
+  "generated_at": "2026-11-23T16:30:00+00:00",
+  "data_collected_at": "2026-11-23T16:28:46+00:00",
+  "headline": "Cornell reaches 50 goals in road win at Rutgers",
+  "dek": "A road victory at Rutgers carried Cornell to fifteen wins across all matches, against just one draw and three losses, while allowing nineteen goals. With every other conference program finished for the season, Cornell alone plays on and welcomes Grand Canyon next.",
   "lede_basis": {
     "programme": "cornell",
-    "wins": 14,
+    "wins": 15,
     "draws": 1,
-    "losses": 3
+    "losses": 3,
+    "gf": 50,
+    "ga": 19
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Cornell beat Rutgers for a fifteenth win and 50th goal, making the previous dek's fourteen-win figure stale.",
   "pattern": {
     "label": "derived",
-    "text": "Scoring in this conference runs through one programme: Cornell's 48 goals are more than Columbia, Dartmouth and Harvard scored between them.",
+    "text": "Scoring in this conference is heavily concentrated at the top: Cornell's 50 goals are more than Harvard and Brown scored combined.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "cornell": 48,
+        "cornell": 50,
         "penn": 32,
+        "harvard": 26,
         "brown": 21,
         "princeton": 19,
         "yale": 19,
         "columbia": 18,
-        "dartmouth": 15,
-        "harvard": 13
+        "dartmouth": 15
       },
       "highlight": "cornell"
     },
@@ -35,9 +38,9 @@
       "comparative": "greater_than_sum",
       "metric": "gf",
       "programme": "cornell",
-      "of": ["columbia", "dartmouth", "harvard"],
-      "gf": 48,
-      "ga": 18
+      "of": ["harvard", "brown"],
+      "gf": 50,
+      "ga": 19
     }
   },
   "wire": {
@@ -47,7 +50,7 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Marco Bottene has scored 11 of Penn's 32 goals.",
+      "text": "Marco Bottene has scored eleven of Penn's 32 goals.",
       "basis": {
         "source": "stats",
         "player": "Marco Bottene",
@@ -59,7 +62,7 @@
     },
     {
       "label": "derived",
-      "text": "Yale's 19 goals have come from fourteen different scorers.",
+      "text": "Yale's nineteen goals have come from fourteen different scorers.",
       "basis": {
         "programme": "yale",
         "distinct_scorers_min": 14,
@@ -100,24 +103,28 @@
       "programme": "cornell",
       "position": "MID",
       "class": "SR",
-      "line": "6 G · 9 A · 40 shots"
+      "line": "6 G · 9 A · 41 shots"
     },
     {
       "player": "Lennon Harrington",
       "programme": "cornell",
       "position": "DEF",
       "class": "FR",
-      "line": "7 G · 1 A · 25 shots"
+      "line": "7 G · 1 A · 27 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 cornell v fdu",
-      "line": "Cornell have won every home match that has a published result."
+      "fixture_ref": "2026-11-22 rutgers v cornell",
+      "line": "Cornell has won every match since its draw at Yale."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-29 cornell v grand-canyon",
+      "line": "Cornell has won every home match that has a published result."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:52:00.901Z"
+    "validated_at": "2026-11-24T19:36:19.826Z"
   }
 }

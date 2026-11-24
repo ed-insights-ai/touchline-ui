@@ -3,20 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "A10",
-  "generated_at": "2026-11-20T14:05:00+00:00",
-  "data_collected_at": "2026-11-20T13:15:12+00:00",
-  "headline": "Saint Louis lose the last match on the schedule",
-  "dek": "Saint Louis beat Dayton, Davidson and Fordham in November and were the only A10 side to play again. Missouri State's win leaves them at ten wins, five draws and five losses, with nineteen goals conceded in twenty matches.",
+  "generated_at": "2026-11-23T16:30:00+00:00",
+  "data_collected_at": "2026-11-23T16:23:48+00:00",
+  "headline": "Saint Louis loses the last match on the schedule",
+  "dek": "Saint Louis beat Dayton, Davidson and Fordham in November and was the only A10 side to play again. Missouri State's win closed its ten-win season with five draws, five losses and nineteen goals conceded.",
   "lede_basis": {
     "programme": "saint-louis",
     "wins": 10,
     "draws": 5,
     "losses": 5,
-    "played": 20,
     "gf": 30,
     "ga": 19
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "form",
   "pattern": {
     "label": "derived",
     "text": "Scoring did not settle the season: La Salle's 38 goals came with seven wins and eight defeats.",
@@ -49,8 +49,8 @@
     }
   },
   "wire": {
-    "line": "Fordham are the only A10 side to have beaten Saint Louis, and Saint Louis won the next meeting between them.",
-    "updated": "2026-11-20"
+    "line": "Fordham is the only A10 side to have beaten Saint Louis, and Saint Louis won the next meeting between them.",
+    "updated": "2026-11-23"
   },
   "findings": [
     {
@@ -75,7 +75,7 @@
     },
     {
       "label": "observed",
-      "text": "Alex Smith has kept six clean sheets for Saint Joseph's and conceded 17 goals.",
+      "text": "Alex Smith has kept six shutouts for Saint Joseph's and conceded seventeen goals.",
       "basis": {
         "source": "stats",
         "player": "Alex Smith",
@@ -121,11 +121,11 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-11-19 missouri-state v saint-louis",
-      "line": "Saint Louis's first defeat since Fordham beat them in October."
+      "line": "Saint Louis's first defeat since losing at Fordham in October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:48:21.268Z"
+    "validated_at": "2026-11-24T19:32:15.564Z"
   }
 }

@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "BIGEAST",
-  "validated_at": "2026-11-20T17:49:42.072Z",
-  "data_collected_at": "2026-11-20T13:18:40+00:00",
+  "validated_at": "2026-11-24T19:34:54.514Z",
+  "data_collected_at": "2026-11-24T14:29:01+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Georgetown's goals are spread wide: at least seventeen different players have scored for them.",
+      "text": "Georgetown's goals are spread wide: at least seventeen different players have scored.",
       "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "A defender, Creighton's Matthew Reed, has scored more goals than anyone else in the conference: 14.",
-      "checker": "player_stat",
+      "text": "Wake Forest handed Akron its second loss of the season, leaving the program at thirteen wins and four draws.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Akron's visit to West Virginia in September is one of five matches past their date with no published result.",
+      "text": "Five matches are past their date with no published result, including Akron's September visit to West Virginia.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,8 +56,8 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Xavier have conceded 11 goals all season while scoring 33.",
-      "checker": "team_goals",
+      "text": "Creighton defender Matthew Reed has scored fourteen goals from 32 shots.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -65,8 +65,8 @@
     {
       "path": "findings[2]",
       "label": "observed",
-      "text": "Devin Armstrong has kept 10 shutouts in Seton Hall's goal.",
-      "checker": "player_stat",
+      "text": "Xavier has conceded eleven goals all season while scoring 33.",
+      "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,16 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Alex Yagudayev has made 118 saves for Villanova and conceded 27 goals.",
+      "text": "Devin Armstrong has kept ten shutouts in Seton Hall's goal.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Alex Yagudayev has made 118 saves for Villanova while conceding 27 goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Matthew Van Horn — 13 G · 9 A · 37 shots",
+      "text": "Matthew Van Horn — 14 G · 10 A · 42 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-19 creighton v omaha",
+      "text": "2026-11-22 georgetown v syracuse",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-22 akron v wake-forest",
+      "text": "2026-11-28 georgetown v ucla",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:47:46.705Z",
-    "generate_ms": 115365,
-    "validate_ms": 1,
-    "wall_ms": 115366,
+    "started_at": "2026-11-24T19:32:42.157Z",
+    "generate_ms": 132356,
+    "validate_ms": 2,
+    "wall_ms": 132358,
     "concurrency": 4
   }
 }

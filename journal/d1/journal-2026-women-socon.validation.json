@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SOCON",
-  "validated_at": "2026-11-21T17:11:03.048Z",
-  "data_collected_at": "2026-11-21T15:28:35+00:00",
+  "validated_at": "2026-11-24T20:03:29.659Z",
+  "data_collected_at": "2026-11-23T17:07:18+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -138,10 +138,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:09:33.035Z",
-    "generate_ms": 90012,
-    "validate_ms": 1,
-    "wall_ms": 90013,
+    "started_at": "2026-11-24T20:02:55.049Z",
+    "generate_ms": 34608,
+    "validate_ms": 2,
+    "wall_ms": 34610,
     "concurrency": 4
   }
 }

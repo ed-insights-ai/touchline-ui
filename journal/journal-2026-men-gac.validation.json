@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GAC",
-  "validated_at": "2026-11-20T12:40:19.156Z",
-  "data_collected_at": "2026-11-20T12:32:34+00:00",
+  "validated_at": "2026-11-24T19:07:28.685Z",
+  "data_collected_at": "2026-11-24T14:25:50+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Fort Hays State conceded ten goals all season and lost twice.",
-      "checker": "team_goals+team_record",
+      "text": "Fort Hays State holds eighteen wins, three draws, and two losses as its season continues.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,8 +74,17 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Rogers State have had at least seventeen different scorers this season.",
+      "text": "Rogers State has had at least seventeen different scorers this season.",
       "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Payton Roehrich has made 58 saves and conceded nine goals for Fort Hays State.",
+      "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -83,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Juan Linares — 11 G · 8 A · 37 shots",
+      "text": "Juan Linares — 11 G · 10 A · 40 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +101,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Len Valkema — 11 G · 4 A · 40 shots",
+      "text": "Len Valkema — 13 G · 4 A · 50 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 fort-hays-state v lake-erie",
+      "text": "2026-11-22 lincoln v fort-hays-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-20 fort-hays-state v maryville",
+      "text": "2026-12-03 flagler v fort-hays-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:39:57.649Z",
-    "generate_ms": 21505,
-    "validate_ms": 1,
-    "wall_ms": 21506,
+    "started_at": "2026-11-24T19:05:41.438Z",
+    "generate_ms": 107243,
+    "validate_ms": 3,
+    "wall_ms": 107246,
     "concurrency": 4
   }
 }

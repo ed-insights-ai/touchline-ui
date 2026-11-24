@@ -3,16 +3,16 @@
   "season": 2026,
   "gender": "women",
   "conference": "A10",
-  "generated_at": "2026-11-21T17:05:00+00:00",
-  "data_collected_at": "2026-11-21T16:38:15+00:00",
+  "generated_at": "2026-11-24T14:40:00+00:00",
+  "data_collected_at": "2026-11-24T14:34:12+00:00",
   "headline": "Saint Louis goes through conference play unbeaten",
   "dek": "Saint Louis came through conference play without a defeat, then beat Fordham, Rhode Island and Dayton without conceding a goal. It has allowed nine all season, and both of its losses, to Alabama and Kansas, came before conference play opened.",
   "lede_basis": {
     "programme": "saint-louis",
-    "wins": 14,
+    "wins": 15,
     "draws": 5,
     "losses": 2,
-    "gf": 44,
+    "gf": 47,
     "ga": 9
   },
   "lede_updated": "2026-11-21",
@@ -22,7 +22,7 @@
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "saint-louis": 44,
+        "saint-louis": 47,
         "la-salle": 42,
         "george-washington": 33,
         "george-mason": 31,
@@ -46,16 +46,14 @@
     }
   },
   "wire": {
-    "line": "Saint Louis has scored 44 goals, conceded nine and lost twice all season.",
+    "line": "Saint Louis has fifteen wins after winning at Arkansas without conceding, and next travels to Wake Forest.",
     "basis": {
       "programme": "saint-louis",
-      "wins": 14,
+      "wins": 15,
       "draws": 5,
-      "losses": 2,
-      "gf": 44,
-      "ga": 9
+      "losses": 2
     },
-    "updated": "2026-11-21"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -115,7 +113,7 @@
       "programme": "saint-louis",
       "position": "FWD",
       "class": "JR",
-      "line": "12 G · 3 A · 41 shots"
+      "line": "13 G · 4 A · 44 shots"
     },
     {
       "player": "Sophia Michel",
@@ -134,16 +132,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 saint-louis v dayton",
-      "line": "The sides drew without a goal at Dayton in September; Saint Louis has not lost since the Kansas match."
+      "fixture_ref": "2026-11-21 arkansas v saint-louis",
+      "line": "Saint Louis has not conceded a goal since its win at La Salle in October."
     },
     "next_match": {
-      "fixture_ref": "2026-11-21 arkansas v saint-louis",
-      "line": "Saint Louis travels for the first time since its win at Duquesne in October."
+      "fixture_ref": "2026-11-27 wake-forest v saint-louis",
+      "line": "Saint Louis has not lost an away match all season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:01:44.792Z"
+    "validated_at": "2026-11-24T19:54:02.994Z"
   }
 }

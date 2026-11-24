@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "BIGWEST",
-  "generated_at": "2026-11-21T16:00:00+00:00",
-  "data_collected_at": "2026-11-21T15:22:37+00:00",
+  "generated_at": "2026-11-23T17:00:00+00:00",
+  "data_collected_at": "2026-11-23T16:39:00+00:00",
   "headline": "Utah Valley goes through the conference unbeaten",
   "dek": "Utah Valley went through conference play without a defeat and has won fifteen matches in all. Behind it, Cal State Fullerton and UC San Diego sit level on points.",
   "lede_basis": {
@@ -65,7 +65,7 @@
     },
     {
       "label": "derived",
-      "text": "California Baptist has scored 25 goals and conceded 11 across all its matches.",
+      "text": "California Baptist has scored 25 goals and conceded eleven across all its matches.",
       "basis": {
         "programme": "california-baptist",
         "gf": 25,
@@ -124,6 +124,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:05:45.629Z"
+    "validated_at": "2026-11-24T19:57:29.679Z"
   }
 }

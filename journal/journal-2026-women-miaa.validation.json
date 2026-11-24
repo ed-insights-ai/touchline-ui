@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "MIAA",
-  "validated_at": "2026-11-20T12:58:15.810Z",
-  "data_collected_at": "2026-11-20T12:47:15+00:00",
+  "validated_at": "2026-11-24T19:23:55.005Z",
+  "data_collected_at": "2026-11-23T16:26:27+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "The drop from the top is steep rather than gradual: Washburn have more goals than Newman, Missouri Southern and Fort Hays State together.",
+      "text": "The drop from the top is steep rather than gradual: Washburn has more goals than Newman, Missouri Southern and Fort Hays State together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Pittsburg State have conceded four goals all season and lost once, to Washburn.",
+      "text": "Washburn has won eighteen times and scored 54 goals, conceding just seven all season.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +47,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Four matches are past their date with no result; Missouri Southern are in every one but Washburn's meeting with Baker.",
+      "text": "Four matches are past their date with no result; Missouri Southern is in all of them except Washburn's meeting with Baker.",
       "checker": "unresolved",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Central Missouri have conceded eight goals in 22 matches while scoring 49.",
+      "text": "Central Missouri has conceded eight goals in 22 matches while scoring 49.",
       "checker": "team_goals+team_record+fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Coryn Jespersen has 17 assists for Central Missouri, to go with four goals.",
+      "text": "Coryn Jespersen has seventeen assists for Central Missouri, to go with four goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Juliette Langlet has made 121 saves for Northeastern State and conceded 18 goals.",
+      "text": "Juliette Langlet has made 121 saves for Northeastern State and conceded eighteen goals.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 washburn v central-missouri",
+      "text": "2026-11-22 missouri-st-louis v pittsburg-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-20 washburn v pittsburg-state",
+      "text": "2027-04-02 nebraska-kearney v garden-city-c-c",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:57:46.658Z",
-    "generate_ms": 29148,
-    "validate_ms": 3,
-    "wall_ms": 29151,
+    "started_at": "2026-11-24T19:22:14.491Z",
+    "generate_ms": 100509,
+    "validate_ms": 5,
+    "wall_ms": 100515,
     "concurrency": 4
   }
 }

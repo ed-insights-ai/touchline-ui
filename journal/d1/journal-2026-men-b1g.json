@@ -3,35 +3,51 @@
   "season": 2026,
   "gender": "men",
   "conference": "B1G",
-  "generated_at": "2026-11-20T13:30:00+00:00",
-  "data_collected_at": "2026-11-20T13:17:55+00:00",
-  "headline": "Only Rutgers have beaten Indiana",
-  "dek": "The defeat came in October, and Indiana have won fifteen and drawn four around it. Michal Mroz has kept eight clean sheets behind a defence that has conceded thirteen goals all season.",
+  "generated_at": "2026-11-24T14:35:00+00:00",
+  "data_collected_at": "2026-11-24T14:28:26+00:00",
+  "headline": "Washington outscores every conference rival",
+  "dek": "After winning at West Virginia, Washington has 46 goals against 22 conceded, with twelve wins and four losses on its record. Midfielder Zach Ramsey has driven that attack, scoring nineteen goals and setting up six more.",
   "lede_basis": {
-    "programme": "indiana",
-    "wins": 15,
-    "draws": 4,
-    "losses": 1,
-    "gf": 41,
-    "ga": 13,
+    "programme": "washington",
+    "wins": 12,
+    "draws": 5,
+    "losses": 4,
+    "gf": 46,
+    "ga": 22,
     "source": "stats",
-    "player": "Michal Mroz",
-    "shutouts": 8
+    "player": "Zach Ramsey",
+    "goals": 19,
+    "assists": 6,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "indiana",
+      "wisconsin",
+      "ucla",
+      "michigan-state",
+      "rutgers",
+      "maryland",
+      "ohio-state",
+      "northwestern",
+      "michigan",
+      "penn-state"
+    ]
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Indiana's draw with Missouri State invalidated the standing dek's draw and shutout counts; Washington's win at West Virginia extended its conference-leading goal total to 46.",
   "pattern": {
     "label": "signal",
-    "text": "Goals have tracked the foot of the table more closely than its top: Michigan and Penn State, the only programmes without a conference win, have scored the fewest, while the leaders are not the side that has scored the most.",
+    "text": "Goals have tracked the foot of the table more closely than its top: Michigan and Penn State, the only programs without a conference win, have scored the fewest, while the table leader is not the side that has scored the most.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "washington": 45,
+        "washington": 46,
         "indiana": 41,
-        "wisconsin": 38,
+        "wisconsin": 40,
+        "ucla": 38,
         "michigan-state": 37,
-        "ucla": 36,
-        "rutgers": 34,
-        "maryland": 30,
+        "rutgers": 35,
+        "maryland": 31,
         "ohio-state": 29,
         "northwestern": 25,
         "michigan": 18,
@@ -44,20 +60,22 @@
       "metric": "gf",
       "programme": "washington",
       "of": ["indiana"],
-      "gf": 45
+      "gf": 46
     }
   },
   "wire": {
-    "line": "Zach Ramsey has scored nineteen of Washington's forty-five goals this season.",
+    "line": "Indiana has lost once all season, with Michal Mroz keeping nine shutouts and conceding thirteen goals.",
     "basis": {
+      "programme": "indiana",
+      "wins": 15,
+      "draws": 5,
+      "losses": 1,
       "source": "stats",
-      "player": "Zach Ramsey",
-      "programme": "washington",
-      "goals": 19,
-      "gf": 45,
-      "ga": 22
+      "player": "Michal Mroz",
+      "shutouts": 9,
+      "goals_against": 13
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -71,13 +89,13 @@
     },
     {
       "label": "observed",
-      "text": "Laurin Mack has made 86 saves in Maryland's goal, a save percentage of .768.",
+      "text": "Laurin Mack has made 87 saves in Maryland's goal, posting a .757 save percentage.",
       "basis": {
         "source": "stats",
         "player": "Laurin Mack",
         "programme": "maryland",
-        "saves": 86,
-        "save_pct": 0.768
+        "saves": 87,
+        "save_pct": 0.757
       }
     },
     {
@@ -97,6 +115,18 @@
         "draws": 5,
         "losses": 8
       }
+    },
+    {
+      "label": "observed",
+      "text": "Wisconsin has won eleven matches and lost only three, scoring 40 goals while conceding eighteen.",
+      "basis": {
+        "programme": "wisconsin",
+        "wins": 11,
+        "draws": 4,
+        "losses": 3,
+        "gf": 40,
+        "ga": 18
+      }
     }
   ],
   "players_to_watch": [
@@ -105,35 +135,35 @@
       "programme": "washington",
       "position": "MID",
       "class": "JR",
-      "line": "19 G · 6 A · 78 shots"
+      "line": "19 G · 6 A · 81 shots"
     },
     {
       "player": "Oliver Moller-Jensen",
       "programme": "indiana",
       "position": "FWD",
       "class": "SR",
-      "line": "13 G · 5 A · 81 shots"
+      "line": "13 G · 5 A · 82 shots"
     },
     {
       "player": "Rodrigo Neri",
       "programme": "maryland",
       "position": "FWD",
       "class": "FR",
-      "line": "8 G · 2 A · 53 shots"
+      "line": "8 G · 2 A · 58 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 washington v cleveland-state",
-      "line": "Washington's first win since the end of October."
+      "fixture_ref": "2026-11-22 west-virginia v washington",
+      "line": "Back-to-back shutout wins for Washington, which has not lost since falling at UCLA early in November."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 indiana v missouri-state",
-      "line": "Missouri State have already beaten Penn State; Indiana have not lost since October."
+      "fixture_ref": "2026-11-28 georgetown v ucla",
+      "line": "Georgetown has already beaten Rutgers and lost at Maryland this season; UCLA arrives off a home win over Omaha."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:48:51.815Z"
+    "validated_at": "2026-11-24T19:34:18.416Z"
   }
 }

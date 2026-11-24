@@ -3,20 +3,20 @@
   "season": 2026,
   "gender": "women",
   "conference": "MAAC",
-  "generated_at": "2026-11-21T16:00:00+00:00",
-  "data_collected_at": "2026-11-21T15:24:27+00:00",
-  "headline": "Quinnipiac finishes top as Fairfield outscores the field",
-  "dek": "Quinnipiac has lost three times all season, scoring twenty-eight goals in all its matches and conceding twenty. Fairfield's attack has scored the most in the conference and still finished behind it.",
+  "generated_at": "2026-11-23T17:00:00+00:00",
+  "data_collected_at": "2026-11-23T16:41:35+00:00",
+  "headline": "UCLA shuts out Quinnipiac to close the MAAC season",
+  "dek": "Quinnipiac had not lost since a September trip to Manhattan before falling at UCLA in the conference's final match. The table-topper closed the season with twelve wins and four defeats across all matches, conceding 24 goals against 28 scored.",
   "lede_basis": {
     "programme": "quinnipiac",
     "wins": 12,
     "draws": 3,
-    "losses": 3,
+    "losses": 4,
     "gf": 28,
-    "ga": 20
+    "ga": 24
   },
-  "lede_updated": "2026-11-21",
-  "displaced_by": "first journal for the conference: Quinnipiac's finish at the top of a complete conference table",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Quinnipiac's loss at UCLA closed the MAAC season and changed the standing dek's loss and conceded-goal totals",
   "pattern": {
     "label": "derived",
     "text": "Fairfield has scored more than Quinnipiac and Manhattan together, yet goals did not settle the table: Quinnipiac tops it from the middle of this chart.",
@@ -47,6 +47,19 @@
       "gf": 54
     }
   },
+  "wire": {
+    "line": "Siena won thirteen matches overall, more than any other program in the conference, yet finished behind Quinnipiac in the table.",
+    "basis": {
+      "programme": "siena",
+      "wins": 13,
+      "draws": 2,
+      "losses": 5,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of_any": 1
+    },
+    "updated": "2026-11-23"
+  },
   "findings": [
     {
       "label": "observed",
@@ -70,12 +83,12 @@
     },
     {
       "label": "observed",
-      "text": "Siena goalkeeper Cate Burns has twelve shutouts this season.",
+      "text": "Quinnipiac goalkeeper Olivia Jarvis finished with eight shutouts this season.",
       "basis": {
         "source": "stats",
-        "player": "Cate Burns",
-        "programme": "siena",
-        "shutouts": 12
+        "player": "Olivia Jarvis",
+        "programme": "quinnipiac",
+        "shutouts": 8
       }
     },
     {
@@ -121,16 +134,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 quinnipiac v fairfield",
-      "line": "Fairfield has now met Quinnipiac twice without beating it."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-21 ucla v quinnipiac",
-      "line": "Quinnipiac has not lost since its trip to Manhattan in September."
+      "line": "The defeat ended Quinnipiac's unbeaten run since its September loss at Manhattan."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:08:06.179Z"
+    "validated_at": "2026-11-24T20:01:17.844Z"
   }
 }

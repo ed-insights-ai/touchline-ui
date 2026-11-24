@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "women",
   "conference": "MVC",
-  "validated_at": "2026-11-21T17:08:29.773Z",
-  "data_collected_at": "2026-11-21T15:25:19+00:00",
+  "validated_at": "2026-11-24T20:01:32.859Z",
+  "data_collected_at": "2026-11-23T16:42:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
-    "verified": 10,
+    "verified": 11,
     "contradicted": 0,
-    "unverifiable": 1,
-    "dropped": 1
+    "unverifiable": 0,
+    "dropped": 0
   },
   "normalizations": [],
   "review": [],
@@ -38,11 +38,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Drake tops the table, but its last match was a home defeat to Southern Illinois.",
-      "checker": null,
-      "verdict": "unverifiable",
-      "mismatches": ["the claim carries no basis"],
-      "dropped": true
+      "text": "Fourteen different players have scored for Indiana State this season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -119,10 +119,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:06:57.798Z",
-    "generate_ms": 91974,
-    "validate_ms": 1,
-    "wall_ms": 91975,
+    "started_at": "2026-11-24T20:00:49.775Z",
+    "generate_ms": 43081,
+    "validate_ms": 4,
+    "wall_ms": 43085,
     "concurrency": 4
   }
 }

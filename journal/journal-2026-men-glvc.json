@@ -3,27 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "generated_at": "2026-11-16T12:45:00+00:00",
-  "data_collected_at": "2026-11-16T12:33:56+00:00",
-  "headline": "Lincoln take an unbeaten season into Friday",
-  "dek": "Lincoln beat Roosevelt at home on Sunday for their sixteenth win, and four draws remain the only matches they have not won. Maryville drew at Saginaw Valley State the same day. Both are at home on Friday, Lincoln against Findlay and Maryville against Fort Hays State.",
+  "generated_at": "2026-11-24T14:30:00+00:00",
+  "data_collected_at": "2026-11-24T14:26:07+00:00",
+  "headline": "Fort Hays State ends Lincoln's unbeaten season",
+  "dek": "Lincoln fell at home to Fort Hays State on Sunday after drawing Findlay on Friday, taking its only defeat of a season that brought sixteen wins and five draws. Fort Hays State had beaten Maryville on Friday as well, and no match remains on the schedule.",
   "lede_basis": {
     "programme": "lincoln",
     "wins": 16,
-    "draws": 4,
-    "losses": 0
+    "draws": 5,
+    "losses": 1
   },
-  "lede_updated": "2026-11-16",
-  "displaced_by": "The dek's trip to Saginaw Valley State 'today' is now past; Lincoln's win over Roosevelt carries their unbeaten season into Friday's home match with Findlay.",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Lincoln's unbeaten season ended in a home loss to Fort Hays State after a draw with Findlay, and Maryville also lost to Fort Hays State.",
   "pattern": {
     "label": "derived",
-    "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
+    "text": "Southwest Baptist scored 45 goals, more than either Drury or Indianapolis near the top of the table, yet conceded 36 and lost seven times; goals alone did not carry a program into the upper tier.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "lincoln": 46,
+        "maryville": 46,
         "southwest-baptist": 45,
-        "lincoln": 44,
-        "maryville": 44,
         "drury": 32,
         "mckendree": 30,
         "missouri-s-t": 30,
@@ -43,7 +43,7 @@
       "comparative": "greater_than_each",
       "metric": "gf",
       "programme": "southwest-baptist",
-      "of": ["lincoln", "drury"],
+      "of": ["drury", "indianapolis"],
       "gf": 45,
       "ga": 36,
       "wins": 8,
@@ -52,19 +52,19 @@
     }
   },
   "wire": {
-    "line": "Lincoln are the only programme in the conference still without a defeat this season.",
+    "line": "Lincoln's sixteen-win season ended with a single defeat, leaving no unbeaten program in the conference.",
     "basis": {
       "programme": "lincoln",
       "wins": 16,
-      "draws": 4,
-      "losses": 0
+      "draws": 5,
+      "losses": 1
     },
-    "updated": "2026-10-28"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
+      "text": "Two August matches past their date carry no result, and both belong to Drury.",
       "basis": {
         "set": "past_date_no_result",
         "all_of": "drury",
@@ -73,7 +73,7 @@
     },
     {
       "label": "derived",
-      "text": "Drury have lost five times this season: at home to Oklahoma Christian in August, away at Missouri S&T in September, at home to Lincoln and to Missouri-St. Louis in October, and at home to Maryville in November.",
+      "text": "Drury has lost five times this season: at home to Oklahoma Christian in August, away at Missouri S&T in September, at home to Lincoln and Missouri-St. Louis in October, and at home to Maryville in November.",
       "basis": {
         "programme": "drury",
         "wins": 11,
@@ -83,19 +83,19 @@
     },
     {
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has thirteen of Lincoln's forty-four goals, from seventy-three shots.",
+      "text": "Jonathan Nemorden, a freshman, scored thirteen of Lincoln's 46 goals from 87 shots.",
       "basis": {
         "source": "stats",
         "player": "Jonathan Nemorden",
         "programme": "lincoln",
         "goals": 13,
-        "shots": 73,
-        "gf": 44
+        "shots": 87,
+        "gf": 46
       }
     },
     {
       "label": "derived",
-      "text": "Jacob Panagos, a midfielder, has fifteen of Truman's twenty-eight goals, from fifty-seven shots.",
+      "text": "Jacob Panagos, a midfielder, scored fifteen of Truman's 28 goals from 57 shots.",
       "basis": {
         "source": "stats",
         "player": "Jacob Panagos",
@@ -107,7 +107,7 @@
     },
     {
       "label": "observed",
-      "text": "Noah Nymark-Pedersen has made seventy-nine saves for Upper Iowa and conceded thirty-five, a save percentage of .693.",
+      "text": "Noah Nymark-Pedersen made 79 saves for Upper Iowa and conceded 35 goals, a save percentage of .693.",
       "basis": {
         "source": "stats",
         "player": "Noah Nymark-Pedersen",
@@ -131,7 +131,7 @@
       "programme": "lincoln",
       "position": "FWD",
       "class": "FR",
-      "line": "13 G · 2 A · 73 shots"
+      "line": "13 G · 3 A · 87 shots"
     },
     {
       "player": "Fredrik Thulin",
@@ -143,16 +143,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 saginaw-valley-state v maryville",
-      "line": "Maryville have not lost since Lincoln beat them in October."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-20 lincoln v findlay",
-      "line": "Lincoln have won every match they have played at home this season."
+      "fixture_ref": "2026-11-22 lincoln v fort-hays-state",
+      "line": "Lincoln entered unbeaten all season, while Fort Hays State had already beaten Maryville."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T12:44:45.673Z"
+    "validated_at": "2026-11-24T19:12:30.938Z"
   }
 }

@@ -3,35 +3,38 @@
   "season": 2026,
   "gender": "men",
   "conference": "ACC",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:16:05+00:00",
-  "headline": "North Carolina inflict SMU's only defeat of the season",
-  "dek": "SMU have lost once in eighteen matches, and it was North Carolina, winning away at SMU, who did it. SMU still head the conference table without a defeat in it.",
+  "generated_at": "2026-11-24T14:30:00+00:00",
+  "data_collected_at": "2026-11-24T14:26:59+00:00",
+  "headline": "SMU reaches fifteen wins ahead of Wisconsin",
+  "dek": "A shutout of Bryant moved SMU to three draws and one loss alongside those victories, keeping the conference leader unbeaten in league play. No other ACC program has matched that win total.",
   "lede_basis": {
     "programme": "smu",
-    "wins": 14,
+    "wins": 15,
     "draws": 3,
     "losses": 1,
-    "matches": 18
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "SMU defeated Bryant to reach 15 wins, making the previous 18-match dek stale",
   "pattern": {
     "label": "derived",
-    "text": "SMU's goals come with almost none against: 51 scored and nine conceded, a margin of 42.",
+    "text": "SMU has scored 53 goals, more than Pitt and Notre Dame combined, while allowing only nine.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "smu": 51,
+        "smu": 53,
         "clemson": 49,
-        "north-carolina": 44,
+        "north-carolina": 47,
+        "wake-forest": 41,
         "louisville": 38,
-        "wake-forest": 37,
         "virginia-tech": 34,
+        "stanford": 33,
+        "syracuse": 32,
         "virginia": 32,
-        "syracuse": 31,
+        "nc-state": 31,
         "duke": 30,
-        "stanford": 30,
-        "nc-state": 29,
         "boston-college": 28,
         "california": 28,
         "notre-dame": 26,
@@ -41,20 +44,24 @@
     },
     "basis": {
       "programme": "smu",
-      "gf": 51,
+      "gf": 53,
       "ga": 9,
-      "goal_difference": 42
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["pitt", "notre-dame"]
     }
   },
   "wire": {
-    "line": "North Carolina have now beaten Clemson, NC State and SMU in successive matches.",
+    "line": "Against non-conference opponents, the ACC has 86 wins, twenty draws, and 24 losses, scoring 301 goals to 129 conceded.",
     "basis": {
-      "programme": "north-carolina",
-      "wins": 11,
-      "draws": 6,
-      "losses": 2
+      "derived_from": "fixtures",
+      "wins": 86,
+      "draws": 20,
+      "losses": 24,
+      "gf": 301,
+      "ga": 129
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -68,22 +75,22 @@
     },
     {
       "label": "observed",
-      "text": "Joschi Schelb has eighteen goals for North Carolina from 76 shots.",
+      "text": "Joschi Schelb has eighteen goals for North Carolina from 80 shots.",
       "basis": {
         "source": "stats",
         "player": "Joschi Schelb",
         "programme": "north-carolina",
         "goals": 18,
-        "shots": 76
+        "shots": 80
       }
     },
     {
       "label": "observed",
-      "text": "Alan Rutkowski has kept seven shutouts in goal for North Carolina.",
+      "text": "Pitt goalkeeper Jack Moxom has recorded seven shutouts this season.",
       "basis": {
         "source": "stats",
-        "player": "Alan Rutkowski",
-        "programme": "north-carolina",
+        "player": "Jack Moxom",
+        "programme": "pitt",
         "shutouts": 7
       }
     },
@@ -96,6 +103,14 @@
         "programme": "louisville",
         "assists": 9
       }
+    },
+    {
+      "label": "derived",
+      "text": "Wake Forest has spread its attack across at least seventeen different goal scorers.",
+      "basis": {
+        "programme": "wake-forest",
+        "distinct_scorers_min": 17
+      }
     }
   ],
   "players_to_watch": [
@@ -104,14 +119,14 @@
       "programme": "north-carolina",
       "position": "FWD",
       "class": "SR",
-      "line": "18 G · 3 A · 76 shots"
+      "line": "18 G · 4 A · 80 shots"
     },
     {
       "player": "Ransford Gyan",
       "programme": "clemson",
       "position": "MID",
       "class": "JR",
-      "line": "14 G · 5 A · 51 shots"
+      "line": "14 G · 5 A · 56 shots"
     },
     {
       "player": "Stephan Soghomonian",
@@ -123,16 +138,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 stanford v tulsa",
-      "line": "Stanford's wins have come almost all outside the conference table, and this was another."
+      "fixture_ref": "2026-11-22 north-carolina v uncw",
+      "line": "North Carolina extends its winning run after earlier victories over Clemson, NC State, and SMU."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 smu v bryant",
-      "line": "SMU's first match since North Carolina ended their unbeaten season."
+      "fixture_ref": "2026-11-28 smu v wisconsin",
+      "line": "SMU enters as the ACC table leader, having gone unbeaten in conference play and shut out Bryant last time out."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:47:32.559Z"
+    "validated_at": "2026-11-24T19:32:50.189Z"
   }
 }

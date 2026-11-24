@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "SUMMIT",
-  "validated_at": "2026-11-20T17:55:53.775Z",
-  "data_collected_at": "2026-11-20T13:24:24+00:00",
+  "validated_at": "2026-11-24T19:38:31.357Z",
+  "data_collected_at": "2026-11-24T14:33:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Across all matches, goals split the conference into an upper and a lower half, and Omaha's 47 are more than Oral Roberts and St. Thomas have scored together.",
+      "text": "Across all matches, goals split the conference into an upper and a lower half, and Omaha's 48 are more than Oral Roberts and St. Thomas have scored together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Kansas City's only conference defeat came at Omaha, who have not lost since.",
-      "checker": "team_record",
+      "text": "Omaha leads the Summit with twelve wins, but Kansas City tops the table and is the lone program still playing.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Mark Ramarola, a defender, has six goals and six assists for Kansas City.",
+      "text": "Mark Ramarola, a defender, has seven goals and six assists for Kansas City.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Oral Roberts have drawn more matches than they have won, six to four.",
+      "text": "Oral Roberts has drawn more matches than it has won, six to four.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Italo Jenkins — 11 G · 4 A · 29 shots",
+      "text": "Italo Jenkins — 12 G · 4 A · 31 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +101,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Mark Ramarola — 6 G · 6 A · 25 shots",
+      "text": "Mark Ramarola — 7 G · 6 A · 26 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +110,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-19 creighton v omaha",
+      "text": "2026-11-22 ucla v omaha",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-22 ucla v omaha",
+      "text": "2026-11-29 kansas-city v vermont",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:53:56.673Z",
-    "generate_ms": 117101,
-    "validate_ms": 1,
-    "wall_ms": 117101,
+    "started_at": "2026-11-24T19:37:11.238Z",
+    "generate_ms": 80117,
+    "validate_ms": 2,
+    "wall_ms": 80119,
     "concurrency": 4
   }
 }

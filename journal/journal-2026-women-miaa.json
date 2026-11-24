@@ -3,39 +3,24 @@
   "season": 2026,
   "gender": "women",
   "conference": "MIAA",
-  "generated_at": "2026-11-20T13:00:00Z",
-  "data_collected_at": "2026-11-20T12:47:15+00:00",
-  "headline": "Washburn keep Central Missouri scoreless again",
-  "dek": "Washburn won their eighteenth match in 22 by beating Central Missouri, and no other programme in the conference has won as many. They have conceded seven goals all season, and Central Missouri have yet to score against them this season.",
+  "generated_at": "2026-11-23T16:30:00Z",
+  "data_collected_at": "2026-11-23T16:26:27+00:00",
+  "headline": "Missouri-St. Louis hands Pittsburg State a rare defeat",
+  "dek": "Days after holding Washburn scoreless, Pittsburg State conceded for just the fifth time in 25 matches to take only its second defeat of the season. Even with the loss, the program has won seventeen matches and scored 45 goals, leaving Washburn as the only other side to beat it.",
   "lede_basis": {
-    "programme": "washburn",
-    "wins": 18,
-    "draws": 3,
-    "losses": 1,
-    "gf": 54,
-    "ga": 7,
-    "played": 22,
-    "comparative": "greater_than_each",
-    "metric": "wins",
-    "of": [
-      "central-missouri",
-      "central-oklahoma",
-      "emporia-state",
-      "fort-hays-state",
-      "missouri-southern",
-      "missouri-western",
-      "nebraska-kearney",
-      "newman",
-      "northeastern-state",
-      "northwest-missouri-state",
-      "pittsburg-state",
-      "rogers-state"
-    ]
+    "programme": "pittsburg-state",
+    "wins": 17,
+    "draws": 6,
+    "losses": 2,
+    "gf": 45,
+    "ga": 5,
+    "played": 25
   },
-  "lede_updated": "2026-11-16",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Pittsburg State lost to Missouri-St. Louis, and Washburn moved to 23 matches played after a scoreless draw with Pittsburg State.",
   "pattern": {
     "label": "derived",
-    "text": "The drop from the top is steep rather than gradual: Washburn have more goals than Newman, Missouri Southern and Fort Hays State together.",
+    "text": "The drop from the top is steep rather than gradual: Washburn has more goals than Newman, Missouri Southern and Fort Hays State together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -64,21 +49,21 @@
     }
   },
   "wire": {
-    "line": "Pittsburg State have conceded four goals all season and lost once, to Washburn.",
+    "line": "Washburn has won eighteen times and scored 54 goals, conceding just seven all season.",
     "basis": {
-      "programme": "pittsburg-state",
-      "wins": 17,
-      "draws": 5,
+      "programme": "washburn",
+      "wins": 18,
+      "draws": 4,
       "losses": 1,
-      "gf": 45,
-      "ga": 4
+      "gf": 54,
+      "ga": 7
     },
-    "updated": "2026-11-15"
+    "updated": "2026-11-23"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Four matches are past their date with no result; Missouri Southern are in every one but Washburn's meeting with Baker.",
+      "text": "Four matches are past their date with no result; Missouri Southern is in all of them except Washburn's meeting with Baker.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -87,7 +72,7 @@
     },
     {
       "label": "derived",
-      "text": "Central Missouri have conceded eight goals in 22 matches while scoring 49.",
+      "text": "Central Missouri has conceded eight goals in 22 matches while scoring 49.",
       "basis": {
         "programme": "central-missouri",
         "wins": 15,
@@ -108,7 +93,7 @@
     },
     {
       "label": "observed",
-      "text": "Coryn Jespersen has 17 assists for Central Missouri, to go with four goals.",
+      "text": "Coryn Jespersen has seventeen assists for Central Missouri, to go with four goals.",
       "basis": {
         "source": "stats",
         "player": "Coryn Jespersen",
@@ -119,7 +104,7 @@
     },
     {
       "label": "observed",
-      "text": "Juliette Langlet has made 121 saves for Northeastern State and conceded 18 goals.",
+      "text": "Juliette Langlet has made 121 saves for Northeastern State and conceded eighteen goals.",
       "basis": {
         "source": "stats",
         "player": "Juliette Langlet",
@@ -154,16 +139,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 washburn v central-missouri",
-      "line": "Central Missouri have now lost to both Pittsburg State and Washburn this month."
+      "fixture_ref": "2026-11-22 missouri-st-louis v pittsburg-state",
+      "line": "Pittsburg State had beaten Missouri-St. Louis in its season opener and had lost only to Washburn before this match."
     },
     "next_match": {
-      "fixture_ref": "2026-11-20 washburn v pittsburg-state",
-      "line": "Each side's only defeat this season came against the other."
+      "fixture_ref": "2027-04-02 nebraska-kearney v garden-city-c-c",
+      "line": "Nebraska Kearney enters the spring without a win since early October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T12:58:15.810Z"
+    "validated_at": "2026-11-24T19:23:55.005Z"
   }
 }

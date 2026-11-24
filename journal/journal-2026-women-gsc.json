@@ -3,24 +3,27 @@
   "season": 2026,
   "gender": "women",
   "conference": "GSC",
-  "generated_at": "2026-11-17T13:05:00+00:00",
-  "data_collected_at": "2026-11-17T12:54:52+00:00",
-  "headline": "Montevallo unbeaten since Lee beat them in September",
-  "dek": "Since that defeat Montevallo have dropped points only in two draws, at Delta State in September and at home to Florida Tech in their latest match. North Georgia are the only other side to have beaten them this season, and Nova Southeastern visit next.",
+  "generated_at": "2026-11-24T14:35:00+00:00",
+  "data_collected_at": "2026-11-24T14:28:47+00:00",
+  "headline": "North Georgia ends Montevallo's unbeaten run",
+  "dek": "Montevallo fell at home to North Georgia, the same opponent that beat it in September, closing its campaign with eighteen wins, two draws and three losses. Lee is the only other side to defeat a program that scored 78 goals while conceding 22.",
   "lede_basis": {
     "programme": "montevallo",
-    "wins": 17,
+    "wins": 18,
     "draws": 2,
-    "losses": 2
+    "losses": 3,
+    "gf": 78,
+    "ga": 22
   },
-  "lede_updated": "2026-11-16",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Montevallo lost to North Georgia, ending its unbeaten run since September",
   "pattern": {
     "label": "derived",
-    "text": "Scoring is concentrated at the top: Montevallo alone have more goals than UAH, Spring Hill, AUM, Christian Brothers and West Alabama together.",
+    "text": "Scoring is concentrated at the top: Montevallo alone has more goals than UAH, Spring Hill, AUM, Christian Brothers and West Alabama together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "montevallo": 72,
+        "montevallo": 78,
         "lee": 50,
         "trevecca": 30,
         "union": 28,
@@ -40,18 +43,20 @@
       "metric": "gf",
       "programme": "montevallo",
       "of": ["uah", "spring-hill", "aum", "christian-brothers", "west-alabama"],
-      "gf": 72
+      "gf": 78
     }
   },
   "wire": {
-    "line": "Christian Brothers' one win all season came at King in August, and they finished conference play without a win.",
+    "line": "Montevallo finishes the season with 78 goals and three losses after falling to North Georgia at home.",
     "basis": {
-      "programme": "christian-brothers",
-      "wins": 1,
+      "programme": "montevallo",
+      "wins": 18,
       "draws": 2,
-      "losses": 12
+      "losses": 3,
+      "gf": 78,
+      "ga": 22
     },
-    "updated": "2026-11-16"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -65,13 +70,13 @@
     },
     {
       "label": "observed",
-      "text": "Lainey Farabaugh has scored 14 goals from 98 shots for Montevallo.",
+      "text": "Lainey Farabaugh has scored sixteen goals from 107 shots for Montevallo.",
       "basis": {
         "source": "stats",
         "player": "Lainey Farabaugh",
         "programme": "montevallo",
-        "goals": 14,
-        "shots": 98
+        "goals": 16,
+        "shots": 107
       }
     },
     {
@@ -87,7 +92,7 @@
     },
     {
       "label": "observed",
-      "text": "Lee have conceded nine goals across all their matches.",
+      "text": "Lee has conceded nine goals across all its matches.",
       "basis": {
         "programme": "lee",
         "gf": 50,
@@ -109,7 +114,7 @@
       "programme": "montevallo",
       "position": "FWD",
       "class": "SO",
-      "line": "14 G · 6 A · 46 shots"
+      "line": "16 G · 6 A · 50 shots"
     },
     {
       "player": "Rebekah Jackson",
@@ -128,16 +133,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 nova-southeastern v lee",
-      "line": "Lee had kept a clean sheet against Eckerd; Nova Southeastern were the first side to score on them since UAH."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-20 montevallo v nova-southeastern",
-      "line": "Nova Southeastern have already held Lee to a draw; Florida Tech ended Montevallo's run of wins."
+      "fixture_ref": "2026-11-22 montevallo v north-georgia",
+      "line": "North Georgia had already beaten Montevallo in September; this defeat ended Montevallo's unbeaten run since Lee."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T13:03:04.067Z"
+    "validated_at": "2026-11-24T19:28:55.783Z"
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MVC",
-  "validated_at": "2026-11-20T17:53:43.390Z",
-  "data_collected_at": "2026-11-20T13:20:57+00:00",
+  "validated_at": "2026-11-24T19:36:17.083Z",
+  "data_collected_at": "2026-11-23T16:29:41+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -54,7 +54,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Evansville have lost nine matches this season, more than any other side in the conference, and only one of them counts in the table.",
+      "text": "Evansville has lost nine matches this season, more than any other side in the conference, and only one of them counts in the table.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -64,7 +64,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Bowling Green have conceded 23 goals this season, ten of them with Jason Ball in goal.",
+      "text": "Bowling Green has conceded 23 goals this season, ten of them with Jason Ball in goal.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -126,10 +126,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:51:08.877Z",
-    "generate_ms": 154510,
-    "validate_ms": 1,
-    "wall_ms": 154511,
+    "started_at": "2026-11-24T19:34:54.616Z",
+    "generate_ms": 82464,
+    "validate_ms": 2,
+    "wall_ms": 82467,
     "concurrency": 4
   }
 }

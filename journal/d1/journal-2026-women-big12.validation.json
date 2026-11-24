@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "BIG12",
-  "validated_at": "2026-11-21T17:03:32.288Z",
-  "data_collected_at": "2026-11-21T16:38:41+00:00",
+  "validated_at": "2026-11-24T19:59:28.842Z",
+  "data_collected_at": "2026-11-24T14:38:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -47,8 +47,8 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Nine matches have passed their date with no result published. Apart from West Virginia's trip to Princeton, each involves Arizona State.",
-      "checker": "unresolved",
+      "text": "One match has passed its date with no result published: West Virginia's trip to Princeton.",
+      "checker": "unresolved+set_members",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:02:07.123Z",
-    "generate_ms": 85163,
-    "validate_ms": 1,
-    "wall_ms": 85164,
+    "started_at": "2026-11-24T19:52:55.649Z",
+    "generate_ms": 393190,
+    "validate_ms": 2,
+    "wall_ms": 393193,
     "concurrency": 4
   }
 }

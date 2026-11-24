@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "CC",
-  "validated_at": "2026-11-20T12:40:02.506Z",
-  "data_collected_at": "2026-11-20T12:30:57+00:00",
+  "validated_at": "2026-11-24T19:15:08.942Z",
+  "data_collected_at": "2026-11-24T14:25:31+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -44,8 +44,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Francis Marion have won every match since losing at Barton in October, and are the only side in the conference with a match left.",
-      "checker": "team_record",
+      "text": "Lees-McRae conceded just eleven goals all season while winning fifteen matches.",
+      "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -62,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Erskine have yet to win this season: two draws and thirteen defeats.",
+      "text": "Erskine has yet to win this season, with two draws and thirteen defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -125,16 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 emory-henry v lees-mcrae",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
-      "text": "2026-11-20 flagler v francis-marion",
+      "text": "2026-11-21 flagler v francis-marion",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -142,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:39:31.658Z",
-    "generate_ms": 30846,
-    "validate_ms": 1,
-    "wall_ms": 30847,
+    "started_at": "2026-11-24T19:13:21.601Z",
+    "generate_ms": 107339,
+    "validate_ms": 2,
+    "wall_ms": 107341,
     "concurrency": 4
   }
 }

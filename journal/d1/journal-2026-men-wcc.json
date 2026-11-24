@@ -3,23 +3,38 @@
   "season": 2026,
   "gender": "men",
   "conference": "WCC",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:25:46+00:00",
-  "headline": "Portland sweep the conference and keep on winning",
-  "dek": "Portland took every point on offer in conference play and have not stopped winning since: fourteen wins overall against two draws and three defeats, every defeat in the season's first month. Miguel-Angel Hernandez has kept seven shutouts behind them.",
+  "generated_at": "2026-11-23T17:00:00+00:00",
+  "data_collected_at": "2026-11-23T16:32:13+00:00",
+  "headline": "Portland settles for a scoreless draw at South Carolina",
+  "dek": "Miguel-Angel Hernandez recorded his eighth shutout at South Carolina to keep Portland unbeaten since early September, moving the WCC champion to fourteen wins and three draws against three losses. Its 50 goals still lead every program in the conference, with 24 conceded across the season.",
   "lede_basis": {
     "source": "stats",
     "player": "Miguel-Angel Hernandez",
     "programme": "portland",
-    "shutouts": 7,
+    "shutouts": 8,
     "wins": 14,
-    "draws": 2,
-    "losses": 3
+    "draws": 3,
+    "losses": 3,
+    "gf": 50,
+    "ga": 24,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of": [
+      "denver",
+      "lmu",
+      "pacific",
+      "saint-marys-california",
+      "san-diego",
+      "san-francisco",
+      "santa-clara",
+      "seattle-u"
+    ]
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Portland's winning streak ended with a scoreless draw at South Carolina, updating its draw count and Miguel-Angel Hernandez's shutout total.",
   "pattern": {
     "label": "signal",
-    "text": "Goals sort the top of the table and little else: Seattle U have scored as many as San Francisco and finished below them, and LMU, with the fewest, are not bottom.",
+    "text": "Goals sort the top of the table and little else: Seattle U has scored as many as San Francisco and finished behind it, and LMU, with the fewest, is not bottom.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -63,7 +78,7 @@
     },
     {
       "label": "derived",
-      "text": "Saint Mary's College of California have conceded 48 goals, more than any other WCC programme.",
+      "text": "Saint Mary's College of California has conceded 48 goals, more than any other WCC program.",
       "basis": {
         "programme": "saint-marys-california",
         "gf": 21,
@@ -84,7 +99,7 @@
     },
     {
       "label": "observed",
-      "text": "LMU have scored ten goals and conceded twenty, and both totals are the lowest in the WCC.",
+      "text": "LMU has scored ten goals and conceded twenty, and both totals are the lowest in the WCC.",
       "basis": {
         "programme": "lmu",
         "gf": 10,
@@ -109,7 +124,7 @@
       "programme": "portland",
       "position": "FWD",
       "class": "SR",
-      "line": "13 G · 11 A · 60 shots"
+      "line": "13 G · 11 A · 61 shots"
     },
     {
       "player": "Steven Ramirez",
@@ -128,16 +143,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 san-diego v grand-canyon",
-      "line": "San Diego lost by a single goal, as they had at Portland in their previous match."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-22 south-carolina v portland",
-      "line": "Portland have won every match since a goalless draw with Oregon State in September."
+      "line": "Portland's winning streak ended, though the WCC champion remains unbeaten since early September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:57:20.174Z"
+    "validated_at": "2026-11-24T19:40:28.765Z"
   }
 }

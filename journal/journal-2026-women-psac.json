@@ -3,28 +3,29 @@
   "season": 2026,
   "gender": "women",
   "conference": "PSAC",
-  "generated_at": "2026-11-20T13:02:00+00:00",
-  "data_collected_at": "2026-11-20T12:47:34+00:00",
-  "headline": "Kutztown alone beat West Chester",
-  "dek": "Kutztown beat West Chester for the third time this season, and those three matches are the only ones West Chester have lost. Against everyone else they have won fourteen times and drawn three.",
+  "generated_at": "2026-11-23T16:30:00+00:00",
+  "data_collected_at": "2026-11-23T16:27:07+00:00",
+  "headline": "Franklin Pierce ends Gannon's unbeaten run",
+  "dek": "Franklin Pierce shut out Gannon after Gannon had beaten Kutztown, ending an unbeaten stretch that began in early September. The defeat was only Gannon's third in a season of eighteen wins and three draws, during which it scored 48 goals and conceded fifteen.",
   "lede_basis": {
-    "programme": "west-chester",
-    "wins": 14,
+    "programme": "gannon",
+    "wins": 18,
     "draws": 3,
     "losses": 3,
-    "gf": 46,
-    "ga": 9
+    "gf": 48,
+    "ga": 15
   },
-  "lede_updated": "2026-11-16",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Franklin Pierce beat Gannon to end its unbeaten run after Gannon beat Kutztown",
   "pattern": {
     "label": "derived",
-    "text": "The goals gather at the top end: Kutztown alone have scored more than California (Pa.), Pitt-Johnstown and Mansfield, the sides at the foot of the table, put together.",
+    "text": "The goals gather at the top end: Kutztown alone has scored more than California (Pa.), Pitt-Johnstown, and Mansfield, the sides at the foot of the table, put together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "kutztown": 60,
+        "gannon": 48,
         "slippery-rock": 48,
-        "gannon": 46,
         "millersville": 46,
         "west-chester": 46,
         "shepherd": 38,
@@ -51,15 +52,14 @@
     }
   },
   "wire": {
-    "line": "Kutztown have scored 60 goals in all their matches, more than any other programme in the conference.",
+    "line": "Gannon lost to Franklin Pierce after beating Kutztown, finishing with eighteen wins, three draws, and three losses.",
     "basis": {
-      "comparative": "greater_than_each",
-      "metric": "gf",
-      "programme": "kutztown",
-      "of_any": 16,
-      "gf": 60
+      "programme": "gannon",
+      "wins": 18,
+      "draws": 3,
+      "losses": 3
     },
-    "updated": "2026-11-16"
+    "updated": "2026-11-23"
   },
   "findings": [
     {
@@ -75,7 +75,7 @@
     },
     {
       "label": "derived",
-      "text": "Seton Hill have drawn six matches in all, more than any other programme in the conference.",
+      "text": "Seton Hill has drawn six matches in all, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
@@ -86,7 +86,7 @@
     },
     {
       "label": "derived",
-      "text": "Mansfield have conceded 58 goals in all matches, more than any other programme in the conference.",
+      "text": "Mansfield has conceded 58 goals in all matches, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -115,32 +115,28 @@
       "line": "23 G · 3 A · 81 shots"
     },
     {
-      "player": "Carly Louey",
-      "programme": "kutztown",
-      "position": "FWD",
-      "class": "FR",
-      "line": "16 G · 6 A · 82 shots"
-    },
-    {
       "player": "Brooklyn Respecki",
       "programme": "gannon",
       "position": "FWD",
       "class": "SR",
-      "line": "14 G · 10 A · 114 shots"
+      "line": "15 G · 10 A · 122 shots"
+    },
+    {
+      "player": "Carly Louey",
+      "programme": "kutztown",
+      "position": "FWD",
+      "class": "FR",
+      "line": "16 G · 6 A · 83 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 kutztown v west-chester",
-      "line": "West Chester have not scored against Kutztown this season."
-    },
-    "next_match": {
-      "fixture_ref": "2026-11-20 gannon v kutztown",
-      "line": "Gannon have not lost since the first week of September, and Kutztown's last defeat came against Gannon."
+      "fixture_ref": "2026-11-22 franklin-pierce v gannon",
+      "line": "Gannon had not lost since early September and had beaten Kutztown in its previous match."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T12:58:19.340Z"
+    "validated_at": "2026-11-24T19:26:39.977Z"
   }
 }

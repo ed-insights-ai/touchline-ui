@@ -3,26 +3,26 @@
   "season": 2026,
   "gender": "women",
   "conference": "PACWEST",
-  "generated_at": "2026-11-16T13:20:00+00:00",
-  "data_collected_at": "2026-11-16T13:02:07+00:00",
-  "headline": "Concordia Irvine play on as the conference's last side",
-  "dek": "Concordia Irvine beat Cal State LA to reach 41 goals in all matches, more than any of the other nine programmes, and are the only side in the conference with a match still to play. Their two defeats both came against Point Loma, who finished the table unbeaten.",
+  "generated_at": "2026-11-23T16:30:00+00:00",
+  "data_collected_at": "2026-11-23T16:26:53+00:00",
+  "headline": "Western Washington ends Concordia Irvine's season",
+  "dek": "The defeat left no PACWEST program with a match still to play, closing the season for the conference's highest-scoring side. Concordia Irvine finished with thirteen wins, five draws, and three losses in all matches, scoring 41 goals, more than any of the other nine programs, while conceding twenty.",
   "lede_basis": {
     "programme": "concordia-irvine",
     "wins": 13,
     "draws": 5,
-    "losses": 2,
+    "losses": 3,
     "gf": 41,
-    "ga": 19,
+    "ga": 20,
     "comparative": "greater_than_each",
     "metric": "gf",
     "of_any": 9
   },
-  "lede_updated": "2026-11-16",
-  "displaced_by": "Concordia Irvine's 41 goals pass Point Loma's 40, so the standing dek's 'more than any' claim is false; Concordia are the last side still playing",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Concordia Irvine lost to Western Washington, ending the conference's season and giving Concordia Irvine a third defeat",
   "pattern": {
     "label": "derived",
-    "text": "Hawai'i Hilo sit mid-chart on 21 goals yet conceded eleven in all matches: their place near the top of the table was built at the back, not in front of goal.",
+    "text": "Hawai'i Hilo sits mid-chart on 21 goals yet conceded eleven in all matches: its place near the top of the table was built at the back, not in front of goal.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -46,14 +46,14 @@
     }
   },
   "wire": {
-    "line": "Hawai'i Pacific have no win among their published results: three draws and thirteen defeats.",
+    "line": "Concordia Irvine fell to Western Washington to end the conference's season with thirteen wins, five draws, and three losses.",
     "basis": {
-      "programme": "hawaii-pacific",
-      "wins": 0,
-      "draws": 3,
-      "losses": 13
+      "programme": "concordia-irvine",
+      "wins": 13,
+      "draws": 5,
+      "losses": 3
     },
-    "updated": "2026-11-09"
+    "updated": "2026-11-23"
   },
   "findings": [
     {
@@ -76,7 +76,7 @@
     },
     {
       "label": "derived",
-      "text": "Jessup conceded 50 goals in all matches, more than any other programme in the conference.",
+      "text": "Jessup conceded 50 goals in all matches, more than any other program in the conference.",
       "basis": {
         "programme": "jessup",
         "gf": 13,
@@ -131,16 +131,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 concordia-irvine v cal-state-la",
-      "line": "Concordia Irvine have not lost since October's defeat at Point Loma; Cal State LA had already beaten Biola and Westmont this season."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-20 western-washington v concordia-irvine",
-      "line": "Western Washington beat Hawai'i Hilo in August, the only conference side they have met this season."
+      "line": "Western Washington kept a shutout against every conference side it faced this season, ending Concordia Irvine's unbeaten run since October."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T13:11:13.100Z"
+    "validated_at": "2026-11-24T19:28:13.451Z"
   }
 }

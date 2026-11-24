@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "BIGWEST",
-  "generated_at": "2026-11-20T13:30:00+00:00",
-  "data_collected_at": "2026-11-20T13:19:20+00:00",
+  "generated_at": "2026-11-23T16:35:00+00:00",
+  "data_collected_at": "2026-11-23T16:27:58+00:00",
   "headline": "Cal State Bakersfield's November run ends at Oregon State",
-  "dek": "Cal State Bakersfield won at Utah Valley, the table's leaders, and at UC Santa Barbara in November, before losing at Oregon State in their last match. They finish with seven wins, seven draws and five defeats, more draws than any other side in the conference.",
+  "dek": "Cal State Bakersfield won at Utah Valley, the table's leader, and at UC Santa Barbara in November, before losing at Oregon State in its last match. It finishes with seven wins, seven draws and five defeats, more draws than any other side in the conference.",
   "lede_basis": {
     "programme": "cal-state-bakersfield",
     "wins": 7,
@@ -23,10 +23,11 @@
       "utah-valley"
     ]
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "form",
   "pattern": {
     "label": "signal",
-    "text": "Scoring barely separates the conference's programmes, so the table turned on defence: Utah Valley, joint lowest scorers with 25 goals, conceded 16 and finished top.",
+    "text": "Scoring barely separates the conference's programs, so the table turned on defense: Utah Valley, tied for the fewest goals with 25, conceded sixteen and finished top.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -130,6 +131,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:50:30.285Z"
+    "validated_at": "2026-11-24T19:34:50.677Z"
   }
 }

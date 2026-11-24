@@ -3,22 +3,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "SUNBELT",
-  "generated_at": "2026-11-20T14:05:00+00:00",
-  "data_collected_at": "2026-11-20T13:24:53+00:00",
-  "headline": "West Virginia build a season on keeping goals out",
-  "dek": "West Virginia have let in nine goals so far and lost twice, while scoring 35 at the other end. They were level on points with Marshall when the conference table was complete, and they have won every match since.",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:33:24+00:00",
+  "headline": "Marshall extends its season into late November",
+  "dek": "Following a draw at Michigan State, Marshall hosts Wake Forest with twelve wins and three losses across all matches, having scored 42 goals and allowed 24. Marshall also drew five times and finished level at the top of the Sun Belt table, while co-leader West Virginia lost at home to Washington.",
   "lede_basis": {
-    "programme": "west-virginia",
-    "gf": 35,
-    "ga": 9,
-    "wins": 13,
-    "draws": 4,
-    "losses": 2
+    "programme": "marshall",
+    "wins": 12,
+    "draws": 5,
+    "losses": 3,
+    "gf": 42,
+    "ga": 24
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "West Virginia lost to Washington, invalidating the standing nine-goal and two-loss figures.",
   "pattern": {
     "label": "signal",
-    "text": "Goals scored do not sort this conference: Old Dominion have scored 39 and won ten, yet all six of their defeats came against Sun Belt sides.",
+    "text": "Goals scored do not sort this conference: Old Dominion has scored 39 and won ten, yet all six of its defeats came against Sun Belt sides.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -45,16 +46,16 @@
     }
   },
   "wire": {
-    "line": "West Virginia have conceded nine goals and lost twice; no Sun Belt side has let in fewer.",
+    "line": "Sun Belt sides have won 44, drawn seventeen, and lost twenty outside the conference, scoring 151 goals and conceding 92.",
     "basis": {
-      "programme": "west-virginia",
-      "gf": 35,
-      "ga": 9,
-      "wins": 13,
-      "draws": 4,
-      "losses": 2
+      "derived_from": "fixtures",
+      "wins": 44,
+      "draws": 17,
+      "losses": 20,
+      "gf": 151,
+      "ga": 92
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -68,7 +69,7 @@
     },
     {
       "label": "observed",
-      "text": "Drew Hansen has scored 12 of UCF's 35 goals.",
+      "text": "Drew Hansen has scored twelve of UCF's 35 goals.",
       "basis": {
         "source": "stats",
         "player": "Drew Hansen",
@@ -97,43 +98,56 @@
         "draws": 4,
         "losses": 10
       }
+    },
+    {
+      "label": "derived",
+      "text": "West Virginia has won thirteen matches, more than any other Sun Belt program.",
+      "basis": {
+        "programme": "west-virginia",
+        "wins": 13,
+        "draws": 4,
+        "losses": 3,
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "of_any": 1
+      }
     }
   ],
   "players_to_watch": [
-    {
-      "player": "Pablo Pozos",
-      "programme": "west-virginia",
-      "position": "FWD",
-      "class": "SR",
-      "line": "11 G · 2 A · 53 shots"
-    },
     {
       "player": "Carl Romberg",
       "programme": "marshall",
       "position": "FWD",
       "class": "SR",
-      "line": "7 G · 7 A · 36 shots"
+      "line": "7 G · 7 A · 39 shots"
     },
     {
       "player": "Angel Lopez",
       "programme": "south-carolina",
       "position": "FWD",
       "class": "SO",
-      "line": "7 G · 7 A · 25 shots"
+      "line": "7 G · 7 A · 28 shots"
+    },
+    {
+      "player": "Alejandro Velazquez-Lopez",
+      "programme": "south-carolina",
+      "position": "MID",
+      "class": "JR",
+      "line": "7 G · 4 A · 45 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 marshall v bowling-green",
-      "line": "Marshall have lost only once all season to a side from outside the Sun Belt, at home to Utah Valley."
+      "fixture_ref": "2026-11-22 west-virginia v washington",
+      "line": "West Virginia entered unbeaten at home all season; its previous defeats came away at Charlotte and Old Dominion."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 west-virginia v cleveland-state",
-      "line": "Cleveland State are West Virginia's first opponent from outside the Sun Belt since their draw at American."
+      "fixture_ref": "2026-11-28 marshall v wake-forest",
+      "line": "Marshall's lone defeat outside the Sun Belt came at home to Utah Valley."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:56:36.042Z"
+    "validated_at": "2026-11-24T19:39:21.315Z"
   }
 }

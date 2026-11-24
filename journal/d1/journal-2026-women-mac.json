@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "MAC",
-  "generated_at": "2026-11-21T15:40:00+00:00",
-  "data_collected_at": "2026-11-21T15:24:43+00:00",
+  "generated_at": "2026-11-23T16:45:00+00:00",
+  "data_collected_at": "2026-11-23T16:41:58+00:00",
   "headline": "Western Michigan's attack carries it atop the table",
   "dek": "Western Michigan has scored 40 goals across all its matches, more than any other program in the conference, and conceded eighteen. It won twelve, drew four and lost five, and the most recent of those defeats came at Michigan.",
   "lede_basis": {
@@ -81,7 +81,7 @@
     },
     {
       "label": "observed",
-      "text": "Kate Pallante has kept nine shutouts for Ball State, a side that has scored 15 goals all season.",
+      "text": "Kate Pallante has kept nine shutouts for Ball State, a side that has scored fifteen goals all season.",
       "basis": {
         "source": "stats",
         "player": "Kate Pallante",
@@ -105,7 +105,7 @@
     },
     {
       "label": "observed",
-      "text": "Bowling Green has conceded 11 goals across its season and lost only three matches.",
+      "text": "Bowling Green has conceded eleven goals across its season and lost only three matches.",
       "basis": {
         "programme": "bowling-green",
         "ga": 11,
@@ -147,6 +147,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:08:11.969Z"
+    "validated_at": "2026-11-24T20:00:49.674Z"
   }
 }

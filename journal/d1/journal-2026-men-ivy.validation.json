@@ -4,29 +4,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "IVY",
-  "validated_at": "2026-11-20T17:52:00.901Z",
-  "data_collected_at": "2026-11-20T13:20:13+00:00",
+  "validated_at": "2026-11-24T19:36:19.826Z",
+  "data_collected_at": "2026-11-23T16:28:46+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 10,
-    "verified": 10,
+    "checked": 11,
+    "verified": 11,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "pattern.text",
-      "text": "Scoring in this conference runs through one programme: Cornell's 48 goals are more than Columbia, Dartmouth and Harvard scored between them.",
-      "unbacked": ["1"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring in this conference runs through one programme: Cornell's 48 goals are more than Columbia, Dartmouth and Harvard scored between them.",
+      "text": "Scoring in this conference is heavily concentrated at the top: Cornell's 50 goals are more than Harvard and Brown scored combined.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -44,7 +38,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Marco Bottene has scored 11 of Penn's 32 goals.",
+      "text": "Marco Bottene has scored eleven of Penn's 32 goals.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -53,7 +47,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Yale's 19 goals have come from fourteen different scorers.",
+      "text": "Yale's nineteen goals have come from fourteen different scorers.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -89,7 +83,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Connor Miller — 6 G · 9 A · 40 shots",
+      "text": "Connor Miller — 6 G · 9 A · 41 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -98,7 +92,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Lennon Harrington — 7 G · 1 A · 25 shots",
+      "text": "Lennon Harrington — 7 G · 1 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -107,7 +101,16 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-19 cornell v fdu",
+      "text": "2026-11-22 rutgers v cornell",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-29 cornell v grand-canyon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -115,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:50:23.717Z",
-    "generate_ms": 97183,
-    "validate_ms": 1,
-    "wall_ms": 97184,
+    "started_at": "2026-11-24T19:34:50.781Z",
+    "generate_ms": 89042,
+    "validate_ms": 2,
+    "wall_ms": 89044,
     "concurrency": 4
   }
 }

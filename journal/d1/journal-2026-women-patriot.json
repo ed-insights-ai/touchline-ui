@@ -3,18 +3,20 @@
   "season": 2026,
   "gender": "women",
   "conference": "PATRIOT",
-  "generated_at": "2026-11-21T16:00:00+00:00",
-  "data_collected_at": "2026-11-21T15:26:58+00:00",
-  "headline": "Army and Navy finish level after drawing each other",
-  "dek": "In the table, Navy's lone defeat came in its opener, at Boston University, and Army's came at home to Holy Cross in its last match of the season. Below them, American and Lehigh went the whole season without a win.",
+  "generated_at": "2026-11-23T17:00:00+00:00",
+  "data_collected_at": "2026-11-23T16:43:56+00:00",
+  "headline": "Boston University falls at Wake Forest",
+  "dek": "After winning at Army West Point and at Navy to extend the schedule, Boston University closed the conference's season with eleven wins against nine defeats. Its attack produced 38 goals across the year, while conceding 35 before Wake Forest ended the run.",
   "lede_basis": {
-    "programme": "american",
-    "wins": 0,
-    "draws": 4,
-    "losses": 13
+    "programme": "boston-university",
+    "wins": 11,
+    "draws": 2,
+    "losses": 9,
+    "gf": 38,
+    "ga": 35
   },
-  "lede_updated": "2026-11-21",
-  "displaced_by": "first journal for this conference",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Boston University lost at Wake Forest to close the season, and the previous dek misstated Army West Point's final match",
   "pattern": {
     "label": "signal",
     "text": "The chart breaks after Holy Cross, and the break is the table's: every program above it finished in the top half, and every program below it finished in the bottom half.",
@@ -22,8 +24,8 @@
       "kind": "goals-for-by-team",
       "values": {
         "navy": 43,
-        "boston-university": 34,
-        "army-west-point": 31,
+        "boston-university": 38,
+        "army-west-point": 33,
         "bucknell": 27,
         "holy-cross": 26,
         "loyola-maryland": 17,
@@ -41,22 +43,21 @@
     }
   },
   "wire": {
-    "line": "Boston University closed the season by winning at Navy, the program with the most wins in the conference.",
+    "line": "Navy scored 43 goals while conceding twenty, leading the conference in scoring.",
     "basis": {
       "programme": "navy",
-      "wins": 14,
-      "draws": 3,
-      "losses": 5,
+      "gf": 43,
+      "ga": 20,
       "comparative": "greater_than_each",
-      "metric": "wins",
+      "metric": "gf",
       "of_any": 9
     },
-    "updated": "2026-11-21"
+    "updated": "2026-11-23"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Loyola Maryland drew 11 of its matches and finished with four wins and four defeats.",
+      "text": "Loyola Maryland drew eleven of its matches and finished with four wins and four defeats.",
       "basis": {
         "programme": "loyola-maryland",
         "wins": 4,
@@ -78,13 +79,13 @@
     },
     {
       "label": "observed",
-      "text": "Kat Slott scored 13 goals for Boston University from 63 shots.",
+      "text": "Kat Slott scored fourteen goals for Boston University from 64 shots.",
       "basis": {
         "source": "stats",
         "player": "Kat Slott",
         "programme": "boston-university",
-        "goals": 13,
-        "shots": 63
+        "goals": 14,
+        "shots": 64
       }
     },
     {
@@ -104,7 +105,7 @@
       "programme": "boston-university",
       "position": "FWD",
       "class": "SR",
-      "line": "13 G · 7 A · 63 shots"
+      "line": "14 G · 7 A · 64 shots"
     },
     {
       "player": "Sam Halligan",
@@ -123,12 +124,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 navy v boston-university",
-      "line": "Navy had not lost at home since August; Boston University had not lost since its draw at Holy Cross."
+      "fixture_ref": "2026-11-21 wake-forest v boston-university",
+      "line": "Boston University had won every match since its draw at Holy Cross, including away wins at Army West Point and Navy."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:10:30.585Z"
+    "validated_at": "2026-11-24T20:03:16.416Z"
   }
 }

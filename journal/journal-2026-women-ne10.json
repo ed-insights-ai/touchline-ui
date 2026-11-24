@@ -3,24 +3,41 @@
   "season": 2026,
   "gender": "women",
   "conference": "NE10",
-  "generated_at": "2026-11-17T13:20:00+00:00",
-  "data_collected_at": "2026-11-17T12:56:11+00:00",
-  "headline": "Saint Michael's win at Bentley",
-  "dek": "Saint Michael's won at Bentley, where they had lost both earlier meetings by a single goal, and go to Franklin Pierce next. Bentley were held scoreless by a defence that has conceded twelve goals all season.",
+  "generated_at": "2026-11-24T14:35:00+00:00",
+  "data_collected_at": "2026-11-24T14:29:39+00:00",
+  "headline": "Franklin Pierce reaches eighteen wins with shutouts",
+  "dek": "Shutouts of Saint Michael's and Gannon lifted Franklin Pierce to 51 goals, more than any other program in the conference, while its defense has allowed sixteen all season. Franklin Pierce is the last NE10 side still on the schedule and hosts Missouri-St. Louis next.",
   "lede_basis": {
-    "programme": "saint-michael-s",
-    "gf": 33,
-    "ga": 12
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "programme": "franklin-pierce",
+    "of": [
+      "adelphi",
+      "american-international",
+      "assumption",
+      "bentley",
+      "pace",
+      "saint-anselm",
+      "saint-michael-s",
+      "southern-connecticut",
+      "southern-new-hampshire"
+    ],
+    "wins": 18,
+    "draws": 2,
+    "losses": 3,
+    "gf": 51,
+    "ga": 16
   },
-  "lede_updated": "2026-11-16",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Franklin Pierce beat Saint Michael's and Gannon, passing Bentley for the conference scoring lead",
   "pattern": {
     "label": "derived",
-    "text": "Scoring alone has not settled the table: Pace have scored 33 goals, but conceded 37, more than any other programme.",
+    "text": "Scoring alone has not settled the table: Pace has scored 33 goals, but conceded 37, more than any other program.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
+        "franklin-pierce": 51,
         "bentley": 50,
-        "franklin-pierce": 48,
         "pace": 33,
         "saint-michael-s": 33,
         "assumption": 29,
@@ -30,7 +47,7 @@
         "adelphi": 21,
         "american-international": 21
       },
-      "highlight": "bentley"
+      "highlight": "franklin-pierce"
     },
     "basis": {
       "comparative": "greater_than_each",
@@ -66,30 +83,7 @@
   "findings": [
     {
       "label": "derived",
-      "text": "Franklin Pierce have won sixteen matches, more than any other programme.",
-      "basis": {
-        "comparative": "greater_than_each",
-        "metric": "wins",
-        "programme": "franklin-pierce",
-        "of": [
-          "adelphi",
-          "american-international",
-          "assumption",
-          "bentley",
-          "pace",
-          "saint-anselm",
-          "saint-michael-s",
-          "southern-connecticut",
-          "southern-new-hampshire"
-        ],
-        "wins": 16,
-        "draws": 2,
-        "losses": 3
-      }
-    },
-    {
-      "label": "derived",
-      "text": "Southern Connecticut have drawn seven matches, more than any other programme.",
+      "text": "Southern Connecticut has drawn seven matches, more than any other program.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
@@ -112,7 +106,7 @@
     },
     {
       "label": "derived",
-      "text": "Southern New Hampshire have lost twelve matches, more than any other programme.",
+      "text": "Southern New Hampshire has lost twelve matches, more than any other program.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "losses",
@@ -150,6 +144,16 @@
         "programme": "american-international",
         "saves": 119
       }
+    },
+    {
+      "label": "observed",
+      "text": "Abi Hennessey has scored thirteen goals for Bentley.",
+      "basis": {
+        "source": "stats",
+        "player": "Abi Hennessey",
+        "programme": "bentley",
+        "goals": 13
+      }
     }
   ],
   "players_to_watch": [
@@ -158,35 +162,35 @@
       "programme": "franklin-pierce",
       "position": "FWD",
       "class": "SO",
-      "line": "9 G · 10 A · 72 shots"
+      "line": "9 G · 10 A · 76 shots"
     },
     {
       "player": "Scarlett Brookes",
       "programme": "saint-michael-s",
       "position": "FWD",
       "class": "JR",
-      "line": "10 G · 4 A · 66 shots"
+      "line": "10 G · 4 A · 67 shots"
     },
     {
       "player": "Aino Martikainen",
       "programme": "franklin-pierce",
       "position": "DEF",
       "class": "5Y",
-      "line": "6 G · 5 A · 33 shots"
+      "line": "8 G · 5 A · 37 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 bentley v saint-michael-s",
-      "line": "Bentley had won both earlier meetings and had not lost at home all season."
+      "fixture_ref": "2026-11-22 franklin-pierce v gannon",
+      "line": "Franklin Pierce has not conceded since beating Molloy earlier in November."
     },
     "next_match": {
-      "fixture_ref": "2026-11-20 franklin-pierce v saint-michael-s",
-      "line": "The sides drew without a goal at Saint Michael's in October, their only meeting this season."
+      "fixture_ref": "2026-12-03 franklin-pierce v missouri-st-louis",
+      "line": "Missouri-St. Louis has not faced an NE10 side this season, and Franklin Pierce is the last conference program still playing."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-17T13:03:22.174Z"
+    "validated_at": "2026-11-24T19:25:31.727Z"
   }
 }

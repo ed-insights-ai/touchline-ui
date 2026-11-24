@@ -3,22 +3,23 @@
   "season": 2026,
   "gender": "men",
   "conference": "CAA",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:19:38+00:00",
-  "headline": "UNCW top the table unbeaten",
-  "dek": "UNCW have lost three times all season, none of them in a table match, and conceded fifteen goals across everything they have played. Theirs is the only CAA match still to come.",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:30:07+00:00",
+  "headline": "UNCW falls at North Carolina to close the CAA season",
+  "dek": "The CAA season closed with UNCW's defeat at North Carolina, leaving no matches left on the calendar. UNCW finished unbeaten in conference play and took twelve wins from a schedule in which it lost only four times, scoring 29 goals across all matches while conceding eighteen.",
   "lede_basis": {
     "programme": "uncw",
     "wins": 12,
     "draws": 2,
-    "losses": 3,
-    "gf": 28,
-    "ga": 15
+    "losses": 4,
+    "gf": 29,
+    "ga": 18
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "UNCW lost at North Carolina, ending the CAA season with no matches remaining.",
   "pattern": {
     "label": "signal",
-    "text": "The table's leader does not lead the chart: UNCW have scored 28 goals in all matches and conceded fifteen, a lead built on what they keep out.",
+    "text": "The table's leader does not lead the scoring chart: UNCW scored 29 goals across all matches and conceded eighteen, building its lead on what it kept out.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -26,7 +27,7 @@
         "stony-brook": 37,
         "charleston-south-carolina": 32,
         "william-mary": 30,
-        "uncw": 28,
+        "uncw": 29,
         "drexel": 27,
         "hofstra": 27,
         "northeastern": 22,
@@ -37,19 +38,21 @@
     },
     "basis": {
       "programme": "uncw",
-      "gf": 28,
-      "ga": 15
+      "gf": 29,
+      "ga": 18
     }
   },
   "wire": {
-    "line": "UNCW, unbeaten in the table, are the only CAA side with a match still to play.",
+    "line": "CAA programs won 40 matches against non-conference opponents and lost 29 before the conference schedule closed.",
     "basis": {
-      "programme": "uncw",
-      "wins": 12,
-      "draws": 2,
-      "losses": 3
+      "derived_from": "fixtures",
+      "wins": 40,
+      "draws": 14,
+      "losses": 29,
+      "gf": 150,
+      "ga": 119
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -63,7 +66,7 @@
     },
     {
       "label": "derived",
-      "text": "College of Charleston have won ten matches in all, more than either Elon or Stony Brook, who both sit above them in the table.",
+      "text": "College of Charleston has won ten matches in all, more than either Elon or Stony Brook, both of which sit above it in the table.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "wins",
@@ -99,7 +102,7 @@
       "programme": "uncw",
       "position": "FWD",
       "class": "FR",
-      "line": "10 G · 4 A · 28 shots"
+      "line": "10 G · 5 A · 28 shots"
     },
     {
       "player": "Matt Lenert",
@@ -118,16 +121,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 uncw v liberty",
-      "line": "UNCW followed their home defeat to College of Charleston with a clean sheet."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-22 north-carolina v uncw",
-      "line": "Both of UNCW's defeats outside the conference came away from home."
+      "line": "Every defeat UNCW suffered outside the conference came away from home."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:51:08.700Z"
+    "validated_at": "2026-11-24T19:35:21.926Z"
   }
 }

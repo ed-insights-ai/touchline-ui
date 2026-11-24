@@ -3,10 +3,10 @@
   "season": 2026,
   "gender": "men",
   "conference": "PATRIOT",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:23:27+00:00",
+  "generated_at": "2026-11-23T16:35:00+00:00",
+  "data_collected_at": "2026-11-23T16:30:40+00:00",
   "headline": "Lehigh wins at Boston University and Bucknell in November",
-  "dek": "Lehigh, level with Bucknell on points, took both four days apart, then lost its latest match away to a non-conference side. Boston University, top of the table, scored more than any other programme and conceded 15 in its seventeen matches.",
+  "dek": "Lehigh, level with Bucknell on points, took both four days apart, then lost its latest match away to a non-conference side. Boston University, top of the table, scored more than any other program and conceded fifteen in its seventeen matches.",
   "lede_basis": {
     "programme": "boston-university",
     "gf": 28,
@@ -20,10 +20,11 @@
     "boston_university_matches_played": 17,
     "days_between_lehigh_wins_at_boston_university_and_bucknell": 4
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "form",
   "pattern": {
     "label": "derived",
-    "text": "Goals did not settle the table: Navy scored 25, more than seven other programmes, yet finished level on the fewest points.",
+    "text": "Goals did not settle the table: Navy scored 25, more than seven other programs, yet finished level on the fewest points.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -71,7 +72,7 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Three matches are past their date with no result published, and Navy and Bucknell are the programmes involved.",
+      "text": "Three matches are past their date with no result published, and Navy and Bucknell are the programs involved.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -93,7 +94,7 @@
     },
     {
       "label": "observed",
-      "text": "Ben Alexander conceded 13 goals in Boston University's goal across the season.",
+      "text": "Ben Alexander conceded thirteen goals in Boston University's goal across the season.",
       "basis": {
         "source": "stats",
         "player": "Ben Alexander",
@@ -103,7 +104,7 @@
     },
     {
       "label": "derived",
-      "text": "American won six, drew five and lost seven of their matches, scoring 16, yet finished above every conference side but Boston University.",
+      "text": "American won six, drew five, and lost seven of its matches, scoring sixteen, yet finished above every conference side but Boston University.",
       "basis": {
         "programme": "american",
         "wins": 6,
@@ -140,11 +141,11 @@
   "featured": {
     "last_match": {
       "fixture_ref": "2026-11-19 charlotte v lehigh",
-      "line": "Lehigh's first defeat since Lafayette beat them at the start of November."
+      "line": "Lehigh's first defeat since Lafayette beat it at the start of November."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:55:42.616Z"
+    "validated_at": "2026-11-24T19:37:58.969Z"
   }
 }

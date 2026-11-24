@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "OVC",
-  "generated_at": "2026-11-20T18:05:00+00:00",
-  "data_collected_at": "2026-11-20T13:22:28+00:00",
+  "generated_at": "2026-11-23T16:35:00+00:00",
+  "data_collected_at": "2026-11-23T16:30:09+00:00",
   "headline": "Lindenwood top the table on the fewest goals conceded",
   "dek": "Lindenwood have conceded 16 goals across every match they have played this season, winning eight and losing five. It has been enough to top the table by a point from SIUE and UIW, though they lost both of their matches in November.",
   "lede_basis": {
@@ -18,7 +18,7 @@
   "lede_updated": "2026-11-20",
   "pattern": {
     "label": "signal",
-    "text": "Scoring did not decide the table: Eastern Illinois conceded 39 goals across all their matches, more than any other OVC side, and their attack carried them only to the bottom half.",
+    "text": "Scoring did not decide the table: Eastern Illinois conceded 39 goals across all its matches, more than any other OVC side, and its attack carried it only to the bottom half.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -76,7 +76,7 @@
     },
     {
       "label": "derived",
-      "text": "Southern Indiana lost ten matches, more than any other OVC programme.",
+      "text": "Southern Indiana lost ten matches, more than any other OVC program.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "losses",
@@ -137,6 +137,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:53:53.997Z"
+    "validated_at": "2026-11-24T19:37:17.017Z"
   }
 }

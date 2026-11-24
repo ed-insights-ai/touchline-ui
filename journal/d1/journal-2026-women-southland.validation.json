@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "women",
   "conference": "SOUTHLAND",
-  "validated_at": "2026-11-21T17:11:56.860Z",
-  "data_collected_at": "2026-11-21T16:42:15+00:00",
+  "validated_at": "2026-11-24T20:03:53.342Z",
+  "data_collected_at": "2026-11-23T16:45:54+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
-    "verified": 10,
+    "verified": 11,
     "contradicted": 0,
-    "unverifiable": 1,
-    "dropped": 1
+    "unverifiable": 0,
+    "dropped": 0
   },
   "normalizations": [],
   "review": [
@@ -49,11 +49,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "HCU never lost a conference match and still finished behind Lamar.",
-      "checker": null,
-      "verdict": "unverifiable",
-      "mismatches": ["the claim carries no basis"],
-      "dropped": true
+      "text": "Southland programs scored 197 goals against non-conference opponents and conceded 169, yet lost more often than they won.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -129,10 +129,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:10:30.761Z",
-    "generate_ms": 86097,
-    "validate_ms": 1,
-    "wall_ms": 86099,
+    "started_at": "2026-11-24T20:03:03.614Z",
+    "generate_ms": 49726,
+    "validate_ms": 2,
+    "wall_ms": 49729,
     "concurrency": 4
   }
 }

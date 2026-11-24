@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MW",
-  "validated_at": "2026-11-20T17:53:00.211Z",
-  "data_collected_at": "2026-11-20T13:21:22+00:00",
+  "validated_at": "2026-11-24T19:37:10.816Z",
+  "data_collected_at": "2026-11-23T16:29:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring and standing run together: every programme sits in the conference table exactly where its goals across all its matches put it on this chart.",
+      "text": "Scoring and standing run together: every program sits in the conference table exactly where its goals across all its matches put it on this chart.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,7 +38,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Grand Canyon are the last side in the conference with a match still to play.",
+      "text": "Grand Canyon shut out Pitt on the road and now travels to Cornell as the only MW side still playing.",
       "checker": "fixture_counts",
       "verdict": "verified",
       "mismatches": [],
@@ -65,7 +65,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "All nineteen goals UNLV have conceded went in past Hugo Lemos.",
+      "text": "All nineteen goals UNLV has conceded went in past Hugo Lemos.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "UC Davis have conceded 45 goals, more than Grand Canyon and UNLV together.",
+      "text": "UC Davis has conceded 45 goals, more than Grand Canyon and UNLV together.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -92,7 +92,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jorge Lopez — 7 G · 12 A · 55 shots",
+      "text": "Jorge Lopez — 7 G · 12 A · 57 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-19 san-diego v grand-canyon",
+      "text": "2026-11-22 pitt v grand-canyon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-22 pitt v grand-canyon",
+      "text": "2026-11-29 cornell v grand-canyon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:51:09.423Z",
-    "generate_ms": 110786,
-    "validate_ms": 1,
-    "wall_ms": 110787,
+    "started_at": "2026-11-24T19:35:22.029Z",
+    "generate_ms": 108784,
+    "validate_ms": 2,
+    "wall_ms": 108787,
     "concurrency": 4
   }
 }

@@ -4,15 +4,15 @@
   "season": 2026,
   "gender": "women",
   "conference": "SWAC",
-  "validated_at": "2026-11-21T17:12:45.220Z",
-  "data_collected_at": "2026-11-21T15:29:56+00:00",
+  "validated_at": "2026-11-24T20:04:37.221Z",
+  "data_collected_at": "2026-11-23T16:47:05+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
-    "verified": 10,
+    "verified": 11,
     "contradicted": 0,
-    "unverifiable": 1,
-    "dropped": 1
+    "unverifiable": 0,
+    "dropped": 0
   },
   "normalizations": [],
   "review": [],
@@ -38,11 +38,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Arkansas-Pine Bluff lost every match against a conference side, and Jackson State lost none.",
-      "checker": null,
-      "verdict": "unverifiable",
-      "mismatches": ["the claim carries no basis"],
-      "dropped": true
+      "text": "Programs combined for fourteen wins, eight draws and 56 losses against outside opponents, scoring 87 goals and conceding 288.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -118,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:11:03.225Z",
-    "generate_ms": 101993,
-    "validate_ms": 1,
-    "wall_ms": 101994,
+    "started_at": "2026-11-24T20:03:47.783Z",
+    "generate_ms": 49437,
+    "validate_ms": 2,
+    "wall_ms": 49439,
     "concurrency": 4
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "OVC",
-  "validated_at": "2026-11-21T17:09:22.367Z",
-  "data_collected_at": "2026-11-21T15:26:34+00:00",
+  "validated_at": "2026-11-24T20:01:47.874Z",
+  "data_collected_at": "2026-11-23T16:43:20+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Western Illinois lost 16 matches and won three, without a draw all season.",
+      "text": "Western Illinois lost sixteen matches and won three, without a draw all season.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Southern Indiana's 14 goals came from at least ten different scorers.",
+      "text": "Southern Indiana's fourteen goals came from at least ten different scorers.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -118,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:08:12.147Z",
-    "generate_ms": 70219,
+    "started_at": "2026-11-24T20:01:17.949Z",
+    "generate_ms": 29923,
     "validate_ms": 1,
-    "wall_ms": 70220,
+    "wall_ms": 29925,
     "concurrency": 4
   }
 }

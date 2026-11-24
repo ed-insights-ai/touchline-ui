@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MAAC",
-  "validated_at": "2026-11-20T17:52:11.550Z",
-  "data_collected_at": "2026-11-20T13:20:31+00:00",
+  "validated_at": "2026-11-24T19:36:10.852Z",
+  "data_collected_at": "2026-11-24T14:31:08+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Merrimack drew nine of their matches, more than any other programme in the conference.",
+      "text": "Merrimack drew nine of its matches, more than any other program in the conference.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -66,7 +66,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Canisius conceded 37 goals, more than any other programme in the conference.",
+      "text": "Canisius conceded 37 goals, more than any other program in the conference.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -120,10 +120,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:50:30.459Z",
-    "generate_ms": 101089,
-    "validate_ms": 2,
-    "wall_ms": 101091,
+    "started_at": "2026-11-24T19:34:51.036Z",
+    "generate_ms": 79811,
+    "validate_ms": 5,
+    "wall_ms": 79816,
     "concurrency": 4
   }
 }

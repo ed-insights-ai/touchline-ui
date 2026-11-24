@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "AE",
-  "validated_at": "2026-11-21T17:02:06.945Z",
-  "data_collected_at": "2026-11-21T15:19:45+00:00",
+  "validated_at": "2026-11-24T19:52:14.353Z",
+  "data_collected_at": "2026-11-24T14:36:36+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -83,7 +83,7 @@
     {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "Jahkaya Davis — 10 G · 45 shots",
+      "text": "Samantha Zaslaw — 9 G · 2 A · 27 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -118,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:00:15.414Z",
-    "generate_ms": 111529,
-    "validate_ms": 1,
-    "wall_ms": 111530,
+    "started_at": "2026-11-24T19:51:35.465Z",
+    "generate_ms": 38879,
+    "validate_ms": 8,
+    "wall_ms": 38888,
     "concurrency": 4
   }
 }

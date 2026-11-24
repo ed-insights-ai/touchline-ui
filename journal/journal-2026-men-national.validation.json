@@ -3,7 +3,7 @@
   "journal": "journal-2026-men-national.json",
   "season": 2026,
   "gender": "men",
-  "validated_at": "2026-11-20T12:41:41.640Z",
+  "validated_at": "2026-11-24T19:22:11.601Z",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 1,
@@ -17,18 +17,17 @@
     {
       "path": "headline",
       "label": "observed",
-      "text": "Southern New Hampshire outscore every other programme in the division Midwestern State are next on goals and have not lost all season, and neither have Cal State LA, Lincoln or Emory & Henry. Every one of them, Southern New Hampshire included, still has a match to play.",
-      "checker": "comparative",
+      "text": "Flagler defeats Emory & Henry to face Fort Hays State The Peach Belt program moved to sixteen wins and five draws with only one defeat all season. Charleston and Cal State San Bernardino meet in the division's other remaining match, while the South Atlantic Conference has yet to record the result.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "held against every other programme; the nearest is midwestern-state at 56"
+      "dropped": false
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:41:00.076Z",
-    "generate_ms": 41550,
-    "validate_ms": 12,
-    "wall_ms": 41563
+    "started_at": "2026-11-24T19:21:02.864Z",
+    "generate_ms": 68732,
+    "validate_ms": 4,
+    "wall_ms": 68737
   }
 }

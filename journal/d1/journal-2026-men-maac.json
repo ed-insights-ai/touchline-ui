@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MAAC",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:20:31+00:00",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:31:08+00:00",
   "headline": "Sacred Heart's winning run ends at Syracuse",
   "dek": "Sacred Heart won away at Fairfield, the table's leaders, and at Marist behind them, on a winning run that ended by the odd goal at Syracuse. It left them with nine wins, seven draws and six defeats, after a conference campaign in which they had drawn as often as they won.",
   "lede_basis": {
@@ -69,7 +69,7 @@
     },
     {
       "label": "derived",
-      "text": "Merrimack drew nine of their matches, more than any other programme in the conference.",
+      "text": "Merrimack drew nine of its matches, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "draws",
@@ -80,7 +80,7 @@
     },
     {
       "label": "derived",
-      "text": "Canisius conceded 37 goals, more than any other programme in the conference.",
+      "text": "Canisius conceded 37 goals, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -129,6 +129,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:52:11.550Z"
+    "validated_at": "2026-11-24T19:36:10.852Z"
   }
 }

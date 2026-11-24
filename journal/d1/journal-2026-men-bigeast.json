@@ -3,28 +3,29 @@
   "season": 2026,
   "gender": "men",
   "conference": "BIGEAST",
-  "generated_at": "2026-11-20T14:05:00+00:00",
-  "data_collected_at": "2026-11-20T13:18:40+00:00",
-  "headline": "Akron win at Georgetown, the only side to beat them",
-  "dek": "Akron's single defeat came at home to Georgetown in September, and they have conceded 14 goals across the whole season. Georgetown top the conference table without a loss and had not lost at home until Akron arrived.",
+  "generated_at": "2026-11-24T14:35:00+00:00",
+  "data_collected_at": "2026-11-24T14:29:01+00:00",
+  "headline": "Georgetown beats Syracuse to carry the conference alone",
+  "dek": "Georgetown reached sixteen wins and 59 goals against Syracuse on the same day Akron fell at home to Wake Forest. Having lost only two matches all season while conceding eighteen goals, the program is the last in the conference still on the schedule.",
   "lede_basis": {
-    "programme": "akron",
-    "wins": 13,
-    "draws": 4,
-    "losses": 1,
-    "gf": 38,
-    "ga": 14
+    "programme": "georgetown",
+    "wins": 16,
+    "draws": 2,
+    "losses": 2,
+    "gf": 59,
+    "ga": 18
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Akron lost to Wake Forest on Nov 22, ending its one-loss record, while Georgetown beat Syracuse to reach sixteen wins",
   "pattern": {
     "label": "derived",
-    "text": "Georgetown's goals are spread wide: at least seventeen different players have scored for them.",
+    "text": "Georgetown's goals are spread wide: at least seventeen different players have scored.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "georgetown": 56,
+        "georgetown": 59,
         "creighton": 53,
-        "akron": 38,
+        "akron": 39,
         "marquette": 37,
         "xavier": 33,
         "uconn": 32,
@@ -43,19 +44,19 @@
     }
   },
   "wire": {
-    "line": "A defender, Creighton's Matthew Reed, has scored more goals than anyone else in the conference: 14.",
+    "line": "Wake Forest handed Akron its second loss of the season, leaving the program at thirteen wins and four draws.",
     "basis": {
-      "source": "stats",
-      "player": "Matthew Reed",
-      "programme": "creighton",
-      "goals": 14
+      "programme": "akron",
+      "wins": 13,
+      "draws": 4,
+      "losses": 2
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
       "label": "observed",
-      "text": "Akron's visit to West Virginia in September is one of five matches past their date with no published result.",
+      "text": "Five matches are past their date with no published result, including Akron's September visit to West Virginia.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -64,7 +65,18 @@
     },
     {
       "label": "observed",
-      "text": "Xavier have conceded 11 goals all season while scoring 33.",
+      "text": "Creighton defender Matthew Reed has scored fourteen goals from 32 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Matthew Reed",
+        "programme": "creighton",
+        "goals": 14,
+        "shots": 32
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Xavier has conceded eleven goals all season while scoring 33.",
       "basis": {
         "programme": "xavier",
         "gf": 33,
@@ -73,7 +85,7 @@
     },
     {
       "label": "observed",
-      "text": "Devin Armstrong has kept 10 shutouts in Seton Hall's goal.",
+      "text": "Devin Armstrong has kept ten shutouts in Seton Hall's goal.",
       "basis": {
         "source": "stats",
         "player": "Devin Armstrong",
@@ -83,7 +95,7 @@
     },
     {
       "label": "observed",
-      "text": "Alex Yagudayev has made 118 saves for Villanova and conceded 27 goals.",
+      "text": "Alex Yagudayev has made 118 saves for Villanova while conceding 27 goals.",
       "basis": {
         "source": "stats",
         "player": "Alex Yagudayev",
@@ -99,7 +111,7 @@
       "programme": "georgetown",
       "position": "MID",
       "class": "SR",
-      "line": "13 G · 9 A · 37 shots"
+      "line": "14 G · 10 A · 42 shots"
     },
     {
       "player": "Mitchell Baker",
@@ -118,16 +130,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 creighton v omaha",
-      "line": "Creighton's first home defeat of the season, against a side they had beaten away in September."
+      "fixture_ref": "2026-11-22 georgetown v syracuse",
+      "line": "Georgetown rebounded from its home loss to Akron; Syracuse had already beaten UConn and St. John's this season."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 akron v wake-forest",
-      "line": "Akron have already beaten Wake Forest at home this season, in August."
+      "fixture_ref": "2026-11-28 georgetown v ucla",
+      "line": "Georgetown finished conference play unbeaten, while UCLA has not yet faced a BIGEAST opponent this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:49:42.072Z"
+    "validated_at": "2026-11-24T19:34:54.514Z"
   }
 }

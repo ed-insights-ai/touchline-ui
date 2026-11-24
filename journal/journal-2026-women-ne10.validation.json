@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NE10",
-  "validated_at": "2026-11-17T13:03:22.174Z",
-  "data_collected_at": "2026-11-17T12:56:11+00:00",
+  "validated_at": "2026-11-24T19:25:31.727Z",
+  "data_collected_at": "2026-11-24T14:29:39+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -15,12 +15,18 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Shutouts of Saint Michael's and Gannon lifted Franklin Pierce to 51 goals, more than any other program in the conference, while its defense has allowed sixteen all season. Franklin Pierce is the last NE10 side still on the schedule and hosts Missouri-St. Louis next.",
+      "unbacked": ["10"]
+    }
+  ],
   "claims": [
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring alone has not settled the table: Pace have scored 33 goals, but conceded 37, more than any other programme.",
+      "text": "Scoring alone has not settled the table: Pace has scored 33 goals, but conceded 37, more than any other program.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -47,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "derived",
-      "text": "Franklin Pierce have won sixteen matches, more than any other programme.",
+      "text": "Southern Connecticut has drawn seven matches, more than any other program.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Southern Connecticut have drawn seven matches, more than any other programme.",
+      "text": "Southern New Hampshire has lost twelve matches, more than any other program.",
       "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -64,15 +70,6 @@
     },
     {
       "path": "findings[2]",
-      "label": "derived",
-      "text": "Southern New Hampshire have lost twelve matches, more than any other programme.",
-      "checker": "team_record+comparative",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "findings[3]",
       "label": "observed",
       "text": "Fourteen different players have scored for Bentley.",
       "checker": "distinct_scorers",
@@ -81,7 +78,7 @@
       "dropped": false
     },
     {
-      "path": "findings[4]",
+      "path": "findings[3]",
       "label": "observed",
       "text": "Hedda Haukland has made 119 saves for American International.",
       "checker": "player_stat",
@@ -90,9 +87,18 @@
       "dropped": false
     },
     {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Abi Hennessey has scored thirteen goals for Bentley.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
       "path": "players_to_watch[0]",
       "label": "observed",
-      "text": "McKenna Maguire — 9 G · 10 A · 72 shots",
+      "text": "McKenna Maguire — 9 G · 10 A · 76 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -101,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Scarlett Brookes — 10 G · 4 A · 66 shots",
+      "text": "Scarlett Brookes — 10 G · 4 A · 67 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +116,7 @@
     {
       "path": "players_to_watch[2]",
       "label": "observed",
-      "text": "Aino Martikainen — 6 G · 5 A · 33 shots",
+      "text": "Aino Martikainen — 8 G · 5 A · 37 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 bentley v saint-michael-s",
+      "text": "2026-11-22 franklin-pierce v gannon",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -128,7 +134,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-20 franklin-pierce v saint-michael-s",
+      "text": "2026-12-03 franklin-pierce v missouri-st-louis",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -136,10 +142,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-17T13:02:51.642Z",
-    "generate_ms": 30531,
-    "validate_ms": 1,
-    "wall_ms": 30532,
+    "started_at": "2026-11-24T19:23:58.120Z",
+    "generate_ms": 93603,
+    "validate_ms": 3,
+    "wall_ms": 93607,
     "concurrency": 4
   }
 }

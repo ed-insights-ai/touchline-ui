@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NSIC",
-  "generated_at": "2026-11-20T13:05:00+00:00",
-  "data_collected_at": "2026-11-20T12:53:05+00:00",
+  "generated_at": "2026-11-23T16:30:00+00:00",
+  "data_collected_at": "2026-11-23T16:26:43+00:00",
   "headline": "Minnesota State and UMary both lose at home",
   "dek": "Central Missouri won at UMary and Missouri Western at Minnesota State on the season's last day, with the two sides level on points at the top of the table. It was Minnesota State's second defeat of the season, against seventeen wins, and Northern State lost at Pittsburg State the same day.",
   "lede_basis": {
@@ -90,7 +90,7 @@
     },
     {
       "label": "observed",
-      "text": "Minnesota Crookston have drawn six and lost twelve, and are yet to win a match this season.",
+      "text": "Minnesota Crookston has drawn six and lost twelve, and is yet to win a match this season.",
       "basis": {
         "programme": "minnesota-crookston",
         "wins": 0,
@@ -100,7 +100,7 @@
     },
     {
       "label": "derived",
-      "text": "Southwest Minnesota State have conceded 47 goals, more than any other programme in the conference.",
+      "text": "Southwest Minnesota State has conceded 47 goals, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "ga",
@@ -141,6 +141,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T12:58:47.198Z"
+    "validated_at": "2026-11-24T19:25:59.309Z"
   }
 }

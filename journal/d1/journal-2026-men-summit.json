@@ -3,27 +3,27 @@
   "season": 2026,
   "gender": "men",
   "conference": "SUMMIT",
-  "generated_at": "2026-11-20T14:05:00+00:00",
-  "data_collected_at": "2026-11-20T13:24:24+00:00",
-  "headline": "Omaha have won every match since their October defeat",
-  "dek": "Kansas City lead the table, but the only side to beat them in conference play was Omaha, whose 12 wins across the season are more than any other programme's. Since St. Thomas beat Omaha in October, Omaha have beaten Kansas City, Delaware, St. Thomas and Creighton in turn.",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:33:06+00:00",
+  "headline": "Kansas City plays on after UCLA halts Omaha",
+  "dek": "Kansas City drew with Stanford and enters its meeting with Vermont with eleven wins and only three defeats, the sole Summit program still on the schedule. On the same evening, UCLA beat Omaha again, halting a run that had carried Omaha past Creighton.",
   "lede_basis": {
-    "comparative": "greater_than_each",
-    "metric": "wins",
-    "programme": "omaha",
-    "of": ["kansas-city", "delaware", "umass", "st-thomas", "oral-roberts"],
-    "wins": 12
+    "programme": "kansas-city",
+    "wins": 11,
+    "draws": 4,
+    "losses": 3
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "UCLA beat Omaha on November 22, ending Omaha's winning run.",
   "pattern": {
     "label": "derived",
-    "text": "Across all matches, goals split the conference into an upper and a lower half, and Omaha's 47 are more than Oral Roberts and St. Thomas have scored together.",
+    "text": "Across all matches, goals split the conference into an upper and a lower half, and Omaha's 48 are more than Oral Roberts and St. Thomas have scored together.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "omaha": 47,
+        "omaha": 48,
+        "kansas-city": 36,
         "delaware": 34,
-        "kansas-city": 33,
         "umass": 22,
         "oral-roberts": 20,
         "st-thomas": 19
@@ -35,18 +35,19 @@
       "metric": "gf",
       "programme": "omaha",
       "of": ["oral-roberts", "st-thomas"],
-      "gf": 47
+      "gf": 48
     }
   },
   "wire": {
-    "line": "Kansas City's only conference defeat came at Omaha, who have not lost since.",
+    "line": "Omaha leads the Summit with twelve wins, but Kansas City tops the table and is the lone program still playing.",
     "basis": {
-      "programme": "kansas-city",
-      "wins": 11,
-      "draws": 3,
-      "losses": 3
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "programme": "omaha",
+      "of": ["kansas-city", "delaware", "umass", "st-thomas", "oral-roberts"],
+      "wins": 12
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -60,12 +61,12 @@
     },
     {
       "label": "observed",
-      "text": "Mark Ramarola, a defender, has six goals and six assists for Kansas City.",
+      "text": "Mark Ramarola, a defender, has seven goals and six assists for Kansas City.",
       "basis": {
         "source": "stats",
         "player": "Mark Ramarola",
         "programme": "kansas-city",
-        "goals": 6,
+        "goals": 7,
         "assists": 6
       }
     },
@@ -81,7 +82,7 @@
     },
     {
       "label": "derived",
-      "text": "Oral Roberts have drawn more matches than they have won, six to four.",
+      "text": "Oral Roberts has drawn more matches than it has won, six to four.",
       "basis": {
         "programme": "oral-roberts",
         "wins": 4,
@@ -96,7 +97,7 @@
       "programme": "omaha",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 4 A · 29 shots"
+      "line": "12 G · 4 A · 31 shots"
     },
     {
       "player": "Frederik Flaskager",
@@ -110,21 +111,21 @@
       "programme": "kansas-city",
       "position": "DEF",
       "class": "SO",
-      "line": "6 G · 6 A · 25 shots"
+      "line": "7 G · 6 A · 26 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 creighton v omaha",
-      "line": "Creighton had won at Omaha in September."
+      "fixture_ref": "2026-11-22 ucla v omaha",
+      "line": "UCLA had already beaten Omaha in September, and the defeat ended Omaha's winning run."
     },
     "next_match": {
-      "fixture_ref": "2026-11-22 ucla v omaha",
-      "line": "UCLA have already beaten Omaha at home once this season, in September."
+      "fixture_ref": "2026-11-29 kansas-city v vermont",
+      "line": "Vermont beat UMass in September, and Kansas City enters the match unbeaten since its October defeat at Omaha."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:55:53.775Z"
+    "validated_at": "2026-11-24T19:38:31.357Z"
   }
 }

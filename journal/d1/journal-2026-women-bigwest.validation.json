@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "BIGWEST",
-  "validated_at": "2026-11-21T17:05:45.629Z",
-  "data_collected_at": "2026-11-21T15:22:37+00:00",
+  "validated_at": "2026-11-24T19:57:29.679Z",
+  "data_collected_at": "2026-11-23T16:39:00+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "California Baptist has scored 25 goals and conceded 11 across all its matches.",
+      "text": "California Baptist has scored 25 goals and conceded eleven across all its matches.",
       "checker": "team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -118,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-21T17:04:04.603Z",
-    "generate_ms": 101025,
-    "validate_ms": 1,
-    "wall_ms": 101025,
+    "started_at": "2026-11-24T19:56:04.412Z",
+    "generate_ms": 85264,
+    "validate_ms": 2,
+    "wall_ms": 85266,
     "concurrency": 4
   }
 }

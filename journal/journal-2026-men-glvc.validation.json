@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "GLVC",
-  "validated_at": "2026-11-16T12:44:45.673Z",
-  "data_collected_at": "2026-11-16T12:33:56+00:00",
+  "validated_at": "2026-11-24T19:12:30.938Z",
+  "data_collected_at": "2026-11-24T14:26:07+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 13,
-    "verified": 13,
+    "checked": 12,
+    "verified": 12,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -17,13 +17,8 @@
   "normalizations": [],
   "review": [
     {
-      "path": "findings[0].text",
-      "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
-      "unbacked": ["1"]
-    },
-    {
       "path": "findings[4].text",
-      "text": "Noah Nymark-Pedersen has made seventy-nine saves for Upper Iowa and conceded thirty-five, a save percentage of .693.",
+      "text": "Noah Nymark-Pedersen made 79 saves for Upper Iowa and conceded 35 goals, a save percentage of .693.",
       "unbacked": ["693"]
     }
   ],
@@ -31,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Southwest Baptist have scored forty-five goals, more than either Lincoln or Drury near the top, but they have conceded thirty-six and lost seven times; the leaders have built their place at the other end of the pitch.",
+      "text": "Southwest Baptist scored 45 goals, more than either Drury or Indianapolis near the top of the table, yet conceded 36 and lost seven times; goals alone did not carry a program into the upper tier.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -49,7 +44,7 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Lincoln are the only programme in the conference still without a defeat this season.",
+      "text": "Lincoln's sixteen-win season ended with a single defeat, leaving no unbeaten program in the conference.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -58,7 +53,7 @@
     {
       "path": "findings[0]",
       "label": "observed",
-      "text": "Two matches past their date carry no result, and both are Drury's, one at home and one away, both from August.",
+      "text": "Two August matches past their date carry no result, and both belong to Drury.",
       "checker": "set_members",
       "verdict": "verified",
       "mismatches": [],
@@ -67,7 +62,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Drury have lost five times this season: at home to Oklahoma Christian in August, away at Missouri S&T in September, at home to Lincoln and to Missouri-St. Louis in October, and at home to Maryville in November.",
+      "text": "Drury has lost five times this season: at home to Oklahoma Christian in August, away at Missouri S&T in September, at home to Lincoln and Missouri-St. Louis in October, and at home to Maryville in November.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -76,7 +71,7 @@
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Jonathan Nemorden, a freshman, has thirteen of Lincoln's forty-four goals, from seventy-three shots.",
+      "text": "Jonathan Nemorden, a freshman, scored thirteen of Lincoln's 46 goals from 87 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -85,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Jacob Panagos, a midfielder, has fifteen of Truman's twenty-eight goals, from fifty-seven shots.",
+      "text": "Jacob Panagos, a midfielder, scored fifteen of Truman's 28 goals from 57 shots.",
       "checker": "player_stat+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -94,7 +89,7 @@
     {
       "path": "findings[4]",
       "label": "observed",
-      "text": "Noah Nymark-Pedersen has made seventy-nine saves for Upper Iowa and conceded thirty-five, a save percentage of .693.",
+      "text": "Noah Nymark-Pedersen made 79 saves for Upper Iowa and conceded 35 goals, a save percentage of .693.",
       "checker": "player_stat",
       "verdict": "verified",
       "mismatches": [],
@@ -112,7 +107,7 @@
     {
       "path": "players_to_watch[1]",
       "label": "observed",
-      "text": "Jonathan Nemorden — 13 G · 2 A · 73 shots",
+      "text": "Jonathan Nemorden — 13 G · 3 A · 87 shots",
       "checker": "player_line",
       "verdict": "verified",
       "mismatches": [],
@@ -130,16 +125,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-15 saginaw-valley-state v maryville",
-      "checker": "fixture_ref",
-      "verdict": "verified",
-      "mismatches": [],
-      "dropped": false
-    },
-    {
-      "path": "featured.next_match",
-      "label": "observed",
-      "text": "2026-11-20 lincoln v findlay",
+      "text": "2026-11-22 lincoln v fort-hays-state",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -147,10 +133,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-16T12:43:38.228Z",
-    "generate_ms": 67443,
-    "validate_ms": 1,
-    "wall_ms": 67445,
+    "started_at": "2026-11-24T19:05:41.465Z",
+    "generate_ms": 409469,
+    "validate_ms": 4,
+    "wall_ms": 409474,
     "concurrency": 4
   }
 }

@@ -3,21 +3,24 @@
   "season": 2026,
   "gender": "men",
   "conference": "AAC",
-  "generated_at": "2026-11-20T14:00:00+00:00",
-  "data_collected_at": "2026-11-20T13:15:40+00:00",
-  "headline": "Charlotte and Missouri State win again; Tulsa beaten away",
-  "dek": "Missouri State's home win on Thursday was their thirteenth, the most of any side in the conference, and Charlotte won at home the same evening. Both travel on Sunday; Tulsa, beaten away on Thursday, have no match left on the schedule.",
+  "generated_at": "2026-11-24T15:00:00+00:00",
+  "data_collected_at": "2026-11-24T14:26:31+00:00",
+  "headline": "Missouri State finishes unbeaten away as Charlotte falls",
+  "dek": "A draw at Indiana left Missouri State with thirteen wins and only two defeats, while Charlotte fell at Wisconsin on the same afternoon. No matches remain on the schedule, and Missouri State finished with more victories than any other program.",
   "lede_basis": {
+    "programme": "missouri-state",
+    "wins": 13,
+    "draws": 4,
+    "losses": 2,
     "comparative": "greater_than_each",
     "metric": "wins",
-    "programme": "missouri-state",
-    "of_any": 8,
-    "wins": 13
+    "of_any": 8
   },
-  "lede_updated": "2026-11-20",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "Sunday's results closed the schedule as Missouri State drew at Indiana and Charlotte lost at Wisconsin.",
   "pattern": {
     "label": "derived",
-    "text": "Scoring has not decided this conference. Memphis, whose bar stands tallest, have conceded 28 and won eight times, and they have lost as often as they have drawn.",
+    "text": "Scoring has not decided this conference. Memphis scored 41 goals, yet it conceded 28, won eight times, and finished with five draws and five losses.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -43,14 +46,16 @@
     }
   },
   "wire": {
-    "line": "Missouri State have been beaten only twice all season.",
+    "line": "Outside the conference, AAC sides won 37 matches and lost 23, scoring 130 goals while conceding 101.",
     "basis": {
-      "programme": "missouri-state",
-      "wins": 13,
-      "draws": 3,
-      "losses": 2
+      "derived_from": "fixtures",
+      "wins": 37,
+      "draws": 17,
+      "losses": 23,
+      "gf": 130,
+      "ga": 101
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-24"
   },
   "findings": [
     {
@@ -64,7 +69,7 @@
     },
     {
       "label": "derived",
-      "text": "Santi Possu has scored 13 of FIU's 27 goals.",
+      "text": "Santi Possu has scored thirteen of FIU's 27 goals.",
       "basis": {
         "source": "stats",
         "player": "Santi Possu",
@@ -110,35 +115,31 @@
       "programme": "charlotte",
       "position": "FWD",
       "class": "JR",
-      "line": "12 G · 5 A · 54 shots"
+      "line": "12 G · 5 A · 56 shots"
     },
     {
       "player": "Larry Noel",
       "programme": "charlotte",
       "position": "FWD",
       "class": "SR",
-      "line": "11 G · 4 A · 59 shots"
+      "line": "11 G · 4 A · 62 shots"
     },
     {
       "player": "Diego Real",
       "programme": "missouri-state",
       "position": "FWD",
       "class": "5Y",
-      "line": "10 G · 6 A · 37 shots"
+      "line": "10 G · 6 A · 38 shots"
     }
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-19 charlotte v lehigh",
-      "line": "Charlotte have not lost since Missouri State won at their ground at the start of the month."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-22 indiana v missouri-state",
-      "line": "Missouri State have yet to lose away from home."
+      "line": "Missouri State finished the season without an away defeat."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T17:47:39.486Z"
+    "validated_at": "2026-11-24T19:32:42.050Z"
   }
 }

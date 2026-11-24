@@ -2,24 +2,25 @@
   "schema": "touchline.national/1",
   "season": 2026,
   "gender": "women",
-  "generated_at": "2026-11-20T13:20:00+00:00",
+  "generated_at": "2026-11-24T15:00:00+00:00",
   "data_collected_at": "2026-11-16T12:53:51+00:00",
-  "headline": "Montevallo outscore every other programme in the division",
-  "dek": "Montevallo have scored 72 goals, and the nearest total in the division belongs to North Georgia of the Peach Belt. The Gulf South side have won seventeen matches, drawn two and lost two.",
+  "headline": "Dallas Baptist remains the division's lone unbeaten program",
+  "dek": "The Lone Star side leads the division with twenty wins and two draws after beating Western Washington. It has scored 70 goals while conceding ten, and faces North Georgia next.",
   "basis": {
     "comparative": "greater_than_each",
-    "metric": "gf",
-    "programme": "montevallo",
+    "metric": "wins",
+    "programme": "dallas-baptist",
     "of_any": 1,
-    "gf": 72,
-    "wins": 17,
+    "wins": 20,
     "draws": 2,
-    "losses": 2
+    "losses": 0,
+    "gf": 70,
+    "ga": 10
   },
-  "updated": "2026-11-20",
+  "updated": "2026-11-24",
   "displaced_by": "age",
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-20T13:00:00.883Z"
+    "validated_at": "2026-11-24T19:30:46.337Z"
   }
 }

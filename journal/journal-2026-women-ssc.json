@@ -3,26 +3,26 @@
   "season": 2026,
   "gender": "women",
   "conference": "SSC",
-  "generated_at": "2026-11-16T13:10:00+00:00",
-  "data_collected_at": "2026-11-16T13:04:03+00:00",
-  "headline": "Nova Southeastern and Eckerd go through the conference unbeaten",
-  "dek": "Nova Southeastern have won eleven and drawn seven without losing a match all season. Eckerd, who drew with them in their latest meeting, have been beaten only by sides from outside the conference, and every other programme has lost to a conference rival at least once.",
+  "generated_at": "2026-11-23T17:10:00+00:00",
+  "data_collected_at": "2026-11-23T17:04:32+00:00",
+  "headline": "Nova Southeastern loses its unbeaten record to Montevallo",
+  "dek": "The conference's last unbeaten program finally fell to Montevallo, leaving Nova Southeastern with eleven wins, seven draws, and one loss. That defeat leaves every team in the SSC with at least one loss, even though both Nova Southeastern and Eckerd went through conference play unbeaten.",
   "lede_basis": {
     "programme": "nova-southeastern",
     "wins": 11,
     "draws": 7,
-    "losses": 0
+    "losses": 1
   },
-  "lede_updated": "2026-11-16",
-  "displaced_by": "Nova Southeastern's draw with Lee made the dek's six draws seven; the headline still holds and stands",
+  "lede_updated": "2026-11-23",
+  "displaced_by": "Nova Southeastern lost to Montevallo, ending the conference's last unbeaten season",
   "pattern": {
     "label": "derived",
-    "text": "Scoring and standing agree: the sides at the head of the table, Eckerd, Nova Southeastern and Florida Tech, are its highest scorers, and every other programme has scored fewer than Eckerd's 36.",
+    "text": "Scoring and standing agree: the sides at the head of the table, Eckerd, Nova Southeastern, and Florida Tech, are its highest scorers, and every other program has scored fewer than Eckerd's 36.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "florida-tech": 50,
-        "nova-southeastern": 41,
+        "nova-southeastern": 42,
         "eckerd": 36,
         "barry": 32,
         "palm-beach-atlantic": 32,
@@ -53,19 +53,19 @@
     }
   },
   "wire": {
-    "line": "Nova Southeastern have not lost a match all season, the only side in the conference without a defeat.",
+    "line": "Every program in the conference now has a defeat after Montevallo beat Nova Southeastern.",
     "basis": {
       "programme": "nova-southeastern",
       "wins": 11,
       "draws": 7,
-      "losses": 0
+      "losses": 1
     },
-    "updated": "2026-11-09"
+    "updated": "2026-11-23"
   },
   "findings": [
     {
       "label": "derived",
-      "text": "Florida Tech have won fourteen matches, more than any other programme in the conference.",
+      "text": "Florida Tech has won fourteen matches, more than any other program in the conference.",
       "basis": {
         "comparative": "greater_than_each",
         "metric": "wins",
@@ -89,14 +89,14 @@
     },
     {
       "label": "observed",
-      "text": "Genesis Hernandez has scored sixteen goals and added five assists for Nova Southeastern, from 91 shots.",
+      "text": "Genesis Hernandez has scored seventeen goals and added five assists for Nova Southeastern, from 99 shots.",
       "basis": {
         "source": "stats",
         "player": "Genesis Hernandez",
         "programme": "nova-southeastern",
-        "goals": 16,
+        "goals": 17,
         "assists": 5,
-        "shots": 91
+        "shots": 99
       }
     },
     {
@@ -111,7 +111,7 @@
     },
     {
       "label": "observed",
-      "text": "Six matches have passed their date with no result published, and Florida Tech's home match with Tampa is among them.",
+      "text": "Six matches have passed their date with no result published, and Florida Tech's home match against Tampa is among them.",
       "basis": {
         "source": "fixtures",
         "finals_without_score": 0,
@@ -125,7 +125,7 @@
       "programme": "nova-southeastern",
       "position": "FWD",
       "class": "JR",
-      "line": "16 G · 5 A · 91 shots"
+      "line": "17 G · 5 A · 99 shots"
     },
     {
       "player": "Eboni Bradshaw",
@@ -144,16 +144,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 montevallo v florida-tech",
-      "line": "Florida Tech have conceded at least twice in every match they have played in November."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-20 nova-southeastern v montevallo",
-      "line": "Nova Southeastern have yet to lose all season; Montevallo have already held Florida Tech to a draw."
+      "line": "Montevallo had already held Florida Tech to a draw before ending Nova Southeastern's unbeaten season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-16T13:12:02.408Z"
+    "validated_at": "2026-11-24T19:25:07.081Z"
   }
 }

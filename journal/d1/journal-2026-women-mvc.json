@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "MVC",
-  "generated_at": "2026-11-21T16:00:00+00:00",
-  "data_collected_at": "2026-11-21T15:25:19+00:00",
+  "generated_at": "2026-11-23T17:00:00+00:00",
+  "data_collected_at": "2026-11-23T16:42:35+00:00",
   "headline": "Southern Illinois goes the season without a draw",
   "dek": "Southern Illinois has turned all of its matches into wins or defeats, winning fifteen and losing five while scoring 35 goals and conceding seventeen. Every other program in the conference has drawn at least once.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 17
   },
   "lede_updated": "2026-11-21",
-  "displaced_by": "first journal for the conference: Southern Illinois's record has no draws",
   "pattern": {
     "label": "derived",
     "text": "The scoring sits at the top of the chart: Drake alone has scored more than UIC and UNI together.",
@@ -43,6 +42,14 @@
       "of": ["uic", "uni"],
       "gf": 36
     }
+  },
+  "wire": {
+    "line": "Fourteen different players have scored for Indiana State this season.",
+    "basis": {
+      "programme": "indiana-state",
+      "distinct_scorers_min": 14
+    },
+    "updated": "2026-11-23"
   },
   "findings": [
     {
@@ -117,6 +124,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:08:29.773Z"
+    "validated_at": "2026-11-24T20:01:32.859Z"
   }
 }

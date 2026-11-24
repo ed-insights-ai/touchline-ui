@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "HORIZON",
-  "validated_at": "2026-11-20T17:51:09.248Z",
-  "data_collected_at": "2026-11-20T13:19:56+00:00",
+  "validated_at": "2026-11-24T19:34:50.934Z",
+  "data_collected_at": "2026-11-23T16:28:29+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -26,7 +26,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Goals scored did not sort this conference: Milwaukee scored 16 all season and lost only five matches, conceding 14.",
+      "text": "Goals scored did not sort this conference: Milwaukee scored sixteen all season and lost only five matches, conceding fourteen.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -80,7 +80,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Northern Kentucky have one win all season, against three draws and thirteen defeats.",
+      "text": "Northern Kentucky has one win all season, against three draws and thirteen defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -124,10 +124,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:49:42.246Z",
-    "generate_ms": 87000,
-    "validate_ms": 1,
-    "wall_ms": 87001,
+    "started_at": "2026-11-24T19:34:18.518Z",
+    "generate_ms": 32414,
+    "validate_ms": 2,
+    "wall_ms": 32416,
     "concurrency": 4
   }
 }

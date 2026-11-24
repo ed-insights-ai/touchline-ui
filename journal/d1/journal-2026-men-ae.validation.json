@@ -4,12 +4,12 @@
   "season": 2026,
   "gender": "men",
   "conference": "AE",
-  "validated_at": "2026-11-20T17:47:46.509Z",
-  "data_collected_at": "2026-11-20T13:17:14+00:00",
+  "validated_at": "2026-11-24T19:33:40.664Z",
+  "data_collected_at": "2026-11-24T14:27:52+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
-    "checked": 12,
-    "verified": 12,
+    "checked": 13,
+    "verified": 13,
     "contradicted": 0,
     "unverifiable": 0,
     "dropped": 0
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "NJIT's goals have come at a cost at the back: they have conceded 30 and lost six times, more defeats than Bryant and Vermont together.",
+      "text": "NJIT's goals have come at a cost at the back: the program has conceded 30 and lost six times, more defeats than Bryant and Vermont together.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Bryant have won fourteen matches, more than any other side in the conference, and lost twice.",
-      "checker": "team_record+comparative",
+      "text": "Outside conference play, AE programs have won 37 matches against 21 defeats, scoring 115 goals and conceding 88.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Vermont have had goals from fourteen different players.",
+      "text": "Vermont has had goals from fourteen different players.",
       "checker": "distinct_scorers",
       "verdict": "verified",
       "mismatches": [],
@@ -74,7 +74,16 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Binghamton have won twice all season, against nine defeats.",
+      "text": "Niklas Herceg has kept nine shutouts for Vermont while allowing twelve goals.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Binghamton has won twice all season, against nine defeats.",
       "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -110,7 +119,7 @@
     {
       "path": "featured.last_match",
       "label": "observed",
-      "text": "2026-11-19 bryant v hcu",
+      "text": "2026-11-22 smu v bryant",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -119,7 +128,7 @@
     {
       "path": "featured.next_match",
       "label": "observed",
-      "text": "2026-11-22 clemson v vermont",
+      "text": "2026-11-29 kansas-city v vermont",
       "checker": "fixture_ref",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T17:45:53.448Z",
-    "generate_ms": 113059,
-    "validate_ms": 1,
-    "wall_ms": 113060,
+    "started_at": "2026-11-24T19:30:49.103Z",
+    "generate_ms": 171456,
+    "validate_ms": 2,
+    "wall_ms": 171562,
     "concurrency": 4
   }
 }

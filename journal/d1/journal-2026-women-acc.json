@@ -3,35 +3,38 @@
   "season": 2026,
   "gender": "women",
   "conference": "ACC",
-  "generated_at": "2026-11-21T15:40:00+00:00",
-  "data_collected_at": "2026-11-21T15:18:31+00:00",
-  "headline": "North Carolina wins more matches than any ACC side",
-  "dek": "North Carolina has won seventeen times and lost twice, and since finishing behind Notre Dame in the conference table it has beaten Duke and then Virginia. Notre Dame lost to Virginia in the same week.",
+  "generated_at": "2026-11-24T14:40:00+00:00",
+  "data_collected_at": "2026-11-24T14:35:23+00:00",
+  "headline": "Wake Forest climbs to fifteen wins",
+  "dek": "Wake Forest has won fifteen matches and lost three, scoring 41 goals and conceding sixteen after beating Boston University away. That leaves it ahead of Notre Dame in overall wins despite finishing behind it in the conference table.",
   "lede_basis": {
-    "programme": "north-carolina",
-    "wins": 17,
-    "draws": 0,
-    "losses": 2,
+    "programme": "wake-forest",
+    "wins": 15,
+    "draws": 1,
+    "losses": 3,
+    "gf": 41,
+    "ga": 16,
     "comparative": "greater_than_each",
     "metric": "wins",
-    "of_any": 16
+    "of": ["notre-dame"]
   },
-  "lede_updated": "2026-11-21",
+  "lede_updated": "2026-11-24",
+  "displaced_by": "North Carolina's eighteenth win made the previous dek stale; Wake Forest reached fifteen wins at Boston University",
   "pattern": {
     "label": "derived",
     "text": "Goals have not decided the table: Louisville has scored more than Notre Dame and more than Wake Forest, yet finishes below both in conference play.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "north-carolina": 54,
-        "duke": 45,
+        "north-carolina": 59,
+        "duke": 48,
         "louisville": 44,
         "notre-dame": 41,
         "stanford": 41,
         "virginia": 41,
+        "wake-forest": 41,
         "nc-state": 40,
         "boston-college": 38,
-        "wake-forest": 37,
         "smu": 34,
         "virginia-tech": 33,
         "florida-state": 30,
@@ -66,13 +69,24 @@
   "findings": [
     {
       "label": "observed",
-      "text": "Bella Devey, a North Carolina midfielder, has scored eighteen goals from 64 shots.",
+      "text": "Bella Devey, a North Carolina midfielder, has scored nineteen goals from 68 shots.",
       "basis": {
         "source": "stats",
         "player": "Bella Devey",
         "programme": "north-carolina",
-        "goals": 18,
-        "shots": 64
+        "goals": 19,
+        "shots": 68
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mia Minestrella, a Duke forward, has scored nineteen goals from 84 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Mia Minestrella",
+        "programme": "duke",
+        "goals": 19,
+        "shots": 84
       }
     },
     {
@@ -113,18 +127,18 @@
   ],
   "players_to_watch": [
     {
-      "player": "Bella Devey",
-      "programme": "north-carolina",
-      "position": "MID",
-      "class": "SO",
-      "line": "18 G · 1 A · 64 shots"
-    },
-    {
       "player": "Mia Minestrella",
       "programme": "duke",
       "position": "FWD",
       "class": "SR",
-      "line": "17 G · 2 A · 77 shots"
+      "line": "19 G · 2 A · 84 shots"
+    },
+    {
+      "player": "Bella Devey",
+      "programme": "north-carolina",
+      "position": "MID",
+      "class": "SO",
+      "line": "19 G · 1 A · 68 shots"
     },
     {
       "player": "Addison Halpern",
@@ -136,16 +150,16 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-20 louisville v wisconsin",
-      "line": "Louisville was the only ACC side beaten on the day."
+      "fixture_ref": "2026-11-21 clemson v brown",
+      "line": "Clemson was the only ACC side that did not win on the day."
     },
     "next_match": {
-      "fixture_ref": "2026-11-21 north-carolina v unc-asheville",
-      "line": "North Carolina has not lost since Wake Forest beat it in October."
+      "fixture_ref": "2026-11-27 south-carolina v florida-state",
+      "line": "South Carolina has already beaten Clemson and lost to Wake Forest this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:01:59.941Z"
+    "validated_at": "2026-11-24T19:54:25.654Z"
   }
 }

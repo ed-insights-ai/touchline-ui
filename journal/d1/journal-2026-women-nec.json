@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NEC",
-  "generated_at": "2026-11-21T15:40:00+00:00",
-  "data_collected_at": "2026-11-21T15:26:05+00:00",
+  "generated_at": "2026-11-23T17:15:00+00:00",
+  "data_collected_at": "2026-11-23T17:06:22+00:00",
   "headline": "FDU and Central Connecticut finish level on top",
   "dek": "FDU and Central Connecticut ended the conference schedule with identical records, and drew when they met again seven days after Central Connecticut's home win. FDU has conceded eleven goals in nineteen matches all season.",
   "lede_basis": {
@@ -60,6 +60,18 @@
       "losses": 8
     }
   },
+  "wire": {
+    "line": "Outside conference play, league sides have won nine matches and lost 58.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 9,
+      "draws": 13,
+      "losses": 58,
+      "gf": 62,
+      "ga": 189
+    },
+    "updated": "2026-11-23"
+  },
   "findings": [
     {
       "label": "observed",
@@ -72,14 +84,14 @@
     },
     {
       "label": "derived",
-      "text": "Melina Ford has been in goal for all seventeen goals Central Connecticut has conceded this season.",
+      "text": "Melina Ford has conceded 23 of Central Connecticut's 24 goals against this season.",
       "basis": {
         "source": "stats",
         "player": "Melina Ford",
         "programme": "central-connecticut",
-        "goals_against": 17,
+        "goals_against": 23,
         "gf": 31,
-        "ga": 17
+        "ga": 24
       }
     },
     {
@@ -125,16 +137,12 @@
   ],
   "featured": {
     "last_match": {
-      "fixture_ref": "2026-11-15 central-connecticut v fdu",
-      "line": "FDU has lost to no other conference side."
-    },
-    "next_match": {
       "fixture_ref": "2026-11-21 michigan-state v central-connecticut",
-      "line": "Central Connecticut has not lost since Wagner beat it in September."
+      "line": "Central Connecticut had not lost since Wagner beat it in September."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-21T17:10:34.416Z"
+    "validated_at": "2026-11-24T20:02:54.944Z"
   }
 }
