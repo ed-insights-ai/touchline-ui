@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "generated_at": "2026-11-24T14:35:00+00:00",
-  "data_collected_at": "2026-11-24T14:27:17+00:00",
+  "generated_at": "2026-11-25T14:30:00+00:00",
+  "data_collected_at": "2026-11-25T14:26:53+00:00",
   "headline": "Flagler takes the scoring lead into Fort Hays State",
   "dek": "Flagler beat Emory & Henry after drawing Francis Marion, leaving the program as the conference's lone side still playing. Sixteen wins, five draws, and one loss carry Flagler into Fort Hays State, backed by 52 goals scored against 24 conceded.",
   "lede_basis": {
@@ -26,7 +26,6 @@
     ]
   },
   "lede_updated": "2026-11-24",
-  "displaced_by": "Flagler played Francis Marion and Emory & Henry, took the conference scoring lead at 52 goals, and now faces Fort Hays State.",
   "pattern": {
     "label": "derived",
     "text": "Twelve different players have scored Flagler's 52 goals, spreading the conference's leading attack across the roster rather than leaning on a single scorer.",
@@ -174,6 +173,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-24T19:21:02.657Z"
+    "validated_at": "2026-11-25T15:59:44.822Z"
   }
 }

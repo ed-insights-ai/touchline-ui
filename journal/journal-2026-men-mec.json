@@ -3,19 +3,20 @@
   "season": 2026,
   "gender": "men",
   "conference": "MEC",
-  "generated_at": "2026-11-24T14:30:00+00:00",
-  "data_collected_at": "2026-11-24T14:26:47+00:00",
-  "headline": "Charleston shuts out Davis & Elkins",
-  "dek": "Charleston scored three unanswered goals against Davis & Elkins in the final match on the conference calendar, finishing with nineteen wins in 22 matches. The defeat was the second of the season for Davis & Elkins, whose defense still allowed thirteen goals, the fewest in the conference.",
+  "generated_at": "2026-11-25T14:30:00+00:00",
+  "data_collected_at": "2026-11-25T14:26:26+00:00",
+  "headline": "Charleston extends its season against Cal State San Bernardino",
+  "dek": "Charleston heads to Cal State San Bernardino after shutting out Davis & Elkins in its previous outing. The conference leader brings nineteen wins, one draw, and two losses into the road trip, having scored 60 goals against fourteen conceded.",
   "lede_basis": {
-    "charleston_goals_2026_11_22": 3,
-    "charleston_wins": 19,
-    "charleston_played": 22,
-    "davis_elkins_losses": 2,
-    "davis_elkins_ga": 13
+    "programme": "charleston",
+    "wins": 19,
+    "draws": 1,
+    "losses": 2,
+    "gf": 60,
+    "ga": 14
   },
-  "lede_updated": "2026-11-24",
-  "displaced_by": "Charleston beat Davis & Elkins in the final match on the calendar, leaving no upcoming matches.",
+  "lede_updated": "2026-11-25",
+  "displaced_by": "An upcoming match at Cal State San Bernardino was added to Charleston's schedule, making the previous dek's claim that the calendar had ended untrue.",
   "pattern": {
     "label": "derived",
     "text": "Charleston has scored more goals than West Liberty and Wheeling together, and seventeen different players have shared its 60; the scoring is spread, not carried.",
@@ -71,7 +72,7 @@
     },
     {
       "label": "observed",
-      "text": "Frank Stare has nine goals and five assists for Frostburg State from thirty-nine shots.",
+      "text": "Frank Stare has nine goals and five assists for Frostburg State from 39 shots.",
       "basis": {
         "source": "stats",
         "player": "Frank Stare",
@@ -95,7 +96,7 @@
     },
     {
       "label": "observed",
-      "text": "Shai'ya Fitzgerald has made sixty-four saves for West Liberty and conceded sixteen goals.",
+      "text": "Shai'ya Fitzgerald has made 64 saves for West Liberty and conceded sixteen goals.",
       "basis": {
         "source": "stats",
         "player": "Shai'ya Fitzgerald",
@@ -106,7 +107,7 @@
     },
     {
       "label": "observed",
-      "text": "Gregory Lynch has made eighty-nine saves for Salem and conceded thirty goals.",
+      "text": "Gregory Lynch has made 89 saves for Salem and conceded 30 goals.",
       "basis": {
         "source": "stats",
         "player": "Gregory Lynch",
@@ -143,10 +144,14 @@
     "last_match": {
       "fixture_ref": "2026-11-22 charleston v davis-elkins",
       "line": "It is the most Davis & Elkins has conceded in any match this season."
+    },
+    "next_match": {
+      "fixture_ref": "2026-12-03 cal-state-san-bernardino v charleston",
+      "line": "Charleston has yet to lose an away match this season."
     }
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-24T19:12:45.331Z"
+    "validated_at": "2026-11-25T16:00:07.934Z"
   }
 }

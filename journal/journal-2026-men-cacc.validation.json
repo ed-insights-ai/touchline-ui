@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "CACC",
-  "validated_at": "2026-11-20T12:39:59.369Z",
-  "data_collected_at": "2026-11-20T12:30:15+00:00",
+  "validated_at": "2026-11-25T16:00:02.812Z",
+  "data_collected_at": "2026-11-25T14:56:17+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Goals have not decided the table: Bridgeport have scored 49 and conceded 41, in a season of nine wins, three draws and eight defeats.",
+      "text": "Goals have not decided the table: Bridgeport has scored 49 and conceded 41 in a season of nine wins, three draws, and eight defeats.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -56,7 +56,7 @@
     {
       "path": "findings[1]",
       "label": "observed",
-      "text": "Goldey-Beacom have conceded 58 goals, more than any other programme in the conference.",
+      "text": "Goldey-Beacom has conceded 58 goals, more than any other program in the conference.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -127,10 +127,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-20T12:39:31.651Z",
-    "generate_ms": 27717,
-    "validate_ms": 1,
-    "wall_ms": 27718,
-    "concurrency": 4
+    "started_at": "2026-11-25T15:53:56.150Z",
+    "generate_ms": 366657,
+    "validate_ms": 4,
+    "wall_ms": 366662,
+    "concurrency": 7
   }
 }
