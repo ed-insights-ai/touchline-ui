@@ -140,8 +140,11 @@ describe("divisionHref", () => {
     );
   });
 
-  test("a division with no build at all has no address", () => {
-    expect(divisionHref("d3", "/touchline-ui", "men", "d2", both)).toBeNull();
+  test("Division III is served under /d3", () => {
+    expect(divisionHref("d3", "/touchline-ui", "men", "d2", both)).toBe("/touchline-ui/d3/");
+    expect(divisionHref("d3", "/touchline-ui/d1/women", "women", "d1", both)).toBe(
+      "/touchline-ui/d3/women/",
+    );
   });
 });
 
@@ -156,8 +159,7 @@ describe("the NCAA division as a build dimension", () => {
     expect(publishedDivisionsFromEnv(undefined, "d2")).toEqual(["d2"]);
     expect(publishedDivisionsFromEnv("d2,d1", "d2")).toEqual(["d1", "d2"]);
     expect(publishedDivisionsFromEnv("d2", "d1")).toEqual(["d1", "d2"]);
-    // Division III has no profile, so listing it publishes nothing.
-    expect(publishedDivisionsFromEnv("d3", "d2")).toEqual(["d2"]);
+    expect(publishedDivisionsFromEnv("d2,d1,d3", "d2")).toEqual(["d1", "d2", "d3"]);
   });
 
   test("the builds: every listed division in every gender it fields", () => {

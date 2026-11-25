@@ -637,11 +637,16 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     expect(GLYPHS.length).toBeGreaterThanOrEqual(4);
     expect(GLYPHS.slice(0, 4)).toEqual(["disc", "ring", "diamond", "hollow-diamond"]);
     expect([0, 1, 2, 3].map(glyphAt)).toEqual([...GLYPHS.slice(0, 4)]);
-    expect(glyphAt(GLYPHS.length) as string).toBe(GLYPHS[0]);
+    expect(glyphAt(GLYPHS.length) as string).toBe(GLYPHS[1]);
+    const marks = Array.from(
+      { length: HUE_COUNT * GLYPHS.length },
+      (_, i) => `${glyphAt(i)} ${hueAt(i)}`,
+    );
+    expect(new Set(marks).size).toBe(marks.length);
     for (const b of homeBands(columns)) {
       const glyphs = b.columns.map((c) => bandGlyphs(homeBands(columns))[c.key]);
       expect(glyphs).toEqual(b.columns.map((_, i) => glyphAt(i)));
-      expect(new Set(glyphs).size).toBe(b.columns.length);
+      expect(new Set(glyphs).size).toBe(Math.min(b.columns.length, GLYPHS.length));
     }
   });
 
@@ -654,7 +659,7 @@ describe("up to the column cap the page is columns; past it, region bands", () =
     for (const b of homeBands(columns)) {
       const hues = b.columns.map((c) => bandHues(homeBands(columns))[c.key]);
       expect(hues).toEqual(b.columns.map((_, i) => hueAt(i)));
-      expect(new Set(hues).size).toBe(b.columns.length);
+      expect(new Set(hues).size).toBe(Math.min(b.columns.length, HUE_COUNT));
     }
   });
 
