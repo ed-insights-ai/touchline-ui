@@ -368,9 +368,14 @@ export const GLYPHS = [
 ] as const;
 export type Glyph = (typeof GLYPHS)[number];
 
-/** The glyph for the conference at this position in its band. */
-export const glyphAt = (position: number): Glyph =>
-  GLYPHS[((position % GLYPHS.length) + GLYPHS.length) % GLYPHS.length] as Glyph;
+/** The glyph for the conference at this position in its band. Past the sixth
+ *  position the glyphs step one along each time the hues wrap, so no two
+ *  conferences in a band of up to thirty-six wear the same glyph and hue. */
+export const glyphAt = (position: number): Glyph => {
+  const n = GLYPHS.length;
+  const p = Math.max(0, Math.trunc(position));
+  return GLYPHS[(p + Math.floor(p / HUE_COUNT)) % n] as Glyph;
+};
 
 /** Conference key → glyph, read off the bands. */
 export function bandGlyphs(
