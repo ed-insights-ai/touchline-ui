@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "PBC",
-  "validated_at": "2026-11-24T19:21:02.657Z",
-  "data_collected_at": "2026-11-24T14:27:17+00:00",
+  "validated_at": "2026-11-25T15:59:44.822Z",
+  "data_collected_at": "2026-11-25T14:26:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 13,
@@ -136,10 +136,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-24T19:13:56.995Z",
-    "generate_ms": 425660,
-    "validate_ms": 2,
-    "wall_ms": 425662,
-    "concurrency": 4
+    "started_at": "2026-11-25T15:53:56.182Z",
+    "generate_ms": 348637,
+    "validate_ms": 4,
+    "wall_ms": 348641,
+    "concurrency": 7
   }
 }

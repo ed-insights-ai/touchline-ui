@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "NSIC",
-  "validated_at": "2026-11-24T19:25:59.309Z",
-  "data_collected_at": "2026-11-23T16:26:43+00:00",
+  "validated_at": "2026-11-25T16:11:38.293Z",
+  "data_collected_at": "2026-11-25T14:29:06+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 12,
@@ -128,10 +128,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-24T19:23:40.087Z",
-    "generate_ms": 139215,
-    "validate_ms": 6,
-    "wall_ms": 139222,
-    "concurrency": 4
+    "started_at": "2026-11-25T16:05:47.081Z",
+    "generate_ms": 351202,
+    "validate_ms": 9,
+    "wall_ms": 351212,
+    "concurrency": 3
   }
 }

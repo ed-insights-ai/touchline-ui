@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "women",
   "conference": "SOUTHLAND",
-  "generated_at": "2026-11-23T17:00:00+00:00",
-  "data_collected_at": "2026-11-23T16:45:54+00:00",
+  "generated_at": "2026-11-25T15:00:00+00:00",
+  "data_collected_at": "2026-11-25T14:48:47+00:00",
   "headline": "Lamar tops the Southland with a defense no rival matched",
   "dek": "Lamar conceded 14 goals in all its matches, fewer than any other Southland program, and lost only three times. It scored 40, well short of Northwestern State's total, and finished above it all the same.",
   "lede_basis": {
@@ -18,7 +18,7 @@
   "lede_updated": "2026-11-21",
   "pattern": {
     "label": "derived",
-    "text": "Goals did not buy Northwestern State safety: it conceded 50, more than any other program, and its 11 wins came with ten losses.",
+    "text": "Goals did not buy Northwestern State safety: it conceded 50, more than any other program, and its eleven wins came with ten losses.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
@@ -83,7 +83,7 @@
     },
     {
       "label": "derived",
-      "text": "Marissa Gross, a midfielder, scored 12 of Lamar's 40 goals.",
+      "text": "Marissa Gross, a midfielder, scored twelve of Lamar's 40 goals.",
       "basis": {
         "source": "stats",
         "player": "Marissa Gross",
@@ -94,7 +94,7 @@
     },
     {
       "label": "observed",
-      "text": "Shannon Dempsey conceded 10 goals for McNeese while making 70 saves, a save percentage of .875.",
+      "text": "Shannon Dempsey conceded ten goals for McNeese while making 70 saves, a save percentage of .875.",
       "basis": {
         "source": "stats",
         "player": "Shannon Dempsey",
@@ -148,6 +148,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-24T20:03:53.342Z"
+    "validated_at": "2026-11-25T16:35:01.426Z"
   }
 }
