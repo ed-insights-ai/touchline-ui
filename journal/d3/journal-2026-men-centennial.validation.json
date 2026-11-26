@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-centennial.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CENTENNIAL",
+  "validated_at": "2026-11-26T02:48:50.488Z",
+  "data_collected_at": "2026-11-25T14:01:56+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring separates sharply at the extremes of the Centennial: Haverford's 45 goals surpass Washington College and Franklin & Marshall combined, leaving the lowest-scoring programs well behind a tightly bunched middle.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Johns Hopkins finished with fourteen wins, two draws, and five losses overall while topping the Centennial table.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "McDaniel finished with nine wins, two draws, and eight losses overall, scoring 33 goals and allowing 30 despite sitting bottom of the conference table.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Washington College drew six matches, more than any other Centennial program, as part of a season with three wins and seven losses.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is muhlenberg at 3"
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Swarthmore spread its attack across at least fifteen different goal scorers.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Ursinus goalkeeper Josiah Moore recorded 66 saves and six shutouts while conceding eighteen goals.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Five scheduled matches have passed their dates with no published result, including Dickinson's trip to Lebanon Valley and Muhlenberg's visit to Rutgers-Camden.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Charles Sharp — 15 G · 5 A · 70 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Thomas Vanni — 10 G · 5 A · 64 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Nicholas Clarke — 10 G · 2 A · 56 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-15 williams v johns-hopkins",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T02:40:20.871Z",
+    "generate_ms": 509610,
+    "validate_ms": 6,
+    "wall_ms": 509617,
+    "concurrency": 8
+  }
+}

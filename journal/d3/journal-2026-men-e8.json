@@ -1,0 +1,148 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "E8",
+  "generated_at": "2026-11-25T16:30:00+00:00",
+  "data_collected_at": "2026-11-25T16:25:52+00:00",
+  "headline": "Nazareth sets the pace across the E8",
+  "dek": "Nazareth won eleven matches, more than any other program in the conference, alongside five losses and one draw. That margin rested on a defense that conceded fifteen goals while the attack produced 32, pairing the top win total with steady control at both ends.",
+  "lede_basis": {
+    "programme": "nazareth",
+    "wins": 11,
+    "draws": 1,
+    "losses": 5,
+    "gf": 32,
+    "ga": 15,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-25",
+  "pattern": {
+    "label": "observed",
+    "text": "Scoring volume did not translate into wins: Houghton scored 41 goals yet conceded 32 and finished with seven wins, four draws, and eight losses.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "houghton": 41,
+        "nazareth": 32,
+        "hartwick": 30,
+        "alfred": 28,
+        "st-john-fisher": 26,
+        "brockport": 25,
+        "utica": 22,
+        "elmira": 20,
+        "keuka": 10,
+        "russell-sage": 10,
+        "suny-poly": 6,
+        "geneseo": 0
+      },
+      "highlight": "houghton"
+    },
+    "basis": {
+      "programme": "houghton",
+      "gf": 41,
+      "ga": 32,
+      "wins": 7,
+      "draws": 4,
+      "losses": 8
+    }
+  },
+  "wire": {
+    "line": "Non-conference opponents handed league sides 37 losses against 25 wins and eight draws.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 25,
+      "draws": 8,
+      "losses": 37,
+      "gf": 99,
+      "ga": 107
+    },
+    "updated": "2026-11-25"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Utica goalkeeper Zachary Accetta recorded a 0.892 save percentage across 83 saves, allowing ten goals and keeping six shutouts.",
+      "basis": {
+        "source": "stats",
+        "player": "Zachary Accetta",
+        "programme": "utica",
+        "saves": 83,
+        "goals_against": 10,
+        "shutouts": 6,
+        "save_pct": 0.892
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Keuka conceded 45 goals, more than any other program in the conference, while scoring ten in a season of fifteen losses, one win, and one draw.",
+      "basis": {
+        "programme": "keuka",
+        "wins": 1,
+        "draws": 1,
+        "losses": 15,
+        "gf": 10,
+        "ga": 45,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. John Fisher midfielder Adam Grover scored ten goals from 34 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Adam Grover",
+        "programme": "st-john-fisher",
+        "goals": 10,
+        "shots": 34
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Alfred spread its 28 goals across at least eleven different scorers.",
+      "basis": {
+        "programme": "alfred",
+        "gf": 28,
+        "ga": 18,
+        "distinct_scorers_min": 11
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Ryan Mathis",
+      "programme": "brockport",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 3 A · 77 shots"
+    },
+    {
+      "player": "Nata Souza",
+      "programme": "houghton",
+      "position": "FWD",
+      "class": "SO",
+      "line": "6 G · 8 A · 19 shots"
+    },
+    {
+      "player": "Devin Chandler",
+      "programme": "hartwick",
+      "position": "MID",
+      "class": "JR",
+      "line": "3 G · 9 A · 41 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 suny-geneseo v hartwick",
+      "line": "Hartwick played the entire season without a draw and entered on a winning run."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T02:51:00.591Z"
+  }
+}

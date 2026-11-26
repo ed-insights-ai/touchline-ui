@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-cciw.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CCIW",
+  "validated_at": "2026-11-26T02:49:40.361Z",
+  "data_collected_at": "2026-11-25T13:51:10+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "signal",
+      "text": "High goal totals have not guaranteed wins in the CCIW: Millikin scored 47 goals across the season, yet conceded 47 and finished with eight wins, one draw, and nine losses.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Illinois Wesleyan has conceded only nine goals all season while scoring 32.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Three scheduled August matches have passed without a published result: Carroll against Milwaukee School of Engineering, Augustana (Ill.) at Illinois Tech, and Augustana (Ill.) against Eureka.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Augustana (Ill.) goalkeeper Elias Banke has made 88 saves while allowing twenty goals for a 0.815 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "North Park freshman forward Gustav Finér has scored eleven goals on 70 shots while adding five assists.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Millikin has spread its attack across at least fourteen different goal scorers this season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "Carroll has conceded 54 goals across its matches, more than any other CCIW program.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is millikin at 47"
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Carson Belcher — 11 G · 6 A · 55 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Olav Kaldahl — 9 G · 10 A · 48 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Gustav Finér — 11 G · 5 A · 70 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-20 north-park v tufts",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T02:40:20.855Z",
+    "generate_ms": 559502,
+    "validate_ms": 3,
+    "wall_ms": 559506,
+    "concurrency": 8
+  }
+}

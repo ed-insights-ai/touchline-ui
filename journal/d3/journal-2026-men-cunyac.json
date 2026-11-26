@@ -1,0 +1,159 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "CUNYAC",
+  "generated_at": "2026-11-25T14:15:00+00:00",
+  "data_collected_at": "2026-11-25T14:12:38+00:00",
+  "headline": "Medgar Evers outpaces the conference in overall wins",
+  "dek": "Medgar Evers College posted eleven wins, three draws, and three losses across all competition, more wins than any other CUNYAC program. Its attack produced 51 goals while conceding 26, though Baruch College sits atop the conference table.",
+  "lede_basis": {
+    "programme": "medgar-evers-college",
+    "wins": 11,
+    "draws": 3,
+    "losses": 3,
+    "gf": 51,
+    "ga": 26,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": [
+      "baruch-college",
+      "brooklyn-college",
+      "ccny",
+      "hunter-college",
+      "john-jay",
+      "lehman-college",
+      "york-ny"
+    ]
+  },
+  "lede_updated": "2026-11-25",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring volume diverges from the conference standings: Medgar Evers College has 51 goals across all matches, more than CCNY and Lehman College combined, while table leader Baruch College sits in the middle of the distribution.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "medgar-evers-college": 51,
+        "john-jay": 43,
+        "brooklyn-college": 40,
+        "hunter-college": 34,
+        "baruch-college": 32,
+        "lehman-college": 25,
+        "ccny": 24,
+        "york-ny": 21
+      },
+      "highlight": "medgar-evers-college"
+    },
+    "basis": {
+      "programme": "medgar-evers-college",
+      "gf": 51,
+      "ga": 26,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["ccny", "lehman-college"]
+    }
+  },
+  "wire": {
+    "line": "York (N.Y.) conceded 100 goals across all matches, more than CCNY and Hunter College combined.",
+    "basis": {
+      "programme": "york-ny",
+      "gf": 21,
+      "ga": 100,
+      "comparative": "greater_than_sum",
+      "metric": "ga",
+      "of": ["ccny", "hunter-college"]
+    },
+    "updated": "2026-11-25"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Six late-August non-conference matches remain past their dates with no published result, affecting CCNY, John Jay, and Lehman College.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Against non-conference opponents, CUNYAC programs have 21 wins, twelve draws, and 32 losses, scoring 113 goals while conceding 166.",
+      "basis": {
+        "derived_from": "fixtures",
+        "wins": 21,
+        "draws": 12,
+        "losses": 32,
+        "gf": 113,
+        "ga": 166
+      }
+    },
+    {
+      "label": "observed",
+      "text": "John Jay forward Josh Clemas has seventeen goals and two assists from 49 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Josh Clemas",
+        "programme": "john-jay",
+        "goals": 17,
+        "assists": 2,
+        "shots": 49
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Medgar Evers College freshman Shackoneal Myrurrie has sixteen goals and five assists on 88 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Shackoneal Myrurrie",
+        "programme": "medgar-evers-college",
+        "goals": 16,
+        "assists": 5,
+        "shots": 88
+      }
+    },
+    {
+      "label": "observed",
+      "text": "John Jay goalkeeper Davio Rossi-levin has made 105 saves while conceding 33 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Davio Rossi-levin",
+        "programme": "john-jay",
+        "saves": 105,
+        "goals_against": 33
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Shackoneal Myrurrie",
+      "programme": "medgar-evers-college",
+      "position": "FWD",
+      "class": "FR",
+      "line": "16 G · 5 A · 88 shots"
+    },
+    {
+      "player": "Josh Clemas",
+      "programme": "john-jay",
+      "position": "FWD",
+      "class": "SR",
+      "line": "17 G · 2 A · 49 shots"
+    },
+    {
+      "player": "Georgios Tsiakas",
+      "programme": "hunter-college",
+      "position": "FWD",
+      "class": "SO",
+      "line": "7 G · 3 A · 51 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 williams v john-jay",
+      "line": "John Jay entered the season's final match on an unbeaten run against conference opponents."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T02:52:54.319Z"
+  }
+}

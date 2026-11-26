@@ -1,0 +1,144 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "ARC",
+  "generated_at": "2026-11-25T16:05:00+00:00",
+  "data_collected_at": "2026-11-25T16:04:04+00:00",
+  "headline": "Dubuque tops the table while Loras leads in wins",
+  "dek": "Loras finished with fifteen wins, two draws, and four losses across all matches, more victories than any other ARC program. Dubuque still claimed the top spot in conference play without a league defeat, while Loras's run stretched into mid-November.",
+  "lede_basis": {
+    "programme": "loras",
+    "wins": 15,
+    "draws": 2,
+    "losses": 4,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-25",
+  "pattern": {
+    "label": "derived",
+    "text": "Attacking output drops sharply down the table: Loras's 49 goals exceed the combined total of Buena Vista, Coe, and Simpson.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "loras": 49,
+        "dubuque": 36,
+        "wartburg": 29,
+        "central-ia": 28,
+        "nebraska-wesleyan": 26,
+        "buena-vista": 20,
+        "coe": 10,
+        "simpson": 8
+      },
+      "highlight": "loras"
+    },
+    "basis": {
+      "programme": "loras",
+      "gf": 49,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["buena-vista", "coe", "simpson"]
+    }
+  },
+  "wire": {
+    "line": "Member programs won 26, drew ten, and lost nineteen outside the league, scoring 94 goals and conceding 71.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 26,
+      "draws": 10,
+      "losses": 19,
+      "gf": 94,
+      "ga": 71
+    },
+    "updated": "2026-11-25"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Dubuque forward Jameson Carl scored eleven goals on 49 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Jameson Carl",
+        "programme": "dubuque",
+        "goals": 11,
+        "shots": 49
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Dubuque goalkeeper Riley Johnson made 64 saves while allowing eleven goals for a 0.853 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Riley Johnson",
+        "programme": "dubuque",
+        "saves": 64,
+        "goals_against": 11,
+        "save_pct": 0.853
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Nebraska Wesleyan scored 26 goals across at least thirteen different scorers.",
+      "basis": {
+        "programme": "nebraska-wesleyan",
+        "gf": 26,
+        "distinct_scorers_min": 13
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Buena Vista conceded 37 goals across the season, more than any other conference program.",
+      "basis": {
+        "programme": "buena-vista",
+        "ga": 37,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Four August matches are past their date with no published result: Central (Iowa) against Grinnell and William Penn, and Dubuque against Viterbo and UW-Platteville.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jameson Carl",
+      "programme": "dubuque",
+      "position": "FWD",
+      "class": "SO",
+      "line": "11 G · 49 shots"
+    },
+    {
+      "player": "Flori Gembo",
+      "programme": "wartburg",
+      "position": "MID",
+      "class": "JR",
+      "line": "6 G · 6 A · 64 shots"
+    },
+    {
+      "player": "Lance Grandgeorge",
+      "programme": "loras",
+      "position": "MID",
+      "class": "JR",
+      "line": "8 G · 1 A · 37 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 st-olaf v loras",
+      "line": "The defeat ends Loras's unbeaten run since the conference opener."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T02:59:11.299Z"
+  }
+}

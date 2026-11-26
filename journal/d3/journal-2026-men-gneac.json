@@ -1,0 +1,139 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GNEAC",
+  "generated_at": "2026-11-25T16:40:00+00:00",
+  "data_collected_at": "2026-11-25T16:39:07+00:00",
+  "headline": "Saint Joseph's (Maine) finishes conference play unbeaten",
+  "dek": "Saint Joseph's (Maine) lost just three times all season, pairing nine wins with eight draws while scoring 42 goals and conceding eighteen. Those draws kept it behind Emmanuel (Mass.) and Rivier in the conference table, even as its late run carried into November before ending at Middlebury.",
+  "lede_basis": {
+    "programme": "saint-josephs-me",
+    "wins": 9,
+    "draws": 8,
+    "losses": 3,
+    "gf": 42,
+    "ga": 18
+  },
+  "lede_updated": "2026-11-25",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring concentrates sharply at the top of the conference: Norwich's 44 goals exceed the combined output of Colby-Sawyer and New England College, underscoring the gulf between the attacking leaders and the lower half of the table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "norwich": 44,
+        "saint-josephs-me": 42,
+        "rivier": 37,
+        "emmanuel-ma": 31,
+        "colby-sawyer": 24,
+        "albertus-magnus": 18,
+        "new-england-college": 18,
+        "dean-college": 12,
+        "elms": 12,
+        "saint-joseph-ct": 11,
+        "regis-ma": 9,
+        "lasell": 5,
+        "mitchell": 5
+      },
+      "highlight": "norwich"
+    },
+    "basis": {
+      "programme": "norwich",
+      "gf": 44,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["colby-sawyer", "new-england-college"]
+    }
+  },
+  "wire": {
+    "line": "Rivier leads the conference with twelve overall wins, more than any other program.",
+    "basis": {
+      "programme": "rivier",
+      "wins": 12,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of_any": 1
+    },
+    "updated": "2026-11-25"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Saint Joseph's (Maine) forward Nick Marion leads the conference's published scoring table with ten goals and eight assists from 50 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Nick Marion",
+        "programme": "saint-josephs-me",
+        "goals": 10,
+        "assists": 8,
+        "shots": 50
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Saint Joseph's (Maine) goalkeeper Alex Bachmann made 105 saves while conceding eighteen goals, posting a 0.854 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Alex Bachmann",
+        "programme": "saint-josephs-me",
+        "saves": 105,
+        "goals_against": 18,
+        "save_pct": 0.854
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Rivier distributed its attack widely, with at least fourteen different players finding the net across the season.",
+      "basis": {
+        "programme": "rivier",
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Emmanuel (Mass.) paired its conference-leading finish with eleven wins, four draws, and seven losses overall, scoring 31 goals and conceding 22.",
+      "basis": {
+        "programme": "emmanuel-ma",
+        "wins": 11,
+        "draws": 4,
+        "losses": 7,
+        "gf": 31,
+        "ga": 22
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Rafael Matamoros",
+      "programme": "emmanuel-ma",
+      "position": "MID",
+      "class": "JR",
+      "line": "6 G · 5 A · 40 shots"
+    },
+    {
+      "player": "Kaden Lewis",
+      "programme": "colby-sawyer",
+      "position": "FWD",
+      "class": "SR",
+      "line": "7 G · 2 A · 52 shots"
+    },
+    {
+      "player": "David Pereira",
+      "programme": "rivier",
+      "position": "MID",
+      "class": "SO",
+      "line": "7 G · 2 A · 31 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 middlebury v saint-josephs-me",
+      "line": "Saint Joseph's (Maine) entered the match unbeaten in conference play and without a loss since early September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T03:00:10.893Z"
+  }
+}

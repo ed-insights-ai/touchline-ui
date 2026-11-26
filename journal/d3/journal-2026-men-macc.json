@@ -1,0 +1,131 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MACC",
+  "generated_at": "2026-11-25T14:25:00+00:00",
+  "data_collected_at": "2026-11-25T14:22:51+00:00",
+  "headline": "Messiah and Neumann share the conference summit",
+  "dek": "Messiah won nineteen matches, drew two, and lost only three across the season, yet still shared the top of the conference table with Neumann. At the other end of the standings, Albright and Alvernia completed conference play without a victory.",
+  "lede_basis": {
+    "programme": "messiah",
+    "wins": 19,
+    "draws": 2,
+    "losses": 3
+  },
+  "lede_updated": "2026-11-25",
+  "pattern": {
+    "label": "derived",
+    "text": "Messiah operated in a separate scoring class, scoring 70 goals while conceding 29—more offense than Stevenson and Albright produced together, with the rest of the conference clustered in a narrow band.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "messiah": 70,
+        "stevenson": 41,
+        "neumann": 37,
+        "york-pa": 37,
+        "widener": 34,
+        "alvernia": 29,
+        "eastern-pa": 28,
+        "hood": 25,
+        "albright": 20
+      },
+      "highlight": "messiah"
+    },
+    "basis": {
+      "programme": "messiah",
+      "gf": 70,
+      "ga": 29,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["stevenson", "albright"]
+    }
+  },
+  "wire": {
+    "line": "Neumann allowed fifteen goals all season while scoring 37 to finish level with Messiah atop the conference table.",
+    "basis": {
+      "programme": "neumann",
+      "gf": 37,
+      "ga": 15
+    },
+    "updated": "2026-11-25"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches in the conference schedule sit past their dates with no published result, and both belong to Albright: August trips to Chestnut Hill and Dickinson.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "albright",
+        "count": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Messiah sophomore Owen Resch produced fourteen goals and eleven assists from 95 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Owen Resch",
+        "programme": "messiah",
+        "goals": 14,
+        "assists": 11,
+        "shots": 95
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Eastern (Pa.) goalkeeper Michael Arcuri stopped 78 shots while conceding twenty goals for a 0.796 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Michael Arcuri",
+        "programme": "eastern-pa",
+        "saves": 78,
+        "goals_against": 20,
+        "save_pct": 0.796
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Stevenson spread its offense across at least sixteen different goal scorers while posting 41 goals for and 21 against.",
+      "basis": {
+        "programme": "stevenson",
+        "distinct_scorers_min": 16,
+        "gf": 41,
+        "ga": 21
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Owen Resch",
+      "programme": "messiah",
+      "position": "FWD",
+      "class": "SO",
+      "line": "14 G · 11 A · 95 shots"
+    },
+    {
+      "player": "Brady Divito",
+      "programme": "albright",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 1 A · 39 shots"
+    },
+    {
+      "player": "Zach Sievert",
+      "programme": "eastern-pa",
+      "position": "FWD",
+      "class": "SR",
+      "line": "9 G · 4 A · 72 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 amherst v messiah",
+      "line": "Messiah closed the season with the conference's highest goal total and its most wins."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T02:58:55.340Z"
+  }
+}

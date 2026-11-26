@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-gneac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "GNEAC",
+  "validated_at": "2026-11-26T03:00:10.893Z",
+  "data_collected_at": "2026-11-25T16:39:07+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring concentrates sharply at the top of the conference: Norwich's 44 goals exceed the combined output of Colby-Sawyer and New England College, underscoring the gulf between the attacking leaders and the lower half of the table.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Rivier leads the conference with twelve overall wins, more than any other program.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is emmanuel-ma at 11"
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Saint Joseph's (Maine) forward Nick Marion leads the conference's published scoring table with ten goals and eight assists from 50 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Saint Joseph's (Maine) goalkeeper Alex Bachmann made 105 saves while conceding eighteen goals, posting a 0.854 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Rivier distributed its attack widely, with at least fourteen different players finding the net across the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Emmanuel (Mass.) paired its conference-leading finish with eleven wins, four draws, and seven losses overall, scoring 31 goals and conceding 22.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Rafael Matamoros — 6 G · 5 A · 40 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Kaden Lewis — 7 G · 2 A · 52 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "David Pereira — 7 G · 2 A · 31 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 middlebury v saint-josephs-me",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T02:49:40.450Z",
+    "generate_ms": 630441,
+    "validate_ms": 2,
+    "wall_ms": 630443,
+    "concurrency": 8
+  }
+}

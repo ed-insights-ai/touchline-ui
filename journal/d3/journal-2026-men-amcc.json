@@ -1,0 +1,147 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "AMCC",
+  "generated_at": "2026-11-25T16:05:00+00:00",
+  "data_collected_at": "2026-11-25T16:04:06+00:00",
+  "headline": "Penn State Behrend stands alone without a defeat",
+  "dek": "Across all matches, Penn State Behrend has won four and drawn one without a loss, conceding just one goal while scoring twelve. Seven different scorers have carried the attack, giving the program an unbeaten record that no other AMCC side matches.",
+  "lede_basis": {
+    "programme": "penn-state-behrend",
+    "wins": 4,
+    "draws": 1,
+    "losses": 0,
+    "gf": 12,
+    "ga": 1,
+    "distinct_scorers_min": 7
+  },
+  "lede_updated": "2026-11-25",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the conference splits sharply at the top: Mount Aloysius has scored 46 goals across fourteen different players, more than Hilbert, Penn State Behrend, La Roche, Pitt-Bradford, Penn State Altoona, and Carlow combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "mount-aloysius": 46,
+        "pitt-greensburg": 40,
+        "hilbert": 12,
+        "penn-state-behrend": 12,
+        "la-roche": 5,
+        "pitt-bradford": 3,
+        "penn-state-altoona": 2,
+        "carlow": 0
+      },
+      "highlight": "mount-aloysius"
+    },
+    "basis": {
+      "programme": "mount-aloysius",
+      "gf": 46,
+      "distinct_scorers_min": 14,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": [
+        "hilbert",
+        "penn-state-behrend",
+        "la-roche",
+        "pitt-bradford",
+        "penn-state-altoona",
+        "carlow"
+      ]
+    }
+  },
+  "wire": {
+    "line": "Hilbert has conceded 53 goals, more than any two other programs in the conference combined.",
+    "basis": {
+      "programme": "hilbert",
+      "ga": 53,
+      "comparative": "greater_than_sum",
+      "metric": "ga",
+      "of_any": 2
+    },
+    "updated": "2026-11-25"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches have passed their scheduled dates with no published result, and both belong to Pitt-Greensburg: home against Bethany and away at Seton Hill.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2,
+        "set": "past_date_no_result",
+        "all_of": "pitt-greensburg",
+        "count": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pitt-Greensburg forward Matt Armenio has scored fourteen goals and added two assists on 44 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Matt Armenio",
+        "programme": "pitt-greensburg",
+        "goals": 14,
+        "assists": 2,
+        "shots": 44
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hilbert goalkeeper Colten Wolowski has made 96 saves while conceding 48 goals for a 0.667 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Colten Wolowski",
+        "programme": "hilbert",
+        "saves": 96,
+        "goals_against": 48,
+        "save_pct": 0.667
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Carlow has lost all three of its matches without scoring, conceding fourteen goals.",
+      "basis": {
+        "programme": "carlow",
+        "wins": 0,
+        "draws": 0,
+        "losses": 3,
+        "gf": 0,
+        "ga": 14
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Matt Armenio",
+      "programme": "pitt-greensburg",
+      "position": "FWD",
+      "class": "SR",
+      "line": "14 G · 2 A · 44 shots"
+    },
+    {
+      "player": "Gonzalo Terricabris",
+      "programme": "mount-aloysius",
+      "position": "FWD",
+      "class": "SR",
+      "line": "12 G · 2 A · 60 shots"
+    },
+    {
+      "player": "Zack Marshfield",
+      "programme": "mount-aloysius",
+      "position": "DEF",
+      "class": "FR",
+      "line": "4 G · 9 A · 23 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 pitt-greensburg v delaware-valley",
+      "line": "The loss closes Pitt-Greensburg's season on a losing streak without a win since its victory at Penn State Altoona."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T02:55:05.456Z"
+  }
+}

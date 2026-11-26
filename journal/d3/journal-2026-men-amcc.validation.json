@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-amcc.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "AMCC",
+  "validated_at": "2026-11-26T02:55:05.456Z",
+  "data_collected_at": "2026-11-25T16:04:06+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring in the conference splits sharply at the top: Mount Aloysius has scored 46 goals across fourteen different players, more than Hilbert, Penn State Behrend, La Roche, Pitt-Bradford, Penn State Altoona, and Carlow combined.",
+      "checker": "distinct_scorers+team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Hilbert has conceded 53 goals, more than any two other programs in the conference combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "\"any 2 others\" was held against the strongest 2: mount-aloysius 28 + pitt-greensburg 20"
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Two matches have passed their scheduled dates with no published result, and both belong to Pitt-Greensburg: home against Bethany and away at Seton Hill.",
+      "checker": "unresolved+set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Pitt-Greensburg forward Matt Armenio has scored fourteen goals and added two assists on 44 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Hilbert goalkeeper Colten Wolowski has made 96 saves while conceding 48 goals for a 0.667 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Carlow has lost all three of its matches without scoring, conceding fourteen goals.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Matt Armenio — 14 G · 2 A · 44 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Gonzalo Terricabris — 12 G · 2 A · 60 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Zack Marshfield — 4 G · 9 A · 23 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 pitt-greensburg v delaware-valley",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T02:40:20.842Z",
+    "generate_ms": 884611,
+    "validate_ms": 2,
+    "wall_ms": 884614,
+    "concurrency": 8
+  }
+}
