@@ -19,7 +19,9 @@ import {
   PHASE_LIVE,
   PHASE_TOURNAMENT,
 } from "../lib/journal.ts";
+import PlayerCounts from "../components/PlayerCounts.astro";
 import { activeTiers } from "../lib/player-tier.ts";
+import { playerCount } from "../lib/players.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { chipFrom, type StageChip as Chip } from "../lib/stage.ts";
 import { site } from "../site.config.ts";
@@ -80,11 +82,15 @@ const sections = [
   { id: "evidence", label: "How to read the evidence" },
   { id: "checked", label: "What is checked" },
   { id: "source", label: "Where it comes from" },
+  { id: "players", label: "Who plays" },
 ] as const;
 // And the method page for player tiers, which exists only while the tiers are
 // on (tiers.config.ts). The entry sits against the list before it in the
 // markup so that, with them off, this page is the page it was.
 const tiersOn = activeTiers() !== null;
+
+// The rosters' head count, this build's and every other published build's.
+const players = playerCount(seasons);
 
 const stamp = (iso: string): string =>
   `${monShort(iso.slice(0, 10))} ${dayOfMonth(iso.slice(0, 10))}, ${iso.slice(11, 16)} UTC`;
@@ -331,6 +337,11 @@ const stamp = (iso: string): string =>
           );
         })}
       </dl>
+    </section>
+
+    <section class="band" id="players">
+      <h2 class="sechead">WHO PLAYS</h2>
+      <PlayerCounts own={players} />
     </section>
 
     <SiteFooter seasons={seasons} />
