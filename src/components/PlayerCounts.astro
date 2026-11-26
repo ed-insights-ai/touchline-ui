@@ -1,0 +1,125 @@
+---
+// Players on the rosters, every published build side by side: one bar per
+// division and gender, scaled to the largest. Each build writes only its own
+// count (pages/players.json.ts); this build's row is printed from its own data
+// and the rest are read from their builds' players.json in the browser, so no
+// build reads another's data home. A build that does not answer keeps its dash
+// and draws no bar, and with scripting off the page still prints its own row.
+import { rootBase } from "../lib/gender.ts";
+import type { PlayerCount } from "../lib/players.ts";
+import {
+  currentDivision,
+  ncaaDivisions,
+  publishedBuilds,
+  publishedDivisions,
+  deployGenders,
+  site,
+} from "../site.config.ts";
+
+interface Props {
+  own: PlayerCount;
+}
+
+const { own } = Astro.props;
+const base = (import.meta.env.BASE_URL ?? "/").replace(/\/+$/, "");
+const root = rootBase(base, site.gender, site.ncaaDivision);
+const abbr = new Map(ncaaDivisions.map((d) => [d.key, d.abbr]));
+const fmt = (n: number): string => n.toLocaleString("en-US");
+const title = { men: "Men", women: "Women" } as const;
+
+const rows = publishedBuilds(publishedDivisions, deployGenders).map((b, i, all) => {
+  const mine = b.division === site.ncaaDivision && b.gender === site.gender;
+  return {
+    ...b,
+    mine,
+    division: abbr.get(b.division) ?? b.division,
+    // The division's abbreviation heads its first row only.
+    first: all.findIndex((x) => x.division === b.division) === i,
+    src: `${root}${b.path}/players.json`,
+    href: `${root}${b.path}/`,
+  };
+});
+const single = rows.length <= 1;
+---
+
+<figure class="pc" data-player-counts>
+  <div class="pc-rows num">
+    {rows.map((r) => (
+      <div class:list={["pc-row", { "is-mine": r.mine, "is-first": r.first }]} data-src={r.mine ? null : r.src}>
+        <span class="pc-div">{r.first ? r.division : ""}</span>
+        <a class="pc-gender" href={r.href}>{title[r.gender]}</a>
+        <span class="pc-track" aria-hidden="true">
+          <span class="pc-bar" style={r.mine && single ? "width: 100%" : undefined} data-n={r.mine ? own.players : null}></span>
+        </span>
+        <span class="pc-n" data-n={r.mine ? own.players : null}>{r.mine ? fmt(own.players) : "—"}</span>
+      </div>
+    ))}
+  </div>
+  <figcaption class="pc-cap">
+    Every name on the {site.season} rosters of the programs each edition follows, each
+    program counted once. {currentDivision.name} {site.gender}'s: {fmt(own.players)}{" "}
+    {own.players === 1 ? "player" : "players"} from {own.rostered} of {own.programmes}{" "}
+    programs' rosters; a roster page that yielded nothing adds none.
+  </figcaption>
+</figure>
+
+<script is:inline>
+  (function () {
+    var fig = document.querySelector("[data-player-counts]");
+    if (!fig || !window.fetch) return;
+    var rows = Array.prototype.slice.call(fig.querySelectorAll(".pc-row"));
+    var fmt = function (n) { return n.toLocaleString("en-US"); };
+    var draw = function () {
+      var ns = rows.map(function (r) { return Number(r.querySelector(".pc-n").getAttribute("data-n")) || 0; });
+      var max = Math.max.apply(null, ns);
+      if (!(max > 0)) return;
+      rows.forEach(function (r, i) {
+        var bar = r.querySelector(".pc-bar");
+        if (ns[i] > 0) bar.style.width = ((ns[i] / max) * 100).toFixed(2) + "%";
+      });
+    };
+    Promise.all(rows.map(function (r) {
+      var src = r.getAttribute("data-src");
+      if (!src) return null;
+      return fetch(src).then(function (res) { return res.ok ? res.json() : null; }).then(function (f) {
+        if (!f || typeof f.players !== "number") return;
+        var n = r.querySelector(".pc-n");
+        n.setAttribute("data-n", String(f.players));
+        n.textContent = fmt(f.players);
+      }).catch(function () {});
+    })).then(draw);
+  })();
+</script>
+
+<style>
+  .pc { margin: 4px 0 0; }
+  .pc-rows {
+    display: grid; grid-template-columns: 52px 76px minmax(0, 1fr) 64px;
+    column-gap: 0; align-items: stretch;
+  }
+  .pc-row { display: contents; }
+  .pc-row > * { padding: 7px 0; border-top: 1px solid var(--hairline-soft); }
+  .pc-div, .pc-gender, .pc-track { padding-right: 12px; }
+  .pc-row:not(.is-first) > .pc-div { border-top-color: transparent; }
+  .pc-div, .pc-gender, .pc-n { display: flex; align-items: center; }
+  .pc-n { justify-content: flex-end; }
+  .pc-div { font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600; color: var(--ink); }
+  .pc-gender { font-size: 12.5px; color: var(--secondary); }
+  .pc-gender:hover { color: var(--accent-hover); }
+  .pc-track { display: flex; align-items: center; align-self: stretch; }
+  .pc-bar {
+    display: block; height: 10px; width: 0; background: var(--fainter); border-radius: 1px;
+    transition: width 0.4s ease-out;
+  }
+  .is-mine .pc-bar { background: var(--accent); }
+  .is-mine .pc-gender { color: var(--ink); font-weight: 600; }
+  .pc-n { text-align: right; font-size: 12.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .pc-cap {
+    margin: 12px 0 0; font-family: var(--serif); font-size: 14px; line-height: 1.5;
+    color: var(--quiet); text-wrap: pretty;
+  }
+  @media (prefers-reduced-motion: reduce) { .pc-bar { transition: none; } }
+  @media (max-width: 720px) {
+    .pc-rows { grid-template-columns: 40px 60px minmax(0, 1fr) 48px; }
+  }
+</style>

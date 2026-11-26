@@ -51,6 +51,7 @@ import {
 } from "../lib/home.ts";
 import { editorial, loadJournal, loadNationalJournal } from "../lib/journal.ts";
 import { conferenceEntries, ledgerSummary, splitLedger } from "../lib/nav.ts";
+import { playerCount } from "../lib/players.ts";
 import { divisionPostseason } from "../lib/postseason-division.ts";
 import { site } from "../site.config.ts";
 
@@ -70,6 +71,11 @@ const asOf = nationalAsOf(seasons);
 // before one existed — the page never waits on a model call.
 const journal = loadNationalJournal(site.season, site.gender);
 const lede = nationalMasthead(columns, asOf, national, journal);
+// One more cell for the strip: the players on the rosters this edition
+// follows (lib/players.ts), the About page's figure for this build. None when
+// no roster was collected, rather than a zero nobody counted.
+const players = playerCount(seasons).players;
+const counts = players > 0 ? [...lede.strip, `${players.toLocaleString("en-US")} PLAYERS`] : lede.strip;
 // A share card and a search result meet these facts with no cards and no strip
 // beneath them, so the description keeps the full prose the masthead stopped
 // printing — and keeps it stable, because it identifies the page as much as it
@@ -246,7 +252,7 @@ const footprints: ConferenceFootprint[] = columns.map((c) =>
       dek={lede.dek}
       dekSerif={!!lede.headline}
       stamp={lede.stamp}
-      strip={lede.strip}
+      strip={counts}
     >
       <span slot="meta">THE SEASON SCOREBOOK</span>
       <nav slot="after" class="conf-strip num" aria-label="Find your conference">
