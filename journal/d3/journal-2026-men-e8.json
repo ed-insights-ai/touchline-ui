@@ -3,38 +3,36 @@
   "season": 2026,
   "gender": "men",
   "conference": "E8",
-  "generated_at": "2026-11-25T16:30:00+00:00",
-  "data_collected_at": "2026-11-25T16:25:52+00:00",
-  "headline": "Nazareth sets the pace across the E8",
-  "dek": "Nazareth won eleven matches, more than any other program in the conference, alongside five losses and one draw. That margin rested on a defense that conceded fifteen goals while the attack produced 32, pairing the top win total with steady control at both ends.",
+  "generated_at": "2026-11-26T03:05:00+00:00",
+  "data_collected_at": "2026-11-26T03:00:52+00:00",
+  "headline": "Utica turns lean scoring into nine wins",
+  "dek": "Utica won nine matches while scoring twenty goals, relying on a defense that conceded eighteen across a season that also included two draws and seven losses. Few programs in the conference asked so little of their attack to stay near the top.",
   "lede_basis": {
-    "programme": "nazareth",
-    "wins": 11,
-    "draws": 1,
-    "losses": 5,
-    "gf": 32,
-    "ga": 15,
-    "comparative": "greater_than_each",
-    "metric": "wins",
-    "of_any": 1
+    "programme": "utica",
+    "wins": 9,
+    "draws": 2,
+    "losses": 7,
+    "gf": 20,
+    "ga": 18
   },
-  "lede_updated": "2026-11-25",
+  "lede_updated": "2026-11-26",
+  "displaced_by": "Standing dek's figures for Nazareth (eleven wins, 32 goals) no longer match collected totals (ten wins, 30 goals).",
   "pattern": {
     "label": "observed",
-    "text": "Scoring volume did not translate into wins: Houghton scored 41 goals yet conceded 32 and finished with seven wins, four draws, and eight losses.",
+    "text": "Scoring volume did not translate into wins: Houghton scored 41 goals yet conceded 31 and finished with seven wins, four draws, and seven losses.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
         "houghton": 41,
-        "nazareth": 32,
-        "hartwick": 30,
-        "alfred": 28,
-        "st-john-fisher": 26,
+        "nazareth": 30,
+        "alfred": 27,
+        "hartwick": 27,
         "brockport": 25,
-        "utica": 22,
+        "st-john-fisher": 23,
         "elmira": 20,
-        "keuka": 10,
+        "utica": 20,
         "russell-sage": 10,
+        "keuka": 9,
         "suny-poly": 6,
         "geneseo": 0
       },
@@ -43,23 +41,26 @@
     "basis": {
       "programme": "houghton",
       "gf": 41,
-      "ga": 32,
+      "ga": 31,
       "wins": 7,
       "draws": 4,
-      "losses": 8
+      "losses": 7
     }
   },
   "wire": {
-    "line": "Non-conference opponents handed league sides 37 losses against 25 wins and eight draws.",
+    "line": "Nazareth leads the conference with ten wins, conceding fifteen goals while scoring 30.",
     "basis": {
-      "derived_from": "fixtures",
-      "wins": 25,
-      "draws": 8,
-      "losses": 37,
-      "gf": 99,
-      "ga": 107
+      "programme": "nazareth",
+      "wins": 10,
+      "draws": 1,
+      "losses": 5,
+      "gf": 30,
+      "ga": 15,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of_any": 1
     },
-    "updated": "2026-11-25"
+    "updated": "2026-11-26"
   },
   "findings": [
     {
@@ -77,14 +78,14 @@
     },
     {
       "label": "derived",
-      "text": "Keuka conceded 45 goals, more than any other program in the conference, while scoring ten in a season of fifteen losses, one win, and one draw.",
+      "text": "Keuka conceded 43 goals, more than any other program in the conference, while scoring nine in a season of fourteen losses, one win, and one draw.",
       "basis": {
         "programme": "keuka",
         "wins": 1,
         "draws": 1,
-        "losses": 15,
-        "gf": 10,
-        "ga": 45,
+        "losses": 14,
+        "gf": 9,
+        "ga": 43,
         "comparative": "greater_than_each",
         "metric": "ga",
         "of_any": 1
@@ -103,11 +104,11 @@
     },
     {
       "label": "derived",
-      "text": "Alfred spread its 28 goals across at least eleven different scorers.",
+      "text": "Alfred spread its 27 goals across at least eleven different scorers.",
       "basis": {
         "programme": "alfred",
-        "gf": 28,
-        "ga": 18,
+        "gf": 27,
+        "ga": 17,
         "distinct_scorers_min": 11
       }
     }
@@ -143,6 +144,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-26T02:51:00.591Z"
+    "validated_at": "2026-11-26T03:55:46.413Z"
   }
 }

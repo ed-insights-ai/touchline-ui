@@ -1,0 +1,156 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "LIBERTY",
+  "generated_at": "2026-11-26T02:45:00+00:00",
+  "data_collected_at": "2026-11-26T02:43:46+00:00",
+  "headline": "St. Lawrence tops the Liberty with twelve wins",
+  "dek": "St. Lawrence added four draws and three defeats across the season, winning more matches than any other program in the conference. The program scored 34 goals across all matches while conceding fifteen, finishing atop the table after a campaign built on defensive control.",
+  "lede_basis": {
+    "programme": "st-lawrence",
+    "wins": 12,
+    "draws": 4,
+    "losses": 3,
+    "gf": 34,
+    "ga": 15,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring volume did not settle the table: Union (N.Y.) produced 44 goals across all matches, more than RPI and RIT combined, yet finished in the bottom half after conceding 24 and taking eight losses alongside nine wins and two draws.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "union-ny": 44,
+        "st-lawrence": 34,
+        "william-smith": 31,
+        "ithaca": 30,
+        "bard": 29,
+        "clarkson": 27,
+        "skidmore": 24,
+        "vassar": 23,
+        "rpi": 22,
+        "rit": 15
+      },
+      "highlight": "union-ny"
+    },
+    "basis": {
+      "programme": "union-ny",
+      "gf": 44,
+      "ga": 24,
+      "wins": 9,
+      "draws": 2,
+      "losses": 8,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["rpi", "rit"]
+    }
+  },
+  "wire": {
+    "line": "Liberty programs won 49 non-conference matches with thirteen draws and twenty losses, scoring 154 goals and conceding 79.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 49,
+      "draws": 13,
+      "losses": 20,
+      "gf": 154,
+      "ga": 79
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "St. Lawrence goalkeeper Zach Amato posted an 0.863 save percentage, making 69 saves while allowing eleven goals across the season.",
+      "basis": {
+        "source": "stats",
+        "player": "Zach Amato",
+        "programme": "st-lawrence",
+        "saves": 69,
+        "goals_against": 11,
+        "save_pct": 0.863
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. Lawrence midfielder Nicholas Petrone paired eleven assists with seven goals on 56 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Nicholas Petrone",
+        "programme": "st-lawrence",
+        "goals": 7,
+        "assists": 11,
+        "shots": 56
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Union (N.Y.) spread its attack across at least eighteen distinct scorers over the season.",
+      "basis": {
+        "programme": "union-ny",
+        "distinct_scorers_min": 18
+      }
+    },
+    {
+      "label": "observed",
+      "text": "RIT scored fifteen goals while conceding 25 across all matches, finishing with four wins, four draws, and eight losses.",
+      "basis": {
+        "programme": "rit",
+        "gf": 15,
+        "ga": 25,
+        "wins": 4,
+        "draws": 4,
+        "losses": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Clarkson freshman forward Bodie Smith scored ten goals and added two assists on 26 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Bodie Smith",
+        "programme": "clarkson",
+        "goals": 10,
+        "assists": 2,
+        "shots": 26
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Nicholas Petrone",
+      "programme": "st-lawrence",
+      "position": "MID",
+      "class": "SR",
+      "line": "7 G · 11 A · 56 shots"
+    },
+    {
+      "player": "Bodie Smith",
+      "programme": "clarkson",
+      "position": "FWD",
+      "class": "FR",
+      "line": "10 G · 2 A · 26 shots"
+    },
+    {
+      "player": "Kofi Sarfoh",
+      "programme": "union-ny",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 1 A · 28 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 bowdoin v st-lawrence",
+      "line": "St. Lawrence finished atop the conference table and had gone unbeaten against non-conference opponents until this match."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T03:56:09.334Z"
+  }
+}

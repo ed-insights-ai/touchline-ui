@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "LANDMARK",
+  "generated_at": "2026-11-26T03:05:00+00:00",
+  "data_collected_at": "2026-11-26T03:04:55+00:00",
+  "headline": "Scranton tops the Landmark with seventeen wins",
+  "dek": "Scranton won every conference match and closed the year with three draws and two losses across all competitions. The defense conceded nine goals while the attack produced 35 from at least fifteen different scorers.",
+  "lede_basis": {
+    "programme": "scranton",
+    "wins": 17,
+    "draws": 3,
+    "losses": 2,
+    "gf": 35,
+    "ga": 9,
+    "distinct_scorers_min": 15
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the Landmark splits sharply between the top half and the bottom half, with Catholic's 40 goals surpassing the combined totals of Moravian, Wilkes, Juniata, and Goucher. That output came from at least sixteen different Catholic scorers rather than a narrow front line.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "catholic": 40,
+        "scranton": 35,
+        "lycoming": 30,
+        "elizabethtown": 25,
+        "drew": 23,
+        "susquehanna": 13,
+        "moravian": 12,
+        "wilkes": 10,
+        "juniata": 9,
+        "goucher": 7
+      },
+      "highlight": "catholic"
+    },
+    "basis": {
+      "programme": "catholic",
+      "gf": 40,
+      "distinct_scorers_min": 16,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["moravian", "wilkes", "juniata", "goucher"]
+    }
+  },
+  "wire": {
+    "line": "Wilkes conceded 53 goals, more than Scranton, Catholic, Moravian, Juniata, and Elizabethtown combined.",
+    "basis": {
+      "programme": "wilkes",
+      "ga": 53,
+      "comparative": "greater_than_sum",
+      "metric": "ga",
+      "of": ["scranton", "catholic", "moravian", "juniata", "elizabethtown"]
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Lycoming was the only Landmark program to play the season without a draw, finishing with eight wins and ten losses.",
+      "basis": {
+        "programme": "lycoming",
+        "wins": 8,
+        "draws": 0,
+        "losses": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Scranton defender Alex Kozdron recorded eight assists alongside three goals on thirteen shots, leading the conference's published leaders in assists from the back line.",
+      "basis": {
+        "source": "stats",
+        "player": "Alex Kozdron",
+        "programme": "scranton",
+        "goals": 3,
+        "assists": 8,
+        "shots": 13
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Drew goalkeeper Donovan Friedhoff posted eight shutouts and an 0.824 save percentage, making 70 saves while allowing fifteen goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Donovan Friedhoff",
+        "programme": "drew",
+        "saves": 70,
+        "goals_against": 15,
+        "shutouts": 8,
+        "save_pct": 0.824
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Elizabethtown finished with seven draws, more than any other Landmark program, alongside six wins and five losses.",
+      "basis": {
+        "programme": "elizabethtown",
+        "wins": 6,
+        "draws": 7,
+        "losses": 5,
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "of_any": 1
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Matt Capretto",
+      "programme": "scranton",
+      "position": "FWD",
+      "class": "SR",
+      "line": "9 G · 2 A · 45 shots"
+    },
+    {
+      "player": "Andrew Dunne",
+      "programme": "drew",
+      "position": "MID",
+      "class": "SR",
+      "line": "8 G · 1 A · 35 shots"
+    },
+    {
+      "player": "Leandro Cruz",
+      "programme": "lycoming",
+      "position": "FWD",
+      "class": "SO",
+      "line": "7 G · 4 A · 42 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 scranton v bowdoin",
+      "line": "The defeat ended Scranton's unbeaten home run and its long winning streak across all competitions."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T03:57:36.233Z"
+  }
+}

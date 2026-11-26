@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-landmark.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "LANDMARK",
+  "validated_at": "2026-11-26T03:57:36.233Z",
+  "data_collected_at": "2026-11-26T03:04:55+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring in the Landmark splits sharply between the top half and the bottom half, with Catholic's 40 goals surpassing the combined totals of Moravian, Wilkes, Juniata, and Goucher. That output came from at least sixteen different Catholic scorers rather than a narrow front line.",
+      "checker": "distinct_scorers+team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Wilkes conceded 53 goals, more than Scranton, Catholic, Moravian, Juniata, and Elizabethtown combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Lycoming was the only Landmark program to play the season without a draw, finishing with eight wins and ten losses.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Scranton defender Alex Kozdron recorded eight assists alongside three goals on thirteen shots, leading the conference's published leaders in assists from the back line.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Drew goalkeeper Donovan Friedhoff posted eight shutouts and an 0.824 save percentage, making 70 saves while allowing fifteen goals.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Elizabethtown finished with seven draws, more than any other Landmark program, alongside six wins and five losses.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is drew at 5"
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Matt Capretto — 9 G · 2 A · 45 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Andrew Dunne — 8 G · 1 A · 35 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Leandro Cruz — 7 G · 4 A · 42 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-21 scranton v bowdoin",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T03:54:03.711Z",
+    "generate_ms": 212520,
+    "validate_ms": 2,
+    "wall_ms": 212523,
+    "concurrency": 8
+  }
+}

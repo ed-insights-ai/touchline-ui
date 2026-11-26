@@ -1,0 +1,151 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "HCAC",
+  "generated_at": "2026-11-26T03:05:00+00:00",
+  "data_collected_at": "2026-11-26T03:02:20+00:00",
+  "headline": "Transylvania leads HCAC scoring while Franklin finishes winless",
+  "dek": "Transylvania closed the campaign with fourteen wins, three draws, and three losses, scoring 54 goals while conceding nineteen across all matches. Hanover also finished unbeaten in conference play, yet fell well short of Transylvania's attacking output. At the other end of the standings, Franklin went the entire season without a victory.",
+  "lede_basis": {
+    "programme": "transylvania",
+    "wins": 14,
+    "draws": 3,
+    "losses": 3,
+    "gf": 54,
+    "ga": 19
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring splits sharply down the table: Transylvania's 54 goals outscore Manchester, Franklin, Mount St. Joseph, Anderson (Ind.), and Bluffton combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "transylvania": 54,
+        "hanover": 39,
+        "rose-hulman": 36,
+        "earlham": 34,
+        "berea": 31,
+        "manchester": 24,
+        "franklin": 10,
+        "mount-st-joseph": 7,
+        "anderson-in": 6,
+        "bluffton": 6
+      },
+      "highlight": "transylvania"
+    },
+    "basis": {
+      "programme": "transylvania",
+      "gf": 54,
+      "ga": 19,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["manchester", "franklin", "mount-st-joseph", "anderson-in", "bluffton"]
+    }
+  },
+  "wire": {
+    "line": "Conference programs finished with nineteen wins, fourteen draws, and 28 losses against non-conference opponents.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 19,
+      "draws": 14,
+      "losses": 28,
+      "gf": 97,
+      "ga": 104
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four August matches remain past their scheduled dates without a published result: Berea against Midway, Transylvania against Muskingum, Lindsey Wilson against Berea, and Centre against Transylvania.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Rose-Hulman forward Ryan Shapiro scored fifteen goals and added five assists from 46 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Ryan Shapiro",
+        "programme": "rose-hulman",
+        "goals": 15,
+        "assists": 5,
+        "shots": 46
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Rose-Hulman goalkeeper Justin Burns recorded eleven shutouts while making 51 saves and conceding nineteen goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Justin Burns",
+        "programme": "rose-hulman",
+        "saves": 51,
+        "goals_against": 19,
+        "shutouts": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Franklin finished the season without a win, recording three draws and fourteen losses while scoring ten goals and conceding 41.",
+      "basis": {
+        "programme": "franklin",
+        "wins": 0,
+        "draws": 3,
+        "losses": 14,
+        "gf": 10,
+        "ga": 41
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Transylvania midfielder McKay Wheatley supplied eleven assists alongside five goals on 42 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "McKay Wheatley",
+        "programme": "transylvania",
+        "goals": 5,
+        "assists": 11,
+        "shots": 42
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Ryan Shapiro",
+      "programme": "rose-hulman",
+      "position": "FWD",
+      "class": "JR",
+      "line": "15 G · 5 A · 46 shots"
+    },
+    {
+      "player": "Tobore Takpor",
+      "programme": "berea",
+      "position": "FWD",
+      "class": "SR",
+      "line": "12 G · 5 A · 54 shots"
+    },
+    {
+      "player": "Stone Work",
+      "programme": "transylvania",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 9 A · 46 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 case-western-reserve v transylvania",
+      "line": "The defeat ended an unbeaten run for Transylvania that had stretched back to September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T03:55:08.313Z"
+  }
+}

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "GNEAC",
-  "validated_at": "2026-11-26T03:00:10.893Z",
-  "data_collected_at": "2026-11-25T16:39:07+00:00",
+  "validated_at": "2026-11-26T03:54:26.427Z",
+  "data_collected_at": "2026-11-26T03:02:02+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Scoring concentrates sharply at the top of the conference: Norwich's 44 goals exceed the combined output of Colby-Sawyer and New England College, underscoring the gulf between the attacking leaders and the lower half of the table.",
+      "text": "Scoring concentrates sharply at the top of the conference: Norwich's 42 goals exceed the combined output of Albertus Magnus and New England College, underscoring the gulf between the attacking leaders and the middle and lower tiers.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,12 +38,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Rivier leads the conference with twelve overall wins, more than any other program.",
-      "checker": "team_record+comparative",
+      "text": "Non-conference play produced fourteen wins, seven draws, and eighteen losses even as programs scored 62 goals and conceded 54.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "held against every other programme; the nearest is emmanuel-ma at 11"
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -75,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "observed",
-      "text": "Emmanuel (Mass.) paired its conference-leading finish with eleven wins, four draws, and seven losses overall, scoring 31 goals and conceding 22.",
+      "text": "Emmanuel (Mass.) paired its conference-leading finish with eleven wins, three draws, and six losses overall, scoring 30 goals and conceding twenty.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -119,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-26T02:49:40.450Z",
-    "generate_ms": 630441,
+    "started_at": "2026-11-26T03:53:28.870Z",
+    "generate_ms": 57555,
     "validate_ms": 2,
-    "wall_ms": 630443,
+    "wall_ms": 57557,
     "concurrency": 8
   }
 }

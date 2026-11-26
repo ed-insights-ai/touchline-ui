@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "AMCC",
-  "generated_at": "2026-11-25T16:05:00+00:00",
-  "data_collected_at": "2026-11-25T16:04:06+00:00",
+  "generated_at": "2026-11-26T02:57:00+00:00",
+  "data_collected_at": "2026-11-26T02:56:53+00:00",
   "headline": "Penn State Behrend stands alone without a defeat",
   "dek": "Across all matches, Penn State Behrend has won four and drawn one without a loss, conceding just one goal while scoring twelve. Seven different scorers have carried the attack, giving the program an unbeaten record that no other AMCC side matches.",
   "lede_basis": {
@@ -27,8 +27,8 @@
         "pitt-greensburg": 40,
         "hilbert": 12,
         "penn-state-behrend": 12,
+        "pitt-bradford": 10,
         "la-roche": 5,
-        "pitt-bradford": 3,
         "penn-state-altoona": 2,
         "carlow": 0
       },
@@ -51,15 +51,16 @@
     }
   },
   "wire": {
-    "line": "Hilbert has conceded 53 goals, more than any two other programs in the conference combined.",
+    "line": "Conference programs have won seven, drawn seven, and lost fifteen against outside opponents, scoring 42 goals and conceding 55.",
     "basis": {
-      "programme": "hilbert",
-      "ga": 53,
-      "comparative": "greater_than_sum",
-      "metric": "ga",
-      "of_any": 2
+      "derived_from": "fixtures",
+      "wins": 7,
+      "draws": 7,
+      "losses": 15,
+      "gf": 42,
+      "ga": 55
     },
-    "updated": "2026-11-25"
+    "updated": "2026-11-26"
   },
   "findings": [
     {
@@ -142,6 +143,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-26T02:55:05.456Z"
+    "validated_at": "2026-11-26T03:54:08.712Z"
   }
 }

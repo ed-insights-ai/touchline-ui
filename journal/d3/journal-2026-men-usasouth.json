@@ -1,0 +1,147 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "USASOUTH",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:46:28+00:00",
+  "headline": "Pfeiffer outscores the top of the table",
+  "dek": "Pfeiffer has scored 52 goals across all matches, more than table leaders NC Wesleyan and Southern Virginia combined. That attack has carried the program to ten wins, four draws, and four losses while allowing 21 goals, yet both lower-scoring rivals sit ahead of it in conference play.",
+  "lede_basis": {
+    "programme": "pfeiffer",
+    "wins": 10,
+    "draws": 4,
+    "losses": 4,
+    "gf": 52,
+    "ga": 21,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["nc-wesleyan", "southern-virginia"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "signal",
+    "text": "Overall scoring volume divides the conference sharply, yet the highest-scoring programs have not controlled the table; Southern Virginia sits near the top despite scoring seventeen goals and conceding 24.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "pfeiffer": 52,
+        "methodist": 47,
+        "greensboro": 44,
+        "william-peace": 41,
+        "nc-wesleyan": 29,
+        "brevard": 23,
+        "mary-baldwin": 22,
+        "southern-virginia": 17
+      },
+      "highlight": "pfeiffer"
+    },
+    "basis": {
+      "programme": "southern-virginia",
+      "gf": 17,
+      "ga": 24
+    }
+  },
+  "wire": {
+    "line": "Methodist has lost only two matches all season, scoring 47 goals and conceding seventeen across ten wins and six draws.",
+    "basis": {
+      "programme": "methodist",
+      "wins": 10,
+      "draws": 6,
+      "losses": 2,
+      "gf": 47,
+      "ga": 17
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Greensboro goalkeeper Alvaro Arroyo has made 88 saves and allowed nineteen goals, posting eight shutouts across the season.",
+      "basis": {
+        "source": "stats",
+        "player": "Alvaro Arroyo",
+        "programme": "greensboro",
+        "saves": 88,
+        "goals_against": 19,
+        "shutouts": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Greensboro forward Gustav Ohman has scored thirteen goals and added one assist from 45 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Gustav Ohman",
+        "programme": "greensboro",
+        "goals": 13,
+        "assists": 1,
+        "shots": 45
+      }
+    },
+    {
+      "label": "derived",
+      "text": "William Peace has spread its 41 goals across at least sixteen different scorers.",
+      "basis": {
+        "programme": "william-peace",
+        "gf": 41,
+        "ga": 41,
+        "distinct_scorers_min": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mary Baldwin has conceded 44 goals while scoring 22, finishing with four wins, one draw, and eleven losses across all matches.",
+      "basis": {
+        "programme": "mary-baldwin",
+        "wins": 4,
+        "draws": 1,
+        "losses": 11,
+        "gf": 22,
+        "ga": 44
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Seven scheduled August matches involving Greensboro, NC Wesleyan, and Southern Virginia have passed their dates without a published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 7
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Gustav Ohman",
+      "programme": "greensboro",
+      "position": "FWD",
+      "class": "SO",
+      "line": "13 G · 1 A · 45 shots"
+    },
+    {
+      "player": "Josh Mott",
+      "programme": "methodist",
+      "position": "MID",
+      "class": "SR",
+      "line": "12 G · 4 A · 44 shots"
+    },
+    {
+      "player": "Wesley Hooker",
+      "programme": "pfeiffer",
+      "position": "FWD",
+      "class": "JR",
+      "line": "12 G · 2 A · 64 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-13 montclair-state v southern-virginia",
+      "line": "The defeat ended a run of consecutive shutout wins for Southern Virginia."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T03:59:05.210Z"
+  }
+}

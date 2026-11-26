@@ -1,0 +1,143 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MIAA3",
+  "generated_at": "2026-11-26T03:10:00+00:00",
+  "data_collected_at": "2026-11-26T03:05:16+00:00",
+  "headline": "Calvin paces the MIAA with seventeen victories",
+  "dek": "Calvin went unbeaten in conference play on its way to seventeen wins, two draws, and three losses across all matches. Its attack scored 79 goals, more than Alma and Albion combined, while conceding only seventeen.",
+  "lede_basis": {
+    "programme": "calvin",
+    "wins": 17,
+    "draws": 2,
+    "losses": 3,
+    "gf": 79,
+    "ga": 17,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["alma", "albion"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Goal production divides sharply at the top of the conference: Hope alone scored 71 goals, more than Kalamazoo, Adrian, Trine, and Olivet combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "calvin": 79,
+        "hope": 71,
+        "alma": 34,
+        "albion": 32,
+        "kalamazoo": 25,
+        "adrian": 22,
+        "trine": 14,
+        "olivet": 2
+      },
+      "highlight": "calvin"
+    },
+    "basis": {
+      "programme": "hope",
+      "gf": 71,
+      "ga": 21,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["kalamazoo", "adrian", "trine", "olivet"]
+    }
+  },
+  "wire": {
+    "line": "Olivet lost all seven of its matches, scoring two goals while conceding 23.",
+    "basis": {
+      "programme": "olivet",
+      "wins": 0,
+      "draws": 0,
+      "losses": 7,
+      "gf": 2,
+      "ga": 23
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Albion conceded sixteen goals while posting eight wins, five draws, and four losses across all matches.",
+      "basis": {
+        "programme": "albion",
+        "wins": 8,
+        "draws": 5,
+        "losses": 4,
+        "gf": 32,
+        "ga": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hope forward Seth Walters recorded sixteen goals and seven assists on 103 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Seth Walters",
+        "programme": "hope",
+        "goals": 16,
+        "assists": 7,
+        "shots": 103
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Adrian goalkeeper Eli Sizemore made 116 saves and posted four shutouts while allowing 25 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Eli Sizemore",
+        "programme": "adrian",
+        "saves": 116,
+        "goals_against": 25,
+        "shutouts": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Two matches past their scheduled dates remain without published results, and both belong to Kalamazoo: away to Edgewood and at home against Anderson.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2,
+        "set": "past_date_no_result",
+        "all_of": "kalamazoo",
+        "count": 2
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Seth Walters",
+      "programme": "hope",
+      "position": "FWD",
+      "class": "SR",
+      "line": "16 G · 7 A · 103 shots"
+    },
+    {
+      "player": "Jackson Mindling",
+      "programme": "hope",
+      "position": "FWD",
+      "class": "JR",
+      "line": "15 G · 5 A · 98 shots"
+    },
+    {
+      "player": "Colin Nieuwenhuis",
+      "programme": "calvin",
+      "position": "MID",
+      "class": "JR",
+      "line": "13 G · 9 A · 59 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 calvin v st-olaf",
+      "line": "Calvin had already beaten UW-Eau Claire and Chicago in consecutive matches after finishing conference play unbeaten."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T03:57:32.545Z"
+  }
+}

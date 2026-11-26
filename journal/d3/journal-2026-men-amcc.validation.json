@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "AMCC",
-  "validated_at": "2026-11-26T02:55:05.456Z",
-  "data_collected_at": "2026-11-25T16:04:06+00:00",
+  "validated_at": "2026-11-26T03:54:08.712Z",
+  "data_collected_at": "2026-11-26T02:56:53+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -38,12 +38,11 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Hilbert has conceded 53 goals, more than any two other programs in the conference combined.",
-      "checker": "team_goals+comparative",
+      "text": "Conference programs have won seven, drawn seven, and lost fifteen against outside opponents, scoring 42 goals and conceding 55.",
+      "checker": "outside_record",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false,
-      "note": "\"any 2 others\" was held against the strongest 2: mount-aloysius 28 + pitt-greensburg 20"
+      "dropped": false
     },
     {
       "path": "findings[0]",
@@ -119,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-26T02:40:20.842Z",
-    "generate_ms": 884611,
+    "started_at": "2026-11-26T03:52:48.289Z",
+    "generate_ms": 80421,
     "validate_ms": 2,
-    "wall_ms": 884614,
+    "wall_ms": 80423,
     "concurrency": 8
   }
 }

@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "E8",
-  "validated_at": "2026-11-26T02:51:00.591Z",
-  "data_collected_at": "2026-11-25T16:25:52+00:00",
+  "validated_at": "2026-11-26T03:55:46.413Z",
+  "data_collected_at": "2026-11-26T03:00:52+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -15,18 +15,12 @@
     "dropped": 0
   },
   "normalizations": [],
-  "review": [
-    {
-      "path": "headline",
-      "text": "Nazareth sets the pace across the E8",
-      "unbacked": ["8"]
-    }
-  ],
+  "review": [],
   "claims": [
     {
       "path": "pattern",
       "label": "observed",
-      "text": "Scoring volume did not translate into wins: Houghton scored 41 goals yet conceded 32 and finished with seven wins, four draws, and eight losses.",
+      "text": "Scoring volume did not translate into wins: Houghton scored 41 goals yet conceded 31 and finished with seven wins, four draws, and seven losses.",
       "checker": "team_goals+team_record",
       "verdict": "verified",
       "mismatches": [],
@@ -44,11 +38,12 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Non-conference opponents handed league sides 37 losses against 25 wins and eight draws.",
-      "checker": "outside_record",
+      "text": "Nazareth leads the conference with ten wins, conceding fifteen goals while scoring 30.",
+      "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is utica at 9"
     },
     {
       "path": "findings[0]",
@@ -62,12 +57,12 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "Keuka conceded 45 goals, more than any other program in the conference, while scoring ten in a season of fifteen losses, one win, and one draw.",
+      "text": "Keuka conceded 43 goals, more than any other program in the conference, while scoring nine in a season of fourteen losses, one win, and one draw.",
       "checker": "team_goals+team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false,
-      "note": "held against every other programme; the nearest is houghton at 32"
+      "note": "held against every other programme; the nearest is houghton at 31"
     },
     {
       "path": "findings[2]",
@@ -81,7 +76,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Alfred spread its 28 goals across at least eleven different scorers.",
+      "text": "Alfred spread its 27 goals across at least eleven different scorers.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -125,10 +120,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-26T02:48:51.116Z",
-    "generate_ms": 129471,
-    "validate_ms": 4,
-    "wall_ms": 129476,
+    "started_at": "2026-11-26T03:53:27.539Z",
+    "generate_ms": 138870,
+    "validate_ms": 3,
+    "wall_ms": 138874,
     "concurrency": 8
   }
 }
