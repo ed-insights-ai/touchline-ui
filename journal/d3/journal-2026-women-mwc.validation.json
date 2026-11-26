@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-mwc.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MWC",
+  "validated_at": "2026-11-26T18:18:45.155Z",
+  "data_collected_at": "2026-11-26T02:48:04+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring concentrates heavily at the top of the chart, where Lake Forest's 53 goals outpace the combined totals of Luther, Beloit, and Cornell College, even though Luther finished ahead of Lake Forest in the conference standings.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Cornell College went winless in conference play and conceded 83 goals across the season, more than any two other programs combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "\"any 2 others\" was held against the strongest 2: illinois-college 37 + knox 34"
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Lake Forest spread its scoring across at least fourteen different players over the course of the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Lake Forest midfielder Maggie Balas recorded nine goals and twelve assists from 66 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Monmouth (Ill.) goalkeeper Cadence Covert made 83 saves while conceding fourteen goals for a 0.856 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Lawrence finished with fourteen wins, five draws, and three losses overall, scoring 44 goals and conceding seventeen.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Five scheduled matches passed their dates without a published result: Cornell College against Waldorf, Knox against Dubuque, Beloit at Aurora, Lawrence against Edgewood, and Illinois College against Lincoln Land Community.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Maggie Balas — 9 G · 12 A · 66 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Annabelle Schroeder — 10 G · 7 A · 50 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Katy Adler — 10 G · 3 A · 81 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 lawrence v uw-la-crosse",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:09:26.735Z",
+    "generate_ms": 558415,
+    "validate_ms": 5,
+    "wall_ms": 558420,
+    "concurrency": 8
+  }
+}

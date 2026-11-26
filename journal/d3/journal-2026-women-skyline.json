@@ -1,0 +1,150 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SKYLINE",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:49:35+00:00",
+  "headline": "Merchant Marine finishes the season without a defeat",
+  "dek": "Merchant Marine closed its campaign with eight wins and six draws, allowing just eight goals while scoring 47 along the way. Every other Skyline program dropped multiple matches before the season ended.",
+  "lede_basis": {
+    "programme": "merchant-marine",
+    "wins": 8,
+    "draws": 6,
+    "losses": 0,
+    "gf": 47,
+    "ga": 8
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the Skyline splits into a top tier and a steep drop-off: Sarah Lawrence's 69 goals exceed the combined totals of mid-table Manhattanville and St. Joseph's-Long Island.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "sarah-lawrence": 69,
+        "mount-saint-vincent": 68,
+        "mount-saint-mary": 63,
+        "farmingdale-state": 62,
+        "merchant-marine": 47,
+        "manhattanville": 31,
+        "st-josephs-long-island": 31,
+        "old-westbury": 26,
+        "maritime": 24,
+        "purchase": 24,
+        "yeshiva": 3,
+        "st-josephs-brooklyn": 2
+      },
+      "highlight": "sarah-lawrence"
+    },
+    "basis": {
+      "programme": "sarah-lawrence",
+      "gf": 69,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["manhattanville", "st-josephs-long-island"]
+    }
+  },
+  "wire": {
+    "line": "St. Joseph's-Brooklyn lost all fourteen matches, scoring two goals while conceding 121.",
+    "basis": {
+      "programme": "st-josephs-brooklyn",
+      "wins": 0,
+      "draws": 0,
+      "losses": 14,
+      "gf": 2,
+      "ga": 121
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three matches on the schedule remain past their dates without a published result: Manhattanville's trips to Bard and William Paterson, and Old Westbury's home date against Medgar Evers College.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Farmingdale State spread its 62 goals across at least twenty distinct scorers.",
+      "basis": {
+        "programme": "farmingdale-state",
+        "gf": 62,
+        "ga": 23,
+        "distinct_scorers_min": 20
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mount Saint Vincent scored 68 goals while conceding ten across a season of twelve wins, three draws, and four losses.",
+      "basis": {
+        "programme": "mount-saint-vincent",
+        "wins": 12,
+        "draws": 3,
+        "losses": 4,
+        "gf": 68,
+        "ga": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Yeshiva goalkeeper Rena Neiger made 219 saves and posted a 0.725 save percentage while conceding 83 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Rena Neiger",
+        "programme": "yeshiva",
+        "saves": 219,
+        "goals_against": 83,
+        "save_pct": 0.725
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Mount Saint Mary senior Grace Morra recorded thirteen goals and nine assists on 74 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Grace Morra",
+        "programme": "mount-saint-mary",
+        "goals": 13,
+        "assists": 9,
+        "shots": 74
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Grace Morra",
+      "programme": "mount-saint-mary",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 9 A · 74 shots"
+    },
+    {
+      "player": "Hailey Catolico",
+      "programme": "merchant-marine",
+      "position": "FWD",
+      "class": "FR",
+      "line": "13 G · 3 A · 65 shots"
+    },
+    {
+      "player": "Chloe Barker",
+      "programme": "sarah-lawrence",
+      "position": "MID",
+      "class": "SR",
+      "line": "13 G · 1 A · 38 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 tcnj v mount-saint-vincent",
+      "line": "Mount Saint Vincent entered the match unbeaten in conference play and riding consecutive shutouts."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:33:09.195Z"
+  }
+}

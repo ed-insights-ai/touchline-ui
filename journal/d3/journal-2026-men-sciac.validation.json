@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-sciac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SCIAC",
+  "validated_at": "2026-11-26T17:17:02.325Z",
+  "data_collected_at": "2026-11-26T02:45:49+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring across the conference drops off sharply behind the front tier, with Azusa Pacific's 59 goals exceeding the combined totals of Chapman and Whittier. Most of the league clusters in a narrow middle band rather than matching that pace.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Azusa Pacific forward Leke Ademola has scored 22 goals and added four assists on 84 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Whittier goalkeeper Diego Saldivar has made 106 saves while allowing 27 goals, posting a 0.797 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Caltech forward Matthew Luk has produced ten goals and six assists on 59 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "La Verne has scored 42 goals and conceded 25 across all matches, finishing with nine wins, seven draws, and six losses.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Eight August matches remain past their scheduled date with no published result, involving Whittier, La Verne, Chapman, California Lutheran, and Caltech.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Leke Ademola — 22 G · 4 A · 84 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Zachary Darmanyan — 12 G · 4 A · 55 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Matthew Luk — 10 G · 6 A · 59 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-19 azusa-pacific v justice",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-12-01 ohio-christian v azusa-pacific",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:02:58.328Z",
+    "generate_ms": 843995,
+    "validate_ms": 2,
+    "wall_ms": 843997,
+    "concurrency": 8
+  }
+}

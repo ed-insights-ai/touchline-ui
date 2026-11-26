@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-macf.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MACF",
+  "validated_at": "2026-11-26T18:29:55.621Z",
+  "data_collected_at": "2026-11-26T02:47:53+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring in the conference splits into a dense upper tier and a steep drop below it: Misericordia's 41 goals outpace the combined totals of Delaware Valley, DeSales, and King's (Pa.).",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "King's (Pa.) managed just five goals across all matches while conceding 35, finishing winless in conference play.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "All three matches past their scheduled dates with no published result involve FDU - Florham.",
+      "checker": "set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Misericordia spread its attack across at least sixteen different goal scorers over the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Lebanon Valley forward Abrielle Miller produced twelve goals and eight assists from 96 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Misericordia defender Kaleigh Horos scored ten goals and added three assists on 62 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "FDU - Florham goalkeeper Italia Penevolpe stopped 86 shots and allowed seventeen goals for a 0.835 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Abrielle Miller — 12 G · 8 A · 96 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Kaleigh Horos — 10 G · 3 A · 62 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Sadie Nugent — 9 G · 7 A · 60 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 stevens v lynchburg",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:06:49.383Z",
+    "generate_ms": 1386235,
+    "validate_ms": 2,
+    "wall_ms": 1386238,
+    "concurrency": 8
+  }
+}

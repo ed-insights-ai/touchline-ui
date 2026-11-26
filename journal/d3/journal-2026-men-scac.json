@@ -1,0 +1,139 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SCAC",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:08:19+00:00",
+  "headline": "Colorado College paces the SCAC in wins and goals",
+  "dek": "Colorado College closed its campaign with sixteen wins against three losses and two draws, scoring 56 goals while conceding 24 across all matches. Its attack produced more goals than Concordia Texas, Hendrix, Centenary (La.), and Austin College managed combined.",
+  "lede_basis": {
+    "programme": "colorado-college",
+    "wins": 16,
+    "draws": 2,
+    "losses": 3,
+    "gf": 56,
+    "ga": 24,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["concordia-texas", "hendrix", "centenary-la", "austin-college"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "signal",
+    "text": "Scoring volume in the SCAC did not map cleanly onto results. Ozarks produced 32 goals across all matches yet finished with six wins, four draws, and eight losses, conceding 30 along the way.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "colorado-college": 56,
+        "letourneau": 40,
+        "ozarks": 32,
+        "st-thomas-tx": 31,
+        "dallas": 25,
+        "texas-lutheran": 25,
+        "concordia-texas": 20,
+        "hendrix": 18,
+        "centenary-la": 9,
+        "austin-college": 7
+      },
+      "highlight": "colorado-college"
+    },
+    "basis": {
+      "programme": "ozarks",
+      "wins": 6,
+      "draws": 4,
+      "losses": 8,
+      "gf": 32,
+      "ga": 30
+    }
+  },
+  "wire": {
+    "line": "Concordia Texas won eleven matches against five losses and two draws despite conceding 21 goals while scoring twenty.",
+    "basis": {
+      "programme": "concordia-texas",
+      "wins": 11,
+      "draws": 2,
+      "losses": 5,
+      "gf": 20,
+      "ga": 21
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Seven August matches involving LeTourneau, Texas Lutheran, and Ozarks have passed their scheduled dates with no published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Colorado College midfielder Teddy Opler recorded thirteen goals and ten assists on 69 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Teddy Opler",
+        "programme": "colorado-college",
+        "goals": 13,
+        "assists": 10,
+        "shots": 69
+      }
+    },
+    {
+      "label": "observed",
+      "text": "LeTourneau goalkeeper Edson Camara Martinez stopped 53 shots while conceding eight goals, finishing with a 0.869 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Edson Camara Martinez",
+        "programme": "letourneau",
+        "saves": 53,
+        "goals_against": 8,
+        "save_pct": 0.869
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. Thomas (Texas) spread its 31 goals across at least fourteen different scorers.",
+      "basis": {
+        "programme": "st-thomas-tx",
+        "gf": 31,
+        "distinct_scorers_min": 14
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Teddy Opler",
+      "programme": "colorado-college",
+      "position": "MID",
+      "class": "JR",
+      "line": "13 G · 10 A · 69 shots"
+    },
+    {
+      "player": "Joseph Aziz",
+      "programme": "dallas",
+      "position": "FWD",
+      "class": "FR",
+      "line": "9 G · 5 A · 47 shots"
+    },
+    {
+      "player": "Leandro Ferreira",
+      "programme": "letourneau",
+      "position": "MID",
+      "class": "SO",
+      "line": "9 G · 4 A · 44 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 washington-and-lee v colorado-college",
+      "line": "Colorado College entered the match without a loss since September, having gone through SCAC play unbeaten."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:07:47.997Z"
+  }
+}

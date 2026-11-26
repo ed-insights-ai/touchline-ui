@@ -1,0 +1,127 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-ncac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "NCAC",
+  "validated_at": "2026-11-26T16:59:07.856Z",
+  "data_collected_at": "2026-11-26T03:07:16+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Attacking depth separates the top of the conference from the field: at least fifteen different players scored for Kenyon, spreading its production across the roster rather than leaning on a lone finisher.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Denison took just two losses all season, pairing fourteen wins and seven draws with sixteen goals conceded.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Four August matches involving Denison and DePauw remain past their scheduled dates without a published result: DePauw against UIndy and Ohio Northern, and Denison against Saint Vincent and Case Western Reserve.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Wabash scored 37 goals across the season, yet its ten wins were nearly matched by nine losses and one draw as the defense conceded 27.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Denison goalkeeper Alex Provost posted nine shutouts and stopped 56 shots while allowing thirteen goals, finishing with a 0.812 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Oberlin conceded 43 goals while scoring thirteen, allowing more than Denison and Kenyon combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Luca Bilotto — 9 G · 7 A · 38 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Alfredo Campos — 7 G · 10 A · 39 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Lucas de Alarcon — 8 G · 6 A · 24 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-22 denison v suny-cortland",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T16:51:27.861Z",
+    "generate_ms": 459993,
+    "validate_ms": 2,
+    "wall_ms": 459995,
+    "concurrency": 8
+  }
+}

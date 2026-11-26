@@ -1,0 +1,157 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "OAC",
+  "generated_at": "2026-11-26T03:25:00+00:00",
+  "data_collected_at": "2026-11-26T03:22:30+00:00",
+  "headline": "Capital outscores any two OAC rivals combined",
+  "dek": "Capital closed the season with fifteen wins, zero draws, and four defeats, scoring 58 goals while conceding seventeen across all matches. That attack carried Capital to the top of the conference table, even though Ohio Northern took their final meeting to close out the schedule.",
+  "lede_basis": {
+    "programme": "capital",
+    "wins": 15,
+    "draws": 0,
+    "losses": 4,
+    "gf": 58,
+    "ga": 17,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of_any": 2
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring across the OAC bunched tightly in the middle while separating sharply at the extremes, with Capital's 58 goals exceeding Baldwin Wallace and Wilmington (Ohio) combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "capital": 58,
+        "baldwin-wallace": 29,
+        "wilmington-oh": 27,
+        "mount-union": 26,
+        "otterbein": 26,
+        "heidelberg": 24,
+        "marietta": 22,
+        "ohio-northern": 14,
+        "muskingum": 1
+      },
+      "highlight": "capital"
+    },
+    "basis": {
+      "programme": "capital",
+      "gf": 58,
+      "ga": 17,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["baldwin-wallace", "wilmington-oh"]
+    }
+  },
+  "wire": {
+    "line": "Ohio Northern won eight matches and lost once, conceding five goals all season.",
+    "basis": {
+      "programme": "ohio-northern",
+      "wins": 8,
+      "draws": 0,
+      "losses": 1,
+      "gf": 14,
+      "ga": 5
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Muskingum lost all seven of its matches, scoring one goal while conceding 41.",
+      "basis": {
+        "programme": "muskingum",
+        "wins": 0,
+        "draws": 0,
+        "losses": 7,
+        "gf": 1,
+        "ga": 41
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Wilmington (Ohio) spread its 27 goals across at least fourteen different scorers.",
+      "basis": {
+        "programme": "wilmington-oh",
+        "gf": 27,
+        "ga": 25,
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Brianna Braatz scored thirteen of Heidelberg's 24 goals on 58 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Brianna Braatz",
+        "programme": "heidelberg",
+        "goals": 13,
+        "assists": 3,
+        "shots": 58,
+        "gf": 24,
+        "ga": 39
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Baldwin Wallace forward Kalyn Rich took 112 shots to produce eleven goals and six assists.",
+      "basis": {
+        "source": "stats",
+        "player": "Kalyn Rich",
+        "programme": "baldwin-wallace",
+        "goals": 11,
+        "assists": 6,
+        "shots": 112
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Marietta goalkeeper Francesca Agliolo made 95 saves against nineteen goals conceded and recorded six shutouts.",
+      "basis": {
+        "source": "stats",
+        "player": "Francesca Agliolo",
+        "programme": "marietta",
+        "saves": 95,
+        "goals_against": 19,
+        "shutouts": 6,
+        "save_pct": 0.833
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Payton Childers",
+      "programme": "capital",
+      "position": "FWD",
+      "class": "JR",
+      "line": "13 G · 7 A · 63 shots"
+    },
+    {
+      "player": "Brianna Braatz",
+      "programme": "heidelberg",
+      "position": "FWD",
+      "class": "JR",
+      "line": "13 G · 3 A · 58 shots"
+    },
+    {
+      "player": "Kalyn Rich",
+      "programme": "baldwin-wallace",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 6 A · 112 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 ohio-northern v capital",
+      "line": "Ohio Northern closed its season unbeaten at home and had already beaten Capital in conference play."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:37:47.074Z"
+  }
+}

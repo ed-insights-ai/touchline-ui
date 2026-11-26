@@ -1,0 +1,134 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SLIAC",
+  "generated_at": "2026-11-26T03:10:00+00:00",
+  "data_collected_at": "2026-11-26T03:08:49+00:00",
+  "headline": "Webster sets the SLIAC pace in wins and goals",
+  "dek": "Webster scored 44 goals and conceded 22 across all matches, winning ten times with four draws and three losses. An unbeaten run through conference play carried it to the top of the SLIAC table before Chicago ended its season.",
+  "lede_basis": {
+    "programme": "webster",
+    "wins": 10,
+    "draws": 4,
+    "losses": 3,
+    "gf": 44,
+    "ga": 22
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring separates the SLIAC into a clear leader, a bunched middle, and a quiet bottom tier: Webster's 44 goals exceed the combined output of MUW, Eureka, and Blackburn.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "webster": 44,
+        "greenville": 27,
+        "principia": 26,
+        "lyon": 25,
+        "spalding": 25,
+        "westminster-mo": 22,
+        "muw": 17,
+        "eureka": 8,
+        "blackburn": 6
+      },
+      "highlight": "webster"
+    },
+    "basis": {
+      "programme": "webster",
+      "gf": 44,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["muw", "eureka", "blackburn"]
+    }
+  },
+  "wire": {
+    "line": "MUW conceded 86 goals across all matches, more than any two other SLIAC programs combined.",
+    "basis": {
+      "programme": "muw",
+      "ga": 86,
+      "comparative": "greater_than_sum",
+      "metric": "ga",
+      "of_any": 2
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four matches on SLIAC schedules have passed their dates without a published result: MUW at Holmes Community, MUW at East Mississippi Community, Westminster (Mo.) at home to Central Methodist, and Lyon at home to Williams Baptist.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "At least fifteen different players scored for Greenville across all matches, spreading its 27 goals through the roster.",
+      "basis": {
+        "programme": "greenville",
+        "distinct_scorers_min": 15,
+        "gf": 27,
+        "ga": 38
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lyon goalkeeper Henrique Megale posted a 0.828 save percentage, making 53 saves while allowing eleven goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Henrique Megale",
+        "programme": "lyon",
+        "saves": 53,
+        "goals_against": 11,
+        "save_pct": 0.828
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Principia freshman Alberto Hernandez recorded nine goals and two assists from 45 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Alberto Hernandez",
+        "programme": "principia",
+        "goals": 9,
+        "assists": 2,
+        "shots": 45
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Alberto Hernandez",
+      "programme": "principia",
+      "position": "FWD",
+      "class": "FR",
+      "line": "9 G · 2 A · 45 shots"
+    },
+    {
+      "player": "Alberto Duque Gonzalez",
+      "programme": "webster",
+      "position": "MID",
+      "class": "SR",
+      "line": "8 G · 2 A · 52 shots"
+    },
+    {
+      "player": "Elmin Lemes",
+      "programme": "webster",
+      "position": "FWD",
+      "class": "JR",
+      "line": "7 G · 4 A · 42 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-13 chicago v webster",
+      "line": "The defeat snapped Webster's winning run after an unbeaten conference campaign."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:13:11.527Z"
+  }
+}

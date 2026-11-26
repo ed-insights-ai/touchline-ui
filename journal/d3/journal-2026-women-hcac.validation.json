@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-hcac.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "HCAC",
+  "validated_at": "2026-11-26T18:15:07.639Z",
+  "data_collected_at": "2026-11-26T03:16:40+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring drops off steeply across the conference: Hanover's 43 goals surpass the combined output of Berea, Earlham, Bluffton, and Manchester.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Mount St. Joseph has scored 28 goals and conceded five across seven wins, one draw, and one loss.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Five late-August matches have passed without a published result: Transylvania against Midway, Thomas More, and Indiana East, plus Berea against Midway and Johnson.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Hanover freshman Abby Smith has produced ten goals and eight assists from 55 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Manchester goalkeeper Reagan Claus has recorded 181 saves while allowing 46 goals, maintaining a 0.797 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Rose-Hulman has spread its 27 goals across at least fourteen different scorers while conceding seven goals all season.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Rose-Hulman goalkeeper Alicia Gonzalez has posted a 0.883 save percentage, making 53 saves against seven goals allowed.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Lauren Barker — 5 G · 3 A · 44 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Amirah Curry — 4 G · 3 A · 26 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Trinity Inglert — 3 G · 4 A · 26 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-07 mount-st-joseph v hanover",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:58:45.337Z",
+    "generate_ms": 982299,
+    "validate_ms": 2,
+    "wall_ms": 982302,
+    "concurrency": 8
+  }
+}

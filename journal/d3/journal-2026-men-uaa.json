@@ -1,0 +1,135 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "UAA",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:10:17+00:00",
+  "headline": "Case Western Reserve closes the season unbeaten",
+  "dek": "Case Western Reserve has paired thirteen wins with six draws across the season, holding opponents to seven goals while scoring 39. That defensive record carried the program to the top of the UAA table, clear of the crowded chase behind it.",
+  "lede_basis": {
+    "programme": "case-western-reserve",
+    "wins": 13,
+    "draws": 6,
+    "losses": 0,
+    "gf": 39,
+    "ga": 7
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "High-volume attacks separated the top of the chart from the rest of the league, with Chicago's 48 goals surpassing Brandeis and Rochester combined, even though raw scoring did not determine the conference leader.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "chicago": 48,
+        "emory": 48,
+        "case-western-reserve": 39,
+        "washu": 39,
+        "nyu": 35,
+        "brandeis": 23,
+        "rochester": 23,
+        "carnegie-mellon": 8
+      },
+      "highlight": "chicago"
+    },
+    "basis": {
+      "programme": "chicago",
+      "gf": 48,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["brandeis", "rochester"]
+    }
+  },
+  "wire": {
+    "line": "Conference sides posted 49 wins, thirteen draws, and thirteen losses outside league play, scoring 189 goals and allowing 77.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 49,
+      "draws": 13,
+      "losses": 13,
+      "gf": 189,
+      "ga": 77
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Case Western Reserve goalkeeper Carter Shedd made 49 saves while conceding seven goals, finishing with a 0.875 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Carter Shedd",
+        "programme": "case-western-reserve",
+        "saves": 49,
+        "goals_against": 7,
+        "save_pct": 0.875
+      }
+    },
+    {
+      "label": "observed",
+      "text": "WashU senior forward Ethan Wirtschafter paced the conference's published scoring leaders with twelve goals and five assists on 45 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Ethan Wirtschafter",
+        "programme": "washu",
+        "goals": 12,
+        "assists": 5,
+        "shots": 45
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Emory spread its attack across at least fifteen distinct scorers over the season.",
+      "basis": {
+        "programme": "emory",
+        "distinct_scorers_min": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Chicago junior forward Chase Perry generated 55 shots, turning them into seven goals and seven assists.",
+      "basis": {
+        "source": "stats",
+        "player": "Chase Perry",
+        "programme": "chicago",
+        "goals": 7,
+        "assists": 7,
+        "shots": 55
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Ethan Wirtschafter",
+      "programme": "washu",
+      "position": "FWD",
+      "class": "SR",
+      "line": "12 G · 5 A · 45 shots"
+    },
+    {
+      "player": "Ewen Robertson",
+      "programme": "emory",
+      "position": "FWD",
+      "class": "SO",
+      "line": "11 G · 1 A · 43 shots"
+    },
+    {
+      "player": "Cormac Apostolides",
+      "programme": "case-western-reserve",
+      "position": "DEF",
+      "class": "SR",
+      "line": "7 G · 4 A · 24 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 amherst v case-western-reserve",
+      "line": "Case Western Reserve closed the season unbeaten, extending its defensive run through the final match."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:12:33.548Z"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MWC",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:48:04+00:00",
+  "headline": "Luther finishes unbeaten atop the conference",
+  "dek": "Luther navigated the conference schedule without a defeat to edge Lake Forest and Lawrence at the top of the table. Defense underpinned that finish across all competitions, as the program allowed ten goals while scoring 22.",
+  "lede_basis": {
+    "programme": "luther",
+    "gf": 22,
+    "ga": 10
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring concentrates heavily at the top of the chart, where Lake Forest's 53 goals outpace the combined totals of Luther, Beloit, and Cornell College, even though Luther finished ahead of Lake Forest in the conference standings.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "lake-forest": 53,
+        "lawrence": 44,
+        "knox": 29,
+        "illinois-college": 26,
+        "luther": 22,
+        "grinnell": 21,
+        "monmouth-il": 21,
+        "ripon": 21,
+        "beloit": 13,
+        "cornell-college": 11
+      },
+      "highlight": "lake-forest"
+    },
+    "basis": {
+      "programme": "lake-forest",
+      "gf": 53,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["luther", "beloit", "cornell-college"]
+    }
+  },
+  "wire": {
+    "line": "Cornell College went winless in conference play and conceded 83 goals across the season, more than any two other programs combined.",
+    "basis": {
+      "programme": "cornell-college",
+      "ga": 83,
+      "comparative": "greater_than_sum",
+      "metric": "ga",
+      "of_any": 2
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Lake Forest spread its scoring across at least fourteen different players over the course of the season.",
+      "basis": {
+        "programme": "lake-forest",
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lake Forest midfielder Maggie Balas recorded nine goals and twelve assists from 66 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Maggie Balas",
+        "programme": "lake-forest",
+        "goals": 9,
+        "assists": 12,
+        "shots": 66
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Monmouth (Ill.) goalkeeper Cadence Covert made 83 saves while conceding fourteen goals for a 0.856 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Cadence Covert",
+        "programme": "monmouth-il",
+        "saves": 83,
+        "goals_against": 14,
+        "save_pct": 0.856
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lawrence finished with fourteen wins, five draws, and three losses overall, scoring 44 goals and conceding seventeen.",
+      "basis": {
+        "programme": "lawrence",
+        "wins": 14,
+        "draws": 5,
+        "losses": 3,
+        "gf": 44,
+        "ga": 17
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Five scheduled matches passed their dates without a published result: Cornell College against Waldorf, Knox against Dubuque, Beloit at Aurora, Lawrence against Edgewood, and Illinois College against Lincoln Land Community.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Maggie Balas",
+      "programme": "lake-forest",
+      "position": "MID",
+      "class": "JR",
+      "line": "9 G · 12 A · 66 shots"
+    },
+    {
+      "player": "Annabelle Schroeder",
+      "programme": "lake-forest",
+      "position": "MID",
+      "class": "JR",
+      "line": "10 G · 7 A · 50 shots"
+    },
+    {
+      "player": "Katy Adler",
+      "programme": "illinois-college",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 3 A · 81 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 lawrence v uw-la-crosse",
+      "line": "The defeat ended Lawrence's winning run after victories over Luther and Lake Forest."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:18:45.155Z"
+  }
+}

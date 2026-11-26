@@ -1,0 +1,127 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-ccs.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CCS",
+  "validated_at": "2026-11-26T17:56:49.785Z",
+  "data_collected_at": "2026-11-26T03:12:18+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "observed",
+      "text": "The scoring distribution drops sharply at the foot of the conference, where Agnes Scott managed just three goals while conceding 60 and going winless across two draws and fifteen losses.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Asbury reached ten wins overall, more than any other program in the conference.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Four matches remain past their scheduled dates with no published result: Asbury's meetings with Johnson, Centre, and Hanover, and Belhaven's match against East Central CC.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Covenant freshman defender AT Simon scored seven goals and added two assists on 26 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Belhaven goalkeeper Addi Roberts made 95 saves while allowing fifteen goals, posting an 0.864 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Piedmont spread its 27 goals across at least fourteen different scorers while conceding fifteen times.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Lila Wiley — 10 G · 1 A · 51 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Anna Sparks — 6 G · 3 A · 31 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Alexis Whiting — 6 G · 3 A · 14 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-13 washu v belhaven",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:54:58.838Z",
+    "generate_ms": 110944,
+    "validate_ms": 3,
+    "wall_ms": 110947,
+    "concurrency": 8
+  }
+}

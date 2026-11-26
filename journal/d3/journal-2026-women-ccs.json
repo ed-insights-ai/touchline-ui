@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CCS",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:12:18+00:00",
+  "headline": "Covenant outscores the field to top the CCS",
+  "dek": "Covenant went unbeaten in conference play and scored 39 goals across all competitions, more than LaGrange, Huntingdon, and Agnes Scott combined. At least fifteen different players found the net for the conference leader while conceding 24 times overall.",
+  "lede_basis": {
+    "programme": "covenant",
+    "gf": 39,
+    "ga": 24,
+    "distinct_scorers_min": 15,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["lagrange", "huntingdon", "agnes-scott"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "observed",
+    "text": "The scoring distribution drops sharply at the foot of the conference, where Agnes Scott managed just three goals while conceding 60 and going winless across two draws and fifteen losses.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "covenant": 39,
+        "asbury": 32,
+        "piedmont": 27,
+        "belhaven": 21,
+        "lagrange": 14,
+        "huntingdon": 11,
+        "agnes-scott": 3
+      },
+      "highlight": "covenant"
+    },
+    "basis": {
+      "programme": "agnes-scott",
+      "gf": 3,
+      "ga": 60,
+      "wins": 0,
+      "draws": 2,
+      "losses": 15
+    }
+  },
+  "wire": {
+    "line": "Asbury reached ten wins overall, more than any other program in the conference.",
+    "basis": {
+      "programme": "asbury",
+      "wins": 10,
+      "draws": 2,
+      "losses": 5,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of": ["covenant", "belhaven", "piedmont", "huntingdon", "lagrange", "agnes-scott"]
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four matches remain past their scheduled dates with no published result: Asbury's meetings with Johnson, Centre, and Hanover, and Belhaven's match against East Central CC.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Covenant freshman defender AT Simon scored seven goals and added two assists on 26 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "AT Simon",
+        "programme": "covenant",
+        "goals": 7,
+        "assists": 2,
+        "shots": 26
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Belhaven goalkeeper Addi Roberts made 95 saves while allowing fifteen goals, posting an 0.864 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Addi Roberts",
+        "programme": "belhaven",
+        "saves": 95,
+        "goals_against": 15,
+        "save_pct": 0.864
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Piedmont spread its 27 goals across at least fourteen different scorers while conceding fifteen times.",
+      "basis": {
+        "programme": "piedmont",
+        "gf": 27,
+        "ga": 15,
+        "distinct_scorers_min": 14
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Lila Wiley",
+      "programme": "covenant",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 1 A · 51 shots"
+    },
+    {
+      "player": "Anna Sparks",
+      "programme": "asbury",
+      "position": "DEF",
+      "class": "SR",
+      "line": "6 G · 3 A · 31 shots"
+    },
+    {
+      "player": "Alexis Whiting",
+      "programme": "belhaven",
+      "position": "FWD",
+      "class": "SO",
+      "line": "6 G · 3 A · 14 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-13 washu v belhaven",
+      "line": "Belhaven closes the season level on goals scored and conceded after beating Huntingdon in its previous outing."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:56:49.785Z"
+  }
+}

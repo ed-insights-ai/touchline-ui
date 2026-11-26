@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-sunyac.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SUNYAC",
+  "validated_at": "2026-11-26T18:25:58.457Z",
+  "data_collected_at": "2026-11-26T03:25:43+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring drops off sharply toward the bottom of the league: Fredonia's 56 goals alone outpace Morrisville, SUNY Cobleskill, SUNY Canton, and SUNY Delhi combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Outside conference play, league programs won 35, drew thirteen, and lost 43, conceding 175 goals to 127 scored.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Two matches past their dates carry no published result, and both involve Oswego: against St. John Fisher and Nazareth.",
+      "checker": "set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Sammy Fausti of SUNY Cobleskill made 139 saves across the season, finishing with a 0.799 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Fredonia midfielder Gabby Irwin recorded fourteen assists alongside eight goals on 70 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "SUNY Canton conceded 68 goals across all matches, more than any other program in the conference, while scoring nine.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is buffalo-state at 43"
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Gianna Cirilla — 17 G · 4 A · 93 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Bronwyn Madden — 14 G · 5 A · 67 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Isabella Hoffmann — 14 G · 5 A · 65 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 william-smith v suny-cortland",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:24:03.416Z",
+    "generate_ms": 115037,
+    "validate_ms": 4,
+    "wall_ms": 115041,
+    "concurrency": 8
+  }
+}

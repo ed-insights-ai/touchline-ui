@@ -1,0 +1,127 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-newmac.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NEWMAC",
+  "validated_at": "2026-11-26T18:21:09.975Z",
+  "data_collected_at": "2026-11-26T03:21:42+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 10,
+    "contradicted": 1,
+    "unverifiable": 0,
+    "dropped": 1
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring falls off sharply down the table: even Salve Regina, with 59 goals, outscored Emerson, Smith, Coast Guard, and Mount Holyoke combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Mount Holyoke finished winless, with two draws and nine losses while conceding 45 goals.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Two Coast Guard matches from late August remain past their scheduled dates with no published result, accounting for all unresolved dates in the conference.",
+      "checker": "set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Wellesley goalkeeper Olivia Lore made 138 saves while allowing 25 goals, finishing with an 0.847 save percentage and eight shutouts.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Salve Regina goalkeeper Sabrina Lawless made 108 saves while allowing nineteen goals, posting an 0.85 save percentage with zero shutouts.",
+      "checker": "player_stat",
+      "verdict": "contradicted",
+      "mismatches": ["shutouts: claimed 0, the source published none"],
+      "dropped": true
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Nineteen different players scored for Salve Regina across a season that ended with twelve wins, five draws, and four losses.",
+      "checker": "distinct_scorers+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Camila Leiva — 15 G · 8 A · 89 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Arianna Doss — 12 G · 13 A · 58 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Claire Zhang — 15 G · 3 A · 84 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-15 mit v messiah",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:18:39.912Z",
+    "generate_ms": 150061,
+    "validate_ms": 2,
+    "wall_ms": 150063,
+    "concurrency": 8
+  }
+}

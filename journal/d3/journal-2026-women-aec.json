@@ -1,0 +1,151 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "AEC",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:46:43+00:00",
+  "headline": "Marymount (Va.) leads the AEC at both ends",
+  "dek": "Marymount (Va.) has scored 60 goals while allowing just fourteen, outscoring Gwynedd Mercy, Centenary (N.J.), and Saint Elizabeth combined. That defensive margin carried the program to thirteen wins and two draws against five losses, leaving it unbeaten in conference play.",
+  "lede_basis": {
+    "programme": "marymount-va",
+    "wins": 13,
+    "draws": 2,
+    "losses": 5,
+    "gf": 60,
+    "ga": 14,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["gwynedd-mercy", "centenary-nj", "saint-elizabeth"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "The conference breaks cleanly into upper and lower halves, with Immaculata's 50 goals—the smallest total in the top half—still outscoring Gwynedd Mercy, Centenary (N.J.), and Saint Elizabeth combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "marymount-va": 60,
+        "pratt-institute": 52,
+        "immaculata": 50,
+        "gwynedd-mercy": 24,
+        "centenary-nj": 19,
+        "saint-elizabeth": 0
+      },
+      "highlight": "marymount-va"
+    },
+    "basis": {
+      "programme": "immaculata",
+      "gf": 50,
+      "ga": 23,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["gwynedd-mercy", "centenary-nj", "saint-elizabeth"]
+    }
+  },
+  "wire": {
+    "line": "Saint Elizabeth has yet to score across thirteen losses, conceding 110 goals without a win or a draw.",
+    "basis": {
+      "programme": "saint-elizabeth",
+      "wins": 0,
+      "draws": 0,
+      "losses": 13,
+      "gf": 0,
+      "ga": 110
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Centenary (N.J.) accounts for the conference's one match past its date with no published result, an August meeting with Rutgers-Newark.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "centenary-nj",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pratt Institute senior Emma Pratt leads the AEC in scoring with eighteen goals on 83 shots, while also contributing seven assists.",
+      "basis": {
+        "source": "stats",
+        "player": "Emma Pratt",
+        "programme": "pratt-institute",
+        "goals": 18,
+        "assists": 7,
+        "shots": 83
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Gwynedd Mercy goalkeeper Zoe Davis has made 113 saves against 43 goals conceded, posting a 0.724 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Zoe Davis",
+        "programme": "gwynedd-mercy",
+        "saves": 113,
+        "goals_against": 43,
+        "save_pct": 0.724
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Immaculata has spread its 50 goals across fifteen distinct scorers this season.",
+      "basis": {
+        "programme": "immaculata",
+        "gf": 50,
+        "ga": 23,
+        "distinct_scorers_min": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Marymount (Va.) freshman Eleanor Keough leads the conference in shot volume with 87 attempts, scoring fifteen goals and assisting on seven.",
+      "basis": {
+        "source": "stats",
+        "player": "Eleanor Keough",
+        "programme": "marymount-va",
+        "goals": 15,
+        "assists": 7,
+        "shots": 87
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Emma Pratt",
+      "programme": "pratt-institute",
+      "position": "MID",
+      "class": "SR",
+      "line": "18 G · 7 A · 83 shots"
+    },
+    {
+      "player": "Eleanor Keough",
+      "programme": "marymount-va",
+      "position": "MID",
+      "class": "FR",
+      "line": "15 G · 7 A · 87 shots"
+    },
+    {
+      "player": "Gracie Repici",
+      "programme": "immaculata",
+      "position": "FWD",
+      "class": "SO",
+      "line": "13 G · 4 A · 59 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 batten v marymount-va",
+      "line": "Marymount (Va.) closed its season unbeaten since early October after sweeping conference play."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:04:28.872Z"
+  }
+}

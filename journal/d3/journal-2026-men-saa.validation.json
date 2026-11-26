@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-saa.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SAA",
+  "validated_at": "2026-11-26T17:08:19.561Z",
+  "data_collected_at": "2026-11-26T02:45:40+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring output splits sharply across the conference, with Trinity (Texas) reaching 50 goals — more than Maryville (Tenn.) and Oglethorpe combined — while the bottom of the distribution trails far behind the top tier.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Conference programs won 50 matches outside league play while losing nineteen and drawing nineteen.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Trinity (Texas) midfielder Eduardo Parra scored twelve goals and added one assist on 33 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Oglethorpe goalkeeper Sebastian Lewis stopped 70 shots while allowing eleven goals for a 0.864 save percentage, and he recorded five shutouts.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Rhodes spread its 34 goals across at least sixteen different players this season.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Centre allowed 37 goals, more than any other program in the conference, while finishing with two wins, two draws, twelve losses, and twelve goals scored.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is maryville-tn at 27"
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Nine scheduled matches have passed their dates without a published result, including Millsaps's October meeting with Belhaven and August dates involving Berry, Centre, and Trinity (Texas).",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Grey Richards — 12 G · 5 A · 56 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Eduardo Parra — 12 G · 1 A · 33 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Grayson White — 7 G · 10 A · 32 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-21 williams v trinity-tx",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:00:06.487Z",
+    "generate_ms": 493069,
+    "validate_ms": 4,
+    "wall_ms": 493074,
+    "concurrency": 8
+  }
+}

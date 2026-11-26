@@ -1,0 +1,134 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "ODAC",
+  "generated_at": "2026-11-26T02:45:12+00:00",
+  "data_collected_at": "2026-11-26T02:45:12+00:00",
+  "headline": "Lynchburg finishes on top of the ODAC",
+  "dek": "Lynchburg lost only two matches all season, recording sixteen wins and five draws across a campaign that reached late November. Unbeaten in conference play, the program was the ODAC's last side standing before Carnegie Mellon ended its run.",
+  "lede_basis": {
+    "programme": "lynchburg",
+    "wins": 16,
+    "draws": 5,
+    "losses": 2
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the ODAC separates into a high-output upper group and a tightly bunched lower tier, with Lynchburg's 52 goals outscoring Roanoke, Eastern Mennonite, and Averett combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "lynchburg": 52,
+        "hampden-sydney": 43,
+        "bridgewater": 41,
+        "washington-and-lee": 41,
+        "shenandoah": 40,
+        "randolph-macon": 24,
+        "batten": 22,
+        "randolph": 21,
+        "guilford": 20,
+        "eastern-mennonite": 19,
+        "roanoke": 18,
+        "averett": 7
+      },
+      "highlight": "lynchburg"
+    },
+    "basis": {
+      "programme": "lynchburg",
+      "gf": 52,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["roanoke", "eastern-mennonite", "averett"]
+    }
+  },
+  "wire": {
+    "line": "Averett went winless across fourteen defeats, scoring seven goals and conceding 88.",
+    "basis": {
+      "programme": "averett",
+      "wins": 0,
+      "draws": 0,
+      "losses": 14,
+      "gf": 7,
+      "ga": 88
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Nine scheduled matches have passed their dates without a published result, including an all-conference meeting between Roanoke and Eastern Mennonite as well as non-conference dates for Guilford, Averett, and Randolph-Macon.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bridgewater goalkeeper Zane Kowalski stopped 51 shots while allowing ten goals, posting a 0.836 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Zane Kowalski",
+        "programme": "bridgewater",
+        "saves": 51,
+        "goals_against": 10,
+        "save_pct": 0.836
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bridgewater forward Riley Queen paired eleven goals with ten assists across 56 shots, the only ODAC leader to reach double figures in both categories.",
+      "basis": {
+        "source": "stats",
+        "player": "Riley Queen",
+        "programme": "bridgewater",
+        "goals": 11,
+        "assists": 10,
+        "shots": 56
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Shenandoah recorded at least seventeen different goal scorers over the season, distributing its attack well beyond leading finisher Jarbin Rodriguez.",
+      "basis": {
+        "programme": "shenandoah",
+        "distinct_scorers_min": 17
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Jarbin Rodriguez",
+      "programme": "shenandoah",
+      "position": "FWD",
+      "class": "SR",
+      "line": "12 G · 5 A · 42 shots"
+    },
+    {
+      "player": "Riley Queen",
+      "programme": "bridgewater",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 10 A · 56 shots"
+    },
+    {
+      "player": "Rowan Sellers",
+      "programme": "washington-and-lee",
+      "position": "FWD",
+      "class": "FR",
+      "line": "11 G · 2 A · 38 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 lynchburg v carnegie-mellon",
+      "line": "Lynchburg had gone unbeaten since early September and had not lost at home all season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:11:14.325Z"
+  }
+}

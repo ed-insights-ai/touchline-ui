@@ -1,0 +1,146 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-mwc.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MWC",
+  "validated_at": "2026-11-26T16:58:04.561Z",
+  "data_collected_at": "2026-11-26T02:44:17+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring volume did not map neatly onto the standings: Lawrence produced 47 goals — more than Knox and Cornell College combined — yet conceded 26 and finished in the middle of the conference table.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Monmouth (Ill.) finished winless with seventeen defeats, scoring nine goals while conceding 62.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Eleven scheduled matches are past their date with no published result, involving Beloit, Cornell College, and Knox.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "Grinnell won fourteen matches — more than any other MWC program — while allowing sixteen goals across the season.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is luther at 11"
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Luther spread its attack across at least seventeen different goalscorers over the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Lawrence freshman Grayson Ogren recorded sixteen goals and ten assists from 46 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Beloit goalkeeper David Staats made 95 saves while conceding 41 goals, posting a 0.699 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Grayson Ogren — 16 G · 10 A · 46 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Samuel Gojjam — 10 G · 12 A · 48 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Francesco Mungari — 11 G · 7 A · 58 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 st-olaf v grinnell",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2027-04-18 beloit v wisconsin-whitewater",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T16:49:18.396Z",
+    "generate_ms": 526162,
+    "validate_ms": 3,
+    "wall_ms": 526165,
+    "concurrency": 8
+  }
+}

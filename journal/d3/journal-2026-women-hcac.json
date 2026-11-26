@@ -1,0 +1,148 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "HCAC",
+  "generated_at": "2026-11-26T03:20:00+00:00",
+  "data_collected_at": "2026-11-26T03:16:40+00:00",
+  "headline": "Hanover tops the HCAC table and scoring chart",
+  "dek": "Hanover scored 43 goals across all matches while allowing twelve, winning twelve times against five losses and two draws. Mount St. Joseph still closed the season by beating Hanover without conceding, showing that the conference's highest-scoring side remained vulnerable at the finish.",
+  "lede_basis": {
+    "programme": "hanover",
+    "gf": 43,
+    "ga": 12,
+    "wins": 12,
+    "draws": 2,
+    "losses": 5
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring drops off steeply across the conference: Hanover's 43 goals surpass the combined output of Berea, Earlham, Bluffton, and Manchester.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "hanover": 43,
+        "transylvania": 33,
+        "mount-st-joseph": 28,
+        "rose-hulman": 27,
+        "franklin": 22,
+        "anderson-in": 15,
+        "berea": 13,
+        "earlham": 10,
+        "bluffton": 7,
+        "manchester": 5
+      },
+      "highlight": "hanover"
+    },
+    "basis": {
+      "programme": "hanover",
+      "gf": 43,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["berea", "earlham", "bluffton", "manchester"]
+    }
+  },
+  "wire": {
+    "line": "Mount St. Joseph has scored 28 goals and conceded five across seven wins, one draw, and one loss.",
+    "basis": {
+      "programme": "mount-st-joseph",
+      "gf": 28,
+      "ga": 5,
+      "wins": 7,
+      "draws": 1,
+      "losses": 1
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Five late-August matches have passed without a published result: Transylvania against Midway, Thomas More, and Indiana East, plus Berea against Midway and Johnson.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hanover freshman Abby Smith has produced ten goals and eight assists from 55 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Abby Smith",
+        "programme": "hanover",
+        "goals": 10,
+        "assists": 8,
+        "shots": 55
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Manchester goalkeeper Reagan Claus has recorded 181 saves while allowing 46 goals, maintaining a 0.797 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Reagan Claus",
+        "programme": "manchester",
+        "saves": 181,
+        "goals_against": 46,
+        "save_pct": 0.797
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Rose-Hulman has spread its 27 goals across at least fourteen different scorers while conceding seven goals all season.",
+      "basis": {
+        "programme": "rose-hulman",
+        "distinct_scorers_min": 14,
+        "gf": 27,
+        "ga": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Rose-Hulman goalkeeper Alicia Gonzalez has posted a 0.883 save percentage, making 53 saves against seven goals allowed.",
+      "basis": {
+        "source": "stats",
+        "player": "Alicia Gonzalez",
+        "programme": "rose-hulman",
+        "saves": 53,
+        "goals_against": 7,
+        "save_pct": 0.883
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Lauren Barker",
+      "programme": "franklin",
+      "position": "MID",
+      "class": "SR",
+      "line": "5 G · 3 A · 44 shots"
+    },
+    {
+      "player": "Amirah Curry",
+      "programme": "franklin",
+      "position": "MID",
+      "class": "SR",
+      "line": "4 G · 3 A · 26 shots"
+    },
+    {
+      "player": "Trinity Inglert",
+      "programme": "franklin",
+      "position": "MID",
+      "class": "FR",
+      "line": "3 G · 4 A · 26 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-07 mount-st-joseph v hanover",
+      "line": "Mount St. Joseph beats Hanover at home again, snapping a winning streak that began after their earlier meeting."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:15:07.639Z"
+  }
+}

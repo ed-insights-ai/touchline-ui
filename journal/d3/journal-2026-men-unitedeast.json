@@ -1,0 +1,157 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "UNITEDEAST",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:10:42+00:00",
+  "headline": "Penn State Abington finishes unbeaten in conference play",
+  "dek": "Penn State Abington won thirteen matches, drew four, and lost five overall, conceding 22 goals while seventeen different players scored. Its spotless conference schedule carried it to the top of the table before a season-ending loss at Tufts.",
+  "lede_basis": {
+    "programme": "penn-state-abington",
+    "wins": 13,
+    "draws": 4,
+    "losses": 5,
+    "gf": 61,
+    "ga": 22,
+    "distinct_scorers_min": 17
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Attacking output splits sharply across the conference: Penn State Abington's 61 goals surpass the combined totals of Penn State Berks, Wilson College, Penn State Brandywine, and Gallaudet.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "penn-state-abington": 61,
+        "st-marys-md": 54,
+        "cairn": 49,
+        "penn-state-harrisburg": 46,
+        "lancaster-bible-college": 39,
+        "penn-college": 32,
+        "notre-dame-of-maryland": 25,
+        "keystone-college": 19,
+        "penn-state-berks": 17,
+        "wilson-college": 15,
+        "penn-state-brandywine": 6,
+        "gallaudet": 4
+      },
+      "highlight": "penn-state-abington"
+    },
+    "basis": {
+      "programme": "penn-state-abington",
+      "gf": 61,
+      "ga": 22,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["penn-state-berks", "wilson-college", "penn-state-brandywine", "gallaudet"]
+    }
+  },
+  "wire": {
+    "line": "Gallaudet took seventeen losses and conceded 151 goals, more than any three other programs combined.",
+    "basis": {
+      "programme": "gallaudet",
+      "wins": 0,
+      "draws": 0,
+      "losses": 17,
+      "gf": 4,
+      "ga": 151,
+      "comparative": "greater_than_sum",
+      "metric": "ga",
+      "of_any": 3
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Three early non-conference matches have passed their scheduled dates without a published result: Notre Dame of Maryland against Washington College, St. Mary's (Md.) against Mary Washington, and Hood against Notre Dame of Maryland.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3
+      }
+    },
+    {
+      "label": "signal",
+      "text": "St. Mary's (Md.) finished level on wins and losses at nine wins, one draw, and nine losses despite scoring 54 goals and conceding 28.",
+      "basis": {
+        "programme": "st-marys-md",
+        "wins": 9,
+        "draws": 1,
+        "losses": 9,
+        "gf": 54,
+        "ga": 28
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Cairn forward Alijah Miller recorded fifteen goals and eight assists on 88 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Alijah Miller",
+        "programme": "cairn",
+        "goals": 15,
+        "assists": 8,
+        "shots": 88
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Penn State Abington goalkeeper Hector Ortiz made 71 saves while allowing nine goals, posting a 0.888 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Hector Ortiz",
+        "programme": "penn-state-abington",
+        "saves": 71,
+        "goals_against": 9,
+        "save_pct": 0.888
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Penn State Abington midfielder Amerr Yagoub supplied fifteen assists alongside two goals on 26 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Amerr Yagoub",
+        "programme": "penn-state-abington",
+        "goals": 2,
+        "assists": 15,
+        "shots": 26
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Alijah Miller",
+      "programme": "cairn",
+      "position": "FWD",
+      "class": "SR",
+      "line": "15 G · 8 A · 88 shots"
+    },
+    {
+      "player": "Frankie Rafferty",
+      "programme": "penn-state-abington",
+      "position": "FWD",
+      "class": "JR",
+      "line": "13 G · 4 A · 56 shots"
+    },
+    {
+      "player": "Zach Blaum",
+      "programme": "st-marys-md",
+      "position": "MID",
+      "class": "JR",
+      "line": "10 G · 8 A · 56 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 tufts v penn-state-abington",
+      "line": "The defeat snapped Penn State Abington's winning streak and closed the conference's season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:20:41.871Z"
+  }
+}

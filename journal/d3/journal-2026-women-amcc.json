@@ -1,0 +1,171 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "AMCC",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:11:13+00:00",
+  "headline": "Penn State Behrend stays unbeaten with five wins",
+  "dek": "Penn State Behrend has won all five of its matches without a draw or a loss, scoring 36 goals while conceding only three. No other program in the conference has gone through the season without a defeat.",
+  "lede_basis": {
+    "programme": "penn-state-behrend",
+    "wins": 5,
+    "draws": 0,
+    "losses": 0,
+    "gf": 36,
+    "ga": 3
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring across the conference drops off steeply past the top programs: Pitt-Greensburg's 50 goals exceed the combined totals of Hilbert, Mount Aloysius, Penn State Altoona, Pitt-Bradford, Carlow, and La Roche.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "pitt-greensburg": 50,
+        "penn-state-behrend": 36,
+        "hilbert": 20,
+        "mount-aloysius": 8,
+        "penn-state-altoona": 7,
+        "pitt-bradford": 3,
+        "carlow": 2,
+        "la-roche": 2
+      },
+      "highlight": "pitt-greensburg"
+    },
+    "basis": {
+      "programme": "pitt-greensburg",
+      "gf": 50,
+      "ga": 28,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": [
+        "hilbert",
+        "mount-aloysius",
+        "penn-state-altoona",
+        "pitt-bradford",
+        "carlow",
+        "la-roche"
+      ]
+    }
+  },
+  "wire": {
+    "line": "Pitt-Greensburg won fourteen matches, more than any other program in the conference.",
+    "basis": {
+      "programme": "pitt-greensburg",
+      "wins": 14,
+      "draws": 0,
+      "losses": 7,
+      "comparative": "greater_than_each",
+      "metric": "wins",
+      "of": [
+        "carlow",
+        "hilbert",
+        "la-roche",
+        "mount-aloysius",
+        "penn-state-altoona",
+        "penn-state-behrend",
+        "pitt-bradford"
+      ]
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Pitt-Greensburg midfielder Bella Carroto has scored fifteen goals and added two assists on 50 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Bella Carroto",
+        "programme": "pitt-greensburg",
+        "goals": 15,
+        "assists": 2,
+        "shots": 50
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Pitt-Greensburg defender Dionna Santia has recorded twelve assists while taking only seven shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Dionna Santia",
+        "programme": "pitt-greensburg",
+        "assists": 12,
+        "shots": 7
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hilbert goalkeeper Keira McFarland has made 153 saves and allowed 38 goals, posting a 0.801 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Keira McFarland",
+        "programme": "hilbert",
+        "saves": 153,
+        "goals_against": 38,
+        "save_pct": 0.801
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Mount Aloysius has conceded 70 goals while scoring eight, allowing more goals than any other program in the conference.",
+      "basis": {
+        "programme": "mount-aloysius",
+        "gf": 8,
+        "ga": 70,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "carlow",
+          "hilbert",
+          "la-roche",
+          "penn-state-altoona",
+          "penn-state-behrend",
+          "pitt-bradford",
+          "pitt-greensburg"
+        ]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Penn State Behrend has drawn goals from at least ten different scorers across its matches.",
+      "basis": {
+        "programme": "penn-state-behrend",
+        "distinct_scorers_min": 10
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Bella Carroto",
+      "programme": "pitt-greensburg",
+      "position": "MID",
+      "class": "JR",
+      "line": "15 G · 2 A · 50 shots"
+    },
+    {
+      "player": "Ella Smith",
+      "programme": "pitt-greensburg",
+      "position": "FWD",
+      "class": "FR",
+      "line": "13 G · 2 A · 56 shots"
+    },
+    {
+      "player": "Ja'Lynn Sanders",
+      "programme": "hilbert",
+      "position": "FWD",
+      "class": "SO",
+      "line": "9 G · 3 A · 68 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 rutgers-camden v pitt-greensburg",
+      "line": "The defeat ended Pitt-Greensburg's winning run after victories over Franciscan and McDaniel."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:56:41.970Z"
+  }
+}

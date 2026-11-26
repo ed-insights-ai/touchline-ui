@@ -1,0 +1,139 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-cne.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CNE",
+  "validated_at": "2026-11-26T17:56:55.049Z",
+  "data_collected_at": "2026-11-26T03:13:22+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring across the conference is heavily concentrated at the top: University of New England alone has scored 45 goals, more than Suffolk, Nichols, Johnson & Wales (R.I.), Endicott, Curry, and Wentworth combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "University of New England scored a conference-high 45 goals, yet won only nine times while drawing twice and losing seven.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is university-of-hartford at 44"
+    },
+    {
+      "path": "findings[0]",
+      "label": "derived",
+      "text": "Roger Williams drew six matches while winning ten and losing three, finishing with more draws than any other program in the conference.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is gordon at 3"
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Gordon forward Eowyn Lapp scored fourteen goals and added four assists on 127 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "University of Hartford goalkeeper Madelyn Nunnemacher made 80 saves while conceding twelve goals.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Nichols conceded 55 goals while scoring nine across all matches, allowing more goals than any other program in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is gordon at 30"
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "One match in the schedule has passed its date with no published result: Roger Williams away at Coast Guard.",
+      "checker": "unresolved+set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Eowyn Lapp — 14 G · 4 A · 127 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Emily Talbot — 11 G · 8 A · 63 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Taylor Freimuth — 12 G · 1 A · 45 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 vassar v university-of-hartford",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:54:58.859Z",
+    "generate_ms": 116184,
+    "validate_ms": 6,
+    "wall_ms": 116190,
+    "concurrency": 8
+  }
+}

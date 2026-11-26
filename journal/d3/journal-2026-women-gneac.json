@@ -1,0 +1,160 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "GNEAC",
+  "generated_at": "2026-11-26T03:20:00+00:00",
+  "data_collected_at": "2026-11-26T03:16:24+00:00",
+  "headline": "Rivier outscores every program in the GNEAC",
+  "dek": "Rivier won fifteen matches against five losses and three draws, scoring 68 goals while conceding 22 across the season. With 21 different scorers contributing, the program outpaced every conference rival in front of goal.",
+  "lede_basis": {
+    "programme": "rivier",
+    "wins": 15,
+    "draws": 3,
+    "losses": 5,
+    "gf": 68,
+    "ga": 22,
+    "distinct_scorers_min": 21,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring across the GNEAC is sharply top-heavy, with Rivier's 68 goals surpassing the combined totals of Colby-Sawyer and Saint Joseph's (Maine) while the middle of the conference clusters tightly and the bottom drops off steeply.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "rivier": 68,
+        "emmanuel-ma": 47,
+        "norwich": 41,
+        "colby-sawyer": 25,
+        "saint-josephs-me": 25,
+        "regis-ma": 24,
+        "dean-college": 22,
+        "lasell": 22,
+        "albertus-magnus": 21,
+        "new-england-college": 21,
+        "simmons": 19,
+        "elms": 9,
+        "saint-joseph-ct": 3,
+        "mitchell": 0
+      },
+      "highlight": "rivier"
+    },
+    "basis": {
+      "programme": "rivier",
+      "gf": 68,
+      "ga": 22,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["colby-sawyer", "saint-josephs-me"]
+    }
+  },
+  "wire": {
+    "line": "Mitchell lost all eight matches without scoring, conceding 73 goals across the season.",
+    "basis": {
+      "programme": "mitchell",
+      "wins": 0,
+      "draws": 0,
+      "losses": 8,
+      "gf": 0,
+      "ga": 73
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Outside the conference, GNEAC programs posted fifteen wins, five draws, and 21 losses, scoring 47 goals while conceding 80.",
+      "basis": {
+        "derived_from": "fixtures",
+        "wins": 15,
+        "draws": 5,
+        "losses": 21,
+        "gf": 47,
+        "ga": 80
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Rivier midfielder Leah Morrier scored eighteen goals and added twelve assists on 91 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Leah Morrier",
+        "programme": "rivier",
+        "goals": 18,
+        "assists": 12,
+        "shots": 91
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lasell conceded four goals while scoring 22 across six wins, two draws, and one loss.",
+      "basis": {
+        "programme": "lasell",
+        "wins": 6,
+        "draws": 2,
+        "losses": 1,
+        "gf": 22,
+        "ga": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Saint Joseph's (Maine) goalkeeper Ashlyn Guerette made 133 saves and allowed 29 goals, finishing with a .821 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Ashlyn Guerette",
+        "programme": "saint-josephs-me",
+        "saves": 133,
+        "goals_against": 29,
+        "save_pct": 0.821
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Emmanuel (Mass.) scored 47 goals and conceded 32, with fifteen different players finding the net.",
+      "basis": {
+        "programme": "emmanuel-ma",
+        "gf": 47,
+        "ga": 32,
+        "distinct_scorers_min": 15
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Leah Morrier",
+      "programme": "rivier",
+      "position": "MID",
+      "class": "JR",
+      "line": "18 G · 12 A · 91 shots"
+    },
+    {
+      "player": "Paige Letourneau",
+      "programme": "emmanuel-ma",
+      "position": "MID",
+      "class": "SR",
+      "line": "9 G · 5 A · 58 shots"
+    },
+    {
+      "player": "Hannah Smith",
+      "programme": "rivier",
+      "position": "MID",
+      "class": "JR",
+      "line": "8 G · 1 A · 38 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 johns-hopkins v rivier",
+      "line": "The defeat ended Rivier's unbeaten run since mid-October and closed the GNEAC season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:58:45.226Z"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "NACC",
+  "generated_at": "2026-11-26T02:45:00+00:00",
+  "data_collected_at": "2026-11-26T02:44:28+00:00",
+  "headline": "MSOE outpaces every NACC side in total wins",
+  "dek": "Even with Edgewood finishing atop the league standings, MSOE compiled fifteen wins alongside four draws and five losses across the season. The side backed that record with 49 goals scored and 24 conceded.",
+  "lede_basis": {
+    "programme": "msoe",
+    "wins": 15,
+    "draws": 4,
+    "losses": 5,
+    "gf": 49,
+    "ga": 24,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "The scoring distribution splits sharply across the conference: Lakeland produced 51 goals, more than Concordia Chicago, Wisconsin Lutheran, and St. Norbert combined, yet conceded 43 and finished mid-table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "lakeland": 51,
+        "aurora": 49,
+        "msoe": 49,
+        "edgewood": 46,
+        "illinois-tech": 36,
+        "benedictine": 26,
+        "concordia-wisconsin": 20,
+        "dominican-il": 20,
+        "marian": 19,
+        "rockford": 19,
+        "st-norbert": 17,
+        "concordia-chicago": 14,
+        "wisconsin-lutheran": 14
+      },
+      "highlight": "lakeland"
+    },
+    "basis": {
+      "programme": "lakeland",
+      "gf": 51,
+      "ga": 43,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["concordia-chicago", "wisconsin-lutheran", "st-norbert"]
+    }
+  },
+  "wire": {
+    "line": "Against non-conference opponents, league programs won 29, drew eleven, and lost 36, conceding 148 goals while scoring 128.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 29,
+      "draws": 11,
+      "losses": 36,
+      "gf": 128,
+      "ga": 148
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Rockford goalkeeper Wesley Pritzlaff made 93 saves while allowing 22 goals, finishing with a 0.809 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Wesley Pritzlaff",
+        "programme": "rockford",
+        "saves": 93,
+        "goals_against": 22,
+        "save_pct": 0.809
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Edgewood forward Connor Gage scored ten goals and added seven assists on 57 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Connor Gage",
+        "programme": "edgewood",
+        "goals": 10,
+        "assists": 7,
+        "shots": 57
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Marian conceded 56 goals, more than any other NACC program, while finishing with two wins, two draws, and thirteen losses.",
+      "basis": {
+        "programme": "marian",
+        "gf": 19,
+        "ga": 56,
+        "wins": 2,
+        "draws": 2,
+        "losses": 13,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Aurora spread its scoring across at least fourteen different players during the season.",
+      "basis": {
+        "programme": "aurora",
+        "distinct_scorers_min": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Six August matches involving Dominican (Ill.), Illinois Tech, and Rockford passed their scheduled dates with no published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Connor Gage",
+      "programme": "edgewood",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 7 A · 57 shots"
+    },
+    {
+      "player": "Issa Mnangwa",
+      "programme": "aurora",
+      "position": "FWD",
+      "class": "SO",
+      "line": "10 G · 3 A · 44 shots"
+    },
+    {
+      "player": "Dunia Wangu",
+      "programme": "lakeland",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 2 A · 45 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 msoe v north-park",
+      "line": "The defeat ends MSOE's late-season winning streak, though the program still finishes with the conference's highest win total."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T16:52:34.039Z"
+  }
+}

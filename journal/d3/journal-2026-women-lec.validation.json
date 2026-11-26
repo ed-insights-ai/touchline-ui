@@ -1,0 +1,138 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-lec.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "LEC",
+  "validated_at": "2026-11-26T18:09:26.627Z",
+  "data_collected_at": "2026-11-26T02:47:21+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring in the Little East is top-heavy rather than evenly spread: Eastern Connecticut's 49 goals exceed the combined totals of Western Connecticut and UMass Boston, leaving the rest of the conference clustered well below the leader.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Outside the conference, Little East sides posted 35 wins, twelve draws, and 34 losses, scoring 113 goals and conceding 124.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "UMass Boston goalkeeper Janiya Morales Matier recorded 107 saves and allowed fifteen goals, posting an 0.877 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Plymouth State finished the season with ten wins, seven losses, and zero draws.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Western Connecticut drew seven matches alongside six wins and five losses, finishing with more draws than any other program in the conference.",
+      "checker": "team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is umass-boston at 5"
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "VTSU Castleton conceded 47 goals while scoring fourteen, giving up more goals than any other program in the Little East.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is southern-maine at 41"
+    },
+    {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "Southern Maine spread its offense across at least thirteen different goal scorers over the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Emily McKelvey — 16 G · 3 A · 68 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Michaela Gasparri — 7 G · 11 A · 48 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Lexi Morin — 9 G · 4 A · 66 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 eastern-connecticut v mit",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:00:49.224Z",
+    "generate_ms": 517399,
+    "validate_ms": 4,
+    "wall_ms": 517403,
+    "concurrency": 8
+  }
+}

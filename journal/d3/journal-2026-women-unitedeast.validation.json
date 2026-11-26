@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-unitedeast.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "UNITEDEAST",
+  "validated_at": "2026-11-26T18:28:31.468Z",
+  "data_collected_at": "2026-11-26T03:27:14+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring is top-heavy across the conference, with a steep drop-off at the foot of the chart: Penn State Harrisburg's 53 goals exceed the combined total of Notre Dame of Maryland, Wilson College, Penn State Brandywine, and Keystone College.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Keystone College suffered ten losses with no wins or draws, scoring one goal and conceding 102.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Five August matches involving St. Mary's (Md.), Notre Dame of Maryland, and Cedar Crest College have passed their scheduled dates with no published result.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Penn College finished with thirteen wins, one draw, and five losses across all matches, scoring 47 goals and conceding fifteen.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "St. Mary's (Md.) found goals from at least fifteen different players across the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Penn State Berks freshman midfielder Stephanie Morales scored seventeen goals and added two assists from 72 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Wilson College goalkeeper Madison Ebersole made 94 saves while conceding 22 goals for a 0.81 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Megan Kurian — 16 G · 5 A · 62 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Stephanie Morales — 17 G · 2 A · 72 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Camryn Lobb — 15 G · 6 A · 50 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 williams v penn-state-harrisburg",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:26:36.516Z",
+    "generate_ms": 114949,
+    "validate_ms": 2,
+    "wall_ms": 114952,
+    "concurrency": 8
+  }
+}

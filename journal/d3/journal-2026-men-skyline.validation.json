@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-skyline.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SKYLINE",
+  "validated_at": "2026-11-26T17:25:17.283Z",
+  "data_collected_at": "2026-11-26T02:46:05+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring splits sharply between the top contenders and the lower half: Manhattanville's 57 goals outpace Purchase and St. Joseph's-Brooklyn combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Yeshiva midfielder Franco Busso scored 21 of his team's 30 goals across the season.",
+      "checker": "player_stat+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Mount Saint Vincent finished with 47 goals scored and 21 conceded across the season.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "derived",
+      "text": "St. Joseph's-Brooklyn conceded 65 goals, more than any other program in the conference.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is purchase at 54"
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Farmingdale State goalkeeper Vas Dallas recorded 92 saves while allowing 30 goals across the campaign.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "St. Joseph's-Long Island forward Jack Pulisic contributed thirteen goals and five assists on 56 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Two scheduled matches from late August remain past their date with no published result, and both belong to Manhattanville: its home date against Hudson Valley Community and its trip to Vassar.",
+      "checker": "unresolved+set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Franco Busso — 21 G · 2 A · 90 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Javier Newman — 14 G · 8 A · 66 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Jack Pulisic — 13 G · 5 A · 56 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 scranton v manhattanville",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:04:11.772Z",
+    "generate_ms": 1265505,
+    "validate_ms": 5,
+    "wall_ms": 1265511,
+    "concurrency": 8
+  }
+}

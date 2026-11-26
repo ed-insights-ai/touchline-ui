@@ -1,0 +1,22 @@
+{
+  "schema": "touchline.national/1",
+  "season": 2026,
+  "gender": "women",
+  "generated_at": "2026-11-26T04:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:46:43+00:00",
+  "headline": "Division programs post 225 wins against outside opponents",
+  "dek": "Across the national schedule, member sides added 54 draws and 141 losses in matches outside the division. Those programs scored 941 goals while conceding 541.",
+  "basis": {
+    "derived_from": "division",
+    "wins": 225,
+    "draws": 54,
+    "losses": 141,
+    "gf": 941,
+    "ga": 541
+  },
+  "updated": "2026-11-26",
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:44:10.627Z"
+  }
+}

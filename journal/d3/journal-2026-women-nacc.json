@@ -1,0 +1,156 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NACC",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:48:14+00:00",
+  "headline": "Illinois Tech sets the NACC scoring pace",
+  "dek": "Illinois Tech finished with seventeen wins, one draw, and six losses across all matches, scoring 85 goals to outpace every other NACC program. Conceding 24 times over the same stretch, Illinois Tech carried that attack to the top of the standings.",
+  "lede_basis": {
+    "programme": "illinois-tech",
+    "wins": 17,
+    "draws": 1,
+    "losses": 6,
+    "gf": 85,
+    "ga": 24,
+    "comparative": "greater_than_each",
+    "metric": "gf",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Goal scoring across the NACC breaks into steep tiers, with Illinois Tech's 85 goals surpassing the combined totals of Edgewood, Concordia Chicago, Aurora, and Rockford.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "illinois-tech": 85,
+        "msoe": 62,
+        "dominican-il": 60,
+        "wisconsin-lutheran": 55,
+        "concordia-wisconsin": 38,
+        "st-norbert": 34,
+        "marian": 33,
+        "lakeland": 32,
+        "benedictine": 30,
+        "edgewood": 27,
+        "concordia-chicago": 19,
+        "aurora": 9,
+        "rockford": 6
+      },
+      "highlight": "illinois-tech"
+    },
+    "basis": {
+      "programme": "illinois-tech",
+      "gf": 85,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["edgewood", "concordia-chicago", "aurora", "rockford"]
+    }
+  },
+  "wire": {
+    "line": "Wisconsin Lutheran conceded ten goals across all matches while scoring 55, finishing with thirteen wins and five losses.",
+    "basis": {
+      "programme": "wisconsin-lutheran",
+      "wins": 13,
+      "draws": 0,
+      "losses": 5,
+      "gf": 55,
+      "ga": 10
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Eight matches scheduled in late August have passed their dates without a published result, leaving early-season dates involving Illinois Tech, Dominican (Ill.), Aurora, Rockford, and Concordia Chicago unresolved in the record.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Illinois Tech forward Tvesa Vathulya recorded fourteen goals and fourteen assists on 73 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Tvesa Vathulya",
+        "programme": "illinois-tech",
+        "goals": 14,
+        "assists": 14,
+        "shots": 73
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lakeland goalkeeper Ingrid Steinbock made 194 saves while allowing 56 goals across the season, posting a 0.776 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Ingrid Steinbock",
+        "programme": "lakeland",
+        "saves": 194,
+        "goals_against": 56,
+        "save_pct": 0.776
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Dominican (Ill.) recorded fifteen wins, two draws, and four losses across all matches, scoring 60 goals and conceding nineteen.",
+      "basis": {
+        "programme": "dominican-il",
+        "wins": 15,
+        "draws": 2,
+        "losses": 4,
+        "gf": 60,
+        "ga": 19
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Rockford finished with one win and sixteen losses across all matches, conceding 117 goals while scoring six.",
+      "basis": {
+        "programme": "rockford",
+        "wins": 1,
+        "draws": 0,
+        "losses": 16,
+        "gf": 6,
+        "ga": 117
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Tvesa Vathulya",
+      "programme": "illinois-tech",
+      "position": "FWD",
+      "class": "SO",
+      "line": "14 G · 14 A · 73 shots"
+    },
+    {
+      "player": "Malaya Sperber",
+      "programme": "lakeland",
+      "position": "FWD",
+      "class": "JR",
+      "line": "12 G · 8 A · 45 shots"
+    },
+    {
+      "player": "Jacey Read",
+      "programme": "concordia-wisconsin",
+      "position": "MID",
+      "class": "JR",
+      "line": "12 G · 6 A · 79 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-13 calvin v msoe",
+      "line": "MSOE arrived unbeaten since its October loss at Concordia Wisconsin, having beaten Illinois Tech and Dominican (Ill.) during that run."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:23:01.099Z"
+  }
+}

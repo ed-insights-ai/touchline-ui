@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MIAC",
+  "generated_at": "2026-11-26T03:10:00+00:00",
+  "data_collected_at": "2026-11-26T03:06:21+00:00",
+  "headline": "St. Olaf carries an unbeaten record into December",
+  "dek": "St. Olaf has won 21 matches and drawn four without a defeat, scoring 59 goals while conceding sixteen across the season. A road victory at Tufts kept the run alive, leaving St. Olaf as the lone MIAC program still playing as the schedule turns to Amherst.",
+  "lede_basis": {
+    "programme": "st-olaf",
+    "wins": 21,
+    "draws": 4,
+    "losses": 0,
+    "gf": 59,
+    "ga": 16
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring across the MIAC concentrates sharply at the top: Saint John's (Minn.) alone produced 75 goals, more than St. Scholastica, Hamline, Saint Mary's (Minn.), and Concordia-Moorhead combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "saint-johns-mn": 75,
+        "st-olaf": 59,
+        "gustavus": 46,
+        "carleton": 42,
+        "augsburg": 35,
+        "bethel": 33,
+        "macalester": 24,
+        "st-scholastica": 24,
+        "hamline": 18,
+        "saint-marys-mn": 7,
+        "concordia-moorhead": 6
+      },
+      "highlight": "saint-johns-mn"
+    },
+    "basis": {
+      "programme": "saint-johns-mn",
+      "gf": 75,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["st-scholastica", "hamline", "saint-marys-mn", "concordia-moorhead"]
+    }
+  },
+  "wire": {
+    "line": "MIAC programs posted 39 wins, fifteen draws, and 30 losses outside the conference, scoring 175 goals and conceding 118.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 39,
+      "draws": 15,
+      "losses": 30,
+      "gf": 175,
+      "ga": 118
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four early-season matches have passed their scheduled dates without a published result: Bethel against Saint Cloud State and Minnesota, St. Olaf against Wisconsin-Eau Claire, and Gustavus against Nebraska Wesleyan.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. Olaf forward Jack Soares has scored thirteen goals on 44 shots, the highest goal total among the conference's published leaders.",
+      "basis": {
+        "source": "stats",
+        "player": "Jack Soares",
+        "programme": "st-olaf",
+        "goals": 13,
+        "shots": 44
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Saint Mary's (Minn.) goalkeeper Bode Jacobsen has faced heavy volume all season, making 74 saves while conceding 34 goals for a 0.685 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Bode Jacobsen",
+        "programme": "saint-marys-mn",
+        "saves": 74,
+        "goals_against": 34,
+        "save_pct": 0.685
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Saint John's (Minn.) finished with seventeen wins, three draws, and three losses while conceding fourteen goals.",
+      "basis": {
+        "programme": "saint-johns-mn",
+        "wins": 17,
+        "draws": 3,
+        "losses": 3,
+        "gf": 75,
+        "ga": 14
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Kieran Mahan",
+      "programme": "gustavus",
+      "position": "FWD",
+      "class": "SO",
+      "line": "12 G · 5 A · 48 shots"
+    },
+    {
+      "player": "Jack Soares",
+      "programme": "st-olaf",
+      "position": "FWD",
+      "class": "JR",
+      "line": "13 G · 2 A · 44 shots"
+    },
+    {
+      "player": "Jacob Oliver",
+      "programme": "saint-johns-mn",
+      "position": "FWD",
+      "class": "FR",
+      "line": "10 G · 6 A · 46 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 tufts v st-olaf",
+      "line": "St. Olaf extended its unbeaten season with a road victory to keep the MIAC's postseason run alive."
+    },
+    "next_match": {
+      "fixture_ref": "2026-12-04 amherst v st-olaf",
+      "line": "St. Olaf enters unbeaten all season and has won every match since its draw against Saint John's (Minn.)."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T16:59:12.194Z"
+  }
+}

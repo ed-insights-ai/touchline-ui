@@ -1,0 +1,151 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-miaa3.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MIAA3",
+  "validated_at": "2026-11-26T18:22:16.191Z",
+  "data_collected_at": "2026-11-26T03:19:35+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 13,
+    "verified": 13,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "dek",
+      "text": "Calvin stands as the sole MIAA3 program with an upcoming match, having taken nineteen wins and one draw against two defeats across all matches. Its defense has allowed ten goals behind an attack that has produced 67, carrying the side into a December trip to Middlebury.",
+      "unbacked": ["3"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring in the conference splits into a sharp top tier and a crowded middle, with Calvin's 67 goals outproducing Saint Mary's (Ind.), Adrian, and Olivet combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Olivet went scoreless across eight defeats, conceding 47 goals without a win or draw.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Kalamazoo midfielder Ruby Hogan has scored nineteen goals and added eight assists on 84 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Calvin midfielder Mikaela Waroway has recorded nineteen goals and six assists from 92 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Hope goalkeeper Clara Feenstra has stopped 60 shots against thirteen goals allowed for a 0.822 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Kalamazoo has scored 64 goals across all matches, more than Hope and Adrian combined, while conceding 23.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Three scheduled matches have passed their dates without a published result: Saint Mary's (Ind.) against Oberlin and Elmhurst, and Alma at Hiram.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Ruby Hogan — 19 G · 8 A · 84 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Mikaela Waroway — 19 G · 6 A · 92 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Halle Barnard — 8 G · 6 A · 54 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-21 chicago v calvin",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-12-03 middlebury v calvin",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:07:13.759Z",
+    "generate_ms": 902430,
+    "validate_ms": 2,
+    "wall_ms": 902432,
+    "concurrency": 8
+  }
+}

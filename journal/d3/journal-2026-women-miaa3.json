@@ -1,0 +1,153 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MIAA3",
+  "generated_at": "2026-11-26T03:25:00+00:00",
+  "data_collected_at": "2026-11-26T03:19:35+00:00",
+  "headline": "Calvin carries nineteen wins into December",
+  "dek": "Calvin stands as the sole MIAA3 program with an upcoming match, having taken nineteen wins and one draw against two defeats across all matches. Its defense has allowed ten goals behind an attack that has produced 67, carrying the side into a December trip to Middlebury.",
+  "lede_basis": {
+    "programme": "calvin",
+    "wins": 19,
+    "draws": 1,
+    "losses": 2,
+    "gf": 67,
+    "ga": 10
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the conference splits into a sharp top tier and a crowded middle, with Calvin's 67 goals outproducing Saint Mary's (Ind.), Adrian, and Olivet combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "calvin": 67,
+        "kalamazoo": 64,
+        "hope": 40,
+        "albion": 39,
+        "trine": 38,
+        "alma": 34,
+        "saint-marys-in": 32,
+        "adrian": 20,
+        "olivet": 0
+      },
+      "highlight": "calvin"
+    },
+    "basis": {
+      "programme": "calvin",
+      "gf": 67,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["saint-marys-in", "adrian", "olivet"]
+    }
+  },
+  "wire": {
+    "line": "Olivet went scoreless across eight defeats, conceding 47 goals without a win or draw.",
+    "basis": {
+      "programme": "olivet",
+      "wins": 0,
+      "draws": 0,
+      "losses": 8,
+      "gf": 0,
+      "ga": 47
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Kalamazoo midfielder Ruby Hogan has scored nineteen goals and added eight assists on 84 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Ruby Hogan",
+        "programme": "kalamazoo",
+        "goals": 19,
+        "assists": 8,
+        "shots": 84
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Calvin midfielder Mikaela Waroway has recorded nineteen goals and six assists from 92 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Mikaela Waroway",
+        "programme": "calvin",
+        "goals": 19,
+        "assists": 6,
+        "shots": 92
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Hope goalkeeper Clara Feenstra has stopped 60 shots against thirteen goals allowed for a 0.822 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Clara Feenstra",
+        "programme": "hope",
+        "saves": 60,
+        "goals_against": 13,
+        "save_pct": 0.822
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Kalamazoo has scored 64 goals across all matches, more than Hope and Adrian combined, while conceding 23.",
+      "basis": {
+        "programme": "kalamazoo",
+        "gf": 64,
+        "ga": 23,
+        "comparative": "greater_than_sum",
+        "metric": "gf",
+        "of": ["hope", "adrian"]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Three scheduled matches have passed their dates without a published result: Saint Mary's (Ind.) against Oberlin and Elmhurst, and Alma at Hiram.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Ruby Hogan",
+      "programme": "kalamazoo",
+      "position": "MID",
+      "class": "SR",
+      "line": "19 G · 8 A · 84 shots"
+    },
+    {
+      "player": "Mikaela Waroway",
+      "programme": "calvin",
+      "position": "MID",
+      "class": "SR",
+      "line": "19 G · 6 A · 92 shots"
+    },
+    {
+      "player": "Halle Barnard",
+      "programme": "hope",
+      "position": "FWD",
+      "class": "SR",
+      "line": "8 G · 6 A · 54 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 chicago v calvin",
+      "line": "Calvin had already beaten Chicago at home in September and extended its winning run away from home."
+    },
+    "next_match": {
+      "fixture_ref": "2026-12-03 middlebury v calvin",
+      "line": "Calvin arrives on a winning run since its defeat to Hope and has not faced Middlebury this season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:22:16.191Z"
+  }
+}

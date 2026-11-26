@@ -1,0 +1,144 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CENTENNIAL",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:47:03+00:00",
+  "headline": "Johns Hopkins leads the Centennial in total wins",
+  "dek": "Johns Hopkins finished the season with seventeen wins, two draws, and two losses, more victories than any other program in the conference. Its attack produced 41 goals while its defense allowed nine across all matches.",
+  "lede_basis": {
+    "programme": "johns-hopkins",
+    "wins": 17,
+    "draws": 2,
+    "losses": 2,
+    "gf": 41,
+    "ga": 9,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the conference splits sharply between the top tier and the foot of the table: Swarthmore's 53 goals exceed the combined output of Gettysburg, Franklin & Marshall, Muhlenberg, and Bryn Mawr.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "swarthmore": 53,
+        "dickinson": 41,
+        "johns-hopkins": 41,
+        "mcdaniel": 29,
+        "washington-college": 24,
+        "haverford": 23,
+        "ursinus": 21,
+        "gettysburg": 17,
+        "franklin-marshall": 15,
+        "muhlenberg": 11,
+        "bryn-mawr": 3
+      },
+      "highlight": "swarthmore"
+    },
+    "basis": {
+      "programme": "swarthmore",
+      "gf": 53,
+      "ga": 11,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["gettysburg", "franklin-marshall", "muhlenberg", "bryn-mawr"]
+    }
+  },
+  "wire": {
+    "line": "Centennial programs won 49 non-conference matches, drew fourteen, and lost twenty while scoring 142 goals and conceding 63.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 49,
+      "draws": 14,
+      "losses": 20,
+      "gf": 142,
+      "ga": 63
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "One match on the schedule has passed its date without a published result, and it belongs to Dickinson: the away match at Worcester State.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "dickinson",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Franklin & Marshall conceded eight goals across all matches while scoring fifteen, finishing with eight wins, four draws, and five losses.",
+      "basis": {
+        "programme": "franklin-marshall",
+        "wins": 8,
+        "draws": 4,
+        "losses": 5,
+        "gf": 15,
+        "ga": 8
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bryn Mawr goalkeeper Lily Blackman made 112 saves while allowing 25 goals, finishing with a 0.818 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Lily Blackman",
+        "programme": "bryn-mawr",
+        "saves": 112,
+        "goals_against": 25,
+        "save_pct": 0.818
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Ursinus spread its 21 goals across at least twelve different scorers over the season.",
+      "basis": {
+        "programme": "ursinus",
+        "gf": 21,
+        "ga": 22,
+        "distinct_scorers_min": 12
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Ava Gizzie",
+      "programme": "swarthmore",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 78 shots"
+    },
+    {
+      "player": "Katie Derby",
+      "programme": "johns-hopkins",
+      "position": "FWD",
+      "class": "FR",
+      "line": "9 G · 3 A · 44 shots"
+    },
+    {
+      "player": "Joelle Ma",
+      "programme": "dickinson",
+      "position": "DEF",
+      "class": "SO",
+      "line": "6 G · 8 A · 47 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-22 middlebury v swarthmore",
+      "line": "Swarthmore entered the match as the conference's highest-scoring program after going unbeaten in league play."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:11:29.714Z"
+  }
+}

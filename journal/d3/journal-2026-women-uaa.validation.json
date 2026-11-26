@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-uaa.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "UAA",
+  "validated_at": "2026-11-26T18:27:14.501Z",
+  "data_collected_at": "2026-11-26T03:26:53+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[2].text",
+      "text": "Brandeis goalkeeper Amaya Logan has made 86 saves against nineteen goals allowed for a .819 save percentage.",
+      "unbacked": ["819"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "WashU's 91 goals exceed the combined totals of Chicago and Emory, the next highest-scoring programs in the conference, separating it from the rest of the league.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "UAA programs have won 61 non-conference matches, drawn ten, and lost ten, scoring 223 goals while conceding 50.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Chicago accounts for the conference's one match past its date with no published result, a scheduled meeting with North Central.",
+      "checker": "unresolved+set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Chicago has conceded just nine goals while scoring 48 across seventeen wins, one draw, and two losses.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Brandeis goalkeeper Amaya Logan has made 86 saves against nineteen goals allowed for a .819 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Chicago defender Annabel Edwards has produced seven goals and nine assists on 29 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Olivia Clemons — 12 G · 7 A · 56 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Cami Colpitts — 13 G · 2 A · 64 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Mikayla Camp — 10 G · 4 A · 69 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-22 washu v trinity-tx",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-12-03 messiah v washu",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:25:30.574Z",
+    "generate_ms": 103924,
+    "validate_ms": 3,
+    "wall_ms": 103927,
+    "concurrency": 8
+  }
+}

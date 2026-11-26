@@ -1,0 +1,150 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NCAC",
+  "generated_at": "2026-11-26T03:25:00+00:00",
+  "data_collected_at": "2026-11-26T03:21:27+00:00",
+  "headline": "Wooster sets the NCAC pace in wins",
+  "dek": "Wooster claimed eleven wins against four losses and three draws across all matches, more victories than any other NCAC program. Its attack produced 34 goals while the defense conceded seventeen, keeping Wooster unbeaten in conference play.",
+  "lede_basis": {
+    "programme": "wooster",
+    "wins": 11,
+    "draws": 3,
+    "losses": 4,
+    "gf": 34,
+    "ga": 17,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": ["denison", "depauw", "john-carroll", "kenyon", "oberlin", "ohio-wesleyan", "wittenberg"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring separates cleanly by tier: Wooster's 34 goals outpace Ohio Wesleyan and Wittenberg combined, reflecting the gap between the top of the table and the lower half.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "wooster": 34,
+        "denison": 32,
+        "kenyon": 24,
+        "john-carroll": 21,
+        "depauw": 19,
+        "oberlin": 18,
+        "ohio-wesleyan": 16,
+        "wittenberg": 6
+      },
+      "highlight": "wooster"
+    },
+    "basis": {
+      "programme": "wooster",
+      "gf": 34,
+      "ga": 17,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["ohio-wesleyan", "wittenberg"]
+    }
+  },
+  "wire": {
+    "line": "Conference programs split non-conference play evenly at 26 wins, fifteen draws and 26 losses.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 26,
+      "draws": 15,
+      "losses": 26,
+      "gf": 97,
+      "ga": 79
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four August matches remain past their scheduled dates without a published result: Denison's matches against Marietta and Mount St. Joseph, and DePauw's matches against Millikin and Anderson.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Wooster's Josie Bencic has scored ten goals and added three assists from 46 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Josie Bencic",
+        "programme": "wooster",
+        "goals": 10,
+        "assists": 3,
+        "shots": 46
+      }
+    },
+    {
+      "label": "observed",
+      "text": "John Carroll goalkeeper Madison Skeese has stopped 81 shots against nineteen goals allowed for a 0.81 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Madison Skeese",
+        "programme": "john-carroll",
+        "saves": 81,
+        "goals_against": 19,
+        "save_pct": 0.81
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Kenyon's defense has allowed only ten goals across all matches, helping the program hold a record of seven wins, eight draws and two losses.",
+      "basis": {
+        "programme": "kenyon",
+        "wins": 7,
+        "draws": 8,
+        "losses": 2,
+        "gf": 24,
+        "ga": 10
+      }
+    },
+    {
+      "label": "derived",
+      "text": "John Carroll has spread its 21 goals across at least eleven different scorers.",
+      "basis": {
+        "programme": "john-carroll",
+        "gf": 21,
+        "ga": 26,
+        "distinct_scorers_min": 11
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Annie Henegar",
+      "programme": "wooster",
+      "position": "FWD",
+      "class": "JR",
+      "line": "7 G · 3 A · 43 shots"
+    },
+    {
+      "player": "Lucy Perkins",
+      "programme": "denison",
+      "position": "FWD",
+      "class": "SO",
+      "line": "7 G · 32 shots"
+    },
+    {
+      "player": "Emily Copeland",
+      "programme": "kenyon",
+      "position": "FWD",
+      "class": "JR",
+      "line": "6 G · 3 A · 62 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 denison v california-lutheran",
+      "line": "Denison entered the match unbeaten since September and without a home defeat all season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:17:49.477Z"
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MWC",
+  "generated_at": "2026-11-26T02:45:00+00:00",
+  "data_collected_at": "2026-11-26T02:44:17+00:00",
+  "headline": "Luther tops MWC table with two defeats all season",
+  "dek": "Luther suffered only two defeats across the entire campaign, winning eleven matches and drawing five while scoring 43 goals against nineteen conceded. Illinois College also went unbeaten in conference play, yet Luther stayed ahead at the top of the table.",
+  "lede_basis": {
+    "programme": "luther",
+    "wins": 11,
+    "draws": 5,
+    "losses": 2,
+    "gf": 43,
+    "ga": 19
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring volume did not map neatly onto the standings: Lawrence produced 47 goals — more than Knox and Cornell College combined — yet conceded 26 and finished in the middle of the conference table.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "lawrence": 47,
+        "luther": 43,
+        "grinnell": 41,
+        "ripon": 33,
+        "illinois-college": 32,
+        "beloit": 29,
+        "lake-forest": 28,
+        "knox": 23,
+        "cornell-college": 20,
+        "monmouth-il": 9
+      },
+      "highlight": "lawrence"
+    },
+    "basis": {
+      "programme": "lawrence",
+      "gf": 47,
+      "ga": 26,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["knox", "cornell-college"]
+    }
+  },
+  "wire": {
+    "line": "Monmouth (Ill.) finished winless with seventeen defeats, scoring nine goals while conceding 62.",
+    "basis": {
+      "programme": "monmouth-il",
+      "wins": 0,
+      "draws": 0,
+      "losses": 17,
+      "gf": 9,
+      "ga": 62
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Eleven scheduled matches are past their date with no published result, involving Beloit, Cornell College, and Knox.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 11
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Grinnell won fourteen matches — more than any other MWC program — while allowing sixteen goals across the season.",
+      "basis": {
+        "programme": "grinnell",
+        "wins": 14,
+        "draws": 2,
+        "losses": 5,
+        "gf": 41,
+        "ga": 16,
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Luther spread its attack across at least seventeen different goalscorers over the season.",
+      "basis": {
+        "programme": "luther",
+        "distinct_scorers_min": 17
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lawrence freshman Grayson Ogren recorded sixteen goals and ten assists from 46 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Grayson Ogren",
+        "programme": "lawrence",
+        "goals": 16,
+        "assists": 10,
+        "shots": 46
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Beloit goalkeeper David Staats made 95 saves while conceding 41 goals, posting a 0.699 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "David Staats",
+        "programme": "beloit",
+        "saves": 95,
+        "goals_against": 41,
+        "save_pct": 0.699
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Grayson Ogren",
+      "programme": "lawrence",
+      "position": "FWD",
+      "class": "FR",
+      "line": "16 G · 10 A · 46 shots"
+    },
+    {
+      "player": "Samuel Gojjam",
+      "programme": "grinnell",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 12 A · 48 shots"
+    },
+    {
+      "player": "Francesco Mungari",
+      "programme": "luther",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 7 A · 58 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 st-olaf v grinnell",
+      "line": "Grinnell arrived unbeaten across its previous matches against Cornell College, Knox, Illinois College, and Luther without conceding a goal."
+    },
+    "next_match": {
+      "fixture_ref": "2027-04-18 beloit v wisconsin-whitewater",
+      "line": "Beloit failed to score in its earlier defeat at Wisconsin-Whitewater and also hosts Rockford later the same day."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T16:58:04.561Z"
+  }
+}

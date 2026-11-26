@@ -1,0 +1,152 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MACC",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:47:43+00:00",
+  "headline": "Messiah leads the MACC in scoring and defense",
+  "dek": "Messiah has eighteen wins against two losses and three draws this season, pairing 72 goals scored with nine conceded. That attacking output exceeds York (Pa.) and Eastern (Pa.) combined, leaving Messiah still playing into December after the rest of the conference has finished.",
+  "lede_basis": {
+    "programme": "messiah",
+    "wins": 18,
+    "draws": 3,
+    "losses": 2,
+    "gf": 72,
+    "ga": 9,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["york-pa", "eastern-pa"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring is heavily skewed toward the top of the chart, where Messiah has produced more goals than Widener, Stevenson, Neumann, and Hood combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "messiah": 72,
+        "york-pa": 39,
+        "albright": 36,
+        "eastern-pa": 24,
+        "alvernia": 21,
+        "widener": 21,
+        "stevenson": 18,
+        "neumann": 11,
+        "hood": 10
+      },
+      "highlight": "messiah"
+    },
+    "basis": {
+      "programme": "messiah",
+      "gf": 72,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["widener", "stevenson", "neumann", "hood"]
+    }
+  },
+  "wire": {
+    "line": "Against non-conference opponents, league programs posted 40 wins, eleven draws, and 41 losses, scoring 130 goals and conceding 120.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 40,
+      "draws": 11,
+      "losses": 41,
+      "gf": 130,
+      "ga": 120
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "York (Pa.) finished with thirteen wins, five draws, and two losses, scoring 39 goals and conceding fourteen across the season.",
+      "basis": {
+        "programme": "york-pa",
+        "wins": 13,
+        "draws": 5,
+        "losses": 2,
+        "gf": 39,
+        "ga": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Messiah midfielder Addi Martin has recorded 21 goals and nine assists on 116 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Addi Martin",
+        "programme": "messiah",
+        "goals": 21,
+        "assists": 9,
+        "shots": 116
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Eastern (Pa.) goalkeeper Faith Leake has made 113 saves while allowing sixteen goals for a 0.876 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Faith Leake",
+        "programme": "eastern-pa",
+        "saves": 113,
+        "goals_against": 16,
+        "save_pct": 0.876
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Albright has spread its attack across at least sixteen distinct goal scorers this season.",
+      "basis": {
+        "programme": "albright",
+        "distinct_scorers_min": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "One past-date match carries no published result: Albright's August trip to Cairn.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "albright",
+        "count": 1
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Addi Martin",
+      "programme": "messiah",
+      "position": "MID",
+      "class": "JR",
+      "line": "21 G · 9 A · 116 shots"
+    },
+    {
+      "player": "Alayna Williams",
+      "programme": "messiah",
+      "position": "MID",
+      "class": "JR",
+      "line": "15 G · 9 A · 69 shots"
+    },
+    {
+      "player": "Meg Kalthof",
+      "programme": "york-pa",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 5 A · 65 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-22 messiah v vassar",
+      "line": "Messiah extended a shutout streak that stretches back to September."
+    },
+    "next_match": {
+      "fixture_ref": "2026-12-03 washu v messiah",
+      "line": "Messiah enters on a winning run that began after its October draw with York (Pa.)."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:07:13.651Z"
+  }
+}

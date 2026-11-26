@@ -1,0 +1,155 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "PAC",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:49:01+00:00",
+  "headline": "Grove City tops the PAC on scoring depth",
+  "dek": "Grove City scored 72 goals across all matches and conceded 26 on its way to fourteen wins, five draws, and three losses. Eighteen different players reached the scoresheet for the program, backing an unbeaten conference run at the top of the table.",
+  "lede_basis": {
+    "programme": "grove-city",
+    "wins": 14,
+    "draws": 5,
+    "losses": 3,
+    "gf": 72,
+    "ga": 26,
+    "distinct_scorers_min": 18
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the PAC concentrates sharply at the top of the table: Grove City's 72 goals exceed the combined output of Chatham, Geneva, Hiram, and Bethany (W.Va.), leaving a wide gap between the league's leading attacks and its bottom tier.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "grove-city": 72,
+        "saint-vincent": 56,
+        "saint-francis": 42,
+        "allegheny": 36,
+        "waynesburg": 30,
+        "westminster-pa": 27,
+        "thiel": 26,
+        "franciscan": 24,
+        "washington-jefferson": 23,
+        "chatham": 20,
+        "geneva": 18,
+        "hiram": 14,
+        "bethany-wv": 3
+      },
+      "highlight": "grove-city"
+    },
+    "basis": {
+      "programme": "grove-city",
+      "gf": 72,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["chatham", "geneva", "hiram", "bethany-wv"]
+    }
+  },
+  "wire": {
+    "line": "Saint Vincent posted fifteen wins, one draw, and four losses while scoring 56 goals and conceding thirteen.",
+    "basis": {
+      "programme": "saint-vincent",
+      "wins": 15,
+      "draws": 1,
+      "losses": 4,
+      "gf": 56,
+      "ga": 13
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Saint Vincent senior forward Emma Koller produced eighteen goals and nine assists on 94 shots across the season.",
+      "basis": {
+        "source": "stats",
+        "player": "Emma Koller",
+        "programme": "saint-vincent",
+        "goals": 18,
+        "assists": 9,
+        "shots": 94
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Grove City senior midfielder Tori Stevenson scored seventeen goals and recorded six assists from 83 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Tori Stevenson",
+        "programme": "grove-city",
+        "goals": 17,
+        "assists": 6,
+        "shots": 83
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Geneva goalkeeper Natalie Foster made 110 saves while allowing seventeen goals for a 0.866 save percentage, recording eight shutouts across the campaign.",
+      "basis": {
+        "source": "stats",
+        "player": "Natalie Foster",
+        "programme": "geneva",
+        "saves": 110,
+        "goals_against": 17,
+        "shutouts": 8,
+        "save_pct": 0.866
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bethany (W.Va.) finished without a victory, recording zero wins, two draws, and seventeen losses while scoring three goals and conceding 86.",
+      "basis": {
+        "programme": "bethany-wv",
+        "wins": 0,
+        "draws": 2,
+        "losses": 17,
+        "gf": 3,
+        "ga": 86
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Five August matches involving Westminster (Pa.), Washington & Jefferson, and Franciscan have passed their scheduled dates with no published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Emma Koller",
+      "programme": "saint-vincent",
+      "position": "FWD",
+      "class": "SR",
+      "line": "18 G · 9 A · 94 shots"
+    },
+    {
+      "player": "Tori Stevenson",
+      "programme": "grove-city",
+      "position": "MID",
+      "class": "SR",
+      "line": "17 G · 6 A · 83 shots"
+    },
+    {
+      "player": "Imogen deBlois",
+      "programme": "thiel",
+      "position": "FWD",
+      "class": "JR",
+      "line": "11 G · 1 A · 57 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 calvin v grove-city",
+      "line": "Grove City entered the match unbeaten in PAC play and coming off a draw against Centre the previous day."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:23:11.317Z"
+  }
+}

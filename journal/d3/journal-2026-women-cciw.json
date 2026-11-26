@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CCIW",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:46:52+00:00",
+  "headline": "North Central (Ill.) finishes with one defeat all season",
+  "dek": "North Central (Ill.) won seventeen matches and drew two across all competitions before falling to Trinity (TX) in its final outing. The program scored 55 goals and conceded sixteen across the season, going unbeaten through conference play to finish atop the CCIW table.",
+  "lede_basis": {
+    "programme": "north-central-il",
+    "wins": 17,
+    "draws": 2,
+    "losses": 1,
+    "gf": 55,
+    "ga": 16
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the conference splits sharply between the top attack and the bottom of the chart: North Central (Ill.) scored 55 goals across all matches, more than Carroll and Wheaton (Ill.) combined, yet low-scoring Wheaton (Ill.) still finished in the top half of the conference standings.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "north-central-il": 55,
+        "elmhurst": 45,
+        "millikin": 42,
+        "illinois-wesleyan": 34,
+        "north-park": 25,
+        "augustana-il": 22,
+        "carthage": 22,
+        "carroll": 19,
+        "wheaton-il": 16
+      },
+      "highlight": "north-central-il"
+    },
+    "basis": {
+      "programme": "north-central-il",
+      "gf": 55,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["carroll", "wheaton-il"]
+    }
+  },
+  "wire": {
+    "line": "Member programs won 40 non-conference matches against eighteen draws and 29 losses, scoring 166 goals and conceding 104.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 40,
+      "draws": 18,
+      "losses": 29,
+      "gf": 166,
+      "ga": 104
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Millikin forward Izzy Jones scored seventeen goals on 41 shots and added three assists across the season.",
+      "basis": {
+        "source": "stats",
+        "player": "Izzy Jones",
+        "programme": "millikin",
+        "goals": 17,
+        "assists": 3,
+        "shots": 41
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Elmhurst paired a 45-goal attack with a defense that allowed thirteen goals across fourteen wins, two draws, and five losses.",
+      "basis": {
+        "programme": "elmhurst",
+        "wins": 14,
+        "draws": 2,
+        "losses": 5,
+        "gf": 45,
+        "ga": 13
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Carroll goalkeeper Ava Lewandowski made 77 saves while allowing fifteen goals, finishing with a 0.837 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Ava Lewandowski",
+        "programme": "carroll",
+        "saves": 77,
+        "goals_against": 15,
+        "save_pct": 0.837
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Three early-season matches have passed their scheduled dates without a published result: Augustana (Ill.) at home against Saint Ambrose, Millikin at DePauw, and Millikin at Dominican (Ill.).",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 3
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Izzy Jones",
+      "programme": "millikin",
+      "position": "FWD",
+      "class": "JR",
+      "line": "17 G · 3 A · 41 shots"
+    },
+    {
+      "player": "Ava Mapes",
+      "programme": "illinois-wesleyan",
+      "position": "FWD",
+      "class": "SR",
+      "line": "10 G · 3 A · 38 shots"
+    },
+    {
+      "player": "Reese Anderson",
+      "programme": "north-central-il",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 4 A · 33 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 north-central-il v trinity-tx",
+      "line": "North Central (Ill.) entered the match unbeaten across the entire season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:01:52.977Z"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "SCAC",
+  "generated_at": "2026-11-26T03:30:00+00:00",
+  "data_collected_at": "2026-11-26T03:22:46+00:00",
+  "headline": "Texas Lutheran leads the SCAC unbeaten in league play",
+  "dek": "Texas Lutheran finished with fifteen wins, two draws, and three losses, pairing 44 goals scored with fourteen conceded across all matches. No other SCAC program matched its win total, and it went unbeaten in conference play.",
+  "lede_basis": {
+    "programme": "texas-lutheran",
+    "wins": 15,
+    "draws": 2,
+    "losses": 3,
+    "gf": 44,
+    "ga": 14,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the SCAC separates sharply between the top attacks and the bottom half: Texas Lutheran's 44 goals outpace the combined output of Austin College, Dallas, Centenary (La.), and Hendrix.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "texas-lutheran": 44,
+        "letourneau": 43,
+        "ozarks": 36,
+        "st-thomas-tx": 27,
+        "concordia-texas": 20,
+        "hendrix": 18,
+        "centenary-la": 10,
+        "austin-college": 6,
+        "dallas": 6
+      },
+      "highlight": "texas-lutheran"
+    },
+    "basis": {
+      "programme": "texas-lutheran",
+      "gf": 44,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["austin-college", "dallas", "centenary-la", "hendrix"]
+    }
+  },
+  "wire": {
+    "line": "LeTourneau forward Chanel Kemball-Cook finished with seventeen goals and six assists on 80 shots.",
+    "basis": {
+      "source": "stats",
+      "player": "Chanel Kemball-Cook",
+      "programme": "letourneau",
+      "goals": 17,
+      "assists": 6,
+      "shots": 80
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four August matches remain past their scheduled dates with no published result: Ozarks against Little Rock Rangers and Southwest Baptist, LeTourneau at Nelson, and Texas Lutheran against Texas A&M International.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Against non-conference opponents, SCAC programs posted 22 wins, five draws, and 27 losses, scoring 99 goals while conceding 103.",
+      "basis": {
+        "derived_from": "fixtures",
+        "wins": 22,
+        "draws": 5,
+        "losses": 27,
+        "gf": 99,
+        "ga": 103
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Ozarks defender Addison Featherstone produced ten goals and four assists from 40 shots across the season.",
+      "basis": {
+        "source": "stats",
+        "player": "Addison Featherstone",
+        "programme": "ozarks",
+        "goals": 10,
+        "assists": 4,
+        "shots": 40
+      }
+    },
+    {
+      "label": "observed",
+      "text": "LeTourneau goalkeeper Kinsey Fulks made 84 saves while allowing nineteen goals, finishing with a 0.816 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Kinsey Fulks",
+        "programme": "letourneau",
+        "saves": 84,
+        "goals_against": 19,
+        "save_pct": 0.816
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Texas Lutheran spread its offense across at least thirteen different goal scorers over the season.",
+      "basis": {
+        "programme": "texas-lutheran",
+        "distinct_scorers_min": 13
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Chanel Kemball-Cook",
+      "programme": "letourneau",
+      "position": "FWD",
+      "class": "SR",
+      "line": "17 G · 6 A · 80 shots"
+    },
+    {
+      "player": "Natalia Cortez",
+      "programme": "texas-lutheran",
+      "position": "MID",
+      "class": "SR",
+      "line": "15 G · 1 A · 70 shots"
+    },
+    {
+      "player": "Addison Featherstone",
+      "programme": "ozarks",
+      "position": "DEF",
+      "class": "SO",
+      "line": "10 G · 4 A · 40 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 puget-sound v concordia-texas",
+      "line": "Concordia Texas had not conceded in its previous outings, including a road win at St. Thomas (Texas)."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:23:47.205Z"
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-nacc.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "NACC",
+  "validated_at": "2026-11-26T16:52:34.039Z",
+  "data_collected_at": "2026-11-26T02:44:28+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "The scoring distribution splits sharply across the conference: Lakeland produced 51 goals, more than Concordia Chicago, Wisconsin Lutheran, and St. Norbert combined, yet conceded 43 and finished mid-table.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Against non-conference opponents, league programs won 29, drew eleven, and lost 36, conceding 148 goals while scoring 128.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Rockford goalkeeper Wesley Pritzlaff made 93 saves while allowing 22 goals, finishing with a 0.809 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Edgewood forward Connor Gage scored ten goals and added seven assists on 57 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Marian conceded 56 goals, more than any other NACC program, while finishing with two wins, two draws, and thirteen losses.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "held against every other programme; the nearest is lakeland at 43"
+    },
+    {
+      "path": "findings[3]",
+      "label": "derived",
+      "text": "Aurora spread its scoring across at least fourteen different players during the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Six August matches involving Dominican (Ill.), Illinois Tech, and Rockford passed their scheduled dates with no published result.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Connor Gage — 10 G · 7 A · 57 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Issa Mnangwa — 10 G · 3 A · 44 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Dunia Wangu — 10 G · 2 A · 45 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-15 msoe v north-park",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T16:49:18.411Z",
+    "generate_ms": 195621,
+    "validate_ms": 7,
+    "wall_ms": 195628,
+    "concurrency": 8
+  }
+}

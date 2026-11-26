@@ -1,0 +1,162 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "NAC",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:06:48+00:00",
+  "headline": "Thomas leads the NAC in wins",
+  "dek": "Thomas has won twelve matches against four losses and one draw across its full schedule, more victories than any other NAC program. That record gives the program a clear edge in a conference where most sides have lost more often than they have won.",
+  "lede_basis": {
+    "programme": "thomas",
+    "wins": 12,
+    "draws": 1,
+    "losses": 4,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of": [
+      "husson",
+      "umaine-farmington",
+      "maine-maritime",
+      "lesley",
+      "umaine-presque-isle",
+      "vtsu-johnson",
+      "vtsu-lyndon"
+    ]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring across the NAC is concentrated at the top: Thomas has 51 goals across all matches—more than UMaine-Presque Isle, Lesley, VTSU Lyndon, and VTSU Johnson combined—while conceding 22.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "thomas": 51,
+        "husson": 44,
+        "umaine-farmington": 34,
+        "maine-maritime": 25,
+        "umaine-presque-isle": 15,
+        "lesley": 11,
+        "vtsu-lyndon": 11,
+        "vtsu-johnson": 2
+      },
+      "highlight": "thomas"
+    },
+    "basis": {
+      "programme": "thomas",
+      "gf": 51,
+      "ga": 22,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["umaine-presque-isle", "lesley", "vtsu-lyndon", "vtsu-johnson"]
+    }
+  },
+  "wire": {
+    "line": "Against non-conference opponents, NAC programs have fourteen wins, eleven draws, and 34 losses, scoring 82 goals and conceding 135.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 14,
+      "draws": 11,
+      "losses": 34,
+      "gf": 82,
+      "ga": 135
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Eleven scheduled matches are past their dates with no published result, among them Thomas against Maine-Fort Kent, Husson at University of New England, and VTSU Lyndon against Alumni.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Husson sophomore forward Miguel Diaz Alvarez has fourteen goals and one assist from 46 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Miguel Diaz Alvarez",
+        "programme": "husson",
+        "goals": 14,
+        "assists": 1,
+        "shots": 46
+      }
+    },
+    {
+      "label": "derived",
+      "text": "VTSU Lyndon has conceded 57 goals across all matches, more than any other NAC program, while scoring eleven.",
+      "basis": {
+        "programme": "vtsu-lyndon",
+        "gf": 11,
+        "ga": 57,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of": [
+          "husson",
+          "lesley",
+          "maine-maritime",
+          "thomas",
+          "umaine-farmington",
+          "umaine-presque-isle",
+          "vtsu-johnson"
+        ]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "UMaine-Presque Isle goalkeeper Brett Senal has made 69 saves while allowing 22 goals, a 0.758 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Brett Senal",
+        "programme": "umaine-presque-isle",
+        "saves": 69,
+        "goals_against": 22,
+        "save_pct": 0.758
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UMaine-Farmington has spread its offense across at least thirteen different goal scorers this season.",
+      "basis": {
+        "programme": "umaine-farmington",
+        "distinct_scorers_min": 13
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "David Ivarsson",
+      "programme": "thomas",
+      "position": "FWD",
+      "class": "SR",
+      "line": "12 G · 10 A · 60 shots"
+    },
+    {
+      "player": "Miguel Diaz Alvarez",
+      "programme": "husson",
+      "position": "FWD",
+      "class": "SO",
+      "line": "14 G · 1 A · 46 shots"
+    },
+    {
+      "player": "Jack Luciano",
+      "programme": "umaine-farmington",
+      "position": "FWD",
+      "class": "JR",
+      "line": "8 G · 4 A · 40 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 bowdoin v thomas",
+      "line": "The result ended Thomas's unbeaten run across its late-season NAC matches."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T16:51:27.752Z"
+  }
+}

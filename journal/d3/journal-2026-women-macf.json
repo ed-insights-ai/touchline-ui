@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MACF",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:47:53+00:00",
+  "headline": "Stevens goes unbeaten through MACF play",
+  "dek": "Stevens finished conference play without dropping a point, turning a slow non-conference start into an eleven-win season across all matches. Stevens scored 37 goals and conceded 26 while taking six losses and three draws overall, finishing ahead of Misericordia atop the standings.",
+  "lede_basis": {
+    "programme": "stevens",
+    "wins": 11,
+    "draws": 3,
+    "losses": 6,
+    "gf": 37,
+    "ga": 26
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the conference splits into a dense upper tier and a steep drop below it: Misericordia's 41 goals outpace the combined totals of Delaware Valley, DeSales, and King's (Pa.).",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "misericordia": 41,
+        "fdu-florham": 37,
+        "marywood": 37,
+        "stevens": 37,
+        "lebanon-valley": 36,
+        "arcadia": 23,
+        "delaware-valley": 18,
+        "desales": 15,
+        "kings-pa": 5
+      },
+      "highlight": "misericordia"
+    },
+    "basis": {
+      "programme": "misericordia",
+      "gf": 41,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["delaware-valley", "desales", "kings-pa"]
+    }
+  },
+  "wire": {
+    "line": "King's (Pa.) managed just five goals across all matches while conceding 35, finishing winless in conference play.",
+    "basis": {
+      "programme": "kings-pa",
+      "gf": 5,
+      "ga": 35
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "All three matches past their scheduled dates with no published result involve FDU - Florham.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "fdu-florham",
+        "count": 3
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Misericordia spread its attack across at least sixteen different goal scorers over the season.",
+      "basis": {
+        "programme": "misericordia",
+        "distinct_scorers_min": 16
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lebanon Valley forward Abrielle Miller produced twelve goals and eight assists from 96 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Abrielle Miller",
+        "programme": "lebanon-valley",
+        "goals": 12,
+        "assists": 8,
+        "shots": 96
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Misericordia defender Kaleigh Horos scored ten goals and added three assists on 62 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Kaleigh Horos",
+        "programme": "misericordia",
+        "goals": 10,
+        "assists": 3,
+        "shots": 62
+      }
+    },
+    {
+      "label": "observed",
+      "text": "FDU - Florham goalkeeper Italia Penevolpe stopped 86 shots and allowed seventeen goals for a 0.835 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Italia Penevolpe",
+        "programme": "fdu-florham",
+        "saves": 86,
+        "goals_against": 17,
+        "save_pct": 0.835
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Abrielle Miller",
+      "programme": "lebanon-valley",
+      "position": "FWD",
+      "class": "SR",
+      "line": "12 G · 8 A · 96 shots"
+    },
+    {
+      "player": "Kaleigh Horos",
+      "programme": "misericordia",
+      "position": "DEF",
+      "class": "SO",
+      "line": "10 G · 3 A · 62 shots"
+    },
+    {
+      "player": "Sadie Nugent",
+      "programme": "arcadia",
+      "position": "FWD",
+      "class": "SO",
+      "line": "9 G · 7 A · 60 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 stevens v lynchburg",
+      "line": "The defeat ended a winning streak that carried Stevens unbeaten through conference play."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:29:55.621Z"
+  }
+}

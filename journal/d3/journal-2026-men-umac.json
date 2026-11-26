@@ -1,0 +1,146 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "UMAC",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:46:18+00:00",
+  "headline": "UW-Superior pulls clear of the UMAC",
+  "dek": "UW-Superior has lost only four times while winning sixteen and drawing three across all matches, scoring 83 goals while conceding 22. That production reaches across the roster, with 21 players on the scoresheet.",
+  "lede_basis": {
+    "programme": "uw-superior",
+    "wins": 16,
+    "draws": 3,
+    "losses": 4,
+    "gf": 83,
+    "ga": 22,
+    "distinct_scorers_min": 21
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring across the UMAC drops off sharply below the top tier: UW-Superior's 83 goals outscore North Central (Minn.), Martin Luther, and Northwestern (Minn.) combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "uw-superior": 83,
+        "bethany-lutheran": 53,
+        "crown": 46,
+        "minnesota-morris": 27,
+        "north-central-mn": 25,
+        "martin-luther": 18,
+        "northwestern-mn": 17
+      },
+      "highlight": "uw-superior"
+    },
+    "basis": {
+      "programme": "uw-superior",
+      "gf": 83,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["north-central-mn", "martin-luther", "northwestern-mn"]
+    }
+  },
+  "wire": {
+    "line": "UW-Superior forward Seth Davidson has 30 goals and sixteen assists on 113 shots.",
+    "basis": {
+      "source": "stats",
+      "player": "Seth Davidson",
+      "programme": "uw-superior",
+      "goals": 30,
+      "assists": 16,
+      "shots": 113
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Crown has broken even in goal difference across all matches, scoring 46 and conceding 46 while finishing with eleven wins, three draws, and ten losses.",
+      "basis": {
+        "programme": "crown",
+        "wins": 11,
+        "draws": 3,
+        "losses": 10,
+        "gf": 46,
+        "ga": 46
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Martin Luther goalkeeper Nicholas Russ has faced heavy volume all season, recording 165 saves while conceding 58 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Nicholas Russ",
+        "programme": "martin-luther",
+        "saves": 165,
+        "goals_against": 58
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Minnesota Morris goalkeeper Dutch Bullock has kept six shutouts while making 85 saves and conceding 30 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Dutch Bullock",
+        "programme": "minnesota-morris",
+        "saves": 85,
+        "goals_against": 30,
+        "shutouts": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "North Central (Minn.) has conceded 75 goals across all matches, more than UW-Superior and Bethany Lutheran combined.",
+      "basis": {
+        "programme": "north-central-mn",
+        "ga": 75,
+        "comparative": "greater_than_sum",
+        "metric": "ga",
+        "of": ["uw-superior", "bethany-lutheran"]
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Eight scheduled non-conference matches have passed their dates with no published result, including Minnesota Morris's matches against Saint John's and Fargo United and Martin Luther's match at Wisconsin-River Falls.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 8
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Seth Davidson",
+      "programme": "uw-superior",
+      "position": "FWD",
+      "class": "SO",
+      "line": "30 G · 16 A · 113 shots"
+    },
+    {
+      "player": "Ashton Hosler",
+      "programme": "crown",
+      "position": "FWD",
+      "class": "SR",
+      "line": "16 G · 4 A · 65 shots"
+    },
+    {
+      "player": "Rosalem Tendaie",
+      "programme": "bethany-lutheran",
+      "position": "FWD",
+      "class": "SO",
+      "line": "15 G · 8 A · 65 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 bob-jones v crown",
+      "line": "Crown entered the match unbeaten since its defeat at UW-Superior, closing out the conference's last match of the season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:12:27.011Z"
+  }
+}

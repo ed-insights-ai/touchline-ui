@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "AAC",
-  "generated_at": "2026-11-24T15:00:00+00:00",
-  "data_collected_at": "2026-11-24T14:26:31+00:00",
+  "generated_at": "2026-11-26T15:00:00+00:00",
+  "data_collected_at": "2026-11-26T14:26:28+00:00",
   "headline": "Missouri State finishes unbeaten away as Charlotte falls",
   "dek": "A draw at Indiana left Missouri State with thirteen wins and only two defeats, while Charlotte fell at Wisconsin on the same afternoon. No matches remain on the schedule, and Missouri State finished with more victories than any other program.",
   "lede_basis": {
@@ -17,7 +17,6 @@
     "of_any": 8
   },
   "lede_updated": "2026-11-24",
-  "displaced_by": "Sunday's results closed the schedule as Missouri State drew at Indiana and Charlotte lost at Wisconsin.",
   "pattern": {
     "label": "derived",
     "text": "Scoring has not decided this conference. Memphis scored 41 goals, yet it conceded 28, won eight times, and finished with five draws and five losses.",
@@ -140,6 +139,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-24T19:32:42.050Z"
+    "validated_at": "2026-11-26T16:22:40.193Z"
   }
 }

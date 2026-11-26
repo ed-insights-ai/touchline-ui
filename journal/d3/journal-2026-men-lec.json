@@ -3,60 +3,61 @@
   "season": 2026,
   "gender": "men",
   "conference": "LEC",
-  "generated_at": "2026-11-25T13:52:00+00:00",
-  "data_collected_at": "2026-11-25T13:51:10+00:00",
-  "headline": "Western Connecticut sets the LEC pace",
-  "dek": "Western Connecticut went through conference play without a defeat, finishing the full season with fourteen wins, five draws, and four losses. Across all matches, the program scored 54 goals, outscoring Eastern Connecticut, Keene State, and VTSU Castleton combined while conceding 24.",
+  "generated_at": "2026-11-26T02:45:00+00:00",
+  "data_collected_at": "2026-11-26T02:43:35+00:00",
+  "headline": "UMass Boston thrives on decisive finishes",
+  "dek": "UMass Boston played only one draw all season, collecting eleven wins and six losses while scoring 40 goals and conceding 28. That attacking output alone exceeded the combined totals of Eastern Connecticut and Keene State, keeping the program in pursuit near the top of the league.",
   "lede_basis": {
-    "programme": "western-connecticut",
-    "wins": 14,
-    "draws": 5,
-    "losses": 4,
-    "gf": 54,
-    "ga": 24,
+    "programme": "umass-boston",
+    "wins": 11,
+    "draws": 1,
+    "losses": 6,
+    "gf": 40,
+    "ga": 28,
     "comparative": "greater_than_sum",
     "metric": "gf",
-    "of": ["eastern-connecticut", "keene-state", "vtsu-castleton"]
+    "of": ["eastern-connecticut", "keene-state"]
   },
-  "lede_updated": "2026-11-25",
+  "lede_updated": "2026-11-26",
+  "displaced_by": "Western Connecticut's season totals updated to 13 wins and 51 goals, invalidating the standing dek.",
   "pattern": {
     "label": "derived",
-    "text": "Goal production split the league into clear tiers, with UMass Boston's 44 goals alone topping the combined totals of Eastern Connecticut and Keene State while Western Connecticut sat further ahead.",
+    "text": "Scoring dropped off sharply in the lower half of the conference, with Rhode Island College's 29 goals alone exceeding the combined outputs of Keene State and VTSU Castleton.",
     "chart": {
       "kind": "goals-for-by-team",
       "values": {
-        "western-connecticut": 54,
-        "umass-boston": 44,
-        "rhode-island-college": 35,
-        "southern-maine": 29,
+        "western-connecticut": 51,
+        "umass-boston": 40,
+        "rhode-island-college": 29,
         "plymouth-state": 26,
+        "southern-maine": 26,
         "umass-dartmouth": 25,
-        "eastern-connecticut": 20,
+        "eastern-connecticut": 19,
         "keene-state": 16,
         "vtsu-castleton": 12
       },
       "highlight": "western-connecticut"
     },
     "basis": {
-      "programme": "umass-boston",
-      "gf": 44,
-      "ga": 29,
+      "programme": "rhode-island-college",
+      "gf": 29,
+      "ga": 30,
       "comparative": "greater_than_sum",
       "metric": "gf",
-      "of": ["eastern-connecticut", "keene-state"]
+      "of": ["keene-state", "vtsu-castleton"]
     }
   },
   "wire": {
-    "line": "Non-conference play ended with 34 wins, eighteen draws, and 36 losses, yet 145 goals scored against 142 conceded.",
+    "line": "Western Connecticut's 51 goals topped the combined outputs of Eastern Connecticut, Keene State, and VTSU Castleton.",
     "basis": {
-      "derived_from": "fixtures",
-      "wins": 34,
-      "draws": 18,
-      "losses": 36,
-      "gf": 145,
-      "ga": 142
+      "programme": "western-connecticut",
+      "gf": 51,
+      "ga": 24,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["eastern-connecticut", "keene-state", "vtsu-castleton"]
     },
-    "updated": "2026-11-25"
+    "updated": "2026-11-26"
   },
   "findings": [
     {
@@ -73,23 +74,25 @@
     },
     {
       "label": "derived",
-      "text": "UMass Boston spread its attack across at least thirteen distinct scorers on the way to twelve wins, one draw, and six losses.",
+      "text": "Western Connecticut finished with thirteen wins, five draws, and four losses, winning more matches than any other program in the conference.",
       "basis": {
-        "programme": "umass-boston",
-        "distinct_scorers_min": 13,
-        "wins": 12,
-        "draws": 1,
-        "losses": 6
+        "programme": "western-connecticut",
+        "wins": 13,
+        "draws": 5,
+        "losses": 4,
+        "comparative": "greater_than_each",
+        "metric": "wins",
+        "of_any": 1
       }
     },
     {
       "label": "derived",
-      "text": "Southern Maine relied on a narrow attacking rotation, with at least six distinct scorers accounting for its 29 goals across all matches.",
+      "text": "Southern Maine relied on a narrow attacking rotation, with at least six distinct scorers accounting for its 26 goals across all matches.",
       "basis": {
         "programme": "southern-maine",
         "distinct_scorers_min": 6,
-        "gf": 29,
-        "ga": 24
+        "gf": 26,
+        "ga": 23
       }
     },
     {
@@ -136,6 +139,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-26T02:56:13.297Z"
+    "validated_at": "2026-11-26T16:57:02.675Z"
   }
 }

@@ -1,0 +1,155 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SAA",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:45:40+00:00",
+  "headline": "Southwestern (Texas) paces the SAA behind a stingy defense",
+  "dek": "Southwestern (Texas) closed the season with sixteen wins, more than any other program in the conference, while conceding just twelve goals. Only two opponents beat Southwestern (Texas), which added two draws and 37 goals scored to finish unbeaten in conference play.",
+  "lede_basis": {
+    "programme": "southwestern-tx",
+    "wins": 16,
+    "draws": 2,
+    "losses": 2,
+    "gf": 37,
+    "ga": 12,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring output splits sharply across the conference, with Trinity (Texas) reaching 50 goals — more than Maryville (Tenn.) and Oglethorpe combined — while the bottom of the distribution trails far behind the top tier.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "trinity-tx": 50,
+        "millsaps": 47,
+        "sewanee": 46,
+        "southwestern-tx": 37,
+        "rhodes": 34,
+        "berry": 31,
+        "maryville-tn": 23,
+        "oglethorpe": 17,
+        "centre": 12
+      },
+      "highlight": "trinity-tx"
+    },
+    "basis": {
+      "programme": "trinity-tx",
+      "gf": 50,
+      "ga": 18,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["maryville-tn", "oglethorpe"]
+    }
+  },
+  "wire": {
+    "line": "Conference programs won 50 matches outside league play while losing nineteen and drawing nineteen.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 50,
+      "draws": 19,
+      "losses": 19,
+      "gf": 198,
+      "ga": 88
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Trinity (Texas) midfielder Eduardo Parra scored twelve goals and added one assist on 33 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Eduardo Parra",
+        "programme": "trinity-tx",
+        "goals": 12,
+        "assists": 1,
+        "shots": 33
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Oglethorpe goalkeeper Sebastian Lewis stopped 70 shots while allowing eleven goals for a 0.864 save percentage, and he recorded five shutouts.",
+      "basis": {
+        "source": "stats",
+        "player": "Sebastian Lewis",
+        "programme": "oglethorpe",
+        "saves": 70,
+        "goals_against": 11,
+        "shutouts": 5,
+        "save_pct": 0.864
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Rhodes spread its 34 goals across at least sixteen different players this season.",
+      "basis": {
+        "programme": "rhodes",
+        "gf": 34,
+        "ga": 16,
+        "distinct_scorers_min": 16
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Centre allowed 37 goals, more than any other program in the conference, while finishing with two wins, two draws, twelve losses, and twelve goals scored.",
+      "basis": {
+        "programme": "centre",
+        "wins": 2,
+        "draws": 2,
+        "losses": 12,
+        "gf": 12,
+        "ga": 37,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Nine scheduled matches have passed their dates without a published result, including Millsaps's October meeting with Belhaven and August dates involving Berry, Centre, and Trinity (Texas).",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 9
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Grey Richards",
+      "programme": "southwestern-tx",
+      "position": "FWD",
+      "class": "SO",
+      "line": "12 G · 5 A · 56 shots"
+    },
+    {
+      "player": "Eduardo Parra",
+      "programme": "trinity-tx",
+      "position": "MID",
+      "class": "SO",
+      "line": "12 G · 1 A · 33 shots"
+    },
+    {
+      "player": "Grayson White",
+      "programme": "sewanee",
+      "position": "FWD",
+      "class": "JR",
+      "line": "7 G · 10 A · 32 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 williams v trinity-tx",
+      "line": "Trinity (Texas) entered the match unbeaten since early September and finishes as the conference's highest-scoring program."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:08:19.561Z"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-oac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "OAC",
+  "validated_at": "2026-11-26T17:04:11.663Z",
+  "data_collected_at": "2026-11-26T03:07:54+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Mount Union's 51 goals exceed the combined totals of Marietta, Heidelberg, and Muskingum, showing a wide scoring gap between the conference's top attack and its lowest-scoring programs.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Heidelberg finished winless with five draws and twelve losses, conceding 43 goals across the season.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Mount Union midfielder Dom Kustura recorded ten goals and ten assists on 42 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Heidelberg goalkeeper Xochiel Galvan made 103 saves and allowed 42 goals, finishing with a 0.71 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Otterbein posted eleven wins, two draws, and four losses across all matches, scoring 28 goals while conceding fifteen.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Capital goalkeeper Noah Thomas stopped 80 shots and allowed 22 goals, posting a 0.784 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Dom Kustura — 10 G · 10 A · 42 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Zach Kern — 7 G · 19 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "William Jansson — 5 G · 4 A · 45 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-08 ohio-northern v baldwin-wallace",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T16:58:04.673Z",
+    "generate_ms": 366988,
+    "validate_ms": 2,
+    "wall_ms": 366990,
+    "concurrency": 8
+  }
+}

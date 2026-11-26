@@ -1,0 +1,144 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "E8",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:13:45+00:00",
+  "headline": "St. John Fisher sets the E8 pace",
+  "dek": "St. John Fisher has won fifteen matches without a draw and lost only three, scoring 52 goals across all competitions while conceding sixteen. That defense and attack put the program clear of a chasing pack led by Nazareth and Brockport as the season closes.",
+  "lede_basis": {
+    "programme": "st-john-fisher",
+    "wins": 15,
+    "draws": 0,
+    "losses": 3,
+    "gf": 52,
+    "ga": 16
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring concentrates heavily at the top of the table, with St. John Fisher's 52 goals outpacing Hartwick, Alfred, Russell Sage, SUNY Poly, and Geneseo combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "st-john-fisher": 52,
+        "nazareth": 50,
+        "brockport": 35,
+        "houghton": 32,
+        "keuka": 31,
+        "utica": 29,
+        "elmira": 23,
+        "hartwick": 18,
+        "alfred": 13,
+        "russell-sage": 3,
+        "suny-poly": 2,
+        "geneseo": 0
+      },
+      "highlight": "st-john-fisher"
+    },
+    "basis": {
+      "programme": "st-john-fisher",
+      "gf": 52,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["hartwick", "alfred", "russell-sage", "suny-poly", "geneseo"]
+    }
+  },
+  "wire": {
+    "line": "Against non-conference opponents, programs have 30 wins, eleven draws, and 29 losses, scoring 145 goals and conceding 98.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 30,
+      "draws": 11,
+      "losses": 29,
+      "gf": 145,
+      "ga": 98
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches past their scheduled date still carry no published result, and both belong to Elmira: home meetings with SUNY Delhi and William Smith.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "elmira",
+        "count": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Alfred goalkeeper Lauren Mott has faced heavy volume, making 88 saves while conceding 25 goals for a 0.779 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Lauren Mott",
+        "programme": "alfred",
+        "saves": 88,
+        "goals_against": 25,
+        "save_pct": 0.779
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Nazareth has won thirteen matches, drawn three, and lost four across all competitions, scoring 50 goals while conceding seventeen.",
+      "basis": {
+        "programme": "nazareth",
+        "wins": 13,
+        "draws": 3,
+        "losses": 4,
+        "gf": 50,
+        "ga": 17
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Keuka has scored 31 goals while conceding 33, leaving the program with four wins, three draws, and nine losses.",
+      "basis": {
+        "programme": "keuka",
+        "wins": 4,
+        "draws": 3,
+        "losses": 9,
+        "gf": 31,
+        "ga": 33
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Emily Woolingham",
+      "programme": "st-john-fisher",
+      "position": "FWD",
+      "class": "JR",
+      "line": "17 G · 6 A · 68 shots"
+    },
+    {
+      "player": "Savanna Biehler",
+      "programme": "nazareth",
+      "position": "FWD",
+      "class": "FR",
+      "line": "14 G · 9 A · 64 shots"
+    },
+    {
+      "player": "Amelia Breton",
+      "programme": "brockport",
+      "position": "MID",
+      "class": "SR",
+      "line": "16 G · 2 A · 79 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 messiah v nazareth",
+      "line": "Nazareth had been unbeaten since October before this defeat ended its run."
+    },
+    "next_match": {
+      "fixture_ref": "2026-11-30 houghton v warner",
+      "line": "Houghton returns from a loss at Nazareth as the final E8 side still playing."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:00:23.641Z"
+  }
+}

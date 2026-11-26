@@ -1,0 +1,161 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "CNE",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:13:22+00:00",
+  "headline": "University of Hartford leads the CNE in wins",
+  "dek": "University of Hartford has won thirteen matches across all competitions, drawing once and losing four times while scoring 44 goals and conceding fourteen. That tally gives Hartford more overall victories than any other CNE program, even after its season closed with a defeat at Vassar.",
+  "lede_basis": {
+    "programme": "university-of-hartford",
+    "wins": 13,
+    "draws": 1,
+    "losses": 4,
+    "gf": 44,
+    "ga": 14,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring across the conference is heavily concentrated at the top: University of New England alone has scored 45 goals, more than Suffolk, Nichols, Johnson & Wales (R.I.), Endicott, Curry, and Wentworth combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "university-of-new-england": 45,
+        "university-of-hartford": 44,
+        "roger-williams": 42,
+        "western-new-england": 33,
+        "gordon": 28,
+        "suffolk": 15,
+        "nichols": 9,
+        "johnson-wales-ri": 7,
+        "endicott": 6,
+        "curry": 1,
+        "wentworth": 0
+      },
+      "highlight": "university-of-new-england"
+    },
+    "basis": {
+      "programme": "university-of-new-england",
+      "gf": 45,
+      "ga": 20,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["suffolk", "nichols", "johnson-wales-ri", "endicott", "curry", "wentworth"]
+    }
+  },
+  "wire": {
+    "line": "University of New England scored a conference-high 45 goals, yet won only nine times while drawing twice and losing seven.",
+    "basis": {
+      "programme": "university-of-new-england",
+      "gf": 45,
+      "ga": 20,
+      "wins": 9,
+      "draws": 2,
+      "losses": 7,
+      "comparative": "greater_than_each",
+      "metric": "gf",
+      "of_any": 1
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Roger Williams drew six matches while winning ten and losing three, finishing with more draws than any other program in the conference.",
+      "basis": {
+        "programme": "roger-williams",
+        "wins": 10,
+        "draws": 6,
+        "losses": 3,
+        "comparative": "greater_than_each",
+        "metric": "draws",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Gordon forward Eowyn Lapp scored fourteen goals and added four assists on 127 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Eowyn Lapp",
+        "programme": "gordon",
+        "goals": 14,
+        "assists": 4,
+        "shots": 127
+      }
+    },
+    {
+      "label": "observed",
+      "text": "University of Hartford goalkeeper Madelyn Nunnemacher made 80 saves while conceding twelve goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Madelyn Nunnemacher",
+        "programme": "university-of-hartford",
+        "saves": 80,
+        "goals_against": 12
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Nichols conceded 55 goals while scoring nine across all matches, allowing more goals than any other program in the conference.",
+      "basis": {
+        "programme": "nichols",
+        "gf": 9,
+        "ga": 55,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "One match in the schedule has passed its date with no published result: Roger Williams away at Coast Guard.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "roger-williams",
+        "count": 1
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Eowyn Lapp",
+      "programme": "gordon",
+      "position": "FWD",
+      "class": "SR",
+      "line": "14 G · 4 A · 127 shots"
+    },
+    {
+      "player": "Emily Talbot",
+      "programme": "university-of-new-england",
+      "position": "FWD",
+      "class": "SO",
+      "line": "11 G · 8 A · 63 shots"
+    },
+    {
+      "player": "Taylor Freimuth",
+      "programme": "university-of-hartford",
+      "position": "FWD",
+      "class": "FR",
+      "line": "12 G · 1 A · 45 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 vassar v university-of-hartford",
+      "line": "The defeat snapped a winning run that included consecutive shutouts against Gordon and Suffolk."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:56:55.049Z"
+  }
+}

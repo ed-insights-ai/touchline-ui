@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "WCC",
-  "generated_at": "2026-11-23T17:00:00+00:00",
-  "data_collected_at": "2026-11-23T16:32:13+00:00",
+  "generated_at": "2026-11-26T15:00:00+00:00",
+  "data_collected_at": "2026-11-26T14:33:06+00:00",
   "headline": "Portland settles for a scoreless draw at South Carolina",
   "dek": "Miguel-Angel Hernandez recorded his eighth shutout at South Carolina to keep Portland unbeaten since early September, moving the WCC champion to fourteen wins and three draws against three losses. Its 50 goals still lead every program in the conference, with 24 conceded across the season.",
   "lede_basis": {
@@ -31,7 +31,6 @@
     ]
   },
   "lede_updated": "2026-11-23",
-  "displaced_by": "Portland's winning streak ended with a scoreless draw at South Carolina, updating its draw count and Miguel-Angel Hernandez's shutout total.",
   "pattern": {
     "label": "signal",
     "text": "Goals sort the top of the table and little else: Seattle U has scored as many as San Francisco and finished behind it, and LMU, with the fewest, is not bottom.",
@@ -149,6 +148,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-24T19:40:28.765Z"
+    "validated_at": "2026-11-26T16:26:31.445Z"
   }
 }

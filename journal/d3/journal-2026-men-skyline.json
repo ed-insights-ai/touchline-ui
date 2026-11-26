@@ -1,0 +1,155 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SKYLINE",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:46:05+00:00",
+  "headline": "Manhattanville outpaces Skyline with fourteen wins",
+  "dek": "Manhattanville won fourteen matches and drew four against just four defeats, pouring in 57 goals while conceding 36 across all competitions. Even with Mount Saint Vincent level atop the conference standings, Manhattanville carried the heaviest winning record in the league.",
+  "lede_basis": {
+    "programme": "manhattanville",
+    "wins": 14,
+    "draws": 4,
+    "losses": 4,
+    "gf": 57,
+    "ga": 36,
+    "comparative": "greater_than_each",
+    "metric": "wins",
+    "of_any": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring splits sharply between the top contenders and the lower half: Manhattanville's 57 goals outpace Purchase and St. Joseph's-Brooklyn combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "manhattanville": 57,
+        "mount-saint-vincent": 47,
+        "farmingdale-state": 46,
+        "st-josephs-long-island": 38,
+        "merchant-marine": 30,
+        "yeshiva": 30,
+        "sarah-lawrence": 27,
+        "maritime": 26,
+        "old-westbury": 26,
+        "mount-saint-mary": 24,
+        "st-josephs-brooklyn": 23,
+        "purchase": 20
+      },
+      "highlight": "manhattanville"
+    },
+    "basis": {
+      "programme": "manhattanville",
+      "gf": 57,
+      "ga": 36,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["purchase", "st-josephs-brooklyn"]
+    }
+  },
+  "wire": {
+    "line": "Yeshiva midfielder Franco Busso scored 21 of his team's 30 goals across the season.",
+    "basis": {
+      "source": "stats",
+      "player": "Franco Busso",
+      "programme": "yeshiva",
+      "goals": 21,
+      "gf": 30,
+      "ga": 43
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Mount Saint Vincent finished with 47 goals scored and 21 conceded across the season.",
+      "basis": {
+        "programme": "mount-saint-vincent",
+        "gf": 47,
+        "ga": 21
+      }
+    },
+    {
+      "label": "derived",
+      "text": "St. Joseph's-Brooklyn conceded 65 goals, more than any other program in the conference.",
+      "basis": {
+        "programme": "st-josephs-brooklyn",
+        "gf": 23,
+        "ga": 65,
+        "comparative": "greater_than_each",
+        "metric": "ga",
+        "of_any": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Farmingdale State goalkeeper Vas Dallas recorded 92 saves while allowing 30 goals across the campaign.",
+      "basis": {
+        "source": "stats",
+        "player": "Vas Dallas",
+        "programme": "farmingdale-state",
+        "saves": 92,
+        "goals_against": 30
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. Joseph's-Long Island forward Jack Pulisic contributed thirteen goals and five assists on 56 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Jack Pulisic",
+        "programme": "st-josephs-long-island",
+        "goals": 13,
+        "assists": 5,
+        "shots": 56
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Two scheduled matches from late August remain past their date with no published result, and both belong to Manhattanville: its home date against Hudson Valley Community and its trip to Vassar.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 2,
+        "set": "past_date_no_result",
+        "all_of": "manhattanville",
+        "count": 2
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Franco Busso",
+      "programme": "yeshiva",
+      "position": "MID",
+      "class": "SR",
+      "line": "21 G · 2 A · 90 shots"
+    },
+    {
+      "player": "Javier Newman",
+      "programme": "farmingdale-state",
+      "position": "FWD",
+      "class": "FR",
+      "line": "14 G · 8 A · 66 shots"
+    },
+    {
+      "player": "Jack Pulisic",
+      "programme": "st-josephs-long-island",
+      "position": "FWD",
+      "class": "JR",
+      "line": "13 G · 5 A · 56 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 scranton v manhattanville",
+      "line": "The defeat ended an unbeaten run that Manhattanville had carried since mid-October."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:25:17.283Z"
+  }
+}

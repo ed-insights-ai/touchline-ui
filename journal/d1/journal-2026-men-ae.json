@@ -3,8 +3,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "AE",
-  "generated_at": "2026-11-24T14:35:00+00:00",
-  "data_collected_at": "2026-11-24T14:27:52+00:00",
+  "generated_at": "2026-11-26T14:30:00+00:00",
+  "data_collected_at": "2026-11-26T14:27:46+00:00",
   "headline": "Vermont plays on alone after Bryant falls at SMU",
   "dek": "Vermont held Clemson scoreless to earn a trip to Kansas City, leaving it as the only conference program with a match left on the schedule. Bryant's season ended with a loss at SMU. Vermont heads west with eleven wins, six draws, and two losses, having conceded sixteen goals all season.",
   "lede_basis": {
@@ -16,7 +16,6 @@
     "ga": 16
   },
   "lede_updated": "2026-11-24",
-  "displaced_by": "Bryant lost at SMU and Vermont drew at Clemson to remain the only program still playing",
   "pattern": {
     "label": "derived",
     "text": "NJIT's goals have come at a cost at the back: the program has conceded 30 and lost six times, more defeats than Bryant and Vermont together.",
@@ -142,6 +141,6 @@
   },
   "validation": {
     "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
-    "validated_at": "2026-11-24T19:33:40.664Z"
+    "validated_at": "2026-11-26T16:27:43.808Z"
   }
 }

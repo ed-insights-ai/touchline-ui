@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-nac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "NAC",
+  "validated_at": "2026-11-26T16:51:27.752Z",
+  "data_collected_at": "2026-11-26T03:06:48+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring across the NAC is concentrated at the top: Thomas has 51 goals across all matches—more than UMaine-Presque Isle, Lesley, VTSU Lyndon, and VTSU Johnson combined—while conceding 22.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Against non-conference opponents, NAC programs have fourteen wins, eleven draws, and 34 losses, scoring 82 goals and conceding 135.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Eleven scheduled matches are past their dates with no published result, among them Thomas against Maine-Fort Kent, Husson at University of New England, and VTSU Lyndon against Alumni.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Husson sophomore forward Miguel Diaz Alvarez has fourteen goals and one assist from 46 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "VTSU Lyndon has conceded 57 goals across all matches, more than any other NAC program, while scoring eleven.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "UMaine-Presque Isle goalkeeper Brett Senal has made 69 saves while allowing 22 goals, a 0.758 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "derived",
+      "text": "UMaine-Farmington has spread its offense across at least thirteen different goal scorers this season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "David Ivarsson — 12 G · 10 A · 60 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Miguel Diaz Alvarez — 14 G · 1 A · 46 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Jack Luciano — 8 G · 4 A · 40 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 bowdoin v thomas",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T16:49:18.406Z",
+    "generate_ms": 129337,
+    "validate_ms": 8,
+    "wall_ms": 129346,
+    "concurrency": 8
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NESCAC",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:48:28+00:00",
+  "headline": "Middlebury carries the conference alone into December",
+  "dek": "With Williams, Tufts, Hamilton, and Colby all eliminated from postseason play, Middlebury heads into its December meeting with Calvin as the conference's sole remaining side. Across all competitions, Middlebury has earned thirteen wins against four draws and four losses, producing 38 goals while allowing eighteen.",
+  "lede_basis": {
+    "programme": "middlebury",
+    "wins": 13,
+    "draws": 4,
+    "losses": 4,
+    "gf": 38,
+    "ga": 18
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring separates cleanly at the top and bottom of the conference: Tufts's 51 goals exceed the combined output of Bowdoin and Trinity (Conn.), while the middle of the league clusters tightly behind the leaders.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "tufts": 51,
+        "williams": 44,
+        "wesleyan-ct": 43,
+        "hamilton": 39,
+        "middlebury": 38,
+        "colby": 35,
+        "amherst": 33,
+        "bates": 32,
+        "connecticut-college": 29,
+        "bowdoin": 19,
+        "trinity-ct": 19
+      },
+      "highlight": "tufts"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "tufts",
+      "of": ["bowdoin", "trinity-ct"],
+      "gf": 51,
+      "ga": 13
+    }
+  },
+  "wire": {
+    "line": "Williams has allowed just nine goals while winning fifteen matches, yet Middlebury is the last conference side still playing.",
+    "basis": {
+      "programme": "williams",
+      "wins": 15,
+      "draws": 1,
+      "losses": 3,
+      "gf": 44,
+      "ga": 9
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Williams conceded just nine goals across its fifteen wins, one draw, and three losses, scoring 44 times along the way.",
+      "basis": {
+        "programme": "williams",
+        "wins": 15,
+        "draws": 1,
+        "losses": 3,
+        "gf": 44,
+        "ga": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Wesleyan (Conn.) forward Maria Utz leads the conference's scoring charts with sixteen goals and six assists on 74 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Maria Utz",
+        "programme": "wesleyan-ct",
+        "goals": 16,
+        "assists": 6,
+        "shots": 74
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bates goalkeeper Sydney Litney has posted a 0.851 save percentage, making 63 saves while allowing eleven goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Sydney Litney",
+        "programme": "bates",
+        "saves": 63,
+        "goals_against": 11,
+        "save_pct": 0.851
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Tufts spread its 51 goals across at least fourteen different scorers, keeping the attack balanced across the roster.",
+      "basis": {
+        "programme": "tufts",
+        "distinct_scorers_min": 14,
+        "gf": 51,
+        "ga": 13
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Maria Utz",
+      "programme": "wesleyan-ct",
+      "position": "FWD",
+      "class": "SR",
+      "line": "16 G · 6 A · 74 shots"
+    },
+    {
+      "player": "Maren Jones",
+      "programme": "tufts",
+      "position": "MID",
+      "class": "JR",
+      "line": "7 G · 11 A · 44 shots"
+    },
+    {
+      "player": "Mariana Rode",
+      "programme": "middlebury",
+      "position": "DEF",
+      "class": "SO",
+      "line": "9 G · 1 A · 54 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-22 middlebury v swarthmore",
+      "line": "The victory extended Middlebury's postseason winning streak and kept the conference's last remaining team alive."
+    },
+    "next_match": {
+      "fixture_ref": "2026-12-03 middlebury v calvin",
+      "line": "Middlebury carries an active winning streak into December as the sole NESCAC program still playing."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:19:18.488Z"
+  }
+}

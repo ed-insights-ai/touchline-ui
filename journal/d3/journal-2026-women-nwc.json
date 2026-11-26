@@ -1,0 +1,137 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NWC",
+  "generated_at": "2026-11-26T03:25:00+00:00",
+  "data_collected_at": "2026-11-26T03:22:03+00:00",
+  "headline": "Puget Sound finishes unbeaten in Northwest Conference play",
+  "dek": "Puget Sound closed the season with twenty wins against one draw and one loss, its only defeat arriving in the final match against Trinity (TX). Across conference play, no rival took a point from the unbeaten champion, while Whitman and Pacific Lutheran battled closely behind it.",
+  "lede_basis": {
+    "programme": "puget-sound",
+    "wins": 20,
+    "draws": 1,
+    "losses": 1
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Puget Sound's 63 goals exceed the combined totals of Pacific Lutheran and Whitman, separating the champion from a tightly bunched chase pack.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "puget-sound": 63,
+        "pacific-lutheran": 30,
+        "whitman": 25,
+        "linfield": 23,
+        "pacific-or": 18,
+        "willamette": 16,
+        "lewis-clark": 15,
+        "george-fox": 12,
+        "whitworth": 11
+      },
+      "highlight": "puget-sound"
+    },
+    "basis": {
+      "programme": "puget-sound",
+      "gf": 63,
+      "ga": 10,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["pacific-lutheran", "whitman"]
+    }
+  },
+  "wire": {
+    "line": "Puget Sound finished with twenty wins, one draw, and one loss while scoring more goals than any two rivals combined.",
+    "basis": {
+      "programme": "puget-sound",
+      "wins": 20,
+      "draws": 1,
+      "losses": 1,
+      "gf": 63,
+      "ga": 10,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of_any": 2
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Pacific Lutheran goalkeeper Mia Speir recorded ten shutouts while making 74 saves and allowing fifteen goals across the season.",
+      "basis": {
+        "source": "stats",
+        "player": "Mia Speir",
+        "programme": "pacific-lutheran",
+        "saves": 74,
+        "goals_against": 15,
+        "shutouts": 10
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Puget Sound defender Anya Dubois produced seven goals and six assists from 31 shots, supplying primary attacking output from the back line.",
+      "basis": {
+        "source": "stats",
+        "player": "Anya Dubois",
+        "programme": "puget-sound",
+        "goals": 7,
+        "assists": 6,
+        "shots": 31
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Whitman spread its 25 goals across at least eleven different scorers while conceding eighteen.",
+      "basis": {
+        "programme": "whitman",
+        "gf": 25,
+        "ga": 18,
+        "distinct_scorers_min": 11
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Six non-conference matches past their scheduled dates carry no published result, involving Pacific (Ore.), Lewis & Clark, and Whitworth.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Anya Dubois",
+      "programme": "puget-sound",
+      "position": "DEF",
+      "class": "SO",
+      "line": "7 G · 6 A · 31 shots"
+    },
+    {
+      "player": "Avery Cohen",
+      "programme": "whitman",
+      "position": "MID",
+      "class": "JR",
+      "line": "9 G · 1 A · 38 shots"
+    },
+    {
+      "player": "Lize Rendon",
+      "programme": "linfield",
+      "position": "MID",
+      "class": "SR",
+      "line": "8 G · 27 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 trinity-tx v puget-sound",
+      "line": "The result handed Puget Sound its only defeat of the season after an unbeaten conference campaign."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:21:15.901Z"
+  }
+}

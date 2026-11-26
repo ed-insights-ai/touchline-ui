@@ -1,0 +1,143 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "UAA",
+  "generated_at": "2026-11-26T04:00:00+00:00",
+  "data_collected_at": "2026-11-26T03:26:53+00:00",
+  "headline": "WashU rides nineteen wins into December",
+  "dek": "WashU has scored 91 goals and conceded only eight across all competitions, pairing nineteen wins and two draws with one defeat. That lone loss came against unbeaten conference leader Chicago, yet WashU is the sole UAA program still playing as Messiah awaits.",
+  "lede_basis": {
+    "programme": "washu",
+    "wins": 19,
+    "draws": 2,
+    "losses": 1,
+    "gf": 91,
+    "ga": 8
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "WashU's 91 goals exceed the combined totals of Chicago and Emory, the next highest-scoring programs in the conference, separating it from the rest of the league.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "washu": 91,
+        "chicago": 48,
+        "emory": 42,
+        "rochester": 37,
+        "case-western-reserve": 23,
+        "brandeis": 22,
+        "nyu": 21,
+        "carnegie-mellon": 8
+      },
+      "highlight": "washu"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "washu",
+      "of": ["chicago", "emory"],
+      "gf": 91
+    }
+  },
+  "wire": {
+    "line": "UAA programs have won 61 non-conference matches, drawn ten, and lost ten, scoring 223 goals while conceding 50.",
+    "basis": {
+      "derived_from": "fixtures",
+      "wins": 61,
+      "draws": 10,
+      "losses": 10,
+      "gf": 223,
+      "ga": 50
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Chicago accounts for the conference's one match past its date with no published result, a scheduled meeting with North Central.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 1,
+        "set": "past_date_no_result",
+        "all_of": "chicago",
+        "count": 1
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Chicago has conceded just nine goals while scoring 48 across seventeen wins, one draw, and two losses.",
+      "basis": {
+        "programme": "chicago",
+        "wins": 17,
+        "draws": 1,
+        "losses": 2,
+        "gf": 48,
+        "ga": 9
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Brandeis goalkeeper Amaya Logan has made 86 saves against nineteen goals allowed for a .819 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Amaya Logan",
+        "programme": "brandeis",
+        "saves": 86,
+        "goals_against": 19,
+        "save_pct": 0.819
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Chicago defender Annabel Edwards has produced seven goals and nine assists on 29 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Annabel Edwards",
+        "programme": "chicago",
+        "goals": 7,
+        "assists": 9,
+        "shots": 29
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Olivia Clemons",
+      "programme": "washu",
+      "position": "FWD",
+      "class": "JR",
+      "line": "12 G · 7 A · 56 shots"
+    },
+    {
+      "player": "Cami Colpitts",
+      "programme": "washu",
+      "position": "FWD",
+      "class": "JR",
+      "line": "13 G · 2 A · 64 shots"
+    },
+    {
+      "player": "Mikayla Camp",
+      "programme": "emory",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 4 A · 69 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-22 washu v trinity-tx",
+      "line": "WashU has not conceded since its defeat at Chicago."
+    },
+    "next_match": {
+      "fixture_ref": "2026-12-03 messiah v washu",
+      "line": "Messiah already beat NYU at home earlier this season; WashU enters on a shutout streak."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:27:14.501Z"
+  }
+}

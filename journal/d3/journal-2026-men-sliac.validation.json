@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-sliac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "SLIAC",
+  "validated_at": "2026-11-26T17:13:11.527Z",
+  "data_collected_at": "2026-11-26T03:08:49+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring separates the SLIAC into a clear leader, a bunched middle, and a quiet bottom tier: Webster's 44 goals exceed the combined output of MUW, Eureka, and Blackburn.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "MUW conceded 86 goals across all matches, more than any two other SLIAC programs combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "\"any 2 others\" was held against the strongest 2: principia 41 + greenville 38"
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Four matches on SLIAC schedules have passed their dates without a published result: MUW at Holmes Community, MUW at East Mississippi Community, Westminster (Mo.) at home to Central Methodist, and Lyon at home to Williams Baptist.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "At least fifteen different players scored for Greenville across all matches, spreading its 27 goals through the roster.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Lyon goalkeeper Henrique Megale posted a 0.828 save percentage, making 53 saves while allowing eleven goals.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Principia freshman Alberto Hernandez recorded nine goals and two assists from 45 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Alberto Hernandez — 9 G · 2 A · 45 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Alberto Duque Gonzalez — 8 G · 2 A · 52 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Elmin Lemes — 7 G · 4 A · 42 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-13 chicago v webster",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:05:05.710Z",
+    "generate_ms": 485814,
+    "validate_ms": 3,
+    "wall_ms": 485818,
+    "concurrency": 8
+  }
+}

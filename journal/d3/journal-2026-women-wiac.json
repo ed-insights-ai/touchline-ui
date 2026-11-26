@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "WIAC",
+  "generated_at": "2026-11-26T02:55:00+00:00",
+  "data_collected_at": "2026-11-26T02:50:09+00:00",
+  "headline": "UW-La Crosse separates from the WIAC",
+  "dek": "UW-La Crosse finished with 24 wins and two losses without a draw across all matches, separating itself from the rest of the WIAC table. No other program in the conference stayed close before WashU ended its season.",
+  "lede_basis": {
+    "programme": "uw-la-crosse",
+    "wins": 24,
+    "draws": 0,
+    "losses": 2
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Attacking output in the WIAC splits sharply between the top and the field: UW-La Crosse's 92 goals outpace UW-Platteville, UW-Stevens Point, and UW-Stout combined, while the lower half of the conference clusters tightly together.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "uw-la-crosse": 92,
+        "uw-whitewater": 54,
+        "uw-oshkosh": 38,
+        "uw-eau-claire": 32,
+        "uw-platteville": 25,
+        "uw-stevens-point": 23,
+        "uw-stout": 23,
+        "uw-river-falls": 21
+      },
+      "highlight": "uw-la-crosse"
+    },
+    "basis": {
+      "programme": "uw-la-crosse",
+      "gf": 92,
+      "ga": 12,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["uw-platteville", "uw-stevens-point", "uw-stout"]
+    }
+  },
+  "wire": {
+    "line": "UW-Whitewater conceded just nine goals all season while scoring 54 across all matches.",
+    "basis": {
+      "programme": "uw-whitewater",
+      "gf": 54,
+      "ga": 9
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "UW-La Crosse forward Aubree Caya leads the conference's published scoring leaders with fifteen goals and six assists on 83 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Aubree Caya",
+        "programme": "uw-la-crosse",
+        "goals": 15,
+        "assists": 6,
+        "shots": 83
+      }
+    },
+    {
+      "label": "observed",
+      "text": "UW-Eau Claire goalkeeper Bella Jones made 106 saves while allowing nineteen goals, posting a 0.848 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Bella Jones",
+        "programme": "uw-eau-claire",
+        "saves": 106,
+        "goals_against": 19,
+        "save_pct": 0.848
+      }
+    },
+    {
+      "label": "derived",
+      "text": "UW-Whitewater spread its attack across at least nineteen distinct goal scorers during the season.",
+      "basis": {
+        "programme": "uw-whitewater",
+        "distinct_scorers_min": 19
+      }
+    },
+    {
+      "label": "observed",
+      "text": "All three WIAC matches past their scheduled date with no published result belong to UW-Eau Claire, against Nazareth, Oswego State, and Buffalo State.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "uw-eau-claire",
+        "count": 3
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Genevieve Simkowski",
+      "programme": "uw-whitewater",
+      "position": "FWD",
+      "class": "SO",
+      "line": "11 G · 2 A · 69 shots"
+    },
+    {
+      "player": "Emma Donovan",
+      "programme": "uw-eau-claire",
+      "position": "FWD",
+      "class": "JR",
+      "line": "7 G · 10 A · 48 shots"
+    },
+    {
+      "player": "Christa Borchardt",
+      "programme": "uw-stevens-point",
+      "position": "FWD",
+      "class": "JR",
+      "line": "8 G · 4 A · 54 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 washu v uw-la-crosse",
+      "line": "The loss snapped UW-La Crosse's winning run and brought the WIAC season to a close."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:28:48.437Z"
+  }
+}

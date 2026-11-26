@@ -1,0 +1,138 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "NCAC",
+  "generated_at": "2026-11-26T03:15:00+00:00",
+  "data_collected_at": "2026-11-26T03:07:16+00:00",
+  "headline": "Kenyon paces the NCAC with 54 goals",
+  "dek": "Kenyon won fifteen matches without a draw, outscoring Ohio Wesleyan, Oberlin, and Wittenberg combined across all competition. Five defeats and nineteen goals conceded never closed the gap the conference's most prolific attack built.",
+  "lede_basis": {
+    "programme": "kenyon",
+    "wins": 15,
+    "draws": 0,
+    "losses": 5,
+    "gf": 54,
+    "ga": 19,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["ohio-wesleyan", "oberlin", "wittenberg"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Attacking depth separates the top of the conference from the field: at least fifteen different players scored for Kenyon, spreading its production across the roster rather than leaning on a lone finisher.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "kenyon": 54,
+        "wabash": 37,
+        "depauw": 33,
+        "denison": 31,
+        "wooster": 31,
+        "john-carroll": 27,
+        "ohio-wesleyan": 24,
+        "oberlin": 13,
+        "wittenberg": 11
+      },
+      "highlight": "kenyon"
+    },
+    "basis": {
+      "programme": "kenyon",
+      "distinct_scorers_min": 15
+    }
+  },
+  "wire": {
+    "line": "Denison took just two losses all season, pairing fourteen wins and seven draws with sixteen goals conceded.",
+    "basis": {
+      "programme": "denison",
+      "wins": 14,
+      "draws": 7,
+      "losses": 2,
+      "gf": 31,
+      "ga": 16
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Four August matches involving Denison and DePauw remain past their scheduled dates without a published result: DePauw against UIndy and Ohio Northern, and Denison against Saint Vincent and Case Western Reserve.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Wabash scored 37 goals across the season, yet its ten wins were nearly matched by nine losses and one draw as the defense conceded 27.",
+      "basis": {
+        "programme": "wabash",
+        "wins": 10,
+        "draws": 1,
+        "losses": 9,
+        "gf": 37,
+        "ga": 27
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Denison goalkeeper Alex Provost posted nine shutouts and stopped 56 shots while allowing thirteen goals, finishing with a 0.812 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Alex Provost",
+        "programme": "denison",
+        "saves": 56,
+        "goals_against": 13,
+        "shutouts": 9,
+        "save_pct": 0.812
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Oberlin conceded 43 goals while scoring thirteen, allowing more than Denison and Kenyon combined.",
+      "basis": {
+        "programme": "oberlin",
+        "gf": 13,
+        "ga": 43,
+        "comparative": "greater_than_sum",
+        "metric": "ga",
+        "of": ["denison", "kenyon"]
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Luca Bilotto",
+      "programme": "kenyon",
+      "position": "MID",
+      "class": "FR",
+      "line": "9 G · 7 A · 38 shots"
+    },
+    {
+      "player": "Alfredo Campos",
+      "programme": "wabash",
+      "position": "MID",
+      "class": "SR",
+      "line": "7 G · 10 A · 39 shots"
+    },
+    {
+      "player": "Lucas de Alarcon",
+      "programme": "kenyon",
+      "position": "FWD",
+      "class": "JR",
+      "line": "8 G · 6 A · 24 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-22 denison v suny-cortland",
+      "line": "The defeat snapped Denison's unbeaten run since September and handed the program its only home loss of the season."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T16:59:07.856Z"
+  }
+}

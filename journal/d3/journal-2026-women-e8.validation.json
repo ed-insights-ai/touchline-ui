@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-e8.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "E8",
+  "validated_at": "2026-11-26T18:00:23.641Z",
+  "data_collected_at": "2026-11-26T03:13:45+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "headline",
+      "text": "St. John Fisher sets the E8 pace",
+      "unbacked": ["8"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring concentrates heavily at the top of the table, with St. John Fisher's 52 goals outpacing Hartwick, Alfred, Russell Sage, SUNY Poly, and Geneseo combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Against non-conference opponents, programs have 30 wins, eleven draws, and 29 losses, scoring 145 goals and conceding 98.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Two matches past their scheduled date still carry no published result, and both belong to Elmira: home meetings with SUNY Delhi and William Smith.",
+      "checker": "set_members",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Alfred goalkeeper Lauren Mott has faced heavy volume, making 88 saves while conceding 25 goals for a 0.779 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Nazareth has won thirteen matches, drawn three, and lost four across all competitions, scoring 50 goals while conceding seventeen.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Keuka has scored 31 goals while conceding 33, leaving the program with four wins, three draws, and nine losses.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Emily Woolingham — 17 G · 6 A · 68 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Savanna Biehler — 14 G · 9 A · 64 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Amelia Breton — 16 G · 2 A · 79 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-14 messiah v nazareth",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-11-30 houghton v warner",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:56:49.893Z",
+    "generate_ms": 213745,
+    "validate_ms": 2,
+    "wall_ms": 213748,
+    "concurrency": 8
+  }
+}

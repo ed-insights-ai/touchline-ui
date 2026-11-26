@@ -1,0 +1,150 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "MIAC",
+  "generated_at": "2026-11-26T03:25:00+00:00",
+  "data_collected_at": "2026-11-26T03:19:53+00:00",
+  "headline": "Carleton finishes MIAC play unbeaten",
+  "dek": "Carleton allowed only ten goals across the entire season while scoring 47, winning fourteen matches against just two defeats and three draws. Every setback came against non-conference opposition, and the season closed with Carleton still unbeaten inside the league.",
+  "lede_basis": {
+    "programme": "carleton",
+    "wins": 14,
+    "draws": 3,
+    "losses": 2,
+    "gf": 47,
+    "ga": 10
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring concentrates sharply at the top of the table: St. Olaf's 56 goals outpace the combined output of Concordia-Moorhead, Augsburg, Gustavus, and Hamline.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "st-olaf": 56,
+        "carleton": 47,
+        "saint-benedict": 47,
+        "st-catherine": 38,
+        "macalester": 29,
+        "st-scholastica": 27,
+        "bethel": 20,
+        "gustavus": 16,
+        "hamline": 16,
+        "saint-marys-mn": 16,
+        "augsburg": 13,
+        "concordia-moorhead": 10
+      },
+      "highlight": "st-olaf"
+    },
+    "basis": {
+      "programme": "st-olaf",
+      "gf": 56,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["concordia-moorhead", "augsburg", "gustavus", "hamline"]
+    }
+  },
+  "wire": {
+    "line": "St. Olaf forward Emily Johnson scored 21 goals and recorded five assists on 106 shots.",
+    "basis": {
+      "source": "stats",
+      "player": "Emily Johnson",
+      "programme": "st-olaf",
+      "goals": 21,
+      "assists": 5,
+      "shots": 106
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Six matches on the schedule have passed their dates with no published result, affecting Bethel, Hamline, St. Olaf, Gustavus, and Carleton.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 6
+      }
+    },
+    {
+      "label": "derived",
+      "text": "Saint Benedict spread its 47 goals across at least fifteen different players this season.",
+      "basis": {
+        "programme": "saint-benedict",
+        "distinct_scorers_min": 15,
+        "gf": 47,
+        "ga": 12
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. Catherine closed the season with sixteen wins, two draws, and four losses overall, scoring 38 goals and conceding fourteen.",
+      "basis": {
+        "programme": "st-catherine",
+        "wins": 16,
+        "draws": 2,
+        "losses": 4,
+        "gf": 38,
+        "ga": 14
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Gustavus goalkeeper Katelyn Olson made 122 saves while allowing 27 goals, finishing with a 0.819 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Katelyn Olson",
+        "programme": "gustavus",
+        "saves": 122,
+        "goals_against": 27,
+        "save_pct": 0.819
+      }
+    },
+    {
+      "label": "observed",
+      "text": "St. Olaf midfielder Wren VanDeWalker recorded fourteen assists alongside four goals on 54 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Wren VanDeWalker",
+        "programme": "st-olaf",
+        "goals": 4,
+        "assists": 14,
+        "shots": 54
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Emily Johnson",
+      "programme": "st-olaf",
+      "position": "FWD",
+      "class": "SR",
+      "line": "21 G · 5 A · 106 shots"
+    },
+    {
+      "player": "Eva Gower",
+      "programme": "saint-benedict",
+      "position": "FWD",
+      "class": "FR",
+      "line": "12 G · 4 A · 73 shots"
+    },
+    {
+      "player": "Hadley Twichell",
+      "programme": "carleton",
+      "position": "MID",
+      "class": "SR",
+      "line": "8 G · 5 A · 41 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 uw-la-crosse v carleton",
+      "line": "The defeat ended an unbeaten run for Carleton that stretched back to early September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:20:15.916Z"
+  }
+}

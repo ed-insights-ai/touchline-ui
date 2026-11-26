@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "LEC",
-  "validated_at": "2026-11-26T02:56:13.297Z",
-  "data_collected_at": "2026-11-25T13:51:10+00:00",
+  "validated_at": "2026-11-26T16:57:02.675Z",
+  "data_collected_at": "2026-11-26T02:43:35+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Goal production split the league into clear tiers, with UMass Boston's 44 goals alone topping the combined totals of Eastern Connecticut and Keene State while Western Connecticut sat further ahead.",
+      "text": "Scoring dropped off sharply in the lower half of the conference, with Rhode Island College's 29 goals alone exceeding the combined outputs of Keene State and VTSU Castleton.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Non-conference play ended with 34 wins, eighteen draws, and 36 losses, yet 145 goals scored against 142 conceded.",
-      "checker": "outside_record",
+      "text": "Western Connecticut's 51 goals topped the combined outputs of Eastern Connecticut, Keene State, and VTSU Castleton.",
+      "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -56,16 +56,17 @@
     {
       "path": "findings[1]",
       "label": "derived",
-      "text": "UMass Boston spread its attack across at least thirteen distinct scorers on the way to twelve wins, one draw, and six losses.",
-      "checker": "distinct_scorers+team_record",
+      "text": "Western Connecticut finished with thirteen wins, five draws, and four losses, winning more matches than any other program in the conference.",
+      "checker": "team_record+comparative",
       "verdict": "verified",
       "mismatches": [],
-      "dropped": false
+      "dropped": false,
+      "note": "held against every other programme; the nearest is umass-boston at 11"
     },
     {
       "path": "findings[2]",
       "label": "derived",
-      "text": "Southern Maine relied on a narrow attacking rotation, with at least six distinct scorers accounting for its 29 goals across all matches.",
+      "text": "Southern Maine relied on a narrow attacking rotation, with at least six distinct scorers accounting for its 26 goals across all matches.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -118,10 +119,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-26T02:52:54.410Z",
-    "generate_ms": 198884,
+    "started_at": "2026-11-26T16:49:18.367Z",
+    "generate_ms": 464304,
     "validate_ms": 3,
-    "wall_ms": 198887,
+    "wall_ms": 464308,
     "concurrency": 8
   }
 }

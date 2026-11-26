@@ -1,0 +1,148 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NJAC",
+  "generated_at": "2026-11-26T02:50:00+00:00",
+  "data_collected_at": "2026-11-26T02:48:38+00:00",
+  "headline": "Rowan allows six goals across the entire season",
+  "dek": "Sixteen wins, one draw, and one loss defined a season in which Rowan scored 59 goals across all matches while keeping opponents quiet. An unbeaten conference slate carried the program into mid-November before Dickinson handed it its only defeat.",
+  "lede_basis": {
+    "programme": "rowan",
+    "wins": 16,
+    "draws": 1,
+    "losses": 1,
+    "gf": 59,
+    "ga": 6
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the NJAC splits into clear tiers, with Rowan's 59 goals exceeding the combined total of New Paltz, William Paterson, and Ramapo.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "rowan": 59,
+        "tcnj": 56,
+        "montclair-state": 50,
+        "rutgers-newark": 34,
+        "kean": 31,
+        "rutgers-camden": 30,
+        "stockton": 22,
+        "new-paltz": 20,
+        "william-paterson": 19,
+        "ramapo": 14
+      },
+      "highlight": "rowan"
+    },
+    "basis": {
+      "programme": "rowan",
+      "gf": 59,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["new-paltz", "william-paterson", "ramapo"]
+    }
+  },
+  "wire": {
+    "line": "TCNJ posted fifteen wins, three draws, and two losses while conceding eleven goals, yet still trailed Rowan.",
+    "basis": {
+      "programme": "tcnj",
+      "wins": 15,
+      "draws": 3,
+      "losses": 2,
+      "gf": 56,
+      "ga": 11
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches past their scheduled date carry no published result, and both belong to New Paltz, away to Dominican of New York and Vassar.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "new-paltz",
+        "count": 2
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Rowan midfielder Sara Wiedeman recorded fourteen goals and sixteen assists on 71 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Sara Wiedeman",
+        "programme": "rowan",
+        "goals": 14,
+        "assists": 16,
+        "shots": 71
+      }
+    },
+    {
+      "label": "observed",
+      "text": "New Paltz goalkeeper Jess Centeri made 80 saves while allowing seventeen goals for a 0.825 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Jess Centeri",
+        "programme": "new-paltz",
+        "saves": 80,
+        "goals_against": 17,
+        "save_pct": 0.825
+      }
+    },
+    {
+      "label": "derived",
+      "text": "TCNJ spread its 56 goals across at least seventeen different players.",
+      "basis": {
+        "programme": "tcnj",
+        "distinct_scorers_min": 17,
+        "gf": 56,
+        "ga": 11
+      }
+    },
+    {
+      "label": "derived",
+      "text": "William Paterson conceded 39 goals, more than Rowan, TCNJ, and Montclair State allowed combined.",
+      "basis": {
+        "programme": "william-paterson",
+        "gf": 19,
+        "ga": 39,
+        "comparative": "greater_than_sum",
+        "metric": "ga",
+        "of": ["rowan", "tcnj", "montclair-state"]
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Sara Wiedeman",
+      "programme": "rowan",
+      "position": "MID",
+      "class": "SR",
+      "line": "14 G · 16 A · 71 shots"
+    },
+    {
+      "player": "Jenny Ward",
+      "programme": "tcnj",
+      "position": "MID",
+      "class": "JR",
+      "line": "15 G · 7 A · 72 shots"
+    },
+    {
+      "player": "Isabell Kronow",
+      "programme": "montclair-state",
+      "position": "FWD",
+      "class": "JR",
+      "line": "10 G · 6 A · 41 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-21 rutgers-camden v pitt-greensburg",
+      "line": "Rutgers-Camden closed its season with consecutive shutout victories at home."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:20:44.266Z"
+  }
+}

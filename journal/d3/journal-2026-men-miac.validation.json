@@ -1,0 +1,136 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-miac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MIAC",
+  "validated_at": "2026-11-26T16:59:12.194Z",
+  "data_collected_at": "2026-11-26T03:06:21+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring across the MIAC concentrates sharply at the top: Saint John's (Minn.) alone produced 75 goals, more than St. Scholastica, Hamline, Saint Mary's (Minn.), and Concordia-Moorhead combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "MIAC programs posted 39 wins, fifteen draws, and 30 losses outside the conference, scoring 175 goals and conceding 118.",
+      "checker": "outside_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Four early-season matches have passed their scheduled dates without a published result: Bethel against Saint Cloud State and Minnesota, St. Olaf against Wisconsin-Eau Claire, and Gustavus against Nebraska Wesleyan.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "St. Olaf forward Jack Soares has scored thirteen goals on 44 shots, the highest goal total among the conference's published leaders.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Saint Mary's (Minn.) goalkeeper Bode Jacobsen has faced heavy volume all season, making 74 saves while conceding 34 goals for a 0.685 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Saint John's (Minn.) finished with seventeen wins, three draws, and three losses while conceding fourteen goals.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Kieran Mahan — 12 G · 5 A · 48 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Jack Soares — 13 G · 2 A · 44 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Jacob Oliver — 10 G · 6 A · 46 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-21 tufts v st-olaf",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.next_match",
+      "label": "observed",
+      "text": "2026-12-04 amherst v st-olaf",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T16:49:18.390Z",
+    "generate_ms": 593801,
+    "validate_ms": 3,
+    "wall_ms": 593804,
+    "concurrency": 8
+  }
+}

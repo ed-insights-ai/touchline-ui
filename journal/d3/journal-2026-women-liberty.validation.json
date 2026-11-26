@@ -1,0 +1,142 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-liberty.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "LIBERTY",
+  "validated_at": "2026-11-26T18:09:14.928Z",
+  "data_collected_at": "2026-11-26T02:47:33+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 12,
+    "verified": 12,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [
+    {
+      "path": "findings[2].text",
+      "text": "William Smith goalkeeper Antonia Goerke stopped 71 shots while conceding fourteen goals, posting an .835 save percentage.",
+      "unbacked": ["835"]
+    }
+  ],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Attacking output splits sharply between the frontrunners and a compressed middle pack, with Vassar's 44 goals outscoring Union (N.Y.) and Bard combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "William Smith finished with sixteen wins, five losses, and zero draws across all matches.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "derived",
+      "text": "Vassar spread its scoring across at least fifteen different players during the season.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Skidmore forward Abby Lewis led the conference in goals, scoring eleven times on 40 shots.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "William Smith goalkeeper Antonia Goerke stopped 71 shots while conceding fourteen goals, posting an .835 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Union (N.Y.) drew eight matches alongside seven wins and four losses, finishing with more draws than victories or defeats.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[4]",
+      "label": "observed",
+      "text": "Bard conceded 42 goals while scoring seventeen across all matches.",
+      "checker": "team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Abby Lewis — 11 G · 40 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Grace Metzler — 9 G · 5 A · 52 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Kristin Middaugh — 9 G · 4 A · 69 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-20 william-smith v calvin",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:01:53.084Z",
+    "generate_ms": 441841,
+    "validate_ms": 2,
+    "wall_ms": 441843,
+    "concurrency": 8
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-women-nwc.json",
+  "season": 2026,
+  "gender": "women",
+  "conference": "NWC",
+  "validated_at": "2026-11-26T18:21:15.901Z",
+  "data_collected_at": "2026-11-26T03:22:03+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Puget Sound's 63 goals exceed the combined totals of Pacific Lutheran and Whitman, separating the champion from a tightly bunched chase pack.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Puget Sound finished with twenty wins, one draw, and one loss while scoring more goals than any two rivals combined.",
+      "checker": "team_goals+team_record+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false,
+      "note": "\"any 2 others\" was held against the strongest 2: pacific-lutheran 30 + whitman 25"
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Pacific Lutheran goalkeeper Mia Speir recorded ten shutouts while making 74 saves and allowing fifteen goals across the season.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Puget Sound defender Anya Dubois produced seven goals and six assists from 31 shots, supplying primary attacking output from the back line.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "derived",
+      "text": "Whitman spread its 25 goals across at least eleven different scorers while conceding eighteen.",
+      "checker": "distinct_scorers+team_goals",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Six non-conference matches past their scheduled dates carry no published result, involving Pacific (Ore.), Lewis & Clark, and Whitworth.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Anya Dubois — 7 G · 6 A · 31 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Avery Cohen — 9 G · 1 A · 38 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Lize Rendon — 8 G · 27 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-15 trinity-tx v puget-sound",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T18:19:18.595Z",
+    "generate_ms": 117303,
+    "validate_ms": 3,
+    "wall_ms": 117306,
+    "concurrency": 8
+  }
+}

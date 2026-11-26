@@ -1,0 +1,149 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "PAC",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:45:24+00:00",
+  "headline": "Grove City sets the pace across the PAC",
+  "dek": "Grove City lost only two matches all season, pairing twelve wins and six draws with 63 goals scored and sixteen conceded across all matches. Allegheny and Geneva stayed within reach in the table, yet neither matched the standard Grove City set in attack and defense.",
+  "lede_basis": {
+    "programme": "grove-city",
+    "wins": 12,
+    "draws": 6,
+    "losses": 2,
+    "gf": 63,
+    "ga": 16
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Scoring in the PAC is sharply stratified: Grove City's 63 goals exceed the combined totals of Thiel, Chatham, Bethany (W.Va.), and Saint Francis.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "grove-city": 63,
+        "allegheny": 48,
+        "saint-vincent": 45,
+        "franciscan": 40,
+        "geneva": 36,
+        "waynesburg": 32,
+        "hiram": 29,
+        "washington-jefferson": 23,
+        "westminster-pa": 21,
+        "thiel": 15,
+        "chatham": 14,
+        "bethany-wv": 9,
+        "saint-francis": 6
+      },
+      "highlight": "grove-city"
+    },
+    "basis": {
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "programme": "grove-city",
+      "gf": 63,
+      "of": ["thiel", "chatham", "bethany-wv", "saint-francis"]
+    }
+  },
+  "wire": {
+    "line": "Saint Francis finished winless with one draw and thirteen losses, scoring six goals while conceding 70.",
+    "basis": {
+      "programme": "saint-francis",
+      "wins": 0,
+      "draws": 1,
+      "losses": 13,
+      "gf": 6,
+      "ga": 70
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Against non-conference opponents, PAC programs combined for sixteen wins, ten draws, and 34 losses, scoring 70 goals while conceding 105.",
+      "basis": {
+        "derived_from": "fixtures",
+        "wins": 16,
+        "draws": 10,
+        "losses": 34,
+        "gf": 70,
+        "ga": 105
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Geneva conceded only twelve goals across all matches while scoring 36, finishing with eight wins, six draws, and three losses.",
+      "basis": {
+        "programme": "geneva",
+        "wins": 8,
+        "draws": 6,
+        "losses": 3,
+        "gf": 36,
+        "ga": 12
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Grove City spread its attack across at least seventeen different goal scorers this season.",
+      "basis": {
+        "programme": "grove-city",
+        "distinct_scorers_min": 17
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Westminster (Pa.) goalkeeper Vasilis Kouvelas posted a 0.846 save percentage, making 104 saves while conceding nineteen goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Vasilis Kouvelas",
+        "programme": "westminster-pa",
+        "saves": 104,
+        "goals_against": 19,
+        "save_pct": 0.846
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Five scheduled matches involving Washington & Jefferson and Westminster (Pa.) have passed their dates with no published result.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 5
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Noah Gray",
+      "programme": "grove-city",
+      "position": "MID",
+      "class": "SR",
+      "line": "14 G · 8 A · 64 shots"
+    },
+    {
+      "player": "Will Gruca",
+      "programme": "allegheny",
+      "position": "MID",
+      "class": "SR",
+      "line": "13 G · 6 A · 82 shots"
+    },
+    {
+      "player": "Daniel Maddock",
+      "programme": "saint-vincent",
+      "position": "FWD",
+      "class": "SO",
+      "line": "13 G · 4 A · 60 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-14 hamilton v allegheny",
+      "line": "The defeat ended an unbeaten run for Allegheny that had stretched back to September."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:19:50.809Z"
+  }
+}

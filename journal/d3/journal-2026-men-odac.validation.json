@@ -1,0 +1,127 @@
+{
+  "schema": "touchline.journal-validation/1",
+  "journal": "journal-2026-men-odac.json",
+  "season": 2026,
+  "gender": "men",
+  "conference": "ODAC",
+  "validated_at": "2026-11-26T17:11:14.325Z",
+  "data_collected_at": "2026-11-26T02:45:12+00:00",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 11,
+    "verified": 11,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "normalizations": [],
+  "review": [],
+  "claims": [
+    {
+      "path": "pattern",
+      "label": "derived",
+      "text": "Scoring in the ODAC separates into a high-output upper group and a tightly bunched lower tier, with Lynchburg's 52 goals outscoring Roanoke, Eastern Mennonite, and Averett combined.",
+      "checker": "team_goals+comparative",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "pattern.chart",
+      "label": "derived",
+      "text": "goals-for-by-team",
+      "checker": "goals_for_chart",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "wire",
+      "label": "observed",
+      "text": "Averett went winless across fourteen defeats, scoring seven goals and conceding 88.",
+      "checker": "team_goals+team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[0]",
+      "label": "observed",
+      "text": "Nine scheduled matches have passed their dates without a published result, including an all-conference meeting between Roanoke and Eastern Mennonite as well as non-conference dates for Guilford, Averett, and Randolph-Macon.",
+      "checker": "unresolved",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[1]",
+      "label": "observed",
+      "text": "Bridgewater goalkeeper Zane Kowalski stopped 51 shots while allowing ten goals, posting a 0.836 save percentage.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[2]",
+      "label": "observed",
+      "text": "Bridgewater forward Riley Queen paired eleven goals with ten assists across 56 shots, the only ODAC leader to reach double figures in both categories.",
+      "checker": "player_stat",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "findings[3]",
+      "label": "observed",
+      "text": "Shenandoah recorded at least seventeen different goal scorers over the season, distributing its attack well beyond leading finisher Jarbin Rodriguez.",
+      "checker": "distinct_scorers",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[0]",
+      "label": "observed",
+      "text": "Jarbin Rodriguez — 12 G · 5 A · 42 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[1]",
+      "label": "observed",
+      "text": "Riley Queen — 11 G · 10 A · 56 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "players_to_watch[2]",
+      "label": "observed",
+      "text": "Rowan Sellers — 11 G · 2 A · 38 shots",
+      "checker": "player_line",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    },
+    {
+      "path": "featured.last_match",
+      "label": "observed",
+      "text": "2026-11-21 lynchburg v carnegie-mellon",
+      "checker": "fixture_ref",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T16:59:07.964Z",
+    "generate_ms": 726359,
+    "validate_ms": 2,
+    "wall_ms": 726361,
+    "concurrency": 8
+  }
+}

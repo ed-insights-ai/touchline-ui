@@ -4,8 +4,8 @@
   "season": 2026,
   "gender": "men",
   "conference": "MACC",
-  "validated_at": "2026-11-26T02:58:55.340Z",
-  "data_collected_at": "2026-11-25T14:22:51+00:00",
+  "validated_at": "2026-11-26T16:54:02.993Z",
+  "data_collected_at": "2026-11-26T02:43:55+00:00",
   "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
   "totals": {
     "checked": 11,
@@ -20,7 +20,7 @@
     {
       "path": "pattern",
       "label": "derived",
-      "text": "Messiah operated in a separate scoring class, scoring 70 goals while conceding 29—more offense than Stevenson and Albright produced together, with the rest of the conference clustered in a narrow band.",
+      "text": "Messiah operated in a separate scoring class, scoring 63 goals while conceding 24—more offense than Stevenson and Albright produced together, with the rest of the conference clustered in a narrow band.",
       "checker": "team_goals+comparative",
       "verdict": "verified",
       "mismatches": [],
@@ -38,8 +38,8 @@
     {
       "path": "wire",
       "label": "observed",
-      "text": "Neumann allowed fifteen goals all season while scoring 37 to finish level with Messiah atop the conference table.",
-      "checker": "team_goals",
+      "text": "Messiah won seventeen matches, drew two, and lost three, yet still finished level with Neumann atop the conference.",
+      "checker": "team_record",
       "verdict": "verified",
       "mismatches": [],
       "dropped": false
@@ -74,7 +74,7 @@
     {
       "path": "findings[3]",
       "label": "derived",
-      "text": "Stevenson spread its offense across at least sixteen different goal scorers while posting 41 goals for and 21 against.",
+      "text": "Stevenson spread its offense across at least sixteen different goal scorers while posting 41 goals for and twenty against.",
       "checker": "distinct_scorers+team_goals",
       "verdict": "verified",
       "mismatches": [],
@@ -118,10 +118,10 @@
     }
   ],
   "timing": {
-    "started_at": "2026-11-26T02:55:28.097Z",
-    "generate_ms": 207241,
-    "validate_ms": 2,
-    "wall_ms": 207243,
+    "started_at": "2026-11-26T16:49:18.376Z",
+    "generate_ms": 284613,
+    "validate_ms": 3,
+    "wall_ms": 284617,
     "concurrency": 8
   }
 }

@@ -1,0 +1,138 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "MACF",
+  "generated_at": "2026-11-26T02:45:00+00:00",
+  "data_collected_at": "2026-11-26T02:44:06+00:00",
+  "headline": "Lebanon Valley leads the MACF in wins and goals",
+  "dek": "Lebanon Valley won thirteen matches and drew two against four losses, pairing 42 goals scored with 23 conceded across all play. Sophomore forward Gavin Rapp accounted for sixteen of those goals, while Arcadia went unbeaten in conference play to finish close behind.",
+  "lede_basis": {
+    "source": "stats",
+    "player": "Gavin Rapp",
+    "programme": "lebanon-valley",
+    "goals": 16,
+    "wins": 13,
+    "draws": 2,
+    "losses": 4,
+    "gf": 42,
+    "ga": 23
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "signal",
+    "text": "Goal volume does not track the standings cleanly: DeSales scored 28 goals while absorbing ten losses to finish at the bottom of the table, whereas King's (Pa.) sits near the top despite sharing the conference's lowest scoring output.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "lebanon-valley": 42,
+        "stevens": 40,
+        "arcadia": 33,
+        "desales": 28,
+        "fdu-florham": 25,
+        "marywood": 25,
+        "misericordia": 23,
+        "delaware-valley": 21,
+        "kings-pa": 21
+      },
+      "highlight": "lebanon-valley"
+    },
+    "basis": {
+      "programme": "desales",
+      "gf": 28,
+      "ga": 31,
+      "wins": 6,
+      "draws": 2,
+      "losses": 10
+    }
+  },
+  "wire": {
+    "line": "Stevens scored 40 goals from eighteen different scorers while conceding nineteen across all play.",
+    "basis": {
+      "programme": "stevens",
+      "gf": 40,
+      "ga": 19,
+      "distinct_scorers_min": 18
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Two matches past their scheduled date carry no published result, and both belong to FDU - Florham: home dates against Ocean County and Wilkes.",
+      "basis": {
+        "set": "past_date_no_result",
+        "all_of": "fdu-florham",
+        "count": 2
+      }
+    },
+    {
+      "label": "derived",
+      "text": "FDU - Florham conceded 42 goals across all matches, more than Stevens and Arcadia combined.",
+      "basis": {
+        "comparative": "greater_than_sum",
+        "metric": "ga",
+        "programme": "fdu-florham",
+        "of": ["stevens", "arcadia"],
+        "ga": 42
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lebanon Valley forward Gavin Rapp leads the conference's scoring leaders with sixteen goals and two assists from 61 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Gavin Rapp",
+        "programme": "lebanon-valley",
+        "goals": 16,
+        "assists": 2,
+        "shots": 61
+      }
+    },
+    {
+      "label": "observed",
+      "text": "King's (Pa.) goalkeeper Ben Van Valkenburg made 75 saves and kept five shutouts while conceding nineteen goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Ben Van Valkenburg",
+        "programme": "kings-pa",
+        "saves": 75,
+        "shutouts": 5,
+        "goals_against": 19
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Gavin Rapp",
+      "programme": "lebanon-valley",
+      "position": "FWD",
+      "class": "SO",
+      "line": "16 G · 2 A · 61 shots"
+    },
+    {
+      "player": "Emerson Kekesi",
+      "programme": "stevens",
+      "position": "MID",
+      "class": "JR",
+      "line": "9 G · 7 A · 53 shots"
+    },
+    {
+      "player": "Scott Jordan",
+      "programme": "arcadia",
+      "position": "FWD",
+      "class": "SO",
+      "line": "6 G · 6 A · 57 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-15 juniata v delaware-valley",
+      "line": "Delaware Valley entered off consecutive shutout wins before the season's final match."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:06:09.087Z"
+  }
+}

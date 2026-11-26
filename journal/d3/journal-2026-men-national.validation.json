@@ -1,0 +1,33 @@
+{
+  "schema": "touchline.national-validation/1",
+  "journal": "journal-2026-men-national.json",
+  "season": 2026,
+  "gender": "men",
+  "validated_at": "2026-11-26T17:54:54.861Z",
+  "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+  "totals": {
+    "checked": 1,
+    "verified": 1,
+    "contradicted": 0,
+    "unverifiable": 0,
+    "dropped": 0
+  },
+  "review": [],
+  "claims": [
+    {
+      "path": "headline",
+      "label": "observed",
+      "text": "St. Olaf leads the division with 21 wins The MIAC program has added four draws and has not lost a match. Its closest pursuers from the Landmark, MAC Commonwealth, MIAA, and NJAC all trail that mark.",
+      "checker": "team_record",
+      "verdict": "verified",
+      "mismatches": [],
+      "dropped": false
+    }
+  ],
+  "timing": {
+    "started_at": "2026-11-26T17:38:58.695Z",
+    "generate_ms": 956160,
+    "validate_ms": 5,
+    "wall_ms": 956165
+  }
+}

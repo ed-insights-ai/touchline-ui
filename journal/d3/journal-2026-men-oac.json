@@ -1,0 +1,140 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "men",
+  "conference": "OAC",
+  "generated_at": "2026-11-26T03:10:00+00:00",
+  "data_collected_at": "2026-11-26T03:07:54+00:00",
+  "headline": "Ohio Northern completes an unbeaten OAC season",
+  "dek": "Ohio Northern won seven matches and drew two without a defeat, scoring 23 goals while conceding only five across all matches. Every other OAC program absorbed multiple losses, leaving Ohio Northern alone at the end of the campaign without a blemish.",
+  "lede_basis": {
+    "programme": "ohio-northern",
+    "wins": 7,
+    "draws": 2,
+    "losses": 0,
+    "gf": 23,
+    "ga": 5
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Mount Union's 51 goals exceed the combined totals of Marietta, Heidelberg, and Muskingum, showing a wide scoring gap between the conference's top attack and its lowest-scoring programs.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "mount-union": 51,
+        "wilmington-oh": 34,
+        "baldwin-wallace": 32,
+        "otterbein": 28,
+        "ohio-northern": 23,
+        "capital": 21,
+        "marietta": 19,
+        "heidelberg": 12,
+        "muskingum": 10
+      },
+      "highlight": "mount-union"
+    },
+    "basis": {
+      "programme": "mount-union",
+      "gf": 51,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["marietta", "heidelberg", "muskingum"]
+    }
+  },
+  "wire": {
+    "line": "Heidelberg finished winless with five draws and twelve losses, conceding 43 goals across the season.",
+    "basis": {
+      "programme": "heidelberg",
+      "wins": 0,
+      "draws": 5,
+      "losses": 12,
+      "gf": 12,
+      "ga": 43
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Mount Union midfielder Dom Kustura recorded ten goals and ten assists on 42 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Dom Kustura",
+        "programme": "mount-union",
+        "goals": 10,
+        "assists": 10,
+        "shots": 42
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Heidelberg goalkeeper Xochiel Galvan made 103 saves and allowed 42 goals, finishing with a 0.71 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Xochiel Galvan",
+        "programme": "heidelberg",
+        "saves": 103,
+        "goals_against": 42,
+        "save_pct": 0.71
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Otterbein posted eleven wins, two draws, and four losses across all matches, scoring 28 goals while conceding fifteen.",
+      "basis": {
+        "programme": "otterbein",
+        "wins": 11,
+        "draws": 2,
+        "losses": 4,
+        "gf": 28,
+        "ga": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Capital goalkeeper Noah Thomas stopped 80 shots and allowed 22 goals, posting a 0.784 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Noah Thomas",
+        "programme": "capital",
+        "saves": 80,
+        "goals_against": 22,
+        "save_pct": 0.784
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Dom Kustura",
+      "programme": "mount-union",
+      "position": "MID",
+      "class": "SR",
+      "line": "10 G · 10 A · 42 shots"
+    },
+    {
+      "player": "Zach Kern",
+      "programme": "marietta",
+      "position": "FWD",
+      "class": "JR",
+      "line": "7 G · 19 shots"
+    },
+    {
+      "player": "William Jansson",
+      "programme": "wilmington-oh",
+      "position": "DEF",
+      "class": "SR",
+      "line": "5 G · 4 A · 45 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-08 ohio-northern v baldwin-wallace",
+      "line": "Ohio Northern closed out an unbeaten campaign; Baldwin Wallace arrived after winning at Mount Union."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T17:04:11.663Z"
+  }
+}

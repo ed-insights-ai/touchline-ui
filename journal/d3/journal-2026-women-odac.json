@@ -1,0 +1,141 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "ODAC",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:48:49+00:00",
+  "headline": "Washington and Lee sets the ODAC scoring pace",
+  "dek": "Washington and Lee scored 67 goals across all competitions while conceding seven, closing with seventeen wins, two draws, and two losses. That tally outscores Averett, Sweet Briar, Guilford, and Hollins combined.",
+  "lede_basis": {
+    "programme": "washington-and-lee",
+    "gf": 67,
+    "ga": 7,
+    "wins": 17,
+    "draws": 2,
+    "losses": 2,
+    "comparative": "greater_than_sum",
+    "metric": "gf",
+    "of": ["averett", "sweet-briar", "guilford", "hollins"]
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "signal",
+    "text": "Scoring in the ODAC breaks into a stark gulf between the top contenders and the foot of the table, where Averett managed just seven goals all season while conceding 90.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "washington-and-lee": 67,
+        "lynchburg": 63,
+        "shenandoah": 61,
+        "bridgewater": 58,
+        "batten": 51,
+        "randolph-macon": 40,
+        "randolph": 37,
+        "roanoke": 35,
+        "eastern-mennonite": 32,
+        "hollins": 17,
+        "guilford": 15,
+        "sweet-briar": 14,
+        "averett": 7
+      },
+      "highlight": "washington-and-lee"
+    },
+    "basis": {
+      "programme": "averett",
+      "gf": 7,
+      "ga": 90
+    }
+  },
+  "wire": {
+    "line": "Batten conceded just five goals all season, losing only one match while scoring 51.",
+    "basis": {
+      "programme": "batten",
+      "gf": 51,
+      "ga": 5,
+      "wins": 13,
+      "draws": 7,
+      "losses": 1
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "observed",
+      "text": "Eastern Mennonite forward Bridget Hay scored fifteen goals on 39 shots, accounting for nearly half of her program's 32 goals.",
+      "basis": {
+        "source": "stats",
+        "player": "Bridget Hay",
+        "programme": "eastern-mennonite",
+        "goals": 15,
+        "shots": 39,
+        "gf": 32,
+        "ga": 40
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Lynchburg spread its 63 goals across at least twenty different scorers.",
+      "basis": {
+        "programme": "lynchburg",
+        "gf": 63,
+        "ga": 13,
+        "distinct_scorers_min": 20
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Guilford goalkeeper Madison Motto made 109 saves against twenty goals allowed for a 0.845 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Madison Motto",
+        "programme": "guilford",
+        "saves": 109,
+        "goals_against": 20,
+        "save_pct": 0.845
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Four early-season matches are past their scheduled dates with no published result: Guilford against Pfeiffer, Southern Virginia, and North Carolina Wesleyan, along with Averett against Salem.",
+      "basis": {
+        "source": "fixtures",
+        "finals_without_score": 0,
+        "past_date_no_result": 4
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Bridget Hay",
+      "programme": "eastern-mennonite",
+      "position": "FWD",
+      "class": "SO",
+      "line": "15 G · 2 A · 39 shots"
+    },
+    {
+      "player": "Megan Zimmerman",
+      "programme": "washington-and-lee",
+      "position": "MID",
+      "class": "JR",
+      "line": "12 G · 7 A · 77 shots"
+    },
+    {
+      "player": "Laura Narby",
+      "programme": "bridgewater",
+      "position": "FWD",
+      "class": "SR",
+      "line": "13 G · 4 A · 81 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 chicago v lynchburg",
+      "line": "Lynchburg was the final ODAC program still playing, arriving off consecutive wins over Stevens and Carnegie Mellon."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:30:42.944Z"
+  }
+}

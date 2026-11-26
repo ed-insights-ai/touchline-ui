@@ -1,0 +1,141 @@
+{
+  "schema": "touchline.journal/1",
+  "season": 2026,
+  "gender": "women",
+  "conference": "LIBERTY",
+  "generated_at": "2026-11-26T03:00:00+00:00",
+  "data_collected_at": "2026-11-26T02:47:33+00:00",
+  "headline": "Vassar leads the conference at both ends",
+  "dek": "Across all matches, Vassar scored 44 goals and conceded only six, dropping just one match alongside eleven wins and five draws. William Smith claimed the conference table without a league defeat, yet Vassar's balance in front of both goals separated it from the rest of the field.",
+  "lede_basis": {
+    "programme": "vassar",
+    "wins": 11,
+    "draws": 5,
+    "losses": 1,
+    "gf": 44,
+    "ga": 6
+  },
+  "lede_updated": "2026-11-26",
+  "pattern": {
+    "label": "derived",
+    "text": "Attacking output splits sharply between the frontrunners and a compressed middle pack, with Vassar's 44 goals outscoring Union (N.Y.) and Bard combined.",
+    "chart": {
+      "kind": "goals-for-by-team",
+      "values": {
+        "vassar": 44,
+        "william-smith": 38,
+        "rpi": 25,
+        "skidmore": 24,
+        "st-lawrence": 24,
+        "rit": 23,
+        "clarkson": 22,
+        "ithaca": 22,
+        "union-ny": 18,
+        "bard": 17
+      },
+      "highlight": "vassar"
+    },
+    "basis": {
+      "programme": "vassar",
+      "gf": 44,
+      "comparative": "greater_than_sum",
+      "metric": "gf",
+      "of": ["union-ny", "bard"]
+    }
+  },
+  "wire": {
+    "line": "William Smith finished with sixteen wins, five losses, and zero draws across all matches.",
+    "basis": {
+      "programme": "william-smith",
+      "wins": 16,
+      "draws": 0,
+      "losses": 5
+    },
+    "updated": "2026-11-26"
+  },
+  "findings": [
+    {
+      "label": "derived",
+      "text": "Vassar spread its scoring across at least fifteen different players during the season.",
+      "basis": {
+        "programme": "vassar",
+        "distinct_scorers_min": 15
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Skidmore forward Abby Lewis led the conference in goals, scoring eleven times on 40 shots.",
+      "basis": {
+        "source": "stats",
+        "player": "Abby Lewis",
+        "programme": "skidmore",
+        "goals": 11,
+        "shots": 40
+      }
+    },
+    {
+      "label": "observed",
+      "text": "William Smith goalkeeper Antonia Goerke stopped 71 shots while conceding fourteen goals, posting an .835 save percentage.",
+      "basis": {
+        "source": "stats",
+        "player": "Antonia Goerke",
+        "programme": "william-smith",
+        "saves": 71,
+        "goals_against": 14,
+        "save_pct": 0.835
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Union (N.Y.) drew eight matches alongside seven wins and four losses, finishing with more draws than victories or defeats.",
+      "basis": {
+        "programme": "union-ny",
+        "wins": 7,
+        "draws": 8,
+        "losses": 4
+      }
+    },
+    {
+      "label": "observed",
+      "text": "Bard conceded 42 goals while scoring seventeen across all matches.",
+      "basis": {
+        "programme": "bard",
+        "gf": 17,
+        "ga": 42
+      }
+    }
+  ],
+  "players_to_watch": [
+    {
+      "player": "Abby Lewis",
+      "programme": "skidmore",
+      "position": "FWD",
+      "class": "SR",
+      "line": "11 G · 40 shots"
+    },
+    {
+      "player": "Grace Metzler",
+      "programme": "william-smith",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 5 A · 52 shots"
+    },
+    {
+      "player": "Kristin Middaugh",
+      "programme": "william-smith",
+      "position": "FWD",
+      "class": "JR",
+      "line": "9 G · 4 A · 69 shots"
+    }
+  ],
+  "featured": {
+    "last_match": {
+      "fixture_ref": "2026-11-20 william-smith v calvin",
+      "line": "William Smith closed the season without a draw after going unbeaten in conference play."
+    }
+  },
+  "validation": {
+    "policy": "observed and derived claims are recomputed against the data home before publish; failures are dropped, not softened. signal and projected pass on schema unless the data contradicts a figure. context is never validated as a finding.",
+    "validated_at": "2026-11-26T18:09:14.928Z"
+  }
+}
